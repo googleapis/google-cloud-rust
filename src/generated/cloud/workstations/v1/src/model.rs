@@ -43,7 +43,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WorkstationCluster {
-    /// Full name of this workstation cluster.
+    /// Identifier. Full name of this workstation cluster.
     pub name: std::string::String,
 
     /// Optional. Human-readable name for this workstation cluster.
@@ -99,10 +99,13 @@ pub struct WorkstationCluster {
     pub private_cluster_config:
         std::option::Option<crate::model::workstation_cluster::PrivateClusterConfig>,
 
+    /// Optional. Configuration options for a custom domain.
+    pub domain_config: std::option::Option<crate::model::workstation_cluster::DomainConfig>,
+
     /// Output only. Whether this workstation cluster is in degraded mode, in which
-    /// case it may require user action to restore full functionality. Details can
-    /// be found in
-    /// [conditions][google.cloud.workstations.v1.WorkstationCluster.conditions].
+    /// case it may require user action to restore full functionality. The
+    /// [conditions][google.cloud.workstations.v1.WorkstationCluster.conditions]
+    /// field contains detailed information about the status of the cluster.
     ///
     /// [google.cloud.workstations.v1.WorkstationCluster.conditions]: crate::model::WorkstationCluster::conditions
     pub degraded: bool,
@@ -110,6 +113,34 @@ pub struct WorkstationCluster {
     /// Output only. Status conditions describing the workstation cluster's current
     /// state.
     pub conditions: std::vec::Vec<google_cloud_rpc::model::Status>,
+
+    /// Optional. Input only. Immutable. Tag keys/values directly bound to this
+    /// resource. For example:
+    /// "123/environment": "production",
+    /// "123/costCenter": "marketing"
+    pub tags: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. Configuration options for Cluster HTTP Gateway.
+    pub gateway_config: std::option::Option<crate::model::workstation_cluster::GatewayConfig>,
+
+    /// Optional. Specifies the redirect URL for unauthorized requests received by
+    /// workstation VMs in this cluster.
+    ///
+    /// Redirects to this endpoint will send a base64 encoded `state` query param
+    /// containing the target workstation name and original request hostname. The
+    /// endpoint is responsible for retrieving a token using `GenerateAccessToken`
+    /// and redirecting back to the original hostname with the token.
+    pub workstation_authorization_url: std::string::String,
+
+    /// Optional. Specifies the launch URL for workstations in this cluster.
+    /// Requests sent to unstarted workstations will be redirected to this URL.
+    ///
+    /// Requests redirected to the launch endpoint will be sent with a
+    /// `workstation` and `project` query parameter containing the full workstation
+    /// resource name and project ID, respectively. The launch endpoint is
+    /// responsible for starting the workstation, polling it until it reaches
+    /// `STATE_RUNNING`, and then issuing a redirect to the workstation's host URL.
+    pub workstation_launch_url: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -396,6 +427,39 @@ impl WorkstationCluster {
         self
     }
 
+    /// Sets the value of [domain_config][crate::model::WorkstationCluster::domain_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_workstations_v1::model::WorkstationCluster;
+    /// use google_cloud_workstations_v1::model::workstation_cluster::DomainConfig;
+    /// let x = WorkstationCluster::new().set_domain_config(DomainConfig::default()/* use setters */);
+    /// ```
+    pub fn set_domain_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::workstation_cluster::DomainConfig>,
+    {
+        self.domain_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [domain_config][crate::model::WorkstationCluster::domain_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_workstations_v1::model::WorkstationCluster;
+    /// use google_cloud_workstations_v1::model::workstation_cluster::DomainConfig;
+    /// let x = WorkstationCluster::new().set_or_clear_domain_config(Some(DomainConfig::default()/* use setters */));
+    /// let x = WorkstationCluster::new().set_or_clear_domain_config(None::<DomainConfig>);
+    /// ```
+    pub fn set_or_clear_domain_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::workstation_cluster::DomainConfig>,
+    {
+        self.domain_config = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [degraded][crate::model::WorkstationCluster::degraded].
     ///
     /// # Example
@@ -429,6 +493,90 @@ impl WorkstationCluster {
         self.conditions = v.into_iter().map(|i| i.into()).collect();
         self
     }
+
+    /// Sets the value of [tags][crate::model::WorkstationCluster::tags].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_workstations_v1::model::WorkstationCluster;
+    /// let x = WorkstationCluster::new().set_tags([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_tags<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [gateway_config][crate::model::WorkstationCluster::gateway_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_workstations_v1::model::WorkstationCluster;
+    /// use google_cloud_workstations_v1::model::workstation_cluster::GatewayConfig;
+    /// let x = WorkstationCluster::new().set_gateway_config(GatewayConfig::default()/* use setters */);
+    /// ```
+    pub fn set_gateway_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::workstation_cluster::GatewayConfig>,
+    {
+        self.gateway_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gateway_config][crate::model::WorkstationCluster::gateway_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_workstations_v1::model::WorkstationCluster;
+    /// use google_cloud_workstations_v1::model::workstation_cluster::GatewayConfig;
+    /// let x = WorkstationCluster::new().set_or_clear_gateway_config(Some(GatewayConfig::default()/* use setters */));
+    /// let x = WorkstationCluster::new().set_or_clear_gateway_config(None::<GatewayConfig>);
+    /// ```
+    pub fn set_or_clear_gateway_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::workstation_cluster::GatewayConfig>,
+    {
+        self.gateway_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [workstation_authorization_url][crate::model::WorkstationCluster::workstation_authorization_url].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_workstations_v1::model::WorkstationCluster;
+    /// let x = WorkstationCluster::new().set_workstation_authorization_url("example");
+    /// ```
+    pub fn set_workstation_authorization_url<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.workstation_authorization_url = v.into();
+        self
+    }
+
+    /// Sets the value of [workstation_launch_url][crate::model::WorkstationCluster::workstation_launch_url].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_workstations_v1::model::WorkstationCluster;
+    /// let x = WorkstationCluster::new().set_workstation_launch_url("example");
+    /// ```
+    pub fn set_workstation_launch_url<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.workstation_launch_url = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for WorkstationCluster {
@@ -457,7 +605,7 @@ pub mod workstation_cluster {
         pub cluster_hostname: std::string::String,
 
         /// Output only. Service attachment URI for the workstation cluster. The
-        /// service attachemnt is created when private endpoint is enabled. To access
+        /// service attachment is created when private endpoint is enabled. To access
         /// workstations in the workstation cluster, configure access to the managed
         /// service using [Private Service
         /// Connect](https://cloud.google.com/vpc/docs/configure-private-service-connect-services).
@@ -542,6 +690,77 @@ pub mod workstation_cluster {
             "type.googleapis.com/google.cloud.workstations.v1.WorkstationCluster.PrivateClusterConfig"
         }
     }
+
+    /// Configuration options for a custom domain.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct DomainConfig {
+        /// Immutable. Domain used by Workstations for HTTP ingress.
+        pub domain: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl DomainConfig {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [domain][crate::model::workstation_cluster::DomainConfig::domain].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_workstations_v1::model::workstation_cluster::DomainConfig;
+        /// let x = DomainConfig::new().set_domain("example");
+        /// ```
+        pub fn set_domain<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.domain = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for DomainConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.workstations.v1.WorkstationCluster.DomainConfig"
+        }
+    }
+
+    /// Configuration options for Cluster HTTP Gateway.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct GatewayConfig {
+        /// Optional. Whether HTTP/2 is enabled for this workstation cluster.
+        /// Defaults to false.
+        pub http2_enabled: bool,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl GatewayConfig {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [http2_enabled][crate::model::workstation_cluster::GatewayConfig::http2_enabled].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_workstations_v1::model::workstation_cluster::GatewayConfig;
+        /// let x = GatewayConfig::new().set_http2_enabled(true);
+        /// ```
+        pub fn set_http2_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.http2_enabled = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for GatewayConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.workstations.v1.WorkstationCluster.GatewayConfig"
+        }
+    }
 }
 
 /// A workstation configuration resource in the Cloud Workstations API.
@@ -556,7 +775,7 @@ pub mod workstation_cluster {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WorkstationConfig {
-    /// Full name of this workstation configuration.
+    /// Identifier. Full name of this workstation configuration.
     pub name: std::string::String,
 
     /// Optional. Human-readable name for this workstation configuration.
@@ -633,12 +852,32 @@ pub struct WorkstationConfig {
     /// [google.cloud.workstations.v1.WorkstationConfig.running_timeout]: crate::model::WorkstationConfig::running_timeout
     pub running_timeout: std::option::Option<wkt::Duration>,
 
+    /// Optional. Maximum number of workstations under this configuration a user
+    /// can have `workstations.workstation.use` permission on.
+    ///
+    /// Only enforced on CreateWorkstation API calls on the user issuing the API
+    /// request. Can be overridden by:
+    ///
+    /// - granting a user
+    ///   workstations.workstationConfigs.exemptMaxUsableWorkstationLimit permission,
+    ///   or
+    /// - having a user with that permission create a workstation and
+    ///   granting another user `workstations.workstation.use` permission on
+    ///   that workstation.
+    ///
+    /// If not specified, defaults to `0`, which indicates unlimited.
+    pub max_usable_workstations: i32,
+
     /// Optional. Runtime host for the workstation.
     pub host: std::option::Option<crate::model::workstation_config::Host>,
 
     /// Optional. Directories to persist across workstation sessions.
     pub persistent_directories:
         std::vec::Vec<crate::model::workstation_config::PersistentDirectory>,
+
+    /// Optional. Ephemeral directories which won't persist across workstation
+    /// sessions.
+    pub ephemeral_directories: std::vec::Vec<crate::model::workstation_config::EphemeralDirectory>,
 
     /// Optional. Container that runs upon startup for each workstation using this
     /// workstation configuration.
@@ -679,16 +918,60 @@ pub struct WorkstationConfig {
     /// Immutable after the workstation configuration is created.
     pub replica_zones: std::vec::Vec<std::string::String>,
 
-    /// Output only. Whether this resource is degraded, in which case it may
-    /// require user action to restore full functionality. See also the
+    /// Output only. Whether this workstation configuration is in degraded mode, in
+    /// which case it may require user action to restore full functionality. The
     /// [conditions][google.cloud.workstations.v1.WorkstationConfig.conditions]
-    /// field.
+    /// field contains detailed information about the status of the configuration.
     ///
     /// [google.cloud.workstations.v1.WorkstationConfig.conditions]: crate::model::WorkstationConfig::conditions
     pub degraded: bool,
 
-    /// Output only. Status conditions describing the current resource state.
+    /// Output only. Status conditions describing the workstation configuration's
+    /// current state.
     pub conditions: std::vec::Vec<google_cloud_rpc::model::Status>,
+
+    /// Optional. Whether to enable Linux `auditd` logging on the workstation. When
+    /// enabled, a
+    /// [service_account][google.cloud.workstations.v1.WorkstationConfig.Host.GceInstance.service_account]
+    /// must also be specified that has `roles/logging.logWriter` and
+    /// `roles/monitoring.metricWriter` on the project. Operating system audit
+    /// logging is distinct from [Cloud Audit
+    /// Logs](https://cloud.google.com/workstations/docs/audit-logging) and
+    /// [Container output
+    /// logging](https://cloud.google.com/workstations/docs/container-output-logging#overview).
+    /// Operating system audit logs are available in the
+    /// [Cloud Logging](https://cloud.google.com/logging/docs) console by querying:
+    ///
+    /// ```norust
+    /// resource.type="gce_instance"
+    /// log_name:"/logs/linux-auditd"
+    /// ```
+    ///
+    /// [google.cloud.workstations.v1.WorkstationConfig.Host.GceInstance.service_account]: crate::model::workstation_config::host::GceInstance::service_account
+    pub enable_audit_agent: bool,
+
+    /// Optional. Disables support for plain TCP connections in the workstation.
+    /// By default the service supports TCP connections through a websocket relay.
+    /// Setting this option to true disables that relay, which prevents the usage
+    /// of services that require plain TCP connections, such as SSH.
+    /// When enabled, all communication must occur over HTTPS or WSS.
+    pub disable_tcp_connections: bool,
+
+    /// Optional. A list of
+    /// [PortRange][google.cloud.workstations.v1.WorkstationConfig.PortRange]s
+    /// specifying single ports or ranges of ports that are externally accessible
+    /// in the workstation. Allowed ports must be one of 22, 80, or within range
+    /// 1024-65535. If not specified defaults to ports 22, 80, and ports
+    /// 1024-65535.
+    ///
+    /// [google.cloud.workstations.v1.WorkstationConfig.PortRange]: crate::model::workstation_config::PortRange
+    pub allowed_ports: std::vec::Vec<crate::model::workstation_config::PortRange>,
+
+    /// Optional. Grant creator of a workstation `roles/workstations.policyAdmin`
+    /// role along with `roles/workstations.user` role on the workstation created
+    /// by them. This allows workstation users to share access to either their
+    /// entire workstation, or individual ports. Defaults to false.
+    pub grant_workstation_admin_role_on_create: bool,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -970,6 +1253,18 @@ impl WorkstationConfig {
         self
     }
 
+    /// Sets the value of [max_usable_workstations][crate::model::WorkstationConfig::max_usable_workstations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_workstations_v1::model::WorkstationConfig;
+    /// let x = WorkstationConfig::new().set_max_usable_workstations(42);
+    /// ```
+    pub fn set_max_usable_workstations<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.max_usable_workstations = v.into();
+        self
+    }
+
     /// Sets the value of [host][crate::model::WorkstationConfig::host].
     ///
     /// # Example
@@ -1022,6 +1317,28 @@ impl WorkstationConfig {
     {
         use std::iter::Iterator;
         self.persistent_directories = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [ephemeral_directories][crate::model::WorkstationConfig::ephemeral_directories].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_workstations_v1::model::WorkstationConfig;
+    /// use google_cloud_workstations_v1::model::workstation_config::EphemeralDirectory;
+    /// let x = WorkstationConfig::new()
+    ///     .set_ephemeral_directories([
+    ///         EphemeralDirectory::default()/* use setters */,
+    ///         EphemeralDirectory::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_ephemeral_directories<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::workstation_config::EphemeralDirectory>,
+    {
+        use std::iter::Iterator;
+        self.ephemeral_directories = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -1163,6 +1480,67 @@ impl WorkstationConfig {
         self.conditions = v.into_iter().map(|i| i.into()).collect();
         self
     }
+
+    /// Sets the value of [enable_audit_agent][crate::model::WorkstationConfig::enable_audit_agent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_workstations_v1::model::WorkstationConfig;
+    /// let x = WorkstationConfig::new().set_enable_audit_agent(true);
+    /// ```
+    pub fn set_enable_audit_agent<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enable_audit_agent = v.into();
+        self
+    }
+
+    /// Sets the value of [disable_tcp_connections][crate::model::WorkstationConfig::disable_tcp_connections].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_workstations_v1::model::WorkstationConfig;
+    /// let x = WorkstationConfig::new().set_disable_tcp_connections(true);
+    /// ```
+    pub fn set_disable_tcp_connections<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.disable_tcp_connections = v.into();
+        self
+    }
+
+    /// Sets the value of [allowed_ports][crate::model::WorkstationConfig::allowed_ports].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_workstations_v1::model::WorkstationConfig;
+    /// use google_cloud_workstations_v1::model::workstation_config::PortRange;
+    /// let x = WorkstationConfig::new()
+    ///     .set_allowed_ports([
+    ///         PortRange::default()/* use setters */,
+    ///         PortRange::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_allowed_ports<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::workstation_config::PortRange>,
+    {
+        use std::iter::Iterator;
+        self.allowed_ports = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [grant_workstation_admin_role_on_create][crate::model::WorkstationConfig::grant_workstation_admin_role_on_create].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_workstations_v1::model::WorkstationConfig;
+    /// let x = WorkstationConfig::new().set_grant_workstation_admin_role_on_create(true);
+    /// ```
+    pub fn set_grant_workstation_admin_role_on_create<T: std::convert::Into<bool>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.grant_workstation_admin_role_on_create = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for WorkstationConfig {
@@ -1180,7 +1558,7 @@ pub mod workstation_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Host {
-        /// Type of host that will be used for the workstation's runtime.
+        /// Type of host to be used for the workstation's runtime.
         pub config: std::option::Option<crate::model::workstation_config::host::Config>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1283,10 +1661,12 @@ pub mod workstation_config {
 
             /// Optional. The email address of the service account for Cloud
             /// Workstations VMs created with this configuration. When specified, be
-            /// sure that the service account has `logginglogEntries.create` permission
-            /// on the project so it can write logs out to Cloud Logging. If using a
-            /// custom container image, the service account must have permissions to
-            /// pull the specified image.
+            /// sure that the service account has `logging.logEntries.create` and
+            /// `monitoring.timeSeries.create` permissions on the project so it can
+            /// write logs out to Cloud Logging. If using a custom container image, the
+            /// service account must have [Artifact Registry
+            /// Reader](https://cloud.google.com/artifact-registry/docs/access-control#roles)
+            /// permission to pull the specified image.
             ///
             /// If you as the administrator want to be able to `ssh` into the
             /// underlying VM, you need to set this value to a service account
@@ -1302,9 +1682,8 @@ pub mod workstation_config {
 
             /// Optional. Scopes to grant to the
             /// [service_account][google.cloud.workstations.v1.WorkstationConfig.Host.GceInstance.service_account].
-            /// Various scopes are automatically added based on feature usage. When
-            /// specified, users of workstations under this configuration must have
-            /// `iam.serviceAccounts.actAs` on the service account.
+            /// When specified, users of workstations under this configuration must
+            /// have `iam.serviceAccounts.actAs` on the service account.
             ///
             /// [google.cloud.workstations.v1.WorkstationConfig.Host.GceInstance.service_account]: crate::model::workstation_config::host::GceInstance::service_account
             pub service_account_scopes: std::vec::Vec<std::string::String>,
@@ -1337,7 +1716,9 @@ pub mod workstation_config {
             pub disable_public_ip_addresses: bool,
 
             /// Optional. Whether to enable nested virtualization on Cloud Workstations
-            /// VMs created under this workstation configuration.
+            /// VMs created using this workstation configuration.
+            ///
+            /// Defaults to false.
             ///
             /// Nested virtualization lets you run virtual machine (VM) instances
             /// inside your workstation. Before enabling nested virtualization,
@@ -1360,16 +1741,6 @@ pub mod workstation_config {
             ///   workstation configurations that specify a
             ///   [machine_type][google.cloud.workstations.v1.WorkstationConfig.Host.GceInstance.machine_type]
             ///   in the N1 or N2 machine series.
-            /// * **GPUs**: nested virtualization may not be enabled on workstation
-            ///   configurations with accelerators.
-            /// * **Operating System**: Because
-            ///   [Container-Optimized
-            ///   OS](https://cloud.google.com/compute/docs/images/os-details#container-optimized_os_cos)
-            ///   does not support nested virtualization, when nested virtualization is
-            ///   enabled, the underlying Compute Engine VM instances boot from an
-            ///   [Ubuntu
-            ///   LTS](https://cloud.google.com/compute/docs/images/os-details#ubuntu_lts)
-            ///   image.
             ///
             /// [google.cloud.workstations.v1.WorkstationConfig.Host.GceInstance.machine_type]: crate::model::workstation_config::host::GceInstance::machine_type
             pub enable_nested_virtualization: bool,
@@ -1387,6 +1758,44 @@ pub mod workstation_config {
             /// Optional. The size of the boot disk for the VM in gigabytes (GB).
             /// The minimum boot disk size is `30` GB. Defaults to `50` GB.
             pub boot_disk_size_gb: i32,
+
+            /// Optional. A list of the type and count of accelerator cards attached to
+            /// the instance.
+            pub accelerators:
+                std::vec::Vec<crate::model::workstation_config::host::gce_instance::Accelerator>,
+
+            /// Optional. A list of the boost configurations that workstations created
+            /// using this workstation configuration are allowed to use. If specified,
+            /// users will have the option to choose from the list of boost configs
+            /// when starting a workstation.
+            pub boost_configs:
+                std::vec::Vec<crate::model::workstation_config::host::gce_instance::BoostConfig>,
+
+            /// Optional. Whether to disable SSH access to the VM.
+            pub disable_ssh: bool,
+
+            /// Optional. Resource manager tags to be bound to this instance.
+            /// Tag keys and values have the same definition as [resource manager
+            /// tags](https://cloud.google.com/resource-manager/docs/tags/tags-overview).
+            /// Keys must be in the format `tagKeys/{tag_key_id}`, and
+            /// values are in the format `tagValues/456`.
+            pub vm_tags: std::collections::HashMap<std::string::String, std::string::String>,
+
+            /// Optional. Link to the startup script stored in Cloud Storage. This
+            /// script will be run on the host workstation VM when the VM is created.
+            /// The URI must be of the form gs://{bucket-name}/{object-name}. If
+            /// specifying a startup script, the service account must have [Permission
+            /// to access the bucket and script file in Cloud
+            /// Storage](https://cloud.google.com/storage/docs/access-control/iam-permissions).
+            /// Otherwise, the script must be publicly accessible.
+            /// Note that the service regularly updates the OS version of the host VM,
+            /// and it is the responsibility of the user to ensure the script stays
+            /// compatible with the OS version.
+            pub startup_script_uri: std::string::String,
+
+            /// Optional. Custom metadata to apply to Compute Engine instances.
+            pub instance_metadata:
+                std::collections::HashMap<std::string::String, std::string::String>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -1588,6 +1997,123 @@ pub mod workstation_config {
                 self.boot_disk_size_gb = v.into();
                 self
             }
+
+            /// Sets the value of [accelerators][crate::model::workstation_config::host::GceInstance::accelerators].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_workstations_v1::model::workstation_config::host::GceInstance;
+            /// use google_cloud_workstations_v1::model::workstation_config::host::gce_instance::Accelerator;
+            /// let x = GceInstance::new()
+            ///     .set_accelerators([
+            ///         Accelerator::default()/* use setters */,
+            ///         Accelerator::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
+            pub fn set_accelerators<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<
+                        crate::model::workstation_config::host::gce_instance::Accelerator,
+                    >,
+            {
+                use std::iter::Iterator;
+                self.accelerators = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [boost_configs][crate::model::workstation_config::host::GceInstance::boost_configs].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_workstations_v1::model::workstation_config::host::GceInstance;
+            /// use google_cloud_workstations_v1::model::workstation_config::host::gce_instance::BoostConfig;
+            /// let x = GceInstance::new()
+            ///     .set_boost_configs([
+            ///         BoostConfig::default()/* use setters */,
+            ///         BoostConfig::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
+            pub fn set_boost_configs<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<
+                        crate::model::workstation_config::host::gce_instance::BoostConfig,
+                    >,
+            {
+                use std::iter::Iterator;
+                self.boost_configs = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [disable_ssh][crate::model::workstation_config::host::GceInstance::disable_ssh].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_workstations_v1::model::workstation_config::host::GceInstance;
+            /// let x = GceInstance::new().set_disable_ssh(true);
+            /// ```
+            pub fn set_disable_ssh<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+                self.disable_ssh = v.into();
+                self
+            }
+
+            /// Sets the value of [vm_tags][crate::model::workstation_config::host::GceInstance::vm_tags].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_workstations_v1::model::workstation_config::host::GceInstance;
+            /// let x = GceInstance::new().set_vm_tags([
+            ///     ("key0", "abc"),
+            ///     ("key1", "xyz"),
+            /// ]);
+            /// ```
+            pub fn set_vm_tags<T, K, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = (K, V)>,
+                K: std::convert::Into<std::string::String>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.vm_tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+                self
+            }
+
+            /// Sets the value of [startup_script_uri][crate::model::workstation_config::host::GceInstance::startup_script_uri].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_workstations_v1::model::workstation_config::host::GceInstance;
+            /// let x = GceInstance::new().set_startup_script_uri("example");
+            /// ```
+            pub fn set_startup_script_uri<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.startup_script_uri = v.into();
+                self
+            }
+
+            /// Sets the value of [instance_metadata][crate::model::workstation_config::host::GceInstance::instance_metadata].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_workstations_v1::model::workstation_config::host::GceInstance;
+            /// let x = GceInstance::new().set_instance_metadata([
+            ///     ("key0", "abc"),
+            ///     ("key1", "xyz"),
+            /// ]);
+            /// ```
+            pub fn set_instance_metadata<T, K, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = (K, V)>,
+                K: std::convert::Into<std::string::String>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.instance_metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+                self
+            }
         }
 
         impl wkt::message::Message for GceInstance {
@@ -1706,9 +2232,234 @@ pub mod workstation_config {
                     "type.googleapis.com/google.cloud.workstations.v1.WorkstationConfig.Host.GceInstance.GceConfidentialInstanceConfig"
                 }
             }
+
+            /// An accelerator card attached to the instance.
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct Accelerator {
+                /// Optional. Type of accelerator resource to attach to the instance, for
+                /// example,
+                /// `"nvidia-tesla-p100"`.
+                pub r#type: std::string::String,
+
+                /// Optional. Number of accelerator cards exposed to the instance.
+                pub count: i32,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl Accelerator {
+                /// Creates a new default instance.
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [r#type][crate::model::workstation_config::host::gce_instance::Accelerator::type].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_workstations_v1::model::workstation_config::host::gce_instance::Accelerator;
+                /// let x = Accelerator::new().set_type("example");
+                /// ```
+                pub fn set_type<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.r#type = v.into();
+                    self
+                }
+
+                /// Sets the value of [count][crate::model::workstation_config::host::gce_instance::Accelerator::count].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_workstations_v1::model::workstation_config::host::gce_instance::Accelerator;
+                /// let x = Accelerator::new().set_count(42);
+                /// ```
+                pub fn set_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                    self.count = v.into();
+                    self
+                }
+            }
+
+            impl wkt::message::Message for Accelerator {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.workstations.v1.WorkstationConfig.Host.GceInstance.Accelerator"
+                }
+            }
+
+            /// A boost configuration is a set of resources that a workstation can use
+            /// to increase its performance. If you specify a boost configuration, upon
+            /// startup, workstation users can choose to use a VM provisioned under the
+            /// boost config by passing the boost config ID in the start request. If
+            /// the workstation user does not provide a boost config ID  in the start
+            /// request, the system will choose a VM from the pool provisioned under
+            /// the default config.
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct BoostConfig {
+                /// Required. The ID to be used for the boost configuration.
+                pub id: std::string::String,
+
+                /// Optional. The type of machine that boosted VM instances will use—for
+                /// example, `e2-standard-4`. For more information about machine types
+                /// that Cloud Workstations supports, see the list of [available machine
+                /// types](https://cloud.google.com/workstations/docs/available-machine-types).
+                /// Defaults to `e2-standard-4`.
+                pub machine_type: std::string::String,
+
+                /// Optional. A list of the type and count of accelerator cards attached
+                /// to the boost instance. Defaults to `none`.
+                pub accelerators: std::vec::Vec<
+                    crate::model::workstation_config::host::gce_instance::Accelerator,
+                >,
+
+                /// Optional. The size of the boot disk for the VM in gigabytes (GB).
+                /// The minimum boot disk size is `30` GB. Defaults to `50` GB.
+                pub boot_disk_size_gb: i32,
+
+                /// Optional. Whether to enable nested virtualization on boosted Cloud
+                /// Workstations VMs running using this boost configuration.
+                ///
+                /// Defaults to false.
+                ///
+                /// Nested virtualization lets you run virtual machine (VM) instances
+                /// inside your workstation. Before enabling nested virtualization,
+                /// consider the following important considerations. Cloud Workstations
+                /// instances are subject to the [same restrictions as Compute Engine
+                /// instances](https://cloud.google.com/compute/docs/instances/nested-virtualization/overview#restrictions):
+                ///
+                /// * **Organization policy**: projects, folders, or
+                ///   organizations may be restricted from creating nested VMs if the
+                ///   **Disable VM nested virtualization** constraint is enforced in
+                ///   the organization policy. For more information, see the
+                ///   Compute Engine section,
+                ///   [Checking whether nested virtualization is
+                ///   allowed](https://cloud.google.com/compute/docs/instances/nested-virtualization/managing-constraint#checking_whether_nested_virtualization_is_allowed).
+                /// * **Performance**: nested VMs might experience a 10% or greater
+                ///   decrease in performance for workloads that are CPU-bound and
+                ///   possibly greater than a 10% decrease for workloads that are
+                ///   input/output bound.
+                /// * **Machine Type**: nested virtualization can only be enabled on
+                ///   boost configurations that specify a
+                ///   [machine_type][google.cloud.workstations.v1.WorkstationConfig.Host.GceInstance.BoostConfig.machine_type]
+                ///   in the N1 or N2 machine series.
+                ///
+                /// [google.cloud.workstations.v1.WorkstationConfig.Host.GceInstance.BoostConfig.machine_type]: crate::model::workstation_config::host::gce_instance::BoostConfig::machine_type
+                pub enable_nested_virtualization: bool,
+
+                /// Optional. The number of boost VMs that the system should keep idle so
+                /// that workstations can be boosted quickly. Defaults to `0`.
+                pub pool_size: i32,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl BoostConfig {
+                /// Creates a new default instance.
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [id][crate::model::workstation_config::host::gce_instance::BoostConfig::id].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_workstations_v1::model::workstation_config::host::gce_instance::BoostConfig;
+                /// let x = BoostConfig::new().set_id("example");
+                /// ```
+                pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                    self.id = v.into();
+                    self
+                }
+
+                /// Sets the value of [machine_type][crate::model::workstation_config::host::gce_instance::BoostConfig::machine_type].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_workstations_v1::model::workstation_config::host::gce_instance::BoostConfig;
+                /// let x = BoostConfig::new().set_machine_type("example");
+                /// ```
+                pub fn set_machine_type<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.machine_type = v.into();
+                    self
+                }
+
+                /// Sets the value of [accelerators][crate::model::workstation_config::host::gce_instance::BoostConfig::accelerators].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_workstations_v1::model::workstation_config::host::gce_instance::BoostConfig;
+                /// use google_cloud_workstations_v1::model::workstation_config::host::gce_instance::Accelerator;
+                /// let x = BoostConfig::new()
+                ///     .set_accelerators([
+                ///         Accelerator::default()/* use setters */,
+                ///         Accelerator::default()/* use (different) setters */,
+                ///     ]);
+                /// ```
+                pub fn set_accelerators<T, V>(mut self, v: T) -> Self
+                where
+                    T: std::iter::IntoIterator<Item = V>,
+                    V: std::convert::Into<
+                            crate::model::workstation_config::host::gce_instance::Accelerator,
+                        >,
+                {
+                    use std::iter::Iterator;
+                    self.accelerators = v.into_iter().map(|i| i.into()).collect();
+                    self
+                }
+
+                /// Sets the value of [boot_disk_size_gb][crate::model::workstation_config::host::gce_instance::BoostConfig::boot_disk_size_gb].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_workstations_v1::model::workstation_config::host::gce_instance::BoostConfig;
+                /// let x = BoostConfig::new().set_boot_disk_size_gb(42);
+                /// ```
+                pub fn set_boot_disk_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                    self.boot_disk_size_gb = v.into();
+                    self
+                }
+
+                /// Sets the value of [enable_nested_virtualization][crate::model::workstation_config::host::gce_instance::BoostConfig::enable_nested_virtualization].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_workstations_v1::model::workstation_config::host::gce_instance::BoostConfig;
+                /// let x = BoostConfig::new().set_enable_nested_virtualization(true);
+                /// ```
+                pub fn set_enable_nested_virtualization<T: std::convert::Into<bool>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.enable_nested_virtualization = v.into();
+                    self
+                }
+
+                /// Sets the value of [pool_size][crate::model::workstation_config::host::gce_instance::BoostConfig::pool_size].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_workstations_v1::model::workstation_config::host::gce_instance::BoostConfig;
+                /// let x = BoostConfig::new().set_pool_size(42);
+                /// ```
+                pub fn set_pool_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                    self.pool_size = v.into();
+                    self
+                }
+            }
+
+            impl wkt::message::Message for BoostConfig {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.workstations.v1.WorkstationConfig.Host.GceInstance.BoostConfig"
+                }
+            }
         }
 
-        /// Type of host that will be used for the workstation's runtime.
+        /// Type of host to be used for the workstation's runtime.
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Config {
@@ -1717,7 +2468,9 @@ pub mod workstation_config {
         }
     }
 
-    /// A directory to persist across workstation sessions.
+    /// A directory to persist across workstation sessions. Updates to this field
+    /// will not update existing workstations and will only take effect on new
+    /// workstations.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PersistentDirectory {
@@ -1807,10 +2560,47 @@ pub mod workstation_config {
         /// use google_cloud_workstations_v1::model::workstation_config::persistent_directory::GceRegionalPersistentDisk;
         /// let x = PersistentDirectory::new().set_gce_pd(GceRegionalPersistentDisk::default()/* use setters */);
         /// assert!(x.gce_pd().is_some());
+        /// assert!(x.gce_hd().is_none());
         /// ```
         pub fn set_gce_pd<T: std::convert::Into<std::boxed::Box<crate::model::workstation_config::persistent_directory::GceRegionalPersistentDisk>>>(mut self, v: T) -> Self{
             self.directory_type = std::option::Option::Some(
                 crate::model::workstation_config::persistent_directory::DirectoryType::GcePd(
+                    v.into(),
+                ),
+            );
+            self
+        }
+
+        /// The value of [directory_type][crate::model::workstation_config::PersistentDirectory::directory_type]
+        /// if it holds a `GceHd`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn gce_hd(&self) -> std::option::Option<&std::boxed::Box<crate::model::workstation_config::persistent_directory::GceHyperdiskBalancedHighAvailability>>{
+            #[allow(unreachable_patterns)]
+            self.directory_type.as_ref().and_then(|v| match v {
+                crate::model::workstation_config::persistent_directory::DirectoryType::GceHd(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [directory_type][crate::model::workstation_config::PersistentDirectory::directory_type]
+        /// to hold a `GceHd`.
+        ///
+        /// Note that all the setters affecting `directory_type` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_workstations_v1::model::workstation_config::PersistentDirectory;
+        /// use google_cloud_workstations_v1::model::workstation_config::persistent_directory::GceHyperdiskBalancedHighAvailability;
+        /// let x = PersistentDirectory::new().set_gce_hd(GceHyperdiskBalancedHighAvailability::default()/* use setters */);
+        /// assert!(x.gce_hd().is_some());
+        /// assert!(x.gce_pd().is_none());
+        /// ```
+        pub fn set_gce_hd<T: std::convert::Into<std::boxed::Box<crate::model::workstation_config::persistent_directory::GceHyperdiskBalancedHighAvailability>>>(mut self, v: T) -> Self{
+            self.directory_type = std::option::Option::Some(
+                crate::model::workstation_config::persistent_directory::DirectoryType::GceHd(
                     v.into(),
                 ),
             );
@@ -1829,7 +2619,7 @@ pub mod workstation_config {
         #[allow(unused_imports)]
         use super::*;
 
-        /// A PersistentDirectory backed by a Compute Engine regional persistent
+        /// A Persistent Directory backed by a Compute Engine regional persistent
         /// disk. The
         /// [persistent_directories][google.cloud.workstations.v1.WorkstationConfig.persistent_directories]
         /// field is repeated, but it may contain only one entry. It creates a
@@ -1860,6 +2650,10 @@ pub mod workstation_config {
             /// [google.cloud.workstations.v1.WorkstationConfig.PersistentDirectory.GceRegionalPersistentDisk.source_snapshot]: crate::model::workstation_config::persistent_directory::GceRegionalPersistentDisk::source_snapshot
             pub size_gb: i32,
 
+            /// Optional. Maximum size in GB to which this persistent directory can be
+            /// resized. Defaults to unlimited if not set.
+            pub max_size_gb: i32,
+
             /// Optional. Type of file system that the disk should be formatted with.
             /// The workstation image must support this file system type. Must be empty
             /// if
@@ -1879,7 +2673,8 @@ pub mod workstation_config {
             /// [size_gb][google.cloud.workstations.v1.WorkstationConfig.PersistentDirectory.GceRegionalPersistentDisk.size_gb]
             /// and
             /// [fs_type][google.cloud.workstations.v1.WorkstationConfig.PersistentDirectory.GceRegionalPersistentDisk.fs_type]
-            /// must be empty.
+            /// must be empty. Must be formatted as ext4 file system with no
+            /// partitions.
             ///
             /// [google.cloud.workstations.v1.WorkstationConfig.PersistentDirectory.GceRegionalPersistentDisk.fs_type]: crate::model::workstation_config::persistent_directory::GceRegionalPersistentDisk::fs_type
             /// [google.cloud.workstations.v1.WorkstationConfig.PersistentDirectory.GceRegionalPersistentDisk.size_gb]: crate::model::workstation_config::persistent_directory::GceRegionalPersistentDisk::size_gb
@@ -1889,6 +2684,15 @@ pub mod workstation_config {
             /// workstation is deleted. Valid values are `DELETE` and `RETAIN`.
             /// Defaults to `DELETE`.
             pub reclaim_policy: crate::model::workstation_config::persistent_directory::gce_regional_persistent_disk::ReclaimPolicy,
+
+            /// Optional. Number of seconds to wait after initially creating or
+            /// subsequently shutting down the workstation before converting its disk
+            /// into a snapshot. This generally saves costs at the expense of greater
+            /// startup time on next workstation start, as the service will need to
+            /// create a disk from the archival snapshot.
+            ///
+            /// A value of `"0s"` indicates that the disk will never be archived.
+            pub archive_timeout: std::option::Option<wkt::Duration>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -1908,6 +2712,18 @@ pub mod workstation_config {
             /// ```
             pub fn set_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.size_gb = v.into();
+                self
+            }
+
+            /// Sets the value of [max_size_gb][crate::model::workstation_config::persistent_directory::GceRegionalPersistentDisk::max_size_gb].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_workstations_v1::model::workstation_config::persistent_directory::GceRegionalPersistentDisk;
+            /// let x = GceRegionalPersistentDisk::new().set_max_size_gb(42);
+            /// ```
+            pub fn set_max_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                self.max_size_gb = v.into();
                 self
             }
 
@@ -1964,6 +2780,39 @@ pub mod workstation_config {
             /// ```
             pub fn set_reclaim_policy<T: std::convert::Into<crate::model::workstation_config::persistent_directory::gce_regional_persistent_disk::ReclaimPolicy>>(mut self, v: T) -> Self{
                 self.reclaim_policy = v.into();
+                self
+            }
+
+            /// Sets the value of [archive_timeout][crate::model::workstation_config::persistent_directory::GceRegionalPersistentDisk::archive_timeout].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_workstations_v1::model::workstation_config::persistent_directory::GceRegionalPersistentDisk;
+            /// use wkt::Duration;
+            /// let x = GceRegionalPersistentDisk::new().set_archive_timeout(Duration::default()/* use setters */);
+            /// ```
+            pub fn set_archive_timeout<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<wkt::Duration>,
+            {
+                self.archive_timeout = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [archive_timeout][crate::model::workstation_config::persistent_directory::GceRegionalPersistentDisk::archive_timeout].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_workstations_v1::model::workstation_config::persistent_directory::GceRegionalPersistentDisk;
+            /// use wkt::Duration;
+            /// let x = GceRegionalPersistentDisk::new().set_or_clear_archive_timeout(Some(Duration::default()/* use setters */));
+            /// let x = GceRegionalPersistentDisk::new().set_or_clear_archive_timeout(None::<Duration>);
+            /// ```
+            pub fn set_or_clear_archive_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<wkt::Duration>,
+            {
+                self.archive_timeout = v.map(|x| x.into());
                 self
             }
         }
@@ -2118,12 +2967,572 @@ pub mod workstation_config {
             }
         }
 
+        /// A Persistent Directory backed by a Compute Engine
+        /// [Hyperdisk Balanced High Availability
+        /// Disk](https://cloud.google.com/compute/docs/disks/hd-types/hyperdisk-balanced-ha).
+        /// This is a high-availability block storage solution that offers a balance
+        /// between performance and cost for most general-purpose workloads.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct GceHyperdiskBalancedHighAvailability {
+
+            /// Optional. The GB capacity of a persistent home directory for each
+            /// workstation created with this configuration. Must be empty if
+            /// [source_snapshot][google.cloud.workstations.v1.WorkstationConfig.PersistentDirectory.GceHyperdiskBalancedHighAvailability.source_snapshot]
+            /// is set.
+            ///
+            /// Valid values are `10`, `50`, `100`, `200`, `500`, or `1000`.
+            /// Defaults to `200`.
+            ///
+            /// [google.cloud.workstations.v1.WorkstationConfig.PersistentDirectory.GceHyperdiskBalancedHighAvailability.source_snapshot]: crate::model::workstation_config::persistent_directory::GceHyperdiskBalancedHighAvailability::source_snapshot
+            pub size_gb: i32,
+
+            /// Optional. Maximum size in GB to which this persistent directory can be
+            /// resized. Defaults to unlimited if not set.
+            pub max_size_gb: i32,
+
+            /// Optional. Name of the snapshot to use as the source for the disk. If
+            /// set,
+            /// [size_gb][google.cloud.workstations.v1.WorkstationConfig.PersistentDirectory.GceHyperdiskBalancedHighAvailability.size_gb]
+            /// must be empty. Must be formatted as ext4 file system with no
+            /// partitions.
+            ///
+            /// [google.cloud.workstations.v1.WorkstationConfig.PersistentDirectory.GceHyperdiskBalancedHighAvailability.size_gb]: crate::model::workstation_config::persistent_directory::GceHyperdiskBalancedHighAvailability::size_gb
+            pub source_snapshot: std::string::String,
+
+            /// Optional. Whether the persistent disk should be deleted when the
+            /// workstation is deleted. Valid values are `DELETE` and `RETAIN`.
+            /// Defaults to `DELETE`.
+            pub reclaim_policy: crate::model::workstation_config::persistent_directory::gce_hyperdisk_balanced_high_availability::ReclaimPolicy,
+
+            /// Optional. Number of seconds to wait after initially creating or
+            /// subsequently shutting down the workstation before converting its disk
+            /// into a snapshot. This generally saves costs at the expense of greater
+            /// startup time on next workstation start, as the service will need to
+            /// create a disk from the archival snapshot.
+            ///
+            /// A value of `"0s"` indicates that the disk will never be archived.
+            pub archive_timeout: std::option::Option<wkt::Duration>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl GceHyperdiskBalancedHighAvailability {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [size_gb][crate::model::workstation_config::persistent_directory::GceHyperdiskBalancedHighAvailability::size_gb].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_workstations_v1::model::workstation_config::persistent_directory::GceHyperdiskBalancedHighAvailability;
+            /// let x = GceHyperdiskBalancedHighAvailability::new().set_size_gb(42);
+            /// ```
+            pub fn set_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                self.size_gb = v.into();
+                self
+            }
+
+            /// Sets the value of [max_size_gb][crate::model::workstation_config::persistent_directory::GceHyperdiskBalancedHighAvailability::max_size_gb].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_workstations_v1::model::workstation_config::persistent_directory::GceHyperdiskBalancedHighAvailability;
+            /// let x = GceHyperdiskBalancedHighAvailability::new().set_max_size_gb(42);
+            /// ```
+            pub fn set_max_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                self.max_size_gb = v.into();
+                self
+            }
+
+            /// Sets the value of [source_snapshot][crate::model::workstation_config::persistent_directory::GceHyperdiskBalancedHighAvailability::source_snapshot].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_workstations_v1::model::workstation_config::persistent_directory::GceHyperdiskBalancedHighAvailability;
+            /// let x = GceHyperdiskBalancedHighAvailability::new().set_source_snapshot("example");
+            /// ```
+            pub fn set_source_snapshot<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.source_snapshot = v.into();
+                self
+            }
+
+            /// Sets the value of [reclaim_policy][crate::model::workstation_config::persistent_directory::GceHyperdiskBalancedHighAvailability::reclaim_policy].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_workstations_v1::model::workstation_config::persistent_directory::GceHyperdiskBalancedHighAvailability;
+            /// use google_cloud_workstations_v1::model::workstation_config::persistent_directory::gce_hyperdisk_balanced_high_availability::ReclaimPolicy;
+            /// let x0 = GceHyperdiskBalancedHighAvailability::new().set_reclaim_policy(ReclaimPolicy::Delete);
+            /// let x1 = GceHyperdiskBalancedHighAvailability::new().set_reclaim_policy(ReclaimPolicy::Retain);
+            /// ```
+            pub fn set_reclaim_policy<T: std::convert::Into<crate::model::workstation_config::persistent_directory::gce_hyperdisk_balanced_high_availability::ReclaimPolicy>>(mut self, v: T) -> Self{
+                self.reclaim_policy = v.into();
+                self
+            }
+
+            /// Sets the value of [archive_timeout][crate::model::workstation_config::persistent_directory::GceHyperdiskBalancedHighAvailability::archive_timeout].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_workstations_v1::model::workstation_config::persistent_directory::GceHyperdiskBalancedHighAvailability;
+            /// use wkt::Duration;
+            /// let x = GceHyperdiskBalancedHighAvailability::new().set_archive_timeout(Duration::default()/* use setters */);
+            /// ```
+            pub fn set_archive_timeout<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<wkt::Duration>,
+            {
+                self.archive_timeout = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [archive_timeout][crate::model::workstation_config::persistent_directory::GceHyperdiskBalancedHighAvailability::archive_timeout].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_workstations_v1::model::workstation_config::persistent_directory::GceHyperdiskBalancedHighAvailability;
+            /// use wkt::Duration;
+            /// let x = GceHyperdiskBalancedHighAvailability::new().set_or_clear_archive_timeout(Some(Duration::default()/* use setters */));
+            /// let x = GceHyperdiskBalancedHighAvailability::new().set_or_clear_archive_timeout(None::<Duration>);
+            /// ```
+            pub fn set_or_clear_archive_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<wkt::Duration>,
+            {
+                self.archive_timeout = v.map(|x| x.into());
+                self
+            }
+        }
+
+        impl wkt::message::Message for GceHyperdiskBalancedHighAvailability {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.workstations.v1.WorkstationConfig.PersistentDirectory.GceHyperdiskBalancedHighAvailability"
+            }
+        }
+
+        /// Defines additional types related to [GceHyperdiskBalancedHighAvailability].
+        pub mod gce_hyperdisk_balanced_high_availability {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// Value representing what should happen to the disk after the workstation
+            /// is deleted.
+            ///
+            /// # Working with unknown values
+            ///
+            /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+            /// additional enum variants at any time. Adding new variants is not considered
+            /// a breaking change. Applications should write their code in anticipation of:
+            ///
+            /// - New values appearing in future releases of the client library, **and**
+            /// - New values received dynamically, without application changes.
+            ///
+            /// Please consult the [Working with enums] section in the user guide for some
+            /// guidelines.
+            ///
+            /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum ReclaimPolicy {
+                /// Do not use.
+                Unspecified,
+                /// Delete the persistent disk when deleting the workstation.
+                Delete,
+                /// Keep the persistent disk when deleting the workstation.
+                /// An administrator must manually delete the disk.
+                Retain,
+                /// If set, the enum was initialized with an unknown value.
+                ///
+                /// Applications can examine the value using [ReclaimPolicy::value] or
+                /// [ReclaimPolicy::name].
+                UnknownValue(reclaim_policy::UnknownValue),
+            }
+
+            #[doc(hidden)]
+            pub mod reclaim_policy {
+                #[allow(unused_imports)]
+                use super::*;
+                #[derive(Clone, Debug, PartialEq)]
+                pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+            }
+
+            impl ReclaimPolicy {
+                /// Gets the enum value.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the string representation of enums.
+                pub fn value(&self) -> std::option::Option<i32> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some(0),
+                        Self::Delete => std::option::Option::Some(1),
+                        Self::Retain => std::option::Option::Some(2),
+                        Self::UnknownValue(u) => u.0.value(),
+                    }
+                }
+
+                /// Gets the enum value as a string.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the integer representation of enums.
+                pub fn name(&self) -> std::option::Option<&str> {
+                    match self {
+                        Self::Unspecified => {
+                            std::option::Option::Some("RECLAIM_POLICY_UNSPECIFIED")
+                        }
+                        Self::Delete => std::option::Option::Some("DELETE"),
+                        Self::Retain => std::option::Option::Some("RETAIN"),
+                        Self::UnknownValue(u) => u.0.name(),
+                    }
+                }
+            }
+
+            impl std::default::Default for ReclaimPolicy {
+                fn default() -> Self {
+                    use std::convert::From;
+                    Self::from(0)
+                }
+            }
+
+            impl std::fmt::Display for ReclaimPolicy {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
+                    wkt::internal::display_enum(f, self.name(), self.value())
+                }
+            }
+
+            impl std::convert::From<i32> for ReclaimPolicy {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => Self::Unspecified,
+                        1 => Self::Delete,
+                        2 => Self::Retain,
+                        _ => Self::UnknownValue(reclaim_policy::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
+                    }
+                }
+            }
+
+            impl std::convert::From<&str> for ReclaimPolicy {
+                fn from(value: &str) -> Self {
+                    use std::string::ToString;
+                    match value {
+                        "RECLAIM_POLICY_UNSPECIFIED" => Self::Unspecified,
+                        "DELETE" => Self::Delete,
+                        "RETAIN" => Self::Retain,
+                        _ => Self::UnknownValue(reclaim_policy::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
+                    }
+                }
+            }
+
+            impl serde::ser::Serialize for ReclaimPolicy {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    match self {
+                        Self::Unspecified => serializer.serialize_i32(0),
+                        Self::Delete => serializer.serialize_i32(1),
+                        Self::Retain => serializer.serialize_i32(2),
+                        Self::UnknownValue(u) => u.0.serialize(serializer),
+                    }
+                }
+            }
+
+            impl<'de> serde::de::Deserialize<'de> for ReclaimPolicy {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    deserializer.deserialize_any(wkt::internal::EnumVisitor::<ReclaimPolicy>::new(
+                        ".google.cloud.workstations.v1.WorkstationConfig.PersistentDirectory.GceHyperdiskBalancedHighAvailability.ReclaimPolicy"))
+                }
+            }
+        }
+
         /// How a persistent directory should be implemented.
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum DirectoryType {
             /// A PersistentDirectory backed by a Compute Engine persistent disk.
             GcePd(std::boxed::Box<crate::model::workstation_config::persistent_directory::GceRegionalPersistentDisk>),
+            /// A PersistentDirectory backed by a Compute Engine hyperdisk high
+            /// availability disk.
+            GceHd(std::boxed::Box<crate::model::workstation_config::persistent_directory::GceHyperdiskBalancedHighAvailability>),
+        }
+    }
+
+    /// An ephemeral directory which won't persist across workstation sessions. It
+    /// is freshly created on every workstation start operation.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct EphemeralDirectory {
+        /// Required. Location of this directory in the running workstation.
+        pub mount_path: std::string::String,
+
+        /// How an ephemeral directory should be implemented.
+        pub directory_type: std::option::Option<
+            crate::model::workstation_config::ephemeral_directory::DirectoryType,
+        >,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl EphemeralDirectory {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [mount_path][crate::model::workstation_config::EphemeralDirectory::mount_path].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_workstations_v1::model::workstation_config::EphemeralDirectory;
+        /// let x = EphemeralDirectory::new().set_mount_path("example");
+        /// ```
+        pub fn set_mount_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.mount_path = v.into();
+            self
+        }
+
+        /// Sets the value of [directory_type][crate::model::workstation_config::EphemeralDirectory::directory_type].
+        ///
+        /// Note that all the setters affecting `directory_type` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_workstations_v1::model::workstation_config::EphemeralDirectory;
+        /// use google_cloud_workstations_v1::model::workstation_config::ephemeral_directory::GcePersistentDisk;
+        /// let x = EphemeralDirectory::new().set_directory_type(Some(
+        ///     google_cloud_workstations_v1::model::workstation_config::ephemeral_directory::DirectoryType::GcePd(GcePersistentDisk::default().into())));
+        /// ```
+        pub fn set_directory_type<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::workstation_config::ephemeral_directory::DirectoryType,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.directory_type = v.into();
+            self
+        }
+
+        /// The value of [directory_type][crate::model::workstation_config::EphemeralDirectory::directory_type]
+        /// if it holds a `GcePd`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn gce_pd(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::workstation_config::ephemeral_directory::GcePersistentDisk,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.directory_type.as_ref().and_then(|v| match v {
+                crate::model::workstation_config::ephemeral_directory::DirectoryType::GcePd(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [directory_type][crate::model::workstation_config::EphemeralDirectory::directory_type]
+        /// to hold a `GcePd`.
+        ///
+        /// Note that all the setters affecting `directory_type` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_workstations_v1::model::workstation_config::EphemeralDirectory;
+        /// use google_cloud_workstations_v1::model::workstation_config::ephemeral_directory::GcePersistentDisk;
+        /// let x = EphemeralDirectory::new().set_gce_pd(GcePersistentDisk::default()/* use setters */);
+        /// assert!(x.gce_pd().is_some());
+        /// ```
+        pub fn set_gce_pd<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::workstation_config::ephemeral_directory::GcePersistentDisk,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.directory_type = std::option::Option::Some(
+                crate::model::workstation_config::ephemeral_directory::DirectoryType::GcePd(
+                    v.into(),
+                ),
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for EphemeralDirectory {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.workstations.v1.WorkstationConfig.EphemeralDirectory"
+        }
+    }
+
+    /// Defines additional types related to [EphemeralDirectory].
+    pub mod ephemeral_directory {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// An EphemeralDirectory is backed by a Compute Engine persistent disk.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct GcePersistentDisk {
+            /// Optional. Type of the disk to use. Defaults to `"pd-standard"`.
+            pub disk_type: std::string::String,
+
+            /// Optional. Name of the snapshot to use as the source for the disk. Must
+            /// be empty if
+            /// [source_image][google.cloud.workstations.v1.WorkstationConfig.EphemeralDirectory.GcePersistentDisk.source_image]
+            /// is set. Must be empty if
+            /// [read_only][google.cloud.workstations.v1.WorkstationConfig.EphemeralDirectory.GcePersistentDisk.read_only]
+            /// is false. Updating
+            /// [source_snapshot][google.cloud.workstations.v1.WorkstationConfig.EphemeralDirectory.GcePersistentDisk.source_snapshot]
+            /// will update content in the ephemeral directory after the workstation is
+            /// restarted.
+            ///
+            /// Only file systems supported by Container-Optimized OS (COS)
+            /// are explicitly supported. For a list of supported file systems, see
+            /// [the filesystems available in Container-Optimized
+            /// OS](https://cloud.google.com/container-optimized-os/docs/concepts/supported-filesystems).
+            ///
+            /// This field is mutable.
+            ///
+            /// [google.cloud.workstations.v1.WorkstationConfig.EphemeralDirectory.GcePersistentDisk.read_only]: crate::model::workstation_config::ephemeral_directory::GcePersistentDisk::read_only
+            /// [google.cloud.workstations.v1.WorkstationConfig.EphemeralDirectory.GcePersistentDisk.source_image]: crate::model::workstation_config::ephemeral_directory::GcePersistentDisk::source_image
+            /// [google.cloud.workstations.v1.WorkstationConfig.EphemeralDirectory.GcePersistentDisk.source_snapshot]: crate::model::workstation_config::ephemeral_directory::GcePersistentDisk::source_snapshot
+            pub source_snapshot: std::string::String,
+
+            /// Optional. Name of the disk image to use as the source for the disk.
+            /// Must be empty if
+            /// [source_snapshot][google.cloud.workstations.v1.WorkstationConfig.EphemeralDirectory.GcePersistentDisk.source_snapshot]
+            /// is set. Updating
+            /// [source_image][google.cloud.workstations.v1.WorkstationConfig.EphemeralDirectory.GcePersistentDisk.source_image]
+            /// will update content in the ephemeral directory after the workstation is
+            /// restarted.
+            ///
+            /// Only file systems supported by Container-Optimized OS (COS)
+            /// are explicitly supported. For a list of supported file systems, please
+            /// refer to the [COS
+            /// documentation](https://cloud.google.com/container-optimized-os/docs/concepts/supported-filesystems).
+            ///
+            /// This field is mutable.
+            ///
+            /// [google.cloud.workstations.v1.WorkstationConfig.EphemeralDirectory.GcePersistentDisk.source_image]: crate::model::workstation_config::ephemeral_directory::GcePersistentDisk::source_image
+            /// [google.cloud.workstations.v1.WorkstationConfig.EphemeralDirectory.GcePersistentDisk.source_snapshot]: crate::model::workstation_config::ephemeral_directory::GcePersistentDisk::source_snapshot
+            pub source_image: std::string::String,
+
+            /// Optional. Whether the disk is read only. If true, the disk may be
+            /// shared by multiple VMs and
+            /// [source_snapshot][google.cloud.workstations.v1.WorkstationConfig.EphemeralDirectory.GcePersistentDisk.source_snapshot]
+            /// must be set.
+            ///
+            /// [google.cloud.workstations.v1.WorkstationConfig.EphemeralDirectory.GcePersistentDisk.source_snapshot]: crate::model::workstation_config::ephemeral_directory::GcePersistentDisk::source_snapshot
+            pub read_only: bool,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl GcePersistentDisk {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [disk_type][crate::model::workstation_config::ephemeral_directory::GcePersistentDisk::disk_type].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_workstations_v1::model::workstation_config::ephemeral_directory::GcePersistentDisk;
+            /// let x = GcePersistentDisk::new().set_disk_type("example");
+            /// ```
+            pub fn set_disk_type<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.disk_type = v.into();
+                self
+            }
+
+            /// Sets the value of [source_snapshot][crate::model::workstation_config::ephemeral_directory::GcePersistentDisk::source_snapshot].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_workstations_v1::model::workstation_config::ephemeral_directory::GcePersistentDisk;
+            /// let x = GcePersistentDisk::new().set_source_snapshot("example");
+            /// ```
+            pub fn set_source_snapshot<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.source_snapshot = v.into();
+                self
+            }
+
+            /// Sets the value of [source_image][crate::model::workstation_config::ephemeral_directory::GcePersistentDisk::source_image].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_workstations_v1::model::workstation_config::ephemeral_directory::GcePersistentDisk;
+            /// let x = GcePersistentDisk::new().set_source_image("example");
+            /// ```
+            pub fn set_source_image<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.source_image = v.into();
+                self
+            }
+
+            /// Sets the value of [read_only][crate::model::workstation_config::ephemeral_directory::GcePersistentDisk::read_only].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_workstations_v1::model::workstation_config::ephemeral_directory::GcePersistentDisk;
+            /// let x = GcePersistentDisk::new().set_read_only(true);
+            /// ```
+            pub fn set_read_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+                self.read_only = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for GcePersistentDisk {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.workstations.v1.WorkstationConfig.EphemeralDirectory.GcePersistentDisk"
+            }
+        }
+
+        /// How an ephemeral directory should be implemented.
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum DirectoryType {
+            /// An EphemeralDirectory backed by a Compute Engine persistent disk.
+            GcePd(
+                std::boxed::Box<
+                    crate::model::workstation_config::ephemeral_directory::GcePersistentDisk,
+                >,
+            ),
         }
     }
 
@@ -2140,7 +3549,10 @@ pub mod workstation_config {
         /// [custom container
         /// images](https://cloud.google.com/workstations/docs/custom-container-images).
         /// If using a private image, the `host.gceInstance.serviceAccount` field
-        /// must be specified in the workstation configuration and must have
+        /// must be specified in the workstation configuration.
+        /// If using a custom container image, the service account must have
+        /// [Artifact Registry
+        /// Reader](https://cloud.google.com/artifact-registry/docs/access-control#roles)
         /// permission to pull the specified image. Otherwise, the image must be
         /// publicly accessible.
         pub image: std::string::String,
@@ -2384,13 +3796,75 @@ pub mod workstation_config {
             "type.googleapis.com/google.cloud.workstations.v1.WorkstationConfig.ReadinessCheck"
         }
     }
+
+    /// A PortRange defines a range of ports. Both
+    /// [first][google.cloud.workstations.v1.WorkstationConfig.PortRange.first] and
+    /// [last][google.cloud.workstations.v1.WorkstationConfig.PortRange.last] are
+    /// inclusive.
+    /// To specify a single port, both
+    /// [first][google.cloud.workstations.v1.WorkstationConfig.PortRange.first] and
+    /// [last][google.cloud.workstations.v1.WorkstationConfig.PortRange.last]
+    /// should be the same.
+    ///
+    /// [google.cloud.workstations.v1.WorkstationConfig.PortRange.first]: crate::model::workstation_config::PortRange::first
+    /// [google.cloud.workstations.v1.WorkstationConfig.PortRange.last]: crate::model::workstation_config::PortRange::last
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct PortRange {
+        /// Required. Starting port number for the current range of ports.
+        /// Valid ports are 22, 80, and ports within the range 1024-65535.
+        pub first: i32,
+
+        /// Required. Ending port number for the current range of ports.
+        /// Valid ports are 22, 80, and ports within the range 1024-65535.
+        pub last: i32,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl PortRange {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [first][crate::model::workstation_config::PortRange::first].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_workstations_v1::model::workstation_config::PortRange;
+        /// let x = PortRange::new().set_first(42);
+        /// ```
+        pub fn set_first<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.first = v.into();
+            self
+        }
+
+        /// Sets the value of [last][crate::model::workstation_config::PortRange::last].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_workstations_v1::model::workstation_config::PortRange;
+        /// let x = PortRange::new().set_last(42);
+        /// ```
+        pub fn set_last<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.last = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for PortRange {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.workstations.v1.WorkstationConfig.PortRange"
+        }
+    }
 }
 
 /// A single instance of a developer workstation with its own persistent storage.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Workstation {
-    /// Full name of this workstation.
+    /// Identifier. Full name of this workstation.
     pub name: std::string::String,
 
     /// Optional. Human-readable name for this workstation.
@@ -2430,6 +3904,10 @@ pub struct Workstation {
     /// proceeding.
     pub etag: std::string::String,
 
+    /// Optional. Directories to persist across workstation sessions.
+    pub persistent_directories:
+        std::vec::Vec<crate::model::workstation::WorkstationPersistentDirectory>,
+
     /// Output only. Current state of the workstation.
     pub state: crate::model::workstation::State,
 
@@ -2439,6 +3917,24 @@ pub struct Workstation {
     /// clients may prefix the host with the destination port in the format
     /// `{port}-{host}`.
     pub host: std::string::String,
+
+    /// Optional. Environment variables passed to the workstation container's
+    /// entrypoint.
+    pub env: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Output only. The name of the Google Cloud KMS encryption key used to
+    /// encrypt this workstation. The KMS key can only be configured in the
+    /// WorkstationConfig. The expected format is
+    /// `projects/*/locations/*/keyRings/*/cryptoKeys/*`.
+    pub kms_key: std::string::String,
+
+    /// Optional. The source workstation from which this workstation's persistent
+    /// directories were cloned on creation.
+    pub source_workstation: std::string::String,
+
+    /// Optional. Output only. Runtime host for the workstation when in
+    /// STATE_RUNNING.
+    pub runtime_host: std::option::Option<crate::model::workstation::RuntimeHost>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2688,6 +4184,28 @@ impl Workstation {
         self
     }
 
+    /// Sets the value of [persistent_directories][crate::model::Workstation::persistent_directories].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_workstations_v1::model::Workstation;
+    /// use google_cloud_workstations_v1::model::workstation::WorkstationPersistentDirectory;
+    /// let x = Workstation::new()
+    ///     .set_persistent_directories([
+    ///         WorkstationPersistentDirectory::default()/* use setters */,
+    ///         WorkstationPersistentDirectory::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_persistent_directories<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::workstation::WorkstationPersistentDirectory>,
+    {
+        use std::iter::Iterator;
+        self.persistent_directories = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [state][crate::model::Workstation::state].
     ///
     /// # Example
@@ -2717,6 +4235,87 @@ impl Workstation {
         self.host = v.into();
         self
     }
+
+    /// Sets the value of [env][crate::model::Workstation::env].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_workstations_v1::model::Workstation;
+    /// let x = Workstation::new().set_env([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_env<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.env = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [kms_key][crate::model::Workstation::kms_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_workstations_v1::model::Workstation;
+    /// let x = Workstation::new().set_kms_key("example");
+    /// ```
+    pub fn set_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.kms_key = v.into();
+        self
+    }
+
+    /// Sets the value of [source_workstation][crate::model::Workstation::source_workstation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_workstations_v1::model::Workstation;
+    /// let x = Workstation::new().set_source_workstation("example");
+    /// ```
+    pub fn set_source_workstation<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_workstation = v.into();
+        self
+    }
+
+    /// Sets the value of [runtime_host][crate::model::Workstation::runtime_host].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_workstations_v1::model::Workstation;
+    /// use google_cloud_workstations_v1::model::workstation::RuntimeHost;
+    /// let x = Workstation::new().set_runtime_host(RuntimeHost::default()/* use setters */);
+    /// ```
+    pub fn set_runtime_host<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::workstation::RuntimeHost>,
+    {
+        self.runtime_host = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [runtime_host][crate::model::Workstation::runtime_host].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_workstations_v1::model::Workstation;
+    /// use google_cloud_workstations_v1::model::workstation::RuntimeHost;
+    /// let x = Workstation::new().set_or_clear_runtime_host(Some(RuntimeHost::default()/* use setters */));
+    /// let x = Workstation::new().set_or_clear_runtime_host(None::<RuntimeHost>);
+    /// ```
+    pub fn set_or_clear_runtime_host<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::workstation::RuntimeHost>,
+    {
+        self.runtime_host = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for Workstation {
@@ -2729,6 +4328,230 @@ impl wkt::message::Message for Workstation {
 pub mod workstation {
     #[allow(unused_imports)]
     use super::*;
+
+    /// A directory to persist across workstation sessions. Updates to this field
+    /// will only take effect on this workstation after it is restarted.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct WorkstationPersistentDirectory {
+        /// Optional. The mount path of the persistent directory.
+        pub mount_path: std::string::String,
+
+        /// Optional. Size of the persistent directory in GB. If specified in an
+        /// update request, this is the desired size of the directory.
+        pub size_gb: i32,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl WorkstationPersistentDirectory {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [mount_path][crate::model::workstation::WorkstationPersistentDirectory::mount_path].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_workstations_v1::model::workstation::WorkstationPersistentDirectory;
+        /// let x = WorkstationPersistentDirectory::new().set_mount_path("example");
+        /// ```
+        pub fn set_mount_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.mount_path = v.into();
+            self
+        }
+
+        /// Sets the value of [size_gb][crate::model::workstation::WorkstationPersistentDirectory::size_gb].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_workstations_v1::model::workstation::WorkstationPersistentDirectory;
+        /// let x = WorkstationPersistentDirectory::new().set_size_gb(42);
+        /// ```
+        pub fn set_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.size_gb = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for WorkstationPersistentDirectory {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.workstations.v1.Workstation.WorkstationPersistentDirectory"
+        }
+    }
+
+    /// Runtime host for the workstation.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct RuntimeHost {
+        /// Type of host used by the workstation.
+        pub host_type: std::option::Option<crate::model::workstation::runtime_host::HostType>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl RuntimeHost {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [host_type][crate::model::workstation::RuntimeHost::host_type].
+        ///
+        /// Note that all the setters affecting `host_type` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_workstations_v1::model::workstation::RuntimeHost;
+        /// use google_cloud_workstations_v1::model::workstation::runtime_host::GceInstanceHost;
+        /// let x = RuntimeHost::new().set_host_type(Some(
+        ///     google_cloud_workstations_v1::model::workstation::runtime_host::HostType::GceInstanceHost(GceInstanceHost::default().into())));
+        /// ```
+        pub fn set_host_type<
+            T: std::convert::Into<
+                    std::option::Option<crate::model::workstation::runtime_host::HostType>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.host_type = v.into();
+            self
+        }
+
+        /// The value of [host_type][crate::model::workstation::RuntimeHost::host_type]
+        /// if it holds a `GceInstanceHost`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn gce_instance_host(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::workstation::runtime_host::GceInstanceHost>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.host_type.as_ref().and_then(|v| match v {
+                crate::model::workstation::runtime_host::HostType::GceInstanceHost(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [host_type][crate::model::workstation::RuntimeHost::host_type]
+        /// to hold a `GceInstanceHost`.
+        ///
+        /// Note that all the setters affecting `host_type` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_workstations_v1::model::workstation::RuntimeHost;
+        /// use google_cloud_workstations_v1::model::workstation::runtime_host::GceInstanceHost;
+        /// let x = RuntimeHost::new().set_gce_instance_host(GceInstanceHost::default()/* use setters */);
+        /// assert!(x.gce_instance_host().is_some());
+        /// ```
+        pub fn set_gce_instance_host<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::workstation::runtime_host::GceInstanceHost>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.host_type = std::option::Option::Some(
+                crate::model::workstation::runtime_host::HostType::GceInstanceHost(v.into()),
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for RuntimeHost {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.workstations.v1.Workstation.RuntimeHost"
+        }
+    }
+
+    /// Defines additional types related to [RuntimeHost].
+    pub mod runtime_host {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The Compute Engine instance host.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct GceInstanceHost {
+            /// Optional. Output only. The name of the Compute Engine instance.
+            pub name: std::string::String,
+
+            /// Optional. Output only. The ID of the Compute Engine instance.
+            pub id: std::string::String,
+
+            /// Optional. Output only. The zone of the Compute Engine instance.
+            pub zone: std::string::String,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl GceInstanceHost {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [name][crate::model::workstation::runtime_host::GceInstanceHost::name].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_workstations_v1::model::workstation::runtime_host::GceInstanceHost;
+            /// let x = GceInstanceHost::new().set_name("example");
+            /// ```
+            pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.name = v.into();
+                self
+            }
+
+            /// Sets the value of [id][crate::model::workstation::runtime_host::GceInstanceHost::id].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_workstations_v1::model::workstation::runtime_host::GceInstanceHost;
+            /// let x = GceInstanceHost::new().set_id("example");
+            /// ```
+            pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.id = v.into();
+                self
+            }
+
+            /// Sets the value of [zone][crate::model::workstation::runtime_host::GceInstanceHost::zone].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_workstations_v1::model::workstation::runtime_host::GceInstanceHost;
+            /// let x = GceInstanceHost::new().set_zone("example");
+            /// ```
+            pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.zone = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for GceInstanceHost {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.workstations.v1.Workstation.RuntimeHost.GceInstanceHost"
+            }
+        }
+
+        /// Type of host used by the workstation.
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum HostType {
+            /// Specifies a Compute Engine instance as the host.
+            GceInstanceHost(
+                std::boxed::Box<crate::model::workstation::runtime_host::GceInstanceHost>,
+            ),
+        }
+    }
 
     /// Whether a workstation is running and ready to receive user requests.
     ///
@@ -2931,6 +4754,10 @@ pub struct ListWorkstationClustersRequest {
     /// any.
     pub page_token: std::string::String,
 
+    /// Optional. Filter the WorkstationClusters to be listed. Possible filters are
+    /// described in <https://google.aip.dev/160>.
+    pub filter: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2975,6 +4802,18 @@ impl ListWorkstationClustersRequest {
     /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListWorkstationClustersRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_workstations_v1::model::ListWorkstationClustersRequest;
+    /// let x = ListWorkstationClustersRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
         self
     }
 }
@@ -3093,7 +4932,7 @@ pub struct CreateWorkstationClusterRequest {
     /// Required. Workstation cluster to create.
     pub workstation_cluster: std::option::Option<crate::model::WorkstationCluster>,
 
-    /// Optional. If set, validate the request and preview the review, but do not
+    /// Optional. If set, validate the request and preview the result, but do not
     /// actually apply it.
     pub validate_only: bool,
 
@@ -3198,7 +5037,7 @@ pub struct UpdateWorkstationClusterRequest {
     /// should be updated.
     pub update_mask: std::option::Option<wkt::FieldMask>,
 
-    /// Optional. If set, validate the request and preview the review, but do not
+    /// Optional. If set, validate the request and preview the result, but do not
     /// actually apply it.
     pub validate_only: bool,
 
@@ -3320,7 +5159,7 @@ pub struct DeleteWorkstationClusterRequest {
     /// Required. Name of the workstation cluster to delete.
     pub name: std::string::String,
 
-    /// Optional. If set, validate the request and preview the review, but do not
+    /// Optional. If set, validate the request and preview the result, but do not
     /// apply it.
     pub validate_only: bool,
 
@@ -3453,6 +5292,10 @@ pub struct ListWorkstationConfigsRequest {
     /// any.
     pub page_token: std::string::String,
 
+    /// Optional. Filter the WorkstationConfigs to be listed. Possible filters are
+    /// described in <https://google.aip.dev/160>.
+    pub filter: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3498,6 +5341,18 @@ impl ListWorkstationConfigsRequest {
     /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListWorkstationConfigsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_workstations_v1::model::ListWorkstationConfigsRequest;
+    /// let x = ListWorkstationConfigsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
         self
     }
 }
@@ -3779,10 +5634,10 @@ pub struct CreateWorkstationConfigRequest {
     /// Required. ID to use for the workstation configuration.
     pub workstation_config_id: std::string::String,
 
-    /// Required. Config to create.
+    /// Required. Workstation configuration to create.
     pub workstation_config: std::option::Option<crate::model::WorkstationConfig>,
 
-    /// Optional. If set, validate the request and preview the review, but do not
+    /// Optional. If set, validate the request and preview the result, but do not
     /// actually apply it.
     pub validate_only: bool,
 
@@ -3881,14 +5736,14 @@ impl wkt::message::Message for CreateWorkstationConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateWorkstationConfigRequest {
-    /// Required. Config to update.
+    /// Required. Workstation configuration to update.
     pub workstation_config: std::option::Option<crate::model::WorkstationConfig>,
 
     /// Required. Mask specifying which fields in the workstation configuration
     /// should be updated.
     pub update_mask: std::option::Option<wkt::FieldMask>,
 
-    /// Optional. If set, validate the request and preview the review, but do not
+    /// Optional. If set, validate the request and preview the result, but do not
     /// actually apply it.
     pub validate_only: bool,
 
@@ -4010,7 +5865,7 @@ pub struct DeleteWorkstationConfigRequest {
     /// Required. Name of the workstation configuration to delete.
     pub name: std::string::String,
 
-    /// Optional. If set, validate the request and preview the review, but do not
+    /// Optional. If set, validate the request and preview the result, but do not
     /// actually apply it.
     pub validate_only: bool,
 
@@ -4145,6 +6000,10 @@ pub struct ListWorkstationsRequest {
     /// any.
     pub page_token: std::string::String,
 
+    /// Optional. Filter the Workstations to be listed. Possible filters are
+    /// described in <https://google.aip.dev/160>.
+    pub filter: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4191,6 +6050,18 @@ impl ListWorkstationsRequest {
     /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListWorkstationsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_workstations_v1::model::ListWorkstationsRequest;
+    /// let x = ListWorkstationsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
         self
     }
 }
@@ -4471,10 +6342,14 @@ pub struct CreateWorkstationRequest {
     /// Required. ID to use for the workstation.
     pub workstation_id: std::string::String,
 
-    /// Required. Workstation to create.
+    /// Required. Workstation to create. If source_workstation is specified, the
+    /// user must have `workstations.workstations.use` permission on the source
+    /// workstation, and the Cloud Workstations Service Agent for the project where
+    /// you are creating the new workstation must have compute.disks.createSnapshot
+    /// and compute.snapshots.useReadOnly on the source project.
     pub workstation: std::option::Option<crate::model::Workstation>,
 
-    /// Optional. If set, validate the request and preview the review, but do not
+    /// Optional. If set, validate the request and preview the result, but do not
     /// actually apply it.
     pub validate_only: bool,
 
@@ -4574,17 +6449,16 @@ pub struct UpdateWorkstationRequest {
     /// Required. Workstation to update.
     pub workstation: std::option::Option<crate::model::Workstation>,
 
-    /// Required. Mask specifying which fields in the workstation configuration
-    /// should be updated.
+    /// Required. Mask specifying which fields in the workstation should be
+    /// updated.
     pub update_mask: std::option::Option<wkt::FieldMask>,
 
-    /// Optional. If set, validate the request and preview the review, but do not
+    /// Optional. If set, validate the request and preview the result, but do not
     /// actually apply it.
     pub validate_only: bool,
 
-    /// Optional. If set and the workstation configuration is not found, a new
-    /// workstation configuration is created. In this situation, update_mask
-    /// is ignored.
+    /// Optional. If set and the workstation is not found, a new workstation is
+    /// created. In this situation, update_mask is ignored.
     pub allow_missing: bool,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -4700,7 +6574,7 @@ pub struct DeleteWorkstationRequest {
     /// Required. Name of the workstation to delete.
     pub name: std::string::String,
 
-    /// Optional. If set, validate the request and preview the review, but do not
+    /// Optional. If set, validate the request and preview the result, but do not
     /// actually apply it.
     pub validate_only: bool,
 
@@ -4772,13 +6646,17 @@ pub struct StartWorkstationRequest {
     /// Required. Name of the workstation to start.
     pub name: std::string::String,
 
-    /// Optional. If set, validate the request and preview the review, but do not
+    /// Optional. If set, validate the request and preview the result, but do not
     /// actually apply it.
     pub validate_only: bool,
 
     /// Optional. If set, the request will be rejected if the latest version of the
     /// workstation on the server does not have this ETag.
     pub etag: std::string::String,
+
+    /// Optional. If set, the workstation starts using the boost configuration with
+    /// the specified ID.
+    pub boost_config: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4829,6 +6707,18 @@ impl StartWorkstationRequest {
         self.etag = v.into();
         self
     }
+
+    /// Sets the value of [boost_config][crate::model::StartWorkstationRequest::boost_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_workstations_v1::model::StartWorkstationRequest;
+    /// let x = StartWorkstationRequest::new().set_boost_config("example");
+    /// ```
+    pub fn set_boost_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.boost_config = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for StartWorkstationRequest {
@@ -4844,7 +6734,7 @@ pub struct StopWorkstationRequest {
     /// Required. Name of the workstation to stop.
     pub name: std::string::String,
 
-    /// Optional. If set, validate the request and preview the review, but do not
+    /// Optional. If set, validate the request and preview the result, but do not
     /// actually apply it.
     pub validate_only: bool,
 
@@ -4917,6 +6807,13 @@ pub struct GenerateAccessTokenRequest {
     /// generated.
     pub workstation: std::string::String,
 
+    /// Optional. Port for which the access token should be generated. If
+    /// specified, the generated access token grants access only to the
+    /// specified port of the workstation. If specified, values must be within the
+    /// range [1 - 65535]. If not specified, the generated access token grants
+    /// access to all ports of the workstation.
+    pub port: i32,
+
     /// Desired expiration or lifetime of the access token.
     pub expiration: std::option::Option<crate::model::generate_access_token_request::Expiration>,
 
@@ -4943,6 +6840,18 @@ impl GenerateAccessTokenRequest {
     /// ```
     pub fn set_workstation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workstation = v.into();
+        self
+    }
+
+    /// Sets the value of [port][crate::model::GenerateAccessTokenRequest::port].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_workstations_v1::model::GenerateAccessTokenRequest;
+    /// let x = GenerateAccessTokenRequest::new().set_port(42);
+    /// ```
+    pub fn set_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.port = v.into();
         self
     }
 

@@ -294,6 +294,12 @@ pub mod confidential_computing {
             self
         }
 
+        /// Sets the value of [instance][crate::model::VerifyAttestationRequest::instance].
+        pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance = v.into();
+            self
+        }
+
         /// Sets the value of [tee_attestation][crate::model::VerifyAttestationRequest::tee_attestation].
         ///
         /// Note that all the setters affecting `tee_attestation` are

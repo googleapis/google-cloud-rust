@@ -4637,6 +4637,18 @@ impl serde::ser::Serialize for super::BackendServiceLogConfig {
         if self.enable.is_some() {
             state.serialize_entry("enable", &self.enable)?;
         }
+        if !self.logging_http_request_headers.is_empty() {
+            state.serialize_entry(
+                "loggingHttpRequestHeaders",
+                &self.logging_http_request_headers,
+            )?;
+        }
+        if !self.logging_http_response_headers.is_empty() {
+            state.serialize_entry(
+                "loggingHttpResponseHeaders",
+                &self.logging_http_response_headers,
+            )?;
+        }
         if !self.optional_fields.is_empty() {
             state.serialize_entry("optionalFields", &self.optional_fields)?;
         }
@@ -4656,6 +4668,29 @@ impl serde::ser::Serialize for super::BackendServiceLogConfig {
                 }
             }
             state.serialize_entry("sampleRate", &__With(&self.sample_rate))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "backend-services", feature = "region-backend-services",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::BackendServiceLogConfigLoggingHttpHeader {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.header_name.is_some() {
+            state.serialize_entry("headerName", &self.header_name)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -7615,6 +7650,130 @@ impl serde::ser::Serialize for super::Date {
                 }
             }
             state.serialize_entry("month", &__With(&self.month))?;
+        }
+        if self.year.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("year", &__With(&self.year))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "region-zones", feature = "zones",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::DateTime {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.day.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("day", &__With(&self.day))?;
+        }
+        if self.hours.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("hours", &__With(&self.hours))?;
+        }
+        if self.minutes.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("minutes", &__With(&self.minutes))?;
+        }
+        if self.month.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("month", &__With(&self.month))?;
+        }
+        if self.nanos.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("nanos", &__With(&self.nanos))?;
+        }
+        if self.seconds.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("seconds", &__With(&self.seconds))?;
+        }
+        if self.time_zone.is_some() {
+            state.serialize_entry("timeZone", &self.time_zone)?;
+        }
+        if self.utc_offset.is_some() {
+            state.serialize_entry("utcOffset", &self.utc_offset)?;
         }
         if self.year.is_some() {
             struct __With<'a>(&'a std::option::Option<i32>);
@@ -10729,6 +10888,9 @@ impl serde::ser::Serialize for super::ForwardingRule {
         if self.allow_psc_global_access.is_some() {
             state.serialize_entry("allowPscGlobalAccess", &self.allow_psc_global_access)?;
         }
+        if !self.attached_extensions.is_empty() {
+            state.serialize_entry("attachedExtensions", &self.attached_extensions)?;
+        }
         if self.backend_service.is_some() {
             state.serialize_entry("backendService", &self.backend_service)?;
         }
@@ -10997,6 +11159,29 @@ impl serde::ser::Serialize for super::forwarding_rule_aggregated_list::warning::
         }
         if self.value.is_some() {
             state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "forwarding-rules", feature = "global-forwarding-rules",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ForwardingRuleAttachedExtension {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.reference.is_some() {
+            state.serialize_entry("reference", &self.reference)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -35191,6 +35376,41 @@ impl serde::ser::Serialize for super::PerInstanceConfig {
     }
 }
 
+#[cfg(any(feature = "region-zones", feature = "zones",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::PeriodicPartialMaintenanceSchedule {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.sub_type.is_some() {
+            state.serialize_entry("subType", &self.sub_type)?;
+        }
+        if self.target_resource.is_some() {
+            state.serialize_entry("targetResource", &self.target_resource)?;
+        }
+        if self.r#type.is_some() {
+            state.serialize_entry("type", &self.r#type)?;
+        }
+        if self.window_end_time.is_some() {
+            state.serialize_entry("windowEndTime", &self.window_end_time)?;
+        }
+        if self.window_start_time.is_some() {
+            state.serialize_entry("windowStartTime", &self.window_start_time)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 #[cfg(any(
     feature = "backend-buckets",
     feature = "backend-services",
@@ -41373,6 +41593,9 @@ impl serde::ser::Serialize for super::ResourceStatusPhysicalHostTopology {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.additional_attributes.is_some() {
+            state.serialize_entry("additionalAttributes", &self.additional_attributes)?;
+        }
         if self.block.is_some() {
             state.serialize_entry("block", &self.block)?;
         }
@@ -41384,6 +41607,29 @@ impl serde::ser::Serialize for super::ResourceStatusPhysicalHostTopology {
         }
         if self.subblock.is_some() {
             state.serialize_entry("subblock", &self.subblock)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ResourceStatusPhysicalHostTopologyAdditionalAttributes {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.accelerator_topology_ids.is_empty() {
+            state.serialize_entry("acceleratorTopologyIds", &self.accelerator_topology_ids)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -41510,6 +41756,12 @@ impl serde::ser::Serialize for super::Rollout {
         }
         if self.name.is_some() {
             state.serialize_entry("name", &self.name)?;
+        }
+        if self.pause_time.is_some() {
+            state.serialize_entry("pauseTime", &self.pause_time)?;
+        }
+        if self.resume_time.is_some() {
+            state.serialize_entry("resumeTime", &self.resume_time)?;
         }
         if self.rollout_entity.is_some() {
             state.serialize_entry("rolloutEntity", &self.rollout_entity)?;
@@ -42753,6 +43005,9 @@ impl serde::ser::Serialize for super::Router {
         if !self.nats.is_empty() {
             state.serialize_entry("nats", &self.nats)?;
         }
+        if self.ncc_gateway.is_some() {
+            state.serialize_entry("nccGateway", &self.ncc_gateway)?;
+        }
         if self.network.is_some() {
             state.serialize_entry("network", &self.network)?;
         }
@@ -43732,6 +43987,9 @@ impl serde::ser::Serialize for super::RouterStatus {
         }
         if !self.nat_status.is_empty() {
             state.serialize_entry("natStatus", &self.nat_status)?;
+        }
+        if self.ncc_gateway.is_some() {
+            state.serialize_entry("nccGateway", &self.ncc_gateway)?;
         }
         if self.network.is_some() {
             state.serialize_entry("network", &self.network)?;
@@ -54536,6 +54794,32 @@ impl serde::ser::Serialize for super::TestPermissionsResponse {
     }
 }
 
+#[cfg(any(feature = "region-zones", feature = "zones",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::TimeZone {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.id.is_some() {
+            state.serialize_entry("id", &self.id)?;
+        }
+        if self.version.is_some() {
+            state.serialize_entry("version", &self.version)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 #[cfg(any(feature = "service-attachments", feature = "subnetworks",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::Uint128 {
@@ -57940,6 +58224,9 @@ impl serde::ser::Serialize for super::Zone {
         if self.region.is_some() {
             state.serialize_entry("region", &self.region)?;
         }
+        if self.resource_status.is_some() {
+            state.serialize_entry("resourceStatus", &self.resource_status)?;
+        }
         if self.self_link.is_some() {
             state.serialize_entry("selfLink", &self.self_link)?;
         }
@@ -58041,6 +58328,29 @@ impl serde::ser::Serialize for super::zone_list::warning::Data {
         }
         if self.value.is_some() {
             state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "region-zones", feature = "zones",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ZoneResourceStatus {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.upcoming_maintenances.is_empty() {
+            state.serialize_entry("upcomingMaintenances", &self.upcoming_maintenances)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

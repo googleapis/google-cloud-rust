@@ -32,6 +32,7 @@ impl<'de> serde::de::Deserialize<'de> for super::AutonomousDatabase {
             __display_name,
             __entitlement_id,
             __admin_password,
+            __admin_password_secret_version,
             __properties,
             __labels,
             __network,
@@ -70,6 +71,12 @@ impl<'de> serde::de::Deserialize<'de> for super::AutonomousDatabase {
                             "entitlement_id" => Ok(__FieldTag::__entitlement_id),
                             "adminPassword" => Ok(__FieldTag::__admin_password),
                             "admin_password" => Ok(__FieldTag::__admin_password),
+                            "adminPasswordSecretVersion" => {
+                                Ok(__FieldTag::__admin_password_secret_version)
+                            }
+                            "admin_password_secret_version" => {
+                                Ok(__FieldTag::__admin_password_secret_version)
+                            }
                             "properties" => Ok(__FieldTag::__properties),
                             "labels" => Ok(__FieldTag::__labels),
                             "network" => Ok(__FieldTag::__network),
@@ -166,6 +173,16 @@ impl<'de> serde::de::Deserialize<'de> for super::AutonomousDatabase {
                                 ));
                             }
                             result.admin_password = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__admin_password_secret_version => {
+                            if !fields.insert(__FieldTag::__admin_password_secret_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for admin_password_secret_version",
+                                ));
+                            }
+                            result.admin_password_secret_version = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
@@ -451,6 +468,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AutonomousDatabaseProperties {
             __encryption_key,
             __encryption_key_history_entries,
             __service_agent_email,
+            __local_data_guard_enabled,
+            __local_adg_auto_failover_max_data_loss_limit_duration,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -682,6 +701,16 @@ impl<'de> serde::de::Deserialize<'de> for super::AutonomousDatabaseProperties {
                             }
                             "serviceAgentEmail" => Ok(__FieldTag::__service_agent_email),
                             "service_agent_email" => Ok(__FieldTag::__service_agent_email),
+                            "localDataGuardEnabled" => Ok(__FieldTag::__local_data_guard_enabled),
+                            "local_data_guard_enabled" => {
+                                Ok(__FieldTag::__local_data_guard_enabled)
+                            }
+                            "localAdgAutoFailoverMaxDataLossLimitDuration" => Ok(
+                                __FieldTag::__local_adg_auto_failover_max_data_loss_limit_duration,
+                            ),
+                            "local_adg_auto_failover_max_data_loss_limit_duration" => Ok(
+                                __FieldTag::__local_adg_auto_failover_max_data_loss_limit_duration,
+                            ),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1455,6 +1484,37 @@ impl<'de> serde::de::Deserialize<'de> for super::AutonomousDatabaseProperties {
                             result.service_agent_email = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__local_data_guard_enabled => {
+                            if !fields.insert(__FieldTag::__local_data_guard_enabled) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for local_data_guard_enabled",
+                                ));
+                            }
+                            result.local_data_guard_enabled =
+                                map.next_value::<std::option::Option<bool>>()?;
+                        }
+                        __FieldTag::__local_adg_auto_failover_max_data_loss_limit_duration => {
+                            if !fields.insert(
+                                __FieldTag::__local_adg_auto_failover_max_data_loss_limit_duration,
+                            ) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for local_adg_auto_failover_max_data_loss_limit_duration",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.local_adg_auto_failover_max_data_loss_limit_duration =
+                                map.next_value::<__With>()?.0;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -3623,7 +3683,9 @@ impl<'de> serde::de::Deserialize<'de> for super::Database {
             __db_name,
             __db_unique_name,
             __admin_password,
+            __admin_password_secret_version,
             __tde_wallet_password,
+            __tde_wallet_password_secret_version,
             __character_set,
             __ncharacter_set,
             __oci_url,
@@ -3633,6 +3695,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Database {
             __db_home_name,
             __gcp_oracle_zone,
             __ops_insights_status,
+            __pluggable_database_id,
+            __pluggable_database_name,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -3660,8 +3724,20 @@ impl<'de> serde::de::Deserialize<'de> for super::Database {
                             "db_unique_name" => Ok(__FieldTag::__db_unique_name),
                             "adminPassword" => Ok(__FieldTag::__admin_password),
                             "admin_password" => Ok(__FieldTag::__admin_password),
+                            "adminPasswordSecretVersion" => {
+                                Ok(__FieldTag::__admin_password_secret_version)
+                            }
+                            "admin_password_secret_version" => {
+                                Ok(__FieldTag::__admin_password_secret_version)
+                            }
                             "tdeWalletPassword" => Ok(__FieldTag::__tde_wallet_password),
                             "tde_wallet_password" => Ok(__FieldTag::__tde_wallet_password),
+                            "tdeWalletPasswordSecretVersion" => {
+                                Ok(__FieldTag::__tde_wallet_password_secret_version)
+                            }
+                            "tde_wallet_password_secret_version" => {
+                                Ok(__FieldTag::__tde_wallet_password_secret_version)
+                            }
                             "characterSet" => Ok(__FieldTag::__character_set),
                             "character_set" => Ok(__FieldTag::__character_set),
                             "ncharacterSet" => Ok(__FieldTag::__ncharacter_set),
@@ -3679,6 +3755,10 @@ impl<'de> serde::de::Deserialize<'de> for super::Database {
                             "gcp_oracle_zone" => Ok(__FieldTag::__gcp_oracle_zone),
                             "opsInsightsStatus" => Ok(__FieldTag::__ops_insights_status),
                             "ops_insights_status" => Ok(__FieldTag::__ops_insights_status),
+                            "pluggableDatabaseId" => Ok(__FieldTag::__pluggable_database_id),
+                            "pluggable_database_id" => Ok(__FieldTag::__pluggable_database_id),
+                            "pluggableDatabaseName" => Ok(__FieldTag::__pluggable_database_name),
+                            "pluggable_database_name" => Ok(__FieldTag::__pluggable_database_name),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3744,6 +3824,16 @@ impl<'de> serde::de::Deserialize<'de> for super::Database {
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__admin_password_secret_version => {
+                            if !fields.insert(__FieldTag::__admin_password_secret_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for admin_password_secret_version",
+                                ));
+                            }
+                            result.admin_password_secret_version = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__tde_wallet_password => {
                             if !fields.insert(__FieldTag::__tde_wallet_password) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -3751,6 +3841,16 @@ impl<'de> serde::de::Deserialize<'de> for super::Database {
                                 ));
                             }
                             result.tde_wallet_password = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__tde_wallet_password_secret_version => {
+                            if !fields.insert(__FieldTag::__tde_wallet_password_secret_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for tde_wallet_password_secret_version",
+                                ));
+                            }
+                            result.tde_wallet_password_secret_version = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
@@ -3842,6 +3942,26 @@ impl<'de> serde::de::Deserialize<'de> for super::Database {
                                 .next_value::<std::option::Option<
                                     crate::model::database::OperationsInsightsStatus,
                                 >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__pluggable_database_id => {
+                            if !fields.insert(__FieldTag::__pluggable_database_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for pluggable_database_id",
+                                ));
+                            }
+                            result.pluggable_database_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__pluggable_database_name => {
+                            if !fields.insert(__FieldTag::__pluggable_database_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for pluggable_database_name",
+                                ));
+                            }
+                            result.pluggable_database_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
@@ -6906,6 +7026,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ListDbSystemsResponse {
         enum __FieldTag {
             __db_systems,
             __next_page_token,
+            __unreachable,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -6930,6 +7051,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ListDbSystemsResponse {
                             "db_systems" => Ok(__FieldTag::__db_systems),
                             "nextPageToken" => Ok(__FieldTag::__next_page_token),
                             "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            "unreachable" => Ok(__FieldTag::__unreachable),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -6972,6 +7094,14 @@ impl<'de> serde::de::Deserialize<'de> for super::ListDbSystemsResponse {
                             result.next_page_token = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__unreachable => {
+                            if !fields.insert(__FieldTag::__unreachable) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unreachable",
+                                ));
+                            }
+                            result.unreachable = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -10980,6 +11110,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ListExascaleDbStorageVaultsResp
         enum __FieldTag {
             __exascale_db_storage_vaults,
             __next_page_token,
+            __unreachable,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -11008,6 +11139,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ListExascaleDbStorageVaultsResp
                             }
                             "nextPageToken" => Ok(__FieldTag::__next_page_token),
                             "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            "unreachable" => Ok(__FieldTag::__unreachable),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -11054,6 +11186,14 @@ impl<'de> serde::de::Deserialize<'de> for super::ListExascaleDbStorageVaultsResp
                             result.next_page_token = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__unreachable => {
+                            if !fields.insert(__FieldTag::__unreachable) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unreachable",
+                                ));
+                            }
+                            result.unreachable = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -11363,6 +11503,14595 @@ impl<'de> serde::de::Deserialize<'de> for super::GiVersion {
                             result.version = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateConnection {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __properties,
+            __gcp_oracle_zone,
+            __labels,
+            __odb_network,
+            __odb_subnet,
+            __entitlement_id,
+            __create_time,
+            __oci_url,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GoldengateConnection")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "properties" => Ok(__FieldTag::__properties),
+                            "gcpOracleZone" => Ok(__FieldTag::__gcp_oracle_zone),
+                            "gcp_oracle_zone" => Ok(__FieldTag::__gcp_oracle_zone),
+                            "labels" => Ok(__FieldTag::__labels),
+                            "odbNetwork" => Ok(__FieldTag::__odb_network),
+                            "odb_network" => Ok(__FieldTag::__odb_network),
+                            "odbSubnet" => Ok(__FieldTag::__odb_subnet),
+                            "odb_subnet" => Ok(__FieldTag::__odb_subnet),
+                            "entitlementId" => Ok(__FieldTag::__entitlement_id),
+                            "entitlement_id" => Ok(__FieldTag::__entitlement_id),
+                            "createTime" => Ok(__FieldTag::__create_time),
+                            "create_time" => Ok(__FieldTag::__create_time),
+                            "ociUrl" => Ok(__FieldTag::__oci_url),
+                            "oci_url" => Ok(__FieldTag::__oci_url),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateConnection;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateConnection")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__properties => {
+                            if !fields.insert(__FieldTag::__properties) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for properties",
+                                ));
+                            }
+                            result.properties =
+                                map.next_value::<std::option::Option<
+                                    crate::model::GoldengateConnectionProperties,
+                                >>()?;
+                        }
+                        __FieldTag::__gcp_oracle_zone => {
+                            if !fields.insert(__FieldTag::__gcp_oracle_zone) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for gcp_oracle_zone",
+                                ));
+                            }
+                            result.gcp_oracle_zone = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__labels => {
+                            if !fields.insert(__FieldTag::__labels) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for labels",
+                                ));
+                            }
+                            result.labels = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__odb_network => {
+                            if !fields.insert(__FieldTag::__odb_network) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for odb_network",
+                                ));
+                            }
+                            result.odb_network = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__odb_subnet => {
+                            if !fields.insert(__FieldTag::__odb_subnet) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for odb_subnet",
+                                ));
+                            }
+                            result.odb_subnet = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__entitlement_id => {
+                            if !fields.insert(__FieldTag::__entitlement_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for entitlement_id",
+                                ));
+                            }
+                            result.entitlement_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__create_time => {
+                            if !fields.insert(__FieldTag::__create_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for create_time",
+                                ));
+                            }
+                            result.create_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__oci_url => {
+                            if !fields.insert(__FieldTag::__oci_url) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for oci_url",
+                                ));
+                            }
+                            result.oci_url = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateConnectionProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __oracle_connection_properties,
+            __goldengate_connection_properties,
+            __generic_connection_properties,
+            __google_cloud_storage_connection_properties,
+            __google_big_query_connection_properties,
+            __mysql_connection_properties,
+            __kafka_connection_properties,
+            __kafka_schema_registry_connection_properties,
+            __oci_object_storage_connection_properties,
+            __azure_data_lake_storage_connection_properties,
+            __azure_synapse_analytics_connection_properties,
+            __postgresql_connection_properties,
+            __microsoft_sqlserver_connection_properties,
+            __amazon_s3_connection_properties,
+            __hdfs_connection_properties,
+            __java_message_service_connection_properties,
+            __mongodb_connection_properties,
+            __oracle_nosql_connection_properties,
+            __snowflake_connection_properties,
+            __amazon_redshift_connection_properties,
+            __elasticsearch_connection_properties,
+            __amazon_kinesis_connection_properties,
+            __db2_connection_properties,
+            __redis_connection_properties,
+            __databricks_connection_properties,
+            __google_pubsub_connection_properties,
+            __microsoft_fabric_connection_properties,
+            __oracle_ai_data_platform_connection_properties,
+            __iceberg_connection_properties,
+            __connection_type,
+            __ocid,
+            __display_name,
+            __description,
+            __lifecycle_state,
+            __lifecycle_details,
+            __update_time,
+            __routing_method,
+            __ingress_ip_addresses,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GoldengateConnectionProperties")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "oracleConnectionProperties" => {
+                                Ok(__FieldTag::__oracle_connection_properties)
+                            }
+                            "oracle_connection_properties" => {
+                                Ok(__FieldTag::__oracle_connection_properties)
+                            }
+                            "goldengateConnectionProperties" => {
+                                Ok(__FieldTag::__goldengate_connection_properties)
+                            }
+                            "goldengate_connection_properties" => {
+                                Ok(__FieldTag::__goldengate_connection_properties)
+                            }
+                            "genericConnectionProperties" => {
+                                Ok(__FieldTag::__generic_connection_properties)
+                            }
+                            "generic_connection_properties" => {
+                                Ok(__FieldTag::__generic_connection_properties)
+                            }
+                            "googleCloudStorageConnectionProperties" => {
+                                Ok(__FieldTag::__google_cloud_storage_connection_properties)
+                            }
+                            "google_cloud_storage_connection_properties" => {
+                                Ok(__FieldTag::__google_cloud_storage_connection_properties)
+                            }
+                            "googleBigQueryConnectionProperties" => {
+                                Ok(__FieldTag::__google_big_query_connection_properties)
+                            }
+                            "google_big_query_connection_properties" => {
+                                Ok(__FieldTag::__google_big_query_connection_properties)
+                            }
+                            "mysqlConnectionProperties" => {
+                                Ok(__FieldTag::__mysql_connection_properties)
+                            }
+                            "mysql_connection_properties" => {
+                                Ok(__FieldTag::__mysql_connection_properties)
+                            }
+                            "kafkaConnectionProperties" => {
+                                Ok(__FieldTag::__kafka_connection_properties)
+                            }
+                            "kafka_connection_properties" => {
+                                Ok(__FieldTag::__kafka_connection_properties)
+                            }
+                            "kafkaSchemaRegistryConnectionProperties" => {
+                                Ok(__FieldTag::__kafka_schema_registry_connection_properties)
+                            }
+                            "kafka_schema_registry_connection_properties" => {
+                                Ok(__FieldTag::__kafka_schema_registry_connection_properties)
+                            }
+                            "ociObjectStorageConnectionProperties" => {
+                                Ok(__FieldTag::__oci_object_storage_connection_properties)
+                            }
+                            "oci_object_storage_connection_properties" => {
+                                Ok(__FieldTag::__oci_object_storage_connection_properties)
+                            }
+                            "azureDataLakeStorageConnectionProperties" => {
+                                Ok(__FieldTag::__azure_data_lake_storage_connection_properties)
+                            }
+                            "azure_data_lake_storage_connection_properties" => {
+                                Ok(__FieldTag::__azure_data_lake_storage_connection_properties)
+                            }
+                            "azureSynapseAnalyticsConnectionProperties" => {
+                                Ok(__FieldTag::__azure_synapse_analytics_connection_properties)
+                            }
+                            "azure_synapse_analytics_connection_properties" => {
+                                Ok(__FieldTag::__azure_synapse_analytics_connection_properties)
+                            }
+                            "postgresqlConnectionProperties" => {
+                                Ok(__FieldTag::__postgresql_connection_properties)
+                            }
+                            "postgresql_connection_properties" => {
+                                Ok(__FieldTag::__postgresql_connection_properties)
+                            }
+                            "microsoftSqlserverConnectionProperties" => {
+                                Ok(__FieldTag::__microsoft_sqlserver_connection_properties)
+                            }
+                            "microsoft_sqlserver_connection_properties" => {
+                                Ok(__FieldTag::__microsoft_sqlserver_connection_properties)
+                            }
+                            "amazonS3ConnectionProperties" => {
+                                Ok(__FieldTag::__amazon_s3_connection_properties)
+                            }
+                            "amazon_s3_connection_properties" => {
+                                Ok(__FieldTag::__amazon_s3_connection_properties)
+                            }
+                            "hdfsConnectionProperties" => {
+                                Ok(__FieldTag::__hdfs_connection_properties)
+                            }
+                            "hdfs_connection_properties" => {
+                                Ok(__FieldTag::__hdfs_connection_properties)
+                            }
+                            "javaMessageServiceConnectionProperties" => {
+                                Ok(__FieldTag::__java_message_service_connection_properties)
+                            }
+                            "java_message_service_connection_properties" => {
+                                Ok(__FieldTag::__java_message_service_connection_properties)
+                            }
+                            "mongodbConnectionProperties" => {
+                                Ok(__FieldTag::__mongodb_connection_properties)
+                            }
+                            "mongodb_connection_properties" => {
+                                Ok(__FieldTag::__mongodb_connection_properties)
+                            }
+                            "oracleNosqlConnectionProperties" => {
+                                Ok(__FieldTag::__oracle_nosql_connection_properties)
+                            }
+                            "oracle_nosql_connection_properties" => {
+                                Ok(__FieldTag::__oracle_nosql_connection_properties)
+                            }
+                            "snowflakeConnectionProperties" => {
+                                Ok(__FieldTag::__snowflake_connection_properties)
+                            }
+                            "snowflake_connection_properties" => {
+                                Ok(__FieldTag::__snowflake_connection_properties)
+                            }
+                            "amazonRedshiftConnectionProperties" => {
+                                Ok(__FieldTag::__amazon_redshift_connection_properties)
+                            }
+                            "amazon_redshift_connection_properties" => {
+                                Ok(__FieldTag::__amazon_redshift_connection_properties)
+                            }
+                            "elasticsearchConnectionProperties" => {
+                                Ok(__FieldTag::__elasticsearch_connection_properties)
+                            }
+                            "elasticsearch_connection_properties" => {
+                                Ok(__FieldTag::__elasticsearch_connection_properties)
+                            }
+                            "amazonKinesisConnectionProperties" => {
+                                Ok(__FieldTag::__amazon_kinesis_connection_properties)
+                            }
+                            "amazon_kinesis_connection_properties" => {
+                                Ok(__FieldTag::__amazon_kinesis_connection_properties)
+                            }
+                            "db2ConnectionProperties" => {
+                                Ok(__FieldTag::__db2_connection_properties)
+                            }
+                            "db2_connection_properties" => {
+                                Ok(__FieldTag::__db2_connection_properties)
+                            }
+                            "redisConnectionProperties" => {
+                                Ok(__FieldTag::__redis_connection_properties)
+                            }
+                            "redis_connection_properties" => {
+                                Ok(__FieldTag::__redis_connection_properties)
+                            }
+                            "databricksConnectionProperties" => {
+                                Ok(__FieldTag::__databricks_connection_properties)
+                            }
+                            "databricks_connection_properties" => {
+                                Ok(__FieldTag::__databricks_connection_properties)
+                            }
+                            "googlePubsubConnectionProperties" => {
+                                Ok(__FieldTag::__google_pubsub_connection_properties)
+                            }
+                            "google_pubsub_connection_properties" => {
+                                Ok(__FieldTag::__google_pubsub_connection_properties)
+                            }
+                            "microsoftFabricConnectionProperties" => {
+                                Ok(__FieldTag::__microsoft_fabric_connection_properties)
+                            }
+                            "microsoft_fabric_connection_properties" => {
+                                Ok(__FieldTag::__microsoft_fabric_connection_properties)
+                            }
+                            "oracleAiDataPlatformConnectionProperties" => {
+                                Ok(__FieldTag::__oracle_ai_data_platform_connection_properties)
+                            }
+                            "oracle_ai_data_platform_connection_properties" => {
+                                Ok(__FieldTag::__oracle_ai_data_platform_connection_properties)
+                            }
+                            "icebergConnectionProperties" => {
+                                Ok(__FieldTag::__iceberg_connection_properties)
+                            }
+                            "iceberg_connection_properties" => {
+                                Ok(__FieldTag::__iceberg_connection_properties)
+                            }
+                            "connectionType" => Ok(__FieldTag::__connection_type),
+                            "connection_type" => Ok(__FieldTag::__connection_type),
+                            "ocid" => Ok(__FieldTag::__ocid),
+                            "displayName" => Ok(__FieldTag::__display_name),
+                            "display_name" => Ok(__FieldTag::__display_name),
+                            "description" => Ok(__FieldTag::__description),
+                            "lifecycleState" => Ok(__FieldTag::__lifecycle_state),
+                            "lifecycle_state" => Ok(__FieldTag::__lifecycle_state),
+                            "lifecycleDetails" => Ok(__FieldTag::__lifecycle_details),
+                            "lifecycle_details" => Ok(__FieldTag::__lifecycle_details),
+                            "updateTime" => Ok(__FieldTag::__update_time),
+                            "update_time" => Ok(__FieldTag::__update_time),
+                            "routingMethod" => Ok(__FieldTag::__routing_method),
+                            "routing_method" => Ok(__FieldTag::__routing_method),
+                            "ingressIpAddresses" => Ok(__FieldTag::__ingress_ip_addresses),
+                            "ingress_ip_addresses" => Ok(__FieldTag::__ingress_ip_addresses),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateConnectionProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateConnectionProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__oracle_connection_properties => {
+                            if !fields.insert(__FieldTag::__oracle_connection_properties) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for oracle_connection_properties",
+                                ));
+                            }
+                            if result.connection_details.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_details`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateConnectionProperties.oracle_connection_properties, latest field was oracleConnectionProperties",
+                                ));
+                            }
+                            result.connection_details = std::option::Option::Some(
+                                crate::model::goldengate_connection_properties::ConnectionDetails::OracleConnectionProperties(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::GoldengateOracleConnectionProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__goldengate_connection_properties => {
+                            if !fields.insert(__FieldTag::__goldengate_connection_properties) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for goldengate_connection_properties",
+                                ));
+                            }
+                            if result.connection_details.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_details`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateConnectionProperties.goldengate_connection_properties, latest field was goldengateConnectionProperties",
+                                ));
+                            }
+                            result.connection_details = std::option::Option::Some(
+                                crate::model::goldengate_connection_properties::ConnectionDetails::GoldengateConnectionProperties(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::GoldengateGoldengateConnectionProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__generic_connection_properties => {
+                            if !fields.insert(__FieldTag::__generic_connection_properties) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for generic_connection_properties",
+                                ));
+                            }
+                            if result.connection_details.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_details`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateConnectionProperties.generic_connection_properties, latest field was genericConnectionProperties",
+                                ));
+                            }
+                            result.connection_details = std::option::Option::Some(
+                                crate::model::goldengate_connection_properties::ConnectionDetails::GenericConnectionProperties(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::GoldengateGenericConnectionProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__google_cloud_storage_connection_properties => {
+                            if !fields
+                                .insert(__FieldTag::__google_cloud_storage_connection_properties)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for google_cloud_storage_connection_properties",
+                                ));
+                            }
+                            if result.connection_details.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_details`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateConnectionProperties.google_cloud_storage_connection_properties, latest field was googleCloudStorageConnectionProperties",
+                                ));
+                            }
+                            result.connection_details = std::option::Option::Some(
+                                crate::model::goldengate_connection_properties::ConnectionDetails::GoogleCloudStorageConnectionProperties(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::GoldengateGoogleCloudStorageConnectionProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__google_big_query_connection_properties => {
+                            if !fields.insert(__FieldTag::__google_big_query_connection_properties)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for google_big_query_connection_properties",
+                                ));
+                            }
+                            if result.connection_details.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_details`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateConnectionProperties.google_big_query_connection_properties, latest field was googleBigQueryConnectionProperties",
+                                ));
+                            }
+                            result.connection_details = std::option::Option::Some(
+                                crate::model::goldengate_connection_properties::ConnectionDetails::GoogleBigQueryConnectionProperties(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::GoldengateGoogleBigQueryConnectionProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__mysql_connection_properties => {
+                            if !fields.insert(__FieldTag::__mysql_connection_properties) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for mysql_connection_properties",
+                                ));
+                            }
+                            if result.connection_details.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_details`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateConnectionProperties.mysql_connection_properties, latest field was mysqlConnectionProperties",
+                                ));
+                            }
+                            result.connection_details = std::option::Option::Some(
+                                crate::model::goldengate_connection_properties::ConnectionDetails::MysqlConnectionProperties(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::GoldengateMysqlConnectionProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__kafka_connection_properties => {
+                            if !fields.insert(__FieldTag::__kafka_connection_properties) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for kafka_connection_properties",
+                                ));
+                            }
+                            if result.connection_details.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_details`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateConnectionProperties.kafka_connection_properties, latest field was kafkaConnectionProperties",
+                                ));
+                            }
+                            result.connection_details = std::option::Option::Some(
+                                crate::model::goldengate_connection_properties::ConnectionDetails::KafkaConnectionProperties(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::GoldengateKafkaConnectionProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__kafka_schema_registry_connection_properties => {
+                            if !fields
+                                .insert(__FieldTag::__kafka_schema_registry_connection_properties)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for kafka_schema_registry_connection_properties",
+                                ));
+                            }
+                            if result.connection_details.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_details`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateConnectionProperties.kafka_schema_registry_connection_properties, latest field was kafkaSchemaRegistryConnectionProperties",
+                                ));
+                            }
+                            result.connection_details = std::option::Option::Some(
+                                crate::model::goldengate_connection_properties::ConnectionDetails::KafkaSchemaRegistryConnectionProperties(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::GoldengateKafkaSchemaRegistryConnectionProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__oci_object_storage_connection_properties => {
+                            if !fields
+                                .insert(__FieldTag::__oci_object_storage_connection_properties)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for oci_object_storage_connection_properties",
+                                ));
+                            }
+                            if result.connection_details.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_details`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateConnectionProperties.oci_object_storage_connection_properties, latest field was ociObjectStorageConnectionProperties",
+                                ));
+                            }
+                            result.connection_details = std::option::Option::Some(
+                                crate::model::goldengate_connection_properties::ConnectionDetails::OciObjectStorageConnectionProperties(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::GoldengateOciObjectStorageConnectionProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__azure_data_lake_storage_connection_properties => {
+                            if !fields
+                                .insert(__FieldTag::__azure_data_lake_storage_connection_properties)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for azure_data_lake_storage_connection_properties",
+                                ));
+                            }
+                            if result.connection_details.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_details`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateConnectionProperties.azure_data_lake_storage_connection_properties, latest field was azureDataLakeStorageConnectionProperties",
+                                ));
+                            }
+                            result.connection_details = std::option::Option::Some(
+                                crate::model::goldengate_connection_properties::ConnectionDetails::AzureDataLakeStorageConnectionProperties(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::GoldengateAzureDataLakeStorageConnectionProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__azure_synapse_analytics_connection_properties => {
+                            if !fields
+                                .insert(__FieldTag::__azure_synapse_analytics_connection_properties)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for azure_synapse_analytics_connection_properties",
+                                ));
+                            }
+                            if result.connection_details.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_details`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateConnectionProperties.azure_synapse_analytics_connection_properties, latest field was azureSynapseAnalyticsConnectionProperties",
+                                ));
+                            }
+                            result.connection_details = std::option::Option::Some(
+                                crate::model::goldengate_connection_properties::ConnectionDetails::AzureSynapseAnalyticsConnectionProperties(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::GoldengateAzureSynapseAnalyticsConnectionProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__postgresql_connection_properties => {
+                            if !fields.insert(__FieldTag::__postgresql_connection_properties) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for postgresql_connection_properties",
+                                ));
+                            }
+                            if result.connection_details.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_details`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateConnectionProperties.postgresql_connection_properties, latest field was postgresqlConnectionProperties",
+                                ));
+                            }
+                            result.connection_details = std::option::Option::Some(
+                                crate::model::goldengate_connection_properties::ConnectionDetails::PostgresqlConnectionProperties(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::GoldengatePostgresqlConnectionProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__microsoft_sqlserver_connection_properties => {
+                            if !fields
+                                .insert(__FieldTag::__microsoft_sqlserver_connection_properties)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for microsoft_sqlserver_connection_properties",
+                                ));
+                            }
+                            if result.connection_details.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_details`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateConnectionProperties.microsoft_sqlserver_connection_properties, latest field was microsoftSqlserverConnectionProperties",
+                                ));
+                            }
+                            result.connection_details = std::option::Option::Some(
+                                crate::model::goldengate_connection_properties::ConnectionDetails::MicrosoftSqlserverConnectionProperties(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::GoldengateMicrosoftSqlserverConnectionProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__amazon_s3_connection_properties => {
+                            if !fields.insert(__FieldTag::__amazon_s3_connection_properties) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for amazon_s3_connection_properties",
+                                ));
+                            }
+                            if result.connection_details.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_details`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateConnectionProperties.amazon_s3_connection_properties, latest field was amazonS3ConnectionProperties",
+                                ));
+                            }
+                            result.connection_details = std::option::Option::Some(
+                                crate::model::goldengate_connection_properties::ConnectionDetails::AmazonS3ConnectionProperties(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::GoldengateAmazonS3ConnectionProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__hdfs_connection_properties => {
+                            if !fields.insert(__FieldTag::__hdfs_connection_properties) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for hdfs_connection_properties",
+                                ));
+                            }
+                            if result.connection_details.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_details`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateConnectionProperties.hdfs_connection_properties, latest field was hdfsConnectionProperties",
+                                ));
+                            }
+                            result.connection_details = std::option::Option::Some(
+                                crate::model::goldengate_connection_properties::ConnectionDetails::HdfsConnectionProperties(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::GoldengateHdfsConnectionProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__java_message_service_connection_properties => {
+                            if !fields
+                                .insert(__FieldTag::__java_message_service_connection_properties)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for java_message_service_connection_properties",
+                                ));
+                            }
+                            if result.connection_details.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_details`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateConnectionProperties.java_message_service_connection_properties, latest field was javaMessageServiceConnectionProperties",
+                                ));
+                            }
+                            result.connection_details = std::option::Option::Some(
+                                crate::model::goldengate_connection_properties::ConnectionDetails::JavaMessageServiceConnectionProperties(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::GoldengateJavaMessageServiceConnectionProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__mongodb_connection_properties => {
+                            if !fields.insert(__FieldTag::__mongodb_connection_properties) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for mongodb_connection_properties",
+                                ));
+                            }
+                            if result.connection_details.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_details`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateConnectionProperties.mongodb_connection_properties, latest field was mongodbConnectionProperties",
+                                ));
+                            }
+                            result.connection_details = std::option::Option::Some(
+                                crate::model::goldengate_connection_properties::ConnectionDetails::MongodbConnectionProperties(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::GoldengateMongodbConnectionProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__oracle_nosql_connection_properties => {
+                            if !fields.insert(__FieldTag::__oracle_nosql_connection_properties) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for oracle_nosql_connection_properties",
+                                ));
+                            }
+                            if result.connection_details.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_details`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateConnectionProperties.oracle_nosql_connection_properties, latest field was oracleNosqlConnectionProperties",
+                                ));
+                            }
+                            result.connection_details = std::option::Option::Some(
+                                crate::model::goldengate_connection_properties::ConnectionDetails::OracleNosqlConnectionProperties(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::GoldengateOracleNosqlConnectionProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__snowflake_connection_properties => {
+                            if !fields.insert(__FieldTag::__snowflake_connection_properties) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for snowflake_connection_properties",
+                                ));
+                            }
+                            if result.connection_details.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_details`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateConnectionProperties.snowflake_connection_properties, latest field was snowflakeConnectionProperties",
+                                ));
+                            }
+                            result.connection_details = std::option::Option::Some(
+                                crate::model::goldengate_connection_properties::ConnectionDetails::SnowflakeConnectionProperties(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::GoldengateSnowflakeConnectionProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__amazon_redshift_connection_properties => {
+                            if !fields.insert(__FieldTag::__amazon_redshift_connection_properties) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for amazon_redshift_connection_properties",
+                                ));
+                            }
+                            if result.connection_details.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_details`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateConnectionProperties.amazon_redshift_connection_properties, latest field was amazonRedshiftConnectionProperties",
+                                ));
+                            }
+                            result.connection_details = std::option::Option::Some(
+                                crate::model::goldengate_connection_properties::ConnectionDetails::AmazonRedshiftConnectionProperties(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::GoldengateAmazonRedshiftConnectionProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__elasticsearch_connection_properties => {
+                            if !fields.insert(__FieldTag::__elasticsearch_connection_properties) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for elasticsearch_connection_properties",
+                                ));
+                            }
+                            if result.connection_details.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_details`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateConnectionProperties.elasticsearch_connection_properties, latest field was elasticsearchConnectionProperties",
+                                ));
+                            }
+                            result.connection_details = std::option::Option::Some(
+                                crate::model::goldengate_connection_properties::ConnectionDetails::ElasticsearchConnectionProperties(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::GoldengateElasticsearchConnectionProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__amazon_kinesis_connection_properties => {
+                            if !fields.insert(__FieldTag::__amazon_kinesis_connection_properties) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for amazon_kinesis_connection_properties",
+                                ));
+                            }
+                            if result.connection_details.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_details`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateConnectionProperties.amazon_kinesis_connection_properties, latest field was amazonKinesisConnectionProperties",
+                                ));
+                            }
+                            result.connection_details = std::option::Option::Some(
+                                crate::model::goldengate_connection_properties::ConnectionDetails::AmazonKinesisConnectionProperties(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::GoldengateAmazonKinesisConnectionProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__db2_connection_properties => {
+                            if !fields.insert(__FieldTag::__db2_connection_properties) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for db2_connection_properties",
+                                ));
+                            }
+                            if result.connection_details.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_details`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateConnectionProperties.db2_connection_properties, latest field was db2ConnectionProperties",
+                                ));
+                            }
+                            result.connection_details = std::option::Option::Some(
+                                crate::model::goldengate_connection_properties::ConnectionDetails::Db2ConnectionProperties(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::GoldengateDb2ConnectionProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__redis_connection_properties => {
+                            if !fields.insert(__FieldTag::__redis_connection_properties) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for redis_connection_properties",
+                                ));
+                            }
+                            if result.connection_details.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_details`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateConnectionProperties.redis_connection_properties, latest field was redisConnectionProperties",
+                                ));
+                            }
+                            result.connection_details = std::option::Option::Some(
+                                crate::model::goldengate_connection_properties::ConnectionDetails::RedisConnectionProperties(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::GoldengateRedisConnectionProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__databricks_connection_properties => {
+                            if !fields.insert(__FieldTag::__databricks_connection_properties) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for databricks_connection_properties",
+                                ));
+                            }
+                            if result.connection_details.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_details`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateConnectionProperties.databricks_connection_properties, latest field was databricksConnectionProperties",
+                                ));
+                            }
+                            result.connection_details = std::option::Option::Some(
+                                crate::model::goldengate_connection_properties::ConnectionDetails::DatabricksConnectionProperties(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::GoldengateDatabricksConnectionProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__google_pubsub_connection_properties => {
+                            if !fields.insert(__FieldTag::__google_pubsub_connection_properties) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for google_pubsub_connection_properties",
+                                ));
+                            }
+                            if result.connection_details.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_details`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateConnectionProperties.google_pubsub_connection_properties, latest field was googlePubsubConnectionProperties",
+                                ));
+                            }
+                            result.connection_details = std::option::Option::Some(
+                                crate::model::goldengate_connection_properties::ConnectionDetails::GooglePubsubConnectionProperties(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::GoldengateGooglePubsubConnectionProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__microsoft_fabric_connection_properties => {
+                            if !fields.insert(__FieldTag::__microsoft_fabric_connection_properties)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for microsoft_fabric_connection_properties",
+                                ));
+                            }
+                            if result.connection_details.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_details`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateConnectionProperties.microsoft_fabric_connection_properties, latest field was microsoftFabricConnectionProperties",
+                                ));
+                            }
+                            result.connection_details = std::option::Option::Some(
+                                crate::model::goldengate_connection_properties::ConnectionDetails::MicrosoftFabricConnectionProperties(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::GoldengateMicrosoftFabricConnectionProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__oracle_ai_data_platform_connection_properties => {
+                            if !fields
+                                .insert(__FieldTag::__oracle_ai_data_platform_connection_properties)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for oracle_ai_data_platform_connection_properties",
+                                ));
+                            }
+                            if result.connection_details.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_details`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateConnectionProperties.oracle_ai_data_platform_connection_properties, latest field was oracleAiDataPlatformConnectionProperties",
+                                ));
+                            }
+                            result.connection_details = std::option::Option::Some(
+                                crate::model::goldengate_connection_properties::ConnectionDetails::OracleAiDataPlatformConnectionProperties(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::GoldengateOracleAIDataPlatformConnectionProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__iceberg_connection_properties => {
+                            if !fields.insert(__FieldTag::__iceberg_connection_properties) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for iceberg_connection_properties",
+                                ));
+                            }
+                            if result.connection_details.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_details`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateConnectionProperties.iceberg_connection_properties, latest field was icebergConnectionProperties",
+                                ));
+                            }
+                            result.connection_details = std::option::Option::Some(
+                                crate::model::goldengate_connection_properties::ConnectionDetails::IcebergConnectionProperties(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::GoldengateIcebergConnectionProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__connection_type => {
+                            if !fields.insert(__FieldTag::__connection_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for connection_type",
+                                ));
+                            }
+                            result.connection_type = map.next_value::<std::option::Option<crate::model::goldengate_connection_properties::GoldengateConnectionType>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__ocid => {
+                            if !fields.insert(__FieldTag::__ocid) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ocid",
+                                ));
+                            }
+                            result.ocid = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__display_name => {
+                            if !fields.insert(__FieldTag::__display_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for display_name",
+                                ));
+                            }
+                            result.display_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__description => {
+                            if !fields.insert(__FieldTag::__description) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for description",
+                                ));
+                            }
+                            result.description = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__lifecycle_state => {
+                            if !fields.insert(__FieldTag::__lifecycle_state) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for lifecycle_state",
+                                ));
+                            }
+                            result.lifecycle_state = map.next_value::<std::option::Option<crate::model::goldengate_connection_properties::GoldengateConnectionLifecycleState>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__lifecycle_details => {
+                            if !fields.insert(__FieldTag::__lifecycle_details) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for lifecycle_details",
+                                ));
+                            }
+                            result.lifecycle_details = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__update_time => {
+                            if !fields.insert(__FieldTag::__update_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_time",
+                                ));
+                            }
+                            result.update_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__routing_method => {
+                            if !fields.insert(__FieldTag::__routing_method) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for routing_method",
+                                ));
+                            }
+                            result.routing_method = map.next_value::<std::option::Option<crate::model::goldengate_connection_properties::GoldengateConnectionRoutingMethod>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__ingress_ip_addresses => {
+                            if !fields.insert(__FieldTag::__ingress_ip_addresses) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ingress_ip_addresses",
+                                ));
+                            }
+                            result.ingress_ip_addresses = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateOracleConnectionProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __password,
+            __password_secret_version,
+            __technology_type,
+            __username,
+            __authentication_mode,
+            __connection_string,
+            __session_mode,
+            __gcp_oracle_database_id,
+            __wallet_file,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GoldengateOracleConnectionProperties")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "password" => Ok(__FieldTag::__password),
+                            "passwordSecretVersion" => Ok(__FieldTag::__password_secret_version),
+                            "password_secret_version" => Ok(__FieldTag::__password_secret_version),
+                            "technologyType" => Ok(__FieldTag::__technology_type),
+                            "technology_type" => Ok(__FieldTag::__technology_type),
+                            "username" => Ok(__FieldTag::__username),
+                            "authenticationMode" => Ok(__FieldTag::__authentication_mode),
+                            "authentication_mode" => Ok(__FieldTag::__authentication_mode),
+                            "connectionString" => Ok(__FieldTag::__connection_string),
+                            "connection_string" => Ok(__FieldTag::__connection_string),
+                            "sessionMode" => Ok(__FieldTag::__session_mode),
+                            "session_mode" => Ok(__FieldTag::__session_mode),
+                            "gcpOracleDatabaseId" => Ok(__FieldTag::__gcp_oracle_database_id),
+                            "gcp_oracle_database_id" => Ok(__FieldTag::__gcp_oracle_database_id),
+                            "walletFile" => Ok(__FieldTag::__wallet_file),
+                            "wallet_file" => Ok(__FieldTag::__wallet_file),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateOracleConnectionProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateOracleConnectionProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__password => {
+                            if !fields.insert(__FieldTag::__password) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for password",
+                                ));
+                            }
+                            if result.connection_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateOracleConnectionProperties.password, latest field was password",
+                                ));
+                            }
+                            result.connection_password_options = std::option::Option::Some(
+                                crate::model::goldengate_oracle_connection_properties::ConnectionPasswordOptions::Password(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__password_secret_version => {
+                            if !fields.insert(__FieldTag::__password_secret_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for password_secret_version",
+                                ));
+                            }
+                            if result.connection_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateOracleConnectionProperties.password_secret_version, latest field was passwordSecretVersion",
+                                ));
+                            }
+                            result.connection_password_options = std::option::Option::Some(
+                                crate::model::goldengate_oracle_connection_properties::ConnectionPasswordOptions::PasswordSecretVersion(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__technology_type => {
+                            if !fields.insert(__FieldTag::__technology_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for technology_type",
+                                ));
+                            }
+                            result.technology_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__username => {
+                            if !fields.insert(__FieldTag::__username) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for username",
+                                ));
+                            }
+                            result.username = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__authentication_mode => {
+                            if !fields.insert(__FieldTag::__authentication_mode) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for authentication_mode",
+                                ));
+                            }
+                            result.authentication_mode = map.next_value::<std::option::Option<crate::model::goldengate_oracle_connection_properties::OracleAuthenticationMode>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__connection_string => {
+                            if !fields.insert(__FieldTag::__connection_string) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for connection_string",
+                                ));
+                            }
+                            result.connection_string = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__session_mode => {
+                            if !fields.insert(__FieldTag::__session_mode) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for session_mode",
+                                ));
+                            }
+                            result.session_mode = map.next_value::<std::option::Option<crate::model::goldengate_oracle_connection_properties::SessionMode>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__gcp_oracle_database_id => {
+                            if !fields.insert(__FieldTag::__gcp_oracle_database_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for gcp_oracle_database_id",
+                                ));
+                            }
+                            result.gcp_oracle_database_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__wallet_file => {
+                            if !fields.insert(__FieldTag::__wallet_file) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for wallet_file",
+                                ));
+                            }
+                            result.wallet_file = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateGoldengateConnectionProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __password,
+            __password_secret_version,
+            __technology_type,
+            __goldengate_deployment_id,
+            __host,
+            __port,
+            __username,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter
+                            .write_str("a field name for GoldengateGoldengateConnectionProperties")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "password" => Ok(__FieldTag::__password),
+                            "passwordSecretVersion" => Ok(__FieldTag::__password_secret_version),
+                            "password_secret_version" => Ok(__FieldTag::__password_secret_version),
+                            "technologyType" => Ok(__FieldTag::__technology_type),
+                            "technology_type" => Ok(__FieldTag::__technology_type),
+                            "goldengateDeploymentId" => Ok(__FieldTag::__goldengate_deployment_id),
+                            "goldengate_deployment_id" => {
+                                Ok(__FieldTag::__goldengate_deployment_id)
+                            }
+                            "host" => Ok(__FieldTag::__host),
+                            "port" => Ok(__FieldTag::__port),
+                            "username" => Ok(__FieldTag::__username),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateGoldengateConnectionProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateGoldengateConnectionProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__password => {
+                            if !fields.insert(__FieldTag::__password) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for password",
+                                ));
+                            }
+                            if result.connection_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateGoldengateConnectionProperties.password, latest field was password",
+                                ));
+                            }
+                            result.connection_password_options = std::option::Option::Some(
+                                crate::model::goldengate_goldengate_connection_properties::ConnectionPasswordOptions::Password(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__password_secret_version => {
+                            if !fields.insert(__FieldTag::__password_secret_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for password_secret_version",
+                                ));
+                            }
+                            if result.connection_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateGoldengateConnectionProperties.password_secret_version, latest field was passwordSecretVersion",
+                                ));
+                            }
+                            result.connection_password_options = std::option::Option::Some(
+                                crate::model::goldengate_goldengate_connection_properties::ConnectionPasswordOptions::PasswordSecretVersion(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__technology_type => {
+                            if !fields.insert(__FieldTag::__technology_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for technology_type",
+                                ));
+                            }
+                            result.technology_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__goldengate_deployment_id => {
+                            if !fields.insert(__FieldTag::__goldengate_deployment_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for goldengate_deployment_id",
+                                ));
+                            }
+                            result.goldengate_deployment_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__host => {
+                            if !fields.insert(__FieldTag::__host) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for host",
+                                ));
+                            }
+                            result.host = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__port => {
+                            if !fields.insert(__FieldTag::__port) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for port",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.port = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__username => {
+                            if !fields.insert(__FieldTag::__username) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for username",
+                                ));
+                            }
+                            result.username = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateGenericConnectionProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __technology_type,
+            __host,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter
+                            .write_str("a field name for GoldengateGenericConnectionProperties")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "technologyType" => Ok(__FieldTag::__technology_type),
+                            "technology_type" => Ok(__FieldTag::__technology_type),
+                            "host" => Ok(__FieldTag::__host),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateGenericConnectionProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateGenericConnectionProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__technology_type => {
+                            if !fields.insert(__FieldTag::__technology_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for technology_type",
+                                ));
+                            }
+                            result.technology_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__host => {
+                            if !fields.insert(__FieldTag::__host) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for host",
+                                ));
+                            }
+                            result.host = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateGoogleCloudStorageConnectionProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __technology_type,
+            __service_account_key_file,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str(
+                            "a field name for GoldengateGoogleCloudStorageConnectionProperties",
+                        )
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "technologyType" => Ok(__FieldTag::__technology_type),
+                            "technology_type" => Ok(__FieldTag::__technology_type),
+                            "serviceAccountKeyFile" => Ok(__FieldTag::__service_account_key_file),
+                            "service_account_key_file" => {
+                                Ok(__FieldTag::__service_account_key_file)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateGoogleCloudStorageConnectionProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateGoogleCloudStorageConnectionProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__technology_type => {
+                            if !fields.insert(__FieldTag::__technology_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for technology_type",
+                                ));
+                            }
+                            result.technology_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__service_account_key_file => {
+                            if !fields.insert(__FieldTag::__service_account_key_file) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for service_account_key_file",
+                                ));
+                            }
+                            result.service_account_key_file = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateGoogleBigQueryConnectionProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __technology_type,
+            __service_account_key_file,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str(
+                            "a field name for GoldengateGoogleBigQueryConnectionProperties",
+                        )
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "technologyType" => Ok(__FieldTag::__technology_type),
+                            "technology_type" => Ok(__FieldTag::__technology_type),
+                            "serviceAccountKeyFile" => Ok(__FieldTag::__service_account_key_file),
+                            "service_account_key_file" => {
+                                Ok(__FieldTag::__service_account_key_file)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateGoogleBigQueryConnectionProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateGoogleBigQueryConnectionProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__technology_type => {
+                            if !fields.insert(__FieldTag::__technology_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for technology_type",
+                                ));
+                            }
+                            result.technology_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__service_account_key_file => {
+                            if !fields.insert(__FieldTag::__service_account_key_file) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for service_account_key_file",
+                                ));
+                            }
+                            result.service_account_key_file = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateMysqlConnectionProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __password,
+            __password_secret_version,
+            __technology_type,
+            __username,
+            __host,
+            __port,
+            __database,
+            __security_protocol,
+            __ssl_mode,
+            __ssl_ca_file,
+            __ssl_crl_file,
+            __ssl_cert_file,
+            __ssl_key_file,
+            __additional_attributes,
+            __db_system_id,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GoldengateMysqlConnectionProperties")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "password" => Ok(__FieldTag::__password),
+                            "passwordSecretVersion" => Ok(__FieldTag::__password_secret_version),
+                            "password_secret_version" => Ok(__FieldTag::__password_secret_version),
+                            "technologyType" => Ok(__FieldTag::__technology_type),
+                            "technology_type" => Ok(__FieldTag::__technology_type),
+                            "username" => Ok(__FieldTag::__username),
+                            "host" => Ok(__FieldTag::__host),
+                            "port" => Ok(__FieldTag::__port),
+                            "database" => Ok(__FieldTag::__database),
+                            "securityProtocol" => Ok(__FieldTag::__security_protocol),
+                            "security_protocol" => Ok(__FieldTag::__security_protocol),
+                            "sslMode" => Ok(__FieldTag::__ssl_mode),
+                            "ssl_mode" => Ok(__FieldTag::__ssl_mode),
+                            "sslCaFile" => Ok(__FieldTag::__ssl_ca_file),
+                            "ssl_ca_file" => Ok(__FieldTag::__ssl_ca_file),
+                            "sslCrlFile" => Ok(__FieldTag::__ssl_crl_file),
+                            "ssl_crl_file" => Ok(__FieldTag::__ssl_crl_file),
+                            "sslCertFile" => Ok(__FieldTag::__ssl_cert_file),
+                            "ssl_cert_file" => Ok(__FieldTag::__ssl_cert_file),
+                            "sslKeyFile" => Ok(__FieldTag::__ssl_key_file),
+                            "ssl_key_file" => Ok(__FieldTag::__ssl_key_file),
+                            "additionalAttributes" => Ok(__FieldTag::__additional_attributes),
+                            "additional_attributes" => Ok(__FieldTag::__additional_attributes),
+                            "dbSystemId" => Ok(__FieldTag::__db_system_id),
+                            "db_system_id" => Ok(__FieldTag::__db_system_id),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateMysqlConnectionProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateMysqlConnectionProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__password => {
+                            if !fields.insert(__FieldTag::__password) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for password",
+                                ));
+                            }
+                            if result.connection_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateMysqlConnectionProperties.password, latest field was password",
+                                ));
+                            }
+                            result.connection_password_options = std::option::Option::Some(
+                                crate::model::goldengate_mysql_connection_properties::ConnectionPasswordOptions::Password(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__password_secret_version => {
+                            if !fields.insert(__FieldTag::__password_secret_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for password_secret_version",
+                                ));
+                            }
+                            if result.connection_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateMysqlConnectionProperties.password_secret_version, latest field was passwordSecretVersion",
+                                ));
+                            }
+                            result.connection_password_options = std::option::Option::Some(
+                                crate::model::goldengate_mysql_connection_properties::ConnectionPasswordOptions::PasswordSecretVersion(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__technology_type => {
+                            if !fields.insert(__FieldTag::__technology_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for technology_type",
+                                ));
+                            }
+                            result.technology_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__username => {
+                            if !fields.insert(__FieldTag::__username) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for username",
+                                ));
+                            }
+                            result.username = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__host => {
+                            if !fields.insert(__FieldTag::__host) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for host",
+                                ));
+                            }
+                            result.host = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__port => {
+                            if !fields.insert(__FieldTag::__port) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for port",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.port = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__database => {
+                            if !fields.insert(__FieldTag::__database) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for database",
+                                ));
+                            }
+                            result.database = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__security_protocol => {
+                            if !fields.insert(__FieldTag::__security_protocol) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for security_protocol",
+                                ));
+                            }
+                            result.security_protocol = map.next_value::<std::option::Option<crate::model::goldengate_mysql_connection_properties::MysqlSecurityProtocol>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__ssl_mode => {
+                            if !fields.insert(__FieldTag::__ssl_mode) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ssl_mode",
+                                ));
+                            }
+                            result.ssl_mode = map
+                                .next_value::<std::option::Option<
+                                    crate::model::goldengate_mysql_connection_properties::SSLMode,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__ssl_ca_file => {
+                            if !fields.insert(__FieldTag::__ssl_ca_file) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ssl_ca_file",
+                                ));
+                            }
+                            result.ssl_ca_file = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__ssl_crl_file => {
+                            if !fields.insert(__FieldTag::__ssl_crl_file) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ssl_crl_file",
+                                ));
+                            }
+                            result.ssl_crl_file = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__ssl_cert_file => {
+                            if !fields.insert(__FieldTag::__ssl_cert_file) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ssl_cert_file",
+                                ));
+                            }
+                            result.ssl_cert_file = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__ssl_key_file => {
+                            if !fields.insert(__FieldTag::__ssl_key_file) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ssl_key_file",
+                                ));
+                            }
+                            result.ssl_key_file = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__additional_attributes => {
+                            if !fields.insert(__FieldTag::__additional_attributes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for additional_attributes",
+                                ));
+                            }
+                            result.additional_attributes = map.next_value::<std::option::Option<std::vec::Vec<crate::model::NameValuePair>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__db_system_id => {
+                            if !fields.insert(__FieldTag::__db_system_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for db_system_id",
+                                ));
+                            }
+                            result.db_system_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateKafkaConnectionProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __password,
+            __password_secret_version,
+            __trust_store_password,
+            __trust_store_password_secret_version,
+            __key_store_password,
+            __key_store_password_secret_version,
+            __ssl_key_password,
+            __ssl_key_password_secret_version,
+            __technology_type,
+            __stream_pool_id,
+            __cluster_id,
+            __bootstrap_servers,
+            __security_protocol,
+            __username,
+            __trust_store_file,
+            __key_store_file,
+            __consumer_properties_file,
+            __producer_properties_file,
+            __use_resource_principal,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GoldengateKafkaConnectionProperties")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "password" => Ok(__FieldTag::__password),
+                            "passwordSecretVersion" => Ok(__FieldTag::__password_secret_version),
+                            "password_secret_version" => Ok(__FieldTag::__password_secret_version),
+                            "trustStorePassword" => Ok(__FieldTag::__trust_store_password),
+                            "trust_store_password" => Ok(__FieldTag::__trust_store_password),
+                            "trustStorePasswordSecretVersion" => {
+                                Ok(__FieldTag::__trust_store_password_secret_version)
+                            }
+                            "trust_store_password_secret_version" => {
+                                Ok(__FieldTag::__trust_store_password_secret_version)
+                            }
+                            "keyStorePassword" => Ok(__FieldTag::__key_store_password),
+                            "key_store_password" => Ok(__FieldTag::__key_store_password),
+                            "keyStorePasswordSecretVersion" => {
+                                Ok(__FieldTag::__key_store_password_secret_version)
+                            }
+                            "key_store_password_secret_version" => {
+                                Ok(__FieldTag::__key_store_password_secret_version)
+                            }
+                            "sslKeyPassword" => Ok(__FieldTag::__ssl_key_password),
+                            "ssl_key_password" => Ok(__FieldTag::__ssl_key_password),
+                            "sslKeyPasswordSecretVersion" => {
+                                Ok(__FieldTag::__ssl_key_password_secret_version)
+                            }
+                            "ssl_key_password_secret_version" => {
+                                Ok(__FieldTag::__ssl_key_password_secret_version)
+                            }
+                            "technologyType" => Ok(__FieldTag::__technology_type),
+                            "technology_type" => Ok(__FieldTag::__technology_type),
+                            "streamPoolId" => Ok(__FieldTag::__stream_pool_id),
+                            "stream_pool_id" => Ok(__FieldTag::__stream_pool_id),
+                            "clusterId" => Ok(__FieldTag::__cluster_id),
+                            "cluster_id" => Ok(__FieldTag::__cluster_id),
+                            "bootstrapServers" => Ok(__FieldTag::__bootstrap_servers),
+                            "bootstrap_servers" => Ok(__FieldTag::__bootstrap_servers),
+                            "securityProtocol" => Ok(__FieldTag::__security_protocol),
+                            "security_protocol" => Ok(__FieldTag::__security_protocol),
+                            "username" => Ok(__FieldTag::__username),
+                            "trustStoreFile" => Ok(__FieldTag::__trust_store_file),
+                            "trust_store_file" => Ok(__FieldTag::__trust_store_file),
+                            "keyStoreFile" => Ok(__FieldTag::__key_store_file),
+                            "key_store_file" => Ok(__FieldTag::__key_store_file),
+                            "consumerPropertiesFile" => Ok(__FieldTag::__consumer_properties_file),
+                            "consumer_properties_file" => {
+                                Ok(__FieldTag::__consumer_properties_file)
+                            }
+                            "producerPropertiesFile" => Ok(__FieldTag::__producer_properties_file),
+                            "producer_properties_file" => {
+                                Ok(__FieldTag::__producer_properties_file)
+                            }
+                            "useResourcePrincipal" => Ok(__FieldTag::__use_resource_principal),
+                            "use_resource_principal" => Ok(__FieldTag::__use_resource_principal),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateKafkaConnectionProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateKafkaConnectionProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__password => {
+                            if !fields.insert(__FieldTag::__password) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for password",
+                                ));
+                            }
+                            if result.connection_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateKafkaConnectionProperties.password, latest field was password",
+                                ));
+                            }
+                            result.connection_password_options = std::option::Option::Some(
+                                crate::model::goldengate_kafka_connection_properties::ConnectionPasswordOptions::Password(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__password_secret_version => {
+                            if !fields.insert(__FieldTag::__password_secret_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for password_secret_version",
+                                ));
+                            }
+                            if result.connection_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateKafkaConnectionProperties.password_secret_version, latest field was passwordSecretVersion",
+                                ));
+                            }
+                            result.connection_password_options = std::option::Option::Some(
+                                crate::model::goldengate_kafka_connection_properties::ConnectionPasswordOptions::PasswordSecretVersion(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__trust_store_password => {
+                            if !fields.insert(__FieldTag::__trust_store_password) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for trust_store_password",
+                                ));
+                            }
+                            if result.trust_store_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `trust_store_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateKafkaConnectionProperties.trust_store_password, latest field was trustStorePassword",
+                                ));
+                            }
+                            result.trust_store_password_options = std::option::Option::Some(
+                                crate::model::goldengate_kafka_connection_properties::TrustStorePasswordOptions::TrustStorePassword(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__trust_store_password_secret_version => {
+                            if !fields.insert(__FieldTag::__trust_store_password_secret_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for trust_store_password_secret_version",
+                                ));
+                            }
+                            if result.trust_store_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `trust_store_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateKafkaConnectionProperties.trust_store_password_secret_version, latest field was trustStorePasswordSecretVersion",
+                                ));
+                            }
+                            result.trust_store_password_options = std::option::Option::Some(
+                                crate::model::goldengate_kafka_connection_properties::TrustStorePasswordOptions::TrustStorePasswordSecretVersion(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__key_store_password => {
+                            if !fields.insert(__FieldTag::__key_store_password) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for key_store_password",
+                                ));
+                            }
+                            if result.key_store_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `key_store_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateKafkaConnectionProperties.key_store_password, latest field was keyStorePassword",
+                                ));
+                            }
+                            result.key_store_password_options = std::option::Option::Some(
+                                crate::model::goldengate_kafka_connection_properties::KeyStorePasswordOptions::KeyStorePassword(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__key_store_password_secret_version => {
+                            if !fields.insert(__FieldTag::__key_store_password_secret_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for key_store_password_secret_version",
+                                ));
+                            }
+                            if result.key_store_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `key_store_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateKafkaConnectionProperties.key_store_password_secret_version, latest field was keyStorePasswordSecretVersion",
+                                ));
+                            }
+                            result.key_store_password_options = std::option::Option::Some(
+                                crate::model::goldengate_kafka_connection_properties::KeyStorePasswordOptions::KeyStorePasswordSecretVersion(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__ssl_key_password => {
+                            if !fields.insert(__FieldTag::__ssl_key_password) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ssl_key_password",
+                                ));
+                            }
+                            if result.ssl_key_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `ssl_key_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateKafkaConnectionProperties.ssl_key_password, latest field was sslKeyPassword",
+                                ));
+                            }
+                            result.ssl_key_password_options = std::option::Option::Some(
+                                crate::model::goldengate_kafka_connection_properties::SslKeyPasswordOptions::SslKeyPassword(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__ssl_key_password_secret_version => {
+                            if !fields.insert(__FieldTag::__ssl_key_password_secret_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ssl_key_password_secret_version",
+                                ));
+                            }
+                            if result.ssl_key_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `ssl_key_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateKafkaConnectionProperties.ssl_key_password_secret_version, latest field was sslKeyPasswordSecretVersion",
+                                ));
+                            }
+                            result.ssl_key_password_options = std::option::Option::Some(
+                                crate::model::goldengate_kafka_connection_properties::SslKeyPasswordOptions::SslKeyPasswordSecretVersion(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__technology_type => {
+                            if !fields.insert(__FieldTag::__technology_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for technology_type",
+                                ));
+                            }
+                            result.technology_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__stream_pool_id => {
+                            if !fields.insert(__FieldTag::__stream_pool_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for stream_pool_id",
+                                ));
+                            }
+                            result.stream_pool_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__cluster_id => {
+                            if !fields.insert(__FieldTag::__cluster_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cluster_id",
+                                ));
+                            }
+                            result.cluster_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__bootstrap_servers => {
+                            if !fields.insert(__FieldTag::__bootstrap_servers) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for bootstrap_servers",
+                                ));
+                            }
+                            result.bootstrap_servers = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::KafkaBootstrapServer>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__security_protocol => {
+                            if !fields.insert(__FieldTag::__security_protocol) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for security_protocol",
+                                ));
+                            }
+                            result.security_protocol = map.next_value::<std::option::Option<crate::model::goldengate_kafka_connection_properties::KafkaSecurityProtocol>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__username => {
+                            if !fields.insert(__FieldTag::__username) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for username",
+                                ));
+                            }
+                            result.username = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__trust_store_file => {
+                            if !fields.insert(__FieldTag::__trust_store_file) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for trust_store_file",
+                                ));
+                            }
+                            result.trust_store_file = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__key_store_file => {
+                            if !fields.insert(__FieldTag::__key_store_file) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for key_store_file",
+                                ));
+                            }
+                            result.key_store_file = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__consumer_properties_file => {
+                            if !fields.insert(__FieldTag::__consumer_properties_file) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for consumer_properties_file",
+                                ));
+                            }
+                            result.consumer_properties_file = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__producer_properties_file => {
+                            if !fields.insert(__FieldTag::__producer_properties_file) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for producer_properties_file",
+                                ));
+                            }
+                            result.producer_properties_file = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__use_resource_principal => {
+                            if !fields.insert(__FieldTag::__use_resource_principal) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for use_resource_principal",
+                                ));
+                            }
+                            result.use_resource_principal = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateKafkaSchemaRegistryConnectionProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __password,
+            __password_secret_version,
+            __trust_store_password,
+            __trust_store_password_secret_version,
+            __key_store_password,
+            __key_store_password_secret_version,
+            __ssl_key_password,
+            __ssl_key_password_secret_version,
+            __technology_type,
+            __url,
+            __authentication_type,
+            __username,
+            __trust_store_file,
+            __key_store_file,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str(
+                            "a field name for GoldengateKafkaSchemaRegistryConnectionProperties",
+                        )
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "password" => Ok(__FieldTag::__password),
+                            "passwordSecretVersion" => Ok(__FieldTag::__password_secret_version),
+                            "password_secret_version" => Ok(__FieldTag::__password_secret_version),
+                            "trustStorePassword" => Ok(__FieldTag::__trust_store_password),
+                            "trust_store_password" => Ok(__FieldTag::__trust_store_password),
+                            "trustStorePasswordSecretVersion" => {
+                                Ok(__FieldTag::__trust_store_password_secret_version)
+                            }
+                            "trust_store_password_secret_version" => {
+                                Ok(__FieldTag::__trust_store_password_secret_version)
+                            }
+                            "keyStorePassword" => Ok(__FieldTag::__key_store_password),
+                            "key_store_password" => Ok(__FieldTag::__key_store_password),
+                            "keyStorePasswordSecretVersion" => {
+                                Ok(__FieldTag::__key_store_password_secret_version)
+                            }
+                            "key_store_password_secret_version" => {
+                                Ok(__FieldTag::__key_store_password_secret_version)
+                            }
+                            "sslKeyPassword" => Ok(__FieldTag::__ssl_key_password),
+                            "ssl_key_password" => Ok(__FieldTag::__ssl_key_password),
+                            "sslKeyPasswordSecretVersion" => {
+                                Ok(__FieldTag::__ssl_key_password_secret_version)
+                            }
+                            "ssl_key_password_secret_version" => {
+                                Ok(__FieldTag::__ssl_key_password_secret_version)
+                            }
+                            "technologyType" => Ok(__FieldTag::__technology_type),
+                            "technology_type" => Ok(__FieldTag::__technology_type),
+                            "url" => Ok(__FieldTag::__url),
+                            "authenticationType" => Ok(__FieldTag::__authentication_type),
+                            "authentication_type" => Ok(__FieldTag::__authentication_type),
+                            "username" => Ok(__FieldTag::__username),
+                            "trustStoreFile" => Ok(__FieldTag::__trust_store_file),
+                            "trust_store_file" => Ok(__FieldTag::__trust_store_file),
+                            "keyStoreFile" => Ok(__FieldTag::__key_store_file),
+                            "key_store_file" => Ok(__FieldTag::__key_store_file),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateKafkaSchemaRegistryConnectionProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateKafkaSchemaRegistryConnectionProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__password => {
+                            if !fields.insert(__FieldTag::__password) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for password",
+                                ));
+                            }
+                            if result.connection_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateKafkaSchemaRegistryConnectionProperties.password, latest field was password",
+                                ));
+                            }
+                            result.connection_password_options = std::option::Option::Some(
+                                crate::model::goldengate_kafka_schema_registry_connection_properties::ConnectionPasswordOptions::Password(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__password_secret_version => {
+                            if !fields.insert(__FieldTag::__password_secret_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for password_secret_version",
+                                ));
+                            }
+                            if result.connection_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateKafkaSchemaRegistryConnectionProperties.password_secret_version, latest field was passwordSecretVersion",
+                                ));
+                            }
+                            result.connection_password_options = std::option::Option::Some(
+                                crate::model::goldengate_kafka_schema_registry_connection_properties::ConnectionPasswordOptions::PasswordSecretVersion(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__trust_store_password => {
+                            if !fields.insert(__FieldTag::__trust_store_password) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for trust_store_password",
+                                ));
+                            }
+                            if result.trust_store_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `trust_store_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateKafkaSchemaRegistryConnectionProperties.trust_store_password, latest field was trustStorePassword",
+                                ));
+                            }
+                            result.trust_store_password_options = std::option::Option::Some(
+                                crate::model::goldengate_kafka_schema_registry_connection_properties::TrustStorePasswordOptions::TrustStorePassword(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__trust_store_password_secret_version => {
+                            if !fields.insert(__FieldTag::__trust_store_password_secret_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for trust_store_password_secret_version",
+                                ));
+                            }
+                            if result.trust_store_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `trust_store_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateKafkaSchemaRegistryConnectionProperties.trust_store_password_secret_version, latest field was trustStorePasswordSecretVersion",
+                                ));
+                            }
+                            result.trust_store_password_options = std::option::Option::Some(
+                                crate::model::goldengate_kafka_schema_registry_connection_properties::TrustStorePasswordOptions::TrustStorePasswordSecretVersion(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__key_store_password => {
+                            if !fields.insert(__FieldTag::__key_store_password) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for key_store_password",
+                                ));
+                            }
+                            if result.key_store_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `key_store_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateKafkaSchemaRegistryConnectionProperties.key_store_password, latest field was keyStorePassword",
+                                ));
+                            }
+                            result.key_store_password_options = std::option::Option::Some(
+                                crate::model::goldengate_kafka_schema_registry_connection_properties::KeyStorePasswordOptions::KeyStorePassword(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__key_store_password_secret_version => {
+                            if !fields.insert(__FieldTag::__key_store_password_secret_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for key_store_password_secret_version",
+                                ));
+                            }
+                            if result.key_store_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `key_store_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateKafkaSchemaRegistryConnectionProperties.key_store_password_secret_version, latest field was keyStorePasswordSecretVersion",
+                                ));
+                            }
+                            result.key_store_password_options = std::option::Option::Some(
+                                crate::model::goldengate_kafka_schema_registry_connection_properties::KeyStorePasswordOptions::KeyStorePasswordSecretVersion(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__ssl_key_password => {
+                            if !fields.insert(__FieldTag::__ssl_key_password) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ssl_key_password",
+                                ));
+                            }
+                            if result.ssl_key_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `ssl_key_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateKafkaSchemaRegistryConnectionProperties.ssl_key_password, latest field was sslKeyPassword",
+                                ));
+                            }
+                            result.ssl_key_password_options = std::option::Option::Some(
+                                crate::model::goldengate_kafka_schema_registry_connection_properties::SslKeyPasswordOptions::SslKeyPassword(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__ssl_key_password_secret_version => {
+                            if !fields.insert(__FieldTag::__ssl_key_password_secret_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ssl_key_password_secret_version",
+                                ));
+                            }
+                            if result.ssl_key_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `ssl_key_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateKafkaSchemaRegistryConnectionProperties.ssl_key_password_secret_version, latest field was sslKeyPasswordSecretVersion",
+                                ));
+                            }
+                            result.ssl_key_password_options = std::option::Option::Some(
+                                crate::model::goldengate_kafka_schema_registry_connection_properties::SslKeyPasswordOptions::SslKeyPasswordSecretVersion(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__technology_type => {
+                            if !fields.insert(__FieldTag::__technology_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for technology_type",
+                                ));
+                            }
+                            result.technology_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__url => {
+                            if !fields.insert(__FieldTag::__url) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for url",
+                                ));
+                            }
+                            result.url = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__authentication_type => {
+                            if !fields.insert(__FieldTag::__authentication_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for authentication_type",
+                                ));
+                            }
+                            result.authentication_type = map.next_value::<std::option::Option<crate::model::goldengate_kafka_schema_registry_connection_properties::AuthenticationType>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__username => {
+                            if !fields.insert(__FieldTag::__username) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for username",
+                                ));
+                            }
+                            result.username = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__trust_store_file => {
+                            if !fields.insert(__FieldTag::__trust_store_file) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for trust_store_file",
+                                ));
+                            }
+                            result.trust_store_file = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__key_store_file => {
+                            if !fields.insert(__FieldTag::__key_store_file) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for key_store_file",
+                                ));
+                            }
+                            result.key_store_file = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateOciObjectStorageConnectionProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __technology_type,
+            __tenancy_id,
+            __region,
+            __user_id,
+            __private_key_file,
+            __private_key_passphrase_secret,
+            __public_key_fingerprint,
+            __use_resource_principal,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str(
+                            "a field name for GoldengateOciObjectStorageConnectionProperties",
+                        )
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "technologyType" => Ok(__FieldTag::__technology_type),
+                            "technology_type" => Ok(__FieldTag::__technology_type),
+                            "tenancyId" => Ok(__FieldTag::__tenancy_id),
+                            "tenancy_id" => Ok(__FieldTag::__tenancy_id),
+                            "region" => Ok(__FieldTag::__region),
+                            "userId" => Ok(__FieldTag::__user_id),
+                            "user_id" => Ok(__FieldTag::__user_id),
+                            "privateKeyFile" => Ok(__FieldTag::__private_key_file),
+                            "private_key_file" => Ok(__FieldTag::__private_key_file),
+                            "privateKeyPassphraseSecret" => {
+                                Ok(__FieldTag::__private_key_passphrase_secret)
+                            }
+                            "private_key_passphrase_secret" => {
+                                Ok(__FieldTag::__private_key_passphrase_secret)
+                            }
+                            "publicKeyFingerprint" => Ok(__FieldTag::__public_key_fingerprint),
+                            "public_key_fingerprint" => Ok(__FieldTag::__public_key_fingerprint),
+                            "useResourcePrincipal" => Ok(__FieldTag::__use_resource_principal),
+                            "use_resource_principal" => Ok(__FieldTag::__use_resource_principal),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateOciObjectStorageConnectionProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateOciObjectStorageConnectionProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__technology_type => {
+                            if !fields.insert(__FieldTag::__technology_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for technology_type",
+                                ));
+                            }
+                            result.technology_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__tenancy_id => {
+                            if !fields.insert(__FieldTag::__tenancy_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for tenancy_id",
+                                ));
+                            }
+                            result.tenancy_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__region => {
+                            if !fields.insert(__FieldTag::__region) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for region",
+                                ));
+                            }
+                            result.region = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__user_id => {
+                            if !fields.insert(__FieldTag::__user_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for user_id",
+                                ));
+                            }
+                            result.user_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__private_key_file => {
+                            if !fields.insert(__FieldTag::__private_key_file) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for private_key_file",
+                                ));
+                            }
+                            result.private_key_file = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__private_key_passphrase_secret => {
+                            if !fields.insert(__FieldTag::__private_key_passphrase_secret) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for private_key_passphrase_secret",
+                                ));
+                            }
+                            result.private_key_passphrase_secret = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__public_key_fingerprint => {
+                            if !fields.insert(__FieldTag::__public_key_fingerprint) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for public_key_fingerprint",
+                                ));
+                            }
+                            result.public_key_fingerprint = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__use_resource_principal => {
+                            if !fields.insert(__FieldTag::__use_resource_principal) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for use_resource_principal",
+                                ));
+                            }
+                            result.use_resource_principal = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de>
+    for super::GoldengateAzureDataLakeStorageConnectionProperties
+{
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __technology_type,
+            __authentication_type,
+            __account,
+            __account_key_secret,
+            __sas_token_secret,
+            __azure_tenant_id,
+            __client_id,
+            __client_secret,
+            __endpoint,
+            __azure_authority_host,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str(
+                            "a field name for GoldengateAzureDataLakeStorageConnectionProperties",
+                        )
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "technologyType" => Ok(__FieldTag::__technology_type),
+                            "technology_type" => Ok(__FieldTag::__technology_type),
+                            "authenticationType" => Ok(__FieldTag::__authentication_type),
+                            "authentication_type" => Ok(__FieldTag::__authentication_type),
+                            "account" => Ok(__FieldTag::__account),
+                            "accountKeySecret" => Ok(__FieldTag::__account_key_secret),
+                            "account_key_secret" => Ok(__FieldTag::__account_key_secret),
+                            "sasTokenSecret" => Ok(__FieldTag::__sas_token_secret),
+                            "sas_token_secret" => Ok(__FieldTag::__sas_token_secret),
+                            "azureTenantId" => Ok(__FieldTag::__azure_tenant_id),
+                            "azure_tenant_id" => Ok(__FieldTag::__azure_tenant_id),
+                            "clientId" => Ok(__FieldTag::__client_id),
+                            "client_id" => Ok(__FieldTag::__client_id),
+                            "clientSecret" => Ok(__FieldTag::__client_secret),
+                            "client_secret" => Ok(__FieldTag::__client_secret),
+                            "endpoint" => Ok(__FieldTag::__endpoint),
+                            "azureAuthorityHost" => Ok(__FieldTag::__azure_authority_host),
+                            "azure_authority_host" => Ok(__FieldTag::__azure_authority_host),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateAzureDataLakeStorageConnectionProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateAzureDataLakeStorageConnectionProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__technology_type => {
+                            if !fields.insert(__FieldTag::__technology_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for technology_type",
+                                ));
+                            }
+                            result.technology_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__authentication_type => {
+                            if !fields.insert(__FieldTag::__authentication_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for authentication_type",
+                                ));
+                            }
+                            result.authentication_type = map.next_value::<std::option::Option<crate::model::goldengate_azure_data_lake_storage_connection_properties::AuthenticationType>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__account => {
+                            if !fields.insert(__FieldTag::__account) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for account",
+                                ));
+                            }
+                            result.account = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__account_key_secret => {
+                            if !fields.insert(__FieldTag::__account_key_secret) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for account_key_secret",
+                                ));
+                            }
+                            result.account_key_secret = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__sas_token_secret => {
+                            if !fields.insert(__FieldTag::__sas_token_secret) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for sas_token_secret",
+                                ));
+                            }
+                            result.sas_token_secret = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__azure_tenant_id => {
+                            if !fields.insert(__FieldTag::__azure_tenant_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for azure_tenant_id",
+                                ));
+                            }
+                            result.azure_tenant_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__client_id => {
+                            if !fields.insert(__FieldTag::__client_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for client_id",
+                                ));
+                            }
+                            result.client_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__client_secret => {
+                            if !fields.insert(__FieldTag::__client_secret) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for client_secret",
+                                ));
+                            }
+                            result.client_secret = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__endpoint => {
+                            if !fields.insert(__FieldTag::__endpoint) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for endpoint",
+                                ));
+                            }
+                            result.endpoint = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__azure_authority_host => {
+                            if !fields.insert(__FieldTag::__azure_authority_host) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for azure_authority_host",
+                                ));
+                            }
+                            result.azure_authority_host = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de>
+    for super::GoldengateAzureSynapseAnalyticsConnectionProperties
+{
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __password,
+            __password_secret_version,
+            __technology_type,
+            __connection_string,
+            __username,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str(
+                            "a field name for GoldengateAzureSynapseAnalyticsConnectionProperties",
+                        )
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "password" => Ok(__FieldTag::__password),
+                            "passwordSecretVersion" => Ok(__FieldTag::__password_secret_version),
+                            "password_secret_version" => Ok(__FieldTag::__password_secret_version),
+                            "technologyType" => Ok(__FieldTag::__technology_type),
+                            "technology_type" => Ok(__FieldTag::__technology_type),
+                            "connectionString" => Ok(__FieldTag::__connection_string),
+                            "connection_string" => Ok(__FieldTag::__connection_string),
+                            "username" => Ok(__FieldTag::__username),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateAzureSynapseAnalyticsConnectionProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateAzureSynapseAnalyticsConnectionProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__password => {
+                            if !fields.insert(__FieldTag::__password) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for password",
+                                ));
+                            }
+                            if result.connection_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateAzureSynapseAnalyticsConnectionProperties.password, latest field was password",
+                                ));
+                            }
+                            result.connection_password_options = std::option::Option::Some(
+                                crate::model::goldengate_azure_synapse_analytics_connection_properties::ConnectionPasswordOptions::Password(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__password_secret_version => {
+                            if !fields.insert(__FieldTag::__password_secret_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for password_secret_version",
+                                ));
+                            }
+                            if result.connection_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateAzureSynapseAnalyticsConnectionProperties.password_secret_version, latest field was passwordSecretVersion",
+                                ));
+                            }
+                            result.connection_password_options = std::option::Option::Some(
+                                crate::model::goldengate_azure_synapse_analytics_connection_properties::ConnectionPasswordOptions::PasswordSecretVersion(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__technology_type => {
+                            if !fields.insert(__FieldTag::__technology_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for technology_type",
+                                ));
+                            }
+                            result.technology_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__connection_string => {
+                            if !fields.insert(__FieldTag::__connection_string) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for connection_string",
+                                ));
+                            }
+                            result.connection_string = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__username => {
+                            if !fields.insert(__FieldTag::__username) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for username",
+                                ));
+                            }
+                            result.username = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengatePostgresqlConnectionProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __password,
+            __password_secret_version,
+            __technology_type,
+            __database,
+            __host,
+            __port,
+            __username,
+            __additional_attributes,
+            __security_protocol,
+            __ssl_mode,
+            __ssl_ca_file,
+            __ssl_crl_file,
+            __ssl_cert_file,
+            __ssl_key_file,
+            __db_system_id,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter
+                            .write_str("a field name for GoldengatePostgresqlConnectionProperties")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "password" => Ok(__FieldTag::__password),
+                            "passwordSecretVersion" => Ok(__FieldTag::__password_secret_version),
+                            "password_secret_version" => Ok(__FieldTag::__password_secret_version),
+                            "technologyType" => Ok(__FieldTag::__technology_type),
+                            "technology_type" => Ok(__FieldTag::__technology_type),
+                            "database" => Ok(__FieldTag::__database),
+                            "host" => Ok(__FieldTag::__host),
+                            "port" => Ok(__FieldTag::__port),
+                            "username" => Ok(__FieldTag::__username),
+                            "additionalAttributes" => Ok(__FieldTag::__additional_attributes),
+                            "additional_attributes" => Ok(__FieldTag::__additional_attributes),
+                            "securityProtocol" => Ok(__FieldTag::__security_protocol),
+                            "security_protocol" => Ok(__FieldTag::__security_protocol),
+                            "sslMode" => Ok(__FieldTag::__ssl_mode),
+                            "ssl_mode" => Ok(__FieldTag::__ssl_mode),
+                            "sslCaFile" => Ok(__FieldTag::__ssl_ca_file),
+                            "ssl_ca_file" => Ok(__FieldTag::__ssl_ca_file),
+                            "sslCrlFile" => Ok(__FieldTag::__ssl_crl_file),
+                            "ssl_crl_file" => Ok(__FieldTag::__ssl_crl_file),
+                            "sslCertFile" => Ok(__FieldTag::__ssl_cert_file),
+                            "ssl_cert_file" => Ok(__FieldTag::__ssl_cert_file),
+                            "sslKeyFile" => Ok(__FieldTag::__ssl_key_file),
+                            "ssl_key_file" => Ok(__FieldTag::__ssl_key_file),
+                            "dbSystemId" => Ok(__FieldTag::__db_system_id),
+                            "db_system_id" => Ok(__FieldTag::__db_system_id),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengatePostgresqlConnectionProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengatePostgresqlConnectionProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__password => {
+                            if !fields.insert(__FieldTag::__password) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for password",
+                                ));
+                            }
+                            if result.connection_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengatePostgresqlConnectionProperties.password, latest field was password",
+                                ));
+                            }
+                            result.connection_password_options = std::option::Option::Some(
+                                crate::model::goldengate_postgresql_connection_properties::ConnectionPasswordOptions::Password(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__password_secret_version => {
+                            if !fields.insert(__FieldTag::__password_secret_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for password_secret_version",
+                                ));
+                            }
+                            if result.connection_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengatePostgresqlConnectionProperties.password_secret_version, latest field was passwordSecretVersion",
+                                ));
+                            }
+                            result.connection_password_options = std::option::Option::Some(
+                                crate::model::goldengate_postgresql_connection_properties::ConnectionPasswordOptions::PasswordSecretVersion(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__technology_type => {
+                            if !fields.insert(__FieldTag::__technology_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for technology_type",
+                                ));
+                            }
+                            result.technology_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__database => {
+                            if !fields.insert(__FieldTag::__database) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for database",
+                                ));
+                            }
+                            result.database = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__host => {
+                            if !fields.insert(__FieldTag::__host) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for host",
+                                ));
+                            }
+                            result.host = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__port => {
+                            if !fields.insert(__FieldTag::__port) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for port",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.port = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__username => {
+                            if !fields.insert(__FieldTag::__username) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for username",
+                                ));
+                            }
+                            result.username = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__additional_attributes => {
+                            if !fields.insert(__FieldTag::__additional_attributes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for additional_attributes",
+                                ));
+                            }
+                            result.additional_attributes = map.next_value::<std::option::Option<std::vec::Vec<crate::model::NameValuePair>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__security_protocol => {
+                            if !fields.insert(__FieldTag::__security_protocol) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for security_protocol",
+                                ));
+                            }
+                            result.security_protocol = map.next_value::<std::option::Option<crate::model::goldengate_postgresql_connection_properties::PostgresqlSecurityProtocol>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__ssl_mode => {
+                            if !fields.insert(__FieldTag::__ssl_mode) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ssl_mode",
+                                ));
+                            }
+                            result.ssl_mode = map.next_value::<std::option::Option<crate::model::goldengate_postgresql_connection_properties::PostgresqlSslMode>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__ssl_ca_file => {
+                            if !fields.insert(__FieldTag::__ssl_ca_file) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ssl_ca_file",
+                                ));
+                            }
+                            result.ssl_ca_file = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__ssl_crl_file => {
+                            if !fields.insert(__FieldTag::__ssl_crl_file) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ssl_crl_file",
+                                ));
+                            }
+                            result.ssl_crl_file = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__ssl_cert_file => {
+                            if !fields.insert(__FieldTag::__ssl_cert_file) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ssl_cert_file",
+                                ));
+                            }
+                            result.ssl_cert_file = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__ssl_key_file => {
+                            if !fields.insert(__FieldTag::__ssl_key_file) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ssl_key_file",
+                                ));
+                            }
+                            result.ssl_key_file = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__db_system_id => {
+                            if !fields.insert(__FieldTag::__db_system_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for db_system_id",
+                                ));
+                            }
+                            result.db_system_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateMicrosoftSqlserverConnectionProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __password,
+            __password_secret_version,
+            __technology_type,
+            __database,
+            __host,
+            __port,
+            __username,
+            __additional_attributes,
+            __security_protocol,
+            __ssl_ca_file,
+            __server_certificate_validation_required,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str(
+                            "a field name for GoldengateMicrosoftSqlserverConnectionProperties",
+                        )
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "password" => Ok(__FieldTag::__password),
+                            "passwordSecretVersion" => Ok(__FieldTag::__password_secret_version),
+                            "password_secret_version" => Ok(__FieldTag::__password_secret_version),
+                            "technologyType" => Ok(__FieldTag::__technology_type),
+                            "technology_type" => Ok(__FieldTag::__technology_type),
+                            "database" => Ok(__FieldTag::__database),
+                            "host" => Ok(__FieldTag::__host),
+                            "port" => Ok(__FieldTag::__port),
+                            "username" => Ok(__FieldTag::__username),
+                            "additionalAttributes" => Ok(__FieldTag::__additional_attributes),
+                            "additional_attributes" => Ok(__FieldTag::__additional_attributes),
+                            "securityProtocol" => Ok(__FieldTag::__security_protocol),
+                            "security_protocol" => Ok(__FieldTag::__security_protocol),
+                            "sslCaFile" => Ok(__FieldTag::__ssl_ca_file),
+                            "ssl_ca_file" => Ok(__FieldTag::__ssl_ca_file),
+                            "serverCertificateValidationRequired" => {
+                                Ok(__FieldTag::__server_certificate_validation_required)
+                            }
+                            "server_certificate_validation_required" => {
+                                Ok(__FieldTag::__server_certificate_validation_required)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateMicrosoftSqlserverConnectionProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateMicrosoftSqlserverConnectionProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__password => {
+                            if !fields.insert(__FieldTag::__password) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for password",
+                                ));
+                            }
+                            if result.connection_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateMicrosoftSqlserverConnectionProperties.password, latest field was password",
+                                ));
+                            }
+                            result.connection_password_options = std::option::Option::Some(
+                                crate::model::goldengate_microsoft_sqlserver_connection_properties::ConnectionPasswordOptions::Password(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__password_secret_version => {
+                            if !fields.insert(__FieldTag::__password_secret_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for password_secret_version",
+                                ));
+                            }
+                            if result.connection_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateMicrosoftSqlserverConnectionProperties.password_secret_version, latest field was passwordSecretVersion",
+                                ));
+                            }
+                            result.connection_password_options = std::option::Option::Some(
+                                crate::model::goldengate_microsoft_sqlserver_connection_properties::ConnectionPasswordOptions::PasswordSecretVersion(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__technology_type => {
+                            if !fields.insert(__FieldTag::__technology_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for technology_type",
+                                ));
+                            }
+                            result.technology_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__database => {
+                            if !fields.insert(__FieldTag::__database) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for database",
+                                ));
+                            }
+                            result.database = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__host => {
+                            if !fields.insert(__FieldTag::__host) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for host",
+                                ));
+                            }
+                            result.host = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__port => {
+                            if !fields.insert(__FieldTag::__port) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for port",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.port = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__username => {
+                            if !fields.insert(__FieldTag::__username) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for username",
+                                ));
+                            }
+                            result.username = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__additional_attributes => {
+                            if !fields.insert(__FieldTag::__additional_attributes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for additional_attributes",
+                                ));
+                            }
+                            result.additional_attributes = map.next_value::<std::option::Option<std::vec::Vec<crate::model::NameValuePair>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__security_protocol => {
+                            if !fields.insert(__FieldTag::__security_protocol) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for security_protocol",
+                                ));
+                            }
+                            result.security_protocol = map.next_value::<std::option::Option<crate::model::goldengate_microsoft_sqlserver_connection_properties::MicrosoftSqlserverSecurityProtocol>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__ssl_ca_file => {
+                            if !fields.insert(__FieldTag::__ssl_ca_file) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ssl_ca_file",
+                                ));
+                            }
+                            result.ssl_ca_file = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__server_certificate_validation_required => {
+                            if !fields.insert(__FieldTag::__server_certificate_validation_required)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for server_certificate_validation_required",
+                                ));
+                            }
+                            result.server_certificate_validation_required = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateAmazonS3ConnectionProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __technology_type,
+            __access_key_id,
+            __secret_access_key_secret,
+            __endpoint,
+            __region,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter
+                            .write_str("a field name for GoldengateAmazonS3ConnectionProperties")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "technologyType" => Ok(__FieldTag::__technology_type),
+                            "technology_type" => Ok(__FieldTag::__technology_type),
+                            "accessKeyId" => Ok(__FieldTag::__access_key_id),
+                            "access_key_id" => Ok(__FieldTag::__access_key_id),
+                            "secretAccessKeySecret" => Ok(__FieldTag::__secret_access_key_secret),
+                            "secret_access_key_secret" => {
+                                Ok(__FieldTag::__secret_access_key_secret)
+                            }
+                            "endpoint" => Ok(__FieldTag::__endpoint),
+                            "region" => Ok(__FieldTag::__region),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateAmazonS3ConnectionProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateAmazonS3ConnectionProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__technology_type => {
+                            if !fields.insert(__FieldTag::__technology_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for technology_type",
+                                ));
+                            }
+                            result.technology_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__access_key_id => {
+                            if !fields.insert(__FieldTag::__access_key_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for access_key_id",
+                                ));
+                            }
+                            result.access_key_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__secret_access_key_secret => {
+                            if !fields.insert(__FieldTag::__secret_access_key_secret) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for secret_access_key_secret",
+                                ));
+                            }
+                            result.secret_access_key_secret = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__endpoint => {
+                            if !fields.insert(__FieldTag::__endpoint) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for endpoint",
+                                ));
+                            }
+                            result.endpoint = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__region => {
+                            if !fields.insert(__FieldTag::__region) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for region",
+                                ));
+                            }
+                            result.region = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateHdfsConnectionProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __technology_type,
+            __core_site_xml,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GoldengateHdfsConnectionProperties")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "technologyType" => Ok(__FieldTag::__technology_type),
+                            "technology_type" => Ok(__FieldTag::__technology_type),
+                            "coreSiteXml" => Ok(__FieldTag::__core_site_xml),
+                            "core_site_xml" => Ok(__FieldTag::__core_site_xml),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateHdfsConnectionProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateHdfsConnectionProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__technology_type => {
+                            if !fields.insert(__FieldTag::__technology_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for technology_type",
+                                ));
+                            }
+                            result.technology_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__core_site_xml => {
+                            if !fields.insert(__FieldTag::__core_site_xml) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for core_site_xml",
+                                ));
+                            }
+                            result.core_site_xml = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateJavaMessageServiceConnectionProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __password,
+            __password_secret_version,
+            __trust_store_password,
+            __trust_store_password_secret_version,
+            __key_store_password,
+            __key_store_password_secret_version,
+            __ssl_key_password,
+            __ssl_key_password_secret_version,
+            __technology_type,
+            __use_jndi,
+            __jndi_connection_factory,
+            __jndi_provider_url,
+            __jndi_initial_context_factory,
+            __jndi_security_principal,
+            __jndi_security_credentials_secret,
+            __connection_url,
+            __connection_factory,
+            __username,
+            __security_protocol,
+            __authentication_type,
+            __trust_store_file,
+            __key_store_file,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str(
+                            "a field name for GoldengateJavaMessageServiceConnectionProperties",
+                        )
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "password" => Ok(__FieldTag::__password),
+                            "passwordSecretVersion" => Ok(__FieldTag::__password_secret_version),
+                            "password_secret_version" => Ok(__FieldTag::__password_secret_version),
+                            "trustStorePassword" => Ok(__FieldTag::__trust_store_password),
+                            "trust_store_password" => Ok(__FieldTag::__trust_store_password),
+                            "trustStorePasswordSecretVersion" => {
+                                Ok(__FieldTag::__trust_store_password_secret_version)
+                            }
+                            "trust_store_password_secret_version" => {
+                                Ok(__FieldTag::__trust_store_password_secret_version)
+                            }
+                            "keyStorePassword" => Ok(__FieldTag::__key_store_password),
+                            "key_store_password" => Ok(__FieldTag::__key_store_password),
+                            "keyStorePasswordSecretVersion" => {
+                                Ok(__FieldTag::__key_store_password_secret_version)
+                            }
+                            "key_store_password_secret_version" => {
+                                Ok(__FieldTag::__key_store_password_secret_version)
+                            }
+                            "sslKeyPassword" => Ok(__FieldTag::__ssl_key_password),
+                            "ssl_key_password" => Ok(__FieldTag::__ssl_key_password),
+                            "sslKeyPasswordSecretVersion" => {
+                                Ok(__FieldTag::__ssl_key_password_secret_version)
+                            }
+                            "ssl_key_password_secret_version" => {
+                                Ok(__FieldTag::__ssl_key_password_secret_version)
+                            }
+                            "technologyType" => Ok(__FieldTag::__technology_type),
+                            "technology_type" => Ok(__FieldTag::__technology_type),
+                            "useJndi" => Ok(__FieldTag::__use_jndi),
+                            "use_jndi" => Ok(__FieldTag::__use_jndi),
+                            "jndiConnectionFactory" => Ok(__FieldTag::__jndi_connection_factory),
+                            "jndi_connection_factory" => Ok(__FieldTag::__jndi_connection_factory),
+                            "jndiProviderUrl" => Ok(__FieldTag::__jndi_provider_url),
+                            "jndi_provider_url" => Ok(__FieldTag::__jndi_provider_url),
+                            "jndiInitialContextFactory" => {
+                                Ok(__FieldTag::__jndi_initial_context_factory)
+                            }
+                            "jndi_initial_context_factory" => {
+                                Ok(__FieldTag::__jndi_initial_context_factory)
+                            }
+                            "jndiSecurityPrincipal" => Ok(__FieldTag::__jndi_security_principal),
+                            "jndi_security_principal" => Ok(__FieldTag::__jndi_security_principal),
+                            "jndiSecurityCredentialsSecret" => {
+                                Ok(__FieldTag::__jndi_security_credentials_secret)
+                            }
+                            "jndi_security_credentials_secret" => {
+                                Ok(__FieldTag::__jndi_security_credentials_secret)
+                            }
+                            "connectionUrl" => Ok(__FieldTag::__connection_url),
+                            "connection_url" => Ok(__FieldTag::__connection_url),
+                            "connectionFactory" => Ok(__FieldTag::__connection_factory),
+                            "connection_factory" => Ok(__FieldTag::__connection_factory),
+                            "username" => Ok(__FieldTag::__username),
+                            "securityProtocol" => Ok(__FieldTag::__security_protocol),
+                            "security_protocol" => Ok(__FieldTag::__security_protocol),
+                            "authenticationType" => Ok(__FieldTag::__authentication_type),
+                            "authentication_type" => Ok(__FieldTag::__authentication_type),
+                            "trustStoreFile" => Ok(__FieldTag::__trust_store_file),
+                            "trust_store_file" => Ok(__FieldTag::__trust_store_file),
+                            "keyStoreFile" => Ok(__FieldTag::__key_store_file),
+                            "key_store_file" => Ok(__FieldTag::__key_store_file),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateJavaMessageServiceConnectionProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateJavaMessageServiceConnectionProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__password => {
+                            if !fields.insert(__FieldTag::__password) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for password",
+                                ));
+                            }
+                            if result.connection_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateJavaMessageServiceConnectionProperties.password, latest field was password",
+                                ));
+                            }
+                            result.connection_password_options = std::option::Option::Some(
+                                crate::model::goldengate_java_message_service_connection_properties::ConnectionPasswordOptions::Password(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__password_secret_version => {
+                            if !fields.insert(__FieldTag::__password_secret_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for password_secret_version",
+                                ));
+                            }
+                            if result.connection_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateJavaMessageServiceConnectionProperties.password_secret_version, latest field was passwordSecretVersion",
+                                ));
+                            }
+                            result.connection_password_options = std::option::Option::Some(
+                                crate::model::goldengate_java_message_service_connection_properties::ConnectionPasswordOptions::PasswordSecretVersion(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__trust_store_password => {
+                            if !fields.insert(__FieldTag::__trust_store_password) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for trust_store_password",
+                                ));
+                            }
+                            if result.trust_store_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `trust_store_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateJavaMessageServiceConnectionProperties.trust_store_password, latest field was trustStorePassword",
+                                ));
+                            }
+                            result.trust_store_password_options = std::option::Option::Some(
+                                crate::model::goldengate_java_message_service_connection_properties::TrustStorePasswordOptions::TrustStorePassword(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__trust_store_password_secret_version => {
+                            if !fields.insert(__FieldTag::__trust_store_password_secret_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for trust_store_password_secret_version",
+                                ));
+                            }
+                            if result.trust_store_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `trust_store_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateJavaMessageServiceConnectionProperties.trust_store_password_secret_version, latest field was trustStorePasswordSecretVersion",
+                                ));
+                            }
+                            result.trust_store_password_options = std::option::Option::Some(
+                                crate::model::goldengate_java_message_service_connection_properties::TrustStorePasswordOptions::TrustStorePasswordSecretVersion(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__key_store_password => {
+                            if !fields.insert(__FieldTag::__key_store_password) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for key_store_password",
+                                ));
+                            }
+                            if result.key_store_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `key_store_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateJavaMessageServiceConnectionProperties.key_store_password, latest field was keyStorePassword",
+                                ));
+                            }
+                            result.key_store_password_options = std::option::Option::Some(
+                                crate::model::goldengate_java_message_service_connection_properties::KeyStorePasswordOptions::KeyStorePassword(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__key_store_password_secret_version => {
+                            if !fields.insert(__FieldTag::__key_store_password_secret_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for key_store_password_secret_version",
+                                ));
+                            }
+                            if result.key_store_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `key_store_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateJavaMessageServiceConnectionProperties.key_store_password_secret_version, latest field was keyStorePasswordSecretVersion",
+                                ));
+                            }
+                            result.key_store_password_options = std::option::Option::Some(
+                                crate::model::goldengate_java_message_service_connection_properties::KeyStorePasswordOptions::KeyStorePasswordSecretVersion(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__ssl_key_password => {
+                            if !fields.insert(__FieldTag::__ssl_key_password) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ssl_key_password",
+                                ));
+                            }
+                            if result.ssl_key_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `ssl_key_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateJavaMessageServiceConnectionProperties.ssl_key_password, latest field was sslKeyPassword",
+                                ));
+                            }
+                            result.ssl_key_password_options = std::option::Option::Some(
+                                crate::model::goldengate_java_message_service_connection_properties::SslKeyPasswordOptions::SslKeyPassword(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__ssl_key_password_secret_version => {
+                            if !fields.insert(__FieldTag::__ssl_key_password_secret_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ssl_key_password_secret_version",
+                                ));
+                            }
+                            if result.ssl_key_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `ssl_key_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateJavaMessageServiceConnectionProperties.ssl_key_password_secret_version, latest field was sslKeyPasswordSecretVersion",
+                                ));
+                            }
+                            result.ssl_key_password_options = std::option::Option::Some(
+                                crate::model::goldengate_java_message_service_connection_properties::SslKeyPasswordOptions::SslKeyPasswordSecretVersion(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__technology_type => {
+                            if !fields.insert(__FieldTag::__technology_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for technology_type",
+                                ));
+                            }
+                            result.technology_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__use_jndi => {
+                            if !fields.insert(__FieldTag::__use_jndi) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for use_jndi",
+                                ));
+                            }
+                            result.use_jndi = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__jndi_connection_factory => {
+                            if !fields.insert(__FieldTag::__jndi_connection_factory) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for jndi_connection_factory",
+                                ));
+                            }
+                            result.jndi_connection_factory = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__jndi_provider_url => {
+                            if !fields.insert(__FieldTag::__jndi_provider_url) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for jndi_provider_url",
+                                ));
+                            }
+                            result.jndi_provider_url = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__jndi_initial_context_factory => {
+                            if !fields.insert(__FieldTag::__jndi_initial_context_factory) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for jndi_initial_context_factory",
+                                ));
+                            }
+                            result.jndi_initial_context_factory = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__jndi_security_principal => {
+                            if !fields.insert(__FieldTag::__jndi_security_principal) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for jndi_security_principal",
+                                ));
+                            }
+                            result.jndi_security_principal = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__jndi_security_credentials_secret => {
+                            if !fields.insert(__FieldTag::__jndi_security_credentials_secret) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for jndi_security_credentials_secret",
+                                ));
+                            }
+                            result.jndi_security_credentials_secret = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__connection_url => {
+                            if !fields.insert(__FieldTag::__connection_url) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for connection_url",
+                                ));
+                            }
+                            result.connection_url = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__connection_factory => {
+                            if !fields.insert(__FieldTag::__connection_factory) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for connection_factory",
+                                ));
+                            }
+                            result.connection_factory = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__username => {
+                            if !fields.insert(__FieldTag::__username) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for username",
+                                ));
+                            }
+                            result.username = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__security_protocol => {
+                            if !fields.insert(__FieldTag::__security_protocol) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for security_protocol",
+                                ));
+                            }
+                            result.security_protocol = map.next_value::<std::option::Option<crate::model::goldengate_java_message_service_connection_properties::JmsSecurityProtocol>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__authentication_type => {
+                            if !fields.insert(__FieldTag::__authentication_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for authentication_type",
+                                ));
+                            }
+                            result.authentication_type = map.next_value::<std::option::Option<crate::model::goldengate_java_message_service_connection_properties::JmsAuthenticationType>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__trust_store_file => {
+                            if !fields.insert(__FieldTag::__trust_store_file) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for trust_store_file",
+                                ));
+                            }
+                            result.trust_store_file = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__key_store_file => {
+                            if !fields.insert(__FieldTag::__key_store_file) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for key_store_file",
+                                ));
+                            }
+                            result.key_store_file = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateMongodbConnectionProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __password,
+            __password_secret_version,
+            __tls_certificate_key_file_password,
+            __tls_certificate_key_file_password_secret_version,
+            __technology_type,
+            __connection_string,
+            __username,
+            __database_id,
+            __security_protocol,
+            __tls_ca_file,
+            __tls_certificate_key_file,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter
+                            .write_str("a field name for GoldengateMongodbConnectionProperties")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "password" => Ok(__FieldTag::__password),
+                            "passwordSecretVersion" => Ok(__FieldTag::__password_secret_version),
+                            "password_secret_version" => Ok(__FieldTag::__password_secret_version),
+                            "tlsCertificateKeyFilePassword" => {
+                                Ok(__FieldTag::__tls_certificate_key_file_password)
+                            }
+                            "tls_certificate_key_file_password" => {
+                                Ok(__FieldTag::__tls_certificate_key_file_password)
+                            }
+                            "tlsCertificateKeyFilePasswordSecretVersion" => {
+                                Ok(__FieldTag::__tls_certificate_key_file_password_secret_version)
+                            }
+                            "tls_certificate_key_file_password_secret_version" => {
+                                Ok(__FieldTag::__tls_certificate_key_file_password_secret_version)
+                            }
+                            "technologyType" => Ok(__FieldTag::__technology_type),
+                            "technology_type" => Ok(__FieldTag::__technology_type),
+                            "connectionString" => Ok(__FieldTag::__connection_string),
+                            "connection_string" => Ok(__FieldTag::__connection_string),
+                            "username" => Ok(__FieldTag::__username),
+                            "databaseId" => Ok(__FieldTag::__database_id),
+                            "database_id" => Ok(__FieldTag::__database_id),
+                            "securityProtocol" => Ok(__FieldTag::__security_protocol),
+                            "security_protocol" => Ok(__FieldTag::__security_protocol),
+                            "tlsCaFile" => Ok(__FieldTag::__tls_ca_file),
+                            "tls_ca_file" => Ok(__FieldTag::__tls_ca_file),
+                            "tlsCertificateKeyFile" => Ok(__FieldTag::__tls_certificate_key_file),
+                            "tls_certificate_key_file" => {
+                                Ok(__FieldTag::__tls_certificate_key_file)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateMongodbConnectionProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateMongodbConnectionProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__password => {
+                            if !fields.insert(__FieldTag::__password) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for password",
+                                ));
+                            }
+                            if result.connection_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateMongodbConnectionProperties.password, latest field was password",
+                                ));
+                            }
+                            result.connection_password_options = std::option::Option::Some(
+                                crate::model::goldengate_mongodb_connection_properties::ConnectionPasswordOptions::Password(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__password_secret_version => {
+                            if !fields.insert(__FieldTag::__password_secret_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for password_secret_version",
+                                ));
+                            }
+                            if result.connection_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateMongodbConnectionProperties.password_secret_version, latest field was passwordSecretVersion",
+                                ));
+                            }
+                            result.connection_password_options = std::option::Option::Some(
+                                crate::model::goldengate_mongodb_connection_properties::ConnectionPasswordOptions::PasswordSecretVersion(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__tls_certificate_key_file_password => {
+                            if !fields.insert(__FieldTag::__tls_certificate_key_file_password) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for tls_certificate_key_file_password",
+                                ));
+                            }
+                            if result.tls_certificate_key_file_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `tls_certificate_key_file_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateMongodbConnectionProperties.tls_certificate_key_file_password, latest field was tlsCertificateKeyFilePassword",
+                                ));
+                            }
+                            result.tls_certificate_key_file_password_options = std::option::Option::Some(
+                                crate::model::goldengate_mongodb_connection_properties::TlsCertificateKeyFilePasswordOptions::TlsCertificateKeyFilePassword(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__tls_certificate_key_file_password_secret_version => {
+                            if !fields.insert(
+                                __FieldTag::__tls_certificate_key_file_password_secret_version,
+                            ) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for tls_certificate_key_file_password_secret_version",
+                                ));
+                            }
+                            if result.tls_certificate_key_file_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `tls_certificate_key_file_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateMongodbConnectionProperties.tls_certificate_key_file_password_secret_version, latest field was tlsCertificateKeyFilePasswordSecretVersion",
+                                ));
+                            }
+                            result.tls_certificate_key_file_password_options = std::option::Option::Some(
+                                crate::model::goldengate_mongodb_connection_properties::TlsCertificateKeyFilePasswordOptions::TlsCertificateKeyFilePasswordSecretVersion(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__technology_type => {
+                            if !fields.insert(__FieldTag::__technology_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for technology_type",
+                                ));
+                            }
+                            result.technology_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__connection_string => {
+                            if !fields.insert(__FieldTag::__connection_string) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for connection_string",
+                                ));
+                            }
+                            result.connection_string = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__username => {
+                            if !fields.insert(__FieldTag::__username) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for username",
+                                ));
+                            }
+                            result.username = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__database_id => {
+                            if !fields.insert(__FieldTag::__database_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for database_id",
+                                ));
+                            }
+                            result.database_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__security_protocol => {
+                            if !fields.insert(__FieldTag::__security_protocol) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for security_protocol",
+                                ));
+                            }
+                            result.security_protocol = map.next_value::<std::option::Option<crate::model::goldengate_mongodb_connection_properties::MongodbSecurityProtocol>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__tls_ca_file => {
+                            if !fields.insert(__FieldTag::__tls_ca_file) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for tls_ca_file",
+                                ));
+                            }
+                            result.tls_ca_file = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__tls_certificate_key_file => {
+                            if !fields.insert(__FieldTag::__tls_certificate_key_file) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for tls_certificate_key_file",
+                                ));
+                            }
+                            result.tls_certificate_key_file = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateOracleNosqlConnectionProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __technology_type,
+            __tenancy_id,
+            __region,
+            __user_id,
+            __private_key_file,
+            __private_key_passphrase_secret,
+            __public_key_fingerprint,
+            __use_resource_principal,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter
+                            .write_str("a field name for GoldengateOracleNosqlConnectionProperties")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "technologyType" => Ok(__FieldTag::__technology_type),
+                            "technology_type" => Ok(__FieldTag::__technology_type),
+                            "tenancyId" => Ok(__FieldTag::__tenancy_id),
+                            "tenancy_id" => Ok(__FieldTag::__tenancy_id),
+                            "region" => Ok(__FieldTag::__region),
+                            "userId" => Ok(__FieldTag::__user_id),
+                            "user_id" => Ok(__FieldTag::__user_id),
+                            "privateKeyFile" => Ok(__FieldTag::__private_key_file),
+                            "private_key_file" => Ok(__FieldTag::__private_key_file),
+                            "privateKeyPassphraseSecret" => {
+                                Ok(__FieldTag::__private_key_passphrase_secret)
+                            }
+                            "private_key_passphrase_secret" => {
+                                Ok(__FieldTag::__private_key_passphrase_secret)
+                            }
+                            "publicKeyFingerprint" => Ok(__FieldTag::__public_key_fingerprint),
+                            "public_key_fingerprint" => Ok(__FieldTag::__public_key_fingerprint),
+                            "useResourcePrincipal" => Ok(__FieldTag::__use_resource_principal),
+                            "use_resource_principal" => Ok(__FieldTag::__use_resource_principal),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateOracleNosqlConnectionProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateOracleNosqlConnectionProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__technology_type => {
+                            if !fields.insert(__FieldTag::__technology_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for technology_type",
+                                ));
+                            }
+                            result.technology_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__tenancy_id => {
+                            if !fields.insert(__FieldTag::__tenancy_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for tenancy_id",
+                                ));
+                            }
+                            result.tenancy_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__region => {
+                            if !fields.insert(__FieldTag::__region) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for region",
+                                ));
+                            }
+                            result.region = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__user_id => {
+                            if !fields.insert(__FieldTag::__user_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for user_id",
+                                ));
+                            }
+                            result.user_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__private_key_file => {
+                            if !fields.insert(__FieldTag::__private_key_file) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for private_key_file",
+                                ));
+                            }
+                            result.private_key_file = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__private_key_passphrase_secret => {
+                            if !fields.insert(__FieldTag::__private_key_passphrase_secret) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for private_key_passphrase_secret",
+                                ));
+                            }
+                            result.private_key_passphrase_secret = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__public_key_fingerprint => {
+                            if !fields.insert(__FieldTag::__public_key_fingerprint) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for public_key_fingerprint",
+                                ));
+                            }
+                            result.public_key_fingerprint = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__use_resource_principal => {
+                            if !fields.insert(__FieldTag::__use_resource_principal) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for use_resource_principal",
+                                ));
+                            }
+                            result.use_resource_principal = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateSnowflakeConnectionProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __password,
+            __password_secret_version,
+            __technology_type,
+            __connection_url,
+            __authentication_type,
+            __username,
+            __private_key_file,
+            __private_key_passphrase_secret,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter
+                            .write_str("a field name for GoldengateSnowflakeConnectionProperties")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "password" => Ok(__FieldTag::__password),
+                            "passwordSecretVersion" => Ok(__FieldTag::__password_secret_version),
+                            "password_secret_version" => Ok(__FieldTag::__password_secret_version),
+                            "technologyType" => Ok(__FieldTag::__technology_type),
+                            "technology_type" => Ok(__FieldTag::__technology_type),
+                            "connectionUrl" => Ok(__FieldTag::__connection_url),
+                            "connection_url" => Ok(__FieldTag::__connection_url),
+                            "authenticationType" => Ok(__FieldTag::__authentication_type),
+                            "authentication_type" => Ok(__FieldTag::__authentication_type),
+                            "username" => Ok(__FieldTag::__username),
+                            "privateKeyFile" => Ok(__FieldTag::__private_key_file),
+                            "private_key_file" => Ok(__FieldTag::__private_key_file),
+                            "privateKeyPassphraseSecret" => {
+                                Ok(__FieldTag::__private_key_passphrase_secret)
+                            }
+                            "private_key_passphrase_secret" => {
+                                Ok(__FieldTag::__private_key_passphrase_secret)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateSnowflakeConnectionProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateSnowflakeConnectionProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__password => {
+                            if !fields.insert(__FieldTag::__password) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for password",
+                                ));
+                            }
+                            if result.connection_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateSnowflakeConnectionProperties.password, latest field was password",
+                                ));
+                            }
+                            result.connection_password_options = std::option::Option::Some(
+                                crate::model::goldengate_snowflake_connection_properties::ConnectionPasswordOptions::Password(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__password_secret_version => {
+                            if !fields.insert(__FieldTag::__password_secret_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for password_secret_version",
+                                ));
+                            }
+                            if result.connection_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateSnowflakeConnectionProperties.password_secret_version, latest field was passwordSecretVersion",
+                                ));
+                            }
+                            result.connection_password_options = std::option::Option::Some(
+                                crate::model::goldengate_snowflake_connection_properties::ConnectionPasswordOptions::PasswordSecretVersion(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__technology_type => {
+                            if !fields.insert(__FieldTag::__technology_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for technology_type",
+                                ));
+                            }
+                            result.technology_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__connection_url => {
+                            if !fields.insert(__FieldTag::__connection_url) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for connection_url",
+                                ));
+                            }
+                            result.connection_url = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__authentication_type => {
+                            if !fields.insert(__FieldTag::__authentication_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for authentication_type",
+                                ));
+                            }
+                            result.authentication_type = map.next_value::<std::option::Option<crate::model::goldengate_snowflake_connection_properties::AuthenticationType>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__username => {
+                            if !fields.insert(__FieldTag::__username) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for username",
+                                ));
+                            }
+                            result.username = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__private_key_file => {
+                            if !fields.insert(__FieldTag::__private_key_file) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for private_key_file",
+                                ));
+                            }
+                            result.private_key_file = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__private_key_passphrase_secret => {
+                            if !fields.insert(__FieldTag::__private_key_passphrase_secret) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for private_key_passphrase_secret",
+                                ));
+                            }
+                            result.private_key_passphrase_secret = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateAmazonRedshiftConnectionProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __password,
+            __password_secret_version,
+            __technology_type,
+            __connection_url,
+            __username,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str(
+                            "a field name for GoldengateAmazonRedshiftConnectionProperties",
+                        )
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "password" => Ok(__FieldTag::__password),
+                            "passwordSecretVersion" => Ok(__FieldTag::__password_secret_version),
+                            "password_secret_version" => Ok(__FieldTag::__password_secret_version),
+                            "technologyType" => Ok(__FieldTag::__technology_type),
+                            "technology_type" => Ok(__FieldTag::__technology_type),
+                            "connectionUrl" => Ok(__FieldTag::__connection_url),
+                            "connection_url" => Ok(__FieldTag::__connection_url),
+                            "username" => Ok(__FieldTag::__username),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateAmazonRedshiftConnectionProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateAmazonRedshiftConnectionProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__password => {
+                            if !fields.insert(__FieldTag::__password) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for password",
+                                ));
+                            }
+                            if result.connection_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateAmazonRedshiftConnectionProperties.password, latest field was password",
+                                ));
+                            }
+                            result.connection_password_options = std::option::Option::Some(
+                                crate::model::goldengate_amazon_redshift_connection_properties::ConnectionPasswordOptions::Password(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__password_secret_version => {
+                            if !fields.insert(__FieldTag::__password_secret_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for password_secret_version",
+                                ));
+                            }
+                            if result.connection_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateAmazonRedshiftConnectionProperties.password_secret_version, latest field was passwordSecretVersion",
+                                ));
+                            }
+                            result.connection_password_options = std::option::Option::Some(
+                                crate::model::goldengate_amazon_redshift_connection_properties::ConnectionPasswordOptions::PasswordSecretVersion(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__technology_type => {
+                            if !fields.insert(__FieldTag::__technology_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for technology_type",
+                                ));
+                            }
+                            result.technology_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__connection_url => {
+                            if !fields.insert(__FieldTag::__connection_url) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for connection_url",
+                                ));
+                            }
+                            result.connection_url = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__username => {
+                            if !fields.insert(__FieldTag::__username) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for username",
+                                ));
+                            }
+                            result.username = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateElasticsearchConnectionProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __password,
+            __password_secret_version,
+            __technology_type,
+            __servers,
+            __security_protocol,
+            __authentication_type,
+            __username,
+            __fingerprint,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str(
+                            "a field name for GoldengateElasticsearchConnectionProperties",
+                        )
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "password" => Ok(__FieldTag::__password),
+                            "passwordSecretVersion" => Ok(__FieldTag::__password_secret_version),
+                            "password_secret_version" => Ok(__FieldTag::__password_secret_version),
+                            "technologyType" => Ok(__FieldTag::__technology_type),
+                            "technology_type" => Ok(__FieldTag::__technology_type),
+                            "servers" => Ok(__FieldTag::__servers),
+                            "securityProtocol" => Ok(__FieldTag::__security_protocol),
+                            "security_protocol" => Ok(__FieldTag::__security_protocol),
+                            "authenticationType" => Ok(__FieldTag::__authentication_type),
+                            "authentication_type" => Ok(__FieldTag::__authentication_type),
+                            "username" => Ok(__FieldTag::__username),
+                            "fingerprint" => Ok(__FieldTag::__fingerprint),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateElasticsearchConnectionProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateElasticsearchConnectionProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__password => {
+                            if !fields.insert(__FieldTag::__password) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for password",
+                                ));
+                            }
+                            if result.connection_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateElasticsearchConnectionProperties.password, latest field was password",
+                                ));
+                            }
+                            result.connection_password_options = std::option::Option::Some(
+                                crate::model::goldengate_elasticsearch_connection_properties::ConnectionPasswordOptions::Password(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__password_secret_version => {
+                            if !fields.insert(__FieldTag::__password_secret_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for password_secret_version",
+                                ));
+                            }
+                            if result.connection_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateElasticsearchConnectionProperties.password_secret_version, latest field was passwordSecretVersion",
+                                ));
+                            }
+                            result.connection_password_options = std::option::Option::Some(
+                                crate::model::goldengate_elasticsearch_connection_properties::ConnectionPasswordOptions::PasswordSecretVersion(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__technology_type => {
+                            if !fields.insert(__FieldTag::__technology_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for technology_type",
+                                ));
+                            }
+                            result.technology_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__servers => {
+                            if !fields.insert(__FieldTag::__servers) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for servers",
+                                ));
+                            }
+                            result.servers = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__security_protocol => {
+                            if !fields.insert(__FieldTag::__security_protocol) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for security_protocol",
+                                ));
+                            }
+                            result.security_protocol = map.next_value::<std::option::Option<crate::model::goldengate_elasticsearch_connection_properties::ElasticsearchSecurityProtocol>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__authentication_type => {
+                            if !fields.insert(__FieldTag::__authentication_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for authentication_type",
+                                ));
+                            }
+                            result.authentication_type = map.next_value::<std::option::Option<crate::model::goldengate_elasticsearch_connection_properties::ElasticsearchAuthenticationType>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__username => {
+                            if !fields.insert(__FieldTag::__username) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for username",
+                                ));
+                            }
+                            result.username = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__fingerprint => {
+                            if !fields.insert(__FieldTag::__fingerprint) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for fingerprint",
+                                ));
+                            }
+                            result.fingerprint = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateAmazonKinesisConnectionProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __technology_type,
+            __access_key_id,
+            __secret_access_key_secret,
+            __endpoint,
+            __aws_region,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str(
+                            "a field name for GoldengateAmazonKinesisConnectionProperties",
+                        )
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "technologyType" => Ok(__FieldTag::__technology_type),
+                            "technology_type" => Ok(__FieldTag::__technology_type),
+                            "accessKeyId" => Ok(__FieldTag::__access_key_id),
+                            "access_key_id" => Ok(__FieldTag::__access_key_id),
+                            "secretAccessKeySecret" => Ok(__FieldTag::__secret_access_key_secret),
+                            "secret_access_key_secret" => {
+                                Ok(__FieldTag::__secret_access_key_secret)
+                            }
+                            "endpoint" => Ok(__FieldTag::__endpoint),
+                            "awsRegion" => Ok(__FieldTag::__aws_region),
+                            "aws_region" => Ok(__FieldTag::__aws_region),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateAmazonKinesisConnectionProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateAmazonKinesisConnectionProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__technology_type => {
+                            if !fields.insert(__FieldTag::__technology_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for technology_type",
+                                ));
+                            }
+                            result.technology_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__access_key_id => {
+                            if !fields.insert(__FieldTag::__access_key_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for access_key_id",
+                                ));
+                            }
+                            result.access_key_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__secret_access_key_secret => {
+                            if !fields.insert(__FieldTag::__secret_access_key_secret) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for secret_access_key_secret",
+                                ));
+                            }
+                            result.secret_access_key_secret = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__endpoint => {
+                            if !fields.insert(__FieldTag::__endpoint) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for endpoint",
+                                ));
+                            }
+                            result.endpoint = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__aws_region => {
+                            if !fields.insert(__FieldTag::__aws_region) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for aws_region",
+                                ));
+                            }
+                            result.aws_region = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateDb2ConnectionProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __password,
+            __password_secret_version,
+            __technology_type,
+            __host,
+            __port,
+            __database,
+            __username,
+            __security_protocol,
+            __additional_attributes,
+            __ssl_client_keystoredb_file,
+            __ssl_client_keystash_file,
+            __ssl_server_certificate_file,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GoldengateDb2ConnectionProperties")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "password" => Ok(__FieldTag::__password),
+                            "passwordSecretVersion" => Ok(__FieldTag::__password_secret_version),
+                            "password_secret_version" => Ok(__FieldTag::__password_secret_version),
+                            "technologyType" => Ok(__FieldTag::__technology_type),
+                            "technology_type" => Ok(__FieldTag::__technology_type),
+                            "host" => Ok(__FieldTag::__host),
+                            "port" => Ok(__FieldTag::__port),
+                            "database" => Ok(__FieldTag::__database),
+                            "username" => Ok(__FieldTag::__username),
+                            "securityProtocol" => Ok(__FieldTag::__security_protocol),
+                            "security_protocol" => Ok(__FieldTag::__security_protocol),
+                            "additionalAttributes" => Ok(__FieldTag::__additional_attributes),
+                            "additional_attributes" => Ok(__FieldTag::__additional_attributes),
+                            "sslClientKeystoredbFile" => {
+                                Ok(__FieldTag::__ssl_client_keystoredb_file)
+                            }
+                            "ssl_client_keystoredb_file" => {
+                                Ok(__FieldTag::__ssl_client_keystoredb_file)
+                            }
+                            "sslClientKeystashFile" => Ok(__FieldTag::__ssl_client_keystash_file),
+                            "ssl_client_keystash_file" => {
+                                Ok(__FieldTag::__ssl_client_keystash_file)
+                            }
+                            "sslServerCertificateFile" => {
+                                Ok(__FieldTag::__ssl_server_certificate_file)
+                            }
+                            "ssl_server_certificate_file" => {
+                                Ok(__FieldTag::__ssl_server_certificate_file)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateDb2ConnectionProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateDb2ConnectionProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__password => {
+                            if !fields.insert(__FieldTag::__password) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for password",
+                                ));
+                            }
+                            if result.connection_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateDb2ConnectionProperties.password, latest field was password",
+                                ));
+                            }
+                            result.connection_password_options = std::option::Option::Some(
+                                crate::model::goldengate_db_2_connection_properties::ConnectionPasswordOptions::Password(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__password_secret_version => {
+                            if !fields.insert(__FieldTag::__password_secret_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for password_secret_version",
+                                ));
+                            }
+                            if result.connection_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateDb2ConnectionProperties.password_secret_version, latest field was passwordSecretVersion",
+                                ));
+                            }
+                            result.connection_password_options = std::option::Option::Some(
+                                crate::model::goldengate_db_2_connection_properties::ConnectionPasswordOptions::PasswordSecretVersion(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__technology_type => {
+                            if !fields.insert(__FieldTag::__technology_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for technology_type",
+                                ));
+                            }
+                            result.technology_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__host => {
+                            if !fields.insert(__FieldTag::__host) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for host",
+                                ));
+                            }
+                            result.host = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__port => {
+                            if !fields.insert(__FieldTag::__port) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for port",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.port = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__database => {
+                            if !fields.insert(__FieldTag::__database) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for database",
+                                ));
+                            }
+                            result.database = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__username => {
+                            if !fields.insert(__FieldTag::__username) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for username",
+                                ));
+                            }
+                            result.username = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__security_protocol => {
+                            if !fields.insert(__FieldTag::__security_protocol) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for security_protocol",
+                                ));
+                            }
+                            result.security_protocol = map.next_value::<std::option::Option<crate::model::goldengate_db_2_connection_properties::Db2SecurityProtocol>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__additional_attributes => {
+                            if !fields.insert(__FieldTag::__additional_attributes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for additional_attributes",
+                                ));
+                            }
+                            result.additional_attributes = map.next_value::<std::option::Option<std::vec::Vec<crate::model::NameValuePair>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__ssl_client_keystoredb_file => {
+                            if !fields.insert(__FieldTag::__ssl_client_keystoredb_file) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ssl_client_keystoredb_file",
+                                ));
+                            }
+                            result.ssl_client_keystoredb_file = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__ssl_client_keystash_file => {
+                            if !fields.insert(__FieldTag::__ssl_client_keystash_file) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ssl_client_keystash_file",
+                                ));
+                            }
+                            result.ssl_client_keystash_file = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__ssl_server_certificate_file => {
+                            if !fields.insert(__FieldTag::__ssl_server_certificate_file) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ssl_server_certificate_file",
+                                ));
+                            }
+                            result.ssl_server_certificate_file = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateRedisConnectionProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __password,
+            __password_secret_version,
+            __trust_store_password,
+            __trust_store_password_secret_version,
+            __key_store_password,
+            __key_store_password_secret_version,
+            __technology_type,
+            __servers,
+            __security_protocol,
+            __authentication_type,
+            __username,
+            __redis_cluster_id,
+            __trust_store_file,
+            __key_store_file,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GoldengateRedisConnectionProperties")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "password" => Ok(__FieldTag::__password),
+                            "passwordSecretVersion" => Ok(__FieldTag::__password_secret_version),
+                            "password_secret_version" => Ok(__FieldTag::__password_secret_version),
+                            "trustStorePassword" => Ok(__FieldTag::__trust_store_password),
+                            "trust_store_password" => Ok(__FieldTag::__trust_store_password),
+                            "trustStorePasswordSecretVersion" => {
+                                Ok(__FieldTag::__trust_store_password_secret_version)
+                            }
+                            "trust_store_password_secret_version" => {
+                                Ok(__FieldTag::__trust_store_password_secret_version)
+                            }
+                            "keyStorePassword" => Ok(__FieldTag::__key_store_password),
+                            "key_store_password" => Ok(__FieldTag::__key_store_password),
+                            "keyStorePasswordSecretVersion" => {
+                                Ok(__FieldTag::__key_store_password_secret_version)
+                            }
+                            "key_store_password_secret_version" => {
+                                Ok(__FieldTag::__key_store_password_secret_version)
+                            }
+                            "technologyType" => Ok(__FieldTag::__technology_type),
+                            "technology_type" => Ok(__FieldTag::__technology_type),
+                            "servers" => Ok(__FieldTag::__servers),
+                            "securityProtocol" => Ok(__FieldTag::__security_protocol),
+                            "security_protocol" => Ok(__FieldTag::__security_protocol),
+                            "authenticationType" => Ok(__FieldTag::__authentication_type),
+                            "authentication_type" => Ok(__FieldTag::__authentication_type),
+                            "username" => Ok(__FieldTag::__username),
+                            "redisClusterId" => Ok(__FieldTag::__redis_cluster_id),
+                            "redis_cluster_id" => Ok(__FieldTag::__redis_cluster_id),
+                            "trustStoreFile" => Ok(__FieldTag::__trust_store_file),
+                            "trust_store_file" => Ok(__FieldTag::__trust_store_file),
+                            "keyStoreFile" => Ok(__FieldTag::__key_store_file),
+                            "key_store_file" => Ok(__FieldTag::__key_store_file),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateRedisConnectionProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateRedisConnectionProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__password => {
+                            if !fields.insert(__FieldTag::__password) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for password",
+                                ));
+                            }
+                            if result.connection_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateRedisConnectionProperties.password, latest field was password",
+                                ));
+                            }
+                            result.connection_password_options = std::option::Option::Some(
+                                crate::model::goldengate_redis_connection_properties::ConnectionPasswordOptions::Password(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__password_secret_version => {
+                            if !fields.insert(__FieldTag::__password_secret_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for password_secret_version",
+                                ));
+                            }
+                            if result.connection_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateRedisConnectionProperties.password_secret_version, latest field was passwordSecretVersion",
+                                ));
+                            }
+                            result.connection_password_options = std::option::Option::Some(
+                                crate::model::goldengate_redis_connection_properties::ConnectionPasswordOptions::PasswordSecretVersion(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__trust_store_password => {
+                            if !fields.insert(__FieldTag::__trust_store_password) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for trust_store_password",
+                                ));
+                            }
+                            if result.trust_store_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `trust_store_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateRedisConnectionProperties.trust_store_password, latest field was trustStorePassword",
+                                ));
+                            }
+                            result.trust_store_password_options = std::option::Option::Some(
+                                crate::model::goldengate_redis_connection_properties::TrustStorePasswordOptions::TrustStorePassword(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__trust_store_password_secret_version => {
+                            if !fields.insert(__FieldTag::__trust_store_password_secret_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for trust_store_password_secret_version",
+                                ));
+                            }
+                            if result.trust_store_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `trust_store_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateRedisConnectionProperties.trust_store_password_secret_version, latest field was trustStorePasswordSecretVersion",
+                                ));
+                            }
+                            result.trust_store_password_options = std::option::Option::Some(
+                                crate::model::goldengate_redis_connection_properties::TrustStorePasswordOptions::TrustStorePasswordSecretVersion(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__key_store_password => {
+                            if !fields.insert(__FieldTag::__key_store_password) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for key_store_password",
+                                ));
+                            }
+                            if result.key_store_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `key_store_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateRedisConnectionProperties.key_store_password, latest field was keyStorePassword",
+                                ));
+                            }
+                            result.key_store_password_options = std::option::Option::Some(
+                                crate::model::goldengate_redis_connection_properties::KeyStorePasswordOptions::KeyStorePassword(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__key_store_password_secret_version => {
+                            if !fields.insert(__FieldTag::__key_store_password_secret_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for key_store_password_secret_version",
+                                ));
+                            }
+                            if result.key_store_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `key_store_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateRedisConnectionProperties.key_store_password_secret_version, latest field was keyStorePasswordSecretVersion",
+                                ));
+                            }
+                            result.key_store_password_options = std::option::Option::Some(
+                                crate::model::goldengate_redis_connection_properties::KeyStorePasswordOptions::KeyStorePasswordSecretVersion(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__technology_type => {
+                            if !fields.insert(__FieldTag::__technology_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for technology_type",
+                                ));
+                            }
+                            result.technology_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__servers => {
+                            if !fields.insert(__FieldTag::__servers) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for servers",
+                                ));
+                            }
+                            result.servers = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__security_protocol => {
+                            if !fields.insert(__FieldTag::__security_protocol) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for security_protocol",
+                                ));
+                            }
+                            result.security_protocol = map.next_value::<std::option::Option<crate::model::goldengate_redis_connection_properties::RedisSecurityProtocol>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__authentication_type => {
+                            if !fields.insert(__FieldTag::__authentication_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for authentication_type",
+                                ));
+                            }
+                            result.authentication_type = map.next_value::<std::option::Option<crate::model::goldengate_redis_connection_properties::RedisAuthenticationType>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__username => {
+                            if !fields.insert(__FieldTag::__username) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for username",
+                                ));
+                            }
+                            result.username = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__redis_cluster_id => {
+                            if !fields.insert(__FieldTag::__redis_cluster_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for redis_cluster_id",
+                                ));
+                            }
+                            result.redis_cluster_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__trust_store_file => {
+                            if !fields.insert(__FieldTag::__trust_store_file) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for trust_store_file",
+                                ));
+                            }
+                            result.trust_store_file = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__key_store_file => {
+                            if !fields.insert(__FieldTag::__key_store_file) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for key_store_file",
+                                ));
+                            }
+                            result.key_store_file = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateDatabricksConnectionProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __password,
+            __password_secret_version,
+            __technology_type,
+            __authentication_type,
+            __connection_url,
+            __client_id,
+            __client_secret,
+            __storage_credential,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter
+                            .write_str("a field name for GoldengateDatabricksConnectionProperties")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "password" => Ok(__FieldTag::__password),
+                            "passwordSecretVersion" => Ok(__FieldTag::__password_secret_version),
+                            "password_secret_version" => Ok(__FieldTag::__password_secret_version),
+                            "technologyType" => Ok(__FieldTag::__technology_type),
+                            "technology_type" => Ok(__FieldTag::__technology_type),
+                            "authenticationType" => Ok(__FieldTag::__authentication_type),
+                            "authentication_type" => Ok(__FieldTag::__authentication_type),
+                            "connectionUrl" => Ok(__FieldTag::__connection_url),
+                            "connection_url" => Ok(__FieldTag::__connection_url),
+                            "clientId" => Ok(__FieldTag::__client_id),
+                            "client_id" => Ok(__FieldTag::__client_id),
+                            "clientSecret" => Ok(__FieldTag::__client_secret),
+                            "client_secret" => Ok(__FieldTag::__client_secret),
+                            "storageCredential" => Ok(__FieldTag::__storage_credential),
+                            "storage_credential" => Ok(__FieldTag::__storage_credential),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateDatabricksConnectionProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateDatabricksConnectionProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__password => {
+                            if !fields.insert(__FieldTag::__password) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for password",
+                                ));
+                            }
+                            if result.connection_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateDatabricksConnectionProperties.password, latest field was password",
+                                ));
+                            }
+                            result.connection_password_options = std::option::Option::Some(
+                                crate::model::goldengate_databricks_connection_properties::ConnectionPasswordOptions::Password(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__password_secret_version => {
+                            if !fields.insert(__FieldTag::__password_secret_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for password_secret_version",
+                                ));
+                            }
+                            if result.connection_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `connection_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateDatabricksConnectionProperties.password_secret_version, latest field was passwordSecretVersion",
+                                ));
+                            }
+                            result.connection_password_options = std::option::Option::Some(
+                                crate::model::goldengate_databricks_connection_properties::ConnectionPasswordOptions::PasswordSecretVersion(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__technology_type => {
+                            if !fields.insert(__FieldTag::__technology_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for technology_type",
+                                ));
+                            }
+                            result.technology_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__authentication_type => {
+                            if !fields.insert(__FieldTag::__authentication_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for authentication_type",
+                                ));
+                            }
+                            result.authentication_type = map.next_value::<std::option::Option<crate::model::goldengate_databricks_connection_properties::DatabricksAuthenticationType>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__connection_url => {
+                            if !fields.insert(__FieldTag::__connection_url) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for connection_url",
+                                ));
+                            }
+                            result.connection_url = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__client_id => {
+                            if !fields.insert(__FieldTag::__client_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for client_id",
+                                ));
+                            }
+                            result.client_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__client_secret => {
+                            if !fields.insert(__FieldTag::__client_secret) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for client_secret",
+                                ));
+                            }
+                            result.client_secret = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__storage_credential => {
+                            if !fields.insert(__FieldTag::__storage_credential) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for storage_credential",
+                                ));
+                            }
+                            result.storage_credential = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateGooglePubsubConnectionProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __technology_type,
+            __service_account_key_file,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str(
+                            "a field name for GoldengateGooglePubsubConnectionProperties",
+                        )
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "technologyType" => Ok(__FieldTag::__technology_type),
+                            "technology_type" => Ok(__FieldTag::__technology_type),
+                            "serviceAccountKeyFile" => Ok(__FieldTag::__service_account_key_file),
+                            "service_account_key_file" => {
+                                Ok(__FieldTag::__service_account_key_file)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateGooglePubsubConnectionProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateGooglePubsubConnectionProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__technology_type => {
+                            if !fields.insert(__FieldTag::__technology_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for technology_type",
+                                ));
+                            }
+                            result.technology_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__service_account_key_file => {
+                            if !fields.insert(__FieldTag::__service_account_key_file) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for service_account_key_file",
+                                ));
+                            }
+                            result.service_account_key_file = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateMicrosoftFabricConnectionProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __technology_type,
+            __tenant_id,
+            __client_id,
+            __client_secret,
+            __endpoint,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str(
+                            "a field name for GoldengateMicrosoftFabricConnectionProperties",
+                        )
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "technologyType" => Ok(__FieldTag::__technology_type),
+                            "technology_type" => Ok(__FieldTag::__technology_type),
+                            "tenantId" => Ok(__FieldTag::__tenant_id),
+                            "tenant_id" => Ok(__FieldTag::__tenant_id),
+                            "clientId" => Ok(__FieldTag::__client_id),
+                            "client_id" => Ok(__FieldTag::__client_id),
+                            "clientSecret" => Ok(__FieldTag::__client_secret),
+                            "client_secret" => Ok(__FieldTag::__client_secret),
+                            "endpoint" => Ok(__FieldTag::__endpoint),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateMicrosoftFabricConnectionProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateMicrosoftFabricConnectionProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__technology_type => {
+                            if !fields.insert(__FieldTag::__technology_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for technology_type",
+                                ));
+                            }
+                            result.technology_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__tenant_id => {
+                            if !fields.insert(__FieldTag::__tenant_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for tenant_id",
+                                ));
+                            }
+                            result.tenant_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__client_id => {
+                            if !fields.insert(__FieldTag::__client_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for client_id",
+                                ));
+                            }
+                            result.client_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__client_secret => {
+                            if !fields.insert(__FieldTag::__client_secret) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for client_secret",
+                                ));
+                            }
+                            result.client_secret = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__endpoint => {
+                            if !fields.insert(__FieldTag::__endpoint) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for endpoint",
+                                ));
+                            }
+                            result.endpoint = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de>
+    for super::GoldengateOracleAIDataPlatformConnectionProperties
+{
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __technology_type,
+            __connection_url,
+            __tenancy_id,
+            __region,
+            __user_id,
+            __private_key_file,
+            __private_key_passphrase_secret,
+            __public_key_fingerprint,
+            __use_resource_principal,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str(
+                            "a field name for GoldengateOracleAIDataPlatformConnectionProperties",
+                        )
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "technologyType" => Ok(__FieldTag::__technology_type),
+                            "technology_type" => Ok(__FieldTag::__technology_type),
+                            "connectionUrl" => Ok(__FieldTag::__connection_url),
+                            "connection_url" => Ok(__FieldTag::__connection_url),
+                            "tenancyId" => Ok(__FieldTag::__tenancy_id),
+                            "tenancy_id" => Ok(__FieldTag::__tenancy_id),
+                            "region" => Ok(__FieldTag::__region),
+                            "userId" => Ok(__FieldTag::__user_id),
+                            "user_id" => Ok(__FieldTag::__user_id),
+                            "privateKeyFile" => Ok(__FieldTag::__private_key_file),
+                            "private_key_file" => Ok(__FieldTag::__private_key_file),
+                            "privateKeyPassphraseSecret" => {
+                                Ok(__FieldTag::__private_key_passphrase_secret)
+                            }
+                            "private_key_passphrase_secret" => {
+                                Ok(__FieldTag::__private_key_passphrase_secret)
+                            }
+                            "publicKeyFingerprint" => Ok(__FieldTag::__public_key_fingerprint),
+                            "public_key_fingerprint" => Ok(__FieldTag::__public_key_fingerprint),
+                            "useResourcePrincipal" => Ok(__FieldTag::__use_resource_principal),
+                            "use_resource_principal" => Ok(__FieldTag::__use_resource_principal),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateOracleAIDataPlatformConnectionProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateOracleAIDataPlatformConnectionProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__technology_type => {
+                            if !fields.insert(__FieldTag::__technology_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for technology_type",
+                                ));
+                            }
+                            result.technology_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__connection_url => {
+                            if !fields.insert(__FieldTag::__connection_url) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for connection_url",
+                                ));
+                            }
+                            result.connection_url = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__tenancy_id => {
+                            if !fields.insert(__FieldTag::__tenancy_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for tenancy_id",
+                                ));
+                            }
+                            result.tenancy_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__region => {
+                            if !fields.insert(__FieldTag::__region) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for region",
+                                ));
+                            }
+                            result.region = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__user_id => {
+                            if !fields.insert(__FieldTag::__user_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for user_id",
+                                ));
+                            }
+                            result.user_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__private_key_file => {
+                            if !fields.insert(__FieldTag::__private_key_file) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for private_key_file",
+                                ));
+                            }
+                            result.private_key_file = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__private_key_passphrase_secret => {
+                            if !fields.insert(__FieldTag::__private_key_passphrase_secret) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for private_key_passphrase_secret",
+                                ));
+                            }
+                            result.private_key_passphrase_secret = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__public_key_fingerprint => {
+                            if !fields.insert(__FieldTag::__public_key_fingerprint) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for public_key_fingerprint",
+                                ));
+                            }
+                            result.public_key_fingerprint = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__use_resource_principal => {
+                            if !fields.insert(__FieldTag::__use_resource_principal) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for use_resource_principal",
+                                ));
+                            }
+                            result.use_resource_principal = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GlueIcebergCatalog {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __glue_id,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GlueIcebergCatalog")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "glueId" => Ok(__FieldTag::__glue_id),
+                            "glue_id" => Ok(__FieldTag::__glue_id),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GlueIcebergCatalog;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GlueIcebergCatalog")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__glue_id => {
+                            if !fields.insert(__FieldTag::__glue_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for glue_id",
+                                ));
+                            }
+                            result.glue_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::NessieIcebergCatalog {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __uri,
+            __branch,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for NessieIcebergCatalog")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "uri" => Ok(__FieldTag::__uri),
+                            "branch" => Ok(__FieldTag::__branch),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::NessieIcebergCatalog;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct NessieIcebergCatalog")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__uri => {
+                            if !fields.insert(__FieldTag::__uri) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for uri",
+                                ));
+                            }
+                            result.uri = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__branch => {
+                            if !fields.insert(__FieldTag::__branch) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for branch",
+                                ));
+                            }
+                            result.branch = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::PolarisIcebergCatalog {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __uri,
+            __polaris_catalog,
+            __client_id,
+            __principal_role,
+            __client_secret,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for PolarisIcebergCatalog")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "uri" => Ok(__FieldTag::__uri),
+                            "polarisCatalog" => Ok(__FieldTag::__polaris_catalog),
+                            "polaris_catalog" => Ok(__FieldTag::__polaris_catalog),
+                            "clientId" => Ok(__FieldTag::__client_id),
+                            "client_id" => Ok(__FieldTag::__client_id),
+                            "principalRole" => Ok(__FieldTag::__principal_role),
+                            "principal_role" => Ok(__FieldTag::__principal_role),
+                            "clientSecret" => Ok(__FieldTag::__client_secret),
+                            "client_secret" => Ok(__FieldTag::__client_secret),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::PolarisIcebergCatalog;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct PolarisIcebergCatalog")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__uri => {
+                            if !fields.insert(__FieldTag::__uri) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for uri",
+                                ));
+                            }
+                            result.uri = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__polaris_catalog => {
+                            if !fields.insert(__FieldTag::__polaris_catalog) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for polaris_catalog",
+                                ));
+                            }
+                            result.polaris_catalog = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__client_id => {
+                            if !fields.insert(__FieldTag::__client_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for client_id",
+                                ));
+                            }
+                            result.client_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__principal_role => {
+                            if !fields.insert(__FieldTag::__principal_role) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for principal_role",
+                                ));
+                            }
+                            result.principal_role = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__client_secret => {
+                            if !fields.insert(__FieldTag::__client_secret) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for client_secret",
+                                ));
+                            }
+                            result.client_secret = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::RestIcebergCatalog {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __uri,
+            __properties,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for RestIcebergCatalog")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "uri" => Ok(__FieldTag::__uri),
+                            "properties" => Ok(__FieldTag::__properties),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::RestIcebergCatalog;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct RestIcebergCatalog")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__uri => {
+                            if !fields.insert(__FieldTag::__uri) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for uri",
+                                ));
+                            }
+                            result.uri = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__properties => {
+                            if !fields.insert(__FieldTag::__properties) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for properties",
+                                ));
+                            }
+                            result.properties = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::IcebergCatalog {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __glue_iceberg_catalog,
+            __nessie_iceberg_catalog,
+            __polaris_iceberg_catalog,
+            __rest_iceberg_catalog,
+            __catalog_type,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for IcebergCatalog")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "glueIcebergCatalog" => Ok(__FieldTag::__glue_iceberg_catalog),
+                            "glue_iceberg_catalog" => Ok(__FieldTag::__glue_iceberg_catalog),
+                            "nessieIcebergCatalog" => Ok(__FieldTag::__nessie_iceberg_catalog),
+                            "nessie_iceberg_catalog" => Ok(__FieldTag::__nessie_iceberg_catalog),
+                            "polarisIcebergCatalog" => Ok(__FieldTag::__polaris_iceberg_catalog),
+                            "polaris_iceberg_catalog" => Ok(__FieldTag::__polaris_iceberg_catalog),
+                            "restIcebergCatalog" => Ok(__FieldTag::__rest_iceberg_catalog),
+                            "rest_iceberg_catalog" => Ok(__FieldTag::__rest_iceberg_catalog),
+                            "catalogType" => Ok(__FieldTag::__catalog_type),
+                            "catalog_type" => Ok(__FieldTag::__catalog_type),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::IcebergCatalog;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct IcebergCatalog")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__glue_iceberg_catalog => {
+                            if !fields.insert(__FieldTag::__glue_iceberg_catalog) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for glue_iceberg_catalog",
+                                ));
+                            }
+                            if result.catalog_details.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `catalog_details`, a oneof with full ID .google.cloud.oracledatabase.v1.IcebergCatalog.glue_iceberg_catalog, latest field was glueIcebergCatalog",
+                                ));
+                            }
+                            result.catalog_details = std::option::Option::Some(
+                                crate::model::iceberg_catalog::CatalogDetails::GlueIcebergCatalog(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::GlueIcebergCatalog>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__nessie_iceberg_catalog => {
+                            if !fields.insert(__FieldTag::__nessie_iceberg_catalog) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for nessie_iceberg_catalog",
+                                ));
+                            }
+                            if result.catalog_details.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `catalog_details`, a oneof with full ID .google.cloud.oracledatabase.v1.IcebergCatalog.nessie_iceberg_catalog, latest field was nessieIcebergCatalog",
+                                ));
+                            }
+                            result.catalog_details = std::option::Option::Some(
+                                crate::model::iceberg_catalog::CatalogDetails::NessieIcebergCatalog(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::NessieIcebergCatalog>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__polaris_iceberg_catalog => {
+                            if !fields.insert(__FieldTag::__polaris_iceberg_catalog) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for polaris_iceberg_catalog",
+                                ));
+                            }
+                            if result.catalog_details.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `catalog_details`, a oneof with full ID .google.cloud.oracledatabase.v1.IcebergCatalog.polaris_iceberg_catalog, latest field was polarisIcebergCatalog",
+                                ));
+                            }
+                            result.catalog_details = std::option::Option::Some(
+                                crate::model::iceberg_catalog::CatalogDetails::PolarisIcebergCatalog(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::PolarisIcebergCatalog>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__rest_iceberg_catalog => {
+                            if !fields.insert(__FieldTag::__rest_iceberg_catalog) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for rest_iceberg_catalog",
+                                ));
+                            }
+                            if result.catalog_details.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `catalog_details`, a oneof with full ID .google.cloud.oracledatabase.v1.IcebergCatalog.rest_iceberg_catalog, latest field was restIcebergCatalog",
+                                ));
+                            }
+                            result.catalog_details = std::option::Option::Some(
+                                crate::model::iceberg_catalog::CatalogDetails::RestIcebergCatalog(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::RestIcebergCatalog>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__catalog_type => {
+                            if !fields.insert(__FieldTag::__catalog_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for catalog_type",
+                                ));
+                            }
+                            result.catalog_type = map.next_value::<std::option::Option<crate::model::iceberg_catalog::CatalogType>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::AmazonS3IcebergStorage {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __scheme_type,
+            __access_key_id,
+            __region,
+            __bucket,
+            __endpoint,
+            __secret_access_key_secret,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for AmazonS3IcebergStorage")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "schemeType" => Ok(__FieldTag::__scheme_type),
+                            "scheme_type" => Ok(__FieldTag::__scheme_type),
+                            "accessKeyId" => Ok(__FieldTag::__access_key_id),
+                            "access_key_id" => Ok(__FieldTag::__access_key_id),
+                            "region" => Ok(__FieldTag::__region),
+                            "bucket" => Ok(__FieldTag::__bucket),
+                            "endpoint" => Ok(__FieldTag::__endpoint),
+                            "secretAccessKeySecret" => Ok(__FieldTag::__secret_access_key_secret),
+                            "secret_access_key_secret" => {
+                                Ok(__FieldTag::__secret_access_key_secret)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::AmazonS3IcebergStorage;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct AmazonS3IcebergStorage")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__scheme_type => {
+                            if !fields.insert(__FieldTag::__scheme_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for scheme_type",
+                                ));
+                            }
+                            result.scheme_type = map
+                                .next_value::<std::option::Option<
+                                    crate::model::amazon_s_3_iceberg_storage::SchemeType,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__access_key_id => {
+                            if !fields.insert(__FieldTag::__access_key_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for access_key_id",
+                                ));
+                            }
+                            result.access_key_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__region => {
+                            if !fields.insert(__FieldTag::__region) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for region",
+                                ));
+                            }
+                            result.region = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__bucket => {
+                            if !fields.insert(__FieldTag::__bucket) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for bucket",
+                                ));
+                            }
+                            result.bucket = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__endpoint => {
+                            if !fields.insert(__FieldTag::__endpoint) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for endpoint",
+                                ));
+                            }
+                            result.endpoint = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__secret_access_key_secret => {
+                            if !fields.insert(__FieldTag::__secret_access_key_secret) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for secret_access_key_secret",
+                                ));
+                            }
+                            result.secret_access_key_secret = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoogleCloudStorageIcebergStorage {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __bucket,
+            __project_id,
+            __service_account_key_file,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GoogleCloudStorageIcebergStorage")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "bucket" => Ok(__FieldTag::__bucket),
+                            "projectId" => Ok(__FieldTag::__project_id),
+                            "project_id" => Ok(__FieldTag::__project_id),
+                            "serviceAccountKeyFile" => Ok(__FieldTag::__service_account_key_file),
+                            "service_account_key_file" => {
+                                Ok(__FieldTag::__service_account_key_file)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoogleCloudStorageIcebergStorage;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoogleCloudStorageIcebergStorage")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__bucket => {
+                            if !fields.insert(__FieldTag::__bucket) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for bucket",
+                                ));
+                            }
+                            result.bucket = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__project_id => {
+                            if !fields.insert(__FieldTag::__project_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for project_id",
+                                ));
+                            }
+                            result.project_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__service_account_key_file => {
+                            if !fields.insert(__FieldTag::__service_account_key_file) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for service_account_key_file",
+                                ));
+                            }
+                            result.service_account_key_file = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::AzureDataLakeStorageIcebergStorage {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __azure_account,
+            __container,
+            __account_key_secret,
+            __endpoint,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for AzureDataLakeStorageIcebergStorage")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "azureAccount" => Ok(__FieldTag::__azure_account),
+                            "azure_account" => Ok(__FieldTag::__azure_account),
+                            "container" => Ok(__FieldTag::__container),
+                            "accountKeySecret" => Ok(__FieldTag::__account_key_secret),
+                            "account_key_secret" => Ok(__FieldTag::__account_key_secret),
+                            "endpoint" => Ok(__FieldTag::__endpoint),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::AzureDataLakeStorageIcebergStorage;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct AzureDataLakeStorageIcebergStorage")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__azure_account => {
+                            if !fields.insert(__FieldTag::__azure_account) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for azure_account",
+                                ));
+                            }
+                            result.azure_account = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__container => {
+                            if !fields.insert(__FieldTag::__container) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for container",
+                                ));
+                            }
+                            result.container = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__account_key_secret => {
+                            if !fields.insert(__FieldTag::__account_key_secret) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for account_key_secret",
+                                ));
+                            }
+                            result.account_key_secret = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__endpoint => {
+                            if !fields.insert(__FieldTag::__endpoint) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for endpoint",
+                                ));
+                            }
+                            result.endpoint = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::IcebergStorage {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __amazon_s3_iceberg_storage,
+            __google_cloud_storage_iceberg_storage,
+            __azure_data_lake_storage_iceberg_storage,
+            __storage_type,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for IcebergStorage")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "amazonS3IcebergStorage" => Ok(__FieldTag::__amazon_s3_iceberg_storage),
+                            "amazon_s3_iceberg_storage" => {
+                                Ok(__FieldTag::__amazon_s3_iceberg_storage)
+                            }
+                            "googleCloudStorageIcebergStorage" => {
+                                Ok(__FieldTag::__google_cloud_storage_iceberg_storage)
+                            }
+                            "google_cloud_storage_iceberg_storage" => {
+                                Ok(__FieldTag::__google_cloud_storage_iceberg_storage)
+                            }
+                            "azureDataLakeStorageIcebergStorage" => {
+                                Ok(__FieldTag::__azure_data_lake_storage_iceberg_storage)
+                            }
+                            "azure_data_lake_storage_iceberg_storage" => {
+                                Ok(__FieldTag::__azure_data_lake_storage_iceberg_storage)
+                            }
+                            "storageType" => Ok(__FieldTag::__storage_type),
+                            "storage_type" => Ok(__FieldTag::__storage_type),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::IcebergStorage;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct IcebergStorage")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__amazon_s3_iceberg_storage => {
+                            if !fields.insert(__FieldTag::__amazon_s3_iceberg_storage) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for amazon_s3_iceberg_storage",
+                                ));
+                            }
+                            if result.storage_details.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `storage_details`, a oneof with full ID .google.cloud.oracledatabase.v1.IcebergStorage.amazon_s3_iceberg_storage, latest field was amazonS3IcebergStorage",
+                                ));
+                            }
+                            result.storage_details = std::option::Option::Some(
+                                crate::model::iceberg_storage::StorageDetails::AmazonS3IcebergStorage(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::AmazonS3IcebergStorage>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__google_cloud_storage_iceberg_storage => {
+                            if !fields.insert(__FieldTag::__google_cloud_storage_iceberg_storage) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for google_cloud_storage_iceberg_storage",
+                                ));
+                            }
+                            if result.storage_details.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `storage_details`, a oneof with full ID .google.cloud.oracledatabase.v1.IcebergStorage.google_cloud_storage_iceberg_storage, latest field was googleCloudStorageIcebergStorage",
+                                ));
+                            }
+                            result.storage_details = std::option::Option::Some(
+                                crate::model::iceberg_storage::StorageDetails::GoogleCloudStorageIcebergStorage(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::GoogleCloudStorageIcebergStorage>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__azure_data_lake_storage_iceberg_storage => {
+                            if !fields.insert(__FieldTag::__azure_data_lake_storage_iceberg_storage)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for azure_data_lake_storage_iceberg_storage",
+                                ));
+                            }
+                            if result.storage_details.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `storage_details`, a oneof with full ID .google.cloud.oracledatabase.v1.IcebergStorage.azure_data_lake_storage_iceberg_storage, latest field was azureDataLakeStorageIcebergStorage",
+                                ));
+                            }
+                            result.storage_details = std::option::Option::Some(
+                                crate::model::iceberg_storage::StorageDetails::AzureDataLakeStorageIcebergStorage(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::AzureDataLakeStorageIcebergStorage>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__storage_type => {
+                            if !fields.insert(__FieldTag::__storage_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for storage_type",
+                                ));
+                            }
+                            result.storage_type = map.next_value::<std::option::Option<crate::model::iceberg_storage::StorageType>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateIcebergConnectionProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __technology_type,
+            __catalog,
+            __storage,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter
+                            .write_str("a field name for GoldengateIcebergConnectionProperties")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "technologyType" => Ok(__FieldTag::__technology_type),
+                            "technology_type" => Ok(__FieldTag::__technology_type),
+                            "catalog" => Ok(__FieldTag::__catalog),
+                            "storage" => Ok(__FieldTag::__storage),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateIcebergConnectionProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateIcebergConnectionProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__technology_type => {
+                            if !fields.insert(__FieldTag::__technology_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for technology_type",
+                                ));
+                            }
+                            result.technology_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__catalog => {
+                            if !fields.insert(__FieldTag::__catalog) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for catalog",
+                                ));
+                            }
+                            result.catalog = map
+                                .next_value::<std::option::Option<crate::model::IcebergCatalog>>(
+                                )?;
+                        }
+                        __FieldTag::__storage => {
+                            if !fields.insert(__FieldTag::__storage) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for storage",
+                                ));
+                            }
+                            result.storage = map
+                                .next_value::<std::option::Option<crate::model::IcebergStorage>>(
+                                )?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::CreateGoldengateConnectionRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __goldengate_connection_id,
+            __goldengate_connection,
+            __request_id,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CreateGoldengateConnectionRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "goldengateConnectionId" => Ok(__FieldTag::__goldengate_connection_id),
+                            "goldengate_connection_id" => {
+                                Ok(__FieldTag::__goldengate_connection_id)
+                            }
+                            "goldengateConnection" => Ok(__FieldTag::__goldengate_connection),
+                            "goldengate_connection" => Ok(__FieldTag::__goldengate_connection),
+                            "requestId" => Ok(__FieldTag::__request_id),
+                            "request_id" => Ok(__FieldTag::__request_id),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::CreateGoldengateConnectionRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CreateGoldengateConnectionRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__goldengate_connection_id => {
+                            if !fields.insert(__FieldTag::__goldengate_connection_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for goldengate_connection_id",
+                                ));
+                            }
+                            result.goldengate_connection_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__goldengate_connection => {
+                            if !fields.insert(__FieldTag::__goldengate_connection) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for goldengate_connection",
+                                ));
+                            }
+                            result.goldengate_connection = map.next_value::<std::option::Option<crate::model::GoldengateConnection>>()?
+                                ;
+                        }
+                        __FieldTag::__request_id => {
+                            if !fields.insert(__FieldTag::__request_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_id",
+                                ));
+                            }
+                            result.request_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::DeleteGoldengateConnectionRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __request_id,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DeleteGoldengateConnectionRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "requestId" => Ok(__FieldTag::__request_id),
+                            "request_id" => Ok(__FieldTag::__request_id),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::DeleteGoldengateConnectionRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DeleteGoldengateConnectionRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__request_id => {
+                            if !fields.insert(__FieldTag::__request_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_id",
+                                ));
+                            }
+                            result.request_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GetGoldengateConnectionRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GetGoldengateConnectionRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GetGoldengateConnectionRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GetGoldengateConnectionRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ListGoldengateConnectionsRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __page_size,
+            __page_token,
+            __filter,
+            __order_by,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListGoldengateConnectionsRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "pageSize" => Ok(__FieldTag::__page_size),
+                            "page_size" => Ok(__FieldTag::__page_size),
+                            "pageToken" => Ok(__FieldTag::__page_token),
+                            "page_token" => Ok(__FieldTag::__page_token),
+                            "filter" => Ok(__FieldTag::__filter),
+                            "orderBy" => Ok(__FieldTag::__order_by),
+                            "order_by" => Ok(__FieldTag::__order_by),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ListGoldengateConnectionsRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListGoldengateConnectionsRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__page_size => {
+                            if !fields.insert(__FieldTag::__page_size) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_size",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__page_token => {
+                            if !fields.insert(__FieldTag::__page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_token",
+                                ));
+                            }
+                            result.page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__filter => {
+                            if !fields.insert(__FieldTag::__filter) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for filter",
+                                ));
+                            }
+                            result.filter = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__order_by => {
+                            if !fields.insert(__FieldTag::__order_by) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for order_by",
+                                ));
+                            }
+                            result.order_by = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ListGoldengateConnectionsResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __goldengate_connections,
+            __next_page_token,
+            __unreachable,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListGoldengateConnectionsResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "goldengateConnections" => Ok(__FieldTag::__goldengate_connections),
+                            "goldengate_connections" => Ok(__FieldTag::__goldengate_connections),
+                            "nextPageToken" => Ok(__FieldTag::__next_page_token),
+                            "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            "unreachable" => Ok(__FieldTag::__unreachable),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ListGoldengateConnectionsResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListGoldengateConnectionsResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__goldengate_connections => {
+                            if !fields.insert(__FieldTag::__goldengate_connections) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for goldengate_connections",
+                                ));
+                            }
+                            result.goldengate_connections = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::GoldengateConnection>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__next_page_token => {
+                            if !fields.insert(__FieldTag::__next_page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for next_page_token",
+                                ));
+                            }
+                            result.next_page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__unreachable => {
+                            if !fields.insert(__FieldTag::__unreachable) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unreachable",
+                                ));
+                            }
+                            result.unreachable = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::NameValuePair {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __key,
+            __value,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for NameValuePair")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "key" => Ok(__FieldTag::__key),
+                            "value" => Ok(__FieldTag::__value),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::NameValuePair;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct NameValuePair")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__key => {
+                            if !fields.insert(__FieldTag::__key) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for key",
+                                ));
+                            }
+                            result.key = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__value => {
+                            if !fields.insert(__FieldTag::__value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for value",
+                                ));
+                            }
+                            result.value = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::KafkaBootstrapServer {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __host,
+            __port,
+            __private_ip_address,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for KafkaBootstrapServer")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "host" => Ok(__FieldTag::__host),
+                            "port" => Ok(__FieldTag::__port),
+                            "privateIpAddress" => Ok(__FieldTag::__private_ip_address),
+                            "private_ip_address" => Ok(__FieldTag::__private_ip_address),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::KafkaBootstrapServer;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct KafkaBootstrapServer")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__host => {
+                            if !fields.insert(__FieldTag::__host) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for host",
+                                ));
+                            }
+                            result.host = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__port => {
+                            if !fields.insert(__FieldTag::__port) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for port",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.port = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__private_ip_address => {
+                            if !fields.insert(__FieldTag::__private_ip_address) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for private_ip_address",
+                                ));
+                            }
+                            result.private_ip_address = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateConnectionAssignment {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __properties,
+            __create_time,
+            __labels,
+            __display_name,
+            __entitlement_id,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GoldengateConnectionAssignment")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "properties" => Ok(__FieldTag::__properties),
+                            "createTime" => Ok(__FieldTag::__create_time),
+                            "create_time" => Ok(__FieldTag::__create_time),
+                            "labels" => Ok(__FieldTag::__labels),
+                            "displayName" => Ok(__FieldTag::__display_name),
+                            "display_name" => Ok(__FieldTag::__display_name),
+                            "entitlementId" => Ok(__FieldTag::__entitlement_id),
+                            "entitlement_id" => Ok(__FieldTag::__entitlement_id),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateConnectionAssignment;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateConnectionAssignment")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__properties => {
+                            if !fields.insert(__FieldTag::__properties) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for properties",
+                                ));
+                            }
+                            result.properties = map.next_value::<std::option::Option<
+                                crate::model::GoldengateConnectionAssignmentProperties,
+                            >>()?;
+                        }
+                        __FieldTag::__create_time => {
+                            if !fields.insert(__FieldTag::__create_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for create_time",
+                                ));
+                            }
+                            result.create_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__labels => {
+                            if !fields.insert(__FieldTag::__labels) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for labels",
+                                ));
+                            }
+                            result.labels = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__display_name => {
+                            if !fields.insert(__FieldTag::__display_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for display_name",
+                                ));
+                            }
+                            result.display_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__entitlement_id => {
+                            if !fields.insert(__FieldTag::__entitlement_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for entitlement_id",
+                                ));
+                            }
+                            result.entitlement_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateConnectionAssignmentProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __ocid,
+            __goldengate_connection,
+            __goldengate_deployment,
+            __alias,
+            __state,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter
+                            .write_str("a field name for GoldengateConnectionAssignmentProperties")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "ocid" => Ok(__FieldTag::__ocid),
+                            "goldengateConnection" => Ok(__FieldTag::__goldengate_connection),
+                            "goldengate_connection" => Ok(__FieldTag::__goldengate_connection),
+                            "goldengateDeployment" => Ok(__FieldTag::__goldengate_deployment),
+                            "goldengate_deployment" => Ok(__FieldTag::__goldengate_deployment),
+                            "alias" => Ok(__FieldTag::__alias),
+                            "state" => Ok(__FieldTag::__state),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateConnectionAssignmentProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateConnectionAssignmentProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__ocid => {
+                            if !fields.insert(__FieldTag::__ocid) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ocid",
+                                ));
+                            }
+                            result.ocid = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__goldengate_connection => {
+                            if !fields.insert(__FieldTag::__goldengate_connection) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for goldengate_connection",
+                                ));
+                            }
+                            result.goldengate_connection = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__goldengate_deployment => {
+                            if !fields.insert(__FieldTag::__goldengate_deployment) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for goldengate_deployment",
+                                ));
+                            }
+                            result.goldengate_deployment = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__alias => {
+                            if !fields.insert(__FieldTag::__alias) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for alias",
+                                ));
+                            }
+                            result.alias = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__state => {
+                            if !fields.insert(__FieldTag::__state) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for state",
+                                ));
+                            }
+                            result.state = map.next_value::<std::option::Option<crate::model::goldengate_connection_assignment_properties::State>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ListGoldengateConnectionAssignmentsRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __page_size,
+            __page_token,
+            __filter,
+            __order_by,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str(
+                            "a field name for ListGoldengateConnectionAssignmentsRequest",
+                        )
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "pageSize" => Ok(__FieldTag::__page_size),
+                            "page_size" => Ok(__FieldTag::__page_size),
+                            "pageToken" => Ok(__FieldTag::__page_token),
+                            "page_token" => Ok(__FieldTag::__page_token),
+                            "filter" => Ok(__FieldTag::__filter),
+                            "orderBy" => Ok(__FieldTag::__order_by),
+                            "order_by" => Ok(__FieldTag::__order_by),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ListGoldengateConnectionAssignmentsRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListGoldengateConnectionAssignmentsRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__page_size => {
+                            if !fields.insert(__FieldTag::__page_size) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_size",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__page_token => {
+                            if !fields.insert(__FieldTag::__page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_token",
+                                ));
+                            }
+                            result.page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__filter => {
+                            if !fields.insert(__FieldTag::__filter) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for filter",
+                                ));
+                            }
+                            result.filter = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__order_by => {
+                            if !fields.insert(__FieldTag::__order_by) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for order_by",
+                                ));
+                            }
+                            result.order_by = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ListGoldengateConnectionAssignmentsResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __goldengate_connection_assignments,
+            __next_page_token,
+            __unreachable,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str(
+                            "a field name for ListGoldengateConnectionAssignmentsResponse",
+                        )
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "goldengateConnectionAssignments" => {
+                                Ok(__FieldTag::__goldengate_connection_assignments)
+                            }
+                            "goldengate_connection_assignments" => {
+                                Ok(__FieldTag::__goldengate_connection_assignments)
+                            }
+                            "nextPageToken" => Ok(__FieldTag::__next_page_token),
+                            "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            "unreachable" => Ok(__FieldTag::__unreachable),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ListGoldengateConnectionAssignmentsResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListGoldengateConnectionAssignmentsResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__goldengate_connection_assignments => {
+                            if !fields.insert(__FieldTag::__goldengate_connection_assignments) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for goldengate_connection_assignments",
+                                ));
+                            }
+                            result.goldengate_connection_assignments = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::GoldengateConnectionAssignment>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__next_page_token => {
+                            if !fields.insert(__FieldTag::__next_page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for next_page_token",
+                                ));
+                            }
+                            result.next_page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__unreachable => {
+                            if !fields.insert(__FieldTag::__unreachable) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unreachable",
+                                ));
+                            }
+                            result.unreachable = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GetGoldengateConnectionAssignmentRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter
+                            .write_str("a field name for GetGoldengateConnectionAssignmentRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GetGoldengateConnectionAssignmentRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GetGoldengateConnectionAssignmentRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::CreateGoldengateConnectionAssignmentRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __goldengate_connection_assignment_id,
+            __goldengate_connection_assignment,
+            __request_id,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str(
+                            "a field name for CreateGoldengateConnectionAssignmentRequest",
+                        )
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "goldengateConnectionAssignmentId" => {
+                                Ok(__FieldTag::__goldengate_connection_assignment_id)
+                            }
+                            "goldengate_connection_assignment_id" => {
+                                Ok(__FieldTag::__goldengate_connection_assignment_id)
+                            }
+                            "goldengateConnectionAssignment" => {
+                                Ok(__FieldTag::__goldengate_connection_assignment)
+                            }
+                            "goldengate_connection_assignment" => {
+                                Ok(__FieldTag::__goldengate_connection_assignment)
+                            }
+                            "requestId" => Ok(__FieldTag::__request_id),
+                            "request_id" => Ok(__FieldTag::__request_id),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::CreateGoldengateConnectionAssignmentRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CreateGoldengateConnectionAssignmentRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__goldengate_connection_assignment_id => {
+                            if !fields.insert(__FieldTag::__goldengate_connection_assignment_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for goldengate_connection_assignment_id",
+                                ));
+                            }
+                            result.goldengate_connection_assignment_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__goldengate_connection_assignment => {
+                            if !fields.insert(__FieldTag::__goldengate_connection_assignment) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for goldengate_connection_assignment",
+                                ));
+                            }
+                            result.goldengate_connection_assignment =
+                                map.next_value::<std::option::Option<
+                                    crate::model::GoldengateConnectionAssignment,
+                                >>()?;
+                        }
+                        __FieldTag::__request_id => {
+                            if !fields.insert(__FieldTag::__request_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_id",
+                                ));
+                            }
+                            result.request_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::TestGoldengateConnectionAssignmentRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __type,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter
+                            .write_str("a field name for TestGoldengateConnectionAssignmentRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "type" => Ok(__FieldTag::__type),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::TestGoldengateConnectionAssignmentRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct TestGoldengateConnectionAssignmentRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__type => {
+                            if !fields.insert(__FieldTag::__type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for type",
+                                ));
+                            }
+                            result.r#type = map.next_value::<std::option::Option<crate::model::test_goldengate_connection_assignment_request::TestType>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::TestConnectionAssignmentError {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __code,
+            __message,
+            __action,
+            __issue,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for TestConnectionAssignmentError")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "code" => Ok(__FieldTag::__code),
+                            "message" => Ok(__FieldTag::__message),
+                            "action" => Ok(__FieldTag::__action),
+                            "issue" => Ok(__FieldTag::__issue),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::TestConnectionAssignmentError;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct TestConnectionAssignmentError")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__code => {
+                            if !fields.insert(__FieldTag::__code) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for code",
+                                ));
+                            }
+                            result.code = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__message => {
+                            if !fields.insert(__FieldTag::__message) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for message",
+                                ));
+                            }
+                            result.message = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__action => {
+                            if !fields.insert(__FieldTag::__action) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for action",
+                                ));
+                            }
+                            result.action = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__issue => {
+                            if !fields.insert(__FieldTag::__issue) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for issue",
+                                ));
+                            }
+                            result.issue = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::TestGoldengateConnectionAssignmentResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __result_type,
+            __error,
+            __errors,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str(
+                            "a field name for TestGoldengateConnectionAssignmentResponse",
+                        )
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "resultType" => Ok(__FieldTag::__result_type),
+                            "result_type" => Ok(__FieldTag::__result_type),
+                            "error" => Ok(__FieldTag::__error),
+                            "errors" => Ok(__FieldTag::__errors),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::TestGoldengateConnectionAssignmentResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct TestGoldengateConnectionAssignmentResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__result_type => {
+                            if !fields.insert(__FieldTag::__result_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for result_type",
+                                ));
+                            }
+                            result.result_type = map.next_value::<std::option::Option<crate::model::test_goldengate_connection_assignment_response::ResultType>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__error => {
+                            if !fields.insert(__FieldTag::__error) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for error",
+                                ));
+                            }
+                            result.error =
+                                map.next_value::<std::option::Option<
+                                    crate::model::TestConnectionAssignmentError,
+                                >>()?;
+                        }
+                        __FieldTag::__errors => {
+                            if !fields.insert(__FieldTag::__errors) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for errors",
+                                ));
+                            }
+                            result.errors = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::TestConnectionAssignmentError>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::DeleteGoldengateConnectionAssignmentRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __request_id,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str(
+                            "a field name for DeleteGoldengateConnectionAssignmentRequest",
+                        )
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "requestId" => Ok(__FieldTag::__request_id),
+                            "request_id" => Ok(__FieldTag::__request_id),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::DeleteGoldengateConnectionAssignmentRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DeleteGoldengateConnectionAssignmentRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__request_id => {
+                            if !fields.insert(__FieldTag::__request_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_id",
+                                ));
+                            }
+                            result.request_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateConnectionType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __connection_type,
+            __technology_types,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GoldengateConnectionType")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "connectionType" => Ok(__FieldTag::__connection_type),
+                            "connection_type" => Ok(__FieldTag::__connection_type),
+                            "technologyTypes" => Ok(__FieldTag::__technology_types),
+                            "technology_types" => Ok(__FieldTag::__technology_types),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateConnectionType;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateConnectionType")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__connection_type => {
+                            if !fields.insert(__FieldTag::__connection_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for connection_type",
+                                ));
+                            }
+                            result.connection_type = map
+                                .next_value::<std::option::Option<
+                                    crate::model::goldengate_connection_type::ConnectionType,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__technology_types => {
+                            if !fields.insert(__FieldTag::__technology_types) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for technology_types",
+                                ));
+                            }
+                            result.technology_types = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GetGoldengateConnectionTypeRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GetGoldengateConnectionTypeRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GetGoldengateConnectionTypeRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GetGoldengateConnectionTypeRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ListGoldengateConnectionTypesRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __page_size,
+            __page_token,
+            __filter,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListGoldengateConnectionTypesRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "pageSize" => Ok(__FieldTag::__page_size),
+                            "page_size" => Ok(__FieldTag::__page_size),
+                            "pageToken" => Ok(__FieldTag::__page_token),
+                            "page_token" => Ok(__FieldTag::__page_token),
+                            "filter" => Ok(__FieldTag::__filter),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ListGoldengateConnectionTypesRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListGoldengateConnectionTypesRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__page_size => {
+                            if !fields.insert(__FieldTag::__page_size) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_size",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__page_token => {
+                            if !fields.insert(__FieldTag::__page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_token",
+                                ));
+                            }
+                            result.page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__filter => {
+                            if !fields.insert(__FieldTag::__filter) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for filter",
+                                ));
+                            }
+                            result.filter = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ListGoldengateConnectionTypesResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __goldengate_connection_types,
+            __next_page_token,
+            __unreachable,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter
+                            .write_str("a field name for ListGoldengateConnectionTypesResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "goldengateConnectionTypes" => {
+                                Ok(__FieldTag::__goldengate_connection_types)
+                            }
+                            "goldengate_connection_types" => {
+                                Ok(__FieldTag::__goldengate_connection_types)
+                            }
+                            "nextPageToken" => Ok(__FieldTag::__next_page_token),
+                            "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            "unreachable" => Ok(__FieldTag::__unreachable),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ListGoldengateConnectionTypesResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListGoldengateConnectionTypesResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__goldengate_connection_types => {
+                            if !fields.insert(__FieldTag::__goldengate_connection_types) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for goldengate_connection_types",
+                                ));
+                            }
+                            result.goldengate_connection_types = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::GoldengateConnectionType>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__next_page_token => {
+                            if !fields.insert(__FieldTag::__next_page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for next_page_token",
+                                ));
+                            }
+                            result.next_page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__unreachable => {
+                            if !fields.insert(__FieldTag::__unreachable) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unreachable",
+                                ));
+                            }
+                            result.unreachable = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateDeployment {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __properties,
+            __gcp_oracle_zone,
+            __labels,
+            __odb_network,
+            __odb_subnet,
+            __entitlement_id,
+            __display_name,
+            __create_time,
+            __oci_url,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GoldengateDeployment")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "properties" => Ok(__FieldTag::__properties),
+                            "gcpOracleZone" => Ok(__FieldTag::__gcp_oracle_zone),
+                            "gcp_oracle_zone" => Ok(__FieldTag::__gcp_oracle_zone),
+                            "labels" => Ok(__FieldTag::__labels),
+                            "odbNetwork" => Ok(__FieldTag::__odb_network),
+                            "odb_network" => Ok(__FieldTag::__odb_network),
+                            "odbSubnet" => Ok(__FieldTag::__odb_subnet),
+                            "odb_subnet" => Ok(__FieldTag::__odb_subnet),
+                            "entitlementId" => Ok(__FieldTag::__entitlement_id),
+                            "entitlement_id" => Ok(__FieldTag::__entitlement_id),
+                            "displayName" => Ok(__FieldTag::__display_name),
+                            "display_name" => Ok(__FieldTag::__display_name),
+                            "createTime" => Ok(__FieldTag::__create_time),
+                            "create_time" => Ok(__FieldTag::__create_time),
+                            "ociUrl" => Ok(__FieldTag::__oci_url),
+                            "oci_url" => Ok(__FieldTag::__oci_url),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateDeployment;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateDeployment")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__properties => {
+                            if !fields.insert(__FieldTag::__properties) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for properties",
+                                ));
+                            }
+                            result.properties =
+                                map.next_value::<std::option::Option<
+                                    crate::model::GoldengateDeploymentProperties,
+                                >>()?;
+                        }
+                        __FieldTag::__gcp_oracle_zone => {
+                            if !fields.insert(__FieldTag::__gcp_oracle_zone) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for gcp_oracle_zone",
+                                ));
+                            }
+                            result.gcp_oracle_zone = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__labels => {
+                            if !fields.insert(__FieldTag::__labels) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for labels",
+                                ));
+                            }
+                            result.labels = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__odb_network => {
+                            if !fields.insert(__FieldTag::__odb_network) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for odb_network",
+                                ));
+                            }
+                            result.odb_network = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__odb_subnet => {
+                            if !fields.insert(__FieldTag::__odb_subnet) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for odb_subnet",
+                                ));
+                            }
+                            result.odb_subnet = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__entitlement_id => {
+                            if !fields.insert(__FieldTag::__entitlement_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for entitlement_id",
+                                ));
+                            }
+                            result.entitlement_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__display_name => {
+                            if !fields.insert(__FieldTag::__display_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for display_name",
+                                ));
+                            }
+                            result.display_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__create_time => {
+                            if !fields.insert(__FieldTag::__create_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for create_time",
+                                ));
+                            }
+                            result.create_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__oci_url => {
+                            if !fields.insert(__FieldTag::__oci_url) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for oci_url",
+                                ));
+                            }
+                            result.oci_url = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateDeploymentProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __ocid,
+            __lifecycle_state,
+            __license_model,
+            __environment_type,
+            __cpu_core_count,
+            __is_auto_scaling_enabled,
+            __description,
+            __deployment_type,
+            __ogg_data,
+            __maintenance_window,
+            __maintenance_config,
+            __fqdn,
+            __lifecycle_sub_state,
+            __category,
+            __deployment_backup_id,
+            __update_time,
+            __lifecycle_details,
+            __healthy,
+            __load_balancer_subnet_id,
+            __load_balancer_id,
+            __nsg_ids,
+            __is_public,
+            __public_ip_address,
+            __private_ip_address,
+            __deployment_url,
+            __is_latest_version,
+            __upgrade_required_time,
+            __storage_utilization_bytes,
+            __is_storage_utilization_limit_exceeded,
+            __deployment_diagnostic_data,
+            __backup_schedule,
+            __next_maintenance_time,
+            __next_maintenance_action_type,
+            __next_maintenance_description,
+            __ogg_version_support_end_time,
+            __ingress_ips,
+            __deployment_role,
+            __last_backup_schedule_time,
+            __next_backup_schedule_time,
+            __role_change_time,
+            __locks,
+            __placements,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GoldengateDeploymentProperties")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "ocid" => Ok(__FieldTag::__ocid),
+                            "lifecycleState" => Ok(__FieldTag::__lifecycle_state),
+                            "lifecycle_state" => Ok(__FieldTag::__lifecycle_state),
+                            "licenseModel" => Ok(__FieldTag::__license_model),
+                            "license_model" => Ok(__FieldTag::__license_model),
+                            "environmentType" => Ok(__FieldTag::__environment_type),
+                            "environment_type" => Ok(__FieldTag::__environment_type),
+                            "cpuCoreCount" => Ok(__FieldTag::__cpu_core_count),
+                            "cpu_core_count" => Ok(__FieldTag::__cpu_core_count),
+                            "isAutoScalingEnabled" => Ok(__FieldTag::__is_auto_scaling_enabled),
+                            "is_auto_scaling_enabled" => Ok(__FieldTag::__is_auto_scaling_enabled),
+                            "description" => Ok(__FieldTag::__description),
+                            "deploymentType" => Ok(__FieldTag::__deployment_type),
+                            "deployment_type" => Ok(__FieldTag::__deployment_type),
+                            "oggData" => Ok(__FieldTag::__ogg_data),
+                            "ogg_data" => Ok(__FieldTag::__ogg_data),
+                            "maintenanceWindow" => Ok(__FieldTag::__maintenance_window),
+                            "maintenance_window" => Ok(__FieldTag::__maintenance_window),
+                            "maintenanceConfig" => Ok(__FieldTag::__maintenance_config),
+                            "maintenance_config" => Ok(__FieldTag::__maintenance_config),
+                            "fqdn" => Ok(__FieldTag::__fqdn),
+                            "lifecycleSubState" => Ok(__FieldTag::__lifecycle_sub_state),
+                            "lifecycle_sub_state" => Ok(__FieldTag::__lifecycle_sub_state),
+                            "category" => Ok(__FieldTag::__category),
+                            "deploymentBackupId" => Ok(__FieldTag::__deployment_backup_id),
+                            "deployment_backup_id" => Ok(__FieldTag::__deployment_backup_id),
+                            "updateTime" => Ok(__FieldTag::__update_time),
+                            "update_time" => Ok(__FieldTag::__update_time),
+                            "lifecycleDetails" => Ok(__FieldTag::__lifecycle_details),
+                            "lifecycle_details" => Ok(__FieldTag::__lifecycle_details),
+                            "healthy" => Ok(__FieldTag::__healthy),
+                            "loadBalancerSubnetId" => Ok(__FieldTag::__load_balancer_subnet_id),
+                            "load_balancer_subnet_id" => Ok(__FieldTag::__load_balancer_subnet_id),
+                            "loadBalancerId" => Ok(__FieldTag::__load_balancer_id),
+                            "load_balancer_id" => Ok(__FieldTag::__load_balancer_id),
+                            "nsgIds" => Ok(__FieldTag::__nsg_ids),
+                            "nsg_ids" => Ok(__FieldTag::__nsg_ids),
+                            "isPublic" => Ok(__FieldTag::__is_public),
+                            "is_public" => Ok(__FieldTag::__is_public),
+                            "publicIpAddress" => Ok(__FieldTag::__public_ip_address),
+                            "public_ip_address" => Ok(__FieldTag::__public_ip_address),
+                            "privateIpAddress" => Ok(__FieldTag::__private_ip_address),
+                            "private_ip_address" => Ok(__FieldTag::__private_ip_address),
+                            "deploymentUrl" => Ok(__FieldTag::__deployment_url),
+                            "deployment_url" => Ok(__FieldTag::__deployment_url),
+                            "isLatestVersion" => Ok(__FieldTag::__is_latest_version),
+                            "is_latest_version" => Ok(__FieldTag::__is_latest_version),
+                            "upgradeRequiredTime" => Ok(__FieldTag::__upgrade_required_time),
+                            "upgrade_required_time" => Ok(__FieldTag::__upgrade_required_time),
+                            "storageUtilizationBytes" => {
+                                Ok(__FieldTag::__storage_utilization_bytes)
+                            }
+                            "storage_utilization_bytes" => {
+                                Ok(__FieldTag::__storage_utilization_bytes)
+                            }
+                            "isStorageUtilizationLimitExceeded" => {
+                                Ok(__FieldTag::__is_storage_utilization_limit_exceeded)
+                            }
+                            "is_storage_utilization_limit_exceeded" => {
+                                Ok(__FieldTag::__is_storage_utilization_limit_exceeded)
+                            }
+                            "deploymentDiagnosticData" => {
+                                Ok(__FieldTag::__deployment_diagnostic_data)
+                            }
+                            "deployment_diagnostic_data" => {
+                                Ok(__FieldTag::__deployment_diagnostic_data)
+                            }
+                            "backupSchedule" => Ok(__FieldTag::__backup_schedule),
+                            "backup_schedule" => Ok(__FieldTag::__backup_schedule),
+                            "nextMaintenanceTime" => Ok(__FieldTag::__next_maintenance_time),
+                            "next_maintenance_time" => Ok(__FieldTag::__next_maintenance_time),
+                            "nextMaintenanceActionType" => {
+                                Ok(__FieldTag::__next_maintenance_action_type)
+                            }
+                            "next_maintenance_action_type" => {
+                                Ok(__FieldTag::__next_maintenance_action_type)
+                            }
+                            "nextMaintenanceDescription" => {
+                                Ok(__FieldTag::__next_maintenance_description)
+                            }
+                            "next_maintenance_description" => {
+                                Ok(__FieldTag::__next_maintenance_description)
+                            }
+                            "oggVersionSupportEndTime" => {
+                                Ok(__FieldTag::__ogg_version_support_end_time)
+                            }
+                            "ogg_version_support_end_time" => {
+                                Ok(__FieldTag::__ogg_version_support_end_time)
+                            }
+                            "ingressIps" => Ok(__FieldTag::__ingress_ips),
+                            "ingress_ips" => Ok(__FieldTag::__ingress_ips),
+                            "deploymentRole" => Ok(__FieldTag::__deployment_role),
+                            "deployment_role" => Ok(__FieldTag::__deployment_role),
+                            "lastBackupScheduleTime" => Ok(__FieldTag::__last_backup_schedule_time),
+                            "last_backup_schedule_time" => {
+                                Ok(__FieldTag::__last_backup_schedule_time)
+                            }
+                            "nextBackupScheduleTime" => Ok(__FieldTag::__next_backup_schedule_time),
+                            "next_backup_schedule_time" => {
+                                Ok(__FieldTag::__next_backup_schedule_time)
+                            }
+                            "roleChangeTime" => Ok(__FieldTag::__role_change_time),
+                            "role_change_time" => Ok(__FieldTag::__role_change_time),
+                            "locks" => Ok(__FieldTag::__locks),
+                            "placements" => Ok(__FieldTag::__placements),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateDeploymentProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateDeploymentProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__ocid => {
+                            if !fields.insert(__FieldTag::__ocid) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ocid",
+                                ));
+                            }
+                            result.ocid = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__lifecycle_state => {
+                            if !fields.insert(__FieldTag::__lifecycle_state) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for lifecycle_state",
+                                ));
+                            }
+                            result.lifecycle_state = map.next_value::<std::option::Option<crate::model::goldengate_deployment_properties::GoldengateDeploymentLifecycleState>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__license_model => {
+                            if !fields.insert(__FieldTag::__license_model) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for license_model",
+                                ));
+                            }
+                            result.license_model = map
+                                .next_value::<std::option::Option<
+                                    crate::model::goldengate_deployment_properties::LicenseModel,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__environment_type => {
+                            if !fields.insert(__FieldTag::__environment_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for environment_type",
+                                ));
+                            }
+                            result.environment_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__cpu_core_count => {
+                            if !fields.insert(__FieldTag::__cpu_core_count) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cpu_core_count",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.cpu_core_count =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__is_auto_scaling_enabled => {
+                            if !fields.insert(__FieldTag::__is_auto_scaling_enabled) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for is_auto_scaling_enabled",
+                                ));
+                            }
+                            result.is_auto_scaling_enabled = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__description => {
+                            if !fields.insert(__FieldTag::__description) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for description",
+                                ));
+                            }
+                            result.description = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__deployment_type => {
+                            if !fields.insert(__FieldTag::__deployment_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for deployment_type",
+                                ));
+                            }
+                            result.deployment_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__ogg_data => {
+                            if !fields.insert(__FieldTag::__ogg_data) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ogg_data",
+                                ));
+                            }
+                            result.ogg_data = map.next_value::<std::option::Option<crate::model::GoldengateOggDeployment>>()?
+                                ;
+                        }
+                        __FieldTag::__maintenance_window => {
+                            if !fields.insert(__FieldTag::__maintenance_window) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for maintenance_window",
+                                ));
+                            }
+                            result.maintenance_window = map.next_value::<std::option::Option<crate::model::GoldengateMaintenanceWindow>>()?
+                                ;
+                        }
+                        __FieldTag::__maintenance_config => {
+                            if !fields.insert(__FieldTag::__maintenance_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for maintenance_config",
+                                ));
+                            }
+                            result.maintenance_config = map.next_value::<std::option::Option<crate::model::GoldengateMaintenanceConfig>>()?
+                                ;
+                        }
+                        __FieldTag::__fqdn => {
+                            if !fields.insert(__FieldTag::__fqdn) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for fqdn",
+                                ));
+                            }
+                            result.fqdn = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__lifecycle_sub_state => {
+                            if !fields.insert(__FieldTag::__lifecycle_sub_state) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for lifecycle_sub_state",
+                                ));
+                            }
+                            result.lifecycle_sub_state = map.next_value::<std::option::Option<crate::model::goldengate_deployment_properties::GoldengateDeploymentLifecycleSubState>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__category => {
+                            if !fields.insert(__FieldTag::__category) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for category",
+                                ));
+                            }
+                            result.category = map.next_value::<std::option::Option<crate::model::goldengate_deployment_properties::GoldengateDeploymentCategory>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__deployment_backup_id => {
+                            if !fields.insert(__FieldTag::__deployment_backup_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for deployment_backup_id",
+                                ));
+                            }
+                            result.deployment_backup_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__update_time => {
+                            if !fields.insert(__FieldTag::__update_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_time",
+                                ));
+                            }
+                            result.update_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__lifecycle_details => {
+                            if !fields.insert(__FieldTag::__lifecycle_details) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for lifecycle_details",
+                                ));
+                            }
+                            result.lifecycle_details = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__healthy => {
+                            if !fields.insert(__FieldTag::__healthy) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for healthy",
+                                ));
+                            }
+                            result.healthy = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__load_balancer_subnet_id => {
+                            if !fields.insert(__FieldTag::__load_balancer_subnet_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for load_balancer_subnet_id",
+                                ));
+                            }
+                            result.load_balancer_subnet_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__load_balancer_id => {
+                            if !fields.insert(__FieldTag::__load_balancer_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for load_balancer_id",
+                                ));
+                            }
+                            result.load_balancer_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__nsg_ids => {
+                            if !fields.insert(__FieldTag::__nsg_ids) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for nsg_ids",
+                                ));
+                            }
+                            result.nsg_ids = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__is_public => {
+                            if !fields.insert(__FieldTag::__is_public) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for is_public",
+                                ));
+                            }
+                            result.is_public = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__public_ip_address => {
+                            if !fields.insert(__FieldTag::__public_ip_address) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for public_ip_address",
+                                ));
+                            }
+                            result.public_ip_address = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__private_ip_address => {
+                            if !fields.insert(__FieldTag::__private_ip_address) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for private_ip_address",
+                                ));
+                            }
+                            result.private_ip_address = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__deployment_url => {
+                            if !fields.insert(__FieldTag::__deployment_url) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for deployment_url",
+                                ));
+                            }
+                            result.deployment_url = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__is_latest_version => {
+                            if !fields.insert(__FieldTag::__is_latest_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for is_latest_version",
+                                ));
+                            }
+                            result.is_latest_version = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__upgrade_required_time => {
+                            if !fields.insert(__FieldTag::__upgrade_required_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for upgrade_required_time",
+                                ));
+                            }
+                            result.upgrade_required_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__storage_utilization_bytes => {
+                            if !fields.insert(__FieldTag::__storage_utilization_bytes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for storage_utilization_bytes",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.storage_utilization_bytes =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__is_storage_utilization_limit_exceeded => {
+                            if !fields.insert(__FieldTag::__is_storage_utilization_limit_exceeded) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for is_storage_utilization_limit_exceeded",
+                                ));
+                            }
+                            result.is_storage_utilization_limit_exceeded = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__deployment_diagnostic_data => {
+                            if !fields.insert(__FieldTag::__deployment_diagnostic_data) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for deployment_diagnostic_data",
+                                ));
+                            }
+                            result.deployment_diagnostic_data = map.next_value::<std::option::Option<crate::model::DeploymentDiagnosticData>>()?
+                                ;
+                        }
+                        __FieldTag::__backup_schedule => {
+                            if !fields.insert(__FieldTag::__backup_schedule) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for backup_schedule",
+                                ));
+                            }
+                            result.backup_schedule = map.next_value::<std::option::Option<crate::model::GoldengateBackupSchedule>>()?
+                                ;
+                        }
+                        __FieldTag::__next_maintenance_time => {
+                            if !fields.insert(__FieldTag::__next_maintenance_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for next_maintenance_time",
+                                ));
+                            }
+                            result.next_maintenance_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__next_maintenance_action_type => {
+                            if !fields.insert(__FieldTag::__next_maintenance_action_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for next_maintenance_action_type",
+                                ));
+                            }
+                            result.next_maintenance_action_type = map.next_value::<std::option::Option<crate::model::goldengate_deployment_properties::NextMaintenanceActionType>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__next_maintenance_description => {
+                            if !fields.insert(__FieldTag::__next_maintenance_description) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for next_maintenance_description",
+                                ));
+                            }
+                            result.next_maintenance_description = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__ogg_version_support_end_time => {
+                            if !fields.insert(__FieldTag::__ogg_version_support_end_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ogg_version_support_end_time",
+                                ));
+                            }
+                            result.ogg_version_support_end_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__ingress_ips => {
+                            if !fields.insert(__FieldTag::__ingress_ips) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ingress_ips",
+                                ));
+                            }
+                            result.ingress_ips = map.next_value::<std::option::Option<std::vec::Vec<crate::model::IngressIp>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__deployment_role => {
+                            if !fields.insert(__FieldTag::__deployment_role) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for deployment_role",
+                                ));
+                            }
+                            result.deployment_role = map.next_value::<std::option::Option<crate::model::goldengate_deployment_properties::GoldengateDeploymentRoleType>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__last_backup_schedule_time => {
+                            if !fields.insert(__FieldTag::__last_backup_schedule_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for last_backup_schedule_time",
+                                ));
+                            }
+                            result.last_backup_schedule_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__next_backup_schedule_time => {
+                            if !fields.insert(__FieldTag::__next_backup_schedule_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for next_backup_schedule_time",
+                                ));
+                            }
+                            result.next_backup_schedule_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__role_change_time => {
+                            if !fields.insert(__FieldTag::__role_change_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for role_change_time",
+                                ));
+                            }
+                            result.role_change_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__locks => {
+                            if !fields.insert(__FieldTag::__locks) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for locks",
+                                ));
+                            }
+                            result.locks = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::GoldengateDeploymentLock>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__placements => {
+                            if !fields.insert(__FieldTag::__placements) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for placements",
+                                ));
+                            }
+                            result.placements = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::GoldengatePlacement>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateOggDeployment {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __admin_password,
+            __admin_password_secret_version,
+            __deployment,
+            __admin_username,
+            __ogg_version,
+            __certificate,
+            __credential_store,
+            __identity_domain_id,
+            __password_secret_id,
+            __group_roles_mapping,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GoldengateOggDeployment")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "adminPassword" => Ok(__FieldTag::__admin_password),
+                            "admin_password" => Ok(__FieldTag::__admin_password),
+                            "adminPasswordSecretVersion" => {
+                                Ok(__FieldTag::__admin_password_secret_version)
+                            }
+                            "admin_password_secret_version" => {
+                                Ok(__FieldTag::__admin_password_secret_version)
+                            }
+                            "deployment" => Ok(__FieldTag::__deployment),
+                            "adminUsername" => Ok(__FieldTag::__admin_username),
+                            "admin_username" => Ok(__FieldTag::__admin_username),
+                            "oggVersion" => Ok(__FieldTag::__ogg_version),
+                            "ogg_version" => Ok(__FieldTag::__ogg_version),
+                            "certificate" => Ok(__FieldTag::__certificate),
+                            "credentialStore" => Ok(__FieldTag::__credential_store),
+                            "credential_store" => Ok(__FieldTag::__credential_store),
+                            "identityDomainId" => Ok(__FieldTag::__identity_domain_id),
+                            "identity_domain_id" => Ok(__FieldTag::__identity_domain_id),
+                            "passwordSecretId" => Ok(__FieldTag::__password_secret_id),
+                            "password_secret_id" => Ok(__FieldTag::__password_secret_id),
+                            "groupRolesMapping" => Ok(__FieldTag::__group_roles_mapping),
+                            "group_roles_mapping" => Ok(__FieldTag::__group_roles_mapping),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateOggDeployment;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateOggDeployment")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__admin_password => {
+                            if !fields.insert(__FieldTag::__admin_password) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for admin_password",
+                                ));
+                            }
+                            if result.deployment_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `deployment_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateOggDeployment.admin_password, latest field was adminPassword",
+                                ));
+                            }
+                            result.deployment_password_options = std::option::Option::Some(
+                                crate::model::goldengate_ogg_deployment::DeploymentPasswordOptions::AdminPassword(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__admin_password_secret_version => {
+                            if !fields.insert(__FieldTag::__admin_password_secret_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for admin_password_secret_version",
+                                ));
+                            }
+                            if result.deployment_password_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `deployment_password_options`, a oneof with full ID .google.cloud.oracledatabase.v1.GoldengateOggDeployment.admin_password_secret_version, latest field was adminPasswordSecretVersion",
+                                ));
+                            }
+                            result.deployment_password_options = std::option::Option::Some(
+                                crate::model::goldengate_ogg_deployment::DeploymentPasswordOptions::AdminPasswordSecretVersion(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__deployment => {
+                            if !fields.insert(__FieldTag::__deployment) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for deployment",
+                                ));
+                            }
+                            result.deployment = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__admin_username => {
+                            if !fields.insert(__FieldTag::__admin_username) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for admin_username",
+                                ));
+                            }
+                            result.admin_username = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__ogg_version => {
+                            if !fields.insert(__FieldTag::__ogg_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ogg_version",
+                                ));
+                            }
+                            result.ogg_version = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__certificate => {
+                            if !fields.insert(__FieldTag::__certificate) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for certificate",
+                                ));
+                            }
+                            result.certificate = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__credential_store => {
+                            if !fields.insert(__FieldTag::__credential_store) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for credential_store",
+                                ));
+                            }
+                            result.credential_store = map
+                                .next_value::<std::option::Option<
+                                    crate::model::goldengate_ogg_deployment::CredentialStore,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__identity_domain_id => {
+                            if !fields.insert(__FieldTag::__identity_domain_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for identity_domain_id",
+                                ));
+                            }
+                            result.identity_domain_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__password_secret_id => {
+                            if !fields.insert(__FieldTag::__password_secret_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for password_secret_id",
+                                ));
+                            }
+                            result.password_secret_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__group_roles_mapping => {
+                            if !fields.insert(__FieldTag::__group_roles_mapping) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for group_roles_mapping",
+                                ));
+                            }
+                            result.group_roles_mapping =
+                                map.next_value::<std::option::Option<
+                                    crate::model::GoldengateGroupToRolesMapping,
+                                >>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateMaintenanceWindow {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __day,
+            __start_hour,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GoldengateMaintenanceWindow")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "day" => Ok(__FieldTag::__day),
+                            "startHour" => Ok(__FieldTag::__start_hour),
+                            "start_hour" => Ok(__FieldTag::__start_hour),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateMaintenanceWindow;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateMaintenanceWindow")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__day => {
+                            if !fields.insert(__FieldTag::__day) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for day",
+                                ));
+                            }
+                            result.day = map.next_value::<std::option::Option<google_cloud_type::model::DayOfWeek>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__start_hour => {
+                            if !fields.insert(__FieldTag::__start_hour) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for start_hour",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.start_hour = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateMaintenanceConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __is_interim_release_auto_upgrade_enabled,
+            __interim_release_upgrade_period_days,
+            __bundle_release_upgrade_period_days,
+            __major_release_upgrade_period_days,
+            __security_patch_upgrade_period_days,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GoldengateMaintenanceConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "isInterimReleaseAutoUpgradeEnabled" => {
+                                Ok(__FieldTag::__is_interim_release_auto_upgrade_enabled)
+                            }
+                            "is_interim_release_auto_upgrade_enabled" => {
+                                Ok(__FieldTag::__is_interim_release_auto_upgrade_enabled)
+                            }
+                            "interimReleaseUpgradePeriodDays" => {
+                                Ok(__FieldTag::__interim_release_upgrade_period_days)
+                            }
+                            "interim_release_upgrade_period_days" => {
+                                Ok(__FieldTag::__interim_release_upgrade_period_days)
+                            }
+                            "bundleReleaseUpgradePeriodDays" => {
+                                Ok(__FieldTag::__bundle_release_upgrade_period_days)
+                            }
+                            "bundle_release_upgrade_period_days" => {
+                                Ok(__FieldTag::__bundle_release_upgrade_period_days)
+                            }
+                            "majorReleaseUpgradePeriodDays" => {
+                                Ok(__FieldTag::__major_release_upgrade_period_days)
+                            }
+                            "major_release_upgrade_period_days" => {
+                                Ok(__FieldTag::__major_release_upgrade_period_days)
+                            }
+                            "securityPatchUpgradePeriodDays" => {
+                                Ok(__FieldTag::__security_patch_upgrade_period_days)
+                            }
+                            "security_patch_upgrade_period_days" => {
+                                Ok(__FieldTag::__security_patch_upgrade_period_days)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateMaintenanceConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateMaintenanceConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__is_interim_release_auto_upgrade_enabled => {
+                            if !fields.insert(__FieldTag::__is_interim_release_auto_upgrade_enabled)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for is_interim_release_auto_upgrade_enabled",
+                                ));
+                            }
+                            result.is_interim_release_auto_upgrade_enabled = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__interim_release_upgrade_period_days => {
+                            if !fields.insert(__FieldTag::__interim_release_upgrade_period_days) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for interim_release_upgrade_period_days",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.interim_release_upgrade_period_days =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__bundle_release_upgrade_period_days => {
+                            if !fields.insert(__FieldTag::__bundle_release_upgrade_period_days) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for bundle_release_upgrade_period_days",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.bundle_release_upgrade_period_days =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__major_release_upgrade_period_days => {
+                            if !fields.insert(__FieldTag::__major_release_upgrade_period_days) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for major_release_upgrade_period_days",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.major_release_upgrade_period_days =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__security_patch_upgrade_period_days => {
+                            if !fields.insert(__FieldTag::__security_patch_upgrade_period_days) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for security_patch_upgrade_period_days",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.security_patch_upgrade_period_days =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::DeploymentDiagnosticData {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __namespace,
+            __bucket,
+            __object,
+            __diagnostic_state,
+            __diagnostic_start_time,
+            __diagnostic_end_time,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DeploymentDiagnosticData")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "namespace" => Ok(__FieldTag::__namespace),
+                            "bucket" => Ok(__FieldTag::__bucket),
+                            "object" => Ok(__FieldTag::__object),
+                            "diagnosticState" => Ok(__FieldTag::__diagnostic_state),
+                            "diagnostic_state" => Ok(__FieldTag::__diagnostic_state),
+                            "diagnosticStartTime" => Ok(__FieldTag::__diagnostic_start_time),
+                            "diagnostic_start_time" => Ok(__FieldTag::__diagnostic_start_time),
+                            "diagnosticEndTime" => Ok(__FieldTag::__diagnostic_end_time),
+                            "diagnostic_end_time" => Ok(__FieldTag::__diagnostic_end_time),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::DeploymentDiagnosticData;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DeploymentDiagnosticData")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__namespace => {
+                            if !fields.insert(__FieldTag::__namespace) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for namespace",
+                                ));
+                            }
+                            result.namespace = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__bucket => {
+                            if !fields.insert(__FieldTag::__bucket) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for bucket",
+                                ));
+                            }
+                            result.bucket = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__object => {
+                            if !fields.insert(__FieldTag::__object) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for object",
+                                ));
+                            }
+                            result.object = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__diagnostic_state => {
+                            if !fields.insert(__FieldTag::__diagnostic_state) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for diagnostic_state",
+                                ));
+                            }
+                            result.diagnostic_state = map
+                                .next_value::<std::option::Option<
+                                    crate::model::deployment_diagnostic_data::DiagnosticState,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__diagnostic_start_time => {
+                            if !fields.insert(__FieldTag::__diagnostic_start_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for diagnostic_start_time",
+                                ));
+                            }
+                            result.diagnostic_start_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__diagnostic_end_time => {
+                            if !fields.insert(__FieldTag::__diagnostic_end_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for diagnostic_end_time",
+                                ));
+                            }
+                            result.diagnostic_end_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateBackupSchedule {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __bucket,
+            __compartment_id,
+            __frequency_backup_scheduled,
+            __metadata_only,
+            __namespace,
+            __backup_scheduled_time,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GoldengateBackupSchedule")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "bucket" => Ok(__FieldTag::__bucket),
+                            "compartmentId" => Ok(__FieldTag::__compartment_id),
+                            "compartment_id" => Ok(__FieldTag::__compartment_id),
+                            "frequencyBackupScheduled" => {
+                                Ok(__FieldTag::__frequency_backup_scheduled)
+                            }
+                            "frequency_backup_scheduled" => {
+                                Ok(__FieldTag::__frequency_backup_scheduled)
+                            }
+                            "metadataOnly" => Ok(__FieldTag::__metadata_only),
+                            "metadata_only" => Ok(__FieldTag::__metadata_only),
+                            "namespace" => Ok(__FieldTag::__namespace),
+                            "backupScheduledTime" => Ok(__FieldTag::__backup_scheduled_time),
+                            "backup_scheduled_time" => Ok(__FieldTag::__backup_scheduled_time),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateBackupSchedule;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateBackupSchedule")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__bucket => {
+                            if !fields.insert(__FieldTag::__bucket) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for bucket",
+                                ));
+                            }
+                            result.bucket = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__compartment_id => {
+                            if !fields.insert(__FieldTag::__compartment_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for compartment_id",
+                                ));
+                            }
+                            result.compartment_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__frequency_backup_scheduled => {
+                            if !fields.insert(__FieldTag::__frequency_backup_scheduled) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for frequency_backup_scheduled",
+                                ));
+                            }
+                            result.frequency_backup_scheduled = map.next_value::<std::option::Option<crate::model::goldengate_backup_schedule::FrequencyBackupScheduled>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__metadata_only => {
+                            if !fields.insert(__FieldTag::__metadata_only) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for metadata_only",
+                                ));
+                            }
+                            result.metadata_only = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__namespace => {
+                            if !fields.insert(__FieldTag::__namespace) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for namespace",
+                                ));
+                            }
+                            result.namespace = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__backup_scheduled_time => {
+                            if !fields.insert(__FieldTag::__backup_scheduled_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for backup_scheduled_time",
+                                ));
+                            }
+                            result.backup_scheduled_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::IngressIp {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __ingress_ip_address,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for IngressIp")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "ingressIpAddress" => Ok(__FieldTag::__ingress_ip_address),
+                            "ingress_ip_address" => Ok(__FieldTag::__ingress_ip_address),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::IngressIp;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct IngressIp")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__ingress_ip_address => {
+                            if !fields.insert(__FieldTag::__ingress_ip_address) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ingress_ip_address",
+                                ));
+                            }
+                            result.ingress_ip_address = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateDeploymentLock {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __type,
+            __compartment_id,
+            __related_resource_id,
+            __message,
+            __create_time,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GoldengateDeploymentLock")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "type" => Ok(__FieldTag::__type),
+                            "compartmentId" => Ok(__FieldTag::__compartment_id),
+                            "compartment_id" => Ok(__FieldTag::__compartment_id),
+                            "relatedResourceId" => Ok(__FieldTag::__related_resource_id),
+                            "related_resource_id" => Ok(__FieldTag::__related_resource_id),
+                            "message" => Ok(__FieldTag::__message),
+                            "createTime" => Ok(__FieldTag::__create_time),
+                            "create_time" => Ok(__FieldTag::__create_time),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateDeploymentLock;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateDeploymentLock")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__type => {
+                            if !fields.insert(__FieldTag::__type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for type",
+                                ));
+                            }
+                            result.r#type = map
+                                .next_value::<std::option::Option<
+                                    crate::model::goldengate_deployment_lock::LockType,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__compartment_id => {
+                            if !fields.insert(__FieldTag::__compartment_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for compartment_id",
+                                ));
+                            }
+                            result.compartment_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__related_resource_id => {
+                            if !fields.insert(__FieldTag::__related_resource_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for related_resource_id",
+                                ));
+                            }
+                            result.related_resource_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__message => {
+                            if !fields.insert(__FieldTag::__message) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for message",
+                                ));
+                            }
+                            result.message = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__create_time => {
+                            if !fields.insert(__FieldTag::__create_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for create_time",
+                                ));
+                            }
+                            result.create_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengatePlacement {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __availability_domain,
+            __fault_domain,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GoldengatePlacement")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "availabilityDomain" => Ok(__FieldTag::__availability_domain),
+                            "availability_domain" => Ok(__FieldTag::__availability_domain),
+                            "faultDomain" => Ok(__FieldTag::__fault_domain),
+                            "fault_domain" => Ok(__FieldTag::__fault_domain),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengatePlacement;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengatePlacement")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__availability_domain => {
+                            if !fields.insert(__FieldTag::__availability_domain) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for availability_domain",
+                                ));
+                            }
+                            result.availability_domain = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__fault_domain => {
+                            if !fields.insert(__FieldTag::__fault_domain) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for fault_domain",
+                                ));
+                            }
+                            result.fault_domain = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateGroupToRolesMapping {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __security_group_id,
+            __administrator_group_id,
+            __operator_group_id,
+            __user_group_id,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GoldengateGroupToRolesMapping")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "securityGroupId" => Ok(__FieldTag::__security_group_id),
+                            "security_group_id" => Ok(__FieldTag::__security_group_id),
+                            "administratorGroupId" => Ok(__FieldTag::__administrator_group_id),
+                            "administrator_group_id" => Ok(__FieldTag::__administrator_group_id),
+                            "operatorGroupId" => Ok(__FieldTag::__operator_group_id),
+                            "operator_group_id" => Ok(__FieldTag::__operator_group_id),
+                            "userGroupId" => Ok(__FieldTag::__user_group_id),
+                            "user_group_id" => Ok(__FieldTag::__user_group_id),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateGroupToRolesMapping;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateGroupToRolesMapping")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__security_group_id => {
+                            if !fields.insert(__FieldTag::__security_group_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for security_group_id",
+                                ));
+                            }
+                            result.security_group_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__administrator_group_id => {
+                            if !fields.insert(__FieldTag::__administrator_group_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for administrator_group_id",
+                                ));
+                            }
+                            result.administrator_group_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__operator_group_id => {
+                            if !fields.insert(__FieldTag::__operator_group_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for operator_group_id",
+                                ));
+                            }
+                            result.operator_group_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__user_group_id => {
+                            if !fields.insert(__FieldTag::__user_group_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for user_group_id",
+                                ));
+                            }
+                            result.user_group_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::CreateGoldengateDeploymentRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __goldengate_deployment_id,
+            __goldengate_deployment,
+            __request_id,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CreateGoldengateDeploymentRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "goldengateDeploymentId" => Ok(__FieldTag::__goldengate_deployment_id),
+                            "goldengate_deployment_id" => {
+                                Ok(__FieldTag::__goldengate_deployment_id)
+                            }
+                            "goldengateDeployment" => Ok(__FieldTag::__goldengate_deployment),
+                            "goldengate_deployment" => Ok(__FieldTag::__goldengate_deployment),
+                            "requestId" => Ok(__FieldTag::__request_id),
+                            "request_id" => Ok(__FieldTag::__request_id),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::CreateGoldengateDeploymentRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CreateGoldengateDeploymentRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__goldengate_deployment_id => {
+                            if !fields.insert(__FieldTag::__goldengate_deployment_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for goldengate_deployment_id",
+                                ));
+                            }
+                            result.goldengate_deployment_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__goldengate_deployment => {
+                            if !fields.insert(__FieldTag::__goldengate_deployment) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for goldengate_deployment",
+                                ));
+                            }
+                            result.goldengate_deployment = map.next_value::<std::option::Option<crate::model::GoldengateDeployment>>()?
+                                ;
+                        }
+                        __FieldTag::__request_id => {
+                            if !fields.insert(__FieldTag::__request_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_id",
+                                ));
+                            }
+                            result.request_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::DeleteGoldengateDeploymentRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __request_id,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DeleteGoldengateDeploymentRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "requestId" => Ok(__FieldTag::__request_id),
+                            "request_id" => Ok(__FieldTag::__request_id),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::DeleteGoldengateDeploymentRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DeleteGoldengateDeploymentRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__request_id => {
+                            if !fields.insert(__FieldTag::__request_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_id",
+                                ));
+                            }
+                            result.request_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GetGoldengateDeploymentRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GetGoldengateDeploymentRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GetGoldengateDeploymentRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GetGoldengateDeploymentRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ListGoldengateDeploymentsRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __page_size,
+            __page_token,
+            __filter,
+            __order_by,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListGoldengateDeploymentsRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "pageSize" => Ok(__FieldTag::__page_size),
+                            "page_size" => Ok(__FieldTag::__page_size),
+                            "pageToken" => Ok(__FieldTag::__page_token),
+                            "page_token" => Ok(__FieldTag::__page_token),
+                            "filter" => Ok(__FieldTag::__filter),
+                            "orderBy" => Ok(__FieldTag::__order_by),
+                            "order_by" => Ok(__FieldTag::__order_by),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ListGoldengateDeploymentsRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListGoldengateDeploymentsRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__page_size => {
+                            if !fields.insert(__FieldTag::__page_size) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_size",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__page_token => {
+                            if !fields.insert(__FieldTag::__page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_token",
+                                ));
+                            }
+                            result.page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__filter => {
+                            if !fields.insert(__FieldTag::__filter) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for filter",
+                                ));
+                            }
+                            result.filter = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__order_by => {
+                            if !fields.insert(__FieldTag::__order_by) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for order_by",
+                                ));
+                            }
+                            result.order_by = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ListGoldengateDeploymentsResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __goldengate_deployments,
+            __next_page_token,
+            __unreachable,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListGoldengateDeploymentsResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "goldengateDeployments" => Ok(__FieldTag::__goldengate_deployments),
+                            "goldengate_deployments" => Ok(__FieldTag::__goldengate_deployments),
+                            "nextPageToken" => Ok(__FieldTag::__next_page_token),
+                            "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            "unreachable" => Ok(__FieldTag::__unreachable),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ListGoldengateDeploymentsResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListGoldengateDeploymentsResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__goldengate_deployments => {
+                            if !fields.insert(__FieldTag::__goldengate_deployments) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for goldengate_deployments",
+                                ));
+                            }
+                            result.goldengate_deployments = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::GoldengateDeployment>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__next_page_token => {
+                            if !fields.insert(__FieldTag::__next_page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for next_page_token",
+                                ));
+                            }
+                            result.next_page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__unreachable => {
+                            if !fields.insert(__FieldTag::__unreachable) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unreachable",
+                                ));
+                            }
+                            result.unreachable = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::StopGoldengateDeploymentRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for StopGoldengateDeploymentRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::StopGoldengateDeploymentRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct StopGoldengateDeploymentRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::StartGoldengateDeploymentRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for StartGoldengateDeploymentRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::StartGoldengateDeploymentRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct StartGoldengateDeploymentRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateDeploymentEnvironment {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __category,
+            __display_name,
+            __default_cpu_core_count,
+            __environment_type,
+            __auto_scaling_enabled,
+            __max_cpu_core_count,
+            __memory_gb_per_cpu_core,
+            __min_cpu_core_count,
+            __network_bandwidth_gbps_per_cpu_core,
+            __storage_usage_limit_gb_per_cpu_core,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GoldengateDeploymentEnvironment")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "category" => Ok(__FieldTag::__category),
+                            "displayName" => Ok(__FieldTag::__display_name),
+                            "display_name" => Ok(__FieldTag::__display_name),
+                            "defaultCpuCoreCount" => Ok(__FieldTag::__default_cpu_core_count),
+                            "default_cpu_core_count" => Ok(__FieldTag::__default_cpu_core_count),
+                            "environmentType" => Ok(__FieldTag::__environment_type),
+                            "environment_type" => Ok(__FieldTag::__environment_type),
+                            "autoScalingEnabled" => Ok(__FieldTag::__auto_scaling_enabled),
+                            "auto_scaling_enabled" => Ok(__FieldTag::__auto_scaling_enabled),
+                            "maxCpuCoreCount" => Ok(__FieldTag::__max_cpu_core_count),
+                            "max_cpu_core_count" => Ok(__FieldTag::__max_cpu_core_count),
+                            "memoryGbPerCpuCore" => Ok(__FieldTag::__memory_gb_per_cpu_core),
+                            "memory_gb_per_cpu_core" => Ok(__FieldTag::__memory_gb_per_cpu_core),
+                            "minCpuCoreCount" => Ok(__FieldTag::__min_cpu_core_count),
+                            "min_cpu_core_count" => Ok(__FieldTag::__min_cpu_core_count),
+                            "networkBandwidthGbpsPerCpuCore" => {
+                                Ok(__FieldTag::__network_bandwidth_gbps_per_cpu_core)
+                            }
+                            "network_bandwidth_gbps_per_cpu_core" => {
+                                Ok(__FieldTag::__network_bandwidth_gbps_per_cpu_core)
+                            }
+                            "storageUsageLimitGbPerCpuCore" => {
+                                Ok(__FieldTag::__storage_usage_limit_gb_per_cpu_core)
+                            }
+                            "storage_usage_limit_gb_per_cpu_core" => {
+                                Ok(__FieldTag::__storage_usage_limit_gb_per_cpu_core)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateDeploymentEnvironment;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateDeploymentEnvironment")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__category => {
+                            if !fields.insert(__FieldTag::__category) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for category",
+                                ));
+                            }
+                            result.category = map.next_value::<std::option::Option<crate::model::goldengate_deployment_environment::DeploymentCategory>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__display_name => {
+                            if !fields.insert(__FieldTag::__display_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for display_name",
+                                ));
+                            }
+                            result.display_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__default_cpu_core_count => {
+                            if !fields.insert(__FieldTag::__default_cpu_core_count) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for default_cpu_core_count",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.default_cpu_core_count =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__environment_type => {
+                            if !fields.insert(__FieldTag::__environment_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for environment_type",
+                                ));
+                            }
+                            result.environment_type = map.next_value::<std::option::Option<crate::model::goldengate_deployment_environment::DeploymentEnvironmentType>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__auto_scaling_enabled => {
+                            if !fields.insert(__FieldTag::__auto_scaling_enabled) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for auto_scaling_enabled",
+                                ));
+                            }
+                            result.auto_scaling_enabled = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__max_cpu_core_count => {
+                            if !fields.insert(__FieldTag::__max_cpu_core_count) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for max_cpu_core_count",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.max_cpu_core_count =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__memory_gb_per_cpu_core => {
+                            if !fields.insert(__FieldTag::__memory_gb_per_cpu_core) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for memory_gb_per_cpu_core",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.memory_gb_per_cpu_core =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__min_cpu_core_count => {
+                            if !fields.insert(__FieldTag::__min_cpu_core_count) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for min_cpu_core_count",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.min_cpu_core_count =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__network_bandwidth_gbps_per_cpu_core => {
+                            if !fields.insert(__FieldTag::__network_bandwidth_gbps_per_cpu_core) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for network_bandwidth_gbps_per_cpu_core",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.network_bandwidth_gbps_per_cpu_core =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__storage_usage_limit_gb_per_cpu_core => {
+                            if !fields.insert(__FieldTag::__storage_usage_limit_gb_per_cpu_core) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for storage_usage_limit_gb_per_cpu_core",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.storage_usage_limit_gb_per_cpu_core =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GetGoldengateDeploymentEnvironmentRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter
+                            .write_str("a field name for GetGoldengateDeploymentEnvironmentRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GetGoldengateDeploymentEnvironmentRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GetGoldengateDeploymentEnvironmentRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ListGoldengateDeploymentEnvironmentsRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __page_size,
+            __page_token,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str(
+                            "a field name for ListGoldengateDeploymentEnvironmentsRequest",
+                        )
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "pageSize" => Ok(__FieldTag::__page_size),
+                            "page_size" => Ok(__FieldTag::__page_size),
+                            "pageToken" => Ok(__FieldTag::__page_token),
+                            "page_token" => Ok(__FieldTag::__page_token),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ListGoldengateDeploymentEnvironmentsRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListGoldengateDeploymentEnvironmentsRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__page_size => {
+                            if !fields.insert(__FieldTag::__page_size) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_size",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__page_token => {
+                            if !fields.insert(__FieldTag::__page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_token",
+                                ));
+                            }
+                            result.page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ListGoldengateDeploymentEnvironmentsResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __goldengate_deployment_environments,
+            __next_page_token,
+            __unreachable,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str(
+                            "a field name for ListGoldengateDeploymentEnvironmentsResponse",
+                        )
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "goldengateDeploymentEnvironments" => {
+                                Ok(__FieldTag::__goldengate_deployment_environments)
+                            }
+                            "goldengate_deployment_environments" => {
+                                Ok(__FieldTag::__goldengate_deployment_environments)
+                            }
+                            "nextPageToken" => Ok(__FieldTag::__next_page_token),
+                            "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            "unreachable" => Ok(__FieldTag::__unreachable),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ListGoldengateDeploymentEnvironmentsResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListGoldengateDeploymentEnvironmentsResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__goldengate_deployment_environments => {
+                            if !fields.insert(__FieldTag::__goldengate_deployment_environments) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for goldengate_deployment_environments",
+                                ));
+                            }
+                            result.goldengate_deployment_environments = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::GoldengateDeploymentEnvironment>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__next_page_token => {
+                            if !fields.insert(__FieldTag::__next_page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for next_page_token",
+                                ));
+                            }
+                            result.next_page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__unreachable => {
+                            if !fields.insert(__FieldTag::__unreachable) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unreachable",
+                                ));
+                            }
+                            result.unreachable = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateDeploymentType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __deployment_type,
+            __category,
+            __connection_types,
+            __display_name,
+            __ogg_version,
+            __source_technologies,
+            __supported_capabilities,
+            __supported_technologies_url,
+            __target_technologies,
+            __default_username,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GoldengateDeploymentType")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "deploymentType" => Ok(__FieldTag::__deployment_type),
+                            "deployment_type" => Ok(__FieldTag::__deployment_type),
+                            "category" => Ok(__FieldTag::__category),
+                            "connectionTypes" => Ok(__FieldTag::__connection_types),
+                            "connection_types" => Ok(__FieldTag::__connection_types),
+                            "displayName" => Ok(__FieldTag::__display_name),
+                            "display_name" => Ok(__FieldTag::__display_name),
+                            "oggVersion" => Ok(__FieldTag::__ogg_version),
+                            "ogg_version" => Ok(__FieldTag::__ogg_version),
+                            "sourceTechnologies" => Ok(__FieldTag::__source_technologies),
+                            "source_technologies" => Ok(__FieldTag::__source_technologies),
+                            "supportedCapabilities" => Ok(__FieldTag::__supported_capabilities),
+                            "supported_capabilities" => Ok(__FieldTag::__supported_capabilities),
+                            "supportedTechnologiesUrl" => {
+                                Ok(__FieldTag::__supported_technologies_url)
+                            }
+                            "supported_technologies_url" => {
+                                Ok(__FieldTag::__supported_technologies_url)
+                            }
+                            "targetTechnologies" => Ok(__FieldTag::__target_technologies),
+                            "target_technologies" => Ok(__FieldTag::__target_technologies),
+                            "defaultUsername" => Ok(__FieldTag::__default_username),
+                            "default_username" => Ok(__FieldTag::__default_username),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateDeploymentType;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateDeploymentType")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__deployment_type => {
+                            if !fields.insert(__FieldTag::__deployment_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for deployment_type",
+                                ));
+                            }
+                            result.deployment_type = map
+                                .next_value::<std::option::Option<
+                                    crate::model::goldengate_deployment_type::DeploymentType,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__category => {
+                            if !fields.insert(__FieldTag::__category) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for category",
+                                ));
+                            }
+                            result.category = map
+                                .next_value::<std::option::Option<
+                                    crate::model::goldengate_deployment_type::DeploymentCategory,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__connection_types => {
+                            if !fields.insert(__FieldTag::__connection_types) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for connection_types",
+                                ));
+                            }
+                            result.connection_types = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__display_name => {
+                            if !fields.insert(__FieldTag::__display_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for display_name",
+                                ));
+                            }
+                            result.display_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__ogg_version => {
+                            if !fields.insert(__FieldTag::__ogg_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ogg_version",
+                                ));
+                            }
+                            result.ogg_version = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__source_technologies => {
+                            if !fields.insert(__FieldTag::__source_technologies) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for source_technologies",
+                                ));
+                            }
+                            result.source_technologies = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__supported_capabilities => {
+                            if !fields.insert(__FieldTag::__supported_capabilities) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for supported_capabilities",
+                                ));
+                            }
+                            result.supported_capabilities = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__supported_technologies_url => {
+                            if !fields.insert(__FieldTag::__supported_technologies_url) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for supported_technologies_url",
+                                ));
+                            }
+                            result.supported_technologies_url = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__target_technologies => {
+                            if !fields.insert(__FieldTag::__target_technologies) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for target_technologies",
+                                ));
+                            }
+                            result.target_technologies = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__default_username => {
+                            if !fields.insert(__FieldTag::__default_username) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for default_username",
+                                ));
+                            }
+                            result.default_username = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GetGoldengateDeploymentTypeRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GetGoldengateDeploymentTypeRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GetGoldengateDeploymentTypeRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GetGoldengateDeploymentTypeRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ListGoldengateDeploymentTypesRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __page_size,
+            __page_token,
+            __filter,
+            __order_by,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListGoldengateDeploymentTypesRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "pageSize" => Ok(__FieldTag::__page_size),
+                            "page_size" => Ok(__FieldTag::__page_size),
+                            "pageToken" => Ok(__FieldTag::__page_token),
+                            "page_token" => Ok(__FieldTag::__page_token),
+                            "filter" => Ok(__FieldTag::__filter),
+                            "orderBy" => Ok(__FieldTag::__order_by),
+                            "order_by" => Ok(__FieldTag::__order_by),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ListGoldengateDeploymentTypesRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListGoldengateDeploymentTypesRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__page_size => {
+                            if !fields.insert(__FieldTag::__page_size) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_size",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__page_token => {
+                            if !fields.insert(__FieldTag::__page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_token",
+                                ));
+                            }
+                            result.page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__filter => {
+                            if !fields.insert(__FieldTag::__filter) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for filter",
+                                ));
+                            }
+                            result.filter = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__order_by => {
+                            if !fields.insert(__FieldTag::__order_by) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for order_by",
+                                ));
+                            }
+                            result.order_by = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ListGoldengateDeploymentTypesResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __goldengate_deployment_types,
+            __next_page_token,
+            __unreachable,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter
+                            .write_str("a field name for ListGoldengateDeploymentTypesResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "goldengateDeploymentTypes" => {
+                                Ok(__FieldTag::__goldengate_deployment_types)
+                            }
+                            "goldengate_deployment_types" => {
+                                Ok(__FieldTag::__goldengate_deployment_types)
+                            }
+                            "nextPageToken" => Ok(__FieldTag::__next_page_token),
+                            "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            "unreachable" => Ok(__FieldTag::__unreachable),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ListGoldengateDeploymentTypesResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListGoldengateDeploymentTypesResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__goldengate_deployment_types => {
+                            if !fields.insert(__FieldTag::__goldengate_deployment_types) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for goldengate_deployment_types",
+                                ));
+                            }
+                            result.goldengate_deployment_types = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::GoldengateDeploymentType>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__next_page_token => {
+                            if !fields.insert(__FieldTag::__next_page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for next_page_token",
+                                ));
+                            }
+                            result.next_page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__unreachable => {
+                            if !fields.insert(__FieldTag::__unreachable) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unreachable",
+                                ));
+                            }
+                            result.unreachable = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateDeploymentVersion {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __ocid,
+            __properties,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GoldengateDeploymentVersion")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "ocid" => Ok(__FieldTag::__ocid),
+                            "properties" => Ok(__FieldTag::__properties),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateDeploymentVersion;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateDeploymentVersion")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__ocid => {
+                            if !fields.insert(__FieldTag::__ocid) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ocid",
+                                ));
+                            }
+                            result.ocid = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__properties => {
+                            if !fields.insert(__FieldTag::__properties) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for properties",
+                                ));
+                            }
+                            result.properties = map.next_value::<std::option::Option<
+                                crate::model::GoldengateDeploymentVersionProperties,
+                            >>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoldengateDeploymentVersionProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __deployment_type,
+            __security_fix,
+            __ogg_version,
+            __release_type,
+            __release_time,
+            __support_end_time,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter
+                            .write_str("a field name for GoldengateDeploymentVersionProperties")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "deploymentType" => Ok(__FieldTag::__deployment_type),
+                            "deployment_type" => Ok(__FieldTag::__deployment_type),
+                            "securityFix" => Ok(__FieldTag::__security_fix),
+                            "security_fix" => Ok(__FieldTag::__security_fix),
+                            "oggVersion" => Ok(__FieldTag::__ogg_version),
+                            "ogg_version" => Ok(__FieldTag::__ogg_version),
+                            "releaseType" => Ok(__FieldTag::__release_type),
+                            "release_type" => Ok(__FieldTag::__release_type),
+                            "releaseTime" => Ok(__FieldTag::__release_time),
+                            "release_time" => Ok(__FieldTag::__release_time),
+                            "supportEndTime" => Ok(__FieldTag::__support_end_time),
+                            "support_end_time" => Ok(__FieldTag::__support_end_time),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoldengateDeploymentVersionProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoldengateDeploymentVersionProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__deployment_type => {
+                            if !fields.insert(__FieldTag::__deployment_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for deployment_type",
+                                ));
+                            }
+                            result.deployment_type = map.next_value::<std::option::Option<crate::model::goldengate_deployment_version_properties::DeploymentType>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__security_fix => {
+                            if !fields.insert(__FieldTag::__security_fix) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for security_fix",
+                                ));
+                            }
+                            result.security_fix = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__ogg_version => {
+                            if !fields.insert(__FieldTag::__ogg_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ogg_version",
+                                ));
+                            }
+                            result.ogg_version = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__release_type => {
+                            if !fields.insert(__FieldTag::__release_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for release_type",
+                                ));
+                            }
+                            result.release_type = map.next_value::<std::option::Option<crate::model::goldengate_deployment_version_properties::DeploymentReleaseType>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__release_time => {
+                            if !fields.insert(__FieldTag::__release_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for release_time",
+                                ));
+                            }
+                            result.release_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__support_end_time => {
+                            if !fields.insert(__FieldTag::__support_end_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for support_end_time",
+                                ));
+                            }
+                            result.support_end_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GetGoldengateDeploymentVersionRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter
+                            .write_str("a field name for GetGoldengateDeploymentVersionRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GetGoldengateDeploymentVersionRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GetGoldengateDeploymentVersionRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ListGoldengateDeploymentVersionsRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __page_size,
+            __page_token,
+            __filter,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter
+                            .write_str("a field name for ListGoldengateDeploymentVersionsRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "pageSize" => Ok(__FieldTag::__page_size),
+                            "page_size" => Ok(__FieldTag::__page_size),
+                            "pageToken" => Ok(__FieldTag::__page_token),
+                            "page_token" => Ok(__FieldTag::__page_token),
+                            "filter" => Ok(__FieldTag::__filter),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ListGoldengateDeploymentVersionsRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListGoldengateDeploymentVersionsRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__page_size => {
+                            if !fields.insert(__FieldTag::__page_size) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_size",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__page_token => {
+                            if !fields.insert(__FieldTag::__page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_token",
+                                ));
+                            }
+                            result.page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__filter => {
+                            if !fields.insert(__FieldTag::__filter) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for filter",
+                                ));
+                            }
+                            result.filter = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ListGoldengateDeploymentVersionsResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __goldengate_deployment_versions,
+            __next_page_token,
+            __unreachable,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter
+                            .write_str("a field name for ListGoldengateDeploymentVersionsResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "goldengateDeploymentVersions" => {
+                                Ok(__FieldTag::__goldengate_deployment_versions)
+                            }
+                            "goldengate_deployment_versions" => {
+                                Ok(__FieldTag::__goldengate_deployment_versions)
+                            }
+                            "nextPageToken" => Ok(__FieldTag::__next_page_token),
+                            "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            "unreachable" => Ok(__FieldTag::__unreachable),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ListGoldengateDeploymentVersionsResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListGoldengateDeploymentVersionsResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__goldengate_deployment_versions => {
+                            if !fields.insert(__FieldTag::__goldengate_deployment_versions) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for goldengate_deployment_versions",
+                                ));
+                            }
+                            result.goldengate_deployment_versions = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::GoldengateDeploymentVersion>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__next_page_token => {
+                            if !fields.insert(__FieldTag::__next_page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for next_page_token",
+                                ));
+                            }
+                            result.next_page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__unreachable => {
+                            if !fields.insert(__FieldTag::__unreachable) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unreachable",
+                                ));
+                            }
+                            result.unreachable = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -13301,6 +28030,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ListCloudExadataInfrastructures
         enum __FieldTag {
             __cloud_exadata_infrastructures,
             __next_page_token,
+            __unreachable,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -13330,6 +28060,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ListCloudExadataInfrastructures
                             }
                             "nextPageToken" => Ok(__FieldTag::__next_page_token),
                             "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            "unreachable" => Ok(__FieldTag::__unreachable),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -13376,6 +28107,14 @@ impl<'de> serde::de::Deserialize<'de> for super::ListCloudExadataInfrastructures
                             result.next_page_token = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__unreachable => {
+                            if !fields.insert(__FieldTag::__unreachable) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unreachable",
+                                ));
+                            }
+                            result.unreachable = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -13842,6 +28581,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ListCloudVmClustersResponse {
         enum __FieldTag {
             __cloud_vm_clusters,
             __next_page_token,
+            __unreachable,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -13866,6 +28606,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ListCloudVmClustersResponse {
                             "cloud_vm_clusters" => Ok(__FieldTag::__cloud_vm_clusters),
                             "nextPageToken" => Ok(__FieldTag::__next_page_token),
                             "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            "unreachable" => Ok(__FieldTag::__unreachable),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -13912,6 +28653,14 @@ impl<'de> serde::de::Deserialize<'de> for super::ListCloudVmClustersResponse {
                             result.next_page_token = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__unreachable => {
+                            if !fields.insert(__FieldTag::__unreachable) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unreachable",
+                                ));
+                            }
+                            result.unreachable = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -15618,6 +30367,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ListAutonomousDatabasesResponse
         enum __FieldTag {
             __autonomous_databases,
             __next_page_token,
+            __unreachable,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -15642,6 +30392,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ListAutonomousDatabasesResponse
                             "autonomous_databases" => Ok(__FieldTag::__autonomous_databases),
                             "nextPageToken" => Ok(__FieldTag::__next_page_token),
                             "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            "unreachable" => Ok(__FieldTag::__unreachable),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -15688,6 +30439,14 @@ impl<'de> serde::de::Deserialize<'de> for super::ListAutonomousDatabasesResponse
                             result.next_page_token = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__unreachable => {
+                            if !fields.insert(__FieldTag::__unreachable) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unreachable",
+                                ));
+                            }
+                            result.unreachable = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -17944,6 +32703,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ListExadbVmClustersResponse {
         enum __FieldTag {
             __exadb_vm_clusters,
             __next_page_token,
+            __unreachable,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -17968,6 +32728,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ListExadbVmClustersResponse {
                             "exadb_vm_clusters" => Ok(__FieldTag::__exadb_vm_clusters),
                             "nextPageToken" => Ok(__FieldTag::__next_page_token),
                             "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            "unreachable" => Ok(__FieldTag::__unreachable),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -18014,6 +32775,14 @@ impl<'de> serde::de::Deserialize<'de> for super::ListExadbVmClustersResponse {
                             result.next_page_token = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__unreachable => {
+                            if !fields.insert(__FieldTag::__unreachable) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unreachable",
+                                ));
+                            }
+                            result.unreachable = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

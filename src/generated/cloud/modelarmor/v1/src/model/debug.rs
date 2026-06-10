@@ -349,6 +349,7 @@ impl std::fmt::Debug for super::SanitizeUserPromptRequest {
             "multi_language_detection_metadata",
             &self.multi_language_detection_metadata,
         );
+        debug_struct.field("streaming_mode", &self.streaming_mode);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -366,6 +367,7 @@ impl std::fmt::Debug for super::SanitizeModelResponseRequest {
             "multi_language_detection_metadata",
             &self.multi_language_detection_metadata,
         );
+        debug_struct.field("streaming_mode", &self.streaming_mode);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -418,6 +420,7 @@ impl std::fmt::Debug for super::sanitization_result::SanitizationMetadata {
             "ignore_partial_invocation_failures",
             &self.ignore_partial_invocation_failures,
         );
+        debug_struct.field("stream_chunk_processed", &self.stream_chunk_processed);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

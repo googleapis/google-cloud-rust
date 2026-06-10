@@ -18083,6 +18083,8 @@ pub enum DatabaseVersion {
     Postgres16,
     /// The database version is Postgres 17.
     Postgres17,
+    /// The database version is Postgres 18.
+    Postgres18,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [DatabaseVersion::value] or
@@ -18111,6 +18113,7 @@ impl DatabaseVersion {
             Self::Postgres15 => std::option::Option::Some(3),
             Self::Postgres16 => std::option::Option::Some(4),
             Self::Postgres17 => std::option::Option::Some(5),
+            Self::Postgres18 => std::option::Option::Some(6),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -18127,6 +18130,7 @@ impl DatabaseVersion {
             Self::Postgres15 => std::option::Option::Some("POSTGRES_15"),
             Self::Postgres16 => std::option::Option::Some("POSTGRES_16"),
             Self::Postgres17 => std::option::Option::Some("POSTGRES_17"),
+            Self::Postgres18 => std::option::Option::Some("POSTGRES_18"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -18154,6 +18158,7 @@ impl std::convert::From<i32> for DatabaseVersion {
             3 => Self::Postgres15,
             4 => Self::Postgres16,
             5 => Self::Postgres17,
+            6 => Self::Postgres18,
             _ => Self::UnknownValue(database_version::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -18171,6 +18176,7 @@ impl std::convert::From<&str> for DatabaseVersion {
             "POSTGRES_15" => Self::Postgres15,
             "POSTGRES_16" => Self::Postgres16,
             "POSTGRES_17" => Self::Postgres17,
+            "POSTGRES_18" => Self::Postgres18,
             _ => Self::UnknownValue(database_version::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -18190,6 +18196,7 @@ impl serde::ser::Serialize for DatabaseVersion {
             Self::Postgres15 => serializer.serialize_i32(3),
             Self::Postgres16 => serializer.serialize_i32(4),
             Self::Postgres17 => serializer.serialize_i32(5),
+            Self::Postgres18 => serializer.serialize_i32(6),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }

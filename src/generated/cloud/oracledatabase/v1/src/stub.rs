@@ -660,6 +660,212 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::OracleDatabase::list_goldengate_deployments].
+    fn list_goldengate_deployments(
+        &self,
+        _req: crate::model::ListGoldengateDeploymentsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListGoldengateDeploymentsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::get_goldengate_deployment].
+    fn get_goldengate_deployment(
+        &self,
+        _req: crate::model::GetGoldengateDeploymentRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::GoldengateDeployment>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::create_goldengate_deployment].
+    fn create_goldengate_deployment(
+        &self,
+        _req: crate::model::CreateGoldengateDeploymentRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::delete_goldengate_deployment].
+    fn delete_goldengate_deployment(
+        &self,
+        _req: crate::model::DeleteGoldengateDeploymentRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::stop_goldengate_deployment].
+    fn stop_goldengate_deployment(
+        &self,
+        _req: crate::model::StopGoldengateDeploymentRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::start_goldengate_deployment].
+    fn start_goldengate_deployment(
+        &self,
+        _req: crate::model::StartGoldengateDeploymentRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::list_goldengate_connections].
+    fn list_goldengate_connections(
+        &self,
+        _req: crate::model::ListGoldengateConnectionsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListGoldengateConnectionsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::get_goldengate_connection].
+    fn get_goldengate_connection(
+        &self,
+        _req: crate::model::GetGoldengateConnectionRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::GoldengateConnection>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::create_goldengate_connection].
+    fn create_goldengate_connection(
+        &self,
+        _req: crate::model::CreateGoldengateConnectionRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::delete_goldengate_connection].
+    fn delete_goldengate_connection(
+        &self,
+        _req: crate::model::DeleteGoldengateConnectionRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::get_goldengate_deployment_version].
+    fn get_goldengate_deployment_version(
+        &self,
+        _req: crate::model::GetGoldengateDeploymentVersionRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::GoldengateDeploymentVersion>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::list_goldengate_deployment_versions].
+    fn list_goldengate_deployment_versions(
+        &self,
+        _req: crate::model::ListGoldengateDeploymentVersionsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<crate::model::ListGoldengateDeploymentVersionsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::get_goldengate_deployment_type].
+    fn get_goldengate_deployment_type(
+        &self,
+        _req: crate::model::GetGoldengateDeploymentTypeRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::GoldengateDeploymentType>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::list_goldengate_deployment_types].
+    fn list_goldengate_deployment_types(
+        &self,
+        _req: crate::model::ListGoldengateDeploymentTypesRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<crate::model::ListGoldengateDeploymentTypesResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::get_goldengate_deployment_environment].
+    fn get_goldengate_deployment_environment(
+        &self,
+        _req: crate::model::GetGoldengateDeploymentEnvironmentRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::GoldengateDeploymentEnvironment>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::list_goldengate_deployment_environments].
+    fn list_goldengate_deployment_environments(
+        &self,
+        _req: crate::model::ListGoldengateDeploymentEnvironmentsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<crate::model::ListGoldengateDeploymentEnvironmentsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::get_goldengate_connection_type].
+    fn get_goldengate_connection_type(
+        &self,
+        _req: crate::model::GetGoldengateConnectionTypeRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::GoldengateConnectionType>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::list_goldengate_connection_types].
+    fn list_goldengate_connection_types(
+        &self,
+        _req: crate::model::ListGoldengateConnectionTypesRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<crate::model::ListGoldengateConnectionTypesResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::OracleDatabase::list_db_versions].
     fn list_db_versions(
         &self,
@@ -678,6 +884,65 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::ListDatabaseCharacterSetsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::list_goldengate_connection_assignments].
+    fn list_goldengate_connection_assignments(
+        &self,
+        _req: crate::model::ListGoldengateConnectionAssignmentsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<crate::model::ListGoldengateConnectionAssignmentsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::get_goldengate_connection_assignment].
+    fn get_goldengate_connection_assignment(
+        &self,
+        _req: crate::model::GetGoldengateConnectionAssignmentRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::GoldengateConnectionAssignment>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::create_goldengate_connection_assignment].
+    fn create_goldengate_connection_assignment(
+        &self,
+        _req: crate::model::CreateGoldengateConnectionAssignmentRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::delete_goldengate_connection_assignment].
+    fn delete_goldengate_connection_assignment(
+        &self,
+        _req: crate::model::DeleteGoldengateConnectionAssignmentRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::test_goldengate_connection_assignment].
+    fn test_goldengate_connection_assignment(
+        &self,
+        _req: crate::model::TestGoldengateConnectionAssignmentRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<crate::model::TestGoldengateConnectionAssignmentResponse>,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

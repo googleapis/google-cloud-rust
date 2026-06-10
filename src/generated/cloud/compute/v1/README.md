@@ -4,7 +4,7 @@
 
 Compute Engine is an infrastructure as a service (IaaS) product that offers self-managed virtual machine (VM) instances and bare metal instances.
 
-This client library was generated from the "20260501" revision of the API.
+This client library was generated from the "20260520" revision of the API.
 
 The client library types and functions are stable and not expected to change.
 Please note that Google Cloud services do change from time to time. The client

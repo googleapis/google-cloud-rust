@@ -16122,6 +16122,12 @@ impl<T: super::RolloutPlans> RolloutPlans for T {
 #[cfg(feature = "rollouts")]
 #[async_trait::async_trait]
 pub trait Rollouts: std::fmt::Debug + Send + Sync {
+    async fn advance(
+        &self,
+        req: crate::model::rollouts::AdvanceRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
     async fn cancel(
         &self,
         req: crate::model::rollouts::CancelRequest,
@@ -16146,6 +16152,18 @@ pub trait Rollouts: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::RolloutsListResponse>>;
 
+    async fn pause(
+        &self,
+        req: crate::model::rollouts::PauseRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn resume(
+        &self,
+        req: crate::model::rollouts::ResumeRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
@@ -16167,6 +16185,15 @@ pub trait Rollouts: std::fmt::Debug + Send + Sync {
 #[cfg(feature = "rollouts")]
 #[async_trait::async_trait]
 impl<T: super::Rollouts> Rollouts for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn advance(
+        &self,
+        req: crate::model::rollouts::AdvanceRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::advance(self, req, options).await
+    }
+
     /// Forwards the call to the implementation provided by `T`.
     async fn cancel(
         &self,
@@ -16201,6 +16228,24 @@ impl<T: super::Rollouts> Rollouts for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::RolloutsListResponse>> {
         T::list(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn pause(
+        &self,
+        req: crate::model::rollouts::PauseRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::pause(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn resume(
+        &self,
+        req: crate::model::rollouts::ResumeRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::resume(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

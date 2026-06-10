@@ -53,6 +53,7 @@ impl std::fmt::Debug for super::VerifyAttestationRequest {
         debug_struct.field("confidential_space_info", &self.confidential_space_info);
         debug_struct.field("token_options", &self.token_options);
         debug_struct.field("attester", &self.attester);
+        debug_struct.field("instance", &self.instance);
         debug_struct.field("tee_attestation", &self.tee_attestation);
         debug_struct.field("device_attestation", &self.device_attestation);
         if !self._unknown_fields.is_empty() {

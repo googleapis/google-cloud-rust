@@ -550,14 +550,21 @@ pub mod transaction_options {
     use super::*;
 
     /// Options for a transaction that can be used to read and write documents.
-    ///
-    /// Firestore does not allow 3rd party auth requests to create read-write.
-    /// transactions.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ReadWrite {
         /// An optional transaction to retry.
         pub retry_transaction: ::bytes::Bytes,
+
+        /// Optional. The concurrency control mode to use for this transaction.
+        ///
+        /// A database is able to use different concurrency modes for different
+        /// transactions simultaneously.
+        ///
+        /// 3rd party auth requests are only allowed to create optimistic
+        /// read-write transactions and must specify that here even if the
+        /// database-level setting is already configured to optimistic.
+        pub concurrency_mode: crate::model::transaction_options::ConcurrencyMode,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -580,6 +587,25 @@ pub mod transaction_options {
             v: T,
         ) -> Self {
             self.retry_transaction = v.into();
+            self
+        }
+
+        /// Sets the value of [concurrency_mode][crate::model::transaction_options::ReadWrite::concurrency_mode].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::transaction_options::ReadWrite;
+        /// use google_cloud_firestore::model::transaction_options::ConcurrencyMode;
+        /// let x0 = ReadWrite::new().set_concurrency_mode(ConcurrencyMode::Optimistic);
+        /// let x1 = ReadWrite::new().set_concurrency_mode(ConcurrencyMode::Pessimistic);
+        /// ```
+        pub fn set_concurrency_mode<
+            T: std::convert::Into<crate::model::transaction_options::ConcurrencyMode>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.concurrency_mode = v.into();
             self
         }
     }
@@ -704,6 +730,138 @@ pub mod transaction_options {
             ) -> Self {
                 Self::ReadTime(value.into())
             }
+        }
+    }
+
+    /// The type of concurrency control mode for transactions.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ConcurrencyMode {
+        /// Start the transaction with the database-level default concurrency mode.
+        Unspecified,
+        /// Use optimistic concurrency control for the new transaction.
+        Optimistic,
+        /// Use pessimistic concurrency control for the new transaction.
+        Pessimistic,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ConcurrencyMode::value] or
+        /// [ConcurrencyMode::name].
+        UnknownValue(concurrency_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod concurrency_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl ConcurrencyMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Optimistic => std::option::Option::Some(1),
+                Self::Pessimistic => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CONCURRENCY_MODE_UNSPECIFIED"),
+                Self::Optimistic => std::option::Option::Some("OPTIMISTIC"),
+                Self::Pessimistic => std::option::Option::Some("PESSIMISTIC"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for ConcurrencyMode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ConcurrencyMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ConcurrencyMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Optimistic,
+                2 => Self::Pessimistic,
+                _ => Self::UnknownValue(concurrency_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ConcurrencyMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CONCURRENCY_MODE_UNSPECIFIED" => Self::Unspecified,
+                "OPTIMISTIC" => Self::Optimistic,
+                "PESSIMISTIC" => Self::Pessimistic,
+                _ => Self::UnknownValue(concurrency_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ConcurrencyMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Optimistic => serializer.serialize_i32(1),
+                Self::Pessimistic => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ConcurrencyMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ConcurrencyMode>::new(
+                ".google.firestore.v1.TransactionOptions.ConcurrencyMode",
+            ))
         }
     }
 
@@ -7130,6 +7288,9 @@ pub struct ListCollectionIdsRequest {
     /// `projects/{project_id}/databases/{database_id}/documents/{document_path}`.
     /// For example:
     /// `projects/my-project/databases/my-database/documents/chatrooms/my-chatroom`
+    ///
+    /// Use `projects/{project_id}/databases/{database_id}/documents` to list
+    /// top-level collections.
     pub parent: std::string::String,
 
     /// The maximum number of results to return.
@@ -7631,9 +7792,12 @@ pub struct StructuredQuery {
 
     /// The order to apply to the query results.
     ///
-    /// Firestore allows callers to provide a full ordering, a partial ordering, or
-    /// no ordering at all. In all cases, Firestore guarantees a stable ordering
-    /// through the following rules:
+    /// Callers can provide a full ordering, a partial ordering, or no ordering at
+    /// all. While Firestore will always respect the provided order, the behavior
+    /// for queries without a full ordering is different per database edition:
+    ///
+    /// In Standard edition, Firestore guarantees a stable ordering through the
+    /// following rules:
     ///
     /// * The `order_by` is required to reference all fields used with an
     ///   inequality filter.
@@ -7649,6 +7813,13 @@ pub struct StructuredQuery {
     /// * `WHERE a > 1` becomes `WHERE a > 1 ORDER BY a ASC, __name__ ASC`
     /// * `WHERE __name__ > ... AND a > 1` becomes
     ///   `WHERE __name__ > ... AND a > 1 ORDER BY a ASC, __name__ ASC`
+    ///
+    /// In Enterprise edition, Firestore does not guarantee a stable ordering.
+    /// Instead it will pick the most efficient ordering based on the indexes
+    /// available at the time of query execution. This will result in a different
+    /// ordering for queries that are otherwise identical. To ensure a stable
+    /// ordering, always include a unique field in the `order_by` clause, such as
+    /// `__name__`.
     pub order_by: std::vec::Vec<crate::model::structured_query::Order>,
 
     /// A potential prefix of a position in the result set to start the query at.

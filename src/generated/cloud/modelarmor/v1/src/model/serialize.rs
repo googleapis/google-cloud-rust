@@ -730,6 +730,9 @@ impl serde::ser::Serialize for super::SanitizeUserPromptRequest {
                 &self.multi_language_detection_metadata,
             )?;
         }
+        if self.streaming_mode.is_some() {
+            state.serialize_entry("streamingMode", &self.streaming_mode)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -763,6 +766,9 @@ impl serde::ser::Serialize for super::SanitizeModelResponseRequest {
                 "multiLanguageDetectionMetadata",
                 &self.multi_language_detection_metadata,
             )?;
+        }
+        if self.streaming_mode.is_some() {
+            state.serialize_entry("streamingMode", &self.streaming_mode)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -878,6 +884,9 @@ impl serde::ser::Serialize for super::sanitization_result::SanitizationMetadata 
                 "ignorePartialInvocationFailures",
                 &self.ignore_partial_invocation_failures,
             )?;
+        }
+        if self.stream_chunk_processed.is_some() {
+            state.serialize_entry("streamChunkProcessed", &self.stream_chunk_processed)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

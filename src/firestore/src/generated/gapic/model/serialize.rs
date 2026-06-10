@@ -210,6 +210,9 @@ impl serde::ser::Serialize for super::transaction_options::ReadWrite {
             }
             state.serialize_entry("retryTransaction", &__With(&self.retry_transaction))?;
         }
+        if !wkt::internal::is_default(&self.concurrency_mode) {
+            state.serialize_entry("concurrencyMode", &self.concurrency_mode)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

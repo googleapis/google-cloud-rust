@@ -1676,6 +1676,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ContentItem {
             __table,
             __byte_item,
             __conversation,
+            __batch_content_item,
             __content_metadata,
             Unknown(std::string::String),
         }
@@ -1702,6 +1703,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ContentItem {
                             "byteItem" => Ok(__FieldTag::__byte_item),
                             "byte_item" => Ok(__FieldTag::__byte_item),
                             "conversation" => Ok(__FieldTag::__conversation),
+                            "batchContentItem" => Ok(__FieldTag::__batch_content_item),
+                            "batch_content_item" => Ok(__FieldTag::__batch_content_item),
                             "contentMetadata" => Ok(__FieldTag::__content_metadata),
                             "content_metadata" => Ok(__FieldTag::__content_metadata),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
@@ -1803,6 +1806,26 @@ impl<'de> serde::de::Deserialize<'de> for super::ContentItem {
                                 crate::model::content_item::DataItem::Conversation(
                                     map.next_value::<std::option::Option<
                                         std::boxed::Box<crate::model::Conversation>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__batch_content_item => {
+                            if !fields.insert(__FieldTag::__batch_content_item) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for batch_content_item",
+                                ));
+                            }
+                            if result.data_item.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `data_item`, a oneof with full ID .google.privacy.dlp.v2.ContentItem.batch_content_item, latest field was batchContentItem",
+                                ));
+                            }
+                            result.data_item = std::option::Option::Some(
+                                crate::model::content_item::DataItem::BatchContentItem(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::BatchContentItem>,
                                     >>()?
                                     .unwrap_or_default(),
                                 ),
@@ -2089,6 +2112,175 @@ impl<'de> serde::de::Deserialize<'de> for super::ConversationMessage {
                             result.participant_id = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::BatchContentItem {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __string_value_batch,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for BatchContentItem")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "stringValueBatch" => Ok(__FieldTag::__string_value_batch),
+                            "string_value_batch" => Ok(__FieldTag::__string_value_batch),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::BatchContentItem;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct BatchContentItem")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__string_value_batch => {
+                            if !fields.insert(__FieldTag::__string_value_batch) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for string_value_batch",
+                                ));
+                            }
+                            if result.batch.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `batch`, a oneof with full ID .google.privacy.dlp.v2.BatchContentItem.string_value_batch, latest field was stringValueBatch",
+                                ));
+                            }
+                            result.batch = std::option::Option::Some(
+                                crate::model::batch_content_item::Batch::StringValueBatch(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::StringValueBatch>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::StringValueBatch {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __values,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for StringValueBatch")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "values" => Ok(__FieldTag::__values),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::StringValueBatch;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct StringValueBatch")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__values => {
+                            if !fields.insert(__FieldTag::__values) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for values",
+                                ));
+                            }
+                            result.values = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -2818,6 +3010,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ContentLocation {
             __document_location,
             __metadata_location,
             __conversation_location,
+            __batch_content_location,
             __container_timestamp,
             __container_version,
             Unknown(std::string::String),
@@ -2852,6 +3045,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ContentLocation {
                             "metadata_location" => Ok(__FieldTag::__metadata_location),
                             "conversationLocation" => Ok(__FieldTag::__conversation_location),
                             "conversation_location" => Ok(__FieldTag::__conversation_location),
+                            "batchContentLocation" => Ok(__FieldTag::__batch_content_location),
+                            "batch_content_location" => Ok(__FieldTag::__batch_content_location),
                             "containerTimestamp" => Ok(__FieldTag::__container_timestamp),
                             "container_timestamp" => Ok(__FieldTag::__container_timestamp),
                             "containerVersion" => Ok(__FieldTag::__container_version),
@@ -2986,6 +3181,26 @@ impl<'de> serde::de::Deserialize<'de> for super::ContentLocation {
                                 crate::model::content_location::Location::ConversationLocation(
                                     map.next_value::<std::option::Option<
                                         std::boxed::Box<crate::model::ConversationLocation>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__batch_content_location => {
+                            if !fields.insert(__FieldTag::__batch_content_location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for batch_content_location",
+                                ));
+                            }
+                            if result.location.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `location`, a oneof with full ID .google.privacy.dlp.v2.ContentLocation.batch_content_location, latest field was batchContentLocation",
+                                ));
+                            }
+                            result.location = std::option::Option::Some(
+                                crate::model::content_location::Location::BatchContentLocation(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::BatchContentLocation>,
                                     >>()?
                                     .unwrap_or_default(),
                                 ),
@@ -3199,6 +3414,96 @@ impl<'de> serde::de::Deserialize<'de> for super::conversation_location::AllMessa
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::BatchContentLocation {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __item_index,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for BatchContentLocation")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "itemIndex" => Ok(__FieldTag::__item_index),
+                            "item_index" => Ok(__FieldTag::__item_index),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::BatchContentLocation;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct BatchContentLocation")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__item_index => {
+                            if !fields.insert(__FieldTag::__item_index) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for item_index",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.item_index = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);

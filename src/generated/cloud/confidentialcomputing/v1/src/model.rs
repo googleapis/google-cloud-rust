@@ -278,6 +278,11 @@ pub struct VerifyAttestationRequest {
     /// products.
     pub attester: std::string::String,
 
+    /// Optional. Optional resource link of the Compute Engine instance.
+    /// Format:
+    /// `projects/{project_number}/zones/{zone}/instances/{instance_id}`
+    pub instance: std::string::String,
+
     /// An optional tee attestation report, used to populate hardware rooted
     /// claims.
     pub tee_attestation:
@@ -452,6 +457,18 @@ impl VerifyAttestationRequest {
     /// ```
     pub fn set_attester<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.attester = v.into();
+        self
+    }
+
+    /// Sets the value of [instance][crate::model::VerifyAttestationRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyAttestationRequest;
+    /// let x = VerifyAttestationRequest::new().set_instance("example");
+    /// ```
+    pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.instance = v.into();
         self
     }
 

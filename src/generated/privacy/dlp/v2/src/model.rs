@@ -2209,6 +2209,7 @@ impl ContentItem {
     /// assert!(x.table().is_none());
     /// assert!(x.byte_item().is_none());
     /// assert!(x.conversation().is_none());
+    /// assert!(x.batch_content_item().is_none());
     /// ```
     pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_item =
@@ -2242,6 +2243,7 @@ impl ContentItem {
     /// assert!(x.value().is_none());
     /// assert!(x.byte_item().is_none());
     /// assert!(x.conversation().is_none());
+    /// assert!(x.batch_content_item().is_none());
     /// ```
     pub fn set_table<T: std::convert::Into<std::boxed::Box<crate::model::Table>>>(
         mut self,
@@ -2280,6 +2282,7 @@ impl ContentItem {
     /// assert!(x.value().is_none());
     /// assert!(x.table().is_none());
     /// assert!(x.conversation().is_none());
+    /// assert!(x.batch_content_item().is_none());
     /// ```
     pub fn set_byte_item<T: std::convert::Into<std::boxed::Box<crate::model::ByteContentItem>>>(
         mut self,
@@ -2318,6 +2321,7 @@ impl ContentItem {
     /// assert!(x.value().is_none());
     /// assert!(x.table().is_none());
     /// assert!(x.byte_item().is_none());
+    /// assert!(x.batch_content_item().is_none());
     /// ```
     pub fn set_conversation<T: std::convert::Into<std::boxed::Box<crate::model::Conversation>>>(
         mut self,
@@ -2325,6 +2329,50 @@ impl ContentItem {
     ) -> Self {
         self.data_item =
             std::option::Option::Some(crate::model::content_item::DataItem::Conversation(v.into()));
+        self
+    }
+
+    /// The value of [data_item][crate::model::ContentItem::data_item]
+    /// if it holds a `BatchContentItem`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn batch_content_item(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::BatchContentItem>> {
+        #[allow(unreachable_patterns)]
+        self.data_item.as_ref().and_then(|v| match v {
+            crate::model::content_item::DataItem::BatchContentItem(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [data_item][crate::model::ContentItem::data_item]
+    /// to hold a `BatchContentItem`.
+    ///
+    /// Note that all the setters affecting `data_item` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentItem;
+    /// use google_cloud_privacy_dlp_v2::model::BatchContentItem;
+    /// let x = ContentItem::new().set_batch_content_item(BatchContentItem::default()/* use setters */);
+    /// assert!(x.batch_content_item().is_some());
+    /// assert!(x.value().is_none());
+    /// assert!(x.table().is_none());
+    /// assert!(x.byte_item().is_none());
+    /// assert!(x.conversation().is_none());
+    /// ```
+    pub fn set_batch_content_item<
+        T: std::convert::Into<std::boxed::Box<crate::model::BatchContentItem>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.data_item = std::option::Option::Some(
+            crate::model::content_item::DataItem::BatchContentItem(v.into()),
+        );
         self
     }
 }
@@ -2356,6 +2404,8 @@ pub mod content_item {
         /// It is assumed that all included messages are contiguous and ordered in
         /// chronological order.
         Conversation(std::boxed::Box<crate::model::Conversation>),
+        /// Represents a batch of items to inspect.
+        BatchContentItem(std::boxed::Box<crate::model::BatchContentItem>),
     }
 }
 
@@ -2465,7 +2515,7 @@ pub struct ConversationMessage {
     pub message_type: crate::model::conversation_message::MessageType,
 
     /// Optional. The identifier of the participant,
-    /// for example, 'test-user' or 'gemini'.
+    /// for example 'test-user' or 'gemini'.
     /// The participant ID can contain lowercase letters, numbers, and hyphens;
     /// that is, it must match the regular expression:
     /// `^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$`.
@@ -2668,6 +2718,145 @@ pub mod conversation_message {
                 ".google.privacy.dlp.v2.ConversationMessage.MessageType",
             ))
         }
+    }
+}
+
+/// Represents a batch of content to inspect or redact.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BatchContentItem {
+    /// Represents the batch to inspect or redact.
+    pub batch: std::option::Option<crate::model::batch_content_item::Batch>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BatchContentItem {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [batch][crate::model::BatchContentItem::batch].
+    ///
+    /// Note that all the setters affecting `batch` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BatchContentItem;
+    /// use google_cloud_privacy_dlp_v2::model::StringValueBatch;
+    /// let x = BatchContentItem::new().set_batch(Some(
+    ///     google_cloud_privacy_dlp_v2::model::batch_content_item::Batch::StringValueBatch(StringValueBatch::default().into())));
+    /// ```
+    pub fn set_batch<
+        T: std::convert::Into<std::option::Option<crate::model::batch_content_item::Batch>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.batch = v.into();
+        self
+    }
+
+    /// The value of [batch][crate::model::BatchContentItem::batch]
+    /// if it holds a `StringValueBatch`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn string_value_batch(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::StringValueBatch>> {
+        #[allow(unreachable_patterns)]
+        self.batch.as_ref().and_then(|v| match v {
+            crate::model::batch_content_item::Batch::StringValueBatch(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [batch][crate::model::BatchContentItem::batch]
+    /// to hold a `StringValueBatch`.
+    ///
+    /// Note that all the setters affecting `batch` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BatchContentItem;
+    /// use google_cloud_privacy_dlp_v2::model::StringValueBatch;
+    /// let x = BatchContentItem::new().set_string_value_batch(StringValueBatch::default()/* use setters */);
+    /// assert!(x.string_value_batch().is_some());
+    /// ```
+    pub fn set_string_value_batch<
+        T: std::convert::Into<std::boxed::Box<crate::model::StringValueBatch>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.batch = std::option::Option::Some(
+            crate::model::batch_content_item::Batch::StringValueBatch(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for BatchContentItem {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.BatchContentItem"
+    }
+}
+
+/// Defines additional types related to [BatchContentItem].
+pub mod batch_content_item {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Represents the batch to inspect or redact.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Batch {
+        /// Optional. Represents a batch of string values to inspect or redact.
+        StringValueBatch(std::boxed::Box<crate::model::StringValueBatch>),
+    }
+}
+
+/// Represents a batch of string values to inspect or redact.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct StringValueBatch {
+    /// Optional. Represents string data to inspect or redact.
+    pub values: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl StringValueBatch {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [values][crate::model::StringValueBatch::values].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StringValueBatch;
+    /// let x = StringValueBatch::new().set_values(["a", "b", "c"]);
+    /// ```
+    pub fn set_values<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.values = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for StringValueBatch {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.StringValueBatch"
     }
 }
 
@@ -3584,6 +3773,7 @@ impl ContentLocation {
     /// assert!(x.document_location().is_none());
     /// assert!(x.metadata_location().is_none());
     /// assert!(x.conversation_location().is_none());
+    /// assert!(x.batch_content_location().is_none());
     /// ```
     pub fn set_record_location<
         T: std::convert::Into<std::boxed::Box<crate::model::RecordLocation>>,
@@ -3628,6 +3818,7 @@ impl ContentLocation {
     /// assert!(x.document_location().is_none());
     /// assert!(x.metadata_location().is_none());
     /// assert!(x.conversation_location().is_none());
+    /// assert!(x.batch_content_location().is_none());
     /// ```
     pub fn set_image_location<
         T: std::convert::Into<std::boxed::Box<crate::model::ImageLocation>>,
@@ -3672,6 +3863,7 @@ impl ContentLocation {
     /// assert!(x.image_location().is_none());
     /// assert!(x.metadata_location().is_none());
     /// assert!(x.conversation_location().is_none());
+    /// assert!(x.batch_content_location().is_none());
     /// ```
     pub fn set_document_location<
         T: std::convert::Into<std::boxed::Box<crate::model::DocumentLocation>>,
@@ -3716,6 +3908,7 @@ impl ContentLocation {
     /// assert!(x.image_location().is_none());
     /// assert!(x.document_location().is_none());
     /// assert!(x.conversation_location().is_none());
+    /// assert!(x.batch_content_location().is_none());
     /// ```
     pub fn set_metadata_location<
         T: std::convert::Into<std::boxed::Box<crate::model::MetadataLocation>>,
@@ -3760,6 +3953,7 @@ impl ContentLocation {
     /// assert!(x.image_location().is_none());
     /// assert!(x.document_location().is_none());
     /// assert!(x.metadata_location().is_none());
+    /// assert!(x.batch_content_location().is_none());
     /// ```
     pub fn set_conversation_location<
         T: std::convert::Into<std::boxed::Box<crate::model::ConversationLocation>>,
@@ -3769,6 +3963,51 @@ impl ContentLocation {
     ) -> Self {
         self.location = std::option::Option::Some(
             crate::model::content_location::Location::ConversationLocation(v.into()),
+        );
+        self
+    }
+
+    /// The value of [location][crate::model::ContentLocation::location]
+    /// if it holds a `BatchContentLocation`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn batch_content_location(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::BatchContentLocation>> {
+        #[allow(unreachable_patterns)]
+        self.location.as_ref().and_then(|v| match v {
+            crate::model::content_location::Location::BatchContentLocation(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [location][crate::model::ContentLocation::location]
+    /// to hold a `BatchContentLocation`.
+    ///
+    /// Note that all the setters affecting `location` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentLocation;
+    /// use google_cloud_privacy_dlp_v2::model::BatchContentLocation;
+    /// let x = ContentLocation::new().set_batch_content_location(BatchContentLocation::default()/* use setters */);
+    /// assert!(x.batch_content_location().is_some());
+    /// assert!(x.record_location().is_none());
+    /// assert!(x.image_location().is_none());
+    /// assert!(x.document_location().is_none());
+    /// assert!(x.metadata_location().is_none());
+    /// assert!(x.conversation_location().is_none());
+    /// ```
+    pub fn set_batch_content_location<
+        T: std::convert::Into<std::boxed::Box<crate::model::BatchContentLocation>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.location = std::option::Option::Some(
+            crate::model::content_location::Location::BatchContentLocation(v.into()),
         );
         self
     }
@@ -3799,6 +4038,8 @@ pub mod content_location {
         MetadataLocation(std::boxed::Box<crate::model::MetadataLocation>),
         /// Location within a conversation.
         ConversationLocation(std::boxed::Box<crate::model::ConversationLocation>),
+        /// Location within a batch of content.
+        BatchContentLocation(std::boxed::Box<crate::model::BatchContentLocation>),
     }
 }
 
@@ -3957,6 +4198,41 @@ pub mod conversation_location {
         /// If set, indicates that the finding applies to all messages in the
         /// conversation.
         AllMessages(std::boxed::Box<crate::model::conversation_location::AllMessages>),
+    }
+}
+
+/// Location within a batch of content.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BatchContentLocation {
+    /// Matches an index of a batch item in the batch provided in the request.
+    pub item_index: i32,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BatchContentLocation {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [item_index][crate::model::BatchContentLocation::item_index].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BatchContentLocation;
+    /// let x = BatchContentLocation::new().set_item_index(42);
+    /// ```
+    pub fn set_item_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.item_index = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for BatchContentLocation {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.BatchContentLocation"
     }
 }
 

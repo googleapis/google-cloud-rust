@@ -353,6 +353,114 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
+    async fn list_goldengate_deployments(
+        &self,
+        req: crate::model::ListGoldengateDeploymentsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListGoldengateDeploymentsResponse>>;
+
+    async fn get_goldengate_deployment(
+        &self,
+        req: crate::model::GetGoldengateDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GoldengateDeployment>>;
+
+    async fn create_goldengate_deployment(
+        &self,
+        req: crate::model::CreateGoldengateDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn delete_goldengate_deployment(
+        &self,
+        req: crate::model::DeleteGoldengateDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn stop_goldengate_deployment(
+        &self,
+        req: crate::model::StopGoldengateDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn start_goldengate_deployment(
+        &self,
+        req: crate::model::StartGoldengateDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn list_goldengate_connections(
+        &self,
+        req: crate::model::ListGoldengateConnectionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListGoldengateConnectionsResponse>>;
+
+    async fn get_goldengate_connection(
+        &self,
+        req: crate::model::GetGoldengateConnectionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GoldengateConnection>>;
+
+    async fn create_goldengate_connection(
+        &self,
+        req: crate::model::CreateGoldengateConnectionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn delete_goldengate_connection(
+        &self,
+        req: crate::model::DeleteGoldengateConnectionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn get_goldengate_deployment_version(
+        &self,
+        req: crate::model::GetGoldengateDeploymentVersionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GoldengateDeploymentVersion>>;
+
+    async fn list_goldengate_deployment_versions(
+        &self,
+        req: crate::model::ListGoldengateDeploymentVersionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListGoldengateDeploymentVersionsResponse>>;
+
+    async fn get_goldengate_deployment_type(
+        &self,
+        req: crate::model::GetGoldengateDeploymentTypeRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GoldengateDeploymentType>>;
+
+    async fn list_goldengate_deployment_types(
+        &self,
+        req: crate::model::ListGoldengateDeploymentTypesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListGoldengateDeploymentTypesResponse>>;
+
+    async fn get_goldengate_deployment_environment(
+        &self,
+        req: crate::model::GetGoldengateDeploymentEnvironmentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GoldengateDeploymentEnvironment>>;
+
+    async fn list_goldengate_deployment_environments(
+        &self,
+        req: crate::model::ListGoldengateDeploymentEnvironmentsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListGoldengateDeploymentEnvironmentsResponse>>;
+
+    async fn get_goldengate_connection_type(
+        &self,
+        req: crate::model::GetGoldengateConnectionTypeRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GoldengateConnectionType>>;
+
+    async fn list_goldengate_connection_types(
+        &self,
+        req: crate::model::ListGoldengateConnectionTypesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListGoldengateConnectionTypesResponse>>;
+
     async fn list_db_versions(
         &self,
         req: crate::model::ListDbVersionsRequest,
@@ -364,6 +472,36 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         req: crate::model::ListDatabaseCharacterSetsRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ListDatabaseCharacterSetsResponse>>;
+
+    async fn list_goldengate_connection_assignments(
+        &self,
+        req: crate::model::ListGoldengateConnectionAssignmentsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListGoldengateConnectionAssignmentsResponse>>;
+
+    async fn get_goldengate_connection_assignment(
+        &self,
+        req: crate::model::GetGoldengateConnectionAssignmentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GoldengateConnectionAssignment>>;
+
+    async fn create_goldengate_connection_assignment(
+        &self,
+        req: crate::model::CreateGoldengateConnectionAssignmentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn delete_goldengate_connection_assignment(
+        &self,
+        req: crate::model::DeleteGoldengateConnectionAssignmentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn test_goldengate_connection_assignment(
+        &self,
+        req: crate::model::TestGoldengateConnectionAssignmentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TestGoldengateConnectionAssignmentResponse>>;
 
     async fn list_locations(
         &self,
@@ -922,6 +1060,170 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn list_goldengate_deployments(
+        &self,
+        req: crate::model::ListGoldengateDeploymentsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListGoldengateDeploymentsResponse>> {
+        T::list_goldengate_deployments(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_goldengate_deployment(
+        &self,
+        req: crate::model::GetGoldengateDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GoldengateDeployment>> {
+        T::get_goldengate_deployment(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_goldengate_deployment(
+        &self,
+        req: crate::model::CreateGoldengateDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::create_goldengate_deployment(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_goldengate_deployment(
+        &self,
+        req: crate::model::DeleteGoldengateDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::delete_goldengate_deployment(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn stop_goldengate_deployment(
+        &self,
+        req: crate::model::StopGoldengateDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::stop_goldengate_deployment(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn start_goldengate_deployment(
+        &self,
+        req: crate::model::StartGoldengateDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::start_goldengate_deployment(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_goldengate_connections(
+        &self,
+        req: crate::model::ListGoldengateConnectionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListGoldengateConnectionsResponse>> {
+        T::list_goldengate_connections(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_goldengate_connection(
+        &self,
+        req: crate::model::GetGoldengateConnectionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GoldengateConnection>> {
+        T::get_goldengate_connection(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_goldengate_connection(
+        &self,
+        req: crate::model::CreateGoldengateConnectionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::create_goldengate_connection(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_goldengate_connection(
+        &self,
+        req: crate::model::DeleteGoldengateConnectionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::delete_goldengate_connection(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_goldengate_deployment_version(
+        &self,
+        req: crate::model::GetGoldengateDeploymentVersionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GoldengateDeploymentVersion>> {
+        T::get_goldengate_deployment_version(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_goldengate_deployment_versions(
+        &self,
+        req: crate::model::ListGoldengateDeploymentVersionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListGoldengateDeploymentVersionsResponse>>
+    {
+        T::list_goldengate_deployment_versions(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_goldengate_deployment_type(
+        &self,
+        req: crate::model::GetGoldengateDeploymentTypeRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GoldengateDeploymentType>> {
+        T::get_goldengate_deployment_type(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_goldengate_deployment_types(
+        &self,
+        req: crate::model::ListGoldengateDeploymentTypesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListGoldengateDeploymentTypesResponse>> {
+        T::list_goldengate_deployment_types(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_goldengate_deployment_environment(
+        &self,
+        req: crate::model::GetGoldengateDeploymentEnvironmentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GoldengateDeploymentEnvironment>> {
+        T::get_goldengate_deployment_environment(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_goldengate_deployment_environments(
+        &self,
+        req: crate::model::ListGoldengateDeploymentEnvironmentsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListGoldengateDeploymentEnvironmentsResponse>>
+    {
+        T::list_goldengate_deployment_environments(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_goldengate_connection_type(
+        &self,
+        req: crate::model::GetGoldengateConnectionTypeRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GoldengateConnectionType>> {
+        T::get_goldengate_connection_type(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_goldengate_connection_types(
+        &self,
+        req: crate::model::ListGoldengateConnectionTypesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListGoldengateConnectionTypesResponse>> {
+        T::list_goldengate_connection_types(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn list_db_versions(
         &self,
         req: crate::model::ListDbVersionsRequest,
@@ -937,6 +1239,53 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ListDatabaseCharacterSetsResponse>> {
         T::list_database_character_sets(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_goldengate_connection_assignments(
+        &self,
+        req: crate::model::ListGoldengateConnectionAssignmentsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListGoldengateConnectionAssignmentsResponse>>
+    {
+        T::list_goldengate_connection_assignments(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_goldengate_connection_assignment(
+        &self,
+        req: crate::model::GetGoldengateConnectionAssignmentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GoldengateConnectionAssignment>> {
+        T::get_goldengate_connection_assignment(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_goldengate_connection_assignment(
+        &self,
+        req: crate::model::CreateGoldengateConnectionAssignmentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::create_goldengate_connection_assignment(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_goldengate_connection_assignment(
+        &self,
+        req: crate::model::DeleteGoldengateConnectionAssignmentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::delete_goldengate_connection_assignment(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn test_goldengate_connection_assignment(
+        &self,
+        req: crate::model::TestGoldengateConnectionAssignmentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TestGoldengateConnectionAssignmentResponse>>
+    {
+        T::test_goldengate_connection_assignment(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

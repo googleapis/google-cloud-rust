@@ -113,6 +113,9 @@ impl serde::ser::Serialize for super::VerifyAttestationRequest {
         if !self.attester.is_empty() {
             state.serialize_entry("attester", &self.attester)?;
         }
+        if !self.instance.is_empty() {
+            state.serialize_entry("instance", &self.instance)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

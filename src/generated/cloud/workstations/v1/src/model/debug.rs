@@ -34,8 +34,16 @@ impl std::fmt::Debug for super::WorkstationCluster {
         debug_struct.field("subnetwork", &self.subnetwork);
         debug_struct.field("control_plane_ip", &self.control_plane_ip);
         debug_struct.field("private_cluster_config", &self.private_cluster_config);
+        debug_struct.field("domain_config", &self.domain_config);
         debug_struct.field("degraded", &self.degraded);
         debug_struct.field("conditions", &self.conditions);
+        debug_struct.field("tags", &self.tags);
+        debug_struct.field("gateway_config", &self.gateway_config);
+        debug_struct.field(
+            "workstation_authorization_url",
+            &self.workstation_authorization_url,
+        );
+        debug_struct.field("workstation_launch_url", &self.workstation_launch_url);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -50,6 +58,28 @@ impl std::fmt::Debug for super::workstation_cluster::PrivateClusterConfig {
         debug_struct.field("cluster_hostname", &self.cluster_hostname);
         debug_struct.field("service_attachment_uri", &self.service_attachment_uri);
         debug_struct.field("allowed_projects", &self.allowed_projects);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::workstation_cluster::DomainConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DomainConfig");
+        debug_struct.field("domain", &self.domain);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::workstation_cluster::GatewayConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GatewayConfig");
+        debug_struct.field("http2_enabled", &self.http2_enabled);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -72,14 +102,23 @@ impl std::fmt::Debug for super::WorkstationConfig {
         debug_struct.field("etag", &self.etag);
         debug_struct.field("idle_timeout", &self.idle_timeout);
         debug_struct.field("running_timeout", &self.running_timeout);
+        debug_struct.field("max_usable_workstations", &self.max_usable_workstations);
         debug_struct.field("host", &self.host);
         debug_struct.field("persistent_directories", &self.persistent_directories);
+        debug_struct.field("ephemeral_directories", &self.ephemeral_directories);
         debug_struct.field("container", &self.container);
         debug_struct.field("encryption_key", &self.encryption_key);
         debug_struct.field("readiness_checks", &self.readiness_checks);
         debug_struct.field("replica_zones", &self.replica_zones);
         debug_struct.field("degraded", &self.degraded);
         debug_struct.field("conditions", &self.conditions);
+        debug_struct.field("enable_audit_agent", &self.enable_audit_agent);
+        debug_struct.field("disable_tcp_connections", &self.disable_tcp_connections);
+        debug_struct.field("allowed_ports", &self.allowed_ports);
+        debug_struct.field(
+            "grant_workstation_admin_role_on_create",
+            &self.grant_workstation_admin_role_on_create,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -121,6 +160,12 @@ impl std::fmt::Debug for super::workstation_config::host::GceInstance {
             &self.confidential_instance_config,
         );
         debug_struct.field("boot_disk_size_gb", &self.boot_disk_size_gb);
+        debug_struct.field("accelerators", &self.accelerators);
+        debug_struct.field("boost_configs", &self.boost_configs);
+        debug_struct.field("disable_ssh", &self.disable_ssh);
+        debug_struct.field("vm_tags", &self.vm_tags);
+        debug_struct.field("startup_script_uri", &self.startup_script_uri);
+        debug_struct.field("instance_metadata", &self.instance_metadata);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -160,6 +205,37 @@ impl std::fmt::Debug
     }
 }
 
+impl std::fmt::Debug for super::workstation_config::host::gce_instance::Accelerator {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Accelerator");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("count", &self.count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::workstation_config::host::gce_instance::BoostConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BoostConfig");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("machine_type", &self.machine_type);
+        debug_struct.field("accelerators", &self.accelerators);
+        debug_struct.field("boot_disk_size_gb", &self.boot_disk_size_gb);
+        debug_struct.field(
+            "enable_nested_virtualization",
+            &self.enable_nested_virtualization,
+        );
+        debug_struct.field("pool_size", &self.pool_size);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::workstation_config::PersistentDirectory {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PersistentDirectory");
@@ -178,10 +254,55 @@ impl std::fmt::Debug
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GceRegionalPersistentDisk");
         debug_struct.field("size_gb", &self.size_gb);
+        debug_struct.field("max_size_gb", &self.max_size_gb);
         debug_struct.field("fs_type", &self.fs_type);
         debug_struct.field("disk_type", &self.disk_type);
         debug_struct.field("source_snapshot", &self.source_snapshot);
         debug_struct.field("reclaim_policy", &self.reclaim_policy);
+        debug_struct.field("archive_timeout", &self.archive_timeout);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug
+    for super::workstation_config::persistent_directory::GceHyperdiskBalancedHighAvailability
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GceHyperdiskBalancedHighAvailability");
+        debug_struct.field("size_gb", &self.size_gb);
+        debug_struct.field("max_size_gb", &self.max_size_gb);
+        debug_struct.field("source_snapshot", &self.source_snapshot);
+        debug_struct.field("reclaim_policy", &self.reclaim_policy);
+        debug_struct.field("archive_timeout", &self.archive_timeout);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::workstation_config::EphemeralDirectory {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EphemeralDirectory");
+        debug_struct.field("mount_path", &self.mount_path);
+        debug_struct.field("directory_type", &self.directory_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::workstation_config::ephemeral_directory::GcePersistentDisk {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GcePersistentDisk");
+        debug_struct.field("disk_type", &self.disk_type);
+        debug_struct.field("source_snapshot", &self.source_snapshot);
+        debug_struct.field("source_image", &self.source_image);
+        debug_struct.field("read_only", &self.read_only);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -229,6 +350,18 @@ impl std::fmt::Debug for super::workstation_config::ReadinessCheck {
     }
 }
 
+impl std::fmt::Debug for super::workstation_config::PortRange {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PortRange");
+        debug_struct.field("first", &self.first);
+        debug_struct.field("last", &self.last);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::Workstation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Workstation");
@@ -243,8 +376,49 @@ impl std::fmt::Debug for super::Workstation {
         debug_struct.field("start_time", &self.start_time);
         debug_struct.field("delete_time", &self.delete_time);
         debug_struct.field("etag", &self.etag);
+        debug_struct.field("persistent_directories", &self.persistent_directories);
         debug_struct.field("state", &self.state);
         debug_struct.field("host", &self.host);
+        debug_struct.field("env", &self.env);
+        debug_struct.field("kms_key", &self.kms_key);
+        debug_struct.field("source_workstation", &self.source_workstation);
+        debug_struct.field("runtime_host", &self.runtime_host);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::workstation::WorkstationPersistentDirectory {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WorkstationPersistentDirectory");
+        debug_struct.field("mount_path", &self.mount_path);
+        debug_struct.field("size_gb", &self.size_gb);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::workstation::RuntimeHost {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RuntimeHost");
+        debug_struct.field("host_type", &self.host_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::workstation::runtime_host::GceInstanceHost {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GceInstanceHost");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -269,6 +443,7 @@ impl std::fmt::Debug for super::ListWorkstationClustersRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -348,6 +523,7 @@ impl std::fmt::Debug for super::ListWorkstationConfigsRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -453,6 +629,7 @@ impl std::fmt::Debug for super::ListWorkstationsRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -546,6 +723,7 @@ impl std::fmt::Debug for super::StartWorkstationRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("validate_only", &self.validate_only);
         debug_struct.field("etag", &self.etag);
+        debug_struct.field("boost_config", &self.boost_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -570,6 +748,7 @@ impl std::fmt::Debug for super::GenerateAccessTokenRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GenerateAccessTokenRequest");
         debug_struct.field("workstation", &self.workstation);
+        debug_struct.field("port", &self.port);
         debug_struct.field("expiration", &self.expiration);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
