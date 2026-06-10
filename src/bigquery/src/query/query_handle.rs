@@ -12,21 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// TODO(#5592): remove after marking query structs public.
-#![allow(dead_code, unused_imports)]
-
-mod job_reference;
-mod query_handle;
-mod row;
-mod run_query;
-mod schema;
-
-pub(crate) use job_reference::JobReference;
-pub(crate) use query_handle::Query;
-pub(crate) use row::Row;
-pub(crate) use schema::Schema;
-
-pub use run_query::{RunQuery, RunQueryRequest};
-
-/// Result type for query execution.
-pub type Result<T> = std::result::Result<T, crate::error::QueryError>;
+// TODO(#5844): implement query handle. Add here just to make compiler happy
+#[derive(Clone, Debug)]
+pub struct Query;

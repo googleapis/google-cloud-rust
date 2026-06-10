@@ -50,5 +50,41 @@ pub enum QueryError {
         #[source]
         source: Arc<Error>,
     },
+}
 
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_job_failed_display() {
+        let err = QueryError::JobFailed {
+            reason: "invalidQuery".to_string(),
+            message: "Syntax error: Unexpected end of input".to_string(),
+            errors: vec![
+                ErrorProto::new()
+                    .set_reason("invalidQuery")
+                    .set_message("Syntax error: Unexpected end of input"),
+            ],
+        };
+        assert_eq!(
+            err.to_string(),
+            "query job failed: invalidQuery - Syntax error: Unexpected end of input"
+        );
+    }
+
+    #[test]
+    fn test_rpc_display() {
+        let status = google_cloud_gax::error::rpc::Status::default()
+            .set_code(google_cloud_gax::error::rpc::Code::InvalidArgument)
+            .set_message("simulated bad request");
+        let gax_err = Error::service(status);
+        let err = QueryError::Rpc {
+            source: Arc::new(gax_err),
+        };
+        assert_eq!(
+            err.to_string(),
+            "the operation failed. RPC error: the service reports an error with code INVALID_ARGUMENT described as: simulated bad request"
+        );
+    }
 }

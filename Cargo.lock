@@ -1873,6 +1873,7 @@ dependencies = [
  "google-cloud-wkt",
  "serde_json",
  "thiserror",
+ "tokio",
 ]
 
 [[package]]

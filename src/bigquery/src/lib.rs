@@ -39,7 +39,7 @@ pub mod model {
 pub mod builder {
     //! Request builders.
     pub mod bigquery {
-        //! Request builders for [BigQuery][crate::client::BigQuery].
+        //! Query request builders for [BigQuery][crate::client::BigQuery].
         pub use crate::query::{RunQuery, RunQueryRequest};
     }
 }
