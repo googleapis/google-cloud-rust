@@ -1682,6 +1682,7 @@ dependencies = [
  "hmac 0.13.0",
  "http",
  "httptest",
+ "hyper",
  "jsonwebtoken",
  "mockall",
  "mutants",

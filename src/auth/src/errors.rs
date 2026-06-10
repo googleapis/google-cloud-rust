@@ -133,10 +133,29 @@ fn is_retryable(err: &reqwest::Error) -> bool {
     if err.is_connect() {
         return true;
     }
-    match err.status() {
-        Some(code) => is_retryable_code(code),
-        None => false,
+    if err.is_request() {
+        // This implementation is inspired by the ideas from:
+        // http://github.com/TrueLayer/reqwest-middleware/blob/main/reqwest-retry/src/retryable_strategy.rs#L138-L184
+
+        let Some(hyper_err) = as_inner::<hyper::Error, _>(err) else {
+            return false;
+        };
+        if hyper_err.is_incomplete_message() || hyper_err.is_canceled() {
+            return true;
+        }
+        if let Some(io_err) = as_inner::<std::io::Error, _>(hyper_err) {
+            use std::io::ErrorKind;
+            match io_err.kind() {
+                ErrorKind::ConnectionReset | ErrorKind::ConnectionAborted => return true,
+                _ => return false,
+            }
+        }
+        return false;
     }
+    if let Some(code) = err.status() {
+        return is_retryable_code(code);
+    }
+    false
 }
 
 fn is_retryable_code(code: StatusCode) -> bool {
@@ -149,6 +168,25 @@ fn is_retryable_code(code: StatusCode) -> bool {
         | StatusCode::TOO_MANY_REQUESTS => true,
         _ => false,
     }
+}
+
+/// Extract the first source error of type `T`.
+fn as_inner<T, E>(error: &E) -> Option<&T>
+where
+    T: std::error::Error + 'static,
+    E: std::error::Error,
+{
+    let mut e = error.source()?;
+    // Prevent infinite loops due to cycles in the `source()` errors. This seems
+    // unlikely, and it would require effort to create, but it is easy to
+    // prevent.
+    for _ in 0..32 {
+        if let Some(value) = e.downcast_ref::<T>() {
+            return Some(value);
+        }
+        e = e.source()?;
+    }
+    None
 }
 
 #[cfg(test)]
