@@ -145,10 +145,10 @@ fn is_retryable(err: &reqwest::Error) -> bool {
         }
         if let Some(io_err) = as_inner::<std::io::Error, _>(hyper_err) {
             use std::io::ErrorKind;
-            match io_err.kind() {
-                ErrorKind::ConnectionReset | ErrorKind::ConnectionAborted => return true,
-                _ => return false,
-            }
+            return matches!(
+                io_err.kind(),
+                ErrorKind::ConnectionReset | ErrorKind::ConnectionAborted
+            );
         }
         return false;
     }

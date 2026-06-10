@@ -88,7 +88,7 @@ mod tests {
             }
         });
 
-        format!("http://{}", addr.to_string())
+        format!("http://{}", addr)
     }
 
     /// Spawns a background TCP server that abruptly sends a `RST` frame.
@@ -117,7 +117,7 @@ mod tests {
             }
         });
 
-        format!("http://{}", addr.to_string())
+        format!("http://{}", addr)
     }
 
     /// Extract the first source error of type `T`.
