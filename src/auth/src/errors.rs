@@ -126,36 +126,17 @@ pub(crate) fn is_gax_error_retryable(err: &GaxError) -> bool {
 }
 
 fn is_retryable(err: &reqwest::Error) -> bool {
-    // Connection errors are transient more often than not. A bad configuration
-    // can point to a non-existing service, and that will never recover.
-    // However: (1) we expect this to be rare, and (2) this is what limiting
-    // retry policies and backoff policies handle.
     if err.is_connect() {
+        // Connection errors are transient more often than not. A bad
+        // configuration can point to a non-existing service, and that will
+        // never recover. However: (1) we expect this to be rare, and (2) this
+        // is what limiting retry policies and backoff policies handle.
         return true;
     }
     if err.is_request() {
-        // This implementation is inspired by the ideas from:
-        // http://github.com/TrueLayer/reqwest-middleware/blob/main/reqwest-retry/src/retryable_strategy.rs#L138-L184
-
-        let Some(hyper_err) = as_inner::<hyper::Error, _>(err) else {
-            return false;
-        };
-        if hyper_err.is_incomplete_message() || hyper_err.is_canceled() {
-            return true;
-        }
-        if let Some(io_err) = as_inner::<std::io::Error, _>(hyper_err) {
-            use std::io::ErrorKind;
-            return matches!(
-                io_err.kind(),
-                ErrorKind::ConnectionReset | ErrorKind::ConnectionAborted
-            );
-        }
-        return false;
+        return true;
     }
-    if let Some(code) = err.status() {
-        return is_retryable_code(code);
-    }
-    false
+    err.status().is_some_and(is_retryable_code)
 }
 
 fn is_retryable_code(code: StatusCode) -> bool {
@@ -168,25 +149,6 @@ fn is_retryable_code(code: StatusCode) -> bool {
         | StatusCode::TOO_MANY_REQUESTS => true,
         _ => false,
     }
-}
-
-/// Extract the first source error of type `T`.
-fn as_inner<T, E>(error: &E) -> Option<&T>
-where
-    T: std::error::Error + 'static,
-    E: std::error::Error,
-{
-    let mut e = error.source()?;
-    // Prevent infinite loops due to cycles in the `source()` errors. This seems
-    // unlikely, and it would require effort to create, but it is easy to
-    // prevent.
-    for _ in 0..32 {
-        if let Some(value) = e.downcast_ref::<T>() {
-            return Some(value);
-        }
-        e = e.source()?;
-    }
-    None
 }
 
 #[cfg(test)]
