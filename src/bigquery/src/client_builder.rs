@@ -108,6 +108,8 @@ mod tests {
     fn defaults() -> anyhow::Result<()> {
         let builder = ClientBuilder::new();
         assert!(builder.config.endpoint.is_none(), "{builder:?}");
+        assert!(builder.storage_endpoint.is_none(), "{builder:?}");
+        assert!(builder.config.universe_domain.is_none(), "{builder:?}");
         assert!(builder.config.cred.is_none(), "{builder:?}");
         assert!(!builder.config.tracing);
         assert!(
@@ -130,6 +132,8 @@ mod tests {
         use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
         let builder = ClientBuilder::new()
             .with_endpoint("test-endpoint.com")
+            .with_storage_endpoint("test-storage-endpoint.com")
+            .with_universe_domain("test-universe.com")
             .with_credentials(Anonymous::new().build())
             .with_tracing()
             .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
@@ -140,6 +144,14 @@ mod tests {
         assert_eq!(
             builder.config.endpoint,
             Some("test-endpoint.com".to_string())
+        );
+        assert_eq!(
+            builder.storage_endpoint,
+            Some("test-storage-endpoint.com".to_string())
+        );
+        assert_eq!(
+            builder.config.universe_domain,
+            Some("test-universe.com".to_string())
         );
         assert!(builder.config.cred.is_some(), "{builder:?}");
         assert!(builder.config.tracing);
