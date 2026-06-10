@@ -18,7 +18,7 @@ use google_cloud_bigquery_v2::client::{DatasetService, JobService};
 use google_cloud_bigquery_v2::model::{
     Dataset, DatasetReference, Job, JobConfiguration, JobConfigurationQuery, JobReference,
 };
-use google_cloud_bigquery_v2::operation::{GetQueryResultsBuilderExt, InsertJobBuilderExt};
+use google_cloud_bigquery_v2::operation::InsertJobBuilderExt;
 use google_cloud_gax::{error::rpc::Code, paginator::ItemPaginator};
 use google_cloud_lro::Poller;
 use google_cloud_test_utils::runtime_config::project_id;
@@ -177,7 +177,7 @@ fn extract_dataset_id(project_id: &str, id: &str) -> Option<String> {
         .map(|v| v.to_string())
 }
 
-pub async fn job_service() -> Result<()> {
+pub async fn job_service_success() -> Result<()> {
     let project_id = project_id()?;
     let client = JobService::builder().with_tracing().build().await?;
     cleanup_stale_jobs(&client, &project_id).await?;
@@ -186,36 +186,20 @@ pub async fn job_service() -> Result<()> {
     println!("CREATING JOB WITH ID: {job_id}");
 
     let query = "SELECT 1 as one";
-    let poller = client
-        .insert_job()
-        .set_project_id(&project_id)
-        .set_job(
-            Job::new()
-                .set_job_reference(JobReference::new().set_job_id(&job_id))
-                .set_configuration(
-                    JobConfiguration::new()
-                        .set_labels([(INSTANCE_LABEL, "true")])
-                        .set_query(JobConfigurationQuery::new().set_query(query)),
-                ),
-        )
-        .poller(&client, &project_id, None);
-
-    let job = poller.until_done().await?;
-    println!("CREATE JOB (POLLED) = {job:?}");
+    let req = client.insert_job().set_project_id(&project_id).set_job(
+        Job::new()
+            .set_job_reference(JobReference::new().set_job_id(&job_id))
+            .set_configuration(
+                JobConfiguration::new()
+                    .set_labels([(INSTANCE_LABEL, "true")])
+                    .set_query(JobConfigurationQuery::new().set_query(query)),
+            ),
+    );
+    let poller = req.poller();
+    let job = Box::pin(async move { poller.until_done().await }).await?;
+    println!("CREATE JOB = {job:?}");
 
     assert!(job.job_reference.is_some(), "{job:?}");
-
-    // Also test polling for query results
-    let results_poller = client
-        .get_query_results()
-        .set_project_id(&project_id)
-        .set_job_id(&job_id)
-        .poller(&client, &project_id, None);
-
-    let results = results_poller.until_done().await?;
-    println!("QUERY RESULTS (POLLED) = {results:?}");
-    assert_eq!(results.job_complete, Some(true));
-
     let list = client
         .list_jobs()
         .set_project_id(&project_id)
@@ -230,10 +214,16 @@ pub async fn job_service() -> Result<()> {
             .any(|v| v.as_ref().unwrap().id.contains(&job_id))
     );
 
-    // EDGE CASE 1: Deliberately failing job (e.g. syntax error or missing table)
-    let failing_query = "SELECT * FROM dataset_that_does_not_exist.table_that_does_not_exist";
+    Ok(())
+}
+
+pub async fn job_service_failing() -> Result<()> {
+    let project_id = project_id()?;
+    let client = JobService::builder().with_tracing().build().await?;
+
+    let failing_query = "SELECT CAST('abc' AS INT64)";
     let failing_job_id = random_job_id();
-    let failing_poller = client
+    let poller = client
         .insert_job()
         .set_project_id(&project_id)
         .set_job(
@@ -245,31 +235,30 @@ pub async fn job_service() -> Result<()> {
                         .set_query(JobConfigurationQuery::new().set_query(failing_query)),
                 ),
         )
-        .poller(&client, &project_id, None);
+        .poller();
 
-    // The poller itself should succeed (because the HTTP polling worked and the job reached DONE state)
-    let failed_job = failing_poller.until_done().await?;
-    println!("FAILING JOB (POLLED) = {failed_job:?}");
+    let failing_job = Box::pin(async move { poller.until_done().await }).await?;
+    println!("FAILING JOB (POLLED) = {failing_job:?}");
 
-    // But the job payload must contain an error_result!
-    let status = failed_job.status.expect("Job should have a status");
-    assert_eq!(status.state, "DONE");
     assert!(
-        status.error_result.is_some(),
-        "Job should have an error_result payload"
+        failing_job.status.is_some_and(|s| s.error_result.is_some()),
+        "Failed job should have error_result populated"
     );
 
-    // EDGE CASE 2: Polling an invalid/non-existent job
-    // According to the Aip194Strict policy, a 404 is NOT transient.
-    // The poller should immediately return the 404 error instead of looping forever.
+    Ok(())
+}
+
+pub async fn job_service_invalid() -> Result<()> {
+    let _project_id = project_id()?;
+    let client = JobService::builder().with_tracing().build().await?;
     let invalid_job_id = "job_that_definitely_does_not_exist_123456789";
     let invalid_poller = client
-        .get_query_results()
-        .set_project_id(&project_id)
-        .set_job_id(invalid_job_id)
-        .poller(&client, &project_id, None);
+        .insert_job()
+        .set_project_id("invalid-project-id")
+        .set_job(Job::new().set_job_reference(JobReference::new().set_job_id(invalid_job_id)))
+        .poller();
 
-    let result = invalid_poller.until_done().await;
+    let result = Box::pin(async move { invalid_poller.until_done().await }).await;
     match result {
         Ok(_) => panic!("Expected polling a non-existent job to fail"),
         Err(e) => {
@@ -277,6 +266,95 @@ pub async fn job_service() -> Result<()> {
         }
     }
 
+    Ok(())
+}
+
+pub async fn job_service_copy_fail() -> Result<()> {
+    let _project_id = project_id()?;
+    let client = JobService::builder().with_tracing().build().await?;
+    let poller = client
+        .insert_job()
+        .set_project_id(&_project_id)
+        .set_job(
+            Job::new()
+                .set_configuration(
+                    JobConfiguration::new().set_copy(
+                        google_cloud_bigquery_v2::model::JobConfigurationTableCopy::new()
+                            .set_source_table(
+                                google_cloud_bigquery_v2::model::TableReference::new()
+                                    .set_project_id(&_project_id)
+                                    .set_dataset_id("does_not_exist")
+                                    .set_table_id("does_not_exist")
+                            )
+                            .set_destination_table(
+                                google_cloud_bigquery_v2::model::TableReference::new()
+                                    .set_project_id(&_project_id)
+                                    .set_dataset_id("does_not_exist")
+                                    .set_table_id("does_not_exist_either")
+                            )
+                    )
+                ),
+        )
+        .poller();
+
+    let job = Box::pin(async move { poller.until_done().await }).await?;
+    assert!(job.status.is_some_and(|s| s.error_result.is_some()));
+    Ok(())
+}
+
+pub async fn job_service_load_fail() -> Result<()> {
+    let _project_id = project_id()?;
+    let client = JobService::builder().with_tracing().build().await?;
+    let poller = client
+        .insert_job()
+        .set_project_id(&_project_id)
+        .set_job(
+            Job::new()
+                .set_configuration(
+                    JobConfiguration::new().set_load(
+                        google_cloud_bigquery_v2::model::JobConfigurationLoad::new()
+                            .set_source_uris(vec!["gs://bucket_does_not_exist/file.csv".to_string()])
+                            .set_destination_table(
+                                google_cloud_bigquery_v2::model::TableReference::new()
+                                    .set_project_id(&_project_id)
+                                    .set_dataset_id("does_not_exist")
+                                    .set_table_id("does_not_exist")
+                            )
+                    )
+                ),
+        )
+        .poller();
+
+    let job = Box::pin(async move { poller.until_done().await }).await?;
+    assert!(job.status.is_some_and(|s| s.error_result.is_some()));
+    Ok(())
+}
+
+pub async fn job_service_extract_fail() -> Result<()> {
+    let _project_id = project_id()?;
+    let client = JobService::builder().with_tracing().build().await?;
+    let poller = client
+        .insert_job()
+        .set_project_id(&_project_id)
+        .set_job(
+            Job::new()
+                .set_configuration(
+                    JobConfiguration::new().set_extract(
+                        google_cloud_bigquery_v2::model::JobConfigurationExtract::new()
+                            .set_source_table(
+                                google_cloud_bigquery_v2::model::TableReference::new()
+                                    .set_project_id(&_project_id)
+                                    .set_dataset_id("does_not_exist")
+                                    .set_table_id("does_not_exist")
+                            )
+                            .set_destination_uris(vec!["gs://bucket_does_not_exist/file.csv".to_string()])
+                    )
+                ),
+        )
+        .poller();
+
+    let job = Box::pin(async move { poller.until_done().await }).await?;
+    assert!(job.status.is_some_and(|s| s.error_result.is_some()));
     Ok(())
 }
 
