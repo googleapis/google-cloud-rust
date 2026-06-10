@@ -47,6 +47,7 @@
 //! [ring]: https://crates.io/crates/ring
 
 #![allow(deprecated)]
+#![allow(clippy::boxed_local)]
 
 /// The messages and enums that are part of this client library.
 #[allow(clippy::module_inception)]
@@ -79,9 +80,6 @@ pub mod client;
 /// Request builders.
 pub mod builder;
 
-#[allow(missing_docs)]
-pub mod operation;
-
 #[doc(hidden)]
 pub(crate) mod tracing;
 
@@ -113,3 +111,6 @@ pub(crate) use google_cloud_gax::client_builder::internal::new_builder as new_cl
 pub(crate) use google_cloud_gax::options::RequestOptions;
 pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
 pub(crate) use google_cloud_gax::response::Response;
+
+#[allow(missing_docs)]
+pub mod operation;
