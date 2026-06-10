@@ -36,7 +36,7 @@ impl RunQuery {
         Self {
             job_service,
             request: RunQueryRequest::default()
-                .set_query(sql.clone())
+                .set_query(sql)
                 .set_use_legacy_sql(wkt::BoolValue::from(false)),
             project_id: None,
         }
@@ -51,10 +51,7 @@ impl RunQuery {
     /// Executes the SQL query, routing internally to `jobs.query` (fast path)
     /// or `jobs.insert` (job path) depending on configured fields.
     pub async fn run(self) -> Result<Query> {
-        let project_id = self
-            .project_id
-            .clone()
-            .ok_or(QueryError::MissingProjectId)?;
+        let project_id = self.project_id.ok_or(QueryError::MissingProjectId)?;
 
         if self.request.force_job_path() {
             // Route to jobs.insert
