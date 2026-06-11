@@ -40,7 +40,9 @@ impl ClientBuilder {
         }
     }
 
-    /// Sets the BigQuery v2 endpoint.
+    /// Sets the [BigQuery v2] API endpoint.
+    ///
+    /// [BigQuery v2]: https://docs.cloud.google.com/bigquery/docs/reference/rest
     pub fn with_endpoint<V: Into<String>>(mut self, v: V) -> Self {
         self.config.endpoint = Some(v.into());
         self
@@ -67,24 +69,6 @@ impl ClientBuilder {
         self
     }
 
-    /// Configure the retry policy.
-    pub fn with_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
-        self.config.retry_policy = Some(v.into().into());
-        self
-    }
-
-    /// Configure the retry backoff policy.
-    pub fn with_backoff_policy<V: Into<BackoffPolicyArg>>(mut self, v: V) -> Self {
-        self.config.backoff_policy = Some(v.into().into());
-        self
-    }
-
-    /// Configure the retry throttler.
-    pub fn with_retry_throttler<V: Into<RetryThrottlerArg>>(mut self, v: V) -> Self {
-        self.config.retry_throttler = v.into().into();
-        self
-    }
-
     /// Builds the `BigQuery` client instance.
     pub async fn build(self) -> Result<BigQuery> {
         BigQuery::new(self).await
@@ -103,17 +87,6 @@ mod tests {
         assert!(builder.config.universe_domain.is_none(), "{builder:?}");
         assert!(builder.config.cred.is_none(), "{builder:?}");
         assert!(!builder.config.tracing);
-        assert!(
-            format!("{:?}", &builder.config).contains("AdaptiveThrottler"),
-            "{:?}",
-            builder.config
-        );
-        assert!(builder.config.backoff_policy.is_none(), "{builder:?}");
-        assert!(builder.config.retry_policy.is_none(), "{builder:?}");
-        assert!(
-            builder.config.grpc_subchannel_count.is_none(),
-            "{builder:?}"
-        );
 
         Ok(())
     }
@@ -125,12 +98,8 @@ mod tests {
             .with_endpoint("test-endpoint.com")
             .with_universe_domain("test-universe.com")
             .with_credentials(Anonymous::new().build())
-            .with_tracing()
-            .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
-            .with_backoff_policy(
-                google_cloud_gax::exponential_backoff::ExponentialBackoff::default(),
-            )
-            .with_retry_throttler(google_cloud_gax::retry_throttler::CircuitBreaker::default());
+            .with_tracing();
+
         assert_eq!(
             builder.config.endpoint,
             Some("test-endpoint.com".to_string())
@@ -141,13 +110,6 @@ mod tests {
         );
         assert!(builder.config.cred.is_some(), "{builder:?}");
         assert!(builder.config.tracing);
-        assert!(
-            format!("{:?}", &builder.config).contains("CircuitBreaker"),
-            "{:?}",
-            builder.config
-        );
-        assert!(builder.config.retry_policy.is_some(), "{builder:?}");
-        assert!(builder.config.backoff_policy.is_some(), "{builder:?}");
 
         Ok(())
     }
