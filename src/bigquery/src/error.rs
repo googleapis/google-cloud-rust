@@ -16,7 +16,6 @@
 
 use google_cloud_bigquery_v2::model::ErrorProto;
 use google_cloud_gax::error::Error;
-use std::sync::Arc;
 
 /// Errors that can occur during query configuration, execution, or polling.
 #[derive(thiserror::Error, Debug)]
@@ -48,7 +47,7 @@ pub enum QueryError {
     Rpc {
         /// The error returned by the service for the request.
         #[source]
-        source: Arc<Error>,
+        source: Error,
     },
 }
 
@@ -78,9 +77,8 @@ mod tests {
         let status = google_cloud_gax::error::rpc::Status::default()
             .set_code(google_cloud_gax::error::rpc::Code::InvalidArgument)
             .set_message("simulated bad request");
-        let gax_err = Error::service(status);
         let err = QueryError::Rpc {
-            source: Arc::new(gax_err),
+            source: Error::service(status),
         };
         assert_eq!(
             err.to_string(),

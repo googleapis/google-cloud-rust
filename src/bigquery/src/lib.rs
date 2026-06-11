@@ -32,14 +32,15 @@ pub mod error;
 pub(crate) mod query;
 
 pub mod model {
-    //! Re-exports for the Google Cloud BigQuery API.
+    //! Re-exports for the Google Cloud BigQuery v2 API.
+    pub use crate::query::{RunQuery, RunQueryRequest};
     pub use google_cloud_bigquery_v2::model::*;
 }
 
 pub mod builder {
     //! Request builders.
     pub mod bigquery {
-        //! Query request builders for [BigQuery][crate::client::BigQuery].
+        //! Query request builders for BigQuery,
         pub use crate::query::{RunQuery, RunQueryRequest};
     }
 }
