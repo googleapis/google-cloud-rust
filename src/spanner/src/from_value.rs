@@ -135,11 +135,9 @@ fn from_value_recursive(
         Some(prost_types::value::Kind::NullValue(_)) => Ok(JsonValue::Null),
 
         Some(prost_types::value::Kind::NumberValue(n)) => {
-            if let Some(num) = serde_json::Number::from_f64(*n) {
-                Ok(JsonValue::Number(num))
-            } else {
-                Ok(JsonValue::Null)
-            }
+            Ok(serde_json::Number::from_f64(*n)
+                .map(JsonValue::Number)
+                .unwrap_or(JsonValue::Null))
         }
 
         Some(prost_types::value::Kind::StringValue(s)) => {
