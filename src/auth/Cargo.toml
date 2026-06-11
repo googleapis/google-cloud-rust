@@ -62,6 +62,7 @@ google-cloud-gax.workspace = true
 [dev-dependencies]
 anyhow.workspace      = true
 httptest.workspace    = true
+hyper.workspace       = true
 mockall.workspace     = true
 regex.workspace       = true
 rsa                   = { workspace = true, features = ["pem", "sha2"] }
