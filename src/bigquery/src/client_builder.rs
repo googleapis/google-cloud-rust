@@ -15,10 +15,7 @@
 use crate::client::BigQuery;
 use gaxi::options::ClientConfig;
 use google_cloud_auth::credentials::Credentials;
-use google_cloud_gax::backoff_policy::BackoffPolicyArg;
 use google_cloud_gax::client_builder::Result;
-use google_cloud_gax::retry_policy::RetryPolicyArg;
-use google_cloud_gax::retry_throttler::RetryThrottlerArg;
 
 /// A builder for creating and configuring a BigQuery client instance.
 #[derive(Clone, Debug)]
@@ -93,7 +90,6 @@ mod tests {
 
     #[tokio::test]
     async fn setters() -> anyhow::Result<()> {
-        use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
         let builder = ClientBuilder::new()
             .with_endpoint("test-endpoint.com")
             .with_universe_domain("test-universe.com")

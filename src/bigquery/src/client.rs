@@ -57,3 +57,18 @@ impl BigQuery {
         Ok(BigQuery { job_service })
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::BigQuery;
+    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+
+    #[tokio::test]
+    async fn test_bigquery_builder() -> anyhow::Result<()> {
+        let _client = BigQuery::builder()
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        Ok(())
+    }
+}
