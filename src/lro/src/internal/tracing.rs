@@ -23,15 +23,19 @@ tokio::task_local! {
 /// A recorder that manages LRO spans and propagates active telemetry context.
 ///
 /// To prevent concurrent mutation race conditions under multi-threaded tokio executors,
-/// `LroRecorder` is completely immutable. Context updates (like setting the transient `attempt_count`
+/// `LroRecorder` is largely immutable. Context updates (like setting the transient `attempt_count`
 /// during a polling cycle) are performed using copy-on-write builders (`with_attempt_count`)
-/// to establish new immutable task-local scopes.
+/// to establish new task-local scopes.
+///
+/// The `destination_id` is an exception: it is a write-once, read-many value shared across
+/// all clones of a given recorder, ensuring that once discovered, the ID propagates to all
+/// future polling spans.
 #[derive(Clone, Debug)]
 #[non_exhaustive]
 pub struct LroRecorder {
     span: Span,
     attempt_count: Option<u32>,
-    destination_id: std::sync::Arc<std::sync::Mutex<Option<String>>>,
+    destination_id: std::sync::Arc<std::sync::OnceLock<String>>,
 }
 
 impl LroRecorder {
@@ -40,7 +44,7 @@ impl LroRecorder {
         Self {
             span,
             attempt_count: None,
-            destination_id: std::sync::Arc::new(std::sync::Mutex::new(None)),
+            destination_id: std::sync::Arc::new(std::sync::OnceLock::new()),
         }
     }
 
@@ -108,16 +112,11 @@ impl LroRecorder {
 
     pub fn record_destination_id(&self, name: &str) {
         self.span.record("gcp.resource.destination.id", name);
-        if let Ok(mut guard) = self.destination_id.lock() {
-            *guard = Some(name.to_string());
-        }
+        let _ = self.destination_id.set(name.to_string());
     }
 
     pub fn destination_id(&self) -> Option<String> {
-        self.destination_id
-            .lock()
-            .ok()
-            .and_then(|g| g.as_ref().cloned())
+        self.destination_id.get().cloned()
     }
 
     pub fn record_error(&self, err: &crate::Error) {
