@@ -35,6 +35,10 @@ thiserror.workspace        = true
 wkt.workspace              = true
 gaxi                       = { workspace = true, features = ["_internal-common", "_internal-grpc-client", "_internal-http-client"] }
 
+[dev-dependencies]
+anyhow.workspace = true
+tokio            = { workspace = true, features = ["macros", "rt-multi-thread"] }
+
 [features]
 default = ["default-rustls-provider"]
 # Enabled by default. Use the default rustls crypto provider ([aws-lc-rs]) for
@@ -45,7 +49,3 @@ default-rustls-provider = ["gaxi/_default-rustls-provider"]
 
 [lints]
 workspace = true
-
-[dev-dependencies]
-anyhow.workspace = true
-tokio            = { workspace = true, features = ["macros", "rt-multi-thread"] }
