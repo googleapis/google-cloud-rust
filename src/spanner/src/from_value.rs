@@ -825,9 +825,9 @@ mod tests {
         assert_eq!(j, JsonValue::Bool(true));
 
         // Float64 → JSON number
-        let v = 3.14f64.to_value();
+        let v = 1.5f64.to_value();
         let j = JsonValue::from_value(&v, &types::float64()).unwrap();
-        assert_eq!(j, serde_json::json!(3.14));
+        assert_eq!(j, serde_json::json!(1.5));
 
         // Null → JSON null
         let v: Option<i64> = None;
