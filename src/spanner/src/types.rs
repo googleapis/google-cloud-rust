@@ -152,7 +152,7 @@ impl Type {
     /// Safely reinterprets a reference to the inner model type as a reference to Type.
     /// Logical safety is guaranteed by #[repr(transparent)].
     pub(crate) fn from_ref(v: &model::Type) -> &Self {
-        // Safety: Type is #[repr(transparent)] wrapper around model::Type.
+        // SAFETY: Type is #[repr(transparent)] wrapper around model::Type.
         unsafe { &*(v as *const model::Type as *const Type) }
     }
 }
