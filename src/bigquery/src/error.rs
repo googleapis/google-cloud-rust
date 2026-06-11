@@ -31,12 +31,8 @@ pub enum QueryError {
 
     /// The query job failed on the BigQuery service side.
     /// Includes the list of error protocols returned by the service.
-    #[error("query job failed: {reason} - {message}")]
+    #[error("query job failed: {errors:?}")]
     JobFailed {
-        /// The primary error reason code (e.g., "invalidQuery", "backendError").
-        reason: String,
-        /// The error message.
-        message: String,
         /// The list of all errors associated with the job.
         errors: Vec<ErrorProto>,
     },
@@ -54,28 +50,29 @@ pub enum QueryError {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use google_cloud_gax::error::rpc::{Code, Status};
 
     #[test]
     fn test_job_failed_display() {
         let err = QueryError::JobFailed {
-            reason: "invalidQuery".to_string(),
-            message: "Syntax error: Unexpected end of input".to_string(),
             errors: vec![
                 ErrorProto::new()
                     .set_reason("invalidQuery")
                     .set_message("Syntax error: Unexpected end of input"),
             ],
         };
-        assert_eq!(
-            err.to_string(),
-            "query job failed: invalidQuery - Syntax error: Unexpected end of input"
+        assert!(err.to_string().contains("query job failed:"));
+        assert!(err.to_string().contains("invalidQuery"));
+        assert!(
+            err.to_string()
+                .contains("Syntax error: Unexpected end of input")
         );
     }
 
     #[test]
     fn test_rpc_display() {
-        let status = google_cloud_gax::error::rpc::Status::default()
-            .set_code(google_cloud_gax::error::rpc::Code::InvalidArgument)
+        let status = Status::default()
+            .set_code(Code::InvalidArgument)
             .set_message("simulated bad request");
         let err = QueryError::Rpc {
             source: Error::service(status),
