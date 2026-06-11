@@ -23,14 +23,19 @@ tokio::task_local! {
 /// A recorder that manages LRO spans and propagates active telemetry context.
 ///
 /// To prevent concurrent mutation race conditions under multi-threaded tokio executors,
-/// `LroRecorder` is completely immutable. Context updates (like setting the transient `attempt_count`
+/// `LroRecorder` is largely immutable. Context updates (like setting the transient `attempt_count`
 /// during a polling cycle) are performed using copy-on-write builders (`with_attempt_count`)
-/// to establish new immutable task-local scopes.
+/// to establish new task-local scopes.
+///
+/// The `destination_id` is an exception: it is a write-once, read-many value shared across
+/// all clones of a given recorder, ensuring that once discovered, the ID propagates to all
+/// future polling spans.
 #[derive(Clone, Debug)]
 #[non_exhaustive]
 pub struct LroRecorder {
     span: Span,
     attempt_count: Option<u32>,
+    destination_id: std::sync::Arc<std::sync::OnceLock<String>>,
 }
 
 impl LroRecorder {
@@ -39,6 +44,7 @@ impl LroRecorder {
         Self {
             span,
             attempt_count: None,
+            destination_id: std::sync::Arc::new(std::sync::OnceLock::new()),
         }
     }
 
@@ -100,11 +106,17 @@ impl LroRecorder {
         Self {
             span: self.span.clone(),
             attempt_count: Some(count),
+            destination_id: self.destination_id.clone(),
         }
     }
 
     pub fn record_destination_id(&self, name: &str) {
         self.span.record("gcp.resource.destination.id", name);
+        let _ = self.destination_id.set(name.to_string());
+    }
+
+    pub fn destination_id(&self) -> Option<String> {
+        self.destination_id.get().cloned()
     }
 
     pub fn record_error(&self, err: &crate::Error) {
@@ -132,6 +144,10 @@ macro_rules! record_polling_attributes {
                 let span = &$span;
                 span.record("gcp.longrunning.poll_attempt_count", attempt);
                 span.record("gcp.longrunning.done", false);
+            }
+            if let Some(dest_id) = recorder.destination_id() {
+                let span = &$span;
+                span.record("gcp.resource.destination.id", dest_id);
             }
         }
     };
@@ -335,6 +351,7 @@ mod tests {
 
     #[tokio::test]
     async fn test_lro_recorder_span_nesting() {
+        let _guard = TestLayer::initialize();
         let span = tracing::info_span!("test_lro_span");
         let recorder = LroRecorder::new(span.clone());
 
@@ -361,6 +378,7 @@ mod tests {
             client_request_signals!(info: &InstrumentationClientInfo::default(), method: "test");
 
         let recorder = LroRecorder::new(span.clone()).with_attempt_count(42);
+        recorder.record_destination_id("my-test-lro-id");
 
         recorder
             .scope(async move {
@@ -383,6 +401,14 @@ mod tests {
         assert_eq!(
             got.attributes.get("gcp.longrunning.done"),
             Some(&google_cloud_test_utils::test_layer::AttributeValue::Boolean(false))
+        );
+        assert_eq!(
+            got.attributes.get("gcp.resource.destination.id"),
+            Some(
+                &google_cloud_test_utils::test_layer::AttributeValue::String(
+                    std::borrow::Cow::Borrowed("my-test-lro-id")
+                )
+            )
         );
     }
 
