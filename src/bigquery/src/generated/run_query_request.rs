@@ -718,6 +718,7 @@ impl RunQueryRequest {
 }
 
 impl RunQueryRequest {
+    #[allow(clippy::nonminimal_bool)]
     pub(crate) fn force_job_path(&self) -> bool {
         false
         || !wkt::internal::is_default(&self.allow_large_results)
@@ -798,6 +799,7 @@ impl std::convert::From<RunQueryRequest> for google_cloud_bigquery_v2::model::Jo
 }
 
 impl std::convert::From<RunQueryRequest> for google_cloud_bigquery_v2::model::JobConfiguration {
+    #[allow(clippy::useless_conversion)]
     fn from(req: RunQueryRequest) -> Self {
         let mut query = google_cloud_bigquery_v2::model::JobConfigurationQuery::default();
         query.allow_large_results = req.allow_large_results;

@@ -179,14 +179,7 @@ where
             method: "client::Workflows::get_operation",
             self.inner.get_operation(req, options));
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            if let Some(recorder) = google_cloud_lro::LroRecorder::current() {
-                if let Some(attempt) = recorder.attempt_count() {
-                    _span.record("gcp.longrunning.poll_attempt_count", attempt);
-                }
-                _span.record("gcp.longrunning.done", false);
-            }
-        }
+        google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         {
