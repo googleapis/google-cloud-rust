@@ -1682,6 +1682,7 @@ dependencies = [
  "hmac 0.13.0",
  "http",
  "httptest",
+ "hyper",
  "jsonwebtoken",
  "mockall",
  "mutants",
@@ -1868,8 +1869,11 @@ dependencies = [
 name = "google-cloud-bigquery"
 version = "0.0.0"
 dependencies = [
+ "anyhow",
+ "google-cloud-auth",
  "google-cloud-bigquery-v2",
  "google-cloud-gax",
+ "google-cloud-gax-internal",
  "google-cloud-wkt",
  "serde_json",
  "thiserror",
@@ -3569,6 +3573,7 @@ dependencies = [
  "futures",
  "google-cloud-auth",
  "google-cloud-gax",
+ "google-cloud-gax-internal",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-rpc",

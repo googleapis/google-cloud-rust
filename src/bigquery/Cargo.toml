@@ -27,14 +27,25 @@ categories.workspace   = true
 rust-version.workspace = true
 
 [dependencies]
+serde_json.workspace       = true
+google-cloud-auth          = { workspace = true }
 google-cloud-gax.workspace = true
 google-cloud-bigquery-v2   = { workspace = true }
-serde_json.workspace       = true
 thiserror.workspace        = true
 wkt.workspace              = true
+gaxi                       = { workspace = true, features = ["_internal-common", "_internal-grpc-client", "_internal-http-client"] }
+
+[features]
+default = ["default-rustls-provider"]
+# Enabled by default. Use the default rustls crypto provider ([aws-lc-rs]) for
+# TLS and authentication. Applications with specific requirements for
+# cryptography (such as exclusively using the [ring] crate) should disable this
+# default and call `rustls::CryptoProvider::install_default()`.
+default-rustls-provider = ["gaxi/_default-rustls-provider"]
 
 [lints]
 workspace = true
 
 [dev-dependencies]
-tokio = { workspace = true, features = ["macros", "rt-multi-thread"] }
+anyhow.workspace = true
+tokio            = { workspace = true, features = ["macros", "rt-multi-thread"] }

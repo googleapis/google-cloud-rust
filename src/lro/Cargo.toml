@@ -56,6 +56,7 @@ tracing = { workspace = true }
 [target.'cfg(google_cloud_unstable_tracing)'.dev-dependencies]
 tracing-subscriber      = { workspace = true, features = ["registry"] }
 google-cloud-test-utils = { workspace = true }
+gaxi                    = { workspace = true, features = ["_internal-common"] }
 
 [features]
 unstable-stream = ["dep:futures", "dep:pin-project"]

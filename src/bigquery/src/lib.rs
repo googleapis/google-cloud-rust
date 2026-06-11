@@ -26,21 +26,26 @@
 
 pub use google_cloud_gax::Result;
 pub use google_cloud_gax::error::Error;
-
 pub mod error;
 
 pub(crate) mod query;
+pub(crate) use google_cloud_gax::client_builder::Result as ClientBuilderResult;
+
+/// High-level BigQuery client and execution entrypoints.
+pub mod client;
+mod client_builder;
 
 pub mod model {
-    //! Re-exports for the Google Cloud BigQuery v2 API.
+    //! Re-exports for the Google Cloud BigQuery v2 API types.
     pub use crate::query::{RunQuery, RunQueryRequest};
     pub use google_cloud_bigquery_v2::model::*;
 }
 
 pub mod builder {
-    //! Request builders.
+    //! Builders for the BigQuery client.
     pub mod bigquery {
-        //! Query request builders for BigQuery,
+        //! Builder for [BigQuery][crate::client::BigQuery].
+        pub use crate::client_builder::ClientBuilder;
         pub use crate::query::{RunQuery, RunQueryRequest};
     }
 }

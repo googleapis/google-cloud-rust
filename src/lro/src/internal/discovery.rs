@@ -27,6 +27,7 @@ use crate::{
     Poller, PollingBackoffPolicy, PollingErrorPolicy, PollingResult, Result,
     sealed::Poller as SealedPoller,
 };
+use google_cloud_gax::error::rpc::Status;
 use google_cloud_gax::polling_state::PollingState;
 use google_cloud_gax::retry_result::RetryResult;
 use std::sync::Arc;
@@ -54,6 +55,11 @@ pub trait DiscoveryOperation {
     ///
     /// It may be `None` in which case the polling loop stops.
     fn name(&self) -> Option<&String>;
+
+    /// Returns the error status of the operation, if any.
+    fn error(&self) -> Option<Status> {
+        None
+    }
 }
 
 pub fn new_discovery_poller<S, SF, Q, QF, O>(

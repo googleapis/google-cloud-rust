@@ -88,7 +88,14 @@ impl AttributeValue {
             _ => None,
         }
     }
-    // Add other as_ type helpers as needed
+
+    /// Helper to get the bool value if the variant is Boolean.
+    pub fn as_bool(&self) -> Option<bool> {
+        match self {
+            AttributeValue::Boolean(b) => Some(*b),
+            _ => None,
+        }
+    }
 }
 
 /// Represents a captured tracing span with its attributes.

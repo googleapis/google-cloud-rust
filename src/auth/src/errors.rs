@@ -126,17 +126,17 @@ pub(crate) fn is_gax_error_retryable(err: &GaxError) -> bool {
 }
 
 fn is_retryable(err: &reqwest::Error) -> bool {
-    // Connection errors are transient more often than not. A bad configuration
-    // can point to a non-existing service, and that will never recover.
-    // However: (1) we expect this to be rare, and (2) this is what limiting
-    // retry policies and backoff policies handle.
     if err.is_connect() {
+        // Connection errors are transient more often than not. A bad
+        // configuration can point to a non-existing service, and that will
+        // never recover. However: (1) we expect this to be rare, and (2) this
+        // is what limiting retry policies and backoff policies handle.
         return true;
     }
-    match err.status() {
-        Some(code) => is_retryable_code(code),
-        None => false,
+    if err.is_request() {
+        return true;
     }
+    err.status().is_some_and(is_retryable_code)
 }
 
 fn is_retryable_code(code: StatusCode) -> bool {
