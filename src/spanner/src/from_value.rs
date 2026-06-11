@@ -141,28 +141,25 @@ fn from_value_recursive(
         }
 
         Some(prost_types::value::Kind::StringValue(s)) => {
-            if let Some(t) = type_ {
-                match t.code() {
-                    TypeCode::Json => {
-                        serde_json::from_str(s).map_err(|e| ConvertError::Convert(Box::new(e)))
-                    }
-                    TypeCode::Float64 | TypeCode::Float32 => {
-                        if s == "NaN" || s == "Infinity" || s == "-Infinity" {
-                            Ok(JsonValue::Null)
-                        } else if let Ok(f) = s.parse::<f64>() {
-                            if let Some(num) = serde_json::Number::from_f64(f) {
-                                Ok(JsonValue::Number(num))
-                            } else {
-                                Ok(JsonValue::Null)
-                            }
-                        } else {
-                            Ok(JsonValue::String(s.clone()))
-                        }
-                    }
-                    _ => Ok(JsonValue::String(s.clone())),
+            let Some(t) = type_ else {
+                return Ok(JsonValue::String(s.clone()));
+            };
+            match t.code() {
+                TypeCode::Json => {
+                    serde_json::from_str(s).map_err(|e| ConvertError::Convert(Box::new(e)))
                 }
-            } else {
-                Ok(JsonValue::String(s.clone()))
+                TypeCode::Float64 | TypeCode::Float32 => {
+                    if s == "NaN" || s == "Infinity" || s == "-Infinity" {
+                        Ok(JsonValue::Null)
+                    } else if let Ok(f) = s.parse::<f64>() {
+                        Ok(serde_json::Number::from_f64(f)
+                            .map(JsonValue::Number)
+                            .unwrap_or(JsonValue::Null))
+                    } else {
+                        Ok(JsonValue::String(s.clone()))
+                    }
+                }
+                _ => Ok(JsonValue::String(s.clone())),
             }
         }
 
@@ -186,20 +183,21 @@ fn struct_value_to_json(
     let s = crate::value::Struct::from_ref(s);
     let mut map = serde_json::Map::new();
 
-    if let Some(struct_type) = type_.and_then(|t| t.struct_type()) {
-        for field in &struct_type.fields {
-            let field_type = field.r#type.as_deref().map(Type::from_ref);
-            let value = if let Some(v) = s.get(&field.name) {
-                from_value_recursive(v, field_type, depth)?
-            } else {
-                JsonValue::Null
-            };
-            map.insert(field.name.clone(), value);
-        }
-    } else {
+    let Some(struct_type) = type_.and_then(|t| t.struct_type()) else {
         for (k, v) in s.fields() {
             map.insert(k.clone(), from_value_recursive(v, None, depth)?);
         }
+        return Ok(JsonValue::Object(map));
+    };
+
+    for field in &struct_type.fields {
+        let field_type = field.r#type.as_deref().map(Type::from_ref);
+        let value = if let Some(v) = s.get(&field.name) {
+            from_value_recursive(v, field_type, depth)?
+        } else {
+            JsonValue::Null
+        };
+        map.insert(field.name.clone(), value);
     }
 
     Ok(JsonValue::Object(map))
@@ -213,27 +211,27 @@ fn list_value_to_json(
     let code = type_.map_or(TypeCode::Unspecified, |t| t.code());
     match code {
         TypeCode::Struct => {
-            if let Some(struct_type) = type_.and_then(|t| t.struct_type()) {
-                let mut map = serde_json::Map::new();
-                for (i, field) in struct_type.fields.iter().enumerate() {
-                    let field_type = field.r#type.as_deref().map(Type::from_ref);
-                    let value = if let Some(v) = list.values.get(i) {
-                        let val = Value::from_ref(v);
-                        from_value_recursive(val, field_type, depth)?
-                    } else {
-                        JsonValue::Null
-                    };
-                    map.insert(field.name.clone(), value);
-                }
-                Ok(JsonValue::Object(map))
-            } else {
+            let Some(struct_type) = type_.and_then(|t| t.struct_type()) else {
                 let mut arr = Vec::with_capacity(list.values.len());
                 for v in &list.values {
                     let val = Value::from_ref(v);
                     arr.push(from_value_recursive(val, None, depth)?);
                 }
-                Ok(JsonValue::Array(arr))
+                return Ok(JsonValue::Array(arr));
+            };
+
+            let mut map = serde_json::Map::new();
+            for (i, field) in struct_type.fields.iter().enumerate() {
+                let field_type = field.r#type.as_deref().map(Type::from_ref);
+                let value = if let Some(v) = list.values.get(i) {
+                    let val = Value::from_ref(v);
+                    from_value_recursive(val, field_type, depth)?
+                } else {
+                    JsonValue::Null
+                };
+                map.insert(field.name.clone(), value);
             }
+            Ok(JsonValue::Object(map))
         }
 
         TypeCode::Array => {
