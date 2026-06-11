@@ -26,6 +26,7 @@
 
 pub use google_cloud_gax::Result;
 pub use google_cloud_gax::error::Error;
+pub mod error;
 
 pub(crate) use google_cloud_gax::client_builder::Result as ClientBuilderResult;
 
