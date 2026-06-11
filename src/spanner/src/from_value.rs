@@ -151,12 +151,11 @@ fn from_value_recursive(
                 TypeCode::Float64 | TypeCode::Float32 => {
                     if s == "NaN" || s == "Infinity" || s == "-Infinity" {
                         Ok(JsonValue::Null)
-                    } else if let Ok(f) = s.parse::<f64>() {
+                    } else {
+                        let f = s.parse::<f64>().map_err(|e| ConvertError::Convert(Box::new(e)))?;
                         Ok(serde_json::Number::from_f64(f)
                             .map(JsonValue::Number)
                             .unwrap_or(JsonValue::Null))
-                    } else {
-                        Ok(JsonValue::String(s.clone()))
                     }
                 }
                 _ => Ok(JsonValue::String(s.clone())),
