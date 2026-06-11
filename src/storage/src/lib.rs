@@ -97,6 +97,7 @@ pub mod builder {
         pub use crate::storage::open_object::OpenObject;
         pub use crate::storage::read_object::ReadObject;
         pub use crate::storage::signed_url::SignedUrlBuilder;
+        pub use crate::storage::post_policy::{PostPolicyV4Builder, PostPolicyV4Result};
         pub use crate::storage::write_object::WriteObject;
     }
     pub mod storage_control {

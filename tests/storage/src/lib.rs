@@ -130,6 +130,71 @@ pub async fn signed_urls(
     Ok(())
 }
 
+pub async fn signed_post_policies_v4(
+    builder: StorageBuilder,
+    signer: &Signer,
+    bucket_name: &str,
+    prefix: &str,
+) -> anyhow::Result<()> {
+    use google_cloud_storage::builder::storage::PostPolicyV4Builder;
+    let client = builder.build().await?;
+
+    let object_name = format!("{prefix}/post-policy-uploaded.text");
+    const CONTENTS: &str = "uploaded via signed post policy document!";
+
+    tracing::info!("testing signed_post_policy_v4()");
+    let post_policy = PostPolicyV4Builder::for_object(bucket_name, &object_name)
+        .with_expiration(Duration::from_secs(60))
+        .with_field("Content-Type", "text/plain")
+        .sign_with(signer)
+        .await?;
+
+    tracing::info!("post_policy url={}", post_policy.url);
+
+    // Build the multipart form
+    let mut form = reqwest::multipart::Form::new();
+
+    // Add all fields from PostPolicyV4Result
+    // Note: GCS expects "file" to be the last field in the request.
+    for (k, v) in &post_policy.fields {
+        form = form.text(k.clone(), v.clone());
+    }
+
+    // Add the file part
+    let file_part = reqwest::multipart::Part::bytes(CONTENTS.as_bytes())
+        .file_name("post-policy-uploaded.text")
+        .mime_str("text/plain")?;
+    form = form.part("file", file_part);
+
+    // Execute the POST request to the GCS endpoint
+    let http_client = reqwest::Client::new();
+    let res = http_client
+        .post(&post_policy.url)
+        .multipart(form)
+        .send()
+        .await?;
+
+    let status = res.status();
+    let text = res.text().await?;
+    tracing::info!("upload response status={status}, body={text}");
+    assert!(status.is_success(), "Upload failed: status={status}, body={text}");
+
+    // Retrieve and verify the uploaded object
+    let mut response = client.read_object(bucket_name, &object_name).send().await?;
+    let mut contents = Vec::new();
+    while let Some(b) = response.next().await.transpose()? {
+        contents.extend_from_slice(&b);
+    }
+    let contents = String::from_utf8(contents)?;
+    assert_eq!(contents, CONTENTS);
+    tracing::info!("successfully read uploaded object contents: {contents}");
+
+    // Clean up the object
+    client.delete_object(bucket_name, &object_name).send().await?;
+
+    Ok(())
+}
+
 async fn read_all(mut response: ReadObjectResponse) -> Result<Vec<u8>> {
     let mut contents = Vec::new();
     while let Some(b) = response.next().await.transpose()? {

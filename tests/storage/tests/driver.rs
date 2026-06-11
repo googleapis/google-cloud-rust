@@ -67,6 +67,16 @@ mod storage {
                     )
                     .await
                     .inspect_err(anydump)?;
+
+                    let builder = Storage::builder();
+                    integration_tests_storage::signed_post_policies_v4(
+                        builder,
+                        &s,
+                        &bucket.name,
+                        "default-endpoint",
+                    )
+                    .await
+                    .inspect_err(anydump)?;
                 }
                 Err(err) if err.is_not_supported() => {
                     tracing::warn!("skipping run_storage_signed_urls: {err:?}");
