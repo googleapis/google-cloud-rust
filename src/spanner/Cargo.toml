@@ -14,7 +14,7 @@
 
 [package]
 name        = "google-cloud-spanner"
-version     = "0.34.1-preview"
+version     = "0.34.2-preview"
 description = "Google Cloud Client Libraries for Rust - Spanner"
 # Inherit other attributes from the workspace.
 edition.workspace      = true
