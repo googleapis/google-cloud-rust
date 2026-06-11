@@ -26,8 +26,8 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-datastream-v1/1.11.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-datastream-v1/1.12.0)
 
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
-[Datastream]: https://docs.rs/google-cloud-datastream-v1/1.11.0/google_cloud_datastream_v1/client/struct.Datastream.html
+[Datastream]: https://docs.rs/google-cloud-datastream-v1/1.12.0/google_cloud_datastream_v1/client/struct.Datastream.html
