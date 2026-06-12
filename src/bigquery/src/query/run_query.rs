@@ -15,6 +15,7 @@
 use crate::error::QueryError;
 use crate::query::{Query, Result};
 use google_cloud_bigquery_v2::client::JobService;
+use google_cloud_bigquery_v2::model::query_request::JobCreationMode;
 use google_cloud_bigquery_v2::model::{
     Job, JobConfiguration, JobConfigurationQuery, PostQueryRequest, QueryRequest,
 };
@@ -32,12 +33,13 @@ pub struct RunQuery {
 
 impl RunQuery {
     /// Creates a new `RunQuery` builder for the given SQL query.
-    pub fn new(job_service: Arc<JobService>, sql: String) -> Self {
+    pub(crate) fn new(job_service: Arc<JobService>, sql: String) -> Self {
         Self {
             job_service,
             request: RunQueryRequest::default()
                 .set_query(sql)
-                .set_use_legacy_sql(wkt::BoolValue::from(false)),
+                .set_use_legacy_sql(wkt::BoolValue::from(false))
+                .set_job_creation_mode(JobCreationMode::JobCreationOptional),
             project_id: None,
         }
     }
@@ -48,8 +50,12 @@ impl RunQuery {
         self
     }
 
-    /// Executes the SQL query, routing internally to `jobs.query` (fast path)
+    /// Executes the SQL query
+    ///
+    /// The implementation routes internally to `jobs.query` (fast path)
     /// or `jobs.insert` (job path) depending on configured fields.
+    /// If the fast path is available, the client library takes it.
+    /// If not, it falls back to creating a job, which is typically slower.
     pub async fn run(self) -> Result<Query> {
         let project_id = self.project_id.ok_or(QueryError::MissingProjectId)?;
 
@@ -77,6 +83,7 @@ impl RunQuery {
     }
 }
 
+// TODO(#5844): move to a mod generated over include!()
 include!("../generated/run_query_builder.rs");
 include!("../generated/run_query_request.rs");
 
@@ -104,6 +111,10 @@ mod tests {
         assert_eq!(
             run_query.request.use_legacy_sql,
             Some(wkt::BoolValue::from(false))
+        );
+        assert_eq!(
+            run_query.request.job_creation_mode,
+            JobCreationMode::JobCreationOptional
         );
         assert_eq!(run_query.project_id, None);
     }
@@ -149,7 +160,7 @@ mod tests {
         let mut run_query = RunQuery::new(job_service, "SELECT 1".to_string());
         assert!(!run_query.request.force_job_path());
 
-        // Set allow_large_results
+        // setting a jobs.insert exclusive field
         run_query = run_query.set_allow_large_results(true);
         assert!(run_query.request.force_job_path());
     }
