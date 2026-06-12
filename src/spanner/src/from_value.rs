@@ -134,11 +134,9 @@ fn from_value_recursive(
     match &value.0.kind {
         Some(prost_types::value::Kind::NullValue(_)) => Ok(JsonValue::Null),
 
-        Some(prost_types::value::Kind::NumberValue(n)) => {
-            Ok(serde_json::Number::from_f64(*n)
-                .map(JsonValue::Number)
-                .unwrap_or(JsonValue::Null))
-        }
+        Some(prost_types::value::Kind::NumberValue(n)) => Ok(serde_json::Number::from_f64(*n)
+            .map(JsonValue::Number)
+            .unwrap_or(JsonValue::Null)),
 
         Some(prost_types::value::Kind::StringValue(s)) => {
             let Some(t) = type_ else {
@@ -152,7 +150,9 @@ fn from_value_recursive(
                     if s == "NaN" || s == "Infinity" || s == "-Infinity" {
                         return Ok(JsonValue::Null);
                     }
-                    let f = s.parse::<f64>().map_err(|e| ConvertError::Convert(Box::new(e)))?;
+                    let f = s
+                        .parse::<f64>()
+                        .map_err(|e| ConvertError::Convert(Box::new(e)))?;
                     Ok(serde_json::Number::from_f64(f)
                         .map(JsonValue::Number)
                         .unwrap_or(JsonValue::Null))
