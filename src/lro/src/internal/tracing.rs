@@ -143,7 +143,6 @@ macro_rules! record_polling_attributes {
             if let Some(attempt) = recorder.attempt_count() {
                 let span = &$span;
                 span.record("gcp.longrunning.poll_attempt_count", attempt);
-                span.record("gcp.longrunning.done", false);
             }
             if let Some(dest_id) = recorder.destination_id() {
                 let span = &$span;
@@ -399,10 +398,6 @@ mod tests {
             Some(&google_cloud_test_utils::test_layer::AttributeValue::UInt64(42))
         );
         assert_eq!(
-            got.attributes.get("gcp.longrunning.done"),
-            Some(&google_cloud_test_utils::test_layer::AttributeValue::Boolean(false))
-        );
-        assert_eq!(
             got.attributes.get("gcp.resource.destination.id"),
             Some(
                 &google_cloud_test_utils::test_layer::AttributeValue::String(
@@ -435,7 +430,6 @@ mod tests {
                 .get("gcp.longrunning.poll_attempt_count")
                 .is_none()
         );
-        assert!(got.attributes.get("gcp.longrunning.done").is_none());
     }
 
     #[cfg(google_cloud_unstable_tracing)]
@@ -467,7 +461,6 @@ mod tests {
                 .get("gcp.longrunning.poll_attempt_count")
                 .is_none()
         );
-        assert!(got.attributes.get("gcp.longrunning.done").is_none());
     }
 
     #[derive(Default)]
