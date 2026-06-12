@@ -373,6 +373,7 @@ mod tests {
             Expectation::matching(all_of![
                 request::method("GET"),
                 request::path(format!("{}/token", MDS_DEFAULT_URI)),
+                request::headers(contains(("metadata-flavor", "Google"))),
                 request::query(url_decoded(contains((
                     "scopes",
                     "scope1,scope2".to_string()
@@ -405,6 +406,7 @@ mod tests {
             Expectation::matching(all_of![
                 request::method("GET"),
                 request::path(format!("{}/token", MDS_DEFAULT_URI)),
+                request::headers(contains(("metadata-flavor", "Google"))),
             ])
             .respond_with(status_code(404).body("Not Found")),
         );
