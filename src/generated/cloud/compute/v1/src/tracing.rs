@@ -402,6 +402,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [Advice](super::stub::Advice) decorator for logging and tracing.
@@ -635,6 +647,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -909,6 +933,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -1226,6 +1262,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [CrossSiteNetworks](super::stub::CrossSiteNetworks) decorator for logging and tracing.
@@ -1373,6 +1421,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -1804,6 +1864,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [ExternalVpnGateways](super::stub::ExternalVpnGateways) decorator for logging and tracing.
@@ -1965,6 +2037,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -2296,6 +2380,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [Firewalls](super::stub::Firewalls) decorator for logging and tracing.
@@ -2471,6 +2567,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -2662,6 +2770,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [FutureReservations](super::stub::FutureReservations) decorator for logging and tracing.
@@ -2837,6 +2957,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -3014,6 +3146,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [GlobalForwardingRules](super::stub::GlobalForwardingRules) decorator for logging and tracing.
@@ -3190,6 +3334,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [GlobalNetworkEndpointGroups](super::stub::GlobalNetworkEndpointGroups) decorator for logging and tracing.
@@ -3365,6 +3521,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -3686,6 +3854,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [GlobalVmExtensionPolicies](super::stub::GlobalVmExtensionPolicies) decorator for logging and tracing.
@@ -3847,6 +4027,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -4038,6 +4230,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [HttpHealthChecks](super::stub::HttpHealthChecks) decorator for logging and tracing.
@@ -4214,6 +4418,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [HttpsHealthChecks](super::stub::HttpsHealthChecks) decorator for logging and tracing.
@@ -4389,6 +4605,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -4666,6 +4894,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [InstanceGroupManagerResizeRequests](super::stub::InstanceGroupManagerResizeRequests) decorator for logging and tracing.
@@ -4813,6 +5053,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -5230,6 +5482,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [InstanceGroups](super::stub::InstanceGroups) decorator for logging and tracing.
@@ -5448,6 +5712,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [InstanceSettings](super::stub::InstanceSettings) decorator for logging and tracing.
@@ -5553,6 +5829,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -5743,6 +6031,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -6536,6 +6836,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [InstantSnapshotGroups](super::stub::InstantSnapshotGroups) decorator for logging and tracing.
@@ -6711,6 +7023,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -6915,6 +7239,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -7122,6 +7458,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [InterconnectAttachments](super::stub::InterconnectAttachments) decorator for logging and tracing.
@@ -7297,6 +7645,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -7515,6 +7875,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -7822,6 +8194,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [LicenseCodes](super::stub::LicenseCodes) decorator for logging and tracing.
@@ -8098,6 +8482,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [MachineImages](super::stub::MachineImages) decorator for logging and tracing.
@@ -8287,6 +8683,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -8564,6 +8972,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [NetworkEdgeSecurityServices](super::stub::NetworkEdgeSecurityServices) decorator for logging and tracing.
@@ -8711,6 +9131,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -8915,6 +9347,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -9288,6 +9732,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [NetworkProfiles](super::stub::NetworkProfiles) decorator for logging and tracing.
@@ -9606,6 +10062,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [NodeGroups](super::stub::NodeGroups) decorator for logging and tracing.
@@ -9894,6 +10362,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [NodeTemplates](super::stub::NodeTemplates) decorator for logging and tracing.
@@ -10083,6 +10563,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -10461,6 +10953,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [PacketMirrorings](super::stub::PacketMirrorings) decorator for logging and tracing.
@@ -10637,6 +11141,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [PreviewFeatures](super::stub::PreviewFeatures) decorator for logging and tracing.
@@ -10756,6 +11272,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -11031,6 +11559,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [PublicAdvertisedPrefixes](super::stub::PublicAdvertisedPrefixes) decorator for logging and tracing.
@@ -11206,6 +11746,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -11397,6 +11949,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [RegionAutoscalers](super::stub::RegionAutoscalers) decorator for logging and tracing.
@@ -11572,6 +12136,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -11776,6 +12352,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -12023,6 +12611,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [RegionCommitments](super::stub::RegionCommitments) decorator for logging and tracing.
@@ -12170,6 +12770,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -12360,6 +12972,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -12749,6 +13373,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [RegionHealthAggregationPolicies](super::stub::RegionHealthAggregationPolicies) decorator for logging and tracing.
@@ -12924,6 +13560,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -13101,6 +13749,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [RegionHealthChecks](super::stub::RegionHealthChecks) decorator for logging and tracing.
@@ -13276,6 +13936,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -13467,6 +14139,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [RegionInstanceGroupManagerResizeRequests](super::stub::RegionInstanceGroupManagerResizeRequests) decorator for logging and tracing.
@@ -13616,6 +14300,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -14019,6 +14715,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [RegionInstanceGroups](super::stub::RegionInstanceGroups) decorator for logging and tracing.
@@ -14167,6 +14875,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [RegionInstanceTemplates](super::stub::RegionInstanceTemplates) decorator for logging and tracing.
@@ -14301,6 +15021,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [RegionInstances](super::stub::RegionInstances) decorator for logging and tracing.
@@ -14392,6 +15124,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -14568,6 +15312,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -14759,6 +15515,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [RegionNetworkEndpointGroups](super::stub::RegionNetworkEndpointGroups) decorator for logging and tracing.
@@ -14934,6 +15702,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -15253,6 +16033,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [RegionNotificationEndpoints](super::stub::RegionNotificationEndpoints) decorator for logging and tracing.
@@ -15414,6 +16206,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -15719,6 +16523,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [RegionSnapshotSettings](super::stub::RegionSnapshotSettings) decorator for logging and tracing.
@@ -15824,6 +16640,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -16029,6 +16857,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [RegionSslCertificates](super::stub::RegionSslCertificates) decorator for logging and tracing.
@@ -16162,6 +17002,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -16325,6 +17177,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [RegionTargetHttpProxies](super::stub::RegionTargetHttpProxies) decorator for logging and tracing.
@@ -16472,6 +17336,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -16649,6 +17525,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [RegionTargetTcpProxies](super::stub::RegionTargetTcpProxies) decorator for logging and tracing.
@@ -16782,6 +17670,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -16958,6 +17858,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -17223,6 +18135,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [ReservationSlots](super::stub::ReservationSlots) decorator for logging and tracing.
@@ -17356,6 +18280,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -17546,6 +18482,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -17779,6 +18727,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [ResourcePolicies](super::stub::ResourcePolicies) decorator for logging and tracing.
@@ -17983,6 +18943,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [RolloutPlans](super::stub::RolloutPlans) decorator for logging and tracing.
@@ -18116,6 +19088,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -18292,6 +19276,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -18609,6 +19605,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [Routes](super::stub::Routes) decorator for logging and tracing.
@@ -18756,6 +19764,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -19005,6 +20025,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [ServiceAttachments](super::stub::ServiceAttachments) decorator for logging and tracing.
@@ -19209,6 +20241,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [SnapshotSettings](super::stub::SnapshotSettings) decorator for logging and tracing.
@@ -19314,6 +20358,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -19519,6 +20575,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [SslCertificates](super::stub::SslCertificates) decorator for logging and tracing.
@@ -19666,6 +20734,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -19842,6 +20922,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -20133,6 +21225,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [Subnetworks](super::stub::Subnetworks) decorator for logging and tracing.
@@ -20379,6 +21483,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [TargetGrpcProxies](super::stub::TargetGrpcProxies) decorator for logging and tracing.
@@ -20526,6 +21642,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -20702,6 +21830,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -20935,6 +22075,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [TargetInstances](super::stub::TargetInstances) decorator for logging and tracing.
@@ -21110,6 +22262,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -21371,6 +22535,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [TargetSslProxies](super::stub::TargetSslProxies) decorator for logging and tracing.
@@ -21589,6 +22765,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [TargetTcpProxies](super::stub::TargetTcpProxies) decorator for logging and tracing.
@@ -21779,6 +22967,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [TargetVpnGateways](super::stub::TargetVpnGateways) decorator for logging and tracing.
@@ -21940,6 +23140,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -22159,6 +23371,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [VpnGateways](super::stub::VpnGateways) decorator for logging and tracing.
@@ -22349,6 +23573,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [VpnTunnels](super::stub::VpnTunnels) decorator for logging and tracing.
@@ -22511,6 +23747,18 @@ where
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
 }
 
 /// Implements a [WireGroups](super::stub::WireGroups) decorator for logging and tracing.
@@ -22658,6 +23906,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
@@ -22892,6 +24152,18 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 
