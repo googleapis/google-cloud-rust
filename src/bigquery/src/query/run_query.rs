@@ -52,10 +52,13 @@ impl RunQuery {
 
     /// Executes the SQL query
     ///
-    /// The implementation routes internally to `jobs.query` (fast path)
-    /// or `jobs.insert` (job path) depending on configured fields.
+    /// The implementation routes internally to [jobs.query] (fast path)
+    /// or [jobs.insert] (job path) depending on configured fields.
     /// If the fast path is available, the client library takes it.
     /// If not, it falls back to creating a job, which is typically slower.
+    ///
+    /// [jobs.query]: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query
+    /// [jobs.insert]: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/insert
     pub async fn run(self) -> Result<Query> {
         let project_id = self.project_id.ok_or(QueryError::MissingProjectId)?;
 
