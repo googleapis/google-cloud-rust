@@ -15,14 +15,16 @@
 // TODO(#4969)
 #![allow(dead_code)]
 
+use crate::generated::gapic_dataplane::model;
 use crate::generated::gapic_dataplane::model::TypeAnnotationCode;
+use crate::google::spanner::v1 as spanner_v1;
 use gaxi::prost::ConvertError;
 use std::sync::LazyLock;
 
 /// Spanner type definition.
 #[derive(Clone, Debug, PartialEq, Default)]
 #[repr(transparent)]
-pub struct Type(pub(crate) crate::generated::gapic_dataplane::model::Type);
+pub struct Type(pub(crate) model::Type);
 
 macro_rules! define_type_code {
     ($($variant:ident = $val:expr),* $(,)?) => {
@@ -105,20 +107,20 @@ define_type_code!(
     Uuid = 17,
 );
 
-impl From<crate::generated::gapic_dataplane::model::Type> for Type {
-    fn from(value: crate::generated::gapic_dataplane::model::Type) -> Self {
+impl From<model::Type> for Type {
+    fn from(value: model::Type) -> Self {
         Type(value)
     }
 }
 
-impl From<Type> for crate::generated::gapic_dataplane::model::Type {
+impl From<Type> for model::Type {
     fn from(value: Type) -> Self {
         value.0
     }
 }
 
-impl From<crate::google::spanner::v1::Type> for Type {
-    fn from(value: crate::google::spanner::v1::Type) -> Self {
+impl From<spanner_v1::Type> for Type {
+    fn from(value: spanner_v1::Type) -> Self {
         use gaxi::prost::FromProto;
         value.cnv().unwrap_or_default().into()
     }
@@ -136,6 +138,22 @@ impl Type {
             .array_element_type
             .as_deref()
             .map(|t| Type(t.clone()))
+    }
+
+    /// Returns the struct type metadata, or `None` if this type is not a struct.
+    ///
+    /// When `code() == TypeCode::Struct`, this provides the field names and
+    /// their types. This is essential for reconstructing named fields from the
+    /// positional `ListValue` wire format that Spanner uses for STRUCT values.
+    pub fn struct_type(&self) -> Option<&model::StructType> {
+        self.0.struct_type.as_deref()
+    }
+
+    /// Safely reinterprets a reference to the inner model type as a reference to Type.
+    /// Logical safety is guaranteed by #[repr(transparent)].
+    pub(crate) fn from_ref(v: &model::Type) -> &Self {
+        // SAFETY: Type is #[repr(transparent)] wrapper around model::Type.
+        unsafe { &*(v as *const model::Type as *const Type) }
     }
 }
 
