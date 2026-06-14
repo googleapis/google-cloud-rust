@@ -31,6 +31,7 @@ anyhow.workspace         = true
 futures.workspace        = true
 google-cloud-bigquery-v2 = { workspace = true, features = ["default"] }
 google-cloud-gax         = { workspace = true, features = ["unstable-stream"] }
+google-cloud-lro         = { workspace = true }
 google-cloud-test-utils  = { workspace = true }
 rand.workspace           = true
 tokio.workspace          = true

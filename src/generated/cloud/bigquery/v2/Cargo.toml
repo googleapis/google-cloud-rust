@@ -46,6 +46,7 @@ async-trait.workspace       = true
 bytes.workspace             = true
 gaxi                        = { workspace = true, features = ["_internal-http-client"] }
 google-cloud-gax.workspace  = true
+google-cloud-lro.workspace  = true
 google-cloud-type.workspace = true
 serde.workspace             = true
 serde_json.workspace        = true

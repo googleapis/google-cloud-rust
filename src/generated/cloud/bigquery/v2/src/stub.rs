@@ -41,7 +41,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::DatasetService::get_dataset].
     fn get_dataset(
         &self,
-        _req: crate::model::GetDatasetRequest,
+        _req: std::boxed::Box<crate::model::GetDatasetRequest>,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Dataset>>> + Send
     {
@@ -51,7 +51,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::DatasetService::insert_dataset].
     fn insert_dataset(
         &self,
-        _req: crate::model::InsertDatasetRequest,
+        _req: std::boxed::Box<crate::model::InsertDatasetRequest>,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Dataset>>> + Send
     {
@@ -61,7 +61,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::DatasetService::patch_dataset].
     fn patch_dataset(
         &self,
-        _req: crate::model::UpdateOrPatchDatasetRequest,
+        _req: std::boxed::Box<crate::model::UpdateOrPatchDatasetRequest>,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Dataset>>> + Send
     {
@@ -71,7 +71,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::DatasetService::update_dataset].
     fn update_dataset(
         &self,
-        _req: crate::model::UpdateOrPatchDatasetRequest,
+        _req: std::boxed::Box<crate::model::UpdateOrPatchDatasetRequest>,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Dataset>>> + Send
     {
@@ -81,7 +81,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::DatasetService::delete_dataset].
     fn delete_dataset(
         &self,
-        _req: crate::model::DeleteDatasetRequest,
+        _req: std::boxed::Box<crate::model::DeleteDatasetRequest>,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -90,7 +90,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::DatasetService::list_datasets].
     fn list_datasets(
         &self,
-        _req: crate::model::ListDatasetsRequest,
+        _req: std::boxed::Box<crate::model::ListDatasetsRequest>,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::DatasetList>>>
     + Send {
@@ -100,7 +100,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::DatasetService::undelete_dataset].
     fn undelete_dataset(
         &self,
-        _req: crate::model::UndeleteDatasetRequest,
+        _req: std::boxed::Box<crate::model::UndeleteDatasetRequest>,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Dataset>>> + Send
     {
@@ -123,7 +123,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::JobService::cancel_job].
     fn cancel_job(
         &self,
-        _req: crate::model::CancelJobRequest,
+        _req: std::boxed::Box<crate::model::CancelJobRequest>,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::JobCancelResponse>>,
@@ -134,7 +134,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::JobService::get_job].
     fn get_job(
         &self,
-        _req: crate::model::GetJobRequest,
+        _req: std::boxed::Box<crate::model::GetJobRequest>,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Job>>> + Send
     {
@@ -144,7 +144,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::JobService::insert_job].
     fn insert_job(
         &self,
-        _req: crate::model::InsertJobRequest,
+        _req: std::boxed::Box<crate::model::InsertJobRequest>,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Job>>> + Send
     {
@@ -154,7 +154,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::JobService::delete_job].
     fn delete_job(
         &self,
-        _req: crate::model::DeleteJobRequest,
+        _req: std::boxed::Box<crate::model::DeleteJobRequest>,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -163,7 +163,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::JobService::list_jobs].
     fn list_jobs(
         &self,
-        _req: crate::model::ListJobsRequest,
+        _req: std::boxed::Box<crate::model::ListJobsRequest>,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::JobList>>> + Send
     {
@@ -173,7 +173,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::JobService::get_query_results].
     fn get_query_results(
         &self,
-        _req: crate::model::GetQueryResultsRequest,
+        _req: std::boxed::Box<crate::model::GetQueryResultsRequest>,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::GetQueryResultsResponse>>,
@@ -184,7 +184,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::JobService::query].
     fn query(
         &self,
-        _req: crate::model::PostQueryRequest,
+        _req: std::boxed::Box<crate::model::PostQueryRequest>,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::QueryResponse>>,
@@ -208,7 +208,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::ModelService::get_model].
     fn get_model(
         &self,
-        _req: crate::model::GetModelRequest,
+        _req: std::boxed::Box<crate::model::GetModelRequest>,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Model>>> + Send
     {
@@ -218,7 +218,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::ModelService::list_models].
     fn list_models(
         &self,
-        _req: crate::model::ListModelsRequest,
+        _req: std::boxed::Box<crate::model::ListModelsRequest>,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::ListModelsResponse>>,
@@ -229,7 +229,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::ModelService::patch_model].
     fn patch_model(
         &self,
-        _req: crate::model::PatchModelRequest,
+        _req: std::boxed::Box<crate::model::PatchModelRequest>,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Model>>> + Send
     {
@@ -239,7 +239,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::ModelService::delete_model].
     fn delete_model(
         &self,
-        _req: crate::model::DeleteModelRequest,
+        _req: std::boxed::Box<crate::model::DeleteModelRequest>,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -261,7 +261,7 @@ pub trait ProjectService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::ProjectService::get_service_account].
     fn get_service_account(
         &self,
-        _req: crate::model::GetServiceAccountRequest,
+        _req: std::boxed::Box<crate::model::GetServiceAccountRequest>,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::GetServiceAccountResponse>>,
@@ -285,7 +285,7 @@ pub trait RoutineService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::RoutineService::get_routine].
     fn get_routine(
         &self,
-        _req: crate::model::GetRoutineRequest,
+        _req: std::boxed::Box<crate::model::GetRoutineRequest>,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Routine>>> + Send
     {
@@ -295,7 +295,7 @@ pub trait RoutineService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::RoutineService::insert_routine].
     fn insert_routine(
         &self,
-        _req: crate::model::InsertRoutineRequest,
+        _req: std::boxed::Box<crate::model::InsertRoutineRequest>,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Routine>>> + Send
     {
@@ -305,7 +305,7 @@ pub trait RoutineService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::RoutineService::update_routine].
     fn update_routine(
         &self,
-        _req: crate::model::UpdateRoutineRequest,
+        _req: std::boxed::Box<crate::model::UpdateRoutineRequest>,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Routine>>> + Send
     {
@@ -315,7 +315,7 @@ pub trait RoutineService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::RoutineService::delete_routine].
     fn delete_routine(
         &self,
-        _req: crate::model::DeleteRoutineRequest,
+        _req: std::boxed::Box<crate::model::DeleteRoutineRequest>,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -324,7 +324,7 @@ pub trait RoutineService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::RoutineService::list_routines].
     fn list_routines(
         &self,
-        _req: crate::model::ListRoutinesRequest,
+        _req: std::boxed::Box<crate::model::ListRoutinesRequest>,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::ListRoutinesResponse>>,
@@ -348,7 +348,7 @@ pub trait RowAccessPolicyService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::RowAccessPolicyService::list_row_access_policies].
     fn list_row_access_policies(
         &self,
-        _req: crate::model::ListRowAccessPoliciesRequest,
+        _req: std::boxed::Box<crate::model::ListRowAccessPoliciesRequest>,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::ListRowAccessPoliciesResponse>>,
@@ -359,7 +359,7 @@ pub trait RowAccessPolicyService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::RowAccessPolicyService::get_row_access_policy].
     fn get_row_access_policy(
         &self,
-        _req: crate::model::GetRowAccessPolicyRequest,
+        _req: std::boxed::Box<crate::model::GetRowAccessPolicyRequest>,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::RowAccessPolicy>>,
@@ -370,7 +370,7 @@ pub trait RowAccessPolicyService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::RowAccessPolicyService::create_row_access_policy].
     fn create_row_access_policy(
         &self,
-        _req: crate::model::CreateRowAccessPolicyRequest,
+        _req: std::boxed::Box<crate::model::CreateRowAccessPolicyRequest>,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::RowAccessPolicy>>,
@@ -381,7 +381,7 @@ pub trait RowAccessPolicyService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::RowAccessPolicyService::update_row_access_policy].
     fn update_row_access_policy(
         &self,
-        _req: crate::model::UpdateRowAccessPolicyRequest,
+        _req: std::boxed::Box<crate::model::UpdateRowAccessPolicyRequest>,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::RowAccessPolicy>>,
@@ -392,7 +392,7 @@ pub trait RowAccessPolicyService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::RowAccessPolicyService::delete_row_access_policy].
     fn delete_row_access_policy(
         &self,
-        _req: crate::model::DeleteRowAccessPolicyRequest,
+        _req: std::boxed::Box<crate::model::DeleteRowAccessPolicyRequest>,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -401,7 +401,7 @@ pub trait RowAccessPolicyService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::RowAccessPolicyService::batch_delete_row_access_policies].
     fn batch_delete_row_access_policies(
         &self,
-        _req: crate::model::BatchDeleteRowAccessPoliciesRequest,
+        _req: std::boxed::Box<crate::model::BatchDeleteRowAccessPoliciesRequest>,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -423,7 +423,7 @@ pub trait TableService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::TableService::get_table].
     fn get_table(
         &self,
-        _req: crate::model::GetTableRequest,
+        _req: std::boxed::Box<crate::model::GetTableRequest>,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Table>>> + Send
     {
@@ -433,7 +433,7 @@ pub trait TableService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::TableService::insert_table].
     fn insert_table(
         &self,
-        _req: crate::model::InsertTableRequest,
+        _req: std::boxed::Box<crate::model::InsertTableRequest>,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Table>>> + Send
     {
@@ -443,7 +443,7 @@ pub trait TableService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::TableService::patch_table].
     fn patch_table(
         &self,
-        _req: crate::model::UpdateOrPatchTableRequest,
+        _req: std::boxed::Box<crate::model::UpdateOrPatchTableRequest>,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Table>>> + Send
     {
@@ -453,7 +453,7 @@ pub trait TableService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::TableService::update_table].
     fn update_table(
         &self,
-        _req: crate::model::UpdateOrPatchTableRequest,
+        _req: std::boxed::Box<crate::model::UpdateOrPatchTableRequest>,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Table>>> + Send
     {
@@ -463,7 +463,7 @@ pub trait TableService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::TableService::delete_table].
     fn delete_table(
         &self,
-        _req: crate::model::DeleteTableRequest,
+        _req: std::boxed::Box<crate::model::DeleteTableRequest>,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -472,7 +472,7 @@ pub trait TableService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::TableService::list_tables].
     fn list_tables(
         &self,
-        _req: crate::model::ListTablesRequest,
+        _req: std::boxed::Box<crate::model::ListTablesRequest>,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::TableList>>> + Send
     {

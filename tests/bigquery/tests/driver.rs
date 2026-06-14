@@ -26,9 +26,52 @@ mod bigquery {
     }
 
     #[tokio::test]
-    async fn run_job_service() -> anyhow::Result<()> {
+    async fn run_job_service_success() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        integration_tests_bigquery::job_service()
+        integration_tests_bigquery::job_service_success()
+            .await
+            .inspect_err(anydump)
+    }
+
+    #[tokio::test]
+    async fn run_job_service_failing() -> anyhow::Result<()> {
+        let _guard = enable_tracing();
+        println!(
+            "FUTURE SIZE: {}",
+            std::mem::size_of_val(&integration_tests_bigquery::job_service_failing())
+        );
+        integration_tests_bigquery::job_service_failing()
+            .await
+            .inspect_err(anydump)
+    }
+
+    #[tokio::test]
+    async fn run_job_service_invalid() -> anyhow::Result<()> {
+        let _guard = enable_tracing();
+        integration_tests_bigquery::job_service_invalid()
+            .await
+            .inspect_err(anydump)
+    }
+    #[tokio::test]
+    async fn run_job_service_copy_fail() -> anyhow::Result<()> {
+        let _guard = enable_tracing();
+        integration_tests_bigquery::job_service_copy_fail()
+            .await
+            .inspect_err(anydump)
+    }
+
+    #[tokio::test]
+    async fn run_job_service_load_fail() -> anyhow::Result<()> {
+        let _guard = enable_tracing();
+        integration_tests_bigquery::job_service_load_fail()
+            .await
+            .inspect_err(anydump)
+    }
+
+    #[tokio::test]
+    async fn run_job_service_extract_fail() -> anyhow::Result<()> {
+        let _guard = enable_tracing();
+        integration_tests_bigquery::job_service_extract_fail()
             .await
             .inspect_err(anydump)
     }
