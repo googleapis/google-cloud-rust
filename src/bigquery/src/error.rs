@@ -42,6 +42,7 @@ pub enum QueryError {
     #[error("the operation failed. RPC error: {source}")]
     Rpc {
         /// The error returned by the service for the request.
+        #[from]
         #[source]
         source: Error,
     },

@@ -48,8 +48,7 @@ impl InsertJobExecutor {
             .insert_job()
             .with_request(self.request)
             .send()
-            .await
-            .map_err(|e| QueryError::Rpc { source: e })?;
+            .await?;
 
         let job_status = res.status.as_ref();
         if job_status.and_then(|s| s.error_result.as_ref()).is_some() {
