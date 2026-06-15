@@ -50,6 +50,12 @@ pub async fn lro_tracing_testlayer() -> anyhow::Result<()> {
     test_lro_logical_error(&guard, &server, client.clone()).await?;
     server.verify_and_clear();
 
+    test_lro_transient_rpc_error(&guard, &server, client.clone()).await?;
+    server.verify_and_clear();
+
+    test_lro_permanent_rpc_error(&guard, &server, client.clone()).await?;
+    server.verify_and_clear();
+
     Ok(())
 }
 
@@ -303,6 +309,162 @@ async fn test_lro_logical_error(
         attribute_str(get_op_span, "error.type"),
         Some("INVALID_ARGUMENT")
     );
+
+    Ok(())
+}
+
+/// Tests the behavior when a transient network error (HTTP 503 Service Unavailable) occurs during polling.
+async fn test_lro_transient_rpc_error(
+    guard: &TestLayerGuard,
+    server: &Server,
+    client: Echo,
+) -> anyhow::Result<()> {
+    server.expect(
+        Expectation::matching(all_of![
+            request::method("POST"),
+            request::path("/v1beta1/echo:wait"),
+        ])
+        .respond_with(status_code(200).body(r#"{"name": "operations/wait-3", "done": false}"#)),
+    );
+
+    server.expect(
+        Expectation::matching(all_of![
+            request::method("GET"),
+            request::path("/v1beta1/operations/wait-3"),
+        ])
+        .times(2)
+        .respond_with(cycle![
+            status_code(503),
+            status_code(200).body(
+                r#"
+                {
+                    "name": "operations/wait-3",
+                    "done": true,
+                    "response": {
+                        "@type": "type.googleapis.com/google.showcase.v1beta1.WaitResponse",
+                        "content": "recovered-content"
+                    }
+                }
+            "#
+            ),
+        ]),
+    );
+
+    let res = client.wait().poller().until_done().await?;
+    assert_eq!(res.content, "recovered-content");
+
+    let spans = TestLayer::capture(guard);
+
+    // 1. T2 span "LRO Wait" should be UNSET (successful overall LRO!)
+    let lro_wait_span = spans
+        .iter()
+        .find(|s| s.name == "LRO Wait")
+        .ok_or_else(|| anyhow::anyhow!("missing LRO Wait span in {spans:#?}"))?;
+
+    assert_eq!(
+        attribute_str(lro_wait_span, "otel.name"),
+        Some("google_cloud_showcase_v1beta1::client::Echo::wait::until_done")
+    );
+    assert_eq!(
+        attribute_str(lro_wait_span, "gcp.rpc.method"),
+        Some("google_cloud_showcase_v1beta1::client::Echo::wait::until_done")
+    );
+    assert_eq!(attribute_str(lro_wait_span, "otel.status_code"), None);
+
+    // 2. 2 get_operation spans: 1st should be ERROR, 2nd should be UNSET
+    let get_op_spans = find_get_operation_spans(&spans);
+    assert_eq!(get_op_spans.len(), 2);
+
+    let span0 = get_op_spans[0];
+    assert_eq!(
+        attribute_u64(span0, "gcp.longrunning.poll_attempt_count"),
+        Some(1)
+    );
+    assert_eq!(attribute_str(span0, "otel.status_code"), Some("ERROR"));
+    assert_eq!(attribute_str(span0, "error.type"), Some("503"));
+
+    let span1 = get_op_spans[1];
+    assert_eq!(
+        attribute_u64(span1, "gcp.longrunning.poll_attempt_count"),
+        Some(2)
+    );
+    assert_eq!(attribute_bool(span1, "gcp.longrunning.done"), Some(true));
+    assert_eq!(attribute_str(span1, "otel.status_code"), Some("UNSET"));
+
+    Ok(())
+}
+
+/// Tests the behavior when a permanent network error (HTTP 404 Not Found) occurs during polling.
+async fn test_lro_permanent_rpc_error(
+    guard: &TestLayerGuard,
+    server: &Server,
+    client: Echo,
+) -> anyhow::Result<()> {
+    server.expect(
+        Expectation::matching(all_of![
+            request::method("POST"),
+            request::path("/v1beta1/echo:wait"),
+        ])
+        .respond_with(status_code(200).body(r#"{"name": "operations/wait-4", "done": false}"#)),
+    );
+
+    server.expect(
+        Expectation::matching(all_of![
+            request::method("GET"),
+            request::path("/v1beta1/operations/wait-4"),
+        ])
+        .respond_with(
+            status_code(404)
+                .body(r#"{"error": {"code": 404, "message": "not found", "status": "NOT_FOUND"}}"#),
+        ),
+    );
+
+    let res = client.wait().poller().until_done().await;
+    assert!(res.is_err());
+
+    let spans = TestLayer::capture(guard);
+
+    // 1. T2 span "LRO Wait" should be ERROR
+    let lro_wait_span = spans
+        .iter()
+        .find(|s| s.name == "LRO Wait")
+        .ok_or_else(|| anyhow::anyhow!("missing LRO Wait span in {spans:#?}"))?;
+
+    assert_eq!(
+        attribute_str(lro_wait_span, "otel.name"),
+        Some("google_cloud_showcase_v1beta1::client::Echo::wait::until_done")
+    );
+    assert_eq!(
+        attribute_str(lro_wait_span, "gcp.rpc.method"),
+        Some("google_cloud_showcase_v1beta1::client::Echo::wait::until_done")
+    );
+    assert_eq!(
+        attribute_str(lro_wait_span, "otel.status_code"),
+        Some("ERROR")
+    );
+    assert_eq!(
+        attribute_str(lro_wait_span, "error.type"),
+        Some("NOT_FOUND")
+    );
+
+    // 2. T3 span "client_request" (get_operation) should be ERROR
+    let get_op_spans = find_get_operation_spans(&spans);
+    assert_eq!(
+        get_op_spans.len(),
+        1,
+        "expected exactly 1 GetOperation span"
+    );
+    let get_op_span = get_op_spans[0];
+
+    assert_eq!(
+        attribute_u64(get_op_span, "gcp.longrunning.poll_attempt_count"),
+        Some(1)
+    );
+    assert_eq!(
+        attribute_str(get_op_span, "otel.status_code"),
+        Some("ERROR")
+    );
+    assert_eq!(attribute_str(get_op_span, "error.type"), Some("NOT_FOUND"));
 
     Ok(())
 }
