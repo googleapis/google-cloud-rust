@@ -36,9 +36,9 @@ wkt.workspace              = true
 gaxi                       = { workspace = true, features = ["_internal-common", "_internal-grpc-client", "_internal-http-client"] }
 
 [dev-dependencies]
-anyhow.workspace = true
+anyhow.workspace  = true
 mockall.workspace = true
-tokio            = { workspace = true, features = ["macros", "rt-multi-thread"] }
+tokio             = { workspace = true, features = ["macros", "rt-multi-thread"] }
 
 [features]
 default = ["default-rustls-provider"]
