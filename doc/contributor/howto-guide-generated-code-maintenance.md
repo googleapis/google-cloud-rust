@@ -91,8 +91,8 @@ Run:
 ```bash
 git checkout -b chore-update-shas-circa-$(date +%Y-%m-%d)
 V=$(go run github.com/googleapis/librarian/cmd/librarian@latest config get version)
-go run github.com/googleapis/librarian/cmd/librarian@${V} update discovery
-go run github.com/googleapis/librarian/cmd/librarian@${V} update googleapis
+go run github.com/googleapis/librarian/cmd/librarian@${V} update sources.discovery
+go run github.com/googleapis/librarian/cmd/librarian@${V} update sources.googleapis
 go run github.com/googleapis/librarian/cmd/librarian@${V} generate --all
 git commit -m"chore: update discovery and googleapis SHA circa $(date +%Y-%m-%d)" .
 ```
