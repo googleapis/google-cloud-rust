@@ -1875,7 +1875,9 @@ dependencies = [
  "google-cloud-gax",
  "google-cloud-gax-internal",
  "google-cloud-wkt",
+ "mockall",
  "serde_json",
+ "test-case",
  "thiserror",
  "tokio",
 ]

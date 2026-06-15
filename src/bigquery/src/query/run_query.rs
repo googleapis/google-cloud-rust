@@ -13,11 +13,12 @@
 // limitations under the License.
 
 use crate::error::QueryError;
+use crate::query::execution::InsertJobExecutor;
 use crate::query::{Query, Result};
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::query_request::JobCreationMode;
 use google_cloud_bigquery_v2::model::{
-    Job, JobConfiguration, JobConfigurationQuery, PostQueryRequest, QueryRequest,
+    InsertJobRequest, Job, JobConfiguration, JobConfigurationQuery, PostQueryRequest, QueryRequest,
 };
 use std::sync::Arc;
 
@@ -65,10 +66,13 @@ impl RunQuery {
         if self.request.force_job_path() {
             // Route to jobs.insert
             let job_config: JobConfiguration = self.request.into();
-            let _job = Job::new().set_configuration(job_config);
-
-            // TODO(#5844): implement jobs.insert query execution
-            unimplemented!("jobs.insert query execution not yet implemented");
+            let job = Job::new().set_configuration(job_config);
+            let req = InsertJobRequest::new()
+                .set_job(job)
+                .set_project_id(project_id);
+            InsertJobExecutor::new(self.job_service, req)
+                .execute()
+                .await
         } else {
             // Route to jobs.query
             let query_request: QueryRequest = self.request.into();
@@ -93,21 +97,18 @@ include!("../generated/run_query_request.rs");
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::query::tests::{MockJobService, create_job_service};
+    use google_cloud_bigquery_v2::model::query_request::JobCreationMode;
+    use google_cloud_bigquery_v2::model::{
+        JobConfiguration, JobConfigurationQuery, JobReference, JobStatus, QueryRequest,
+    };
     use std::sync::Arc;
 
-    #[derive(Debug)]
-    struct MockJobService;
-    impl google_cloud_bigquery_v2::stub::JobService for MockJobService {}
-
-    fn create_job_service() -> Arc<JobService> {
-        Arc::new(JobService::from_stub::<MockJobService>(Arc::new(
-            MockJobService,
-        )))
-    }
+    type TestResult = anyhow::Result<()>;
 
     #[test]
     fn test_new() {
-        let job_service = create_job_service();
+        let job_service = create_job_service(MockJobService::new());
         let sql = "SELECT 1".to_string();
         let run_query = RunQuery::new(job_service, sql.clone());
         assert_eq!(run_query.request.query, sql);
@@ -124,7 +125,7 @@ mod tests {
 
     #[test]
     fn test_with_project_id() {
-        let job_service = create_job_service();
+        let job_service = create_job_service(MockJobService::new());
         let run_query =
             RunQuery::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
         assert_eq!(run_query.project_id.unwrap(), "my-project");
@@ -132,26 +133,39 @@ mod tests {
 
     #[tokio::test]
     async fn test_run_missing_project_id() {
-        let job_service = create_job_service();
+        let job_service = create_job_service(MockJobService::new());
         let run_query = RunQuery::new(job_service, "SELECT 1".to_string());
         let res = run_query.run().await;
         assert!(matches!(res, Err(QueryError::MissingProjectId)));
     }
 
     #[tokio::test]
-    #[should_panic(expected = "jobs.insert query execution not yet implemented")]
-    async fn test_run_panics_jobs_insert() {
-        let job_service = create_job_service();
+    async fn test_run_jobs_insert() -> TestResult {
+        let mut mock = MockJobService::new();
+        mock.expect_insert_job().returning(|_, _| {
+            let job_ref = JobReference::new()
+                .set_job_id("test-job")
+                .set_project_id("my-project");
+            let job = Job::new()
+                .set_job_reference(job_ref)
+                .set_status(JobStatus::new().set_state("DONE"));
+            Ok(google_cloud_gax::response::Response::from(job))
+        });
+        let job_service = create_job_service(mock);
+
         let run_query = RunQuery::new(job_service, "SELECT 1".to_string())
             .with_project_id("my-project")
             .set_allow_large_results(true);
-        let _ = run_query.run().await;
+        let query = run_query.run().await?;
+        assert!(query.completed, "{query:?}");
+
+        Ok(())
     }
 
     #[tokio::test]
     #[should_panic(expected = "jobs.query query execution not yet implemented")]
     async fn test_run_panics_jobs_query() {
-        let job_service = create_job_service();
+        let job_service = create_job_service(MockJobService::new());
         let run_query =
             RunQuery::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
         let _ = run_query.run().await;
@@ -159,7 +173,7 @@ mod tests {
 
     #[test]
     fn test_force_job_path() {
-        let job_service = create_job_service();
+        let job_service = create_job_service(MockJobService::new());
         let mut run_query = RunQuery::new(job_service, "SELECT 1".to_string());
         assert!(!run_query.request.force_job_path());
 
@@ -175,7 +189,7 @@ mod tests {
             .set_dry_run(true)
             .set_use_legacy_sql(true);
 
-        let query_request: google_cloud_bigquery_v2::model::QueryRequest = req.clone().into();
+        let query_request: QueryRequest = req.clone().into();
         assert_eq!(query_request.query, "SELECT 1");
         assert!(query_request.dry_run);
         assert_eq!(
@@ -183,7 +197,7 @@ mod tests {
             Some(wkt::BoolValue::from(true))
         );
 
-        let job_config: google_cloud_bigquery_v2::model::JobConfiguration = req.into();
+        let job_config: JobConfiguration = req.into();
         let job_query = job_config.query.as_ref().unwrap();
         assert_eq!(job_query.query, "SELECT 1");
         assert_eq!(job_query.use_legacy_sql, Some(wkt::BoolValue::from(true)));
