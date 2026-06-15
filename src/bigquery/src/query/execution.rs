@@ -58,14 +58,11 @@ impl InsertJobExecutor {
         }
 
         let completed = job_status.map(|s| s.state == "DONE").unwrap_or(false);
-        let job_ref = res
-            .job_reference
-            .clone()
-            .expect("newly inserted job should have job reference");
+        let job_ref = res.job_reference.clone();
 
         Ok(Query {
             job_service: self.job_service.clone(),
-            job_ref: Some(job_ref),
+            job_ref,
             completed,
             initial_job: Some(res),
         })
@@ -82,6 +79,7 @@ mod tests {
     use google_cloud_bigquery_v2::model::{
         ErrorProto, Job, JobConfiguration, JobConfigurationQuery, JobReference, JobStatus,
     };
+    use google_cloud_gax::error::Error as GaxError;
     use google_cloud_gax::error::rpc::{Code, Status};
     use google_cloud_gax::response::Response;
     use test_case::test_case;
@@ -106,7 +104,7 @@ mod tests {
             let status = Status::default()
                 .set_code(Code::InvalidArgument)
                 .set_message("simulated bad request");
-            Err(google_cloud_gax::error::Error::service(status))
+            Err(GaxError::service(status))
         });
         let job_service = create_job_service(mock);
 
