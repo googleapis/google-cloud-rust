@@ -15,6 +15,7 @@
 // TODO(#5592): remove after marking query structs public.
 #![allow(dead_code, unused_imports)]
 
+pub(crate) mod execution;
 mod job_reference;
 mod query_handle;
 mod row;
@@ -30,3 +31,29 @@ pub use run_query::{RunQuery, RunQueryRequest};
 
 /// Result type for query execution.
 pub type Result<T> = std::result::Result<T, crate::error::QueryError>;
+
+#[cfg(test)]
+pub(crate) mod tests {
+    use google_cloud_bigquery_v2::Result;
+    use google_cloud_bigquery_v2::client::JobService;
+    use google_cloud_bigquery_v2::model::{PostQueryRequest, QueryResponse};
+    use google_cloud_gax::options::RequestOptions;
+    use google_cloud_gax::response::Response;
+    use std::sync::Arc;
+
+    mockall::mock! {
+        #[derive(Debug)]
+        pub JobService {}
+        impl google_cloud_bigquery_v2::stub::JobService for JobService {
+            async fn query(
+                &self,
+                req: PostQueryRequest,
+                options: RequestOptions,
+            ) -> Result<Response<QueryResponse>>;
+        }
+    }
+
+    pub(crate) fn create_job_service(mock: MockJobService) -> Arc<JobService> {
+        Arc::new(JobService::from_stub::<MockJobService>(Arc::new(mock)))
+    }
+}

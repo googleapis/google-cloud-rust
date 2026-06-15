@@ -37,6 +37,7 @@ gaxi                       = { workspace = true, features = ["_internal-common",
 
 [dev-dependencies]
 anyhow.workspace = true
+mockall.workspace = true
 tokio            = { workspace = true, features = ["macros", "rt-multi-thread"] }
 
 [features]
