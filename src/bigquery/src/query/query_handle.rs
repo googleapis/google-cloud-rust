@@ -13,9 +13,10 @@
 // limitations under the License.
 
 use google_cloud_bigquery_v2::client::JobService;
-use google_cloud_bigquery_v2::model::{Job, JobReference, QueryResponse};
+use google_cloud_bigquery_v2::model::{JobReference, QueryResponse};
 use std::sync::Arc;
 
+/// A handle representing a running query.
 #[derive(Clone, Debug)]
 pub struct Query {
     pub(crate) job_service: Arc<JobService>,

@@ -15,7 +15,7 @@
 use crate::error::QueryError;
 use crate::query::{Query, Result};
 use google_cloud_bigquery_v2::client::JobService;
-use google_cloud_bigquery_v2::model::{InsertJobRequest, Job, PostQueryRequest};
+use google_cloud_bigquery_v2::model::PostQueryRequest;
 use std::sync::Arc;
 
 pub(crate) struct PostQueryExecutor {
