@@ -709,3 +709,110 @@ pub async fn dml_plan(db_client: &DatabaseClient) -> anyhow::Result<()> {
 
     Ok(())
 }
+
+pub async fn query_json_value(db_client: &DatabaseClient) -> anyhow::Result<()> {
+    let rot = db_client.single_use().build();
+
+    let sql = r#"
+    WITH Data AS (
+      SELECT
+        1 AS id,
+        ARRAY(SELECT AS STRUCT 'apple' AS fruit, 5 AS quantity) AS inventory,
+        JSON '{"a": 1, "b": [true, false]}' AS payload,
+        TRUE AS col_bool,
+        'hello' AS col_string,
+        CAST('hello' AS BYTES) AS col_bytes,
+        NUMERIC '9.99' AS col_numeric,
+        DATE '2026-06-10' AS col_date,
+        TIMESTAMP '2026-06-10T10:00:00Z' AS col_timestamp,
+        CAST('NaN' AS FLOAT64) AS col_float64_nan,
+        CAST('Infinity' AS FLOAT64) AS col_float64_inf,
+        CAST('-Infinity' AS FLOAT64) AS col_float64_neginf,
+        CAST('NaN' AS FLOAT32) AS col_float32_nan,
+        CAST('Infinity' AS FLOAT32) AS col_float32_inf,
+        CAST('-Infinity' AS FLOAT32) AS col_float32_neginf,
+        CAST(NULL AS INT64) AS col_null
+    )
+    SELECT * FROM Data
+    "#;
+
+    let stmt = Statement::builder(sql).build();
+    let mut rs = rot.execute_query(stmt).await?;
+
+    let mut rows = Vec::new();
+    while let Some(row) = rs.next().await {
+        rows.push(row?);
+    }
+
+    assert_eq!(rows.len(), 1);
+    let row = &rows[0];
+
+    // Deserialize id (INT64) as serde_json::Value
+    let id_val: serde_json::Value = row.try_get("id")?;
+    assert_eq!(id_val, serde_json::json!("1"));
+
+    // Deserialize inventory (ARRAY<STRUCT<fruit STRING, quantity INT64>>) as serde_json::Value
+    let inventory_val: serde_json::Value = row.try_get("inventory")?;
+    assert_eq!(
+        inventory_val,
+        serde_json::json!([{"fruit": "apple", "quantity": "5"}])
+    );
+
+    // Deserialize payload (JSON) as serde_json::Value
+    let payload_val: serde_json::Value = row.try_get("payload")?;
+    assert_eq!(payload_val, serde_json::json!({"a": 1, "b": [true, false]}));
+
+    // Deserialize col_bool (BOOL) as serde_json::Value
+    let col_bool: serde_json::Value = row.try_get("col_bool")?;
+    assert_eq!(col_bool, serde_json::json!(true));
+
+    // Deserialize col_string (STRING) as serde_json::Value
+    let col_string: serde_json::Value = row.try_get("col_string")?;
+    assert_eq!(col_string, serde_json::json!("hello"));
+
+    // Deserialize col_bytes (BYTES) as serde_json::Value (should be Base64-encoded)
+    let col_bytes: serde_json::Value = row.try_get("col_bytes")?;
+    assert_eq!(col_bytes, serde_json::json!("aGVsbG8="));
+
+    // Deserialize col_numeric (NUMERIC) as serde_json::Value
+    let col_numeric: serde_json::Value = row.try_get("col_numeric")?;
+    assert_eq!(col_numeric, serde_json::json!("9.99"));
+
+    // Deserialize col_date (DATE) as serde_json::Value
+    let col_date: serde_json::Value = row.try_get("col_date")?;
+    assert_eq!(col_date, serde_json::json!("2026-06-10"));
+
+    // Deserialize col_timestamp (TIMESTAMP) as serde_json::Value
+    let col_timestamp: serde_json::Value = row.try_get("col_timestamp")?;
+    assert_eq!(col_timestamp, serde_json::json!("2026-06-10T10:00:00Z"));
+
+    // Deserialize col_float64_nan (FLOAT64 NaN) as serde_json::Value (should be null)
+    let col_float64_nan: serde_json::Value = row.try_get("col_float64_nan")?;
+    assert_eq!(col_float64_nan, serde_json::Value::Null);
+
+    // Deserialize col_float64_inf (FLOAT64 Infinity) as serde_json::Value (should be null)
+    let col_float64_inf: serde_json::Value = row.try_get("col_float64_inf")?;
+    assert_eq!(col_float64_inf, serde_json::Value::Null);
+
+    // Deserialize col_float64_neginf (FLOAT64 -Infinity) as serde_json::Value (should be null)
+    let col_float64_neginf: serde_json::Value = row.try_get("col_float64_neginf")?;
+    assert_eq!(col_float64_neginf, serde_json::Value::Null);
+
+    // Deserialize col_float32_nan (FLOAT32 NaN) as serde_json::Value (should be null)
+    let col_float32_nan: serde_json::Value = row.try_get("col_float32_nan")?;
+    assert_eq!(col_float32_nan, serde_json::Value::Null);
+
+    // Deserialize col_float32_inf (FLOAT32 Infinity) as serde_json::Value (should be null)
+    let col_float32_inf: serde_json::Value = row.try_get("col_float32_inf")?;
+    assert_eq!(col_float32_inf, serde_json::Value::Null);
+
+    // Deserialize col_float32_neginf (FLOAT32 -Infinity) as serde_json::Value (should be null)
+    let col_float32_neginf: serde_json::Value = row.try_get("col_float32_neginf")?;
+    assert_eq!(col_float32_neginf, serde_json::Value::Null);
+
+    // Deserialize col_null (NULL) as serde_json::Value (should be null)
+    let col_null: serde_json::Value = row.try_get("col_null")?;
+    assert_eq!(col_null, serde_json::Value::Null);
+
+    Ok(())
+}
