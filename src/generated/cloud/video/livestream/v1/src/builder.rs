@@ -134,6 +134,12 @@ pub mod livestream_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_video_livestream_v1::client::LivestreamService::create_channel::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -156,12 +162,29 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::CreateChannelRequest::parent].
@@ -452,6 +475,12 @@ pub mod livestream_service {
                 google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_video_livestream_v1::client::LivestreamService::delete_channel::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -474,12 +503,29 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_unit_response_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_unit_response_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [name][crate::model::DeleteChannelRequest::name].
@@ -573,6 +619,12 @@ pub mod livestream_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_video_livestream_v1::client::LivestreamService::update_channel::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -595,12 +647,29 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateChannelRequest::update_mask].
@@ -722,6 +791,12 @@ pub mod livestream_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_video_livestream_v1::client::LivestreamService::start_channel::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -744,12 +819,29 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [name][crate::model::StartChannelRequest::name].
@@ -839,6 +931,12 @@ pub mod livestream_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_video_livestream_v1::client::LivestreamService::stop_channel::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -861,12 +959,29 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [name][crate::model::StopChannelRequest::name].
@@ -959,6 +1074,12 @@ pub mod livestream_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_video_livestream_v1::client::LivestreamService::start_distribution::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -981,12 +1102,29 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [name][crate::model::StartDistributionRequest::name].
@@ -1090,6 +1228,12 @@ pub mod livestream_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_video_livestream_v1::client::LivestreamService::stop_distribution::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -1112,12 +1256,29 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [name][crate::model::StopDistributionRequest::name].
@@ -1216,6 +1377,12 @@ pub mod livestream_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_video_livestream_v1::client::LivestreamService::create_input::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -1238,12 +1405,29 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::CreateInputRequest::parent].
@@ -1534,6 +1718,12 @@ pub mod livestream_service {
                 google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_video_livestream_v1::client::LivestreamService::delete_input::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -1556,12 +1746,29 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_unit_response_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_unit_response_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [name][crate::model::DeleteInputRequest::name].
@@ -1649,6 +1856,12 @@ pub mod livestream_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_video_livestream_v1::client::LivestreamService::update_input::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -1671,12 +1884,29 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateInputRequest::update_mask].
@@ -2378,6 +2608,12 @@ pub mod livestream_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_video_livestream_v1::client::LivestreamService::create_clip::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -2400,12 +2636,29 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::CreateClipRequest::parent].
@@ -2518,6 +2771,12 @@ pub mod livestream_service {
                 google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_video_livestream_v1::client::LivestreamService::delete_clip::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -2540,12 +2799,29 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_unit_response_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_unit_response_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [name][crate::model::DeleteClipRequest::name].
@@ -2636,6 +2912,12 @@ pub mod livestream_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_video_livestream_v1::client::LivestreamService::create_dvr_session::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -2658,12 +2940,29 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::CreateDvrSessionRequest::parent].
@@ -2959,6 +3258,12 @@ pub mod livestream_service {
                 google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_video_livestream_v1::client::LivestreamService::delete_dvr_session::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -2981,12 +3286,29 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_unit_response_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_unit_response_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [name][crate::model::DeleteDvrSessionRequest::name].
@@ -3077,6 +3399,12 @@ pub mod livestream_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_video_livestream_v1::client::LivestreamService::update_dvr_session::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -3099,12 +3427,29 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDvrSessionRequest::update_mask].
@@ -3228,6 +3573,12 @@ pub mod livestream_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_video_livestream_v1::client::LivestreamService::create_asset::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -3250,12 +3601,29 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::CreateAssetRequest::parent].
@@ -3368,6 +3736,12 @@ pub mod livestream_service {
                 google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_video_livestream_v1::client::LivestreamService::delete_asset::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -3390,12 +3764,29 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_unit_response_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_unit_response_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [name][crate::model::DeleteAssetRequest::name].
@@ -3723,6 +4114,12 @@ pub mod livestream_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_video_livestream_v1::client::LivestreamService::update_pool::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -3745,12 +4142,29 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePoolRequest::update_mask].

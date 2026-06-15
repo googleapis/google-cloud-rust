@@ -3065,6 +3065,13 @@ pub mod echo {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_showcase_v1beta1::client::Echo::wait::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -3087,12 +3094,29 @@ pub mod echo {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [end][crate::model::WaitRequest::end].
@@ -6095,6 +6119,13 @@ pub mod messaging {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_showcase_v1beta1::client::Messaging::search_blurbs::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -6117,12 +6148,29 @@ pub mod messaging {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [query][crate::model::SearchBlurbsRequest::query].

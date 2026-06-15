@@ -314,6 +314,13 @@ pub mod vm_migration {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_vmmigration_v1::client::VmMigration::create_source::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -336,12 +343,29 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::CreateSourceRequest::parent].
@@ -459,6 +483,13 @@ pub mod vm_migration {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_vmmigration_v1::client::VmMigration::update_source::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -481,12 +512,29 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSourceRequest::update_mask].
@@ -601,6 +649,13 @@ pub mod vm_migration {
                 google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_vmmigration_v1::client::VmMigration::delete_source::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -623,12 +678,29 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_unit_response_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_unit_response_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [name][crate::model::DeleteSourceRequest::name].
@@ -1117,6 +1189,12 @@ pub mod vm_migration {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_vmmigration_v1::client::VmMigration::create_utilization_report::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -1139,12 +1217,29 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::CreateUtilizationReportRequest::parent].
@@ -1262,6 +1357,12 @@ pub mod vm_migration {
                 google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_vmmigration_v1::client::VmMigration::delete_utilization_report::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -1284,12 +1385,29 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_unit_response_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_unit_response_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [name][crate::model::DeleteUtilizationReportRequest::name].
@@ -1574,6 +1692,12 @@ pub mod vm_migration {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_vmmigration_v1::client::VmMigration::create_datacenter_connector::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -1596,12 +1720,29 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::CreateDatacenterConnectorRequest::parent].
@@ -1719,6 +1860,12 @@ pub mod vm_migration {
                 google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_vmmigration_v1::client::VmMigration::delete_datacenter_connector::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -1741,12 +1888,29 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_unit_response_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_unit_response_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [name][crate::model::DeleteDatacenterConnectorRequest::name].
@@ -1839,6 +2003,12 @@ pub mod vm_migration {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_vmmigration_v1::client::VmMigration::upgrade_appliance::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -1861,12 +2031,29 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [datacenter_connector][crate::model::UpgradeApplianceRequest::datacenter_connector].
@@ -1957,6 +2144,12 @@ pub mod vm_migration {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_vmmigration_v1::client::VmMigration::create_migrating_vm::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -1979,12 +2172,29 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::CreateMigratingVmRequest::parent].
@@ -2302,6 +2512,12 @@ pub mod vm_migration {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_vmmigration_v1::client::VmMigration::update_migrating_vm::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -2324,12 +2540,29 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateMigratingVmRequest::update_mask].
@@ -2447,6 +2680,12 @@ pub mod vm_migration {
                 google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_vmmigration_v1::client::VmMigration::delete_migrating_vm::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -2469,12 +2708,29 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_unit_response_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_unit_response_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [name][crate::model::DeleteMigratingVmRequest::name].
@@ -2558,6 +2814,13 @@ pub mod vm_migration {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_vmmigration_v1::client::VmMigration::start_migration::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -2580,12 +2843,29 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [migrating_vm][crate::model::StartMigrationRequest::migrating_vm].
@@ -2669,6 +2949,12 @@ pub mod vm_migration {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_vmmigration_v1::client::VmMigration::resume_migration::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -2691,12 +2977,29 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [migrating_vm][crate::model::ResumeMigrationRequest::migrating_vm].
@@ -2780,6 +3083,13 @@ pub mod vm_migration {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_vmmigration_v1::client::VmMigration::pause_migration::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -2802,12 +3112,29 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [migrating_vm][crate::model::PauseMigrationRequest::migrating_vm].
@@ -2894,6 +3221,12 @@ pub mod vm_migration {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_vmmigration_v1::client::VmMigration::finalize_migration::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -2916,12 +3249,29 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [migrating_vm][crate::model::FinalizeMigrationRequest::migrating_vm].
@@ -3005,6 +3355,12 @@ pub mod vm_migration {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_vmmigration_v1::client::VmMigration::extend_migration::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -3027,12 +3383,29 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [migrating_vm][crate::model::ExtendMigrationRequest::migrating_vm].
@@ -3114,6 +3487,12 @@ pub mod vm_migration {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_vmmigration_v1::client::VmMigration::create_clone_job::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -3136,12 +3515,29 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::CreateCloneJobRequest::parent].
@@ -3261,6 +3657,12 @@ pub mod vm_migration {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_vmmigration_v1::client::VmMigration::cancel_clone_job::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -3283,12 +3685,29 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [name][crate::model::CancelCloneJobRequest::name].
@@ -3553,6 +3972,12 @@ pub mod vm_migration {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_vmmigration_v1::client::VmMigration::create_cutover_job::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -3575,12 +4000,29 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::CreateCutoverJobRequest::parent].
@@ -3703,6 +4145,12 @@ pub mod vm_migration {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_vmmigration_v1::client::VmMigration::cancel_cutover_job::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -3725,12 +4173,29 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [name][crate::model::CancelCutoverJobRequest::name].
@@ -4174,6 +4639,13 @@ pub mod vm_migration {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_vmmigration_v1::client::VmMigration::create_group::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -4196,12 +4668,29 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::CreateGroupRequest::parent].
@@ -4319,6 +4808,13 @@ pub mod vm_migration {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_vmmigration_v1::client::VmMigration::update_group::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -4341,12 +4837,29 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateGroupRequest::update_mask].
@@ -4461,6 +4974,13 @@ pub mod vm_migration {
                 google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_vmmigration_v1::client::VmMigration::delete_group::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -4483,12 +5003,29 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_unit_response_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_unit_response_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [name][crate::model::DeleteGroupRequest::name].
@@ -4581,6 +5118,12 @@ pub mod vm_migration {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_vmmigration_v1::client::VmMigration::add_group_migration::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -4603,12 +5146,29 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [group][crate::model::AddGroupMigrationRequest::group].
@@ -4701,6 +5261,12 @@ pub mod vm_migration {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_vmmigration_v1::client::VmMigration::remove_group_migration::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -4723,12 +5289,29 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [group][crate::model::RemoveGroupMigrationRequest::group].
@@ -5007,6 +5590,12 @@ pub mod vm_migration {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_vmmigration_v1::client::VmMigration::create_target_project::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -5029,12 +5618,29 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::CreateTargetProjectRequest::parent].
@@ -5155,6 +5761,12 @@ pub mod vm_migration {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_vmmigration_v1::client::VmMigration::update_target_project::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -5177,12 +5789,29 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTargetProjectRequest::update_mask].
@@ -5300,6 +5929,12 @@ pub mod vm_migration {
                 google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_vmmigration_v1::client::VmMigration::delete_target_project::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -5322,12 +5957,29 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_unit_response_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_unit_response_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [name][crate::model::DeleteTargetProjectRequest::name].
@@ -5789,6 +6441,12 @@ pub mod vm_migration {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_vmmigration_v1::client::VmMigration::create_image_import::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -5811,12 +6469,29 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::CreateImageImportRequest::parent].
@@ -5932,6 +6607,12 @@ pub mod vm_migration {
                 google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_vmmigration_v1::client::VmMigration::delete_image_import::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -5954,12 +6635,29 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_unit_response_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_unit_response_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [name][crate::model::DeleteImageImportRequest::name].
@@ -6238,6 +6936,12 @@ pub mod vm_migration {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_vmmigration_v1::client::VmMigration::cancel_image_import_job::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -6260,12 +6964,29 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [name][crate::model::CancelImageImportJobRequest::name].
@@ -6350,6 +7071,12 @@ pub mod vm_migration {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_vmmigration_v1::client::VmMigration::create_disk_migration_job::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -6372,12 +7099,29 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::CreateDiskMigrationJobRequest::parent].
@@ -6684,6 +7428,12 @@ pub mod vm_migration {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_vmmigration_v1::client::VmMigration::update_disk_migration_job::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -6706,12 +7456,29 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDiskMigrationJobRequest::update_mask].
@@ -6829,6 +7596,12 @@ pub mod vm_migration {
                 google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_vmmigration_v1::client::VmMigration::delete_disk_migration_job::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -6851,12 +7624,29 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_unit_response_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_unit_response_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [name][crate::model::DeleteDiskMigrationJobRequest::name].
@@ -6943,6 +7733,12 @@ pub mod vm_migration {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_vmmigration_v1::client::VmMigration::run_disk_migration_job::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -6965,12 +7761,29 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [name][crate::model::RunDiskMigrationJobRequest::name].
@@ -7057,6 +7870,12 @@ pub mod vm_migration {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_vmmigration_v1::client::VmMigration::cancel_disk_migration_job::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -7079,12 +7898,29 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [name][crate::model::CancelDiskMigrationJobRequest::name].

@@ -440,6 +440,13 @@ pub mod agents {
             type Operation = google_cloud_lro::internal::Operation<wkt::Empty, wkt::Struct>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_dialogflow_v2::client::Agents::train_agent::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -462,12 +469,29 @@ pub mod agents {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_unit_response_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_unit_response_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::TrainAgentRequest::parent].
@@ -546,6 +570,13 @@ pub mod agents {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_dialogflow_v2::client::Agents::export_agent::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -568,12 +599,29 @@ pub mod agents {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::ExportAgentRequest::parent].
@@ -655,6 +703,13 @@ pub mod agents {
             type Operation = google_cloud_lro::internal::Operation<wkt::Empty, wkt::Struct>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_dialogflow_v2::client::Agents::import_agent::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -677,12 +732,29 @@ pub mod agents {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_unit_response_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_unit_response_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::ImportAgentRequest::parent].
@@ -788,6 +860,13 @@ pub mod agents {
             type Operation = google_cloud_lro::internal::Operation<wkt::Empty, wkt::Struct>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_dialogflow_v2::client::Agents::restore_agent::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -810,12 +889,29 @@ pub mod agents {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_unit_response_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_unit_response_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::RestoreAgentRequest::parent].
@@ -4739,6 +4835,12 @@ pub mod conversation_datasets {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_dialogflow_v2::client::ConversationDatasets::create_conversation_dataset::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -4761,12 +4863,29 @@ pub mod conversation_datasets {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::CreateConversationDatasetRequest::parent].
@@ -5051,6 +5170,12 @@ pub mod conversation_datasets {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_dialogflow_v2::client::ConversationDatasets::delete_conversation_dataset::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -5073,12 +5198,29 @@ pub mod conversation_datasets {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_unit_response_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_unit_response_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [name][crate::model::DeleteConversationDatasetRequest::name].
@@ -5165,6 +5307,12 @@ pub mod conversation_datasets {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_dialogflow_v2::client::ConversationDatasets::import_conversation_data::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -5187,12 +5335,29 @@ pub mod conversation_datasets {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [name][crate::model::ImportConversationDataRequest::name].
@@ -5788,6 +5953,12 @@ pub mod conversation_models {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_dialogflow_v2::client::ConversationModels::create_conversation_model::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -5810,12 +5981,29 @@ pub mod conversation_models {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::CreateConversationModelRequest::parent].
@@ -6096,6 +6284,12 @@ pub mod conversation_models {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_dialogflow_v2::client::ConversationModels::delete_conversation_model::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -6118,12 +6312,29 @@ pub mod conversation_models {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_unit_response_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_unit_response_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [name][crate::model::DeleteConversationModelRequest::name].
@@ -6210,6 +6421,12 @@ pub mod conversation_models {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_dialogflow_v2::client::ConversationModels::deploy_conversation_model::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -6232,12 +6449,29 @@ pub mod conversation_models {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_unit_response_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_unit_response_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [name][crate::model::DeployConversationModelRequest::name].
@@ -6324,6 +6558,12 @@ pub mod conversation_models {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_dialogflow_v2::client::ConversationModels::undeploy_conversation_model::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -6346,12 +6586,29 @@ pub mod conversation_models {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_unit_response_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_unit_response_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [name][crate::model::UndeployConversationModelRequest::name].
@@ -6618,6 +6875,12 @@ pub mod conversation_models {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_dialogflow_v2::client::ConversationModels::create_conversation_model_evaluation::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -6640,12 +6903,29 @@ pub mod conversation_models {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::CreateConversationModelEvaluationRequest::parent].
@@ -7679,6 +7959,12 @@ pub mod conversation_profiles {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_dialogflow_v2::client::ConversationProfiles::set_suggestion_feature_config::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -7701,12 +7987,29 @@ pub mod conversation_profiles {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [conversation_profile][crate::model::SetSuggestionFeatureConfigRequest::conversation_profile].
@@ -7835,6 +8138,12 @@ pub mod conversation_profiles {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_dialogflow_v2::client::ConversationProfiles::clear_suggestion_feature_config::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -7857,12 +8166,29 @@ pub mod conversation_profiles {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [conversation_profile][crate::model::ClearSuggestionFeatureConfigRequest::conversation_profile].
@@ -8625,6 +8951,13 @@ pub mod documents {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_dialogflow_v2::client::Documents::create_document::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -8647,12 +8980,29 @@ pub mod documents {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::CreateDocumentRequest::parent].
@@ -8758,6 +9108,13 @@ pub mod documents {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_dialogflow_v2::client::Documents::import_documents::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -8780,12 +9137,29 @@ pub mod documents {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::ImportDocumentsRequest::parent].
@@ -8919,6 +9293,13 @@ pub mod documents {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_dialogflow_v2::client::Documents::delete_document::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -8941,12 +9322,29 @@ pub mod documents {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_unit_response_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_unit_response_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [name][crate::model::DeleteDocumentRequest::name].
@@ -9030,6 +9428,13 @@ pub mod documents {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_dialogflow_v2::client::Documents::update_document::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -9052,12 +9457,29 @@ pub mod documents {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [document][crate::model::UpdateDocumentRequest::document].
@@ -9173,6 +9595,13 @@ pub mod documents {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_dialogflow_v2::client::Documents::reload_document::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -9195,12 +9624,29 @@ pub mod documents {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [name][crate::model::ReloadDocumentRequest::name].
@@ -9318,6 +9764,13 @@ pub mod documents {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_dialogflow_v2::client::Documents::export_document::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -9340,12 +9793,29 @@ pub mod documents {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [name][crate::model::ExportDocumentRequest::name].
@@ -10025,6 +10495,12 @@ pub mod encryption_spec_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_dialogflow_v2::client::EncryptionSpecService::initialize_encryption_spec::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -10047,12 +10523,29 @@ pub mod encryption_spec_service {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [encryption_spec][crate::model::InitializeEncryptionSpecRequest::encryption_spec].
@@ -11077,6 +11570,12 @@ pub mod entity_types {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_dialogflow_v2::client::EntityTypes::batch_update_entity_types::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -11099,12 +11598,29 @@ pub mod entity_types {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::BatchUpdateEntityTypesRequest::parent].
@@ -11249,6 +11765,12 @@ pub mod entity_types {
             type Operation = google_cloud_lro::internal::Operation<wkt::Empty, wkt::Struct>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_dialogflow_v2::client::EntityTypes::batch_delete_entity_types::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -11271,12 +11793,29 @@ pub mod entity_types {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_unit_response_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_unit_response_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::BatchDeleteEntityTypesRequest::parent].
@@ -11368,6 +11907,12 @@ pub mod entity_types {
             type Operation = google_cloud_lro::internal::Operation<wkt::Empty, wkt::Struct>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_dialogflow_v2::client::EntityTypes::batch_create_entities::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -11390,12 +11935,29 @@ pub mod entity_types {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_unit_response_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_unit_response_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::BatchCreateEntitiesRequest::parent].
@@ -11493,6 +12055,12 @@ pub mod entity_types {
             type Operation = google_cloud_lro::internal::Operation<wkt::Empty, wkt::Struct>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_dialogflow_v2::client::EntityTypes::batch_update_entities::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -11515,12 +12083,29 @@ pub mod entity_types {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_unit_response_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_unit_response_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::BatchUpdateEntitiesRequest::parent].
@@ -11636,6 +12221,12 @@ pub mod entity_types {
             type Operation = google_cloud_lro::internal::Operation<wkt::Empty, wkt::Struct>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_dialogflow_v2::client::EntityTypes::batch_delete_entities::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -11658,12 +12249,29 @@ pub mod entity_types {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_unit_response_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_unit_response_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::BatchDeleteEntitiesRequest::parent].
@@ -14833,6 +15441,12 @@ pub mod generator_evaluations {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_dialogflow_v2::client::GeneratorEvaluations::create_generator_evaluation::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -14855,12 +15469,29 @@ pub mod generator_evaluations {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::CreateGeneratorEvaluationRequest::parent].
@@ -16135,6 +16766,13 @@ pub mod intents {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_dialogflow_v2::client::Intents::batch_update_intents::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -16157,12 +16795,29 @@ pub mod intents {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::BatchUpdateIntentsRequest::parent].
@@ -16311,6 +16966,13 @@ pub mod intents {
             type Operation = google_cloud_lro::internal::Operation<wkt::Empty, wkt::Struct>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_dialogflow_v2::client::Intents::batch_delete_intents::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -16333,12 +16995,29 @@ pub mod intents {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_unit_response_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_unit_response_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::BatchDeleteIntentsRequest::parent].

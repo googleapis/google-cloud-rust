@@ -137,6 +137,12 @@ pub mod backup_for_gke {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_gkebackup_v1::client::BackupForGKE::create_backup_plan::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -159,12 +165,29 @@ pub mod backup_for_gke {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupPlanRequest::parent].
@@ -459,6 +482,12 @@ pub mod backup_for_gke {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_gkebackup_v1::client::BackupForGKE::update_backup_plan::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -481,12 +510,29 @@ pub mod backup_for_gke {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [backup_plan][crate::model::UpdateBackupPlanRequest::backup_plan].
@@ -598,6 +644,12 @@ pub mod backup_for_gke {
                 google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_gkebackup_v1::client::BackupForGKE::delete_backup_plan::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -620,12 +672,29 @@ pub mod backup_for_gke {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_unit_response_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_unit_response_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupPlanRequest::name].
@@ -716,6 +785,12 @@ pub mod backup_for_gke {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_gkebackup_v1::client::BackupForGKE::create_backup_channel::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -738,12 +813,29 @@ pub mod backup_for_gke {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupChannelRequest::parent].
@@ -1042,6 +1134,12 @@ pub mod backup_for_gke {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_gkebackup_v1::client::BackupForGKE::update_backup_channel::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -1064,12 +1162,29 @@ pub mod backup_for_gke {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [backup_channel][crate::model::UpdateBackupChannelRequest::backup_channel].
@@ -1181,6 +1296,12 @@ pub mod backup_for_gke {
                 google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_gkebackup_v1::client::BackupForGKE::delete_backup_channel::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -1203,12 +1324,29 @@ pub mod backup_for_gke {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_unit_response_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_unit_response_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupChannelRequest::name].
@@ -1488,6 +1626,13 @@ pub mod backup_for_gke {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_gkebackup_v1::client::BackupForGKE::create_backup::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -1510,12 +1655,29 @@ pub mod backup_for_gke {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
@@ -1805,6 +1967,13 @@ pub mod backup_for_gke {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_gkebackup_v1::client::BackupForGKE::update_backup::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -1827,12 +1996,29 @@ pub mod backup_for_gke {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
@@ -1941,6 +2127,13 @@ pub mod backup_for_gke {
                 google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_gkebackup_v1::client::BackupForGKE::delete_backup::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -1963,12 +2156,29 @@ pub mod backup_for_gke {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_unit_response_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_unit_response_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
@@ -2248,6 +2458,12 @@ pub mod backup_for_gke {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_gkebackup_v1::client::BackupForGKE::create_restore_plan::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -2270,12 +2486,29 @@ pub mod backup_for_gke {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::CreateRestorePlanRequest::parent].
@@ -2573,6 +2806,12 @@ pub mod backup_for_gke {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_gkebackup_v1::client::BackupForGKE::update_restore_plan::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -2595,12 +2834,29 @@ pub mod backup_for_gke {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [restore_plan][crate::model::UpdateRestorePlanRequest::restore_plan].
@@ -2712,6 +2968,12 @@ pub mod backup_for_gke {
                 google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_gkebackup_v1::client::BackupForGKE::delete_restore_plan::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -2734,12 +2996,29 @@ pub mod backup_for_gke {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_unit_response_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_unit_response_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [name][crate::model::DeleteRestorePlanRequest::name].
@@ -2836,6 +3115,12 @@ pub mod backup_for_gke {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_gkebackup_v1::client::BackupForGKE::create_restore_channel::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -2858,12 +3143,29 @@ pub mod backup_for_gke {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::CreateRestoreChannelRequest::parent].
@@ -3162,6 +3464,12 @@ pub mod backup_for_gke {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_gkebackup_v1::client::BackupForGKE::update_restore_channel::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -3184,12 +3492,29 @@ pub mod backup_for_gke {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [restore_channel][crate::model::UpdateRestoreChannelRequest::restore_channel].
@@ -3301,6 +3626,12 @@ pub mod backup_for_gke {
                 google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_gkebackup_v1::client::BackupForGKE::delete_restore_channel::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -3323,12 +3654,29 @@ pub mod backup_for_gke {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_unit_response_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_unit_response_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [name][crate::model::DeleteRestoreChannelRequest::name].
@@ -3604,6 +3952,13 @@ pub mod backup_for_gke {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_gkebackup_v1::client::BackupForGKE::create_restore::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -3626,12 +3981,29 @@ pub mod backup_for_gke {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [parent][crate::model::CreateRestoreRequest::parent].
@@ -3921,6 +4293,13 @@ pub mod backup_for_gke {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_gkebackup_v1::client::BackupForGKE::update_restore::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -3943,12 +4322,29 @@ pub mod backup_for_gke {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [restore][crate::model::UpdateRestoreRequest::restore].
@@ -4057,6 +4453,13 @@ pub mod backup_for_gke {
                 google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            #[cfg(google_cloud_unstable_tracing)]
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_gkebackup_v1::client::BackupForGKE::delete_restore::until_done";
+            }
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
@@ -4079,12 +4482,29 @@ pub mod backup_for_gke {
                 Ok(Operation::new(op))
             };
 
-            google_cloud_lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            #[cfg(google_cloud_unstable_tracing)]
+            {
+                use google_cloud_lro::internal::PollerExt;
+                {
+                    google_cloud_lro::internal::new_unit_response_poller(
+                        polling_error_policy,
+                        polling_backoff_policy,
+                        start,
+                        query,
+                    )
+                }
+                .with_options(poller_options)
+            }
+
+            #[cfg(not(google_cloud_unstable_tracing))]
+            {
+                google_cloud_lro::internal::new_unit_response_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
         }
 
         /// Sets the value of [name][crate::model::DeleteRestoreRequest::name].

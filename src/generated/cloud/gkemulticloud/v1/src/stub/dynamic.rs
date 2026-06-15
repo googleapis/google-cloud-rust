@@ -104,6 +104,12 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
         &self,
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
+
+    #[cfg(google_cloud_unstable_tracing)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions;
 }
 
 /// All implementations of [super::AttachedClusters] also implement [AttachedClusters].
@@ -242,6 +248,14 @@ impl<T: super::AttachedClusters> AttachedClusters for T {
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        T::get_poller_options(self, options)
+    }
 }
 
 /// A dyn-compatible, crate-private version of [super::AwsClusters].
@@ -376,6 +390,12 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         &self,
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
+
+    #[cfg(google_cloud_unstable_tracing)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions;
 }
 
 /// All implementations of [super::AwsClusters] also implement [AwsClusters].
@@ -575,6 +595,14 @@ impl<T: super::AwsClusters> AwsClusters for T {
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        T::get_poller_options(self, options)
+    }
 }
 
 /// A dyn-compatible, crate-private version of [super::AzureClusters].
@@ -727,6 +755,12 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         &self,
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
+
+    #[cfg(google_cloud_unstable_tracing)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions;
 }
 
 /// All implementations of [super::AzureClusters] also implement [AzureClusters].
@@ -952,5 +986,13 @@ impl<T: super::AzureClusters> AzureClusters for T {
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        T::get_poller_options(self, options)
     }
 }

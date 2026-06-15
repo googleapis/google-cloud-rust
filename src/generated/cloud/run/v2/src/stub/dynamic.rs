@@ -158,6 +158,12 @@ pub trait Executions: std::fmt::Debug + Send + Sync {
         &self,
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
+
+    #[cfg(google_cloud_unstable_tracing)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions;
 }
 
 /// All implementations of [super::Executions] also implement [Executions].
@@ -249,6 +255,14 @@ impl<T: super::Executions> Executions for T {
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        T::get_poller_options(self, options)
+    }
 }
 
 /// A dyn-compatible, crate-private version of [super::Instances].
@@ -323,6 +337,12 @@ pub trait Instances: std::fmt::Debug + Send + Sync {
         &self,
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
+
+    #[cfg(google_cloud_unstable_tracing)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions;
 }
 
 /// All implementations of [super::Instances] also implement [Instances].
@@ -432,6 +452,14 @@ impl<T: super::Instances> Instances for T {
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        T::get_poller_options(self, options)
+    }
 }
 
 /// A dyn-compatible, crate-private version of [super::Jobs].
@@ -524,6 +552,12 @@ pub trait Jobs: std::fmt::Debug + Send + Sync {
         &self,
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
+
+    #[cfg(google_cloud_unstable_tracing)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions;
 }
 
 /// All implementations of [super::Jobs] also implement [Jobs].
@@ -661,6 +695,14 @@ impl<T: super::Jobs> Jobs for T {
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        T::get_poller_options(self, options)
+    }
 }
 
 /// A dyn-compatible, crate-private version of [super::Revisions].
@@ -717,6 +759,12 @@ pub trait Revisions: std::fmt::Debug + Send + Sync {
         &self,
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
+
+    #[cfg(google_cloud_unstable_tracing)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions;
 }
 
 /// All implementations of [super::Revisions] also implement [Revisions].
@@ -798,6 +846,14 @@ impl<T: super::Revisions> Revisions for T {
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        T::get_poller_options(self, options)
     }
 }
 
@@ -885,6 +941,12 @@ pub trait Services: std::fmt::Debug + Send + Sync {
         &self,
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
+
+    #[cfg(google_cloud_unstable_tracing)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions;
 }
 
 /// All implementations of [super::Services] also implement [Services].
@@ -1012,6 +1074,14 @@ impl<T: super::Services> Services for T {
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        T::get_poller_options(self, options)
     }
 }
 
@@ -1198,6 +1268,12 @@ pub trait WorkerPools: std::fmt::Debug + Send + Sync {
         &self,
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
+
+    #[cfg(google_cloud_unstable_tracing)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions;
 }
 
 /// All implementations of [super::WorkerPools] also implement [WorkerPools].
@@ -1325,5 +1401,13 @@ impl<T: super::WorkerPools> WorkerPools for T {
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        T::get_poller_options(self, options)
     }
 }
