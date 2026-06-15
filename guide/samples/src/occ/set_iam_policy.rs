@@ -50,7 +50,7 @@ pub async fn sample(project_id: &str, secret_id: &str, member: &str) -> anyhow::
                 .bindings
                 .push(Binding::new().set_role(ROLE).set_members([member])),
             Some(b) => {
-                if b.members.iter().find(|m| *m == member).is_some() {
+                if b.members.iter().any(|m| m == member) {
                     return Ok(current);
                 }
                 b.members.push(member.to_string());
