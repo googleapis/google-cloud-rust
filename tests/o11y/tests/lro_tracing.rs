@@ -1,4 +1,4 @@
-// Copyright 2025 Google LLC
+// Copyright 2026 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,15 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub mod auth;
-pub mod detector;
-pub mod mock_collector;
-pub mod otlp;
-pub mod tracing;
+#[cfg(google_cloud_unstable_tracing)]
+mod lro_tracing {
+    use google_cloud_test_utils::errors::anydump;
 
-use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
-pub mod e2e;
-pub mod http_tracing;
-pub mod lro_tracing;
-pub mod storage_grpc_tracing_common;
-pub mod storage_tracing;
+    #[tokio::test]
+    async fn lro_tracing_testlayer() -> anyhow::Result<()> {
+        integration_tests_o11y::lro_tracing::lro_tracing_testlayer()
+            .await
+            .inspect_err(anydump)
+    }
+}
