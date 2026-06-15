@@ -37,8 +37,7 @@ impl PostQueryExecutor {
             .query()
             .with_request(self.request)
             .send()
-            .await
-            .map_err(|e| QueryError::Rpc { source: e })?;
+            .await?;
 
         if !res.errors.is_empty() {
             return Err(QueryError::JobFailed { errors: res.errors });
