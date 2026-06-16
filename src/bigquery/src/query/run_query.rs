@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use crate::error::QueryError;
-use crate::query::execution::InsertJobExecutor;
+use crate::query::execution::{InsertJobExecutor, PostQueryExecutor};
 use crate::query::{Query, Result};
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::query_request::JobCreationMode;
@@ -80,12 +80,13 @@ impl RunQuery {
                 google_cloud_bigquery_v2::model::DataFormatOptions::new()
                     .set_use_int64_timestamp(true),
             );
-            let _req = PostQueryRequest::new()
+            let req = PostQueryRequest::new()
                 .set_project_id(project_id)
                 .set_query_request(query_request);
 
-            // TODO(#5844): implement jobs.query query execution
-            unimplemented!("jobs.query query execution not yet implemented");
+            PostQueryExecutor::new(self.job_service.clone(), req)
+                .execute()
+                .await
         }
     }
 }
@@ -100,8 +101,10 @@ mod tests {
     use crate::query::tests::{MockJobService, create_job_service};
     use google_cloud_bigquery_v2::model::query_request::JobCreationMode;
     use google_cloud_bigquery_v2::model::{
-        JobConfiguration, JobConfigurationQuery, JobReference, JobStatus, QueryRequest,
+        Job, JobConfiguration, JobConfigurationQuery, JobReference, JobStatus, QueryRequest,
+        QueryResponse,
     };
+    use google_cloud_gax::response::Response;
     use std::sync::Arc;
 
     type TestResult = anyhow::Result<()>;
@@ -163,12 +166,18 @@ mod tests {
     }
 
     #[tokio::test]
-    #[should_panic(expected = "jobs.query query execution not yet implemented")]
-    async fn test_run_panics_jobs_query() {
-        let job_service = create_job_service(MockJobService::new());
+    async fn test_run_jobs_query() -> TestResult {
+        let mut mock = MockJobService::new();
+        mock.expect_query()
+            .returning(move |_, _| Ok(Response::from(QueryResponse::new())));
+        let job_service = create_job_service(mock);
         let run_query =
             RunQuery::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
-        let _ = run_query.run().await;
+        let query = run_query.run().await?;
+        assert!(!query.completed, "{query:?}");
+        assert!(query.initial_response.is_some(), "{query:?}");
+
+        Ok(())
     }
 
     #[test]

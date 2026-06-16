@@ -36,7 +36,7 @@ pub type Result<T> = std::result::Result<T, crate::error::QueryError>;
 pub(crate) mod tests {
     use google_cloud_bigquery_v2::Result;
     use google_cloud_bigquery_v2::client::JobService;
-    use google_cloud_bigquery_v2::model::{InsertJobRequest, Job};
+    use google_cloud_bigquery_v2::model::{InsertJobRequest, Job, PostQueryRequest, QueryResponse};
     use google_cloud_gax::options::RequestOptions;
     use google_cloud_gax::response::Response;
     use std::sync::Arc;
@@ -50,6 +50,11 @@ pub(crate) mod tests {
                 req: InsertJobRequest,
                 options: RequestOptions,
             ) -> Result<Response<Job>>;
+            async fn query(
+                &self,
+                req: PostQueryRequest,
+                options: RequestOptions,
+            ) -> Result<Response<QueryResponse>>;
         }
     }
 
