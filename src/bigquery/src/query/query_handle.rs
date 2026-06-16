@@ -12,6 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// TODO(#5844): implement query handle. Add here just to make compiler happy
+use google_cloud_bigquery_v2::client::JobService;
+use google_cloud_bigquery_v2::model::{JobReference, QueryResponse};
+use std::sync::Arc;
+
+/// A handle representing a running query.
 #[derive(Clone, Debug)]
-pub struct Query;
+pub struct Query {
+    pub(crate) job_service: Arc<JobService>,
+    pub(crate) job_ref: Option<JobReference>,
+    pub(crate) completed: bool,
+    pub(crate) initial_response: Option<QueryResponse>,
+}
