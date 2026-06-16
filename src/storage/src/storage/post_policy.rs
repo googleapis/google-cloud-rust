@@ -84,11 +84,6 @@ impl PostPolicyV4Builder {
         self
     }
 
-    /// Sets the creation timestamp for the policy signature. If not set, the current UTC time is used.
-    pub fn with_timestamp(mut self, timestamp: DateTime<Utc>) -> Self {
-        self.timestamp = Some(timestamp);
-        self
-    }
 
     /// Sets the URL formatting style.
     pub fn with_url_style(mut self, url_style: UrlStyle) -> Self {
@@ -313,6 +308,14 @@ mod tests {
     use google_cloud_auth::credentials::service_account::Builder as ServiceAccount;
     use serde::Deserialize;
     use std::collections::HashMap;
+
+    impl PostPolicyV4Builder {
+        /// Sets the creation timestamp for the policy signature. Only used in tests.
+        pub(crate) fn with_timestamp(mut self, timestamp: DateTime<Utc>) -> Self {
+            self.timestamp = Some(timestamp);
+            self
+        }
+    }
 
     #[derive(Deserialize)]
     #[serde(rename_all = "camelCase")]
