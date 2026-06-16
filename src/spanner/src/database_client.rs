@@ -22,6 +22,11 @@ use crate::read_only_transaction::{
 use crate::session_maintainer::ManagedSessionMaintainer;
 use std::sync::Arc;
 
+#[cfg(feature = "connection")]
+use crate::connection::Dialect;
+#[cfg(feature = "connection")]
+use tokio::sync::OnceCell;
+
 /// A client for interacting with a specific Spanner database.
 ///
 /// `DatabaseClient` provides methods to execute transactions and queries.
@@ -51,6 +56,8 @@ pub struct DatabaseClient {
     pub(crate) spanner: Spanner,
     pub(crate) session_maintainer: Arc<ManagedSessionMaintainer>,
     pub(crate) leader_aware_routing_enabled: bool,
+    #[cfg(feature = "connection")]
+    pub(crate) dialect: Arc<OnceCell<Dialect>>,
 }
 
 impl DatabaseClient {
@@ -255,6 +262,40 @@ impl DatabaseClient {
         BatchWriteTransactionBuilder::new(self.clone())
     }
 
+    /// Returns the database dialect.
+    ///
+    /// This method will query the database to detect its dialect (Google SQL or PostgreSQL)
+    /// the first time it is called, and cache the result for subsequent calls.
+    #[cfg(feature = "connection")]
+    pub(crate) async fn dialect(&self) -> crate::Result<Dialect> {
+        self.dialect
+            .get_or_try_init(|| async {
+                let tx = self.single_use().build();
+                let query = "SELECT option_value FROM information_schema.database_options WHERE option_name = 'database_dialect'";
+                let mut rs = match tx.execute_query(query).await {
+                    Ok(rs) => rs,
+                    Err(_) => {
+                        return Ok(Dialect::GoogleSql);
+                    }
+                };
+
+                if let Some(row_res) = rs.next().await {
+                    let row = row_res?;
+                    if row
+                        .try_get::<String, _>(0)
+                        .map(|val| val.eq_ignore_ascii_case("POSTGRESQL"))
+                        .unwrap_or(false)
+                    {
+                        return Ok(Dialect::PostgreSql);
+                    }
+                }
+
+                Ok(Dialect::GoogleSql)
+            })
+            .await
+            .copied()
+    }
+
     pub(crate) fn session_name(&self) -> String {
         self.session_maintainer.session_name()
     }
@@ -373,6 +414,8 @@ impl DatabaseClientBuilder {
             spanner: spanner_clone,
             session_maintainer,
             leader_aware_routing_enabled: self.leader_aware_routing_enabled,
+            #[cfg(feature = "connection")]
+            dialect: Arc::new(OnceCell::new()),
         })
     }
 }
@@ -530,5 +573,84 @@ mod tests {
                 Some(google_cloud_gax::error::rpc::Code::PermissionDenied)
             ),
         }
+    }
+
+    #[cfg(feature = "connection")]
+    #[tokio_test_no_panics]
+    async fn test_database_client_dialect_caching() {
+        use gaxi::grpc::tonic::Response;
+        use prost_types::Value;
+        use spanner_grpc_mock::google::spanner::v1::struct_type::Field;
+        use spanner_grpc_mock::google::spanner::v1::{
+            PartialResultSet, ResultSetMetadata, Session, StructType,
+        };
+        use tokio::sync::mpsc;
+
+        let mut mock = MockSpanner::new();
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name:
+                    "projects/test-project/instances/test-instance/databases/test-db/sessions/123"
+                        .to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let result = PartialResultSet {
+            metadata: Some(ResultSetMetadata {
+                row_type: Some(StructType {
+                    fields: vec![Field {
+                        name: "option_value".to_string(),
+                        r#type: None,
+                    }],
+                }),
+                transaction: None,
+                undeclared_parameters: None,
+            }),
+            values: vec![Value {
+                kind: Some(prost_types::value::Kind::StringValue(
+                    "POSTGRESQL".to_string(),
+                )),
+            }],
+            last: true,
+            ..Default::default()
+        };
+
+        let (tx, rx) = mpsc::channel(1);
+        tx.try_send(Ok(result)).unwrap();
+
+        mock.expect_execute_streaming_sql()
+            .once() // We expect this query to be executed exactly once
+            .return_once(move |_| Ok(Response::from(rx)));
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let db_client = spanner
+            .database_client("projects/test-project/instances/test-instance/databases/test-db")
+            .build()
+            .await
+            .expect("Failed to create DatabaseClient");
+
+        let dialect1 = db_client
+            .dialect()
+            .await
+            .expect("Failed to detect dialect 1");
+        assert_eq!(dialect1, Dialect::PostgreSql);
+
+        let dialect2 = db_client
+            .dialect()
+            .await
+            .expect("Failed to detect dialect 2");
+        assert_eq!(dialect2, Dialect::PostgreSql);
     }
 }

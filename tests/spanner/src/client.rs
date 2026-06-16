@@ -732,3 +732,66 @@ where
     let (uri, handle) = spanner_grpc_mock::start(address, service).await?;
     Ok((uri, ServerGuard(handle)))
 }
+
+#[cfg(feature = "connection")]
+pub async fn create_connection_dsn(
+    dialect: google_cloud_spanner::connection::Dialect,
+) -> Option<String> {
+    if let Some(host) = get_emulator_host() {
+        wait_for_emulator(&host).await;
+        let endpoint = if host.starts_with("http://") || host.starts_with("https://") {
+            host
+        } else {
+            format!("http://{}", host)
+        };
+        match dialect {
+            google_cloud_spanner::connection::Dialect::GoogleSql => {
+                provision_emulator(&endpoint).await;
+                let db_id = get_database_id().await;
+                Some(format!(
+                    "{}/projects/{}/instances/{}/databases/{};useplaintext=true",
+                    endpoint, EMULATOR_PROJECT_ID, EMULATOR_INSTANCE_ID, db_id
+                ))
+            }
+            google_cloud_spanner::connection::Dialect::PostgreSql => {
+                PROVISION_EMULATOR_PG
+                    .get_or_init(|| async {
+                        do_provision_emulator_pg(&endpoint).await;
+                    })
+                    .await;
+                let db_id = get_pg_database_id().await;
+                Some(format!(
+                    "{}/projects/{}/instances/{}/databases/{};useplaintext=true",
+                    endpoint, EMULATOR_PROJECT_ID, EMULATOR_INSTANCE_ID, db_id
+                ))
+            }
+            _ => None,
+        }
+    } else if let Some((project, instance)) = get_real_spanner_config() {
+        match dialect {
+            google_cloud_spanner::connection::Dialect::GoogleSql => {
+                provision_real_spanner(&project, &instance).await;
+                let db_id = get_database_id().await;
+                Some(format!(
+                    "projects/{}/instances/{}/databases/{}",
+                    project, instance, db_id
+                ))
+            }
+            google_cloud_spanner::connection::Dialect::PostgreSql => {
+                PROVISION_REAL_SPANNER_PG
+                    .get_or_init(|| async {
+                        do_provision_real_spanner_pg(&project, &instance).await;
+                    })
+                    .await;
+                let db_id = get_pg_database_id().await;
+                Some(format!(
+                    "projects/{}/instances/{}/databases/{}",
+                    project, instance, db_id
+                ))
+            }
+            _ => None,
+        }
+    } else {
+        None
+    }
+}

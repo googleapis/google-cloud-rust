@@ -33,15 +33,18 @@ default = ["default-rustls-provider"]
 # default and call `rustls::CryptoProvider::install_default()`.
 default-rustls-provider = ["gaxi/_default-rustls-provider"]
 unstable-stream         = ["dep:futures"]
+connection              = []
 
 [dependencies]
 async-trait.workspace                  = true
 base64.workspace                       = true
 bytes.workspace                        = true
+md5.workspace                          = true
 futures                                = { workspace = true, optional = true }
 gaxi                                   = { workspace = true, features = ["_internal-common", "_internal-grpc-client", "_internal-grpc-server-streaming"] }
 google-cloud-auth                      = { workspace = true }
 google-cloud-gax                       = { workspace = true }
+google-cloud-lro                       = { workspace = true }
 google-cloud-spanner-admin-database-v1 = { workspace = true }
 google-cloud-spanner-admin-instance-v1 = { workspace = true }
 google-cloud-rpc                       = { workspace = true }
@@ -55,13 +58,14 @@ serde_json.workspace                   = true
 serde_with.workspace                   = true
 thiserror.workspace                    = true
 time                                   = { workspace = true, features = ["formatting", "macros", "parsing"] }
-tokio                                  = { workspace = true, features = ["time"] }
+tokio                                  = { workspace = true, features = ["time", "sync"] }
 tracing.workspace                      = true
 url.workspace                          = true
 wkt                                    = { workspace = true, features = ["time"] }
 
 [dev-dependencies]
 anyhow.workspace                   = true
+google-cloud-longrunning.workspace = true
 google-cloud-test-macros.workspace = true
 mockall.workspace                  = true
 spanner-grpc-mock                  = { path = "grpc-mock" }

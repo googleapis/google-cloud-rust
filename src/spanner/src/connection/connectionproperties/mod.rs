@@ -12,23 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub mod batch_dml;
-pub mod batch_read_only_transaction;
-pub mod batch_write;
-pub mod client;
-pub mod concurrent_inline_begin;
-pub mod directed_read;
-pub mod dml_returning;
-pub mod partitioned_dml;
-pub mod pg_dialect;
-pub mod query;
-pub mod read;
-pub mod read_only_transaction_options;
-pub mod read_write_transaction;
-pub mod read_write_transaction_options;
-pub mod test_proxy;
-pub mod write;
-pub mod write_only_transaction_options;
+/// Module containing Spanner-specific properties constants and registry.
+pub mod properties;
 
-#[cfg(feature = "connection")]
-pub mod connection;
+/// Module containing the read-only staleness property implementation.
+pub mod read_only_staleness;
+
+pub use properties::*;
+pub use read_only_staleness::ReadOnlyStalenessProperty;

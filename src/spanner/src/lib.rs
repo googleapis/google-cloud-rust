@@ -59,6 +59,10 @@ pub mod transaction;
 /// Batch execution and query partitioning support.
 pub mod batch;
 
+/// Stateful Connection API.
+#[cfg(feature = "connection")]
+pub mod connection;
+
 /// The messages and enums that are part of this client library.
 pub mod model {
     pub use crate::generated::gapic_dataplane::model::*;

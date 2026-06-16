@@ -43,6 +43,7 @@ pub struct StatementBuilder {
     directed_read_options: Option<DirectedReadOptions>,
     query_options: Option<QueryOptions>,
     query_mode: Option<QueryMode>,
+    last_statement: bool,
     gax_options: GaxRequestOptions,
 }
 
@@ -56,6 +57,7 @@ impl StatementBuilder {
             directed_read_options: None,
             query_options: None,
             query_mode: None,
+            last_statement: false,
             gax_options: GaxRequestOptions::default(),
         }
     }
@@ -173,6 +175,34 @@ impl StatementBuilder {
         self
     }
 
+    /// Sets whether this statement is the last statement in a read/write transaction.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::statement::Statement;
+    /// # async fn run_tx(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let runner = db_client.read_write_transaction().build().await?;
+    ///
+    /// let result = runner.run(async |transaction| {
+    ///     let statement = Statement::builder("UPDATE MyTable SET MyColumn = 'MyValue' WHERE Id = 1")
+    ///         .set_last_statement(true)
+    ///         .build();
+    ///     transaction.execute_update(statement).await?;
+    ///     Ok(42)
+    /// }).await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// If true, indicates that this is the last statement in a transaction, which allows
+    /// Spanner to optimize execution.
+    pub fn set_last_statement(mut self, last_statement: bool) -> Self {
+        self.last_statement = last_statement;
+        self
+    }
+
     /// Sets the per-attempt timeout for this statement.
     pub fn with_attempt_timeout(mut self, timeout: Duration) -> Self {
         self.gax_options.set_attempt_timeout(timeout);
@@ -201,6 +231,7 @@ impl StatementBuilder {
             directed_read_options: self.directed_read_options,
             query_options: self.query_options,
             query_mode: self.query_mode,
+            last_statement: self.last_statement,
             gax_options: self.gax_options,
         }
     }
@@ -238,7 +269,8 @@ pub struct Statement {
     pub(crate) directed_read_options: Option<DirectedReadOptions>,
     pub(crate) query_options: Option<QueryOptions>,
     pub(crate) query_mode: Option<QueryMode>,
-    gax_options: GaxRequestOptions,
+    pub(crate) last_statement: bool,
+    pub(crate) gax_options: GaxRequestOptions,
 }
 
 impl Statement {
@@ -262,6 +294,28 @@ impl Statement {
         self
     }
 
+    /// Returns a new `Statement` copy containing a new SQL query and new parameters,
+    /// while retaining all execution options (query_options, directed_read_options,
+    /// request_options, query_mode, and gax_options).
+    #[cfg(feature = "connection")]
+    pub(crate) fn clone_with_sql_and_params(
+        &self,
+        sql: String,
+        params: std::collections::BTreeMap<String, Value>,
+    ) -> Self {
+        Self {
+            sql,
+            params,
+            param_types: std::collections::BTreeMap::new(),
+            request_options: self.request_options.clone(),
+            directed_read_options: self.directed_read_options.clone(),
+            query_options: self.query_options.clone(),
+            query_mode: self.query_mode.clone(),
+            last_statement: self.last_statement,
+            gax_options: self.gax_options.clone(),
+        }
+    }
+
     /// Sets the query mode to use for this statement.
     ///
     /// # Example
@@ -281,6 +335,34 @@ impl Statement {
     /// This method consumes the statement and returns a new one with the specified mode.
     pub fn set_query_mode(mut self, mode: QueryMode) -> Self {
         self.query_mode = Some(mode);
+        self
+    }
+
+    /// Sets whether this statement is the last statement in a read/write transaction.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::statement::Statement;
+    /// # async fn run_tx(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let runner = db_client.read_write_transaction().build().await?;
+    ///
+    /// let result = runner.run(async |transaction| {
+    ///     let statement = Statement::builder("UPDATE MyTable SET MyColumn = 'MyValue' WHERE Id = 1")
+    ///         .build()
+    ///         .set_last_statement(true);
+    ///     transaction.execute_update(statement).await?;
+    ///     Ok(42)
+    /// }).await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// If true, indicates that this is the last statement in a transaction, which allows
+    /// Spanner to optimize execution.
+    pub fn set_last_statement(mut self, last_statement: bool) -> Self {
+        self.last_statement = last_statement;
         self
     }
 
@@ -314,6 +396,7 @@ impl Statement {
         let directed_read_options = self.directed_read_options.clone();
         let query_options = self.query_options.clone();
         let query_mode = self.query_mode.clone();
+        let last_statement = self.last_statement;
         let (sql, params, param_types) = self.into_parts();
         crate::model::ExecuteSqlRequest::default()
             .set_sql(sql)
@@ -323,6 +406,7 @@ impl Statement {
             .set_or_clear_directed_read_options(directed_read_options)
             .set_or_clear_query_options(query_options)
             .set_query_mode(query_mode.unwrap_or_default())
+            .set_last_statement(last_statement)
     }
 
     pub(crate) fn into_batch_statement(self) -> crate::model::execute_batch_dml_request::Statement {
@@ -567,6 +651,33 @@ mod tests {
         );
         assert!(stmt.gax_options.retry_policy().is_some());
         assert!(stmt.gax_options.backoff_policy().is_some());
+
+        Ok(())
+    }
+
+    #[test]
+    fn set_last_statement() -> anyhow::Result<()> {
+        let stmt = Statement::builder("SELECT * FROM users").build();
+        assert!(!stmt.last_statement);
+
+        let req = stmt.into_request();
+        assert!(!req.last_statement);
+
+        let stmt = Statement::builder("SELECT * FROM users")
+            .set_last_statement(true)
+            .build();
+        assert!(stmt.last_statement);
+
+        let req = stmt.into_request();
+        assert!(req.last_statement);
+
+        let stmt = Statement::builder("SELECT * FROM users")
+            .build()
+            .set_last_statement(true);
+        assert!(stmt.last_statement);
+
+        let req = stmt.into_request();
+        assert!(req.last_statement);
 
         Ok(())
     }

@@ -23,6 +23,7 @@ license.workspace = true
 [features]
 # These are normally disabled because they run against production or the Spanner emulator.
 run-integration-tests = []
+connection = ["google-cloud-spanner/connection"]
 
 [dependencies]
 anyhow.workspace                       = true

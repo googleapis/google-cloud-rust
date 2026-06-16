@@ -30,12 +30,14 @@ mod spanner {
     macro_rules! define_test_suites {
         (
             $(
+                $(#[$meta:meta])*
                 async fn $name:ident($db_client:ident : &DatabaseClient) -> anyhow::Result<()> $body:block
             )*
         ) => {
             const TOTAL_TEST_SUITES: usize = 0 $( + { let _ = stringify!($name); 1 } )*;
 
             $(
+                $(#[$meta])*
                 #[tokio::test]
                 async fn $name() -> anyhow::Result<()> {
                     let db_client_val = match client::create_database_client().await {
@@ -118,6 +120,14 @@ mod spanner {
 
         async fn run_read_write_tests(db_client: &DatabaseClient) -> anyhow::Result<()> {
             integration_tests_spanner::read_write_transaction::successful_read_write_transaction(
+                db_client,
+            )
+            .await?;
+            integration_tests_spanner::read_write_transaction::read_write_transaction_last_statement(
+                db_client,
+            )
+            .await?;
+            integration_tests_spanner::read_write_transaction::read_write_transaction_last_statements(
                 db_client,
             )
             .await?;
@@ -246,6 +256,18 @@ mod spanner {
                 }
             };
             integration_tests_spanner::pg_dialect::pg_dialect_types_roundtrip(&db_client_val).await?;
+            Ok(())
+        }
+
+        #[cfg(feature = "connection")]
+        async fn run_connection_tests_all(_db_client: &DatabaseClient) -> anyhow::Result<()> {
+            use google_cloud_spanner::connection::Dialect;
+            if let Some(dsn) = integration_tests_spanner::client::create_connection_dsn(Dialect::GoogleSql).await {
+                integration_tests_spanner::connection::run_connection_tests(&dsn).await?;
+            }
+            if let Some(dsn) = integration_tests_spanner::client::create_connection_dsn(Dialect::PostgreSql).await {
+                integration_tests_spanner::connection::run_connection_tests(&dsn).await?;
+            }
             Ok(())
         }
     }

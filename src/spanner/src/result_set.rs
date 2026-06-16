@@ -18,7 +18,9 @@ use crate::google::spanner::v1::{self, PartialResultSet};
 use crate::model::ResultSetStats;
 use crate::model::result_set_stats::RowCount;
 use crate::precommit::PrecommitTokenTracker;
-use crate::read_only_transaction::{ReadContextTransactionSelector, TransactionState};
+use crate::read_only_transaction::{
+    ExplicitBeginParams, ReadContextTransactionSelector, TransactionState,
+};
 use crate::result_set_metadata::ResultSetMetadata;
 use crate::retry_policy::SpannerRetryPolicy;
 use crate::row::Row;
@@ -37,6 +39,9 @@ use std::sync::Arc;
 use std::time::Duration;
 use tokio::runtime::Handle;
 use tokio::time::{sleep, timeout};
+
+#[cfg(feature = "connection")]
+use crate::connection::transaction::TransactionRetryCoordinator;
 
 #[cfg(feature = "unstable-stream")]
 use futures::Stream;
@@ -80,6 +85,14 @@ pub struct ResultSet {
     transaction_selector: Option<ReadContextTransactionSelector>,
     channel_hint: usize,
     gax_options: GaxRequestOptions,
+    #[cfg(feature = "connection")]
+    pub(crate) retry_coordinator: Option<std::sync::Arc<dyn TransactionRetryCoordinator>>,
+    #[cfg(feature = "connection")]
+    pub(crate) statement_index: usize,
+    #[cfg(feature = "connection")]
+    pub(crate) checksum: Option<crate::connection::checksum::ChecksumCalculator>,
+    #[cfg(feature = "connection")]
+    pub(crate) consumed_rows: usize,
 }
 
 #[derive(Debug, Clone)]
@@ -151,6 +164,14 @@ impl ResultSet {
             channel_hint,
             gax_options,
             tokio_handle: Handle::try_current().ok(),
+            #[cfg(feature = "connection")]
+            retry_coordinator: None,
+            #[cfg(feature = "connection")]
+            statement_index: 0,
+            #[cfg(feature = "connection")]
+            checksum: None,
+            #[cfg(feature = "connection")]
+            consumed_rows: 0,
         }
     }
 
@@ -296,6 +317,8 @@ impl ResultSet {
     pub async fn next(&mut self) -> Option<crate::Result<Row>> {
         loop {
             if let Some(row) = self.ready_rows.pop_front() {
+                #[cfg(feature = "connection")]
+                self.record_consumed_row(&row);
                 return Some(Ok(row));
             }
 
@@ -320,12 +343,27 @@ impl ResultSet {
                     }
                 }
                 Some(Err(e)) => {
-                    if let Err(err) = self.handle_stream_error(e).await {
-                        return Some(Err(err));
+                    let err = match self.handle_stream_error(e).await {
+                        Ok(()) => continue,
+                        Err(err) => err,
+                    };
+
+                    #[cfg(feature = "connection")]
+                    if let Some(res) = self.try_retry_transaction(&err).await {
+                        match res {
+                            Ok(()) => continue,
+                            Err(retry_err) => return Some(Err(retry_err)),
+                        }
                     }
+
+                    return Some(Err(err));
                 }
                 None => match self.handle_stream_end() {
-                    Ok(Some(row)) => return Some(Ok(row)),
+                    Ok(Some(row)) => {
+                        #[cfg(feature = "connection")]
+                        self.record_consumed_row(&row);
+                        return Some(Ok(row));
+                    }
                     Ok(None) => return None,
                     Err(e) => return Some(Err(e)),
                 },
@@ -490,37 +528,54 @@ impl ResultSet {
         }
 
         // Check if this stream included an inlined BeginTransaction option
-        // and has not yet returned a transaction ID. If so, we explicitly
-        // begin the transaction and restart the stream.
+        // and has not yet returned a transaction ID.
         let Some(ReadContextTransactionSelector::Lazy(lazy)) = &self.transaction_selector else {
             return Err(e);
         };
-        let is_started = matches!(
-            &*lazy.lock().unwrap(),
-            crate::read_only_transaction::TransactionState::Started(_, _)
-        );
-        if is_started {
-            return Err(e);
+        let is_read_write = self.transaction_selector.as_ref().unwrap().is_read_write();
+
+        // For Read-Write transactions:
+        // If the first statement fails (under inline-begin), we propagate the error immediately
+        // and mark the transaction as failed (FirstStatementFailed). We do NOT fall back to an
+        // explicit BeginTransaction RPC yet; instead, the TransactionRunner will catch the error,
+        // retry the closure, and force an explicit BeginTransaction on the retry attempt if the
+        // application tries to continue with the transaction.
+        if is_read_write {
+            let is_started = matches!(&*lazy.lock().unwrap(), TransactionState::Started(_, _));
+            if !is_started {
+                self.transaction_selector.as_ref().unwrap().set_failed(&e);
+            }
+            Err(e)
+        // For Read-Only transactions:
+        // Read-only multi-use transactions must execute all queries at a consistent timestamp.
+        // If the first query starts and fails, the query did return a transaction ID.
+        // To guarantee that a read timestamp is available once the first query has been executed,
+        // we execute a BeginTransaction RPC now.
+        } else {
+            let is_started = matches!(&*lazy.lock().unwrap(), TransactionState::Started(_, _));
+            if is_started {
+                return Err(e);
+            }
+
+            self.transaction_selector
+                .as_ref()
+                .unwrap()
+                .begin_explicitly(ExplicitBeginParams {
+                    client: self.client.clone(),
+                    session_name: self.session_name.clone(),
+                    transaction_tag: self.transaction_tag.clone(),
+                    channel_hint: self.channel_hint,
+                    request_options: self.gax_options.clone(),
+                    is_stream_fallback: true,
+                    precommit_token_tracker: self.precommit_token_tracker.clone(),
+                    mutation_key: None,
+                })
+                .await?;
+
+            self.partial_result_sets_buffer.clear();
+            self.restart_stream().await?;
+            Ok(())
         }
-
-        self.transaction_selector
-            .as_ref()
-            .unwrap()
-            .begin_explicitly(crate::read_only_transaction::ExplicitBeginParams {
-                client: self.client.clone(),
-                session_name: self.session_name.clone(),
-                transaction_tag: self.transaction_tag.clone(),
-                channel_hint: self.channel_hint,
-                request_options: self.gax_options.clone(),
-                is_stream_fallback: true,
-                precommit_token_tracker: self.precommit_token_tracker.clone(),
-                mutation_key: None,
-            })
-            .await?;
-
-        self.partial_result_sets_buffer.clear();
-        self.restart_stream().await?;
-        Ok(())
     }
 
     fn handle_stream_end(&mut self) -> crate::Result<Option<Row>> {
@@ -683,10 +738,81 @@ impl ResultSet {
         }
         Err(e)
     }
+
+    #[cfg(feature = "connection")]
+    fn record_consumed_row(&mut self, row: &Row) {
+        self.consumed_rows += 1;
+        if let Some(ref mut checksum) = self.checksum {
+            checksum.update_row(row);
+        }
+    }
+
+    #[cfg(feature = "connection")]
+    async fn try_retry_transaction(
+        &mut self,
+        err: &crate::Error,
+    ) -> Option<Result<(), crate::Error>> {
+        if !is_aborted_error(err) {
+            return None;
+        }
+        let coordinator = self.retry_coordinator.as_ref()?;
+        let cs_bytes = self
+            .checksum
+            .as_ref()
+            .map(|c| c.clone().finalize())
+            .unwrap_or([0; 16]);
+        let retry_result = coordinator
+            .retry_transaction(
+                self.statement_index,
+                &self.last_resume_token,
+                self.consumed_rows,
+                cs_bytes,
+            )
+            .await;
+        match retry_result {
+            Ok(mut new_rs) => {
+                new_rs.retry_coordinator = self.retry_coordinator.take();
+                new_rs.checksum = self.checksum.take();
+                new_rs.consumed_rows = self.consumed_rows;
+                *self = new_rs;
+                Some(Ok(()))
+            }
+            Err(retry_err) => Some(Err(retry_err)),
+        }
+    }
+
+    #[cfg(feature = "connection")]
+    pub(crate) fn with_connection_retry(
+        mut self,
+        coordinator: std::sync::Arc<dyn TransactionRetryCoordinator>,
+        statement_index: usize,
+        enable_checksum: bool,
+    ) -> Self {
+        self.retry_coordinator = Some(coordinator);
+        self.statement_index = statement_index;
+        if enable_checksum {
+            self.checksum = Some(crate::connection::checksum::ChecksumCalculator::new());
+        }
+        self
+    }
 }
 
 impl Drop for ResultSet {
     fn drop(&mut self) {
+        #[cfg(feature = "connection")]
+        if let Some(ref coordinator) = self.retry_coordinator {
+            let checksum_bytes = self
+                .checksum
+                .clone()
+                .map(|c| c.finalize())
+                .unwrap_or([0; 16]);
+            coordinator.sync_statement_state(
+                self.statement_index,
+                self.consumed_rows,
+                checksum_bytes,
+            );
+        }
+
         // If the query stream has finished sending all chunks (seen_last is true), but
         // the client hasn't read the trailers/EOF yet, dropping the stream receiver
         // would cause tonic to send an HTTP/2 RST_STREAM.
@@ -766,11 +892,65 @@ fn merge_values(target: &mut prost_types::Value, source: prost_types::Value) -> 
     }
 }
 
+#[cfg(feature = "connection")]
+impl ResultSet {
+    pub(crate) fn new_local(
+        client: DatabaseClient,
+        metadata: ResultSetMetadata,
+        rows: Vec<Row>,
+    ) -> Self {
+        let mut ready_rows = VecDeque::new();
+        for r in rows {
+            ready_rows.push_back(r);
+        }
+
+        Self {
+            stream: None,
+            buffered_values: Vec::new(),
+            chunked: false,
+            seen_last: true,
+            ready_rows,
+            local_metadata: Some(metadata),
+            stats: None,
+            precommit_token_tracker: PrecommitTokenTracker::new_noop(),
+            client,
+            session_name: String::new(),
+            transaction_tag: None,
+            operation: StreamOperation::Query(crate::model::ExecuteSqlRequest::default()),
+            last_resume_token: Bytes::new(),
+            partial_result_sets_buffer: VecDeque::new(),
+            safe_to_retry: false,
+            max_buffered_partial_result_sets: 0,
+            retry_count: 0,
+            transaction_selector: None,
+            channel_hint: 0,
+            gax_options: GaxRequestOptions::default(),
+            tokio_handle: None,
+            #[cfg(feature = "connection")]
+            retry_coordinator: None,
+            #[cfg(feature = "connection")]
+            statement_index: 0,
+            #[cfg(feature = "connection")]
+            checksum: None,
+            #[cfg(feature = "connection")]
+            consumed_rows: 0,
+        }
+    }
+}
+
 #[cfg(test)]
 impl ResultSet {
     pub(crate) fn set_max_buffered_partial_result_sets(&mut self, limit: usize) {
         self.max_buffered_partial_result_sets = limit;
     }
+}
+
+#[cfg(feature = "connection")]
+fn is_aborted_error(err: &crate::Error) -> bool {
+    if let Some(status) = err.status() {
+        return matches!(status.code, google_cloud_gax::error::rpc::Code::Aborted);
+    }
+    false
 }
 
 #[cfg(test)]

@@ -177,6 +177,10 @@ cargo fmt -p google-cloud-storage
 - Install `rustc`, `rustfmt`, `clippy`, and `cargo` using `rustup`.
 - Run `cargo build` and `cargo test` to verify the setup.
 
+### Import Conventions for Tests
+
+When writing test code (both unit tests and integration tests), always add explicit `use` imports at the top of the test module or file, rather than using fully qualified type names inside the test code. This keeps test code clean and readable.
+
 ### Forks and Pull Requests
 
 - Create a fork of the `google-cloud-rust` repository.

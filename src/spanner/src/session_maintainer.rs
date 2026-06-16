@@ -171,6 +171,8 @@ mod tests {
     use google_cloud_test_macros::tokio_test_no_panics;
     use spanner_grpc_mock::google::spanner::v1::Session as GrpcSession;
     use spanner_grpc_mock::{MockSpanner, start};
+    #[cfg(feature = "connection")]
+    use tokio::sync::OnceCell;
 
     #[tokio_test_no_panics]
     async fn session_maintenance() {
@@ -551,6 +553,8 @@ mod tests {
             spanner,
             session_maintainer: maintainer.clone(),
             leader_aware_routing_enabled: true,
+            #[cfg(feature = "connection")]
+            dialect: Arc::new(OnceCell::new()),
         };
 
         // 1. Create builder (captures session 1)
