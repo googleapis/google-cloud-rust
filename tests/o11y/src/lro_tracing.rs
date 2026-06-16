@@ -50,51 +50,26 @@ pub async fn lro_tracing_testlayer() -> anyhow::Result<()> {
     Ok(())
 }
 
-/// Helper to assert attributes on the T2 "LRO Wait" span.
-fn assert_lro_wait_span(
-    span: &CapturedSpan,
-    expected_method: &str,
-    expected_destination_id: Option<&str>,
-    expected_status: Option<&str>,
-    expected_description_contains: Option<&str>,
-) {
-    assert_eq!(
-        span.attributes.get("otel.name").and_then(|v| v.as_string()),
-        Some(expected_method.to_string())
-    );
-    assert_eq!(
-        span.attributes
-            .get("gcp.rpc.method")
-            .and_then(|v| v.as_string()),
-        Some(expected_method.to_string())
-    );
-    if let Some(dest_id) = expected_destination_id {
-        assert_eq!(
-            span.attributes
-                .get("gcp.resource.destination.id")
-                .and_then(|v| v.as_string()),
-            Some(dest_id.to_string())
-        );
-    }
-    assert_eq!(
-        span.attributes
-            .get("otel.status_code")
-            .and_then(|v| v.as_string()),
-        expected_status.map(|s| s.to_string())
-    );
-    if let Some(desc) = expected_description_contains {
-        let actual_desc = span
-            .attributes
-            .get("otel.status_description")
-            .and_then(|v| v.as_string())
-            .unwrap_or_default();
-        assert!(
-            actual_desc.contains(desc),
-            "expected description to contain '{}', got '{}'",
-            desc,
-            actual_desc
-        );
-    }
+fn attribute_str<'a>(span: &'a CapturedSpan, name: &str) -> Option<&'a str> {
+    span.attributes.get(name).and_then(|v| match v {
+        AttributeValue::String(s) => Some(s.as_ref()),
+        _ => None,
+    })
+}
+
+fn attribute_u64(span: &CapturedSpan, name: &str) -> Option<u64> {
+    span.attributes.get(name).and_then(|v| match v {
+        AttributeValue::UInt64(u) => Some(*u),
+        _ => None,
+    })
+}
+
+fn attribute_i64(span: &CapturedSpan, name: &str) -> Option<i64> {
+    span.attributes.get(name).and_then(|v| v.as_i64())
+}
+
+fn attribute_bool(span: &CapturedSpan, name: &str) -> Option<bool> {
+    span.attributes.get(name).and_then(|v| v.as_bool())
 }
 
 /// Helper to filter for T3 client request query/poll spans (GetOperation).
@@ -112,60 +87,6 @@ fn find_get_operation_spans(spans: &[CapturedSpan]) -> Vec<&CapturedSpan> {
                     .unwrap_or(false)
         })
         .collect()
-}
-
-/// Helper to assert attributes on a T3 query/poll span.
-fn assert_get_operation_span(
-    span: &CapturedSpan,
-    expected_poll_attempt: u64,
-    expected_destination_id: Option<&str>,
-    expected_done: Option<bool>,
-    expected_status_code: Option<i64>,
-    expected_otel_status: &str,
-    expected_otel_desc: Option<&str>,
-) {
-    assert_eq!(
-        span.attributes.get("gcp.longrunning.poll_attempt_count"),
-        Some(&AttributeValue::UInt64(expected_poll_attempt))
-    );
-    if let Some(dest_id) = expected_destination_id {
-        assert_eq!(
-            span.attributes
-                .get("gcp.resource.destination.id")
-                .and_then(|v| v.as_string()),
-            Some(dest_id.to_string())
-        );
-    }
-    if let Some(done) = expected_done {
-        assert_eq!(
-            span.attributes
-                .get("gcp.longrunning.done")
-                .and_then(|v| v.as_bool()),
-            Some(done)
-        );
-    }
-    if let Some(status) = expected_status_code {
-        assert_eq!(
-            span.attributes
-                .get("gcp.longrunning.status_code")
-                .and_then(|v| v.as_i64()),
-            Some(status)
-        );
-    }
-    assert_eq!(
-        span.attributes
-            .get("otel.status_code")
-            .and_then(|v| v.as_string()),
-        Some(expected_otel_status.to_string())
-    );
-    if let Some(desc) = expected_otel_desc {
-        assert_eq!(
-            span.attributes
-                .get("otel.status_description")
-                .and_then(|v| v.as_string()),
-            Some(desc.to_string())
-        );
-    }
 }
 
 /// Tests a successful LRO polling workflow where the LRO completes after two poll attempts.
@@ -218,13 +139,19 @@ async fn test_lro_success(
         .find(|s| s.name == "LRO Wait")
         .ok_or_else(|| anyhow::anyhow!("missing LRO Wait span in {spans:#?}"))?;
 
-    assert_lro_wait_span(
-        lro_wait_span,
-        "google_cloud_showcase_v1beta1::client::Echo::wait::until_done",
-        Some("operations/wait-1"),
-        None,
-        None,
+    assert_eq!(
+        attribute_str(lro_wait_span, "otel.name"),
+        Some("google_cloud_showcase_v1beta1::client::Echo::wait::until_done")
     );
+    assert_eq!(
+        attribute_str(lro_wait_span, "gcp.rpc.method"),
+        Some("google_cloud_showcase_v1beta1::client::Echo::wait::until_done")
+    );
+    assert_eq!(
+        attribute_str(lro_wait_span, "gcp.resource.destination.id"),
+        Some("operations/wait-1")
+    );
+    assert_eq!(attribute_str(lro_wait_span, "otel.status_code"), None);
 
     // 2. Client request spans for get_operation (T3 spans)
     let get_op_spans = find_get_operation_spans(&spans);
@@ -235,26 +162,31 @@ async fn test_lro_success(
     );
 
     // GetOperation attempt 1
-    assert_get_operation_span(
-        get_op_spans[0],
-        1,
-        Some("operations/wait-1"),
-        Some(false),
-        None,
-        "UNSET",
-        None,
+    let span0 = get_op_spans[0];
+    assert_eq!(
+        attribute_u64(span0, "gcp.longrunning.poll_attempt_count"),
+        Some(1)
     );
+    assert_eq!(
+        attribute_str(span0, "gcp.resource.destination.id"),
+        Some("operations/wait-1")
+    );
+    assert_eq!(attribute_bool(span0, "gcp.longrunning.done"), Some(false));
+    assert_eq!(attribute_str(span0, "otel.status_code"), Some("UNSET"));
 
     // GetOperation attempt 2
-    assert_get_operation_span(
-        get_op_spans[1],
-        2,
-        Some("operations/wait-1"),
-        Some(true),
-        Some(0),
-        "UNSET",
-        None,
+    let span1 = get_op_spans[1];
+    assert_eq!(
+        attribute_u64(span1, "gcp.longrunning.poll_attempt_count"),
+        Some(2)
     );
+    assert_eq!(
+        attribute_str(span1, "gcp.resource.destination.id"),
+        Some("operations/wait-1")
+    );
+    assert_eq!(attribute_bool(span1, "gcp.longrunning.done"), Some(true));
+    assert_eq!(attribute_i64(span1, "gcp.longrunning.status_code"), Some(0));
+    assert_eq!(attribute_str(span1, "otel.status_code"), Some("UNSET"));
 
     let _lro_sleep_span = spans
         .iter()
