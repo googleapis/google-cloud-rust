@@ -427,7 +427,8 @@ impl ReadWriteTransaction {
         let mut gax_options = stmt.gax_options().clone();
         self.amend_gax_options(&mut gax_options);
         let stmt = stmt.with_gax_options(gax_options);
-        self.context.execute_query(stmt).await
+        let seqno = self.seqno.fetch_add(1, Ordering::SeqCst);
+        self.context.execute_query(stmt, Some(seqno)).await
     }
 
     /// Reads rows from the database using key lookups and scans, as a simple key/value style alternative to execute_query.
@@ -1837,9 +1838,9 @@ mod tests {
 
         mock.expect_execute_streaming_sql().once().returning(|req| {
             let req = req.into_inner();
-            assert_eq!(req.sql, "SELECT 1");
-            // Queries do not need to include a sequence number.
-            assert_eq!(req.seqno, 0);
+            assert_eq!(req.sql, "SELECT 1", "SQL statement mismatch");
+            // Queries in read/write transactions should always include a sequence number.
+            assert_eq!(req.seqno, 1, "ExecuteSqlRequest seqno mismatch");
 
             assert_eq!(
                 req.transaction,

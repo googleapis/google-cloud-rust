@@ -144,6 +144,7 @@ mod spanner {
             integration_tests_spanner::dml_returning::dml_then_return_execute_query(db_client).await?;
             integration_tests_spanner::dml_returning::dml_then_return_execute_update(db_client).await?;
             integration_tests_spanner::dml_returning::dml_then_return_unconsumed_query(db_client).await?;
+            integration_tests_spanner::dml_returning::dml_then_return_multiple_execute_queries(db_client).await?;
             integration_tests_spanner::read_write_transaction::consecutive_reads(db_client).await?;
             integration_tests_spanner::read_write_transaction::mixed_reads_and_queries(db_client)
                 .await?;
