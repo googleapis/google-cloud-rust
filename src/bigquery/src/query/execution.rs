@@ -251,7 +251,14 @@ mod tests {
         let executor = InsertJobExecutor::new(job_service, req);
         let err = executor.execute().await.unwrap_err();
 
-        assert!(matches!(err, QueryError::JobFailed { .. }));
+        let errors = match err {
+            QueryError::JobFailed { errors } => errors,
+            _ => panic!("expected QueryError::JobFailed, got {err:?}"),
+        };
+        assert_eq!(errors.len(), 1);
+        assert_eq!(errors[0].reason, "invalidQuery");
+        assert_eq!(errors[0].message, "Syntax error");
+
         Ok(())
     }
 
@@ -268,10 +275,10 @@ mod tests {
         let job_ref_clone = job_ref.clone();
 
         let mut mock = MockJobService::new();
-        mock.expect_insert_job().returning(move |_, _| {
+        mock.expect_insert_job().return_once(move |_, _| {
             let status = JobStatus::new().set_state(job_state);
             let job = Job::new()
-                .set_job_reference(job_ref_clone.clone())
+                .set_job_reference(job_ref_clone)
                 .set_status(status);
             Ok(Response::from(job))
         });
