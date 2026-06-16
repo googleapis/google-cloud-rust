@@ -132,6 +132,7 @@ pub async fn signed_urls(
 
 pub async fn signed_post_policies_v4(
     builder: StorageBuilder,
+    control: StorageControl,
     signer: &Signer,
     bucket_name: &str,
     prefix: &str,
@@ -190,7 +191,12 @@ pub async fn signed_post_policies_v4(
     tracing::info!("successfully read uploaded object contents: {contents}");
 
     // Clean up the object
-    client.delete_object(bucket_name, &object_name).send().await?;
+    control
+        .delete_object()
+        .set_bucket(bucket_name)
+        .set_object(&object_name)
+        .send()
+        .await?;
 
     Ok(())
 }

@@ -71,6 +71,7 @@ mod storage {
                     let builder = Storage::builder();
                     integration_tests_storage::signed_post_policies_v4(
                         builder,
+                        control.clone(),
                         &s,
                         &bucket.name,
                         "default-endpoint",
