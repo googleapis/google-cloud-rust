@@ -1877,6 +1877,7 @@ dependencies = [
  "google-cloud-wkt",
  "mockall",
  "serde_json",
+ "test-case",
  "thiserror",
  "tokio",
 ]
