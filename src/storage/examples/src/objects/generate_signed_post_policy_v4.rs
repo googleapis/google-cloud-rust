@@ -27,12 +27,17 @@ pub async fn sample(bucket_name: &str, object_name: &str) -> anyhow::Result<()> 
         .sign_with(&signer)
         .await?;
 
-    println!("Generated POST Policy URL:");
-    println!("{}", policy.url);
-    println!("\nForm fields to include in HTML/multipart upload form:");
-    for (k, v) in &policy.fields {
-        println!("  {}: {}", k, v);
+    // Create an HTML form with the computed policy
+    let mut form = format!("<form action='{}' method='POST' enctype='multipart/form-data'>\n", policy.url);
+    for (key, value) in &policy.fields {
+        form.push_str(&format!("  <input name='{}' value='{}' type='hidden' />\n", key, value));
     }
+    form.push_str("  <input type='file' name='file' /><br />\n");
+    form.push_str("  <input type='submit' value='Upload File' /><br />\n");
+    form.push_str("</form>");
+
+    println!("Generated POST Policy HTML Form:");
+    println!("{form}");
 
     Ok(())
 }

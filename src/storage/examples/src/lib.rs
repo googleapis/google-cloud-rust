@@ -550,6 +550,7 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
 }
 
 pub async fn run_signed_url_examples() -> anyhow::Result<()> {
+    let _guard = enable_info_tracing();
     match CredentialsBuilder::default().build_signer() {
         Err(err) if err.is_not_supported() => {
             tracing::warn!(
