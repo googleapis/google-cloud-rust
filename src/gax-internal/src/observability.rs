@@ -39,11 +39,8 @@ mod client_signals;
 #[cfg(any(feature = "_internal-http-client", feature = "_internal-grpc-client"))]
 pub use client_signals::{
     ClientRequestAttributes, DurationMetric, RequestRecorder, TransportMetric, WithClientLogging,
-    WithClientMetric, WithClientSpan, WithTransportMetric,
+    WithClientMetric, WithClientSpan, WithTransportLogging, WithTransportMetric, WithTransportSpan,
 };
-
-#[cfg(any(feature = "_internal-http-client", feature = "_internal-grpc-client"))]
-pub use client_signals::{WithTransportLogging, WithTransportSpan};
 
 #[doc(hidden)]
 pub use attributes::{GCP_CLIENT_REPO_GOOGLEAPIS, SCHEMA_URL_VALUE};
