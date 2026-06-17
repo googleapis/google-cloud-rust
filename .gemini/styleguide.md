@@ -45,11 +45,10 @@ When reviewing or generating code, apply rigorous scrutiny:
   meaningful distinctions for the user. Error variants should be actionable.
 - **Panics:** `unwrap()` and `expect()` should typically be avoided in
   production code and examples (use `?` or handle errors). If an invariant is
-  known, (e.g. a builer always returns a valid configuration, or the service
-  always returns a message with presence), it is fine to `expect()`, and
-  often preferable to returning an error that can't arise. In tests, prefer `?`.
-  If that is not possible use `.expect()`. Only use `.unwrap()` as a last
-  resort.
+  known, (e.g. a builder always returns a valid configuration, or the service
+  always returns a message with presence), it is fine to `expect()`, and often
+  preferable to returning an error that can't arise. In tests, prefer `?`. If
+  that is not possible use `.expect()`. Only use `.unwrap()` as a last resort.
 
 
 ## Async & Concurrency
