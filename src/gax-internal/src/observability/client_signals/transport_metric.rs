@@ -145,7 +145,7 @@ impl TransportMetric {
             (RPC_METHOD, snapshot.rpc_method().map(|v| v.into())),
             (URL_DOMAIN, Some(snapshot.default_host().into())),
             (URL_TEMPLATE, snapshot.url_template().map(|v| v.into())),
-            (ERROR_TYPE, Some(error_type.as_str().into())),
+            (ERROR_TYPE, Some(error_type.to_string().into())),
             (
                 RPC_RESPONSE_STATUS_CODE,
                 error.status().map(|s| s.code.name().into()),
