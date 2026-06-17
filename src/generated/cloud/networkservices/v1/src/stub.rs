@@ -1038,6 +1038,61 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::NetworkServices::list_agent_gateways].
+    fn list_agent_gateways(
+        &self,
+        _req: crate::model::ListAgentGatewaysRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListAgentGatewaysResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::NetworkServices::get_agent_gateway].
+    fn get_agent_gateway(
+        &self,
+        _req: crate::model::GetAgentGatewayRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::AgentGateway>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::NetworkServices::create_agent_gateway].
+    fn create_agent_gateway(
+        &self,
+        _req: crate::model::CreateAgentGatewayRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::NetworkServices::update_agent_gateway].
+    fn update_agent_gateway(
+        &self,
+        _req: crate::model::UpdateAgentGatewayRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::NetworkServices::delete_agent_gateway].
+    fn delete_agent_gateway(
+        &self,
+        _req: crate::model::DeleteAgentGatewayRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::NetworkServices::list_locations].
     fn list_locations(
         &self,

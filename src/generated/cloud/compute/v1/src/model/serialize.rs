@@ -18603,6 +18603,35 @@ impl serde::ser::Serialize for super::InstanceGroupManagerInstanceLifecyclePolic
         if self.on_failed_health_check.is_some() {
             state.serialize_entry("onFailedHealthCheck", &self.on_failed_health_check)?;
         }
+        if self.on_repair.is_some() {
+            state.serialize_entry("onRepair", &self.on_repair)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InstanceGroupManagerInstanceLifecyclePolicyOnRepair {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.allow_changing_zone.is_some() {
+            state.serialize_entry("allowChangingZone", &self.allow_changing_zone)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -23064,6 +23093,9 @@ impl serde::ser::Serialize for super::Interconnect {
         }
         if self.description.is_some() {
             state.serialize_entry("description", &self.description)?;
+        }
+        if self.effective_location.is_some() {
+            state.serialize_entry("effectiveLocation", &self.effective_location)?;
         }
         if !self.expected_outages.is_empty() {
             state.serialize_entry("expectedOutages", &self.expected_outages)?;
@@ -30236,6 +30268,9 @@ impl serde::ser::Serialize for super::NetworkInterface {
         }
         if !self.alias_ip_ranges.is_empty() {
             state.serialize_entry("aliasIpRanges", &self.alias_ip_ranges)?;
+        }
+        if !self.alias_ipv_6_ranges.is_empty() {
+            state.serialize_entry("aliasIpv6Ranges", &self.alias_ipv_6_ranges)?;
         }
         if self.enable_vpc_scoped_dns.is_some() {
             state.serialize_entry("enableVpcScopedDns", &self.enable_vpc_scoped_dns)?;
@@ -53957,6 +53992,9 @@ impl serde::ser::Serialize for super::TargetTcpProxy {
         }
         if self.kind.is_some() {
             state.serialize_entry("kind", &self.kind)?;
+        }
+        if self.load_balancing_scheme.is_some() {
+            state.serialize_entry("loadBalancingScheme", &self.load_balancing_scheme)?;
         }
         if self.name.is_some() {
             state.serialize_entry("name", &self.name)?;

@@ -177,6 +177,15 @@ pub trait IcebergCatalogService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::IcebergCatalogService::report_iceberg_table_metrics].
+    fn report_iceberg_table_metrics(
+        &self,
+        _req: crate::model::ReportIcebergTableMetricsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::IcebergCatalogService::get_iceberg_catalog].
     fn get_iceberg_catalog(
         &self,

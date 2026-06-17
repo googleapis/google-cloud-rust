@@ -19,11 +19,11 @@ sources:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
   discovery:
-    commit: 65cff254bc714ae448e47006a98630c71a25cb59
-    sha256: 5a905d5f0b6cafb0c3f73be4927696e28a0f574147ad9bf6c00d158c5df113e4
+    commit: 5aa545ae6939736a01a21a3bd4c2e64e266bc366
+    sha256: fe4aed8ef3a2b8dbb97d26216d3c1419c5483bd8ed647123229442f31e2e78e6
   googleapis:
-    commit: d8daa97972d091191898915589335cef66fcdc8a
-    sha256: 7dbdf2b1b667fe57128d41c77e530a2541767772cfe3487713f29b7b25d9f5ad
+    commit: 7af3f2c7b8927cffb548fd2cf09b04c6371437ee
+    sha256: fb354b89774f4599bb3559d190fe54e51da76c6339c062900355c874b9defac5
   protobuf:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
@@ -444,7 +444,7 @@ libraries:
     version: 1.12.0
     copyright_year: "2025"
   - name: google-cloud-biglake-v1
-    version: 1.8.0
+    version: 2.0.0
     copyright_year: "2025"
   - name: google-cloud-bigquery
     copyright_year: "2026"
@@ -1106,11 +1106,6 @@ libraries:
   - name: google-cloud-networkservices-v1
     version: 1.12.0
     copyright_year: "2025"
-    rust:
-      documentation_overrides:
-        - id: .google.cloud.networkservices.v1.WasmPlugin.LogConfig.min_log_level
-          match: Specificies
-          replace: Specifies
   - name: google-cloud-notebooks-v2
     version: 1.12.0
     copyright_year: "2025"

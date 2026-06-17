@@ -18,123 +18,6 @@
 use super::*;
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for super::RegisterIcebergTableRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __parent,
-            __name,
-            __metadata_location,
-            __overwrite,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for RegisterIcebergTableRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "parent" => Ok(__FieldTag::__parent),
-                            "name" => Ok(__FieldTag::__name),
-                            "metadata-location" => Ok(__FieldTag::__metadata_location),
-                            "metadata_location" => Ok(__FieldTag::__metadata_location),
-                            "overwrite" => Ok(__FieldTag::__overwrite),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = super::RegisterIcebergTableRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct RegisterIcebergTableRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__parent => {
-                            if !fields.insert(__FieldTag::__parent) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for parent",
-                                ));
-                            }
-                            result.parent = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__metadata_location => {
-                            if !fields.insert(__FieldTag::__metadata_location) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for metadata_location",
-                                ));
-                            }
-                            result.metadata_location = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__overwrite => {
-                            if !fields.insert(__FieldTag::__overwrite) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for overwrite",
-                                ));
-                            }
-                            result.overwrite = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::IcebergCatalog {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -147,11 +30,16 @@ impl<'de> serde::de::Deserialize<'de> for super::IcebergCatalog {
             __name,
             __credential_mode,
             __biglake_service_account,
+            __biglake_service_account_unique_id,
             __catalog_type,
             __default_location,
-            __catalog_regions,
+            __storage_regions,
             __create_time,
             __update_time,
+            __replicas,
+            __description,
+            __restricted_locations_config,
+            __federated_catalog_options,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -177,16 +65,36 @@ impl<'de> serde::de::Deserialize<'de> for super::IcebergCatalog {
                             "credential_mode" => Ok(__FieldTag::__credential_mode),
                             "biglake-service-account" => Ok(__FieldTag::__biglake_service_account),
                             "biglake_service_account" => Ok(__FieldTag::__biglake_service_account),
+                            "biglake-service-account-id" => {
+                                Ok(__FieldTag::__biglake_service_account_unique_id)
+                            }
+                            "biglake_service_account_unique_id" => {
+                                Ok(__FieldTag::__biglake_service_account_unique_id)
+                            }
                             "catalog-type" => Ok(__FieldTag::__catalog_type),
                             "catalog_type" => Ok(__FieldTag::__catalog_type),
                             "default-location" => Ok(__FieldTag::__default_location),
                             "default_location" => Ok(__FieldTag::__default_location),
-                            "catalog-regions" => Ok(__FieldTag::__catalog_regions),
-                            "catalog_regions" => Ok(__FieldTag::__catalog_regions),
+                            "storage-regions" => Ok(__FieldTag::__storage_regions),
+                            "storage_regions" => Ok(__FieldTag::__storage_regions),
                             "create-time" => Ok(__FieldTag::__create_time),
                             "create_time" => Ok(__FieldTag::__create_time),
                             "update-time" => Ok(__FieldTag::__update_time),
                             "update_time" => Ok(__FieldTag::__update_time),
+                            "replicas" => Ok(__FieldTag::__replicas),
+                            "description" => Ok(__FieldTag::__description),
+                            "restricted-locations-config" => {
+                                Ok(__FieldTag::__restricted_locations_config)
+                            }
+                            "restricted_locations_config" => {
+                                Ok(__FieldTag::__restricted_locations_config)
+                            }
+                            "federated-catalog-options" => {
+                                Ok(__FieldTag::__federated_catalog_options)
+                            }
+                            "federated_catalog_options" => {
+                                Ok(__FieldTag::__federated_catalog_options)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -244,6 +152,16 @@ impl<'de> serde::de::Deserialize<'de> for super::IcebergCatalog {
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__biglake_service_account_unique_id => {
+                            if !fields.insert(__FieldTag::__biglake_service_account_unique_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for biglake_service_account_unique_id",
+                                ));
+                            }
+                            result.biglake_service_account_unique_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__catalog_type => {
                             if !fields.insert(__FieldTag::__catalog_type) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -262,13 +180,13 @@ impl<'de> serde::de::Deserialize<'de> for super::IcebergCatalog {
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
-                        __FieldTag::__catalog_regions => {
-                            if !fields.insert(__FieldTag::__catalog_regions) {
+                        __FieldTag::__storage_regions => {
+                            if !fields.insert(__FieldTag::__storage_regions) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for catalog_regions",
+                                    "multiple values for storage_regions",
                                 ));
                             }
-                            result.catalog_regions = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                            result.storage_regions = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                         }
                         __FieldTag::__create_time => {
                             if !fields.insert(__FieldTag::__create_time) {
@@ -287,6 +205,957 @@ impl<'de> serde::de::Deserialize<'de> for super::IcebergCatalog {
                             }
                             result.update_time =
                                 map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__replicas => {
+                            if !fields.insert(__FieldTag::__replicas) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for replicas",
+                                ));
+                            }
+                            result.replicas = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::iceberg_catalog::Replica>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__description => {
+                            if !fields.insert(__FieldTag::__description) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for description",
+                                ));
+                            }
+                            result.description = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__restricted_locations_config => {
+                            if !fields.insert(__FieldTag::__restricted_locations_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for restricted_locations_config",
+                                ));
+                            }
+                            result.restricted_locations_config = map
+                                .next_value::<std::option::Option<
+                                    crate::model::iceberg_catalog::RestrictedLocationsConfig,
+                                >>()?;
+                        }
+                        __FieldTag::__federated_catalog_options => {
+                            if !fields.insert(__FieldTag::__federated_catalog_options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for federated_catalog_options",
+                                ));
+                            }
+                            result.federated_catalog_options = map
+                                .next_value::<std::option::Option<
+                                    crate::model::iceberg_catalog::FederatedCatalogOptions,
+                                >>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::iceberg_catalog::Replica {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __region,
+            __state,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Replica")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "region" => Ok(__FieldTag::__region),
+                            "state" => Ok(__FieldTag::__state),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::iceberg_catalog::Replica;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Replica")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__region => {
+                            if !fields.insert(__FieldTag::__region) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for region",
+                                ));
+                            }
+                            result.region = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__state => {
+                            if !fields.insert(__FieldTag::__state) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for state",
+                                ));
+                            }
+                            result.state =
+                                map.next_value::<std::option::Option<
+                                    crate::model::iceberg_catalog::replica::State,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::iceberg_catalog::RestrictedLocationsConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __restricted_locations,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for RestrictedLocationsConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "restricted-locations" => Ok(__FieldTag::__restricted_locations),
+                            "restricted_locations" => Ok(__FieldTag::__restricted_locations),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::iceberg_catalog::RestrictedLocationsConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct RestrictedLocationsConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__restricted_locations => {
+                            if !fields.insert(__FieldTag::__restricted_locations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for restricted_locations",
+                                ));
+                            }
+                            result.restricted_locations = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::iceberg_catalog::FederatedCatalogOptions {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __unity_catalog_info,
+            __glue_catalog_info,
+            __secret_name,
+            __service_directory_name,
+            __refresh_options,
+            __refresh_status,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for FederatedCatalogOptions")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "unity-catalog-info" => Ok(__FieldTag::__unity_catalog_info),
+                            "unity_catalog_info" => Ok(__FieldTag::__unity_catalog_info),
+                            "glue-catalog-info" => Ok(__FieldTag::__glue_catalog_info),
+                            "glue_catalog_info" => Ok(__FieldTag::__glue_catalog_info),
+                            "secret-name" => Ok(__FieldTag::__secret_name),
+                            "secret_name" => Ok(__FieldTag::__secret_name),
+                            "service-directory-name" => Ok(__FieldTag::__service_directory_name),
+                            "service_directory_name" => Ok(__FieldTag::__service_directory_name),
+                            "refresh-options" => Ok(__FieldTag::__refresh_options),
+                            "refresh_options" => Ok(__FieldTag::__refresh_options),
+                            "refresh-status" => Ok(__FieldTag::__refresh_status),
+                            "refresh_status" => Ok(__FieldTag::__refresh_status),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::iceberg_catalog::FederatedCatalogOptions;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct FederatedCatalogOptions")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__unity_catalog_info => {
+                            if !fields.insert(__FieldTag::__unity_catalog_info) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unity_catalog_info",
+                                ));
+                            }
+                            if result.remote_catalog_info.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `remote_catalog_info`, a oneof with full ID .google.cloud.biglake.v1.IcebergCatalog.FederatedCatalogOptions.unity_catalog_info, latest field was unity-catalog-info",
+                                ));
+                            }
+                            result.remote_catalog_info = std::option::Option::Some(
+                                crate::model::iceberg_catalog::federated_catalog_options::RemoteCatalogInfo::UnityCatalogInfo(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::iceberg_catalog::federated_catalog_options::UnityCatalogInfo>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__glue_catalog_info => {
+                            if !fields.insert(__FieldTag::__glue_catalog_info) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for glue_catalog_info",
+                                ));
+                            }
+                            if result.remote_catalog_info.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `remote_catalog_info`, a oneof with full ID .google.cloud.biglake.v1.IcebergCatalog.FederatedCatalogOptions.glue_catalog_info, latest field was glue-catalog-info",
+                                ));
+                            }
+                            result.remote_catalog_info = std::option::Option::Some(
+                                crate::model::iceberg_catalog::federated_catalog_options::RemoteCatalogInfo::GlueCatalogInfo(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::iceberg_catalog::federated_catalog_options::GlueCatalogInfo>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__secret_name => {
+                            if !fields.insert(__FieldTag::__secret_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for secret_name",
+                                ));
+                            }
+                            result.secret_name =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__service_directory_name => {
+                            if !fields.insert(__FieldTag::__service_directory_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for service_directory_name",
+                                ));
+                            }
+                            result.service_directory_name =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__refresh_options => {
+                            if !fields.insert(__FieldTag::__refresh_options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for refresh_options",
+                                ));
+                            }
+                            result.refresh_options = map.next_value::<std::option::Option<crate::model::iceberg_catalog::federated_catalog_options::RefreshOptions>>()?
+                                ;
+                        }
+                        __FieldTag::__refresh_status => {
+                            if !fields.insert(__FieldTag::__refresh_status) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for refresh_status",
+                                ));
+                            }
+                            result.refresh_status = map.next_value::<std::option::Option<crate::model::iceberg_catalog::federated_catalog_options::RefreshStatus>>()?
+                                ;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de>
+    for super::iceberg_catalog::federated_catalog_options::UnityCatalogInfo
+{
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __instance_name,
+            __catalog_name,
+            __service_principal_application_id,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for UnityCatalogInfo")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "instance-name" => Ok(__FieldTag::__instance_name),
+                            "instance_name" => Ok(__FieldTag::__instance_name),
+                            "catalog-name" => Ok(__FieldTag::__catalog_name),
+                            "catalog_name" => Ok(__FieldTag::__catalog_name),
+                            "service-principal-application-id" => {
+                                Ok(__FieldTag::__service_principal_application_id)
+                            }
+                            "service_principal_application_id" => {
+                                Ok(__FieldTag::__service_principal_application_id)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::iceberg_catalog::federated_catalog_options::UnityCatalogInfo;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct UnityCatalogInfo")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__instance_name => {
+                            if !fields.insert(__FieldTag::__instance_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for instance_name",
+                                ));
+                            }
+                            result.instance_name =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__catalog_name => {
+                            if !fields.insert(__FieldTag::__catalog_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for catalog_name",
+                                ));
+                            }
+                            result.catalog_name =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__service_principal_application_id => {
+                            if !fields.insert(__FieldTag::__service_principal_application_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for service_principal_application_id",
+                                ));
+                            }
+                            result.service_principal_application_id =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de>
+    for super::iceberg_catalog::federated_catalog_options::GlueCatalogInfo
+{
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __warehouse,
+            __aws_region,
+            __aws_role_arn,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GlueCatalogInfo")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "warehouse" => Ok(__FieldTag::__warehouse),
+                            "aws-region" => Ok(__FieldTag::__aws_region),
+                            "aws_region" => Ok(__FieldTag::__aws_region),
+                            "aws-role-arn" => Ok(__FieldTag::__aws_role_arn),
+                            "aws_role_arn" => Ok(__FieldTag::__aws_role_arn),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::iceberg_catalog::federated_catalog_options::GlueCatalogInfo;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GlueCatalogInfo")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__warehouse => {
+                            if !fields.insert(__FieldTag::__warehouse) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for warehouse",
+                                ));
+                            }
+                            result.warehouse =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__aws_region => {
+                            if !fields.insert(__FieldTag::__aws_region) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for aws_region",
+                                ));
+                            }
+                            result.aws_region =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__aws_role_arn => {
+                            if !fields.insert(__FieldTag::__aws_role_arn) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for aws_role_arn",
+                                ));
+                            }
+                            result.aws_role_arn =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de>
+    for super::iceberg_catalog::federated_catalog_options::RefreshSchedule
+{
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __refresh_interval,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for RefreshSchedule")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "refresh-interval" => Ok(__FieldTag::__refresh_interval),
+                            "refresh_interval" => Ok(__FieldTag::__refresh_interval),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::iceberg_catalog::federated_catalog_options::RefreshSchedule;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct RefreshSchedule")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__refresh_interval => {
+                            if !fields.insert(__FieldTag::__refresh_interval) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for refresh_interval",
+                                ));
+                            }
+                            result.refresh_interval =
+                                map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de>
+    for super::iceberg_catalog::federated_catalog_options::RefreshScope
+{
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __namespace_filters,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for RefreshScope")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "namespace-filters" => Ok(__FieldTag::__namespace_filters),
+                            "namespace_filters" => Ok(__FieldTag::__namespace_filters),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::iceberg_catalog::federated_catalog_options::RefreshScope;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct RefreshScope")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__namespace_filters => {
+                            if !fields.insert(__FieldTag::__namespace_filters) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for namespace_filters",
+                                ));
+                            }
+                            result.namespace_filters = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de>
+    for super::iceberg_catalog::federated_catalog_options::RefreshOptions
+{
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __refresh_schedule,
+            __refresh_scope,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for RefreshOptions")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "refresh-schedule" => Ok(__FieldTag::__refresh_schedule),
+                            "refresh_schedule" => Ok(__FieldTag::__refresh_schedule),
+                            "refresh-scope" => Ok(__FieldTag::__refresh_scope),
+                            "refresh_scope" => Ok(__FieldTag::__refresh_scope),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::iceberg_catalog::federated_catalog_options::RefreshOptions;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct RefreshOptions")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__refresh_schedule => {
+                            if !fields.insert(__FieldTag::__refresh_schedule) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for refresh_schedule",
+                                ));
+                            }
+                            result.refresh_schedule = map.next_value::<std::option::Option<crate::model::iceberg_catalog::federated_catalog_options::RefreshSchedule>>()?
+                                ;
+                        }
+                        __FieldTag::__refresh_scope => {
+                            if !fields.insert(__FieldTag::__refresh_scope) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for refresh_scope",
+                                ));
+                            }
+                            result.refresh_scope = map.next_value::<std::option::Option<crate::model::iceberg_catalog::federated_catalog_options::RefreshScope>>()?
+                                ;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de>
+    for super::iceberg_catalog::federated_catalog_options::RefreshStatus
+{
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __start_time,
+            __end_time,
+            __status,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for RefreshStatus")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "start-time" => Ok(__FieldTag::__start_time),
+                            "start_time" => Ok(__FieldTag::__start_time),
+                            "end-time" => Ok(__FieldTag::__end_time),
+                            "end_time" => Ok(__FieldTag::__end_time),
+                            "status" => Ok(__FieldTag::__status),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::iceberg_catalog::federated_catalog_options::RefreshStatus;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct RefreshStatus")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__start_time => {
+                            if !fields.insert(__FieldTag::__start_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for start_time",
+                                ));
+                            }
+                            result.start_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__end_time => {
+                            if !fields.insert(__FieldTag::__end_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for end_time",
+                                ));
+                            }
+                            result.end_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__status => {
+                            if !fields.insert(__FieldTag::__status) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for status",
+                                ));
+                            }
+                            result.status = map
+                                .next_value::<std::option::Option<google_cloud_rpc::model::Status>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -314,6 +1183,7 @@ impl<'de> serde::de::Deserialize<'de> for super::CreateIcebergCatalogRequest {
             __parent,
             __iceberg_catalog_id,
             __iceberg_catalog,
+            __primary_location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -339,6 +1209,7 @@ impl<'de> serde::de::Deserialize<'de> for super::CreateIcebergCatalogRequest {
                             "iceberg_catalog_id" => Ok(__FieldTag::__iceberg_catalog_id),
                             "icebergCatalog" => Ok(__FieldTag::__iceberg_catalog),
                             "iceberg_catalog" => Ok(__FieldTag::__iceberg_catalog),
+                            "primary_location" => Ok(__FieldTag::__primary_location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -393,6 +1264,16 @@ impl<'de> serde::de::Deserialize<'de> for super::CreateIcebergCatalogRequest {
                             result.iceberg_catalog = map
                                 .next_value::<std::option::Option<crate::model::IcebergCatalog>>(
                                 )?;
+                        }
+                        __FieldTag::__primary_location => {
+                            if !fields.insert(__FieldTag::__primary_location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for primary_location",
+                                ));
+                            }
+                            result.primary_location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -1130,7 +2011,7 @@ impl<'de> serde::de::Deserialize<'de> for super::UpdateIcebergTableRequest {
                         use std::string::ToString;
                         match value {
                             "name" => Ok(__FieldTag::__name),
-                            "updates" => Ok(__FieldTag::__http_body),
+                            "httpBody" => Ok(__FieldTag::__http_body),
                             "http_body" => Ok(__FieldTag::__http_body),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
@@ -1441,6 +2322,215 @@ impl<'de> serde::de::Deserialize<'de> for super::CreateIcebergTableRequest {
                                 ));
                             }
                             result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__http_body => {
+                            if !fields.insert(__FieldTag::__http_body) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for http_body",
+                                ));
+                            }
+                            result.http_body = map.next_value::<std::option::Option<google_cloud_api::model::HttpBody>>()?
+                                ;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::RegisterIcebergTableRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __name,
+            __metadata_location,
+            __overwrite,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for RegisterIcebergTableRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "name" => Ok(__FieldTag::__name),
+                            "metadata-location" => Ok(__FieldTag::__metadata_location),
+                            "metadata_location" => Ok(__FieldTag::__metadata_location),
+                            "overwrite" => Ok(__FieldTag::__overwrite),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::RegisterIcebergTableRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct RegisterIcebergTableRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__metadata_location => {
+                            if !fields.insert(__FieldTag::__metadata_location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for metadata_location",
+                                ));
+                            }
+                            result.metadata_location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__overwrite => {
+                            if !fields.insert(__FieldTag::__overwrite) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for overwrite",
+                                ));
+                            }
+                            result.overwrite = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ReportIcebergTableMetricsRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __http_body,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ReportIcebergTableMetricsRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "httpBody" => Ok(__FieldTag::__http_body),
+                            "http_body" => Ok(__FieldTag::__http_body),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ReportIcebergTableMetricsRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ReportIcebergTableMetricsRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
@@ -2734,6 +3824,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ListIcebergNamespacesResponse {
         enum __FieldTag {
             __namespaces,
             __next_page_token,
+            __unreachable,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -2757,6 +3848,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ListIcebergNamespacesResponse {
                             "namespaces" => Ok(__FieldTag::__namespaces),
                             "next-page-token" => Ok(__FieldTag::__next_page_token),
                             "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            "unreachable" => Ok(__FieldTag::__unreachable),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -2801,6 +3893,14 @@ impl<'de> serde::de::Deserialize<'de> for super::ListIcebergNamespacesResponse {
                             result.next_page_token = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__unreachable => {
+                            if !fields.insert(__FieldTag::__unreachable) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unreachable",
+                                ));
+                            }
+                            result.unreachable = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

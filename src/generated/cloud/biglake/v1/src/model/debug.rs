@@ -17,13 +17,28 @@
 #[allow(unused_imports)]
 use super::*;
 
-impl std::fmt::Debug for super::RegisterIcebergTableRequest {
+impl std::fmt::Debug for super::IcebergCatalog {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("RegisterIcebergTableRequest");
-        debug_struct.field("parent", &self.parent);
+        let mut debug_struct = f.debug_struct("IcebergCatalog");
         debug_struct.field("name", &self.name);
-        debug_struct.field("metadata_location", &self.metadata_location);
-        debug_struct.field("overwrite", &self.overwrite);
+        debug_struct.field("credential_mode", &self.credential_mode);
+        debug_struct.field("biglake_service_account", &self.biglake_service_account);
+        debug_struct.field(
+            "biglake_service_account_unique_id",
+            &self.biglake_service_account_unique_id,
+        );
+        debug_struct.field("catalog_type", &self.catalog_type);
+        debug_struct.field("default_location", &self.default_location);
+        debug_struct.field("storage_regions", &self.storage_regions);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("replicas", &self.replicas);
+        debug_struct.field("description", &self.description);
+        debug_struct.field(
+            "restricted_locations_config",
+            &self.restricted_locations_config,
+        );
+        debug_struct.field("federated_catalog_options", &self.federated_catalog_options);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -31,17 +46,113 @@ impl std::fmt::Debug for super::RegisterIcebergTableRequest {
     }
 }
 
-impl std::fmt::Debug for super::IcebergCatalog {
+impl std::fmt::Debug for super::iceberg_catalog::Replica {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("IcebergCatalog");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("credential_mode", &self.credential_mode);
-        debug_struct.field("biglake_service_account", &self.biglake_service_account);
-        debug_struct.field("catalog_type", &self.catalog_type);
-        debug_struct.field("default_location", &self.default_location);
-        debug_struct.field("catalog_regions", &self.catalog_regions);
-        debug_struct.field("create_time", &self.create_time);
-        debug_struct.field("update_time", &self.update_time);
+        let mut debug_struct = f.debug_struct("Replica");
+        debug_struct.field("region", &self.region);
+        debug_struct.field("state", &self.state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::iceberg_catalog::RestrictedLocationsConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RestrictedLocationsConfig");
+        debug_struct.field("restricted_locations", &self.restricted_locations);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::iceberg_catalog::FederatedCatalogOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FederatedCatalogOptions");
+        debug_struct.field("secret_name", &self.secret_name);
+        debug_struct.field("service_directory_name", &self.service_directory_name);
+        debug_struct.field("refresh_options", &self.refresh_options);
+        debug_struct.field("refresh_status", &self.refresh_status);
+        debug_struct.field("remote_catalog_info", &self.remote_catalog_info);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::iceberg_catalog::federated_catalog_options::UnityCatalogInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UnityCatalogInfo");
+        debug_struct.field("instance_name", &self.instance_name);
+        debug_struct.field("catalog_name", &self.catalog_name);
+        debug_struct.field(
+            "service_principal_application_id",
+            &self.service_principal_application_id,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::iceberg_catalog::federated_catalog_options::GlueCatalogInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GlueCatalogInfo");
+        debug_struct.field("warehouse", &self.warehouse);
+        debug_struct.field("aws_region", &self.aws_region);
+        debug_struct.field("aws_role_arn", &self.aws_role_arn);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::iceberg_catalog::federated_catalog_options::RefreshSchedule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RefreshSchedule");
+        debug_struct.field("refresh_interval", &self.refresh_interval);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::iceberg_catalog::federated_catalog_options::RefreshScope {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RefreshScope");
+        debug_struct.field("namespace_filters", &self.namespace_filters);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::iceberg_catalog::federated_catalog_options::RefreshOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RefreshOptions");
+        debug_struct.field("refresh_schedule", &self.refresh_schedule);
+        debug_struct.field("refresh_scope", &self.refresh_scope);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::iceberg_catalog::federated_catalog_options::RefreshStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RefreshStatus");
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("status", &self.status);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -55,6 +166,7 @@ impl std::fmt::Debug for super::CreateIcebergCatalogRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("iceberg_catalog_id", &self.iceberg_catalog_id);
         debug_struct.field("iceberg_catalog", &self.iceberg_catalog);
+        debug_struct.field("primary_location", &self.primary_location);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -191,6 +303,32 @@ impl std::fmt::Debug for super::CreateIcebergTableRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateIcebergTableRequest");
         debug_struct.field("parent", &self.parent);
+        debug_struct.field("http_body", &self.http_body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::RegisterIcebergTableRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RegisterIcebergTableRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("metadata_location", &self.metadata_location);
+        debug_struct.field("overwrite", &self.overwrite);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ReportIcebergTableMetricsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReportIcebergTableMetricsRequest");
+        debug_struct.field("name", &self.name);
         debug_struct.field("http_body", &self.http_body);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -362,6 +500,7 @@ impl std::fmt::Debug for super::ListIcebergNamespacesResponse {
         let mut debug_struct = f.debug_struct("ListIcebergNamespacesResponse");
         debug_struct.field("namespaces", &self.namespaces);
         debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -2339,17 +2339,6 @@ impl std::fmt::Debug for super::GoldengateConnectionType {
     }
 }
 
-impl std::fmt::Debug for super::GetGoldengateConnectionTypeRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("GetGoldengateConnectionTypeRequest");
-        debug_struct.field("name", &self.name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 impl std::fmt::Debug for super::ListGoldengateConnectionTypesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListGoldengateConnectionTypesRequest");
@@ -2732,17 +2721,6 @@ impl std::fmt::Debug for super::GoldengateDeploymentEnvironment {
     }
 }
 
-impl std::fmt::Debug for super::GetGoldengateDeploymentEnvironmentRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("GetGoldengateDeploymentEnvironmentRequest");
-        debug_struct.field("name", &self.name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 impl std::fmt::Debug for super::ListGoldengateDeploymentEnvironmentsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListGoldengateDeploymentEnvironmentsRequest");
@@ -2789,17 +2767,6 @@ impl std::fmt::Debug for super::GoldengateDeploymentType {
         );
         debug_struct.field("target_technologies", &self.target_technologies);
         debug_struct.field("default_username", &self.default_username);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-impl std::fmt::Debug for super::GetGoldengateDeploymentTypeRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("GetGoldengateDeploymentTypeRequest");
-        debug_struct.field("name", &self.name);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2860,17 +2827,6 @@ impl std::fmt::Debug for super::GoldengateDeploymentVersionProperties {
         debug_struct.field("release_type", &self.release_type);
         debug_struct.field("release_time", &self.release_time);
         debug_struct.field("support_end_time", &self.support_end_time);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-impl std::fmt::Debug for super::GetGoldengateDeploymentVersionRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("GetGoldengateDeploymentVersionRequest");
-        debug_struct.field("name", &self.name);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

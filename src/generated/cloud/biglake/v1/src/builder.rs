@@ -1059,7 +1059,7 @@ pub mod iceberg_catalog_service {
         }
 
         /// Sets the value of [overwrite][crate::model::RegisterIcebergTableRequest::overwrite].
-        pub fn set_overwrite<T: Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_overwrite<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.overwrite = v.into();
             self
         }
@@ -1067,6 +1067,95 @@ pub mod iceberg_catalog_service {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for RegisterIcebergTable {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [IcebergCatalogService::report_iceberg_table_metrics][crate::client::IcebergCatalogService::report_iceberg_table_metrics] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::ReportIcebergTableMetrics;
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ReportIcebergTableMetrics {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ReportIcebergTableMetrics(
+        RequestBuilder<crate::model::ReportIcebergTableMetricsRequest>,
+    );
+
+    impl ReportIcebergTableMetrics {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ReportIcebergTableMetricsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<()> {
+            (*self.0.stub)
+                .report_iceberg_table_metrics(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::ReportIcebergTableMetricsRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [http_body][crate::model::ReportIcebergTableMetricsRequest::http_body].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_http_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<google_cloud_api::model::HttpBody>,
+        {
+            self.0.request.http_body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [http_body][crate::model::ReportIcebergTableMetricsRequest::http_body].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_http_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<google_cloud_api::model::HttpBody>,
+        {
+            self.0.request.http_body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ReportIcebergTableMetrics {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
@@ -1469,6 +1558,12 @@ pub mod iceberg_catalog_service {
             T: std::convert::Into<crate::model::IcebergCatalog>,
         {
             self.0.request.iceberg_catalog = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [primary_location][crate::model::CreateIcebergCatalogRequest::primary_location].
+        pub fn set_primary_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.primary_location = v.into();
             self
         }
     }

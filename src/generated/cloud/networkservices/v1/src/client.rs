@@ -2699,6 +2699,151 @@ impl NetworkServices {
         super::builder::network_services::ListMeshRouteViews::new(self.inner.clone())
     }
 
+    /// Lists AgentGateways in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkservices_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkServices, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_agent_gateways()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_agent_gateways(&self) -> super::builder::network_services::ListAgentGateways {
+        super::builder::network_services::ListAgentGateways::new(self.inner.clone())
+    }
+
+    /// Gets details of a single AgentGateway.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// use google_cloud_networkservices_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, agent_gateway_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_agent_gateway()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agentGateways/{agent_gateway_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_agent_gateway(&self) -> super::builder::network_services::GetAgentGateway {
+        super::builder::network_services::GetAgentGateway::new(self.inner.clone())
+    }
+
+    /// Creates a new AgentGateway in a given project and location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networkservices_v1::model::AgentGateway;
+    /// use google_cloud_networkservices_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkServices, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_agent_gateway()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+    ///         .set_agent_gateway(
+    ///             AgentGateway::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_agent_gateway(&self) -> super::builder::network_services::CreateAgentGateway {
+        super::builder::network_services::CreateAgentGateway::new(self.inner.clone())
+    }
+
+    /// Updates the parameters of a single AgentGateway.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networkservices_v1::model::AgentGateway;
+    /// use google_cloud_networkservices_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, agent_gateway_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_agent_gateway()
+    ///         .set_agent_gateway(
+    ///             AgentGateway::new().set_name(format!("projects/{project_id}/locations/{location_id}/agentGateways/{agent_gateway_id}"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_agent_gateway(&self) -> super::builder::network_services::UpdateAgentGateway {
+        super::builder::network_services::UpdateAgentGateway::new(self.inner.clone())
+    }
+
+    /// Deletes a single AgentGateway.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networkservices_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, agent_gateway_id: &str
+    /// ) -> Result<()> {
+    ///     client.delete_agent_gateway()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/agentGateways/{agent_gateway_id}"))
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_agent_gateway(&self) -> super::builder::network_services::DeleteAgentGateway {
+        super::builder::network_services::DeleteAgentGateway::new(self.inner.clone())
+    }
+
     /// Lists information about the supported locations for this service.
     ///
     /// # Example

@@ -34460,45 +34460,6 @@ pub mod goldengate_connection_type {
     }
 }
 
-/// Message for getting a GoldengateConnectionType.
-#[derive(Clone, Default, PartialEq)]
-#[non_exhaustive]
-pub struct GetGoldengateConnectionTypeRequest {
-    /// Required. Name of the resource in the format:
-    /// projects/{project}/locations/{location}/goldengateConnectionTypes/{goldengate_connection_type}
-    pub name: std::string::String,
-
-    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-}
-
-impl GetGoldengateConnectionTypeRequest {
-    /// Creates a new default instance.
-    pub fn new() -> Self {
-        std::default::Default::default()
-    }
-
-    /// Sets the value of [name][crate::model::GetGoldengateConnectionTypeRequest::name].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_oracledatabase_v1::model::GetGoldengateConnectionTypeRequest;
-    /// # let project_id = "project_id";
-    /// # let location_id = "location_id";
-    /// # let goldengate_connection_type_id = "goldengate_connection_type_id";
-    /// let x = GetGoldengateConnectionTypeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/goldengateConnectionTypes/{goldengate_connection_type_id}"));
-    /// ```
-    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.name = v.into();
-        self
-    }
-}
-
-impl wkt::message::Message for GetGoldengateConnectionTypeRequest {
-    fn typename() -> &'static str {
-        "type.googleapis.com/google.cloud.oracledatabase.v1.GetGoldengateConnectionTypeRequest"
-    }
-}
-
 /// Message for listing GoldengateConnectionTypes.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -39482,45 +39443,6 @@ pub mod goldengate_deployment_environment {
     }
 }
 
-/// Message for getting a GoldengateDeploymentEnvironment.
-#[derive(Clone, Default, PartialEq)]
-#[non_exhaustive]
-pub struct GetGoldengateDeploymentEnvironmentRequest {
-    /// Required. Name of the resource with the format:
-    /// projects/{project}/locations/{location}/goldengateDeploymentEnvironments/{goldengate_deployment_environment}
-    pub name: std::string::String,
-
-    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-}
-
-impl GetGoldengateDeploymentEnvironmentRequest {
-    /// Creates a new default instance.
-    pub fn new() -> Self {
-        std::default::Default::default()
-    }
-
-    /// Sets the value of [name][crate::model::GetGoldengateDeploymentEnvironmentRequest::name].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_oracledatabase_v1::model::GetGoldengateDeploymentEnvironmentRequest;
-    /// # let project_id = "project_id";
-    /// # let location_id = "location_id";
-    /// # let goldengate_deployment_environment_id = "goldengate_deployment_environment_id";
-    /// let x = GetGoldengateDeploymentEnvironmentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/goldengateDeploymentEnvironments/{goldengate_deployment_environment_id}"));
-    /// ```
-    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.name = v.into();
-        self
-    }
-}
-
-impl wkt::message::Message for GetGoldengateDeploymentEnvironmentRequest {
-    fn typename() -> &'static str {
-        "type.googleapis.com/google.cloud.oracledatabase.v1.GetGoldengateDeploymentEnvironmentRequest"
-    }
-}
-
 /// Message for listing GoldengateDeploymentEnvironments.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -40257,46 +40179,6 @@ pub mod goldengate_deployment_type {
                 ".google.cloud.oracledatabase.v1.GoldengateDeploymentType.DeploymentCategory",
             ))
         }
-    }
-}
-
-/// Message for getting a GoldengateDeploymentType.
-#[derive(Clone, Default, PartialEq)]
-#[non_exhaustive]
-pub struct GetGoldengateDeploymentTypeRequest {
-    /// Required. The name of the GoldengateDeploymentType to retrieve.
-    /// Format:
-    /// projects/{project}/locations/{location}/goldengateDeploymentTypes/{goldengate_deployment_type}
-    pub name: std::string::String,
-
-    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-}
-
-impl GetGoldengateDeploymentTypeRequest {
-    /// Creates a new default instance.
-    pub fn new() -> Self {
-        std::default::Default::default()
-    }
-
-    /// Sets the value of [name][crate::model::GetGoldengateDeploymentTypeRequest::name].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_oracledatabase_v1::model::GetGoldengateDeploymentTypeRequest;
-    /// # let project_id = "project_id";
-    /// # let location_id = "location_id";
-    /// # let goldengate_deployment_type_id = "goldengate_deployment_type_id";
-    /// let x = GetGoldengateDeploymentTypeRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/goldengateDeploymentTypes/{goldengate_deployment_type_id}"));
-    /// ```
-    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.name = v.into();
-        self
-    }
-}
-
-impl wkt::message::Message for GetGoldengateDeploymentTypeRequest {
-    fn typename() -> &'static str {
-        "type.googleapis.com/google.cloud.oracledatabase.v1.GetGoldengateDeploymentTypeRequest"
     }
 }
 
@@ -41101,46 +40983,6 @@ pub mod goldengate_deployment_version_properties {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<DeploymentReleaseType>::new(
                 ".google.cloud.oracledatabase.v1.GoldengateDeploymentVersionProperties.DeploymentReleaseType"))
         }
-    }
-}
-
-/// Message for getting a GoldengateDeploymentVersion.
-#[derive(Clone, Default, PartialEq)]
-#[non_exhaustive]
-pub struct GetGoldengateDeploymentVersionRequest {
-    /// Required. The name of the GoldengateDeploymentVersion to retrieve.
-    /// Format:
-    /// projects/{project}/locations/{location}/goldengateDeploymentVersions/{goldengate_deployment_version}
-    pub name: std::string::String,
-
-    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-}
-
-impl GetGoldengateDeploymentVersionRequest {
-    /// Creates a new default instance.
-    pub fn new() -> Self {
-        std::default::Default::default()
-    }
-
-    /// Sets the value of [name][crate::model::GetGoldengateDeploymentVersionRequest::name].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_oracledatabase_v1::model::GetGoldengateDeploymentVersionRequest;
-    /// # let project_id = "project_id";
-    /// # let location_id = "location_id";
-    /// # let goldengate_deployment_version_id = "goldengate_deployment_version_id";
-    /// let x = GetGoldengateDeploymentVersionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/goldengateDeploymentVersions/{goldengate_deployment_version_id}"));
-    /// ```
-    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.name = v.into();
-        self
-    }
-}
-
-impl wkt::message::Message for GetGoldengateDeploymentVersionRequest {
-    fn typename() -> &'static str {
-        "type.googleapis.com/google.cloud.oracledatabase.v1.GetGoldengateDeploymentVersionRequest"
     }
 }
 

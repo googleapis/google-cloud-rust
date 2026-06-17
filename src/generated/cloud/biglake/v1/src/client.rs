@@ -34,35 +34,14 @@
 ///
 /// # Service Description
 ///
-/// Iceberg Catalog Service API: this implements the open-source Iceberg REST
-/// Catalog API.
-/// See the API definition here:
-/// <https://github.com/apache/iceberg/blob/main/open-api/rest-catalog-open-api.yaml>
+/// Lakehouse runtime catalog supports the following catalog management methods:
 ///
-/// The API is defined as OpenAPI 3.1.1 spec.
-///
-/// Currently we only support the following methods:
-///
-/// - GetConfig/GetIcebergCatalogConfig
-/// - ListIcebergNamespaces
-/// - CheckIcebergNamespaceExists
-/// - GetIcebergNamespace
-/// - CreateIcebergNamespace (only supports single level)
-/// - DeleteIcebergNamespace
-/// - UpdateIcebergNamespace properties
-/// - ListTableIdentifiers
-/// - CreateIcebergTable
-/// - DeleteIcebergTable
-/// - GetIcebergTable
-/// - UpdateIcebergTable (CommitTable)
-/// - LoadIcebergTableCredentials
-/// - RegisterTable
-///
-/// Users are required to provided the `X-Goog-User-Project` header with the
-/// project id or number which can be different from the bucket project id.
-/// That project will be charged for the API calls and the calling user must have
-/// access to that project. The caller must have `serviceusage.services.use`
-/// permission on the project.
+/// - GetIcebergCatalog
+/// - ListIcebergCatalogs
+/// - DeleteIcebergCatalog
+/// - UpdateIcebergCatalog
+/// - CreateIcebergCatalog
+/// - FailoverIcebergCatalog
 ///
 /// # Configuration
 ///
@@ -446,6 +425,27 @@ impl IcebergCatalogService {
         super::builder::iceberg_catalog_service::RegisterIcebergTable::new(self.inner.clone())
     }
 
+    /// Reports a metrics report for a table.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_biglake_v1::client::IcebergCatalogService;
+    /// use google_cloud_biglake_v1::Result;
+    /// async fn sample(
+    ///    client: &IcebergCatalogService
+    /// ) -> Result<()> {
+    ///     client.report_iceberg_table_metrics()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn report_iceberg_table_metrics(
+        &self,
+    ) -> super::builder::iceberg_catalog_service::ReportIcebergTableMetrics {
+        super::builder::iceberg_catalog_service::ReportIcebergTableMetrics::new(self.inner.clone())
+    }
+
     /// Returns the Iceberg REST Catalog configuration options.
     ///
     /// # Example
@@ -538,7 +538,6 @@ impl IcebergCatalogService {
     }
 
     /// Creates the Iceberg REST Catalog.
-    /// Currently only supports Google Cloud Storage Bucket catalogs.
     /// Google Cloud Storage Bucket catalog id is the bucket for which the
     /// catalog is created (e.g. `my-catalog` for `gs://my-catalog`).
     ///
