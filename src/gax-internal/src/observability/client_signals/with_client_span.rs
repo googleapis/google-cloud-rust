@@ -104,7 +104,7 @@ where
                     { GCP_SCHEMA_URL } = SCHEMA_URL_VALUE,
                     { URL_FULL } = snapshot.sanitized_url(),
                     { RPC_RESPONSE_STATUS_CODE } = rpc_status_code,
-                    { ERROR_TYPE } = error_type.to_string(),
+                    { ERROR_TYPE } = error_type.as_str(),
                     { SERVER_ADDRESS } = snapshot.server_address(),
                     { SERVER_PORT } = snapshot.server_port() as i64,
                     { NETWORK_PEER_ADDRESS } = snapshot.network_peer_address(),

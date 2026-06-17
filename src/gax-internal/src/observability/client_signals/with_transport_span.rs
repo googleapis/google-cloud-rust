@@ -112,7 +112,7 @@ where
                         span,
                         { OTEL_STATUS_CODE } = otel_status_codes::ERROR,
                         { RPC_RESPONSE_STATUS_CODE } = rpc_status_code,
-                        { ERROR_TYPE } = error_type.to_string(),
+                        { ERROR_TYPE } = error_type.as_str(),
                         { OTEL_STATUS_DESCRIPTION } = err.to_string(),
                         { HTTP_REQUEST_RESEND_COUNT } =
                             snapshot.http_resend_count().map(|v| v as i64)
@@ -122,7 +122,7 @@ where
                         span,
                         { OTEL_STATUS_CODE } = otel_status_codes::ERROR,
                         { HTTP_RESPONSE_STATUS_CODE } = err.http_status_code().map(|v| v as i64),
-                        { ERROR_TYPE } = error_type.to_string(),
+                        { ERROR_TYPE } = error_type.as_str(),
                         { OTEL_STATUS_DESCRIPTION } = err.to_string(),
                         { HTTP_REQUEST_RESEND_COUNT } =
                             snapshot.http_resend_count().map(|v| v as i64)

@@ -89,7 +89,7 @@ where
                     { GCP_CLIENT_ARTIFACT } = snapshot.client_artifact(),
                     { GCP_SCHEMA_URL } = SCHEMA_URL_VALUE,
                     { URL_FULL } = snapshot.sanitized_url(),
-                    { ERROR_TYPE } = error_type.to_string(),
+                    { ERROR_TYPE } = error_type.as_str(),
                     { HTTP_RESPONSE_STATUS_CODE } = error.http_status_code().map(|v| v as i64),
                     { GCP_ERRORS_DOMAIN } = error_domain,
                     { GCP_ERRORS_METADATA } = error_metadata,

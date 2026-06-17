@@ -383,7 +383,7 @@ fn record_status_from_headers(span: &tracing::Span, headers: &http::HeaderMap) {
             let gax_error = crate::grpc::from_status::to_gax_error(status);
             span.record(
                 otel_trace::ERROR_TYPE,
-                ErrorType::from_gax_error(&gax_error).to_string(),
+                ErrorType::from_gax_error(&gax_error).as_str(),
             );
             crate::observability::errors::emit_error_log(span, &gax_error);
         }
@@ -395,7 +395,7 @@ fn record_error_status<Error: std::fmt::Display>(span: &tracing::Span, error: &E
     let gax_error = google_cloud_gax::error::Error::io(error.to_string());
     span.record(
         otel_trace::ERROR_TYPE,
-        ErrorType::from_gax_error(&gax_error).to_string(),
+        ErrorType::from_gax_error(&gax_error).as_str(),
     );
     crate::observability::errors::emit_error_log(span, &gax_error);
 }

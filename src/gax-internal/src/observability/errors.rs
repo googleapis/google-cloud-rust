@@ -78,11 +78,9 @@ impl ErrorType {
             _ => ErrorType::Unknown,
         }
     }
-}
 
-impl std::fmt::Display for ErrorType {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let s = match self {
+    pub(crate) fn as_str(&self) -> &str {
+        match self {
             ErrorType::HttpError {
                 reason: Some(r), ..
             } => r.as_str(),
@@ -98,8 +96,13 @@ impl std::fmt::Display for ErrorType {
             ErrorType::ClientAuthenticationError => CLIENT_AUTHENTICATION_ERROR,
             ErrorType::ClientRetryExhausted => CLIENT_RETRY_EXHAUSTED,
             ErrorType::Unknown => UNKNOWN,
-        };
-        write!(f, "{s}")
+        }
+    }
+}
+
+impl std::fmt::Display for ErrorType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
     }
 }
 
@@ -127,7 +130,7 @@ pub(crate) fn emit_error_log(span: &tracing::Span, err: &Error) {
         let metadata_json =
             metadata.map(|m| serde_json::to_string(m).unwrap_or_else(|_| "{}".to_string()));
 
-        let error_str = error_type.to_string();
+        let error_str = error_type.as_str();
         let log_msg = err
             .status()
             .map(|s| s.message.clone())
@@ -186,11 +189,11 @@ pub(crate) mod tests {
     #[test_case(ErrorType::ClientAuthenticationError, CLIENT_AUTHENTICATION_ERROR; "Client Authentication Error")]
     #[test_case(ErrorType::ClientRetryExhausted, CLIENT_RETRY_EXHAUSTED; "Client Retry Exhausted")]
     #[test_case(ErrorType::Unknown, UNKNOWN; "Unknown")]
-    fn test_error_type_conversions(error_type: ErrorType, expected_to_string: &str) {
+    fn test_error_type_conversions(error_type: ErrorType, expected_as_str: &str) {
         assert_eq!(
-            error_type.to_string(),
-            expected_to_string,
-            "expected to_string for {:?}",
+            error_type.as_str(),
+            expected_as_str,
+            "expected as_str for {:?}",
             error_type
         );
     }
@@ -208,7 +211,7 @@ pub(crate) mod tests {
     #[test_case(Error::service(Status::default().set_code(5).set_message("not found")), "NOT_FOUND"; "Service Error")]
     #[test_case(Error::service(Status::default()), UNKNOWN; "Service Error Default")]
     fn test_from_gax_error(err: Error, expected: &str) {
-        assert_eq!(ErrorType::from_gax_error(&err).to_string(), expected);
+        assert_eq!(ErrorType::from_gax_error(&err).as_str(), expected);
     }
 
     #[test]
@@ -228,7 +231,7 @@ pub(crate) mod tests {
         let err = Error::service(status);
 
         let error_type = ErrorType::from_gax_error(&err);
-        assert_eq!(error_type.to_string(), "API_KEY_INVALID");
+        assert_eq!(error_type.as_str(), "API_KEY_INVALID");
 
         // Verify that the domain and metadata are correctly extracted.
         match error_type {
