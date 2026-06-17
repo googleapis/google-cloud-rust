@@ -28,7 +28,10 @@ pub async fn sample(bucket_name: &str, object_name: &str) -> anyhow::Result<()> 
         .await?;
 
     // Create an HTML form with the computed policy
-    let mut form = format!("<form action='{}' method='POST' enctype='multipart/form-data'>\n", policy.url);
+    let mut form = format!(
+        "<form action='{}' method='POST' enctype='multipart/form-data'>\n",
+        policy.url
+    );
     for (key, value) in &policy.fields {
         form.push_str(&format!("  <input name='{}' value='{}' type='hidden' />\n", key, value));
     }

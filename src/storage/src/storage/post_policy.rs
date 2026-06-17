@@ -128,7 +128,11 @@ impl PostPolicyV4Builder {
     }
 
     /// Adds a starts-with condition constraint (e.g. "$key", "uploads/").
-    pub fn with_starts_with<F: Into<String>, P: Into<String>>(mut self, field: F, prefix: P) -> Self {
+    pub fn with_starts_with<F: Into<String>, P: Into<String>>(
+        mut self,
+        field: F,
+        prefix: P,
+    ) -> Self {
         self.starts_with_conditions.push((field.into(), prefix.into()));
         self
     }
@@ -235,8 +239,9 @@ impl PostPolicyV4Builder {
 
         // Expiration
         let expiration_time = now
-            + chrono::Duration::from_std(self.expiration)
-                .map_err(|e| SigningError::signing(format!("Invalid expiration duration: {e}")))?;
+            + chrono::Duration::from_std(self.expiration).map_err(|e| {
+                SigningError::signing(format!("Invalid expiration duration: {e}"))
+            })?;
         let expiration_str = expiration_time.format("%Y-%m-%dT%H:%M:%SZ").to_string();
 
         let doc = PostPolicyV4Document {
@@ -378,8 +383,8 @@ mod tests {
         let total_tests = suite.post_policy_v4_tests.len();
 
         for test in suite.post_policy_v4_tests {
-            let timestamp =
-                DateTime::parse_from_rfc3339(&test.policy_input.timestamp).expect("invalid timestamp");
+            let timestamp = DateTime::parse_from_rfc3339(&test.policy_input.timestamp)
+                .expect("invalid timestamp");
             let scheme = test.policy_input.scheme.clone();
 
             let url_style = match test.policy_input.url_style.as_deref() {
@@ -408,15 +413,18 @@ mod tests {
             }
 
             if let Some(conds) = &test.policy_input.conditions {
-                if let Some(starts_with) = &conds.starts_with {
-                    if starts_with.len() == 2 {
-                        builder = builder.with_starts_with(starts_with[0].clone(), starts_with[1].clone());
-                    }
+                if let Some(starts_with) = &conds.starts_with
+                    && starts_with.len() == 2
+                {
+                    builder = builder.with_starts_with(
+                        starts_with[0].clone(),
+                        starts_with[1].clone(),
+                    );
                 }
-                if let Some(range) = &conds.content_length_range {
-                    if range.len() == 2 {
-                        builder = builder.with_content_length_range(range[0], range[1]);
-                    }
+                if let Some(range) = &conds.content_length_range
+                    && range.len() == 2
+                {
+                    builder = builder.with_content_length_range(range[0], range[1]);
                 }
             }
 
@@ -437,7 +445,8 @@ mod tests {
             // Verify URL
             if result.url != test.policy_output.url {
                 println!("❌ Failed test: {}", test.description);
-                let diff = pretty_assertions::StrComparison::new(&result.url, &test.policy_output.url);
+                let diff =
+                    pretty_assertions::StrComparison::new(&result.url, &test.policy_output.url);
                 println!("URL diff: {}", diff);
                 mismatch = true;
             }
@@ -463,7 +472,10 @@ mod tests {
             // Verify No Extra Fields in actual
             for k in result.fields.keys() {
                 if !expected_fields.contains_key(k) {
-                    println!("❌ Failed test: {} (extra actual field: {})", test.description, k);
+                    println!(
+                        "❌ Failed test: {} (extra actual field: {})",
+                        test.description, k
+                    );
                     mismatch = true;
                 }
             }

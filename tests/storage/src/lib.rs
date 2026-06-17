@@ -178,7 +178,10 @@ pub async fn signed_post_policies_v4(
     let status = res.status();
     let text = res.text().await?;
     tracing::info!("upload response status={status}, body={text}");
-    assert!(status.is_success(), "Upload failed: status={status}, body={text}");
+    assert!(
+        status.is_success(),
+        "Upload failed: status={status}, body={text}",
+    );
 
     // Retrieve and verify the uploaded object
     let mut response = client.read_object(bucket_name, &object_name).send().await?;
