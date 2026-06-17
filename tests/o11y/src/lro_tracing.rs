@@ -47,6 +47,9 @@ pub async fn lro_tracing_testlayer() -> anyhow::Result<()> {
     test_lro_success(&guard, &server, client.clone()).await?;
     server.verify_and_clear();
 
+    test_lro_logical_error(&guard, &server, client.clone()).await?;
+    server.verify_and_clear();
+
     Ok(())
 }
 
@@ -192,6 +195,114 @@ async fn test_lro_success(
         .iter()
         .find(|s| s.name == "LRO Sleep")
         .ok_or_else(|| anyhow::anyhow!("missing LRO Sleep span in {spans:#?}"))?;
+
+    Ok(())
+}
+
+/// Tests a logical LRO failure where the final query status returns completed with an error.
+async fn test_lro_logical_error(
+    guard: &TestLayerGuard,
+    server: &Server,
+    client: Echo,
+) -> anyhow::Result<()> {
+    server.expect(
+        Expectation::matching(all_of![
+            request::method("POST"),
+            request::path("/v1beta1/echo:wait"),
+        ])
+        .respond_with(status_code(200).body(r#"{"name": "operations/wait-2", "done": false}"#)),
+    );
+
+    server.expect(
+        Expectation::matching(all_of![
+            request::method("GET"),
+            request::path("/v1beta1/operations/wait-2"),
+        ])
+        .respond_with(status_code(200).body(
+            r#"
+            {
+                "name": "operations/wait-2",
+                "done": true,
+                "error": {
+                    "code": 3,
+                    "message": "logical-error-msg"
+                }
+            }
+        "#,
+        )),
+    );
+
+    let res = client.wait().poller().until_done().await;
+    assert!(res.is_err());
+    let err_msg = res.err().unwrap().to_string();
+    assert!(
+        err_msg.contains("logical-error-msg"),
+        "error message: {err_msg}"
+    );
+
+    let spans = TestLayer::capture(guard);
+
+    // 1. T2 span "LRO Wait" should be ERROR
+    let lro_wait_span = spans
+        .iter()
+        .find(|s| s.name == "LRO Wait")
+        .ok_or_else(|| anyhow::anyhow!("missing LRO Wait span in {spans:#?}"))?;
+
+    assert_eq!(
+        attribute_str(lro_wait_span, "otel.name"),
+        Some("google_cloud_showcase_v1beta1::client::Echo::wait::until_done")
+    );
+    assert_eq!(
+        attribute_str(lro_wait_span, "gcp.rpc.method"),
+        Some("google_cloud_showcase_v1beta1::client::Echo::wait::until_done")
+    );
+    assert_eq!(
+        attribute_str(lro_wait_span, "otel.status_code"),
+        Some("ERROR")
+    );
+    let actual_desc = attribute_str(lro_wait_span, "otel.status_description").unwrap_or_default();
+    assert!(
+        actual_desc.contains("logical-error-msg"),
+        "expected description to contain 'logical-error-msg', got '{actual_desc}'"
+    );
+    assert_eq!(
+        attribute_str(lro_wait_span, "error.type"),
+        Some("INVALID_ARGUMENT")
+    );
+
+    // 2. T3 span "client_request" (get_operation) should have error details
+    let get_op_spans = find_get_operation_spans(&spans);
+    assert_eq!(
+        get_op_spans.len(),
+        1,
+        "expected exactly 1 GetOperation span"
+    );
+    let get_op_span = get_op_spans[0];
+
+    assert_eq!(
+        attribute_u64(get_op_span, "gcp.longrunning.poll_attempt_count"),
+        Some(1)
+    );
+    assert_eq!(
+        attribute_bool(get_op_span, "gcp.longrunning.done"),
+        Some(true)
+    );
+    assert_eq!(
+        attribute_i64(get_op_span, "gcp.longrunning.status_code"),
+        Some(3)
+    );
+    assert_eq!(
+        attribute_str(get_op_span, "otel.status_code"),
+        Some("ERROR")
+    );
+    assert_eq!(
+        attribute_str(get_op_span, "otel.status_description"),
+        Some("logical-error-msg")
+    );
+    assert_eq!(
+        attribute_str(get_op_span, "error.type"),
+        Some("INVALID_ARGUMENT")
+    );
 
     Ok(())
 }
