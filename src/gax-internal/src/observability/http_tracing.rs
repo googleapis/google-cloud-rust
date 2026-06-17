@@ -151,7 +151,7 @@ impl ResultExt for Result<reqwest::Response> {
                     span.record(otel_trace::HTTP_RESPONSE_STATUS_CODE, status as i64);
                 }
                 let error_type = ErrorType::from_gax_error(err);
-                span.record(otel_trace::ERROR_TYPE, error_type.as_str());
+                span.record(otel_trace::ERROR_TYPE, error_type.to_string());
                 // TODO(#3239): clean up error messages
                 span.record(OTEL_STATUS_DESCRIPTION, err.to_string());
                 crate::observability::errors::emit_error_log(span, err);
