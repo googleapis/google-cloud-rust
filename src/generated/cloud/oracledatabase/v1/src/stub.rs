@@ -770,17 +770,6 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
-    /// Implements [super::client::OracleDatabase::get_goldengate_deployment_version].
-    fn get_goldengate_deployment_version(
-        &self,
-        _req: crate::model::GetGoldengateDeploymentVersionRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<crate::model::GoldengateDeploymentVersion>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
     /// Implements [super::client::OracleDatabase::list_goldengate_deployment_versions].
     fn list_goldengate_deployment_versions(
         &self,
@@ -790,17 +779,6 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         Output = crate::Result<
             crate::Response<crate::model::ListGoldengateDeploymentVersionsResponse>,
         >,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::OracleDatabase::get_goldengate_deployment_type].
-    fn get_goldengate_deployment_type(
-        &self,
-        _req: crate::model::GetGoldengateDeploymentTypeRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<crate::model::GoldengateDeploymentType>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -818,17 +796,6 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
-    /// Implements [super::client::OracleDatabase::get_goldengate_deployment_environment].
-    fn get_goldengate_deployment_environment(
-        &self,
-        _req: crate::model::GetGoldengateDeploymentEnvironmentRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<crate::model::GoldengateDeploymentEnvironment>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
     /// Implements [super::client::OracleDatabase::list_goldengate_deployment_environments].
     fn list_goldengate_deployment_environments(
         &self,
@@ -838,17 +805,6 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         Output = crate::Result<
             crate::Response<crate::model::ListGoldengateDeploymentEnvironmentsResponse>,
         >,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::OracleDatabase::get_goldengate_connection_type].
-    fn get_goldengate_connection_type(
-        &self,
-        _req: crate::model::GetGoldengateConnectionTypeRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<crate::model::GoldengateConnectionType>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

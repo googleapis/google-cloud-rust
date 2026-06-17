@@ -848,6 +848,36 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ListMeshRouteViewsResponse>>;
 
+    async fn list_agent_gateways(
+        &self,
+        req: crate::model::ListAgentGatewaysRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAgentGatewaysResponse>>;
+
+    async fn get_agent_gateway(
+        &self,
+        req: crate::model::GetAgentGatewayRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AgentGateway>>;
+
+    async fn create_agent_gateway(
+        &self,
+        req: crate::model::CreateAgentGatewayRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn update_agent_gateway(
+        &self,
+        req: crate::model::UpdateAgentGatewayRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn delete_agent_gateway(
+        &self,
+        req: crate::model::DeleteAgentGatewayRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -1442,6 +1472,51 @@ impl<T: super::NetworkServices> NetworkServices for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ListMeshRouteViewsResponse>> {
         T::list_mesh_route_views(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_agent_gateways(
+        &self,
+        req: crate::model::ListAgentGatewaysRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAgentGatewaysResponse>> {
+        T::list_agent_gateways(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_agent_gateway(
+        &self,
+        req: crate::model::GetAgentGatewayRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AgentGateway>> {
+        T::get_agent_gateway(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_agent_gateway(
+        &self,
+        req: crate::model::CreateAgentGatewayRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::create_agent_gateway(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_agent_gateway(
+        &self,
+        req: crate::model::UpdateAgentGatewayRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::update_agent_gateway(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_agent_gateway(
+        &self,
+        req: crate::model::DeleteAgentGatewayRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::delete_agent_gateway(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

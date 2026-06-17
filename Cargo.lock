@@ -1858,6 +1858,7 @@ dependencies = [
  "google-cloud-api",
  "google-cloud-gax",
  "google-cloud-gax-internal",
+ "google-cloud-rpc",
  "google-cloud-wkt",
  "serde",
  "serde_json",

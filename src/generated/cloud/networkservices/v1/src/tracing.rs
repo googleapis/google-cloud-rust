@@ -1355,6 +1355,76 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_agent_gateways(
+        &self,
+        req: crate::model::ListAgentGatewaysRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListAgentGatewaysResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::NetworkServices::list_agent_gateways",
+            self.inner.list_agent_gateways(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_agent_gateway(
+        &self,
+        req: crate::model::GetAgentGatewayRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AgentGateway>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::NetworkServices::get_agent_gateway",
+            self.inner.get_agent_gateway(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn create_agent_gateway(
+        &self,
+        req: crate::model::CreateAgentGatewayRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::NetworkServices::create_agent_gateway",
+            self.inner.create_agent_gateway(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_agent_gateway(
+        &self,
+        req: crate::model::UpdateAgentGatewayRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::NetworkServices::update_agent_gateway",
+            self.inner.update_agent_gateway(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete_agent_gateway(
+        &self,
+        req: crate::model::DeleteAgentGatewayRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::NetworkServices::delete_agent_gateway",
+            self.inner.delete_agent_gateway(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,

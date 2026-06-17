@@ -22,6 +22,7 @@ extern crate bytes;
 extern crate gaxi;
 extern crate google_cloud_api;
 extern crate google_cloud_gax;
+extern crate google_cloud_rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -32,92 +33,6 @@ extern crate wkt;
 mod debug;
 mod deserialize;
 mod serialize;
-
-/// The request message for the `RegisterIcebergTable` API.
-#[derive(Clone, Default, PartialEq)]
-#[non_exhaustive]
-pub struct RegisterIcebergTableRequest {
-    /// Required. Table to register in the format:
-    /// `projects/{project_id}/catalogs/{catalog_id}/namespaces/{namespace}`.
-    pub parent: std::string::String,
-
-    /// Required. The name of the table to register.
-    pub name: std::string::String,
-
-    /// Required. The metadata location of the table.
-    pub metadata_location: std::string::String,
-
-    /// Optional. Whether to overwrite the table if it already exists. Default is
-    /// false. Currently this field is ignored and an error is returned if the
-    /// table already exists.
-    pub overwrite: std::string::String,
-
-    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-}
-
-impl RegisterIcebergTableRequest {
-    /// Creates a new default instance.
-    pub fn new() -> Self {
-        std::default::Default::default()
-    }
-
-    /// Sets the value of [parent][crate::model::RegisterIcebergTableRequest::parent].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_biglake_v1::model::RegisterIcebergTableRequest;
-    /// let x = RegisterIcebergTableRequest::new().set_parent("example");
-    /// ```
-    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.parent = v.into();
-        self
-    }
-
-    /// Sets the value of [name][crate::model::RegisterIcebergTableRequest::name].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_biglake_v1::model::RegisterIcebergTableRequest;
-    /// let x = RegisterIcebergTableRequest::new().set_name("example");
-    /// ```
-    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.name = v.into();
-        self
-    }
-
-    /// Sets the value of [metadata_location][crate::model::RegisterIcebergTableRequest::metadata_location].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_biglake_v1::model::RegisterIcebergTableRequest;
-    /// let x = RegisterIcebergTableRequest::new().set_metadata_location("example");
-    /// ```
-    pub fn set_metadata_location<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.metadata_location = v.into();
-        self
-    }
-
-    /// Sets the value of [overwrite][crate::model::RegisterIcebergTableRequest::overwrite].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_biglake_v1::model::RegisterIcebergTableRequest;
-    /// let x = RegisterIcebergTableRequest::new().set_overwrite("example");
-    /// ```
-    pub fn set_overwrite<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.overwrite = v.into();
-        self
-    }
-}
-
-impl wkt::message::Message for RegisterIcebergTableRequest {
-    fn typename() -> &'static str {
-        "type.googleapis.com/google.cloud.biglake.v1.RegisterIcebergTableRequest"
-    }
-}
 
 /// The Iceberg REST Catalog information.
 #[derive(Clone, Default, PartialEq)]
@@ -132,26 +47,67 @@ pub struct IcebergCatalog {
     pub credential_mode: crate::model::iceberg_catalog::CredentialMode,
 
     /// Output only. The service account used for credential vending, output only.
-    /// Might be empty if Credential vending was never enabled for the catalog.
+    /// Might be empty if Credential vending was never enabled for the catalog. For
+    /// federated catalogs, the service account will be always provisioned and will
+    /// be used to access the remote Iceberg REST Catalog using access to Secret
+    /// Manager secret or identity federation.
     pub biglake_service_account: std::string::String,
+
+    /// Output only. The unique ID of the service account. This is used for
+    /// federation scenarios.
+    pub biglake_service_account_unique_id: std::string::String,
 
     /// Required. The catalog type. Required for CreateIcebergCatalog.
     pub catalog_type: crate::model::iceberg_catalog::CatalogType,
 
-    /// Optional. The default location for the catalog. For the Google Cloud
-    /// Storage Bucket catalog this is output only.
+    /// Optional. The default storage location for the catalog, e.g.,
+    /// `gs://my-bucket`. For Google Cloud Storage bucket catalogs, this is output
+    /// only.
+    ///
+    /// For BigLake catalogs, this field must be provided and point to a
+    /// Google Cloud Storage bucket or a path within that bucket. This path serves
+    /// as the base directory for constructing the full path to a table's data and
+    /// metadata directories when a location is not specified at the namespace or
+    /// table level. The full path is formed by appending the namespace and table
+    /// identifiers to the default location.
     pub default_location: std::string::String,
 
-    /// Output only. The GCP region(s) where the catalog metadata is stored.
-    /// This will contain one value for all locations, except for the catalogs that
-    /// are configured to use custom dual region buckets.
-    pub catalog_regions: std::vec::Vec<std::string::String>,
+    /// Output only. The GCP region(s) of the default location's bucket, e.g.
+    /// `us-central1`, `nam4` or `us`. This will contain one value for all
+    /// locations, except for the catalogs that are configured to use custom dual
+    /// region buckets, in which case it will contain the two regions of the
+    /// bucket. The region(s) of this field should be in the jurisdiction of or
+    /// nearby the primary location of the catalog.
+    pub storage_regions: std::vec::Vec<std::string::String>,
 
     /// Output only. When the catalog was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. When the catalog was last updated.
     pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The replicas for the catalog metadata.
+    pub replicas: std::vec::Vec<crate::model::iceberg_catalog::Replica>,
+
+    /// Optional. A user-provided description of the catalog. The description must
+    /// be a UTF-8 string with a maximum length of 1024 characters.
+    pub description: std::string::String,
+
+    /// Optional. Restricted locations configuration. This field is currently only
+    /// used for BigLake catalogs.
+    ///
+    /// If this field is unset, or if
+    /// `restricted_locations_config.restricted_locations` is empty, all
+    /// accessible locations are allowed. If
+    /// `restricted_locations_config.restricted_locations` is not empty, only
+    /// locations in `default_location` and
+    /// `restricted_locations_config.restricted_locations` are allowed.
+    pub restricted_locations_config:
+        std::option::Option<crate::model::iceberg_catalog::RestrictedLocationsConfig>,
+
+    /// Optional. Configuration options for federated catalogs.
+    pub federated_catalog_options:
+        std::option::Option<crate::model::iceberg_catalog::FederatedCatalogOptions>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -210,6 +166,21 @@ impl IcebergCatalog {
         self
     }
 
+    /// Sets the value of [biglake_service_account_unique_id][crate::model::IcebergCatalog::biglake_service_account_unique_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::IcebergCatalog;
+    /// let x = IcebergCatalog::new().set_biglake_service_account_unique_id("example");
+    /// ```
+    pub fn set_biglake_service_account_unique_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.biglake_service_account_unique_id = v.into();
+        self
+    }
+
     /// Sets the value of [catalog_type][crate::model::IcebergCatalog::catalog_type].
     ///
     /// # Example
@@ -217,6 +188,8 @@ impl IcebergCatalog {
     /// # use google_cloud_biglake_v1::model::IcebergCatalog;
     /// use google_cloud_biglake_v1::model::iceberg_catalog::CatalogType;
     /// let x0 = IcebergCatalog::new().set_catalog_type(CatalogType::GcsBucket);
+    /// let x1 = IcebergCatalog::new().set_catalog_type(CatalogType::Biglake);
+    /// let x2 = IcebergCatalog::new().set_catalog_type(CatalogType::Federated);
     /// ```
     pub fn set_catalog_type<T: std::convert::Into<crate::model::iceberg_catalog::CatalogType>>(
         mut self,
@@ -241,20 +214,20 @@ impl IcebergCatalog {
         self
     }
 
-    /// Sets the value of [catalog_regions][crate::model::IcebergCatalog::catalog_regions].
+    /// Sets the value of [storage_regions][crate::model::IcebergCatalog::storage_regions].
     ///
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_biglake_v1::model::IcebergCatalog;
-    /// let x = IcebergCatalog::new().set_catalog_regions(["a", "b", "c"]);
+    /// let x = IcebergCatalog::new().set_storage_regions(["a", "b", "c"]);
     /// ```
-    pub fn set_catalog_regions<T, V>(mut self, v: T) -> Self
+    pub fn set_storage_regions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
         V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
-        self.catalog_regions = v.into_iter().map(|i| i.into()).collect();
+        self.storage_regions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -323,6 +296,106 @@ impl IcebergCatalog {
         self.update_time = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [replicas][crate::model::IcebergCatalog::replicas].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::IcebergCatalog;
+    /// use google_cloud_biglake_v1::model::iceberg_catalog::Replica;
+    /// let x = IcebergCatalog::new()
+    ///     .set_replicas([
+    ///         Replica::default()/* use setters */,
+    ///         Replica::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_replicas<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::iceberg_catalog::Replica>,
+    {
+        use std::iter::Iterator;
+        self.replicas = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::IcebergCatalog::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::IcebergCatalog;
+    /// let x = IcebergCatalog::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [restricted_locations_config][crate::model::IcebergCatalog::restricted_locations_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::IcebergCatalog;
+    /// use google_cloud_biglake_v1::model::iceberg_catalog::RestrictedLocationsConfig;
+    /// let x = IcebergCatalog::new().set_restricted_locations_config(RestrictedLocationsConfig::default()/* use setters */);
+    /// ```
+    pub fn set_restricted_locations_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::iceberg_catalog::RestrictedLocationsConfig>,
+    {
+        self.restricted_locations_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [restricted_locations_config][crate::model::IcebergCatalog::restricted_locations_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::IcebergCatalog;
+    /// use google_cloud_biglake_v1::model::iceberg_catalog::RestrictedLocationsConfig;
+    /// let x = IcebergCatalog::new().set_or_clear_restricted_locations_config(Some(RestrictedLocationsConfig::default()/* use setters */));
+    /// let x = IcebergCatalog::new().set_or_clear_restricted_locations_config(None::<RestrictedLocationsConfig>);
+    /// ```
+    pub fn set_or_clear_restricted_locations_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::iceberg_catalog::RestrictedLocationsConfig>,
+    {
+        self.restricted_locations_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [federated_catalog_options][crate::model::IcebergCatalog::federated_catalog_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::IcebergCatalog;
+    /// use google_cloud_biglake_v1::model::iceberg_catalog::FederatedCatalogOptions;
+    /// let x = IcebergCatalog::new().set_federated_catalog_options(FederatedCatalogOptions::default()/* use setters */);
+    /// ```
+    pub fn set_federated_catalog_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::iceberg_catalog::FederatedCatalogOptions>,
+    {
+        self.federated_catalog_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [federated_catalog_options][crate::model::IcebergCatalog::federated_catalog_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::IcebergCatalog;
+    /// use google_cloud_biglake_v1::model::iceberg_catalog::FederatedCatalogOptions;
+    /// let x = IcebergCatalog::new().set_or_clear_federated_catalog_options(Some(FederatedCatalogOptions::default()/* use setters */));
+    /// let x = IcebergCatalog::new().set_or_clear_federated_catalog_options(None::<FederatedCatalogOptions>);
+    /// ```
+    pub fn set_or_clear_federated_catalog_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::iceberg_catalog::FederatedCatalogOptions>,
+    {
+        self.federated_catalog_options = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for IcebergCatalog {
@@ -335,6 +408,1203 @@ impl wkt::message::Message for IcebergCatalog {
 pub mod iceberg_catalog {
     #[allow(unused_imports)]
     use super::*;
+
+    /// The replica of the Catalog.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Replica {
+        /// Output only. The region of the replica. For example "us-east1"
+        pub region: std::string::String,
+
+        /// Output only. The current state of the replica.
+        pub state: crate::model::iceberg_catalog::replica::State,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Replica {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [region][crate::model::iceberg_catalog::Replica::region].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_biglake_v1::model::iceberg_catalog::Replica;
+        /// let x = Replica::new().set_region("example");
+        /// ```
+        pub fn set_region<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.region = v.into();
+            self
+        }
+
+        /// Sets the value of [state][crate::model::iceberg_catalog::Replica::state].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_biglake_v1::model::iceberg_catalog::Replica;
+        /// use google_cloud_biglake_v1::model::iceberg_catalog::replica::State;
+        /// let x0 = Replica::new().set_state(State::Primary);
+        /// let x1 = Replica::new().set_state(State::PrimaryInProgress);
+        /// let x2 = Replica::new().set_state(State::Secondary);
+        /// ```
+        pub fn set_state<T: std::convert::Into<crate::model::iceberg_catalog::replica::State>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.state = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Replica {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.biglake.v1.IcebergCatalog.Replica"
+        }
+    }
+
+    /// Defines additional types related to [Replica].
+    pub mod replica {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// If the catalog is replicated to multiple regions, this enum describes the
+        /// current state of the replica.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum State {
+            /// The replica state is unknown.
+            Unknown,
+            /// The replica is the writable primary.
+            Primary,
+            /// The replica has been recently assigned as the primary, but not all
+            /// namespaces are writeable yet.
+            PrimaryInProgress,
+            /// The replica is a read-only secondary replica.
+            Secondary,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [State::value] or
+            /// [State::name].
+            UnknownValue(state::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod state {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl State {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unknown => std::option::Option::Some(0),
+                    Self::Primary => std::option::Option::Some(1),
+                    Self::PrimaryInProgress => std::option::Option::Some(2),
+                    Self::Secondary => std::option::Option::Some(3),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unknown => std::option::Option::Some("STATE_UNKNOWN"),
+                    Self::Primary => std::option::Option::Some("STATE_PRIMARY"),
+                    Self::PrimaryInProgress => {
+                        std::option::Option::Some("STATE_PRIMARY_IN_PROGRESS")
+                    }
+                    Self::Secondary => std::option::Option::Some("STATE_SECONDARY"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for State {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for State {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for State {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unknown,
+                    1 => Self::Primary,
+                    2 => Self::PrimaryInProgress,
+                    3 => Self::Secondary,
+                    _ => Self::UnknownValue(state::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for State {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "STATE_UNKNOWN" => Self::Unknown,
+                    "STATE_PRIMARY" => Self::Primary,
+                    "STATE_PRIMARY_IN_PROGRESS" => Self::PrimaryInProgress,
+                    "STATE_SECONDARY" => Self::Secondary,
+                    _ => Self::UnknownValue(state::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for State {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unknown => serializer.serialize_i32(0),
+                    Self::Primary => serializer.serialize_i32(1),
+                    Self::PrimaryInProgress => serializer.serialize_i32(2),
+                    Self::Secondary => serializer.serialize_i32(3),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for State {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                    ".google.cloud.biglake.v1.IcebergCatalog.Replica.State",
+                ))
+            }
+        }
+    }
+
+    /// Configuration of location restrictions.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct RestrictedLocationsConfig {
+        /// Optional. Additional Google Cloud Storage buckets and locations (e.g.,
+        /// `gs://my-other-bucket/...`) that are permitted for use by resources
+        /// within a catalog. This field is currently only used for BigLake catalogs.
+        ///
+        /// If `restricted_locations` is empty and unrestricted catalog creation is
+        /// enabled, all accessible locations are allowed.
+        /// Otherwise, only `default_location` and locations in this list are
+        /// allowed.
+        pub restricted_locations: std::vec::Vec<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl RestrictedLocationsConfig {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [restricted_locations][crate::model::iceberg_catalog::RestrictedLocationsConfig::restricted_locations].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_biglake_v1::model::iceberg_catalog::RestrictedLocationsConfig;
+        /// let x = RestrictedLocationsConfig::new().set_restricted_locations(["a", "b", "c"]);
+        /// ```
+        pub fn set_restricted_locations<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.restricted_locations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for RestrictedLocationsConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.biglake.v1.IcebergCatalog.RestrictedLocationsConfig"
+        }
+    }
+
+    /// Configuration options for a federated catalog.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct FederatedCatalogOptions {
+        /// Optional. The secret resource name in Secret Manager, in the format
+        /// `projects/{project_id}/locations/{location}/secrets/{secret_id}` or
+        /// `projects/{project_id}/locations/{location}/secrets/{secret_id}/versions/{version_id}`.
+        ///
+        /// The project ID must match the catalog's project and location must match
+        /// the catalog's location.
+        /// If the version is not specified, the latest version will be used.
+        ///
+        /// This field is not used when `service_principal_application_id` is set.
+        pub secret_name: std::option::Option<std::string::String>,
+
+        /// Optional. The service directory resource name for routing traffic over a
+        /// private network connection through Cross-Cloud Interconnect, in the
+        /// format
+        /// `projects/{project_id}/locations/{location_id}/namespaces/{namespace_id}/services/{service_id}`.
+        pub service_directory_name: std::option::Option<std::string::String>,
+
+        /// Optional. Refresh configuration.
+        pub refresh_options: std::option::Option<
+            crate::model::iceberg_catalog::federated_catalog_options::RefreshOptions,
+        >,
+
+        /// Output only. The status of the background refresh operations.
+        pub refresh_status: std::option::Option<
+            crate::model::iceberg_catalog::federated_catalog_options::RefreshStatus,
+        >,
+
+        /// Info specific to a remote Iceberg REST catalog.
+        pub remote_catalog_info: std::option::Option<
+            crate::model::iceberg_catalog::federated_catalog_options::RemoteCatalogInfo,
+        >,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl FederatedCatalogOptions {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [secret_name][crate::model::iceberg_catalog::FederatedCatalogOptions::secret_name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_biglake_v1::model::iceberg_catalog::FederatedCatalogOptions;
+        /// let x = FederatedCatalogOptions::new().set_secret_name("example");
+        /// ```
+        pub fn set_secret_name<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.secret_name = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [secret_name][crate::model::iceberg_catalog::FederatedCatalogOptions::secret_name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_biglake_v1::model::iceberg_catalog::FederatedCatalogOptions;
+        /// let x = FederatedCatalogOptions::new().set_or_clear_secret_name(Some("example"));
+        /// let x = FederatedCatalogOptions::new().set_or_clear_secret_name(None::<String>);
+        /// ```
+        pub fn set_or_clear_secret_name<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.secret_name = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [service_directory_name][crate::model::iceberg_catalog::FederatedCatalogOptions::service_directory_name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_biglake_v1::model::iceberg_catalog::FederatedCatalogOptions;
+        /// let x = FederatedCatalogOptions::new().set_service_directory_name("example");
+        /// ```
+        pub fn set_service_directory_name<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.service_directory_name = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [service_directory_name][crate::model::iceberg_catalog::FederatedCatalogOptions::service_directory_name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_biglake_v1::model::iceberg_catalog::FederatedCatalogOptions;
+        /// let x = FederatedCatalogOptions::new().set_or_clear_service_directory_name(Some("example"));
+        /// let x = FederatedCatalogOptions::new().set_or_clear_service_directory_name(None::<String>);
+        /// ```
+        pub fn set_or_clear_service_directory_name<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.service_directory_name = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [refresh_options][crate::model::iceberg_catalog::FederatedCatalogOptions::refresh_options].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_biglake_v1::model::iceberg_catalog::FederatedCatalogOptions;
+        /// use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::RefreshOptions;
+        /// let x = FederatedCatalogOptions::new().set_refresh_options(RefreshOptions::default()/* use setters */);
+        /// ```
+        pub fn set_refresh_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::iceberg_catalog::federated_catalog_options::RefreshOptions,
+                >,
+        {
+            self.refresh_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [refresh_options][crate::model::iceberg_catalog::FederatedCatalogOptions::refresh_options].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_biglake_v1::model::iceberg_catalog::FederatedCatalogOptions;
+        /// use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::RefreshOptions;
+        /// let x = FederatedCatalogOptions::new().set_or_clear_refresh_options(Some(RefreshOptions::default()/* use setters */));
+        /// let x = FederatedCatalogOptions::new().set_or_clear_refresh_options(None::<RefreshOptions>);
+        /// ```
+        pub fn set_or_clear_refresh_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::iceberg_catalog::federated_catalog_options::RefreshOptions,
+                >,
+        {
+            self.refresh_options = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [refresh_status][crate::model::iceberg_catalog::FederatedCatalogOptions::refresh_status].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_biglake_v1::model::iceberg_catalog::FederatedCatalogOptions;
+        /// use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::RefreshStatus;
+        /// let x = FederatedCatalogOptions::new().set_refresh_status(RefreshStatus::default()/* use setters */);
+        /// ```
+        pub fn set_refresh_status<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::iceberg_catalog::federated_catalog_options::RefreshStatus,
+                >,
+        {
+            self.refresh_status = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [refresh_status][crate::model::iceberg_catalog::FederatedCatalogOptions::refresh_status].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_biglake_v1::model::iceberg_catalog::FederatedCatalogOptions;
+        /// use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::RefreshStatus;
+        /// let x = FederatedCatalogOptions::new().set_or_clear_refresh_status(Some(RefreshStatus::default()/* use setters */));
+        /// let x = FederatedCatalogOptions::new().set_or_clear_refresh_status(None::<RefreshStatus>);
+        /// ```
+        pub fn set_or_clear_refresh_status<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::iceberg_catalog::federated_catalog_options::RefreshStatus,
+                >,
+        {
+            self.refresh_status = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [remote_catalog_info][crate::model::iceberg_catalog::FederatedCatalogOptions::remote_catalog_info].
+        ///
+        /// Note that all the setters affecting `remote_catalog_info` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_biglake_v1::model::iceberg_catalog::FederatedCatalogOptions;
+        /// use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::UnityCatalogInfo;
+        /// let x = FederatedCatalogOptions::new().set_remote_catalog_info(Some(
+        ///     google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::RemoteCatalogInfo::UnityCatalogInfo(UnityCatalogInfo::default().into())));
+        /// ```
+        pub fn set_remote_catalog_info<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::iceberg_catalog::federated_catalog_options::RemoteCatalogInfo,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.remote_catalog_info = v.into();
+            self
+        }
+
+        /// The value of [remote_catalog_info][crate::model::iceberg_catalog::FederatedCatalogOptions::remote_catalog_info]
+        /// if it holds a `UnityCatalogInfo`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn unity_catalog_info(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::iceberg_catalog::federated_catalog_options::UnityCatalogInfo,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.remote_catalog_info.as_ref().and_then(|v| match v {
+                crate::model::iceberg_catalog::federated_catalog_options::RemoteCatalogInfo::UnityCatalogInfo(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [remote_catalog_info][crate::model::iceberg_catalog::FederatedCatalogOptions::remote_catalog_info]
+        /// to hold a `UnityCatalogInfo`.
+        ///
+        /// Note that all the setters affecting `remote_catalog_info` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_biglake_v1::model::iceberg_catalog::FederatedCatalogOptions;
+        /// use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::UnityCatalogInfo;
+        /// let x = FederatedCatalogOptions::new().set_unity_catalog_info(UnityCatalogInfo::default()/* use setters */);
+        /// assert!(x.unity_catalog_info().is_some());
+        /// assert!(x.glue_catalog_info().is_none());
+        /// ```
+        pub fn set_unity_catalog_info<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::iceberg_catalog::federated_catalog_options::UnityCatalogInfo,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.remote_catalog_info = std::option::Option::Some(
+                crate::model::iceberg_catalog::federated_catalog_options::RemoteCatalogInfo::UnityCatalogInfo(
+                    v.into()
+                )
+            );
+            self
+        }
+
+        /// The value of [remote_catalog_info][crate::model::iceberg_catalog::FederatedCatalogOptions::remote_catalog_info]
+        /// if it holds a `GlueCatalogInfo`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn glue_catalog_info(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::iceberg_catalog::federated_catalog_options::GlueCatalogInfo,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.remote_catalog_info.as_ref().and_then(|v| match v {
+                crate::model::iceberg_catalog::federated_catalog_options::RemoteCatalogInfo::GlueCatalogInfo(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [remote_catalog_info][crate::model::iceberg_catalog::FederatedCatalogOptions::remote_catalog_info]
+        /// to hold a `GlueCatalogInfo`.
+        ///
+        /// Note that all the setters affecting `remote_catalog_info` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_biglake_v1::model::iceberg_catalog::FederatedCatalogOptions;
+        /// use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::GlueCatalogInfo;
+        /// let x = FederatedCatalogOptions::new().set_glue_catalog_info(GlueCatalogInfo::default()/* use setters */);
+        /// assert!(x.glue_catalog_info().is_some());
+        /// assert!(x.unity_catalog_info().is_none());
+        /// ```
+        pub fn set_glue_catalog_info<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::iceberg_catalog::federated_catalog_options::GlueCatalogInfo,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.remote_catalog_info = std::option::Option::Some(
+                crate::model::iceberg_catalog::federated_catalog_options::RemoteCatalogInfo::GlueCatalogInfo(
+                    v.into()
+                )
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for FederatedCatalogOptions {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.biglake.v1.IcebergCatalog.FederatedCatalogOptions"
+        }
+    }
+
+    /// Defines additional types related to [FederatedCatalogOptions].
+    pub mod federated_catalog_options {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Unity Catalog info.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct UnityCatalogInfo {
+            /// Required. The instance name is the first part of the URL when logging
+            /// into the Databricks deployment. For example, for a Databricks on GCP
+            /// workspace URL <https://1.1.gcp.databricks.com>, the instance name is
+            /// 1.1.gcp.databricks.com.
+            pub instance_name: std::option::Option<std::string::String>,
+
+            /// Required. The catalog name in Unity Catalog.
+            pub catalog_name: std::option::Option<std::string::String>,
+
+            /// Optional. The application ID of the Databricks service principal that
+            /// will be used to access the Unity Catalog in the OIDC authentication
+            /// flow. With OIDC, the secret_name field is not used.
+            pub service_principal_application_id: std::option::Option<std::string::String>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl UnityCatalogInfo {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [instance_name][crate::model::iceberg_catalog::federated_catalog_options::UnityCatalogInfo::instance_name].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::UnityCatalogInfo;
+            /// let x = UnityCatalogInfo::new().set_instance_name("example");
+            /// ```
+            pub fn set_instance_name<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.instance_name = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [instance_name][crate::model::iceberg_catalog::federated_catalog_options::UnityCatalogInfo::instance_name].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::UnityCatalogInfo;
+            /// let x = UnityCatalogInfo::new().set_or_clear_instance_name(Some("example"));
+            /// let x = UnityCatalogInfo::new().set_or_clear_instance_name(None::<String>);
+            /// ```
+            pub fn set_or_clear_instance_name<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.instance_name = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [catalog_name][crate::model::iceberg_catalog::federated_catalog_options::UnityCatalogInfo::catalog_name].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::UnityCatalogInfo;
+            /// let x = UnityCatalogInfo::new().set_catalog_name("example");
+            /// ```
+            pub fn set_catalog_name<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.catalog_name = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [catalog_name][crate::model::iceberg_catalog::federated_catalog_options::UnityCatalogInfo::catalog_name].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::UnityCatalogInfo;
+            /// let x = UnityCatalogInfo::new().set_or_clear_catalog_name(Some("example"));
+            /// let x = UnityCatalogInfo::new().set_or_clear_catalog_name(None::<String>);
+            /// ```
+            pub fn set_or_clear_catalog_name<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.catalog_name = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [service_principal_application_id][crate::model::iceberg_catalog::federated_catalog_options::UnityCatalogInfo::service_principal_application_id].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::UnityCatalogInfo;
+            /// let x = UnityCatalogInfo::new().set_service_principal_application_id("example");
+            /// ```
+            pub fn set_service_principal_application_id<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.service_principal_application_id = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [service_principal_application_id][crate::model::iceberg_catalog::federated_catalog_options::UnityCatalogInfo::service_principal_application_id].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::UnityCatalogInfo;
+            /// let x = UnityCatalogInfo::new().set_or_clear_service_principal_application_id(Some("example"));
+            /// let x = UnityCatalogInfo::new().set_or_clear_service_principal_application_id(None::<String>);
+            /// ```
+            pub fn set_or_clear_service_principal_application_id<T>(
+                mut self,
+                v: std::option::Option<T>,
+            ) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.service_principal_application_id = v.map(|x| x.into());
+                self
+            }
+        }
+
+        impl wkt::message::Message for UnityCatalogInfo {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.biglake.v1.IcebergCatalog.FederatedCatalogOptions.UnityCatalogInfo"
+            }
+        }
+
+        /// AWS Glue Catalog info. We support regional AWS Glue default account
+        /// catalog and S3 Table Buckets.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct GlueCatalogInfo {
+            /// Required. Immutable. The warehouse to connect to a regional AWS Glue
+            /// Iceberg REST Catalog. For top level access, use the AWS account ID
+            /// (e.g. 111222333444). For an S3 table bucket, the warehouse is of the
+            /// form: 111222333444:s3tablescatalog/\<table-bucket-name\>. The URL to
+            /// access catalog will be
+            /// https://glue.{aws_region}.amazonaws.com/iceberg/v1?warehouse={warehouse}.
+            /// Must be non-empty and is immutable.
+            pub warehouse: std::option::Option<std::string::String>,
+
+            /// Required. Immutable. The AWS region of the Glue catalog to connect to.
+            /// The region should be in the same geographical region and jurisdiction
+            /// as the federated catalog.
+            /// Must be non-empty and is immutable.
+            pub aws_region: std::option::Option<std::string::String>,
+
+            /// Required. The AWS role ARN of the Glue catalog that the federated
+            /// catalog will assume to access the catalog. Must be non-empty. Can be
+            /// updated.
+            pub aws_role_arn: std::option::Option<std::string::String>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl GlueCatalogInfo {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [warehouse][crate::model::iceberg_catalog::federated_catalog_options::GlueCatalogInfo::warehouse].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::GlueCatalogInfo;
+            /// let x = GlueCatalogInfo::new().set_warehouse("example");
+            /// ```
+            pub fn set_warehouse<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.warehouse = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [warehouse][crate::model::iceberg_catalog::federated_catalog_options::GlueCatalogInfo::warehouse].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::GlueCatalogInfo;
+            /// let x = GlueCatalogInfo::new().set_or_clear_warehouse(Some("example"));
+            /// let x = GlueCatalogInfo::new().set_or_clear_warehouse(None::<String>);
+            /// ```
+            pub fn set_or_clear_warehouse<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.warehouse = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [aws_region][crate::model::iceberg_catalog::federated_catalog_options::GlueCatalogInfo::aws_region].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::GlueCatalogInfo;
+            /// let x = GlueCatalogInfo::new().set_aws_region("example");
+            /// ```
+            pub fn set_aws_region<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.aws_region = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [aws_region][crate::model::iceberg_catalog::federated_catalog_options::GlueCatalogInfo::aws_region].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::GlueCatalogInfo;
+            /// let x = GlueCatalogInfo::new().set_or_clear_aws_region(Some("example"));
+            /// let x = GlueCatalogInfo::new().set_or_clear_aws_region(None::<String>);
+            /// ```
+            pub fn set_or_clear_aws_region<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.aws_region = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [aws_role_arn][crate::model::iceberg_catalog::federated_catalog_options::GlueCatalogInfo::aws_role_arn].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::GlueCatalogInfo;
+            /// let x = GlueCatalogInfo::new().set_aws_role_arn("example");
+            /// ```
+            pub fn set_aws_role_arn<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.aws_role_arn = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [aws_role_arn][crate::model::iceberg_catalog::federated_catalog_options::GlueCatalogInfo::aws_role_arn].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::GlueCatalogInfo;
+            /// let x = GlueCatalogInfo::new().set_or_clear_aws_role_arn(Some("example"));
+            /// let x = GlueCatalogInfo::new().set_or_clear_aws_role_arn(None::<String>);
+            /// ```
+            pub fn set_or_clear_aws_role_arn<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.aws_role_arn = v.map(|x| x.into());
+                self
+            }
+        }
+
+        impl wkt::message::Message for GlueCatalogInfo {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.biglake.v1.IcebergCatalog.FederatedCatalogOptions.GlueCatalogInfo"
+            }
+        }
+
+        /// Schedule defines if and when metadata refresh should be scheduled.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct RefreshSchedule {
+            /// Optional. The interval for refreshing metadata from the remote catalog.
+            /// If unset or if the value is <= 0, the background refresh will be
+            /// disabled. If this field is updated for an existing federated catalog,
+            /// the previous background refresh must complete before the new refresh
+            /// interval will take effect.
+            pub refresh_interval: std::option::Option<wkt::Duration>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl RefreshSchedule {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [refresh_interval][crate::model::iceberg_catalog::federated_catalog_options::RefreshSchedule::refresh_interval].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::RefreshSchedule;
+            /// use wkt::Duration;
+            /// let x = RefreshSchedule::new().set_refresh_interval(Duration::default()/* use setters */);
+            /// ```
+            pub fn set_refresh_interval<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<wkt::Duration>,
+            {
+                self.refresh_interval = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [refresh_interval][crate::model::iceberg_catalog::federated_catalog_options::RefreshSchedule::refresh_interval].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::RefreshSchedule;
+            /// use wkt::Duration;
+            /// let x = RefreshSchedule::new().set_or_clear_refresh_interval(Some(Duration::default()/* use setters */));
+            /// let x = RefreshSchedule::new().set_or_clear_refresh_interval(None::<Duration>);
+            /// ```
+            pub fn set_or_clear_refresh_interval<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<wkt::Duration>,
+            {
+                self.refresh_interval = v.map(|x| x.into());
+                self
+            }
+        }
+
+        impl wkt::message::Message for RefreshSchedule {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.biglake.v1.IcebergCatalog.FederatedCatalogOptions.RefreshSchedule"
+            }
+        }
+
+        /// The scope defines a subset of namespaces to be refreshed.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct RefreshScope {
+            /// Optional. Filters to determine which namespaces are included in the
+            /// refresh process.
+            ///
+            /// - empty list means include all namespaces.
+            /// - "[namespaces]" means include the specified namespaces.
+            ///   ['ns1', 'ns2']    : Discover only namespaces 'ns1' and 'ns2'.
+            ///   The maximum number of namespace filters allowed is 32.
+            pub namespace_filters: std::vec::Vec<std::string::String>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl RefreshScope {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [namespace_filters][crate::model::iceberg_catalog::federated_catalog_options::RefreshScope::namespace_filters].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::RefreshScope;
+            /// let x = RefreshScope::new().set_namespace_filters(["a", "b", "c"]);
+            /// ```
+            pub fn set_namespace_filters<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.namespace_filters = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+        }
+
+        impl wkt::message::Message for RefreshScope {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.biglake.v1.IcebergCatalog.FederatedCatalogOptions.RefreshScope"
+            }
+        }
+
+        /// Refresh configuration.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct RefreshOptions {
+            /// Optional. Schedule defines if and when metadata refresh should be
+            /// scheduled.
+            pub refresh_schedule: std::option::Option<
+                crate::model::iceberg_catalog::federated_catalog_options::RefreshSchedule,
+            >,
+
+            /// Optional. Refresh scope configurations.
+            pub refresh_scope: std::option::Option<
+                crate::model::iceberg_catalog::federated_catalog_options::RefreshScope,
+            >,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl RefreshOptions {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [refresh_schedule][crate::model::iceberg_catalog::federated_catalog_options::RefreshOptions::refresh_schedule].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::RefreshOptions;
+            /// use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::RefreshSchedule;
+            /// let x = RefreshOptions::new().set_refresh_schedule(RefreshSchedule::default()/* use setters */);
+            /// ```
+            pub fn set_refresh_schedule<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::iceberg_catalog::federated_catalog_options::RefreshSchedule,
+                    >,
+            {
+                self.refresh_schedule = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [refresh_schedule][crate::model::iceberg_catalog::federated_catalog_options::RefreshOptions::refresh_schedule].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::RefreshOptions;
+            /// use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::RefreshSchedule;
+            /// let x = RefreshOptions::new().set_or_clear_refresh_schedule(Some(RefreshSchedule::default()/* use setters */));
+            /// let x = RefreshOptions::new().set_or_clear_refresh_schedule(None::<RefreshSchedule>);
+            /// ```
+            pub fn set_or_clear_refresh_schedule<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::iceberg_catalog::federated_catalog_options::RefreshSchedule,
+                    >,
+            {
+                self.refresh_schedule = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [refresh_scope][crate::model::iceberg_catalog::federated_catalog_options::RefreshOptions::refresh_scope].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::RefreshOptions;
+            /// use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::RefreshScope;
+            /// let x = RefreshOptions::new().set_refresh_scope(RefreshScope::default()/* use setters */);
+            /// ```
+            pub fn set_refresh_scope<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::iceberg_catalog::federated_catalog_options::RefreshScope,
+                    >,
+            {
+                self.refresh_scope = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [refresh_scope][crate::model::iceberg_catalog::federated_catalog_options::RefreshOptions::refresh_scope].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::RefreshOptions;
+            /// use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::RefreshScope;
+            /// let x = RefreshOptions::new().set_or_clear_refresh_scope(Some(RefreshScope::default()/* use setters */));
+            /// let x = RefreshOptions::new().set_or_clear_refresh_scope(None::<RefreshScope>);
+            /// ```
+            pub fn set_or_clear_refresh_scope<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::iceberg_catalog::federated_catalog_options::RefreshScope,
+                    >,
+            {
+                self.refresh_scope = v.map(|x| x.into());
+                self
+            }
+        }
+
+        impl wkt::message::Message for RefreshOptions {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.biglake.v1.IcebergCatalog.FederatedCatalogOptions.RefreshOptions"
+            }
+        }
+
+        /// Remote catalog background refresh status.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct RefreshStatus {
+            /// Output only. When the catalog refresh has started, including
+            /// in-progress refreshes.
+            pub start_time: std::option::Option<wkt::Timestamp>,
+
+            /// Output only. When the catalog refresh has ended, unset for in-progress
+            /// refreshes.
+            pub end_time: std::option::Option<wkt::Timestamp>,
+
+            /// Output only. The status of the last background refresh operation, unset
+            /// for in-progress refreshes.
+            pub status: std::option::Option<google_cloud_rpc::model::Status>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl RefreshStatus {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [start_time][crate::model::iceberg_catalog::federated_catalog_options::RefreshStatus::start_time].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::RefreshStatus;
+            /// use wkt::Timestamp;
+            /// let x = RefreshStatus::new().set_start_time(Timestamp::default()/* use setters */);
+            /// ```
+            pub fn set_start_time<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<wkt::Timestamp>,
+            {
+                self.start_time = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [start_time][crate::model::iceberg_catalog::federated_catalog_options::RefreshStatus::start_time].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::RefreshStatus;
+            /// use wkt::Timestamp;
+            /// let x = RefreshStatus::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+            /// let x = RefreshStatus::new().set_or_clear_start_time(None::<Timestamp>);
+            /// ```
+            pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<wkt::Timestamp>,
+            {
+                self.start_time = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [end_time][crate::model::iceberg_catalog::federated_catalog_options::RefreshStatus::end_time].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::RefreshStatus;
+            /// use wkt::Timestamp;
+            /// let x = RefreshStatus::new().set_end_time(Timestamp::default()/* use setters */);
+            /// ```
+            pub fn set_end_time<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<wkt::Timestamp>,
+            {
+                self.end_time = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [end_time][crate::model::iceberg_catalog::federated_catalog_options::RefreshStatus::end_time].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::RefreshStatus;
+            /// use wkt::Timestamp;
+            /// let x = RefreshStatus::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+            /// let x = RefreshStatus::new().set_or_clear_end_time(None::<Timestamp>);
+            /// ```
+            pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<wkt::Timestamp>,
+            {
+                self.end_time = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [status][crate::model::iceberg_catalog::federated_catalog_options::RefreshStatus::status].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::RefreshStatus;
+            /// use google_cloud_rpc::model::Status;
+            /// let x = RefreshStatus::new().set_status(Status::default()/* use setters */);
+            /// ```
+            pub fn set_status<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<google_cloud_rpc::model::Status>,
+            {
+                self.status = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [status][crate::model::iceberg_catalog::federated_catalog_options::RefreshStatus::status].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::RefreshStatus;
+            /// use google_cloud_rpc::model::Status;
+            /// let x = RefreshStatus::new().set_or_clear_status(Some(Status::default()/* use setters */));
+            /// let x = RefreshStatus::new().set_or_clear_status(None::<Status>);
+            /// ```
+            pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<google_cloud_rpc::model::Status>,
+            {
+                self.status = v.map(|x| x.into());
+                self
+            }
+        }
+
+        impl wkt::message::Message for RefreshStatus {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.biglake.v1.IcebergCatalog.FederatedCatalogOptions.RefreshStatus"
+            }
+        }
+
+        /// Info specific to a remote Iceberg REST catalog.
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum RemoteCatalogInfo {
+            /// Optional. Info specific to a Unity Catalog by Databricks.
+            UnityCatalogInfo(
+                std::boxed::Box<
+                    crate::model::iceberg_catalog::federated_catalog_options::UnityCatalogInfo,
+                >,
+            ),
+            /// Optional. Info specific to an AWS Glue Catalog.
+            GlueCatalogInfo(
+                std::boxed::Box<
+                    crate::model::iceberg_catalog::federated_catalog_options::GlueCatalogInfo,
+                >,
+            ),
+        }
+    }
 
     /// Determines the catalog type.
     ///
@@ -356,8 +1626,12 @@ pub mod iceberg_catalog {
     pub enum CatalogType {
         /// Default value. This value is unused.
         Unspecified,
-        /// Catalog type for Google Cloud Storage Buckets.
+        /// Google Cloud Storage bucket catalog type.
         GcsBucket,
+        /// BigLake catalog type.
+        Biglake,
+        /// Federated catalog type.
+        Federated,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [CatalogType::value] or
@@ -382,6 +1656,8 @@ pub mod iceberg_catalog {
             match self {
                 Self::Unspecified => std::option::Option::Some(0),
                 Self::GcsBucket => std::option::Option::Some(1),
+                Self::Biglake => std::option::Option::Some(3),
+                Self::Federated => std::option::Option::Some(4),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -394,6 +1670,8 @@ pub mod iceberg_catalog {
             match self {
                 Self::Unspecified => std::option::Option::Some("CATALOG_TYPE_UNSPECIFIED"),
                 Self::GcsBucket => std::option::Option::Some("CATALOG_TYPE_GCS_BUCKET"),
+                Self::Biglake => std::option::Option::Some("CATALOG_TYPE_BIGLAKE"),
+                Self::Federated => std::option::Option::Some("CATALOG_TYPE_FEDERATED"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -417,6 +1695,8 @@ pub mod iceberg_catalog {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::GcsBucket,
+                3 => Self::Biglake,
+                4 => Self::Federated,
                 _ => Self::UnknownValue(catalog_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -430,6 +1710,8 @@ pub mod iceberg_catalog {
             match value {
                 "CATALOG_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "CATALOG_TYPE_GCS_BUCKET" => Self::GcsBucket,
+                "CATALOG_TYPE_BIGLAKE" => Self::Biglake,
+                "CATALOG_TYPE_FEDERATED" => Self::Federated,
                 _ => Self::UnknownValue(catalog_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -445,6 +1727,8 @@ pub mod iceberg_catalog {
             match self {
                 Self::Unspecified => serializer.serialize_i32(0),
                 Self::GcsBucket => serializer.serialize_i32(1),
+                Self::Biglake => serializer.serialize_i32(3),
+                Self::Federated => serializer.serialize_i32(4),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -627,6 +1911,20 @@ pub struct CreateIcebergCatalogRequest {
     ///   desired.
     pub iceberg_catalog: std::option::Option<crate::model::IcebergCatalog>,
 
+    /// Optional. The primary location where the catalog metadata will be stored.
+    ///
+    /// For Google Cloud Storage bucket catalogs and BigLake catalogs, if this
+    /// is not specified, then the region is inferred from the bucket's region
+    /// (`default_location` bucket for BigLake catalogs). If specified, the region
+    /// must be in jurisdiction (near the `default_location` bucket's region and
+    /// the `restricted_locations` buckets' regions for BigLake catalogs).
+    ///
+    /// For federated catalogs, this must be specified and be a Lakehouse-supported
+    /// location (<https://docs.cloud.google.com/lakehouse/docs/locations>). It
+    /// should be close to the remote catalog's location for the best
+    /// performance and cost.
+    pub primary_location: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -693,6 +1991,21 @@ impl CreateIcebergCatalogRequest {
         T: std::convert::Into<crate::model::IcebergCatalog>,
     {
         self.iceberg_catalog = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [primary_location][crate::model::CreateIcebergCatalogRequest::primary_location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::CreateIcebergCatalogRequest;
+    /// let x = CreateIcebergCatalogRequest::new().set_primary_location("example");
+    /// ```
+    pub fn set_primary_location<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.primary_location = v.into();
         self
     }
 }
@@ -1107,7 +2420,8 @@ pub struct ListIcebergCatalogsResponse {
     /// Output only. The next page token for pagination.
     pub next_page_token: std::string::String,
 
-    /// Output only. The list of unreachable cloud regions for router fanout.
+    /// Output only. The list of unreachable cloud regions. If non-empty, the
+    /// result set might be incomplete.
     pub unreachable: std::vec::Vec<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1359,12 +2673,10 @@ impl wkt::message::Message for FailoverIcebergCatalogResponse {
 #[non_exhaustive]
 pub struct UpdateIcebergTableRequest {
     /// Required. Table to commit in the format:
-    /// `projects/{project_id}/namespaces/{namespace}/tables/{table}`.
+    /// `projects/{projectId}/catalogs/{catalogId}/namespaces/{namespace}/tables/{table}`.
     pub name: std::string::String,
 
-    /// Required. The request body that should be in the format of Apache Iceberg's
-    /// `#/components/schemas/CommitTableRequest`. Content type is expected to be
-    /// `application/json`. Added this field for easier json parsing.
+    /// Required.
     pub http_body: std::option::Option<google_cloud_api::model::HttpBody>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1535,12 +2847,10 @@ impl wkt::message::Message for DeleteIcebergTableRequest {
 #[non_exhaustive]
 pub struct CreateIcebergTableRequest {
     /// Required. The parent resource where this table will be created.
-    /// Format: projects/{project_id}/namespaces/{namespace}
+    /// Format: projects/{project_id}/catalogs/{catalog_id}/namespaces/{namespace}
     pub parent: std::string::String,
 
-    /// Required. The request body that should be in the format of Apache Iceberg's
-    /// `#/components/schemas/CreateTableRequest`. Content type is expected to be
-    /// `application/json`.
+    /// Required.
     pub http_body: std::option::Option<google_cloud_api::model::HttpBody>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1601,6 +2911,163 @@ impl CreateIcebergTableRequest {
 impl wkt::message::Message for CreateIcebergTableRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.biglake.v1.CreateIcebergTableRequest"
+    }
+}
+
+/// The request message for the `RegisterIcebergTable` API.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RegisterIcebergTableRequest {
+    /// Required. Table to register in the format:
+    /// `projects/{project_id}/catalogs/{catalog_id}/namespaces/{namespace}`.
+    pub parent: std::string::String,
+
+    /// Required. The name of the table to register.
+    pub name: std::string::String,
+
+    /// Required. The metadata location of the table.
+    pub metadata_location: std::string::String,
+
+    /// Optional. Whether to overwrite the table if it already exists. Default is
+    /// false.
+    pub overwrite: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RegisterIcebergTableRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::RegisterIcebergTableRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::RegisterIcebergTableRequest;
+    /// let x = RegisterIcebergTableRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [name][crate::model::RegisterIcebergTableRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::RegisterIcebergTableRequest;
+    /// let x = RegisterIcebergTableRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [metadata_location][crate::model::RegisterIcebergTableRequest::metadata_location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::RegisterIcebergTableRequest;
+    /// let x = RegisterIcebergTableRequest::new().set_metadata_location("example");
+    /// ```
+    pub fn set_metadata_location<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.metadata_location = v.into();
+        self
+    }
+
+    /// Sets the value of [overwrite][crate::model::RegisterIcebergTableRequest::overwrite].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::RegisterIcebergTableRequest;
+    /// let x = RegisterIcebergTableRequest::new().set_overwrite(true);
+    /// ```
+    pub fn set_overwrite<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.overwrite = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RegisterIcebergTableRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.biglake.v1.RegisterIcebergTableRequest"
+    }
+}
+
+/// The request message for the `ReportIcebergTableMetrics` API.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ReportIcebergTableMetricsRequest {
+    /// Required. Table to report metrics for in the format:
+    /// `projects/{project_id}/namespaces/{namespace}/tables/{table}`.
+    pub name: std::string::String,
+
+    /// Required.
+    pub http_body: std::option::Option<google_cloud_api::model::HttpBody>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ReportIcebergTableMetricsRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ReportIcebergTableMetricsRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::ReportIcebergTableMetricsRequest;
+    /// let x = ReportIcebergTableMetricsRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [http_body][crate::model::ReportIcebergTableMetricsRequest::http_body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::ReportIcebergTableMetricsRequest;
+    /// use google_cloud_api::model::HttpBody;
+    /// let x = ReportIcebergTableMetricsRequest::new().set_http_body(HttpBody::default()/* use setters */);
+    /// ```
+    pub fn set_http_body<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_cloud_api::model::HttpBody>,
+    {
+        self.http_body = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [http_body][crate::model::ReportIcebergTableMetricsRequest::http_body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::ReportIcebergTableMetricsRequest;
+    /// use google_cloud_api::model::HttpBody;
+    /// let x = ReportIcebergTableMetricsRequest::new().set_or_clear_http_body(Some(HttpBody::default()/* use setters */));
+    /// let x = ReportIcebergTableMetricsRequest::new().set_or_clear_http_body(None::<HttpBody>);
+    /// ```
+    pub fn set_or_clear_http_body<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_cloud_api::model::HttpBody>,
+    {
+        self.http_body = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for ReportIcebergTableMetricsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.biglake.v1.ReportIcebergTableMetricsRequest"
     }
 }
 
@@ -1856,7 +3323,7 @@ pub struct UpdateIcebergNamespaceRequest {
     /// Required. The namespace to update.
     ///
     /// The namespace's `name` field is used to identify the namespace to update.
-    /// Format: projects/{project_id}/namespaces/{namespace}
+    /// Format: projects/{project_id}/catalogs/{catalog_id}/namespaces/{namespace}
     pub name: std::string::String,
 
     /// Required. The update to apply to the namespace.
@@ -2009,7 +3476,7 @@ impl wkt::message::Message for UpdateIcebergNamespaceResponse {
 #[non_exhaustive]
 pub struct DeleteIcebergNamespaceRequest {
     /// Required. Iceberg namespace to delete in the format:
-    /// `projects/{project_id}/namespaces/{namespace}`.
+    /// `projects/{project_id}/catalogs/{catalog_id}/namespaces/{namespace}`.
     pub name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2109,7 +3576,7 @@ impl wkt::message::Message for IcebergNamespace {
 #[non_exhaustive]
 pub struct CreateIcebergNamespaceRequest {
     /// Required. The parent resource where this namespace will be created.
-    /// Format: projects/{project_id}/restcatalog/v1/catalogs/{catalog_id}
+    /// Format: projects/{project_id}/catalogs/{catalog_id}
     pub parent: std::string::String,
 
     /// Required. The namespace to create.
@@ -2309,7 +3776,7 @@ impl wkt::message::Message for IcebergCatalogConfig {
 #[non_exhaustive]
 pub struct GetIcebergNamespaceRequest {
     /// Required. Iceberg namespace to fetch in the format:
-    /// `projects/{project_id}/namespaces/{namespace}`.
+    /// `projects/{project_id}/catalogs/{catalog_id}/namespaces/{namespace}`.
     pub name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2344,13 +3811,14 @@ impl wkt::message::Message for GetIcebergNamespaceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListIcebergNamespacesRequest {
-    /// Optional. PageToken
+    /// Optional. Specify the page_token returned in the previous response to
+    /// retrieve the next page of results.
     pub page_token: std::string::String,
 
     /// Optional. For servers that support pagination, this signals an upper bound
     /// of the number of results that a client will receive. For servers that do
     /// not support pagination, clients may receive results larger than the
-    /// indicated `pageSize`.
+    /// indicated `pageSize`. Defaults to 100 if not set.
     pub page_size: i32,
 
     /// Required. The parent from the resource path.
@@ -2437,6 +3905,10 @@ pub struct ListIcebergNamespacesResponse {
     /// The next page token for pagination.
     pub next_page_token: std::string::String,
 
+    /// Output only. A list of skipped locations that were unreachable. If
+    /// non-empty, the result set might be incomplete.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2477,6 +3949,23 @@ impl ListIcebergNamespacesResponse {
     /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListIcebergNamespacesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::ListIcebergNamespacesResponse;
+    /// let x = ListIcebergNamespacesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }

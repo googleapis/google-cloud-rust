@@ -413,23 +413,11 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
-    async fn get_goldengate_deployment_version(
-        &self,
-        req: crate::model::GetGoldengateDeploymentVersionRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::GoldengateDeploymentVersion>>;
-
     async fn list_goldengate_deployment_versions(
         &self,
         req: crate::model::ListGoldengateDeploymentVersionsRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ListGoldengateDeploymentVersionsResponse>>;
-
-    async fn get_goldengate_deployment_type(
-        &self,
-        req: crate::model::GetGoldengateDeploymentTypeRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::GoldengateDeploymentType>>;
 
     async fn list_goldengate_deployment_types(
         &self,
@@ -437,23 +425,11 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ListGoldengateDeploymentTypesResponse>>;
 
-    async fn get_goldengate_deployment_environment(
-        &self,
-        req: crate::model::GetGoldengateDeploymentEnvironmentRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::GoldengateDeploymentEnvironment>>;
-
     async fn list_goldengate_deployment_environments(
         &self,
         req: crate::model::ListGoldengateDeploymentEnvironmentsRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ListGoldengateDeploymentEnvironmentsResponse>>;
-
-    async fn get_goldengate_connection_type(
-        &self,
-        req: crate::model::GetGoldengateConnectionTypeRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::GoldengateConnectionType>>;
 
     async fn list_goldengate_connection_types(
         &self,
@@ -1156,15 +1132,6 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
-    async fn get_goldengate_deployment_version(
-        &self,
-        req: crate::model::GetGoldengateDeploymentVersionRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::GoldengateDeploymentVersion>> {
-        T::get_goldengate_deployment_version(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
     async fn list_goldengate_deployment_versions(
         &self,
         req: crate::model::ListGoldengateDeploymentVersionsRequest,
@@ -1172,15 +1139,6 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     ) -> crate::Result<crate::Response<crate::model::ListGoldengateDeploymentVersionsResponse>>
     {
         T::list_goldengate_deployment_versions(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn get_goldengate_deployment_type(
-        &self,
-        req: crate::model::GetGoldengateDeploymentTypeRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::GoldengateDeploymentType>> {
-        T::get_goldengate_deployment_type(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -1193,15 +1151,6 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
-    async fn get_goldengate_deployment_environment(
-        &self,
-        req: crate::model::GetGoldengateDeploymentEnvironmentRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::GoldengateDeploymentEnvironment>> {
-        T::get_goldengate_deployment_environment(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
     async fn list_goldengate_deployment_environments(
         &self,
         req: crate::model::ListGoldengateDeploymentEnvironmentsRequest,
@@ -1209,15 +1158,6 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     ) -> crate::Result<crate::Response<crate::model::ListGoldengateDeploymentEnvironmentsResponse>>
     {
         T::list_goldengate_deployment_environments(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn get_goldengate_connection_type(
-        &self,
-        req: crate::model::GetGoldengateConnectionTypeRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::GoldengateConnectionType>> {
-        T::get_goldengate_connection_type(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

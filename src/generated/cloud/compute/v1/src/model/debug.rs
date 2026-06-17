@@ -8062,6 +8062,23 @@ impl std::fmt::Debug for super::InstanceGroupManagerInstanceLifecyclePolicy {
         debug_struct.field("default_action_on_failure", &self.default_action_on_failure);
         debug_struct.field("force_update_on_repair", &self.force_update_on_repair);
         debug_struct.field("on_failed_health_check", &self.on_failed_health_check);
+        debug_struct.field("on_repair", &self.on_repair);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::InstanceGroupManagerInstanceLifecyclePolicyOnRepair {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct =
+            f.debug_struct("InstanceGroupManagerInstanceLifecyclePolicyOnRepair");
+        debug_struct.field("allow_changing_zone", &self.allow_changing_zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -10203,6 +10220,7 @@ impl std::fmt::Debug for super::Interconnect {
         debug_struct.field("creation_timestamp", &self.creation_timestamp);
         debug_struct.field("customer_name", &self.customer_name);
         debug_struct.field("description", &self.description);
+        debug_struct.field("effective_location", &self.effective_location);
         debug_struct.field("expected_outages", &self.expected_outages);
         debug_struct.field("google_ip_address", &self.google_ip_address);
         debug_struct.field("google_reference_id", &self.google_reference_id);
@@ -13399,6 +13417,7 @@ impl std::fmt::Debug for super::NetworkInterface {
         let mut debug_struct = f.debug_struct("NetworkInterface");
         debug_struct.field("access_configs", &self.access_configs);
         debug_struct.field("alias_ip_ranges", &self.alias_ip_ranges);
+        debug_struct.field("alias_ipv_6_ranges", &self.alias_ipv_6_ranges);
         debug_struct.field("enable_vpc_scoped_dns", &self.enable_vpc_scoped_dns);
         debug_struct.field("fingerprint", &self.fingerprint);
         debug_struct.field("igmp_query", &self.igmp_query);
@@ -24292,6 +24311,7 @@ impl std::fmt::Debug for super::TargetTcpProxy {
         debug_struct.field("description", &self.description);
         debug_struct.field("id", &self.id);
         debug_struct.field("kind", &self.kind);
+        debug_struct.field("load_balancing_scheme", &self.load_balancing_scheme);
         debug_struct.field("name", &self.name);
         debug_struct.field("proxy_bind", &self.proxy_bind);
         debug_struct.field("proxy_header", &self.proxy_header);

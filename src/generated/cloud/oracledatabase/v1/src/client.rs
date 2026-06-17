@@ -1979,28 +1979,6 @@ impl OracleDatabase {
         super::builder::oracle_database::DeleteGoldengateConnection::new(self.inner.clone())
     }
 
-    /// Gets details of a single GoldengateDeploymentVersion.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
-    /// use google_cloud_oracledatabase_v1::Result;
-    /// async fn sample(
-    ///    client: &OracleDatabase, project_id: &str, location_id: &str, goldengate_deployment_version_id: &str
-    /// ) -> Result<()> {
-    ///     let response = client.get_goldengate_deployment_version()
-    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/goldengateDeploymentVersions/{goldengate_deployment_version_id}"))
-    ///         .send().await?;
-    ///     println!("response {:?}", response);
-    ///     Ok(())
-    /// }
-    /// ```
-    pub fn get_goldengate_deployment_version(
-        &self,
-    ) -> super::builder::oracle_database::GetGoldengateDeploymentVersion {
-        super::builder::oracle_database::GetGoldengateDeploymentVersion::new(self.inner.clone())
-    }
-
     /// Lists GoldengateDeploymentVersions in a given project and location.
     ///
     /// # Example
@@ -2024,28 +2002,6 @@ impl OracleDatabase {
         &self,
     ) -> super::builder::oracle_database::ListGoldengateDeploymentVersions {
         super::builder::oracle_database::ListGoldengateDeploymentVersions::new(self.inner.clone())
-    }
-
-    /// Gets details of a single GoldenGateDeploymentType.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
-    /// use google_cloud_oracledatabase_v1::Result;
-    /// async fn sample(
-    ///    client: &OracleDatabase, project_id: &str, location_id: &str, goldengate_deployment_type_id: &str
-    /// ) -> Result<()> {
-    ///     let response = client.get_goldengate_deployment_type()
-    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/goldengateDeploymentTypes/{goldengate_deployment_type_id}"))
-    ///         .send().await?;
-    ///     println!("response {:?}", response);
-    ///     Ok(())
-    /// }
-    /// ```
-    pub fn get_goldengate_deployment_type(
-        &self,
-    ) -> super::builder::oracle_database::GetGoldengateDeploymentType {
-        super::builder::oracle_database::GetGoldengateDeploymentType::new(self.inner.clone())
     }
 
     /// Lists GoldenGateDeploymentTypes in a given project and location.
@@ -2073,28 +2029,6 @@ impl OracleDatabase {
         super::builder::oracle_database::ListGoldengateDeploymentTypes::new(self.inner.clone())
     }
 
-    /// Gets details of a single GoldengateDeploymentEnvironment.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
-    /// use google_cloud_oracledatabase_v1::Result;
-    /// async fn sample(
-    ///    client: &OracleDatabase, project_id: &str, location_id: &str, goldengate_deployment_environment_id: &str
-    /// ) -> Result<()> {
-    ///     let response = client.get_goldengate_deployment_environment()
-    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/goldengateDeploymentEnvironments/{goldengate_deployment_environment_id}"))
-    ///         .send().await?;
-    ///     println!("response {:?}", response);
-    ///     Ok(())
-    /// }
-    /// ```
-    pub fn get_goldengate_deployment_environment(
-        &self,
-    ) -> super::builder::oracle_database::GetGoldengateDeploymentEnvironment {
-        super::builder::oracle_database::GetGoldengateDeploymentEnvironment::new(self.inner.clone())
-    }
-
     /// Lists GoldengateDeploymentEnvironments in a given project and location.
     ///
     /// # Example
@@ -2120,28 +2054,6 @@ impl OracleDatabase {
         super::builder::oracle_database::ListGoldengateDeploymentEnvironments::new(
             self.inner.clone(),
         )
-    }
-
-    /// Gets details of a single GoldengateConnectionType.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
-    /// use google_cloud_oracledatabase_v1::Result;
-    /// async fn sample(
-    ///    client: &OracleDatabase, project_id: &str, location_id: &str, goldengate_connection_type_id: &str
-    /// ) -> Result<()> {
-    ///     let response = client.get_goldengate_connection_type()
-    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/goldengateConnectionTypes/{goldengate_connection_type_id}"))
-    ///         .send().await?;
-    ///     println!("response {:?}", response);
-    ///     Ok(())
-    /// }
-    /// ```
-    pub fn get_goldengate_connection_type(
-        &self,
-    ) -> super::builder::oracle_database::GetGoldengateConnectionType {
-        super::builder::oracle_database::GetGoldengateConnectionType::new(self.inner.clone())
     }
 
     /// Lists GoldengateConnectionTypes in a given project and location.

@@ -18,37 +18,6 @@
 use super::*;
 
 #[doc(hidden)]
-impl serde::ser::Serialize for super::RegisterIcebergTableRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.parent.is_empty() {
-            state.serialize_entry("parent", &self.parent)?;
-        }
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if !self.metadata_location.is_empty() {
-            state.serialize_entry("metadata-location", &self.metadata_location)?;
-        }
-        if !self.overwrite.is_empty() {
-            state.serialize_entry("overwrite", &self.overwrite)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[doc(hidden)]
 impl serde::ser::Serialize for super::IcebergCatalog {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -67,20 +36,281 @@ impl serde::ser::Serialize for super::IcebergCatalog {
         if !self.biglake_service_account.is_empty() {
             state.serialize_entry("biglake-service-account", &self.biglake_service_account)?;
         }
+        if !self.biglake_service_account_unique_id.is_empty() {
+            state.serialize_entry(
+                "biglake-service-account-id",
+                &self.biglake_service_account_unique_id,
+            )?;
+        }
         if !wkt::internal::is_default(&self.catalog_type) {
             state.serialize_entry("catalog-type", &self.catalog_type)?;
         }
         if !self.default_location.is_empty() {
             state.serialize_entry("default-location", &self.default_location)?;
         }
-        if !self.catalog_regions.is_empty() {
-            state.serialize_entry("catalog-regions", &self.catalog_regions)?;
+        if !self.storage_regions.is_empty() {
+            state.serialize_entry("storage-regions", &self.storage_regions)?;
         }
         if self.create_time.is_some() {
             state.serialize_entry("create-time", &self.create_time)?;
         }
         if self.update_time.is_some() {
             state.serialize_entry("update-time", &self.update_time)?;
+        }
+        if !self.replicas.is_empty() {
+            state.serialize_entry("replicas", &self.replicas)?;
+        }
+        if !self.description.is_empty() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if self.restricted_locations_config.is_some() {
+            state.serialize_entry(
+                "restricted-locations-config",
+                &self.restricted_locations_config,
+            )?;
+        }
+        if self.federated_catalog_options.is_some() {
+            state.serialize_entry("federated-catalog-options", &self.federated_catalog_options)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::iceberg_catalog::Replica {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.region.is_empty() {
+            state.serialize_entry("region", &self.region)?;
+        }
+        if !wkt::internal::is_default(&self.state) {
+            state.serialize_entry("state", &self.state)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::iceberg_catalog::RestrictedLocationsConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.restricted_locations.is_empty() {
+            state.serialize_entry("restricted-locations", &self.restricted_locations)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::iceberg_catalog::FederatedCatalogOptions {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.unity_catalog_info() {
+            state.serialize_entry("unity-catalog-info", value)?;
+        }
+        if let Some(value) = self.glue_catalog_info() {
+            state.serialize_entry("glue-catalog-info", value)?;
+        }
+        if self.secret_name.is_some() {
+            state.serialize_entry("secret-name", &self.secret_name)?;
+        }
+        if self.service_directory_name.is_some() {
+            state.serialize_entry("service-directory-name", &self.service_directory_name)?;
+        }
+        if self.refresh_options.is_some() {
+            state.serialize_entry("refresh-options", &self.refresh_options)?;
+        }
+        if self.refresh_status.is_some() {
+            state.serialize_entry("refresh-status", &self.refresh_status)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::iceberg_catalog::federated_catalog_options::UnityCatalogInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.instance_name.is_some() {
+            state.serialize_entry("instance-name", &self.instance_name)?;
+        }
+        if self.catalog_name.is_some() {
+            state.serialize_entry("catalog-name", &self.catalog_name)?;
+        }
+        if self.service_principal_application_id.is_some() {
+            state.serialize_entry(
+                "service-principal-application-id",
+                &self.service_principal_application_id,
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::iceberg_catalog::federated_catalog_options::GlueCatalogInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.warehouse.is_some() {
+            state.serialize_entry("warehouse", &self.warehouse)?;
+        }
+        if self.aws_region.is_some() {
+            state.serialize_entry("aws-region", &self.aws_region)?;
+        }
+        if self.aws_role_arn.is_some() {
+            state.serialize_entry("aws-role-arn", &self.aws_role_arn)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::iceberg_catalog::federated_catalog_options::RefreshSchedule {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.refresh_interval.is_some() {
+            state.serialize_entry("refresh-interval", &self.refresh_interval)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::iceberg_catalog::federated_catalog_options::RefreshScope {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.namespace_filters.is_empty() {
+            state.serialize_entry("namespace-filters", &self.namespace_filters)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::iceberg_catalog::federated_catalog_options::RefreshOptions {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.refresh_schedule.is_some() {
+            state.serialize_entry("refresh-schedule", &self.refresh_schedule)?;
+        }
+        if self.refresh_scope.is_some() {
+            state.serialize_entry("refresh-scope", &self.refresh_scope)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::iceberg_catalog::federated_catalog_options::RefreshStatus {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.start_time.is_some() {
+            state.serialize_entry("start-time", &self.start_time)?;
+        }
+        if self.end_time.is_some() {
+            state.serialize_entry("end-time", &self.end_time)?;
+        }
+        if self.status.is_some() {
+            state.serialize_entry("status", &self.status)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -109,6 +339,9 @@ impl serde::ser::Serialize for super::CreateIcebergCatalogRequest {
         }
         if self.iceberg_catalog.is_some() {
             state.serialize_entry("icebergCatalog", &self.iceberg_catalog)?;
+        }
+        if !self.primary_location.is_empty() {
+            state.serialize_entry("primary_location", &self.primary_location)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -326,7 +559,7 @@ impl serde::ser::Serialize for super::UpdateIcebergTableRequest {
             state.serialize_entry("name", &self.name)?;
         }
         if self.http_body.is_some() {
-            state.serialize_entry("updates", &self.http_body)?;
+            state.serialize_entry("httpBody", &self.http_body)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -399,6 +632,62 @@ impl serde::ser::Serialize for super::CreateIcebergTableRequest {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.parent.is_empty() {
             state.serialize_entry("parent", &self.parent)?;
+        }
+        if self.http_body.is_some() {
+            state.serialize_entry("httpBody", &self.http_body)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::RegisterIcebergTableRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.metadata_location.is_empty() {
+            state.serialize_entry("metadata-location", &self.metadata_location)?;
+        }
+        if !wkt::internal::is_default(&self.overwrite) {
+            state.serialize_entry("overwrite", &self.overwrite)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ReportIcebergTableMetricsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
         }
         if self.http_body.is_some() {
             state.serialize_entry("httpBody", &self.http_body)?;
@@ -776,6 +1065,9 @@ impl serde::ser::Serialize for super::ListIcebergNamespacesResponse {
         }
         if !self.next_page_token.is_empty() {
             state.serialize_entry("next-page-token", &self.next_page_token)?;
+        }
+        if !self.unreachable.is_empty() {
+            state.serialize_entry("unreachable", &self.unreachable)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
