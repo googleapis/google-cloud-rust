@@ -1106,11 +1106,6 @@ libraries:
   - name: google-cloud-networkservices-v1
     version: 1.12.0
     copyright_year: "2025"
-    rust:
-      documentation_overrides:
-        - id: .google.cloud.networkservices.v1.WasmPlugin.LogConfig.min_log_level
-          match: Specificies
-          replace: Specifies
   - name: google-cloud-notebooks-v2
     version: 1.12.0
     copyright_year: "2025"
