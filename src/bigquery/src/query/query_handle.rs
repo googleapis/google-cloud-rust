@@ -30,13 +30,11 @@ pub struct Query {
 impl Query {
     /// Returns the [`QueryReference`] for this query.
     ///
-    /// The reference will be [`QueryReference::Job`] if a query job was created,
+    /// The reference will be [`QueryReference::Job`] with a query [job reference],
     /// or [`QueryReference::Stateless`] with an opaque query ID if job creation
     /// was skipped.
     ///
-    /// # Panics
-    ///
-    /// Panics if the query has neither a job reference nor a query ID.
+    /// [job reference]: https://docs.cloud.google.com/bigquery/docs/reference/rest/v2/JobReference
     pub fn query_reference(&self) -> QueryReference {
         let from_query_id = self
             .initial_response
