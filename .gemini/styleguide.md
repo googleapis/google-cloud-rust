@@ -50,7 +50,6 @@ When reviewing or generating code, apply rigorous scrutiny:
   preferable to returning an error that can't arise. In tests, prefer `?`. If
   that is not possible use `.expect()`. Only use `.unwrap()` as a last resort.
 
-
 ## Async & Concurrency
 
 - **Send & Sync:** New public `async fn` and Future types MUST be `Send` and
