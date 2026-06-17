@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-24.04
     # Only run for GCB check suites that failed/timed out/cancelled on the main branch.
     if: >
-      github.repository == 'googleapis/google-cloud-rust' && github.event.check_suite.app.name == 'Google Cloud Build' && (github.event.check_suite.conclusion == 'failure' ||
+      github.event.check_suite.app.name == 'Google Cloud Build' && (github.event.check_suite.conclusion == 'failure' ||
        github.event.check_suite.conclusion == 'timed_out' ||
        github.event.check_suite.conclusion == 'cancelled') &&
       github.event.check_suite.head_branch == 'main'
