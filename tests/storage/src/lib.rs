@@ -157,8 +157,8 @@ pub async fn signed_post_policies_v4(
 
     // Add all fields from PostPolicyV4Result
     // Note: GCS expects "file" to be the last field in the request.
-    for (k, v) in &post_policy.fields {
-        form = form.text(k.clone(), v.clone());
+    for (k, v) in post_policy.fields {
+        form = form.text(k, v);
     }
 
     // Add the file part

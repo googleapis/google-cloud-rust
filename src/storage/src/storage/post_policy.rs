@@ -288,18 +288,15 @@ impl PostPolicyV4Builder {
 }
 
 fn escape_non_ascii(s: &str) -> String {
+    use std::fmt::Write;
     let mut escaped = String::with_capacity(s.len());
+    let mut buf = [0; 2];
     for c in s.chars() {
         if c.is_ascii() {
             escaped.push(c);
         } else {
-            let codepoint = c as u32;
-            if codepoint <= 0xFFFF {
-                escaped.push_str(&format!("\\u{:04x}", codepoint));
-            } else {
-                let high = ((codepoint - 0x10000) >> 10) + 0xD800;
-                let low = ((codepoint - 0x10000) & 0x3FF) + 0xDC00;
-                escaped.push_str(&format!("\\u{:04x}\\u{:04x}", high, low));
+            for &unit in c.encode_utf16(&mut buf) {
+                let _ = write!(escaped, "\\u{:04x}", unit);
             }
         }
     }
