@@ -18,6 +18,7 @@ use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::{
     GetQueryResultsRequest, GetQueryResultsResponse, Job, JobReference, QueryResponse,
 };
+use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
 use google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy;
 use google_cloud_gax::polling_state::PollingState;
@@ -42,24 +43,18 @@ impl Query {
             return Ok(CompleteQuery::from_query_response(self, initial_response));
         }
 
-        let res = poll_query_results(&self.job_service, self.job_ref.as_ref()).await?;
+        let job_ref = self
+            .job_ref
+            .as_ref()
+            .expect("query job should have job reference at this point");
+        let backoff_policy = Arc::new(
+            ExponentialBackoffBuilder::default()
+                .with_initial_delay(std::time::Duration::from_secs(10))
+                .build()
+                .expect("valid backoff configuration"),
+        );
+        let res = poll_query_results(&self.job_service, job_ref, backoff_policy).await?;
         Ok(CompleteQuery::from_get_query_results_response(self, res))
-    }
-
-    /// Returns the stateless query ID of the query, if available.
-    pub fn query_id(&self) -> Option<&str> {
-        self.initial_response.as_ref().and_then(|res| {
-            if res.query_id.is_empty() {
-                None
-            } else {
-                Some(res.query_id.as_str())
-            }
-        })
-    }
-
-    /// Returns the underlying job reference for this query.
-    pub fn job_reference(&self) -> Option<&JobReference> {
-        self.job_ref.as_ref()
     }
 }
 
@@ -94,18 +89,12 @@ impl CompleteQuery {
 /// Helper function to poll getQueryResults until a job finishes.
 pub(crate) async fn poll_query_results(
     job_service: &JobService,
-    job_ref: Option<&JobReference>,
+    job_ref: &JobReference,
+    backoff_policy: Arc<dyn PollingBackoffPolicy>,
 ) -> Result<GetQueryResultsResponse> {
-    let backoff_policy = ExponentialBackoffBuilder::default()
-        .with_maximum_delay(std::time::Duration::from_secs(10))
-        .build()
-        .unwrap();
-
     let mut state = PollingState::default();
 
     loop {
-        let job_ref = job_ref.expect("query job should have job reference at this point");
-
         let mut req = GetQueryResultsRequest::new()
             .set_max_results(0u32)
             .set_project_id(job_ref.project_id.clone())
@@ -118,10 +107,10 @@ pub(crate) async fn poll_query_results(
             .get_query_results()
             .with_request(req)
             .send()
-            .await
-            .map_err(|e| QueryError::Rpc { source: e })?;
+            .await?;
 
         if !res.errors.is_empty() {
+            // TODO(#5592): handle jobBackendError and other transient/retryable errors.
             return Err(QueryError::JobFailed { errors: res.errors });
         }
 
@@ -132,21 +121,25 @@ pub(crate) async fn poll_query_results(
 
         let delay = backoff_policy.wait_period(&state);
         tokio::time::sleep(delay).await;
+        // TODO(#5592): limit retry attempts or add cancellation mechanism
         state.attempt_count += 1;
     }
 }
 
 #[cfg(test)]
 mod tests {
+    use std::time::Duration;
+
     use super::*;
-    use crate::query::tests::{MockJobService, create_job_service};
+    use crate::query::tests::{
+        MockBackoffPolicy, MockJobService, create_job_service, create_test_backoff_policy,
+    };
     use google_cloud_bigquery_v2::model::{
         ErrorProto, GetQueryResultsResponse, JobReference, QueryResponse,
     };
     use google_cloud_gax::error::Error as GaxError;
     use google_cloud_gax::error::rpc::{Code, Status};
     use google_cloud_gax::response::Response;
-    use std::sync::atomic::{AtomicU32, Ordering};
 
     use test_case::test_case;
 
@@ -179,16 +172,18 @@ mod tests {
     #[tokio::test]
     async fn test_query_until_done_polls_success() -> TestResult {
         let mut mock = MockJobService::new();
-        mock.expect_get_query_results().returning(|req, _| {
-            assert_eq!(req.project_id, "some_project");
-            assert_eq!(req.job_id, "some_job_id");
-            assert_eq!(req.max_results, Some(0));
-            assert_eq!(req.location, "us-central1");
-            let res = GetQueryResultsResponse::new()
-                .set_job_complete(true)
-                .set_job_reference(JobReference::new().set_job_id(req.job_id));
-            Ok(Response::from(res))
-        });
+        mock.expect_get_query_results()
+            .returning(|req, _| {
+                assert_eq!(req.project_id, "some_project");
+                assert_eq!(req.job_id, "some_job_id");
+                assert_eq!(req.max_results, Some(0));
+                assert_eq!(req.location, "us-central1");
+                let res = GetQueryResultsResponse::new()
+                    .set_job_complete(true)
+                    .set_job_reference(JobReference::new().set_job_id(req.job_id));
+                Ok(Response::from(res))
+            })
+            .times(1);
         let job_service = create_job_service(mock);
         let job_ref = JobReference::new()
             .set_project_id("some_project")
@@ -209,74 +204,43 @@ mod tests {
         Ok(())
     }
 
-    #[test_case(Some("query_123"), Some("query_123"); "with query id")]
-    #[test_case(Some(""), None; "empty query id")]
-    #[test_case(None, None; "no query response")]
-
-    fn test_query_query_id(initial_id: Option<&str>, expected_id: Option<&str>) {
-        let job_service = create_job_service(MockJobService::new());
-        let initial_response = initial_id.map(|id| QueryResponse::new().set_query_id(id));
-
-        let query = Query {
-            job_service,
-            job_ref: None,
-            completed: false,
-            initial_job: None,
-            initial_response,
-        };
-        assert_eq!(query.query_id(), expected_id);
-    }
-
-    #[test_case(true; "with job reference")]
-    #[test_case(false; "without job reference")]
-
-    fn test_query_job_reference(with_job_ref: bool) {
-        let job_service = create_job_service(MockJobService::new());
-        let job_ref = with_job_ref.then(|| {
-            JobReference::new()
-                .set_project_id("some_project")
-                .set_job_id("some_job_id")
-        });
-
-        let query = Query {
-            job_service,
-            job_ref: job_ref.clone(),
-            completed: false,
-            initial_job: None,
-            initial_response: None,
-        };
-        assert_eq!(query.job_reference(), job_ref.as_ref());
-    }
-
     #[tokio::test(start_paused = true)]
     async fn test_poll_query_results_loops_until_complete() -> TestResult {
         let mut mock = MockJobService::new();
-        let call_count = Arc::new(AtomicU32::new(0));
-        let call_count_clone = call_count.clone();
-        // simulate 3 calls, first 2 return incomplete, last one returns complete
-        mock.expect_get_query_results().returning(move |req, _| {
-            assert_eq!(req.project_id, "some_project");
-            assert_eq!(req.job_id, "some_job_id");
-            assert_eq!(req.max_results, Some(0));
-            let count = call_count_clone.fetch_add(1, Ordering::SeqCst);
-            let completed = count >= 2;
-            let res = GetQueryResultsResponse::new()
-                .set_job_complete(completed)
-                .set_job_reference(JobReference::new().set_job_id(req.job_id.clone()));
-            Ok(Response::from(res))
-        });
+        let mut backoff_policy = create_test_backoff_policy();
+        backoff_policy
+            .expect_wait_period()
+            .times(2)
+            .return_const(Duration::from_millis(1));
+
+        let mut seq = mockall::Sequence::new();
+
+        mock.expect_get_query_results()
+            .in_sequence(&mut seq)
+            .times(2)
+            .returning(|_, _| {
+                Ok(Response::from(
+                    GetQueryResultsResponse::new().set_job_complete(false),
+                ))
+            });
+
+        mock.expect_get_query_results()
+            .in_sequence(&mut seq)
+            .times(1)
+            .returning(|_, _| {
+                Ok(Response::from(
+                    GetQueryResultsResponse::new().set_job_complete(true),
+                ))
+            });
+
         let job_service = create_job_service(mock);
         let job_ref = JobReference::new()
             .set_project_id("some_project")
             .set_job_id("some_job_id");
 
-        let start = tokio::time::Instant::now();
-        let res = poll_query_results(&job_service, Some(&job_ref)).await?;
-        let elapsed = start.elapsed();
+        let res = poll_query_results(&job_service, &job_ref, Arc::new(backoff_policy)).await?;
 
         assert!(res.job_complete.unwrap(), "{res:?}");
-        assert_eq!(call_count.load(Ordering::SeqCst), 3);
-        assert!(elapsed >= std::time::Duration::from_secs(1), "{elapsed:?}");
 
         Ok(())
     }
@@ -285,8 +249,8 @@ mod tests {
     async fn test_query_until_done_job_failed_error() -> TestResult {
         let mut mock = MockJobService::new();
         mock.expect_get_query_results().returning(|req, _| {
-            assert_eq!(req.project_id, "p1");
-            assert_eq!(req.job_id, "j1");
+            assert_eq!(req.project_id, "some_project");
+            assert_eq!(req.job_id, "some_job_id");
             assert_eq!(req.max_results, Some(0));
             let err_proto = ErrorProto::new()
                 .set_reason("invalidQuery")
@@ -295,7 +259,9 @@ mod tests {
             Ok(Response::from(res))
         });
         let job_service = create_job_service(mock);
-        let job_ref = JobReference::new().set_project_id("p1").set_job_id("j1");
+        let job_ref = JobReference::new()
+            .set_project_id("some_project")
+            .set_job_id("some_job_id");
 
         let query = Query {
             job_service,
@@ -310,9 +276,12 @@ mod tests {
             QueryError::JobFailed { errors } => errors,
             _ => panic!("expected QueryError::JobFailed, got {err:?}"),
         };
-        assert_eq!(errors.len(), 1);
-        assert_eq!(errors[0].reason, "invalidQuery");
-        assert_eq!(errors[0].message, "Syntax error");
+        assert_eq!(
+            errors,
+            [ErrorProto::new()
+                .set_reason("invalidQuery")
+                .set_message("Syntax error")]
+        );
 
         Ok(())
     }

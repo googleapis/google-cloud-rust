@@ -41,6 +41,8 @@ pub(crate) mod tests {
         QueryResponse,
     };
     use google_cloud_gax::options::RequestOptions;
+    use google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy;
+    use google_cloud_gax::polling_state::PollingState;
     use google_cloud_gax::response::Response;
     use std::sync::Arc;
 
@@ -66,7 +68,19 @@ pub(crate) mod tests {
         }
     }
 
+    mockall::mock! {
+        #[derive(Debug)]
+        pub BackoffPolicy {}
+        impl PollingBackoffPolicy for BackoffPolicy {
+            fn wait_period(&self, _state: &PollingState) -> std::time::Duration;
+        }
+    }
+
     pub(crate) fn create_job_service(mock: MockJobService) -> Arc<JobService> {
         Arc::new(JobService::from_stub::<MockJobService>(Arc::new(mock)))
+    }
+
+    pub(crate) fn create_test_backoff_policy() -> MockBackoffPolicy {
+        MockBackoffPolicy::new()
     }
 }
