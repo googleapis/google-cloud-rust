@@ -16,14 +16,14 @@
 #![allow(dead_code, unused_imports)]
 
 pub(crate) mod execution;
-mod job_reference;
 mod query_handle;
+mod query_reference;
 mod row;
 mod run_query;
 mod schema;
 
-pub(crate) use job_reference::JobReference;
 pub(crate) use query_handle::Query;
+pub(crate) use query_reference::QueryReference;
 pub(crate) use row::Row;
 pub(crate) use schema::Schema;
 
