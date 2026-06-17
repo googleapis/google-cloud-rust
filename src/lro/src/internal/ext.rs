@@ -53,7 +53,8 @@ where
                 "gcp.rpc.method" = method_name,
                 "gcp.resource.destination.id" = tracing::field::Empty,
                 "otel.status_code" = tracing::field::Empty,
-                "otel.status_description" = tracing::field::Empty
+                "otel.status_description" = tracing::field::Empty,
+                "error.type" = tracing::field::Empty
             );
             let traced = Tracing::new(self, span);
             return Either::Right(traced);
