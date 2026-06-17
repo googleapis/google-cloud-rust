@@ -565,7 +565,7 @@ pub async fn run_signed_url_examples() -> anyhow::Result<()> {
     tracing::info!("running generate_signed_url_v4 example");
     objects::generate_signed_url_v4::sample(&id, "object-to-read").await?;
     tracing::info!("running generate_signed_post_policy_v4 example");
-    objects::generate_signed_post_policy_v4::sample(&id, "uploads/object-to-upload-via-post").await?;
+    objects::generate_signed_post_policy_v4::sample(&id, "object-to-upload-via-post").await?;
     tracing::info!("running generate_upload_signed_url_v4 example");
     objects::generate_upload_signed_url_v4::sample(&id, "object-to-upload").await?;
     Ok(())
