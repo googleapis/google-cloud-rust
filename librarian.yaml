@@ -444,7 +444,7 @@ libraries:
     version: 1.12.0
     copyright_year: "2025"
   - name: google-cloud-biglake-v1
-    version: 1.8.0
+    version: 2.0.0
     copyright_year: "2025"
   - name: google-cloud-bigquery
     copyright_year: "2026"
