@@ -15,12 +15,18 @@
 #![cfg(google_cloud_unstable_tracing)]
 
 use super::Anonymous;
+use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+use google_cloud_gax::polling_error_policy::Aip194Strict;
 use google_cloud_lro::Poller;
+use google_cloud_lro::internal::{
+    DiscoveryOperation, PollerExt, PollerOptions, TracingDetails, new_discovery_poller,
+};
 use google_cloud_showcase_v1beta1::client::Echo;
 use google_cloud_test_utils::test_layer::{
     AttributeValue, CapturedSpan, TestLayer, TestLayerGuard,
 };
 use httptest::{Expectation, Server, cycle, matchers::*, responders::status_code};
+use std::sync::Arc;
 
 /// Sets up a mock Server and an Echo client configured with tracing.
 async fn setup_echo_client() -> (TestLayerGuard, Server, Echo) {
@@ -55,6 +61,9 @@ pub async fn lro_tracing_testlayer() -> anyhow::Result<()> {
 
     test_lro_permanent_rpc_error(&guard, &server, client.clone()).await?;
     server.verify_and_clear();
+
+    // Run the Discovery LRO tracing tests.
+    test_discovery_lro_success(&guard).await?;
 
     Ok(())
 }
@@ -465,6 +474,102 @@ async fn test_lro_permanent_rpc_error(
         Some("ERROR")
     );
     assert_eq!(attribute_str(get_op_span, "error.type"), Some("NOT_FOUND"));
+
+    Ok(())
+}
+
+/// Tests a successful LRO polling workflow for discovery-based client pollers.
+async fn test_discovery_lro_success(guard: &TestLayerGuard) -> anyhow::Result<()> {
+    #[derive(Clone, Debug)]
+    struct MockDiscoveryOperation {
+        name: String,
+        done: bool,
+    }
+
+    impl DiscoveryOperation for MockDiscoveryOperation {
+        fn done(&self) -> bool {
+            self.done
+        }
+        fn name(&self) -> Option<&String> {
+            Some(&self.name)
+        }
+    }
+
+    let error_policy = Arc::new(Aip194Strict);
+    let backoff_policy = Arc::new(ExponentialBackoff::default());
+
+    let start = || async {
+        Ok(MockDiscoveryOperation {
+            name: "discovery-operations/wait-100".to_string(),
+            done: false,
+        })
+    };
+
+    let query = move |name: String| async move {
+        let span = gaxi::client_request_signals!(
+            info: &gaxi::options::InstrumentationClientInfo::default(),
+            method: "google.longrunning.Operations/GetOperation"
+        );
+        span.record("rpc.method", "google.longrunning.Operations/GetOperation");
+
+        let res = span.in_scope(|| {
+            google_cloud_lro::record_polling_attributes!(&span);
+
+            span.record("gcp.longrunning.done", true);
+
+            MockDiscoveryOperation { name, done: true }
+        });
+
+        Ok(res)
+    };
+
+    let poller = new_discovery_poller(error_policy, backoff_policy, start, query);
+
+    let mut poller_options = PollerOptions::default();
+    let mut details = TracingDetails::default();
+    details.method_name = "discovery::client::Echo::wait::until_done";
+    poller_options.tracing = Some(details);
+
+    let poller = poller.with_options(poller_options);
+
+    let res = poller.until_done().await?;
+    assert!(res.done);
+
+    let spans = TestLayer::capture(guard);
+
+    // 1. T2 span "LRO Wait"
+    let lro_wait_span = spans
+        .iter()
+        .find(|s| s.name == "LRO Wait")
+        .ok_or_else(|| anyhow::anyhow!("missing LRO Wait span in {spans:#?}"))?;
+
+    assert_eq!(
+        attribute_str(lro_wait_span, "otel.name"),
+        Some("discovery::client::Echo::wait::until_done")
+    );
+    assert_eq!(
+        attribute_str(lro_wait_span, "gcp.rpc.method"),
+        Some("discovery::client::Echo::wait::until_done")
+    );
+    assert_eq!(attribute_str(lro_wait_span, "otel.status_code"), None);
+
+    // 2. T3 get_operation span
+    let get_op_spans = find_get_operation_spans(&spans);
+    assert_eq!(get_op_spans.len(), 1);
+
+    let get_op_span = get_op_spans[0];
+    assert_eq!(
+        attribute_u64(get_op_span, "gcp.longrunning.poll_attempt_count"),
+        Some(1)
+    );
+    assert_eq!(
+        attribute_str(get_op_span, "gcp.resource.destination.id"),
+        Some("discovery-operations/wait-100")
+    );
+    assert_eq!(
+        attribute_bool(get_op_span, "gcp.longrunning.done"),
+        Some(true)
+    );
 
     Ok(())
 }
