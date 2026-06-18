@@ -210,13 +210,13 @@ impl PostPolicyV4Builder {
             ));
         }
 
-        if let Some((min, max)) = self.content_length_range {
-            if min > max {
-                return Err(SigningError::invalid_parameter(
-                    "content_length_range",
-                    "min must be less than or equal to max",
-                ));
-            }
+        if let Some((min, max)) = self.content_length_range
+            && min > max
+        {
+            return Err(SigningError::invalid_parameter(
+                "content_length_range",
+                "min must be less than or equal to max",
+            ));
         }
 
         let now = self.timestamp.unwrap_or_else(Utc::now);
