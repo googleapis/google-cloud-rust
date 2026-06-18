@@ -17,7 +17,7 @@ use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
 use chrono::{DateTime, Utc};
 use google_cloud_auth::signer::Signer;
-use std::collections::{BTreeMap, HashMap};
+use std::collections::BTreeMap;
 use std::time::Duration;
 
 /// Builder for constructing GCS V4 Signed Policy Documents (POST Object Forms).
@@ -44,7 +44,7 @@ pub struct PostPolicyV4Result {
     /// The destination URL for the POST request.
     pub url: String,
     /// The form fields (hidden inputs) that must be included in the multipart POST request.
-    pub fields: HashMap<String, String>,
+    pub fields: BTreeMap<String, String>,
 }
 
 /// Private internal structure for serializing the GCS policy JSON document.
@@ -132,8 +132,12 @@ impl PostPolicyV4Builder {
         field: F,
         prefix: P,
     ) -> Self {
+        let mut f: String = field.into();
+        if !f.starts_with('$') {
+            f.insert(0, '$');
+        }
         self.starts_with_conditions
-            .push((field.into(), prefix.into()));
+            .push((f, prefix.into()));
         self
     }
 
@@ -156,9 +160,14 @@ impl PostPolicyV4Builder {
             Some(e) => {
                 let url = url::Url::parse(e)
                     .map_err(|err| SigningError::invalid_parameter("endpoint", err))?;
-                url.host_str()
+                let mut host = url
+                    .host_str()
                     .ok_or_else(|| SigningError::invalid_parameter("endpoint", "Missing host"))?
-                    .to_string()
+                    .to_string();
+                if let Some(port) = url.port() {
+                    host.push_str(&format!(":{port}"));
+                }
+                host
             }
             None => {
                 let universe_domain = self.universe_domain.as_deref().unwrap_or("googleapis.com");
@@ -193,13 +202,29 @@ impl PostPolicyV4Builder {
     }
 
     /// Sign the policy document.
-    pub async fn sign_with(self, signer: &Signer) -> Result<PostPolicyV4Result, SigningError> {
+    pub async fn sign_with(mut self, signer: &Signer) -> Result<PostPolicyV4Result, SigningError> {
+        if self.expiration > Duration::from_secs(604800) {
+            return Err(SigningError::invalid_parameter(
+                "expiration",
+                "Expiration cannot exceed 7 days (604,800 seconds)",
+            ));
+        }
+
+        if let Some((min, max)) = self.content_length_range {
+            if min > max {
+                return Err(SigningError::invalid_parameter(
+                    "content_length_range",
+                    "min must be less than or equal to max",
+                ));
+            }
+        }
+
         let now = self.timestamp.unwrap_or_else(Utc::now);
         let request_timestamp = now.format("%Y%m%dT%H%M%SZ").to_string();
         let datestamp = now.format("%Y%m%d");
         let credential_scope = format!("{datestamp}/auto/storage/goog4_request");
 
-        let client_email = if let Some(email) = self.client_email.clone() {
+        let client_email = if let Some(email) = self.client_email.take() {
             email
         } else {
             signer.client_email().await.map_err(SigningError::signing)?
@@ -271,7 +296,7 @@ impl PostPolicyV4Builder {
         let url = self.resolve_url()?;
 
         // Build output form fields
-        let mut fields = HashMap::new();
+        let mut fields = BTreeMap::new();
         fields.insert("key".to_string(), self.object.clone());
         fields.insert(
             "x-goog-algorithm".to_string(),
