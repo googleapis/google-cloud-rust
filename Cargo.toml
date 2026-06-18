@@ -571,5 +571,3 @@ google-cloud-lro          = { path = "src/lro" }
 google-cloud-rpc          = { path = "src/generated/rpc/types" }
 google-cloud-type         = { path = "src/generated/type" }
 google-cloud-iam-v1       = { path = "src/generated/iam/v1" }
-
-
