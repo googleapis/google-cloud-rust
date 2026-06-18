@@ -110,7 +110,7 @@ impl InsertJobExecutor {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::query::RunQueryRequest;
+    use crate::model::RunQueryRequest;
     use crate::query::tests::{MockJobService, create_job_service};
     use google_cloud_bigquery_v2::model::{
         ErrorProto, Job, JobConfiguration, JobConfigurationQuery, JobReference, JobStatus,
