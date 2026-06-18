@@ -52,6 +52,7 @@ google-cloud-wkt         = { workspace = true }
 
 [target.'cfg(google_cloud_unstable_tracing)'.dependencies]
 tracing = { workspace = true }
+gaxi    = { workspace = true, features = ["_internal-common"] }
 
 [target.'cfg(google_cloud_unstable_tracing)'.dev-dependencies]
 tracing-subscriber      = { workspace = true, features = ["registry"] }

@@ -26,16 +26,29 @@ When reviewing or generating code, apply rigorous scrutiny:
 - **Demand Explosive Correctness:** Never swallow errors or ignore `Result`
   types. Fail loudly and explicitly when appropriate.
 
+## Optimizations
+
+- **Unnecessary clones**: Scrutinize expensive uses of `clone()` (i.e. for
+  `String`s, not for `Arc`s). Look out for subtle copies, e.g. from `chunks()`
+  or a `to_*()` instead of `into_*()`. Is it necessary to copy the data? Can we
+  move the data instead?
+- **Unnecessary locks**: Scrutinize any use of `Mutex<>`. Do multiple threads
+  really need to access this data? Could we avoid locks with a different model?
+
 ## Safety & Error Handling
 
 - **Unsafe Code:** Avoid `unsafe` unless absolutely necessary. Any `unsafe`
   block must have a `// SAFETY:` comment explaining why it is safe.
-- **Panics:** No `unwrap()` or `expect()` in production code or examples (use
-  `?` or handle errors). No `panic!` macro calls in library code. `unwrap()` is
-  acceptable in tests.
 - **Error Handling:** Public functions should return `Result<T, Error>`. Use the
-  `?` operator for propagation. Custom error types should imply meaningful
-  distinctions for the user.
+  `?` operator for propagation. The library should almost always prefer to
+  return a `Result<>` over an internal `panic!`. Custom error types should imply
+  meaningful distinctions for the user. Error variants should be actionable.
+- **Panics:** `unwrap()` and `expect()` should typically be avoided in
+  production code and examples (use `?` or handle errors). If an invariant is
+  known, (e.g. a builder always returns a valid configuration, or the service
+  always returns a message with presence), it is fine to `expect()`, and often
+  preferable to returning an error that can't arise. In tests, prefer `?`. If
+  that is not possible use `.expect()`. Only use `.unwrap()` as a last resort.
 
 ## Async & Concurrency
 

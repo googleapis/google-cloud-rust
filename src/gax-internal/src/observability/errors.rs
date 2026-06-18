@@ -19,7 +19,8 @@ use http::StatusCode;
 use std::collections::BTreeMap;
 
 #[derive(Debug, Clone, PartialEq)]
-pub enum ErrorType {
+#[non_exhaustive]
+pub(crate) enum ErrorType {
     HttpError {
         code: StatusCode,
         reason: Option<String>,
@@ -78,25 +79,36 @@ impl ErrorType {
         }
     }
 
-    pub(crate) fn as_str(&self) -> String {
+    pub(crate) fn as_str(&self) -> &str {
         match self {
             ErrorType::HttpError {
                 reason: Some(r), ..
-            } => r.clone(),
-            ErrorType::HttpError { code, .. } => code.as_str().to_string(),
+            } => r.as_str(),
+            ErrorType::HttpError { code, .. } => code.as_str(),
             ErrorType::RpcError {
                 reason: Some(r), ..
-            } => r.clone(),
-            ErrorType::RpcError { code, .. } => code.name().to_string(),
-            ErrorType::ClientTimeout => CLIENT_TIMEOUT.to_string(),
-            ErrorType::ClientConnectionError => CLIENT_CONNECTION_ERROR.to_string(),
-            ErrorType::ClientRequestError => CLIENT_REQUEST_ERROR.to_string(),
-            ErrorType::ClientResponseDecodeError => CLIENT_RESPONSE_DECODE_ERROR.to_string(),
-            ErrorType::ClientAuthenticationError => CLIENT_AUTHENTICATION_ERROR.to_string(),
-            ErrorType::ClientRetryExhausted => CLIENT_RETRY_EXHAUSTED.to_string(),
-            ErrorType::Unknown => UNKNOWN.to_string(),
+            } => r.as_str(),
+            ErrorType::RpcError { code, .. } => code.name(),
+            ErrorType::ClientTimeout => CLIENT_TIMEOUT,
+            ErrorType::ClientConnectionError => CLIENT_CONNECTION_ERROR,
+            ErrorType::ClientRequestError => CLIENT_REQUEST_ERROR,
+            ErrorType::ClientResponseDecodeError => CLIENT_RESPONSE_DECODE_ERROR,
+            ErrorType::ClientAuthenticationError => CLIENT_AUTHENTICATION_ERROR,
+            ErrorType::ClientRetryExhausted => CLIENT_RETRY_EXHAUSTED,
+            ErrorType::Unknown => UNKNOWN,
         }
     }
+}
+
+impl std::fmt::Display for ErrorType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Returns the error type as a string for use in tracing/observability attributes.
+pub fn error_type(err: &Error) -> String {
+    ErrorType::from_gax_error(err).to_string()
 }
 
 pub(crate) fn emit_error_log(span: &tracing::Span, err: &Error) {
