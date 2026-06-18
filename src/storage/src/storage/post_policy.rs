@@ -295,7 +295,7 @@ fn escape_non_ascii(s: &str) -> String {
         if c.is_ascii() {
             escaped.push(c);
         } else {
-            for &unit in c.encode_utf16(&mut buf) {
+            for &mut unit in c.encode_utf16(&mut buf) {
                 let _ = write!(escaped, "\\u{:04x}", unit);
             }
         }
