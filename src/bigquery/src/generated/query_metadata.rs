@@ -442,45 +442,47 @@ impl std::convert::From<google_cloud_bigquery_v2::model::GetQueryResultsResponse
     for QueryMetadata
 {
     fn from(resp: google_cloud_bigquery_v2::model::GetQueryResultsResponse) -> Self {
-        let mut out = Self::default();
-        out.cache_hit = resp.cache_hit;
-        out.errors = resp.errors;
-        out.etag = resp.etag;
-        out.job_complete = resp.job_complete;
-        out.job_reference = resp.job_reference;
-        out.kind = resp.kind;
-        out.num_dml_affected_rows = resp.num_dml_affected_rows;
-        out.page_token = resp.page_token;
-        out.schema = resp.schema;
-        out.total_bytes_processed = resp.total_bytes_processed;
-        out.total_rows = resp.total_rows;
-        out
+        Self {
+            cache_hit: resp.cache_hit,
+            errors: resp.errors,
+            etag: resp.etag,
+            job_complete: resp.job_complete,
+            job_reference: resp.job_reference,
+            kind: resp.kind,
+            num_dml_affected_rows: resp.num_dml_affected_rows,
+            page_token: resp.page_token,
+            schema: resp.schema,
+            total_bytes_processed: resp.total_bytes_processed,
+            total_rows: resp.total_rows,
+            ..Default::default()
+        }
     }
 }
 
 impl std::convert::From<google_cloud_bigquery_v2::model::QueryResponse> for QueryMetadata {
     fn from(resp: google_cloud_bigquery_v2::model::QueryResponse) -> Self {
-        let mut out = Self::default();
-        out.cache_hit = resp.cache_hit;
-        out.creation_time = resp.creation_time;
-        out.dml_stats = resp.dml_stats;
-        out.end_time = resp.end_time;
-        out.errors = resp.errors;
-        out.job_complete = resp.job_complete;
-        out.job_creation_reason = resp.job_creation_reason;
-        out.job_reference = resp.job_reference;
-        out.kind = resp.kind;
-        out.location = resp.location;
-        out.num_dml_affected_rows = resp.num_dml_affected_rows;
-        out.page_token = resp.page_token;
-        out.query_id = resp.query_id;
-        out.schema = resp.schema;
-        out.session_info = resp.session_info;
-        out.start_time = resp.start_time;
-        out.total_bytes_billed = resp.total_bytes_billed;
-        out.total_bytes_processed = resp.total_bytes_processed;
-        out.total_rows = resp.total_rows;
-        out.total_slot_ms = resp.total_slot_ms;
-        out
+        Self {
+            cache_hit: resp.cache_hit,
+            creation_time: resp.creation_time,
+            dml_stats: resp.dml_stats,
+            end_time: resp.end_time,
+            errors: resp.errors,
+            job_complete: resp.job_complete,
+            job_creation_reason: resp.job_creation_reason,
+            job_reference: resp.job_reference,
+            kind: resp.kind,
+            location: resp.location,
+            num_dml_affected_rows: resp.num_dml_affected_rows,
+            page_token: resp.page_token,
+            query_id: resp.query_id,
+            schema: resp.schema,
+            session_info: resp.session_info,
+            start_time: resp.start_time,
+            total_bytes_billed: resp.total_bytes_billed,
+            total_bytes_processed: resp.total_bytes_processed,
+            total_rows: resp.total_rows,
+            total_slot_ms: resp.total_slot_ms,
+            ..Default::default()
+        }
     }
 }
