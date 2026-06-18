@@ -136,8 +136,7 @@ impl PostPolicyV4Builder {
         if !f.starts_with('$') {
             f.insert(0, '$');
         }
-        self.starts_with_conditions
-            .push((f, prefix.into()));
+        self.starts_with_conditions.push((f, prefix.into()));
         self
     }
 
