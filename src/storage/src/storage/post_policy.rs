@@ -84,7 +84,6 @@ impl PostPolicyV4Builder {
         self
     }
 
-
     /// Sets the URL formatting style.
     pub fn with_url_style(mut self, url_style: UrlStyle) -> Self {
         self.url_style = url_style;
@@ -133,7 +132,8 @@ impl PostPolicyV4Builder {
         field: F,
         prefix: P,
     ) -> Self {
-        self.starts_with_conditions.push((field.into(), prefix.into()));
+        self.starts_with_conditions
+            .push((field.into(), prefix.into()));
         self
     }
 
@@ -144,7 +144,9 @@ impl PostPolicyV4Builder {
     }
 
     fn bucket_name(&self) -> &str {
-        self.bucket.strip_prefix("projects/_/buckets/").unwrap_or(&self.bucket)
+        self.bucket
+            .strip_prefix("projects/_/buckets/")
+            .unwrap_or(&self.bucket)
     }
 
     fn resolve_url(&self) -> Result<String, SigningError> {
@@ -239,9 +241,8 @@ impl PostPolicyV4Builder {
 
         // Expiration
         let expiration_time = now
-            + chrono::Duration::from_std(self.expiration).map_err(|e| {
-                SigningError::signing(format!("Invalid expiration duration: {e}"))
-            })?;
+            + chrono::Duration::from_std(self.expiration)
+                .map_err(|e| SigningError::signing(format!("Invalid expiration duration: {e}")))?;
         let expiration_str = expiration_time.format("%Y-%m-%dT%H:%M:%SZ").to_string();
 
         let doc = PostPolicyV4Document {
@@ -272,7 +273,10 @@ impl PostPolicyV4Builder {
         // Build output form fields
         let mut fields = HashMap::new();
         fields.insert("key".to_string(), self.object.clone());
-        fields.insert("x-goog-algorithm".to_string(), "GOOG4-RSA-SHA256".to_string());
+        fields.insert(
+            "x-goog-algorithm".to_string(),
+            "GOOG4-RSA-SHA256".to_string(),
+        );
         fields.insert("x-goog-credential".to_string(), credential);
         fields.insert("x-goog-date".to_string(), request_timestamp);
         fields.insert("x-goog-signature".to_string(), signature_hex);
@@ -413,10 +417,8 @@ mod tests {
                 if let Some(starts_with) = &conds.starts_with
                     && starts_with.len() == 2
                 {
-                    builder = builder.with_starts_with(
-                        starts_with[0].clone(),
-                        starts_with[1].clone(),
-                    );
+                    builder =
+                        builder.with_starts_with(starts_with[0].clone(), starts_with[1].clone());
                 }
                 if let Some(range) = &conds.content_length_range
                     && range.len() == 2
@@ -460,7 +462,10 @@ mod tests {
                         mismatch = true;
                     }
                     None => {
-                        println!("❌ Failed test: {} (missing field: {})", test.description, k);
+                        println!(
+                            "❌ Failed test: {} (missing field: {})",
+                            test.description, k
+                        );
                         mismatch = true;
                     }
                 }

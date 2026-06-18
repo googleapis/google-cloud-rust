@@ -33,7 +33,10 @@ pub async fn sample(bucket_name: &str, object_name: &str) -> anyhow::Result<()> 
         policy.url
     );
     for (key, value) in &policy.fields {
-        form.push_str(&format!("  <input name='{}' value='{}' type='hidden' />\n", key, value));
+        form.push_str(&format!(
+            "  <input name='{}' value='{}' type='hidden' />\n",
+            key, value
+        ));
     }
     form.push_str("  <input type='file' name='file' /><br />\n");
     form.push_str("  <input type='submit' value='Upload File' /><br />\n");
