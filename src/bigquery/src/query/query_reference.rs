@@ -15,28 +15,40 @@
 // TODO(#5592): remove after query iterator is implemented.
 #![allow(dead_code, unused_imports)]
 
-/// Job Reference.
+/// A reference to a query in BigQuery.
+///
+/// BigQuery queries can either run by creating a query job, or run statelessly
+/// by optionally skipping job creation. See more info at [JobCreationReason] docs.
+///
+/// This enum represents the reference to either execution model.
+///
+/// [JobCreationReason]: https://docs.cloud.google.com/bigquery/docs/reference/rest/v2/JobCreationReason
 #[derive(Debug, Clone, PartialEq)]
-pub(crate) enum JobReference {
-    StatefulJob(google_cloud_bigquery_v2::model::JobReference),
-    StatelessJob { query_id: String },
+pub enum QueryReference {
+    /// A reference to a standard, stateful query job.
+    Job(google_cloud_bigquery_v2::model::JobReference),
+    /// A reference to a stateless query, identified by an opaque query ID.
+    Stateless {
+        /// The unique, opaque ID of the stateless query.
+        query_id: String,
+    },
 }
 
-impl From<google_cloud_bigquery_v2::model::JobReference> for JobReference {
-    fn from(v: google_cloud_bigquery_v2::model::JobReference) -> JobReference {
-        JobReference::StatefulJob(v)
+impl From<google_cloud_bigquery_v2::model::JobReference> for QueryReference {
+    fn from(v: google_cloud_bigquery_v2::model::JobReference) -> QueryReference {
+        QueryReference::Job(v)
     }
 }
 
-impl JobReference {
+impl QueryReference {
     pub(crate) fn from_query_id(query_id: String) -> Self {
-        Self::StatelessJob { query_id }
+        Self::Stateless { query_id }
     }
 
     pub(crate) fn to_job_ref(&self) -> Option<google_cloud_bigquery_v2::model::JobReference> {
         match self {
-            Self::StatefulJob(job_ref) => Some(job_ref.clone()),
-            Self::StatelessJob { .. } => None,
+            Self::Job(job_ref) => Some(job_ref.clone()),
+            Self::Stateless { .. } => None,
         }
     }
 }
@@ -46,34 +58,34 @@ mod tests {
     use super::*;
 
     #[test]
-    fn stateful_job() {
+    fn stateful_query_job() {
         // With location
         let proto = google_cloud_bigquery_v2::model::JobReference::new()
             .set_project_id("a-project-id")
             .set_job_id("a-job-id")
             .set_location("US");
-        let job_ref = JobReference::from(proto.clone());
-        assert_eq!(job_ref, JobReference::StatefulJob(proto.clone()));
+        let job_ref = QueryReference::from(proto.clone());
+        assert_eq!(job_ref, QueryReference::Job(proto.clone()));
         assert_eq!(job_ref.to_job_ref(), Some(proto));
 
         // Without location
         let proto = google_cloud_bigquery_v2::model::JobReference::new()
             .set_project_id("a-project-id")
             .set_job_id("a-job-id");
-        let job_ref = JobReference::from(proto.clone());
-        assert_eq!(job_ref, JobReference::StatefulJob(proto.clone()));
+        let job_ref = QueryReference::from(proto.clone());
+        assert_eq!(job_ref, QueryReference::Job(proto.clone()));
         assert_eq!(job_ref.to_job_ref(), Some(proto));
     }
 
     #[test]
-    fn stateless_job() {
-        let job_ref = JobReference::from_query_id("a-query-id".to_string());
+    fn stateless_query() {
+        let query_ref = QueryReference::from_query_id("a-query-id".to_string());
         assert_eq!(
-            job_ref,
-            JobReference::StatelessJob {
+            query_ref,
+            QueryReference::Stateless {
                 query_id: "a-query-id".to_string(),
             }
         );
-        assert_eq!(job_ref.to_job_ref(), None);
+        assert_eq!(query_ref.to_job_ref(), None);
     }
 }
