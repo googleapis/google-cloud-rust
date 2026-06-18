@@ -48,6 +48,74 @@ pub enum QueryError {
     },
 }
 
+/// Errors that can occur when retrieving value cells from a [`Row`](crate::query::Row).
+#[derive(thiserror::Error, Debug)]
+#[non_exhaustive]
+pub enum RowError {
+    /// The requested column name or index was not found in the row.
+    #[error("could not find column: {0}")]
+    ColumnNotFound(String),
+
+    /// The requested column index was out of range.
+    #[error("column index out of range: {index} (expected < {len})")]
+    IndexOutOfRange {
+        /// The index that was requested.
+        index: usize,
+        /// The total number of columns in the row.
+        len: usize,
+    },
+
+    /// Failed to convert/parse the cell value to the target type.
+    #[error("type conversion error for column '{column}': {source}")]
+    TypeConversion {
+        /// The column identifier (name or index).
+        column: String,
+        /// The underlying parsing error.
+        #[source]
+        source: ConvertError,
+    },
+
+    /// The JSON format returned by the service did not match expectations.
+    #[error("internal service JSON layout invalid: {0}")]
+    InvalidRowFormat(String),
+
+    /// The underlying RPC failed.
+    #[non_exhaustive]
+    #[error("the operation failed. RPC error: {source}")]
+    Rpc {
+        /// The error returned by the service for the request.
+        #[from]
+        #[source]
+        source: Error,
+    },
+}
+
+/// Represents failures when converting a raw BigQuery cell value (`wkt::Value`) to a Rust type.
+#[derive(thiserror::Error, Debug)]
+#[non_exhaustive]
+pub enum ConvertError {
+    /// The value type did not match the expected type.
+    #[error("type mismatch, expected {expected}, got {got:?}")]
+    TypeMismatch {
+        /// The expected type name.
+        expected: &'static str,
+        /// The actual value received.
+        got: wkt::Value,
+    },
+
+    /// The value was null, but the target type does not support nulls (non-Option).
+    #[error("expected non-null value, got null")]
+    NotNull,
+
+    /// An error occurred during custom conversion (e.g. parsing date/time strings).
+    #[error("cannot convert value: {0}")]
+    Convert(
+        #[from]
+        #[source]
+        Box<dyn std::error::Error + Send + Sync + 'static>,
+    ),
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -82,5 +150,59 @@ mod tests {
             err.to_string(),
             "the operation failed. RPC error: the service reports an error with code INVALID_ARGUMENT described as: simulated bad request"
         );
+    }
+
+    #[test]
+    fn test_row_error_display() {
+        let err = RowError::ColumnNotFound("name".to_string());
+        assert_eq!(err.to_string(), "could not find column: name");
+
+        let err = RowError::IndexOutOfRange { index: 5, len: 3 };
+        assert_eq!(
+            err.to_string(),
+            "column index out of range: 5 (expected < 3)"
+        );
+
+        let err = RowError::TypeConversion {
+            column: "age".to_string(),
+            source: ConvertError::NotNull,
+        };
+        assert_eq!(
+            err.to_string(),
+            "type conversion error for column 'age': expected non-null value, got null"
+        );
+
+        let err = RowError::InvalidRowFormat("missing f field".to_string());
+        assert_eq!(
+            err.to_string(),
+            "internal service JSON layout invalid: missing f field"
+        );
+
+        let status = Status::default()
+            .set_code(Code::Internal)
+            .set_message("internal error");
+        let err = RowError::Rpc {
+            source: Error::service(status),
+        };
+        assert!(err.to_string().contains("the operation failed. RPC error:"));
+    }
+
+    #[test]
+    fn test_convert_error_display() {
+        let err = ConvertError::TypeMismatch {
+            expected: "i64",
+            got: wkt::Value::String("hello".to_string()),
+        };
+        assert_eq!(
+            err.to_string(),
+            "type mismatch, expected i64, got String(\"hello\")"
+        );
+
+        let err = ConvertError::NotNull;
+        assert_eq!(err.to_string(), "expected non-null value, got null");
+
+        let inner_err: Box<dyn std::error::Error + Send + Sync> = "invalid integer".into();
+        let err = ConvertError::Convert(inner_err);
+        assert_eq!(err.to_string(), "cannot convert value: invalid integer");
     }
 }
