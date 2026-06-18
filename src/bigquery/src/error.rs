@@ -48,7 +48,7 @@ pub enum QueryError {
     },
 }
 
-/// Errors that can occur when retrieving value cells from a [`Row`](crate::query::Row) or iterating over query results.
+/// Errors that can occur when retrieving value cells from a Row or iterating over query results.
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
 pub enum RowError {

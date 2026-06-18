@@ -24,9 +24,9 @@ mod schema;
 
 pub(crate) use query_handle::Query;
 pub(crate) use query_reference::QueryReference;
+pub(crate) use row::Row;
 pub(crate) use schema::Schema;
 
-pub use row::Row;
 pub use run_query::{RunQuery, RunQueryRequest};
 
 /// Result type for query execution.
