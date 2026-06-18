@@ -162,6 +162,10 @@ libraries:
   - name: google-cloud-advisorynotifications-v1
     version: 1.10.0
     copyright_year: "2025"
+  - name: google-cloud-agentregistry-v1
+    version: 1.0.0
+    copyright_year: "2026"
+    rust: {}
   - name: google-cloud-aiplatform-v1
     version: 1.13.0
     copyright_year: "2025"
