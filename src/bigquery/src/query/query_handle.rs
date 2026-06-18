@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use crate::error::QueryError;
-use crate::query::{Result, Schema};
+use crate::query::{QueryReference, Result, Schema};
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::{
     GetQueryResultsRequest, GetQueryResultsResponse, Job, JobReference, QueryResponse,
@@ -36,6 +36,27 @@ pub struct Query {
 }
 
 impl Query {
+    /// Returns the [`QueryReference`] for this query.
+    ///
+    /// The reference will be [`QueryReference::Job`] with a query [job reference],
+    /// or [`QueryReference::Stateless`] with an opaque query ID if job creation
+    /// was skipped.
+    ///
+    /// [job reference]: https://docs.cloud.google.com/bigquery/docs/reference/rest/v2/JobReference
+    pub fn query_reference(&self) -> QueryReference {
+        let from_query_id = self
+            .initial_response
+            .as_ref()
+            .map(|res| res.query_id.clone())
+            .filter(|s| !s.is_empty())
+            .map(QueryReference::from_query_id);
+        let from_job_ref = self.job_ref.clone().map(QueryReference::from);
+
+        from_job_ref
+            .or(from_query_id)
+            .expect("query must have either a job reference or query id")
+    }
+
     /// Periodically checks the status of the background job until it finishes.
     /// Returns an error if a remote service or connection failure happens during polling.
     pub async fn until_done(&self) -> Result<CompleteQuery> {
@@ -128,8 +149,6 @@ pub(crate) async fn poll_query_results(
 
 #[cfg(test)]
 mod tests {
-    use std::time::Duration;
-
     use super::*;
     use crate::query::tests::{
         MockBackoffPolicy, MockJobService, create_job_service, create_test_backoff_policy,
@@ -140,10 +159,34 @@ mod tests {
     use google_cloud_gax::error::Error as GaxError;
     use google_cloud_gax::error::rpc::{Code, Status};
     use google_cloud_gax::response::Response;
-
+    use std::time::Duration;
     use test_case::test_case;
 
     type TestResult = anyhow::Result<()>;
+
+    #[test_case(Some("query_123"), None, QueryReference::Stateless{ query_id: "query_123".to_string()}; "with query id")]
+    #[test_case(Some(""), Some(JobReference::new()), QueryReference::Job(JobReference::new()); "empty query id")]
+    #[test_case(None, Some(JobReference::new()), QueryReference::Job(JobReference::new()); "with job refearence")]
+    #[test_case(Some("query_123"), Some(JobReference::new()), QueryReference::Job(JobReference::new()); "with both job reference and query id")]
+    fn test_query_query_reference(
+        query_id: Option<&str>,
+        job_ref: Option<JobReference>,
+        expected: QueryReference,
+    ) {
+        let job_service = create_job_service(MockJobService::new());
+        let initial_response = query_id.map(|id| QueryResponse::new().set_query_id(id));
+
+        let query = Query {
+            job_service,
+            job_ref,
+            completed: false,
+            initial_job: None,
+            initial_response,
+        };
+
+        let result = query.query_reference();
+        assert_eq!(result, expected);
+    }
 
     #[tokio::test]
     async fn test_query_until_done_already_completed() -> TestResult {
