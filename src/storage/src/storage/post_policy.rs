@@ -546,11 +546,14 @@ mod tests {
         // Test with_client_email, with_universe_domain, with_endpoint properties
         assert_eq!(builder.client_email.as_deref(), Some("test@example.com"));
         assert_eq!(builder.universe_domain.as_deref(), Some("custom.domain"));
-        assert_eq!(builder.endpoint.as_deref(), Some("https://custom.endpoint:8080"));
+        assert_eq!(
+            builder.endpoint.as_deref(),
+            Some("https://custom.endpoint:8080")
+        );
 
         // Test the mapping error in resolve_url
-        let bad_endpoint_builder = PostPolicyV4Builder::for_object("bucket", "object")
-            .with_endpoint("not_a_valid_url");
+        let bad_endpoint_builder =
+            PostPolicyV4Builder::for_object("bucket", "object").with_endpoint("not_a_valid_url");
         assert!(bad_endpoint_builder.resolve_url().is_err());
 
         // Test SigningError::invalid_parameter of url_style (BucketBoundHostname without hostname)
@@ -560,7 +563,8 @@ mod tests {
 
         let service_account_key = serde_json::from_slice(include_bytes!(
             "conformance/test_service_account.not-a-test.json",
-        )).unwrap();
+        ))
+        .unwrap();
         let signer = ServiceAccount::new(service_account_key)
             .build_signer()
             .expect("failed to build signer");
@@ -571,8 +575,8 @@ mod tests {
         assert!(bad_expiration_builder.sign_with(&signer).await.is_err());
 
         // Test SigningError::invalid_parameter of content_length_range (min > max)
-        let bad_content_length_builder = PostPolicyV4Builder::for_object("bucket", "object")
-            .with_content_length_range(10, 5); // min > max
+        let bad_content_length_builder =
+            PostPolicyV4Builder::for_object("bucket", "object").with_content_length_range(10, 5); // min > max
         assert!(bad_content_length_builder.sign_with(&signer).await.is_err());
     }
 }
