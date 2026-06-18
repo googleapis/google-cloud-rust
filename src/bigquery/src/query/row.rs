@@ -61,11 +61,11 @@ impl ColumnIndex for String {
 }
 
 impl Row {
-    pub(crate) fn try_new(row: &Struct, schema: &Arc<Schema>) -> Result<Self> {
+    pub(crate) fn try_new(row: Struct, schema: &Arc<Schema>) -> Result<Self> {
         let field_list = get_field_list(row)?;
 
         let mut values = ListValue::new();
-        for (i, cell) in field_list.iter().enumerate() {
+        for (i, cell) in field_list.into_iter().enumerate() {
             let value = get_field_value(cell)?;
             match schema.get_field_by_index(i) {
                 Some(f) => {
@@ -125,18 +125,18 @@ impl Row {
     }
 }
 
-fn get_field_list(row: &Struct) -> Result<Vec<Value>> {
-    match row.get("f") {
-        Some(Value::Array(arr)) => Ok(arr.to_vec()),
+fn get_field_list(mut row: Struct) -> Result<Vec<Value>> {
+    match row.remove("f") {
+        Some(Value::Array(arr)) => Ok(arr),
         Some(_) => Err(RowError::InvalidRowFormat("invalid field values".into())),
         None => Err(RowError::InvalidRowFormat("missing field values".into())),
     }
 }
 
-fn get_field_value(value: &Value) -> Result<Value> {
+fn get_field_value(value: Value) -> Result<Value> {
     match value {
-        Value::Object(obj) => match obj.get("v") {
-            Some(val) => Ok(val.clone()),
+        Value::Object(mut obj) => match obj.remove("v") {
+            Some(val) => Ok(val),
             None => Err(RowError::InvalidRowFormat("missing field value".into())),
         },
         _ => Err(RowError::InvalidRowFormat("invalid field value".into())),
@@ -247,7 +247,7 @@ mod tests {
                 .set_mode("NULLABLE"),
         ]);
         let schema = Arc::new(Schema::new(schema));
-        let row = Row::try_new(&raw_row, &schema)?;
+        let row = Row::try_new(raw_row, &schema)?;
 
         assert_eq!(row.get::<String, _>(0), "James");
         assert_eq!(row.get::<String, _>("name"), "James");
