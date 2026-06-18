@@ -3678,6 +3678,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-location",
  "google-cloud-longrunning",
+ "google-cloud-lro",
  "google-cloud-wkt",
  "serde",
  "serde_json",
