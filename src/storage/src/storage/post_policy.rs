@@ -528,4 +528,51 @@ mod tests {
         }
         Ok(())
     }
+
+    #[tokio::test]
+    async fn post_policy_v4_edge_cases() {
+        let builder = PostPolicyV4Builder::for_object("bucket", "object")
+            .with_client_email("test@example.com")
+            .with_universe_domain("custom.domain")
+            .with_endpoint("https://custom.endpoint:8080")
+            .with_starts_with("no_dollar_sign", "prefix");
+
+        // Test if !f.starts_with('$')
+        assert_eq!(
+            builder.starts_with_conditions[0],
+            ("$no_dollar_sign".to_string(), "prefix".to_string()),
+        );
+
+        // Test with_client_email, with_universe_domain, with_endpoint properties
+        assert_eq!(builder.client_email.as_deref(), Some("test@example.com"));
+        assert_eq!(builder.universe_domain.as_deref(), Some("custom.domain"));
+        assert_eq!(builder.endpoint.as_deref(), Some("https://custom.endpoint:8080"));
+
+        // Test the mapping error in resolve_url
+        let bad_endpoint_builder = PostPolicyV4Builder::for_object("bucket", "object")
+            .with_endpoint("not_a_valid_url");
+        assert!(bad_endpoint_builder.resolve_url().is_err());
+
+        // Test SigningError::invalid_parameter of url_style (BucketBoundHostname without hostname)
+        let bad_url_style_builder = PostPolicyV4Builder::for_object("bucket", "object")
+            .with_url_style(UrlStyle::BucketBoundHostname);
+        assert!(bad_url_style_builder.resolve_url().is_err());
+
+        let service_account_key = serde_json::from_slice(include_bytes!(
+            "conformance/test_service_account.not-a-test.json",
+        )).unwrap();
+        let signer = ServiceAccount::new(service_account_key)
+            .build_signer()
+            .expect("failed to build signer");
+
+        // Test SigningError::invalid_parameter of expiration (> 7 days)
+        let bad_expiration_builder = PostPolicyV4Builder::for_object("bucket", "object")
+            .with_expiration(Duration::from_secs(604801)); // > 7 days
+        assert!(bad_expiration_builder.sign_with(&signer).await.is_err());
+
+        // Test SigningError::invalid_parameter of content_length_range (min > max)
+        let bad_content_length_builder = PostPolicyV4Builder::for_object("bucket", "object")
+            .with_content_length_range(10, 5); // min > max
+        assert!(bad_content_length_builder.sign_with(&signer).await.is_err());
+    }
 }
