@@ -52,12 +52,15 @@ pub struct RunQueryRequest {
     /// upon job completion.
     pub create_disposition: std::string::String,
 
-    /// Optional. If true, creates a new session using a randomly generated
-    /// session_id. If false, runs query with an existing session_id passed in
-    /// ConnectionProperty, otherwise runs query in non-session mode.
+    /// If this property is true, the job creates a new session using a randomly
+    /// generated session_id.  To continue using a created session with
+    /// subsequent queries, pass the existing session identifier as a
+    /// `ConnectionProperty` value.  The session identifier is returned as part of
+    /// the `SessionInfo` message within the query statistics.
     ///
-    /// The session location will be set to QueryRequest.location if it is present,
-    /// otherwise it's set to the default location based on existing routing logic.
+    /// The new session's location will be set to `Job.JobReference.location` if it
+    /// is present, otherwise it's set to the default location based on existing
+    /// routing logic.
     pub create_session: std::option::Option<wkt::BoolValue>,
 
     /// Optional. Specifies the default datasetId and projectId to assume for any
@@ -65,7 +68,7 @@ pub struct RunQueryRequest {
     /// query string must be qualified in the format 'datasetId.tableId'.
     pub default_dataset: std::option::Option<crate::model::DatasetReference>,
 
-    /// Optional. Custom encryption configuration (e.g., Cloud KMS keys)
+    /// Custom encryption configuration (e.g., Cloud KMS keys)
     pub destination_encryption_configuration: std::option::Option<crate::model::EncryptionConfiguration>,
 
     /// Optional. Describes the table where the query results should be stored.
@@ -128,11 +131,11 @@ pub struct RunQueryRequest {
     /// default, there is no maximum row count, and only the byte limit applies.
     pub max_results: std::option::Option<wkt::UInt32Value>,
 
-    /// Optional. A target limit on the rate of slot consumption by this query. If
+    /// Optional. A target limit on the rate of slot consumption by this job. If
     /// set to a value > 0, BigQuery will attempt to limit the rate of slot
-    /// consumption by this query to keep it below the configured limit, even if
-    /// the query is eligible for more slots based on fair scheduling. The unused
-    /// slots will be available for other jobs and queries to use.
+    /// consumption by this job to keep it below the configured limit, even if the
+    /// job is eligible for more slots based on fair scheduling. The unused slots
+    /// will be available for other jobs and queries to use.
     ///
     /// Note: This feature is not yet generally available.
     pub max_slots: std::option::Option<i32>,
@@ -150,9 +153,8 @@ pub struct RunQueryRequest {
     /// INTERACTIVE and BATCH. The default value is INTERACTIVE.
     pub priority: std::string::String,
 
-    /// Required. A query string to execute, using Google Standard SQL or legacy
-    /// SQL syntax. Example: "SELECT COUNT(f1) FROM
-    /// myProjectId.myDatasetId.myTableId".
+    /// [Required] SQL query text to execute. The useLegacySql field can be used
+    /// to indicate whether the query uses legacy SQL or GoogleSQL.
     pub query: std::string::String,
 
     /// Query parameters for GoogleSQL queries.
@@ -237,9 +239,11 @@ pub struct RunQueryRequest {
     /// getQueryResults response is true.
     pub timeout_ms: std::option::Option<wkt::UInt32Value>,
 
-    /// Specifies whether to use BigQuery's legacy SQL dialect for this query. The
-    /// default value is true. If set to false, the query uses BigQuery's
+    /// Optional. Specifies whether to use BigQuery's legacy SQL dialect for this
+    /// query. The default value is true. If set to false, the query uses
+    /// BigQuery's
     /// [GoogleSQL](https://docs.cloud.google.com/bigquery/docs/introduction-sql).
+    ///
     /// When useLegacySql is set to false, the value of flattenResults is ignored;
     /// query will be run as if flattenResults is false.
     pub use_legacy_sql: std::option::Option<wkt::BoolValue>,
