@@ -77,9 +77,9 @@ where
     Q: FnMut(String) -> QF + Send + Sync + Clone + 'static,
     QF: std::future::Future<Output = Result<O>> + Send + 'static,
 {
-    let mut query_clone = query;
+    let mut query = query;
     let start_boxed = Box::pin(start());
-    let query_boxed = Box::new(move |name| Box::pin(query_clone(name)) as BoxedFuture<Result<O>>);
+    let query_boxed = Box::new(move |name| Box::pin(query(name)) as BoxedFuture<Result<O>>);
     DiscoveryPoller::new(
         polling_error_policy,
         polling_backoff_policy,
