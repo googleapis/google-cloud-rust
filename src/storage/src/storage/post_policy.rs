@@ -231,16 +231,18 @@ impl PostPolicyV4Builder {
 
         let mut conditions = Vec::new();
 
-        // 1. Add custom headers/metadata (except standard GCS fields or x-ignore- fields)
-        let required_keys = [
+        // 1. Add custom headers/metadata (except x-ignore- fields and system fields)
+        let system_keys = [
             "bucket",
             "key",
             "x-goog-date",
             "x-goog-credential",
             "x-goog-algorithm",
+            "x-goog-signature",
+            "policy",
         ];
         for (key, value) in &self.fields {
-            if !key.starts_with("x-ignore-") && !required_keys.contains(&key.as_str()) {
+            if !key.starts_with("x-ignore-") && !system_keys.contains(&key.as_str()) {
                 conditions.push(serde_json::json!({ key: value }));
             }
         }
@@ -295,6 +297,13 @@ impl PostPolicyV4Builder {
 
         // Build output form fields
         let mut fields = BTreeMap::new();
+
+        // Add user-supplied fields (including custom metadata or x-ignore- fields)
+        for (key, value) in &self.fields {
+            fields.insert(key.clone(), value.clone());
+        }
+
+        // Add required system fields
         fields.insert("key".to_string(), self.object.clone());
         fields.insert(
             "x-goog-algorithm".to_string(),
@@ -304,11 +313,6 @@ impl PostPolicyV4Builder {
         fields.insert("x-goog-date".to_string(), request_timestamp);
         fields.insert("x-goog-signature".to_string(), signature_hex);
         fields.insert("policy".to_string(), encoded_policy);
-
-        // Add user-supplied fields (including custom metadata or x-ignore- fields)
-        for (key, value) in &self.fields {
-            fields.insert(key.clone(), value.clone());
-        }
 
         Ok(PostPolicyV4Result { url, fields })
     }
@@ -587,5 +591,110 @@ mod tests {
         let bad_content_length_builder =
             PostPolicyV4Builder::for_object("bucket", "object").with_content_length_range(10, 5); // min > max
         assert!(bad_content_length_builder.sign_with(&signer).await.is_err());
+    }
+
+    #[tokio::test]
+    async fn post_policy_v4_custom_fields() {
+        let assert_not_contains = |conditions: &[serde_json::Value], item: serde_json::Value| {
+            assert!(
+                !conditions.contains(&item),
+                "Expected conditions to NOT contain: {:?}",
+                item
+            );
+        };
+
+        let service_account_key = serde_json::from_slice(include_bytes!(
+            "conformance/test_service_account.not-a-test.json",
+        ))
+        .unwrap();
+        let signer = ServiceAccount::new(service_account_key)
+            .build_signer()
+            .expect("failed to build signer");
+
+        // Test custom fields:
+        // 1. Valid custom fields (e.g., x-goog-meta-*, acl) should be preserved.
+        // 2. Conflicting system keys should be silently overwritten in output, but both sent to backend.
+        let builder = PostPolicyV4Builder::for_object("bucket", "object")
+            .with_field("x-goog-meta-custom", "custom_value")
+            .with_field("acl", "public-read")
+            .with_field("key", "malicious_key")
+            .with_field("x-goog-algorithm", "malicious_algo")
+            .with_field("x-goog-credential", "malicious_credential")
+            .with_field("x-goog-date", "malicious_date")
+            .with_field("x-goog-signature", "malicious_signature")
+            .with_field("policy", "malicious_policy")
+            .with_field("x-ignore-test-field", "ignored_value");
+
+        let result = builder.sign_with(&signer).await.unwrap();
+
+        // 1. Output Fields Check: Valid custom fields should be preserved
+        assert_eq!(
+            result.fields.get("x-goog-meta-custom").unwrap(),
+            "custom_value"
+        );
+        assert_eq!(result.fields.get("acl").unwrap(), "public-read");
+        assert_eq!(
+            result.fields.get("x-ignore-test-field").unwrap(),
+            "ignored_value"
+        );
+
+        // 2. Output Fields Check: System keys silently overwrote the malicious ones
+        assert_eq!(result.fields.get("key").unwrap(), "object");
+        assert_eq!(
+            result.fields.get("x-goog-algorithm").unwrap(),
+            "GOOG4-RSA-SHA256"
+        );
+        assert_ne!(
+            result.fields.get("x-goog-credential").unwrap(),
+            "malicious_credential"
+        );
+        assert_ne!(result.fields.get("x-goog-date").unwrap(), "malicious_date");
+        assert_ne!(
+            result.fields.get("x-goog-signature").unwrap(),
+            "malicious_signature"
+        );
+        assert_ne!(result.fields.get("policy").unwrap(), "malicious_policy");
+
+        // 3. Conditions Input: Verify the conditions array inside the generated policy does NOT
+        // contain the user's conflicting keys, only the system keys.
+        let decoded_policy = BASE64_STANDARD
+            .decode(result.fields.get("policy").unwrap())
+            .unwrap();
+        let policy_json: serde_json::Value = serde_json::from_slice(&decoded_policy).unwrap();
+        let conditions = policy_json.get("conditions").unwrap().as_array().unwrap();
+
+        // Check valid custom fields
+        assert!(conditions.contains(&serde_json::json!({"x-goog-meta-custom": "custom_value"})));
+        assert!(conditions.contains(&serde_json::json!({"acl": "public-read"})));
+        // Check that x-ignore- field is NOT in conditions of the signed policy
+        assert_not_contains(
+            conditions,
+            serde_json::json!({"x-ignore-test-field": "ignored_value"}),
+        );
+
+        // Check conflicting user keys vs system keys: system keys must override user keys in conditions
+        assert_not_contains(conditions, serde_json::json!({"key": "malicious_key"}));
+        assert_not_contains(
+            conditions,
+            serde_json::json!({"x-goog-algorithm": "malicious_algo"}),
+        );
+        assert_not_contains(
+            conditions,
+            serde_json::json!({"x-goog-credential": "malicious_credential"}),
+        );
+        assert_not_contains(
+            conditions,
+            serde_json::json!({"x-goog-date": "malicious_date"}),
+        );
+        assert_not_contains(
+            conditions,
+            serde_json::json!({"x-goog-signature": "malicious_signature"}),
+        );
+        assert_not_contains(
+            conditions,
+            serde_json::json!({"policy": "malicious_policy"}),
+        );
+
+        assert!(conditions.contains(&serde_json::json!({"key": "object"})));
     }
 }
