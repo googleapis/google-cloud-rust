@@ -28,7 +28,6 @@ pub struct PostPolicyV4Builder {
     expiration: Duration,
     timestamp: Option<DateTime<Utc>>,
     url_style: UrlStyle,
-    scheme: String,
     bucket_bound_hostname: Option<String>,
     starts_with_conditions: Vec<(String, String)>,
     content_length_range: Option<(u64, u64)>,
@@ -67,7 +66,6 @@ impl PostPolicyV4Builder {
             expiration: Duration::from_secs(604800), // Default to max: 7 days
             timestamp: None,
             url_style: UrlStyle::PathStyle,
-            scheme: "https".to_string(),
             bucket_bound_hostname: None,
             starts_with_conditions: Vec::new(),
             content_length_range: None,
@@ -87,12 +85,6 @@ impl PostPolicyV4Builder {
     /// Sets the URL formatting style.
     pub fn with_url_style(mut self, url_style: UrlStyle) -> Self {
         self.url_style = url_style;
-        self
-    }
-
-    /// Sets the URL protocol scheme (e.g. "http" or "https").
-    pub fn with_scheme<S: Into<String>>(mut self, scheme: S) -> Self {
-        self.scheme = scheme.into();
         self
     }
 
@@ -152,34 +144,41 @@ impl PostPolicyV4Builder {
             .unwrap_or(&self.bucket)
     }
 
+    fn resolve_endpoint(&self) -> String {
+        match self.endpoint.as_ref() {
+            Some(e) if e.starts_with("http://") => e.clone(),
+            Some(e) if e.starts_with("https://") => e.clone(),
+            Some(e) => format!("https://{}", e),
+            None => {
+                let universe_domain = self.universe_domain.as_deref().unwrap_or("googleapis.com");
+                format!("https://storage.{universe_domain}")
+            }
+        }
+    }
+
     fn resolve_url(&self) -> Result<String, SigningError> {
         let bucket_name = self.bucket_name();
 
-        let resolved_host = match self.endpoint.as_ref() {
-            Some(e) => {
-                let url = url::Url::parse(e)
-                    .map_err(|err| SigningError::invalid_parameter("endpoint", err))?;
-                let mut host = url
-                    .host_str()
-                    .ok_or_else(|| SigningError::invalid_parameter("endpoint", "Missing host"))?
-                    .to_string();
-                if let Some(port) = url.port() {
-                    host.push_str(&format!(":{port}"));
-                }
-                host
-            }
-            None => {
-                let universe_domain = self.universe_domain.as_deref().unwrap_or("googleapis.com");
-                format!("storage.{universe_domain}")
-            }
-        };
+        let endpoint_url = self.resolve_endpoint();
+        let url = url::Url::parse(&endpoint_url)
+            .map_err(|err| SigningError::invalid_parameter("endpoint", err))?;
+
+        let scheme = url.scheme();
+        let mut host = url
+            .host_str()
+            .ok_or_else(|| SigningError::invalid_parameter("endpoint", "Missing host"))?
+            .to_string();
+
+        if let Some(port) = url.port() {
+            host.push_str(&format!(":{port}"));
+        }
 
         let url = match self.url_style {
             UrlStyle::PathStyle => {
-                format!("{}://{}/{}/", self.scheme, resolved_host, bucket_name)
+                format!("{}://{}/{}/", scheme, host, bucket_name)
             }
             UrlStyle::VirtualHostedStyle => {
-                format!("{}://{}.{}/", self.scheme, bucket_name, resolved_host)
+                format!("{}://{}.{}/", scheme, bucket_name, host)
             }
             UrlStyle::BucketBoundHostname => {
                 let hostname = self.bucket_bound_hostname.as_deref().ok_or_else(|| {
@@ -193,7 +192,7 @@ impl PostPolicyV4Builder {
                     .unwrap_or(hostname)
                     .strip_prefix("https://")
                     .unwrap_or(hostname);
-                format!("{}://{}/", self.scheme, clean_hostname)
+                format!("{}://{}/", scheme, clean_hostname)
             }
         };
 
@@ -371,6 +370,8 @@ mod tests {
         timestamp: String,
         url_style: Option<String>,
         bucket_bound_hostname: Option<String>,
+        client_endpoint: Option<String>,
+        universe_domain: Option<String>,
         fields: Option<HashMap<String, String>>,
         conditions: Option<PostPolicyV4TestConditions>,
     }
@@ -422,13 +423,21 @@ mod tests {
                 format!("projects/_/buckets/{}", test.policy_input.bucket),
                 test.policy_input.object.clone(),
             )
-            .with_scheme(scheme)
             .with_url_style(url_style)
             .with_timestamp(timestamp.into())
             .with_expiration(Duration::from_secs(test.policy_input.expiration));
 
             if let Some(hostname) = &test.policy_input.bucket_bound_hostname {
                 builder = builder.with_bucket_bound_hostname(hostname.clone());
+                builder = builder.with_endpoint(format!("{}://{}", scheme, hostname));
+            }
+
+            if let Some(endpoint) = &test.policy_input.client_endpoint {
+                builder = builder.with_endpoint(endpoint.clone());
+            }
+
+            if let Some(domain) = &test.policy_input.universe_domain {
+                builder = builder.with_universe_domain(domain.clone());
             }
 
             if let Some(fields) = &test.policy_input.fields {
@@ -553,7 +562,7 @@ mod tests {
 
         // Test the mapping error in resolve_url
         let bad_endpoint_builder =
-            PostPolicyV4Builder::for_object("bucket", "object").with_endpoint("not_a_valid_url");
+            PostPolicyV4Builder::for_object("bucket", "object").with_endpoint("");
         assert!(bad_endpoint_builder.resolve_url().is_err());
 
         // Test SigningError::invalid_parameter of url_style (BucketBoundHostname without hostname)
