@@ -28,7 +28,6 @@ pub struct PostPolicyV4Builder {
     expiration: Duration,
     timestamp: Option<DateTime<Utc>>,
     url_style: UrlStyle,
-    bucket_bound_hostname: Option<String>,
     starts_with_conditions: Vec<(String, String)>,
     content_length_range: Option<(u64, u64)>,
     fields: BTreeMap<String, String>,
@@ -66,7 +65,6 @@ impl PostPolicyV4Builder {
             expiration: Duration::from_secs(604800), // Default to max: 7 days
             timestamp: None,
             url_style: UrlStyle::PathStyle,
-            bucket_bound_hostname: None,
             starts_with_conditions: Vec::new(),
             content_length_range: None,
             fields: BTreeMap::new(),
@@ -85,12 +83,6 @@ impl PostPolicyV4Builder {
     /// Sets the URL formatting style.
     pub fn with_url_style(mut self, url_style: UrlStyle) -> Self {
         self.url_style = url_style;
-        self
-    }
-
-    /// Sets a CNAME alias/bucket bound hostname.
-    pub fn with_bucket_bound_hostname<S: Into<String>>(mut self, hostname: S) -> Self {
-        self.bucket_bound_hostname = Some(hostname.into());
         self
     }
 
@@ -196,18 +188,7 @@ impl PostPolicyV4Builder {
                 format!("{}://{}.{}/", scheme, bucket_name, host)
             }
             UrlStyle::BucketBoundHostname => {
-                let hostname = self.bucket_bound_hostname.as_deref().ok_or_else(|| {
-                    SigningError::invalid_parameter(
-                        "url_style",
-                        "bucket_bound_hostname must be set for BucketBoundHostname style",
-                    )
-                })?;
-                let clean_hostname = hostname
-                    .strip_prefix("http://")
-                    .unwrap_or(hostname)
-                    .strip_prefix("https://")
-                    .unwrap_or(hostname);
-                format!("{}://{}/", scheme, clean_hostname)
+                format!("{}://{}/", scheme, host)
             }
         };
 
@@ -449,7 +430,6 @@ mod tests {
             .with_expiration(Duration::from_secs(test.policy_input.expiration));
 
             if let Some(hostname) = &test.policy_input.bucket_bound_hostname {
-                builder = builder.with_bucket_bound_hostname(hostname.clone());
                 builder = builder.with_endpoint(format!("{}://{}", scheme, hostname));
             }
 
@@ -586,12 +566,6 @@ mod tests {
             PostPolicyV4Builder::for_object("projects/_/buckets/bucket", "object")
                 .with_endpoint("");
         assert!(bad_endpoint_builder.resolve_url().is_err());
-
-        // Test SigningError::invalid_parameter of url_style (BucketBoundHostname without hostname)
-        let bad_url_style_builder =
-            PostPolicyV4Builder::for_object("projects/_/buckets/bucket", "object")
-                .with_url_style(UrlStyle::BucketBoundHostname);
-        assert!(bad_url_style_builder.resolve_url().is_err());
 
         let service_account_key = serde_json::from_slice(include_bytes!(
             "conformance/test_service_account.not-a-test.json",
