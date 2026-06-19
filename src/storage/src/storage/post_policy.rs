@@ -144,6 +144,21 @@ impl PostPolicyV4Builder {
             .unwrap_or(&self.bucket)
     }
 
+    fn check_bucket_name(&self) -> Result<(), SigningError> {
+        self.bucket
+            .strip_prefix("projects/_/buckets/")
+            .ok_or_else(|| {
+                SigningError::invalid_parameter(
+                    "bucket",
+                    format!(
+                        "malformed bucket name, it must start with `projects/_/buckets/`: {}",
+                        self.bucket
+                    ),
+                )
+            })?;
+        Ok(())
+    }
+
     fn resolve_endpoint(&self) -> String {
         match self.endpoint.as_ref() {
             Some(e) if e.starts_with("http://") => e.clone(),
@@ -201,6 +216,8 @@ impl PostPolicyV4Builder {
 
     /// Sign the policy document.
     pub async fn sign_with(mut self, signer: &Signer) -> Result<PostPolicyV4Result, SigningError> {
+        self.check_bucket_name()?;
+
         if self.expiration > Duration::from_secs(604800) {
             return Err(SigningError::invalid_parameter(
                 "expiration",
@@ -544,7 +561,7 @@ mod tests {
 
     #[tokio::test]
     async fn post_policy_v4_edge_cases() {
-        let builder = PostPolicyV4Builder::for_object("bucket", "object")
+        let builder = PostPolicyV4Builder::for_object("projects/_/buckets/bucket", "object")
             .with_client_email("test@example.com")
             .with_universe_domain("custom.domain")
             .with_endpoint("https://custom.endpoint:8080")
@@ -566,12 +583,14 @@ mod tests {
 
         // Test the mapping error in resolve_url
         let bad_endpoint_builder =
-            PostPolicyV4Builder::for_object("bucket", "object").with_endpoint("");
+            PostPolicyV4Builder::for_object("projects/_/buckets/bucket", "object")
+                .with_endpoint("");
         assert!(bad_endpoint_builder.resolve_url().is_err());
 
         // Test SigningError::invalid_parameter of url_style (BucketBoundHostname without hostname)
-        let bad_url_style_builder = PostPolicyV4Builder::for_object("bucket", "object")
-            .with_url_style(UrlStyle::BucketBoundHostname);
+        let bad_url_style_builder =
+            PostPolicyV4Builder::for_object("projects/_/buckets/bucket", "object")
+                .with_url_style(UrlStyle::BucketBoundHostname);
         assert!(bad_url_style_builder.resolve_url().is_err());
 
         let service_account_key = serde_json::from_slice(include_bytes!(
@@ -582,14 +601,20 @@ mod tests {
             .build_signer()
             .expect("failed to build signer");
 
+        // Test malformed bucket name prefix validation
+        let bad_bucket_builder = PostPolicyV4Builder::for_object("bucket", "object");
+        assert!(bad_bucket_builder.sign_with(&signer).await.is_err());
+
         // Test SigningError::invalid_parameter of expiration (> 7 days)
-        let bad_expiration_builder = PostPolicyV4Builder::for_object("bucket", "object")
-            .with_expiration(Duration::from_secs(604801)); // > 7 days
+        let bad_expiration_builder =
+            PostPolicyV4Builder::for_object("projects/_/buckets/bucket", "object")
+                .with_expiration(Duration::from_secs(604801)); // > 7 days
         assert!(bad_expiration_builder.sign_with(&signer).await.is_err());
 
         // Test SigningError::invalid_parameter of content_length_range (min > max)
         let bad_content_length_builder =
-            PostPolicyV4Builder::for_object("bucket", "object").with_content_length_range(10, 5); // min > max
+            PostPolicyV4Builder::for_object("projects/_/buckets/bucket", "object")
+                .with_content_length_range(10, 5); // min > max
         assert!(bad_content_length_builder.sign_with(&signer).await.is_err());
     }
 
@@ -614,7 +639,7 @@ mod tests {
         // Test custom fields:
         // 1. Valid custom fields (e.g., x-goog-meta-*, acl) should be preserved.
         // 2. Conflicting system keys should be silently overwritten in output, but both sent to backend.
-        let builder = PostPolicyV4Builder::for_object("bucket", "object")
+        let builder = PostPolicyV4Builder::for_object("projects/_/buckets/bucket", "object")
             .with_field("x-goog-meta-custom", "custom_value")
             .with_field("acl", "public-read")
             .with_field("key", "malicious_key")
