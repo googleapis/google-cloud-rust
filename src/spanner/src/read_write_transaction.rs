@@ -569,9 +569,8 @@ impl ReadWriteTransaction {
             .set_transaction(self.context.transaction_selector.selector().await?)
             .set_seqno(seqno)
             .set_statements(statements)
-            .set_or_clear_request_options(
-                self.context.amend_request_options(batch.request_options),
-            );
+            .set_or_clear_request_options(self.context.amend_request_options(batch.request_options))
+            .set_last_statements(batch.last_statements);
 
         let response = execute_with_retry!(
             self,
@@ -1201,18 +1200,38 @@ mod tests {
     }
 
     #[tokio_test_no_panics]
+    async fn read_write_transaction_execute_update_last_statement() {
+        let stmt = Statement::builder("UPDATE Users SET Name = 'Alice' WHERE Id = 1")
+            .set_last_statement(true)
+            .build();
+        run_read_write_transaction_execute_update(BeginTransactionOption::ExplicitBegin, stmt)
+            .await;
+    }
+
+    #[tokio_test_no_panics]
     async fn read_write_transaction_execute_update_explicit() {
-        run_read_write_transaction_execute_update(BeginTransactionOption::ExplicitBegin).await;
+        run_read_write_transaction_execute_update(
+            BeginTransactionOption::ExplicitBegin,
+            "UPDATE Users SET Name = 'Alice' WHERE Id = 1",
+        )
+        .await;
     }
 
     #[tokio_test_no_panics]
     async fn read_write_transaction_execute_update_inline() {
-        run_read_write_transaction_execute_update(BeginTransactionOption::InlineBegin).await;
+        run_read_write_transaction_execute_update(
+            BeginTransactionOption::InlineBegin,
+            "UPDATE Users SET Name = 'Alice' WHERE Id = 1",
+        )
+        .await;
     }
 
     async fn run_read_write_transaction_execute_update(
         begin_transaction_option: BeginTransactionOption,
+        statement: impl Into<Statement>,
     ) {
+        let statement = statement.into();
+        let expected_last_statement = statement.last_statement;
         let mut mock = create_session_mock();
 
         if begin_transaction_option == BeginTransactionOption::ExplicitBegin {
@@ -1233,6 +1252,7 @@ mod tests {
             let req = req.into_inner();
             assert_eq!(req.sql, "UPDATE Users SET Name = 'Alice' WHERE Id = 1");
             assert_eq!(req.seqno, 1);
+            assert_eq!(req.last_statement, expected_last_statement);
 
             if begin_transaction_option == BeginTransactionOption::InlineBegin {
                 let transaction = req
@@ -1296,7 +1316,7 @@ mod tests {
             .await
             .expect("Failed to build transaction");
         let count = tx
-            .execute_update("UPDATE Users SET Name = 'Alice' WHERE Id = 1")
+            .execute_update(statement)
             .await
             .expect("Failed to execute update");
         assert_eq!(count, 1);
@@ -1478,6 +1498,20 @@ mod tests {
     }
 
     #[tokio_test_no_panics]
+    async fn read_write_transaction_execute_batch_update_last_statements() -> anyhow::Result<()> {
+        let batch = BatchDml::builder()
+            .add_statement("UPDATE Users SET Name = 'Alice' WHERE Id = 1")
+            .add_statement("UPDATE Users SET Name = 'Bob' WHERE Id = 2")
+            .set_last_statements(true)
+            .build();
+        run_read_write_transaction_execute_batch_update(
+            BeginTransactionOption::ExplicitBegin,
+            batch,
+        )
+        .await
+    }
+
+    #[tokio_test_no_panics]
     async fn read_write_transaction_execute_batch_update_explicit() -> anyhow::Result<()> {
         let batch = BatchDml::builder()
             .add_statement("UPDATE Users SET Name = 'Alice' WHERE Id = 1")
@@ -1529,6 +1563,8 @@ mod tests {
         begin_transaction_option: BeginTransactionOption,
         batch: impl Into<BatchDml>,
     ) -> anyhow::Result<()> {
+        let batch = batch.into();
+        let expected_last_statements = batch.last_statements;
         let mut mock = create_session_mock();
 
         if begin_transaction_option == BeginTransactionOption::ExplicitBegin {
@@ -1544,6 +1580,7 @@ mod tests {
             .once()
             .returning(move |req| {
                 let req = req.into_inner();
+                assert_eq!(req.last_statements, expected_last_statements);
                 assert_eq!(req.statements.len(), 2);
                 assert_eq!(
                     req.statements[0].sql,
