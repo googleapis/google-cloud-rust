@@ -966,20 +966,6 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
-    async fn get_goldengate_deployment_version(
-        &self,
-        req: crate::model::GetGoldengateDeploymentVersionRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::GoldengateDeploymentVersion>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::OracleDatabase::get_goldengate_deployment_version",
-            self.inner.get_goldengate_deployment_version(req, options));
-        pending.await
-    }
-
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_goldengate_deployment_versions(
         &self,
         req: crate::model::ListGoldengateDeploymentVersionsRequest,
@@ -990,20 +976,6 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::OracleDatabase::list_goldengate_deployment_versions",
             self.inner.list_goldengate_deployment_versions(req, options));
-        pending.await
-    }
-
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
-    async fn get_goldengate_deployment_type(
-        &self,
-        req: crate::model::GetGoldengateDeploymentTypeRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::GoldengateDeploymentType>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::OracleDatabase::get_goldengate_deployment_type",
-            self.inner.get_goldengate_deployment_type(req, options));
         pending.await
     }
 
@@ -1022,20 +994,6 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
-    async fn get_goldengate_deployment_environment(
-        &self,
-        req: crate::model::GetGoldengateDeploymentEnvironmentRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::GoldengateDeploymentEnvironment>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::OracleDatabase::get_goldengate_deployment_environment",
-            self.inner.get_goldengate_deployment_environment(req, options));
-        pending.await
-    }
-
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_goldengate_deployment_environments(
         &self,
         req: crate::model::ListGoldengateDeploymentEnvironmentsRequest,
@@ -1046,20 +1004,6 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::OracleDatabase::list_goldengate_deployment_environments",
             self.inner.list_goldengate_deployment_environments(req, options));
-        pending.await
-    }
-
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
-    async fn get_goldengate_connection_type(
-        &self,
-        req: crate::model::GetGoldengateConnectionTypeRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::GoldengateConnectionType>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::OracleDatabase::get_goldengate_connection_type",
-            self.inner.get_goldengate_connection_type(req, options));
         pending.await
     }
 

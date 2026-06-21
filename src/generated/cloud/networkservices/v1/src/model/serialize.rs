@@ -18,6 +18,404 @@
 use super::*;
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::AgentGateway {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.google_managed() {
+            state.serialize_entry("googleManaged", value)?;
+        }
+        if let Some(value) = self.self_managed() {
+            state.serialize_entry("selfManaged", value)?;
+        }
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
+        }
+        if !self.labels.is_empty() {
+            state.serialize_entry("labels", &self.labels)?;
+        }
+        if !self.description.is_empty() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if !self.etag.is_empty() {
+            state.serialize_entry("etag", &self.etag)?;
+        }
+        if !self.protocols.is_empty() {
+            state.serialize_entry("protocols", &self.protocols)?;
+        }
+        if !self.registries.is_empty() {
+            state.serialize_entry("registries", &self.registries)?;
+        }
+        if self.network_config.is_some() {
+            state.serialize_entry("networkConfig", &self.network_config)?;
+        }
+        if self.agent_gateway_card.is_some() {
+            state.serialize_entry("agentGatewayCard", &self.agent_gateway_card)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::agent_gateway::GoogleManaged {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.governed_access_path) {
+            state.serialize_entry("governedAccessPath", &self.governed_access_path)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::agent_gateway::SelfManaged {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.resource_uri.is_empty() {
+            state.serialize_entry("resourceUri", &self.resource_uri)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::agent_gateway::NetworkConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.egress.is_some() {
+            state.serialize_entry("egress", &self.egress)?;
+        }
+        if self.dns_peering_config.is_some() {
+            state.serialize_entry("dnsPeeringConfig", &self.dns_peering_config)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::agent_gateway::network_config::Egress {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.network_attachment.is_empty() {
+            state.serialize_entry("networkAttachment", &self.network_attachment)?;
+        }
+        if self.trust_config.is_some() {
+            state.serialize_entry("trustConfig", &self.trust_config)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::agent_gateway::network_config::egress::TrustConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.pem_certificates.is_empty() {
+            state.serialize_entry("pemCertificates", &self.pem_certificates)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::agent_gateway::network_config::DnsPeeringConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.domains.is_empty() {
+            state.serialize_entry("domains", &self.domains)?;
+        }
+        if !self.target_project.is_empty() {
+            state.serialize_entry("targetProject", &self.target_project)?;
+        }
+        if !self.target_network.is_empty() {
+            state.serialize_entry("targetNetwork", &self.target_network)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::agent_gateway::AgentGatewayOutputCard {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.mtls_endpoint.is_empty() {
+            state.serialize_entry("mtlsEndpoint", &self.mtls_endpoint)?;
+        }
+        if !self.root_certificates.is_empty() {
+            state.serialize_entry("rootCertificates", &self.root_certificates)?;
+        }
+        if !self.service_extensions_service_account.is_empty() {
+            state.serialize_entry(
+                "serviceExtensionsServiceAccount",
+                &self.service_extensions_service_account,
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListAgentGatewaysRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !wkt::internal::is_default(&self.return_partial_success) {
+            state.serialize_entry("returnPartialSuccess", &self.return_partial_success)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListAgentGatewaysResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.agent_gateways.is_empty() {
+            state.serialize_entry("agentGateways", &self.agent_gateways)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self.unreachable.is_empty() {
+            state.serialize_entry("unreachable", &self.unreachable)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GetAgentGatewayRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CreateAgentGatewayRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !self.agent_gateway_id.is_empty() {
+            state.serialize_entry("agentGatewayId", &self.agent_gateway_id)?;
+        }
+        if self.agent_gateway.is_some() {
+            state.serialize_entry("agentGateway", &self.agent_gateway)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::UpdateAgentGatewayRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.update_mask.is_some() {
+            state.serialize_entry("updateMask", &self.update_mask)?;
+        }
+        if self.agent_gateway.is_some() {
+            state.serialize_entry("agentGateway", &self.agent_gateway)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::DeleteAgentGatewayRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.etag.is_empty() {
+            state.serialize_entry("etag", &self.etag)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::OperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -235,8 +633,20 @@ impl serde::ser::Serialize for super::extension_chain::Extension {
         if !self.forward_headers.is_empty() {
             state.serialize_entry("forwardHeaders", &self.forward_headers)?;
         }
+        if !self.forward_attributes.is_empty() {
+            state.serialize_entry("forwardAttributes", &self.forward_attributes)?;
+        }
         if self.metadata.is_some() {
             state.serialize_entry("metadata", &self.metadata)?;
+        }
+        if !wkt::internal::is_default(&self.request_body_send_mode) {
+            state.serialize_entry("requestBodySendMode", &self.request_body_send_mode)?;
+        }
+        if !wkt::internal::is_default(&self.response_body_send_mode) {
+            state.serialize_entry("responseBodySendMode", &self.response_body_send_mode)?;
+        }
+        if !wkt::internal::is_default(&self.observability_mode) {
+            state.serialize_entry("observabilityMode", &self.observability_mode)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -958,6 +1368,9 @@ impl serde::ser::Serialize for super::AuthzExtension {
         }
         if !self.forward_headers.is_empty() {
             state.serialize_entry("forwardHeaders", &self.forward_headers)?;
+        }
+        if !self.forward_attributes.is_empty() {
+            state.serialize_entry("forwardAttributes", &self.forward_attributes)?;
         }
         if !wkt::internal::is_default(&self.wire_format) {
             state.serialize_entry("wireFormat", &self.wire_format)?;
@@ -1933,6 +2346,9 @@ impl serde::ser::Serialize for super::Gateway {
             }
             state.serialize_entry("ports", &__With(&self.ports))?;
         }
+        if !wkt::internal::is_default(&self.all_ports) {
+            state.serialize_entry("allPorts", &self.all_ports)?;
+        }
         if !self.scope.is_empty() {
             state.serialize_entry("scope", &self.scope)?;
         }
@@ -1959,6 +2375,9 @@ impl serde::ser::Serialize for super::Gateway {
         }
         if !wkt::internal::is_default(&self.routing_mode) {
             state.serialize_entry("routingMode", &self.routing_mode)?;
+        }
+        if !wkt::internal::is_default(&self.allow_global_access) {
+            state.serialize_entry("allowGlobalAccess", &self.allow_global_access)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -3434,6 +3853,9 @@ impl serde::ser::Serialize for super::ListHttpRoutesRequest {
         if !wkt::internal::is_default(&self.return_partial_success) {
             state.serialize_entry("returnPartialSuccess", &self.return_partial_success)?;
         }
+        if !self.filter.is_empty() {
+            state.serialize_entry("filter", &self.filter)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -3511,6 +3933,9 @@ impl serde::ser::Serialize for super::CreateHttpRouteRequest {
         }
         if self.http_route.is_some() {
             state.serialize_entry("httpRoute", &self.http_route)?;
+        }
+        if !self.request_id.is_empty() {
+            state.serialize_entry("requestId", &self.request_id)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -4892,6 +5317,9 @@ impl serde::ser::Serialize for super::TlsRoute {
         }
         if !self.gateways.is_empty() {
             state.serialize_entry("gateways", &self.gateways)?;
+        }
+        if !self.target_proxies.is_empty() {
+            state.serialize_entry("targetProxies", &self.target_proxies)?;
         }
         if !self.labels.is_empty() {
             state.serialize_entry("labels", &self.labels)?;

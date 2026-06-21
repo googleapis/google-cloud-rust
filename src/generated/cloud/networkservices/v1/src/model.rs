@@ -36,6 +36,1626 @@ mod debug;
 mod deserialize;
 mod serialize;
 
+/// AgentGateway represents the agent gateway resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AgentGateway {
+    /// Identifier. Name of the AgentGateway resource. It matches pattern
+    /// `projects/*/locations/*/agentGateways/<agent_gateway>`.
+    pub name: std::string::String,
+
+    /// Output only. The timestamp when the resource was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The timestamp when the resource was updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. Set of label tags associated with the AgentGateway resource.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. A free-text description of the resource. Max length 1024
+    /// characters.
+    pub description: std::string::String,
+
+    /// Optional. Etag of the resource.
+    /// If this is provided, it must match the server's etag. If the provided etag
+    /// does not match the server's etag, the request will fail with a 409 ABORTED
+    /// error.
+    pub etag: std::string::String,
+
+    /// Optional. Deprecated.
+    #[deprecated]
+    pub protocols: std::vec::Vec<crate::model::agent_gateway::Protocol>,
+
+    /// Optional. A list of Agent registries containing the agents, MCP servers and
+    /// tools governed by the Agent Gateway. Note: Currently limited to
+    /// project-scoped registries Must be of format
+    /// `//agentregistry.googleapis.com/projects/{project}/locations/{location}/
+    pub registries: std::vec::Vec<std::string::String>,
+
+    /// Optional. Network configuration for the AgentGateway.
+    pub network_config: std::option::Option<crate::model::agent_gateway::NetworkConfig>,
+
+    /// Output only. Field for populated AgentGateway card.
+    pub agent_gateway_card:
+        std::option::Option<crate::model::agent_gateway::AgentGatewayOutputCard>,
+
+    /// Deployment mode of the network proxy. Exactly one of the fields in this
+    /// `oneof` must be set.
+    pub deployment_mode: std::option::Option<crate::model::agent_gateway::DeploymentMode>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AgentGateway {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::AgentGateway::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::AgentGateway;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_gateway_id = "agent_gateway_id";
+    /// let x = AgentGateway::new().set_name(format!("projects/{project_id}/locations/{location_id}/agentGateways/{agent_gateway_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::AgentGateway::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::AgentGateway;
+    /// use wkt::Timestamp;
+    /// let x = AgentGateway::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::AgentGateway::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::AgentGateway;
+    /// use wkt::Timestamp;
+    /// let x = AgentGateway::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AgentGateway::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::AgentGateway::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::AgentGateway;
+    /// use wkt::Timestamp;
+    /// let x = AgentGateway::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::AgentGateway::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::AgentGateway;
+    /// use wkt::Timestamp;
+    /// let x = AgentGateway::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AgentGateway::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::AgentGateway::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::AgentGateway;
+    /// let x = AgentGateway::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::AgentGateway::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::AgentGateway;
+    /// let x = AgentGateway::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::AgentGateway::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::AgentGateway;
+    /// let x = AgentGateway::new().set_etag("example");
+    /// ```
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [protocols][crate::model::AgentGateway::protocols].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::AgentGateway;
+    /// use google_cloud_networkservices_v1::model::agent_gateway::Protocol;
+    /// let x = AgentGateway::new().set_protocols([
+    ///     Protocol::Mcp,
+    /// ]);
+    /// ```
+    #[deprecated]
+    pub fn set_protocols<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::agent_gateway::Protocol>,
+    {
+        use std::iter::Iterator;
+        self.protocols = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [registries][crate::model::AgentGateway::registries].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::AgentGateway;
+    /// let x = AgentGateway::new().set_registries(["a", "b", "c"]);
+    /// ```
+    pub fn set_registries<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.registries = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [network_config][crate::model::AgentGateway::network_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::AgentGateway;
+    /// use google_cloud_networkservices_v1::model::agent_gateway::NetworkConfig;
+    /// let x = AgentGateway::new().set_network_config(NetworkConfig::default()/* use setters */);
+    /// ```
+    pub fn set_network_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::agent_gateway::NetworkConfig>,
+    {
+        self.network_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [network_config][crate::model::AgentGateway::network_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::AgentGateway;
+    /// use google_cloud_networkservices_v1::model::agent_gateway::NetworkConfig;
+    /// let x = AgentGateway::new().set_or_clear_network_config(Some(NetworkConfig::default()/* use setters */));
+    /// let x = AgentGateway::new().set_or_clear_network_config(None::<NetworkConfig>);
+    /// ```
+    pub fn set_or_clear_network_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::agent_gateway::NetworkConfig>,
+    {
+        self.network_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [agent_gateway_card][crate::model::AgentGateway::agent_gateway_card].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::AgentGateway;
+    /// use google_cloud_networkservices_v1::model::agent_gateway::AgentGatewayOutputCard;
+    /// let x = AgentGateway::new().set_agent_gateway_card(AgentGatewayOutputCard::default()/* use setters */);
+    /// ```
+    pub fn set_agent_gateway_card<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::agent_gateway::AgentGatewayOutputCard>,
+    {
+        self.agent_gateway_card = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [agent_gateway_card][crate::model::AgentGateway::agent_gateway_card].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::AgentGateway;
+    /// use google_cloud_networkservices_v1::model::agent_gateway::AgentGatewayOutputCard;
+    /// let x = AgentGateway::new().set_or_clear_agent_gateway_card(Some(AgentGatewayOutputCard::default()/* use setters */));
+    /// let x = AgentGateway::new().set_or_clear_agent_gateway_card(None::<AgentGatewayOutputCard>);
+    /// ```
+    pub fn set_or_clear_agent_gateway_card<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::agent_gateway::AgentGatewayOutputCard>,
+    {
+        self.agent_gateway_card = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [deployment_mode][crate::model::AgentGateway::deployment_mode].
+    ///
+    /// Note that all the setters affecting `deployment_mode` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::AgentGateway;
+    /// use google_cloud_networkservices_v1::model::agent_gateway::GoogleManaged;
+    /// let x = AgentGateway::new().set_deployment_mode(Some(
+    ///     google_cloud_networkservices_v1::model::agent_gateway::DeploymentMode::GoogleManaged(GoogleManaged::default().into())));
+    /// ```
+    pub fn set_deployment_mode<
+        T: std::convert::Into<std::option::Option<crate::model::agent_gateway::DeploymentMode>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.deployment_mode = v.into();
+        self
+    }
+
+    /// The value of [deployment_mode][crate::model::AgentGateway::deployment_mode]
+    /// if it holds a `GoogleManaged`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn google_managed(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::agent_gateway::GoogleManaged>> {
+        #[allow(unreachable_patterns)]
+        self.deployment_mode.as_ref().and_then(|v| match v {
+            crate::model::agent_gateway::DeploymentMode::GoogleManaged(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [deployment_mode][crate::model::AgentGateway::deployment_mode]
+    /// to hold a `GoogleManaged`.
+    ///
+    /// Note that all the setters affecting `deployment_mode` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::AgentGateway;
+    /// use google_cloud_networkservices_v1::model::agent_gateway::GoogleManaged;
+    /// let x = AgentGateway::new().set_google_managed(GoogleManaged::default()/* use setters */);
+    /// assert!(x.google_managed().is_some());
+    /// assert!(x.self_managed().is_none());
+    /// ```
+    pub fn set_google_managed<
+        T: std::convert::Into<std::boxed::Box<crate::model::agent_gateway::GoogleManaged>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.deployment_mode = std::option::Option::Some(
+            crate::model::agent_gateway::DeploymentMode::GoogleManaged(v.into()),
+        );
+        self
+    }
+
+    /// The value of [deployment_mode][crate::model::AgentGateway::deployment_mode]
+    /// if it holds a `SelfManaged`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn self_managed(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::agent_gateway::SelfManaged>> {
+        #[allow(unreachable_patterns)]
+        self.deployment_mode.as_ref().and_then(|v| match v {
+            crate::model::agent_gateway::DeploymentMode::SelfManaged(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [deployment_mode][crate::model::AgentGateway::deployment_mode]
+    /// to hold a `SelfManaged`.
+    ///
+    /// Note that all the setters affecting `deployment_mode` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::AgentGateway;
+    /// use google_cloud_networkservices_v1::model::agent_gateway::SelfManaged;
+    /// let x = AgentGateway::new().set_self_managed(SelfManaged::default()/* use setters */);
+    /// assert!(x.self_managed().is_some());
+    /// assert!(x.google_managed().is_none());
+    /// ```
+    pub fn set_self_managed<
+        T: std::convert::Into<std::boxed::Box<crate::model::agent_gateway::SelfManaged>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.deployment_mode = std::option::Option::Some(
+            crate::model::agent_gateway::DeploymentMode::SelfManaged(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for AgentGateway {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.AgentGateway"
+    }
+}
+
+/// Defines additional types related to [AgentGateway].
+pub mod agent_gateway {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Configuration for Google Managed deployment mode.
+    /// Proxy is orchestrated and managed by GoogleCloud in a tenant project.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct GoogleManaged {
+        /// Optional. Operating Mode of Agent Gateway.
+        pub governed_access_path: crate::model::agent_gateway::google_managed::GovernedAccessPath,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl GoogleManaged {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [governed_access_path][crate::model::agent_gateway::GoogleManaged::governed_access_path].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networkservices_v1::model::agent_gateway::GoogleManaged;
+        /// use google_cloud_networkservices_v1::model::agent_gateway::google_managed::GovernedAccessPath;
+        /// let x0 = GoogleManaged::new().set_governed_access_path(GovernedAccessPath::AgentToAnywhere);
+        /// let x1 = GoogleManaged::new().set_governed_access_path(GovernedAccessPath::ClientToAgent);
+        /// ```
+        pub fn set_governed_access_path<
+            T: std::convert::Into<crate::model::agent_gateway::google_managed::GovernedAccessPath>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.governed_access_path = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for GoogleManaged {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networkservices.v1.AgentGateway.GoogleManaged"
+        }
+    }
+
+    /// Defines additional types related to [GoogleManaged].
+    pub mod google_managed {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// GovernedAccessPath defines the type of access to protect.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum GovernedAccessPath {
+            /// Governed access path is not specified.
+            Unspecified,
+            /// Govern agent conections to destinations.
+            AgentToAnywhere,
+            /// Protect connection to Agent or Tool.
+            ClientToAgent,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [GovernedAccessPath::value] or
+            /// [GovernedAccessPath::name].
+            UnknownValue(governed_access_path::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod governed_access_path {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl GovernedAccessPath {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::AgentToAnywhere => std::option::Option::Some(1),
+                    Self::ClientToAgent => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => {
+                        std::option::Option::Some("GOVERNED_ACCESS_PATH_UNSPECIFIED")
+                    }
+                    Self::AgentToAnywhere => std::option::Option::Some("AGENT_TO_ANYWHERE"),
+                    Self::ClientToAgent => std::option::Option::Some("CLIENT_TO_AGENT"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for GovernedAccessPath {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for GovernedAccessPath {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for GovernedAccessPath {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::AgentToAnywhere,
+                    2 => Self::ClientToAgent,
+                    _ => Self::UnknownValue(governed_access_path::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for GovernedAccessPath {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "GOVERNED_ACCESS_PATH_UNSPECIFIED" => Self::Unspecified,
+                    "AGENT_TO_ANYWHERE" => Self::AgentToAnywhere,
+                    "CLIENT_TO_AGENT" => Self::ClientToAgent,
+                    _ => Self::UnknownValue(governed_access_path::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for GovernedAccessPath {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::AgentToAnywhere => serializer.serialize_i32(1),
+                    Self::ClientToAgent => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for GovernedAccessPath {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<GovernedAccessPath>::new(
+                    ".google.cloud.networkservices.v1.AgentGateway.GoogleManaged.GovernedAccessPath"))
+            }
+        }
+    }
+
+    /// Configuration for Self Managed deployment mode.
+    /// Attach to existing Application Load Balancers or Secure Web Proxies.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SelfManaged {
+        /// Optional. A supported Google Cloud networking proxy in the Project and
+        /// Location
+        pub resource_uri: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl SelfManaged {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [resource_uri][crate::model::agent_gateway::SelfManaged::resource_uri].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networkservices_v1::model::agent_gateway::SelfManaged;
+        /// let x = SelfManaged::new().set_resource_uri("example");
+        /// ```
+        pub fn set_resource_uri<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.resource_uri = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for SelfManaged {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networkservices.v1.AgentGateway.SelfManaged"
+        }
+    }
+
+    /// NetworkConfig contains network configurations for the AgentGateway.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct NetworkConfig {
+        /// Optional. Optional PSC-Interface network attachment for connectivity to
+        /// your private VPCs network.
+        pub egress: std::option::Option<crate::model::agent_gateway::network_config::Egress>,
+
+        /// Optional. Optional DNS peering configuration for connectivity to your
+        /// private VPC network.
+        pub dns_peering_config:
+            std::option::Option<crate::model::agent_gateway::network_config::DnsPeeringConfig>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl NetworkConfig {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [egress][crate::model::agent_gateway::NetworkConfig::egress].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networkservices_v1::model::agent_gateway::NetworkConfig;
+        /// use google_cloud_networkservices_v1::model::agent_gateway::network_config::Egress;
+        /// let x = NetworkConfig::new().set_egress(Egress::default()/* use setters */);
+        /// ```
+        pub fn set_egress<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::agent_gateway::network_config::Egress>,
+        {
+            self.egress = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [egress][crate::model::agent_gateway::NetworkConfig::egress].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networkservices_v1::model::agent_gateway::NetworkConfig;
+        /// use google_cloud_networkservices_v1::model::agent_gateway::network_config::Egress;
+        /// let x = NetworkConfig::new().set_or_clear_egress(Some(Egress::default()/* use setters */));
+        /// let x = NetworkConfig::new().set_or_clear_egress(None::<Egress>);
+        /// ```
+        pub fn set_or_clear_egress<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::agent_gateway::network_config::Egress>,
+        {
+            self.egress = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [dns_peering_config][crate::model::agent_gateway::NetworkConfig::dns_peering_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networkservices_v1::model::agent_gateway::NetworkConfig;
+        /// use google_cloud_networkservices_v1::model::agent_gateway::network_config::DnsPeeringConfig;
+        /// let x = NetworkConfig::new().set_dns_peering_config(DnsPeeringConfig::default()/* use setters */);
+        /// ```
+        pub fn set_dns_peering_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::agent_gateway::network_config::DnsPeeringConfig>,
+        {
+            self.dns_peering_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [dns_peering_config][crate::model::agent_gateway::NetworkConfig::dns_peering_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networkservices_v1::model::agent_gateway::NetworkConfig;
+        /// use google_cloud_networkservices_v1::model::agent_gateway::network_config::DnsPeeringConfig;
+        /// let x = NetworkConfig::new().set_or_clear_dns_peering_config(Some(DnsPeeringConfig::default()/* use setters */));
+        /// let x = NetworkConfig::new().set_or_clear_dns_peering_config(None::<DnsPeeringConfig>);
+        /// ```
+        pub fn set_or_clear_dns_peering_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::agent_gateway::network_config::DnsPeeringConfig>,
+        {
+            self.dns_peering_config = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for NetworkConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networkservices.v1.AgentGateway.NetworkConfig"
+        }
+    }
+
+    /// Defines additional types related to [NetworkConfig].
+    pub mod network_config {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Configuration for Egress
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct Egress {
+            /// Optional. The URI of the Network Attachment resource.
+            pub network_attachment: std::string::String,
+
+            /// Optional. TrustConfig defines the trust configuration for egress.
+            pub trust_config: std::option::Option<
+                crate::model::agent_gateway::network_config::egress::TrustConfig,
+            >,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl Egress {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [network_attachment][crate::model::agent_gateway::network_config::Egress::network_attachment].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_networkservices_v1::model::agent_gateway::network_config::Egress;
+            /// let x = Egress::new().set_network_attachment("example");
+            /// ```
+            pub fn set_network_attachment<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.network_attachment = v.into();
+                self
+            }
+
+            /// Sets the value of [trust_config][crate::model::agent_gateway::network_config::Egress::trust_config].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_networkservices_v1::model::agent_gateway::network_config::Egress;
+            /// use google_cloud_networkservices_v1::model::agent_gateway::network_config::egress::TrustConfig;
+            /// let x = Egress::new().set_trust_config(TrustConfig::default()/* use setters */);
+            /// ```
+            pub fn set_trust_config<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::agent_gateway::network_config::egress::TrustConfig,
+                    >,
+            {
+                self.trust_config = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [trust_config][crate::model::agent_gateway::network_config::Egress::trust_config].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_networkservices_v1::model::agent_gateway::network_config::Egress;
+            /// use google_cloud_networkservices_v1::model::agent_gateway::network_config::egress::TrustConfig;
+            /// let x = Egress::new().set_or_clear_trust_config(Some(TrustConfig::default()/* use setters */));
+            /// let x = Egress::new().set_or_clear_trust_config(None::<TrustConfig>);
+            /// ```
+            pub fn set_or_clear_trust_config<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::agent_gateway::network_config::egress::TrustConfig,
+                    >,
+            {
+                self.trust_config = v.map(|x| x.into());
+                self
+            }
+        }
+
+        impl wkt::message::Message for Egress {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.networkservices.v1.AgentGateway.NetworkConfig.Egress"
+            }
+        }
+
+        /// Defines additional types related to [Egress].
+        pub mod egress {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// TrustConfig defines the trust configuration for egress.
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct TrustConfig {
+                /// Required. PEM encoded root certificates used to validate the identity
+                /// of the upstream servers/destinations during egress connections.
+                pub pem_certificates: std::vec::Vec<std::string::String>,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl TrustConfig {
+                /// Creates a new default instance.
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [pem_certificates][crate::model::agent_gateway::network_config::egress::TrustConfig::pem_certificates].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_networkservices_v1::model::agent_gateway::network_config::egress::TrustConfig;
+                /// let x = TrustConfig::new().set_pem_certificates(["a", "b", "c"]);
+                /// ```
+                pub fn set_pem_certificates<T, V>(mut self, v: T) -> Self
+                where
+                    T: std::iter::IntoIterator<Item = V>,
+                    V: std::convert::Into<std::string::String>,
+                {
+                    use std::iter::Iterator;
+                    self.pem_certificates = v.into_iter().map(|i| i.into()).collect();
+                    self
+                }
+            }
+
+            impl wkt::message::Message for TrustConfig {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.networkservices.v1.AgentGateway.NetworkConfig.Egress.TrustConfig"
+                }
+            }
+        }
+
+        /// DNS peering config for the user VPC network.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct DnsPeeringConfig {
+            /// Required. Domain names for which DNS queries should be forwarded to the
+            /// target network.
+            pub domains: std::vec::Vec<std::string::String>,
+
+            /// Required. Target project ID to which DNS queries should be forwarded
+            /// to. This can be the same project that contains the AgentGateway or a
+            /// different project.
+            pub target_project: std::string::String,
+
+            /// Required. Target network in 'target project' to which DNS queries
+            /// should be forwarded to. Must be in format of
+            /// `projects/{project}/global/networks/{network}`.
+            pub target_network: std::string::String,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl DnsPeeringConfig {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [domains][crate::model::agent_gateway::network_config::DnsPeeringConfig::domains].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_networkservices_v1::model::agent_gateway::network_config::DnsPeeringConfig;
+            /// let x = DnsPeeringConfig::new().set_domains(["a", "b", "c"]);
+            /// ```
+            pub fn set_domains<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.domains = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [target_project][crate::model::agent_gateway::network_config::DnsPeeringConfig::target_project].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_networkservices_v1::model::agent_gateway::network_config::DnsPeeringConfig;
+            /// let x = DnsPeeringConfig::new().set_target_project("example");
+            /// ```
+            pub fn set_target_project<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.target_project = v.into();
+                self
+            }
+
+            /// Sets the value of [target_network][crate::model::agent_gateway::network_config::DnsPeeringConfig::target_network].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_networkservices_v1::model::agent_gateway::network_config::DnsPeeringConfig;
+            /// let x = DnsPeeringConfig::new().set_target_network("example");
+            /// ```
+            pub fn set_target_network<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.target_network = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for DnsPeeringConfig {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.networkservices.v1.AgentGateway.NetworkConfig.DnsPeeringConfig"
+            }
+        }
+    }
+
+    /// AgentGatewayOutputCard contains informational output-only fields
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct AgentGatewayOutputCard {
+        /// Output only. mTLS Endpoint associated with this AgentGateway
+        pub mtls_endpoint: std::string::String,
+
+        /// Output only. Root Certificates for Agents to validate this AgentGateway
+        pub root_certificates: std::vec::Vec<std::string::String>,
+
+        /// Output only. Service Account used by Service Extensions to operate.
+        pub service_extensions_service_account: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl AgentGatewayOutputCard {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [mtls_endpoint][crate::model::agent_gateway::AgentGatewayOutputCard::mtls_endpoint].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networkservices_v1::model::agent_gateway::AgentGatewayOutputCard;
+        /// let x = AgentGatewayOutputCard::new().set_mtls_endpoint("example");
+        /// ```
+        pub fn set_mtls_endpoint<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.mtls_endpoint = v.into();
+            self
+        }
+
+        /// Sets the value of [root_certificates][crate::model::agent_gateway::AgentGatewayOutputCard::root_certificates].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networkservices_v1::model::agent_gateway::AgentGatewayOutputCard;
+        /// let x = AgentGatewayOutputCard::new().set_root_certificates(["a", "b", "c"]);
+        /// ```
+        pub fn set_root_certificates<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.root_certificates = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [service_extensions_service_account][crate::model::agent_gateway::AgentGatewayOutputCard::service_extensions_service_account].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networkservices_v1::model::agent_gateway::AgentGatewayOutputCard;
+        /// let x = AgentGatewayOutputCard::new().set_service_extensions_service_account("example");
+        /// ```
+        pub fn set_service_extensions_service_account<
+            T: std::convert::Into<std::string::String>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.service_extensions_service_account = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for AgentGatewayOutputCard {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networkservices.v1.AgentGateway.AgentGatewayOutputCard"
+        }
+    }
+
+    /// Enums of all supported protocols
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Protocol {
+        /// Unspecified protocol.
+        Unspecified,
+        /// Message Control Plane protocol.
+        Mcp,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Protocol::value] or
+        /// [Protocol::name].
+        UnknownValue(protocol::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod protocol {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Protocol {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Mcp => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("PROTOCOL_UNSPECIFIED"),
+                Self::Mcp => std::option::Option::Some("MCP"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Protocol {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Protocol {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Protocol {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Mcp,
+                _ => Self::UnknownValue(protocol::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Protocol {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PROTOCOL_UNSPECIFIED" => Self::Unspecified,
+                "MCP" => Self::Mcp,
+                _ => Self::UnknownValue(protocol::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Protocol {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Mcp => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Protocol {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Protocol>::new(
+                ".google.cloud.networkservices.v1.AgentGateway.Protocol",
+            ))
+        }
+    }
+
+    /// Deployment mode of the network proxy. Exactly one of the fields in this
+    /// `oneof` must be set.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum DeploymentMode {
+        /// Optional. Proxy is orchestrated and managed by GoogleCloud in a tenant
+        /// project.
+        GoogleManaged(std::boxed::Box<crate::model::agent_gateway::GoogleManaged>),
+        /// Optional. Attach to existing Application Load Balancers or Secure Web
+        /// Proxies.
+        SelfManaged(std::boxed::Box<crate::model::agent_gateway::SelfManaged>),
+    }
+}
+
+/// Request used with the ListAgentGateways method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListAgentGatewaysRequest {
+    /// Required. The project and location from which the AgentGateways should be
+    /// listed, specified in the format `projects/*/locations/*`.
+    pub parent: std::string::String,
+
+    /// Optional. Maximum number of AgentGateways to return per call.
+    pub page_size: i32,
+
+    /// Optional. The value returned by the last `ListAgentGatewaysResponse`
+    /// Indicates that this is a continuation of a prior `ListAgentGateways`
+    /// call, and that the system should return the next page of data.
+    pub page_token: std::string::String,
+
+    /// Optional. If true, allow partial responses for multi-regional Aggregated
+    /// List requests. Otherwise if one of the locations is down or unreachable,
+    /// the Aggregated List request will fail.
+    pub return_partial_success: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListAgentGatewaysRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListAgentGatewaysRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::ListAgentGatewaysRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListAgentGatewaysRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListAgentGatewaysRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::ListAgentGatewaysRequest;
+    /// let x = ListAgentGatewaysRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListAgentGatewaysRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::ListAgentGatewaysRequest;
+    /// let x = ListAgentGatewaysRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [return_partial_success][crate::model::ListAgentGatewaysRequest::return_partial_success].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::ListAgentGatewaysRequest;
+    /// let x = ListAgentGatewaysRequest::new().set_return_partial_success(true);
+    /// ```
+    pub fn set_return_partial_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.return_partial_success = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListAgentGatewaysRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.ListAgentGatewaysRequest"
+    }
+}
+
+/// Response returned by the ListAgentGateways method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListAgentGatewaysResponse {
+    /// List of AgentGateway resources.
+    pub agent_gateways: std::vec::Vec<crate::model::AgentGateway>,
+
+    /// If there might be more results than those appearing in this response, then
+    /// `next_page_token` is included. To get the next set of results, call this
+    /// method again using the value of `next_page_token` as `page_token`.
+    pub next_page_token: std::string::String,
+
+    /// Unreachable resources. Populated when the request attempts to list all
+    /// resources across all supported locations, while some locations are
+    /// temporarily unavailable.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListAgentGatewaysResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [agent_gateways][crate::model::ListAgentGatewaysResponse::agent_gateways].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::ListAgentGatewaysResponse;
+    /// use google_cloud_networkservices_v1::model::AgentGateway;
+    /// let x = ListAgentGatewaysResponse::new()
+    ///     .set_agent_gateways([
+    ///         AgentGateway::default()/* use setters */,
+    ///         AgentGateway::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_agent_gateways<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AgentGateway>,
+    {
+        use std::iter::Iterator;
+        self.agent_gateways = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAgentGatewaysResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::ListAgentGatewaysResponse;
+    /// let x = ListAgentGatewaysResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListAgentGatewaysResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::ListAgentGatewaysResponse;
+    /// let x = ListAgentGatewaysResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListAgentGatewaysResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.ListAgentGatewaysResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListAgentGatewaysResponse {
+    type PageItem = crate::model::AgentGateway;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.agent_gateways
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request used by the GetAgentGateway method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetAgentGatewayRequest {
+    /// Required. A name of the AgentGateway to get. Must be in the format
+    /// `projects/*/locations/*/agentGateways/*`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetAgentGatewayRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetAgentGatewayRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::GetAgentGatewayRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_gateway_id = "agent_gateway_id";
+    /// let x = GetAgentGatewayRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agentGateways/{agent_gateway_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetAgentGatewayRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.GetAgentGatewayRequest"
+    }
+}
+
+/// Request used by the CreateAgentGateway method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateAgentGatewayRequest {
+    /// Required. The parent resource of the AgentGateway. Must be in the
+    /// format `projects/*/locations/*`.
+    pub parent: std::string::String,
+
+    /// Required. Short name of the AgentGateway resource to be created.
+    pub agent_gateway_id: std::string::String,
+
+    /// Required. AgentGateway resource to be created.
+    pub agent_gateway: std::option::Option<crate::model::AgentGateway>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateAgentGatewayRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateAgentGatewayRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::CreateAgentGatewayRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateAgentGatewayRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [agent_gateway_id][crate::model::CreateAgentGatewayRequest::agent_gateway_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::CreateAgentGatewayRequest;
+    /// let x = CreateAgentGatewayRequest::new().set_agent_gateway_id("example");
+    /// ```
+    pub fn set_agent_gateway_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.agent_gateway_id = v.into();
+        self
+    }
+
+    /// Sets the value of [agent_gateway][crate::model::CreateAgentGatewayRequest::agent_gateway].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::CreateAgentGatewayRequest;
+    /// use google_cloud_networkservices_v1::model::AgentGateway;
+    /// let x = CreateAgentGatewayRequest::new().set_agent_gateway(AgentGateway::default()/* use setters */);
+    /// ```
+    pub fn set_agent_gateway<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AgentGateway>,
+    {
+        self.agent_gateway = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [agent_gateway][crate::model::CreateAgentGatewayRequest::agent_gateway].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::CreateAgentGatewayRequest;
+    /// use google_cloud_networkservices_v1::model::AgentGateway;
+    /// let x = CreateAgentGatewayRequest::new().set_or_clear_agent_gateway(Some(AgentGateway::default()/* use setters */));
+    /// let x = CreateAgentGatewayRequest::new().set_or_clear_agent_gateway(None::<AgentGateway>);
+    /// ```
+    pub fn set_or_clear_agent_gateway<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AgentGateway>,
+    {
+        self.agent_gateway = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateAgentGatewayRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.CreateAgentGatewayRequest"
+    }
+}
+
+/// Request used by the UpdateAgentGateway method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateAgentGatewayRequest {
+    /// Optional. Field mask is used to specify the fields to be overwritten in the
+    /// AgentGateway resource by the update.
+    /// The fields specified in the update_mask are relative to the resource, not
+    /// the full request. A field will be overwritten if it is in the mask. If the
+    /// user does not provide a mask then all fields will be overwritten.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. Updated AgentGateway resource.
+    pub agent_gateway: std::option::Option<crate::model::AgentGateway>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateAgentGatewayRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateAgentGatewayRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::UpdateAgentGatewayRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAgentGatewayRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateAgentGatewayRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::UpdateAgentGatewayRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAgentGatewayRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateAgentGatewayRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [agent_gateway][crate::model::UpdateAgentGatewayRequest::agent_gateway].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::UpdateAgentGatewayRequest;
+    /// use google_cloud_networkservices_v1::model::AgentGateway;
+    /// let x = UpdateAgentGatewayRequest::new().set_agent_gateway(AgentGateway::default()/* use setters */);
+    /// ```
+    pub fn set_agent_gateway<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AgentGateway>,
+    {
+        self.agent_gateway = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [agent_gateway][crate::model::UpdateAgentGatewayRequest::agent_gateway].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::UpdateAgentGatewayRequest;
+    /// use google_cloud_networkservices_v1::model::AgentGateway;
+    /// let x = UpdateAgentGatewayRequest::new().set_or_clear_agent_gateway(Some(AgentGateway::default()/* use setters */));
+    /// let x = UpdateAgentGatewayRequest::new().set_or_clear_agent_gateway(None::<AgentGateway>);
+    /// ```
+    pub fn set_or_clear_agent_gateway<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AgentGateway>,
+    {
+        self.agent_gateway = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateAgentGatewayRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.UpdateAgentGatewayRequest"
+    }
+}
+
+/// Request used by the DeleteAgentGateway method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteAgentGatewayRequest {
+    /// Required. A name of the AgentGateway to delete. Must be in the format
+    /// `projects/*/locations/*/agentGateways/*`.
+    pub name: std::string::String,
+
+    /// Optional. The etag of the AgentGateway to delete.
+    pub etag: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteAgentGatewayRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteAgentGatewayRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::DeleteAgentGatewayRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let agent_gateway_id = "agent_gateway_id";
+    /// let x = DeleteAgentGatewayRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/agentGateways/{agent_gateway_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::DeleteAgentGatewayRequest::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::DeleteAgentGatewayRequest;
+    /// let x = DeleteAgentGatewayRequest::new().set_etag("example");
+    /// ```
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteAgentGatewayRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.DeleteAgentGatewayRequest"
+    }
+}
+
 /// Represents the metadata of the long-running operation.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -805,12 +2425,14 @@ pub mod extension_chain {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Extension {
-        /// Required. The name for this extension.
+        /// Optional. The name for this extension.
         /// The name is logged as part of the HTTP request logs.
         /// The name must conform with RFC-1034, is restricted to lower-cased
         /// letters, numbers and hyphens, and can have a maximum length of 63
         /// characters. Additionally, the first character must be a letter and the
         /// last a letter or a number.
+        ///
+        /// This field is required except for AuthzExtension.
         pub name: std::string::String,
 
         /// Optional. The `:authority` header in the gRPC request sent from Envoy
@@ -855,6 +2477,10 @@ pub mod extension_chain {
         ///
         /// For the `LbEdgeExtension` resource, this field is required and must only
         /// contain `REQUEST_HEADERS` event.
+        ///
+        /// For the `AuthzExtension` resource, this field is optional.
+        /// `REQUEST_HEADERS` is the only supported event. If unspecified,
+        /// `REQUEST_HEADERS` event is assumed as supported.
         pub supported_events: std::vec::Vec<crate::model::EventType>,
 
         /// Optional. Specifies the timeout for each individual message on the
@@ -887,11 +2513,25 @@ pub mod extension_chain {
         /// Each element is a string indicating the header name.
         pub forward_headers: std::vec::Vec<std::string::String>,
 
+        /// Optional. List of the Envoy attributes to forward to the extension
+        /// server. The attributes provided here are included as part of the
+        /// `ProcessingRequest.attributes` field (of type
+        /// `map<string, google.protobuf.Struct>`), where the keys are the attribute
+        /// names. Refer to the
+        /// [documentation](https://cloud.google.com/service-extensions/docs/cel-matcher-language-reference#attributes)
+        /// for the names of attributes that can be forwarded. If omitted, no
+        /// attributes are sent. Each element is a string indicating the
+        /// attribute name.
+        pub forward_attributes: std::vec::Vec<std::string::String>,
+
         /// Optional. The metadata provided here is included as part of the
         /// `metadata_context` (of type `google.protobuf.Struct`) in the
         /// `ProcessingRequest` message sent to the extension server.
         ///
-        /// The metadata is available under the namespace
+        /// For `AuthzExtension` resources, the metadata is available under the
+        /// namespace `com.google.authz_extension.<resource_name>`.
+        /// For other types of extensions, the metadata is available under the
+        /// namespace
         /// `com.google.<extension_type>.<resource_name>.<extension_chain_name>.<extension_name>`.
         /// For example:
         /// `com.google.lb_traffic_extension.lbtrafficextension1.chain1.ext1`.
@@ -916,6 +2556,45 @@ pub mod extension_chain {
         /// * The length of each value must be less than 1024 characters.
         /// * All values must be strings.
         pub metadata: std::option::Option<wkt::Struct>,
+
+        /// Optional. Configures the send mode for request body processing.
+        ///
+        /// The field can only be set if `supported_events` includes `REQUEST_BODY`.
+        /// If `supported_events` includes `REQUEST_BODY`,
+        /// but `request_body_send_mode` is unset, the default value `STREAMED` is
+        /// used.
+        ///
+        /// When this field is set to `FULL_DUPLEX_STREAMED`, `supported_events`
+        /// must include both `REQUEST_BODY` and `REQUEST_TRAILERS`.
+        ///
+        /// This field can be set only for `LbTrafficExtension` and
+        /// `LbRouteExtension` resources, and only when the `service` field of the
+        /// extension points to a `BackendService`. Only `FULL_DUPLEX_STREAMED` mode
+        /// is supported for `LbRouteExtension` resources.
+        pub request_body_send_mode: crate::model::BodySendMode,
+
+        /// Optional. Configures the send mode for response processing. If
+        /// unspecified, the default value `STREAMED` is used.
+        ///
+        /// The field can only be set if `supported_events` includes `RESPONSE_BODY`.
+        /// If `supported_events` includes `RESPONSE_BODY`, but
+        /// `response_body_send_mode` is unset, the default value `STREAMED` is used.
+        ///
+        /// When this field is set to `FULL_DUPLEX_STREAMED`, `supported_events`
+        /// must include both `RESPONSE_BODY` and `RESPONSE_TRAILERS`.
+        ///
+        /// This field can be set only for `LbTrafficExtension` resources, and only
+        /// when the `service` field of the extension points to a `BackendService`.
+        pub response_body_send_mode: crate::model::BodySendMode,
+
+        /// Optional. When set to `true`, the calls to the extension backend are
+        /// performed asynchronously, without pausing the processing of the ongoing
+        /// request. In this mode, only `STREAMED` (default) body processing is
+        /// supported. Responses, if any, are ignored.
+        ///
+        /// Supported by regional `LbTrafficExtension` and `LbRouteExtension`
+        /// resources.
+        pub observability_mode: bool,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -1046,6 +2725,23 @@ pub mod extension_chain {
             self
         }
 
+        /// Sets the value of [forward_attributes][crate::model::extension_chain::Extension::forward_attributes].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networkservices_v1::model::extension_chain::Extension;
+        /// let x = Extension::new().set_forward_attributes(["a", "b", "c"]);
+        /// ```
+        pub fn set_forward_attributes<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.forward_attributes = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [metadata][crate::model::extension_chain::Extension::metadata].
         ///
         /// # Example
@@ -1076,6 +2772,52 @@ pub mod extension_chain {
             T: std::convert::Into<wkt::Struct>,
         {
             self.metadata = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_body_send_mode][crate::model::extension_chain::Extension::request_body_send_mode].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networkservices_v1::model::extension_chain::Extension;
+        /// use google_cloud_networkservices_v1::model::BodySendMode;
+        /// let x0 = Extension::new().set_request_body_send_mode(BodySendMode::Streamed);
+        /// let x1 = Extension::new().set_request_body_send_mode(BodySendMode::FullDuplexStreamed);
+        /// ```
+        pub fn set_request_body_send_mode<T: std::convert::Into<crate::model::BodySendMode>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.request_body_send_mode = v.into();
+            self
+        }
+
+        /// Sets the value of [response_body_send_mode][crate::model::extension_chain::Extension::response_body_send_mode].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networkservices_v1::model::extension_chain::Extension;
+        /// use google_cloud_networkservices_v1::model::BodySendMode;
+        /// let x0 = Extension::new().set_response_body_send_mode(BodySendMode::Streamed);
+        /// let x1 = Extension::new().set_response_body_send_mode(BodySendMode::FullDuplexStreamed);
+        /// ```
+        pub fn set_response_body_send_mode<T: std::convert::Into<crate::model::BodySendMode>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.response_body_send_mode = v.into();
+            self
+        }
+
+        /// Sets the value of [observability_mode][crate::model::extension_chain::Extension::observability_mode].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networkservices_v1::model::extension_chain::Extension;
+        /// let x = Extension::new().set_observability_mode(true);
+        /// ```
+        pub fn set_observability_mode<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.observability_mode = v.into();
             self
         }
     }
@@ -3548,15 +5290,17 @@ pub struct AuthzExtension {
     /// resources.
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
-    /// Required. All backend services and forwarding rules referenced by this
+    /// Optional. All backend services and forwarding rules referenced by this
     /// extension must share the same load balancing scheme. Supported values:
-    /// `INTERNAL_MANAGED`, `EXTERNAL_MANAGED`. For more information, refer to
+    /// `INTERNAL_MANAGED`, `EXTERNAL_MANAGED`. Can be omitted for AuthzExtensions
+    /// that do not reference a backend service. For more information, refer to
     /// [Backend services
     /// overview](https://cloud.google.com/load-balancing/docs/backend-service).
     pub load_balancing_scheme: crate::model::LoadBalancingScheme,
 
-    /// Required. The `:authority` header in the gRPC request sent from Envoy
-    /// to the extension service.
+    /// Optional. The `:authority` header in the gRPC request sent from Envoy to
+    /// the extension service. It is required when the `service` field points to a
+    /// backend service or a wasm plugin.
     pub authority: std::string::String,
 
     /// Required. The reference to the service that runs the extension.
@@ -3608,8 +5352,21 @@ pub struct AuthzExtension {
     /// Each element is a string indicating the header name.
     pub forward_headers: std::vec::Vec<std::string::String>,
 
+    /// Optional. List of the Envoy attributes to forward to the extension server.
+    /// The attributes provided here are included as part of the
+    /// `ProcessingRequest.attributes` field (of type
+    /// `map<string, google.protobuf.Struct>`), where the keys are the attribute
+    /// names. Refer to the
+    /// [documentation](https://cloud.google.com/service-extensions/docs/cel-matcher-language-reference#attributes)
+    /// for the names of attributes that can be forwarded. If omitted, no
+    /// attributes are sent. Each element is a string indicating the
+    /// attribute name.
+    pub forward_attributes: std::vec::Vec<std::string::String>,
+
     /// Optional. The format of communication supported by the callout extension.
-    /// If not specified, the default value `EXT_PROC_GRPC` is used.
+    /// This field is supported only for regional `AuthzExtension` resources. If
+    /// not specified, the default value `EXT_PROC_GRPC` is used. Global
+    /// `AuthzExtension` resources use the `EXT_PROC_GRPC` wire format.
     pub wire_format: crate::model::WireFormat,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3871,6 +5628,23 @@ impl AuthzExtension {
         self
     }
 
+    /// Sets the value of [forward_attributes][crate::model::AuthzExtension::forward_attributes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::AuthzExtension;
+    /// let x = AuthzExtension::new().set_forward_attributes(["a", "b", "c"]);
+    /// ```
+    pub fn set_forward_attributes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.forward_attributes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [wire_format][crate::model::AuthzExtension::wire_format].
     ///
     /// # Example
@@ -3878,6 +5652,7 @@ impl AuthzExtension {
     /// # use google_cloud_networkservices_v1::model::AuthzExtension;
     /// use google_cloud_networkservices_v1::model::WireFormat;
     /// let x0 = AuthzExtension::new().set_wire_format(WireFormat::ExtProcGrpc);
+    /// let x1 = AuthzExtension::new().set_wire_format(WireFormat::ExtAuthzGrpc);
     /// ```
     pub fn set_wire_format<T: std::convert::Into<crate::model::WireFormat>>(
         mut self,
@@ -4443,7 +6218,7 @@ impl wkt::message::Message for DeleteAuthzExtensionRequest {
 #[non_exhaustive]
 pub struct EndpointPolicy {
     /// Identifier. Name of the EndpointPolicy resource. It matches pattern
-    /// `projects/{project}/locations/global/endpointPolicies/{endpoint_policy}`.
+    /// `projects/{project}/locations/*/endpointPolicies/{endpoint_policy}`.
     pub name: std::string::String,
 
     /// Output only. The timestamp when the resource was created.
@@ -4895,7 +6670,7 @@ pub mod endpoint_policy {
 #[non_exhaustive]
 pub struct ListEndpointPoliciesRequest {
     /// Required. The project and location from which the EndpointPolicies should
-    /// be listed, specified in the format `projects/*/locations/global`.
+    /// be listed, specified in the format `projects/*/locations/*`.
     pub parent: std::string::String,
 
     /// Maximum number of EndpointPolicies to return per call.
@@ -5084,7 +6859,7 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListEndpointPol
 #[non_exhaustive]
 pub struct GetEndpointPolicyRequest {
     /// Required. A name of the EndpointPolicy to get. Must be in the format
-    /// `projects/*/locations/global/endpointPolicies/*`.
+    /// `projects/*/locations/*/endpointPolicies/*`.
     pub name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -5123,7 +6898,7 @@ impl wkt::message::Message for GetEndpointPolicyRequest {
 #[non_exhaustive]
 pub struct CreateEndpointPolicyRequest {
     /// Required. The parent resource of the EndpointPolicy. Must be in the
-    /// format `projects/*/locations/global`.
+    /// format `projects/*/locations/*`.
     pub parent: std::string::String,
 
     /// Required. Short name of the EndpointPolicy resource to be created.
@@ -5312,7 +7087,7 @@ impl wkt::message::Message for UpdateEndpointPolicyRequest {
 #[non_exhaustive]
 pub struct DeleteEndpointPolicyRequest {
     /// Required. A name of the EndpointPolicy to delete. Must be in the format
-    /// `projects/*/locations/global/endpointPolicies/*`.
+    /// `projects/*/locations/*/endpointPolicies/*`.
     pub name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -5648,23 +7423,39 @@ pub mod wasm_plugin {
         /// resource.
         pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
-        /// Optional. URI of the container image containing the Wasm module, stored
-        /// in the Artifact Registry. The container image must contain only a single
-        /// file with the name `plugin.wasm`. When a new `WasmPluginVersion` resource
-        /// is created, the URI gets resolved to an image digest and saved in the
-        /// `image_digest` field.
+        /// Optional. URI of the image containing the Wasm module, stored in
+        /// Artifact Registry.
+        ///
+        /// The URI can refer to one of the following repository formats:
+        ///
+        /// * Container images: the `image_uri` must point to a container that
+        ///   contains a single file with the name `plugin.wasm`.
+        ///   When a new `WasmPluginVersion` resource is created, the digest of the
+        ///   image is saved in the `image_digest` field.
+        ///   When pulling a container image from Artifact Registry, the digest value
+        ///   is used instead of an image tag.
+        ///
+        /// * Generic artifacts: the `image_uri` must be in this format:
+        ///   `projects/{project}/locations/{location}/repositories/{repository}/
+        ///   genericArtifacts/{package}:{version}`.
+        ///   The specified package and version must contain a file with the name
+        ///   `plugin.wasm`. When a new `WasmPluginVersion` resource is created, the
+        ///   checksum of the contents of the file is saved in the `image_digest`
+        ///   field.
+        ///
         pub image_uri: std::string::String,
 
-        /// Output only. The resolved digest for the image specified in `image`.
-        /// The digest is resolved during the creation of a
-        /// `WasmPluginVersion` resource.
-        /// This field holds the digest value regardless of whether a tag or
-        /// digest was originally specified in the `image` field.
+        /// Output only. This field holds the digest (usually checksum) value for the
+        /// plugin image. The value is calculated based on the `image_uri` field. If
+        /// the `image_uri` field refers to a container image, the digest value is
+        /// obtained from the container image. If the `image_uri` field refers to
+        /// a generic artifact, the digest value is calculated based on the
+        /// contents of the file.
         pub image_digest: std::string::String,
 
         /// Output only. This field holds the digest (usually checksum) value for the
         /// plugin configuration. The value is calculated based on the contents of
-        /// the `plugin_config_data` field or the container image defined by the
+        /// `plugin_config_data` field or the image defined by the
         /// `plugin_config_uri` field.
         pub plugin_config_digest: std::string::String,
 
@@ -5945,11 +7736,25 @@ pub mod wasm_plugin {
             PluginConfigData(::bytes::Bytes),
             /// URI of the plugin configuration stored in the Artifact Registry.
             /// The configuration is provided to the plugin at runtime through
-            /// the `ON_CONFIGURE` callback. The container image must
-            /// contain only a single file with the name
-            /// `plugin.config`. When a new `WasmPluginVersion`
-            /// resource is created, the digest of the container image is saved in the
-            /// `plugin_config_digest` field.
+            /// the `ON_CONFIGURE` callback.
+            ///
+            /// The URI can refer to one of the following repository formats:
+            ///
+            /// * Container images: the `plugin_config_uri` must point to a container
+            ///   that contains a single file with the name `plugin.config`.
+            ///   When a new `WasmPluginVersion` resource is created, the digest of the
+            ///   image is saved in the `plugin_config_digest` field.
+            ///   When pulling a container image from Artifact Registry, the digest
+            ///   value is used instead of an image tag.
+            ///
+            /// * Generic artifacts: the `plugin_config_uri` must be in this format:
+            ///   `projects/{project}/locations/{location}/repositories/{repository}/
+            ///   genericArtifacts/{package}:{version}`.
+            ///   The specified package and version must contain a file with the name
+            ///   `plugin.config`. When a new `WasmPluginVersion` resource is
+            ///   created, the checksum of the contents of the file is saved in the
+            ///   `plugin_config_digest` field.
+            ///
             PluginConfigUri(std::string::String),
         }
     }
@@ -5977,9 +7782,9 @@ pub mod wasm_plugin {
         /// This field can be specified only if logging is enabled for this plugin.
         pub sample_rate: f32,
 
-        /// Non-empty default. Specifies the lowest level of the plugin logs that
-        /// are exported to Cloud Logging. This setting relates to the logs generated
-        /// by using logging statements in your Wasm code.
+        /// Non-empty default. Specifies the lowest level of the plugin logs that are
+        /// exported to Cloud Logging. This setting relates to the logs generated by
+        /// using logging statements in your Wasm code.
         ///
         /// This field is can be set only if logging is enabled for the plugin.
         ///
@@ -6278,24 +8083,40 @@ pub struct WasmPluginVersion {
     /// resource.
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
-    /// Optional. URI of the container image containing the plugin, stored in the
+    /// Optional. URI of the image containing the Wasm module, stored in
     /// Artifact Registry.
-    /// When a new `WasmPluginVersion` resource is created, the digest
-    /// of the container image is saved in the `image_digest` field.
-    /// When downloading an image, the digest value is used instead of an
-    /// image tag.
+    ///
+    /// The URI can refer to one of the following repository formats:
+    ///
+    /// * Container images: the `image_uri` must point to a container that
+    ///   contains a single file with the name `plugin.wasm`.
+    ///   When a new `WasmPluginVersion` resource is created, the digest of the
+    ///   image is saved in the `image_digest` field.
+    ///   When pulling a container image from Artifact Registry, the digest value
+    ///   is used instead of an image tag.
+    ///
+    /// * Generic artifacts: the `image_uri` must be in this format:
+    ///   `projects/{project}/locations/{location}/repositories/{repository}/
+    ///   genericArtifacts/{package}:{version}`.
+    ///   The specified package and version must contain a file with the name
+    ///   `plugin.wasm`. When a new `WasmPluginVersion` resource is created, the
+    ///   checksum of the contents of the file is saved in the `image_digest`
+    ///   field.
+    ///
     pub image_uri: std::string::String,
 
-    /// Output only. The resolved digest for the image specified in the `image`
-    /// field. The digest is resolved during the creation of `WasmPluginVersion`
-    /// resource. This field holds the digest value, regardless of whether a tag or
-    /// digest was originally specified in the `image` field.
+    /// Output only. This field holds the digest (usually checksum) value for the
+    /// plugin image. The value is calculated based on the `image_uri` field. If
+    /// the `image_uri` field refers to a container image, the digest value is
+    /// obtained from the container image. If the `image_uri` field refers to
+    /// a generic artifact, the digest value is calculated based on the
+    /// contents of the file.
     pub image_digest: std::string::String,
 
     /// Output only. This field holds the digest (usually checksum) value for the
     /// plugin configuration. The value is calculated based on the contents of
-    /// `plugin_config_data` or the container image defined by
-    /// the `plugin_config_uri` field.
+    /// `plugin_config_data` field or the image defined by the
+    /// `plugin_config_uri` field.
     pub plugin_config_digest: std::string::String,
 
     #[allow(missing_docs)]
@@ -6581,10 +8402,25 @@ pub mod wasm_plugin_version {
         PluginConfigData(::bytes::Bytes),
         /// URI of the plugin configuration stored in the Artifact Registry.
         /// The configuration is provided to the plugin at runtime through
-        /// the `ON_CONFIGURE` callback. The container image must contain
-        /// only a single file with the name `plugin.config`. When a
-        /// new `WasmPluginVersion` resource is created, the digest of the
-        /// container image is saved in the `plugin_config_digest` field.
+        /// the `ON_CONFIGURE` callback.
+        ///
+        /// The URI can refer to one of the following repository formats:
+        ///
+        /// * Container images: the `plugin_config_uri` must point to a container
+        ///   that contains a single file with the name `plugin.config`.
+        ///   When a new `WasmPluginVersion` resource is created, the digest of the
+        ///   image is saved in the `plugin_config_digest` field.
+        ///   When pulling a container image from Artifact Registry, the digest
+        ///   value is used instead of an image tag.
+        ///
+        /// * Generic artifacts: the `plugin_config_uri` must be in this format:
+        ///   `projects/{project}/locations/{location}/repositories/{repository}/
+        ///   genericArtifacts/{package}:{version}`.
+        ///   The specified package and version must contain a file with the name
+        ///   `plugin.config`. When a new `WasmPluginVersion` resource is
+        ///   created, the checksum of the contents of the file is saved in the
+        ///   `plugin_config_digest` field.
+        ///
         PluginConfigUri(std::string::String),
     }
 }
@@ -7441,10 +9277,15 @@ pub struct Gateway {
 
     /// Required. One or more port numbers (1-65535), on which the Gateway will
     /// receive traffic. The proxy binds to the specified ports.
-    /// Gateways of type 'SECURE_WEB_GATEWAY' are limited to 1 port.
+    /// Gateways of type 'SECURE_WEB_GATEWAY' are limited to 5 ports.
     /// Gateways of type 'OPEN_MESH' listen on 0.0.0.0 for IPv4 and :: for IPv6 and
     /// support multiple ports.
     pub ports: std::vec::Vec<i32>,
+
+    /// Optional. If true, the Gateway will listen on all ports. This is mutually
+    /// exclusive with the `ports` field. This field only applies to gateways of
+    /// type 'SECURE_WEB_GATEWAY'.
+    pub all_ports: bool,
 
     /// Optional. Scope determines how configuration across multiple Gateway
     /// instances are merged. The configuration for multiple Gateway instances with
@@ -7502,6 +9343,11 @@ pub struct Gateway {
     /// This field is configurable only for gateways of type SECURE_WEB_GATEWAY.
     /// This field is required for gateways of type SECURE_WEB_GATEWAY.
     pub routing_mode: crate::model::gateway::RoutingMode,
+
+    /// Optional. If true, the gateway will allow traffic from clients outside of
+    /// the region where the gateway is located.
+    /// This field is configurable only for gateways of type SECURE_WEB_GATEWAY.
+    pub allow_global_access: bool,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -7686,6 +9532,18 @@ impl Gateway {
         self
     }
 
+    /// Sets the value of [all_ports][crate::model::Gateway::all_ports].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::Gateway;
+    /// let x = Gateway::new().set_all_ports(true);
+    /// ```
+    pub fn set_all_ports<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.all_ports = v.into();
+        self
+    }
+
     /// Sets the value of [scope][crate::model::Gateway::scope].
     ///
     /// # Example
@@ -7834,6 +9692,18 @@ impl Gateway {
         v: T,
     ) -> Self {
         self.routing_mode = v.into();
+        self
+    }
+
+    /// Sets the value of [allow_global_access][crate::model::Gateway::allow_global_access].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::Gateway;
+    /// let x = Gateway::new().set_allow_global_access(true);
+    /// ```
+    pub fn set_allow_global_access<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.allow_global_access = v.into();
         self
     }
 }
@@ -8692,7 +10562,7 @@ impl wkt::message::Message for DeleteGatewayRequest {
 #[non_exhaustive]
 pub struct GrpcRoute {
     /// Identifier. Name of the GrpcRoute resource. It matches pattern
-    /// `projects/*/locations/global/grpcRoutes/<grpc_route_name>`
+    /// `projects/*/locations/*/grpcRoutes/<grpc_route_name>`
     pub name: std::string::String,
 
     /// Output only. Server-defined URL of this resource
@@ -8749,7 +10619,7 @@ pub struct GrpcRoute {
     /// one of the routing rules to route the requests served by the mesh.
     ///
     /// Each mesh reference should match the pattern:
-    /// `projects/*/locations/global/meshes/<mesh_name>`
+    /// `projects/*/locations/*/meshes/<mesh_name>`
     pub meshes: std::vec::Vec<std::string::String>,
 
     /// Optional. Gateways defines a list of gateways this GrpcRoute is attached
@@ -8757,7 +10627,7 @@ pub struct GrpcRoute {
     /// gateway.
     ///
     /// Each gateway reference should match the pattern:
-    /// `projects/*/locations/global/gateways/<gateway_name>`
+    /// `projects/*/locations/*/gateways/<gateway_name>`
     pub gateways: std::vec::Vec<std::string::String>,
 
     /// Required. A list of detailed rules defining how to route traffic.
@@ -10450,7 +12320,7 @@ pub mod grpc_route {
 #[non_exhaustive]
 pub struct ListGrpcRoutesRequest {
     /// Required. The project and location from which the GrpcRoutes should be
-    /// listed, specified in the format `projects/*/locations/global`.
+    /// listed, specified in the format `projects/*/locations/*`.
     pub parent: std::string::String,
 
     /// Maximum number of GrpcRoutes to return per call.
@@ -10638,7 +12508,7 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListGrpcRoutesR
 #[non_exhaustive]
 pub struct GetGrpcRouteRequest {
     /// Required. A name of the GrpcRoute to get. Must be in the format
-    /// `projects/*/locations/global/grpcRoutes/*`.
+    /// `projects/*/locations/*/grpcRoutes/*`.
     pub name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -10677,7 +12547,7 @@ impl wkt::message::Message for GetGrpcRouteRequest {
 #[non_exhaustive]
 pub struct CreateGrpcRouteRequest {
     /// Required. The parent resource of the GrpcRoute. Must be in the
-    /// format `projects/*/locations/global`.
+    /// format `projects/*/locations/*`.
     pub parent: std::string::String,
 
     /// Required. Short name of the GrpcRoute resource to be created.
@@ -10862,7 +12732,7 @@ impl wkt::message::Message for UpdateGrpcRouteRequest {
 #[non_exhaustive]
 pub struct DeleteGrpcRouteRequest {
     /// Required. A name of the GrpcRoute to delete. Must be in the format
-    /// `projects/*/locations/global/grpcRoutes/*`.
+    /// `projects/*/locations/*/grpcRoutes/*`.
     pub name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -10902,7 +12772,7 @@ impl wkt::message::Message for DeleteGrpcRouteRequest {
 #[non_exhaustive]
 pub struct HttpRoute {
     /// Identifier. Name of the HttpRoute resource. It matches pattern
-    /// `projects/*/locations/global/httpRoutes/http_route_name>`.
+    /// `projects/*/locations/*/httpRoutes/http_route_name>`.
     pub name: std::string::String,
 
     /// Output only. Server-defined URL of this resource
@@ -10949,7 +12819,7 @@ pub struct HttpRoute {
     /// one of the routing rules to route the requests served by the mesh.
     ///
     /// Each mesh reference should match the pattern:
-    /// `projects/*/locations/global/meshes/<mesh_name>`
+    /// `projects/*/locations/*/meshes/<mesh_name>`
     ///
     /// The attached Mesh should be of a type SIDECAR
     pub meshes: std::vec::Vec<std::string::String>,
@@ -10959,7 +12829,7 @@ pub struct HttpRoute {
     /// gateway.
     ///
     /// Each gateway reference should match the pattern:
-    /// `projects/*/locations/global/gateways/<gateway_name>`
+    /// `projects/*/locations/*/gateways/<gateway_name>`
     pub gateways: std::vec::Vec<std::string::String>,
 
     /// Optional. Set of label tags associated with the HttpRoute resource.
@@ -14071,7 +15941,7 @@ pub mod http_route {
 #[non_exhaustive]
 pub struct ListHttpRoutesRequest {
     /// Required. The project and location from which the HttpRoutes should be
-    /// listed, specified in the format `projects/*/locations/global`.
+    /// listed, specified in the format `projects/*/locations/*`.
     pub parent: std::string::String,
 
     /// Maximum number of HttpRoutes to return per call.
@@ -14086,6 +15956,9 @@ pub struct ListHttpRoutesRequest {
     /// List requests. Otherwise if one of the locations is down or unreachable,
     /// the Aggregated List request will fail.
     pub return_partial_success: bool,
+
+    /// Optional. Filter expression to restrict the list.
+    pub filter: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -14143,6 +16016,18 @@ impl ListHttpRoutesRequest {
     /// ```
     pub fn set_return_partial_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.return_partial_success = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListHttpRoutesRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::ListHttpRoutesRequest;
+    /// let x = ListHttpRoutesRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
         self
     }
 }
@@ -14259,7 +16144,7 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListHttpRoutesR
 #[non_exhaustive]
 pub struct GetHttpRouteRequest {
     /// Required. A name of the HttpRoute to get. Must be in the format
-    /// `projects/*/locations/global/httpRoutes/*`.
+    /// `projects/*/locations/*/httpRoutes/*`.
     pub name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -14298,7 +16183,7 @@ impl wkt::message::Message for GetHttpRouteRequest {
 #[non_exhaustive]
 pub struct CreateHttpRouteRequest {
     /// Required. The parent resource of the HttpRoute. Must be in the
-    /// format `projects/*/locations/global`.
+    /// format `projects/*/locations/*`.
     pub parent: std::string::String,
 
     /// Required. Short name of the HttpRoute resource to be created.
@@ -14306,6 +16191,9 @@ pub struct CreateHttpRouteRequest {
 
     /// Required. HttpRoute resource to be created.
     pub http_route: std::option::Option<crate::model::HttpRoute>,
+
+    /// Optional. Idempotent request UUID.
+    pub request_id: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -14372,6 +16260,18 @@ impl CreateHttpRouteRequest {
         T: std::convert::Into<crate::model::HttpRoute>,
     {
         self.http_route = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateHttpRouteRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::CreateHttpRouteRequest;
+    /// let x = CreateHttpRouteRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
         self
     }
 }
@@ -14483,7 +16383,7 @@ impl wkt::message::Message for UpdateHttpRouteRequest {
 #[non_exhaustive]
 pub struct DeleteHttpRouteRequest {
     /// Required. A name of the HttpRoute to delete. Must be in the format
-    /// `projects/*/locations/global/httpRoutes/*`.
+    /// `projects/*/locations/*/httpRoutes/*`.
     pub name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -14524,7 +16424,7 @@ impl wkt::message::Message for DeleteHttpRouteRequest {
 #[non_exhaustive]
 pub struct Mesh {
     /// Identifier. Name of the Mesh resource. It matches pattern
-    /// `projects/*/locations/global/meshes/<mesh_name>`.
+    /// `projects/*/locations/*/meshes/<mesh_name>`.
     pub name: std::string::String,
 
     /// Output only. Server-defined URL of this resource
@@ -14750,7 +16650,7 @@ impl wkt::message::Message for Mesh {
 #[non_exhaustive]
 pub struct ListMeshesRequest {
     /// Required. The project and location from which the Meshes should be
-    /// listed, specified in the format `projects/*/locations/global`.
+    /// listed, specified in the format `projects/*/locations/*`.
     pub parent: std::string::String,
 
     /// Maximum number of Meshes to return per call.
@@ -14935,7 +16835,7 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListMeshesRespo
 #[non_exhaustive]
 pub struct GetMeshRequest {
     /// Required. A name of the Mesh to get. Must be in the format
-    /// `projects/*/locations/global/meshes/*`.
+    /// `projects/*/locations/*/meshes/*`.
     pub name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -14974,7 +16874,7 @@ impl wkt::message::Message for GetMeshRequest {
 #[non_exhaustive]
 pub struct CreateMeshRequest {
     /// Required. The parent resource of the Mesh. Must be in the
-    /// format `projects/*/locations/global`.
+    /// format `projects/*/locations/*`.
     pub parent: std::string::String,
 
     /// Required. Short name of the Mesh resource to be created.
@@ -15159,7 +17059,7 @@ impl wkt::message::Message for UpdateMeshRequest {
 #[non_exhaustive]
 pub struct DeleteMeshRequest {
     /// Required. A name of the Mesh to delete. Must be in the format
-    /// `projects/*/locations/global/meshes/*`.
+    /// `projects/*/locations/*/meshes/*`.
     pub name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -17746,7 +19646,7 @@ impl wkt::message::Message for DeleteServiceLbPolicyRequest {
 #[non_exhaustive]
 pub struct TcpRoute {
     /// Identifier. Name of the TcpRoute resource. It matches pattern
-    /// `projects/*/locations/global/tcpRoutes/tcp_route_name>`.
+    /// `projects/*/locations/*/tcpRoutes/tcp_route_name>`.
     pub name: std::string::String,
 
     /// Output only. Server-defined URL of this resource
@@ -17771,7 +19671,7 @@ pub struct TcpRoute {
     /// one of the routing rules to route the requests served by the mesh.
     ///
     /// Each mesh reference should match the pattern:
-    /// `projects/*/locations/global/meshes/<mesh_name>`
+    /// `projects/*/locations/*/meshes/<mesh_name>`
     ///
     /// The attached Mesh should be of a type SIDECAR
     pub meshes: std::vec::Vec<std::string::String>,
@@ -17780,7 +19680,7 @@ pub struct TcpRoute {
     /// as one of the routing rules to route the requests served by the gateway.
     ///
     /// Each gateway reference should match the pattern:
-    /// `projects/*/locations/global/gateways/<gateway_name>`
+    /// `projects/*/locations/*/gateways/<gateway_name>`
     pub gateways: std::vec::Vec<std::string::String>,
 
     /// Optional. Set of label tags associated with the TcpRoute resource.
@@ -18311,7 +20211,7 @@ pub mod tcp_route {
 #[non_exhaustive]
 pub struct ListTcpRoutesRequest {
     /// Required. The project and location from which the TcpRoutes should be
-    /// listed, specified in the format `projects/*/locations/global`.
+    /// listed, specified in the format `projects/*/locations/*`.
     pub parent: std::string::String,
 
     /// Maximum number of TcpRoutes to return per call.
@@ -18499,7 +20399,7 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListTcpRoutesRe
 #[non_exhaustive]
 pub struct GetTcpRouteRequest {
     /// Required. A name of the TcpRoute to get. Must be in the format
-    /// `projects/*/locations/global/tcpRoutes/*`.
+    /// `projects/*/locations/*/tcpRoutes/*`.
     pub name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -18538,7 +20438,7 @@ impl wkt::message::Message for GetTcpRouteRequest {
 #[non_exhaustive]
 pub struct CreateTcpRouteRequest {
     /// Required. The parent resource of the TcpRoute. Must be in the
-    /// format `projects/*/locations/global`.
+    /// format `projects/*/locations/*`.
     pub parent: std::string::String,
 
     /// Required. Short name of the TcpRoute resource to be created.
@@ -18723,7 +20623,7 @@ impl wkt::message::Message for UpdateTcpRouteRequest {
 #[non_exhaustive]
 pub struct DeleteTcpRouteRequest {
     /// Required. A name of the TcpRoute to delete. Must be in the format
-    /// `projects/*/locations/global/tcpRoutes/*`.
+    /// `projects/*/locations/*/tcpRoutes/*`.
     pub name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -18763,7 +20663,7 @@ impl wkt::message::Message for DeleteTcpRouteRequest {
 #[non_exhaustive]
 pub struct TlsRoute {
     /// Identifier. Name of the TlsRoute resource. It matches pattern
-    /// `projects/*/locations/global/tlsRoutes/tls_route_name>`.
+    /// `projects/*/locations/*/tlsRoutes/tls_route_name>`.
     pub name: std::string::String,
 
     /// Output only. Server-defined URL of this resource
@@ -18788,7 +20688,7 @@ pub struct TlsRoute {
     /// one of the routing rules to route the requests served by the mesh.
     ///
     /// Each mesh reference should match the pattern:
-    /// `projects/*/locations/global/meshes/<mesh_name>`
+    /// `projects/*/locations/*/meshes/<mesh_name>`
     ///
     /// The attached Mesh should be of a type SIDECAR
     pub meshes: std::vec::Vec<std::string::String>,
@@ -18797,8 +20697,16 @@ pub struct TlsRoute {
     /// as one of the routing rules to route the requests served by the gateway.
     ///
     /// Each gateway reference should match the pattern:
-    /// `projects/*/locations/global/gateways/<gateway_name>`
+    /// `projects/*/locations/*/gateways/<gateway_name>`
     pub gateways: std::vec::Vec<std::string::String>,
+
+    /// Optional. TargetProxies defines a list of TargetTcpProxies this TlsRoute is
+    /// attached to, as one of the routing rules to route the requests served by
+    /// the TargetTcpProxy.
+    ///
+    /// Each TargetTcpProxy reference should match the pattern:
+    /// `projects/*/locations/*/targetTcpProxies/<target_tcp_proxy_name>`
+    pub target_proxies: std::vec::Vec<std::string::String>,
 
     /// Optional. Set of label tags associated with the TlsRoute resource.
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
@@ -18970,6 +20878,23 @@ impl TlsRoute {
     {
         use std::iter::Iterator;
         self.gateways = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [target_proxies][crate::model::TlsRoute::target_proxies].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkservices_v1::model::TlsRoute;
+    /// let x = TlsRoute::new().set_target_proxies(["a", "b", "c"]);
+    /// ```
+    pub fn set_target_proxies<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.target_proxies = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -19310,7 +21235,7 @@ pub mod tls_route {
 #[non_exhaustive]
 pub struct ListTlsRoutesRequest {
     /// Required. The project and location from which the TlsRoutes should be
-    /// listed, specified in the format `projects/*/locations/global`.
+    /// listed, specified in the format `projects/*/locations/*`.
     pub parent: std::string::String,
 
     /// Maximum number of TlsRoutes to return per call.
@@ -19498,7 +21423,7 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListTlsRoutesRe
 #[non_exhaustive]
 pub struct GetTlsRouteRequest {
     /// Required. A name of the TlsRoute to get. Must be in the format
-    /// `projects/*/locations/global/tlsRoutes/*`.
+    /// `projects/*/locations/*/tlsRoutes/*`.
     pub name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -19537,7 +21462,7 @@ impl wkt::message::Message for GetTlsRouteRequest {
 #[non_exhaustive]
 pub struct CreateTlsRouteRequest {
     /// Required. The parent resource of the TlsRoute. Must be in the
-    /// format `projects/*/locations/global`.
+    /// format `projects/*/locations/*`.
     pub parent: std::string::String,
 
     /// Required. Short name of the TlsRoute resource to be created.
@@ -19722,7 +21647,7 @@ impl wkt::message::Message for UpdateTlsRouteRequest {
 #[non_exhaustive]
 pub struct DeleteTlsRouteRequest {
     /// Required. A name of the TlsRoute to delete. Must be in the format
-    /// `projects/*/locations/global/tlsRoutes/*`.
+    /// `projects/*/locations/*/tlsRoutes/*`.
     pub name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -19779,10 +21704,10 @@ pub enum EnvoyHeaders {
     /// Suppress envoy debug headers.
     None,
     /// Envoy will insert default internal debug headers into upstream requests:
-    /// x-envoy-attempt-count
-    /// x-envoy-is-timeout-retry
-    /// x-envoy-expected-rq-timeout-ms
-    /// x-envoy-original-path
+    /// x-envoy-attempt-count,
+    /// x-envoy-is-timeout-retry,
+    /// x-envoy-expected-rq-timeout-ms,
+    /// x-envoy-original-path,
     /// x-envoy-upstream-stream-duration-ms
     DebugHeaders,
     /// If set, the enum was initialized with an unknown value.
@@ -20221,6 +22146,10 @@ pub enum WireFormat {
     /// `supported_events` for a client request are sent as part of the same
     /// gRPC stream.
     ExtProcGrpc,
+    /// The extension service uses Envoy's `ext_authz` gRPC API. The backend
+    /// service for the extension must use HTTP2 or H2C as the protocol.
+    /// `EXT_AUTHZ_GRPC` is only supported for regional `AuthzExtension` resources.
+    ExtAuthzGrpc,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [WireFormat::value] or
@@ -20245,6 +22174,7 @@ impl WireFormat {
         match self {
             Self::Unspecified => std::option::Option::Some(0),
             Self::ExtProcGrpc => std::option::Option::Some(1),
+            Self::ExtAuthzGrpc => std::option::Option::Some(3),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -20257,6 +22187,7 @@ impl WireFormat {
         match self {
             Self::Unspecified => std::option::Option::Some("WIRE_FORMAT_UNSPECIFIED"),
             Self::ExtProcGrpc => std::option::Option::Some("EXT_PROC_GRPC"),
+            Self::ExtAuthzGrpc => std::option::Option::Some("EXT_AUTHZ_GRPC"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -20280,6 +22211,7 @@ impl std::convert::From<i32> for WireFormat {
         match value {
             0 => Self::Unspecified,
             1 => Self::ExtProcGrpc,
+            3 => Self::ExtAuthzGrpc,
             _ => Self::UnknownValue(wire_format::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -20293,6 +22225,7 @@ impl std::convert::From<&str> for WireFormat {
         match value {
             "WIRE_FORMAT_UNSPECIFIED" => Self::Unspecified,
             "EXT_PROC_GRPC" => Self::ExtProcGrpc,
+            "EXT_AUTHZ_GRPC" => Self::ExtAuthzGrpc,
             _ => Self::UnknownValue(wire_format::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -20308,6 +22241,7 @@ impl serde::ser::Serialize for WireFormat {
         match self {
             Self::Unspecified => serializer.serialize_i32(0),
             Self::ExtProcGrpc => serializer.serialize_i32(1),
+            Self::ExtAuthzGrpc => serializer.serialize_i32(3),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }
@@ -20320,6 +22254,152 @@ impl<'de> serde::de::Deserialize<'de> for WireFormat {
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<WireFormat>::new(
             ".google.cloud.networkservices.v1.WireFormat",
+        ))
+    }
+}
+
+/// The send mode for body processing.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum BodySendMode {
+    /// Default value. Do not use.
+    Unspecified,
+    /// Calls to the extension are executed in the streamed mode. Subsequent
+    /// chunks will be sent only after the previous chunks have been processed.
+    ///
+    /// The content of the body chunks is sent one way to the extension. Extension
+    /// may send modified chunks back.
+    ///
+    /// This is the default value if the processing mode is not specified.
+    Streamed,
+    /// Calls are executed in the full duplex mode. Subsequent chunks will be sent
+    /// for processing without waiting for the response for the previous chunk or
+    /// for the response for `REQUEST_HEADERS` event.
+    ///
+    /// Extension can freely modify or chunk the body contents. If the extension
+    /// doesn't send the body contents back, the next extension in the chain or the
+    /// upstream will receive an empty body.
+    FullDuplexStreamed,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [BodySendMode::value] or
+    /// [BodySendMode::name].
+    UnknownValue(body_send_mode::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod body_send_mode {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl BodySendMode {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Streamed => std::option::Option::Some(1),
+            Self::FullDuplexStreamed => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("BODY_SEND_MODE_UNSPECIFIED"),
+            Self::Streamed => std::option::Option::Some("BODY_SEND_MODE_STREAMED"),
+            Self::FullDuplexStreamed => {
+                std::option::Option::Some("BODY_SEND_MODE_FULL_DUPLEX_STREAMED")
+            }
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for BodySendMode {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for BodySendMode {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for BodySendMode {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Streamed,
+            2 => Self::FullDuplexStreamed,
+            _ => Self::UnknownValue(body_send_mode::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for BodySendMode {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "BODY_SEND_MODE_UNSPECIFIED" => Self::Unspecified,
+            "BODY_SEND_MODE_STREAMED" => Self::Streamed,
+            "BODY_SEND_MODE_FULL_DUPLEX_STREAMED" => Self::FullDuplexStreamed,
+            _ => Self::UnknownValue(body_send_mode::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for BodySendMode {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Streamed => serializer.serialize_i32(1),
+            Self::FullDuplexStreamed => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for BodySendMode {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<BodySendMode>::new(
+            ".google.cloud.networkservices.v1.BodySendMode",
         ))
     }
 }

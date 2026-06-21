@@ -32,6 +32,7 @@ pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<
             SourceObject::new().set_name(COMPOSE_SOURCE_2),
         ])
         // Consider .set_generation() to make request idempotent
+        // Consider .set_delete_source_objects() to automatically delete the source objects
         .send()
         .await?;
     println!(

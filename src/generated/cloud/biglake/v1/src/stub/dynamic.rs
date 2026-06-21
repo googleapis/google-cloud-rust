@@ -95,6 +95,12 @@ pub trait IcebergCatalogService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_api::model::HttpBody>>;
 
+    async fn report_iceberg_table_metrics(
+        &self,
+        req: crate::model::ReportIcebergTableMetricsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
+
     async fn get_iceberg_catalog(
         &self,
         req: crate::model::GetIcebergCatalogRequest,
@@ -250,6 +256,15 @@ impl<T: super::IcebergCatalogService> IcebergCatalogService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_api::model::HttpBody>> {
         T::register_iceberg_table(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn report_iceberg_table_metrics(
+        &self,
+        req: crate::model::ReportIcebergTableMetricsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
+        T::report_iceberg_table_metrics(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

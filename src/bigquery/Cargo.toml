@@ -34,10 +34,13 @@ google-cloud-bigquery-v2   = { workspace = true }
 thiserror.workspace        = true
 wkt.workspace              = true
 gaxi                       = { workspace = true, features = ["_internal-common", "_internal-grpc-client", "_internal-http-client"] }
+tokio                      = { workspace = true, features = ["time"] }
 
 [dev-dependencies]
-anyhow.workspace = true
-tokio            = { workspace = true, features = ["macros", "rt-multi-thread"] }
+anyhow.workspace    = true
+mockall.workspace   = true
+test-case.workspace = true
+tokio               = { workspace = true, features = ["macros", "rt-multi-thread", "test-util"] }
 
 [features]
 default = ["default-rustls-provider"]

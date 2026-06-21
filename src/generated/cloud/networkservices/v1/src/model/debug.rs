@@ -17,6 +17,188 @@
 #[allow(unused_imports)]
 use super::*;
 
+impl std::fmt::Debug for super::AgentGateway {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AgentGateway");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("protocols", &self.protocols);
+        debug_struct.field("registries", &self.registries);
+        debug_struct.field("network_config", &self.network_config);
+        debug_struct.field("agent_gateway_card", &self.agent_gateway_card);
+        debug_struct.field("deployment_mode", &self.deployment_mode);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::agent_gateway::GoogleManaged {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoogleManaged");
+        debug_struct.field("governed_access_path", &self.governed_access_path);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::agent_gateway::SelfManaged {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SelfManaged");
+        debug_struct.field("resource_uri", &self.resource_uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::agent_gateway::NetworkConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NetworkConfig");
+        debug_struct.field("egress", &self.egress);
+        debug_struct.field("dns_peering_config", &self.dns_peering_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::agent_gateway::network_config::Egress {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Egress");
+        debug_struct.field("network_attachment", &self.network_attachment);
+        debug_struct.field("trust_config", &self.trust_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::agent_gateway::network_config::egress::TrustConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TrustConfig");
+        debug_struct.field("pem_certificates", &self.pem_certificates);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::agent_gateway::network_config::DnsPeeringConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DnsPeeringConfig");
+        debug_struct.field("domains", &self.domains);
+        debug_struct.field("target_project", &self.target_project);
+        debug_struct.field("target_network", &self.target_network);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::agent_gateway::AgentGatewayOutputCard {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AgentGatewayOutputCard");
+        debug_struct.field("mtls_endpoint", &self.mtls_endpoint);
+        debug_struct.field("root_certificates", &self.root_certificates);
+        debug_struct.field(
+            "service_extensions_service_account",
+            &self.service_extensions_service_account,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListAgentGatewaysRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAgentGatewaysRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListAgentGatewaysResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAgentGatewaysResponse");
+        debug_struct.field("agent_gateways", &self.agent_gateways);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetAgentGatewayRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAgentGatewayRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CreateAgentGatewayRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateAgentGatewayRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("agent_gateway_id", &self.agent_gateway_id);
+        debug_struct.field("agent_gateway", &self.agent_gateway);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::UpdateAgentGatewayRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateAgentGatewayRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("agent_gateway", &self.agent_gateway);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DeleteAgentGatewayRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteAgentGatewayRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::OperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OperationMetadata");
@@ -117,7 +299,11 @@ impl std::fmt::Debug for super::extension_chain::Extension {
         debug_struct.field("timeout", &self.timeout);
         debug_struct.field("fail_open", &self.fail_open);
         debug_struct.field("forward_headers", &self.forward_headers);
+        debug_struct.field("forward_attributes", &self.forward_attributes);
         debug_struct.field("metadata", &self.metadata);
+        debug_struct.field("request_body_send_mode", &self.request_body_send_mode);
+        debug_struct.field("response_body_send_mode", &self.response_body_send_mode);
+        debug_struct.field("observability_mode", &self.observability_mode);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -430,6 +616,7 @@ impl std::fmt::Debug for super::AuthzExtension {
         debug_struct.field("fail_open", &self.fail_open);
         debug_struct.field("metadata", &self.metadata);
         debug_struct.field("forward_headers", &self.forward_headers);
+        debug_struct.field("forward_attributes", &self.forward_attributes);
         debug_struct.field("wire_format", &self.wire_format);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -838,6 +1025,7 @@ impl std::fmt::Debug for super::Gateway {
         debug_struct.field("r#type", &self.r#type);
         debug_struct.field("addresses", &self.addresses);
         debug_struct.field("ports", &self.ports);
+        debug_struct.field("all_ports", &self.all_ports);
         debug_struct.field("scope", &self.scope);
         debug_struct.field("server_tls_policy", &self.server_tls_policy);
         debug_struct.field("certificate_urls", &self.certificate_urls);
@@ -847,6 +1035,7 @@ impl std::fmt::Debug for super::Gateway {
         debug_struct.field("ip_version", &self.ip_version);
         debug_struct.field("envoy_headers", &self.envoy_headers);
         debug_struct.field("routing_mode", &self.routing_mode);
+        debug_struct.field("allow_global_access", &self.allow_global_access);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1430,6 +1619,7 @@ impl std::fmt::Debug for super::ListHttpRoutesRequest {
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("return_partial_success", &self.return_partial_success);
+        debug_struct.field("filter", &self.filter);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1467,6 +1657,7 @@ impl std::fmt::Debug for super::CreateHttpRouteRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("http_route_id", &self.http_route_id);
         debug_struct.field("http_route", &self.http_route);
+        debug_struct.field("request_id", &self.request_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2062,6 +2253,7 @@ impl std::fmt::Debug for super::TlsRoute {
         debug_struct.field("rules", &self.rules);
         debug_struct.field("meshes", &self.meshes);
         debug_struct.field("gateways", &self.gateways);
+        debug_struct.field("target_proxies", &self.target_proxies);
         debug_struct.field("labels", &self.labels);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

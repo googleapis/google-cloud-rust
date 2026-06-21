@@ -15,18 +15,72 @@
 // TODO(#5592): remove after marking query structs public.
 #![allow(dead_code, unused_imports)]
 
-mod job_reference;
+pub(crate) mod execution;
 mod query_handle;
+mod query_reference;
 mod row;
 mod run_query;
 mod schema;
 
-pub(crate) use job_reference::JobReference;
 pub(crate) use query_handle::Query;
+pub(crate) use query_reference::QueryReference;
 pub(crate) use row::Row;
 pub(crate) use schema::Schema;
 
-pub use run_query::{RunQuery, RunQueryRequest};
+pub use run_query::RunQuery;
 
 /// Result type for query execution.
 pub type Result<T> = std::result::Result<T, crate::error::QueryError>;
+
+#[cfg(test)]
+pub(crate) mod tests {
+    use google_cloud_bigquery_v2::Result;
+    use google_cloud_bigquery_v2::client::JobService;
+    use google_cloud_bigquery_v2::model::{
+        GetQueryResultsRequest, GetQueryResultsResponse, InsertJobRequest, Job, PostQueryRequest,
+        QueryResponse,
+    };
+    use google_cloud_gax::options::RequestOptions;
+    use google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy;
+    use google_cloud_gax::polling_state::PollingState;
+    use google_cloud_gax::response::Response;
+    use std::sync::Arc;
+
+    mockall::mock! {
+        #[derive(Debug)]
+        pub JobService {}
+        impl google_cloud_bigquery_v2::stub::JobService for JobService {
+            async fn insert_job(
+                &self,
+                req: InsertJobRequest,
+                options: RequestOptions,
+            ) -> Result<Response<Job>>;
+            async fn query(
+                &self,
+                req: PostQueryRequest,
+                options: RequestOptions,
+            ) -> Result<Response<QueryResponse>>;
+            async fn get_query_results(
+                &self,
+                req: GetQueryResultsRequest,
+                options: RequestOptions,
+            ) -> Result<Response<GetQueryResultsResponse>>;
+        }
+    }
+
+    mockall::mock! {
+        #[derive(Debug)]
+        pub BackoffPolicy {}
+        impl PollingBackoffPolicy for BackoffPolicy {
+            fn wait_period(&self, _state: &PollingState) -> std::time::Duration;
+        }
+    }
+
+    pub(crate) fn create_job_service(mock: MockJobService) -> Arc<JobService> {
+        Arc::new(JobService::from_stub::<MockJobService>(Arc::new(mock)))
+    }
+
+    pub(crate) fn create_test_backoff_policy() -> MockBackoffPolicy {
+        MockBackoffPolicy::new()
+    }
+}

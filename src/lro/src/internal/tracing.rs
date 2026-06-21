@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::{Poller, PollingResult, Result, sealed};
+use gaxi::observability::errors::error_type;
 use google_cloud_gax::polling_state::PollingState;
 use tracing::{Instrument, Span, info_span};
 
@@ -122,6 +123,7 @@ impl LroRecorder {
     pub fn record_error(&self, err: &crate::Error) {
         self.span.record("otel.status_code", "ERROR");
         self.span.record("otel.status_description", err.to_string());
+        self.span.record("error.type", error_type(err));
     }
 
     pub async fn record_action<F, Fut, T>(&self, f: F) -> T

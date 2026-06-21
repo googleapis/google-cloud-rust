@@ -158,3 +158,55 @@ pub async fn dml_then_return_unconsumed_query(db_client: &DatabaseClient) -> Res
 
     Ok(())
 }
+
+pub async fn dml_then_return_multiple_execute_queries(db_client: &DatabaseClient) -> Result<()> {
+    let run_id = LowercaseAlphanumeric.random_string(10);
+    let id1 = format!("dml-ret-multi1-{}", run_id);
+    let id2 = format!("dml-ret-multi2-{}", run_id);
+
+    // Execute multiple DMLs with THEN RETURN via execute_query in a single Read-Write transaction
+    let runner = db_client.read_write_transaction().build().await?;
+    let result = runner
+        .run(async |tx| {
+            let id1 = id1.clone();
+            let id2 = id2.clone();
+
+            let stmt1 = Statement::builder(
+                "INSERT INTO AllTypes (Id, ColBool) VALUES (@id, @bool) THEN RETURN Id",
+            )
+            .add_param("id", &id1)
+            .add_param("bool", &true)
+            .build();
+
+            let mut result_set1 = tx.execute_query(stmt1).await?;
+            let row1 = result_set1
+                .next()
+                .await
+                .transpose()?
+                .expect("Expected to find returned row 1");
+            let returned_id1: String = row1.get("Id");
+            assert_eq!(returned_id1, id1, "Returned ID 1 mismatch");
+
+            let stmt2 = Statement::builder(
+                "INSERT INTO AllTypes (Id, ColBool) VALUES (@id, @bool) THEN RETURN Id",
+            )
+            .add_param("id", &id2)
+            .add_param("bool", &false)
+            .build();
+
+            let mut result_set2 = tx.execute_query(stmt2).await?;
+            let row2 = result_set2
+                .next()
+                .await
+                .transpose()?
+                .expect("Expected to find returned row 2");
+            let returned_id2: String = row2.get("Id");
+            assert_eq!(returned_id2, id2, "Returned ID 2 mismatch");
+
+            Ok(())
+        })
+        .await;
+
+    result?;
+    Ok(())
+}

@@ -166,7 +166,7 @@ impl SingleUseReadOnlyTransaction {
         &self,
         statement: T,
     ) -> crate::Result<ResultSet> {
-        self.context.execute_query(statement).await
+        self.context.execute_query(statement, None).await
     }
 
     /// Reads rows from the database using key lookups and scans, as a simple key/value style alternative to execute_query.
@@ -510,7 +510,7 @@ impl MultiUseReadOnlyTransaction {
         &self,
         statement: T,
     ) -> crate::Result<ResultSet> {
-        self.context.execute_query(statement).await
+        self.context.execute_query(statement, None).await
     }
 
     /// Reads rows from the database using key lookups and scans, as a simple key/value style alternative to execute_query.
@@ -1137,13 +1137,15 @@ impl ReadContext {
     pub(crate) async fn execute_query<T: Into<Statement>>(
         &self,
         statement: T,
+        seqno: Option<i64>,
     ) -> crate::Result<ResultSet> {
         let statement = statement.into();
         let gax_options = statement.gax_options().clone();
         let mut request = statement
             .into_request()
             .set_session(self.session_name.clone())
-            .set_transaction(self.transaction_selector.selector().await?);
+            .set_transaction(self.transaction_selector.selector().await?)
+            .set_seqno(seqno.unwrap_or(0));
         request.request_options = self.amend_request_options(request.request_options);
 
         execute_stream_with_retry!(

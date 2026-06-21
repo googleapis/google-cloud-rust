@@ -29,13 +29,14 @@ env:
 
 jobs:
   build:
+    if: github.repository == 'googleapis/google-cloud-rust'
     strategy:
       matrix:
         os: ['macos-14', 'windows-2025']
         rust-version: ['rust:current']
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # ratchet:actions/checkout@v6
       - uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # rachet:actions/cache@v5
         with:
           path: |
@@ -57,12 +58,13 @@ jobs:
 
   # Ensure that the library version and the librarian.yaml version align.
   check-versions:
+    if: github.repository == 'googleapis/google-cloud-rust'
     runs-on: ubuntu-24.04
     strategy:
       matrix:
         rust-version: ['rust:current']
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # ratchet:actions/checkout@v6
       - name: Setup Rust ${{ matrix.rust-version }}
         run: |
           rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
@@ -73,12 +75,13 @@ jobs:
   # A quick check on changes to the major version of some critical crates.
   # Can be disabled if it returns a false positive.
   semver-checks:
+    if: github.repository == 'googleapis/google-cloud-rust'
     runs-on: ubuntu-24.04
     strategy:
       matrix:
         rust-version: ['rust:current']
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # ratchet:actions/checkout@v6
       - uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # ratchet:actions/cache@v5
         with:
           path: |
@@ -141,12 +144,13 @@ jobs:
           done
 
   guide:
+    if: github.repository == 'googleapis/google-cloud-rust'
     runs-on: ubuntu-24.04
     strategy:
       matrix:
         rust-version: ['rust:current']
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # ratchet:actions/checkout@v6
       - uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # ratchet:actions/cache@v5
         with:
           path: |
@@ -173,7 +177,7 @@ jobs:
           path: guide/book/
 
   deploy:
-    if: github.event_name == 'release'
+    if: github.repository == 'googleapis/google-cloud-rust' && github.event_name == 'release'
     runs-on: ubuntu-24.04
     permissions:
       # to deploy to Pages
