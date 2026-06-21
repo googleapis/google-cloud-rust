@@ -1082,36 +1082,43 @@ macro_rules! execute_stream_with_retry {
         {
             Ok(s) => s,
             Err(e) => {
-                if $self.transaction_selector.is_read_write() {
-                    let is_starting = matches!(
-                        $request
-                            .transaction
-                            .as_ref()
-                            .and_then(|t| t.selector.as_ref()),
-                        Some(crate::model::transaction_selector::Selector::Begin(_))
-                    );
-                    if is_starting {
+                let is_starting = matches!(
+                    $request
+                        .transaction
+                        .as_ref()
+                        .and_then(|t| t.selector.as_ref()),
+                    Some(crate::model::transaction_selector::Selector::Begin(_))
+                );
+                if is_starting {
+                    if $self.transaction_selector.is_read_write() {
                         $self.transaction_selector.set_failed(&e);
-                    }
-                    return Err(e);
-                } else {
-                    if is_aborted(&e) {
                         return Err(e);
-                    }
-                    if $self
-                        .begin_explicitly_if_not_started($gax_options.clone(), true, None)
-                        .await?
-                    {
-                        $request.transaction = Some($self.transaction_selector.selector().await?);
-                        $self
-                            .client
-                            .spanner
-                            .$rpc_method($request.clone(), $gax_options.clone(), $self.channel_hint)
-                            .send()
-                            .await?
                     } else {
-                        return Err(e);
+                        if is_aborted(&e) {
+                            return Err(e);
+                        }
+                        if $self
+                            .begin_explicitly_if_not_started($gax_options.clone(), true, None)
+                            .await?
+                        {
+                            $request.transaction =
+                                Some($self.transaction_selector.selector().await?);
+                            $self
+                                .client
+                                .spanner
+                                .$rpc_method(
+                                    $request.clone(),
+                                    $gax_options.clone(),
+                                    $self.channel_hint,
+                                )
+                                .send()
+                                .await?
+                        } else {
+                            return Err(e);
+                        }
                     }
+                } else {
+                    return Err(e);
                 }
             }
         };
@@ -3426,5 +3433,81 @@ pub(crate) mod tests {
             err.to_string()
                 .contains("Aborted due to failed initial statement")
         );
+    }
+
+    #[tokio_test_no_panics]
+    async fn test_subsequent_query_failure_does_not_lock_mutex() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+
+        // The query fails with a transient error
+        mock.expect_execute_streaming_sql()
+            .once()
+            .returning(|_| Err(tonic::Status::new(tonic::Code::Internal, "query failed")));
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        // Construct a lazy read-only transaction context
+        let mut transaction_selector = crate::model::TransactionSelector::default();
+        transaction_selector.selector = Some(crate::model::transaction_selector::Selector::Id(
+            bytes::Bytes::copy_from_slice(&[1, 2, 3]),
+        ));
+
+        let state = Arc::new(StdMutex::new(TransactionState::Started(
+            transaction_selector.clone(),
+            None,
+        )));
+        let selector = ReadContextTransactionSelector::Lazy(state.clone());
+
+        let context = ReadContext {
+            session_name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+            client: db_client,
+            transaction_selector: selector,
+            precommit_token_tracker: crate::read_only_transaction::PrecommitTokenTracker::new(),
+            transaction_tag: None,
+            channel_hint: 0,
+            begin_transaction_request_options: None,
+        };
+
+        // Poison the mutex
+        let _ = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+            let _guard = state.lock().unwrap();
+            panic!("poisoning the mutex intentionally");
+        }));
+
+        // Execute a subsequent query (request uses Selector::Id, meaning it's a subsequent query)
+        let statement = Statement::builder("SELECT 1").build();
+        let request = statement
+            .into_request()
+            .set_session(context.session_name.clone())
+            .set_transaction(transaction_selector);
+
+        let gax_options = google_cloud_gax::options::RequestOptions::default();
+
+        async fn run_macro(
+            context: &ReadContext,
+            mut request: crate::model::ExecuteSqlRequest,
+            gax_options: google_cloud_gax::options::RequestOptions,
+        ) -> crate::Result<ResultSet> {
+            execute_stream_with_retry!(
+                context,
+                request,
+                gax_options,
+                execute_streaming_sql,
+                StreamOperation::Query
+            )
+        }
+
+        let res = run_macro(&context, request, gax_options).await;
+
+        // Assert that we get the query failed error rather than a panic from the poisoned mutex
+        assert!(res.is_err());
+        let err = res.unwrap_err();
+        assert_eq!(err.status().map(|s| s.code), Some(GaxCode::Internal));
+        assert_eq!(
+            err.status().map(|s| s.message.as_str()),
+            Some("query failed")
+        );
+
+        Ok(())
     }
 }

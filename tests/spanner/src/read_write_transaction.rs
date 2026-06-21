@@ -1165,7 +1165,9 @@ pub async fn continue_after_initial_dml_error(db_client: &DatabaseClient) -> any
     runner
         .run(async |transaction| {
             // 1. DML statement that fails (syntax error / invalid table). Catch/swallow.
-            let invalid_dml = Statement::builder("UPDATE NonExistentTableToTestContinuation SET ColInt64 = 1").build();
+            let invalid_dml =
+                Statement::builder("UPDATE NonExistentTableToTestContinuation SET ColInt64 = 1")
+                    .build();
             let dml_result = transaction.execute_update(invalid_dml).await;
             assert!(dml_result.is_err(), "DML on non-existent table should fail");
 
@@ -1204,7 +1206,9 @@ pub async fn continue_after_initial_dml_error(db_client: &DatabaseClient) -> any
     Ok(())
 }
 
-pub async fn continue_after_initial_batch_dml_error(db_client: &DatabaseClient) -> anyhow::Result<()> {
+pub async fn continue_after_initial_batch_dml_error(
+    db_client: &DatabaseClient,
+) -> anyhow::Result<()> {
     let id = format!("rw-bdml-err-{}", LowercaseAlphanumeric.random_string(10));
 
     let runner = db_client
@@ -1219,7 +1223,10 @@ pub async fn continue_after_initial_batch_dml_error(db_client: &DatabaseClient) 
             let batch = BatchDml::builder()
                 .add_statement("UPDATE NonExistentTableToTestContinuation SET ColInt64 = 1");
             let dml_result = transaction.execute_batch_update(batch.build()).await;
-            assert!(dml_result.is_err(), "Batch DML on non-existent table should fail");
+            assert!(
+                dml_result.is_err(),
+                "Batch DML on non-existent table should fail"
+            );
 
             // 2. Insert a row into a table that does exist.
             let valid_insert =
@@ -1255,4 +1262,3 @@ pub async fn continue_after_initial_batch_dml_error(db_client: &DatabaseClient) 
 
     Ok(())
 }
-
