@@ -87,6 +87,14 @@ impl BatchUpdateError {
     }
 }
 
+pub(crate) fn aborted_due_to_failed_initial_statement() -> crate::Error {
+    crate::Error::service(
+        google_cloud_gax::error::rpc::Status::default()
+            .set_code(google_cloud_gax::error::rpc::Code::Aborted)
+            .set_message("Aborted due to failed initial statement"),
+    )
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
