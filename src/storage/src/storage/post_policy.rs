@@ -217,15 +217,16 @@ impl PostPolicyV4Builder {
 
         let now = self.timestamp.unwrap_or_else(Utc::now);
         let request_timestamp = now.format("%Y%m%dT%H%M%SZ").to_string();
-        let datestamp = now.format("%Y%m%d");
-        let credential_scope = format!("{datestamp}/auto/storage/goog4_request");
 
         let client_email = if let Some(email) = self.client_email.take() {
             email
         } else {
             signer.client_email().await.map_err(SigningError::signing)?
         };
-        let credential = format!("{client_email}/{credential_scope}");
+        let credential = format!(
+            "{client_email}/{}/auto/storage/goog4_request",
+            now.format("%Y%m%d")
+        );
 
         let mut conditions = Vec::new();
 
