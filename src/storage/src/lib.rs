@@ -55,6 +55,8 @@ pub(crate) use google_cloud_gax::options::RequestOptions;
 pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
 pub(crate) use google_cloud_gax::response::Response;
 
+#[cfg(google_cloud_unstable_storage_bidi)]
+pub mod appendable_object_writer;
 pub mod backoff_policy;
 pub mod object_descriptor;
 pub mod read_object;

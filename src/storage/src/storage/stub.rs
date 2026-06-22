@@ -23,6 +23,8 @@ use crate::{
     model_ext::{OpenObjectRequest, ReadRange},
     object_descriptor::ObjectDescriptor as Descriptor,
 };
+#[cfg(google_cloud_unstable_storage_bidi)]
+use bytes::Bytes;
 use gaxi::unimplemented::UNIMPLEMENTED;
 
 /// Defines the trait used to implement [crate::client::Storage].
@@ -98,6 +100,38 @@ pub trait ObjectDescriptor: std::fmt::Debug + Send + Sync {
 
     /// The implementation for [ObjectDescriptor::headers][Descriptor::headers].
     fn headers(&self) -> HeaderMap;
+}
+
+/// Defines the trait used to implement [crate::appendable_object_writer::AppendableObjectWriter].
+///
+/// Application developers may need to implement this trait to mock
+/// `AppendableObjectWriter`. In other use-cases, application developers
+/// should use `AppendableObjectWriter` directly, and need not be concerned
+/// with this trait or its implementations.
+#[cfg(google_cloud_unstable_storage_bidi)]
+pub trait AppendableObjectWriter: std::fmt::Debug + Send + Sync {
+    /// The implementation for [AppendableObjectWriter::append][crate::appendable_object_writer::AppendableObjectWriter::append].
+    fn append(
+        &mut self,
+        chunk: Bytes,
+    ) -> impl std::future::Future<Output = crate::Result<()>> + Send;
+
+    /// The implementation for [AppendableObjectWriter::flush][crate::appendable_object_writer::AppendableObjectWriter::flush].
+    fn flush(&mut self) -> impl std::future::Future<Output = crate::Result<i64>> + Send;
+
+    /// The implementation for [AppendableObjectWriter::finalize][crate::appendable_object_writer::AppendableObjectWriter::finalize].
+    fn finalize(
+        &mut self,
+    ) -> impl std::future::Future<Output = crate::Result<crate::model::Object>> + Send;
+
+    /// The implementation for [AppendableObjectWriter::close][crate::appendable_object_writer::AppendableObjectWriter::close].
+    fn close(&mut self) -> impl std::future::Future<Output = crate::Result<i64>> + Send;
+
+    /// The implementation for [AppendableObjectWriter::generation][crate::appendable_object_writer::AppendableObjectWriter::generation].
+    fn generation(&self) -> i64;
+
+    /// The implementation for [AppendableObjectWriter::persisted_size][crate::appendable_object_writer::AppendableObjectWriter::persisted_size].
+    fn persisted_size(&self) -> i64;
 }
 
 async fn unimplemented_stub<T>() -> google_cloud_gax::Result<T> {

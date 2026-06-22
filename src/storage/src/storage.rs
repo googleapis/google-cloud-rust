@@ -13,7 +13,7 @@
 // limitations under the License.
 
 #[cfg(google_cloud_unstable_storage_bidi)]
-pub(crate) mod append_object;
+pub(crate) mod bidi_write;
 pub(crate) mod bidi;
 pub(crate) mod checksum;
 pub(crate) mod client;
