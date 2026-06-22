@@ -19,13 +19,14 @@ use std::time::Duration;
 pub async fn sample(bucket_name: &str, object_name: &str) -> anyhow::Result<()> {
     let signer = google_cloud_auth::credentials::Builder::default().build_signer()?;
 
-    let policy = PostPolicyV4Builder::for_object(bucket_name, object_name)
-        .with_expiration(Duration::from_secs(30 * 60)) // 30 minutes
-        .with_field("Content-Type", "text/plain")
-        .with_starts_with("$key", "")
-        .with_content_length_range(1, 10 * 1024 * 1024) // 1 byte to 10 MiB
-        .sign_with(&signer)
-        .await?;
+    let policy =
+        PostPolicyV4Builder::for_object(format!("projects/_/buckets/{bucket_name}"), object_name)
+            .with_expiration(Duration::from_secs(30 * 60)) // 30 minutes
+            .with_field("Content-Type", "text/plain")
+            .with_starts_with("$key", "")
+            .with_content_length_range(1, 10 * 1024 * 1024) // 1 byte to 10 MiB
+            .sign_with(&signer)
+            .await?;
 
     // Create an HTML form with the computed policy
     let mut form = format!(
