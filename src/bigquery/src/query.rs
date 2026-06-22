@@ -29,7 +29,7 @@ pub(crate) use query_reference::QueryReference;
 pub(crate) use row::Row;
 pub(crate) use schema::Schema;
 
-pub use run_query::{RunQuery, RunQueryRequest};
+pub use run_query::RunQuery;
 
 /// Result type for query execution.
 pub type Result<T> = std::result::Result<T, crate::error::QueryError>;

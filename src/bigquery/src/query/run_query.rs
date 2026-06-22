@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::error::QueryError;
+use crate::model::RunQueryRequest;
 use crate::query::execution::{InsertJobExecutor, PostQueryExecutor};
 use crate::query::{Query, Result};
 use google_cloud_bigquery_v2::client::JobService;
@@ -91,9 +92,7 @@ impl RunQuery {
     }
 }
 
-// TODO(#5844): move to a mod generated over include!()
 include!("../generated/run_query_builder.rs");
-include!("../generated/run_query_request.rs");
 
 #[cfg(test)]
 mod tests {

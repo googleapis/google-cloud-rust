@@ -17,7 +17,7 @@ use crate::model::CommitResponse;
 use crate::model::request_options::Priority;
 use crate::model::transaction_options::IsolationLevel;
 use crate::model::transaction_options::read_write::ReadLockMode;
-use crate::read_only_transaction::BeginTransactionOption;
+use crate::read_only_transaction::{BeginTransactionOption, ReadContextTransactionSelector};
 use crate::read_write_transaction::{ReadWriteTransaction, ReadWriteTransactionBuilder};
 use crate::transaction_retry_policy::{
     BasicTransactionRetryPolicy, TransactionRetryPolicy, backoff_if_aborted, is_aborted,
@@ -554,12 +554,19 @@ impl TransactionRunner {
         let backoff = crate::transaction_retry_policy::default_retry_backoff();
         let deadline = self.timeout.map(|t| start_time + t);
 
+        let mut force_explicit_begin = false;
         loop {
             attempts += 1;
 
             let mut current_tx_id = None;
             let attempt_result = async {
-                let transaction = self.builder.clone().build(deadline).await?;
+                let mut builder = self.builder.clone();
+                if force_explicit_begin {
+                    builder = builder
+                        .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin);
+                }
+                let transaction = builder.build(deadline).await.map_err(|e| (e, None))?;
+                let selector = transaction.context.transaction_selector.clone();
 
                 let result = match work(transaction.clone()).await {
                     Ok(res) => res,
@@ -569,41 +576,43 @@ impl TransactionRunner {
                         // we only wish to capture it if the transaction successfully started prior to
                         // failing, so it can be used as the previous transaction ID if the transaction
                         // was aborted.
-                        let id = transaction
-                            .context
-                            .transaction_selector
-                            .get_id_no_wait()
-                            .ok()
-                            .flatten();
+                        let id = selector.get_id_no_wait().ok().flatten();
                         // Rollback if the closure failed and it was not an Aborted error.
                         if !is_aborted(&e) {
                             let _ = transaction.rollback().await;
                         }
                         current_tx_id = id;
-                        return Err(e);
+                        return Err((e, Some(selector)));
                     }
                 };
 
                 // `commit()` consumes `transaction`. If the commit RPC fails with an Aborted error,
                 // we still need access to the transaction ID so we can provide it as `previous_transaction_id`
                 // on retry. Cloning only `transaction_selector` preserves access to the internal state efficiently.
-                let selector = transaction.context.transaction_selector.clone();
                 let commit_result = transaction.commit().await;
                 current_tx_id = selector.get_id_no_wait().ok().flatten();
-                let commit_response = commit_result?;
-                Ok::<TransactionResult<T>, crate::Error>(TransactionResult {
-                    result,
-                    commit_response,
-                })
+                let commit_response = match commit_result {
+                    Ok(r) => r,
+                    Err(e) => return Err((e, Some(selector))),
+                };
+                Ok::<TransactionResult<T>, (crate::Error, Option<ReadContextTransactionSelector>)>(
+                    TransactionResult {
+                        result,
+                        commit_response,
+                    },
+                )
             }
             .await;
 
             match attempt_result {
                 Ok(res) => return Ok(res),
-                Err(e) => {
+                Err((e, selector_opt)) => {
                     if is_aborted(&e) {
                         let current_tx_id = current_tx_id.clone();
                         self.builder = self.builder.set_previous_transaction_id(current_tx_id);
+                        force_explicit_begin = selector_opt
+                            .as_ref()
+                            .is_some_and(|s| s.is_first_statement_failed());
                     }
 
                     backoff_if_aborted(

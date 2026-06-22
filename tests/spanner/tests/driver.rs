@@ -176,6 +176,14 @@ mod spanner {
                 db_client,
             )
             .await?;
+            integration_tests_spanner::read_write_transaction::continue_after_initial_dml_error(
+                db_client,
+            )
+            .await?;
+            integration_tests_spanner::read_write_transaction::continue_after_initial_batch_dml_error(
+                db_client,
+            )
+            .await?;
             Ok(())
         }
 
