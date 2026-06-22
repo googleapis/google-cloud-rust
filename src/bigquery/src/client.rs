@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::query::RunQuery;
 use crate::ClientBuilderResult as BuilderResult;
 use crate::client_builder::ClientBuilder;
 use google_cloud_bigquery_v2::client::JobService;
@@ -55,6 +56,13 @@ impl BigQuery {
         let job_service = Arc::new(job_service_builder.build().await?);
 
         Ok(BigQuery { job_service })
+    }
+
+    /// Prepares a SQL query execution by returning a unified `RunQuery` request builder.
+    /// This builder internally routes to either `jobs.query` (fast path) or `jobs.insert` (job path)
+    /// depending on the fields configured.
+    pub fn query<S: Into<String>>(&self, sql: S) -> RunQuery {
+        RunQuery::new(self.job_service.clone(), sql.into())
     }
 }
 
