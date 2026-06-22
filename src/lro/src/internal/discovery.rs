@@ -33,7 +33,7 @@ use google_cloud_gax::retry_result::RetryResult;
 use std::sync::Arc;
 
 #[cfg(google_cloud_unstable_tracing)]
-use super::LroRecorder;
+use {super::LroRecorder, crate::Error, gaxi::observability::errors::error_type};
 
 /// Defines the trait for an "Operation" type in the discovery poller.
 ///
@@ -181,9 +181,8 @@ where
         recorder
             .span()
             .record("otel.status_description", &status.message);
-        recorder
-            .span()
-            .record("error.type", status.code.to_string());
+        let err = Error::service(status);
+        recorder.span().record("error.type", error_type(&err));
     }
 }
 
