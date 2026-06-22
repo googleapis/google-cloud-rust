@@ -16,7 +16,7 @@ use crate::database_client::DatabaseClient;
 use crate::error::internal_error;
 use crate::model::TransactionOptions;
 use crate::model::TransactionSelector;
-use crate::model::transaction_options::ReadOnly;
+use crate::model::transaction_options::{Mode, ReadOnly};
 use crate::precommit::PrecommitTokenTracker;
 use crate::result_set::{ResultSet, ResultSetParams, StreamOperation};
 use crate::statement::Statement;
@@ -587,11 +587,20 @@ pub(crate) enum TransactionState {
     Starting(crate::model::TransactionOptions, Arc<Notify>),
     Started(crate::model::TransactionSelector, Option<wkt::Timestamp>),
     Failed(Arc<crate::Error>),
+    FirstStatementFailed,
 }
 
 enum SelectorStatus {
     Ready(crate::model::TransactionSelector),
     Wait(std::sync::Arc<tokio::sync::Notify>),
+}
+
+fn to_start_error(err: &crate::Error) -> crate::Error {
+    if let Some(status) = err.status() {
+        crate::Error::service(status.clone())
+    } else {
+        crate::error::internal_error(format!("Transaction failed to start: {}", err))
+    }
 }
 
 impl ReadContextTransactionSelector {
@@ -642,13 +651,16 @@ impl ReadContextTransactionSelector {
             // Note: Failed will only be reached if the following happens:
             // 1. The first query fails and the transaction falls back to an explicit BeginTransaction RPC.
             // 2. The BeginTransaction RPC fails. This is the error that will be returned to all the waiting queries.
-            TransactionState::Failed(err) => {
-                let error = if let Some(status) = err.status() {
-                    crate::Error::service(status.clone())
-                } else {
-                    crate::error::internal_error(format!("Transaction failed to start: {}", err))
-                };
-                Err(error)
+            TransactionState::Failed(err) => Err(to_start_error(err)),
+            // FirstStatementFailed is reached if the initial statement fails in a Read-Write transaction using inline-begin.
+            // When in this state, the transaction must first call an explicit BeginTransaction RPC.
+            // Any subsequent statements or commit attempts should fail fast.
+            // Returning Aborted signals the TransactionRunner to retry the transaction with an explicit BeginTransaction RPC.
+            TransactionState::FirstStatementFailed => {
+                let status = google_cloud_gax::error::rpc::Status::default()
+                    .set_code(google_cloud_gax::error::rpc::Code::Aborted)
+                    .set_message("Aborted due to failed initial statement");
+                Err(crate::Error::service(status))
             }
             // Transaction is starting. Wait until a transaction ID is returned.
             TransactionState::Starting(_, notify) => Ok(SelectorStatus::Wait(Arc::clone(notify))),
@@ -712,7 +724,9 @@ impl ReadContextTransactionSelector {
                         FallbackAction::Begin(options.clone(), Some(Arc::clone(notify)))
                     }
                 }
-                TransactionState::Started(_, _) | TransactionState::Failed(_) => {
+                TransactionState::Started(_, _)
+                | TransactionState::Failed(_)
+                | TransactionState::FirstStatementFailed => {
                     // The transaction has already reached a terminal state (Started or Failed).
                     // No further action is needed in this explicit begin attempt.
                     FallbackAction::None
@@ -755,12 +769,7 @@ impl ReadContextTransactionSelector {
                     notify.notify_waiters();
                 }
 
-                let return_error = if let Some(status) = error.status() {
-                    crate::Error::service(status.clone())
-                } else {
-                    crate::error::internal_error(format!("Transaction failed to start: {}", error))
-                };
-                return Err(return_error);
+                return Err(to_start_error(&error));
             }
         };
 
@@ -886,6 +895,58 @@ impl ReadContextTransactionSelector {
             *guard = TransactionState::NotStarted(options);
             drop(guard);
             notify.notify_waiters();
+        }
+    }
+
+    pub(crate) fn is_first_statement_failed(&self) -> bool {
+        let Self::Lazy(lazy) = self else {
+            return false;
+        };
+        let guard = lazy.lock().expect("transaction state mutex poisoned");
+        matches!(&*guard, TransactionState::FirstStatementFailed)
+    }
+
+    pub(crate) fn is_read_write(&self) -> bool {
+        let Self::Lazy(lazy) = self else {
+            return false;
+        };
+        let guard = lazy.lock().expect("transaction state mutex poisoned");
+        match &*guard {
+            TransactionState::NotStarted(options) | TransactionState::Starting(options, _) => {
+                matches!(&options.mode, Some(Mode::ReadWrite(_)))
+            }
+            _ => false,
+        }
+    }
+
+    pub(crate) fn set_failed(&self, err: &crate::Error) {
+        let Self::Lazy(lazy) = self else {
+            return;
+        };
+        let mut guard = lazy.lock().expect("transaction state mutex poisoned");
+        if let TransactionState::Starting(options, notify) = &*guard {
+            let notify = Arc::clone(notify);
+            if is_aborted(err) {
+                *guard = TransactionState::NotStarted(options.clone());
+            } else {
+                *guard = TransactionState::FirstStatementFailed;
+            }
+            drop(guard);
+            notify.notify_waiters();
+        }
+    }
+
+    pub(crate) fn check_failed(&self) -> crate::Result<()> {
+        let Self::Lazy(lazy) = self else {
+            return Ok(());
+        };
+        let guard = lazy.lock().expect("transaction state mutex poisoned");
+        match &*guard {
+            TransactionState::Failed(err) => Err(to_start_error(err)),
+            TransactionState::FirstStatementFailed => {
+                Err(crate::error::aborted_due_to_failed_initial_statement())
+            }
+            _ => Ok(()),
         }
     }
 
@@ -1021,20 +1082,41 @@ macro_rules! execute_stream_with_retry {
         {
             Ok(s) => s,
             Err(e) => {
-                if is_aborted(&e) {
-                    return Err(e);
-                }
-                if $self
-                    .begin_explicitly_if_not_started($gax_options.clone(), true, None)
-                    .await?
-                {
-                    $request.transaction = Some($self.transaction_selector.selector().await?);
-                    $self
-                        .client
-                        .spanner
-                        .$rpc_method($request.clone(), $gax_options.clone(), $self.channel_hint)
-                        .send()
-                        .await?
+                let is_starting = matches!(
+                    $request
+                        .transaction
+                        .as_ref()
+                        .and_then(|t| t.selector.as_ref()),
+                    Some(crate::model::transaction_selector::Selector::Begin(_))
+                );
+                if is_starting {
+                    if $self.transaction_selector.is_read_write() {
+                        $self.transaction_selector.set_failed(&e);
+                        return Err(e);
+                    } else {
+                        if is_aborted(&e) {
+                            return Err(e);
+                        }
+                        if $self
+                            .begin_explicitly_if_not_started($gax_options.clone(), true, None)
+                            .await?
+                        {
+                            $request.transaction =
+                                Some($self.transaction_selector.selector().await?);
+                            $self
+                                .client
+                                .spanner
+                                .$rpc_method(
+                                    $request.clone(),
+                                    $gax_options.clone(),
+                                    $self.channel_hint,
+                                )
+                                .send()
+                                .await?
+                        } else {
+                            return Err(e);
+                        }
+                    }
                 } else {
                     return Err(e);
                 }
@@ -3327,5 +3409,105 @@ pub(crate) mod tests {
                 .unwrap(),
             "custom-value"
         );
+    }
+
+    #[test]
+    fn test_transaction_selector_check_failed_propagates_original_error() {
+        let options = TransactionOptions {
+            mode: Some(Mode::ReadWrite(Default::default())),
+            ..Default::default()
+        };
+        let selector = ReadContextTransactionSelector::Lazy(Arc::new(StdMutex::new(
+            TransactionState::Starting(options, Arc::new(Notify::new())),
+        )));
+
+        let initial_err = crate::error::internal_error("initial statement error");
+        selector.set_failed(&initial_err);
+
+        assert!(selector.is_first_statement_failed());
+
+        let res = selector.check_failed();
+        assert!(res.is_err());
+        let err = res.unwrap_err();
+        assert!(
+            err.to_string()
+                .contains("Aborted due to failed initial statement")
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn test_subsequent_query_failure_does_not_lock_mutex() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+
+        // The query fails with a transient error
+        mock.expect_execute_streaming_sql()
+            .once()
+            .returning(|_| Err(tonic::Status::new(tonic::Code::Internal, "query failed")));
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        // Construct a lazy read-only transaction context
+        let mut transaction_selector = crate::model::TransactionSelector::default();
+        transaction_selector.selector = Some(crate::model::transaction_selector::Selector::Id(
+            bytes::Bytes::copy_from_slice(&[1, 2, 3]),
+        ));
+
+        let state = Arc::new(StdMutex::new(TransactionState::Started(
+            transaction_selector.clone(),
+            None,
+        )));
+        let selector = ReadContextTransactionSelector::Lazy(state.clone());
+
+        let context = ReadContext {
+            session_name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+            client: db_client,
+            transaction_selector: selector,
+            precommit_token_tracker: crate::read_only_transaction::PrecommitTokenTracker::new(),
+            transaction_tag: None,
+            channel_hint: 0,
+            begin_transaction_request_options: None,
+        };
+
+        // Poison the mutex
+        let _ = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+            let _guard = state.lock().unwrap();
+            panic!("poisoning the mutex intentionally");
+        }));
+
+        // Execute a subsequent query (request uses Selector::Id, meaning it's a subsequent query)
+        let statement = Statement::builder("SELECT 1").build();
+        let request = statement
+            .into_request()
+            .set_session(context.session_name.clone())
+            .set_transaction(transaction_selector);
+
+        let gax_options = google_cloud_gax::options::RequestOptions::default();
+
+        async fn run_macro(
+            context: &ReadContext,
+            mut request: crate::model::ExecuteSqlRequest,
+            gax_options: google_cloud_gax::options::RequestOptions,
+        ) -> crate::Result<ResultSet> {
+            execute_stream_with_retry!(
+                context,
+                request,
+                gax_options,
+                execute_streaming_sql,
+                StreamOperation::Query
+            )
+        }
+
+        let res = run_macro(&context, request, gax_options).await;
+
+        // Assert that we get the query failed error rather than a panic from the poisoned mutex
+        assert!(res.is_err());
+        let err = res.unwrap_err();
+        assert_eq!(err.status().map(|s| s.code), Some(GaxCode::Internal));
+        assert_eq!(
+            err.status().map(|s| s.message.as_str()),
+            Some("query failed")
+        );
+
+        Ok(())
     }
 }

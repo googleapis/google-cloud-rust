@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use google_cloud_spanner::batch::BatchDml;
 use google_cloud_spanner::client::DatabaseClient;
 use google_cloud_spanner::key;
 use google_cloud_spanner::mutation::Mutation;
@@ -1147,6 +1148,116 @@ pub async fn continue_after_initial_query_error(db_client: &DatabaseClient) -> a
         row.get::<i64, _>("ColInt64"),
         777,
         "Insert should have succeeded despite earlier query error"
+    );
+
+    Ok(())
+}
+
+pub async fn continue_after_initial_dml_error(db_client: &DatabaseClient) -> anyhow::Result<()> {
+    let id = format!("rw-dml-err-{}", LowercaseAlphanumeric.random_string(10));
+
+    let runner = db_client
+        .read_write_transaction()
+        .set_transaction_tag("continue-after-dml-err-tag")
+        .build()
+        .await?;
+
+    runner
+        .run(async |transaction| {
+            // 1. DML statement that fails (syntax error / invalid table). Catch/swallow.
+            let invalid_dml =
+                Statement::builder("UPDATE NonExistentTableToTestContinuation SET ColInt64 = 1")
+                    .build();
+            let dml_result = transaction.execute_update(invalid_dml).await;
+            assert!(dml_result.is_err(), "DML on non-existent table should fail");
+
+            // 2. Insert a row into a table that does exist.
+            let valid_insert =
+                Statement::builder("INSERT INTO AllTypes (Id, ColInt64) VALUES (@id, 888)")
+                    .add_param("id", &id)
+                    .build();
+            let insert_result = transaction.execute_update(valid_insert).await?;
+            assert_eq!(insert_result, 1, "Expected 1 row inserted");
+
+            Ok(())
+        })
+        .await?;
+
+    // Verify that the insert actually worked
+    let verify_statement = Statement::builder("SELECT ColInt64 FROM AllTypes WHERE Id = @id")
+        .add_param("id", &id)
+        .build();
+    let mut result_set = db_client
+        .single_use()
+        .build()
+        .execute_query(verify_statement)
+        .await?;
+    let row = result_set
+        .next()
+        .await
+        .transpose()?
+        .expect("Row exists for verification");
+    assert_eq!(
+        row.get::<i64, _>("ColInt64"),
+        888,
+        "Insert should have succeeded despite earlier DML error"
+    );
+
+    Ok(())
+}
+
+pub async fn continue_after_initial_batch_dml_error(
+    db_client: &DatabaseClient,
+) -> anyhow::Result<()> {
+    let id = format!("rw-bdml-err-{}", LowercaseAlphanumeric.random_string(10));
+
+    let runner = db_client
+        .read_write_transaction()
+        .set_transaction_tag("continue-after-bdml-err-tag")
+        .build()
+        .await?;
+
+    runner
+        .run(async |transaction| {
+            // 1. Batch DML statement that fails because of non-existent table. Catch/swallow.
+            let batch = BatchDml::builder()
+                .add_statement("UPDATE NonExistentTableToTestContinuation SET ColInt64 = 1");
+            let dml_result = transaction.execute_batch_update(batch.build()).await;
+            assert!(
+                dml_result.is_err(),
+                "Batch DML on non-existent table should fail"
+            );
+
+            // 2. Insert a row into a table that does exist.
+            let valid_insert =
+                Statement::builder("INSERT INTO AllTypes (Id, ColInt64) VALUES (@id, 999)")
+                    .add_param("id", &id)
+                    .build();
+            let insert_result = transaction.execute_update(valid_insert).await?;
+            assert_eq!(insert_result, 1, "Expected 1 row inserted");
+
+            Ok(())
+        })
+        .await?;
+
+    // Verify that the insert actually worked
+    let verify_statement = Statement::builder("SELECT ColInt64 FROM AllTypes WHERE Id = @id")
+        .add_param("id", &id)
+        .build();
+    let mut result_set = db_client
+        .single_use()
+        .build()
+        .execute_query(verify_statement)
+        .await?;
+    let row = result_set
+        .next()
+        .await
+        .transpose()?
+        .expect("Row exists for verification");
+    assert_eq!(
+        row.get::<i64, _>("ColInt64"),
+        999,
+        "Insert should have succeeded despite earlier Batch DML error"
     );
 
     Ok(())
