@@ -60,13 +60,24 @@ impl Query {
 
     /// Periodically checks the status of the background job until it finishes.
     /// Returns an error if a remote service or connection failure happens during polling.
-    pub async fn until_done(&self) -> Result<CompleteQuery> {
-        if let (true, Some(initial_response)) = (self.completed, &self.initial_response) {
-            return Ok(CompleteQuery::from_query_response(self, initial_response));
+    pub async fn until_done(self) -> Result<CompleteQuery> {
+        let Query {
+            job_service,
+            job_ref,
+            completed,
+            initial_job: _,
+            initial_response,
+        } = self;
+
+        if let (true, Some(initial_response)) = (completed, initial_response) {
+            return Ok(CompleteQuery::from_query_response(
+                job_service,
+                job_ref,
+                initial_response,
+            ));
         }
 
-        let job_ref = self
-            .job_ref
+        let job_ref = job_ref
             .as_ref()
             .expect("query job should have job reference at this point");
         let backoff_policy = Arc::new(
@@ -75,8 +86,12 @@ impl Query {
                 .build()
                 .expect("valid backoff configuration"),
         );
-        let res = poll_query_results(&self.job_service, job_ref, backoff_policy).await?;
-        Ok(CompleteQuery::from_get_query_results_response(self, res))
+        let res = poll_query_results(&job_service, job_ref, backoff_policy).await?;
+        Ok(CompleteQuery::from_get_query_results_response(
+            job_service,
+            job_ref,
+            res,
+        ))
     }
 }
 
@@ -103,47 +118,57 @@ impl std::fmt::Debug for CompleteQuery {
 }
 
 impl CompleteQuery {
-    pub(crate) fn from_get_query_results_response(q: &Query, res: GetQueryResultsResponse) -> Self {
-        let schema = res
+    pub(crate) fn from_get_query_results_response(
+        job_service: Arc<JobService>,
+        job_ref: &JobReference,
+        mut res: GetQueryResultsResponse,
+    ) -> Self {
+        let cached_rows = VecDeque::from(std::mem::take(&mut res.rows));
+        let metadata = QueryMetadata::from(res);
+        let schema = metadata
             .schema
             .clone()
             .expect("complete query should have schema");
         let schema = Arc::new(Schema::new(schema));
-        let page_token = if res.page_token.is_empty() {
+        let page_token = if metadata.page_token.is_empty() {
             None
         } else {
-            Some(res.page_token.clone())
+            Some(metadata.page_token.clone())
         };
-        let cached_rows = VecDeque::from(res.rows.clone());
         Self {
-            job_service: q.job_service.clone(),
-            job_ref: q.job_ref.clone(),
+            job_service,
+            job_ref: Some(job_ref.clone()),
             cached_rows,
             page_token,
             schema,
-            metadata: QueryMetadata::from(res),
+            metadata,
         }
     }
 
-    pub(crate) fn from_query_response(q: &Query, res: &QueryResponse) -> Self {
-        let schema = res
+    pub(crate) fn from_query_response(
+        job_service: Arc<JobService>,
+        job_ref: Option<JobReference>,
+        mut res: QueryResponse,
+    ) -> Self {
+        let cached_rows = VecDeque::from(std::mem::take(&mut res.rows));
+        let metadata = QueryMetadata::from(res);
+        let schema = metadata
             .schema
             .clone()
             .expect("complete query should have schema");
         let schema = Arc::new(Schema::new(schema));
-        let page_token = if res.page_token.is_empty() {
+        let page_token = if metadata.page_token.is_empty() {
             None
         } else {
-            Some(res.page_token.clone())
+            Some(metadata.page_token.clone())
         };
-        let cached_rows = VecDeque::from(res.rows.clone());
         Self {
-            job_service: q.job_service.clone(),
-            job_ref: q.job_ref.clone(),
+            job_service,
+            job_ref,
             cached_rows,
             page_token,
             schema,
-            metadata: QueryMetadata::from(res.clone()),
+            metadata,
         }
     }
 
@@ -257,7 +282,7 @@ mod tests {
         };
 
         let completed = query.until_done().await?;
-        assert_eq!(completed.job_ref.clone().unwrap().job_id, "some_job_id");
+        assert_eq!(completed.job_ref.as_ref().unwrap().job_id, "some_job_id");
         assert_eq!(completed.page_token, Some("some_page_token".to_string()));
         assert_eq!(completed.cached_rows.len(), 1);
 

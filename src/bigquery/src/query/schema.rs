@@ -22,8 +22,6 @@ pub(crate) struct Schema {
 
 impl Schema {
     pub(crate) fn new(schema: TableSchema) -> Self {
-        Self {
-            schema: TableSchema::new().set_fields(schema.fields),
-        }
+        Self { schema }
     }
 }
