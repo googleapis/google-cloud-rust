@@ -560,3 +560,14 @@ unexpected_cfgs = { level = "deny", check-cfg = [
 
 [workspace.metadata.cargo-machete]
 ignored = ["h2", "lazy_static", "pin-project", "rustc_version"]
+
+[patch.crates-io]
+google-cloud-auth         = { path = "src/auth" }
+google-cloud-gax          = { path = "src/gax" }
+google-cloud-gax-internal = { path = "src/gax-internal" }
+google-cloud-wkt          = { path = "src/wkt" }
+google-cloud-longrunning  = { path = "src/generated/longrunning" }
+google-cloud-lro          = { path = "src/lro" }
+google-cloud-rpc          = { path = "src/generated/rpc/types" }
+google-cloud-type         = { path = "src/generated/type" }
+google-cloud-iam-v1       = { path = "src/generated/iam/v1" }

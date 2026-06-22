@@ -32,7 +32,6 @@ use google_cloud_gax::polling_state::PollingState;
 use google_cloud_gax::retry_result::RetryResult;
 use std::sync::Arc;
 
-#[cfg(google_cloud_unstable_tracing)]
 use super::LroRecorder;
 
 /// Defines the trait for an "Operation" type in the discovery poller.
@@ -62,6 +61,8 @@ pub trait DiscoveryOperation {
     }
 }
 
+type BoxedFuture<T> = std::pin::Pin<Box<dyn std::future::Future<Output = T> + Send + 'static>>;
+
 pub fn new_discovery_poller<S, SF, Q, QF, O>(
     polling_error_policy: Arc<dyn PollingErrorPolicy>,
     polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
@@ -69,30 +70,38 @@ pub fn new_discovery_poller<S, SF, Q, QF, O>(
     query: Q,
 ) -> impl Poller<O, O>
 where
-    O: DiscoveryOperation + Send,
-    S: FnOnce() -> SF + Send + Sync,
+    O: DiscoveryOperation + Send + 'static,
+    S: FnOnce() -> SF + Send + Sync + 'static,
     SF: std::future::Future<Output = Result<O>> + Send + 'static,
-    Q: FnMut(String) -> QF + Send + Sync + Clone,
+    Q: FnMut(String) -> QF + Send + Sync + Clone + 'static,
     QF: std::future::Future<Output = Result<O>> + Send + 'static,
 {
-    DiscoveryPoller::new(polling_error_policy, polling_backoff_policy, start, query)
+    let mut query = query;
+    let start_boxed = Box::pin(start());
+    let query_boxed = Box::new(move |name| Box::pin(query(name)) as BoxedFuture<Result<O>>);
+    DiscoveryPoller::new(
+        polling_error_policy,
+        polling_backoff_policy,
+        start_boxed,
+        query_boxed,
+    )
 }
 
-struct DiscoveryPoller<S, Q> {
+struct DiscoveryPoller<O> {
     error_policy: Arc<dyn PollingErrorPolicy>,
     backoff_policy: Arc<dyn PollingBackoffPolicy>,
-    start: Option<S>,
-    query: Q,
+    start: Option<BoxedFuture<Result<O>>>,
+    query: Box<dyn FnMut(String) -> BoxedFuture<Result<O>> + Send>,
     operation: Option<String>,
     state: PollingState,
 }
 
-impl<S, Q> DiscoveryPoller<S, Q> {
+impl<O> DiscoveryPoller<O> {
     pub fn new(
         error_policy: Arc<dyn PollingErrorPolicy>,
         backoff_policy: Arc<dyn PollingBackoffPolicy>,
-        start: S,
-        query: Q,
+        start: BoxedFuture<Result<O>>,
+        query: Box<dyn FnMut(String) -> BoxedFuture<Result<O>> + Send>,
     ) -> Self {
         Self {
             error_policy,
@@ -105,29 +114,20 @@ impl<S, Q> DiscoveryPoller<S, Q> {
     }
 }
 
-impl<S, Q> SealedPoller for DiscoveryPoller<S, Q>
-where
-    S: Send,
-    Q: Send,
-{
+impl<O> SealedPoller for DiscoveryPoller<O> {
     async fn backoff(&mut self, state: &PollingState) {
         let backoff = self.backoff_policy.wait_period(state);
         tokio::time::sleep(backoff).await;
     }
 }
 
-impl<O, S, SF, Q, QF> crate::Poller<O, O> for DiscoveryPoller<S, Q>
+impl<O> crate::Poller<O, O> for DiscoveryPoller<O>
 where
-    O: DiscoveryOperation + Send,
-    S: FnOnce() -> SF + Send + Sync,
-    SF: std::future::Future<Output = Result<O>> + Send + 'static,
-    Q: FnMut(String) -> QF + Send + Sync + Clone,
-    QF: std::future::Future<Output = Result<O>> + Send + 'static,
+    O: DiscoveryOperation + Send + 'static,
 {
     async fn poll(&mut self) -> Option<PollingResult<O, O>> {
         if let Some(start) = self.start.take() {
-            let result = start().await;
-            #[cfg(google_cloud_unstable_tracing)]
+            let result = start.await;
             if let Ok(ref op) = result {
                 let name = op.name();
                 if let (Some(name), Some(recorder)) = (name, LroRecorder::current()) {
@@ -135,6 +135,7 @@ where
                 }
             }
             let (op, poll) = self::handle_start(result);
+            self::maybe_record_completed_error(&poll);
             self.operation = op;
             return Some(poll);
         }
@@ -143,10 +144,10 @@ where
             let result = (self.query)(name.clone()).await;
             let (op, poll) =
                 self::handle_poll(self.error_policy.clone(), &self.state, name, result);
-            #[cfg(google_cloud_unstable_tracing)]
             if let (Some(next_name), Some(recorder)) = (&op, LroRecorder::current()) {
                 recorder.record_destination_id(next_name);
             }
+            self::maybe_record_completed_error(&poll);
             self.operation = op;
             return Some(poll);
         }
@@ -159,6 +160,25 @@ where
     #[cfg(feature = "unstable-stream")]
     fn into_stream(self) -> impl futures::Stream<Item = PollingResult<O, O>> + Unpin {
         crate::into_stream(self)
+    }
+}
+
+fn maybe_record_completed_error<O>(poll: &PollingResult<O, O>)
+where
+    O: DiscoveryOperation,
+{
+    let op_details = match poll {
+        PollingResult::Completed(Ok(op)) => LroRecorder::current().zip(op.error()),
+        _ => None,
+    };
+    if let Some((recorder, status)) = op_details {
+        recorder.span().record("otel.status_code", "ERROR");
+        recorder
+            .span()
+            .record("otel.status_description", &status.message);
+        recorder
+            .span()
+            .record("error.type", status.code.to_string());
     }
 }
 
@@ -223,28 +243,8 @@ mod tests {
     use google_cloud_gax::polling_error_policy::{Aip194Strict, AlwaysContinue};
     use std::time::Duration;
 
-    #[cfg(not(google_cloud_unstable_tracing))]
-    pub(crate) struct DummySpan;
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    fn test_span() -> DummySpan {
-        DummySpan
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    pub(crate) trait Instrument: Sized {
-        fn instrument(self, _span: DummySpan) -> Self {
-            self
-        }
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    impl<T> Instrument for T {}
-
-    #[cfg(google_cloud_unstable_tracing)]
     use tracing::Instrument;
 
-    #[cfg(google_cloud_unstable_tracing)]
     fn test_span() -> tracing::Span {
         tracing::info_span!(
             "test_span",
@@ -576,7 +576,6 @@ mod tests {
         }
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[tokio::test]
     async fn test_discovery_poller_tracing() {
         let guard = google_cloud_test_utils::test_layer::TestLayer::initialize();
@@ -613,7 +612,7 @@ mod tests {
             }
         };
 
-        let mut poller = DiscoveryPoller::new(
+        let mut poller = new_discovery_poller(
             Arc::new(AlwaysContinue),
             Arc::new(test_backoff()),
             start,

@@ -89,7 +89,6 @@ mod tests {
         }
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[test]
     fn test_poller_initialization_with_tracing() {
         let mock = MockPollerA::new();

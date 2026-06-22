@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#![cfg(google_cloud_unstable_tracing)]
-
 use super::Anonymous;
 use google_cloud_gax::exponential_backoff::ExponentialBackoff;
 use google_cloud_gax::polling_error_policy::Aip194Strict;
@@ -27,6 +25,47 @@ use google_cloud_test_utils::test_layer::{
 };
 use httptest::{Expectation, Server, cycle, matchers::*, responders::status_code};
 use std::sync::Arc;
+
+#[derive(Clone, Debug)]
+struct MockDiscoveryOperation {
+    name: String,
+    done: bool,
+    error: Option<google_cloud_gax::error::rpc::Status>,
+}
+
+impl DiscoveryOperation for MockDiscoveryOperation {
+    fn done(&self) -> bool {
+        self.done
+    }
+    fn name(&self) -> Option<&String> {
+        Some(&self.name)
+    }
+    fn error(&self) -> Option<google_cloud_gax::error::rpc::Status> {
+        self.error.clone()
+    }
+}
+
+impl MockDiscoveryOperation {
+    fn new(name: impl Into<String>, done: bool) -> Self {
+        Self {
+            name: name.into(),
+            done,
+            error: None,
+        }
+    }
+
+    fn new_with_error(
+        name: impl Into<String>,
+        done: bool,
+        error: google_cloud_gax::error::rpc::Status,
+    ) -> Self {
+        Self {
+            name: name.into(),
+            done,
+            error: Some(error),
+        }
+    }
+}
 
 /// Sets up a mock Server and an Echo client configured with tracing.
 async fn setup_echo_client() -> (TestLayerGuard, Server, Echo) {
@@ -49,7 +88,7 @@ async fn setup_echo_client() -> (TestLayerGuard, Server, Echo) {
 pub async fn lro_tracing_testlayer() -> anyhow::Result<()> {
     let (guard, mut server, client) = setup_echo_client().await;
 
-    // Run the successful LRO polling path test.
+    // Run the Showcase (GAPIC) LRO tracing tests.
     test_lro_success(&guard, &server, client.clone()).await?;
     server.verify_and_clear();
 
@@ -64,6 +103,9 @@ pub async fn lro_tracing_testlayer() -> anyhow::Result<()> {
 
     // Run the Discovery LRO tracing tests.
     test_discovery_lro_success(&guard).await?;
+    test_discovery_lro_logical_error(&guard).await?;
+    test_discovery_lro_transient_rpc_error(&guard).await?;
+    test_discovery_lro_permanent_rpc_error(&guard).await?;
 
     Ok(())
 }
@@ -480,29 +522,14 @@ async fn test_lro_permanent_rpc_error(
 
 /// Tests a successful LRO polling workflow for discovery-based client pollers.
 async fn test_discovery_lro_success(guard: &TestLayerGuard) -> anyhow::Result<()> {
-    #[derive(Clone, Debug)]
-    struct MockDiscoveryOperation {
-        name: String,
-        done: bool,
-    }
-
-    impl DiscoveryOperation for MockDiscoveryOperation {
-        fn done(&self) -> bool {
-            self.done
-        }
-        fn name(&self) -> Option<&String> {
-            Some(&self.name)
-        }
-    }
-
     let error_policy = Arc::new(Aip194Strict);
     let backoff_policy = Arc::new(ExponentialBackoff::default());
 
     let start = || async {
-        Ok(MockDiscoveryOperation {
-            name: "discovery-operations/wait-100".to_string(),
-            done: false,
-        })
+        Ok(MockDiscoveryOperation::new(
+            "discovery-operations/wait-100",
+            false,
+        ))
     };
 
     let query = move |name: String| async move {
@@ -517,7 +544,7 @@ async fn test_discovery_lro_success(guard: &TestLayerGuard) -> anyhow::Result<()
 
             span.record("gcp.longrunning.done", true);
 
-            MockDiscoveryOperation { name, done: true }
+            MockDiscoveryOperation::new(name, true)
         });
 
         Ok(res)
@@ -570,6 +597,287 @@ async fn test_discovery_lro_success(guard: &TestLayerGuard) -> anyhow::Result<()
         attribute_bool(get_op_span, "gcp.longrunning.done"),
         Some(true)
     );
+
+    Ok(())
+}
+
+/// Tests a logical LRO failure for discovery-based client pollers.
+async fn test_discovery_lro_logical_error(guard: &TestLayerGuard) -> anyhow::Result<()> {
+    let error_policy = Arc::new(Aip194Strict);
+    let backoff_policy = Arc::new(ExponentialBackoff::default());
+
+    let start = || async {
+        Ok(MockDiscoveryOperation::new(
+            "discovery-operations/wait-200",
+            false,
+        ))
+    };
+
+    let query = move |name: String| async move {
+        let span = gaxi::client_request_signals!(
+            info: &gaxi::options::InstrumentationClientInfo::default(),
+            method: "google.longrunning.Operations/GetOperation"
+        );
+        span.record("rpc.method", "google.longrunning.Operations/GetOperation");
+
+        let res = span.in_scope(|| {
+            google_cloud_lro::record_polling_attributes!(&span);
+
+            span.record("gcp.longrunning.done", true);
+
+            MockDiscoveryOperation::new_with_error(
+                name,
+                true,
+                google_cloud_gax::error::rpc::Status::default()
+                    .set_code(google_cloud_gax::error::rpc::Code::InvalidArgument)
+                    .set_message("logical-error-msg"),
+            )
+        });
+
+        Ok(res)
+    };
+
+    let poller = new_discovery_poller(error_policy, backoff_policy, start, query);
+
+    let mut poller_options = PollerOptions::default();
+    let mut details = TracingDetails::default();
+    details.method_name = "discovery::client::Echo::wait::until_done";
+    poller_options.tracing = Some(details);
+
+    let poller = poller.with_options(poller_options);
+
+    let res = poller.until_done().await?;
+    assert!(res.done);
+    assert!(res.error.is_some());
+
+    let spans = TestLayer::capture(guard);
+
+    // 1. T2 span "LRO Wait" should be ERROR because the operation failed.
+    let lro_wait_span = spans
+        .iter()
+        .find(|s| s.name == "LRO Wait")
+        .ok_or_else(|| anyhow::anyhow!("missing LRO Wait span in {spans:#?}"))?;
+
+    assert_eq!(
+        attribute_str(lro_wait_span, "otel.name"),
+        Some("discovery::client::Echo::wait::until_done")
+    );
+    assert_eq!(
+        attribute_str(lro_wait_span, "gcp.rpc.method"),
+        Some("discovery::client::Echo::wait::until_done")
+    );
+    assert_eq!(
+        attribute_str(lro_wait_span, "otel.status_code"),
+        Some("ERROR")
+    );
+    assert_eq!(
+        attribute_str(lro_wait_span, "otel.status_description"),
+        Some("logical-error-msg")
+    );
+    assert_eq!(
+        attribute_str(lro_wait_span, "error.type"),
+        Some("INVALID_ARGUMENT")
+    );
+
+    // 2. T3 span "client_request" (get_operation) should be success
+    let get_op_spans = find_get_operation_spans(&spans);
+    assert_eq!(get_op_spans.len(), 1);
+    let get_op_span = get_op_spans[0];
+    assert_eq!(
+        attribute_str(get_op_span, "otel.status_code"),
+        Some("UNSET")
+    );
+    assert!(!get_op_span.attributes.contains_key("error.type"));
+
+    Ok(())
+}
+
+/// Tests transient network error retries for discovery-based client pollers.
+async fn test_discovery_lro_transient_rpc_error(guard: &TestLayerGuard) -> anyhow::Result<()> {
+    let error_policy = Arc::new(Aip194Strict);
+    let backoff_policy = Arc::new(ExponentialBackoff::default());
+
+    let start = || async {
+        Ok(MockDiscoveryOperation::new(
+            "discovery-operations/wait-300",
+            false,
+        ))
+    };
+
+    let attempts = std::sync::Arc::new(std::sync::atomic::AtomicU32::new(0));
+    let attempts_clone = attempts.clone();
+    let query = move |name: String| {
+        let attempts_inner = attempts_clone.clone();
+        async move {
+            let attempt = attempts_inner.fetch_add(1, std::sync::atomic::Ordering::SeqCst);
+
+            let span = gaxi::client_request_signals!(
+                info: &gaxi::options::InstrumentationClientInfo::default(),
+                method: "google.longrunning.Operations/GetOperation"
+            );
+            span.record("rpc.method", "google.longrunning.Operations/GetOperation");
+
+            if attempt == 0 {
+                span.in_scope(|| {
+                    google_cloud_lro::record_polling_attributes!(&span);
+
+                    span.record("otel.status_code", "ERROR");
+                    span.record("error.type", "UNAVAILABLE");
+
+                    Err(google_cloud_gax::error::Error::service(
+                        google_cloud_gax::error::rpc::Status::default()
+                            .set_code(google_cloud_gax::error::rpc::Code::Unavailable)
+                            .set_message("transient-network-error"),
+                    ))
+                })
+            } else {
+                span.in_scope(|| {
+                    google_cloud_lro::record_polling_attributes!(&span);
+
+                    span.record("gcp.longrunning.done", true);
+
+                    Ok(MockDiscoveryOperation::new(name, true))
+                })
+            }
+        }
+    };
+
+    let poller = new_discovery_poller(error_policy, backoff_policy, start, query);
+
+    let mut poller_options = PollerOptions::default();
+    let mut details = TracingDetails::default();
+    details.method_name = "discovery::client::Echo::wait::until_done";
+    poller_options.tracing = Some(details);
+
+    let poller = poller.with_options(poller_options);
+
+    let res = poller.until_done().await?;
+    assert!(res.done);
+
+    let spans = TestLayer::capture(guard);
+
+    // 1. T2 span "LRO Wait" should be UNSET/None
+    let lro_wait_span = spans
+        .iter()
+        .find(|s| s.name == "LRO Wait")
+        .ok_or_else(|| anyhow::anyhow!("missing LRO Wait span in {spans:#?}"))?;
+
+    assert_eq!(
+        attribute_str(lro_wait_span, "otel.name"),
+        Some("discovery::client::Echo::wait::until_done")
+    );
+    assert_eq!(
+        attribute_str(lro_wait_span, "gcp.rpc.method"),
+        Some("discovery::client::Echo::wait::until_done")
+    );
+    assert_eq!(attribute_str(lro_wait_span, "otel.status_code"), None);
+
+    // 2. T3 spans
+    let get_op_spans = find_get_operation_spans(&spans);
+    assert_eq!(get_op_spans.len(), 2);
+
+    let span0 = get_op_spans[0];
+    assert_eq!(
+        attribute_u64(span0, "gcp.longrunning.poll_attempt_count"),
+        Some(1)
+    );
+    assert_eq!(attribute_str(span0, "otel.status_code"), Some("ERROR"));
+    assert_eq!(attribute_str(span0, "error.type"), Some("UNAVAILABLE"));
+
+    let span1 = get_op_spans[1];
+    assert_eq!(
+        attribute_u64(span1, "gcp.longrunning.poll_attempt_count"),
+        Some(2)
+    );
+    assert_eq!(attribute_bool(span1, "gcp.longrunning.done"), Some(true));
+
+    Ok(())
+}
+
+/// Tests permanent network errors for discovery-based client pollers.
+async fn test_discovery_lro_permanent_rpc_error(guard: &TestLayerGuard) -> anyhow::Result<()> {
+    let error_policy = Arc::new(Aip194Strict);
+    let backoff_policy = Arc::new(ExponentialBackoff::default());
+
+    let start = || async {
+        Ok(MockDiscoveryOperation::new(
+            "discovery-operations/wait-400",
+            false,
+        ))
+    };
+
+    let query = move |_name: String| async move {
+        let span = gaxi::client_request_signals!(
+            info: &gaxi::options::InstrumentationClientInfo::default(),
+            method: "google.longrunning.Operations/GetOperation"
+        );
+        span.record("rpc.method", "google.longrunning.Operations/GetOperation");
+
+        span.in_scope(|| {
+            google_cloud_lro::record_polling_attributes!(&span);
+
+            span.record("otel.status_code", "ERROR");
+            span.record("error.type", "NOT_FOUND");
+
+            Err(google_cloud_gax::error::Error::service(
+                google_cloud_gax::error::rpc::Status::default()
+                    .set_code(google_cloud_gax::error::rpc::Code::NotFound)
+                    .set_message("not-found-error"),
+            ))
+        })
+    };
+
+    let poller = new_discovery_poller(error_policy, backoff_policy, start, query);
+
+    let mut poller_options = PollerOptions::default();
+    let mut details = TracingDetails::default();
+    details.method_name = "discovery::client::Echo::wait::until_done";
+    poller_options.tracing = Some(details);
+
+    let poller = poller.with_options(poller_options);
+
+    let res = poller.until_done().await;
+    assert!(res.is_err());
+
+    let spans = TestLayer::capture(guard);
+
+    // 1. T2 span "LRO Wait" should be ERROR
+    let lro_wait_span = spans
+        .iter()
+        .find(|s| s.name == "LRO Wait")
+        .ok_or_else(|| anyhow::anyhow!("missing LRO Wait span in {spans:#?}"))?;
+
+    assert_eq!(
+        attribute_str(lro_wait_span, "otel.name"),
+        Some("discovery::client::Echo::wait::until_done")
+    );
+    assert_eq!(
+        attribute_str(lro_wait_span, "gcp.rpc.method"),
+        Some("discovery::client::Echo::wait::until_done")
+    );
+    assert_eq!(
+        attribute_str(lro_wait_span, "otel.status_code"),
+        Some("ERROR")
+    );
+    assert_eq!(
+        attribute_str(lro_wait_span, "error.type"),
+        Some("NOT_FOUND")
+    );
+
+    // 2. T3 span "client_request" (get_operation) should be ERROR
+    let get_op_spans = find_get_operation_spans(&spans);
+    assert_eq!(get_op_spans.len(), 1);
+
+    let get_op_span = get_op_spans[0];
+    assert_eq!(
+        attribute_u64(get_op_span, "gcp.longrunning.poll_attempt_count"),
+        Some(1)
+    );
+    assert_eq!(
+        attribute_str(get_op_span, "otel.status_code"),
+        Some("ERROR")
+    );
+    assert_eq!(attribute_str(get_op_span, "error.type"), Some("NOT_FOUND"));
 
     Ok(())
 }
