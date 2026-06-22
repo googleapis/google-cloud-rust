@@ -65,7 +65,7 @@ pub trait DiscoveryOperation {
 // Instrumented LRO futures can get very large and cause stack overflows
 // (especially when nested decorators are used for tracing), so we box them.
 // The performance impact of moving these to the heap is negligible because
-// polling is bound to network requests.
+// polling performance is bound to network requests.
 type BoxedFuture<T> = std::pin::Pin<Box<dyn std::future::Future<Output = T> + Send + 'static>>;
 
 pub fn new_discovery_poller<S, SF, Q, QF, O>(
