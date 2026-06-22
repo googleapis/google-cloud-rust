@@ -20,7 +20,69 @@ use google_cloud_auth::signer::Signer;
 use std::collections::BTreeMap;
 use std::time::Duration;
 
-/// Builder for constructing GCS V4 Signed Policy Documents (POST Object Forms).
+/// Creates [Signed Policy Documents] (POST Object Forms).
+///
+/// This builder allows you to generate signed V4 POST policy documents for Google Cloud Storage.
+/// A [Signed Policy Document] enables unauthenticated users to upload files to GCS using an HTML form
+/// by providing a time-limited signature and enforcing conditions on the upload (like file size limits).
+///
+/// This implementation uses the [V4 signing process].
+///
+/// # Example: Generating a Signed POST Policy
+///
+/// ```
+/// # use google_cloud_storage::builder::storage::PostPolicyV4Builder;
+/// use std::time::Duration;
+/// # use google_cloud_auth::signer::Signer;
+/// # async fn run(signer: &Signer) -> anyhow::Result<()> {
+/// let policy = PostPolicyV4Builder::for_object("projects/_/buckets/my-bucket", "uploads/my-object.txt")
+///     .with_expiration(Duration::from_secs(3600)) // 1 hour
+///     .with_content_length_range(1, 10 * 1024 * 1024) // 1 byte to 10 MiB limit
+///     .with_starts_with("$key", "uploads/") // Enforce upload prefix
+///     .with_field("Content-Type", "text/plain") // Enforce content type
+///     .sign_with(signer)
+///     .await?;
+///
+/// println!("Upload URL: {}", policy.url);
+/// for (key, value) in &policy.fields {
+///     println!("Form field -> {}: {}", key, value);
+/// }
+/// # Ok(())
+/// # }
+/// ```
+///
+/// # Example: Creating a Signer
+///
+/// You can use `google-cloud-auth` to create a `Signer`.
+///
+/// ## Using [Application Default Credentials] (ADC)
+///
+/// ```
+/// use google_cloud_auth::credentials::Builder;
+/// use google_cloud_auth::signer::Signer;
+///
+/// # fn build_signer() -> anyhow::Result<()> {
+/// let signer = Builder::default().build_signer()?;
+/// # Ok(())
+/// # }
+/// ```
+///
+/// ## Using a Service Account Key File
+///
+/// ```
+/// use google_cloud_auth::credentials::service_account::Builder;
+/// use google_cloud_auth::signer::Signer;
+///
+/// # async fn build_signer() -> anyhow::Result<()> {
+/// let service_account_key = serde_json::json!({ /* add details here */ });
+/// let signer = Builder::new(service_account_key).build_signer()?;
+/// # Ok(())
+/// # }
+/// ```
+///
+/// [Application Default Credentials]: https://docs.cloud.google.com/docs/authentication/application-default-credentials
+/// [Signed Policy Documents]: https://cloud.google.com/storage/docs/xml-api/post-object
+/// [V4 signing process]: https://cloud.google.com/storage/docs/xml-api/post-object
 #[derive(Debug, Clone)]
 pub struct PostPolicyV4Builder {
     bucket: String,
@@ -54,6 +116,13 @@ struct PostPolicyV4Document {
 
 impl PostPolicyV4Builder {
     /// Creates a new builder for the specified bucket and object.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_storage::builder::storage::PostPolicyV4Builder;
+    /// let builder = PostPolicyV4Builder::for_object("projects/_/buckets/my-bucket", "my-object.txt");
+    /// ```
     pub fn for_object<B, O>(bucket: B, object: O) -> Self
     where
         B: Into<String>,
@@ -75,42 +144,108 @@ impl PostPolicyV4Builder {
     }
 
     /// Sets the policy expiration duration. Maximum is 7 days (604,800 seconds).
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_storage::builder::storage::PostPolicyV4Builder;
+    /// use std::time::Duration;
+    ///
+    /// let builder = PostPolicyV4Builder::for_object("projects/_/buckets/my-bucket", "my-object.txt")
+    ///     .with_expiration(Duration::from_secs(3600));
+    /// ```
     pub fn with_expiration(mut self, expiration: Duration) -> Self {
         self.expiration = expiration;
         self
     }
 
     /// Sets the URL formatting style.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_storage::builder::storage::PostPolicyV4Builder;
+    /// use google_cloud_storage::signed_url::UrlStyle;
+    ///
+    /// let builder = PostPolicyV4Builder::for_object("projects/_/buckets/my-bucket", "my-object.txt")
+    ///     .with_url_style(UrlStyle::VirtualHostedStyle);
+    /// ```
     pub fn with_url_style(mut self, url_style: UrlStyle) -> Self {
         self.url_style = url_style;
         self
     }
 
     /// Sets the authorizer client email. If not set, it falls back to the signer's email.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_storage::builder::storage::PostPolicyV4Builder;
+    ///
+    /// let builder = PostPolicyV4Builder::for_object("projects/_/buckets/my-bucket", "my-object.txt")
+    ///     .with_client_email("my-service-account@my-project.iam.gserviceaccount.com");
+    /// ```
     pub fn with_client_email<S: Into<String>>(mut self, client_email: S) -> Self {
         self.client_email = Some(client_email.into());
         self
     }
 
     /// Sets the GCS universe domain (defaults to `googleapis.com`).
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_storage::builder::storage::PostPolicyV4Builder;
+    ///
+    /// let builder = PostPolicyV4Builder::for_object("projects/_/buckets/my-bucket", "my-object.txt")
+    ///     .with_universe_domain("googleapis.com");
+    /// ```
     pub fn with_universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
         self.universe_domain = Some(universe_domain.into());
         self
     }
 
     /// Sets a custom endpoint.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_storage::builder::storage::PostPolicyV4Builder;
+    ///
+    /// let builder = PostPolicyV4Builder::for_object("projects/_/buckets/my-bucket", "my-object.txt")
+    ///     .with_endpoint("https://private.googleapis.com");
+    /// ```
     pub fn with_endpoint<S: Into<String>>(mut self, endpoint: S) -> Self {
         self.endpoint = Some(endpoint.into());
         self
     }
 
     /// Adds a form field/exact condition match (e.g. "acl" = "public-read").
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_storage::builder::storage::PostPolicyV4Builder;
+    ///
+    /// let builder = PostPolicyV4Builder::for_object("projects/_/buckets/my-bucket", "my-object.txt")
+    ///     .with_field("acl", "public-read")
+    ///     .with_field("Content-Type", "text/plain");
+    /// ```
     pub fn with_field<K: Into<String>, V: Into<String>>(mut self, key: K, value: V) -> Self {
         self.fields.insert(key.into(), value.into());
         self
     }
 
     /// Adds a starts-with condition constraint (e.g. "$key", "uploads/").
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_storage::builder::storage::PostPolicyV4Builder;
+    ///
+    /// let builder = PostPolicyV4Builder::for_object("projects/_/buckets/my-bucket", "my-object.txt")
+    ///     .with_starts_with("$key", "uploads/");
+    /// ```
     pub fn with_starts_with<F: Into<String>, P: Into<String>>(
         mut self,
         field: F,
@@ -125,6 +260,15 @@ impl PostPolicyV4Builder {
     }
 
     /// Adds a content-length-range constraint (minimum and maximum file size in bytes).
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_storage::builder::storage::PostPolicyV4Builder;
+    ///
+    /// let builder = PostPolicyV4Builder::for_object("projects/_/buckets/my-bucket", "my-object.txt")
+    ///     .with_content_length_range(1, 10 * 1024 * 1024); // 1 byte to 10 MiB
+    /// ```
     pub fn with_content_length_range(mut self, min: u64, max: u64) -> Self {
         self.content_length_range = Some((min, max));
         self
@@ -196,6 +340,19 @@ impl PostPolicyV4Builder {
     }
 
     /// Sign the policy document.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_storage::builder::storage::PostPolicyV4Builder;
+    /// # use google_cloud_auth::signer::Signer;
+    /// async fn run(signer: &Signer) -> anyhow::Result<()> {
+    ///     let policy = PostPolicyV4Builder::for_object("projects/_/buckets/my-bucket", "my-object.txt")
+    ///         .sign_with(signer)
+    ///         .await?;
+    /// # Ok(())
+    /// }
+    /// ```
     pub async fn sign_with(mut self, signer: &Signer) -> Result<PostPolicyV4Result, SigningError> {
         self.check_bucket_name()?;
 
