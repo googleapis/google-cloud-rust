@@ -20,13 +20,11 @@ use google_cloud_auth::signer::Signer;
 use std::collections::BTreeMap;
 use std::time::Duration;
 
-/// Creates [Signed Policy Documents] (POST Object Forms).
+/// Creates [V4 Signed Policy Documents] (POST Object Forms).
 ///
 /// This builder allows you to generate signed V4 POST policy documents for Google Cloud Storage.
 /// A [Signed Policy Document] enables unauthenticated users to upload files to GCS using an HTML form
 /// by providing a time-limited signature and enforcing conditions on the upload (like file size limits).
-///
-/// This implementation uses the [V4 signing process].
 ///
 /// # Example: Generating a Signed POST Policy
 ///
@@ -81,8 +79,7 @@ use std::time::Duration;
 /// ```
 ///
 /// [Application Default Credentials]: https://docs.cloud.google.com/docs/authentication/application-default-credentials
-/// [Signed Policy Documents]: https://cloud.google.com/storage/docs/xml-api/post-object
-/// [V4 signing process]: https://cloud.google.com/storage/docs/xml-api/post-object
+/// [V4 Signed Policy Documents]: https://docs.cloud.google.com/storage/docs/authentication/signatures#policy-document
 #[derive(Debug, Clone)]
 pub struct PostPolicyV4Builder {
     bucket: String,
