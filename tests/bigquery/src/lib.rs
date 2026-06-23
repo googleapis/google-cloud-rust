@@ -234,10 +234,10 @@ pub async fn query_client() -> Result<()> {
 
     // BigQuery client sets JobCreationMode::JobCreationOptional by default
     let query_ref = query.query_reference();
-    let query_id = match query_ref {
-        QueryReference::Stateless { ref query_id } => query_id,
-        _ => panic!("expected a stateless query reference"),
+    let QueryReference::Stateless { ref query_id } = query_ref else {
+        anyhow::bail!("expected a stateless query reference, got {query_ref:?}");
     };
+
     assert!(!query_id.is_empty(), "{query_ref:?}");
 
     let complete_query = query.until_done().await?;
@@ -279,7 +279,7 @@ pub async fn query_client_job() -> Result<()> {
         .query("SELECT 2 as two")
         .set_use_legacy_sql(false)
         .set_priority("INTERACTIVE") // force job path
-        .with_project_id(&project_id)
+        .with_project_id(project_id)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
         .run()
         .await?;
