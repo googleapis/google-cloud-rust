@@ -21,8 +21,8 @@ pub(crate) mod dynamic {
     pub trait AppendableObjectWriter: std::fmt::Debug + Send + Sync {
         async fn append(&mut self, chunk: bytes::Bytes) -> crate::Result<()>;
         async fn flush(&mut self) -> crate::Result<i64>;
-        async fn finalize(&mut self) -> crate::Result<crate::model::Object>;
-        async fn close(&mut self) -> crate::Result<i64>;
+        async fn finalize(self) -> crate::Result<crate::model::Object>;
+        async fn close(self) -> crate::Result<i64>;
         fn generation(&self) -> i64;
         fn persisted_size(&self) -> i64;
     }
@@ -37,12 +37,12 @@ pub(crate) mod dynamic {
             T::flush(self).await
         }
 
-        async fn finalize(&mut self) -> crate::Result<crate::model::Object> {
-            T::finalize(self).await
+        async fn finalize(self) -> crate::Result<crate::model::Object> {
+            T::finalize(*self).await
         }
 
-        async fn close(&mut self) -> crate::Result<i64> {
-            T::close(self).await
+        async fn close(self) -> crate::Result<i64> {
+            T::close(*self).await
         }
 
         fn generation(&self) -> i64 {

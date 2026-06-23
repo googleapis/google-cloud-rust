@@ -121,11 +121,11 @@ pub trait AppendableObjectWriter: std::fmt::Debug + Send + Sync {
 
     /// The implementation for [AppendableObjectWriter::finalize][crate::appendable_object_writer::AppendableObjectWriter::finalize].
     fn finalize(
-        &mut self,
+        self,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::Object>> + Send;
 
     /// The implementation for [AppendableObjectWriter::close][crate::appendable_object_writer::AppendableObjectWriter::close].
-    fn close(&mut self) -> impl std::future::Future<Output = crate::Result<i64>> + Send;
+    fn close(self) -> impl std::future::Future<Output = crate::Result<i64>> + Send;
 
     /// The implementation for [AppendableObjectWriter::generation][crate::appendable_object_writer::AppendableObjectWriter::generation].
     fn generation(&self) -> i64;

@@ -116,7 +116,7 @@ impl AppendableObjectWriter {
     /// }
     /// # Ok(()) }
     /// ```
-    pub async fn finalize(&mut self) -> crate::Result<crate::model::Object> {
+    pub async fn finalize(mut self) -> crate::Result<crate::model::Object> {
         self.inner.finalize().await
     }
 
@@ -138,7 +138,7 @@ impl AppendableObjectWriter {
     /// }
     /// # Ok(()) }
     /// ```
-    pub async fn close(&mut self) -> crate::Result<i64> {
+    pub async fn close(mut self) -> crate::Result<i64> {
         self.inner.close().await
     }
 
@@ -213,23 +213,29 @@ mod tests {
             .with(mockall::predicate::eq(Bytes::from("test")))
             .returning(|_| Ok(()));
         mock.expect_flush().returning(|| Ok(123));
-        mock.expect_finalize().returning(|| {
-            Ok(crate::model::Object {
-                size: 456,
-                ..Default::default()
-            })
-        });
-        mock.expect_close().returning(|| Ok(789));
         mock.expect_generation().returning(|| 1);
         mock.expect_persisted_size().returning(|| 123);
 
         let mut writer = AppendableObjectWriter::new(mock);
         assert!(writer.append(Bytes::from("test")).await.is_ok());
         assert_eq!(writer.flush().await.unwrap(), 123);
-        assert_eq!(writer.finalize().await.unwrap().size, 456);
-        assert_eq!(writer.close().await.unwrap(), 789);
         assert_eq!(writer.generation(), 1);
         assert_eq!(writer.persisted_size(), 123);
+
+        let mut mock = MockWriter::new();
+        mock.expect_finalize().returning(|| {
+            Ok(crate::model::Object {
+                size: 456,
+                ..Default::default()
+            })
+        });
+        let writer = AppendableObjectWriter::new(mock);
+        assert_eq!(writer.finalize().await.unwrap().size, 456);
+
+        let mut mock = MockWriter::new();
+        mock.expect_close().returning(|| Ok(789));
+        let writer = AppendableObjectWriter::new(mock);
+        assert_eq!(writer.close().await.unwrap(), 789);
     }
 
     mock! {
@@ -238,8 +244,8 @@ mod tests {
         impl crate::stub::AppendableObjectWriter for Writer {
             async fn append(&mut self, chunk: Bytes) -> crate::Result<()>;
             async fn flush(&mut self) -> crate::Result<i64>;
-            async fn finalize(&mut self) -> crate::Result<crate::model::Object>;
-            async fn close(&mut self) -> crate::Result<i64>;
+            async fn finalize(self) -> crate::Result<crate::model::Object>;
+            async fn close(self) -> crate::Result<i64>;
             fn generation(&self) -> i64;
             fn persisted_size(&self) -> i64;
         }
