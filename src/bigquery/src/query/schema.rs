@@ -12,5 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use google_cloud_bigquery_v2::model::TableSchema;
+
 /// Schema of a table.
-pub(crate) type Schema = google_cloud_bigquery_v2::model::TableSchema;
+#[derive(Debug, Clone)]
+pub(crate) struct Schema {
+    schema: TableSchema,
+}
+
+impl Schema {
+    pub(crate) fn new(schema: TableSchema) -> Self {
+        Self { schema }
+    }
+}
