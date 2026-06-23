@@ -116,7 +116,7 @@ impl AppendableObjectWriter {
     /// }
     /// # Ok(()) }
     /// ```
-    pub async fn finalize(mut self) -> crate::Result<crate::model::Object> {
+    pub async fn finalize(self) -> crate::Result<crate::model::Object> {
         self.inner.finalize().await
     }
 
@@ -138,7 +138,7 @@ impl AppendableObjectWriter {
     /// }
     /// # Ok(()) }
     /// ```
-    pub async fn close(mut self) -> crate::Result<i64> {
+    pub async fn close(self) -> crate::Result<i64> {
         self.inner.close().await
     }
 

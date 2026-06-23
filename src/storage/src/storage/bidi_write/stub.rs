@@ -19,17 +19,17 @@ pub(crate) mod dynamic {
     /// An object-safe (Boxable) dynamic trait for AppendableObjectWriter.
     #[async_trait::async_trait]
     pub trait AppendableObjectWriter: std::fmt::Debug + Send + Sync {
-        async fn append(&mut self, chunk: bytes::Bytes) -> crate::Result<()>;
+        async fn append(&mut self, chunk: Bytes) -> crate::Result<()>;
         async fn flush(&mut self) -> crate::Result<i64>;
-        async fn finalize(self) -> crate::Result<crate::model::Object>;
-        async fn close(self) -> crate::Result<i64>;
+        async fn finalize(self: Box<Self>) -> crate::Result<crate::model::Object>;
+        async fn close(self: Box<Self>) -> crate::Result<i64>;
         fn generation(&self) -> i64;
         fn persisted_size(&self) -> i64;
     }
 
     #[async_trait::async_trait]
     impl<T: crate::stub::AppendableObjectWriter> AppendableObjectWriter for T {
-        async fn append(&mut self, chunk: bytes::Bytes) -> crate::Result<()> {
+        async fn append(&mut self, chunk: Bytes) -> crate::Result<()> {
             T::append(self, chunk).await
         }
 
@@ -37,11 +37,11 @@ pub(crate) mod dynamic {
             T::flush(self).await
         }
 
-        async fn finalize(self) -> crate::Result<crate::model::Object> {
+        async fn finalize(self: Box<Self>) -> crate::Result<crate::model::Object> {
             T::finalize(*self).await
         }
 
-        async fn close(self) -> crate::Result<i64> {
+        async fn close(self: Box<Self>) -> crate::Result<i64> {
             T::close(*self).await
         }
 
