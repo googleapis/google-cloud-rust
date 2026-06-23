@@ -14,9 +14,9 @@
 
 //! Defines the return type for [Storage::open_appendable_object][crate::client::Storage::open_appendable_object].
 
-use bytes::Bytes;
 #[cfg(google_cloud_unstable_storage_bidi)]
 use crate::storage::bidi_write::stub::dynamic::AppendableObjectWriter as AppendableObjectWriterStub;
+use bytes::Bytes;
 
 /// An open appendable object ready to write chunks.
 ///
@@ -27,13 +27,13 @@ use crate::storage::bidi_write::stub::dynamic::AppendableObjectWriter as Appenda
 /// use bytes::Bytes;
 /// # async fn sample() -> anyhow::Result<()> {
 /// let client = Storage::builder().build().await?;
-/// let open: AppendableObjectWriter = client
+/// let mut writer: AppendableObjectWriter = client
 ///     .open_appendable_object("projects/_/buckets/my-bucket", "my-object")
 ///     .send().await?;
 ///
 /// // Append 2000 bytes.
-/// open.append(Bytes::from(vec![0u8; 2000])).await?;
-/// open.finalize().await?;
+/// writer.append(Bytes::from(vec![0u8; 2000])).await?;
+/// writer.finalize().await?;
 /// # Ok(()) }
 /// ```
 ///
@@ -51,14 +51,15 @@ pub struct AppendableObjectWriter {
 
 #[cfg(google_cloud_unstable_storage_bidi)]
 impl AppendableObjectWriter {
-    /// Append a chunk of data to the object.
+    /// Append a chunk of data to a local buffer.
+    /// User should call flush/close/finalize to persist the bytes to the server.
     ///
     /// # Example
     /// ```
     /// # use google_cloud_storage::appendable_object_writer::AppendableObjectWriter;
     /// use bytes::Bytes;
     /// # async fn sample() -> anyhow::Result<()> {
-    /// let writer = open();
+    /// let mut writer = open();
     /// writer.append(Bytes::from("hello ")).await?;
     /// writer.append(Bytes::from("world")).await?;
     ///
@@ -68,11 +69,12 @@ impl AppendableObjectWriter {
     /// }
     /// # Ok(()) }
     /// ```
-    pub async fn append(&mut self, chunk: bytes::Bytes) -> crate::Result<()> {
+    pub async fn append(&mut self, chunk: Bytes) -> crate::Result<()> {
         self.inner.append(chunk).await
     }
 
-    /// Flush pending chunks to the server, ensuring they are durably persisted.
+    /// Flushes the stream and blocks until the server confirms the bytes are persisted.
+    /// Returns the `persisted_size`.
     ///
     /// # Example
     /// ```
@@ -94,7 +96,9 @@ impl AppendableObjectWriter {
         self.inner.flush().await
     }
 
-    /// Finalize the upload, indicating no more data will be written.
+    /// Flushes the stream and finalizes the object on the server.
+    /// After this call, no further appends can be done to the same object.
+    /// Returns the `Object` metadata.
     ///
     /// # Example
     /// ```
@@ -116,14 +120,17 @@ impl AppendableObjectWriter {
         self.inner.finalize().await
     }
 
-    /// Close the stream, dropping any unacknowledged or un-flushed data.
+    /// Flushes the stream and blocks until the server confirms the persisted bytes.
+    /// Then closes the stream.
+    /// Returns the `persisted_size`.
     ///
     /// # Example
     /// ```
     /// # use google_cloud_storage::appendable_object_writer::AppendableObjectWriter;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let mut writer = open();
-    /// writer.close().await?;
+    /// let persisted_size = writer.close().await?;
+    /// println!("persisted {} bytes", persisted_size);
     ///
     /// fn open() -> AppendableObjectWriter {
     /// # panic!()
@@ -197,19 +204,7 @@ impl AppendableObjectWriter {
 mod tests {
     use super::*;
     use bytes::Bytes;
-    use http::HeaderMap;
-
-    mockall::mock! {
-        #[derive(Debug)]
-        Writer {}
-        impl crate::stub::AppendableObjectWriter for Writer {
-            async fn append(&self, chunk: Bytes) -> crate::Result<()>;
-            async fn flush(&self) -> crate::Result<i64>;
-            async fn finalize(&self) -> crate::Result<i64>;
-            async fn close(&self) -> crate::Result<()>;
-            fn headers(&self) -> HeaderMap;
-        }
-    }
+    use mockall::mock;
 
     #[tokio::test]
     async fn test_appendable_object_writer_delegates() {
@@ -218,16 +213,35 @@ mod tests {
             .with(mockall::predicate::eq(Bytes::from("test")))
             .returning(|_| Ok(()));
         mock.expect_flush().returning(|| Ok(123));
-        mock.expect_finalize().returning(|| Ok(456));
-        mock.expect_close().returning(|| Ok(()));
-        mock.expect_headers().returning(HeaderMap::new);
+        mock.expect_finalize().returning(|| {
+            Ok(crate::model::Object {
+                size: 456,
+                ..Default::default()
+            })
+        });
+        mock.expect_close().returning(|| Ok(789));
+        mock.expect_generation().returning(|| 1);
+        mock.expect_persisted_size().returning(|| 123);
 
-        let writer = AppendableObjectWriter::new(mock);
+        let mut writer = AppendableObjectWriter::new(mock);
         assert!(writer.append(Bytes::from("test")).await.is_ok());
         assert_eq!(writer.flush().await.unwrap(), 123);
-        assert_eq!(writer.finalize().await.unwrap(), 456);
-        assert!(writer.close().await.is_ok());
-        assert!(writer.headers().is_empty());
+        assert_eq!(writer.finalize().await.unwrap().size, 456);
+        assert_eq!(writer.close().await.unwrap(), 789);
+        assert_eq!(writer.generation(), 1);
+        assert_eq!(writer.persisted_size(), 123);
+    }
+
+    mock! {
+        #[derive(Debug)]
+        Writer {}
+        impl crate::stub::AppendableObjectWriter for Writer {
+            async fn append(&mut self, chunk: Bytes) -> crate::Result<()>;
+            async fn flush(&mut self) -> crate::Result<i64>;
+            async fn finalize(&mut self) -> crate::Result<crate::model::Object>;
+            async fn close(&mut self) -> crate::Result<i64>;
+            fn generation(&self) -> i64;
+            fn persisted_size(&self) -> i64;
+        }
     }
 }
-

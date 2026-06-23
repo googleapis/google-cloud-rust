@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+pub(crate) mod bidi;
 #[cfg(google_cloud_unstable_storage_bidi)]
 pub(crate) mod bidi_write;
-pub(crate) mod bidi;
 pub(crate) mod checksum;
 pub(crate) mod client;
 pub(crate) mod common_options;
