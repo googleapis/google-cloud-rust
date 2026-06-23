@@ -58,9 +58,9 @@ impl BigQuery {
         Ok(BigQuery { job_service })
     }
 
-    /// Prepares a SQL query execution by returning a unified `RunQuery` request builder.
+    /// Execute a SQL query.
+    ///
     /// This builder internally routes to either `jobs.query` (fast path) or `jobs.insert` (job path)
-    /// depending on the fields configured.
     pub fn query<S: Into<String>>(&self, sql: S) -> RunQuery {
         RunQuery::new(self.job_service.clone(), sql.into())
     }
