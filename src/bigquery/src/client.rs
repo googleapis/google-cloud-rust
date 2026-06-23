@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::query::RunQuery;
 use crate::ClientBuilderResult as BuilderResult;
 use crate::client_builder::ClientBuilder;
+use crate::query::RunQuery;
 use google_cloud_bigquery_v2::client::JobService;
 use std::sync::Arc;
 
