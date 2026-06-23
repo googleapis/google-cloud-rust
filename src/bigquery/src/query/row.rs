@@ -64,6 +64,14 @@ impl Row {
     pub(crate) fn try_new(row: Struct, schema: &Arc<Schema>) -> Result<Self> {
         let field_list = get_field_list(row)?;
 
+        if field_list.len() != schema.len() {
+            return Err(RowError::InvalidRowFormat(format!(
+                "schema and row cell mismatch (expected {}, got {})",
+                schema.len(),
+                field_list.len()
+            )));
+        }
+
         let mut values = ListValue::new();
         for (i, cell) in field_list.into_iter().enumerate() {
             let value = get_field_value(cell)?;
@@ -77,14 +85,6 @@ impl Row {
                 }
                 None => continue,
             }
-        }
-
-        if values.len() != schema.len() {
-            return Err(RowError::InvalidRowFormat(format!(
-                "schema and row cell mismatch (expected {}, got {})",
-                schema.len(),
-                values.len()
-            )));
         }
 
         Ok(Self {
