@@ -14068,6 +14068,9 @@ pub struct CloudExadataInfrastructureProperties {
     /// Output only. The storage server type of the Exadata Infrastructure.
     pub storage_server_type: std::string::String,
 
+    /// Output only. The Exascale configuration for the Exadata Infrastructure.
+    pub exascale_config: std::option::Option<crate::model::ExascaleConfig>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -14546,6 +14549,39 @@ impl CloudExadataInfrastructureProperties {
         self.storage_server_type = v.into();
         self
     }
+
+    /// Sets the value of [exascale_config][crate::model::CloudExadataInfrastructureProperties::exascale_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
+    /// use google_cloud_oracledatabase_v1::model::ExascaleConfig;
+    /// let x = CloudExadataInfrastructureProperties::new().set_exascale_config(ExascaleConfig::default()/* use setters */);
+    /// ```
+    pub fn set_exascale_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ExascaleConfig>,
+    {
+        self.exascale_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [exascale_config][crate::model::CloudExadataInfrastructureProperties::exascale_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructureProperties;
+    /// use google_cloud_oracledatabase_v1::model::ExascaleConfig;
+    /// let x = CloudExadataInfrastructureProperties::new().set_or_clear_exascale_config(Some(ExascaleConfig::default()/* use setters */));
+    /// let x = CloudExadataInfrastructureProperties::new().set_or_clear_exascale_config(None::<ExascaleConfig>);
+    /// ```
+    pub fn set_or_clear_exascale_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ExascaleConfig>,
+    {
+        self.exascale_config = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for CloudExadataInfrastructureProperties {
@@ -14724,6 +14760,56 @@ pub mod cloud_exadata_infrastructure_properties {
                 ".google.cloud.oracledatabase.v1.CloudExadataInfrastructureProperties.State",
             ))
         }
+    }
+}
+
+/// Details of the Exascale configuration for the Exadata Infrastructure.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExascaleConfig {
+    /// Output only. Total storage size needed for Exascale in GBs.
+    pub total_storage_size_gb: i32,
+
+    /// Output only. Available storage size for Exascale in GBs.
+    pub available_storage_size_gb: i32,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExascaleConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [total_storage_size_gb][crate::model::ExascaleConfig::total_storage_size_gb].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ExascaleConfig;
+    /// let x = ExascaleConfig::new().set_total_storage_size_gb(42);
+    /// ```
+    pub fn set_total_storage_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.total_storage_size_gb = v.into();
+        self
+    }
+
+    /// Sets the value of [available_storage_size_gb][crate::model::ExascaleConfig::available_storage_size_gb].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ExascaleConfig;
+    /// let x = ExascaleConfig::new().set_available_storage_size_gb(42);
+    /// ```
+    pub fn set_available_storage_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.available_storage_size_gb = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ExascaleConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.ExascaleConfig"
     }
 }
 
@@ -15217,6 +15303,76 @@ pub mod maintenance_window {
                 ".google.cloud.oracledatabase.v1.MaintenanceWindow.PatchingMode",
             ))
         }
+    }
+}
+
+/// The request for `CloudExadataInfrastructure.ConfigureExascale`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ConfigureExascaleCloudExadataInfrastructureRequest {
+    /// Required. The name of the Cloud Exadata Infrastructure in the following
+    /// format:
+    /// projects/{project}/locations/{location}/cloudExadataInfrastructures/{cloud_exadata_infrastructure}.
+    pub name: std::string::String,
+
+    /// Required. The total storage to be allocated to Exascale in GBs.
+    pub total_storage_size_gb: i32,
+
+    /// Optional. An optional ID to identify the request.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ConfigureExascaleCloudExadataInfrastructureRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ConfigureExascaleCloudExadataInfrastructureRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ConfigureExascaleCloudExadataInfrastructureRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cloud_exadata_infrastructure_id = "cloud_exadata_infrastructure_id";
+    /// let x = ConfigureExascaleCloudExadataInfrastructureRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/cloudExadataInfrastructures/{cloud_exadata_infrastructure_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [total_storage_size_gb][crate::model::ConfigureExascaleCloudExadataInfrastructureRequest::total_storage_size_gb].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ConfigureExascaleCloudExadataInfrastructureRequest;
+    /// let x = ConfigureExascaleCloudExadataInfrastructureRequest::new().set_total_storage_size_gb(42);
+    /// ```
+    pub fn set_total_storage_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.total_storage_size_gb = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::ConfigureExascaleCloudExadataInfrastructureRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ConfigureExascaleCloudExadataInfrastructureRequest;
+    /// let x = ConfigureExascaleCloudExadataInfrastructureRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ConfigureExascaleCloudExadataInfrastructureRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.ConfigureExascaleCloudExadataInfrastructureRequest"
     }
 }
 
@@ -16400,6 +16556,12 @@ pub struct ExascaleDbStorageVault {
     /// Optional. The labels or tags associated with the ExascaleDbStorageVault.
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
+    /// Optional. The Exadata Infrastructure resource on which
+    /// ExascaleDbStorageVault
+    /// resource is created, in the following format:
+    /// projects/{project}/locations/{region}/cloudExadataInfrastuctures/{cloud_extradata_infrastructure}
+    pub exadata_infrastructure: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -16544,6 +16706,24 @@ impl ExascaleDbStorageVault {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [exadata_infrastructure][crate::model::ExascaleDbStorageVault::exadata_infrastructure].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ExascaleDbStorageVault;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cloud_exadata_infrastructure_id = "cloud_exadata_infrastructure_id";
+    /// let x = ExascaleDbStorageVault::new().set_exadata_infrastructure(format!("projects/{project_id}/locations/{location_id}/cloudExadataInfrastructures/{cloud_exadata_infrastructure_id}"));
+    /// ```
+    pub fn set_exadata_infrastructure<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.exadata_infrastructure = v.into();
         self
     }
 }
@@ -48705,6 +48885,11 @@ pub struct CloudVmCluster {
     /// securely access the resources in the customer project.
     pub identity_connector: std::option::Option<crate::model::IdentityConnector>,
 
+    /// Optional. The name of ExascaleDbStorageVault associated with the VM
+    /// Cluster. Format:
+    /// projects/{project}/locations/{location}/exascaleDbStorageVaults/{exascale_db_storage_vault}
+    pub exascale_db_storage_vault: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -48979,6 +49164,24 @@ impl CloudVmCluster {
         self.identity_connector = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [exascale_db_storage_vault][crate::model::CloudVmCluster::exascale_db_storage_vault].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::CloudVmCluster;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let exascale_db_storage_vault_id = "exascale_db_storage_vault_id";
+    /// let x = CloudVmCluster::new().set_exascale_db_storage_vault(format!("projects/{project_id}/locations/{location_id}/exascaleDbStorageVaults/{exascale_db_storage_vault_id}"));
+    /// ```
+    pub fn set_exascale_db_storage_vault<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.exascale_db_storage_vault = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for CloudVmCluster {
@@ -49094,6 +49297,9 @@ pub struct CloudVmClusterProperties {
 
     /// Output only. The compute model of the VM Cluster.
     pub compute_model: crate::model::ComputeModel,
+
+    /// Output only. The storage management type of the VM Cluster.
+    pub storage_management_type: crate::model::cloud_vm_cluster_properties::StorageManagementType,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -49587,6 +49793,25 @@ impl CloudVmClusterProperties {
         self.compute_model = v.into();
         self
     }
+
+    /// Sets the value of [storage_management_type][crate::model::CloudVmClusterProperties::storage_management_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
+    /// use google_cloud_oracledatabase_v1::model::cloud_vm_cluster_properties::StorageManagementType;
+    /// let x0 = CloudVmClusterProperties::new().set_storage_management_type(StorageManagementType::Asm);
+    /// let x1 = CloudVmClusterProperties::new().set_storage_management_type(StorageManagementType::Exascale);
+    /// ```
+    pub fn set_storage_management_type<
+        T: std::convert::Into<crate::model::cloud_vm_cluster_properties::StorageManagementType>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.storage_management_type = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for CloudVmClusterProperties {
@@ -50027,6 +50252,140 @@ pub mod cloud_vm_cluster_properties {
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
                 ".google.cloud.oracledatabase.v1.CloudVmClusterProperties.State",
+            ))
+        }
+    }
+
+    /// The type of storage management for the Cloud VM Cluster.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum StorageManagementType {
+        /// Unspecified storage management type.
+        Unspecified,
+        /// Automatic Storage Management.
+        Asm,
+        /// Exascale storage management.
+        Exascale,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [StorageManagementType::value] or
+        /// [StorageManagementType::name].
+        UnknownValue(storage_management_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod storage_management_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl StorageManagementType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Asm => std::option::Option::Some(1),
+                Self::Exascale => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("STORAGE_MANAGEMENT_TYPE_UNSPECIFIED")
+                }
+                Self::Asm => std::option::Option::Some("ASM"),
+                Self::Exascale => std::option::Option::Some("EXASCALE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for StorageManagementType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for StorageManagementType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for StorageManagementType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Asm,
+                2 => Self::Exascale,
+                _ => Self::UnknownValue(storage_management_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for StorageManagementType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STORAGE_MANAGEMENT_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "ASM" => Self::Asm,
+                "EXASCALE" => Self::Exascale,
+                _ => Self::UnknownValue(storage_management_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for StorageManagementType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Asm => serializer.serialize_i32(1),
+                Self::Exascale => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for StorageManagementType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<StorageManagementType>::new(
+                ".google.cloud.oracledatabase.v1.CloudVmClusterProperties.StorageManagementType",
             ))
         }
     }

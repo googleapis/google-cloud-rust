@@ -2935,6 +2935,55 @@ impl serde::ser::Serialize for super::CloudExadataInfrastructureProperties {
         if !self.storage_server_type.is_empty() {
             state.serialize_entry("storageServerType", &self.storage_server_type)?;
         }
+        if self.exascale_config.is_some() {
+            state.serialize_entry("exascaleConfig", &self.exascale_config)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ExascaleConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.total_storage_size_gb) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("totalStorageSizeGb", &__With(&self.total_storage_size_gb))?;
+        }
+        if !wkt::internal::is_default(&self.available_storage_size_gb) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "availableStorageSizeGb",
+                &__With(&self.available_storage_size_gb),
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -3026,6 +3075,43 @@ impl serde::ser::Serialize for super::MaintenanceWindow {
                 "isCustomActionTimeoutEnabled",
                 &self.is_custom_action_timeout_enabled,
             )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ConfigureExascaleCloudExadataInfrastructureRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !wkt::internal::is_default(&self.total_storage_size_gb) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("totalStorageSizeGb", &__With(&self.total_storage_size_gb))?;
+        }
+        if !self.request_id.is_empty() {
+            state.serialize_entry("requestId", &self.request_id)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -3273,6 +3359,9 @@ impl serde::ser::Serialize for super::ExascaleDbStorageVault {
         }
         if !self.labels.is_empty() {
             state.serialize_entry("labels", &self.labels)?;
+        }
+        if !self.exadata_infrastructure.is_empty() {
+            state.serialize_entry("exadataInfrastructure", &self.exadata_infrastructure)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -9504,6 +9593,9 @@ impl serde::ser::Serialize for super::CloudVmCluster {
         if self.identity_connector.is_some() {
             state.serialize_entry("identityConnector", &self.identity_connector)?;
         }
+        if !self.exascale_db_storage_vault.is_empty() {
+            state.serialize_entry("exascaleDbStorageVault", &self.exascale_db_storage_vault)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -9711,6 +9803,9 @@ impl serde::ser::Serialize for super::CloudVmClusterProperties {
         }
         if !wkt::internal::is_default(&self.compute_model) {
             state.serialize_entry("computeModel", &self.compute_model)?;
+        }
+        if !wkt::internal::is_default(&self.storage_management_type) {
+            state.serialize_entry("storageManagementType", &self.storage_management_type)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

@@ -1359,6 +1359,9 @@ impl serde::ser::Serialize for super::DeleteCollectionRequest {
         if !self.request_id.is_empty() {
             state.serialize_entry("requestId", &self.request_id)?;
         }
+        if !wkt::internal::is_default(&self.force) {
+            state.serialize_entry("force", &self.force)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1777,6 +1780,9 @@ impl serde::ser::Serialize for super::ExportDataObjectsRequest {
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
         }
+        if self.field_filter.is_some() {
+            state.serialize_entry("fieldFilter", &self.field_filter)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1801,6 +1807,53 @@ impl serde::ser::Serialize for super::export_data_objects_request::GcsExportDest
         }
         if !wkt::internal::is_default(&self.format) {
             state.serialize_entry("format", &self.format)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::export_data_objects_request::FieldFilter {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.included_fields() {
+            state.serialize_entry("includedFields", value)?;
+        }
+        if let Some(value) = self.excluded_fields() {
+            state.serialize_entry("excludedFields", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::export_data_objects_request::field_filter::FieldList {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.fields.is_empty() {
+            state.serialize_entry("fields", &self.fields)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

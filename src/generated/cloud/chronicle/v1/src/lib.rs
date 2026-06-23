@@ -38,6 +38,7 @@
 //! * [NativeDashboardService](client/struct.NativeDashboardService.html)
 //! * [ReferenceListService](client/struct.ReferenceListService.html)
 //! * [RuleService](client/struct.RuleService.html)
+//! * [RuleExecutionErrorService](client/struct.RuleExecutionErrorService.html)
 //!
 //! # Features
 //!

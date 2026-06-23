@@ -298,9 +298,11 @@ impl<'de> serde::de::Deserialize<'de> for super::Endpoint {
             __redis_instance,
             __redis_cluster,
             __gke_pod,
+            __dms_private_connection,
             __cloud_function,
             __app_engine_version,
             __cloud_run_revision,
+            __cloud_run_job,
             __network,
             __network_type,
             __project_id,
@@ -347,12 +349,16 @@ impl<'de> serde::de::Deserialize<'de> for super::Endpoint {
                             "redis_cluster" => Ok(__FieldTag::__redis_cluster),
                             "gkePod" => Ok(__FieldTag::__gke_pod),
                             "gke_pod" => Ok(__FieldTag::__gke_pod),
+                            "dmsPrivateConnection" => Ok(__FieldTag::__dms_private_connection),
+                            "dms_private_connection" => Ok(__FieldTag::__dms_private_connection),
                             "cloudFunction" => Ok(__FieldTag::__cloud_function),
                             "cloud_function" => Ok(__FieldTag::__cloud_function),
                             "appEngineVersion" => Ok(__FieldTag::__app_engine_version),
                             "app_engine_version" => Ok(__FieldTag::__app_engine_version),
                             "cloudRunRevision" => Ok(__FieldTag::__cloud_run_revision),
                             "cloud_run_revision" => Ok(__FieldTag::__cloud_run_revision),
+                            "cloudRunJob" => Ok(__FieldTag::__cloud_run_job),
+                            "cloud_run_job" => Ok(__FieldTag::__cloud_run_job),
                             "network" => Ok(__FieldTag::__network),
                             "networkType" => Ok(__FieldTag::__network_type),
                             "network_type" => Ok(__FieldTag::__network_type),
@@ -522,6 +528,16 @@ impl<'de> serde::de::Deserialize<'de> for super::Endpoint {
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__dms_private_connection => {
+                            if !fields.insert(__FieldTag::__dms_private_connection) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for dms_private_connection",
+                                ));
+                            }
+                            result.dms_private_connection = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__cloud_function => {
                             if !fields.insert(__FieldTag::__cloud_function) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -551,6 +567,16 @@ impl<'de> serde::de::Deserialize<'de> for super::Endpoint {
                             result.cloud_run_revision = map.next_value::<std::option::Option<
                                 crate::model::endpoint::CloudRunRevisionEndpoint,
                             >>()?;
+                        }
+                        __FieldTag::__cloud_run_job => {
+                            if !fields.insert(__FieldTag::__cloud_run_job) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cloud_run_job",
+                                ));
+                            }
+                            result.cloud_run_job = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__network => {
                             if !fields.insert(__FieldTag::__network) {
@@ -2638,12 +2664,14 @@ impl<'de> serde::de::Deserialize<'de> for super::Step {
             __cloud_function,
             __app_engine_version,
             __cloud_run_revision,
+            __cloud_run_job,
             __nat,
             __proxy_connection,
             __load_balancer_backend_info,
             __storage_bucket,
             __serverless_neg,
             __ngfw_packet_inspection,
+            __dms_private_connection,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -2733,6 +2761,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Step {
                             "app_engine_version" => Ok(__FieldTag::__app_engine_version),
                             "cloudRunRevision" => Ok(__FieldTag::__cloud_run_revision),
                             "cloud_run_revision" => Ok(__FieldTag::__cloud_run_revision),
+                            "cloudRunJob" => Ok(__FieldTag::__cloud_run_job),
+                            "cloud_run_job" => Ok(__FieldTag::__cloud_run_job),
                             "nat" => Ok(__FieldTag::__nat),
                             "proxyConnection" => Ok(__FieldTag::__proxy_connection),
                             "proxy_connection" => Ok(__FieldTag::__proxy_connection),
@@ -2748,6 +2778,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Step {
                             "serverless_neg" => Ok(__FieldTag::__serverless_neg),
                             "ngfwPacketInspection" => Ok(__FieldTag::__ngfw_packet_inspection),
                             "ngfw_packet_inspection" => Ok(__FieldTag::__ngfw_packet_inspection),
+                            "dmsPrivateConnection" => Ok(__FieldTag::__dms_private_connection),
+                            "dms_private_connection" => Ok(__FieldTag::__dms_private_connection),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3405,6 +3437,26 @@ impl<'de> serde::de::Deserialize<'de> for super::Step {
                                 ),
                             );
                         }
+                        __FieldTag::__cloud_run_job => {
+                            if !fields.insert(__FieldTag::__cloud_run_job) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cloud_run_job",
+                                ));
+                            }
+                            if result.step_info.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `step_info`, a oneof with full ID .google.cloud.networkmanagement.v1.Step.cloud_run_job, latest field was cloudRunJob",
+                                ));
+                            }
+                            result.step_info = std::option::Option::Some(
+                                crate::model::step::StepInfo::CloudRunJob(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::CloudRunJobInfo>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
                         __FieldTag::__nat => {
                             if !fields.insert(__FieldTag::__nat) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -3521,6 +3573,26 @@ impl<'de> serde::de::Deserialize<'de> for super::Step {
                                 crate::model::step::StepInfo::NgfwPacketInspection(
                                     map.next_value::<std::option::Option<
                                         std::boxed::Box<crate::model::NgfwPacketInspectionInfo>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__dms_private_connection => {
+                            if !fields.insert(__FieldTag::__dms_private_connection) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for dms_private_connection",
+                                ));
+                            }
+                            if result.step_info.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `step_info`, a oneof with full ID .google.cloud.networkmanagement.v1.Step.dms_private_connection, latest field was dmsPrivateConnection",
+                                ));
+                            }
+                            result.step_info = std::option::Option::Some(
+                                crate::model::step::StepInfo::DmsPrivateConnection(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::PrivateConnectionInfo>,
                                     >>()?
                                     .unwrap_or_default(),
                                 ),
@@ -7625,6 +7697,111 @@ impl<'de> serde::de::Deserialize<'de> for super::CloudRunRevisionInfo {
 }
 
 #[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::CloudRunJobInfo {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __display_name,
+            __uri,
+            __location,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CloudRunJobInfo")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "displayName" => Ok(__FieldTag::__display_name),
+                            "display_name" => Ok(__FieldTag::__display_name),
+                            "uri" => Ok(__FieldTag::__uri),
+                            "location" => Ok(__FieldTag::__location),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::CloudRunJobInfo;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CloudRunJobInfo")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__display_name => {
+                            if !fields.insert(__FieldTag::__display_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for display_name",
+                                ));
+                            }
+                            result.display_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__uri => {
+                            if !fields.insert(__FieldTag::__uri) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for uri",
+                                ));
+                            }
+                            result.uri = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::AppEngineVersionInfo {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -9036,6 +9213,86 @@ impl<'de> serde::de::Deserialize<'de> for super::NgfwPacketInspectionInfo {
                                 ));
                             }
                             result.security_profile_group_uri = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::PrivateConnectionInfo {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __uri,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for PrivateConnectionInfo")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "uri" => Ok(__FieldTag::__uri),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::PrivateConnectionInfo;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct PrivateConnectionInfo")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__uri => {
+                            if !fields.insert(__FieldTag::__uri) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for uri",
+                                ));
+                            }
+                            result.uri = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }

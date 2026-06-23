@@ -2879,6 +2879,12 @@ pub mod vector_search_service {
             self.0.request.request_id = v.into();
             self
         }
+
+        /// Sets the value of [force][crate::model::DeleteCollectionRequest::force].
+        pub fn set_force<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.force = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -3829,6 +3835,24 @@ pub mod vector_search_service {
         /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [field_filter][crate::model::ExportDataObjectsRequest::field_filter].
+        pub fn set_field_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::export_data_objects_request::FieldFilter>,
+        {
+            self.0.request.field_filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [field_filter][crate::model::ExportDataObjectsRequest::field_filter].
+        pub fn set_or_clear_field_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::export_data_objects_request::FieldFilter>,
+        {
+            self.0.request.field_filter = v.map(|x| x.into());
             self
         }
 

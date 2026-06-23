@@ -47,6 +47,8 @@
 //! [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 //! [ring]: https://crates.io/crates/ring
 
+#![allow(deprecated)]
+
 /// The messages and enums that are part of this client library.
 #[allow(clippy::module_inception)]
 pub mod model;
