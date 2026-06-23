@@ -14,6 +14,8 @@
 
 use anyhow::Result;
 use futures::stream::StreamExt;
+use google_cloud_bigquery::client::BigQuery;
+use google_cloud_bigquery::model::QueryReference;
 use google_cloud_bigquery_v2::client::{DatasetService, JobService};
 use google_cloud_bigquery_v2::model::{
     Dataset, DatasetReference, Job, JobConfiguration, JobConfigurationQuery, JobReference,
@@ -215,6 +217,78 @@ pub async fn job_service() -> Result<()> {
             .iter()
             .any(|v| v.as_ref().unwrap().id.contains(&job_id))
     );
+
+    Ok(())
+}
+
+pub async fn query_client() -> Result<()> {
+    let project_id = project_id()?;
+    let bq = BigQuery::builder().build().await?;
+
+    let query = bq
+        .query("SELECT 1 as one")
+        .with_project_id(project_id)
+        .set_labels(vec![(INSTANCE_LABEL, "true")])
+        .run()
+        .await?;
+
+    // BigQuery client sets JobCreationMode::JobCreationOptional by default
+    let query_ref = query.query_reference();
+    let query_id = match query_ref {
+        QueryReference::Stateless { ref query_id } => query_id,
+        _ => panic!("expected a stateless query reference"),
+    };
+    assert!(!query_id.is_empty(), "{query_ref:?}");
+
+    let complete_query = query.until_done().await?;
+
+    assert_eq!(complete_query.metadata().total_rows, Some(1));
+
+    // TODO(#5592): iterate on rows
+
+    Ok(())
+}
+
+pub async fn query_client_multi_page() -> Result<()> {
+    let project_id = project_id()?;
+    let bq = BigQuery::builder().build().await?;
+
+    let query = bq
+        .query("SELECT * FROM UNNEST(GENERATE_ARRAY(1, 10000)) AS val")
+        .set_use_legacy_sql(false)
+        .set_max_results(1000_u32)
+        .with_project_id(project_id)
+        .set_labels(vec![(INSTANCE_LABEL, "true")])
+        .run()
+        .await?;
+
+    let complete_query = query.until_done().await?;
+
+    assert_eq!(complete_query.metadata().total_rows, Some(10000));
+
+    // TODO(#5592): iterate on rows with max_results = 1000
+
+    Ok(())
+}
+
+pub async fn query_client_job() -> Result<()> {
+    let project_id = project_id()?;
+    let bq = BigQuery::builder().build().await?;
+
+    let query = bq
+        .query("SELECT 2 as two")
+        .set_use_legacy_sql(false)
+        .set_priority("INTERACTIVE") // force job path
+        .with_project_id(&project_id)
+        .set_labels(vec![(INSTANCE_LABEL, "true")])
+        .run()
+        .await?;
+
+    let complete_query = query.until_done().await?;
+
+    assert_eq!(complete_query.metadata().total_rows, Some(1));
+
+    // TODO(#5592): iterate on rows
 
     Ok(())
 }
