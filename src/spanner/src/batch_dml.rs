@@ -28,6 +28,7 @@ use std::time::Duration;
 pub struct BatchDmlBuilder {
     statements: Vec<Statement>,
     request_options: Option<RequestOptions>,
+    last_statements: bool,
     gax_options: GaxRequestOptions,
 }
 
@@ -82,11 +83,32 @@ impl BatchDmlBuilder {
         self
     }
 
+    /// Sets whether this batch is the last statement in a read/write transaction.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::statement::Statement;
+    /// # use google_cloud_spanner::batch::BatchDml;
+    /// let statement1 = Statement::builder("UPDATE users SET active = true WHERE id = 1").build();
+    /// let batch = BatchDml::builder()
+    ///     .add_statement(statement1)
+    ///     .set_last_statements(true)
+    ///     .build();
+    /// ```
+    ///
+    /// If true, indicates that this request marks the end of the transaction, which
+    /// allows Spanner to optimize execution.
+    pub fn set_last_statements(mut self, last_statements: bool) -> Self {
+        self.last_statements = last_statements;
+        self
+    }
+
     /// Builds and returns the finalized BatchDml object.
     pub fn build(self) -> BatchDml {
         BatchDml {
             statements: self.statements,
             request_options: self.request_options,
+            last_statements: self.last_statements,
             gax_options: self.gax_options,
         }
     }
@@ -97,6 +119,7 @@ impl BatchDmlBuilder {
 pub struct BatchDml {
     pub(crate) statements: Vec<Statement>,
     pub(crate) request_options: Option<RequestOptions>,
+    pub(crate) last_statements: bool,
     pub(crate) gax_options: GaxRequestOptions,
 }
 
@@ -118,6 +141,7 @@ impl<T: Into<Statement>> From<Vec<T>> for BatchDml {
         BatchDml {
             statements: statements.into_iter().map(Into::into).collect(),
             request_options: None,
+            last_statements: false,
             gax_options: GaxRequestOptions::default(),
         }
     }
@@ -178,11 +202,13 @@ mod tests {
         let batch = BatchDml::builder()
             .add_statement(stmt1)
             .add_statement(stmt2)
+            .set_last_statements(true)
             .build();
 
         assert_eq!(batch.statements.len(), 2);
         assert_eq!(batch.statements[0].sql, "UPDATE t SET c = 1 WHERE id = 1");
         assert_eq!(batch.statements[1].sql, "UPDATE t SET c = 2 WHERE id = 2");
+        assert!(batch.last_statements);
         assert!(
             batch.request_options.is_none(),
             "Unexpected request_options set: {:#?}",
