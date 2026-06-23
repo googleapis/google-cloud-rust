@@ -20,7 +20,7 @@ pub(crate) struct Schema(TableSchema);
 
 impl Schema {
     pub(crate) fn new(schema: TableSchema) -> Self {
-        Self(TableSchema::new().set_fields(schema.fields))
+        Self(schema)
     }
 
     pub(crate) fn new_from_field(field: TableFieldSchema) -> Self {

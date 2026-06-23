@@ -14,6 +14,7 @@
 
 use crate::ClientBuilderResult as BuilderResult;
 use crate::client_builder::ClientBuilder;
+use crate::query::RunQuery;
 use google_cloud_bigquery_v2::client::JobService;
 use std::sync::Arc;
 
@@ -55,6 +56,13 @@ impl BigQuery {
         let job_service = Arc::new(job_service_builder.build().await?);
 
         Ok(BigQuery { job_service })
+    }
+
+    /// Execute a SQL query.
+    ///
+    /// This builder internally routes to either `jobs.query` (fast path) or `jobs.insert` (job path)
+    pub fn query<S: Into<String>>(&self, sql: S) -> RunQuery {
+        RunQuery::new(self.job_service.clone(), sql.into())
     }
 }
 
