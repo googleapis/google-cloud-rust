@@ -20,7 +20,7 @@ use google_cloud_auth::signer::Signer;
 use std::collections::BTreeMap;
 use std::time::Duration;
 
-/// Creates [V4 Signed Policy Documents] (POST Object Forms).
+/// Creates V4 [Signed Policy Document] (POST Object Forms).
 ///
 /// This builder allows you to generate signed V4 POST policy documents for Google Cloud Storage.
 /// A [Signed Policy Document] enables unauthenticated users to upload files to GCS using an HTML form
@@ -79,7 +79,7 @@ use std::time::Duration;
 /// ```
 ///
 /// [Application Default Credentials]: https://docs.cloud.google.com/docs/authentication/application-default-credentials
-/// [V4 Signed Policy Documents]: https://docs.cloud.google.com/storage/docs/authentication/signatures#policy-document
+/// [Signed Policy Document]: https://docs.cloud.google.com/storage/docs/authentication/signatures#policy-document
 #[derive(Debug, Clone)]
 pub struct PostPolicyV4Builder {
     bucket: String,
@@ -312,24 +312,28 @@ impl PostPolicyV4Builder {
             .map_err(|err| SigningError::invalid_parameter("endpoint", err))?;
 
         let scheme = url.scheme();
-        let mut host = url
+        let _host = url
             .host_str()
-            .ok_or_else(|| SigningError::invalid_parameter("endpoint", "Missing host"))?
-            .to_string();
+            .ok_or_else(|| SigningError::invalid_parameter("endpoint", "Missing host"))?;
 
-        if let Some(port) = url.port() {
-            host.push_str(&format!(":{port}"));
-        }
+        // Extract host and port exactly as they appear in the endpoint.
+        // We do this because the url crate omits default ports (80/443),
+        // but GCS requires them to be maintained if explicitly provided.
+        let path = url.path();
+        let scheme_prefix = format!("{}://", scheme);
+        let host_with_port = endpoint_url
+            .trim_start_matches(&scheme_prefix)
+            .trim_end_matches(path);
 
         let url = match self.url_style {
             UrlStyle::PathStyle => {
-                format!("{}://{}/{}/", scheme, host, bucket_name)
+                format!("{}://{}/{}/", scheme, host_with_port, bucket_name)
             }
             UrlStyle::VirtualHostedStyle => {
-                format!("{}://{}.{}/", scheme, bucket_name, host)
+                format!("{}://{}.{}/", scheme, bucket_name, host_with_port)
             }
             UrlStyle::BucketBoundHostname => {
-                format!("{}://{}/", scheme, host)
+                format!("{}://{}/", scheme, host_with_port)
             }
         };
 
