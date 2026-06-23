@@ -92,7 +92,11 @@ macro_rules! record_discovery_polling_result {
             if let Some(status) = error {
                 span.record("otel.status_code", "ERROR");
                 span.record("otel.status_description", &status.message);
-                span.record("error.type", status.code.to_string());
+                let err = $crate::Error::service(status);
+                span.record(
+                    "error.type",
+                    ::gaxi::observability::errors::error_type(&err),
+                );
             }
         }
     };

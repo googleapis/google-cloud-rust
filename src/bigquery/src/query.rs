@@ -16,17 +16,19 @@
 #![allow(dead_code, unused_imports)]
 
 pub(crate) mod execution;
+mod from_sql;
 mod query_handle;
 mod query_reference;
 mod row;
 mod run_query;
 mod schema;
 
+pub(crate) use from_sql::FromSql;
 pub(crate) use query_handle::Query;
-pub(crate) use query_reference::QueryReference;
 pub(crate) use row::Row;
 pub(crate) use schema::Schema;
 
+pub use query_reference::QueryReference;
 pub use run_query::RunQuery;
 
 /// Result type for query execution.
