@@ -208,7 +208,7 @@ mod tests {
     use mockall::mock;
 
     #[tokio::test]
-    async fn test_appendable_object_writer_delegates() {
+    async fn test_appendable_object_writer_delegates() -> crate::Result<()> {
         let mut mock = MockWriter::new();
         mock.expect_append()
             .with(mockall::predicate::eq(Bytes::from("test")))
@@ -218,8 +218,8 @@ mod tests {
         mock.expect_persisted_size().returning(|| 123);
 
         let mut writer = AppendableObjectWriter::new(mock);
-        assert!(writer.append(Bytes::from("test")).await.is_ok());
-        assert_eq!(writer.flush().await.unwrap(), 123);
+        writer.append(Bytes::from("test")).await?;
+        assert_eq!(writer.flush().await?, 123);
         assert_eq!(writer.generation(), 1);
         assert_eq!(writer.persisted_size(), 123);
 
@@ -231,12 +231,14 @@ mod tests {
             })
         });
         let writer = AppendableObjectWriter::new(mock);
-        assert_eq!(writer.finalize().await.unwrap().size, 456);
+        assert_eq!(writer.finalize().await?.size, 456);
 
         let mut mock = MockWriter::new();
         mock.expect_close().returning(|| Ok(789));
         let writer = AppendableObjectWriter::new(mock);
-        assert_eq!(writer.close().await.unwrap(), 789);
+        assert_eq!(writer.close().await?, 789);
+
+        Ok(())
     }
 
     mock! {
