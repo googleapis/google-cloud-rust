@@ -62,6 +62,12 @@ pub trait DiscoveryOperation {
     }
 }
 
+// Instrumented LRO futures can get very large and cause stack overflows
+// (especially when nested decorators are used for tracing), so we box them.
+// The performance impact of moving these to the heap is negligible because
+// polling performance is bound to network requests.
+type BoxedFuture<T> = std::pin::Pin<Box<dyn std::future::Future<Output = T> + Send + 'static>>;
+
 pub fn new_discovery_poller<S, SF, Q, QF, O>(
     polling_error_policy: Arc<dyn PollingErrorPolicy>,
     polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
@@ -69,30 +75,38 @@ pub fn new_discovery_poller<S, SF, Q, QF, O>(
     query: Q,
 ) -> impl Poller<O, O>
 where
-    O: DiscoveryOperation + Send,
-    S: FnOnce() -> SF + Send + Sync,
+    O: DiscoveryOperation + Send + 'static,
+    S: FnOnce() -> SF + Send + Sync + 'static,
     SF: std::future::Future<Output = Result<O>> + Send + 'static,
-    Q: FnMut(String) -> QF + Send + Sync + Clone,
+    Q: FnMut(String) -> QF + Send + Sync + Clone + 'static,
     QF: std::future::Future<Output = Result<O>> + Send + 'static,
 {
-    DiscoveryPoller::new(polling_error_policy, polling_backoff_policy, start, query)
+    let mut query = query;
+    let start_boxed = Box::pin(start());
+    let query_boxed = Box::new(move |name| Box::pin(query(name)) as BoxedFuture<Result<O>>);
+    DiscoveryPoller::new(
+        polling_error_policy,
+        polling_backoff_policy,
+        start_boxed,
+        query_boxed,
+    )
 }
 
-struct DiscoveryPoller<S, Q> {
+struct DiscoveryPoller<O> {
     error_policy: Arc<dyn PollingErrorPolicy>,
     backoff_policy: Arc<dyn PollingBackoffPolicy>,
-    start: Option<S>,
-    query: Q,
+    start: Option<BoxedFuture<Result<O>>>,
+    query: Box<dyn FnMut(String) -> BoxedFuture<Result<O>> + Send>,
     operation: Option<String>,
     state: PollingState,
 }
 
-impl<S, Q> DiscoveryPoller<S, Q> {
+impl<O> DiscoveryPoller<O> {
     pub fn new(
         error_policy: Arc<dyn PollingErrorPolicy>,
         backoff_policy: Arc<dyn PollingBackoffPolicy>,
-        start: S,
-        query: Q,
+        start: BoxedFuture<Result<O>>,
+        query: Box<dyn FnMut(String) -> BoxedFuture<Result<O>> + Send>,
     ) -> Self {
         Self {
             error_policy,
@@ -105,28 +119,20 @@ impl<S, Q> DiscoveryPoller<S, Q> {
     }
 }
 
-impl<S, Q> SealedPoller for DiscoveryPoller<S, Q>
-where
-    S: Send,
-    Q: Send,
-{
+impl<O> SealedPoller for DiscoveryPoller<O> {
     async fn backoff(&mut self, state: &PollingState) {
         let backoff = self.backoff_policy.wait_period(state);
         tokio::time::sleep(backoff).await;
     }
 }
 
-impl<O, S, SF, Q, QF> crate::Poller<O, O> for DiscoveryPoller<S, Q>
+impl<O> crate::Poller<O, O> for DiscoveryPoller<O>
 where
-    O: DiscoveryOperation + Send,
-    S: FnOnce() -> SF + Send + Sync,
-    SF: std::future::Future<Output = Result<O>> + Send + 'static,
-    Q: FnMut(String) -> QF + Send + Sync + Clone,
-    QF: std::future::Future<Output = Result<O>> + Send + 'static,
+    O: DiscoveryOperation + Send + 'static,
 {
     async fn poll(&mut self) -> Option<PollingResult<O, O>> {
         if let Some(start) = self.start.take() {
-            let result = start().await;
+            let result = start.await;
             #[cfg(google_cloud_unstable_tracing)]
             if let Ok(ref op) = result {
                 let name = op.name();
@@ -637,7 +643,7 @@ mod tests {
             }
         };
 
-        let mut poller = DiscoveryPoller::new(
+        let mut poller = new_discovery_poller(
             Arc::new(AlwaysContinue),
             Arc::new(test_backoff()),
             start,
