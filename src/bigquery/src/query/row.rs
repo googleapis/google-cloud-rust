@@ -69,9 +69,10 @@ impl Row {
             let value = get_field_value(cell)?;
             match schema.get_field_by_index(i) {
                 Some(f) => {
-                    let field_type = f.r#type.clone();
+                    let field_name = &f.name;
+                    let field_type = &f.r#type;
                     let schema = Arc::new(Schema::new_from_field(f.clone()));
-                    let value = convert_value(value, field_type, &schema)?;
+                    let value = convert_value(value, field_name, field_type, &schema)?;
                     values.push(value);
                 }
                 None => continue,
@@ -143,10 +144,15 @@ fn get_field_value(value: Value) -> Result<Value> {
     }
 }
 
-fn convert_value(value: Value, field_type: String, _schema: &Arc<Schema>) -> Result<Value> {
+fn convert_value(
+    value: Value,
+    field_name: &str,
+    field_type: &str,
+    _schema: &Arc<Schema>,
+) -> Result<Value> {
     match value {
         Value::Null => Ok(Value::Null),
-        Value::String(v) => convert_basic_type(v, field_type),
+        Value::String(v) => convert_basic_type(v, field_name, field_type),
         Value::Object(_) => unimplemented!("TODO(#5592): nested records not implemented"),
         Value::Array(_) => unimplemented!("TODO(#5592): repeated fields not implemented"),
         _ => Err(RowError::InvalidRowFormat(format!(
@@ -156,8 +162,8 @@ fn convert_value(value: Value, field_type: String, _schema: &Arc<Schema>) -> Res
     }
 }
 
-fn convert_basic_type(value: String, field_type: String) -> Result<Value> {
-    match field_type.as_str() {
+fn convert_basic_type(value: String, field_name: &str, field_type: &str) -> Result<Value> {
+    match field_type {
         "STRING" => Ok(Value::String(value)),
         "BYTES" => Ok(Value::String(value)),
         "TIMESTAMP" => Ok(Value::String(value)),
@@ -172,33 +178,34 @@ fn convert_basic_type(value: String, field_type: String) -> Result<Value> {
         "RANGE" => Ok(Value::String(value)),
         "INTEGER" | "INT64" => {
             let num = value.parse::<i64>().map_err(|e| RowError::TypeConversion {
-                column: "unknown".to_string(),
+                column: field_name.to_string(),
                 source: ConvertError::Convert(Box::new(e)),
             })?;
             Ok(Value::Number(serde_json::Number::from(num)))
         }
         "FLOAT" | "FLOAT64" => {
             let num = value.parse::<f64>().map_err(|e| RowError::TypeConversion {
-                column: "unknown".to_string(),
+                column: field_name.to_string(),
                 source: ConvertError::Convert(Box::new(e)),
             })?;
-            Ok(Value::Number(
-                serde_json::Number::from_f64(num).unwrap_or_else(|| serde_json::Number::from(0)),
-            ))
+            match serde_json::Number::from_f64(num) {
+                Some(n) => Ok(Value::Number(n)),
+                None => Ok(Value::String(value)),
+            }
         }
         "BOOLEAN" | "BOOL" => {
             let b = value
                 .to_lowercase()
                 .parse::<bool>()
                 .map_err(|e| RowError::TypeConversion {
-                    column: "unknown".to_string(),
+                    column: field_name.to_string(),
                     source: ConvertError::Convert(Box::new(e)),
                 })?;
             Ok(Value::Bool(b))
         }
         _ => Err(RowError::InvalidRowFormat(format!(
-            "unknown field type: {}",
-            field_type
+            "unknown field type: {} at column {}",
+            field_type, field_name
         ))),
     }
 }
@@ -207,11 +214,12 @@ fn convert_basic_type(value: String, field_type: String) -> Result<Value> {
 mod tests {
     use super::*;
     use google_cloud_bigquery_v2::model::{TableFieldSchema, TableSchema};
+    use test_case::test_case;
 
     type TestResult = anyhow::Result<()>;
 
     #[tokio::test]
-    async fn test_convert_basic_types() -> TestResult {
+    async fn convert_basic_types_from_row() -> TestResult {
         let raw_row = serde_json::json!({
             "f": [
                 { "v": "James" },
@@ -265,5 +273,37 @@ mod tests {
         assert_eq!(row.get::<f64, _>("some_float"), 64.0);
 
         Ok(())
+    }
+
+    #[test_case("INTEGER", "123", Some(Value::Number(123.into())); "integer positive")]
+    #[test_case("INTEGER", "-456", Some(Value::Number((-456).into())); "integer negative")]
+    #[test_case("INTEGER", "abc", None; "integer invalid")]
+    #[test_case("INT64", "9223372036854775807", Some(Value::Number(9223372036854775807_i64.into())); "int64 max")]
+    #[test_case("INT64", "9223372036854775808", None; "int64 overflow")]
+    #[test_case("FLOAT", "123.45", Some(Value::Number(serde_json::Number::from_f64(123.45).unwrap())); "float success")]
+    #[test_case("FLOAT64", "NaN", Some(Value::String("NaN".to_string())); "float NaN")]
+    #[test_case("FLOAT64", "+inf", Some(Value::String("+inf".to_string())); "float positive infinity")]
+    #[test_case("FLOAT64", "-inf", Some(Value::String("-inf".to_string())); "float negative infinity")]
+    #[test_case("FLOAT", "abc", None; "float invalid")]
+    #[test_case("BOOLEAN", "true", Some(Value::Bool(true)); "boolean true lowercase")]
+    #[test_case("BOOLEAN", "TRUE", Some(Value::Bool(true)); "boolean true uppercase")]
+    #[test_case("BOOL", "false", Some(Value::Bool(false)); "bool false")]
+    #[test_case("BOOL", "invalid", None; "bool invalid")]
+    #[test_case("UNKNOWN", "value", None; "unknown type")]
+    fn convert_basic_type_cases(field_type: &str, value: &str, expected: Option<Value>) {
+        let res = convert_basic_type(value.to_string(), "test_col", field_type);
+        match expected {
+            Some(expected_val) => {
+                assert_eq!(res.expect("should succeed"), expected_val);
+            }
+            None => {
+                let err = res.expect_err("should fail");
+                if field_type == "UNKNOWN" {
+                    assert!(matches!(err, RowError::InvalidRowFormat(_)));
+                } else {
+                    assert!(matches!(err, RowError::TypeConversion { .. }));
+                }
+            }
+        }
     }
 }
