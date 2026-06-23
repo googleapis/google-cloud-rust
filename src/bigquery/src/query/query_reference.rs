@@ -12,9 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// TODO(#5592): remove after query iterator is implemented.
-#![allow(dead_code, unused_imports)]
-
 /// A reference to a query in BigQuery.
 ///
 /// BigQuery queries can either run by creating a query job, or run statelessly
@@ -24,6 +21,7 @@
 ///
 /// [JobCreationReason]: https://docs.cloud.google.com/bigquery/docs/reference/rest/v2/JobCreationReason
 #[derive(Debug, Clone, PartialEq)]
+#[non_exhaustive]
 pub enum QueryReference {
     /// A reference to a standard, stateful query job.
     Job(google_cloud_bigquery_v2::model::JobReference),
