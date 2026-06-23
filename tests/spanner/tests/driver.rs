@@ -121,6 +121,14 @@ mod spanner {
                 db_client,
             )
             .await?;
+            integration_tests_spanner::read_write_transaction::read_write_transaction_last_statement(
+                db_client,
+            )
+            .await?;
+            integration_tests_spanner::read_write_transaction::read_write_transaction_batch_last_statements(
+                db_client,
+            )
+            .await?;
             integration_tests_spanner::read_write_transaction::rolled_back_read_write_transaction(
                 db_client,
             )

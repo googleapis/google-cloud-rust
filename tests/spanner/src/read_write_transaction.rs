@@ -1206,6 +1206,53 @@ pub async fn continue_after_initial_dml_error(db_client: &DatabaseClient) -> any
     Ok(())
 }
 
+pub async fn read_write_transaction_last_statement(
+    db_client: &DatabaseClient,
+) -> anyhow::Result<()> {
+    let id = format!("rw-last-stmt-{}", LowercaseAlphanumeric.random_string(10));
+
+    // Insert a row
+    let mutation = Mutation::new_insert_builder("AllTypes")
+        .set("Id")
+        .to(&id)
+        .set("ColInt64")
+        .to(&100_i64)
+        .build();
+    db_client
+        .write_only_transaction()
+        .build()
+        .write(vec![mutation])
+        .await?;
+
+    let runner = db_client.read_write_transaction().build().await?;
+    runner
+        .run(async |transaction| {
+            let update_statement =
+                Statement::builder("UPDATE AllTypes SET ColInt64 = 200 WHERE Id = @id")
+                    .add_param("id", &id)
+                    .set_last_statement(true)
+                    .build();
+            transaction.execute_update(update_statement).await?;
+            Ok(())
+        })
+        .await?;
+
+    // Verify update was committed
+    let statement = Statement::builder("SELECT ColInt64 FROM AllTypes WHERE Id = @id")
+        .add_param("id", &id)
+        .build();
+    let mut result_set = db_client
+        .single_use()
+        .build()
+        .execute_query(statement)
+        .await?;
+    let row = result_set.next().await.transpose()?.expect("Row exists");
+    let final_val: i64 = row.get("ColInt64");
+    assert_eq!(final_val, 200);
+
+    Ok(())
+}
+
 pub async fn continue_after_initial_batch_dml_error(
     db_client: &DatabaseClient,
 ) -> anyhow::Result<()> {
@@ -1259,6 +1306,55 @@ pub async fn continue_after_initial_batch_dml_error(
         999,
         "Insert should have succeeded despite earlier Batch DML error"
     );
+
+    Ok(())
+}
+
+pub async fn read_write_transaction_batch_last_statements(
+    db_client: &DatabaseClient,
+) -> anyhow::Result<()> {
+    let id = format!("rw-last-stmts-{}", LowercaseAlphanumeric.random_string(10));
+
+    // Insert a row
+    let mutation = Mutation::new_insert_builder("AllTypes")
+        .set("Id")
+        .to(&id)
+        .set("ColInt64")
+        .to(&100_i64)
+        .build();
+    db_client
+        .write_only_transaction()
+        .build()
+        .write(vec![mutation])
+        .await?;
+
+    let runner = db_client.read_write_transaction().build().await?;
+    runner
+        .run(async |transaction| {
+            let stmt = Statement::builder("UPDATE AllTypes SET ColInt64 = 300 WHERE Id = @id")
+                .add_param("id", &id)
+                .build();
+            let batch = BatchDml::builder()
+                .add_statement(stmt)
+                .set_last_statements(true)
+                .build();
+            transaction.execute_batch_update(batch).await?;
+            Ok(())
+        })
+        .await?;
+
+    // Verify update was committed
+    let statement = Statement::builder("SELECT ColInt64 FROM AllTypes WHERE Id = @id")
+        .add_param("id", &id)
+        .build();
+    let mut result_set = db_client
+        .single_use()
+        .build()
+        .execute_query(statement)
+        .await?;
+    let row = result_set.next().await.transpose()?.expect("Row exists");
+    let final_val: i64 = row.get("ColInt64");
+    assert_eq!(final_val, 300);
 
     Ok(())
 }
