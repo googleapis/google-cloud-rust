@@ -23,17 +23,18 @@ use bytes::Bytes;
 /// # Example
 /// ```
 /// # use google_cloud_storage::appendable_object_writer::AppendableObjectWriter;
-/// use google_cloud_storage::client::Storage;
 /// use bytes::Bytes;
 /// # async fn sample() -> anyhow::Result<()> {
-/// let client = Storage::builder().build().await?;
-/// let mut writer: AppendableObjectWriter = client
-///     .open_appendable_object("projects/_/buckets/my-bucket", "my-object")
-///     .send().await?;
+/// let mut writer = open();
 ///
 /// // Append 2000 bytes.
 /// writer.append(Bytes::from(vec![0u8; 2000])).await?;
 /// writer.finalize().await?;
+///
+/// fn open() -> AppendableObjectWriter {
+/// # panic!()
+/// // ... details omitted ...
+/// }
 /// # Ok(()) }
 /// ```
 ///
