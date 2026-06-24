@@ -14,7 +14,6 @@
 
 //! Internal traits and types for Appendable Object Write (Bidi Write).
 
-#[cfg(google_cloud_unstable_storage_bidi)]
 pub(crate) mod stub;
 
 use crate::google::storage::v2::{BidiWriteObjectRequest, BidiWriteObjectResponse};
@@ -26,7 +25,6 @@ use tokio::sync::mpsc::Receiver;
 /// A trait to mock `Streaming<T>` in the unit tests.
 ///
 /// This is not a public trait, we only need this for our own testing.
-#[cfg(google_cloud_unstable_storage_bidi)]
 #[allow(dead_code)]
 pub(crate) trait TonicStreaming: std::fmt::Debug + Send + 'static {
     fn next_message(
@@ -34,7 +32,6 @@ pub(crate) trait TonicStreaming: std::fmt::Debug + Send + 'static {
     ) -> impl Future<Output = TonicResult<Option<BidiWriteObjectResponse>>> + Send;
 }
 
-#[cfg(google_cloud_unstable_storage_bidi)]
 impl TonicStreaming for Streaming<BidiWriteObjectResponse> {
     async fn next_message(&mut self) -> TonicResult<Option<BidiWriteObjectResponse>> {
         self.message().await
@@ -44,7 +41,6 @@ impl TonicStreaming for Streaming<BidiWriteObjectResponse> {
 /// A trait to mock `gaxi::grpc::Client` in the unit tests.
 ///
 /// This is not a public trait, we only need this for our own testing.
-#[cfg(google_cloud_unstable_storage_bidi)]
 #[allow(dead_code)]
 pub(crate) trait Client: std::fmt::Debug + Send + 'static {
     type Stream: Sized;
@@ -59,7 +55,6 @@ pub(crate) trait Client: std::fmt::Debug + Send + 'static {
     ) -> impl Future<Output = crate::Result<TonicResult<TonicResponse<Self::Stream>>>> + Send;
 }
 
-#[cfg(google_cloud_unstable_storage_bidi)]
 impl Client for gaxi::grpc::Client {
     type Stream = Streaming<BidiWriteObjectResponse>;
     async fn start(

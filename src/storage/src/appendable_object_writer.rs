@@ -14,7 +14,6 @@
 
 //! Defines the return type for [Storage::open_appendable_object][crate::client::Storage::open_appendable_object].
 
-#[cfg(google_cloud_unstable_storage_bidi)]
 use crate::storage::bidi_write::stub::dynamic::AppendableObjectWriter as AppendableObjectWriterStub;
 use bytes::Bytes;
 
@@ -44,13 +43,11 @@ use bytes::Bytes;
 ///
 /// There are strict guarantees about the order of the appends. The client library
 /// ensures data is sent to the backend in the order `append()` is called.
-#[cfg(google_cloud_unstable_storage_bidi)]
 #[derive(Debug)]
 pub struct AppendableObjectWriter {
     inner: Box<dyn AppendableObjectWriterStub>,
 }
 
-#[cfg(google_cloud_unstable_storage_bidi)]
 impl AppendableObjectWriter {
     /// Append a chunk of data to a local buffer.
     /// User should call flush/close/finalize to persist the bytes to the server.
@@ -201,7 +198,6 @@ impl AppendableObjectWriter {
 }
 
 #[cfg(test)]
-#[cfg(google_cloud_unstable_storage_bidi)]
 mod tests {
     use super::*;
     use bytes::Bytes;

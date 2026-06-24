@@ -109,6 +109,7 @@ pub trait ObjectDescriptor: std::fmt::Debug + Send + Sync {
 /// should use `AppendableObjectWriter` directly, and need not be concerned
 /// with this trait or its implementations.
 #[cfg(google_cloud_unstable_storage_bidi)]
+#[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
 pub trait AppendableObjectWriter: std::fmt::Debug + Send + Sync {
     /// The implementation for [AppendableObjectWriter::append][crate::appendable_object_writer::AppendableObjectWriter::append].
     fn append(
