@@ -97,6 +97,7 @@ pub struct PostPolicyV4Builder {
 
 /// The result of signing a V4 POST Policy Document.
 #[derive(Debug, Clone, serde::Serialize)]
+#[non_exhaustive]
 pub struct PostPolicyV4Result {
     /// The destination URL for the POST request.
     pub url: String,
