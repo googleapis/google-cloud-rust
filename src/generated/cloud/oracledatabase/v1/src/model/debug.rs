@@ -1085,6 +1085,19 @@ impl std::fmt::Debug for super::CloudExadataInfrastructureProperties {
         debug_struct.field("compute_model", &self.compute_model);
         debug_struct.field("database_server_type", &self.database_server_type);
         debug_struct.field("storage_server_type", &self.storage_server_type);
+        debug_struct.field("exascale_config", &self.exascale_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ExascaleConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExascaleConfig");
+        debug_struct.field("total_storage_size_gb", &self.total_storage_size_gb);
+        debug_struct.field("available_storage_size_gb", &self.available_storage_size_gb);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1110,6 +1123,19 @@ impl std::fmt::Debug for super::MaintenanceWindow {
             "is_custom_action_timeout_enabled",
             &self.is_custom_action_timeout_enabled,
         );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ConfigureExascaleCloudExadataInfrastructureRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConfigureExascaleCloudExadataInfrastructureRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("total_storage_size_gb", &self.total_storage_size_gb);
+        debug_struct.field("request_id", &self.request_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1193,6 +1219,7 @@ impl std::fmt::Debug for super::ExascaleDbStorageVault {
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("entitlement_id", &self.entitlement_id);
         debug_struct.field("labels", &self.labels);
+        debug_struct.field("exadata_infrastructure", &self.exadata_infrastructure);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3851,6 +3878,7 @@ impl std::fmt::Debug for super::CloudVmCluster {
         debug_struct.field("odb_subnet", &self.odb_subnet);
         debug_struct.field("backup_odb_subnet", &self.backup_odb_subnet);
         debug_struct.field("identity_connector", &self.identity_connector);
+        debug_struct.field("exascale_db_storage_vault", &self.exascale_db_storage_vault);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3900,6 +3928,7 @@ impl std::fmt::Debug for super::CloudVmClusterProperties {
         debug_struct.field("dns_listener_ip", &self.dns_listener_ip);
         debug_struct.field("cluster_name", &self.cluster_name);
         debug_struct.field("compute_model", &self.compute_model);
+        debug_struct.field("storage_management_type", &self.storage_management_type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

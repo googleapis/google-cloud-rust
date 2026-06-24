@@ -61,9 +61,11 @@ impl std::fmt::Debug for super::Endpoint {
         debug_struct.field("redis_instance", &self.redis_instance);
         debug_struct.field("redis_cluster", &self.redis_cluster);
         debug_struct.field("gke_pod", &self.gke_pod);
+        debug_struct.field("dms_private_connection", &self.dms_private_connection);
         debug_struct.field("cloud_function", &self.cloud_function);
         debug_struct.field("app_engine_version", &self.app_engine_version);
         debug_struct.field("cloud_run_revision", &self.cloud_run_revision);
+        debug_struct.field("cloud_run_job", &self.cloud_run_job);
         debug_struct.field("network", &self.network);
         debug_struct.field("network_type", &self.network_type);
         debug_struct.field("project_id", &self.project_id);
@@ -809,6 +811,19 @@ impl std::fmt::Debug for super::CloudRunRevisionInfo {
     }
 }
 
+impl std::fmt::Debug for super::CloudRunJobInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudRunJobInfo");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("location", &self.location);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::AppEngineVersionInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AppEngineVersionInfo");
@@ -965,6 +980,17 @@ impl std::fmt::Debug for super::NgfwPacketInspectionInfo {
             "security_profile_group_uri",
             &self.security_profile_group_uri,
         );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::PrivateConnectionInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PrivateConnectionInfo");
+        debug_struct.field("uri", &self.uri);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

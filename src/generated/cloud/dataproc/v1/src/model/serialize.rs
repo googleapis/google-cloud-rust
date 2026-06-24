@@ -1088,6 +1088,9 @@ impl serde::ser::Serialize for super::GceClusterConfig {
                 &self.confidential_instance_config,
             )?;
         }
+        if !self.resource_manager_tags.is_empty() {
+            state.serialize_entry("resourceManagerTags", &self.resource_manager_tags)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1165,6 +1168,9 @@ impl serde::ser::Serialize for super::ConfidentialInstanceConfig {
                 "enableConfidentialCompute",
                 &self.enable_confidential_compute,
             )?;
+        }
+        if !wkt::internal::is_default(&self.confidential_instance_type) {
+            state.serialize_entry("confidentialInstanceType", &self.confidential_instance_type)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

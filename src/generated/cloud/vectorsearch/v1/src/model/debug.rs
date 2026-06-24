@@ -573,6 +573,7 @@ impl std::fmt::Debug for super::DeleteCollectionRequest {
         let mut debug_struct = f.debug_struct("DeleteCollectionRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("force", &self.force);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -750,6 +751,7 @@ impl std::fmt::Debug for super::ExportDataObjectsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExportDataObjectsRequest");
         debug_struct.field("name", &self.name);
+        debug_struct.field("field_filter", &self.field_filter);
         debug_struct.field("destination", &self.destination);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -763,6 +765,28 @@ impl std::fmt::Debug for super::export_data_objects_request::GcsExportDestinatio
         let mut debug_struct = f.debug_struct("GcsExportDestination");
         debug_struct.field("export_uri", &self.export_uri);
         debug_struct.field("format", &self.format);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::export_data_objects_request::FieldFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FieldFilter");
+        debug_struct.field("selector", &self.selector);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::export_data_objects_request::field_filter::FieldList {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FieldList");
+        debug_struct.field("fields", &self.fields);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

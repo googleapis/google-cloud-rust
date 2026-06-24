@@ -41,6 +41,12 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
+    async fn configure_exascale_cloud_exadata_infrastructure(
+        &self,
+        req: crate::model::ConfigureExascaleCloudExadataInfrastructureRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
     async fn list_cloud_vm_clusters(
         &self,
         req: crate::model::ListCloudVmClustersRequest,
@@ -569,6 +575,15 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_cloud_exadata_infrastructure(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn configure_exascale_cloud_exadata_infrastructure(
+        &self,
+        req: crate::model::ConfigureExascaleCloudExadataInfrastructureRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::configure_exascale_cloud_exadata_infrastructure(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

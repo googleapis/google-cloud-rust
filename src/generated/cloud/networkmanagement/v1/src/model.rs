@@ -529,6 +529,12 @@ pub struct Endpoint {
     /// URI.
     pub gke_pod: std::string::String,
 
+    /// A [DMS Private
+    /// Connection](https://docs.cloud.google.com/database-migration/docs/reference/rest/v1/projects.locations.privateConnections)
+    /// name format:
+    /// projects/{project}/locations/{location}/privateConnections/{privateConnection}.
+    pub dms_private_connection: std::string::String,
+
     /// A [Cloud Function](https://cloud.google.com/functions). Applicable only to
     /// source endpoint.
     pub cloud_function: std::option::Option<crate::model::endpoint::CloudFunctionEndpoint>,
@@ -542,6 +548,13 @@ pub struct Endpoint {
     /// [revision](https://cloud.google.com/run/docs/reference/rest/v1/namespaces.revisions/get)
     /// Applicable only to source endpoint.
     pub cloud_run_revision: std::option::Option<crate::model::endpoint::CloudRunRevisionEndpoint>,
+
+    /// A [Cloud Run](https://cloud.google.com/run)
+    /// [job](https://docs.cloud.google.com/run/docs/reference/rest/v2/projects.locations.jobs#Job)
+    /// URI.
+    /// Applicable only to source endpoint.
+    /// The format is: projects/{project}/locations/{location}/jobs/{job}
+    pub cloud_run_job: std::string::String,
 
     /// A VPC network URI. For source endpoints, used according to the
     /// `network_type`. For destination endpoints, used only when the source is an
@@ -797,6 +810,21 @@ impl Endpoint {
         self
     }
 
+    /// Sets the value of [dms_private_connection][crate::model::Endpoint::dms_private_connection].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkmanagement_v1::model::Endpoint;
+    /// let x = Endpoint::new().set_dms_private_connection("example");
+    /// ```
+    pub fn set_dms_private_connection<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.dms_private_connection = v.into();
+        self
+    }
+
     /// Sets the value of [cloud_function][crate::model::Endpoint::cloud_function].
     ///
     /// # Example
@@ -893,6 +921,18 @@ impl Endpoint {
         T: std::convert::Into<crate::model::endpoint::CloudRunRevisionEndpoint>,
     {
         self.cloud_run_revision = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [cloud_run_job][crate::model::Endpoint::cloud_run_job].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkmanagement_v1::model::Endpoint;
+    /// let x = Endpoint::new().set_cloud_run_job("example");
+    /// ```
+    pub fn set_cloud_run_job<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.cloud_run_job = v.into();
         self
     }
 
@@ -3570,12 +3610,14 @@ impl Step {
     /// assert!(x.cloud_function().is_none());
     /// assert!(x.app_engine_version().is_none());
     /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
     /// assert!(x.nat().is_none());
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
     /// ```
     pub fn set_instance<T: std::convert::Into<std::boxed::Box<crate::model::InstanceInfo>>>(
         mut self,
@@ -3638,12 +3680,14 @@ impl Step {
     /// assert!(x.cloud_function().is_none());
     /// assert!(x.app_engine_version().is_none());
     /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
     /// assert!(x.nat().is_none());
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
     /// ```
     pub fn set_firewall<T: std::convert::Into<std::boxed::Box<crate::model::FirewallInfo>>>(
         mut self,
@@ -3706,12 +3750,14 @@ impl Step {
     /// assert!(x.cloud_function().is_none());
     /// assert!(x.app_engine_version().is_none());
     /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
     /// assert!(x.nat().is_none());
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
     /// ```
     pub fn set_route<T: std::convert::Into<std::boxed::Box<crate::model::RouteInfo>>>(
         mut self,
@@ -3773,12 +3819,14 @@ impl Step {
     /// assert!(x.cloud_function().is_none());
     /// assert!(x.app_engine_version().is_none());
     /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
     /// assert!(x.nat().is_none());
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
     /// ```
     pub fn set_endpoint<T: std::convert::Into<std::boxed::Box<crate::model::EndpointInfo>>>(
         mut self,
@@ -3843,12 +3891,14 @@ impl Step {
     /// assert!(x.cloud_function().is_none());
     /// assert!(x.app_engine_version().is_none());
     /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
     /// assert!(x.nat().is_none());
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
     /// ```
     pub fn set_google_service<
         T: std::convert::Into<std::boxed::Box<crate::model::GoogleServiceInfo>>,
@@ -3915,12 +3965,14 @@ impl Step {
     /// assert!(x.cloud_function().is_none());
     /// assert!(x.app_engine_version().is_none());
     /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
     /// assert!(x.nat().is_none());
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
     /// ```
     pub fn set_forwarding_rule<
         T: std::convert::Into<std::boxed::Box<crate::model::ForwardingRuleInfo>>,
@@ -3987,12 +4039,14 @@ impl Step {
     /// assert!(x.cloud_function().is_none());
     /// assert!(x.app_engine_version().is_none());
     /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
     /// assert!(x.nat().is_none());
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
     /// ```
     pub fn set_hybrid_subnet<
         T: std::convert::Into<std::boxed::Box<crate::model::HybridSubnetInfo>>,
@@ -4059,12 +4113,14 @@ impl Step {
     /// assert!(x.cloud_function().is_none());
     /// assert!(x.app_engine_version().is_none());
     /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
     /// assert!(x.nat().is_none());
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
     /// ```
     pub fn set_vpn_gateway<T: std::convert::Into<std::boxed::Box<crate::model::VpnGatewayInfo>>>(
         mut self,
@@ -4127,12 +4183,14 @@ impl Step {
     /// assert!(x.cloud_function().is_none());
     /// assert!(x.app_engine_version().is_none());
     /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
     /// assert!(x.nat().is_none());
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
     /// ```
     pub fn set_vpn_tunnel<T: std::convert::Into<std::boxed::Box<crate::model::VpnTunnelInfo>>>(
         mut self,
@@ -4197,12 +4255,14 @@ impl Step {
     /// assert!(x.cloud_function().is_none());
     /// assert!(x.app_engine_version().is_none());
     /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
     /// assert!(x.nat().is_none());
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
     /// ```
     pub fn set_interconnect_attachment<
         T: std::convert::Into<std::boxed::Box<crate::model::InterconnectAttachmentInfo>>,
@@ -4270,12 +4330,14 @@ impl Step {
     /// assert!(x.cloud_function().is_none());
     /// assert!(x.app_engine_version().is_none());
     /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
     /// assert!(x.nat().is_none());
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
     /// ```
     pub fn set_vpc_connector<
         T: std::convert::Into<std::boxed::Box<crate::model::VpcConnectorInfo>>,
@@ -4344,12 +4406,14 @@ impl Step {
     /// assert!(x.cloud_function().is_none());
     /// assert!(x.app_engine_version().is_none());
     /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
     /// assert!(x.nat().is_none());
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
     /// ```
     pub fn set_direct_vpc_egress_connection<
         T: std::convert::Into<std::boxed::Box<crate::model::DirectVpcEgressConnectionInfo>>,
@@ -4419,12 +4483,14 @@ impl Step {
     /// assert!(x.cloud_function().is_none());
     /// assert!(x.app_engine_version().is_none());
     /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
     /// assert!(x.nat().is_none());
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
     /// ```
     pub fn set_serverless_external_connection<
         T: std::convert::Into<std::boxed::Box<crate::model::ServerlessExternalConnectionInfo>>,
@@ -4490,12 +4556,14 @@ impl Step {
     /// assert!(x.cloud_function().is_none());
     /// assert!(x.app_engine_version().is_none());
     /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
     /// assert!(x.nat().is_none());
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
     /// ```
     pub fn set_deliver<T: std::convert::Into<std::boxed::Box<crate::model::DeliverInfo>>>(
         mut self,
@@ -4557,12 +4625,14 @@ impl Step {
     /// assert!(x.cloud_function().is_none());
     /// assert!(x.app_engine_version().is_none());
     /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
     /// assert!(x.nat().is_none());
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
     /// ```
     pub fn set_forward<T: std::convert::Into<std::boxed::Box<crate::model::ForwardInfo>>>(
         mut self,
@@ -4624,12 +4694,14 @@ impl Step {
     /// assert!(x.cloud_function().is_none());
     /// assert!(x.app_engine_version().is_none());
     /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
     /// assert!(x.nat().is_none());
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
     /// ```
     pub fn set_abort<T: std::convert::Into<std::boxed::Box<crate::model::AbortInfo>>>(
         mut self,
@@ -4691,12 +4763,14 @@ impl Step {
     /// assert!(x.cloud_function().is_none());
     /// assert!(x.app_engine_version().is_none());
     /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
     /// assert!(x.nat().is_none());
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
     /// ```
     pub fn set_drop<T: std::convert::Into<std::boxed::Box<crate::model::DropInfo>>>(
         mut self,
@@ -4761,12 +4835,14 @@ impl Step {
     /// assert!(x.cloud_function().is_none());
     /// assert!(x.app_engine_version().is_none());
     /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
     /// assert!(x.nat().is_none());
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
     /// ```
     #[deprecated]
     pub fn set_load_balancer<
@@ -4832,12 +4908,14 @@ impl Step {
     /// assert!(x.cloud_function().is_none());
     /// assert!(x.app_engine_version().is_none());
     /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
     /// assert!(x.nat().is_none());
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
     /// ```
     pub fn set_network<T: std::convert::Into<std::boxed::Box<crate::model::NetworkInfo>>>(
         mut self,
@@ -4899,12 +4977,14 @@ impl Step {
     /// assert!(x.cloud_function().is_none());
     /// assert!(x.app_engine_version().is_none());
     /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
     /// assert!(x.nat().is_none());
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
     /// ```
     pub fn set_gke_master<T: std::convert::Into<std::boxed::Box<crate::model::GKEMasterInfo>>>(
         mut self,
@@ -4967,12 +5047,14 @@ impl Step {
     /// assert!(x.cloud_function().is_none());
     /// assert!(x.app_engine_version().is_none());
     /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
     /// assert!(x.nat().is_none());
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
     /// ```
     pub fn set_gke_pod<T: std::convert::Into<std::boxed::Box<crate::model::GkePodInfo>>>(
         mut self,
@@ -5036,12 +5118,14 @@ impl Step {
     /// assert!(x.cloud_function().is_none());
     /// assert!(x.app_engine_version().is_none());
     /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
     /// assert!(x.nat().is_none());
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
     /// ```
     pub fn set_ip_masquerading_skipped<
         T: std::convert::Into<std::boxed::Box<crate::model::IpMasqueradingSkippedInfo>>,
@@ -5109,12 +5193,14 @@ impl Step {
     /// assert!(x.cloud_function().is_none());
     /// assert!(x.app_engine_version().is_none());
     /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
     /// assert!(x.nat().is_none());
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
     /// ```
     pub fn set_gke_network_policy<
         T: std::convert::Into<std::boxed::Box<crate::model::GkeNetworkPolicyInfo>>,
@@ -5183,12 +5269,14 @@ impl Step {
     /// assert!(x.cloud_function().is_none());
     /// assert!(x.app_engine_version().is_none());
     /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
     /// assert!(x.nat().is_none());
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
     /// ```
     pub fn set_gke_network_policy_skipped<
         T: std::convert::Into<std::boxed::Box<crate::model::GkeNetworkPolicySkippedInfo>>,
@@ -5256,12 +5344,14 @@ impl Step {
     /// assert!(x.cloud_function().is_none());
     /// assert!(x.app_engine_version().is_none());
     /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
     /// assert!(x.nat().is_none());
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
     /// ```
     pub fn set_cloud_sql_instance<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudSQLInstanceInfo>>,
@@ -5328,12 +5418,14 @@ impl Step {
     /// assert!(x.cloud_function().is_none());
     /// assert!(x.app_engine_version().is_none());
     /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
     /// assert!(x.nat().is_none());
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
     /// ```
     pub fn set_redis_instance<
         T: std::convert::Into<std::boxed::Box<crate::model::RedisInstanceInfo>>,
@@ -5400,12 +5492,14 @@ impl Step {
     /// assert!(x.cloud_function().is_none());
     /// assert!(x.app_engine_version().is_none());
     /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
     /// assert!(x.nat().is_none());
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
     /// ```
     pub fn set_redis_cluster<
         T: std::convert::Into<std::boxed::Box<crate::model::RedisClusterInfo>>,
@@ -5472,12 +5566,14 @@ impl Step {
     /// assert!(x.redis_cluster().is_none());
     /// assert!(x.app_engine_version().is_none());
     /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
     /// assert!(x.nat().is_none());
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
     /// ```
     pub fn set_cloud_function<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudFunctionInfo>>,
@@ -5544,12 +5640,14 @@ impl Step {
     /// assert!(x.redis_cluster().is_none());
     /// assert!(x.cloud_function().is_none());
     /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
     /// assert!(x.nat().is_none());
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
     /// ```
     pub fn set_app_engine_version<
         T: std::convert::Into<std::boxed::Box<crate::model::AppEngineVersionInfo>>,
@@ -5616,12 +5714,14 @@ impl Step {
     /// assert!(x.redis_cluster().is_none());
     /// assert!(x.cloud_function().is_none());
     /// assert!(x.app_engine_version().is_none());
+    /// assert!(x.cloud_run_job().is_none());
     /// assert!(x.nat().is_none());
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
     /// ```
     pub fn set_cloud_run_revision<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudRunRevisionInfo>>,
@@ -5631,6 +5731,80 @@ impl Step {
     ) -> Self {
         self.step_info =
             std::option::Option::Some(crate::model::step::StepInfo::CloudRunRevision(v.into()));
+        self
+    }
+
+    /// The value of [step_info][crate::model::Step::step_info]
+    /// if it holds a `CloudRunJob`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn cloud_run_job(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CloudRunJobInfo>> {
+        #[allow(unreachable_patterns)]
+        self.step_info.as_ref().and_then(|v| match v {
+            crate::model::step::StepInfo::CloudRunJob(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [step_info][crate::model::Step::step_info]
+    /// to hold a `CloudRunJob`.
+    ///
+    /// Note that all the setters affecting `step_info` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkmanagement_v1::model::Step;
+    /// use google_cloud_networkmanagement_v1::model::CloudRunJobInfo;
+    /// let x = Step::new().set_cloud_run_job(CloudRunJobInfo::default()/* use setters */);
+    /// assert!(x.cloud_run_job().is_some());
+    /// assert!(x.instance().is_none());
+    /// assert!(x.firewall().is_none());
+    /// assert!(x.route().is_none());
+    /// assert!(x.endpoint().is_none());
+    /// assert!(x.google_service().is_none());
+    /// assert!(x.forwarding_rule().is_none());
+    /// assert!(x.hybrid_subnet().is_none());
+    /// assert!(x.vpn_gateway().is_none());
+    /// assert!(x.vpn_tunnel().is_none());
+    /// assert!(x.interconnect_attachment().is_none());
+    /// assert!(x.vpc_connector().is_none());
+    /// assert!(x.direct_vpc_egress_connection().is_none());
+    /// assert!(x.serverless_external_connection().is_none());
+    /// assert!(x.deliver().is_none());
+    /// assert!(x.forward().is_none());
+    /// assert!(x.abort().is_none());
+    /// assert!(x.drop().is_none());
+    /// assert!(x.load_balancer().is_none());
+    /// assert!(x.network().is_none());
+    /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
+    /// assert!(x.cloud_sql_instance().is_none());
+    /// assert!(x.redis_instance().is_none());
+    /// assert!(x.redis_cluster().is_none());
+    /// assert!(x.cloud_function().is_none());
+    /// assert!(x.app_engine_version().is_none());
+    /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.nat().is_none());
+    /// assert!(x.proxy_connection().is_none());
+    /// assert!(x.load_balancer_backend_info().is_none());
+    /// assert!(x.storage_bucket().is_none());
+    /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
+    /// ```
+    pub fn set_cloud_run_job<
+        T: std::convert::Into<std::boxed::Box<crate::model::CloudRunJobInfo>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.step_info =
+            std::option::Option::Some(crate::model::step::StepInfo::CloudRunJob(v.into()));
         self
     }
 
@@ -5687,11 +5861,13 @@ impl Step {
     /// assert!(x.cloud_function().is_none());
     /// assert!(x.app_engine_version().is_none());
     /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
     /// ```
     pub fn set_nat<T: std::convert::Into<std::boxed::Box<crate::model::NatInfo>>>(
         mut self,
@@ -5756,11 +5932,13 @@ impl Step {
     /// assert!(x.cloud_function().is_none());
     /// assert!(x.app_engine_version().is_none());
     /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
     /// assert!(x.nat().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
     /// ```
     pub fn set_proxy_connection<
         T: std::convert::Into<std::boxed::Box<crate::model::ProxyConnectionInfo>>,
@@ -5830,11 +6008,13 @@ impl Step {
     /// assert!(x.cloud_function().is_none());
     /// assert!(x.app_engine_version().is_none());
     /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
     /// assert!(x.nat().is_none());
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
     /// ```
     pub fn set_load_balancer_backend_info<
         T: std::convert::Into<std::boxed::Box<crate::model::LoadBalancerBackendInfo>>,
@@ -5903,11 +6083,13 @@ impl Step {
     /// assert!(x.cloud_function().is_none());
     /// assert!(x.app_engine_version().is_none());
     /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
     /// assert!(x.nat().is_none());
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
     /// ```
     pub fn set_storage_bucket<
         T: std::convert::Into<std::boxed::Box<crate::model::StorageBucketInfo>>,
@@ -5975,11 +6157,13 @@ impl Step {
     /// assert!(x.cloud_function().is_none());
     /// assert!(x.app_engine_version().is_none());
     /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
     /// assert!(x.nat().is_none());
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
     /// ```
     pub fn set_serverless_neg<
         T: std::convert::Into<std::boxed::Box<crate::model::ServerlessNegInfo>>,
@@ -6047,11 +6231,13 @@ impl Step {
     /// assert!(x.cloud_function().is_none());
     /// assert!(x.app_engine_version().is_none());
     /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
     /// assert!(x.nat().is_none());
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.dms_private_connection().is_none());
     /// ```
     pub fn set_ngfw_packet_inspection<
         T: std::convert::Into<std::boxed::Box<crate::model::NgfwPacketInspectionInfo>>,
@@ -6061,6 +6247,80 @@ impl Step {
     ) -> Self {
         self.step_info =
             std::option::Option::Some(crate::model::step::StepInfo::NgfwPacketInspection(v.into()));
+        self
+    }
+
+    /// The value of [step_info][crate::model::Step::step_info]
+    /// if it holds a `DmsPrivateConnection`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn dms_private_connection(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PrivateConnectionInfo>> {
+        #[allow(unreachable_patterns)]
+        self.step_info.as_ref().and_then(|v| match v {
+            crate::model::step::StepInfo::DmsPrivateConnection(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [step_info][crate::model::Step::step_info]
+    /// to hold a `DmsPrivateConnection`.
+    ///
+    /// Note that all the setters affecting `step_info` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkmanagement_v1::model::Step;
+    /// use google_cloud_networkmanagement_v1::model::PrivateConnectionInfo;
+    /// let x = Step::new().set_dms_private_connection(PrivateConnectionInfo::default()/* use setters */);
+    /// assert!(x.dms_private_connection().is_some());
+    /// assert!(x.instance().is_none());
+    /// assert!(x.firewall().is_none());
+    /// assert!(x.route().is_none());
+    /// assert!(x.endpoint().is_none());
+    /// assert!(x.google_service().is_none());
+    /// assert!(x.forwarding_rule().is_none());
+    /// assert!(x.hybrid_subnet().is_none());
+    /// assert!(x.vpn_gateway().is_none());
+    /// assert!(x.vpn_tunnel().is_none());
+    /// assert!(x.interconnect_attachment().is_none());
+    /// assert!(x.vpc_connector().is_none());
+    /// assert!(x.direct_vpc_egress_connection().is_none());
+    /// assert!(x.serverless_external_connection().is_none());
+    /// assert!(x.deliver().is_none());
+    /// assert!(x.forward().is_none());
+    /// assert!(x.abort().is_none());
+    /// assert!(x.drop().is_none());
+    /// assert!(x.load_balancer().is_none());
+    /// assert!(x.network().is_none());
+    /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
+    /// assert!(x.cloud_sql_instance().is_none());
+    /// assert!(x.redis_instance().is_none());
+    /// assert!(x.redis_cluster().is_none());
+    /// assert!(x.cloud_function().is_none());
+    /// assert!(x.app_engine_version().is_none());
+    /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
+    /// assert!(x.nat().is_none());
+    /// assert!(x.proxy_connection().is_none());
+    /// assert!(x.load_balancer_backend_info().is_none());
+    /// assert!(x.storage_bucket().is_none());
+    /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
+    /// ```
+    pub fn set_dms_private_connection<
+        T: std::convert::Into<std::boxed::Box<crate::model::PrivateConnectionInfo>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.step_info =
+            std::option::Option::Some(crate::model::step::StepInfo::DmsPrivateConnection(v.into()));
         self
     }
 }
@@ -6135,6 +6395,9 @@ pub mod step {
         /// Initial state: packet originating from a Cloud Run revision.
         /// A CloudRunRevisionInfo is populated with starting revision information.
         StartFromCloudRunRevision,
+        /// Initial state: packet originating from a Cloud Run Job.
+        /// A CloudRunJobInfo is populated with starting Job information.
+        StartFromCloudRunJob,
         /// Initial state: packet originating from a Storage Bucket. Used only for
         /// return traces.
         /// The storage_bucket information is populated.
@@ -6146,6 +6409,8 @@ pub mod step {
         /// group backend. Used only for return traces.
         /// The serverless_neg information is populated.
         StartFromServerlessNeg,
+        /// Initial state: packet originating from a DMS Private Connection.
+        StartFromDmsPrivateConnection,
         /// Config checking state: verify ingress firewall rule.
         ApplyIngressFirewallRule,
         /// Config checking state: verify egress firewall rule.
@@ -6255,9 +6520,11 @@ pub mod step {
                 Self::StartFromCloudFunction => std::option::Option::Some(23),
                 Self::StartFromAppEngineVersion => std::option::Option::Some(25),
                 Self::StartFromCloudRunRevision => std::option::Option::Some(26),
+                Self::StartFromCloudRunJob => std::option::Option::Some(50),
                 Self::StartFromStorageBucket => std::option::Option::Some(29),
                 Self::StartFromPscPublishedService => std::option::Option::Some(30),
                 Self::StartFromServerlessNeg => std::option::Option::Some(31),
+                Self::StartFromDmsPrivateConnection => std::option::Option::Some(48),
                 Self::ApplyIngressFirewallRule => std::option::Option::Some(4),
                 Self::ApplyEgressFirewallRule => std::option::Option::Some(5),
                 Self::ApplyRoute => std::option::Option::Some(6),
@@ -6327,6 +6594,7 @@ pub mod step {
                 Self::StartFromCloudRunRevision => {
                     std::option::Option::Some("START_FROM_CLOUD_RUN_REVISION")
                 }
+                Self::StartFromCloudRunJob => std::option::Option::Some("START_FROM_CLOUD_RUN_JOB"),
                 Self::StartFromStorageBucket => {
                     std::option::Option::Some("START_FROM_STORAGE_BUCKET")
                 }
@@ -6335,6 +6603,9 @@ pub mod step {
                 }
                 Self::StartFromServerlessNeg => {
                     std::option::Option::Some("START_FROM_SERVERLESS_NEG")
+                }
+                Self::StartFromDmsPrivateConnection => {
+                    std::option::Option::Some("START_FROM_DMS_PRIVATE_CONNECTION")
                 }
                 Self::ApplyIngressFirewallRule => {
                     std::option::Option::Some("APPLY_INGRESS_FIREWALL_RULE")
@@ -6461,6 +6732,8 @@ pub mod step {
                 45 => Self::ApplyIngressGkeNetworkPolicy,
                 46 => Self::ApplyEgressGkeNetworkPolicy,
                 47 => Self::NgfwPacketInspection,
+                48 => Self::StartFromDmsPrivateConnection,
+                50 => Self::StartFromCloudRunJob,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -6485,9 +6758,11 @@ pub mod step {
                 "START_FROM_CLOUD_FUNCTION" => Self::StartFromCloudFunction,
                 "START_FROM_APP_ENGINE_VERSION" => Self::StartFromAppEngineVersion,
                 "START_FROM_CLOUD_RUN_REVISION" => Self::StartFromCloudRunRevision,
+                "START_FROM_CLOUD_RUN_JOB" => Self::StartFromCloudRunJob,
                 "START_FROM_STORAGE_BUCKET" => Self::StartFromStorageBucket,
                 "START_FROM_PSC_PUBLISHED_SERVICE" => Self::StartFromPscPublishedService,
                 "START_FROM_SERVERLESS_NEG" => Self::StartFromServerlessNeg,
+                "START_FROM_DMS_PRIVATE_CONNECTION" => Self::StartFromDmsPrivateConnection,
                 "APPLY_INGRESS_FIREWALL_RULE" => Self::ApplyIngressFirewallRule,
                 "APPLY_EGRESS_FIREWALL_RULE" => Self::ApplyEgressFirewallRule,
                 "APPLY_ROUTE" => Self::ApplyRoute,
@@ -6544,9 +6819,11 @@ pub mod step {
                 Self::StartFromCloudFunction => serializer.serialize_i32(23),
                 Self::StartFromAppEngineVersion => serializer.serialize_i32(25),
                 Self::StartFromCloudRunRevision => serializer.serialize_i32(26),
+                Self::StartFromCloudRunJob => serializer.serialize_i32(50),
                 Self::StartFromStorageBucket => serializer.serialize_i32(29),
                 Self::StartFromPscPublishedService => serializer.serialize_i32(30),
                 Self::StartFromServerlessNeg => serializer.serialize_i32(31),
+                Self::StartFromDmsPrivateConnection => serializer.serialize_i32(48),
                 Self::ApplyIngressFirewallRule => serializer.serialize_i32(4),
                 Self::ApplyEgressFirewallRule => serializer.serialize_i32(5),
                 Self::ApplyRoute => serializer.serialize_i32(6),
@@ -6670,6 +6947,8 @@ pub mod step {
         AppEngineVersion(std::boxed::Box<crate::model::AppEngineVersionInfo>),
         /// Display information of a Cloud Run revision.
         CloudRunRevision(std::boxed::Box<crate::model::CloudRunRevisionInfo>),
+        /// Display information of a Cloud Run job.
+        CloudRunJob(std::boxed::Box<crate::model::CloudRunJobInfo>),
         /// Display information of a NAT.
         Nat(std::boxed::Box<crate::model::NatInfo>),
         /// Display information of a ProxyConnection.
@@ -6683,6 +6962,8 @@ pub mod step {
         ServerlessNeg(std::boxed::Box<crate::model::ServerlessNegInfo>),
         /// Display information of a layer 7 packet inspection by the firewall.
         NgfwPacketInspection(std::boxed::Box<crate::model::NgfwPacketInspectionInfo>),
+        /// Display information of a DMS Private Connection.
+        DmsPrivateConnection(std::boxed::Box<crate::model::PrivateConnectionInfo>),
     }
 }
 
@@ -11086,6 +11367,10 @@ pub mod deliver_info {
         RedisCluster,
         /// Target is a GKE Pod.
         GkePod,
+        /// Target is a Cloud Run Job. Used only for return traces.
+        CloudRunJob,
+        /// Target is a DMS Private Connection. Used only for return traces.
+        DmsPrivateConnection,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [Target::value] or
@@ -11127,6 +11412,8 @@ pub mod deliver_info {
                 Self::RedisInstance => std::option::Option::Some(16),
                 Self::RedisCluster => std::option::Option::Some(17),
                 Self::GkePod => std::option::Option::Some(19),
+                Self::CloudRunJob => std::option::Option::Some(20),
+                Self::DmsPrivateConnection => std::option::Option::Some(21),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -11156,6 +11443,8 @@ pub mod deliver_info {
                 Self::RedisInstance => std::option::Option::Some("REDIS_INSTANCE"),
                 Self::RedisCluster => std::option::Option::Some("REDIS_CLUSTER"),
                 Self::GkePod => std::option::Option::Some("GKE_POD"),
+                Self::CloudRunJob => std::option::Option::Some("CLOUD_RUN_JOB"),
+                Self::DmsPrivateConnection => std::option::Option::Some("DMS_PRIVATE_CONNECTION"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -11196,6 +11485,8 @@ pub mod deliver_info {
                 16 => Self::RedisInstance,
                 17 => Self::RedisCluster,
                 19 => Self::GkePod,
+                20 => Self::CloudRunJob,
+                21 => Self::DmsPrivateConnection,
                 _ => Self::UnknownValue(target::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -11226,6 +11517,8 @@ pub mod deliver_info {
                 "REDIS_INSTANCE" => Self::RedisInstance,
                 "REDIS_CLUSTER" => Self::RedisCluster,
                 "GKE_POD" => Self::GkePod,
+                "CLOUD_RUN_JOB" => Self::CloudRunJob,
+                "DMS_PRIVATE_CONNECTION" => Self::DmsPrivateConnection,
                 _ => Self::UnknownValue(target::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -11258,6 +11551,8 @@ pub mod deliver_info {
                 Self::RedisInstance => serializer.serialize_i32(16),
                 Self::RedisCluster => serializer.serialize_i32(17),
                 Self::GkePod => serializer.serialize_i32(19),
+                Self::CloudRunJob => serializer.serialize_i32(20),
+                Self::DmsPrivateConnection => serializer.serialize_i32(21),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -12621,6 +12916,8 @@ pub mod drop_info {
         DroppedInsideGkeService,
         /// Packet was dropped inside Cloud SQL Service.
         DroppedInsideCloudSqlService,
+        /// Packet was dropped inside DMS Private Connection.
+        DroppedInsideDmsPrivateConnection,
         /// Packet was dropped because there is no peering between the originating
         /// network and the Google Managed Services Network.
         GoogleManagedServiceNoPeering,
@@ -12706,6 +13003,8 @@ pub mod drop_info {
         HybridNegNonLocalDynamicRouteMatched,
         /// Packet sent from a Cloud Run revision that is not ready.
         CloudRunRevisionNotReady,
+        /// Packet sent from a Cloud Run job that is not ready.
+        CloudRunJobNotReady,
         /// Packet was dropped inside Private Service Connect service producer.
         DroppedInsidePscServiceProducer,
         /// Packet sent to a load balancer, which requires a proxy-only subnet and
@@ -12821,6 +13120,9 @@ pub mod drop_info {
         /// Packet is dropped because there is no valid matching route from the
         /// network of the Google-managed service to the destination.
         NoValidRouteFromGoogleManagedNetworkToDestination,
+        /// Packet is dropped due to no running instance found for private
+        /// connection.
+        PrivateConnectionNoRunningInstance,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [Cause::value] or
@@ -12888,6 +13190,7 @@ pub mod drop_info {
                 Self::CloudSqlInstanceUnauthorizedAccess => std::option::Option::Some(17),
                 Self::DroppedInsideGkeService => std::option::Option::Some(18),
                 Self::DroppedInsideCloudSqlService => std::option::Option::Some(19),
+                Self::DroppedInsideDmsPrivateConnection => std::option::Option::Some(114),
                 Self::GoogleManagedServiceNoPeering => std::option::Option::Some(20),
                 Self::GoogleManagedServiceNoPscEndpoint => std::option::Option::Some(38),
                 Self::GkePscEndpointMissing => std::option::Option::Some(36),
@@ -12917,6 +13220,7 @@ pub mod drop_info {
                 Self::HybridNegNonDynamicRouteMatched => std::option::Option::Some(55),
                 Self::HybridNegNonLocalDynamicRouteMatched => std::option::Option::Some(56),
                 Self::CloudRunRevisionNotReady => std::option::Option::Some(29),
+                Self::CloudRunJobNotReady => std::option::Option::Some(113),
                 Self::DroppedInsidePscServiceProducer => std::option::Option::Some(37),
                 Self::LoadBalancerHasNoProxySubnet => std::option::Option::Some(39),
                 Self::CloudNatNoAddresses => std::option::Option::Some(40),
@@ -12962,6 +13266,7 @@ pub mod drop_info {
                 Self::NoValidRouteFromGoogleManagedNetworkToDestination => {
                     std::option::Option::Some(110)
                 }
+                Self::PrivateConnectionNoRunningInstance => std::option::Option::Some(111),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -13069,6 +13374,9 @@ pub mod drop_info {
                 Self::DroppedInsideCloudSqlService => {
                     std::option::Option::Some("DROPPED_INSIDE_CLOUD_SQL_SERVICE")
                 }
+                Self::DroppedInsideDmsPrivateConnection => {
+                    std::option::Option::Some("DROPPED_INSIDE_DMS_PRIVATE_CONNECTION")
+                }
                 Self::GoogleManagedServiceNoPeering => {
                     std::option::Option::Some("GOOGLE_MANAGED_SERVICE_NO_PEERING")
                 }
@@ -13148,6 +13456,7 @@ pub mod drop_info {
                 Self::CloudRunRevisionNotReady => {
                     std::option::Option::Some("CLOUD_RUN_REVISION_NOT_READY")
                 }
+                Self::CloudRunJobNotReady => std::option::Option::Some("CLOUD_RUN_JOB_NOT_READY"),
                 Self::DroppedInsidePscServiceProducer => {
                     std::option::Option::Some("DROPPED_INSIDE_PSC_SERVICE_PRODUCER")
                 }
@@ -13258,6 +13567,9 @@ pub mod drop_info {
                     std::option::Option::Some(
                         "NO_VALID_ROUTE_FROM_GOOGLE_MANAGED_NETWORK_TO_DESTINATION",
                     )
+                }
+                Self::PrivateConnectionNoRunningInstance => {
+                    std::option::Option::Some("PRIVATE_CONNECTION_NO_RUNNING_INSTANCE")
                 }
                 Self::UnknownValue(u) => u.0.name(),
             }
@@ -13385,6 +13697,9 @@ pub mod drop_info {
                 108 => Self::GkeNetworkPolicy,
                 109 => Self::NoRouteFromInternetToPrivateIpv4Address,
                 110 => Self::NoValidRouteFromGoogleManagedNetworkToDestination,
+                111 => Self::PrivateConnectionNoRunningInstance,
+                113 => Self::CloudRunJobNotReady,
+                114 => Self::DroppedInsideDmsPrivateConnection,
                 _ => Self::UnknownValue(cause::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -13455,6 +13770,7 @@ pub mod drop_info {
                 }
                 "DROPPED_INSIDE_GKE_SERVICE" => Self::DroppedInsideGkeService,
                 "DROPPED_INSIDE_CLOUD_SQL_SERVICE" => Self::DroppedInsideCloudSqlService,
+                "DROPPED_INSIDE_DMS_PRIVATE_CONNECTION" => Self::DroppedInsideDmsPrivateConnection,
                 "GOOGLE_MANAGED_SERVICE_NO_PEERING" => Self::GoogleManagedServiceNoPeering,
                 "GOOGLE_MANAGED_SERVICE_NO_PSC_ENDPOINT" => Self::GoogleManagedServiceNoPscEndpoint,
                 "GKE_PSC_ENDPOINT_MISSING" => Self::GkePscEndpointMissing,
@@ -13502,6 +13818,7 @@ pub mod drop_info {
                     Self::HybridNegNonLocalDynamicRouteMatched
                 }
                 "CLOUD_RUN_REVISION_NOT_READY" => Self::CloudRunRevisionNotReady,
+                "CLOUD_RUN_JOB_NOT_READY" => Self::CloudRunJobNotReady,
                 "DROPPED_INSIDE_PSC_SERVICE_PRODUCER" => Self::DroppedInsidePscServiceProducer,
                 "LOAD_BALANCER_HAS_NO_PROXY_SUBNET" => Self::LoadBalancerHasNoProxySubnet,
                 "CLOUD_NAT_NO_ADDRESSES" => Self::CloudNatNoAddresses,
@@ -13565,6 +13882,9 @@ pub mod drop_info {
                 "NO_VALID_ROUTE_FROM_GOOGLE_MANAGED_NETWORK_TO_DESTINATION" => {
                     Self::NoValidRouteFromGoogleManagedNetworkToDestination
                 }
+                "PRIVATE_CONNECTION_NO_RUNNING_INSTANCE" => {
+                    Self::PrivateConnectionNoRunningInstance
+                }
                 _ => Self::UnknownValue(cause::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -13623,6 +13943,7 @@ pub mod drop_info {
                 Self::CloudSqlInstanceUnauthorizedAccess => serializer.serialize_i32(17),
                 Self::DroppedInsideGkeService => serializer.serialize_i32(18),
                 Self::DroppedInsideCloudSqlService => serializer.serialize_i32(19),
+                Self::DroppedInsideDmsPrivateConnection => serializer.serialize_i32(114),
                 Self::GoogleManagedServiceNoPeering => serializer.serialize_i32(20),
                 Self::GoogleManagedServiceNoPscEndpoint => serializer.serialize_i32(38),
                 Self::GkePscEndpointMissing => serializer.serialize_i32(36),
@@ -13652,6 +13973,7 @@ pub mod drop_info {
                 Self::HybridNegNonDynamicRouteMatched => serializer.serialize_i32(55),
                 Self::HybridNegNonLocalDynamicRouteMatched => serializer.serialize_i32(56),
                 Self::CloudRunRevisionNotReady => serializer.serialize_i32(29),
+                Self::CloudRunJobNotReady => serializer.serialize_i32(113),
                 Self::DroppedInsidePscServiceProducer => serializer.serialize_i32(37),
                 Self::LoadBalancerHasNoProxySubnet => serializer.serialize_i32(39),
                 Self::CloudNatNoAddresses => serializer.serialize_i32(40),
@@ -13693,6 +14015,7 @@ pub mod drop_info {
                 Self::NoValidRouteFromGoogleManagedNetworkToDestination => {
                     serializer.serialize_i32(110)
                 }
+                Self::PrivateConnectionNoRunningInstance => serializer.serialize_i32(111),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -14940,6 +15263,71 @@ impl CloudRunRevisionInfo {
 impl wkt::message::Message for CloudRunRevisionInfo {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.networkmanagement.v1.CloudRunRevisionInfo"
+    }
+}
+
+/// For display only. Metadata associated with a Cloud Run job.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CloudRunJobInfo {
+    /// Name of a Cloud Run job.
+    pub display_name: std::string::String,
+
+    /// URI of a Cloud Run job.
+    pub uri: std::string::String,
+
+    /// Location in which this job is deployed.
+    pub location: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CloudRunJobInfo {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [display_name][crate::model::CloudRunJobInfo::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkmanagement_v1::model::CloudRunJobInfo;
+    /// let x = CloudRunJobInfo::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [uri][crate::model::CloudRunJobInfo::uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkmanagement_v1::model::CloudRunJobInfo;
+    /// let x = CloudRunJobInfo::new().set_uri("example");
+    /// ```
+    pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uri = v.into();
+        self
+    }
+
+    /// Sets the value of [location][crate::model::CloudRunJobInfo::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkmanagement_v1::model::CloudRunJobInfo;
+    /// let x = CloudRunJobInfo::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CloudRunJobInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkmanagement.v1.CloudRunJobInfo"
     }
 }
 
@@ -16472,6 +16860,42 @@ impl NgfwPacketInspectionInfo {
 impl wkt::message::Message for NgfwPacketInspectionInfo {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.networkmanagement.v1.NgfwPacketInspectionInfo"
+    }
+}
+
+/// For display only. Metadata associated with a Private Connection.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PrivateConnectionInfo {
+    /// URI of the Private Connection in format
+    /// "projects/{project_id}/locations/{location}/privateConnections/{private_connection_id}"
+    pub uri: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PrivateConnectionInfo {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [uri][crate::model::PrivateConnectionInfo::uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkmanagement_v1::model::PrivateConnectionInfo;
+    /// let x = PrivateConnectionInfo::new().set_uri("example");
+    /// ```
+    pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uri = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for PrivateConnectionInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkmanagement.v1.PrivateConnectionInfo"
     }
 }
 

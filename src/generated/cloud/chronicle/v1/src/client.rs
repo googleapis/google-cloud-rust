@@ -3277,6 +3277,28 @@ impl ReferenceListService {
         super::builder::reference_list_service::UpdateReferenceList::new(self.inner.clone())
     }
 
+    /// VerifyReferenceList validates list content and returns line errors, if any.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::ReferenceListService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &ReferenceListService
+    /// ) -> Result<()> {
+    ///     let response = client.verify_reference_list()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn verify_reference_list(
+        &self,
+    ) -> super::builder::reference_list_service::VerifyReferenceList {
+        super::builder::reference_list_service::VerifyReferenceList::new(self.inner.clone())
+    }
+
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
@@ -3590,6 +3612,26 @@ impl RuleService {
         super::builder::rule_service::DeleteRule::new(self.inner.clone())
     }
 
+    /// Verifies the given rule text.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::RuleService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &RuleService
+    /// ) -> Result<()> {
+    ///     let response = client.verify_rule_text()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn verify_rule_text(&self) -> super::builder::rule_service::VerifyRuleText {
+        super::builder::rule_service::VerifyRuleText::new(self.inner.clone())
+    }
+
     /// Lists all revisions of the rule.
     ///
     /// # Example
@@ -3850,5 +3892,240 @@ impl RuleService {
     /// ```
     pub fn cancel_operation(&self) -> super::builder::rule_service::CancelOperation {
         super::builder::rule_service::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Chronicle API.
+///
+/// # Example
+/// ```
+/// # use google_cloud_chronicle_v1::client::RuleExecutionErrorService;
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    instance_id: &str,
+/// ) -> anyhow::Result<()> {
+///     let client = RuleExecutionErrorService::builder().build().await?;
+///     let mut list = client.list_rule_execution_errors()
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// RuleExecutionErrorService contains endpoints related to rule execution
+/// errors.
+///
+/// # Configuration
+///
+/// To configure `RuleExecutionErrorService` use the `with_*` methods in the type returned
+/// by [builder()][RuleExecutionErrorService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://chronicle.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::rule_execution_error_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::rule_execution_error_service::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `RuleExecutionErrorService` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `RuleExecutionErrorService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct RuleExecutionErrorService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::RuleExecutionErrorService>,
+}
+
+impl RuleExecutionErrorService {
+    /// Returns a builder for [RuleExecutionErrorService].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_chronicle_v1::client::RuleExecutionErrorService;
+    /// let client = RuleExecutionErrorService::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::rule_execution_error_service::ClientBuilder {
+        crate::new_client_builder(super::builder::rule_execution_error_service::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::RuleExecutionErrorService + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<
+        std::sync::Arc<dyn super::stub::dynamic::RuleExecutionErrorService>,
+    > {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::RuleExecutionErrorService> {
+        super::transport::RuleExecutionErrorService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::RuleExecutionErrorService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::RuleExecutionErrorService::new)
+    }
+
+    /// Lists rule execution errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::RuleExecutionErrorService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &RuleExecutionErrorService, project_id: &str, location_id: &str, instance_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_rule_execution_errors()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_rule_execution_errors(
+        &self,
+    ) -> super::builder::rule_execution_error_service::ListRuleExecutionErrors {
+        super::builder::rule_execution_error_service::ListRuleExecutionErrors::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::RuleExecutionErrorService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &RuleExecutionErrorService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_operations(&self) -> super::builder::rule_execution_error_service::ListOperations {
+        super::builder::rule_execution_error_service::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::RuleExecutionErrorService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &RuleExecutionErrorService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::rule_execution_error_service::GetOperation {
+        super::builder::rule_execution_error_service::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::RuleExecutionErrorService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &RuleExecutionErrorService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(
+        &self,
+    ) -> super::builder::rule_execution_error_service::DeleteOperation {
+        super::builder::rule_execution_error_service::DeleteOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::RuleExecutionErrorService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &RuleExecutionErrorService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(
+        &self,
+    ) -> super::builder::rule_execution_error_service::CancelOperation {
+        super::builder::rule_execution_error_service::CancelOperation::new(self.inner.clone())
     }
 }

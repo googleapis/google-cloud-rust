@@ -4449,8 +4449,8 @@ impl OutputAudioConfig {
     /// # use google_cloud_dialogflow_cx_v3::model::OutputAudioConfig;
     /// use google_cloud_dialogflow_cx_v3::model::OutputAudioEncoding;
     /// let x0 = OutputAudioConfig::new().set_audio_encoding(OutputAudioEncoding::Linear16);
-    /// let x1 = OutputAudioConfig::new().set_audio_encoding(OutputAudioEncoding::Mp3);
-    /// let x2 = OutputAudioConfig::new().set_audio_encoding(OutputAudioEncoding::Mp364Kbps);
+    /// let x1 = OutputAudioConfig::new().set_audio_encoding(OutputAudioEncoding::Mp364Kbps);
+    /// let x2 = OutputAudioConfig::new().set_audio_encoding(OutputAudioEncoding::OggOpus);
     /// ```
     pub fn set_audio_encoding<T: std::convert::Into<crate::model::OutputAudioEncoding>>(
         mut self,
@@ -57900,7 +57900,8 @@ pub enum OutputAudioEncoding {
     /// Audio content returned as LINEAR16 also contains a WAV header.
     /// LINT: LEGACY_NAMES
     Linear16,
-    /// MP3 audio at 32kbps.
+    /// MP3 audio at 64kbps.
+    #[deprecated]
     Mp3,
     /// MP3 audio at 64kbps.
     /// LINT: LEGACY_NAMES
@@ -58994,6 +58995,13 @@ pub enum DetectIntentResponseView {
     ///
     /// [QueryResult.diagnostic_info][google.cloud.dialogflow.cx.v3.QueryResult.diagnostic_info]
     ///
+    /// - [QueryResult.generative_info][]
+    ///
+    /// ## [QueryResult.trace_blocks][google.cloud.dialogflow.cx.v3.QueryResult.trace_blocks]
+    ///
+    /// [QueryResult.data_store_connection_signals][google.cloud.dialogflow.cx.v3.QueryResult.data_store_connection_signals]
+    ///
+    /// [google.cloud.dialogflow.cx.v3.QueryResult.data_store_connection_signals]: crate::model::QueryResult::data_store_connection_signals
     /// [google.cloud.dialogflow.cx.v3.QueryResult.diagnostic_info]: crate::model::QueryResult::diagnostic_info
     Basic,
     /// ## Default response view omits the following fields:

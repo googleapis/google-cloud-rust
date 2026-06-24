@@ -39240,6 +39240,9 @@ impl serde::ser::Serialize for super::ReservationBlock {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.block_health_info.is_some() {
+            state.serialize_entry("blockHealthInfo", &self.block_health_info)?;
+        }
         if self.count.is_some() {
             struct __With<'a>(&'a std::option::Option<i32>);
             impl<'a> serde::ser::Serialize for __With<'a> {
@@ -39256,9 +39259,6 @@ impl serde::ser::Serialize for super::ReservationBlock {
         }
         if self.creation_timestamp.is_some() {
             state.serialize_entry("creationTimestamp", &self.creation_timestamp)?;
-        }
-        if self.health_info.is_some() {
-            state.serialize_entry("healthInfo", &self.health_info)?;
         }
         if self.id.is_some() {
             struct __With<'a>(&'a std::option::Option<u64>);
@@ -40062,9 +40062,6 @@ impl serde::ser::Serialize for super::ReservationSubBlock {
         if self.creation_timestamp.is_some() {
             state.serialize_entry("creationTimestamp", &self.creation_timestamp)?;
         }
-        if self.health_info.is_some() {
-            state.serialize_entry("healthInfo", &self.health_info)?;
-        }
         if self.id.is_some() {
             struct __With<'a>(&'a std::option::Option<u64>);
             impl<'a> serde::ser::Serialize for __With<'a> {
@@ -40130,6 +40127,9 @@ impl serde::ser::Serialize for super::ReservationSubBlock {
         }
         if self.status.is_some() {
             state.serialize_entry("status", &self.status)?;
+        }
+        if self.sub_block_health_info.is_some() {
+            state.serialize_entry("subBlockHealthInfo", &self.sub_block_health_info)?;
         }
         if self.zone.is_some() {
             state.serialize_entry("zone", &self.zone)?;
@@ -43657,6 +43657,23 @@ impl serde::ser::Serialize for super::RouterNat {
         if !self.drain_nat_ips.is_empty() {
             state.serialize_entry("drainNatIps", &self.drain_nat_ips)?;
         }
+        if self.effective_tcp_time_wait_timeout_sec.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "effectiveTcpTimeWaitTimeoutSec",
+                &__With(&self.effective_tcp_time_wait_timeout_sec),
+            )?;
+        }
         if self.enable_dynamic_port_allocation.is_some() {
             state.serialize_entry(
                 "enableDynamicPortAllocation",
@@ -45794,6 +45811,26 @@ impl serde::ser::Serialize for super::SecurityPolicyDdosProtectionConfig {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.ddos_adaptive_protection.is_some() {
+            state.serialize_entry("ddosAdaptiveProtection", &self.ddos_adaptive_protection)?;
+        }
+        if self.ddos_impacted_baseline_threshold.is_some() {
+            struct __With<'a>(&'a std::option::Option<f32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::F32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "ddosImpactedBaselineThreshold",
+                &__With(&self.ddos_impacted_baseline_threshold),
+            )?;
+        }
         if self.ddos_protection.is_some() {
             state.serialize_entry("ddosProtection", &self.ddos_protection)?;
         }
@@ -46849,6 +46886,20 @@ impl serde::ser::Serialize for super::ServiceAttachment {
         }
         if self.name.is_some() {
             state.serialize_entry("name", &self.name)?;
+        }
+        if self.nat_ips_per_endpoint.is_some() {
+            struct __With<'a>(&'a std::option::Option<u32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::U32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("natIpsPerEndpoint", &__With(&self.nat_ips_per_endpoint))?;
         }
         if !self.nat_subnets.is_empty() {
             state.serialize_entry("natSubnets", &self.nat_subnets)?;

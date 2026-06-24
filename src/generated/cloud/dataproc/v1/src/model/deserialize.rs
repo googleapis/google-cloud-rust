@@ -3783,6 +3783,7 @@ impl<'de> serde::de::Deserialize<'de> for super::GceClusterConfig {
             __node_group_affinity,
             __shielded_instance_config,
             __confidential_instance_config,
+            __resource_manager_tags,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -3837,6 +3838,8 @@ impl<'de> serde::de::Deserialize<'de> for super::GceClusterConfig {
                             "confidential_instance_config" => {
                                 Ok(__FieldTag::__confidential_instance_config)
                             }
+                            "resourceManagerTags" => Ok(__FieldTag::__resource_manager_tags),
+                            "resource_manager_tags" => Ok(__FieldTag::__resource_manager_tags),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3990,6 +3993,21 @@ impl<'de> serde::de::Deserialize<'de> for super::GceClusterConfig {
                             }
                             result.confidential_instance_config = map.next_value::<std::option::Option<crate::model::ConfidentialInstanceConfig>>()?
                                 ;
+                        }
+                        __FieldTag::__resource_manager_tags => {
+                            if !fields.insert(__FieldTag::__resource_manager_tags) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for resource_manager_tags",
+                                ));
+                            }
+                            result.resource_manager_tags = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -4203,6 +4221,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ConfidentialInstanceConfig {
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __enable_confidential_compute,
+            __confidential_instance_type,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -4228,6 +4247,12 @@ impl<'de> serde::de::Deserialize<'de> for super::ConfidentialInstanceConfig {
                             }
                             "enable_confidential_compute" => {
                                 Ok(__FieldTag::__enable_confidential_compute)
+                            }
+                            "confidentialInstanceType" => {
+                                Ok(__FieldTag::__confidential_instance_type)
+                            }
+                            "confidential_instance_type" => {
+                                Ok(__FieldTag::__confidential_instance_type)
                             }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
@@ -4263,6 +4288,14 @@ impl<'de> serde::de::Deserialize<'de> for super::ConfidentialInstanceConfig {
                             result.enable_confidential_compute = map
                                 .next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__confidential_instance_type => {
+                            if !fields.insert(__FieldTag::__confidential_instance_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for confidential_instance_type",
+                                ));
+                            }
+                            result.confidential_instance_type = map.next_value::<std::option::Option<crate::model::confidential_instance_config::ConfidentialInstanceType>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

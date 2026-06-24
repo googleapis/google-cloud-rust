@@ -461,6 +461,7 @@ impl std::fmt::Debug for super::GceClusterConfig {
             "confidential_instance_config",
             &self.confidential_instance_config,
         );
+        debug_struct.field("resource_manager_tags", &self.resource_manager_tags);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -501,6 +502,10 @@ impl std::fmt::Debug for super::ConfidentialInstanceConfig {
         debug_struct.field(
             "enable_confidential_compute",
             &self.enable_confidential_compute,
+        );
+        debug_struct.field(
+            "confidential_instance_type",
+            &self.confidential_instance_type,
         );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

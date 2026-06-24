@@ -1459,6 +1459,12 @@ pub trait ReferenceListService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ReferenceList>>;
 
+    async fn verify_reference_list(
+        &self,
+        req: crate::model::VerifyReferenceListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::VerifyReferenceListResponse>>;
+
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
@@ -1521,6 +1527,15 @@ impl<T: super::ReferenceListService> ReferenceListService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ReferenceList>> {
         T::update_reference_list(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn verify_reference_list(
+        &self,
+        req: crate::model::VerifyReferenceListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::VerifyReferenceListResponse>> {
+        T::verify_reference_list(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -1593,6 +1608,12 @@ pub trait RuleService: std::fmt::Debug + Send + Sync {
         req: crate::model::DeleteRuleRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>>;
+
+    async fn verify_rule_text(
+        &self,
+        req: crate::model::VerifyRuleTextRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::VerifyRuleTextResponse>>;
 
     async fn list_rule_revisions(
         &self,
@@ -1726,6 +1747,15 @@ impl<T: super::RuleService> RuleService for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn verify_rule_text(
+        &self,
+        req: crate::model::VerifyRuleTextRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::VerifyRuleTextResponse>> {
+        T::verify_rule_text(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn list_rule_revisions(
         &self,
         req: crate::model::ListRuleRevisionsRequest,
@@ -1845,5 +1875,89 @@ impl<T: super::RuleService> RuleService for T {
         options: &crate::RequestOptions,
     ) -> google_cloud_lro::PollerOptions {
         T::get_poller_options(self, options)
+    }
+}
+
+/// A dyn-compatible, crate-private version of [super::RuleExecutionErrorService].
+#[async_trait::async_trait]
+pub trait RuleExecutionErrorService: std::fmt::Debug + Send + Sync {
+    async fn list_rule_execution_errors(
+        &self,
+        req: crate::model::ListRuleExecutionErrorsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRuleExecutionErrorsResponse>>;
+
+    async fn list_operations(
+        &self,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
+
+    async fn get_operation(
+        &self,
+        req: google_cloud_longrunning::model::GetOperationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn delete_operation(
+        &self,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
+
+    async fn cancel_operation(
+        &self,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
+}
+
+/// All implementations of [super::RuleExecutionErrorService] also implement [RuleExecutionErrorService].
+#[async_trait::async_trait]
+impl<T: super::RuleExecutionErrorService> RuleExecutionErrorService for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_rule_execution_errors(
+        &self,
+        req: crate::model::ListRuleExecutionErrorsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRuleExecutionErrorsResponse>> {
+        T::list_rule_execution_errors(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_operations(
+        &self,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
+        T::list_operations(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: google_cloud_longrunning::model::GetOperationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_operation(
+        &self,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
+        T::delete_operation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn cancel_operation(
+        &self,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
+        T::cancel_operation(self, req, options).await
     }
 }

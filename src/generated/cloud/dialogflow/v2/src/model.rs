@@ -5474,8 +5474,8 @@ impl OutputAudioConfig {
     /// # use google_cloud_dialogflow_v2::model::OutputAudioConfig;
     /// use google_cloud_dialogflow_v2::model::OutputAudioEncoding;
     /// let x0 = OutputAudioConfig::new().set_audio_encoding(OutputAudioEncoding::Linear16);
-    /// let x1 = OutputAudioConfig::new().set_audio_encoding(OutputAudioEncoding::Mp3);
-    /// let x2 = OutputAudioConfig::new().set_audio_encoding(OutputAudioEncoding::Mp364Kbps);
+    /// let x1 = OutputAudioConfig::new().set_audio_encoding(OutputAudioEncoding::Mp364Kbps);
+    /// let x2 = OutputAudioConfig::new().set_audio_encoding(OutputAudioEncoding::OggOpus);
     /// ```
     pub fn set_audio_encoding<T: std::convert::Into<crate::model::OutputAudioEncoding>>(
         mut self,
@@ -5820,6 +5820,18 @@ pub struct CesAppSpec {
     /// Optional. Indicates whether the app requires human confirmation.
     pub confirmation_requirement: crate::model::tool::ConfirmationRequirement,
 
+    /// Optional. Only applicable for CompanionAgent.
+    /// Indicates whether the ces app is enabled in proactive mode.
+    /// At least one of `proactive_enabled` or `reactive_enabled` should be
+    /// true; otherwise, the ces app will be ignored.
+    pub proactive_enabled: std::option::Option<bool>,
+
+    /// Optional. Only applicable for CompanionAgent.
+    /// Indicates whether the ces app is enabled in reactive mode.
+    /// At least one of `proactive_enabled` or `reactive_enabled` should be
+    /// true; otherwise, the ces app will be ignored.
+    pub reactive_enabled: std::option::Option<bool>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -5862,6 +5874,68 @@ impl CesAppSpec {
         v: T,
     ) -> Self {
         self.confirmation_requirement = v.into();
+        self
+    }
+
+    /// Sets the value of [proactive_enabled][crate::model::CesAppSpec::proactive_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::CesAppSpec;
+    /// let x = CesAppSpec::new().set_proactive_enabled(true);
+    /// ```
+    pub fn set_proactive_enabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.proactive_enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [proactive_enabled][crate::model::CesAppSpec::proactive_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::CesAppSpec;
+    /// let x = CesAppSpec::new().set_or_clear_proactive_enabled(Some(false));
+    /// let x = CesAppSpec::new().set_or_clear_proactive_enabled(None::<bool>);
+    /// ```
+    pub fn set_or_clear_proactive_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.proactive_enabled = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [reactive_enabled][crate::model::CesAppSpec::reactive_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::CesAppSpec;
+    /// let x = CesAppSpec::new().set_reactive_enabled(true);
+    /// ```
+    pub fn set_reactive_enabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.reactive_enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [reactive_enabled][crate::model::CesAppSpec::reactive_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::CesAppSpec;
+    /// let x = CesAppSpec::new().set_or_clear_reactive_enabled(Some(false));
+    /// let x = CesAppSpec::new().set_or_clear_reactive_enabled(None::<bool>);
+    /// ```
+    pub fn set_or_clear_reactive_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.reactive_enabled = v.map(|x| x.into());
         self
     }
 }
@@ -12136,6 +12210,10 @@ pub mod search_knowledge_answer {
         Generative,
         /// The answer is from intent matching.
         Intent,
+        /// The answer is from Playbook.
+        Playbook,
+        /// The answer is from event.
+        Event,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [AnswerType::value] or
@@ -12164,6 +12242,8 @@ pub mod search_knowledge_answer {
                 Self::Faq => std::option::Option::Some(1),
                 Self::Generative => std::option::Option::Some(2),
                 Self::Intent => std::option::Option::Some(3),
+                Self::Playbook => std::option::Option::Some(4),
+                Self::Event => std::option::Option::Some(5),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -12178,6 +12258,8 @@ pub mod search_knowledge_answer {
                 Self::Faq => std::option::Option::Some("FAQ"),
                 Self::Generative => std::option::Option::Some("GENERATIVE"),
                 Self::Intent => std::option::Option::Some("INTENT"),
+                Self::Playbook => std::option::Option::Some("PLAYBOOK"),
+                Self::Event => std::option::Option::Some("EVENT"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -12206,6 +12288,8 @@ pub mod search_knowledge_answer {
                 1 => Self::Faq,
                 2 => Self::Generative,
                 3 => Self::Intent,
+                4 => Self::Playbook,
+                5 => Self::Event,
                 _ => Self::UnknownValue(answer_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -12222,6 +12306,8 @@ pub mod search_knowledge_answer {
                 "FAQ" => Self::Faq,
                 "GENERATIVE" => Self::Generative,
                 "INTENT" => Self::Intent,
+                "PLAYBOOK" => Self::Playbook,
+                "EVENT" => Self::Event,
                 _ => Self::UnknownValue(answer_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -12240,6 +12326,8 @@ pub mod search_knowledge_answer {
                 Self::Faq => serializer.serialize_i32(1),
                 Self::Generative => serializer.serialize_i32(2),
                 Self::Intent => serializer.serialize_i32(3),
+                Self::Playbook => serializer.serialize_i32(4),
+                Self::Event => serializer.serialize_i32(5),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -17383,6 +17471,9 @@ pub struct ConversationProfile {
     /// language tag. Example: "en-US".
     pub language_code: std::string::String,
 
+    /// Optional. Configuration for SIP connections.
+    pub sip_config: std::option::Option<crate::model::SipConfig>,
+
     /// The time zone of this conversational profile from the
     /// [time zone database](https://www.iana.org/time-zones), e.g.,
     /// America/New_York, Europe/Paris. Defaults to America/New_York.
@@ -17780,6 +17871,39 @@ impl ConversationProfile {
     /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
+        self
+    }
+
+    /// Sets the value of [sip_config][crate::model::ConversationProfile::sip_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ConversationProfile;
+    /// use google_cloud_dialogflow_v2::model::SipConfig;
+    /// let x = ConversationProfile::new().set_sip_config(SipConfig::default()/* use setters */);
+    /// ```
+    pub fn set_sip_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SipConfig>,
+    {
+        self.sip_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [sip_config][crate::model::ConversationProfile::sip_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::ConversationProfile;
+    /// use google_cloud_dialogflow_v2::model::SipConfig;
+    /// let x = ConversationProfile::new().set_or_clear_sip_config(Some(SipConfig::default()/* use setters */));
+    /// let x = ConversationProfile::new().set_or_clear_sip_config(None::<SipConfig>);
+    /// ```
+    pub fn set_or_clear_sip_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SipConfig>,
+    {
+        self.sip_config = v.map(|x| x.into());
         self
     }
 
@@ -18657,6 +18781,21 @@ pub mod human_agent_assistant_config {
         /// Supported features:  KNOWLEDGE_ASSIST
         pub rai_settings: std::option::Option<crate::model::RaiSettings>,
 
+        /// Optional. The trigger event for suggestion.
+        /// If unspecified, it will be `CUSTOMER_MESSAGE`.
+        /// Supported features: KNOWLEDGE_ASSIST
+        /// For KNOWLEDGE_ASSIST, these four trigger events are supported:
+        ///
+        /// 1. TRIGGER_EVENT_UNSPECIFIED
+        /// 1. END_OF_UTTERANCE
+        /// 1. CUSTOMER_MESSAGE
+        /// 1. AGENT_MESSAGE
+        pub suggestion_trigger_event: crate::model::TriggerEvent,
+
+        /// Optional. If true, disable appending available search context to the
+        /// search query. Supported features: KNOWLEDGE_ASSIST
+        pub disable_query_search_context: bool,
+
         /// Settings of suggestion trigger.
         ///
         /// Currently, only ARTICLE_SUGGESTION and FAQ will use this field.
@@ -18838,6 +18977,39 @@ pub mod human_agent_assistant_config {
             T: std::convert::Into<crate::model::RaiSettings>,
         {
             self.rai_settings = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [suggestion_trigger_event][crate::model::human_agent_assistant_config::SuggestionFeatureConfig::suggestion_trigger_event].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::human_agent_assistant_config::SuggestionFeatureConfig;
+        /// use google_cloud_dialogflow_v2::model::TriggerEvent;
+        /// let x0 = SuggestionFeatureConfig::new().set_suggestion_trigger_event(TriggerEvent::EndOfUtterance);
+        /// let x1 = SuggestionFeatureConfig::new().set_suggestion_trigger_event(TriggerEvent::ManualCall);
+        /// let x2 = SuggestionFeatureConfig::new().set_suggestion_trigger_event(TriggerEvent::CustomerMessage);
+        /// ```
+        pub fn set_suggestion_trigger_event<T: std::convert::Into<crate::model::TriggerEvent>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.suggestion_trigger_event = v.into();
+            self
+        }
+
+        /// Sets the value of [disable_query_search_context][crate::model::human_agent_assistant_config::SuggestionFeatureConfig::disable_query_search_context].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::human_agent_assistant_config::SuggestionFeatureConfig;
+        /// let x = SuggestionFeatureConfig::new().set_disable_query_search_context(true);
+        /// ```
+        pub fn set_disable_query_search_context<T: std::convert::Into<bool>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.disable_query_search_context = v.into();
             self
         }
 
@@ -20866,6 +21038,172 @@ impl LoggingConfig {
 impl wkt::message::Message for LoggingConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.v2.LoggingConfig"
+    }
+}
+
+/// Defines the SIP configuration.
+#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SipConfig {
+    /// Asks Dialogflow Telephony to create the conversation provided in the SIP
+    /// header on the fly when the call comes in.
+    pub create_conversation_on_the_fly: bool,
+
+    /// Starts the conversation with inactive SDP directives
+    pub inactive_start: bool,
+
+    /// Max duration for audio recording.
+    /// Overrides the default value of 15 min.
+    /// Max value is 8 hours.
+    pub max_audio_recording_duration: std::option::Option<wkt::Duration>,
+
+    /// Allows interactions with a Dialogflow virtual agent even if the call is
+    /// connected for SIPREC purposes.
+    pub allow_virtual_agent_interaction: bool,
+
+    /// Keeps the conversation running even if the call is disconnected.
+    pub keep_conversation_running: bool,
+
+    /// List of inbound call leg headers to be copied to outbound call legs created
+    /// later.
+    pub copy_inbound_call_leg_headers: std::vec::Vec<std::string::String>,
+
+    /// Ignores any media direction in the reINVITE SDP offer. Reuse the previous
+    /// media direction.
+    pub ignore_reinvite_media_direction: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+impl SipConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [create_conversation_on_the_fly][crate::model::SipConfig::create_conversation_on_the_fly].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SipConfig;
+    /// let x = SipConfig::new().set_create_conversation_on_the_fly(true);
+    /// ```
+    pub fn set_create_conversation_on_the_fly<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.create_conversation_on_the_fly = v.into();
+        self
+    }
+
+    /// Sets the value of [inactive_start][crate::model::SipConfig::inactive_start].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SipConfig;
+    /// let x = SipConfig::new().set_inactive_start(true);
+    /// ```
+    pub fn set_inactive_start<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.inactive_start = v.into();
+        self
+    }
+
+    /// Sets the value of [max_audio_recording_duration][crate::model::SipConfig::max_audio_recording_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SipConfig;
+    /// use wkt::Duration;
+    /// let x = SipConfig::new().set_max_audio_recording_duration(Duration::default()/* use setters */);
+    /// ```
+    pub fn set_max_audio_recording_duration<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.max_audio_recording_duration = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [max_audio_recording_duration][crate::model::SipConfig::max_audio_recording_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SipConfig;
+    /// use wkt::Duration;
+    /// let x = SipConfig::new().set_or_clear_max_audio_recording_duration(Some(Duration::default()/* use setters */));
+    /// let x = SipConfig::new().set_or_clear_max_audio_recording_duration(None::<Duration>);
+    /// ```
+    pub fn set_or_clear_max_audio_recording_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.max_audio_recording_duration = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [allow_virtual_agent_interaction][crate::model::SipConfig::allow_virtual_agent_interaction].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SipConfig;
+    /// let x = SipConfig::new().set_allow_virtual_agent_interaction(true);
+    /// ```
+    pub fn set_allow_virtual_agent_interaction<T: std::convert::Into<bool>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.allow_virtual_agent_interaction = v.into();
+        self
+    }
+
+    /// Sets the value of [keep_conversation_running][crate::model::SipConfig::keep_conversation_running].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SipConfig;
+    /// let x = SipConfig::new().set_keep_conversation_running(true);
+    /// ```
+    pub fn set_keep_conversation_running<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.keep_conversation_running = v.into();
+        self
+    }
+
+    /// Sets the value of [copy_inbound_call_leg_headers][crate::model::SipConfig::copy_inbound_call_leg_headers].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SipConfig;
+    /// let x = SipConfig::new().set_copy_inbound_call_leg_headers(["a", "b", "c"]);
+    /// ```
+    pub fn set_copy_inbound_call_leg_headers<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.copy_inbound_call_leg_headers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [ignore_reinvite_media_direction][crate::model::SipConfig::ignore_reinvite_media_direction].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SipConfig;
+    /// let x = SipConfig::new().set_ignore_reinvite_media_direction(true);
+    /// ```
+    pub fn set_ignore_reinvite_media_direction<T: std::convert::Into<bool>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.ignore_reinvite_media_direction = v.into();
+        self
+    }
+}
+
+#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+impl wkt::message::Message for SipConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.SipConfig"
     }
 }
 
@@ -26354,8 +26692,8 @@ impl TextToSpeechSettings {
     /// # use google_cloud_dialogflow_v2::model::TextToSpeechSettings;
     /// use google_cloud_dialogflow_v2::model::OutputAudioEncoding;
     /// let x0 = TextToSpeechSettings::new().set_output_audio_encoding(OutputAudioEncoding::Linear16);
-    /// let x1 = TextToSpeechSettings::new().set_output_audio_encoding(OutputAudioEncoding::Mp3);
-    /// let x2 = TextToSpeechSettings::new().set_output_audio_encoding(OutputAudioEncoding::Mp364Kbps);
+    /// let x1 = TextToSpeechSettings::new().set_output_audio_encoding(OutputAudioEncoding::Mp364Kbps);
+    /// let x2 = TextToSpeechSettings::new().set_output_audio_encoding(OutputAudioEncoding::OggOpus);
     /// ```
     pub fn set_output_audio_encoding<T: std::convert::Into<crate::model::OutputAudioEncoding>>(
         mut self,
@@ -43388,9 +43726,9 @@ pub struct Participant {
     ///    Dialogflow adds the obfuscated user id with the participant.
     ///
     /// 1. If you set this field in
-    ///    [AnalyzeContent][google.cloud.dialogflow.v2.AnalyzeContentRequest.participant]
-    ///    or
-    ///    [StreamingAnalyzeContent][google.cloud.dialogflow.v2.StreamingAnalyzeContentRequest.participant],
+    ///    [AnalyzeContent][google.cloud.dialogflow.v2.AnalyzeContentRequest.obfuscated_external_user_id]
+    ///    or [StreamingAnalyzeContent]
+    ///    [google.cloud.dialogflow.v2.StreamingAnalyzeContentRequest.obfuscated_external_user_id],
     ///    Dialogflow will update
     ///    [Participant.obfuscated_external_user_id][google.cloud.dialogflow.v2.Participant.obfuscated_external_user_id].
     ///
@@ -43403,6 +43741,11 @@ pub struct Participant {
     /// example, Dialogflow determines whether a user in one conversation returned
     /// in a later conversation.
     ///
+    /// Additionally, to link an escalated Virtual Agent conversation
+    /// with its corresponding Agent Assist conversation for analytics, this field
+    /// in Agent Assist conversations should be populated to indicate the user id
+    /// of the `END_USER` participant in the escalated conversation.
+    ///
     /// Note:
     ///
     /// * Please never pass raw user ids to Dialogflow. Always obfuscate your user
@@ -43411,11 +43754,9 @@ pub struct Participant {
     ///   hash function like SHA-512.
     /// * The length of the user id must be <= 256 characters.
     ///
-    /// [google.cloud.dialogflow.v2.AnalyzeContentRequest.participant]: crate::model::AnalyzeContentRequest::participant
     /// [google.cloud.dialogflow.v2.CreateParticipantRequest.participant]: crate::model::CreateParticipantRequest::participant
     /// [google.cloud.dialogflow.v2.Participant.Role.END_USER]: crate::model::participant::Role::EndUser
     /// [google.cloud.dialogflow.v2.Participant.obfuscated_external_user_id]: crate::model::Participant::obfuscated_external_user_id
-    /// [google.cloud.dialogflow.v2.StreamingAnalyzeContentRequest.participant]: crate::model::StreamingAnalyzeContentRequest::participant
     /// [google.cloud.dialogflow.v2.UpdateParticipantRequest.participant]: crate::model::UpdateParticipantRequest::participant
     pub obfuscated_external_user_id: std::string::String,
 
@@ -45986,8 +46327,11 @@ pub mod streaming_analyze_content_request {
 ///
 /// 1. If the input was set to streaming audio, the first one or more messages
 ///    contain `recognition_result`. Each `recognition_result` represents a more
-///    complete transcript of what the user said. The last `recognition_result`
-///    has `is_final` set to `true`.
+///    complete transcript of what the user said. When a user speaks multiple
+///    sentences, the API will emit multiple messages where `is_final = true`.
+///    Each time the system detects a distinct pause or completed thought, it
+///    locks in that segment, marks it `is_final = true`, and then immediately
+///    starts a new recognition cycle for the next sentence on the same stream.
 ///
 /// 1. In virtual agent stage: if `enable_partial_automated_agent_reply` is
 ///    true, the following N (currently 1 <= N <= 4) messages
@@ -49298,6 +49642,12 @@ pub struct SuggestKnowledgeAssistResponse {
     /// [google.cloud.dialogflow.v2.SuggestKnowledgeAssistResponse.latest_message]: crate::model::SuggestKnowledgeAssistResponse::latest_message
     pub context_size: i32,
 
+    /// Optional. The list of additional suggested queries based on the context.
+    /// This is used for the cases when we want to generate multiple queries
+    /// for a single request.
+    pub additional_suggested_query_results:
+        std::vec::Vec<crate::model::knowledge_assist_answer::AdditionalSuggestedQueryResult>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -49362,6 +49712,30 @@ impl SuggestKnowledgeAssistResponse {
     /// ```
     pub fn set_context_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.context_size = v.into();
+        self
+    }
+
+    /// Sets the value of [additional_suggested_query_results][crate::model::SuggestKnowledgeAssistResponse::additional_suggested_query_results].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SuggestKnowledgeAssistResponse;
+    /// use google_cloud_dialogflow_v2::model::knowledge_assist_answer::AdditionalSuggestedQueryResult;
+    /// let x = SuggestKnowledgeAssistResponse::new()
+    ///     .set_additional_suggested_query_results([
+    ///         AdditionalSuggestedQueryResult::default()/* use setters */,
+    ///         AdditionalSuggestedQueryResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_additional_suggested_query_results<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<
+                crate::model::knowledge_assist_answer::AdditionalSuggestedQueryResult,
+            >,
+    {
+        use std::iter::Iterator;
+        self.additional_suggested_query_results = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -49918,6 +50292,13 @@ pub struct KnowledgeAssistDebugInfo {
     /// The latency of the service.
     pub service_latency: std::option::Option<crate::model::ServiceLatency>,
 
+    /// Token usage metadata for query generation.
+    pub query_generation_debug_info:
+        std::option::Option<crate::model::knowledge_assist_debug_info::QueryGenerationDebugInfo>,
+
+    /// Debug information from CES runtime API.
+    pub ces_debug_info: std::option::Option<wkt::Struct>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -50089,6 +50470,72 @@ impl KnowledgeAssistDebugInfo {
         T: std::convert::Into<crate::model::ServiceLatency>,
     {
         self.service_latency = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [query_generation_debug_info][crate::model::KnowledgeAssistDebugInfo::query_generation_debug_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::KnowledgeAssistDebugInfo;
+    /// use google_cloud_dialogflow_v2::model::knowledge_assist_debug_info::QueryGenerationDebugInfo;
+    /// let x = KnowledgeAssistDebugInfo::new().set_query_generation_debug_info(QueryGenerationDebugInfo::default()/* use setters */);
+    /// ```
+    pub fn set_query_generation_debug_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::knowledge_assist_debug_info::QueryGenerationDebugInfo>,
+    {
+        self.query_generation_debug_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [query_generation_debug_info][crate::model::KnowledgeAssistDebugInfo::query_generation_debug_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::KnowledgeAssistDebugInfo;
+    /// use google_cloud_dialogflow_v2::model::knowledge_assist_debug_info::QueryGenerationDebugInfo;
+    /// let x = KnowledgeAssistDebugInfo::new().set_or_clear_query_generation_debug_info(Some(QueryGenerationDebugInfo::default()/* use setters */));
+    /// let x = KnowledgeAssistDebugInfo::new().set_or_clear_query_generation_debug_info(None::<QueryGenerationDebugInfo>);
+    /// ```
+    pub fn set_or_clear_query_generation_debug_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::knowledge_assist_debug_info::QueryGenerationDebugInfo>,
+    {
+        self.query_generation_debug_info = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [ces_debug_info][crate::model::KnowledgeAssistDebugInfo::ces_debug_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::KnowledgeAssistDebugInfo;
+    /// use wkt::Struct;
+    /// let x = KnowledgeAssistDebugInfo::new().set_ces_debug_info(Struct::default()/* use setters */);
+    /// ```
+    pub fn set_ces_debug_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.ces_debug_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ces_debug_info][crate::model::KnowledgeAssistDebugInfo::ces_debug_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::KnowledgeAssistDebugInfo;
+    /// use wkt::Struct;
+    /// let x = KnowledgeAssistDebugInfo::new().set_or_clear_ces_debug_info(Some(Struct::default()/* use setters */));
+    /// let x = KnowledgeAssistDebugInfo::new().set_or_clear_ces_debug_info(None::<Struct>);
+    /// ```
+    pub fn set_or_clear_ces_debug_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.ces_debug_info = v.map(|x| x.into());
         self
     }
 }
@@ -50418,6 +50865,74 @@ pub mod knowledge_assist_debug_info {
     impl wkt::message::Message for KnowledgeAssistBehavior {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.v2.KnowledgeAssistDebugInfo.KnowledgeAssistBehavior"
+        }
+    }
+
+    /// Token usage metadata for query generation.
+    #[cfg(feature = "participants")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct QueryGenerationDebugInfo {
+        /// The total number of tokens in the prompt.
+        pub prompt_token_count: i32,
+
+        /// The total number of tokens in the generated candidates.
+        pub candidates_token_count: i32,
+
+        /// The total number of tokens for the entire request.
+        pub total_token_count: i32,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "participants")]
+    impl QueryGenerationDebugInfo {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [prompt_token_count][crate::model::knowledge_assist_debug_info::QueryGenerationDebugInfo::prompt_token_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::knowledge_assist_debug_info::QueryGenerationDebugInfo;
+        /// let x = QueryGenerationDebugInfo::new().set_prompt_token_count(42);
+        /// ```
+        pub fn set_prompt_token_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.prompt_token_count = v.into();
+            self
+        }
+
+        /// Sets the value of [candidates_token_count][crate::model::knowledge_assist_debug_info::QueryGenerationDebugInfo::candidates_token_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::knowledge_assist_debug_info::QueryGenerationDebugInfo;
+        /// let x = QueryGenerationDebugInfo::new().set_candidates_token_count(42);
+        /// ```
+        pub fn set_candidates_token_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.candidates_token_count = v.into();
+            self
+        }
+
+        /// Sets the value of [total_token_count][crate::model::knowledge_assist_debug_info::QueryGenerationDebugInfo::total_token_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::knowledge_assist_debug_info::QueryGenerationDebugInfo;
+        /// let x = QueryGenerationDebugInfo::new().set_total_token_count(42);
+        /// ```
+        pub fn set_total_token_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.total_token_count = v.into();
+            self
+        }
+    }
+
+    #[cfg(feature = "participants")]
+    impl wkt::message::Message for QueryGenerationDebugInfo {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.KnowledgeAssistDebugInfo.QueryGenerationDebugInfo"
         }
     }
 
@@ -50970,6 +51485,10 @@ pub mod knowledge_assist_answer {
         /// Suggested query text.
         pub query_text: std::string::String,
 
+        /// Optional. The search contexts for the query.
+        pub search_contexts:
+            std::vec::Vec<crate::model::knowledge_assist_answer::suggested_query::SearchContext>,
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -50991,12 +51510,184 @@ pub mod knowledge_assist_answer {
             self.query_text = v.into();
             self
         }
+
+        /// Sets the value of [search_contexts][crate::model::knowledge_assist_answer::SuggestedQuery::search_contexts].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::knowledge_assist_answer::SuggestedQuery;
+        /// use google_cloud_dialogflow_v2::model::knowledge_assist_answer::suggested_query::SearchContext;
+        /// let x = SuggestedQuery::new()
+        ///     .set_search_contexts([
+        ///         SearchContext::default()/* use setters */,
+        ///         SearchContext::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_search_contexts<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<
+                    crate::model::knowledge_assist_answer::suggested_query::SearchContext,
+                >,
+        {
+            use std::iter::Iterator;
+            self.search_contexts = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
     }
 
     #[cfg(feature = "participants")]
     impl wkt::message::Message for SuggestedQuery {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.v2.KnowledgeAssistAnswer.SuggestedQuery"
+        }
+    }
+
+    /// Defines additional types related to [SuggestedQuery].
+    #[cfg(feature = "participants")]
+    pub mod suggested_query {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Search context is information useful for knowledge search that helps
+        /// enrich the query.
+        /// Example:
+        /// search_context {
+        /// key: "application name"
+        /// value: "DesignApp"
+        /// }
+        #[cfg(feature = "participants")]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct SearchContext {
+            /// Optional. The key of the search context, e.g. "application name".
+            pub key: std::string::String,
+
+            /// Optional. The value of the search context, e.g. "DesignApp".
+            pub value: std::string::String,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(feature = "participants")]
+        impl SearchContext {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [key][crate::model::knowledge_assist_answer::suggested_query::SearchContext::key].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::knowledge_assist_answer::suggested_query::SearchContext;
+            /// let x = SearchContext::new().set_key("example");
+            /// ```
+            pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.key = v.into();
+                self
+            }
+
+            /// Sets the value of [value][crate::model::knowledge_assist_answer::suggested_query::SearchContext::value].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::knowledge_assist_answer::suggested_query::SearchContext;
+            /// let x = SearchContext::new().set_value("example");
+            /// ```
+            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.value = v.into();
+                self
+            }
+        }
+
+        #[cfg(feature = "participants")]
+        impl wkt::message::Message for SearchContext {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dialogflow.v2.KnowledgeAssistAnswer.SuggestedQuery.SearchContext"
+            }
+        }
+    }
+
+    /// Represents a single suggested query result.
+    #[cfg(feature = "participants")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct AdditionalSuggestedQueryResult {
+        /// Output only. The suggested query based on the context.
+        pub suggested_query:
+            std::option::Option<crate::model::knowledge_assist_answer::SuggestedQuery>,
+
+        /// Output only. The name of the answer record.
+        /// Format: `projects/<Project ID>/locations/<Location
+        /// ID>/answerRecords/<Answer Record ID>`
+        pub answer_record: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "participants")]
+    impl AdditionalSuggestedQueryResult {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [suggested_query][crate::model::knowledge_assist_answer::AdditionalSuggestedQueryResult::suggested_query].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::knowledge_assist_answer::AdditionalSuggestedQueryResult;
+        /// use google_cloud_dialogflow_v2::model::knowledge_assist_answer::SuggestedQuery;
+        /// let x = AdditionalSuggestedQueryResult::new().set_suggested_query(SuggestedQuery::default()/* use setters */);
+        /// ```
+        pub fn set_suggested_query<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::knowledge_assist_answer::SuggestedQuery>,
+        {
+            self.suggested_query = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [suggested_query][crate::model::knowledge_assist_answer::AdditionalSuggestedQueryResult::suggested_query].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::knowledge_assist_answer::AdditionalSuggestedQueryResult;
+        /// use google_cloud_dialogflow_v2::model::knowledge_assist_answer::SuggestedQuery;
+        /// let x = AdditionalSuggestedQueryResult::new().set_or_clear_suggested_query(Some(SuggestedQuery::default()/* use setters */));
+        /// let x = AdditionalSuggestedQueryResult::new().set_or_clear_suggested_query(None::<SuggestedQuery>);
+        /// ```
+        pub fn set_or_clear_suggested_query<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::knowledge_assist_answer::SuggestedQuery>,
+        {
+            self.suggested_query = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [answer_record][crate::model::knowledge_assist_answer::AdditionalSuggestedQueryResult::answer_record].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::knowledge_assist_answer::AdditionalSuggestedQueryResult;
+        /// # let project_id = "project_id";
+        /// # let answer_record_id = "answer_record_id";
+        /// let x = AdditionalSuggestedQueryResult::new().set_answer_record(format!("projects/{project_id}/answerRecords/{answer_record_id}"));
+        /// ```
+        pub fn set_answer_record<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.answer_record = v.into();
+            self
+        }
+    }
+
+    #[cfg(feature = "participants")]
+    impl wkt::message::Message for AdditionalSuggestedQueryResult {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.KnowledgeAssistAnswer.AdditionalSuggestedQueryResult"
         }
     }
 
@@ -51091,6 +51782,8 @@ pub mod knowledge_assist_answer {
         /// let x = KnowledgeAnswer::new().set_faq_source(FaqSource::default()/* use setters */);
         /// assert!(x.faq_source().is_some());
         /// assert!(x.generative_source().is_none());
+        /// assert!(x.playbook_source().is_none());
+        /// assert!(x.event_source().is_none());
         /// ```
         pub fn set_faq_source<
             T: std::convert::Into<
@@ -51140,6 +51833,8 @@ pub mod knowledge_assist_answer {
         /// let x = KnowledgeAnswer::new().set_generative_source(GenerativeSource::default()/* use setters */);
         /// assert!(x.generative_source().is_some());
         /// assert!(x.faq_source().is_none());
+        /// assert!(x.playbook_source().is_none());
+        /// assert!(x.event_source().is_none());
         /// ```
         pub fn set_generative_source<
             T: std::convert::Into<
@@ -51153,6 +51848,110 @@ pub mod knowledge_assist_answer {
         ) -> Self {
             self.source = std::option::Option::Some(
                 crate::model::knowledge_assist_answer::knowledge_answer::Source::GenerativeSource(
+                    v.into(),
+                ),
+            );
+            self
+        }
+
+        /// The value of [source][crate::model::knowledge_assist_answer::KnowledgeAnswer::source]
+        /// if it holds a `PlaybookSource`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn playbook_source(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::knowledge_assist_answer::knowledge_answer::GenerativeSource,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.source.as_ref().and_then(|v| match v {
+                crate::model::knowledge_assist_answer::knowledge_answer::Source::PlaybookSource(
+                    v,
+                ) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [source][crate::model::knowledge_assist_answer::KnowledgeAnswer::source]
+        /// to hold a `PlaybookSource`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::knowledge_assist_answer::KnowledgeAnswer;
+        /// use google_cloud_dialogflow_v2::model::knowledge_assist_answer::knowledge_answer::GenerativeSource;
+        /// let x = KnowledgeAnswer::new().set_playbook_source(GenerativeSource::default()/* use setters */);
+        /// assert!(x.playbook_source().is_some());
+        /// assert!(x.faq_source().is_none());
+        /// assert!(x.generative_source().is_none());
+        /// assert!(x.event_source().is_none());
+        /// ```
+        pub fn set_playbook_source<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::knowledge_assist_answer::knowledge_answer::GenerativeSource,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.source = std::option::Option::Some(
+                crate::model::knowledge_assist_answer::knowledge_answer::Source::PlaybookSource(
+                    v.into(),
+                ),
+            );
+            self
+        }
+
+        /// The value of [source][crate::model::knowledge_assist_answer::KnowledgeAnswer::source]
+        /// if it holds a `EventSource`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn event_source(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::knowledge_assist_answer::knowledge_answer::EventSource>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.source.as_ref().and_then(|v| match v {
+                crate::model::knowledge_assist_answer::knowledge_answer::Source::EventSource(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [source][crate::model::knowledge_assist_answer::KnowledgeAnswer::source]
+        /// to hold a `EventSource`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_v2::model::knowledge_assist_answer::KnowledgeAnswer;
+        /// use google_cloud_dialogflow_v2::model::knowledge_assist_answer::knowledge_answer::EventSource;
+        /// let x = KnowledgeAnswer::new().set_event_source(EventSource::default()/* use setters */);
+        /// assert!(x.event_source().is_some());
+        /// assert!(x.faq_source().is_none());
+        /// assert!(x.generative_source().is_none());
+        /// assert!(x.playbook_source().is_none());
+        /// ```
+        pub fn set_event_source<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::knowledge_assist_answer::knowledge_answer::EventSource,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.source = std::option::Option::Some(
+                crate::model::knowledge_assist_answer::knowledge_answer::Source::EventSource(
                     v.into(),
                 ),
             );
@@ -51382,6 +52181,86 @@ pub mod knowledge_assist_answer {
             }
         }
 
+        /// Details about source of Event answer.
+        #[cfg(feature = "participants")]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct EventSource {
+            /// Name of the triggered event.
+            pub event: std::string::String,
+
+            /// Sources used in event fulfillment.
+            pub snippets: std::option::Option<
+                crate::model::knowledge_assist_answer::knowledge_answer::GenerativeSource,
+            >,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(feature = "participants")]
+        impl EventSource {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [event][crate::model::knowledge_assist_answer::knowledge_answer::EventSource::event].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::knowledge_assist_answer::knowledge_answer::EventSource;
+            /// let x = EventSource::new().set_event("example");
+            /// ```
+            pub fn set_event<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.event = v.into();
+                self
+            }
+
+            /// Sets the value of [snippets][crate::model::knowledge_assist_answer::knowledge_answer::EventSource::snippets].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::knowledge_assist_answer::knowledge_answer::EventSource;
+            /// use google_cloud_dialogflow_v2::model::knowledge_assist_answer::knowledge_answer::GenerativeSource;
+            /// let x = EventSource::new().set_snippets(GenerativeSource::default()/* use setters */);
+            /// ```
+            pub fn set_snippets<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::knowledge_assist_answer::knowledge_answer::GenerativeSource,
+                    >,
+            {
+                self.snippets = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [snippets][crate::model::knowledge_assist_answer::knowledge_answer::EventSource::snippets].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_v2::model::knowledge_assist_answer::knowledge_answer::EventSource;
+            /// use google_cloud_dialogflow_v2::model::knowledge_assist_answer::knowledge_answer::GenerativeSource;
+            /// let x = EventSource::new().set_or_clear_snippets(Some(GenerativeSource::default()/* use setters */));
+            /// let x = EventSource::new().set_or_clear_snippets(None::<GenerativeSource>);
+            /// ```
+            pub fn set_or_clear_snippets<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::knowledge_assist_answer::knowledge_answer::GenerativeSource,
+                    >,
+            {
+                self.snippets = v.map(|x| x.into());
+                self
+            }
+        }
+
+        #[cfg(feature = "participants")]
+        impl wkt::message::Message for EventSource {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dialogflow.v2.KnowledgeAssistAnswer.KnowledgeAnswer.EventSource"
+            }
+        }
+
         /// Source of result.
         #[cfg(feature = "participants")]
         #[derive(Clone, Debug, PartialEq)]
@@ -51395,6 +52274,18 @@ pub mod knowledge_assist_answer {
             GenerativeSource(
                 std::boxed::Box<
                     crate::model::knowledge_assist_answer::knowledge_answer::GenerativeSource,
+                >,
+            ),
+            /// Populated if the prediction was from Playbook.
+            PlaybookSource(
+                std::boxed::Box<
+                    crate::model::knowledge_assist_answer::knowledge_answer::GenerativeSource,
+                >,
+            ),
+            /// Populated if the prediction was from an event.
+            EventSource(
+                std::boxed::Box<
+                    crate::model::knowledge_assist_answer::knowledge_answer::EventSource,
                 >,
             ),
         }
@@ -53841,19 +54732,22 @@ impl wkt::message::Message for StreamingDetectIntentResponse {
 /// finalized transcript values received for the series of results.
 ///
 /// In the following example, single utterance is enabled. In the case where
-/// single utterance is not enabled, result 7 would not occur.
+/// single utterance is not enabled, result 8 would not occur.
 ///
 /// ```norust
-/// Num | transcript              | message_type            | is_final
-/// --- | ----------------------- | ----------------------- | --------
-/// 1   | "tube"                  | TRANSCRIPT              | false
-/// 2   | "to be a"               | TRANSCRIPT              | false
-/// 3   | "to be"                 | TRANSCRIPT              | false
-/// 4   | "to be or not to be"    | TRANSCRIPT              | true
-/// 5   | "that's"                | TRANSCRIPT              | false
-/// 6   | "that is                | TRANSCRIPT              | false
-/// 7   | unset                   | END_OF_SINGLE_UTTERANCE | unset
-/// 8   | " that is the question" | TRANSCRIPT              | true
+/// Num | transcript               | message_type            | is_final
+/// --- | ------------------------ | ----------------------- | --------
+/// 1   | "tube"                   | TRANSCRIPT              | false
+/// 2   | "to be a"                | TRANSCRIPT              | false
+/// 3   | "to be"                  | TRANSCRIPT              | false
+/// 4   | "to be or not to be"     | TRANSCRIPT              | true
+/// 5   | "that's"                 | TRANSCRIPT              | false
+/// 6   | "that is                 | TRANSCRIPT              | false
+/// 7   | " that is the question"  | TRANSCRIPT              | true
+/// 8   | unset                    | END_OF_SINGLE_UTTERANCE | unset
+/// 9   | ". Whether 'tis nobler"  | TRANSCRIPT              | true
+/// 10  | " in the mind"           | TRANSCRIPT              | false
+/// 11  | " in the mind to suffer" | TRANSCRIPT              | true
 /// ```
 ///
 /// Concatenating the finalized transcripts with `is_final` set to true,
@@ -64243,7 +65137,8 @@ pub enum OutputAudioEncoding {
     /// Uncompressed 16-bit signed little-endian samples (Linear PCM).
     /// Audio content returned as LINEAR16 also contains a WAV header.
     Linear16,
-    /// MP3 audio at 32kbps.
+    /// MP3 audio at 64kbps.
+    #[deprecated]
     Mp3,
     /// MP3 audio at 64kbps.
     Mp364Kbps,
@@ -64440,6 +65335,7 @@ impl<'de> serde::de::Deserialize<'de> for OutputAudioEncoding {
 ///
 /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[cfg(any(
+    feature = "conversation-profiles",
     feature = "conversations",
     feature = "generator-evaluations",
     feature = "generators",
@@ -64468,6 +65364,7 @@ pub enum TriggerEvent {
 
 #[doc(hidden)]
 #[cfg(any(
+    feature = "conversation-profiles",
     feature = "conversations",
     feature = "generator-evaluations",
     feature = "generators",
@@ -64480,6 +65377,7 @@ pub mod trigger_event {
 }
 
 #[cfg(any(
+    feature = "conversation-profiles",
     feature = "conversations",
     feature = "generator-evaluations",
     feature = "generators",
@@ -64517,6 +65415,7 @@ impl TriggerEvent {
 }
 
 #[cfg(any(
+    feature = "conversation-profiles",
     feature = "conversations",
     feature = "generator-evaluations",
     feature = "generators",
@@ -64529,6 +65428,7 @@ impl std::default::Default for TriggerEvent {
 }
 
 #[cfg(any(
+    feature = "conversation-profiles",
     feature = "conversations",
     feature = "generator-evaluations",
     feature = "generators",
@@ -64540,6 +65440,7 @@ impl std::fmt::Display for TriggerEvent {
 }
 
 #[cfg(any(
+    feature = "conversation-profiles",
     feature = "conversations",
     feature = "generator-evaluations",
     feature = "generators",
@@ -64560,6 +65461,7 @@ impl std::convert::From<i32> for TriggerEvent {
 }
 
 #[cfg(any(
+    feature = "conversation-profiles",
     feature = "conversations",
     feature = "generator-evaluations",
     feature = "generators",
@@ -64581,6 +65483,7 @@ impl std::convert::From<&str> for TriggerEvent {
 }
 
 #[cfg(any(
+    feature = "conversation-profiles",
     feature = "conversations",
     feature = "generator-evaluations",
     feature = "generators",
@@ -64602,6 +65505,7 @@ impl serde::ser::Serialize for TriggerEvent {
 }
 
 #[cfg(any(
+    feature = "conversation-profiles",
     feature = "conversations",
     feature = "generator-evaluations",
     feature = "generators",

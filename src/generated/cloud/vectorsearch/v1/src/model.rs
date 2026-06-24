@@ -1463,10 +1463,11 @@ impl wkt::message::Message for SemanticSearch {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TextSearch {
-    /// Required. The query text.
+    /// Optional. The query text. Required when using the default text search mode.
     pub search_text: std::string::String,
 
-    /// Required. The data field names to search.
+    /// Optional. The data field names to search. Required when using the default
+    /// text search mode.
     pub data_field_names: std::vec::Vec<std::string::String>,
 
     /// Optional. The fields to return in the search results.
@@ -4510,6 +4511,11 @@ pub struct DeleteCollectionRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     pub request_id: std::string::String,
 
+    /// Optional. If set to true, any Indexes and DataObjects from this Collection
+    /// will also be deleted. (Otherwise, the request will only work if the
+    /// Collection has no Indexes and DataObjects.)
+    pub force: bool,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4543,6 +4549,18 @@ impl DeleteCollectionRequest {
     /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
+        self
+    }
+
+    /// Sets the value of [force][crate::model::DeleteCollectionRequest::force].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::DeleteCollectionRequest;
+    /// let x = DeleteCollectionRequest::new().set_force(true);
+    /// ```
+    pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.force = v.into();
         self
     }
 }
@@ -6049,6 +6067,15 @@ pub struct ExportDataObjectsRequest {
     /// `projects/{project}/locations/{location}/collections/{collection}`.
     pub name: std::string::String,
 
+    /// Optional. Restricts which top-level Data Object fields appear in each
+    /// exported JSONL record. If unset, every field is exported (the existing
+    /// behavior). The primary use case is excluding the per-object `etag` so
+    /// that the exported records can be imported into a Collection in a
+    /// different region without optimistic-concurrency conflicts.
+    ///
+    /// Allowed field names are `id`, `data`, `vectors`, `etag`.
+    pub field_filter: std::option::Option<crate::model::export_data_objects_request::FieldFilter>,
+
     /// The configuration for the export data.
     pub destination: std::option::Option<crate::model::export_data_objects_request::Destination>,
 
@@ -6073,6 +6100,39 @@ impl ExportDataObjectsRequest {
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [field_filter][crate::model::ExportDataObjectsRequest::field_filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::ExportDataObjectsRequest;
+    /// use google_cloud_vectorsearch_v1::model::export_data_objects_request::FieldFilter;
+    /// let x = ExportDataObjectsRequest::new().set_field_filter(FieldFilter::default()/* use setters */);
+    /// ```
+    pub fn set_field_filter<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::export_data_objects_request::FieldFilter>,
+    {
+        self.field_filter = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [field_filter][crate::model::ExportDataObjectsRequest::field_filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::ExportDataObjectsRequest;
+    /// use google_cloud_vectorsearch_v1::model::export_data_objects_request::FieldFilter;
+    /// let x = ExportDataObjectsRequest::new().set_or_clear_field_filter(Some(FieldFilter::default()/* use setters */));
+    /// let x = ExportDataObjectsRequest::new().set_or_clear_field_filter(None::<FieldFilter>);
+    /// ```
+    pub fn set_or_clear_field_filter<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::export_data_objects_request::FieldFilter>,
+    {
+        self.field_filter = v.map(|x| x.into());
         self
     }
 
@@ -6345,6 +6405,215 @@ pub mod export_data_objects_request {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<Format>::new(
                     ".google.cloud.vectorsearch.v1.ExportDataObjectsRequest.GcsExportDestination.Format"))
             }
+        }
+    }
+
+    /// Selects which top-level Data Object fields are emitted at export time.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct FieldFilter {
+        /// Exactly one of `included_fields` or `excluded_fields` must be set.
+        pub selector:
+            std::option::Option<crate::model::export_data_objects_request::field_filter::Selector>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl FieldFilter {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [selector][crate::model::export_data_objects_request::FieldFilter::selector].
+        ///
+        /// Note that all the setters affecting `selector` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_vectorsearch_v1::model::export_data_objects_request::FieldFilter;
+        /// use google_cloud_vectorsearch_v1::model::export_data_objects_request::field_filter::FieldList;
+        /// let x = FieldFilter::new().set_selector(Some(
+        ///     google_cloud_vectorsearch_v1::model::export_data_objects_request::field_filter::Selector::IncludedFields(FieldList::default().into())));
+        /// ```
+        pub fn set_selector<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::export_data_objects_request::field_filter::Selector,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.selector = v.into();
+            self
+        }
+
+        /// The value of [selector][crate::model::export_data_objects_request::FieldFilter::selector]
+        /// if it holds a `IncludedFields`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn included_fields(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::export_data_objects_request::field_filter::FieldList>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.selector.as_ref().and_then(|v| match v {
+                crate::model::export_data_objects_request::field_filter::Selector::IncludedFields(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [selector][crate::model::export_data_objects_request::FieldFilter::selector]
+        /// to hold a `IncludedFields`.
+        ///
+        /// Note that all the setters affecting `selector` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_vectorsearch_v1::model::export_data_objects_request::FieldFilter;
+        /// use google_cloud_vectorsearch_v1::model::export_data_objects_request::field_filter::FieldList;
+        /// let x = FieldFilter::new().set_included_fields(FieldList::default()/* use setters */);
+        /// assert!(x.included_fields().is_some());
+        /// assert!(x.excluded_fields().is_none());
+        /// ```
+        pub fn set_included_fields<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::export_data_objects_request::field_filter::FieldList,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.selector = std::option::Option::Some(
+                crate::model::export_data_objects_request::field_filter::Selector::IncludedFields(
+                    v.into(),
+                ),
+            );
+            self
+        }
+
+        /// The value of [selector][crate::model::export_data_objects_request::FieldFilter::selector]
+        /// if it holds a `ExcludedFields`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn excluded_fields(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::export_data_objects_request::field_filter::FieldList>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.selector.as_ref().and_then(|v| match v {
+                crate::model::export_data_objects_request::field_filter::Selector::ExcludedFields(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [selector][crate::model::export_data_objects_request::FieldFilter::selector]
+        /// to hold a `ExcludedFields`.
+        ///
+        /// Note that all the setters affecting `selector` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_vectorsearch_v1::model::export_data_objects_request::FieldFilter;
+        /// use google_cloud_vectorsearch_v1::model::export_data_objects_request::field_filter::FieldList;
+        /// let x = FieldFilter::new().set_excluded_fields(FieldList::default()/* use setters */);
+        /// assert!(x.excluded_fields().is_some());
+        /// assert!(x.included_fields().is_none());
+        /// ```
+        pub fn set_excluded_fields<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::export_data_objects_request::field_filter::FieldList,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.selector = std::option::Option::Some(
+                crate::model::export_data_objects_request::field_filter::Selector::ExcludedFields(
+                    v.into(),
+                ),
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for FieldFilter {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.vectorsearch.v1.ExportDataObjectsRequest.FieldFilter"
+        }
+    }
+
+    /// Defines additional types related to [FieldFilter].
+    pub mod field_filter {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Wrapper for a repeated string. Wrapping in a message lets the
+        /// surrounding `oneof` distinguish "field set to an empty list" (which is
+        /// rejected as INVALID_ARGUMENT) from "field not set".
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct FieldList {
+            /// Required. The list of top-level Data Object JSON field names. Allowed
+            /// values are `id`, `data`, `vectors`, `etag`.
+            pub fields: std::vec::Vec<std::string::String>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl FieldList {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [fields][crate::model::export_data_objects_request::field_filter::FieldList::fields].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_vectorsearch_v1::model::export_data_objects_request::field_filter::FieldList;
+            /// let x = FieldList::new().set_fields(["a", "b", "c"]);
+            /// ```
+            pub fn set_fields<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.fields = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+        }
+
+        impl wkt::message::Message for FieldList {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.vectorsearch.v1.ExportDataObjectsRequest.FieldFilter.FieldList"
+            }
+        }
+
+        /// Exactly one of `included_fields` or `excluded_fields` must be set.
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Selector {
+            /// Optional. Only these top-level fields will appear in each exported
+            /// record.
+            IncludedFields(
+                std::boxed::Box<crate::model::export_data_objects_request::field_filter::FieldList>,
+            ),
+            /// Optional. Every top-level field except these will appear in each
+            /// exported record.
+            ExcludedFields(
+                std::boxed::Box<crate::model::export_data_objects_request::field_filter::FieldList>,
+            ),
         }
     }
 
