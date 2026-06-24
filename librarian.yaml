@@ -1705,6 +1705,10 @@ libraries:
   - name: google-cloud-workstations-v1
     version: 1.12.0
     copyright_year: "2025"
+  - name: google-devicesandservices-health-v4
+    version: 1.0.0
+    copyright_year: "2026"
+    rust: {}
   - name: grpc-server
     copyright_year: "2025"
     output: src/gax-internal/grpc-server
