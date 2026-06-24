@@ -16,6 +16,12 @@
 
 pub(crate) mod stub;
 
+#[cfg(google_cloud_unstable_storage_bidi)]
+mod redirect;
+
+#[cfg(google_cloud_unstable_storage_bidi)]
+mod retry_redirect;
+
 use crate::google::storage::v2::{BidiWriteObjectRequest, BidiWriteObjectResponse};
 use crate::request_options::RequestOptions;
 use gaxi::grpc::tonic::{Extensions, Response as TonicResponse, Result as TonicResult, Streaming};
@@ -32,6 +38,7 @@ pub(crate) trait TonicStreaming: std::fmt::Debug + Send + 'static {
     ) -> impl Future<Output = TonicResult<Option<BidiWriteObjectResponse>>> + Send;
 }
 
+/// Implement [TonicStreaming] for the one `Streaming<T>`` we use.
 impl TonicStreaming for Streaming<BidiWriteObjectResponse> {
     async fn next_message(&mut self) -> TonicResult<Option<BidiWriteObjectResponse>> {
         self.message().await
@@ -76,5 +83,79 @@ impl Client for gaxi::grpc::Client {
             request_params,
         )
         .await
+    }
+}
+
+#[cfg(test)]
+mod mocks;
+
+#[cfg(test)]
+pub(crate) mod tests {
+    use crate::Error;
+    use crate::google::storage::v2::{BidiWriteHandle, BidiWriteObjectRedirectedError};
+    use crate::request_options::RequestOptions;
+    use gaxi::grpc::tonic::{Code as TonicCode, Status as TonicStatus};
+    use google_cloud_gax::error::rpc::{Code, Status};
+    use prost::Message as _;
+    use std::sync::Arc;
+
+    pub(crate) fn redirect_handle() -> BidiWriteHandle {
+        BidiWriteHandle {
+            handle: bytes::Bytes::from_static(b"test-handle-redirect"),
+        }
+    }
+
+    pub(crate) fn redirect_status(routing: &str) -> TonicStatus {
+        use crate::google::rpc::Status as RpcStatus;
+        let redirect = BidiWriteObjectRedirectedError {
+            routing_token: Some(routing.to_string()),
+            write_handle: Some(redirect_handle()),
+            generation: Some(42),
+        };
+        let redirect = prost_types::Any::from_msg(&redirect).unwrap();
+        let status = RpcStatus {
+            code: Code::Aborted as i32,
+            message: "redirect".to_string(),
+            details: vec![redirect],
+        };
+        let details = bytes::Bytes::from_owner(status.encode_to_vec());
+        TonicStatus::with_details(TonicCode::Aborted, "redirect", details)
+    }
+
+    pub(crate) fn redirect_error(routing: &str) -> Error {
+        gaxi::grpc::from_status::to_gax_error(redirect_status(routing))
+    }
+
+    pub(crate) fn permanent_error() -> Error {
+        Error::service(
+            Status::default()
+                .set_code(Code::PermissionDenied)
+                .set_message("uh-oh"),
+        )
+    }
+
+    pub(crate) fn transient_error() -> Error {
+        Error::service(
+            Status::default()
+                .set_code(Code::Unavailable)
+                .set_message("try-again"),
+        )
+    }
+
+    #[allow(dead_code)]
+    pub(crate) fn test_options() -> RequestOptions {
+        let mut options = RequestOptions::new();
+        options.backoff_policy = Arc::new(test_backoff());
+        options
+    }
+
+    #[allow(dead_code)]
+    fn test_backoff() -> impl google_cloud_gax::backoff_policy::BackoffPolicy {
+        use std::time::Duration;
+        google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder::new()
+            .with_initial_delay(Duration::from_micros(1))
+            .with_maximum_delay(Duration::from_micros(1))
+            .build()
+            .expect("a valid backoff policy")
     }
 }
