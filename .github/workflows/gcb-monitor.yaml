@@ -26,12 +26,7 @@ jobs:
     runs-on: ubuntu-24.04
     # Only alert for a failed GCB build on the main branch.
     if: >
-      github.repository == 'googleapis/google-cloud-rust' &&
-      github.event.check_run.app.name == 'Google Cloud Build' &&
-      github.event.check_run.check_suite.head_branch == 'main' &&
-      (github.event.check_run.conclusion == 'failure' ||
-      github.event.check_run.conclusion == 'timed_out' ||
-      github.event.check_run.conclusion == 'cancelled')
+      github.repository == 'googleapis/google-cloud-rust' && github.event.check_run.app.name == 'Google Cloud Build' && github.event.check_run.check_suite.head_branch == 'main' && (github.event.check_run.conclusion == 'failure' || github.event.check_run.conclusion == 'timed_out' || github.event.check_run.conclusion == 'cancelled')
     steps:
       # TODO(#5941) - delete this step.
       - name: Debug context
