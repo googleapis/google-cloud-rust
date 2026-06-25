@@ -48,9 +48,10 @@ impl DatasetService {
 impl super::stub::DatasetService for DatasetService {
     async fn get_dataset(
         &self,
-        req: crate::model::GetDatasetRequest,
+        req: std::boxed::Box<crate::model::GetDatasetRequest>,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Dataset>> {
+        let req = *req;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -119,9 +120,10 @@ impl super::stub::DatasetService for DatasetService {
 
     async fn insert_dataset(
         &self,
-        req: crate::model::InsertDatasetRequest,
+        req: std::boxed::Box<crate::model::InsertDatasetRequest>,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Dataset>> {
+        let req = *req;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -176,9 +178,10 @@ impl super::stub::DatasetService for DatasetService {
 
     async fn patch_dataset(
         &self,
-        req: crate::model::UpdateOrPatchDatasetRequest,
+        req: std::boxed::Box<crate::model::UpdateOrPatchDatasetRequest>,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Dataset>> {
+        let req = *req;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -247,9 +250,10 @@ impl super::stub::DatasetService for DatasetService {
 
     async fn update_dataset(
         &self,
-        req: crate::model::UpdateOrPatchDatasetRequest,
+        req: std::boxed::Box<crate::model::UpdateOrPatchDatasetRequest>,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Dataset>> {
+        let req = *req;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -318,9 +322,10 @@ impl super::stub::DatasetService for DatasetService {
 
     async fn delete_dataset(
         &self,
-        req: crate::model::DeleteDatasetRequest,
+        req: std::boxed::Box<crate::model::DeleteDatasetRequest>,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
+        let req = *req;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -394,9 +399,10 @@ impl super::stub::DatasetService for DatasetService {
 
     async fn list_datasets(
         &self,
-        req: crate::model::ListDatasetsRequest,
+        req: std::boxed::Box<crate::model::ListDatasetsRequest>,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::DatasetList>> {
+        let req = *req;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -465,9 +471,10 @@ impl super::stub::DatasetService for DatasetService {
 
     async fn undelete_dataset(
         &self,
-        req: crate::model::UndeleteDatasetRequest,
+        req: std::boxed::Box<crate::model::UndeleteDatasetRequest>,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Dataset>> {
+        let req = *req;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -564,9 +571,10 @@ impl JobService {
 impl super::stub::JobService for JobService {
     async fn cancel_job(
         &self,
-        req: crate::model::CancelJobRequest,
+        req: std::boxed::Box<crate::model::CancelJobRequest>,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::JobCancelResponse>> {
+        let req = *req;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -634,9 +642,10 @@ impl super::stub::JobService for JobService {
 
     async fn get_job(
         &self,
-        req: crate::model::GetJobRequest,
+        req: std::boxed::Box<crate::model::GetJobRequest>,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Job>> {
+        let req = *req;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -704,9 +713,10 @@ impl super::stub::JobService for JobService {
 
     async fn insert_job(
         &self,
-        req: crate::model::InsertJobRequest,
+        req: std::boxed::Box<crate::model::InsertJobRequest>,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Job>> {
+        let req = *req;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -760,9 +770,10 @@ impl super::stub::JobService for JobService {
 
     async fn delete_job(
         &self,
-        req: crate::model::DeleteJobRequest,
+        req: std::boxed::Box<crate::model::DeleteJobRequest>,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
+        let req = *req;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -836,9 +847,10 @@ impl super::stub::JobService for JobService {
 
     async fn list_jobs(
         &self,
-        req: crate::model::ListJobsRequest,
+        req: std::boxed::Box<crate::model::ListJobsRequest>,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::JobList>> {
+        let req = *req;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -923,9 +935,10 @@ impl super::stub::JobService for JobService {
 
     async fn get_query_results(
         &self,
-        req: crate::model::GetQueryResultsRequest,
+        req: std::boxed::Box<crate::model::GetQueryResultsRequest>,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::GetQueryResultsResponse>> {
+        let req = *req;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -1036,9 +1049,10 @@ impl super::stub::JobService for JobService {
 
     async fn query(
         &self,
-        req: crate::model::PostQueryRequest,
+        req: std::boxed::Box<crate::model::PostQueryRequest>,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::QueryResponse>> {
+        let req = *req;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -1121,9 +1135,10 @@ impl ModelService {
 impl super::stub::ModelService for ModelService {
     async fn get_model(
         &self,
-        req: crate::model::GetModelRequest,
+        req: std::boxed::Box<crate::model::GetModelRequest>,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Model>> {
+        let req = *req;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -1201,9 +1216,10 @@ impl super::stub::ModelService for ModelService {
 
     async fn list_models(
         &self,
-        req: crate::model::ListModelsRequest,
+        req: std::boxed::Box<crate::model::ListModelsRequest>,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListModelsResponse>> {
+        let req = *req;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -1284,9 +1300,10 @@ impl super::stub::ModelService for ModelService {
 
     async fn patch_model(
         &self,
-        req: crate::model::PatchModelRequest,
+        req: std::boxed::Box<crate::model::PatchModelRequest>,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Model>> {
+        let req = *req;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -1364,9 +1381,10 @@ impl super::stub::ModelService for ModelService {
 
     async fn delete_model(
         &self,
-        req: crate::model::DeleteModelRequest,
+        req: std::boxed::Box<crate::model::DeleteModelRequest>,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
+        let req = *req;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -1479,9 +1497,10 @@ impl ProjectService {
 impl super::stub::ProjectService for ProjectService {
     async fn get_service_account(
         &self,
-        req: crate::model::GetServiceAccountRequest,
+        req: std::boxed::Box<crate::model::GetServiceAccountRequest>,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::GetServiceAccountResponse>> {
+        let req = *req;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -1564,9 +1583,10 @@ impl RoutineService {
 impl super::stub::RoutineService for RoutineService {
     async fn get_routine(
         &self,
-        req: crate::model::GetRoutineRequest,
+        req: std::boxed::Box<crate::model::GetRoutineRequest>,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Routine>> {
+        let req = *req;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -1633,9 +1653,10 @@ impl super::stub::RoutineService for RoutineService {
 
     async fn insert_routine(
         &self,
-        req: crate::model::InsertRoutineRequest,
+        req: std::boxed::Box<crate::model::InsertRoutineRequest>,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Routine>> {
+        let req = *req;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -1703,9 +1724,10 @@ impl super::stub::RoutineService for RoutineService {
 
     async fn update_routine(
         &self,
-        req: crate::model::UpdateRoutineRequest,
+        req: std::boxed::Box<crate::model::UpdateRoutineRequest>,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Routine>> {
+        let req = *req;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -1772,9 +1794,10 @@ impl super::stub::RoutineService for RoutineService {
 
     async fn delete_routine(
         &self,
-        req: crate::model::DeleteRoutineRequest,
+        req: std::boxed::Box<crate::model::DeleteRoutineRequest>,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
+        let req = *req;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -1847,9 +1870,10 @@ impl super::stub::RoutineService for RoutineService {
 
     async fn list_routines(
         &self,
-        req: crate::model::ListRoutinesRequest,
+        req: std::boxed::Box<crate::model::ListRoutinesRequest>,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListRoutinesResponse>> {
+        let req = *req;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -1960,9 +1984,10 @@ impl RowAccessPolicyService {
 impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
     async fn list_row_access_policies(
         &self,
-        req: crate::model::ListRowAccessPoliciesRequest,
+        req: std::boxed::Box<crate::model::ListRowAccessPoliciesRequest>,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListRowAccessPoliciesResponse>> {
+        let req = *req;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -2033,9 +2058,10 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
 
     async fn get_row_access_policy(
         &self,
-        req: crate::model::GetRowAccessPolicyRequest,
+        req: std::boxed::Box<crate::model::GetRowAccessPolicyRequest>,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::RowAccessPolicy>> {
+        let req = *req;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -2111,9 +2137,10 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
 
     async fn create_row_access_policy(
         &self,
-        req: crate::model::CreateRowAccessPolicyRequest,
+        req: std::boxed::Box<crate::model::CreateRowAccessPolicyRequest>,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::RowAccessPolicy>> {
+        let req = *req;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -2182,9 +2209,10 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
 
     async fn update_row_access_policy(
         &self,
-        req: crate::model::UpdateRowAccessPolicyRequest,
+        req: std::boxed::Box<crate::model::UpdateRowAccessPolicyRequest>,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::RowAccessPolicy>> {
+        let req = *req;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -2260,9 +2288,10 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
 
     async fn delete_row_access_policy(
         &self,
-        req: crate::model::DeleteRowAccessPolicyRequest,
+        req: std::boxed::Box<crate::model::DeleteRowAccessPolicyRequest>,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
+        let req = *req;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -2345,9 +2374,10 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
 
     async fn batch_delete_row_access_policies(
         &self,
-        req: crate::model::BatchDeleteRowAccessPoliciesRequest,
+        req: std::boxed::Box<crate::model::BatchDeleteRowAccessPoliciesRequest>,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
+        let req = *req;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -2449,9 +2479,10 @@ impl TableService {
 impl super::stub::TableService for TableService {
     async fn get_table(
         &self,
-        req: crate::model::GetTableRequest,
+        req: std::boxed::Box<crate::model::GetTableRequest>,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Table>> {
+        let req = *req;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -2531,9 +2562,10 @@ impl super::stub::TableService for TableService {
 
     async fn insert_table(
         &self,
-        req: crate::model::InsertTableRequest,
+        req: std::boxed::Box<crate::model::InsertTableRequest>,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Table>> {
+        let req = *req;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -2601,9 +2633,10 @@ impl super::stub::TableService for TableService {
 
     async fn patch_table(
         &self,
-        req: crate::model::UpdateOrPatchTableRequest,
+        req: std::boxed::Box<crate::model::UpdateOrPatchTableRequest>,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Table>> {
+        let req = *req;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -2682,9 +2715,10 @@ impl super::stub::TableService for TableService {
 
     async fn update_table(
         &self,
-        req: crate::model::UpdateOrPatchTableRequest,
+        req: std::boxed::Box<crate::model::UpdateOrPatchTableRequest>,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Table>> {
+        let req = *req;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -2763,9 +2797,10 @@ impl super::stub::TableService for TableService {
 
     async fn delete_table(
         &self,
-        req: crate::model::DeleteTableRequest,
+        req: std::boxed::Box<crate::model::DeleteTableRequest>,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
+        let req = *req;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -2849,9 +2884,10 @@ impl super::stub::TableService for TableService {
 
     async fn list_tables(
         &self,
-        req: crate::model::ListTablesRequest,
+        req: std::boxed::Box<crate::model::ListTablesRequest>,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::TableList>> {
+        let req = *req;
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;

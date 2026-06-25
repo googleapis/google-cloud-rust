@@ -19,43 +19,43 @@
 pub trait DatasetService: std::fmt::Debug + Send + Sync {
     async fn get_dataset(
         &self,
-        req: crate::model::GetDatasetRequest,
+        req: std::boxed::Box<crate::model::GetDatasetRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Dataset>>;
 
     async fn insert_dataset(
         &self,
-        req: crate::model::InsertDatasetRequest,
+        req: std::boxed::Box<crate::model::InsertDatasetRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Dataset>>;
 
     async fn patch_dataset(
         &self,
-        req: crate::model::UpdateOrPatchDatasetRequest,
+        req: std::boxed::Box<crate::model::UpdateOrPatchDatasetRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Dataset>>;
 
     async fn update_dataset(
         &self,
-        req: crate::model::UpdateOrPatchDatasetRequest,
+        req: std::boxed::Box<crate::model::UpdateOrPatchDatasetRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Dataset>>;
 
     async fn delete_dataset(
         &self,
-        req: crate::model::DeleteDatasetRequest,
+        req: std::boxed::Box<crate::model::DeleteDatasetRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>>;
 
     async fn list_datasets(
         &self,
-        req: crate::model::ListDatasetsRequest,
+        req: std::boxed::Box<crate::model::ListDatasetsRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::DatasetList>>;
 
     async fn undelete_dataset(
         &self,
-        req: crate::model::UndeleteDatasetRequest,
+        req: std::boxed::Box<crate::model::UndeleteDatasetRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Dataset>>;
 }
@@ -66,64 +66,64 @@ impl<T: super::DatasetService> DatasetService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_dataset(
         &self,
-        req: crate::model::GetDatasetRequest,
+        req: std::boxed::Box<crate::model::GetDatasetRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Dataset>> {
-        T::get_dataset(self, req, options).await
+        <T as super::DatasetService>::get_dataset(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn insert_dataset(
         &self,
-        req: crate::model::InsertDatasetRequest,
+        req: std::boxed::Box<crate::model::InsertDatasetRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Dataset>> {
-        T::insert_dataset(self, req, options).await
+        <T as super::DatasetService>::insert_dataset(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn patch_dataset(
         &self,
-        req: crate::model::UpdateOrPatchDatasetRequest,
+        req: std::boxed::Box<crate::model::UpdateOrPatchDatasetRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Dataset>> {
-        T::patch_dataset(self, req, options).await
+        <T as super::DatasetService>::patch_dataset(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn update_dataset(
         &self,
-        req: crate::model::UpdateOrPatchDatasetRequest,
+        req: std::boxed::Box<crate::model::UpdateOrPatchDatasetRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Dataset>> {
-        T::update_dataset(self, req, options).await
+        <T as super::DatasetService>::update_dataset(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn delete_dataset(
         &self,
-        req: crate::model::DeleteDatasetRequest,
+        req: std::boxed::Box<crate::model::DeleteDatasetRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>> {
-        T::delete_dataset(self, req, options).await
+        <T as super::DatasetService>::delete_dataset(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn list_datasets(
         &self,
-        req: crate::model::ListDatasetsRequest,
+        req: std::boxed::Box<crate::model::ListDatasetsRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::DatasetList>> {
-        T::list_datasets(self, req, options).await
+        <T as super::DatasetService>::list_datasets(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn undelete_dataset(
         &self,
-        req: crate::model::UndeleteDatasetRequest,
+        req: std::boxed::Box<crate::model::UndeleteDatasetRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Dataset>> {
-        T::undelete_dataset(self, req, options).await
+        <T as super::DatasetService>::undelete_dataset(self, req, options).await
     }
 }
 
@@ -132,43 +132,43 @@ impl<T: super::DatasetService> DatasetService for T {
 pub trait JobService: std::fmt::Debug + Send + Sync {
     async fn cancel_job(
         &self,
-        req: crate::model::CancelJobRequest,
+        req: std::boxed::Box<crate::model::CancelJobRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::JobCancelResponse>>;
 
     async fn get_job(
         &self,
-        req: crate::model::GetJobRequest,
+        req: std::boxed::Box<crate::model::GetJobRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Job>>;
 
     async fn insert_job(
         &self,
-        req: crate::model::InsertJobRequest,
+        req: std::boxed::Box<crate::model::InsertJobRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Job>>;
 
     async fn delete_job(
         &self,
-        req: crate::model::DeleteJobRequest,
+        req: std::boxed::Box<crate::model::DeleteJobRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>>;
 
     async fn list_jobs(
         &self,
-        req: crate::model::ListJobsRequest,
+        req: std::boxed::Box<crate::model::ListJobsRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::JobList>>;
 
     async fn get_query_results(
         &self,
-        req: crate::model::GetQueryResultsRequest,
+        req: std::boxed::Box<crate::model::GetQueryResultsRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::GetQueryResultsResponse>>;
 
     async fn query(
         &self,
-        req: crate::model::PostQueryRequest,
+        req: std::boxed::Box<crate::model::PostQueryRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::QueryResponse>>;
 }
@@ -179,64 +179,64 @@ impl<T: super::JobService> JobService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn cancel_job(
         &self,
-        req: crate::model::CancelJobRequest,
+        req: std::boxed::Box<crate::model::CancelJobRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::JobCancelResponse>> {
-        T::cancel_job(self, req, options).await
+        <T as super::JobService>::cancel_job(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_job(
         &self,
-        req: crate::model::GetJobRequest,
+        req: std::boxed::Box<crate::model::GetJobRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Job>> {
-        T::get_job(self, req, options).await
+        <T as super::JobService>::get_job(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn insert_job(
         &self,
-        req: crate::model::InsertJobRequest,
+        req: std::boxed::Box<crate::model::InsertJobRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Job>> {
-        T::insert_job(self, req, options).await
+        <T as super::JobService>::insert_job(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn delete_job(
         &self,
-        req: crate::model::DeleteJobRequest,
+        req: std::boxed::Box<crate::model::DeleteJobRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>> {
-        T::delete_job(self, req, options).await
+        <T as super::JobService>::delete_job(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn list_jobs(
         &self,
-        req: crate::model::ListJobsRequest,
+        req: std::boxed::Box<crate::model::ListJobsRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::JobList>> {
-        T::list_jobs(self, req, options).await
+        <T as super::JobService>::list_jobs(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_query_results(
         &self,
-        req: crate::model::GetQueryResultsRequest,
+        req: std::boxed::Box<crate::model::GetQueryResultsRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::GetQueryResultsResponse>> {
-        T::get_query_results(self, req, options).await
+        <T as super::JobService>::get_query_results(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn query(
         &self,
-        req: crate::model::PostQueryRequest,
+        req: std::boxed::Box<crate::model::PostQueryRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::QueryResponse>> {
-        T::query(self, req, options).await
+        <T as super::JobService>::query(self, req, options).await
     }
 }
 
@@ -245,25 +245,25 @@ impl<T: super::JobService> JobService for T {
 pub trait ModelService: std::fmt::Debug + Send + Sync {
     async fn get_model(
         &self,
-        req: crate::model::GetModelRequest,
+        req: std::boxed::Box<crate::model::GetModelRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Model>>;
 
     async fn list_models(
         &self,
-        req: crate::model::ListModelsRequest,
+        req: std::boxed::Box<crate::model::ListModelsRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ListModelsResponse>>;
 
     async fn patch_model(
         &self,
-        req: crate::model::PatchModelRequest,
+        req: std::boxed::Box<crate::model::PatchModelRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Model>>;
 
     async fn delete_model(
         &self,
-        req: crate::model::DeleteModelRequest,
+        req: std::boxed::Box<crate::model::DeleteModelRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>>;
 }
@@ -274,37 +274,37 @@ impl<T: super::ModelService> ModelService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_model(
         &self,
-        req: crate::model::GetModelRequest,
+        req: std::boxed::Box<crate::model::GetModelRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Model>> {
-        T::get_model(self, req, options).await
+        <T as super::ModelService>::get_model(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn list_models(
         &self,
-        req: crate::model::ListModelsRequest,
+        req: std::boxed::Box<crate::model::ListModelsRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ListModelsResponse>> {
-        T::list_models(self, req, options).await
+        <T as super::ModelService>::list_models(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn patch_model(
         &self,
-        req: crate::model::PatchModelRequest,
+        req: std::boxed::Box<crate::model::PatchModelRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Model>> {
-        T::patch_model(self, req, options).await
+        <T as super::ModelService>::patch_model(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn delete_model(
         &self,
-        req: crate::model::DeleteModelRequest,
+        req: std::boxed::Box<crate::model::DeleteModelRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>> {
-        T::delete_model(self, req, options).await
+        <T as super::ModelService>::delete_model(self, req, options).await
     }
 }
 
@@ -313,7 +313,7 @@ impl<T: super::ModelService> ModelService for T {
 pub trait ProjectService: std::fmt::Debug + Send + Sync {
     async fn get_service_account(
         &self,
-        req: crate::model::GetServiceAccountRequest,
+        req: std::boxed::Box<crate::model::GetServiceAccountRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::GetServiceAccountResponse>>;
 }
@@ -324,10 +324,10 @@ impl<T: super::ProjectService> ProjectService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_service_account(
         &self,
-        req: crate::model::GetServiceAccountRequest,
+        req: std::boxed::Box<crate::model::GetServiceAccountRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::GetServiceAccountResponse>> {
-        T::get_service_account(self, req, options).await
+        <T as super::ProjectService>::get_service_account(self, req, options).await
     }
 }
 
@@ -336,31 +336,31 @@ impl<T: super::ProjectService> ProjectService for T {
 pub trait RoutineService: std::fmt::Debug + Send + Sync {
     async fn get_routine(
         &self,
-        req: crate::model::GetRoutineRequest,
+        req: std::boxed::Box<crate::model::GetRoutineRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Routine>>;
 
     async fn insert_routine(
         &self,
-        req: crate::model::InsertRoutineRequest,
+        req: std::boxed::Box<crate::model::InsertRoutineRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Routine>>;
 
     async fn update_routine(
         &self,
-        req: crate::model::UpdateRoutineRequest,
+        req: std::boxed::Box<crate::model::UpdateRoutineRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Routine>>;
 
     async fn delete_routine(
         &self,
-        req: crate::model::DeleteRoutineRequest,
+        req: std::boxed::Box<crate::model::DeleteRoutineRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>>;
 
     async fn list_routines(
         &self,
-        req: crate::model::ListRoutinesRequest,
+        req: std::boxed::Box<crate::model::ListRoutinesRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ListRoutinesResponse>>;
 }
@@ -371,46 +371,46 @@ impl<T: super::RoutineService> RoutineService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_routine(
         &self,
-        req: crate::model::GetRoutineRequest,
+        req: std::boxed::Box<crate::model::GetRoutineRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Routine>> {
-        T::get_routine(self, req, options).await
+        <T as super::RoutineService>::get_routine(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn insert_routine(
         &self,
-        req: crate::model::InsertRoutineRequest,
+        req: std::boxed::Box<crate::model::InsertRoutineRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Routine>> {
-        T::insert_routine(self, req, options).await
+        <T as super::RoutineService>::insert_routine(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn update_routine(
         &self,
-        req: crate::model::UpdateRoutineRequest,
+        req: std::boxed::Box<crate::model::UpdateRoutineRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Routine>> {
-        T::update_routine(self, req, options).await
+        <T as super::RoutineService>::update_routine(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn delete_routine(
         &self,
-        req: crate::model::DeleteRoutineRequest,
+        req: std::boxed::Box<crate::model::DeleteRoutineRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>> {
-        T::delete_routine(self, req, options).await
+        <T as super::RoutineService>::delete_routine(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn list_routines(
         &self,
-        req: crate::model::ListRoutinesRequest,
+        req: std::boxed::Box<crate::model::ListRoutinesRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ListRoutinesResponse>> {
-        T::list_routines(self, req, options).await
+        <T as super::RoutineService>::list_routines(self, req, options).await
     }
 }
 
@@ -419,37 +419,37 @@ impl<T: super::RoutineService> RoutineService for T {
 pub trait RowAccessPolicyService: std::fmt::Debug + Send + Sync {
     async fn list_row_access_policies(
         &self,
-        req: crate::model::ListRowAccessPoliciesRequest,
+        req: std::boxed::Box<crate::model::ListRowAccessPoliciesRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ListRowAccessPoliciesResponse>>;
 
     async fn get_row_access_policy(
         &self,
-        req: crate::model::GetRowAccessPolicyRequest,
+        req: std::boxed::Box<crate::model::GetRowAccessPolicyRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::RowAccessPolicy>>;
 
     async fn create_row_access_policy(
         &self,
-        req: crate::model::CreateRowAccessPolicyRequest,
+        req: std::boxed::Box<crate::model::CreateRowAccessPolicyRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::RowAccessPolicy>>;
 
     async fn update_row_access_policy(
         &self,
-        req: crate::model::UpdateRowAccessPolicyRequest,
+        req: std::boxed::Box<crate::model::UpdateRowAccessPolicyRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::RowAccessPolicy>>;
 
     async fn delete_row_access_policy(
         &self,
-        req: crate::model::DeleteRowAccessPolicyRequest,
+        req: std::boxed::Box<crate::model::DeleteRowAccessPolicyRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>>;
 
     async fn batch_delete_row_access_policies(
         &self,
-        req: crate::model::BatchDeleteRowAccessPoliciesRequest,
+        req: std::boxed::Box<crate::model::BatchDeleteRowAccessPoliciesRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>>;
 }
@@ -460,55 +460,56 @@ impl<T: super::RowAccessPolicyService> RowAccessPolicyService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_row_access_policies(
         &self,
-        req: crate::model::ListRowAccessPoliciesRequest,
+        req: std::boxed::Box<crate::model::ListRowAccessPoliciesRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ListRowAccessPoliciesResponse>> {
-        T::list_row_access_policies(self, req, options).await
+        <T as super::RowAccessPolicyService>::list_row_access_policies(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_row_access_policy(
         &self,
-        req: crate::model::GetRowAccessPolicyRequest,
+        req: std::boxed::Box<crate::model::GetRowAccessPolicyRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::RowAccessPolicy>> {
-        T::get_row_access_policy(self, req, options).await
+        <T as super::RowAccessPolicyService>::get_row_access_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn create_row_access_policy(
         &self,
-        req: crate::model::CreateRowAccessPolicyRequest,
+        req: std::boxed::Box<crate::model::CreateRowAccessPolicyRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::RowAccessPolicy>> {
-        T::create_row_access_policy(self, req, options).await
+        <T as super::RowAccessPolicyService>::create_row_access_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn update_row_access_policy(
         &self,
-        req: crate::model::UpdateRowAccessPolicyRequest,
+        req: std::boxed::Box<crate::model::UpdateRowAccessPolicyRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::RowAccessPolicy>> {
-        T::update_row_access_policy(self, req, options).await
+        <T as super::RowAccessPolicyService>::update_row_access_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn delete_row_access_policy(
         &self,
-        req: crate::model::DeleteRowAccessPolicyRequest,
+        req: std::boxed::Box<crate::model::DeleteRowAccessPolicyRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>> {
-        T::delete_row_access_policy(self, req, options).await
+        <T as super::RowAccessPolicyService>::delete_row_access_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn batch_delete_row_access_policies(
         &self,
-        req: crate::model::BatchDeleteRowAccessPoliciesRequest,
+        req: std::boxed::Box<crate::model::BatchDeleteRowAccessPoliciesRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>> {
-        T::batch_delete_row_access_policies(self, req, options).await
+        <T as super::RowAccessPolicyService>::batch_delete_row_access_policies(self, req, options)
+            .await
     }
 }
 
@@ -517,37 +518,37 @@ impl<T: super::RowAccessPolicyService> RowAccessPolicyService for T {
 pub trait TableService: std::fmt::Debug + Send + Sync {
     async fn get_table(
         &self,
-        req: crate::model::GetTableRequest,
+        req: std::boxed::Box<crate::model::GetTableRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Table>>;
 
     async fn insert_table(
         &self,
-        req: crate::model::InsertTableRequest,
+        req: std::boxed::Box<crate::model::InsertTableRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Table>>;
 
     async fn patch_table(
         &self,
-        req: crate::model::UpdateOrPatchTableRequest,
+        req: std::boxed::Box<crate::model::UpdateOrPatchTableRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Table>>;
 
     async fn update_table(
         &self,
-        req: crate::model::UpdateOrPatchTableRequest,
+        req: std::boxed::Box<crate::model::UpdateOrPatchTableRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Table>>;
 
     async fn delete_table(
         &self,
-        req: crate::model::DeleteTableRequest,
+        req: std::boxed::Box<crate::model::DeleteTableRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>>;
 
     async fn list_tables(
         &self,
-        req: crate::model::ListTablesRequest,
+        req: std::boxed::Box<crate::model::ListTablesRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::TableList>>;
 }
@@ -558,54 +559,54 @@ impl<T: super::TableService> TableService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_table(
         &self,
-        req: crate::model::GetTableRequest,
+        req: std::boxed::Box<crate::model::GetTableRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Table>> {
-        T::get_table(self, req, options).await
+        <T as super::TableService>::get_table(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn insert_table(
         &self,
-        req: crate::model::InsertTableRequest,
+        req: std::boxed::Box<crate::model::InsertTableRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Table>> {
-        T::insert_table(self, req, options).await
+        <T as super::TableService>::insert_table(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn patch_table(
         &self,
-        req: crate::model::UpdateOrPatchTableRequest,
+        req: std::boxed::Box<crate::model::UpdateOrPatchTableRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Table>> {
-        T::patch_table(self, req, options).await
+        <T as super::TableService>::patch_table(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn update_table(
         &self,
-        req: crate::model::UpdateOrPatchTableRequest,
+        req: std::boxed::Box<crate::model::UpdateOrPatchTableRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Table>> {
-        T::update_table(self, req, options).await
+        <T as super::TableService>::update_table(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn delete_table(
         &self,
-        req: crate::model::DeleteTableRequest,
+        req: std::boxed::Box<crate::model::DeleteTableRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>> {
-        T::delete_table(self, req, options).await
+        <T as super::TableService>::delete_table(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn list_tables(
         &self,
-        req: crate::model::ListTablesRequest,
+        req: std::boxed::Box<crate::model::ListTablesRequest>,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::TableList>> {
-        T::list_tables(self, req, options).await
+        <T as super::TableService>::list_tables(self, req, options).await
     }
 }
