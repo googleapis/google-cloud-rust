@@ -576,8 +576,8 @@ libraries:
     roots:
       - discovery
       - googleapis
-    specification_format: discovery
     skip_release: true
+    specification_format: discovery
     rust:
       package_dependencies:
         - name: google-cloud-lro
