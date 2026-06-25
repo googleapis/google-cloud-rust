@@ -14,13 +14,9 @@
 
 //! Internal traits and types for Appendable Object Write (Bidi Write).
 
-pub(crate) mod stub;
-
-#[cfg(google_cloud_unstable_storage_bidi)]
 mod redirect;
-
-#[cfg(google_cloud_unstable_storage_bidi)]
 mod retry_redirect;
+pub(crate) mod stub;
 
 use crate::google::storage::v2::{BidiWriteObjectRequest, BidiWriteObjectResponse};
 use crate::request_options::RequestOptions;
