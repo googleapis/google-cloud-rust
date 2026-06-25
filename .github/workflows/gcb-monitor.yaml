@@ -71,7 +71,7 @@ jobs:
             gh issue comment "$EXISTING_ISSUE" --repo $GH_REPO --body "$BODY"
           else
             echo "Creating new issue."
-            ISSUE_LINK=$(gh issue create --title "$ISSUE_TITLE" --body "$BODY" --label ":rotating_light: critical" --assignee ${{ github.actor }} -R $GH_REPO)
+            ISSUE_LINK=$(gh issue create --title "$ISSUE_TITLE" --body "$BODY" --label ":rotating_light: critical" --assignee ${GITHUB_ACTOR} -R $GH_REPO)
             ISSUE_NUM=${ISSUE_LINK##*/}
             gh issue comment $ISSUE_NUM --repo $GH_REPO --body "@googleapis/cloud-sdk-rust-team A critical issue has been created, please respond immediately."
           fi
