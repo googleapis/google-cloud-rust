@@ -14,6 +14,7 @@
 
 // TODO(#5716): Lift to shared bidi module
 
+use super::connector::AppendObjectSpecState;
 use crate::Error;
 use crate::google::rpc::Status as RpcStatus;
 use crate::google::storage::v2::{AppendObjectSpec, BidiWriteObjectRedirectedError};
@@ -24,8 +25,7 @@ use google_cloud_gax::error::rpc::Code;
 use prost::Message;
 use std::sync::{Arc, Mutex};
 
-#[allow(dead_code)]
-pub fn handle_redirect(spec: Arc<Mutex<AppendObjectSpec>>, status: Status) -> crate::Error {
+pub fn handle_redirect(state: Arc<Mutex<AppendObjectSpecState>>, status: Status) -> crate::Error {
     let Ok(rpc_status) = RpcStatus::decode(status.details()) else {
         return to_gax_error(status);
     };
@@ -34,12 +34,42 @@ pub fn handle_redirect(spec: Arc<Mutex<AppendObjectSpec>>, status: Status) -> cr
         .into_iter()
         .find_map(|d| d.to_msg::<BidiWriteObjectRedirectedError>().ok())
     {
-        let mut guard = spec.lock().expect("never poisoned");
-        guard.routing_token = redirect.routing_token;
-        guard.write_handle = redirect.write_handle;
-        if let Some(generation) = redirect.generation {
-            guard.generation = generation;
+        let mut guard = state.lock().expect("never poisoned");
+
+        let (bucket, object) = match &*guard {
+            AppendObjectSpecState::Write(spec) => {
+                let bucket = spec
+                    .resource
+                    .as_ref()
+                    .map(|r| r.bucket.clone())
+                    .unwrap_or_default();
+                let object = spec
+                    .resource
+                    .as_ref()
+                    .map(|r| r.name.clone())
+                    .unwrap_or_default();
+                (bucket, object)
+            }
+            AppendObjectSpecState::Append(spec) => (spec.bucket.clone(), spec.object.clone()),
+        };
+
+        let mut new_spec = AppendObjectSpec {
+            bucket,
+            object,
+            generation: redirect.generation.unwrap_or(0),
+            routing_token: redirect.routing_token,
+            write_handle: redirect.write_handle,
+            ..Default::default()
+        };
+
+        if let AppendObjectSpecState::Append(old_spec) = &*guard
+            && redirect.generation.is_none()
+        {
+            new_spec.generation = old_spec.generation;
         }
+
+        *guard = AppendObjectSpecState::Append(new_spec);
+        break;
     }
     to_gax_error(status)
 }
@@ -108,14 +138,18 @@ mod tests {
             }),
             ..Default::default()
         };
-        let spec = Arc::new(Mutex::new(spec));
+        let state = Arc::new(Mutex::new(AppendObjectSpecState::Append(spec)));
 
-        let got = handle_redirect(spec.clone(), status);
+        let got = handle_redirect(state.clone(), status);
         assert!(got.status().is_some(), "{got:?}");
-        let guard = spec.lock().expect("not poisoned");
-        assert_eq!(guard.routing_token.as_deref(), routing);
-        assert_eq!(guard.write_handle, write_handle);
-        assert_eq!(guard.generation, 42);
+        let guard = state.lock().expect("not poisoned");
+        if let AppendObjectSpecState::Append(ref spec) = *guard {
+            assert_eq!(spec.routing_token.as_deref(), routing);
+            assert_eq!(spec.write_handle, write_handle);
+            assert_eq!(spec.generation, 42);
+        } else {
+            panic!("Expected AppendObjectSpecState::Append");
+        }
     }
 
     #[test]
@@ -138,14 +172,18 @@ mod tests {
             write_handle: Some(initial_handle.clone()),
             ..Default::default()
         };
-        let spec = Arc::new(Mutex::new(spec));
+        let state = Arc::new(Mutex::new(AppendObjectSpecState::Append(spec)));
 
-        let got = handle_redirect(spec.clone(), status);
+        let got = handle_redirect(state.clone(), status);
         assert!(got.status().is_some(), "{got:?}");
-        let guard = spec.lock().expect("not poisoned");
-        assert_eq!(guard.routing_token.as_deref(), Some("initial-token"));
-        assert_eq!(guard.write_handle, Some(initial_handle));
-        assert_eq!(guard.generation, 1);
+        let guard = state.lock().expect("not poisoned");
+        if let AppendObjectSpecState::Append(ref spec) = *guard {
+            assert_eq!(spec.routing_token.as_deref(), Some("initial-token"));
+            assert_eq!(spec.write_handle, Some(initial_handle));
+            assert_eq!(spec.generation, 1);
+        } else {
+            panic!("Expected AppendObjectSpecState::Append");
+        }
     }
 
     #[test_case(permanent_error(), false)]

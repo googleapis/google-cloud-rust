@@ -14,9 +14,12 @@
 
 //! Internal traits and types for Appendable Object Write (Bidi Write).
 
+pub(crate) mod connector;
 mod redirect;
 mod retry_redirect;
 pub(crate) mod stub;
+pub(crate) mod transport;
+mod worker;
 
 use crate::google::storage::v2::{BidiWriteObjectRequest, BidiWriteObjectResponse};
 use crate::request_options::RequestOptions;
@@ -81,6 +84,9 @@ impl Client for gaxi::grpc::Client {
         .await
     }
 }
+
+#[cfg(test)]
+mod mocks;
 
 #[cfg(test)]
 pub(crate) mod tests {
