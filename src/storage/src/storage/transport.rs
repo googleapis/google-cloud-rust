@@ -23,6 +23,14 @@ use crate::storage::perform_upload::PerformUpload;
 use crate::storage::read_object::Reader;
 use crate::storage::request_options::RequestOptions;
 use crate::storage::streaming_source::{Seek, StreamingSource};
+#[cfg(google_cloud_unstable_storage_bidi)]
+use crate::{
+    appendable_object_writer::AppendableObjectWriter,
+    model_ext::{OpenAppendableObjectRequest, ReopenAppendableObjectRequest},
+    storage::bidi_write::{
+        connector::Connector as BidiWriteConnector, transport::AppendableObjectWriterTransport,
+    },
+};
 use crate::{
     model_ext::OpenObjectRequest, object_descriptor::ObjectDescriptor,
     storage::bidi::connector::Connector, storage::bidi::transport::ObjectDescriptorTransport,
@@ -262,6 +270,28 @@ impl Storage {
             .collect::<Vec<_>>();
         Ok((descriptor, readers))
     }
+
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    async fn open_appendable_object_plain(
+        &self,
+        request: OpenAppendableObjectRequest,
+        options: RequestOptions,
+    ) -> Result<AppendableObjectWriter> {
+        let connector = BidiWriteConnector::new(options, self.inner.grpc.clone());
+        let transport = AppendableObjectWriterTransport::new_open(connector, request).await?;
+        Ok(AppendableObjectWriter::new(transport))
+    }
+
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    async fn reopen_appendable_object_plain(
+        &self,
+        request: ReopenAppendableObjectRequest,
+        options: RequestOptions,
+    ) -> Result<AppendableObjectWriter> {
+        let connector = BidiWriteConnector::new(options, self.inner.grpc.clone());
+        let transport = AppendableObjectWriterTransport::new_reopen(connector, request).await?;
+        Ok(AppendableObjectWriter::new(transport))
+    }
 }
 
 impl super::stub::Storage for Storage {
@@ -324,6 +354,26 @@ impl super::stub::Storage for Storage {
             return self.open_object_tracing(request, options).await;
         }
         self.open_object_plain(request, options).await
+    }
+
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    async fn open_appendable_object(
+        &self,
+        request: OpenAppendableObjectRequest,
+        options: RequestOptions,
+    ) -> Result<AppendableObjectWriter> {
+        // Tracing is deferred to PR 5.
+        self.open_appendable_object_plain(request, options).await
+    }
+
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    async fn reopen_appendable_object(
+        &self,
+        request: ReopenAppendableObjectRequest,
+        options: RequestOptions,
+    ) -> Result<AppendableObjectWriter> {
+        // Tracing is deferred to PR 5.
+        self.reopen_appendable_object_plain(request, options).await
     }
 }
 

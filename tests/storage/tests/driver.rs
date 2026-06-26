@@ -121,6 +121,13 @@ mod storage {
         let result = integration_tests_storage::bidi_read::run(&bucket.name)
             .await
             .inspect_err(anydump);
+        #[cfg(google_cloud_unstable_storage_bidi)]
+        let result = match result {
+            Ok(()) => integration_tests_storage::bidi_write::run(&bucket.name)
+                .await
+                .inspect_err(anydump),
+            Err(e) => Err(e),
+        };
         let _ =
             storage_samples::cleanup_bucket(control, bucket.name.clone(), bucket.project.clone())
                 .await

@@ -13,6 +13,8 @@
 // limitations under the License.
 
 pub mod bidi_read;
+#[cfg(google_cloud_unstable_storage_bidi)]
+pub mod bidi_write;
 pub mod read_object;
 pub mod write_object;
 
