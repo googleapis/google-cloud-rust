@@ -19,14 +19,19 @@ use super::redirect::handle_redirect;
 use super::retry_redirect::RetryRedirect;
 use super::{Client, TonicStreaming};
 use crate::google::storage::v2::{
-    AppendObjectSpec, BidiWriteObjectRequest, BidiWriteObjectResponse, WriteObjectSpec,
-    bidi_write_object_request::FirstMessage, bidi_write_object_response::WriteStatus,
+    AppendObjectSpec, BidiWriteObjectRequest, BidiWriteObjectResponse, CommonObjectRequestParams,
+    WriteObjectSpec, bidi_write_object_request::FirstMessage,
+    bidi_write_object_response::WriteStatus,
 };
 use crate::request_options::RequestOptions;
 use crate::storage::info::X_GOOG_API_CLIENT_HEADER;
 use crate::{Error, Result};
 use gaxi::grpc::Client as GrpcClient;
 use gaxi::grpc::tonic::{Extensions, GrpcMethod, Streaming};
+use gaxi::prost::ToProto;
+use google_cloud_gax::error::binding::{
+    BindingError, PathMismatch, SubstitutionFail, SubstitutionMismatch,
+};
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
 use tokio::sync::mpsc::Sender;
@@ -62,9 +67,10 @@ pub enum AppendObjectSpecState {
 /// - `T`: a type implementing the [Client] trait, this is used in tests.
 #[derive(Clone, Debug)]
 pub struct Connector<T = GrpcClient> {
-    pub(crate) spec: Arc<Mutex<AppendObjectSpecState>>,
+    spec: Arc<Mutex<AppendObjectSpecState>>,
     options: RequestOptions,
     client: T,
+    params: Option<CommonObjectRequestParams>,
 }
 
 impl<T> Connector<T>
@@ -77,6 +83,7 @@ where
             spec: Arc::new(Mutex::new(AppendObjectSpecState::Write(Box::default()))),
             options,
             client,
+            params: None,
         }
     }
 
@@ -92,7 +99,8 @@ where
             }
             None => None,
         };
-        let spec = crate::google::storage::v2::WriteObjectSpec {
+        self.params = req.params.map(|p| p.to_proto().expect("valid params"));
+        let spec = WriteObjectSpec {
             resource,
             predefined_acl: req.spec.predefined_acl,
             if_generation_match: req.spec.if_generation_match,
@@ -119,6 +127,7 @@ where
             if_metageneration_not_match: req.if_metageneration_not_match,
             ..Default::default()
         };
+        self.params = req.params.map(|p| p.to_proto().expect("valid params"));
         *self.spec.lock().expect("never poisoned") = AppendObjectSpecState::Append(spec);
         self.connect_attempt_loop().await
     }
@@ -132,12 +141,14 @@ where
         let client = self.client.clone();
         let options = self.options.clone();
         let spec = self.spec.clone();
+        let params = self.params.clone();
         let sleep = async |backoff| tokio::time::sleep(backoff).await;
         let default_timeout = self.options.bidi_attempt_timeout;
 
         let inner = async move |d: Option<Duration>| {
             let attempt_timeout = std::cmp::min(default_timeout, d.unwrap_or(default_timeout));
-            let attempt = Self::connect_attempt(client.clone(), spec.clone(), &options);
+            let attempt =
+                Self::connect_attempt(client.clone(), spec.clone(), &options, params.clone());
             match tokio::time::timeout(attempt_timeout, attempt).await {
                 Ok(r) => r,
                 Err(e) => Err(Error::timeout(e)),
@@ -153,6 +164,7 @@ where
         client: T,
         spec: Arc<Mutex<AppendObjectSpecState>>,
         options: &RequestOptions,
+        params: Option<CommonObjectRequestParams>,
     ) -> Result<(BidiWriteObjectResponse, Connection<T::Stream>)> {
         let first_message = match &*spec.lock().expect("never poisoned") {
             AppendObjectSpecState::Write(spec) => FirstMessage::WriteObjectSpec(*spec.clone()),
@@ -161,6 +173,7 @@ where
 
         let request = BidiWriteObjectRequest {
             first_message: Some(first_message),
+            common_object_request_params: params,
             ..BidiWriteObjectRequest::default()
         };
 
@@ -178,7 +191,6 @@ where
             .strip_prefix("projects/_/buckets/")
             .is_none_or(|x| x.is_empty())
         {
-            use google_cloud_gax::error::binding::*;
             let problem = SubstitutionFail::MismatchExpecting(
                 bucket_name.to_string(),
                 "projects/_/buckets/*",
@@ -244,9 +256,9 @@ where
         match stream.next_message().await {
             Ok(Some(m)) => {
                 let mut guard = spec.lock().expect("never poisoned");
-                let mut new_generation = 0;
+                let mut new_generation = None;
                 if let Some(WriteStatus::Resource(resource)) = &m.write_status {
-                    new_generation = resource.generation;
+                    new_generation = Some(resource.generation);
                 }
 
                 let new_state = match &*guard {
@@ -262,14 +274,14 @@ where
                                 .as_ref()
                                 .map(|r| r.name.clone())
                                 .unwrap_or_default(),
-                            generation: new_generation,
+                            generation: new_generation.unwrap_or(0),
                             write_handle: m.write_handle.clone(),
                             ..Default::default()
                         })
                     }
                     AppendObjectSpecState::Append(s) => {
                         AppendObjectSpecState::Append(AppendObjectSpec {
-                            generation: new_generation,
+                            generation: new_generation.unwrap_or(s.generation),
                             write_handle: m.write_handle.clone().or_else(|| s.write_handle.clone()),
                             ..s.clone()
                         })

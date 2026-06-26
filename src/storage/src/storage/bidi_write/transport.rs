@@ -16,12 +16,14 @@
 // TODO(#5716): Lift to shared bidi module
 
 use super::worker::UploadIntent;
+use crate::google::storage::v2::ObjectChecksums;
 use crate::google::storage::v2::{
     BidiWriteObjectRequest, ChecksummedData, bidi_write_object_request::Data,
     bidi_write_object_response::WriteStatus,
 };
 use crate::stub::AppendableObjectWriter;
 use bytes::Bytes;
+use gaxi::prost::FromProto;
 use tokio::sync::mpsc::Sender;
 use tokio::sync::oneshot;
 
@@ -46,7 +48,7 @@ impl AppendableObjectWriterTransport {
         <T as super::Client>::Stream: super::TonicStreaming + Send + Sync,
     {
         let (initial, connection) = connector.connect_open(req).await?;
-        Self::start_worker(connector, initial, connection)
+        Self::start_worker(connector, initial, connection, 0)
     }
 
     pub async fn new_reopen<T>(
@@ -57,22 +59,27 @@ impl AppendableObjectWriterTransport {
         T: super::Client + Clone + Sync + Send + 'static,
         <T as super::Client>::Stream: super::TonicStreaming + Send + Sync,
     {
+        let generation = req.generation;
         let (initial, connection) = connector.connect_reopen(req).await?;
-        Self::start_worker(connector, initial, connection)
+        Self::start_worker(connector, initial, connection, generation)
     }
 
     fn start_worker<T>(
         connector: super::connector::Connector<T>,
         initial: crate::google::storage::v2::BidiWriteObjectResponse,
         connection: super::connector::Connection<<T as super::Client>::Stream>,
+        mut generation: i64,
     ) -> crate::Result<Self>
     where
         T: super::Client + Clone + Sync + Send + 'static,
         <T as super::Client>::Stream: super::TonicStreaming + Send + Sync,
     {
-        let mut generation = 0;
+        let mut persisted_size = 0;
         if let Some(WriteStatus::Resource(r)) = initial.write_status.as_ref() {
             generation = r.generation;
+            persisted_size = r.size;
+        } else if let Some(WriteStatus::PersistedSize(s)) = initial.write_status.as_ref() {
+            persisted_size = *s;
         }
 
         let (tx, rx) = tokio::sync::mpsc::channel(100);
@@ -82,8 +89,8 @@ impl AppendableObjectWriterTransport {
         Ok(Self {
             tx,
             generation,
-            persisted_size: 0,
-            write_offset: 0,
+            persisted_size,
+            write_offset: persisted_size,
             crc32c_persisted: 0,
         })
     }
@@ -94,7 +101,7 @@ impl AppendableObjectWriter for AppendableObjectWriterTransport {
         let length = chunk.len() as i64;
         let crc32c = crc32c::crc32c(&chunk);
 
-        self.crc32c_persisted = crc32c::crc32c_append(self.crc32c_persisted, &chunk);
+        let new_crc32c = crc32c::crc32c_append(self.crc32c_persisted, &chunk);
 
         let request = BidiWriteObjectRequest {
             write_offset: self.write_offset,
@@ -105,11 +112,13 @@ impl AppendableObjectWriter for AppendableObjectWriterTransport {
             ..BidiWriteObjectRequest::default()
         };
 
-        self.write_offset += length;
         self.tx
             .send(UploadIntent::Append(request))
             .await
             .map_err(|e| crate::Error::io(e.to_string()))?;
+
+        self.write_offset += length;
+        self.crc32c_persisted = new_crc32c;
 
         Ok(())
     }
@@ -133,16 +142,13 @@ impl AppendableObjectWriter for AppendableObjectWriterTransport {
         let size = match response.write_status {
             Some(WriteStatus::PersistedSize(s)) => s,
             Some(WriteStatus::Resource(r)) => r.size,
-            None => 0,
+            None => return Err(crate::Error::io("flush response missing write_status")),
         };
         self.persisted_size = size;
         Ok(size)
     }
 
     async fn finalize(self) -> crate::Result<crate::model::Object> {
-        use crate::google::storage::v2::ObjectChecksums;
-        use gaxi::prost::FromProto;
-
         let (sender, receiver) = oneshot::channel();
         let request = BidiWriteObjectRequest {
             finish_write: true,
@@ -274,9 +280,11 @@ mod tests {
             spec: Default::default(),
             params: None,
         };
-        req.spec.resource = Some(crate::model::Object::default()
-            .set_bucket("projects/_/buckets/test-bucket")
-            .set_name("test-object"));
+        req.spec.resource = Some(
+            crate::model::Object::default()
+                .set_bucket("projects/_/buckets/test-bucket")
+                .set_name("test-object"),
+        );
 
         let err = AppendableObjectWriterTransport::new_open(connector, req)
             .await
@@ -332,6 +340,10 @@ mod tests {
             .unwrap_err();
         assert!(err.is_io(), "{err:?}");
 
+        // Assert that state was NOT modified due to the error
+        assert_eq!(transport.write_offset, 0);
+        assert_eq!(transport.crc32c_persisted, 0);
+
         Ok(())
     }
 
@@ -367,6 +379,46 @@ mod tests {
         let err = handle.await?.unwrap_err();
         assert!(err.is_io(), "{err:?}");
 
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn new_reopen_initial_persisted_size() -> anyhow::Result<()> {
+        use super::super::mocks::{MockTestClient, mock_connector};
+        use crate::model_ext::ReopenAppendableObjectRequest;
+        use gaxi::grpc::tonic::Response as TonicResponse;
+        use gaxi::grpc::tonic::Result as TonicResult;
+
+        let (tx1, rx1) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(5);
+        let stream1 = TonicResponse::from(rx1);
+
+        let mut mock = MockTestClient::new();
+        mock.expect_start()
+            .return_once(move |_, _, _, _, _, _| Ok(Ok(stream1)));
+        let connector = mock_connector(mock);
+
+        let req = ReopenAppendableObjectRequest {
+            bucket: "projects/_/buckets/test-bucket".into(),
+            object: "test-object".into(),
+            generation: 123456,
+            if_metageneration_match: None,
+            if_metageneration_not_match: None,
+            routing_token: None,
+            write_handle: None,
+            params: None,
+        };
+
+        let initial_response = BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::PersistedSize(1024)),
+            ..Default::default()
+        };
+        tx1.send(Ok(initial_response)).await?;
+
+        let transport = AppendableObjectWriterTransport::new_reopen(connector, req).await?;
+
+        assert_eq!(transport.generation(), 123456);
+        assert_eq!(transport.persisted_size(), 1024);
+        assert_eq!(transport.write_offset, 1024);
         Ok(())
     }
 }
