@@ -233,6 +233,18 @@ impl std::fmt::Debug for super::GetConnectSettingsRequest {
     }
 }
 
+impl std::fmt::Debug for super::ResolveConnectSettingsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResolveConnectSettingsRequest");
+        debug_struct.field("dns_name", &self.dns_name);
+        debug_struct.field("location", &self.location);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::ConnectSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConnectSettings");
@@ -253,6 +265,7 @@ impl std::fmt::Debug for super::ConnectSettings {
         debug_struct.field("node_count", &self.node_count);
         debug_struct.field("nodes", &self.nodes);
         debug_struct.field("mdx_protocol_support", &self.mdx_protocol_support);
+        debug_struct.field("connection_name", &self.connection_name);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -632,6 +645,11 @@ impl std::fmt::Debug for super::SqlInstancesPatchRequest {
         let mut debug_struct = f.debug_struct("SqlInstancesPatchRequest");
         debug_struct.field("instance", &self.instance);
         debug_struct.field("project", &self.project);
+        debug_struct.field("reconcile_psc_networking", &self.reconcile_psc_networking);
+        debug_struct.field(
+            "reconcile_psc_networking_force",
+            &self.reconcile_psc_networking_force,
+        );
         debug_struct.field("body", &self.body);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -2398,6 +2416,10 @@ impl std::fmt::Debug for super::PscConfig {
             "psc_write_endpoint_dns_enabled",
             &self.psc_write_endpoint_dns_enabled,
         );
+        debug_struct.field(
+            "psc_auto_connection_policy_enabled",
+            &self.psc_auto_connection_policy_enabled,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2413,6 +2435,16 @@ impl std::fmt::Debug for super::PscAutoConnectionConfig {
         debug_struct.field("ip_address", &self.ip_address);
         debug_struct.field("status", &self.status);
         debug_struct.field("consumer_network_status", &self.consumer_network_status);
+        debug_struct.field("service_connection_policy", &self.service_connection_policy);
+        debug_struct.field(
+            "service_connection_policy_creation_result",
+            &self.service_connection_policy_creation_result,
+        );
+        debug_struct.field("instance_auto_dns_status", &self.instance_auto_dns_status);
+        debug_struct.field(
+            "write_endpoint_auto_dns_status",
+            &self.write_endpoint_auto_dns_status,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2763,6 +2795,35 @@ impl std::fmt::Debug for super::PerformanceCaptureConfig {
             "transaction_duration_threshold",
             &self.transaction_duration_threshold,
         );
+        debug_struct.field(
+            "cpu_utilization_threshold_percent",
+            &self.cpu_utilization_threshold_percent,
+        );
+        debug_struct.field(
+            "memory_usage_threshold_percent",
+            &self.memory_usage_threshold_percent,
+        );
+        debug_struct.field(
+            "transaction_lock_wait_threshold_count",
+            &self.transaction_lock_wait_threshold_count,
+        );
+        debug_struct.field(
+            "semaphore_wait_threshold_count",
+            &self.semaphore_wait_threshold_count,
+        );
+        debug_struct.field(
+            "history_list_length_threshold_count",
+            &self.history_list_length_threshold_count,
+        );
+        debug_struct.field(
+            "transaction_kill_threshold_seconds",
+            &self.transaction_kill_threshold_seconds,
+        );
+        debug_struct.field(
+            "transaction_kill_excluded_user_hosts",
+            &self.transaction_kill_excluded_user_hosts,
+        );
+        debug_struct.field("transaction_kill_type", &self.transaction_kill_type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

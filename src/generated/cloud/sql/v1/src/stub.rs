@@ -167,6 +167,17 @@ pub trait SqlConnectService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::SqlConnectService::resolve_connect_settings].
+    fn resolve_connect_settings(
+        &self,
+        _req: crate::model::ResolveConnectSettingsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ConnectSettings>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::SqlConnectService::generate_ephemeral_cert].
     fn generate_ephemeral_cert(
         &self,

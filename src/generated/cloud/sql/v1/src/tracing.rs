@@ -236,6 +236,20 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn resolve_connect_settings(
+        &self,
+        req: crate::model::ResolveConnectSettingsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ConnectSettings>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlConnectService::resolve_connect_settings",
+            self.inner.resolve_connect_settings(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn generate_ephemeral_cert(
         &self,
         req: crate::model::GenerateEphemeralCertRequest,

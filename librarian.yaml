@@ -19,11 +19,11 @@ sources:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
   discovery:
-    commit: fcd42e06111c593b51b0e15889c21e7dd1b247be
-    sha256: 9025e0c922632c4095085d404dff5ebefe629a61d3f7cff4c6c9eb3f169b4bbe
+    commit: 8de862bc04f4f9ba11fce79ce637b7aa573cae7b
+    sha256: fa3cc1cfa57729fc5e442aa1f2c59b676220ac55d0027be15dc77f9589d6ffca
   googleapis:
-    commit: e57bae6efbd075a925978a79bb9b997beb4ecc19
-    sha256: 762523e55a4cd9f57c7e5a952dd76ca6041c0e1dd405c14b1d6cfb165e4730b1
+    commit: 0a38d04e5f6c265e74a994240b762c22666329a5
+    sha256: 0303c8eebc3b89cc8156669ff5978f471dc080e718ce1b9b7a8fa4282775e5ab
   protobuf:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
@@ -766,7 +766,6 @@ libraries:
     roots:
       - discovery
       - googleapis
-    skip_generate: true
     specification_format: discovery
     rust:
       package_dependencies:

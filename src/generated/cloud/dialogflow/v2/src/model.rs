@@ -4627,6 +4627,11 @@ pub struct InputAudioConfig {
     /// over StreamingDetectIntentRequest.single_utterance.
     pub single_utterance: bool,
 
+    /// Optional. If `true`, responses with voice activity speech events will be
+    /// returned as they are detected.
+    /// Note: This setting is relevant only for streaming methods.
+    pub enable_voice_activity_events: bool,
+
     /// Only used in
     /// [Participants.AnalyzeContent][google.cloud.dialogflow.v2.Participants.AnalyzeContent]
     /// and
@@ -4792,6 +4797,18 @@ impl InputAudioConfig {
     /// ```
     pub fn set_single_utterance<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.single_utterance = v.into();
+        self
+    }
+
+    /// Sets the value of [enable_voice_activity_events][crate::model::InputAudioConfig::enable_voice_activity_events].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::InputAudioConfig;
+    /// let x = InputAudioConfig::new().set_enable_voice_activity_events(true);
+    /// ```
+    pub fn set_enable_voice_activity_events<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enable_voice_activity_events = v.into();
         self
     }
 
@@ -11641,6 +11658,9 @@ pub struct SearchKnowledgeDebugInfo {
     /// The latency of the service.
     pub service_latency: std::option::Option<crate::model::ServiceLatency>,
 
+    /// Optional. Debug info from the Customer Engagement Suite (CES) execution.
+    pub ces_debug_info: std::option::Option<wkt::Struct>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -11770,6 +11790,39 @@ impl SearchKnowledgeDebugInfo {
         T: std::convert::Into<crate::model::ServiceLatency>,
     {
         self.service_latency = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [ces_debug_info][crate::model::SearchKnowledgeDebugInfo::ces_debug_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SearchKnowledgeDebugInfo;
+    /// use wkt::Struct;
+    /// let x = SearchKnowledgeDebugInfo::new().set_ces_debug_info(Struct::default()/* use setters */);
+    /// ```
+    pub fn set_ces_debug_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.ces_debug_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ces_debug_info][crate::model::SearchKnowledgeDebugInfo::ces_debug_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_v2::model::SearchKnowledgeDebugInfo;
+    /// use wkt::Struct;
+    /// let x = SearchKnowledgeDebugInfo::new().set_or_clear_ces_debug_info(Some(Struct::default()/* use setters */));
+    /// let x = SearchKnowledgeDebugInfo::new().set_or_clear_ces_debug_info(None::<Struct>);
+    /// ```
+    pub fn set_or_clear_ces_debug_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.ces_debug_info = v.map(|x| x.into());
         self
     }
 }
@@ -54810,7 +54863,8 @@ impl StreamingRecognitionResult {
     /// # use google_cloud_dialogflow_v2::model::StreamingRecognitionResult;
     /// use google_cloud_dialogflow_v2::model::streaming_recognition_result::MessageType;
     /// let x0 = StreamingRecognitionResult::new().set_message_type(MessageType::Transcript);
-    /// let x1 = StreamingRecognitionResult::new().set_message_type(MessageType::EndOfSingleUtterance);
+    /// let x1 = StreamingRecognitionResult::new().set_message_type(MessageType::DtmfDigits);
+    /// let x2 = StreamingRecognitionResult::new().set_message_type(MessageType::EndOfSingleUtterance);
     /// ```
     pub fn set_message_type<
         T: std::convert::Into<crate::model::streaming_recognition_result::MessageType>,
@@ -54962,6 +55016,8 @@ pub mod streaming_recognition_result {
         Unspecified,
         /// Message contains a (possibly partial) transcript.
         Transcript,
+        /// Message contains DTMF digits.
+        DtmfDigits,
         /// This event indicates that the server has detected the end of the user's
         /// speech utterance and expects no additional inputs.
         /// Therefore, the server will not process additional audio (although it may
@@ -54971,6 +55027,18 @@ pub mod streaming_recognition_result {
         /// message is only sent if `single_utterance` was set to `true`, and is not
         /// used otherwise.
         EndOfSingleUtterance,
+        /// Message contains DTMF digits. Before a message with DTMF_DIGITS is sent,
+        /// a message with PARTIAL_DTMF_DIGITS may be sent with DTMF digits collected
+        /// up to the time of sending, which represents an intermediate result.
+        PartialDtmfDigits,
+        /// This event indicates that the server has detected the beginning of human
+        /// voice activity in the stream. This event can be returned multiple times
+        /// if speech starts and stops repeatedly throughout the stream.
+        SpeechActivityBegin,
+        /// This event indicates that the server has detected the end of human voice
+        /// activity in the stream. This event can be returned multiple times if
+        /// speech starts and stops repeatedly throughout the stream.
+        SpeechActivityEnd,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [MessageType::value] or
@@ -54997,7 +55065,11 @@ pub mod streaming_recognition_result {
             match self {
                 Self::Unspecified => std::option::Option::Some(0),
                 Self::Transcript => std::option::Option::Some(1),
+                Self::DtmfDigits => std::option::Option::Some(3),
                 Self::EndOfSingleUtterance => std::option::Option::Some(2),
+                Self::PartialDtmfDigits => std::option::Option::Some(4),
+                Self::SpeechActivityBegin => std::option::Option::Some(5),
+                Self::SpeechActivityEnd => std::option::Option::Some(6),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -55010,7 +55082,11 @@ pub mod streaming_recognition_result {
             match self {
                 Self::Unspecified => std::option::Option::Some("MESSAGE_TYPE_UNSPECIFIED"),
                 Self::Transcript => std::option::Option::Some("TRANSCRIPT"),
+                Self::DtmfDigits => std::option::Option::Some("DTMF_DIGITS"),
                 Self::EndOfSingleUtterance => std::option::Option::Some("END_OF_SINGLE_UTTERANCE"),
+                Self::PartialDtmfDigits => std::option::Option::Some("PARTIAL_DTMF_DIGITS"),
+                Self::SpeechActivityBegin => std::option::Option::Some("SPEECH_ACTIVITY_BEGIN"),
+                Self::SpeechActivityEnd => std::option::Option::Some("SPEECH_ACTIVITY_END"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -55038,6 +55114,10 @@ pub mod streaming_recognition_result {
                 0 => Self::Unspecified,
                 1 => Self::Transcript,
                 2 => Self::EndOfSingleUtterance,
+                3 => Self::DtmfDigits,
+                4 => Self::PartialDtmfDigits,
+                5 => Self::SpeechActivityBegin,
+                6 => Self::SpeechActivityEnd,
                 _ => Self::UnknownValue(message_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -55052,7 +55132,11 @@ pub mod streaming_recognition_result {
             match value {
                 "MESSAGE_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "TRANSCRIPT" => Self::Transcript,
+                "DTMF_DIGITS" => Self::DtmfDigits,
                 "END_OF_SINGLE_UTTERANCE" => Self::EndOfSingleUtterance,
+                "PARTIAL_DTMF_DIGITS" => Self::PartialDtmfDigits,
+                "SPEECH_ACTIVITY_BEGIN" => Self::SpeechActivityBegin,
+                "SPEECH_ACTIVITY_END" => Self::SpeechActivityEnd,
                 _ => Self::UnknownValue(message_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -55069,7 +55153,11 @@ pub mod streaming_recognition_result {
             match self {
                 Self::Unspecified => serializer.serialize_i32(0),
                 Self::Transcript => serializer.serialize_i32(1),
+                Self::DtmfDigits => serializer.serialize_i32(3),
                 Self::EndOfSingleUtterance => serializer.serialize_i32(2),
+                Self::PartialDtmfDigits => serializer.serialize_i32(4),
+                Self::SpeechActivityBegin => serializer.serialize_i32(5),
+                Self::SpeechActivityEnd => serializer.serialize_i32(6),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -62329,12 +62417,12 @@ pub mod tool_call_result {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Result {
-        /// The tool call's error.
+        /// Optional. The tool call's error.
         Error(std::boxed::Box<crate::model::tool_call_result::Error>),
-        /// Only populated if the response content is not utf-8 encoded.
+        /// Optional. Only populated if the response content is not utf-8 encoded.
         /// (by definition byte fields are base64 encoded).
         RawContent(::bytes::Bytes),
-        /// Only populated if the response content is utf-8 encoded.
+        /// Optional. Only populated if the response content is utf-8 encoded.
         Content(std::string::String),
     }
 }

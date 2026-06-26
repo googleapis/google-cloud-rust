@@ -1036,6 +1036,79 @@ pub mod sql_connect_service {
         }
     }
 
+    /// The request builder for [SqlConnectService::resolve_connect_settings][crate::client::SqlConnectService::resolve_connect_settings] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::builder::sql_connect_service::ResolveConnectSettings;
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ResolveConnectSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ResolveConnectSettings(RequestBuilder<crate::model::ResolveConnectSettingsRequest>);
+
+    impl ResolveConnectSettings {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlConnectService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ResolveConnectSettingsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ConnectSettings> {
+            (*self.0.stub)
+                .resolve_connect_settings(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [dns_name][crate::model::ResolveConnectSettingsRequest::dns_name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_dns_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.dns_name = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::ResolveConnectSettingsRequest::location].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ResolveConnectSettings {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [SqlConnectService::generate_ephemeral_cert][crate::client::SqlConnectService::generate_ephemeral_cert] calls.
     ///
     /// # Example
@@ -3405,6 +3478,45 @@ pub mod sql_instances_service {
         /// Sets the value of [project][crate::model::SqlInstancesPatchRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [reconcile_psc_networking][crate::model::SqlInstancesPatchRequest::reconcile_psc_networking].
+        pub fn set_reconcile_psc_networking<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.reconcile_psc_networking = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [reconcile_psc_networking][crate::model::SqlInstancesPatchRequest::reconcile_psc_networking].
+        pub fn set_or_clear_reconcile_psc_networking<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.reconcile_psc_networking = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [reconcile_psc_networking_force][crate::model::SqlInstancesPatchRequest::reconcile_psc_networking_force].
+        pub fn set_reconcile_psc_networking_force<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.reconcile_psc_networking_force = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [reconcile_psc_networking_force][crate::model::SqlInstancesPatchRequest::reconcile_psc_networking_force].
+        pub fn set_or_clear_reconcile_psc_networking_force<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.reconcile_psc_networking_force = v.map(|x| x.into());
             self
         }
 

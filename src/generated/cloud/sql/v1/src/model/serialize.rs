@@ -585,6 +585,31 @@ impl serde::ser::Serialize for super::GetConnectSettingsRequest {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::ResolveConnectSettingsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.dns_name.is_empty() {
+            state.serialize_entry("dnsName", &self.dns_name)?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::ConnectSettings {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -649,6 +674,9 @@ impl serde::ser::Serialize for super::ConnectSettings {
         }
         if !self.mdx_protocol_support.is_empty() {
             state.serialize_entry("mdxProtocolSupport", &self.mdx_protocol_support)?;
+        }
+        if !self.connection_name.is_empty() {
+            state.serialize_entry("connectionName", &self.connection_name)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1533,6 +1561,15 @@ impl serde::ser::Serialize for super::SqlInstancesPatchRequest {
         }
         if !self.project.is_empty() {
             state.serialize_entry("project", &self.project)?;
+        }
+        if self.reconcile_psc_networking.is_some() {
+            state.serialize_entry("reconcilePscNetworking", &self.reconcile_psc_networking)?;
+        }
+        if self.reconcile_psc_networking_force.is_some() {
+            state.serialize_entry(
+                "reconcilePscNetworkingForce",
+                &self.reconcile_psc_networking_force,
+            )?;
         }
         if self.body.is_some() {
             state.serialize_entry("body", &self.body)?;
@@ -5504,6 +5541,12 @@ impl serde::ser::Serialize for super::PscConfig {
                 &self.psc_write_endpoint_dns_enabled,
             )?;
         }
+        if self.psc_auto_connection_policy_enabled.is_some() {
+            state.serialize_entry(
+                "pscAutoConnectionPolicyEnabled",
+                &self.psc_auto_connection_policy_enabled,
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -5537,6 +5580,24 @@ impl serde::ser::Serialize for super::PscAutoConnectionConfig {
         }
         if self.consumer_network_status.is_some() {
             state.serialize_entry("consumerNetworkStatus", &self.consumer_network_status)?;
+        }
+        if self.service_connection_policy.is_some() {
+            state.serialize_entry("serviceConnectionPolicy", &self.service_connection_policy)?;
+        }
+        if self.service_connection_policy_creation_result.is_some() {
+            state.serialize_entry(
+                "serviceConnectionPolicyCreationResult",
+                &self.service_connection_policy_creation_result,
+            )?;
+        }
+        if self.instance_auto_dns_status.is_some() {
+            state.serialize_entry("instanceAutoDnsStatus", &self.instance_auto_dns_status)?;
+        }
+        if self.write_endpoint_auto_dns_status.is_some() {
+            state.serialize_entry(
+                "writeEndpointAutoDnsStatus",
+                &self.write_endpoint_auto_dns_status,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -6509,6 +6570,117 @@ impl serde::ser::Serialize for super::PerformanceCaptureConfig {
                 "transactionDurationThreshold",
                 &__With(&self.transaction_duration_threshold),
             )?;
+        }
+        if self.cpu_utilization_threshold_percent.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "cpuUtilizationThresholdPercent",
+                &__With(&self.cpu_utilization_threshold_percent),
+            )?;
+        }
+        if self.memory_usage_threshold_percent.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "memoryUsageThresholdPercent",
+                &__With(&self.memory_usage_threshold_percent),
+            )?;
+        }
+        if self.transaction_lock_wait_threshold_count.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "transactionLockWaitThresholdCount",
+                &__With(&self.transaction_lock_wait_threshold_count),
+            )?;
+        }
+        if self.semaphore_wait_threshold_count.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "semaphoreWaitThresholdCount",
+                &__With(&self.semaphore_wait_threshold_count),
+            )?;
+        }
+        if self.history_list_length_threshold_count.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "historyListLengthThresholdCount",
+                &__With(&self.history_list_length_threshold_count),
+            )?;
+        }
+        if self.transaction_kill_threshold_seconds.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "transactionKillThresholdSeconds",
+                &__With(&self.transaction_kill_threshold_seconds),
+            )?;
+        }
+        if !self.transaction_kill_excluded_user_hosts.is_empty() {
+            state.serialize_entry(
+                "transactionKillExcludedUserHosts",
+                &self.transaction_kill_excluded_user_hosts,
+            )?;
+        }
+        if self.transaction_kill_type.is_some() {
+            state.serialize_entry("transactionKillType", &self.transaction_kill_type)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
