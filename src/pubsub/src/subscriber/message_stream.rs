@@ -1505,7 +1505,9 @@ mod tests {
         Ok(())
     }
 
+    // TODO(https://github.com/googleapis/google-cloud-rust/issues/5953): Fix lease expiration test flakiness in tokio paused time.
     #[tokio_test_no_panics(start_paused = true)]
+    #[ignore]
     async fn basic_lease_expiration() -> anyhow::Result<()> {
         const MAX_LEASE_EXTENSION: Duration = Duration::from_secs(10);
         const MAX_LEASE: Duration = Duration::from_secs(30);
