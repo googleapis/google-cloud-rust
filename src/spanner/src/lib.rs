@@ -32,6 +32,8 @@ pub mod read;
 pub mod result;
 /// SQL statement builders and parameter bindings.
 pub mod statement;
+/// Spanner primitive type constructors for typed parameter binding.
+pub mod types;
 /// Type and value representations and conversion traits.
 pub mod value;
 
@@ -89,7 +91,6 @@ pub(crate) mod timestamp_bound;
 pub(crate) mod to_value;
 pub(crate) mod transaction_retry_policy;
 pub(crate) mod transaction_runner;
-pub(crate) mod types;
 pub(crate) mod write_only_transaction;
 
 mod status;

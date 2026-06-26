@@ -37,13 +37,14 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # ratchet:actions/checkout@v6
-      - uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # rachet:actions/cache@v5
+        with:
+          persist-credentials: false
+      - uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # rachet:actions/cache@v5 # zizmor: ignore[cache-poisoning] - bypassed during release runs
         with:
           path: |
             ~/.cargo
           key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}
-        # TODO(#3887) - restore the cache
-        if: matrix.os != 'macos-14'
+        if: matrix.os != 'macos-14' && github.event_name != 'release'
       - name: Setup Rust ${{ matrix.rust-version }}
         run: rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
       - run: rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
@@ -65,6 +66,8 @@ jobs:
         rust-version: ['rust:current']
     steps:
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # ratchet:actions/checkout@v6
+        with:
+          persist-credentials: false
       - name: Setup Rust ${{ matrix.rust-version }}
         run: |
           rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
@@ -82,11 +85,14 @@ jobs:
         rust-version: ['rust:current']
     steps:
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # ratchet:actions/checkout@v6
-      - uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # ratchet:actions/cache@v5
+        with:
+          persist-credentials: false
+      - uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # ratchet:actions/cache@v5 # zizmor: ignore[cache-poisoning] - bypassed during release runs
         with:
           path: |
             ~/.cargo
           key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}
+        if: github.event_name != 'release'
       - name: Check for major breaks in key libraries
         # TODO(#3265) - replace with a standard tool or a program in Go or Rust.
         run: |
@@ -151,7 +157,9 @@ jobs:
         rust-version: ['rust:current']
     steps:
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # ratchet:actions/checkout@v6
-      - uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # ratchet:actions/cache@v5
+        with:
+          persist-credentials: false
+      - uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # ratchet:actions/cache@v5 # zizmor: ignore[cache-poisoning] - bypassed during release runs
         with:
           path: |
             ~/.cargo

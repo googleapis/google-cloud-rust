@@ -84,6 +84,17 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::OracleDatabase::configure_exascale_cloud_exadata_infrastructure].
+    fn configure_exascale_cloud_exadata_infrastructure(
+        &self,
+        _req: crate::model::ConfigureExascaleCloudExadataInfrastructureRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::OracleDatabase::list_cloud_vm_clusters].
     fn list_cloud_vm_clusters(
         &self,

@@ -17426,6 +17426,153 @@ impl wkt::message::Message for UpdateReferenceListRequest {
     }
 }
 
+/// VerifyReferenceList request message.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct VerifyReferenceListRequest {
+    /// Required. The name of the parent resource, which is the SecOps instance
+    /// associated with the request. Format:
+    /// `projects/{project}/locations/{location}/instances/{instance}`
+    pub instance: std::string::String,
+
+    /// Required. Type (format) of list lines.
+    pub syntax_type: crate::model::ReferenceListSyntaxType,
+
+    /// Required. The entries of the reference list.
+    /// Each line may be either an item in the list or a comment.
+    pub entries: std::vec::Vec<crate::model::ReferenceListEntry>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl VerifyReferenceListRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [instance][crate::model::VerifyReferenceListRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::VerifyReferenceListRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = VerifyReferenceListRequest::new().set_instance(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
+    /// ```
+    pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.instance = v.into();
+        self
+    }
+
+    /// Sets the value of [syntax_type][crate::model::VerifyReferenceListRequest::syntax_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::VerifyReferenceListRequest;
+    /// use google_cloud_chronicle_v1::model::ReferenceListSyntaxType;
+    /// let x0 = VerifyReferenceListRequest::new().set_syntax_type(ReferenceListSyntaxType::PlainTextString);
+    /// let x1 = VerifyReferenceListRequest::new().set_syntax_type(ReferenceListSyntaxType::Regex);
+    /// let x2 = VerifyReferenceListRequest::new().set_syntax_type(ReferenceListSyntaxType::Cidr);
+    /// ```
+    pub fn set_syntax_type<T: std::convert::Into<crate::model::ReferenceListSyntaxType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.syntax_type = v.into();
+        self
+    }
+
+    /// Sets the value of [entries][crate::model::VerifyReferenceListRequest::entries].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::VerifyReferenceListRequest;
+    /// use google_cloud_chronicle_v1::model::ReferenceListEntry;
+    /// let x = VerifyReferenceListRequest::new()
+    ///     .set_entries([
+    ///         ReferenceListEntry::default()/* use setters */,
+    ///         ReferenceListEntry::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_entries<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ReferenceListEntry>,
+    {
+        use std::iter::Iterator;
+        self.entries = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for VerifyReferenceListRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.VerifyReferenceListRequest"
+    }
+}
+
+/// VerifyListResponse response message.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct VerifyReferenceListResponse {
+    /// Validity of list - true if no errors found.
+    pub success: bool,
+
+    /// Line-level errors causing the list to be invalid.
+    pub errors: std::vec::Vec<crate::model::ReferenceListError>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl VerifyReferenceListResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [success][crate::model::VerifyReferenceListResponse::success].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::VerifyReferenceListResponse;
+    /// let x = VerifyReferenceListResponse::new().set_success(true);
+    /// ```
+    pub fn set_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.success = v.into();
+        self
+    }
+
+    /// Sets the value of [errors][crate::model::VerifyReferenceListResponse::errors].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::VerifyReferenceListResponse;
+    /// use google_cloud_chronicle_v1::model::ReferenceListError;
+    /// let x = VerifyReferenceListResponse::new()
+    ///     .set_errors([
+    ///         ReferenceListError::default()/* use setters */,
+    ///         ReferenceListError::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_errors<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ReferenceListError>,
+    {
+        use std::iter::Iterator;
+        self.errors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for VerifyReferenceListResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.VerifyReferenceListResponse"
+    }
+}
+
 /// A reference list.
 /// Reference lists are user-defined lists of values which users can
 /// use in multiple Rules.
@@ -17694,6 +17841,57 @@ impl ReferenceListEntry {
 impl wkt::message::Message for ReferenceListEntry {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.chronicle.v1.ReferenceListEntry"
+    }
+}
+
+/// The error generated when verifying the reference list.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ReferenceListError {
+    /// 1-indexed line number where the error occurs.
+    /// General list errors are indexed at -1.
+    pub line_number: i32,
+
+    /// Message explaining why the line is invalid.
+    pub error_message: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ReferenceListError {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [line_number][crate::model::ReferenceListError::line_number].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ReferenceListError;
+    /// let x = ReferenceListError::new().set_line_number(42);
+    /// ```
+    pub fn set_line_number<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.line_number = v.into();
+        self
+    }
+
+    /// Sets the value of [error_message][crate::model::ReferenceListError::error_message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ReferenceListError;
+    /// let x = ReferenceListError::new().set_error_message("example");
+    /// ```
+    pub fn set_error_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.error_message = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ReferenceListError {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.ReferenceListError"
     }
 }
 
@@ -19494,6 +19692,122 @@ impl wkt::message::Message for DeleteRuleRequest {
     }
 }
 
+/// Request message for VerifyRuleText method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct VerifyRuleTextRequest {
+    /// Required. The name of the parent resource, which is the SecOps instance
+    /// associated with the request. Format:
+    /// `projects/{project}/locations/{location}/instances/{instance}`
+    pub instance: std::string::String,
+
+    /// Required. The rule text to verify as a UTF-8 string.
+    pub rule_text: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl VerifyRuleTextRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [instance][crate::model::VerifyRuleTextRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::VerifyRuleTextRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = VerifyRuleTextRequest::new().set_instance(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
+    /// ```
+    pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.instance = v.into();
+        self
+    }
+
+    /// Sets the value of [rule_text][crate::model::VerifyRuleTextRequest::rule_text].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::VerifyRuleTextRequest;
+    /// let x = VerifyRuleTextRequest::new().set_rule_text("example");
+    /// ```
+    pub fn set_rule_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.rule_text = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for VerifyRuleTextRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.VerifyRuleTextRequest"
+    }
+}
+
+/// Response message for VerifyRuleText method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct VerifyRuleTextResponse {
+    /// Whether or not the rule text was successfully verified.
+    pub success: bool,
+
+    /// A list of a rule's corresponding compilation diagnostic messages
+    /// such as compilation errors and compilation warnings.
+    pub compilation_diagnostics: std::vec::Vec<crate::model::CompilationDiagnostic>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl VerifyRuleTextResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [success][crate::model::VerifyRuleTextResponse::success].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::VerifyRuleTextResponse;
+    /// let x = VerifyRuleTextResponse::new().set_success(true);
+    /// ```
+    pub fn set_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.success = v.into();
+        self
+    }
+
+    /// Sets the value of [compilation_diagnostics][crate::model::VerifyRuleTextResponse::compilation_diagnostics].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::VerifyRuleTextResponse;
+    /// use google_cloud_chronicle_v1::model::CompilationDiagnostic;
+    /// let x = VerifyRuleTextResponse::new()
+    ///     .set_compilation_diagnostics([
+    ///         CompilationDiagnostic::default()/* use setters */,
+    ///         CompilationDiagnostic::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_compilation_diagnostics<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::CompilationDiagnostic>,
+    {
+        use std::iter::Iterator;
+        self.compilation_diagnostics = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for VerifyRuleTextResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.VerifyRuleTextResponse"
+    }
+}
+
 /// Request message for ListRuleRevisions method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -20786,6 +21100,420 @@ impl InputsUsed {
 impl wkt::message::Message for InputsUsed {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.chronicle.v1.InputsUsed"
+    }
+}
+
+/// Request message for ListRuleExecutionErrors.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListRuleExecutionErrorsRequest {
+    /// Required. The instance to list rule execution errors from.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}
+    pub parent: std::string::String,
+
+    /// The maximum number of rule execution errors to return. The service may
+    /// return fewer than this value. If unspecified, at most 1000 rule execution
+    /// errors will be returned. The maximum value is 10000; values above 10000
+    /// will be coerced to 10000.
+    pub page_size: i32,
+
+    /// A page token, received from a previous `ListRuleExecutionErrors` call.
+    /// Provide this to retrieve the subsequent page.
+    ///
+    /// When paginating, all other parameters provided to `ListRuleExecutionErrors`
+    /// must match the call that provided the page token.
+    pub page_token: std::string::String,
+
+    /// A filter that can be used to retrieve specific rule execution errors.
+    /// Only the following filters are allowed:
+    ///
+    /// ```norust
+    ///   rule = "{Rule.name}"
+    ///   curated_rule = "{CuratedRule.name}"
+    /// ```
+    ///
+    /// The value for rule or curated_rule must be a valid rule resource name or a
+    /// valid curated rule resource name specified in quotes.
+    ///
+    /// For 'rule', an optional 'revision_id' can be specified which can be used to
+    /// fetch errors for a given revision of the rule. A '-' is also allowed to
+    /// fetch errors across all revisions of the rule. If unspecified, only errors
+    /// corresponding to the most recent revision of the rule will be returned. So
+    /// these variations are all allowed:
+    ///
+    /// ```norust
+    ///   rule = "{Rule.name}"
+    ///   rule = "{Rule.name}@{Rule.revision_id}"
+    ///   rule = "{Rule.name}@-"
+    /// ```
+    ///
+    /// Revision IDs are not supported for curated rules.
+    pub filter: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListRuleExecutionErrorsRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListRuleExecutionErrorsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListRuleExecutionErrorsRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ListRuleExecutionErrorsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListRuleExecutionErrorsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListRuleExecutionErrorsRequest;
+    /// let x = ListRuleExecutionErrorsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListRuleExecutionErrorsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListRuleExecutionErrorsRequest;
+    /// let x = ListRuleExecutionErrorsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListRuleExecutionErrorsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListRuleExecutionErrorsRequest;
+    /// let x = ListRuleExecutionErrorsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListRuleExecutionErrorsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.ListRuleExecutionErrorsRequest"
+    }
+}
+
+/// Response message for ListRuleExecutionErrors.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListRuleExecutionErrorsResponse {
+    /// List of rule execution errors.
+    pub rule_execution_errors: std::vec::Vec<crate::model::RuleExecutionError>,
+
+    /// A token, which can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListRuleExecutionErrorsResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [rule_execution_errors][crate::model::ListRuleExecutionErrorsResponse::rule_execution_errors].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListRuleExecutionErrorsResponse;
+    /// use google_cloud_chronicle_v1::model::RuleExecutionError;
+    /// let x = ListRuleExecutionErrorsResponse::new()
+    ///     .set_rule_execution_errors([
+    ///         RuleExecutionError::default()/* use setters */,
+    ///         RuleExecutionError::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_rule_execution_errors<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::RuleExecutionError>,
+    {
+        use std::iter::Iterator;
+        self.rule_execution_errors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRuleExecutionErrorsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListRuleExecutionErrorsResponse;
+    /// let x = ListRuleExecutionErrorsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListRuleExecutionErrorsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.ListRuleExecutionErrorsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListRuleExecutionErrorsResponse {
+    type PageItem = crate::model::RuleExecutionError;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.rule_execution_errors
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// The RuleExecutionError resource represents an error generated from
+/// running/deploying a rule.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RuleExecutionError {
+    /// Output only. The resource name of the rule execution error.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/ruleExecutionErrors/{rule_execution_error}
+    pub name: std::string::String,
+
+    /// Output only. The error status corresponding with the rule execution error.
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
+
+    /// Output only. The event time range that the rule execution error corresponds
+    /// with.
+    pub time_range: std::option::Option<google_cloud_type::model::Interval>,
+
+    /// The resource name of the source that generated the rule execution error.
+    pub source: std::option::Option<crate::model::rule_execution_error::Source>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RuleExecutionError {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::RuleExecutionError::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::RuleExecutionError;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let rule_execution_error_id = "rule_execution_error_id";
+    /// let x = RuleExecutionError::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/ruleExecutionErrors/{rule_execution_error_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [error][crate::model::RuleExecutionError::error].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::RuleExecutionError;
+    /// use google_cloud_rpc::model::Status;
+    /// let x = RuleExecutionError::new().set_error(Status::default()/* use setters */);
+    /// ```
+    pub fn set_error<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
+    {
+        self.error = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [error][crate::model::RuleExecutionError::error].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::RuleExecutionError;
+    /// use google_cloud_rpc::model::Status;
+    /// let x = RuleExecutionError::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = RuleExecutionError::new().set_or_clear_error(None::<Status>);
+    /// ```
+    pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
+    {
+        self.error = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [time_range][crate::model::RuleExecutionError::time_range].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::RuleExecutionError;
+    /// use google_cloud_type::model::Interval;
+    /// let x = RuleExecutionError::new().set_time_range(Interval::default()/* use setters */);
+    /// ```
+    pub fn set_time_range<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_cloud_type::model::Interval>,
+    {
+        self.time_range = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [time_range][crate::model::RuleExecutionError::time_range].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::RuleExecutionError;
+    /// use google_cloud_type::model::Interval;
+    /// let x = RuleExecutionError::new().set_or_clear_time_range(Some(Interval::default()/* use setters */));
+    /// let x = RuleExecutionError::new().set_or_clear_time_range(None::<Interval>);
+    /// ```
+    pub fn set_or_clear_time_range<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_cloud_type::model::Interval>,
+    {
+        self.time_range = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [source][crate::model::RuleExecutionError::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::RuleExecutionError;
+    /// use google_cloud_chronicle_v1::model::rule_execution_error::Source;
+    /// let x = RuleExecutionError::new().set_source(Some(Source::Rule("example".to_string())));
+    /// ```
+    pub fn set_source<
+        T: std::convert::Into<std::option::Option<crate::model::rule_execution_error::Source>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source = v.into();
+        self
+    }
+
+    /// The value of [source][crate::model::RuleExecutionError::source]
+    /// if it holds a `Rule`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn rule(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::rule_execution_error::Source::Rule(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source][crate::model::RuleExecutionError::source]
+    /// to hold a `Rule`.
+    ///
+    /// Note that all the setters affecting `source` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::RuleExecutionError;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let rule_id = "rule_id";
+    /// let x = RuleExecutionError::new().set_rule(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/rules/{rule_id}"));
+    /// assert!(x.rule().is_some());
+    /// assert!(x.curated_rule().is_none());
+    /// ```
+    pub fn set_rule<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.source =
+            std::option::Option::Some(crate::model::rule_execution_error::Source::Rule(v.into()));
+        self
+    }
+
+    /// The value of [source][crate::model::RuleExecutionError::source]
+    /// if it holds a `CuratedRule`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn curated_rule(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::rule_execution_error::Source::CuratedRule(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source][crate::model::RuleExecutionError::source]
+    /// to hold a `CuratedRule`.
+    ///
+    /// Note that all the setters affecting `source` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::RuleExecutionError;
+    /// let x = RuleExecutionError::new().set_curated_rule("example");
+    /// assert!(x.curated_rule().is_some());
+    /// assert!(x.rule().is_none());
+    /// ```
+    pub fn set_curated_rule<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.source = std::option::Option::Some(
+            crate::model::rule_execution_error::Source::CuratedRule(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for RuleExecutionError {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.RuleExecutionError"
+    }
+}
+
+/// Defines additional types related to [RuleExecutionError].
+pub mod rule_execution_error {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The resource name of the source that generated the rule execution error.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Source {
+        /// Output only. The resource name of the rule that generated the rule
+        /// execution error.
+        Rule(std::string::String),
+        /// Output only. The resource name of the curated rule that generated the
+        /// rule execution error.
+        CuratedRule(std::string::String),
     }
 }
 

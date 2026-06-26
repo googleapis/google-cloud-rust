@@ -16,18 +16,20 @@
 #![allow(dead_code, unused_imports)]
 
 pub(crate) mod execution;
-mod job_reference;
+mod from_sql;
 mod query_handle;
+mod query_reference;
 mod row;
 mod run_query;
 mod schema;
 
-pub(crate) use job_reference::JobReference;
+pub(crate) use from_sql::FromSql;
 pub(crate) use query_handle::Query;
 pub(crate) use row::Row;
 pub(crate) use schema::Schema;
 
-pub use run_query::{RunQuery, RunQueryRequest};
+pub use query_reference::QueryReference;
+pub use run_query::RunQuery;
 
 /// Result type for query execution.
 pub type Result<T> = std::result::Result<T, crate::error::QueryError>;

@@ -10804,9 +10804,9 @@ impl BuildOptions {
     /// ```ignore,no_run
     /// # use google_cloud_build_v1::model::BuildOptions;
     /// use google_cloud_build_v1::model::build_options::MachineType;
-    /// let x0 = BuildOptions::new().set_machine_type(MachineType::N1Highcpu8);
-    /// let x1 = BuildOptions::new().set_machine_type(MachineType::N1Highcpu32);
-    /// let x2 = BuildOptions::new().set_machine_type(MachineType::E2Highcpu8);
+    /// let x0 = BuildOptions::new().set_machine_type(MachineType::E2Highcpu8);
+    /// let x1 = BuildOptions::new().set_machine_type(MachineType::E2Highcpu32);
+    /// let x2 = BuildOptions::new().set_machine_type(MachineType::E2Medium);
     /// ```
     pub fn set_machine_type<T: std::convert::Into<crate::model::build_options::MachineType>>(
         mut self,
@@ -11255,8 +11255,10 @@ pub mod build_options {
         /// Standard machine type.
         Unspecified,
         /// Highcpu machine with 8 CPUs.
+        #[deprecated]
         N1Highcpu8,
         /// Highcpu machine with 32 CPUs.
+        #[deprecated]
         N1Highcpu32,
         /// Highcpu e2 machine with 8 CPUs.
         E2Highcpu8,
@@ -11264,6 +11266,8 @@ pub mod build_options {
         E2Highcpu32,
         /// E2 machine with 1 CPU.
         E2Medium,
+        /// E2 machine with 2 CPUs.
+        E2Standard2,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [MachineType::value] or
@@ -11292,6 +11296,7 @@ pub mod build_options {
                 Self::E2Highcpu8 => std::option::Option::Some(5),
                 Self::E2Highcpu32 => std::option::Option::Some(6),
                 Self::E2Medium => std::option::Option::Some(7),
+                Self::E2Standard2 => std::option::Option::Some(11),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -11308,6 +11313,7 @@ pub mod build_options {
                 Self::E2Highcpu8 => std::option::Option::Some("E2_HIGHCPU_8"),
                 Self::E2Highcpu32 => std::option::Option::Some("E2_HIGHCPU_32"),
                 Self::E2Medium => std::option::Option::Some("E2_MEDIUM"),
+                Self::E2Standard2 => std::option::Option::Some("E2_STANDARD_2"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -11335,6 +11341,7 @@ pub mod build_options {
                 5 => Self::E2Highcpu8,
                 6 => Self::E2Highcpu32,
                 7 => Self::E2Medium,
+                11 => Self::E2Standard2,
                 _ => Self::UnknownValue(machine_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -11352,6 +11359,7 @@ pub mod build_options {
                 "E2_HIGHCPU_8" => Self::E2Highcpu8,
                 "E2_HIGHCPU_32" => Self::E2Highcpu32,
                 "E2_MEDIUM" => Self::E2Medium,
+                "E2_STANDARD_2" => Self::E2Standard2,
                 _ => Self::UnknownValue(machine_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -11371,6 +11379,7 @@ pub mod build_options {
                 Self::E2Highcpu8 => serializer.serialize_i32(5),
                 Self::E2Highcpu32 => serializer.serialize_i32(6),
                 Self::E2Medium => serializer.serialize_i32(7),
+                Self::E2Standard2 => serializer.serialize_i32(11),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }

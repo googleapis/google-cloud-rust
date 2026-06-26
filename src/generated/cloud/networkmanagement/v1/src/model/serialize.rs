@@ -142,6 +142,9 @@ impl serde::ser::Serialize for super::Endpoint {
         if !self.gke_pod.is_empty() {
             state.serialize_entry("gkePod", &self.gke_pod)?;
         }
+        if !self.dms_private_connection.is_empty() {
+            state.serialize_entry("dmsPrivateConnection", &self.dms_private_connection)?;
+        }
         if self.cloud_function.is_some() {
             state.serialize_entry("cloudFunction", &self.cloud_function)?;
         }
@@ -150,6 +153,9 @@ impl serde::ser::Serialize for super::Endpoint {
         }
         if self.cloud_run_revision.is_some() {
             state.serialize_entry("cloudRunRevision", &self.cloud_run_revision)?;
+        }
+        if !self.cloud_run_job.is_empty() {
+            state.serialize_entry("cloudRunJob", &self.cloud_run_job)?;
         }
         if !self.network.is_empty() {
             state.serialize_entry("network", &self.network)?;
@@ -872,6 +878,9 @@ impl serde::ser::Serialize for super::Step {
         if let Some(value) = self.cloud_run_revision() {
             state.serialize_entry("cloudRunRevision", value)?;
         }
+        if let Some(value) = self.cloud_run_job() {
+            state.serialize_entry("cloudRunJob", value)?;
+        }
         if let Some(value) = self.nat() {
             state.serialize_entry("nat", value)?;
         }
@@ -889,6 +898,9 @@ impl serde::ser::Serialize for super::Step {
         }
         if let Some(value) = self.ngfw_packet_inspection() {
             state.serialize_entry("ngfwPacketInspection", value)?;
+        }
+        if let Some(value) = self.dms_private_connection() {
+            state.serialize_entry("dmsPrivateConnection", value)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2010,6 +2022,34 @@ impl serde::ser::Serialize for super::CloudRunRevisionInfo {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::CloudRunJobInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.display_name.is_empty() {
+            state.serialize_entry("displayName", &self.display_name)?;
+        }
+        if !self.uri.is_empty() {
+            state.serialize_entry("uri", &self.uri)?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::AppEngineVersionInfo {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -2417,6 +2457,28 @@ impl serde::ser::Serialize for super::NgfwPacketInspectionInfo {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.security_profile_group_uri.is_empty() {
             state.serialize_entry("securityProfileGroupUri", &self.security_profile_group_uri)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::PrivateConnectionInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.uri.is_empty() {
+            state.serialize_entry("uri", &self.uri)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

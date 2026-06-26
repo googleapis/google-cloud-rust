@@ -8887,6 +8887,7 @@ impl<'de> serde::de::Deserialize<'de> for super::CloudExadataInfrastructurePrope
             __compute_model,
             __database_server_type,
             __storage_server_type,
+            __exascale_config,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -8984,6 +8985,8 @@ impl<'de> serde::de::Deserialize<'de> for super::CloudExadataInfrastructurePrope
                             "database_server_type" => Ok(__FieldTag::__database_server_type),
                             "storageServerType" => Ok(__FieldTag::__storage_server_type),
                             "storage_server_type" => Ok(__FieldTag::__storage_server_type),
+                            "exascaleConfig" => Ok(__FieldTag::__exascale_config),
+                            "exascale_config" => Ok(__FieldTag::__exascale_config),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -9450,6 +9453,132 @@ impl<'de> serde::de::Deserialize<'de> for super::CloudExadataInfrastructurePrope
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__exascale_config => {
+                            if !fields.insert(__FieldTag::__exascale_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for exascale_config",
+                                ));
+                            }
+                            result.exascale_config = map
+                                .next_value::<std::option::Option<crate::model::ExascaleConfig>>(
+                                )?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ExascaleConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __total_storage_size_gb,
+            __available_storage_size_gb,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ExascaleConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "totalStorageSizeGb" => Ok(__FieldTag::__total_storage_size_gb),
+                            "total_storage_size_gb" => Ok(__FieldTag::__total_storage_size_gb),
+                            "availableStorageSizeGb" => Ok(__FieldTag::__available_storage_size_gb),
+                            "available_storage_size_gb" => {
+                                Ok(__FieldTag::__available_storage_size_gb)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ExascaleConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ExascaleConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__total_storage_size_gb => {
+                            if !fields.insert(__FieldTag::__total_storage_size_gb) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for total_storage_size_gb",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.total_storage_size_gb =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__available_storage_size_gb => {
+                            if !fields.insert(__FieldTag::__available_storage_size_gb) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for available_storage_size_gb",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.available_storage_size_gb =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -9692,6 +9821,126 @@ impl<'de> serde::de::Deserialize<'de> for super::MaintenanceWindow {
                             }
                             result.is_custom_action_timeout_enabled = map
                                 .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de>
+    for super::ConfigureExascaleCloudExadataInfrastructureRequest
+{
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __total_storage_size_gb,
+            __request_id,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str(
+                            "a field name for ConfigureExascaleCloudExadataInfrastructureRequest",
+                        )
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "totalStorageSizeGb" => Ok(__FieldTag::__total_storage_size_gb),
+                            "total_storage_size_gb" => Ok(__FieldTag::__total_storage_size_gb),
+                            "requestId" => Ok(__FieldTag::__request_id),
+                            "request_id" => Ok(__FieldTag::__request_id),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ConfigureExascaleCloudExadataInfrastructureRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ConfigureExascaleCloudExadataInfrastructureRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__total_storage_size_gb => {
+                            if !fields.insert(__FieldTag::__total_storage_size_gb) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for total_storage_size_gb",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.total_storage_size_gb =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__request_id => {
+                            if !fields.insert(__FieldTag::__request_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_id",
+                                ));
+                            }
+                            result.request_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
@@ -10383,6 +10632,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ExascaleDbStorageVault {
             __create_time,
             __entitlement_id,
             __labels,
+            __exadata_infrastructure,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -10414,6 +10664,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ExascaleDbStorageVault {
                             "entitlementId" => Ok(__FieldTag::__entitlement_id),
                             "entitlement_id" => Ok(__FieldTag::__entitlement_id),
                             "labels" => Ok(__FieldTag::__labels),
+                            "exadataInfrastructure" => Ok(__FieldTag::__exadata_infrastructure),
+                            "exadata_infrastructure" => Ok(__FieldTag::__exadata_infrastructure),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -10511,6 +10763,16 @@ impl<'de> serde::de::Deserialize<'de> for super::ExascaleDbStorageVault {
                                         std::string::String,
                                     >,
                                 >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__exadata_infrastructure => {
+                            if !fields.insert(__FieldTag::__exadata_infrastructure) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for exadata_infrastructure",
+                                ));
+                            }
+                            result.exadata_infrastructure = map
+                                .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
@@ -33772,6 +34034,7 @@ impl<'de> serde::de::Deserialize<'de> for super::CloudVmCluster {
             __odb_subnet,
             __backup_odb_subnet,
             __identity_connector,
+            __exascale_db_storage_vault,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -33815,6 +34078,10 @@ impl<'de> serde::de::Deserialize<'de> for super::CloudVmCluster {
                             "backup_odb_subnet" => Ok(__FieldTag::__backup_odb_subnet),
                             "identityConnector" => Ok(__FieldTag::__identity_connector),
                             "identity_connector" => Ok(__FieldTag::__identity_connector),
+                            "exascaleDbStorageVault" => Ok(__FieldTag::__exascale_db_storage_vault),
+                            "exascale_db_storage_vault" => {
+                                Ok(__FieldTag::__exascale_db_storage_vault)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -33983,6 +34250,16 @@ impl<'de> serde::de::Deserialize<'de> for super::CloudVmCluster {
                                 .next_value::<std::option::Option<crate::model::IdentityConnector>>(
                                 )?;
                         }
+                        __FieldTag::__exascale_db_storage_vault => {
+                            if !fields.insert(__FieldTag::__exascale_db_storage_vault) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for exascale_db_storage_vault",
+                                ));
+                            }
+                            result.exascale_db_storage_vault = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -34039,6 +34316,7 @@ impl<'de> serde::de::Deserialize<'de> for super::CloudVmClusterProperties {
             __dns_listener_ip,
             __cluster_name,
             __compute_model,
+            __storage_management_type,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -34130,6 +34408,8 @@ impl<'de> serde::de::Deserialize<'de> for super::CloudVmClusterProperties {
                             "cluster_name" => Ok(__FieldTag::__cluster_name),
                             "computeModel" => Ok(__FieldTag::__compute_model),
                             "compute_model" => Ok(__FieldTag::__compute_model),
+                            "storageManagementType" => Ok(__FieldTag::__storage_management_type),
+                            "storage_management_type" => Ok(__FieldTag::__storage_management_type),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -34570,6 +34850,14 @@ impl<'de> serde::de::Deserialize<'de> for super::CloudVmClusterProperties {
                             result.compute_model = map
                                 .next_value::<std::option::Option<crate::model::ComputeModel>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__storage_management_type => {
+                            if !fields.insert(__FieldTag::__storage_management_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for storage_management_type",
+                                ));
+                            }
+                            result.storage_management_type = map.next_value::<std::option::Option<crate::model::cloud_vm_cluster_properties::StorageManagementType>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

@@ -48,6 +48,7 @@ google-cloud-api.workspace         = true
 google-cloud-gax.workspace         = true
 google-cloud-location.workspace    = true
 google-cloud-longrunning.workspace = true
+google-cloud-lro.workspace         = true
 serde.workspace                    = true
 serde_json.workspace               = true
 serde_with.workspace               = true

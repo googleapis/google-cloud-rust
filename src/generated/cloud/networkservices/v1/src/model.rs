@@ -70,7 +70,7 @@ pub struct AgentGateway {
     /// Optional. A list of Agent registries containing the agents, MCP servers and
     /// tools governed by the Agent Gateway. Note: Currently limited to
     /// project-scoped registries Must be of format
-    /// `//agentregistry.googleapis.com/projects/{project}/locations/{location}/
+    /// `//agentregistry.googleapis.com/projects/{project}/locations/{location}/`
     pub registries: std::vec::Vec<std::string::String>,
 
     /// Optional. Network configuration for the AgentGateway.

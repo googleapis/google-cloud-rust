@@ -21118,8 +21118,8 @@ pub struct SecurityProfileGroup {
     /// client has an up-to-date value before proceeding.
     pub etag: std::string::String,
 
-    /// Output only. Identifier used by the data-path. Unique within {container,
-    /// location}.
+    /// Output only. Identifier used by the data-path. Unique within \{container,
+    /// location\}.
     pub data_path_id: u64,
 
     /// Optional. Labels as key value pairs.

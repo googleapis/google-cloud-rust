@@ -5068,8 +5068,14 @@ pub struct GceClusterConfig {
     pub shielded_instance_config: std::option::Option<crate::model::ShieldedInstanceConfig>,
 
     /// Optional. Confidential Instance Config for clusters using [Confidential
-    /// VMs](https://cloud.google.com/compute/confidential-vm/docs).
+    /// VMs](https://cloud.google.com/confidential-computing/confidential-vm/docs).
     pub confidential_instance_config: std::option::Option<crate::model::ConfidentialInstanceConfig>,
+
+    /// Optional. [Resource manager tags]
+    /// (<https://cloud.google.com/resource-manager/docs/tags/tags-creating-and-managing>)
+    /// to add to all instances (see [Use secure tags]
+    /// (<https://cloud.google.com/dataproc/docs/guides/use-secure-tags>)).
+    pub resource_manager_tags: std::collections::HashMap<std::string::String, std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5363,6 +5369,27 @@ impl GceClusterConfig {
         T: std::convert::Into<crate::model::ConfidentialInstanceConfig>,
     {
         self.confidential_instance_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [resource_manager_tags][crate::model::GceClusterConfig::resource_manager_tags].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::GceClusterConfig;
+    /// let x = GceClusterConfig::new().set_resource_manager_tags([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_resource_manager_tags<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.resource_manager_tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -5706,13 +5733,18 @@ impl wkt::message::Message for ShieldedInstanceConfig {
 }
 
 /// Confidential Instance Config for clusters using [Confidential
-/// VMs](https://cloud.google.com/compute/confidential-vm/docs)
+/// VMs](https://cloud.google.com/confidential-computing/confidential-vm/docs)
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConfidentialInstanceConfig {
-    /// Optional. Defines whether the instance should have confidential compute
-    /// enabled.
+    /// Optional. Deprecated: Use 'confidential_instance_type' instead.
+    /// Defines whether the instance should have confidential compute enabled.
+    #[deprecated]
     pub enable_confidential_compute: bool,
+
+    /// Optional. Defines the type of Confidential Compute technology to use.
+    pub confidential_instance_type:
+        crate::model::confidential_instance_config::ConfidentialInstanceType,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5730,8 +5762,29 @@ impl ConfidentialInstanceConfig {
     /// # use google_cloud_dataproc_v1::model::ConfidentialInstanceConfig;
     /// let x = ConfidentialInstanceConfig::new().set_enable_confidential_compute(true);
     /// ```
+    #[deprecated]
     pub fn set_enable_confidential_compute<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_confidential_compute = v.into();
+        self
+    }
+
+    /// Sets the value of [confidential_instance_type][crate::model::ConfidentialInstanceConfig::confidential_instance_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::ConfidentialInstanceConfig;
+    /// use google_cloud_dataproc_v1::model::confidential_instance_config::ConfidentialInstanceType;
+    /// let x0 = ConfidentialInstanceConfig::new().set_confidential_instance_type(ConfidentialInstanceType::Sev);
+    /// let x1 = ConfidentialInstanceConfig::new().set_confidential_instance_type(ConfidentialInstanceType::SevSnp);
+    /// let x2 = ConfidentialInstanceConfig::new().set_confidential_instance_type(ConfidentialInstanceType::Tdx);
+    /// ```
+    pub fn set_confidential_instance_type<
+        T: std::convert::Into<crate::model::confidential_instance_config::ConfidentialInstanceType>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.confidential_instance_type = v.into();
         self
     }
 }
@@ -5739,6 +5792,160 @@ impl ConfidentialInstanceConfig {
 impl wkt::message::Message for ConfidentialInstanceConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dataproc.v1.ConfidentialInstanceConfig"
+    }
+}
+
+/// Defines additional types related to [ConfidentialInstanceConfig].
+pub mod confidential_instance_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The type of Confidential Compute technology as per [Confidential Computing
+    /// types](https://cloud.google.com/confidential-computing/confidential-vm/docs/create-a-confidential-vm-instance#create-instance).
+    /// New values may be added in the future.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ConfidentialInstanceType {
+        /// Confidential Instance Type is not specified.
+        Unspecified,
+        /// [AMD Secure Encrypted
+        /// Virtualization](https://cloud.google.com/confidential-computing/confidential-vm/docs/confidential-vm-overview#amd_sev)
+        Sev,
+        /// [AMD Secure Encrypted Virtualization-Secure Nested
+        /// Paging](https://cloud.google.com/confidential-computing/confidential-vm/docs/confidential-vm-overview#amd_sev-snp)
+        SevSnp,
+        /// [Intel Trust Domain
+        /// Extensions](https://cloud.google.com/confidential-computing/confidential-vm/docs/confidential-vm-overview#intel_tdx)
+        Tdx,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ConfidentialInstanceType::value] or
+        /// [ConfidentialInstanceType::name].
+        UnknownValue(confidential_instance_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod confidential_instance_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl ConfidentialInstanceType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Sev => std::option::Option::Some(1),
+                Self::SevSnp => std::option::Option::Some(2),
+                Self::Tdx => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("CONFIDENTIAL_INSTANCE_TYPE_UNSPECIFIED")
+                }
+                Self::Sev => std::option::Option::Some("SEV"),
+                Self::SevSnp => std::option::Option::Some("SEV_SNP"),
+                Self::Tdx => std::option::Option::Some("TDX"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for ConfidentialInstanceType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ConfidentialInstanceType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ConfidentialInstanceType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Sev,
+                2 => Self::SevSnp,
+                3 => Self::Tdx,
+                _ => Self::UnknownValue(confidential_instance_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ConfidentialInstanceType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CONFIDENTIAL_INSTANCE_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "SEV" => Self::Sev,
+                "SEV_SNP" => Self::SevSnp,
+                "TDX" => Self::Tdx,
+                _ => Self::UnknownValue(confidential_instance_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ConfidentialInstanceType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Sev => serializer.serialize_i32(1),
+                Self::SevSnp => serializer.serialize_i32(2),
+                Self::Tdx => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ConfidentialInstanceType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(
+                wkt::internal::EnumVisitor::<ConfidentialInstanceType>::new(
+                    ".google.cloud.dataproc.v1.ConfidentialInstanceConfig.ConfidentialInstanceType",
+                ),
+            )
+        }
     }
 }
 

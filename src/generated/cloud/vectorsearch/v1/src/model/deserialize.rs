@@ -4756,6 +4756,7 @@ impl<'de> serde::de::Deserialize<'de> for super::DeleteCollectionRequest {
         enum __FieldTag {
             __name,
             __request_id,
+            __force,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -4779,6 +4780,7 @@ impl<'de> serde::de::Deserialize<'de> for super::DeleteCollectionRequest {
                             "name" => Ok(__FieldTag::__name),
                             "requestId" => Ok(__FieldTag::__request_id),
                             "request_id" => Ok(__FieldTag::__request_id),
+                            "force" => Ok(__FieldTag::__force),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -4822,6 +4824,16 @@ impl<'de> serde::de::Deserialize<'de> for super::DeleteCollectionRequest {
                             }
                             result.request_id = map
                                 .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__force => {
+                            if !fields.insert(__FieldTag::__force) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for force",
+                                ));
+                            }
+                            result.force = map
+                                .next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
@@ -6296,6 +6308,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ExportDataObjectsRequest {
         enum __FieldTag {
             __gcs_destination,
             __name,
+            __field_filter,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -6319,6 +6332,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ExportDataObjectsRequest {
                             "gcsDestination" => Ok(__FieldTag::__gcs_destination),
                             "gcs_destination" => Ok(__FieldTag::__gcs_destination),
                             "name" => Ok(__FieldTag::__name),
+                            "fieldFilter" => Ok(__FieldTag::__field_filter),
+                            "field_filter" => Ok(__FieldTag::__field_filter),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -6370,6 +6385,16 @@ impl<'de> serde::de::Deserialize<'de> for super::ExportDataObjectsRequest {
                             result.name = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__field_filter => {
+                            if !fields.insert(__FieldTag::__field_filter) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for field_filter",
+                                ));
+                            }
+                            result.field_filter = map.next_value::<std::option::Option<
+                                crate::model::export_data_objects_request::FieldFilter,
+                            >>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -6461,6 +6486,194 @@ impl<'de> serde::de::Deserialize<'de> for super::export_data_objects_request::Gc
                                 ));
                             }
                             result.format = map.next_value::<std::option::Option<crate::model::export_data_objects_request::gcs_export_destination::Format>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::export_data_objects_request::FieldFilter {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __included_fields,
+            __excluded_fields,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for FieldFilter")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "includedFields" => Ok(__FieldTag::__included_fields),
+                            "included_fields" => Ok(__FieldTag::__included_fields),
+                            "excludedFields" => Ok(__FieldTag::__excluded_fields),
+                            "excluded_fields" => Ok(__FieldTag::__excluded_fields),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::export_data_objects_request::FieldFilter;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct FieldFilter")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__included_fields => {
+                            if !fields.insert(__FieldTag::__included_fields) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for included_fields",
+                                ));
+                            }
+                            if result.selector.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `selector`, a oneof with full ID .google.cloud.vectorsearch.v1.ExportDataObjectsRequest.FieldFilter.included_fields, latest field was includedFields",
+                                ));
+                            }
+                            result.selector = std::option::Option::Some(
+                                crate::model::export_data_objects_request::field_filter::Selector::IncludedFields(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::export_data_objects_request::field_filter::FieldList>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__excluded_fields => {
+                            if !fields.insert(__FieldTag::__excluded_fields) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for excluded_fields",
+                                ));
+                            }
+                            if result.selector.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `selector`, a oneof with full ID .google.cloud.vectorsearch.v1.ExportDataObjectsRequest.FieldFilter.excluded_fields, latest field was excludedFields",
+                                ));
+                            }
+                            result.selector = std::option::Option::Some(
+                                crate::model::export_data_objects_request::field_filter::Selector::ExcludedFields(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::export_data_objects_request::field_filter::FieldList>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de>
+    for super::export_data_objects_request::field_filter::FieldList
+{
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __fields,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for FieldList")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "fields" => Ok(__FieldTag::__fields),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::export_data_objects_request::field_filter::FieldList;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct FieldList")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__fields => {
+                            if !fields.insert(__FieldTag::__fields) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for fields",
+                                ));
+                            }
+                            result.fields = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

@@ -567,6 +567,8 @@ impl std::fmt::Debug for super::CesAppSpec {
         let mut debug_struct = f.debug_struct("CesAppSpec");
         debug_struct.field("ces_app", &self.ces_app);
         debug_struct.field("confirmation_requirement", &self.confirmation_requirement);
+        debug_struct.field("proactive_enabled", &self.proactive_enabled);
+        debug_struct.field("reactive_enabled", &self.reactive_enabled);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1911,6 +1913,7 @@ impl std::fmt::Debug for super::ConversationProfile {
         );
         debug_struct.field("stt_config", &self.stt_config);
         debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("sip_config", &self.sip_config);
         debug_struct.field("time_zone", &self.time_zone);
         debug_struct.field("security_settings", &self.security_settings);
         debug_struct.field("tts_config", &self.tts_config);
@@ -2075,6 +2078,11 @@ impl std::fmt::Debug for super::human_agent_assistant_config::SuggestionFeatureC
             &self.enable_response_debug_info,
         );
         debug_struct.field("rai_settings", &self.rai_settings);
+        debug_struct.field("suggestion_trigger_event", &self.suggestion_trigger_event);
+        debug_struct.field(
+            "disable_query_search_context",
+            &self.disable_query_search_context,
+        );
         debug_struct.field(
             "suggestion_trigger_settings",
             &self.suggestion_trigger_settings,
@@ -2326,6 +2334,39 @@ impl std::fmt::Debug for super::LoggingConfig {
         debug_struct.field(
             "enable_stackdriver_logging",
             &self.enable_stackdriver_logging,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
+impl std::fmt::Debug for super::SipConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SipConfig");
+        debug_struct.field(
+            "create_conversation_on_the_fly",
+            &self.create_conversation_on_the_fly,
+        );
+        debug_struct.field("inactive_start", &self.inactive_start);
+        debug_struct.field(
+            "max_audio_recording_duration",
+            &self.max_audio_recording_duration,
+        );
+        debug_struct.field(
+            "allow_virtual_agent_interaction",
+            &self.allow_virtual_agent_interaction,
+        );
+        debug_struct.field("keep_conversation_running", &self.keep_conversation_running);
+        debug_struct.field(
+            "copy_inbound_call_leg_headers",
+            &self.copy_inbound_call_leg_headers,
+        );
+        debug_struct.field(
+            "ignore_reinvite_media_direction",
+            &self.ignore_reinvite_media_direction,
         );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -5542,6 +5583,10 @@ impl std::fmt::Debug for super::SuggestKnowledgeAssistResponse {
         debug_struct.field("knowledge_assist_answer", &self.knowledge_assist_answer);
         debug_struct.field("latest_message", &self.latest_message);
         debug_struct.field("context_size", &self.context_size);
+        debug_struct.field(
+            "additional_suggested_query_results",
+            &self.additional_suggested_query_results,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5631,6 +5676,11 @@ impl std::fmt::Debug for super::KnowledgeAssistDebugInfo {
             &self.ingested_context_reference_debug_info,
         );
         debug_struct.field("service_latency", &self.service_latency);
+        debug_struct.field(
+            "query_generation_debug_info",
+            &self.query_generation_debug_info,
+        );
+        debug_struct.field("ces_debug_info", &self.ces_debug_info);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5703,6 +5753,20 @@ impl std::fmt::Debug for super::knowledge_assist_debug_info::KnowledgeAssistBeha
 }
 
 #[cfg(feature = "participants")]
+impl std::fmt::Debug for super::knowledge_assist_debug_info::QueryGenerationDebugInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryGenerationDebugInfo");
+        debug_struct.field("prompt_token_count", &self.prompt_token_count);
+        debug_struct.field("candidates_token_count", &self.candidates_token_count);
+        debug_struct.field("total_token_count", &self.total_token_count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "participants")]
 impl std::fmt::Debug for super::KnowledgeAssistAnswer {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("KnowledgeAssistAnswer");
@@ -5725,6 +5789,33 @@ impl std::fmt::Debug for super::knowledge_assist_answer::SuggestedQuery {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SuggestedQuery");
         debug_struct.field("query_text", &self.query_text);
+        debug_struct.field("search_contexts", &self.search_contexts);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "participants")]
+impl std::fmt::Debug for super::knowledge_assist_answer::suggested_query::SearchContext {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchContext");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "participants")]
+impl std::fmt::Debug for super::knowledge_assist_answer::AdditionalSuggestedQueryResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AdditionalSuggestedQueryResult");
+        debug_struct.field("suggested_query", &self.suggested_query);
+        debug_struct.field("answer_record", &self.answer_record);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5779,6 +5870,19 @@ impl std::fmt::Debug
         debug_struct.field("text", &self.text);
         debug_struct.field("title", &self.title);
         debug_struct.field("metadata", &self.metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "participants")]
+impl std::fmt::Debug for super::knowledge_assist_answer::knowledge_answer::EventSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EventSource");
+        debug_struct.field("event", &self.event);
+        debug_struct.field("snippets", &self.snippets);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

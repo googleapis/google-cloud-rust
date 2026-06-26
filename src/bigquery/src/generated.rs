@@ -12,4 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Appendable object uploads (unstable).
+mod query_metadata;
+mod run_query_request;
+
+pub use query_metadata::QueryMetadata;
+pub use run_query_request::RunQueryRequest;

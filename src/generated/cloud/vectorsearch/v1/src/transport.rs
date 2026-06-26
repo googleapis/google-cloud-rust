@@ -2132,6 +2132,7 @@ impl super::stub::VectorSearchService for VectorSearchService {
                 let resource_name = format!("//vectorsearch.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
+                let builder = builder.query(&[("force", &req.force)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })

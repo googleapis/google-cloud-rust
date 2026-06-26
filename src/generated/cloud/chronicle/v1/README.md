@@ -27,6 +27,7 @@ The main types to work with this crate are the clients:
 - [NativeDashboardService]
 - [ReferenceListService]
 - [RuleService]
+- [RuleExecutionErrorService]
 
 ## Features
 
@@ -53,3 +54,4 @@ The main types to work with this crate are the clients:
 [NativeDashboardService]: https://docs.rs/google-cloud-chronicle-v1/1.12.0/google_cloud_chronicle_v1/client/struct.NativeDashboardService.html
 [ReferenceListService]: https://docs.rs/google-cloud-chronicle-v1/1.12.0/google_cloud_chronicle_v1/client/struct.ReferenceListService.html
 [RuleService]: https://docs.rs/google-cloud-chronicle-v1/1.12.0/google_cloud_chronicle_v1/client/struct.RuleService.html
+[RuleExecutionErrorService]: https://docs.rs/google-cloud-chronicle-v1/1.12.0/google_cloud_chronicle_v1/client/struct.RuleExecutionErrorService.html

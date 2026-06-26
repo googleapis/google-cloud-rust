@@ -13,7 +13,8 @@
 // limitations under the License.
 
 use crate::error::QueryError;
-use crate::query::{Result, Schema};
+use crate::model::QueryMetadata;
+use crate::query::{QueryReference, Result, Schema};
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::{
     GetQueryResultsRequest, GetQueryResultsResponse, Job, JobReference, QueryResponse,
@@ -36,15 +37,47 @@ pub struct Query {
 }
 
 impl Query {
+    /// Returns the [`QueryReference`] for this query.
+    ///
+    /// The reference will be [`QueryReference::Job`] with a query [job reference],
+    /// or [`QueryReference::Stateless`] with an opaque query ID if job creation
+    /// was skipped.
+    ///
+    /// [job reference]: https://docs.cloud.google.com/bigquery/docs/reference/rest/v2/JobReference
+    pub fn query_reference(&self) -> QueryReference {
+        let from_query_id = self
+            .initial_response
+            .as_ref()
+            .map(|res| res.query_id.clone())
+            .filter(|s| !s.is_empty())
+            .map(QueryReference::from_query_id);
+        let from_job_ref = self.job_ref.clone().map(QueryReference::from);
+
+        from_job_ref
+            .or(from_query_id)
+            .expect("query must have either a job reference or query id")
+    }
+
     /// Periodically checks the status of the background job until it finishes.
     /// Returns an error if a remote service or connection failure happens during polling.
-    pub async fn until_done(&self) -> Result<CompleteQuery> {
-        if let (true, Some(initial_response)) = (self.completed, &self.initial_response) {
-            return Ok(CompleteQuery::from_query_response(self, initial_response));
+    pub async fn until_done(self) -> Result<CompleteQuery> {
+        let Query {
+            job_service,
+            job_ref,
+            completed,
+            initial_job: _,
+            initial_response,
+        } = self;
+
+        if let (true, Some(initial_response)) = (completed, initial_response) {
+            return Ok(CompleteQuery::from_query_response(
+                job_service,
+                job_ref,
+                initial_response,
+            ));
         }
 
-        let job_ref = self
-            .job_ref
+        let job_ref = job_ref
             .as_ref()
             .expect("query job should have job reference at this point");
         let backoff_policy = Arc::new(
@@ -53,36 +86,95 @@ impl Query {
                 .build()
                 .expect("valid backoff configuration"),
         );
-        let res = poll_query_results(&self.job_service, job_ref, backoff_policy).await?;
-        Ok(CompleteQuery::from_get_query_results_response(self, res))
+        let res = poll_query_results(&job_service, job_ref, backoff_policy).await?;
+        Ok(CompleteQuery::from_get_query_results_response(
+            job_service,
+            job_ref,
+            res,
+        ))
     }
 }
 
 /// A handle representing a successfully completed query ready for reading.
-#[derive(Debug, Clone)]
+#[derive(Clone)]
 pub struct CompleteQuery {
     pub(crate) job_service: Arc<JobService>,
     pub(crate) job_ref: Option<JobReference>,
+    pub(crate) cached_rows: VecDeque<wkt::Struct>,
+    pub(crate) schema: Arc<Schema>,
+    pub(crate) page_token: Option<String>,
+    pub(crate) metadata: QueryMetadata,
+}
+
+impl std::fmt::Debug for CompleteQuery {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("CompleteQuery")
+            .field("job_ref", &self.job_ref)
+            .field("cached_rows", &self.cached_rows)
+            .field("schema", &self.schema)
+            .field("page_token", &self.page_token)
+            .finish_non_exhaustive()
+    }
 }
 
 impl CompleteQuery {
     pub(crate) fn from_get_query_results_response(
-        q: &Query,
-        _res: GetQueryResultsResponse,
+        job_service: Arc<JobService>,
+        job_ref: &JobReference,
+        mut res: GetQueryResultsResponse,
     ) -> Self {
-        // TODO(#5592): hold cached rows, page token, schema and query metadata here.
+        let cached_rows = VecDeque::from(std::mem::take(&mut res.rows));
+        let metadata = QueryMetadata::from(res);
+        let schema = metadata
+            .schema
+            .clone()
+            .expect("complete query should have schema");
+        let schema = Arc::new(Schema::new(schema));
+        let page_token = if metadata.page_token.is_empty() {
+            None
+        } else {
+            Some(metadata.page_token.clone())
+        };
         Self {
-            job_service: q.job_service.clone(),
-            job_ref: q.job_ref.clone(),
+            job_service,
+            job_ref: Some(job_ref.clone()),
+            cached_rows,
+            page_token,
+            schema,
+            metadata,
         }
     }
 
-    pub(crate) fn from_query_response(q: &Query, _res: &QueryResponse) -> Self {
-        // TODO(#5592): hold cached rows, page token, schema and query metadata here.
+    pub(crate) fn from_query_response(
+        job_service: Arc<JobService>,
+        job_ref: Option<JobReference>,
+        mut res: QueryResponse,
+    ) -> Self {
+        let cached_rows = VecDeque::from(std::mem::take(&mut res.rows));
+        let metadata = QueryMetadata::from(res);
+        let schema = metadata
+            .schema
+            .clone()
+            .expect("complete query should have schema");
+        let schema = Arc::new(Schema::new(schema));
+        let page_token = if metadata.page_token.is_empty() {
+            None
+        } else {
+            Some(metadata.page_token.clone())
+        };
         Self {
-            job_service: q.job_service.clone(),
-            job_ref: q.job_ref.clone(),
+            job_service,
+            job_ref,
+            cached_rows,
+            page_token,
+            schema,
+            metadata,
         }
+    }
+
+    /// Returns the cached metadata for this query.
+    pub fn metadata(&self) -> &QueryMetadata {
+        &self.metadata
     }
 }
 
@@ -128,22 +220,44 @@ pub(crate) async fn poll_query_results(
 
 #[cfg(test)]
 mod tests {
-    use std::time::Duration;
-
     use super::*;
     use crate::query::tests::{
         MockBackoffPolicy, MockJobService, create_job_service, create_test_backoff_policy,
     };
     use google_cloud_bigquery_v2::model::{
-        ErrorProto, GetQueryResultsResponse, JobReference, QueryResponse,
+        ErrorProto, GetQueryResultsResponse, JobReference, QueryResponse, TableSchema,
     };
     use google_cloud_gax::error::Error as GaxError;
     use google_cloud_gax::error::rpc::{Code, Status};
     use google_cloud_gax::response::Response;
-
+    use std::time::Duration;
     use test_case::test_case;
 
     type TestResult = anyhow::Result<()>;
+
+    #[test_case(Some("query_123"), None, QueryReference::Stateless{ query_id: "query_123".to_string()}; "with query id")]
+    #[test_case(Some(""), Some(JobReference::new()), QueryReference::Job(JobReference::new()); "empty query id")]
+    #[test_case(None, Some(JobReference::new()), QueryReference::Job(JobReference::new()); "with job refearence")]
+    #[test_case(Some("query_123"), Some(JobReference::new()), QueryReference::Job(JobReference::new()); "with both job reference and query id")]
+    fn test_query_query_reference(
+        query_id: Option<&str>,
+        job_ref: Option<JobReference>,
+        expected: QueryReference,
+    ) {
+        let job_service = create_job_service(MockJobService::new());
+        let initial_response = query_id.map(|id| QueryResponse::new().set_query_id(id));
+
+        let query = Query {
+            job_service,
+            job_ref,
+            completed: false,
+            initial_job: None,
+            initial_response,
+        };
+
+        let result = query.query_reference();
+        assert_eq!(result, expected);
+    }
 
     #[tokio::test]
     async fn test_query_until_done_already_completed() -> TestResult {
@@ -153,7 +267,11 @@ mod tests {
             .set_job_id("some_job_id");
         let query_res = QueryResponse::new()
             .set_job_complete(true)
-            .set_job_reference(job_ref.clone());
+            .set_job_reference(job_ref.clone())
+            .set_schema(TableSchema::new())
+            .set_page_token("some_page_token")
+            .set_rows([wkt::Struct::new()])
+            .set_cache_hit(true);
 
         let query = Query {
             job_service,
@@ -164,7 +282,14 @@ mod tests {
         };
 
         let completed = query.until_done().await?;
-        assert_eq!(completed.job_ref.unwrap().job_id, "some_job_id");
+        assert_eq!(completed.job_ref.as_ref().unwrap().job_id, "some_job_id");
+        assert_eq!(completed.page_token, Some("some_page_token".to_string()));
+        assert_eq!(completed.cached_rows.len(), 1);
+
+        let metadata = completed.metadata();
+        assert_eq!(metadata.cache_hit, Some(true));
+        assert_eq!(metadata.job_complete, Some(true));
+        assert_eq!(metadata.page_token, "some_page_token".to_string());
 
         Ok(())
     }
@@ -180,7 +305,11 @@ mod tests {
                 assert_eq!(req.location, "us-central1");
                 let res = GetQueryResultsResponse::new()
                     .set_job_complete(true)
-                    .set_job_reference(JobReference::new().set_job_id(req.job_id));
+                    .set_job_reference(JobReference::new().set_job_id(req.job_id))
+                    .set_schema(TableSchema::new())
+                    .set_page_token("")
+                    .set_rows(vec![wkt::Struct::new(), wkt::Struct::new()])
+                    .set_cache_hit(false);
                 Ok(Response::from(res))
             })
             .times(1);
@@ -199,7 +328,14 @@ mod tests {
         };
 
         let completed = query.until_done().await?;
-        assert_eq!(completed.job_ref.unwrap().job_id, "some_job_id");
+        assert_eq!(completed.job_ref.as_ref().unwrap().job_id, "some_job_id");
+        assert_eq!(completed.page_token, None);
+        assert_eq!(completed.cached_rows.len(), 2);
+
+        let metadata = completed.metadata();
+        assert_eq!(metadata.cache_hit, Some(false));
+        assert_eq!(metadata.job_complete, Some(true));
+        assert_eq!(metadata.page_token, "".to_string());
 
         Ok(())
     }

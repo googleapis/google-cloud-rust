@@ -12,18 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.21.0
+version: v0.22.0
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
   discovery:
-    commit: 5aa545ae6939736a01a21a3bd4c2e64e266bc366
-    sha256: fe4aed8ef3a2b8dbb97d26216d3c1419c5483bd8ed647123229442f31e2e78e6
+    commit: fcd42e06111c593b51b0e15889c21e7dd1b247be
+    sha256: 9025e0c922632c4095085d404dff5ebefe629a61d3f7cff4c6c9eb3f169b4bbe
   googleapis:
-    commit: 7af3f2c7b8927cffb548fd2cf09b04c6371437ee
-    sha256: fb354b89774f4599bb3559d190fe54e51da76c6339c062900355c874b9defac5
+    commit: e57bae6efbd075a925978a79bb9b997beb4ecc19
+    sha256: 762523e55a4cd9f57c7e5a952dd76ca6041c0e1dd405c14b1d6cfb165e4730b1
   protobuf:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
@@ -162,6 +162,10 @@ libraries:
   - name: google-cloud-advisorynotifications-v1
     version: 1.10.0
     copyright_year: "2025"
+  - name: google-cloud-agentregistry-v1
+    version: 1.0.0
+    copyright_year: "2026"
+    rust: {}
   - name: google-cloud-aiplatform-v1
     version: 1.13.0
     copyright_year: "2025"
@@ -572,6 +576,7 @@ libraries:
     roots:
       - discovery
       - googleapis
+    skip_release: true
     specification_format: discovery
     rust:
       package_dependencies:
