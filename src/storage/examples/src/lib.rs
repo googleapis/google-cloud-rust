@@ -550,6 +550,7 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
 }
 
 pub async fn run_signed_url_examples() -> anyhow::Result<()> {
+    let _guard = enable_info_tracing();
     match CredentialsBuilder::default().build_signer() {
         Err(err) if err.is_not_supported() => {
             tracing::warn!(
@@ -563,6 +564,8 @@ pub async fn run_signed_url_examples() -> anyhow::Result<()> {
     let id = random_bucket_id();
     tracing::info!("running generate_signed_url_v4 example");
     objects::generate_signed_url_v4::sample(&id, "object-to-read").await?;
+    tracing::info!("running generate_signed_post_policy_v4 example");
+    objects::generate_signed_post_policy_v4::sample(&id, "object-to-upload-via-post").await?;
     tracing::info!("running generate_upload_signed_url_v4 example");
     objects::generate_upload_signed_url_v4::sample(&id, "object-to-upload").await?;
     Ok(())
