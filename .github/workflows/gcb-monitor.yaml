@@ -28,13 +28,6 @@ jobs:
     if: >
       github.repository == 'googleapis/google-cloud-rust' && github.event.check_run.app.name == 'Google Cloud Build' && github.event.check_run.check_suite.head_branch == 'main' && (github.event.check_run.conclusion == 'failure' || github.event.check_run.conclusion == 'timed_out' || github.event.check_run.conclusion == 'cancelled')
     steps:
-      # TODO(#5941) - delete this step.
-      - name: Debug context
-        shell: bash
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github.event.check_run) }}
-        run: |
-          echo "$GITHUB_CONTEXT"
       - name: Create or update CI failure issue
         shell: bash
         env:
@@ -64,7 +57,7 @@ jobs:
           $PR_TEXT"
 
           # Check for an existing open issue with the same title.
-          EXISTING_ISSUE=$(gh issue list --repo $GH_REPO --search "$ISSUE_TITLE in:title" --state open --json number --jq '.[0].number')
+          EXISTING_ISSUE=$(gh issue list --repo $GH_REPO --search "\"$ISSUE_TITLE\" in:title" --state open --json number --jq '.[0].number')
 
           if [[ -n "$EXISTING_ISSUE" && "$EXISTING_ISSUE" != "null" ]]; then
             echo "Found existing open issue #$EXISTING_ISSUE. Adding comment."
