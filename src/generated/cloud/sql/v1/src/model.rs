@@ -2385,6 +2385,56 @@ impl wkt::message::Message for GetConnectSettingsRequest {
     }
 }
 
+/// Connect settings retrieval request.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ResolveConnectSettingsRequest {
+    /// Required. Cloud SQL instance ID. This does not include the project ID.
+    pub dns_name: std::string::String,
+
+    /// Required. The region of the instance.
+    pub location: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ResolveConnectSettingsRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [dns_name][crate::model::ResolveConnectSettingsRequest::dns_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ResolveConnectSettingsRequest;
+    /// let x = ResolveConnectSettingsRequest::new().set_dns_name("example");
+    /// ```
+    pub fn set_dns_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.dns_name = v.into();
+        self
+    }
+
+    /// Sets the value of [location][crate::model::ResolveConnectSettingsRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ResolveConnectSettingsRequest;
+    /// let x = ResolveConnectSettingsRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ResolveConnectSettingsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.ResolveConnectSettingsRequest"
+    }
+}
+
 /// Connect settings retrieval response.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -2449,6 +2499,10 @@ pub struct ConnectSettings {
     /// When the list is empty, the instance does not support MDX, so the client
     /// must not send an MDX request. The default is empty.
     pub mdx_protocol_support: std::vec::Vec<crate::model::connect_settings::MdxProtocolSupport>,
+
+    /// Optional. Output only. Connection name of the Cloud SQL instance used in
+    /// connection strings, in the format project:region:instance.
+    pub connection_name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2724,6 +2778,18 @@ impl ConnectSettings {
     {
         use std::iter::Iterator;
         self.mdx_protocol_support = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [connection_name][crate::model::ConnectSettings::connection_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ConnectSettings;
+    /// let x = ConnectSettings::new().set_connection_name("example");
+    /// ```
+    pub fn set_connection_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.connection_name = v.into();
         self
     }
 }
@@ -5605,6 +5671,14 @@ pub struct SqlInstancesPatchRequest {
     /// Project ID of the project that contains the instance.
     pub project: std::string::String,
 
+    /// Optional. Set PSC config to the same value as the existing config to
+    /// reconcile the PSC networking.
+    pub reconcile_psc_networking: std::option::Option<bool>,
+
+    /// Optional. Set PSC config to the same value as the existing config and force
+    /// reconcile the PSC networking.
+    pub reconcile_psc_networking_force: std::option::Option<bool>,
+
     #[allow(missing_docs)]
     pub body: std::option::Option<crate::model::DatabaseInstance>,
 
@@ -5638,6 +5712,71 @@ impl SqlInstancesPatchRequest {
     /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
+        self
+    }
+
+    /// Sets the value of [reconcile_psc_networking][crate::model::SqlInstancesPatchRequest::reconcile_psc_networking].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesPatchRequest;
+    /// let x = SqlInstancesPatchRequest::new().set_reconcile_psc_networking(true);
+    /// ```
+    pub fn set_reconcile_psc_networking<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.reconcile_psc_networking = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [reconcile_psc_networking][crate::model::SqlInstancesPatchRequest::reconcile_psc_networking].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesPatchRequest;
+    /// let x = SqlInstancesPatchRequest::new().set_or_clear_reconcile_psc_networking(Some(false));
+    /// let x = SqlInstancesPatchRequest::new().set_or_clear_reconcile_psc_networking(None::<bool>);
+    /// ```
+    pub fn set_or_clear_reconcile_psc_networking<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.reconcile_psc_networking = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [reconcile_psc_networking_force][crate::model::SqlInstancesPatchRequest::reconcile_psc_networking_force].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesPatchRequest;
+    /// let x = SqlInstancesPatchRequest::new().set_reconcile_psc_networking_force(true);
+    /// ```
+    pub fn set_reconcile_psc_networking_force<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.reconcile_psc_networking_force = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [reconcile_psc_networking_force][crate::model::SqlInstancesPatchRequest::reconcile_psc_networking_force].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesPatchRequest;
+    /// let x = SqlInstancesPatchRequest::new().set_or_clear_reconcile_psc_networking_force(Some(false));
+    /// let x = SqlInstancesPatchRequest::new().set_or_clear_reconcile_psc_networking_force(None::<bool>);
+    /// ```
+    pub fn set_or_clear_reconcile_psc_networking_force<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.reconcile_psc_networking_force = v.map(|x| x.into());
         self
     }
 
@@ -10008,7 +10147,7 @@ pub struct CloneContext {
     pub destination_project: std::option::Option<std::string::String>,
 
     /// Optional. The fully qualified URI of the VPC network to which the cloned
-    /// instance will be connected via Private Services Access for private IP. For
+    /// instance will be connected via private services access for private IP. For
     /// example:`projects/my-network-project/global/networks/my-network`. This
     /// field is only required for cross-project cloning.
     pub destination_network: std::option::Option<std::string::String>,
@@ -17981,7 +18120,13 @@ pub struct BackupConfiguration {
     /// disabled, binarylog must be disabled as well.
     pub binary_log_enabled: std::option::Option<wkt::BoolValue>,
 
-    /// Reserved for future use.
+    /// Optional. Deprecated: replication_log_archiving_enabled is deprecated and
+    /// will be removed from a future version of the API. Use
+    /// [point_in_time_recovery_enabled][google.cloud.sql.v1.BackupConfiguration.point_in_time_recovery_enabled]
+    /// instead.
+    ///
+    /// [google.cloud.sql.v1.BackupConfiguration.point_in_time_recovery_enabled]: crate::model::BackupConfiguration::point_in_time_recovery_enabled
+    #[deprecated]
     pub replication_log_archiving_enabled: std::option::Option<wkt::BoolValue>,
 
     /// Location of the backup
@@ -18112,6 +18257,7 @@ impl BackupConfiguration {
     /// use wkt::BoolValue;
     /// let x = BackupConfiguration::new().set_replication_log_archiving_enabled(BoolValue::default()/* use setters */);
     /// ```
+    #[deprecated]
     pub fn set_replication_log_archiving_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -18129,6 +18275,7 @@ impl BackupConfiguration {
     /// let x = BackupConfiguration::new().set_or_clear_replication_log_archiving_enabled(Some(BoolValue::default()/* use setters */));
     /// let x = BackupConfiguration::new().set_or_clear_replication_log_archiving_enabled(None::<BoolValue>);
     /// ```
+    #[deprecated]
     pub fn set_or_clear_replication_log_archiving_enabled<T>(
         mut self,
         v: std::option::Option<T>,
@@ -22946,21 +23093,25 @@ pub struct PscConfig {
     /// format: projects/PROJECT/regions/REGION/networkAttachments/ID
     pub network_attachment_uri: std::string::String,
 
-    /// Optional. Indicates whether PSC DNS automation is enabled for this
-    /// instance. When enabled, Cloud SQL provisions a universal DNS record across
-    /// all networks configured with Private Service Connect (PSC)
-    /// auto-connections. This will default to true for new instances when Private
-    /// Service Connect is enabled.
+    /// Optional. Indicates whether Private Service Connect DNS automation is
+    /// enabled for this instance. When enabled, Cloud SQL provisions a universal
+    /// DNS record across all networks configured with Private Service Connect
+    /// auto-connections. This will default to true for new instances when
+    /// Private Service Connect is enabled.
     pub psc_auto_dns_enabled: std::option::Option<bool>,
 
-    /// Optional. Indicates whether PSC write endpoint DNS automation is enabled
-    /// for this instance. When enabled, Cloud SQL provisions a universal global
-    /// DNS record across all networks configured with Private Service Connect
-    /// (PSC) auto-connections that always points to the cluster primary instance.
-    /// This feature is only supported for Enterprise Plus edition.
-    /// This will default to true for new Enterprise Plus instances when
+    /// Optional. Indicates whether Private Service Connect write endpoint DNS
+    /// automation is enabled for this instance. When enabled, Cloud SQL provisions
+    /// a universal global DNS record across all networks configured with Private
+    /// Service Connect auto-connections that points to the cluster primary
+    /// instance. This feature is only supported for Enterprise Plus edition. This
+    /// will default to true for new Enterprise Plus instances when
     /// `psc_auto_dns_enabled` is enabled.
     pub psc_write_endpoint_dns_enabled: std::option::Option<bool>,
+
+    /// Optional. Whether to set up the PSC service connection policy
+    /// automatically.
+    pub psc_auto_connection_policy_enabled: std::option::Option<bool>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -23120,6 +23271,40 @@ impl PscConfig {
         self.psc_write_endpoint_dns_enabled = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [psc_auto_connection_policy_enabled][crate::model::PscConfig::psc_auto_connection_policy_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PscConfig;
+    /// let x = PscConfig::new().set_psc_auto_connection_policy_enabled(true);
+    /// ```
+    pub fn set_psc_auto_connection_policy_enabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.psc_auto_connection_policy_enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [psc_auto_connection_policy_enabled][crate::model::PscConfig::psc_auto_connection_policy_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PscConfig;
+    /// let x = PscConfig::new().set_or_clear_psc_auto_connection_policy_enabled(Some(false));
+    /// let x = PscConfig::new().set_or_clear_psc_auto_connection_policy_enabled(None::<bool>);
+    /// ```
+    pub fn set_or_clear_psc_auto_connection_policy_enabled<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.psc_auto_connection_policy_enabled = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for PscConfig {
@@ -23157,6 +23342,23 @@ pub struct PscAutoConnectionConfig {
 
     /// The connection policy status of the consumer network.
     pub consumer_network_status: std::option::Option<std::string::String>,
+
+    /// Output only. The service connection policy created automatically for the
+    /// consumer network when `psc_auto_connection_policy_enabled` is true. It is
+    /// in the format of:
+    /// `projects/{project}/regions/{region}/serviceConnectionPolicies/{policy_id}`
+    /// The `policy_id` is in format of `$NETWORK-$RANDOM`.
+    pub service_connection_policy: std::option::Option<std::string::String>,
+
+    /// Output only. The status of service connection policy creation.
+    pub service_connection_policy_creation_result: std::option::Option<std::string::String>,
+
+    /// Output only. The status of automated DNS provisioning.
+    pub instance_auto_dns_status: std::option::Option<crate::model::AutoDnsStatus>,
+
+    /// Output only. The status of automated DNS provisioning for the write
+    /// endpoint.
+    pub write_endpoint_auto_dns_status: std::option::Option<crate::model::AutoDnsStatus>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -23287,6 +23489,148 @@ impl PscAutoConnectionConfig {
         T: std::convert::Into<std::string::String>,
     {
         self.consumer_network_status = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [service_connection_policy][crate::model::PscAutoConnectionConfig::service_connection_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PscAutoConnectionConfig;
+    /// let x = PscAutoConnectionConfig::new().set_service_connection_policy("example");
+    /// ```
+    pub fn set_service_connection_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.service_connection_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [service_connection_policy][crate::model::PscAutoConnectionConfig::service_connection_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PscAutoConnectionConfig;
+    /// let x = PscAutoConnectionConfig::new().set_or_clear_service_connection_policy(Some("example"));
+    /// let x = PscAutoConnectionConfig::new().set_or_clear_service_connection_policy(None::<String>);
+    /// ```
+    pub fn set_or_clear_service_connection_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.service_connection_policy = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [service_connection_policy_creation_result][crate::model::PscAutoConnectionConfig::service_connection_policy_creation_result].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PscAutoConnectionConfig;
+    /// let x = PscAutoConnectionConfig::new().set_service_connection_policy_creation_result("example");
+    /// ```
+    pub fn set_service_connection_policy_creation_result<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.service_connection_policy_creation_result = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [service_connection_policy_creation_result][crate::model::PscAutoConnectionConfig::service_connection_policy_creation_result].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PscAutoConnectionConfig;
+    /// let x = PscAutoConnectionConfig::new().set_or_clear_service_connection_policy_creation_result(Some("example"));
+    /// let x = PscAutoConnectionConfig::new().set_or_clear_service_connection_policy_creation_result(None::<String>);
+    /// ```
+    pub fn set_or_clear_service_connection_policy_creation_result<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.service_connection_policy_creation_result = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [instance_auto_dns_status][crate::model::PscAutoConnectionConfig::instance_auto_dns_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PscAutoConnectionConfig;
+    /// use google_cloud_sql_v1::model::AutoDnsStatus;
+    /// let x0 = PscAutoConnectionConfig::new().set_instance_auto_dns_status(AutoDnsStatus::AutoDnsOk);
+    /// let x1 = PscAutoConnectionConfig::new().set_instance_auto_dns_status(AutoDnsStatus::AutoDnsFailed);
+    /// let x2 = PscAutoConnectionConfig::new().set_instance_auto_dns_status(AutoDnsStatus::AutoDnsUnknown);
+    /// ```
+    pub fn set_instance_auto_dns_status<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AutoDnsStatus>,
+    {
+        self.instance_auto_dns_status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [instance_auto_dns_status][crate::model::PscAutoConnectionConfig::instance_auto_dns_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PscAutoConnectionConfig;
+    /// use google_cloud_sql_v1::model::AutoDnsStatus;
+    /// let x0 = PscAutoConnectionConfig::new().set_or_clear_instance_auto_dns_status(Some(AutoDnsStatus::AutoDnsOk));
+    /// let x1 = PscAutoConnectionConfig::new().set_or_clear_instance_auto_dns_status(Some(AutoDnsStatus::AutoDnsFailed));
+    /// let x2 = PscAutoConnectionConfig::new().set_or_clear_instance_auto_dns_status(Some(AutoDnsStatus::AutoDnsUnknown));
+    /// let x_none = PscAutoConnectionConfig::new().set_or_clear_instance_auto_dns_status(None::<AutoDnsStatus>);
+    /// ```
+    pub fn set_or_clear_instance_auto_dns_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AutoDnsStatus>,
+    {
+        self.instance_auto_dns_status = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [write_endpoint_auto_dns_status][crate::model::PscAutoConnectionConfig::write_endpoint_auto_dns_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PscAutoConnectionConfig;
+    /// use google_cloud_sql_v1::model::AutoDnsStatus;
+    /// let x0 = PscAutoConnectionConfig::new().set_write_endpoint_auto_dns_status(AutoDnsStatus::AutoDnsOk);
+    /// let x1 = PscAutoConnectionConfig::new().set_write_endpoint_auto_dns_status(AutoDnsStatus::AutoDnsFailed);
+    /// let x2 = PscAutoConnectionConfig::new().set_write_endpoint_auto_dns_status(AutoDnsStatus::AutoDnsUnknown);
+    /// ```
+    pub fn set_write_endpoint_auto_dns_status<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AutoDnsStatus>,
+    {
+        self.write_endpoint_auto_dns_status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [write_endpoint_auto_dns_status][crate::model::PscAutoConnectionConfig::write_endpoint_auto_dns_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PscAutoConnectionConfig;
+    /// use google_cloud_sql_v1::model::AutoDnsStatus;
+    /// let x0 = PscAutoConnectionConfig::new().set_or_clear_write_endpoint_auto_dns_status(Some(AutoDnsStatus::AutoDnsOk));
+    /// let x1 = PscAutoConnectionConfig::new().set_or_clear_write_endpoint_auto_dns_status(Some(AutoDnsStatus::AutoDnsFailed));
+    /// let x2 = PscAutoConnectionConfig::new().set_or_clear_write_endpoint_auto_dns_status(Some(AutoDnsStatus::AutoDnsUnknown));
+    /// let x_none = PscAutoConnectionConfig::new().set_or_clear_write_endpoint_auto_dns_status(None::<AutoDnsStatus>);
+    /// ```
+    pub fn set_or_clear_write_endpoint_auto_dns_status<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::AutoDnsStatus>,
+    {
+        self.write_endpoint_auto_dns_status = v.map(|x| x.into());
         self
     }
 }
@@ -25090,6 +25434,10 @@ pub mod operation {
         CreateReadPool,
         /// Pre-checks the major version upgrade operation.
         PreCheckMajorVersionUpgrade,
+        /// This operation type represents individual steps in a multi-step setup
+        /// migration workflow: including configuration, replication,
+        /// switchover/back, and data reseeding, as defined by operation's intent.
+        SetupMigration,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [SqlOperationType::value] or
@@ -25165,6 +25513,7 @@ pub mod operation {
                 Self::RepairReadPool => std::option::Option::Some(52),
                 Self::CreateReadPool => std::option::Option::Some(53),
                 Self::PreCheckMajorVersionUpgrade => std::option::Option::Some(54),
+                Self::SetupMigration => std::option::Option::Some(55),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -25232,6 +25581,7 @@ pub mod operation {
                 Self::PreCheckMajorVersionUpgrade => {
                     std::option::Option::Some("PRE_CHECK_MAJOR_VERSION_UPGRADE")
                 }
+                Self::SetupMigration => std::option::Option::Some("SETUP_MIGRATION"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -25306,6 +25656,7 @@ pub mod operation {
                 52 => Self::RepairReadPool,
                 53 => Self::CreateReadPool,
                 54 => Self::PreCheckMajorVersionUpgrade,
+                55 => Self::SetupMigration,
                 _ => Self::UnknownValue(sql_operation_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -25370,6 +25721,7 @@ pub mod operation {
                 "REPAIR_READ_POOL" => Self::RepairReadPool,
                 "CREATE_READ_POOL" => Self::CreateReadPool,
                 "PRE_CHECK_MAJOR_VERSION_UPGRADE" => Self::PreCheckMajorVersionUpgrade,
+                "SETUP_MIGRATION" => Self::SetupMigration,
                 _ => Self::UnknownValue(sql_operation_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -25436,6 +25788,7 @@ pub mod operation {
                 Self::RepairReadPool => serializer.serialize_i32(52),
                 Self::CreateReadPool => serializer.serialize_i32(53),
                 Self::PreCheckMajorVersionUpgrade => serializer.serialize_i32(54),
+                Self::SetupMigration => serializer.serialize_i32(55),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -26365,7 +26718,7 @@ pub struct Settings {
     /// SQL Server specific audit configuration.
     pub sql_server_audit_config: std::option::Option<crate::model::SqlServerAuditConfig>,
 
-    /// Optional. The edition of the instance.
+    /// Optional. The edition type of the Cloud SQL instance.
     pub edition: crate::model::settings::Edition,
 
     /// Specifies if connections must use Cloud SQL connectors.
@@ -27143,6 +27496,7 @@ impl Settings {
     /// use google_cloud_sql_v1::model::settings::Edition;
     /// let x0 = Settings::new().set_edition(Edition::Enterprise);
     /// let x1 = Settings::new().set_edition(Edition::EnterprisePlus);
+    /// let x2 = Settings::new().set_edition(Edition::Developer);
     /// ```
     pub fn set_edition<T: std::convert::Into<crate::model::settings::Edition>>(
         mut self,
@@ -27895,7 +28249,7 @@ pub mod settings {
         }
     }
 
-    /// The edition of the instance.
+    /// The list of Cloud SQL editions available to users.
     ///
     /// # Working with unknown values
     ///
@@ -27919,6 +28273,8 @@ pub mod settings {
         Enterprise,
         /// The instance is an Enterprise Plus edition.
         EnterprisePlus,
+        /// This instance is a Cloud SQL developer edition instance.
+        Developer,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [Edition::value] or
@@ -27944,6 +28300,7 @@ pub mod settings {
                 Self::Unspecified => std::option::Option::Some(0),
                 Self::Enterprise => std::option::Option::Some(2),
                 Self::EnterprisePlus => std::option::Option::Some(3),
+                Self::Developer => std::option::Option::Some(5),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -27957,6 +28314,7 @@ pub mod settings {
                 Self::Unspecified => std::option::Option::Some("EDITION_UNSPECIFIED"),
                 Self::Enterprise => std::option::Option::Some("ENTERPRISE"),
                 Self::EnterprisePlus => std::option::Option::Some("ENTERPRISE_PLUS"),
+                Self::Developer => std::option::Option::Some("DEVELOPER"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -27981,6 +28339,7 @@ pub mod settings {
                 0 => Self::Unspecified,
                 2 => Self::Enterprise,
                 3 => Self::EnterprisePlus,
+                5 => Self::Developer,
                 _ => Self::UnknownValue(edition::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -27995,6 +28354,7 @@ pub mod settings {
                 "EDITION_UNSPECIFIED" => Self::Unspecified,
                 "ENTERPRISE" => Self::Enterprise,
                 "ENTERPRISE_PLUS" => Self::EnterprisePlus,
+                "DEVELOPER" => Self::Developer,
                 _ => Self::UnknownValue(edition::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -28011,6 +28371,7 @@ pub mod settings {
                 Self::Unspecified => serializer.serialize_i32(0),
                 Self::Enterprise => serializer.serialize_i32(2),
                 Self::EnterprisePlus => serializer.serialize_i32(3),
+                Self::Developer => serializer.serialize_i32(5),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -28323,6 +28684,54 @@ pub struct PerformanceCaptureConfig {
     /// to have been open before the watcher starts recording it.
     pub transaction_duration_threshold: std::option::Option<i32>,
 
+    /// Optional. Specifies the minimum percentage of CPU utilization to trigger
+    /// the performance capture. Valid integers range from `10` to `99`. Enter `0`
+    /// to disable the check.
+    pub cpu_utilization_threshold_percent: std::option::Option<i32>,
+
+    /// Optional. Specifies the minimum percentage of memory usage to trigger the
+    /// performance capture.
+    /// Valid integers range from `10` to `99`. Enter `0` to disable the check.
+    pub memory_usage_threshold_percent: std::option::Option<i32>,
+
+    /// Optional. Specifies the minimum allowed number of transactions in lock wait
+    /// state to trigger the performance capture. Valid integers range from `10` to
+    /// `10000`. Enter `0` to disable the check.
+    pub transaction_lock_wait_threshold_count: std::option::Option<i32>,
+
+    /// Optional. Specifies the minimum allowed number of semaphore waits to
+    /// trigger the performance capture. Valid integers range from `10` to `10000`.
+    /// Enter `0` to disable the check.
+    pub semaphore_wait_threshold_count: std::option::Option<i32>,
+
+    /// Optional. Specifies the minimum number of undo log entries in the history
+    /// list length to trigger the performance capture. Valid integers range from
+    /// `10000` to `10000000`. Enter `0` to disable the check.
+    pub history_list_length_threshold_count: std::option::Option<i32>,
+
+    /// Optional. Specifies the amount of time in seconds that a transaction needs
+    /// to have been open before the watcher starts terminating it. Valid integers
+    /// range from `60` to `604800` (7 days). Enter `0` to disable. If enabled
+    /// (i.e., > 0), this value must be greater than or equal to
+    /// `transaction_duration_threshold`. Configurations where
+    /// `0 < transaction_kill_threshold_seconds < transaction_duration_threshold`
+    /// will be rejected.
+    pub transaction_kill_threshold_seconds: std::option::Option<i32>,
+
+    /// Optional. Specifies a customer-defined list of users to exclude from
+    /// transaction termination. Entries can be in the format 'user@host' or just
+    /// 'user'. A standalone 'user' implies 'user@%', excluding the user from any
+    /// host. Wildcard '%' is allowed in the host part of the 'user@host' format.
+    /// Example: `["app_user", "db_admin@10.1.2.3", "report_user@%"]`
+    pub transaction_kill_excluded_user_hosts: std::vec::Vec<std::string::String>,
+
+    /// Optional. Determines which transactions are allowed to be terminated when
+    /// they exceed `transaction_kill_threshold_seconds`. This allows protecting
+    /// write-heavy transactions from auto-termination if desired. Defaults to
+    /// `READ_ONLY_TRANSACTIONS` if unspecified.
+    pub transaction_kill_type:
+        std::option::Option<crate::model::performance_capture_config::TransactionKillType>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -28523,11 +28932,407 @@ impl PerformanceCaptureConfig {
         self.transaction_duration_threshold = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [cpu_utilization_threshold_percent][crate::model::PerformanceCaptureConfig::cpu_utilization_threshold_percent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PerformanceCaptureConfig;
+    /// let x = PerformanceCaptureConfig::new().set_cpu_utilization_threshold_percent(42);
+    /// ```
+    pub fn set_cpu_utilization_threshold_percent<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.cpu_utilization_threshold_percent = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cpu_utilization_threshold_percent][crate::model::PerformanceCaptureConfig::cpu_utilization_threshold_percent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PerformanceCaptureConfig;
+    /// let x = PerformanceCaptureConfig::new().set_or_clear_cpu_utilization_threshold_percent(Some(42));
+    /// let x = PerformanceCaptureConfig::new().set_or_clear_cpu_utilization_threshold_percent(None::<i32>);
+    /// ```
+    pub fn set_or_clear_cpu_utilization_threshold_percent<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.cpu_utilization_threshold_percent = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [memory_usage_threshold_percent][crate::model::PerformanceCaptureConfig::memory_usage_threshold_percent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PerformanceCaptureConfig;
+    /// let x = PerformanceCaptureConfig::new().set_memory_usage_threshold_percent(42);
+    /// ```
+    pub fn set_memory_usage_threshold_percent<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.memory_usage_threshold_percent = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [memory_usage_threshold_percent][crate::model::PerformanceCaptureConfig::memory_usage_threshold_percent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PerformanceCaptureConfig;
+    /// let x = PerformanceCaptureConfig::new().set_or_clear_memory_usage_threshold_percent(Some(42));
+    /// let x = PerformanceCaptureConfig::new().set_or_clear_memory_usage_threshold_percent(None::<i32>);
+    /// ```
+    pub fn set_or_clear_memory_usage_threshold_percent<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.memory_usage_threshold_percent = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [transaction_lock_wait_threshold_count][crate::model::PerformanceCaptureConfig::transaction_lock_wait_threshold_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PerformanceCaptureConfig;
+    /// let x = PerformanceCaptureConfig::new().set_transaction_lock_wait_threshold_count(42);
+    /// ```
+    pub fn set_transaction_lock_wait_threshold_count<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.transaction_lock_wait_threshold_count = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [transaction_lock_wait_threshold_count][crate::model::PerformanceCaptureConfig::transaction_lock_wait_threshold_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PerformanceCaptureConfig;
+    /// let x = PerformanceCaptureConfig::new().set_or_clear_transaction_lock_wait_threshold_count(Some(42));
+    /// let x = PerformanceCaptureConfig::new().set_or_clear_transaction_lock_wait_threshold_count(None::<i32>);
+    /// ```
+    pub fn set_or_clear_transaction_lock_wait_threshold_count<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.transaction_lock_wait_threshold_count = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [semaphore_wait_threshold_count][crate::model::PerformanceCaptureConfig::semaphore_wait_threshold_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PerformanceCaptureConfig;
+    /// let x = PerformanceCaptureConfig::new().set_semaphore_wait_threshold_count(42);
+    /// ```
+    pub fn set_semaphore_wait_threshold_count<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.semaphore_wait_threshold_count = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [semaphore_wait_threshold_count][crate::model::PerformanceCaptureConfig::semaphore_wait_threshold_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PerformanceCaptureConfig;
+    /// let x = PerformanceCaptureConfig::new().set_or_clear_semaphore_wait_threshold_count(Some(42));
+    /// let x = PerformanceCaptureConfig::new().set_or_clear_semaphore_wait_threshold_count(None::<i32>);
+    /// ```
+    pub fn set_or_clear_semaphore_wait_threshold_count<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.semaphore_wait_threshold_count = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [history_list_length_threshold_count][crate::model::PerformanceCaptureConfig::history_list_length_threshold_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PerformanceCaptureConfig;
+    /// let x = PerformanceCaptureConfig::new().set_history_list_length_threshold_count(42);
+    /// ```
+    pub fn set_history_list_length_threshold_count<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.history_list_length_threshold_count = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [history_list_length_threshold_count][crate::model::PerformanceCaptureConfig::history_list_length_threshold_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PerformanceCaptureConfig;
+    /// let x = PerformanceCaptureConfig::new().set_or_clear_history_list_length_threshold_count(Some(42));
+    /// let x = PerformanceCaptureConfig::new().set_or_clear_history_list_length_threshold_count(None::<i32>);
+    /// ```
+    pub fn set_or_clear_history_list_length_threshold_count<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.history_list_length_threshold_count = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [transaction_kill_threshold_seconds][crate::model::PerformanceCaptureConfig::transaction_kill_threshold_seconds].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PerformanceCaptureConfig;
+    /// let x = PerformanceCaptureConfig::new().set_transaction_kill_threshold_seconds(42);
+    /// ```
+    pub fn set_transaction_kill_threshold_seconds<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.transaction_kill_threshold_seconds = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [transaction_kill_threshold_seconds][crate::model::PerformanceCaptureConfig::transaction_kill_threshold_seconds].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PerformanceCaptureConfig;
+    /// let x = PerformanceCaptureConfig::new().set_or_clear_transaction_kill_threshold_seconds(Some(42));
+    /// let x = PerformanceCaptureConfig::new().set_or_clear_transaction_kill_threshold_seconds(None::<i32>);
+    /// ```
+    pub fn set_or_clear_transaction_kill_threshold_seconds<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.transaction_kill_threshold_seconds = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [transaction_kill_excluded_user_hosts][crate::model::PerformanceCaptureConfig::transaction_kill_excluded_user_hosts].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PerformanceCaptureConfig;
+    /// let x = PerformanceCaptureConfig::new().set_transaction_kill_excluded_user_hosts(["a", "b", "c"]);
+    /// ```
+    pub fn set_transaction_kill_excluded_user_hosts<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.transaction_kill_excluded_user_hosts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [transaction_kill_type][crate::model::PerformanceCaptureConfig::transaction_kill_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PerformanceCaptureConfig;
+    /// use google_cloud_sql_v1::model::performance_capture_config::TransactionKillType;
+    /// let x0 = PerformanceCaptureConfig::new().set_transaction_kill_type(TransactionKillType::ReadOnlyTransactions);
+    /// let x1 = PerformanceCaptureConfig::new().set_transaction_kill_type(TransactionKillType::AllTransactions);
+    /// ```
+    pub fn set_transaction_kill_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::performance_capture_config::TransactionKillType>,
+    {
+        self.transaction_kill_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [transaction_kill_type][crate::model::PerformanceCaptureConfig::transaction_kill_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PerformanceCaptureConfig;
+    /// use google_cloud_sql_v1::model::performance_capture_config::TransactionKillType;
+    /// let x0 = PerformanceCaptureConfig::new().set_or_clear_transaction_kill_type(Some(TransactionKillType::ReadOnlyTransactions));
+    /// let x1 = PerformanceCaptureConfig::new().set_or_clear_transaction_kill_type(Some(TransactionKillType::AllTransactions));
+    /// let x_none = PerformanceCaptureConfig::new().set_or_clear_transaction_kill_type(None::<TransactionKillType>);
+    /// ```
+    pub fn set_or_clear_transaction_kill_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::performance_capture_config::TransactionKillType>,
+    {
+        self.transaction_kill_type = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for PerformanceCaptureConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.sql.v1.PerformanceCaptureConfig"
+    }
+}
+
+/// Defines additional types related to [PerformanceCaptureConfig].
+pub mod performance_capture_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Defines the categories of long-running transactions eligible for automatic
+    /// termination by the Performance Capture.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum TransactionKillType {
+        /// Unspecified.
+        Unspecified,
+        /// Only read-only transactions are eligible for termination.
+        ReadOnlyTransactions,
+        /// All transactions are eligible for termination, including those with write
+        /// operations (such as INSERT, UPDATE, DELETE, or DDL).
+        AllTransactions,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [TransactionKillType::value] or
+        /// [TransactionKillType::name].
+        UnknownValue(transaction_kill_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod transaction_kill_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl TransactionKillType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::ReadOnlyTransactions => std::option::Option::Some(1),
+                Self::AllTransactions => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TRANSACTION_KILL_TYPE_UNSPECIFIED"),
+                Self::ReadOnlyTransactions => std::option::Option::Some("READ_ONLY_TRANSACTIONS"),
+                Self::AllTransactions => std::option::Option::Some("ALL_TRANSACTIONS"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for TransactionKillType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for TransactionKillType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for TransactionKillType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::ReadOnlyTransactions,
+                2 => Self::AllTransactions,
+                _ => Self::UnknownValue(transaction_kill_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for TransactionKillType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TRANSACTION_KILL_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "READ_ONLY_TRANSACTIONS" => Self::ReadOnlyTransactions,
+                "ALL_TRANSACTIONS" => Self::AllTransactions,
+                _ => Self::UnknownValue(transaction_kill_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for TransactionKillType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::ReadOnlyTransactions => serializer.serialize_i32(1),
+                Self::AllTransactions => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for TransactionKillType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<TransactionKillType>::new(
+                ".google.cloud.sql.v1.PerformanceCaptureConfig.TransactionKillType",
+            ))
+        }
     }
 }
 
@@ -32297,6 +33102,9 @@ pub mod user {
         /// Read-only. Login for a service account that belongs to the
         /// Cloud IAM group.
         CloudIamGroupServiceAccount,
+        /// Cloud IAM workforce identity user managed via workforce identity
+        /// federation.
+        CloudIamWorkforceIdentity,
         /// Microsoft Entra ID user.
         EntraidUser,
         /// If set, the enum was initialized with an unknown value.
@@ -32327,6 +33135,7 @@ pub mod user {
                 Self::CloudIamGroup => std::option::Option::Some(3),
                 Self::CloudIamGroupUser => std::option::Option::Some(4),
                 Self::CloudIamGroupServiceAccount => std::option::Option::Some(5),
+                Self::CloudIamWorkforceIdentity => std::option::Option::Some(6),
                 Self::EntraidUser => std::option::Option::Some(7),
                 Self::UnknownValue(u) => u.0.value(),
             }
@@ -32347,6 +33156,9 @@ pub mod user {
                 Self::CloudIamGroupUser => std::option::Option::Some("CLOUD_IAM_GROUP_USER"),
                 Self::CloudIamGroupServiceAccount => {
                     std::option::Option::Some("CLOUD_IAM_GROUP_SERVICE_ACCOUNT")
+                }
+                Self::CloudIamWorkforceIdentity => {
+                    std::option::Option::Some("CLOUD_IAM_WORKFORCE_IDENTITY")
                 }
                 Self::EntraidUser => std::option::Option::Some("ENTRAID_USER"),
                 Self::UnknownValue(u) => u.0.name(),
@@ -32376,6 +33188,7 @@ pub mod user {
                 3 => Self::CloudIamGroup,
                 4 => Self::CloudIamGroupUser,
                 5 => Self::CloudIamGroupServiceAccount,
+                6 => Self::CloudIamWorkforceIdentity,
                 7 => Self::EntraidUser,
                 _ => Self::UnknownValue(sql_user_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
@@ -32394,6 +33207,7 @@ pub mod user {
                 "CLOUD_IAM_GROUP" => Self::CloudIamGroup,
                 "CLOUD_IAM_GROUP_USER" => Self::CloudIamGroupUser,
                 "CLOUD_IAM_GROUP_SERVICE_ACCOUNT" => Self::CloudIamGroupServiceAccount,
+                "CLOUD_IAM_WORKFORCE_IDENTITY" => Self::CloudIamWorkforceIdentity,
                 "ENTRAID_USER" => Self::EntraidUser,
                 _ => Self::UnknownValue(sql_user_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
@@ -32414,6 +33228,7 @@ pub mod user {
                 Self::CloudIamGroup => serializer.serialize_i32(3),
                 Self::CloudIamGroupUser => serializer.serialize_i32(4),
                 Self::CloudIamGroupServiceAccount => serializer.serialize_i32(5),
+                Self::CloudIamWorkforceIdentity => serializer.serialize_i32(6),
                 Self::EntraidUser => serializer.serialize_i32(7),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
@@ -34890,6 +35705,8 @@ pub enum SqlDatabaseVersion {
     Postgres18,
     /// The database version is PostgreSQL 19.
     Postgres19,
+    /// The database version is PostgreSQL 20.
+    Postgres20,
     /// The database version is SQL Server 2019 Standard.
     Sqlserver2019Standard,
     /// The database version is SQL Server 2019 Enterprise.
@@ -34978,6 +35795,7 @@ impl SqlDatabaseVersion {
             Self::Postgres17 => std::option::Option::Some(408),
             Self::Postgres18 => std::option::Option::Some(557),
             Self::Postgres19 => std::option::Option::Some(684),
+            Self::Postgres20 => std::option::Option::Some(781),
             Self::Sqlserver2019Standard => std::option::Option::Some(26),
             Self::Sqlserver2019Enterprise => std::option::Option::Some(27),
             Self::Sqlserver2019Express => std::option::Option::Some(28),
@@ -35043,6 +35861,7 @@ impl SqlDatabaseVersion {
             Self::Postgres17 => std::option::Option::Some("POSTGRES_17"),
             Self::Postgres18 => std::option::Option::Some("POSTGRES_18"),
             Self::Postgres19 => std::option::Option::Some("POSTGRES_19"),
+            Self::Postgres20 => std::option::Option::Some("POSTGRES_20"),
             Self::Sqlserver2019Standard => std::option::Option::Some("SQLSERVER_2019_STANDARD"),
             Self::Sqlserver2019Enterprise => std::option::Option::Some("SQLSERVER_2019_ENTERPRISE"),
             Self::Sqlserver2019Express => std::option::Option::Some("SQLSERVER_2019_EXPRESS"),
@@ -35130,6 +35949,7 @@ impl std::convert::From<i32> for SqlDatabaseVersion {
             557 => Self::Postgres18,
             654 => Self::Mysql97,
             684 => Self::Postgres19,
+            781 => Self::Postgres20,
             _ => Self::UnknownValue(sql_database_version::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -35185,6 +36005,7 @@ impl std::convert::From<&str> for SqlDatabaseVersion {
             "POSTGRES_17" => Self::Postgres17,
             "POSTGRES_18" => Self::Postgres18,
             "POSTGRES_19" => Self::Postgres19,
+            "POSTGRES_20" => Self::Postgres20,
             "SQLSERVER_2019_STANDARD" => Self::Sqlserver2019Standard,
             "SQLSERVER_2019_ENTERPRISE" => Self::Sqlserver2019Enterprise,
             "SQLSERVER_2019_EXPRESS" => Self::Sqlserver2019Express,
@@ -35253,6 +36074,7 @@ impl serde::ser::Serialize for SqlDatabaseVersion {
             Self::Postgres17 => serializer.serialize_i32(408),
             Self::Postgres18 => serializer.serialize_i32(557),
             Self::Postgres19 => serializer.serialize_i32(684),
+            Self::Postgres20 => serializer.serialize_i32(781),
             Self::Sqlserver2019Standard => serializer.serialize_i32(26),
             Self::Sqlserver2019Enterprise => serializer.serialize_i32(27),
             Self::Sqlserver2019Express => serializer.serialize_i32(28),
@@ -35971,6 +36793,145 @@ impl<'de> serde::de::Deserialize<'de> for SqlUpdateTrack {
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlUpdateTrack>::new(
             ".google.cloud.sql.v1.SqlUpdateTrack",
+        ))
+    }
+}
+
+/// The status of automated DNS provisioning.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum AutoDnsStatus {
+    /// Unspecified status. This means status is missing from dependency service.
+    Unspecified,
+    /// DNS provisioning is OK.
+    AutoDnsOk,
+    /// DNS provisioning failed.
+    AutoDnsFailed,
+    /// DNS provisioning status is not recognized by Cloud SQL.
+    AutoDnsUnknown,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [AutoDnsStatus::value] or
+    /// [AutoDnsStatus::name].
+    UnknownValue(auto_dns_status::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod auto_dns_status {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl AutoDnsStatus {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::AutoDnsOk => std::option::Option::Some(1),
+            Self::AutoDnsFailed => std::option::Option::Some(2),
+            Self::AutoDnsUnknown => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("AUTO_DNS_STATUS_UNSPECIFIED"),
+            Self::AutoDnsOk => std::option::Option::Some("AUTO_DNS_OK"),
+            Self::AutoDnsFailed => std::option::Option::Some("AUTO_DNS_FAILED"),
+            Self::AutoDnsUnknown => std::option::Option::Some("AUTO_DNS_UNKNOWN"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for AutoDnsStatus {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for AutoDnsStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for AutoDnsStatus {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::AutoDnsOk,
+            2 => Self::AutoDnsFailed,
+            3 => Self::AutoDnsUnknown,
+            _ => Self::UnknownValue(auto_dns_status::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for AutoDnsStatus {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "AUTO_DNS_STATUS_UNSPECIFIED" => Self::Unspecified,
+            "AUTO_DNS_OK" => Self::AutoDnsOk,
+            "AUTO_DNS_FAILED" => Self::AutoDnsFailed,
+            "AUTO_DNS_UNKNOWN" => Self::AutoDnsUnknown,
+            _ => Self::UnknownValue(auto_dns_status::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for AutoDnsStatus {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::AutoDnsOk => serializer.serialize_i32(1),
+            Self::AutoDnsFailed => serializer.serialize_i32(2),
+            Self::AutoDnsUnknown => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for AutoDnsStatus {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<AutoDnsStatus>::new(
+            ".google.cloud.sql.v1.AutoDnsStatus",
         ))
     }
 }

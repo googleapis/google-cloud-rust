@@ -428,6 +428,10 @@ impl std::fmt::Debug for super::InputAudioConfig {
         debug_struct.field("model_variant", &self.model_variant);
         debug_struct.field("single_utterance", &self.single_utterance);
         debug_struct.field(
+            "enable_voice_activity_events",
+            &self.enable_voice_activity_events,
+        );
+        debug_struct.field(
             "disable_no_speech_recognized_event",
             &self.disable_no_speech_recognized_event,
         );
@@ -1221,6 +1225,7 @@ impl std::fmt::Debug for super::SearchKnowledgeDebugInfo {
             &self.ingested_context_reference_debug_info,
         );
         debug_struct.field("service_latency", &self.service_latency);
+        debug_struct.field("ces_debug_info", &self.ces_debug_info);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -975,6 +975,12 @@ impl serde::ser::Serialize for super::InputAudioConfig {
         if !wkt::internal::is_default(&self.single_utterance) {
             state.serialize_entry("singleUtterance", &self.single_utterance)?;
         }
+        if !wkt::internal::is_default(&self.enable_voice_activity_events) {
+            state.serialize_entry(
+                "enableVoiceActivityEvents",
+                &self.enable_voice_activity_events,
+            )?;
+        }
         if !wkt::internal::is_default(&self.disable_no_speech_recognized_event) {
             state.serialize_entry(
                 "disableNoSpeechRecognizedEvent",
@@ -2715,6 +2721,9 @@ impl serde::ser::Serialize for super::SearchKnowledgeDebugInfo {
         }
         if self.service_latency.is_some() {
             state.serialize_entry("serviceLatency", &self.service_latency)?;
+        }
+        if self.ces_debug_info.is_some() {
+            state.serialize_entry("cesDebugInfo", &self.ces_debug_info)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

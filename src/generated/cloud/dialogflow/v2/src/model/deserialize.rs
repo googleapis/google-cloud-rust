@@ -3228,6 +3228,7 @@ impl<'de> serde::de::Deserialize<'de> for super::InputAudioConfig {
             __model,
             __model_variant,
             __single_utterance,
+            __enable_voice_activity_events,
             __disable_no_speech_recognized_event,
             __enable_automatic_punctuation,
             __phrase_sets,
@@ -3269,6 +3270,12 @@ impl<'de> serde::de::Deserialize<'de> for super::InputAudioConfig {
                             "model_variant" => Ok(__FieldTag::__model_variant),
                             "singleUtterance" => Ok(__FieldTag::__single_utterance),
                             "single_utterance" => Ok(__FieldTag::__single_utterance),
+                            "enableVoiceActivityEvents" => {
+                                Ok(__FieldTag::__enable_voice_activity_events)
+                            }
+                            "enable_voice_activity_events" => {
+                                Ok(__FieldTag::__enable_voice_activity_events)
+                            }
                             "disableNoSpeechRecognizedEvent" => {
                                 Ok(__FieldTag::__disable_no_speech_recognized_event)
                             }
@@ -3405,6 +3412,16 @@ impl<'de> serde::de::Deserialize<'de> for super::InputAudioConfig {
                                 ));
                             }
                             result.single_utterance = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__enable_voice_activity_events => {
+                            if !fields.insert(__FieldTag::__enable_voice_activity_events) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for enable_voice_activity_events",
+                                ));
+                            }
+                            result.enable_voice_activity_events = map
                                 .next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
                         }
@@ -9155,6 +9172,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SearchKnowledgeDebugInfo {
             __search_knowledge_behavior,
             __ingested_context_reference_debug_info,
             __service_latency,
+            __ces_debug_info,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -9195,6 +9213,8 @@ impl<'de> serde::de::Deserialize<'de> for super::SearchKnowledgeDebugInfo {
                             }
                             "serviceLatency" => Ok(__FieldTag::__service_latency),
                             "service_latency" => Ok(__FieldTag::__service_latency),
+                            "cesDebugInfo" => Ok(__FieldTag::__ces_debug_info),
+                            "ces_debug_info" => Ok(__FieldTag::__ces_debug_info),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -9260,6 +9280,15 @@ impl<'de> serde::de::Deserialize<'de> for super::SearchKnowledgeDebugInfo {
                             result.service_latency = map
                                 .next_value::<std::option::Option<crate::model::ServiceLatency>>(
                                 )?;
+                        }
+                        __FieldTag::__ces_debug_info => {
+                            if !fields.insert(__FieldTag::__ces_debug_info) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ces_debug_info",
+                                ));
+                            }
+                            result.ces_debug_info =
+                                map.next_value::<std::option::Option<wkt::Struct>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

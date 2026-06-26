@@ -549,6 +549,29 @@ impl SqlConnectService {
         super::builder::sql_connect_service::GetConnectSettings::new(self.inner.clone())
     }
 
+    /// Retrieves connect settings about a Cloud SQL instance using the instance
+    /// DNS name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::client::SqlConnectService;
+    /// use google_cloud_sql_v1::Result;
+    /// async fn sample(
+    ///    client: &SqlConnectService
+    /// ) -> Result<()> {
+    ///     let response = client.resolve_connect_settings()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn resolve_connect_settings(
+        &self,
+    ) -> super::builder::sql_connect_service::ResolveConnectSettings {
+        super::builder::sql_connect_service::ResolveConnectSettings::new(self.inner.clone())
+    }
+
     /// Generates a short-lived X509 certificate containing the provided public key
     /// and signed by a private key specific to the target instance. Users may use
     /// the certificate to authenticate as themselves when connecting to the

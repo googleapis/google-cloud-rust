@@ -843,6 +843,79 @@ impl super::stub::SqlConnectService for SqlConnectService {
         self.inner.execute(builder, body, options).await
     }
 
+    async fn resolve_connect_settings(
+        &self,
+        req: crate::model::ResolveConnectSettingsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ConnectSettings>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_location = try_match(
+                    Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_dns_name = try_match(
+                    Some(&req).map(|m| &m.dns_name).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!(
+                    "/v1/locations/{}/dns/{}:resolveConnectSettings",
+                    var_location, var_dns_name,
+                );
+                let path_template =
+                    "/v1/locations/{location}/dns/{dns_name}:resolveConnectSettings";
+
+                let resource_name =
+                    format!("//sqladmin.googleapis.com/locations/{}", var_location,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "location",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.dns_name).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "dns_name",
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.sql.v1.SqlConnectService/ResolveConnectSettings")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
     async fn generate_ephemeral_cert(
         &self,
         req: crate::model::GenerateEphemeralCertRequest,
@@ -2823,6 +2896,18 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     var_project, var_instance,
                 );
                 let builder = self.inner.builder(Method::PATCH, path);
+                let builder = req
+                    .reconcile_psc_networking
+                    .iter()
+                    .fold(builder, |builder, p| {
+                        builder.query(&[("reconcilePscNetworking", p)])
+                    });
+                let builder = req
+                    .reconcile_psc_networking_force
+                    .iter()
+                    .fold(builder, |builder, p| {
+                        builder.query(&[("reconcilePscNetworkingForce", p)])
+                    });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })

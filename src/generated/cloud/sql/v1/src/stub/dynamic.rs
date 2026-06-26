@@ -174,6 +174,12 @@ pub trait SqlConnectService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ConnectSettings>>;
 
+    async fn resolve_connect_settings(
+        &self,
+        req: crate::model::ResolveConnectSettingsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ConnectSettings>>;
+
     async fn generate_ephemeral_cert(
         &self,
         req: crate::model::GenerateEphemeralCertRequest,
@@ -191,6 +197,15 @@ impl<T: super::SqlConnectService> SqlConnectService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ConnectSettings>> {
         T::get_connect_settings(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn resolve_connect_settings(
+        &self,
+        req: crate::model::ResolveConnectSettingsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ConnectSettings>> {
+        T::resolve_connect_settings(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

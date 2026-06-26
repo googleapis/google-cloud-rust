@@ -1954,6 +1954,99 @@ impl<'de> serde::de::Deserialize<'de> for super::GetConnectSettingsRequest {
 }
 
 #[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ResolveConnectSettingsRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __dns_name,
+            __location,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ResolveConnectSettingsRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "dnsName" => Ok(__FieldTag::__dns_name),
+                            "dns_name" => Ok(__FieldTag::__dns_name),
+                            "location" => Ok(__FieldTag::__location),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ResolveConnectSettingsRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ResolveConnectSettingsRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__dns_name => {
+                            if !fields.insert(__FieldTag::__dns_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for dns_name",
+                                ));
+                            }
+                            result.dns_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::ConnectSettings {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -1977,6 +2070,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ConnectSettings {
             __node_count,
             __nodes,
             __mdx_protocol_support,
+            __connection_name,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -2026,6 +2120,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ConnectSettings {
                             "nodes" => Ok(__FieldTag::__nodes),
                             "mdxProtocolSupport" => Ok(__FieldTag::__mdx_protocol_support),
                             "mdx_protocol_support" => Ok(__FieldTag::__mdx_protocol_support),
+                            "connectionName" => Ok(__FieldTag::__connection_name),
+                            "connection_name" => Ok(__FieldTag::__connection_name),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -2199,6 +2295,16 @@ impl<'de> serde::de::Deserialize<'de> for super::ConnectSettings {
                                         crate::model::connect_settings::MdxProtocolSupport,
                                     >,
                                 >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__connection_name => {
+                            if !fields.insert(__FieldTag::__connection_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for connection_name",
+                                ));
+                            }
+                            result.connection_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
@@ -5306,6 +5412,8 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesPatchRequest {
         enum __FieldTag {
             __instance,
             __project,
+            __reconcile_psc_networking,
+            __reconcile_psc_networking_force,
             __body,
             Unknown(std::string::String),
         }
@@ -5329,6 +5437,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesPatchRequest {
                         match value {
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
+                            "reconcilePscNetworking" => Ok(__FieldTag::__reconcile_psc_networking),
+                            "reconcile_psc_networking" => {
+                                Ok(__FieldTag::__reconcile_psc_networking)
+                            }
+                            "reconcilePscNetworkingForce" => {
+                                Ok(__FieldTag::__reconcile_psc_networking_force)
+                            }
+                            "reconcile_psc_networking_force" => {
+                                Ok(__FieldTag::__reconcile_psc_networking_force)
+                            }
                             "body" => Ok(__FieldTag::__body),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
@@ -5374,6 +5492,24 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesPatchRequest {
                             result.project = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__reconcile_psc_networking => {
+                            if !fields.insert(__FieldTag::__reconcile_psc_networking) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for reconcile_psc_networking",
+                                ));
+                            }
+                            result.reconcile_psc_networking =
+                                map.next_value::<std::option::Option<bool>>()?;
+                        }
+                        __FieldTag::__reconcile_psc_networking_force => {
+                            if !fields.insert(__FieldTag::__reconcile_psc_networking_force) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for reconcile_psc_networking_force",
+                                ));
+                            }
+                            result.reconcile_psc_networking_force =
+                                map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__body => {
                             if !fields.insert(__FieldTag::__body) {
@@ -19537,6 +19673,7 @@ impl<'de> serde::de::Deserialize<'de> for super::PscConfig {
             __network_attachment_uri,
             __psc_auto_dns_enabled,
             __psc_write_endpoint_dns_enabled,
+            __psc_auto_connection_policy_enabled,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -19576,6 +19713,12 @@ impl<'de> serde::de::Deserialize<'de> for super::PscConfig {
                             }
                             "psc_write_endpoint_dns_enabled" => {
                                 Ok(__FieldTag::__psc_write_endpoint_dns_enabled)
+                            }
+                            "pscAutoConnectionPolicyEnabled" => {
+                                Ok(__FieldTag::__psc_auto_connection_policy_enabled)
+                            }
+                            "psc_auto_connection_policy_enabled" => {
+                                Ok(__FieldTag::__psc_auto_connection_policy_enabled)
                             }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
@@ -19658,6 +19801,15 @@ impl<'de> serde::de::Deserialize<'de> for super::PscConfig {
                             result.psc_write_endpoint_dns_enabled =
                                 map.next_value::<std::option::Option<bool>>()?;
                         }
+                        __FieldTag::__psc_auto_connection_policy_enabled => {
+                            if !fields.insert(__FieldTag::__psc_auto_connection_policy_enabled) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for psc_auto_connection_policy_enabled",
+                                ));
+                            }
+                            result.psc_auto_connection_policy_enabled =
+                                map.next_value::<std::option::Option<bool>>()?;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -19686,6 +19838,10 @@ impl<'de> serde::de::Deserialize<'de> for super::PscAutoConnectionConfig {
             __ip_address,
             __status,
             __consumer_network_status,
+            __service_connection_policy,
+            __service_connection_policy_creation_result,
+            __instance_auto_dns_status,
+            __write_endpoint_auto_dns_status,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -19715,6 +19871,28 @@ impl<'de> serde::de::Deserialize<'de> for super::PscAutoConnectionConfig {
                             "status" => Ok(__FieldTag::__status),
                             "consumerNetworkStatus" => Ok(__FieldTag::__consumer_network_status),
                             "consumer_network_status" => Ok(__FieldTag::__consumer_network_status),
+                            "serviceConnectionPolicy" => {
+                                Ok(__FieldTag::__service_connection_policy)
+                            }
+                            "service_connection_policy" => {
+                                Ok(__FieldTag::__service_connection_policy)
+                            }
+                            "serviceConnectionPolicyCreationResult" => {
+                                Ok(__FieldTag::__service_connection_policy_creation_result)
+                            }
+                            "service_connection_policy_creation_result" => {
+                                Ok(__FieldTag::__service_connection_policy_creation_result)
+                            }
+                            "instanceAutoDnsStatus" => Ok(__FieldTag::__instance_auto_dns_status),
+                            "instance_auto_dns_status" => {
+                                Ok(__FieldTag::__instance_auto_dns_status)
+                            }
+                            "writeEndpointAutoDnsStatus" => {
+                                Ok(__FieldTag::__write_endpoint_auto_dns_status)
+                            }
+                            "write_endpoint_auto_dns_status" => {
+                                Ok(__FieldTag::__write_endpoint_auto_dns_status)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -19786,6 +19964,44 @@ impl<'de> serde::de::Deserialize<'de> for super::PscAutoConnectionConfig {
                             }
                             result.consumer_network_status =
                                 map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__service_connection_policy => {
+                            if !fields.insert(__FieldTag::__service_connection_policy) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for service_connection_policy",
+                                ));
+                            }
+                            result.service_connection_policy =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__service_connection_policy_creation_result => {
+                            if !fields
+                                .insert(__FieldTag::__service_connection_policy_creation_result)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for service_connection_policy_creation_result",
+                                ));
+                            }
+                            result.service_connection_policy_creation_result =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__instance_auto_dns_status => {
+                            if !fields.insert(__FieldTag::__instance_auto_dns_status) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for instance_auto_dns_status",
+                                ));
+                            }
+                            result.instance_auto_dns_status = map
+                                .next_value::<std::option::Option<crate::model::AutoDnsStatus>>()?;
+                        }
+                        __FieldTag::__write_endpoint_auto_dns_status => {
+                            if !fields.insert(__FieldTag::__write_endpoint_auto_dns_status) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for write_endpoint_auto_dns_status",
+                                ));
+                            }
+                            result.write_endpoint_auto_dns_status = map
+                                .next_value::<std::option::Option<crate::model::AutoDnsStatus>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -22598,6 +22814,14 @@ impl<'de> serde::de::Deserialize<'de> for super::PerformanceCaptureConfig {
             __running_threads_threshold,
             __seconds_behind_source_threshold,
             __transaction_duration_threshold,
+            __cpu_utilization_threshold_percent,
+            __memory_usage_threshold_percent,
+            __transaction_lock_wait_threshold_count,
+            __semaphore_wait_threshold_count,
+            __history_list_length_threshold_count,
+            __transaction_kill_threshold_seconds,
+            __transaction_kill_excluded_user_hosts,
+            __transaction_kill_type,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -22643,6 +22867,50 @@ impl<'de> serde::de::Deserialize<'de> for super::PerformanceCaptureConfig {
                             "transaction_duration_threshold" => {
                                 Ok(__FieldTag::__transaction_duration_threshold)
                             }
+                            "cpuUtilizationThresholdPercent" => {
+                                Ok(__FieldTag::__cpu_utilization_threshold_percent)
+                            }
+                            "cpu_utilization_threshold_percent" => {
+                                Ok(__FieldTag::__cpu_utilization_threshold_percent)
+                            }
+                            "memoryUsageThresholdPercent" => {
+                                Ok(__FieldTag::__memory_usage_threshold_percent)
+                            }
+                            "memory_usage_threshold_percent" => {
+                                Ok(__FieldTag::__memory_usage_threshold_percent)
+                            }
+                            "transactionLockWaitThresholdCount" => {
+                                Ok(__FieldTag::__transaction_lock_wait_threshold_count)
+                            }
+                            "transaction_lock_wait_threshold_count" => {
+                                Ok(__FieldTag::__transaction_lock_wait_threshold_count)
+                            }
+                            "semaphoreWaitThresholdCount" => {
+                                Ok(__FieldTag::__semaphore_wait_threshold_count)
+                            }
+                            "semaphore_wait_threshold_count" => {
+                                Ok(__FieldTag::__semaphore_wait_threshold_count)
+                            }
+                            "historyListLengthThresholdCount" => {
+                                Ok(__FieldTag::__history_list_length_threshold_count)
+                            }
+                            "history_list_length_threshold_count" => {
+                                Ok(__FieldTag::__history_list_length_threshold_count)
+                            }
+                            "transactionKillThresholdSeconds" => {
+                                Ok(__FieldTag::__transaction_kill_threshold_seconds)
+                            }
+                            "transaction_kill_threshold_seconds" => {
+                                Ok(__FieldTag::__transaction_kill_threshold_seconds)
+                            }
+                            "transactionKillExcludedUserHosts" => {
+                                Ok(__FieldTag::__transaction_kill_excluded_user_hosts)
+                            }
+                            "transaction_kill_excluded_user_hosts" => {
+                                Ok(__FieldTag::__transaction_kill_excluded_user_hosts)
+                            }
+                            "transactionKillType" => Ok(__FieldTag::__transaction_kill_type),
+                            "transaction_kill_type" => Ok(__FieldTag::__transaction_kill_type),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -22770,6 +23038,142 @@ impl<'de> serde::de::Deserialize<'de> for super::PerformanceCaptureConfig {
                                 }
                             }
                             result.transaction_duration_threshold = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__cpu_utilization_threshold_percent => {
+                            if !fields.insert(__FieldTag::__cpu_utilization_threshold_percent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cpu_utilization_threshold_percent",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.cpu_utilization_threshold_percent =
+                                map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__memory_usage_threshold_percent => {
+                            if !fields.insert(__FieldTag::__memory_usage_threshold_percent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for memory_usage_threshold_percent",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.memory_usage_threshold_percent = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__transaction_lock_wait_threshold_count => {
+                            if !fields.insert(__FieldTag::__transaction_lock_wait_threshold_count) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for transaction_lock_wait_threshold_count",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.transaction_lock_wait_threshold_count =
+                                map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__semaphore_wait_threshold_count => {
+                            if !fields.insert(__FieldTag::__semaphore_wait_threshold_count) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for semaphore_wait_threshold_count",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.semaphore_wait_threshold_count = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__history_list_length_threshold_count => {
+                            if !fields.insert(__FieldTag::__history_list_length_threshold_count) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for history_list_length_threshold_count",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.history_list_length_threshold_count =
+                                map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__transaction_kill_threshold_seconds => {
+                            if !fields.insert(__FieldTag::__transaction_kill_threshold_seconds) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for transaction_kill_threshold_seconds",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.transaction_kill_threshold_seconds =
+                                map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__transaction_kill_excluded_user_hosts => {
+                            if !fields.insert(__FieldTag::__transaction_kill_excluded_user_hosts) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for transaction_kill_excluded_user_hosts",
+                                ));
+                            }
+                            result.transaction_kill_excluded_user_hosts = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__transaction_kill_type => {
+                            if !fields.insert(__FieldTag::__transaction_kill_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for transaction_kill_type",
+                                ));
+                            }
+                            result.transaction_kill_type = map.next_value::<std::option::Option<
+                                crate::model::performance_capture_config::TransactionKillType,
+                            >>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

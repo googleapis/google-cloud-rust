@@ -228,6 +228,21 @@ impl std::fmt::Debug for super::GoogleIamV1TestIamPermissionsResponse {
     }
 }
 
+impl std::fmt::Debug for super::GoogleLongrunningOperation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoogleLongrunningOperation");
+        debug_struct.field("done", &self.done);
+        debug_struct.field("error", &self.error);
+        debug_struct.field("metadata", &self.metadata);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("response", &self.response);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::ManagedZone {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ManagedZone");
@@ -967,6 +982,19 @@ impl std::fmt::Debug for super::ResponsePolicyRulesUpdateResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ResponsePolicyRulesUpdateResponse");
         debug_struct.field("response_policy_rule", &self.response_policy_rule);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::Status {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Status");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("details", &self.details);
+        debug_struct.field("message", &self.message);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
