@@ -5988,6 +5988,7 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "futures",
+ "google-cloud-bigquery",
  "google-cloud-bigquery-v2",
  "google-cloud-gax",
  "google-cloud-test-utils",
