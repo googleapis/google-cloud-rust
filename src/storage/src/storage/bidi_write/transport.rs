@@ -82,6 +82,15 @@ impl AppendableObjectWriterTransport {
             persisted_size = *s;
         }
 
+        let mut crc32c_persisted = 0;
+        if let Some(crc) = initial
+            .persisted_data_checksums
+            .as_ref()
+            .and_then(|c| c.crc32c)
+        {
+            crc32c_persisted = crc;
+        }
+
         let (tx, rx) = tokio::sync::mpsc::channel(100);
         let worker = super::worker::Worker::new(connector);
         tokio::spawn(worker.run(connection, rx));
@@ -91,7 +100,7 @@ impl AppendableObjectWriterTransport {
             generation,
             persisted_size,
             write_offset: persisted_size,
-            crc32c_persisted: 0,
+            crc32c_persisted,
         })
     }
 }
@@ -224,7 +233,7 @@ mod tests {
         let intent = rx.recv().await.unwrap();
         if let UploadIntent::Append(req) = intent {
             assert_eq!(req.write_offset, 0);
-            assert_eq!(req.finish_write, false);
+            assert!(!req.finish_write);
         } else {
             panic!("expected Append");
         }
@@ -232,7 +241,7 @@ mod tests {
         // Verify flush
         let intent = rx.recv().await.unwrap();
         if let UploadIntent::Flush(req, sender) = intent {
-            assert_eq!(req.flush, true);
+            assert!(req.flush);
             let resp = BidiWriteObjectResponse {
                 write_status: Some(WriteStatus::PersistedSize(5)),
                 ..Default::default()
@@ -245,7 +254,7 @@ mod tests {
         // Verify finalize
         let intent = rx.recv().await.unwrap();
         if let UploadIntent::Finalize(req, sender) = intent {
-            assert_eq!(req.finish_write, true);
+            assert!(req.finish_write);
             let object = Object {
                 bucket: "projects/_/buckets/test-bucket".into(),
                 name: "test-object".into(),
@@ -410,6 +419,10 @@ mod tests {
 
         let initial_response = BidiWriteObjectResponse {
             write_status: Some(WriteStatus::PersistedSize(1024)),
+            persisted_data_checksums: Some(crate::google::storage::v2::ObjectChecksums {
+                crc32c: Some(9999),
+                md5_hash: vec![].into(),
+            }),
             ..Default::default()
         };
         tx1.send(Ok(initial_response)).await?;
@@ -419,6 +432,7 @@ mod tests {
         assert_eq!(transport.generation(), 123456);
         assert_eq!(transport.persisted_size(), 1024);
         assert_eq!(transport.write_offset, 1024);
+        assert_eq!(transport.crc32c_persisted, 9999);
         Ok(())
     }
 }

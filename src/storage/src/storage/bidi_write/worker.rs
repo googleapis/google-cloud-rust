@@ -144,6 +144,12 @@ where
     pub fn handle_response_success(&mut self, response: BidiWriteObjectResponse) {
         if let Some(sender) = self.pending_flushes.pop_front() {
             let _ = sender.send(Ok(response));
+        } else {
+            // Log unprompted server responses.
+            tracing::debug!(
+                "Received unprompted BidiWriteObjectResponse from server: {:?}",
+                response
+            );
         }
     }
 }
@@ -202,7 +208,7 @@ mod tests {
 
         // The worker should send the request to the stream.
         let stream_req = request_rx.recv().await.unwrap();
-        assert_eq!(stream_req.flush, true);
+        assert!(stream_req.flush);
 
         // The server responds
         let server_resp = BidiWriteObjectResponse {

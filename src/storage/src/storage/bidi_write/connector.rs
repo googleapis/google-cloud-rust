@@ -125,7 +125,9 @@ where
             routing_token: req.routing_token,
             if_metageneration_match: req.if_metageneration_match,
             if_metageneration_not_match: req.if_metageneration_not_match,
-            ..Default::default()
+            write_handle: req
+                .write_handle
+                .map(|handle| crate::google::storage::v2::BidiWriteHandle { handle }),
         };
         self.params = req.params.map(|p| p.to_proto().expect("valid params"));
         *self.spec.lock().expect("never poisoned") = AppendObjectSpecState::Append(spec);
@@ -522,7 +524,7 @@ mod tests {
             if_metageneration_match: None,
             if_metageneration_not_match: None,
             params: None,
-            write_handle: None,
+            write_handle: Some(bytes::Bytes::from_static(b"test-write-handle")),
         };
 
         let mut connector = Connector::new(test_options(), client);
@@ -543,6 +545,10 @@ mod tests {
         assert_eq!(spec.bucket.as_str(), "projects/_/buckets/test-bucket");
         assert_eq!(spec.object.as_str(), "test-object");
         assert_eq!(spec.generation, 345678);
+        assert_eq!(
+            spec.write_handle.as_ref().map(|h| h.handle.clone()),
+            Some(bytes::Bytes::from_static(b"test-write-handle"))
+        );
         Ok(())
     }
 
