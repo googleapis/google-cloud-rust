@@ -707,6 +707,68 @@ mod tests {
         Ok(())
     }
 
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[tokio::test]
+    async fn open_appendable_object() -> anyhow::Result<()> {
+        use gaxi::grpc::tonic::Status as TonicStatus;
+        use google_cloud_gax::error::rpc::Code;
+        use storage_grpc_mock::{MockStorage, start};
+
+        let mut mock = MockStorage::new();
+        mock.expect_bidi_write_object()
+            .return_once(|_| Err(TonicStatus::not_found("not here")));
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+
+        let client = crate::client::Storage::builder()
+            .with_credentials(Anonymous::new().build())
+            .with_endpoint(endpoint.clone())
+            .with_tracing()
+            .build()
+            .await?;
+        let response = client
+            .open_appendable_object("projects/_/buckets/test-bucket", "test-object")
+            .send()
+            .await;
+        assert!(
+            matches!(response, Err(ref e) if e.status().is_some_and(|s| s.code == Code::NotFound)),
+            "{response:?}"
+        );
+
+        // Tracing is deferred to PR 5, so we don't check `client_request_span` here yet.
+        Ok(())
+    }
+
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[tokio::test]
+    async fn reopen_appendable_object() -> anyhow::Result<()> {
+        use gaxi::grpc::tonic::Status as TonicStatus;
+        use google_cloud_gax::error::rpc::Code;
+        use storage_grpc_mock::{MockStorage, start};
+
+        let mut mock = MockStorage::new();
+        mock.expect_bidi_write_object()
+            .return_once(|_| Err(TonicStatus::not_found("not here")));
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+
+        let client = crate::client::Storage::builder()
+            .with_credentials(Anonymous::new().build())
+            .with_endpoint(endpoint.clone())
+            .with_tracing()
+            .build()
+            .await?;
+        let response = client
+            .reopen_appendable_object("projects/_/buckets/test-bucket", "test-object", 12345)
+            .send()
+            .await;
+        assert!(
+            matches!(response, Err(ref e) if e.status().is_some_and(|s| s.code == Code::NotFound)),
+            "{response:?}"
+        );
+
+        // Tracing is deferred to PR 5, so we don't check `client_request_span` here yet.
+        Ok(())
+    }
+
     #[track_caller]
     fn check_debug_log(captured: &Vec<CapturedSpan>, method: &'static str) {
         let span = captured

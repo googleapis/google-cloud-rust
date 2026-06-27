@@ -84,11 +84,13 @@ impl<S> OpenAppendableObject<S> {
         O: Into<String>,
     {
         let request = OpenAppendableObjectRequest {
-            spec: crate::model::WriteObjectSpec::default().set_resource(
-                crate::model::Object::new()
-                    .set_bucket(bucket.into())
-                    .set_name(object.into()),
-            ),
+            spec: crate::model::WriteObjectSpec::default()
+                .set_appendable(true)
+                .set_resource(
+                    crate::model::Object::new()
+                        .set_bucket(bucket.into())
+                        .set_name(object.into()),
+                ),
             params: None,
         };
         Self {
@@ -101,9 +103,6 @@ impl<S> OpenAppendableObject<S> {
     /// Makes the operation conditional on whether the object's live generation
     /// matches the given value.
     pub fn set_if_generation_match(mut self, v: i64) -> Self {
-        if let Some(res) = &mut self.request.spec.resource {
-            *res = res.clone().set_generation(v);
-        }
         self.request.spec.if_generation_match = Some(v);
         self
     }
