@@ -143,7 +143,7 @@ async fn test_bidi_write_poison_stream(client: &Storage, bucket: &str) -> anyhow
     // Explicitly drop the writer without finalizing or closing, poisoning the stream.
     drop(writer);
 
-    // Give the server a moment to recognize the dropped connection (not strictly necessary but good practice)
+    // Give the server a moment to recognize the dropped connection.
     tokio::time::sleep(std::time::Duration::from_millis(500)).await;
 
     // Reopen using the generation
