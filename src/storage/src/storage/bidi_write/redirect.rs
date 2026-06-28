@@ -36,7 +36,7 @@ pub fn handle_redirect(state: Arc<Mutex<AppendObjectSpecState>>, status: Status)
     {
         let mut guard = state.lock().expect("never poisoned");
 
-        let (bucket, object) = match &*guard {
+        let new_state = match &*guard {
             AppendObjectSpecState::Write(spec) => {
                 let bucket = spec
                     .resource
@@ -48,28 +48,29 @@ pub fn handle_redirect(state: Arc<Mutex<AppendObjectSpecState>>, status: Status)
                     .as_ref()
                     .map(|r| r.name.clone())
                     .unwrap_or_default();
-                (bucket, object)
+                let new_spec = AppendObjectSpec {
+                    bucket,
+                    object,
+                    generation: redirect.generation.unwrap_or(0),
+                    if_metageneration_match: spec.if_metageneration_match,
+                    if_metageneration_not_match: spec.if_metageneration_not_match,
+                    routing_token: redirect.routing_token,
+                    write_handle: redirect.write_handle,
+                };
+                AppendObjectSpecState::Append(new_spec)
             }
-            AppendObjectSpecState::Append(spec) => (spec.bucket.clone(), spec.object.clone()),
+            AppendObjectSpecState::Append(spec) => {
+                let mut new_spec = spec.clone();
+                new_spec.routing_token = redirect.routing_token;
+                new_spec.write_handle = redirect.write_handle;
+                if let Some(g) = redirect.generation {
+                    new_spec.generation = g;
+                }
+                AppendObjectSpecState::Append(new_spec)
+            }
         };
 
-        let mut new_spec = AppendObjectSpec {
-            bucket,
-            object,
-            generation: redirect.generation.unwrap_or(0),
-            routing_token: redirect.routing_token,
-            write_handle: redirect.write_handle,
-            ..Default::default()
-        };
-
-        if let AppendObjectSpecState::Append(old_spec) = &*guard
-            && redirect.generation.is_none()
-        {
-            new_spec.generation = old_spec.generation;
-        }
-
-        *guard = AppendObjectSpecState::Append(new_spec);
-        break;
+        *guard = new_state;
     }
     to_gax_error(status)
 }
@@ -136,7 +137,8 @@ mod tests {
             write_handle: Some(BidiWriteHandle {
                 handle: bytes::Bytes::from_static(b"initial-handle"),
             }),
-            ..Default::default()
+            if_metageneration_match: Some(10),
+            if_metageneration_not_match: Some(20),
         };
         let state = Arc::new(Mutex::new(AppendObjectSpecState::Append(spec)));
 
@@ -147,6 +149,49 @@ mod tests {
             assert_eq!(spec.routing_token.as_deref(), routing);
             assert_eq!(spec.write_handle, write_handle);
             assert_eq!(spec.generation, 42);
+            assert_eq!(spec.if_metageneration_match, Some(10));
+            assert_eq!(spec.if_metageneration_not_match, Some(20));
+        } else {
+            panic!("Expected AppendObjectSpecState::Append");
+        }
+    }
+
+    #[test]
+    fn preserves_preconditions_on_write() {
+        use crate::google::storage::v2::WriteObjectSpec;
+        let redirect = BidiWriteObjectRedirectedError {
+            routing_token: Some("new-routing".to_string()),
+            write_handle: Some(BidiWriteHandle {
+                handle: bytes::Bytes::from_static(b"new-handle"),
+            }),
+            generation: Some(42),
+        };
+        let redirect = prost_types::Any::from_msg(&redirect).unwrap();
+        let status = RpcStatus {
+            code: Code::Aborted as i32,
+            message: "test-only".to_string(),
+            details: vec![redirect],
+        };
+        let details = bytes::Bytes::from_owner(status.encode_to_vec());
+        let status = Status::with_details(Code::Aborted, "test-only", details);
+
+        let write_spec = WriteObjectSpec {
+            if_metageneration_match: Some(11),
+            if_metageneration_not_match: Some(22),
+            ..Default::default()
+        };
+        let state = Arc::new(Mutex::new(AppendObjectSpecState::Write(Box::new(
+            write_spec,
+        ))));
+
+        let got = handle_redirect(state.clone(), status);
+        assert!(got.status().is_some(), "{got:?}");
+        let guard = state.lock().expect("not poisoned");
+        if let AppendObjectSpecState::Append(ref spec) = *guard {
+            assert_eq!(spec.routing_token.as_deref(), Some("new-routing"));
+            assert_eq!(spec.generation, 42);
+            assert_eq!(spec.if_metageneration_match, Some(11));
+            assert_eq!(spec.if_metageneration_not_match, Some(22));
         } else {
             panic!("Expected AppendObjectSpecState::Append");
         }
