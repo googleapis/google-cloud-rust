@@ -12,9 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub mod client;
-pub mod database;
-pub mod dml;
-pub mod mutation;
-pub mod query;
-pub mod read;
+pub mod dml_insert;
+pub mod dml_update;
+pub mod pg_dml_insert;
+pub mod pg_dml_update;

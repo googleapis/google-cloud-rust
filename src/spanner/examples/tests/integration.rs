@@ -22,7 +22,7 @@ mod tests {
     use google_cloud_spanner::statement::Statement;
     use google_cloud_spanner_admin_database_v1::model::DatabaseDialect;
     use google_cloud_test_utils::errors::anydump;
-    use spanner_samples::{database, mutation, query, read};
+    use spanner_samples::{database, dml, mutation, query, read};
 
     /// Macro to define sample integration tests, managing database
     /// provisioning and automatic teardown.
@@ -61,6 +61,11 @@ mod tests {
                 .await
                 .inspect_err(anydump)?;
 
+            // 1b. Test spanner_dml_getting_started_insert sample
+            dml::dml_insert::sample(client)
+                .await
+                .inspect_err(anydump)?;
+
             // 2. Test spanner_query_data sample
             query::query_data::sample(client)
                 .await
@@ -86,6 +91,11 @@ mod tests {
                 .await
                 .inspect_err(anydump)?;
 
+            // 6b. Test spanner_dml_getting_started_update sample
+            dml::dml_update::sample(client)
+                .await
+                .inspect_err(anydump)?;
+
             // 7. Test spanner_query_data_with_new_column sample
             query::query_new_column::sample(client)
                 .await
@@ -97,6 +107,11 @@ mod tests {
         async fn postgresql_samples(client: &DatabaseClient, ctx: &TestDatabaseContext) -> anyhow::Result<()> [dialect = DatabaseDialect::Postgresql] {
             // 1. Test spanner_insert_data sample (mutations are dialect-agnostic)
             mutation::insert_data::sample(client)
+                .await
+                .inspect_err(anydump)?;
+
+            // 1b. Test spanner_postgresql_dml_getting_started_insert sample
+            dml::pg_dml_insert::sample(client)
                 .await
                 .inspect_err(anydump)?;
 
@@ -112,6 +127,11 @@ mod tests {
 
             // 4. Test spanner_update_data sample
             mutation::update_data::sample(client)
+                .await
+                .inspect_err(anydump)?;
+
+            // 4b. Test spanner_postgresql_dml_getting_started_update sample
+            dml::pg_dml_update::sample(client)
                 .await
                 .inspect_err(anydump)?;
 
