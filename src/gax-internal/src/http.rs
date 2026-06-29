@@ -809,7 +809,7 @@ mod tests {
 
     // Verify `builder()` appends the path to any path in the endpoint URL.
     //
-    // This behavior is not documented, and it may change in the future. Nonethless, we want to
+    // This behavior is not documented, and it may change in the future. Nonetheless, we want to
     // avoid behavioral breaking changes unless we have good reason to, and this is easy enough to
     // preserve.
     // #[test_case("http://t0.com", "v1/projects/p", "/v1/projects/p")]
