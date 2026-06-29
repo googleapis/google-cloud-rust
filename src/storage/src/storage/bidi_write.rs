@@ -83,9 +83,6 @@ impl Client for gaxi::grpc::Client {
 }
 
 #[cfg(test)]
-
-
-#[cfg(test)]
 pub(crate) mod tests {
     use crate::Error;
     use crate::google::storage::v2::{BidiWriteHandle, BidiWriteObjectRedirectedError};
