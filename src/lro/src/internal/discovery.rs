@@ -62,6 +62,20 @@ pub trait DiscoveryOperation {
     }
 }
 
+impl<T: DiscoveryOperation + ?Sized> DiscoveryOperation for &T {
+    fn done(&self) -> bool {
+        (*self).done()
+    }
+
+    fn name(&self) -> Option<&String> {
+        (*self).name()
+    }
+
+    fn error(&self) -> Option<Status> {
+        (*self).error()
+    }
+}
+
 // Instrumented LRO futures can get very large and cause stack overflows
 // (especially when nested decorators are used for tracing), so we box them.
 // The performance impact of moving these to the heap is negligible because
