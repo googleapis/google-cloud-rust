@@ -1,4 +1,4 @@
-// Copyright 2025 Google LLC
+// Copyright 2026 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ pub async fn run(bucket_name: &str) -> anyhow::Result<()> {
     test_bidi_write_single_block(&client, bucket_name).await?;
     test_bidi_write_chunked_appends(&client, bucket_name).await?;
     test_bidi_write_resume_append(&client, bucket_name).await?;
-    test_bidi_write_poison_stream(&client, bucket_name).await?;
+    test_bidi_write_drop_stream(&client, bucket_name).await?;
     Ok(())
 }
 
@@ -104,7 +104,7 @@ async fn test_bidi_write_resume_append(client: &Storage, bucket: &str) -> anyhow
     let persisted_size = writer.close().await?;
     assert_eq!(persisted_size, 6);
 
-    // Reopen
+    // Reopen.
     let mut writer2 = client
         .reopen_appendable_object(bucket, &object_name, generation)
         .send()
@@ -121,12 +121,15 @@ async fn test_bidi_write_resume_append(client: &Storage, bucket: &str) -> anyhow
     Ok(())
 }
 
-async fn test_bidi_write_poison_stream(client: &Storage, bucket: &str) -> anyhow::Result<()> {
+async fn test_bidi_write_drop_stream(client: &Storage, bucket: &str) -> anyhow::Result<()> {
+    // Test reopen and finalize after a dropped connection. We'll append some
+    // data and drop the connection without flushing or finalizing. Since we
+    // didn't flush the data, it may or may not be persisted.
     let now = SystemTime::now()
         .duration_since(SystemTime::UNIX_EPOCH)
         .unwrap()
         .as_nanos();
-    let object_name = format!("test_bidi_write_poison_stream_{now}");
+    let object_name = format!("test_bidi_write_drop_stream_{now}");
 
     let mut writer = client
         .open_appendable_object(bucket, &object_name)
@@ -134,37 +137,36 @@ async fn test_bidi_write_poison_stream(client: &Storage, bucket: &str) -> anyhow
         .await?;
 
     writer.append(Bytes::from("hello ")).await?;
-    writer.flush().await?; // Ensure we get the generation by flushing at least once
     let generation = writer.generation();
     writer
-        .append(Bytes::from("poison data that won't be flushed"))
+        .append(Bytes::from("data that won't be flushed"))
         .await?;
 
-    // Explicitly drop the writer without finalizing or closing, poisoning the stream.
+    // Explicitly drop the writer without flush/finalize/close.
     drop(writer);
 
     // Give the server a moment to recognize the dropped connection.
     tokio::time::sleep(std::time::Duration::from_millis(500)).await;
 
-    // Reopen using the generation
+    // Reopen using the generation.
     let mut writer2 = client
         .reopen_appendable_object(bucket, &object_name, generation)
         .send()
         .await?;
 
+    // We only flushed "hello " (6 bytes). The data may or may not have
+    // been persisted, so the persisted size must be at least 6.
     assert!(writer2.persisted_size() >= 6);
 
-    // We only flushed "hello ", so persisted size might be 6 (though the server might have acked the rest, let's just assert it succeeds in reopening and we can append more).
     writer2.append(Bytes::from("world")).await?;
     let object_metadata = writer2.finalize().await?;
 
-    // Since we didn't flush the poison data, it may or may not be there. GCS makes no guarantees about unflushed data on disconnect.
-    // The main test is that we can successfully reopen and finalize after a dropped connection.
     assert!(object_metadata.size >= 11);
     assert_eq!(object_metadata.name, object_name);
 
-    // We can't strictly check exact contents because the poison data may or may not have been persisted,
-    // but we know it starts with "hello " and ends with "world".
+    // We can't strictly check exact contents because the data may or may not
+    // have been persisted, but we know it starts with "hello " and ends with
+    // "world".
     let mut resp = client.read_object(bucket, &object_name).send().await?;
     let mut buf = Vec::new();
     while let Some(chunk) = resp.next().await {

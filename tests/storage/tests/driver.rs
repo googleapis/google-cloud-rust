@@ -115,7 +115,7 @@ mod storage {
     #[tokio::test(flavor = "multi_thread")]
     async fn run_storage_bidi() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        let (control, bucket) = integration_tests_storage::create_test_bucket()
+        let (control, bucket) = integration_tests_storage::create_test_hns_bucket()
             .await
             .inspect_err(anydump)?;
         let result = integration_tests_storage::bidi_read::run(&bucket.name)
