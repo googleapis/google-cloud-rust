@@ -1,5 +1,4 @@
-// Copyright 2025 Google LLC
-#![allow(dead_code)]
+// Copyright 2026 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -104,6 +103,7 @@ where
                             }
                         }
                         Some(UploadIntent::Finalize(request, sender)) => {
+                            self.finalized = true;
                             self.pending_flushes.push_back(sender);
                             if let Err(e) = tx.send(request).await {
                                 break Some(Arc::new(crate::Error::io(e)));
@@ -133,7 +133,14 @@ where
     ) -> Option<LoopResult<Option<Connection<C::Stream>>>> {
         let response = match message {
             Ok(Some(msg)) => msg,
-            Ok(None) => return None,
+            Ok(None) => {
+                if !self.pending_flushes.is_empty() {
+                    return Some(Err(Arc::new(crate::Error::io(
+                        "stream closed unexpectedly",
+                    ))));
+                }
+                return None;
+            }
             Err(e) => return Some(Err(Arc::new(crate::Error::io(e)))),
         };
         self.handle_response_success(response);
@@ -156,7 +163,7 @@ where
 
 #[cfg(test)]
 mod tests {
-    use super::super::mocks::{MockTestClient, mock_connector, mock_stream};
+    use super::super::mocks::{MockTestClient, mock_connector};
     use super::*;
     use crate::google::storage::v2::{
         BidiWriteObjectRequest, BidiWriteObjectResponse, bidi_write_object_response::WriteStatus,
@@ -167,7 +174,7 @@ mod tests {
     #[tokio::test]
     async fn run_immediately_closed() -> anyhow::Result<()> {
         let (request_tx, _request_rx) = mpsc::channel(1);
-        let (response_tx, response_rx) = mock_stream();
+        let (response_tx, response_rx) = mpsc::channel(10);
         let (tx, rx) = mpsc::channel(1);
         let connection = Connection::new(request_tx, response_rx);
 
@@ -187,7 +194,7 @@ mod tests {
     #[tokio::test]
     async fn run_flush_response() -> anyhow::Result<()> {
         let (request_tx, mut request_rx) = mpsc::channel(1);
-        let (response_tx, response_rx) = mock_stream();
+        let (response_tx, response_rx) = mpsc::channel(10);
         let (tx, rx) = mpsc::channel(1);
         let connection = Connection::new(request_tx, response_rx);
 
@@ -230,7 +237,7 @@ mod tests {
     #[tokio::test]
     async fn run_stop_on_closed_requests() -> anyhow::Result<()> {
         let (request_tx, _request_rx) = mpsc::channel(1);
-        let (_response_tx, response_rx) = mock_stream();
+        let (_response_tx, response_rx) = mpsc::channel(10);
         let (tx, rx) = mpsc::channel(1);
         let connection = Connection::new(request_tx, response_rx);
 

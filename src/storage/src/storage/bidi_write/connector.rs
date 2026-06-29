@@ -1,5 +1,4 @@
-// Copyright 2025 Google LLC
-#![allow(dead_code)]
+// Copyright 2026 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -99,7 +98,6 @@ where
             }
             None => None,
         };
-        self.params = req.params.map(|p| p.to_proto().expect("valid params"));
         let spec = WriteObjectSpec {
             resource,
             predefined_acl: req.spec.predefined_acl,
@@ -110,6 +108,10 @@ where
             object_size: req.spec.object_size,
             appendable: req.spec.appendable,
         };
+        self.params = req
+            .params
+            .map(|p| p.to_proto().map_err(|e| Error::io(e.to_string())))
+            .transpose()?;
         *self.spec.lock().expect("never poisoned") = AppendObjectSpecState::Write(Box::new(spec));
         self.connect_attempt_loop().await
     }
@@ -129,7 +131,10 @@ where
                 .write_handle
                 .map(|handle| crate::google::storage::v2::BidiWriteHandle { handle }),
         };
-        self.params = req.params.map(|p| p.to_proto().expect("valid params"));
+        self.params = req
+            .params
+            .map(|p| p.to_proto().map_err(|e| Error::io(e.to_string())))
+            .transpose()?;
         *self.spec.lock().expect("never poisoned") = AppendObjectSpecState::Append(spec);
         self.connect_attempt_loop().await
     }
@@ -211,21 +216,16 @@ where
             return Err(crate::Error::binding(mismatch));
         }
 
-        let x_goog_request_params = request
-            .first_message
-            .as_ref()
-            .and_then(|m| match m {
-                FirstMessage::WriteObjectSpec(_) => None, // WriteObjectSpec doesn't have routing_token
-                FirstMessage::AppendObjectSpec(s) => s.routing_token.as_deref(),
-                _ => None,
-            })
-            .into_iter()
-            .fold(format!("bucket={bucket_name}"), |s, token| {
-                s + &format!("&routing_token={token}")
-            });
+        let mut x_goog_request_params = format!("bucket={bucket_name}");
+        if let Some(FirstMessage::AppendObjectSpec(s)) = &request.first_message {
+            if let Some(token) = &s.routing_token {
+                x_goog_request_params.push_str("&routing_token=");
+                x_goog_request_params.push_str(token);
+            }
+        }
 
         let (tx, rx) = tokio::sync::mpsc::channel::<BidiWriteObjectRequest>(100);
-        tx.send(request.clone()).await.map_err(Error::io)?;
+        tx.send(request).await.map_err(Error::io)?;
 
         let extensions = {
             let mut e = Extensions::new();
