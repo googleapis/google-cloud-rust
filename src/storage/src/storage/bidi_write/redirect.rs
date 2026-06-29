@@ -43,11 +43,14 @@ pub fn handle_redirect(spec: Arc<Mutex<AppendObjectSpec>>, status: Status) -> cr
     }
     to_gax_error(status)
 }
+
 /// Determine if an error is a redirect error.
 ///
-/// Per the `google.storage.v2` API contract, redirect payloads are only ever
-/// attached to an `ABORTED` status. Checking `Code::Aborted` first safely
-/// avoids the overhead of decoding `RpcStatus` details for other error codes.
+/// Redirect payloads are attached to an `ABORTED` status, as mentioned in
+/// the [gRPC documentation](https://docs.cloud.google.com/storage/docs/reference/rpc/google.storage.v2#bidiwriteobjectredirectederror).
+///
+/// Checking `Code::Aborted` first safely avoids the overhead of decoding
+/// `RpcStatus` details for other error codes.
 #[allow(dead_code)]
 pub fn is_redirect(error: &Error) -> bool {
     if error.status().is_none_or(|s| s.code != Code::Aborted) {
