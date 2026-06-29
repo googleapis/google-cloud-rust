@@ -133,11 +133,69 @@ mod tests {
     use crate::http::reqwest::{HeaderMap, HeaderValue, Method};
     use crate::options::ClientConfig;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+    use test_case::test_case;
 
     fn test_config() -> ClientConfig {
         let mut config = ClientConfig::default();
         config.cred = Some(Anonymous::default().build());
         config
+    }
+
+    // Verify `http_builder()` appends the path to any path in the endpoint URL.
+    //
+    // This behavior is not documented, and it may change in the future. Nonethless, we want to
+    // avoid behavioral breaking changes unless we have good reason to, and this is easy enough to
+    // preserve.
+    #[test_case("http://t0.com", "v1/projects/p", "/v1/projects/p")]
+    #[test_case("http://t1.com/", "v1/projects/p", "/v1/projects/p")]
+    #[test_case("http://t2.com", "/v1/projects/p", "/v1/projects/p")]
+    #[test_case("http://t3.com/", "/v1/projects/p", "/v1/projects/p")]
+    #[test_case("http://t4.com/p1/p2", "v1/projects/p", "/p1/p2/v1/projects/p")]
+    #[test_case("http://t5.com/p1/p2/", "v1/projects/p", "/p1/p2/v1/projects/p")]
+    #[test_case("http://t6.com/p1/p2", "/v1/projects/p", "/p1/p2/v1/projects/p")]
+    #[test_case("http://t7.com/p1/p2/", "/v1/projects/p", "/p1/p2/v1/projects/p")]
+    #[tokio::test]
+    async fn http_builder_appends(
+        endpoint: &str,
+        path: &str,
+        want_path: &str,
+    ) -> anyhow::Result<()> {
+        let client = ReqwestClient::new(test_config(), endpoint).await?;
+        let request = client
+            .http_builder(Method::GET, path)
+            .build_for_tests()
+            .await?;
+        assert_eq!(request.url().path(), want_path, "{request:?}");
+        assert!(request.url().query().is_none(), "{request:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn escape_path() -> anyhow::Result<()> {
+        let client = ReqwestClient::new(test_config(), "http://example.com").await?;
+        let request = client
+            .http_builder(Method::GET, "/path?$httpMethod=DELETE")
+            .build_for_tests()
+            .await?;
+        assert_eq!(
+            request.url().path(),
+            "/path%3F$httpMethod=DELETE",
+            "{request:?}"
+        );
+        assert!(request.url().query().is_none(), "{request:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn bad_url() -> anyhow::Result<()> {
+        let client = ReqwestClient::new(test_config(), "http://example.com").await?;
+        let request =
+            client.http_builder_with_url(Method::GET, "bad-bad-bad", "http://localhost:1");
+        assert!(
+            matches!(request, Err(ref e) if e.is_binding()),
+            "{request:?}"
+        );
+        Ok(())
     }
 
     #[tokio::test]

@@ -3017,7 +3017,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gax-internal"
-version = "0.7.14"
+version = "0.7.15"
 dependencies = [
  "anyhow",
  "bytes",
@@ -5942,6 +5942,7 @@ dependencies = [
  "reqwest 0.13.4",
  "serde",
  "serde_json",
+ "test-case",
  "tokio",
  "tracing",
 ]

@@ -128,7 +128,7 @@ mod tests {
         let server = Server::run();
         server.expect(
             Expectation::matching(all_of![
-                request::method_path("GET", "//storage/v1/b/test-bucket/o/test-object"),
+                request::method_path("GET", "/storage/v1/b/test-bucket/o/test-object"),
                 request::query(url_decoded(contains(("alt", "media")))),
             ])
             .respond_with(

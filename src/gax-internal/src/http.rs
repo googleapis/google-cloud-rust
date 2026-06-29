@@ -28,6 +28,7 @@ use crate::as_inner::as_inner;
 use crate::attempt_info::AttemptInfo;
 use crate::observability::{HttpResultExt, RequestRecorder, create_http_attempt_span};
 use crate::universe_domain::DEFAULT_UNIVERSE_DOMAIN;
+use ::reqwest::Url;
 use google_cloud_auth::credentials::{
     Builder as CredentialsBuilder, CacheableResource, Credentials,
 };
@@ -61,7 +62,7 @@ const X_GOOG_USER_PROJECT: &str = "x-goog-user-project";
 pub struct ReqwestClient {
     inner: ::reqwest::Client,
     cred: Credentials,
-    endpoint: String,
+    url: Url,
     host: String,
     retry_policy: Arc<dyn RetryPolicy>,
     backoff_policy: Arc<dyn BackoffPolicy>,
@@ -102,11 +103,12 @@ impl ReqwestClient {
         .map_err(|e| e.client_builder())?;
         let service_endpoint = default_endpoint.replace(DEFAULT_UNIVERSE_DOMAIN, &universe_domain);
         let tracing_enabled = crate::options::tracing_enabled(&config);
-        let endpoint = config.endpoint.unwrap_or(service_endpoint);
+        let endpoint = config.endpoint.as_deref().unwrap_or(&service_endpoint);
+        let url = Url::parse(endpoint).map_err(BuilderError::transport)?;
         Ok(Self {
             inner,
             cred,
-            endpoint,
+            url,
             host,
             retry_policy: config.retry_policy.unwrap_or_else(|| {
                 Arc::new(
@@ -147,18 +149,21 @@ impl ReqwestClient {
     }
 
     pub fn builder(&self, method: Method, path: String) -> reqwest::RequestBuilder {
+        let url = self.endpoint_with_path(&path);
         self.inner
-            .request(method, format!("{}{path}", &self.endpoint))
+            .request(method, url)
             .header(::reqwest::header::HOST, &self.host)
     }
 
-    /// Creates a builder for a complete URL.
+    /// Creates a builder for a full URL.
     ///
     /// Most clients use a single endpoint for all requests. Therefore, the
     /// [builder()][Self::builder()] prepends the endpoint to a request path.
     /// The most notable exception is the storage client, which receives the URL
     /// for uploads dynamically, and needs to make requests to arbitrary URLs.
+    #[deprecated = "this is unsafe, as the URL may include path traversal tricks"]
     pub fn builder_with_url(&self, method: Method, url: &str) -> reqwest::RequestBuilder {
+        let url = reqwest::Url::parse(url).expect("a valid URL");
         self.inner.request(method, url)
     }
 
@@ -189,11 +194,22 @@ impl ReqwestClient {
     /// }
     /// ```
     pub fn http_builder(&self, method: Method, path: &str) -> HttpRequestBuilder {
+        let url = self.endpoint_with_path(path);
         let builder = self
             .inner
-            .request(method, format!("{}{path}", &self.endpoint))
+            .request(method, url)
             .header(::reqwest::header::HOST, &self.host);
         HttpRequestBuilder::new(self.clone(), builder)
+    }
+
+    fn endpoint_with_path(&self, path: &str) -> Url {
+        let mut url = self.url.clone();
+        match (url.path().ends_with('/'), path.starts_with('/')) {
+            (false, false) => url.set_path(&format!("{}/{}", url.path(), path)),
+            (true, true) => url.set_path(&format!("{}{}", url.path(), &path[1..])),
+            _ => url.set_path(&format!("{}{}", url.path(), path)),
+        }
+        url
     }
 
     /// Creates a builder for a plain HTTP request.
@@ -232,11 +248,12 @@ impl ReqwestClient {
         url: &str,
         default_endpoint: &str,
     ) -> Result<HttpRequestBuilder> {
+        let parsed_url = Url::parse(url).map_err(Error::binding)?;
         let host = crate::host::header(Some(url), default_endpoint, &self.universe_domain)
             .map_err(|e| e.gax())?;
         let builder = self
             .inner
-            .request(method, url)
+            .request(method, parsed_url)
             .header(::reqwest::header::HOST, &host);
 
         Ok(HttpRequestBuilder::new(self.clone(), builder))
@@ -764,6 +781,27 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn reqwest_client_new_bad_endpoint() {
+        let mut config = ClientConfig::default();
+        config.endpoint = Some("bad-bad-bad".into());
+        let result = ReqwestClient::new(config, "https://test.googleapis.com").await;
+        assert!(
+            matches!(result, Err(ref e) if e.is_transport()),
+            "{result:?}"
+        );
+    }
+
+    #[tokio::test]
+    async fn reqwest_client_new_bad_default_endpoint() {
+        let config = ClientConfig::default();
+        let result = ReqwestClient::new(config, "bad-bad-bad").await;
+        assert!(
+            matches!(result, Err(ref e) if e.is_transport()),
+            "{result:?}"
+        );
+    }
+
+    #[tokio::test]
     async fn reqwest_client_with_instrumentation() {
         let config = ClientConfig::default();
         let client = ReqwestClient::new(config, "https://test.googleapis.com")
@@ -804,6 +842,33 @@ mod tests {
         let client = ReqwestClient::new(config, "https://test.googleapis.com").await?;
         assert_eq!(client.host, expected_host);
 
+        Ok(())
+    }
+
+    // Verify `builder()` appends the path to any path in the endpoint URL.
+    //
+    // This behavior is not documented, and it may change in the future. Nonethless, we want to
+    // avoid behavioral breaking changes unless we have good reason to, and this is easy enough to
+    // preserve.
+    #[test_case("http://t0.com", "v1/projects/p", "/v1/projects/p")]
+    #[test_case("http://t1.com/", "v1/projects/p", "/v1/projects/p")]
+    #[test_case("http://t2.com", "/v1/projects/p", "/v1/projects/p")]
+    #[test_case("http://t3.com/", "/v1/projects/p", "/v1/projects/p")]
+    #[test_case("http://t4.com/p1/p2", "v1/projects/p", "/p1/p2/v1/projects/p")]
+    #[test_case("http://t5.com/p1/p2/", "v1/projects/p", "/p1/p2/v1/projects/p")]
+    #[test_case("http://t6.com/p1/p2", "/v1/projects/p", "/p1/p2/v1/projects/p")]
+    #[test_case("http://t7.com/p1/p2/", "/v1/projects/p", "/p1/p2/v1/projects/p")]
+    #[tokio::test]
+    async fn builder_appends(endpoint: &str, path: &str, want_path: &str) -> anyhow::Result<()> {
+        let mut config = ClientConfig::default();
+        config.cred = Some(Anonymous::new().build());
+        let client = ReqwestClient::new(config, endpoint).await?;
+        let builder = client.builder(Method::GET, path.to_string());
+        let request = client
+            .request(builder, &RequestOptions::default(), None)
+            .await?;
+        assert_eq!(request.url().path(), want_path, "{request:?}");
+        assert!(request.url().query().is_none(), "{request:?}");
         Ok(())
     }
 
@@ -875,6 +940,18 @@ mod tests {
 
         config.disable_automatic_decompression = false;
         let _client = ReqwestClient::new(config, "https://test.googleapis.com").await?;
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn builder_escapes_path() -> anyhow::Result<()> {
+        let mut config = ClientConfig::default();
+        config.cred = Some(Anonymous::new().build());
+        let client = ReqwestClient::new(config, "https://localhost:1").await?;
+        let builder = client.builder(Method::GET, "path?$httpMethod=DELETE".to_string());
+        let request = builder.build()?;
+        let url = request.url();
+        assert_eq!(url.path(), "/path%3F$httpMethod=DELETE", "{url:?}");
         Ok(())
     }
 
