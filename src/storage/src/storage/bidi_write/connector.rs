@@ -51,7 +51,7 @@ impl<S> Connection<S> {
 /// Represents the state of the initial request in the stream.
 #[derive(Clone, Debug)]
 pub enum AppendObjectSpecState {
-    Write(Box<WriteObjectSpec>),
+    Write(Box<WriteObjectSpec>, Option<String>),
     Append(AppendObjectSpec),
 }
 
@@ -79,7 +79,10 @@ where
 {
     pub fn new(options: RequestOptions, client: T) -> Self {
         Self {
-            spec: Arc::new(Mutex::new(AppendObjectSpecState::Write(Box::default()))),
+            spec: Arc::new(Mutex::new(AppendObjectSpecState::Write(
+                Box::default(),
+                None,
+            ))),
             options,
             client,
             params: None,
@@ -112,7 +115,8 @@ where
             .params
             .map(|p| p.to_proto().map_err(|e| Error::io(e.to_string())))
             .transpose()?;
-        *self.spec.lock().expect("never poisoned") = AppendObjectSpecState::Write(Box::new(spec));
+        *self.spec.lock().expect("never poisoned") =
+            AppendObjectSpecState::Write(Box::new(spec), None);
         self.connect_attempt_loop().await
     }
 
@@ -173,14 +177,22 @@ where
         options: &RequestOptions,
         params: Option<CommonObjectRequestParams>,
     ) -> Result<(BidiWriteObjectResponse, Connection<T::Stream>)> {
-        let first_message = match &*spec.lock().expect("never poisoned") {
-            AppendObjectSpecState::Write(spec) => FirstMessage::WriteObjectSpec(*spec.clone()),
-            AppendObjectSpecState::Append(spec) => FirstMessage::AppendObjectSpec(spec.clone()),
+        let (first_message, routing_token) = match &*spec.lock().expect("never poisoned") {
+            AppendObjectSpecState::Write(spec, rt) => {
+                (FirstMessage::WriteObjectSpec(*spec.clone()), rt.clone())
+            }
+            AppendObjectSpecState::Append(spec) => (
+                FirstMessage::AppendObjectSpec(spec.clone()),
+                spec.routing_token.clone(),
+            ),
         };
+
+        let state_lookup = matches!(first_message, FirstMessage::AppendObjectSpec(_));
 
         let request = BidiWriteObjectRequest {
             first_message: Some(first_message),
             common_object_request_params: params,
+            state_lookup,
             ..BidiWriteObjectRequest::default()
         };
 
@@ -217,11 +229,9 @@ where
         }
 
         let mut x_goog_request_params = format!("bucket={bucket_name}");
-        if let Some(FirstMessage::AppendObjectSpec(s)) = &request.first_message
-            && let Some(token) = &s.routing_token
-        {
+        if let Some(token) = routing_token {
             x_goog_request_params.push_str("&routing_token=");
-            x_goog_request_params.push_str(token);
+            x_goog_request_params.push_str(&token);
         }
 
         let (tx, rx) = tokio::sync::mpsc::channel::<BidiWriteObjectRequest>(100);
@@ -264,7 +274,7 @@ where
                 }
 
                 let new_state = match &*guard {
-                    AppendObjectSpecState::Write(s) => {
+                    AppendObjectSpecState::Write(s, _) => {
                         AppendObjectSpecState::Append(AppendObjectSpec {
                             bucket: s
                                 .resource
@@ -599,7 +609,7 @@ mod tests {
 
         let got = connector.spec.lock().expect("never poisoned").clone();
         match got {
-            AppendObjectSpecState::Write(_) => panic!("Should be Append"),
+            AppendObjectSpecState::Write(_, _) => panic!("Should be Append"),
             AppendObjectSpecState::Append(got) => {
                 assert_eq!(got.routing_token.as_deref(), Some("r1"));
             }

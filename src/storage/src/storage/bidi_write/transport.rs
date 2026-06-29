@@ -135,6 +135,7 @@ impl AppendableObjectWriter for AppendableObjectWriterTransport {
         let (sender, receiver) = oneshot::channel();
         let request = BidiWriteObjectRequest {
             flush: true,
+            state_lookup: true,
             write_offset: self.write_offset,
             ..BidiWriteObjectRequest::default()
         };

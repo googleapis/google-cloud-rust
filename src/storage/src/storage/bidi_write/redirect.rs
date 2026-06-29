@@ -37,27 +37,31 @@ pub fn handle_redirect(state: Arc<Mutex<AppendObjectSpecState>>, status: Status)
         let mut guard = state.lock().expect("never poisoned");
 
         let new_state = match &*guard {
-            AppendObjectSpecState::Write(spec) => {
-                let bucket = spec
-                    .resource
-                    .as_ref()
-                    .map(|r| r.bucket.clone())
-                    .unwrap_or_default();
-                let object = spec
-                    .resource
-                    .as_ref()
-                    .map(|r| r.name.clone())
-                    .unwrap_or_default();
-                let new_spec = AppendObjectSpec {
-                    bucket,
-                    object,
-                    generation: redirect.generation.unwrap_or(0),
-                    if_metageneration_match: spec.if_metageneration_match,
-                    if_metageneration_not_match: spec.if_metageneration_not_match,
-                    routing_token: redirect.routing_token,
-                    write_handle: redirect.write_handle,
-                };
-                AppendObjectSpecState::Append(new_spec)
+            AppendObjectSpecState::Write(spec, _) => {
+                if let Some(generation) = redirect.generation {
+                    let bucket = spec
+                        .resource
+                        .as_ref()
+                        .map(|r| r.bucket.clone())
+                        .unwrap_or_default();
+                    let object = spec
+                        .resource
+                        .as_ref()
+                        .map(|r| r.name.clone())
+                        .unwrap_or_default();
+                    let new_spec = AppendObjectSpec {
+                        bucket,
+                        object,
+                        generation,
+                        if_metageneration_match: spec.if_metageneration_match,
+                        if_metageneration_not_match: spec.if_metageneration_not_match,
+                        routing_token: redirect.routing_token,
+                        write_handle: redirect.write_handle,
+                    };
+                    AppendObjectSpecState::Append(new_spec)
+                } else {
+                    AppendObjectSpecState::Write(spec.clone(), redirect.routing_token)
+                }
             }
             AppendObjectSpecState::Append(spec) => {
                 let mut new_spec = spec.clone();
@@ -180,9 +184,10 @@ mod tests {
             if_metageneration_not_match: Some(22),
             ..Default::default()
         };
-        let state = Arc::new(Mutex::new(AppendObjectSpecState::Write(Box::new(
-            write_spec,
-        ))));
+        let state = Arc::new(Mutex::new(AppendObjectSpecState::Write(
+            Box::new(write_spec),
+            None,
+        )));
 
         let got = handle_redirect(state.clone(), status);
         assert!(got.status().is_some(), "{got:?}");
