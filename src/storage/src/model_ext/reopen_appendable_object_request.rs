@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(google_cloud_unstable_storage_bidi)]
 #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
 /// Represents the parameters of a request to reopen an existing object for appends.
 ///
@@ -38,7 +37,6 @@ pub struct ReopenAppendableObjectRequest {
     pub params: Option<crate::model::CommonObjectRequestParams>,
 }
 
-#[cfg(google_cloud_unstable_storage_bidi)]
 impl From<ReopenAppendableObjectRequest> for crate::google::storage::v2::AppendObjectSpec {
     fn from(value: ReopenAppendableObjectRequest) -> Self {
         Self {

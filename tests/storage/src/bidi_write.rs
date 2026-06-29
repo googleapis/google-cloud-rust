@@ -137,6 +137,7 @@ async fn test_bidi_write_drop_stream(client: &Storage, bucket: &str) -> anyhow::
         .await?;
 
     writer.append(Bytes::from("hello ")).await?;
+    writer.flush().await?;
     let generation = writer.generation();
     writer
         .append(Bytes::from("data that won't be flushed"))

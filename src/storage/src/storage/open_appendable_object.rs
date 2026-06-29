@@ -19,7 +19,6 @@ use crate::request_options::RequestOptions;
 use std::sync::Arc;
 use std::time::Duration;
 
-#[cfg(google_cloud_unstable_storage_bidi)]
 #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
 /// A request builder for [Storage::open_appendable_object][crate::client::Storage::open_appendable_object].
 ///
@@ -45,7 +44,6 @@ pub struct OpenAppendableObject<S = crate::storage::transport::Storage> {
     options: RequestOptions,
 }
 
-#[cfg(google_cloud_unstable_storage_bidi)]
 impl<S> OpenAppendableObject<S>
 where
     S: crate::storage::stub::Storage + 'static,
@@ -71,7 +69,6 @@ where
     }
 }
 
-#[cfg(google_cloud_unstable_storage_bidi)]
 impl<S> OpenAppendableObject<S> {
     pub(crate) fn new<B, O>(
         stub: std::sync::Arc<S>,

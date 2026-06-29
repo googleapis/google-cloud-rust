@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(google_cloud_unstable_storage_bidi)]
 #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
 /// Represents the parameters of a request to open a new object for exclusive appends.
 ///
