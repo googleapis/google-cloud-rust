@@ -35,10 +35,89 @@ mod compute {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_compute_lro_errors() -> anyhow::Result<()> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let _guard = google_cloud_test_utils::test_layer::TestLayer::initialize();
+        #[cfg(not(google_cloud_unstable_tracing))]
         let _guard = enable_tracing();
+
         integration_tests_discovery::lro_errors()
             .await
-            .inspect_err(anydump)
+            .inspect_err(anydump)?;
+
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let spans = google_cloud_test_utils::test_layer::TestLayer::capture(&_guard);
+
+            // 1. Assert on the "LRO Wait" (T2) span
+            let lro_wait_span = spans
+                .iter()
+                .find(|s| s.name == "LRO Wait")
+                .ok_or_else(|| anyhow::anyhow!("missing LRO Wait span in {spans:#?}"))?;
+
+            assert_eq!(
+                attribute_value_str(lro_wait_span, "otel.status_code"),
+                Some("ERROR".to_string())
+            );
+            assert!(
+                attribute_value_str(lro_wait_span, "otel.status_description")
+                    .unwrap_or_default()
+                    .contains("Quota 'CPUS_PER_VM_FAMILY' exceeded")
+            );
+            assert_eq!(
+                attribute_value_str(lro_wait_span, "error.type"),
+                Some("RESOURCE_EXHAUSTED".to_string())
+            );
+
+            // 2. Assert on the "client_request" (T3) span for get_operation
+            let get_op_span = spans
+                .iter()
+                .rfind(|s| {
+                    s.name == "client_request"
+                        && attribute_value_str(s, "rpc.method")
+                            == Some("google.cloud.compute.v1.instances/getOperation".to_string())
+                })
+                .ok_or_else(|| {
+                    anyhow::anyhow!("missing getOperation client_request span in {spans:#?}")
+                })?;
+
+            assert_eq!(
+                attribute_value_str(get_op_span, "gcp.longrunning.done"),
+                Some("true".to_string())
+            );
+            assert_eq!(
+                attribute_value_str(get_op_span, "gcp.longrunning.status_code"),
+                Some("8".to_string())
+            );
+            assert_eq!(
+                attribute_value_str(get_op_span, "otel.status_code"),
+                Some("ERROR".to_string())
+            );
+            assert!(
+                attribute_value_str(get_op_span, "otel.status_description")
+                    .unwrap_or_default()
+                    .contains("Quota 'CPUS_PER_VM_FAMILY' exceeded")
+            );
+            assert_eq!(
+                attribute_value_str(get_op_span, "error.type"),
+                Some("RESOURCE_EXHAUSTED".to_string())
+            );
+        }
+        Ok(())
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    fn attribute_value_str(
+        span: &google_cloud_test_utils::test_layer::CapturedSpan,
+        key: &str,
+    ) -> Option<String> {
+        use google_cloud_test_utils::test_layer::AttributeValue;
+        span.attributes.get(key).map(|v| match v {
+            AttributeValue::String(s) => s.to_string(),
+            AttributeValue::Boolean(b) => b.to_string(),
+            AttributeValue::Int64(i) => i.to_string(),
+            AttributeValue::UInt64(u) => u.to_string(),
+            AttributeValue::Double(d) => d.to_string(),
+        })
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
