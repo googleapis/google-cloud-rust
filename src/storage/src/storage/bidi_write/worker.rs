@@ -103,7 +103,6 @@ where
                             }
                         }
                         Some(UploadIntent::Finalize(request, sender)) => {
-                            self.finalized = true;
                             self.pending_flushes.push_back(sender);
                             if let Err(e) = tx.send(request).await {
                                 break Some(Arc::new(crate::Error::io(e)));

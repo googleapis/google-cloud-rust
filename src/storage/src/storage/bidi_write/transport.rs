@@ -34,7 +34,7 @@ pub struct AppendableObjectWriterTransport {
     generation: i64,
     persisted_size: i64,
     write_offset: i64,
-    crc32c_persisted: u32,
+    running_crc32c: u32,
 }
 
 impl AppendableObjectWriterTransport {
@@ -81,13 +81,13 @@ impl AppendableObjectWriterTransport {
             persisted_size = *s;
         }
 
-        let mut crc32c_persisted = 0;
+        let mut running_crc32c = 0;
         if let Some(crc) = initial
             .persisted_data_checksums
             .as_ref()
             .and_then(|c| c.crc32c)
         {
-            crc32c_persisted = crc;
+            running_crc32c = crc;
         }
 
         let (tx, rx) = tokio::sync::mpsc::channel(100);
@@ -99,7 +99,7 @@ impl AppendableObjectWriterTransport {
             generation,
             persisted_size,
             write_offset: persisted_size,
-            crc32c_persisted,
+            running_crc32c,
         })
     }
 }
@@ -109,7 +109,7 @@ impl AppendableObjectWriter for AppendableObjectWriterTransport {
         let length = chunk.len() as i64;
         let crc32c = crc32c::crc32c(&chunk);
 
-        let new_crc32c = crc32c::crc32c_append(self.crc32c_persisted, &chunk);
+        let new_crc32c = crc32c::crc32c_append(self.running_crc32c, &chunk);
 
         let request = BidiWriteObjectRequest {
             write_offset: self.write_offset,
@@ -126,7 +126,7 @@ impl AppendableObjectWriter for AppendableObjectWriterTransport {
             .map_err(|e| crate::Error::io(e.to_string()))?;
 
         self.write_offset += length;
-        self.crc32c_persisted = new_crc32c;
+        self.running_crc32c = new_crc32c;
 
         Ok(())
     }
@@ -163,7 +163,7 @@ impl AppendableObjectWriter for AppendableObjectWriterTransport {
             flush: true,
             write_offset: self.write_offset,
             object_checksums: Some(ObjectChecksums {
-                crc32c: Some(self.crc32c_persisted),
+                crc32c: Some(self.running_crc32c),
                 md5_hash: vec![].into(),
             }),
             ..BidiWriteObjectRequest::default()
@@ -216,7 +216,7 @@ mod tests {
         let transport = AppendableObjectWriterTransport {
             tx,
             write_offset: 0,
-            crc32c_persisted: 0,
+            running_crc32c: 0,
             generation: 123456,
             persisted_size: 0,
         };
@@ -335,7 +335,7 @@ mod tests {
         let mut transport = AppendableObjectWriterTransport {
             tx,
             write_offset: 0,
-            crc32c_persisted: 0,
+            running_crc32c: 0,
             generation: 123456,
             persisted_size: 0,
         };
@@ -350,7 +350,7 @@ mod tests {
 
         // Assert that state was NOT modified due to the error
         assert_eq!(transport.write_offset, 0);
-        assert_eq!(transport.crc32c_persisted, 0);
+        assert_eq!(transport.running_crc32c, 0);
 
         Ok(())
     }
@@ -361,7 +361,7 @@ mod tests {
         let transport = AppendableObjectWriterTransport {
             tx,
             write_offset: 0,
-            crc32c_persisted: 0,
+            running_crc32c: 0,
             generation: 123456,
             persisted_size: 0,
         };
@@ -431,7 +431,7 @@ mod tests {
         assert_eq!(transport.generation(), 123456);
         assert_eq!(transport.persisted_size(), 1024);
         assert_eq!(transport.write_offset, 1024);
-        assert_eq!(transport.crc32c_persisted, 9999);
+        assert_eq!(transport.running_crc32c, 9999);
         Ok(())
     }
 }

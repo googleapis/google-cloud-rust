@@ -20,7 +20,6 @@ use super::{Client, Receiver, RequestOptions, TonicStreaming};
 use crate::google::storage::v2::{BidiWriteObjectRequest, BidiWriteObjectResponse};
 use gaxi::grpc::tonic::{Extensions, Response as TonicResponse, Result as TonicResult};
 use std::sync::Arc;
-use tokio::sync::mpsc::Sender;
 
 // mockall mocks are not `Clone` and we need a thing that can be cloned.
 // The solution is to wrap the mock in a thing that implements the right
@@ -75,6 +74,8 @@ pub trait TestClient: std::fmt::Debug {
         request_params: &str,
     ) -> crate::Result<TonicResult<TonicResponse<MockStream>>>;
 }
+
+pub type MockStream = Receiver<TonicResult<BidiWriteObjectResponse>>;
 
 pub fn mock_connector(mock: MockTestClient) -> Connector<SharedMockClient> {
     let client = SharedMockClient::new(mock);

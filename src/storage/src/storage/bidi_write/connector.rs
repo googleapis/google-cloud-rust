@@ -217,11 +217,11 @@ where
         }
 
         let mut x_goog_request_params = format!("bucket={bucket_name}");
-        if let Some(FirstMessage::AppendObjectSpec(s)) = &request.first_message {
-            if let Some(token) = &s.routing_token {
-                x_goog_request_params.push_str("&routing_token=");
-                x_goog_request_params.push_str(token);
-            }
+        if let Some(FirstMessage::AppendObjectSpec(s)) = &request.first_message
+            && let Some(token) = &s.routing_token
+        {
+            x_goog_request_params.push_str("&routing_token=");
+            x_goog_request_params.push_str(token);
         }
 
         let (tx, rx) = tokio::sync::mpsc::channel::<BidiWriteObjectRequest>(100);

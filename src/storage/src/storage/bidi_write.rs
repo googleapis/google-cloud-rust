@@ -14,6 +14,8 @@
 
 //! Internal traits and types for Appendable Object Write (Bidi Write).
 
+#![allow(dead_code)]
+
 pub(crate) mod connector;
 mod redirect;
 mod retry_redirect;
