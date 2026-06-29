@@ -171,6 +171,34 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn escape_path() -> anyhow::Result<()> {
+        let client = ReqwestClient::new(test_config(), "http://example.com").await?;
+        let request = client
+            .http_builder(Method::GET, "/path?$httpMethod=DELETE")
+            .build_for_tests()
+            .await?;
+        assert_eq!(
+            request.url().path(),
+            "/path%3F$httpMethod=DELETE",
+            "{request:?}"
+        );
+        assert!(request.url().query().is_none(), "{request:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn bad_url() -> anyhow::Result<()> {
+        let client = ReqwestClient::new(test_config(), "http://example.com").await?;
+        let request =
+            client.http_builder_with_url(Method::GET, "bad-bad-bad", "http://localhost:1");
+        assert!(
+            matches!(request, Err(ref e) if e.is_binding()),
+            "{request:?}"
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn query() -> anyhow::Result<()> {
         let client = ReqwestClient::new(test_config(), "http://example.com").await?;
         let request = client
