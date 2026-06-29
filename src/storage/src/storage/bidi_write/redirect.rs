@@ -1,4 +1,4 @@
-// Copyright 2025 Google LLC
+// Copyright 2026 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -26,23 +26,28 @@ use std::sync::{Arc, Mutex};
 
 #[allow(dead_code)]
 pub fn handle_redirect(spec: Arc<Mutex<AppendObjectSpec>>, status: Status) -> crate::Error {
-    if let Ok(status) = RpcStatus::decode(status.details()) {
-        for d in status.details {
-            if let Ok(redirect) = d.to_msg::<BidiWriteObjectRedirectedError>() {
-                let mut guard = spec.lock().expect("never poisoned");
-                guard.routing_token = redirect.routing_token;
-                guard.write_handle = redirect.write_handle;
-                if let Some(generation) = redirect.generation {
-                    guard.generation = generation;
-                }
-                break;
-            }
+    let Ok(rpc_status) = RpcStatus::decode(status.details()) else {
+        return to_gax_error(status);
+    };
+    if let Some(redirect) = rpc_status
+        .details
+        .into_iter()
+        .find_map(|d| d.to_msg::<BidiWriteObjectRedirectedError>().ok())
+    {
+        let mut guard = spec.lock().expect("never poisoned");
+        guard.routing_token = redirect.routing_token;
+        guard.write_handle = redirect.write_handle;
+        if let Some(generation) = redirect.generation {
+            guard.generation = generation;
         }
     }
     to_gax_error(status)
 }
-
 /// Determine if an error is a redirect error.
+///
+/// Per the `google.storage.v2` API contract, redirect payloads are only ever
+/// attached to an `ABORTED` status. Checking `Code::Aborted` first safely
+/// avoids the overhead of decoding `RpcStatus` details for other error codes.
 #[allow(dead_code)]
 pub fn is_redirect(error: &Error) -> bool {
     if error.status().is_none_or(|s| s.code != Code::Aborted) {
