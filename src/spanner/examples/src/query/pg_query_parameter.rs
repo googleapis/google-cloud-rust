@@ -12,23 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// [START spanner_query_data]
+// [START spanner_postgresql_query_with_parameter]
 use google_cloud_spanner::client::DatabaseClient;
 use google_cloud_spanner::statement::Statement;
 
 pub async fn sample(client: &DatabaseClient) -> anyhow::Result<()> {
-    let statement = Statement::builder("SELECT SingerId, AlbumId, AlbumTitle FROM Albums").build();
+    let statement = Statement::builder(
+        r#"SELECT singerid AS "SingerId", firstname as "FirstName", lastname as "LastName"
+         FROM Singers
+         WHERE LastName = $1"#,
+    )
+    .add_param("p1", &"Garcia")
+    .build();
+
     let transaction = client.single_use().build();
     let mut result_set = transaction.execute_query(statement).await?;
 
-    println!("Listing albums:");
     while let Some(row) = result_set.next().await.transpose()? {
         let singer_id: i64 = row.get("SingerId");
-        let album_id: i64 = row.get("AlbumId");
-        let album_title: String = row.get("AlbumTitle");
-        println!("SingerId: {singer_id}, AlbumId: {album_id}, AlbumTitle: {album_title}");
+        let first_name: String = row.get("FirstName");
+        let last_name: String = row.get("LastName");
+        println!("{singer_id} {first_name} {last_name}");
     }
-    println!("Done listing albums.");
     Ok(())
 }
-// [END spanner_query_data]
+// [END spanner_postgresql_query_with_parameter]

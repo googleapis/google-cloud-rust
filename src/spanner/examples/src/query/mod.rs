@@ -12,4 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+pub mod pg_query_new_column;
+pub mod pg_query_parameter;
 pub mod query_data;
+pub mod query_new_column;
+pub mod query_parameter;
