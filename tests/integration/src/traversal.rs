@@ -20,16 +20,22 @@ mod tests {
     use google_cloud_workflows_v1::client::Workflows;
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use serde_json::json;
+    use test_case::test_case;
 
-    const INPUT_PATH: &str = "projects/p/locations/l/operations/o?$httpMethod=DELETE";
-    // Note the percent-encoding for the ? character. The `reqwest::Url` class only encodes the path
-    // characters that require encoding, in this case `?`. That is enough to disable any
-    // path-traversal shenanigans.
-    const WANT_PATH: &str = "/v1/projects/p/locations/l/operations/o%3F$httpMethod=DELETE";
-
+    // A `?` character should be percent-encoded to avoid treating it like a query parameter.
+    #[test_case(
+        "projects/p/locations/l/operations/o?$httpMethod=DELETE",
+        "/v1/projects/p/locations/l/operations/o%3F$httpMethod=DELETE"
+    )]
+    // A `%` character is passed through. The service is supposed to treat that as part of
+    // the path.
+    #[test_case(
+        "projects/p/locations/l/operations/o%3F$httpMethod=DELETE",
+        "/v1/projects/p/locations/l/operations/o%3F$httpMethod=DELETE"
+    )]
     #[tokio::test(flavor = "multi_thread")]
-    async fn traversal_is_prevented() -> anyhow::Result<()> {
-        let server = start();
+    async fn path_is_escaped(name: &str, want_path: &'static str) -> anyhow::Result<()> {
+        let server = start(want_path);
         let endpoint = server.url_str("/");
         let endpoint = endpoint.strip_suffix("/").expect("ends in /");
 
@@ -39,17 +45,34 @@ mod tests {
             .build()
             .await?;
 
-        let _ = client.get_operation().set_name(INPUT_PATH).send().await?;
+        let _ = client.get_operation().set_name(name).send().await?;
         Ok(())
     }
 
-    fn start() -> Server {
+    #[tokio::test(flavor = "multi_thread")]
+    async fn additional_components_are_rejected() -> anyhow::Result<()> {
+        let client = Workflows::builder()
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        // The generated code rejects any name with more components than expected.
+        let result = client
+            .list_operations()
+            .set_name("projects/p/locations/l/operations/too-much")
+            .send()
+            .await;
+        assert!(matches!(result, Err(ref e) if e.is_binding()), "{result:?}");
+        Ok(())
+    }
+
+    fn start(path: &'static str) -> Server {
         let server = Server::run();
 
         server.expect(
             Expectation::matching(all_of![
                 request::method("GET"),
-                request::path(WANT_PATH),
+                request::path(path),
                 request::query(url_decoded(contains(("$alt", "json;enum-encoding=int"))))
             ])
             .respond_with(json_encoded(json!({}))),
