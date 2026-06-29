@@ -62,7 +62,7 @@ const X_GOOG_USER_PROJECT: &str = "x-goog-user-project";
 pub struct ReqwestClient {
     inner: ::reqwest::Client,
     cred: Credentials,
-    url: ::reqwest::Url,
+    url: Url,
     host: String,
     retry_policy: Arc<dyn RetryPolicy>,
     backoff_policy: Arc<dyn BackoffPolicy>,
@@ -149,8 +149,7 @@ impl ReqwestClient {
     }
 
     pub fn builder(&self, method: Method, path: String) -> reqwest::RequestBuilder {
-        let mut url = self.url.clone();
-        url.set_path(&path);
+        let url = self.endpoint_with_path(&path);
         self.inner
             .request(method, url)
             .header(::reqwest::header::HOST, &self.host)
@@ -195,13 +194,22 @@ impl ReqwestClient {
     /// }
     /// ```
     pub fn http_builder(&self, method: Method, path: &str) -> HttpRequestBuilder {
-        let mut url = self.url.clone();
-        url.set_path(path);
+        let url = self.endpoint_with_path(path);
         let builder = self
             .inner
             .request(method, url)
             .header(::reqwest::header::HOST, &self.host);
         HttpRequestBuilder::new(self.clone(), builder)
+    }
+
+    fn endpoint_with_path(&self, path: &str) -> Url {
+        let mut url = self.url.clone();
+        match (url.path().ends_with('/'), path.starts_with('/')) {
+            (false, false) => url.set_path(&format!("{}/{}", url.path(), path)),
+            (true, true) => url.set_path(&format!("{}{}", url.path(), &path[1..])),
+            _ => url.set_path(&format!("{}{}", url.path(), path)),
+        }
+        url
     }
 
     /// Creates a builder for a plain HTTP request.
