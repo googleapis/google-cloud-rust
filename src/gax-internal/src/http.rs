@@ -850,14 +850,14 @@ mod tests {
     // This behavior is not documented, and it may change in the future. Nonethless, we want to
     // avoid behavioral breaking changes unless we have good reason to, and this is easy enough to
     // preserve.
-    // #[test_case("http://t0.com", "v1/projects/p", "/v1/projects/p")]
+    #[test_case("http://t0.com", "v1/projects/p", "/v1/projects/p")]
     #[test_case("http://t1.com/", "v1/projects/p", "/v1/projects/p")]
     #[test_case("http://t2.com", "/v1/projects/p", "/v1/projects/p")]
-    // #[test_case("http://t3.com/", "/v1/projects/p", "/v1/projects/p")]
-    // #[test_case("http://t4.com/p1/p2", "v1/projects/p", "/p1/p2/v1/projects/p")]
+    #[test_case("http://t3.com/", "/v1/projects/p", "/v1/projects/p")]
+    #[test_case("http://t4.com/p1/p2", "v1/projects/p", "/p1/p2/v1/projects/p")]
     #[test_case("http://t5.com/p1/p2/", "v1/projects/p", "/p1/p2/v1/projects/p")]
     #[test_case("http://t6.com/p1/p2", "/v1/projects/p", "/p1/p2/v1/projects/p")]
-    // #[test_case("http://t7.com/p1/p2/", "/v1/projects/p", "/p1/p2/v1/projects/p")]
+    #[test_case("http://t7.com/p1/p2/", "/v1/projects/p", "/p1/p2/v1/projects/p")]
     #[tokio::test]
     async fn builder_appends(endpoint: &str, path: &str, want_path: &str) -> anyhow::Result<()> {
         let mut config = ClientConfig::default();
