@@ -76,7 +76,7 @@ mod tests {
         fn intercept(&self, headers: &mut HeaderMap, attempt: u32) {
             headers.insert(
                 HeaderName::from_static("x-attempt"),
-                HeaderValue::from_str(&attempt.to_string()).unwrap(),
+                HeaderValue::from_str(&attempt.to_string()).expect("valid attempt number"),
             );
         }
     }
@@ -89,7 +89,12 @@ mod tests {
         };
         let mut headers = HeaderMap::new();
         interceptor.intercept(&mut headers, 1);
-        assert_eq!(headers.get("x-test").unwrap(), "hello");
+        assert_eq!(
+            headers
+                .get("x-test")
+                .expect("header x-test should be present"),
+            "hello"
+        );
     }
 
     #[test]
@@ -106,8 +111,18 @@ mod tests {
         ];
         let mut headers = HeaderMap::new();
         interceptors.intercept(&mut headers, 1);
-        assert_eq!(headers.get("x-first").unwrap(), "1");
-        assert_eq!(headers.get("x-second").unwrap(), "2");
+        assert_eq!(
+            headers
+                .get("x-first")
+                .expect("header x-first should be present"),
+            "1"
+        );
+        assert_eq!(
+            headers
+                .get("x-second")
+                .expect("header x-second should be present"),
+            "2"
+        );
     }
 
     #[test]
@@ -122,7 +137,12 @@ mod tests {
             value: "hello",
         });
         some_interceptor.intercept(&mut headers, 1);
-        assert_eq!(headers.get("x-test").unwrap(), "hello");
+        assert_eq!(
+            headers
+                .get("x-test")
+                .expect("header x-test should be present"),
+            "hello"
+        );
     }
 
     #[test]
@@ -130,6 +150,36 @@ mod tests {
         let interceptor = AppendAttemptInterceptor;
         let mut headers = HeaderMap::new();
         interceptor.intercept(&mut headers, 42);
-        assert_eq!(headers.get("x-attempt").unwrap(), "42");
+        assert_eq!(
+            headers
+                .get("x-attempt")
+                .expect("header x-attempt should be present"),
+            "42"
+        );
+    }
+
+    #[test]
+    fn test_dyn_interceptor() {
+        let interceptor: Arc<dyn AttemptInterceptor> = Arc::new(AddHeaderInterceptor {
+            name: "x-test",
+            value: "hello",
+        });
+        let mut headers = HeaderMap::new();
+        // This calls the intercept method on Arc<dyn AttemptInterceptor>
+        interceptor.intercept(&mut headers, 1);
+        assert_eq!(
+            headers
+                .get("x-test")
+                .expect("header x-test should be present"),
+            "hello"
+        );
+    }
+
+    fn assert_interceptor<I: AttemptInterceptor>(_interceptor: I) {}
+
+    #[test]
+    fn test_trait_bound() {
+        let interceptor: Option<Arc<dyn AttemptInterceptor>> = None;
+        assert_interceptor(interceptor);
     }
 }

@@ -203,7 +203,7 @@ mod tests {
             fn intercept(&self, headers: &mut HeaderMap, attempt: u32) {
                 headers.insert(
                     HeaderName::from_static("x-test-attempt"),
-                    HeaderValue::from_str(&attempt.to_string()).unwrap(),
+                    HeaderValue::from_str(&attempt.to_string()).expect("valid attempt number"),
                 );
             }
         }
