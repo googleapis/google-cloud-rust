@@ -101,6 +101,11 @@ mod tests {
                 .await
                 .inspect_err(anydump)?;
 
+            // 8. Test spanner_read_only_transaction sample
+            query::read_only_transaction::sample(client)
+                .await
+                .inspect_err(anydump)?;
+
             Ok(())
         }
 
@@ -137,6 +142,11 @@ mod tests {
 
             // 5. Test spanner_postgresql_query_data_with_new_column sample
             query::pg_query_new_column::sample(client)
+                .await
+                .inspect_err(anydump)?;
+
+            // 6. Test spanner_postgresql_read_only_transaction sample
+            query::pg_read_only_transaction::sample(client)
                 .await
                 .inspect_err(anydump)?;
 
