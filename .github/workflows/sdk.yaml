@@ -13,7 +13,7 @@
 # limitations under the License.
 
 name: Rust SDK
-permissions: read-all
+permissions: read-all # zizmor: ignore[excessive-permissions]
 on:
   push:
     branches: [main, 'release-*']
