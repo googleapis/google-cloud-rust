@@ -386,11 +386,10 @@ impl DatabaseClientBuilder {
 
 fn parse_project_id(database_name: &str) -> Option<&str> {
     let mut parts = database_name.split('/');
-    if parts.next() == Some("projects") {
-        parts.next()
-    } else {
-        None
+    if parts.next() != Some("projects") {
+        return None;
     }
+    parts.next()
 }
 
 #[cfg(test)]

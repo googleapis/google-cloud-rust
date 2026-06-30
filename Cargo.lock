@@ -4732,7 +4732,6 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-monitoring-v3",
  "google-cloud-rpc",
- "google-cloud-spanner",
  "google-cloud-spanner-admin-database-v1",
  "google-cloud-spanner-admin-instance-v1",
  "google-cloud-test-macros",
