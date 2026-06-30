@@ -53,6 +53,9 @@ pub mod retry_throttler;
 pub mod throttle_result;
 
 #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+pub mod attempt_interceptor_internal;
+
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
 #[allow(missing_docs)]
 pub mod retry_loop_internal;
 

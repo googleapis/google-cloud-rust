@@ -17,12 +17,15 @@ mod tests {
     use google_cloud_auth::credentials::{
         Credentials, anonymous::Builder as Anonymous, testing::error_credentials,
     };
+    use google_cloud_gax::attempt_interceptor_internal::AttemptInterceptor;
     use google_cloud_gax::error::rpc::Code;
     use google_cloud_gax::options::RequestOptions;
     use google_cloud_gax::retry_policy::NeverRetry;
     use google_cloud_gax_internal::grpc;
     use google_cloud_gax_internal::options::ClientConfig;
     use grpc_server::{builder, google, start_echo_server, start_echo_server_with_address};
+    use http::{HeaderMap, HeaderName, HeaderValue};
+    use std::sync::Arc;
 
     fn test_credentials() -> Credentials {
         Anonymous::new().build()
@@ -189,6 +192,38 @@ mod tests {
         let response = send_request(client, "", "").await;
         let err = response.unwrap_err();
         assert_eq!(err.status().map(|s| s.code), Some(Code::InvalidArgument));
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn attempt_interceptor() -> anyhow::Result<()> {
+        #[derive(Debug)]
+        struct TestInterceptor;
+        impl AttemptInterceptor for TestInterceptor {
+            fn intercept(&self, headers: &mut HeaderMap, attempt: u32) {
+                headers.insert(
+                    HeaderName::from_static("x-test-attempt"),
+                    HeaderValue::from_str(&attempt.to_string()).expect("valid attempt number"),
+                );
+            }
+        }
+
+        let (endpoint, _server) = start_echo_server().await?;
+
+        let mut config = ClientConfig::default();
+        config.cred = Some(test_credentials());
+        config.endpoint = Some(endpoint);
+        config.attempt_interceptor = Some(Arc::new(TestInterceptor));
+
+        let client = grpc::Client::new(config, "https://test-only.googleapis.com").await?;
+
+        let response = send_request(client, "test message", "").await?;
+        assert_eq!(&response.message, "test message");
+
+        assert_eq!(
+            response.metadata.get("x-test-attempt").map(String::as_str),
+            Some("1")
+        );
         Ok(())
     }
 

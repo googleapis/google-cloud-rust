@@ -47,6 +47,7 @@
 //! # Ok(()) }
 //! ```
 
+use crate::attempt_interceptor_internal::AttemptInterceptor;
 use crate::backoff_policy::{BackoffPolicy, BackoffPolicyArg};
 use crate::polling_backoff_policy::{PollingBackoffPolicy, PollingBackoffPolicyArg};
 use crate::polling_error_policy::{PollingErrorPolicy, PollingErrorPolicyArg};
@@ -530,6 +531,7 @@ pub mod internal {
         pub grpc_subchannel_count: Option<usize>,
         pub grpc_request_buffer_capacity: Option<usize>,
         pub grpc_max_header_list_size: Option<u32>,
+        pub attempt_interceptor: Option<Arc<dyn AttemptInterceptor>>,
     }
 
     impl<Cr> std::default::Default for ClientConfig<Cr> {
@@ -552,6 +554,7 @@ pub mod internal {
                 grpc_subchannel_count: None,
                 grpc_request_buffer_capacity: None,
                 grpc_max_header_list_size: None,
+                attempt_interceptor: None,
             }
         }
     }
