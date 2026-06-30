@@ -15,13 +15,17 @@
 #[cfg(all(test, feature = "_internal-grpc-client"))]
 mod tests {
     use google_cloud_auth::credentials::{Credentials, anonymous::Builder as Anonymous};
+    use google_cloud_gax::attempt_interceptor_internal::AttemptInterceptor;
     use google_cloud_gax::backoff_policy::BackoffPolicy;
     use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
     use google_cloud_gax::options::RequestOptions;
     use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
     use google_cloud_gax_internal::grpc;
+    use google_cloud_gax_internal::options::ClientConfig;
     use grpc_server::google::test::v1::EchoResponse;
     use grpc_server::{builder, google, start_fixed_responses};
+    use http::HeaderMap;
+    use std::sync::{Arc, Mutex};
 
     fn test_credentials() -> Credentials {
         Anonymous::new().build()
@@ -93,6 +97,37 @@ mod tests {
             .await?;
         let response = send_request(client, "no_retry_immediate_error").await;
         assert!(response.is_err(), "{response:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn interceptor_on_retry() -> anyhow::Result<()> {
+        #[derive(Debug, Default)]
+        struct AttemptTracker {
+            attempts: Mutex<Vec<u32>>,
+        }
+        impl AttemptInterceptor for AttemptTracker {
+            fn intercept(&self, _headers: &mut HeaderMap, attempt: u32) {
+                self.attempts.lock().unwrap().push(attempt);
+            }
+        }
+
+        let tracker = Arc::new(AttemptTracker::default());
+        let (endpoint, _server) =
+            start_fixed_responses(vec![transient(), transient(), success()]).await?;
+
+        let mut config = ClientConfig::default();
+        config.cred = Some(test_credentials());
+        config.endpoint = Some(endpoint);
+        config.backoff_policy = Some(Arc::new(test_backoff()));
+        config.attempt_interceptor = Some(tracker.clone());
+
+        let client = grpc::Client::new(config, "https://test-only.googleapis.com").await?;
+        let _response = send_request(client, "interceptor_on_retry").await?;
+
+        let attempts = tracker.attempts.lock().unwrap().clone();
+        assert_eq!(attempts, vec![1, 2, 3]);
+
         Ok(())
     }
 

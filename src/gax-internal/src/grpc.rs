@@ -28,6 +28,7 @@ use google_cloud_auth::credentials::{
     Builder as CredentialsBuilder, CacheableResource, Credentials,
 };
 use google_cloud_gax::Result;
+use google_cloud_gax::attempt_interceptor_internal::AttemptInterceptor;
 use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::client_builder::Error as BuilderError;
 use google_cloud_gax::client_builder::Result as ClientBuilderResult;
@@ -78,6 +79,7 @@ pub struct Client {
     polling_error_policy: Arc<dyn PollingErrorPolicy>,
     polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
     attempt_timeout: Option<Duration>,
+    attempt_interceptor: Option<Arc<dyn AttemptInterceptor>>,
 }
 
 impl Client {
@@ -142,6 +144,7 @@ impl Client {
                 .polling_backoff_policy
                 .unwrap_or_else(|| Arc::new(ExponentialBackoff::default())),
             attempt_timeout: config.attempt_timeout,
+            attempt_interceptor: config.attempt_interceptor.clone(),
         })
     }
 
@@ -275,7 +278,8 @@ impl Client {
     {
         use ::tonic::IntoRequest;
         let headers = Self::make_headers(api_client_header, request_params, &options).await?;
-        let headers = self.add_auth_headers(headers).await?;
+        let mut headers = self.add_auth_headers(headers).await?;
+        self.attempt_interceptor.intercept(&mut headers, 1);
         let metadata = tonic::MetadataMap::from_headers(headers);
         let mut request = ::tonic::Request::from_parts(metadata, extensions, request);
         if let Some(timeout) =
@@ -357,7 +361,7 @@ impl Client {
         options: &RequestOptions,
         remaining_time: Option<std::time::Duration>,
         headers: HeaderMap,
-        _prior_attempt_count: i64,
+        prior_attempt_count: i64,
     ) -> Result<tonic::Response<Response>>
     where
         Request: prost::Message + 'static,
@@ -375,8 +379,8 @@ impl Client {
             } else {
                 (None, None, None, None)
             };
-            let resend_count = if _prior_attempt_count > 0 {
-                Some(_prior_attempt_count)
+            let resend_count = if prior_attempt_count > 0 {
+                Some(prior_attempt_count)
             } else {
                 None
             };
@@ -408,6 +412,8 @@ impl Client {
         let mut headers = self.add_auth_headers(headers).await?;
 
         crate::observability::propagation::inject_context(&span, &mut headers);
+        self.attempt_interceptor
+            .intercept(&mut headers, prior_attempt_count as u32 + 1);
 
         let metadata = tonic::MetadataMap::from_headers(headers);
         let mut request = ::tonic::Request::from_parts(metadata, extensions, request);
@@ -430,7 +436,7 @@ impl Client {
         use crate::observability::{WithTransportLogging, WithTransportMetric, WithTransportSpan};
 
         let pending =
-            WithTransportMetric::new(self.metric.clone(), pending, _prior_attempt_count as u32);
+            WithTransportMetric::new(self.metric.clone(), pending, prior_attempt_count as u32);
         let pending = WithTransportLogging::new(pending);
         let pending = WithTransportSpan::new(span, pending);
 
