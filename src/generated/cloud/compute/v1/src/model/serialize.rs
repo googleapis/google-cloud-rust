@@ -39240,9 +39240,6 @@ impl serde::ser::Serialize for super::ReservationBlock {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.block_health_info.is_some() {
-            state.serialize_entry("blockHealthInfo", &self.block_health_info)?;
-        }
         if self.count.is_some() {
             struct __With<'a>(&'a std::option::Option<i32>);
             impl<'a> serde::ser::Serialize for __With<'a> {
@@ -39259,6 +39256,9 @@ impl serde::ser::Serialize for super::ReservationBlock {
         }
         if self.creation_timestamp.is_some() {
             state.serialize_entry("creationTimestamp", &self.creation_timestamp)?;
+        }
+        if self.health_info.is_some() {
+            state.serialize_entry("healthInfo", &self.health_info)?;
         }
         if self.id.is_some() {
             struct __With<'a>(&'a std::option::Option<u64>);
@@ -40062,6 +40062,9 @@ impl serde::ser::Serialize for super::ReservationSubBlock {
         if self.creation_timestamp.is_some() {
             state.serialize_entry("creationTimestamp", &self.creation_timestamp)?;
         }
+        if self.health_info.is_some() {
+            state.serialize_entry("healthInfo", &self.health_info)?;
+        }
         if self.id.is_some() {
             struct __With<'a>(&'a std::option::Option<u64>);
             impl<'a> serde::ser::Serialize for __With<'a> {
@@ -40127,9 +40130,6 @@ impl serde::ser::Serialize for super::ReservationSubBlock {
         }
         if self.status.is_some() {
             state.serialize_entry("status", &self.status)?;
-        }
-        if self.sub_block_health_info.is_some() {
-            state.serialize_entry("subBlockHealthInfo", &self.sub_block_health_info)?;
         }
         if self.zone.is_some() {
             state.serialize_entry("zone", &self.zone)?;
