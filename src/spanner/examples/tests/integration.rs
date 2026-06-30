@@ -81,6 +81,16 @@ mod tests {
                 .await
                 .inspect_err(anydump)?;
 
+            // 4b. Test spanner_create_index sample
+            database::create_index::sample(&ctx.admin_client, &ctx.database_name)
+                .await
+                .inspect_err(anydump)?;
+
+            // 4c. Test spanner_read_data_with_index sample
+            query::read_data_with_index::sample(client)
+                .await
+                .inspect_err(anydump)?;
+
             // 5. Test spanner_add_column sample
             database::add_column::sample(&ctx.admin_client, &ctx.database_name)
                 .await
@@ -122,6 +132,16 @@ mod tests {
 
             // 2. Test spanner_postgresql_query_with_parameter sample
             query::pg_query_parameter::sample(client)
+                .await
+                .inspect_err(anydump)?;
+
+            // 2b. Test spanner_postgresql_create_index sample
+            database::pg_create_index::sample(&ctx.admin_client, &ctx.database_name)
+                .await
+                .inspect_err(anydump)?;
+
+            // 2c. Test spanner_postgresql_read_data_with_index sample
+            query::pg_read_data_with_index::sample(client)
                 .await
                 .inspect_err(anydump)?;
 
