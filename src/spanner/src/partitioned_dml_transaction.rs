@@ -192,7 +192,12 @@ impl PartitionedDmlTransaction {
             async move {
                 let transaction = client
                     .spanner
-                    .begin_transaction(begin_request, gax_options.clone(), channel_hint)
+                    .begin_transaction(
+                        begin_request,
+                        gax_options.clone(),
+                        channel_hint,
+                        &client.o11y,
+                    )
                     .await?;
 
                 let execute_request =

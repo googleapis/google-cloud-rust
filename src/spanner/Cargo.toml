@@ -33,6 +33,7 @@ default = ["default-rustls-provider"]
 # default and call `rustls::CryptoProvider::install_default()`.
 default-rustls-provider = ["gaxi/_default-rustls-provider"]
 unstable-stream         = ["dep:futures"]
+experimental-builtin-metrics = []
 
 [dependencies]
 async-trait.workspace                  = true
@@ -42,10 +43,13 @@ futures                                = { workspace = true, optional = true }
 gaxi                                   = { workspace = true, features = ["_internal-common", "_internal-grpc-client", "_internal-grpc-server-streaming"] }
 google-cloud-auth                      = { workspace = true }
 google-cloud-gax                       = { workspace = true }
+google-cloud-monitoring-v3             = { workspace = true }
 google-cloud-spanner-admin-database-v1 = { workspace = true }
 google-cloud-spanner-admin-instance-v1 = { workspace = true }
 google-cloud-rpc                       = { workspace = true }
 http.workspace                         = true
+opentelemetry                          = { workspace = true, features = ["metrics"] }
+opentelemetry_sdk                      = { workspace = true, features = ["rt-tokio", "metrics"] }
 prost.workspace                        = true
 prost-types.workspace                  = true
 rand                                   = { workspace = true }
@@ -62,6 +66,7 @@ wkt                                    = { workspace = true, features = ["time"]
 
 [dev-dependencies]
 anyhow.workspace                   = true
+google-cloud-spanner               = { path = ".", features = ["experimental-builtin-metrics"] }
 google-cloud-test-macros.workspace = true
 mockall.workspace                  = true
 spanner-grpc-mock                  = { path = "grpc-mock" }

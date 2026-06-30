@@ -106,20 +106,24 @@ fn parse_emulator_endpoint(endpoint: &str) -> String {
 }
 
 macro_rules! define_idempotent_rpc {
-    ($method:ident, $request_type:ty, $response_type:ty) => {
+    ($method:ident, $request_type:ty, $response_type:ty, $canonical_name:expr) => {
         pub(crate) async fn $method(
             &self,
             request: $request_type,
             options: crate::RequestOptions,
             channel_hint: usize,
+            o11y: &crate::observability::Observability,
         ) -> crate::Result<$response_type> {
-            self.get_channel(channel_hint)
-                .inner
-                .$method()
-                .with_request(request)
-                .with_options(apply_request_defaults(options))
-                .send()
-                .await
+            o11y.trace_operation($canonical_name, || async {
+                self.get_channel(channel_hint)
+                    .inner
+                    .$method()
+                    .with_request(request)
+                    .with_options(apply_request_defaults(options))
+                    .send()
+                    .await
+            })
+            .await
         }
     };
 }
@@ -298,18 +302,54 @@ impl Spanner {
         self.counter.fetch_add(1, Ordering::Relaxed)
     }
 
-    define_idempotent_rpc!(create_session, CreateSessionRequest, Session);
-    define_idempotent_rpc!(execute_sql, ExecuteSqlRequest, crate::model::ResultSet);
+    define_idempotent_rpc!(
+        create_session,
+        CreateSessionRequest,
+        Session,
+        "google.spanner.v1.Spanner/CreateSession"
+    );
+    define_idempotent_rpc!(
+        execute_sql,
+        ExecuteSqlRequest,
+        crate::model::ResultSet,
+        "google.spanner.v1.Spanner/ExecuteSql"
+    );
     define_idempotent_rpc!(
         execute_batch_dml,
         ExecuteBatchDmlRequest,
-        ExecuteBatchDmlResponse
+        ExecuteBatchDmlResponse,
+        "google.spanner.v1.Spanner/ExecuteBatchDml"
     );
-    define_idempotent_rpc!(begin_transaction, BeginTransactionRequest, Transaction);
-    define_idempotent_rpc!(commit, CommitRequest, CommitResponse);
-    define_idempotent_rpc!(rollback, RollbackRequest, ());
-    define_idempotent_rpc!(partition_query, PartitionQueryRequest, PartitionResponse);
-    define_idempotent_rpc!(partition_read, PartitionReadRequest, PartitionResponse);
+    define_idempotent_rpc!(
+        begin_transaction,
+        BeginTransactionRequest,
+        Transaction,
+        "google.spanner.v1.Spanner/BeginTransaction"
+    );
+    define_idempotent_rpc!(
+        commit,
+        CommitRequest,
+        CommitResponse,
+        "google.spanner.v1.Spanner/Commit"
+    );
+    define_idempotent_rpc!(
+        rollback,
+        RollbackRequest,
+        (),
+        "google.spanner.v1.Spanner/Rollback"
+    );
+    define_idempotent_rpc!(
+        partition_query,
+        PartitionQueryRequest,
+        PartitionResponse,
+        "google.spanner.v1.Spanner/PartitionQuery"
+    );
+    define_idempotent_rpc!(
+        partition_read,
+        PartitionReadRequest,
+        PartitionResponse,
+        "google.spanner.v1.Spanner/PartitionRead"
+    );
 
     /// Executes an SQL statement, returning a stream of results.
     ///
@@ -542,6 +582,7 @@ mod tests {
                 req,
                 crate::RequestOptions::default(),
                 client.next_channel_hint(),
+                &crate::observability::Observability::disabled(),
             )
             .await
             .expect("Failed to call create_session");
@@ -661,6 +702,7 @@ mod tests {
                 req,
                 crate::RequestOptions::default(),
                 client.next_channel_hint(),
+                &crate::observability::Observability::disabled(),
             )
             .await
             .expect("Failed to call create_session after transport error retry");
@@ -710,6 +752,7 @@ mod tests {
                 req,
                 crate::RequestOptions::default(),
                 client.next_channel_hint(),
+                &crate::observability::Observability::disabled(),
             )
             .await
             .expect("Failed to call execute_sql");
@@ -753,6 +796,7 @@ mod tests {
                 req,
                 crate::RequestOptions::default(),
                 client.next_channel_hint(),
+                &crate::observability::Observability::disabled(),
             )
             .await
             .expect("Failed to call execute_batch_dml");
@@ -791,6 +835,7 @@ mod tests {
                 req,
                 crate::RequestOptions::default(),
                 client.next_channel_hint(),
+                &crate::observability::Observability::disabled(),
             )
             .await
             .expect("Failed to call begin_transaction");
@@ -833,6 +878,7 @@ mod tests {
                 req,
                 crate::RequestOptions::default(),
                 client.next_channel_hint(),
+                &crate::observability::Observability::disabled(),
             )
             .await
             .expect("Failed to call commit");
@@ -866,6 +912,7 @@ mod tests {
                 req,
                 crate::RequestOptions::default(),
                 client.next_channel_hint(),
+                &crate::observability::Observability::disabled(),
             )
             .await
             .expect("Failed to call rollback");
@@ -1098,6 +1145,7 @@ mod tests {
                 req,
                 crate::RequestOptions::default(),
                 client.next_channel_hint(),
+                &crate::observability::Observability::disabled(),
             )
             .await
             .expect("Failed to call create_session");
@@ -1140,7 +1188,12 @@ mod tests {
         options.set_idempotency(false);
 
         let result = client
-            .create_session(req, options, client.next_channel_hint())
+            .create_session(
+                req,
+                options,
+                client.next_channel_hint(),
+                &crate::observability::Observability::disabled(),
+            )
             .await;
 
         // 5. Verify that it failed and did not retry

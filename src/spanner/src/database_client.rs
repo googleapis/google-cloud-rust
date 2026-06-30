@@ -15,6 +15,7 @@
 use crate::batch_read_only_transaction::BatchReadOnlyTransactionBuilder;
 use crate::batch_write_transaction::BatchWriteTransactionBuilder;
 use crate::client::Spanner;
+use crate::observability::Observability;
 use crate::partitioned_dml_transaction::PartitionedDmlTransactionBuilder;
 use crate::read_only_transaction::{
     MultiUseReadOnlyTransactionBuilder, SingleUseReadOnlyTransactionBuilder,
@@ -51,6 +52,7 @@ pub struct DatabaseClient {
     pub(crate) spanner: Spanner,
     pub(crate) session_maintainer: Arc<ManagedSessionMaintainer>,
     pub(crate) leader_aware_routing_enabled: bool,
+    pub(crate) o11y: Arc<Observability>,
 }
 
 impl DatabaseClient {
@@ -361,11 +363,15 @@ impl DatabaseClientBuilder {
     /// will be used for all operations on the database.
     pub async fn build(self) -> crate::Result<DatabaseClient> {
         let spanner_clone = self.spanner.clone();
+
+        let project_id = parse_project_id(&self.database_name);
+        let o11y = Arc::new(Observability::init(&self.spanner.config, project_id).await);
         let session_maintainer = ManagedSessionMaintainer::create_and_start_maintenance(
             self.spanner,
             self.database_name,
             self.database_role.unwrap_or_default(),
             self.options.unwrap_or_default(),
+            o11y.clone(),
         )
         .await?;
 
@@ -373,7 +379,17 @@ impl DatabaseClientBuilder {
             spanner: spanner_clone,
             session_maintainer,
             leader_aware_routing_enabled: self.leader_aware_routing_enabled,
+            o11y,
         })
+    }
+}
+
+fn parse_project_id(database_name: &str) -> Option<&str> {
+    let mut parts = database_name.split('/');
+    if parts.next() == Some("projects") {
+        parts.next()
+    } else {
+        None
     }
 }
 
