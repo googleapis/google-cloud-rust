@@ -25,7 +25,6 @@ mod compute {
             .inspect_err(anydump)
     }
 
-    #[ignore = "TODO(#5973) - test flakes with timeout"]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_compute_errors() -> anyhow::Result<()> {
         let _guard = enable_tracing();
