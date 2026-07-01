@@ -25,16 +25,20 @@ cargo install --locked cargo-workspaces
 cargo version
 rustup show active-toolchain -v
 
-mapfile -t all_packages < <(cargo workspaces plan 2>/dev/null)
-packages=("${all_packages[@]:0:20}")
-if [[ "${TRIGGER_NAME:-}" == "gcb-pm-*" ]]; then
-    packages=("${all_packages[@]}")
+# Seed the basic common packages serially.
+export RUSTDOCFLAGS='-D warnings'
+.gcb/scripts/cargo-fetch.sh
+
+cargo +nightly docs-rs --frozen -p google-cloud-wkt
+cargo +nightly docs-rs --frozen -p google-cloud-rpc
+cargo +nightly docs-rs --frozen -p google-cloud-gax
+cargo +nightly docs-rs --frozen -p google-cloud-auth
+cargo +nightly docs-rs --frozen -p google-cloud-gax-internal
+cargo +nightly docs-rs --frozen -p google-cloud-lro
+
+mapfile -t packages < <(cargo workspaces plan 2>/dev/null)
+if [[ "${GCB_TRIGGER_NAME:-}" != "gcb-pm-*" ]]; then
+    packages=("${packages[@]:0:20}")
 fi
-
-for package in "${packages[@]}"; do
-    env RUSTDOCFLAGS='-D warnings' cargo +nightly docs-rs -p "${package}"
-done
-
-echo "==== DONE ===="
-
-/workspace/.bin/sccache --show-stats
+printf "%s\n" "${packages[@]}" | \
+    xargs -P $(nproc) -I{} cargo +nightly --frozen docs-rs -p {}
