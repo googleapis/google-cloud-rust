@@ -31,8 +31,9 @@ default = ["default-rustls-provider"]
 # TLS and authentication. Applications with specific requirements for
 # cryptography (such as exclusively using the [ring] crate) should disable this
 # default and call `rustls::CryptoProvider::install_default()`.
-default-rustls-provider = ["gaxi/_default-rustls-provider"]
-unstable-stream         = ["dep:futures"]
+default-rustls-provider      = ["gaxi/_default-rustls-provider"]
+unstable-stream              = ["dep:futures"]
+experimental-builtin-metrics = ["dep:google-cloud-monitoring-v3", "dep:opentelemetry", "dep:opentelemetry_sdk"]
 
 [dependencies]
 async-trait.workspace                  = true
@@ -59,6 +60,11 @@ tokio                                  = { workspace = true, features = ["time"]
 tracing.workspace                      = true
 url.workspace                          = true
 wkt                                    = { workspace = true, features = ["time"] }
+
+# Optional dependencies for built-in metrics
+google-cloud-monitoring-v3 = { workspace = true, optional = true }
+opentelemetry              = { workspace = true, optional = true, features = ["metrics"] }
+opentelemetry_sdk          = { workspace = true, optional = true, features = ["metrics", "rt-tokio"] }
 
 [dev-dependencies]
 anyhow.workspace                   = true

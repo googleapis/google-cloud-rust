@@ -448,7 +448,7 @@ impl WriteOnlyTransaction {
 
                 let tx = client
                     .spanner
-                    .begin_transaction(begin_req, begin_gax_options, channel_hint)
+                    .begin_transaction(begin_req, begin_gax_options, channel_hint, &client.o11y)
                     .await?;
                 *previous_transaction_id.lock().unwrap() = tx.id.clone();
 
@@ -464,7 +464,12 @@ impl WriteOnlyTransaction {
 
                 let response = client
                     .spanner
-                    .commit(commit_req, commit_gax_options.clone(), channel_hint)
+                    .commit(
+                        commit_req,
+                        commit_gax_options.clone(),
+                        channel_hint,
+                        &client.o11y,
+                    )
                     .await?;
 
                 // If a commit_response with a precommit_token is returned, then we need to
@@ -479,9 +484,15 @@ impl WriteOnlyTransaction {
                         max_commit_delay,
                         return_commit_stats,
                     );
+
                     client
                         .spanner
-                        .commit(retry_commit_req, commit_gax_options, channel_hint)
+                        .commit(
+                            retry_commit_req,
+                            commit_gax_options,
+                            channel_hint,
+                            &client.o11y,
+                        )
                         .await
                 } else {
                     Ok(response)
@@ -555,7 +566,7 @@ impl WriteOnlyTransaction {
             async move {
                 client
                     .spanner
-                    .commit(request, commit_gax_options, channel_hint)
+                    .commit(request, commit_gax_options, channel_hint, &client.o11y)
                     .await
             }
         };
