@@ -46,8 +46,11 @@ jobs:
           key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}
         if: matrix.os != 'macos-14' && github.event_name != 'release'
       - name: Setup Rust ${{ matrix.rust-version }}
-        run: rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
-      - run: rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+        env:
+          RUST_VERSION: ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+        run: |
+          rustup toolchain install ${RUST_VERSION}
+          rustup default ${RUST_VERSION}
       - name: Display Cargo version
         run: cargo version
       - name: Display rustc version
@@ -69,9 +72,11 @@ jobs:
         with:
           persist-credentials: false
       - name: Setup Rust ${{ matrix.rust-version }}
+        env:
+          RUST_VERSION: ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
         run: |
-          rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
-          rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+          rustup toolchain install ${RUST_VERSION}
+          rustup default ${RUST_VERSION}
       - name: Verify library versions
         run: cargo run --package check-versions
 
@@ -170,10 +175,12 @@ jobs:
           # user guide.
           if: github.event_name != 'release'
       - name: Setup Rust ${{ matrix.rust-version }}
+        env:
+          RUST_VERSION: ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
         run: |
           set -e
-          rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
-          rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+          rustup toolchain install ${RUST_VERSION}
+          rustup default ${RUST_VERSION}
           cargo install mdbook --version ^0.5 --locked
       - run: mdbook build guide
       - run: mdbook test guide
