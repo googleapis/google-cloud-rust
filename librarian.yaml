@@ -113,8 +113,10 @@ default:
         source: google.protobuf
         force_used: true
     disabled_rustdoc_warnings:
-      - redundant_explicit_links
+      - bare_urls
       - broken_intra_doc_links
+      - invalid_html_tags
+      - redundant_explicit_links
     generate_setter_samples: "true"
     generate_rpc_samples: "true"
     detailed_tracing_attributes: true
@@ -170,10 +172,6 @@ libraries:
     version: 1.13.0
     copyright_year: "2025"
     rust:
-      disabled_rustdoc_warnings:
-        - redundant_explicit_links
-        - broken_intra_doc_links
-        - invalid_html_tags
       per_service_features: true
       default_features:
         - data-foundry-service
@@ -585,10 +583,6 @@ libraries:
         - name: google-cloud-rpc
           package: google-cloud-rpc
           force_used: true
-      disabled_rustdoc_warnings:
-        - bare_urls
-        - broken_intra_doc_links
-        - redundant_explicit_links
       generate_rpc_samples: "false"
       resource_name_heuristic: true
       per_service_features: true
@@ -1138,12 +1132,6 @@ libraries:
   - name: google-cloud-osconfig-v1
     version: 1.11.0
     copyright_year: "2025"
-    rust:
-      disabled_rustdoc_warnings:
-        - redundant_explicit_links
-        - broken_intra_doc_links
-        - bare_urls
-        - invalid_html_tags
   - name: google-cloud-oslogin-common
     version: 1.6.0
     copyright_year: "2025"
@@ -1695,23 +1683,12 @@ libraries:
   - name: google-cloud-workflows-v1
     version: 1.12.0
     copyright_year: "2025"
-    rust:
-      disabled_rustdoc_warnings:
-        - redundant_explicit_links
-        - broken_intra_doc_links
-        - invalid_html_tags
-        - bare_urls
   - name: google-cloud-workstations-v1
     version: 1.12.0
     copyright_year: "2025"
   - name: google-developers-knowledge-v1
     version: 1.0.0
     copyright_year: "2026"
-    rust:
-      disabled_rustdoc_warnings:
-        - redundant_explicit_links
-        - broken_intra_doc_links
-        - bare_urls
   - name: grpc-server
     copyright_year: "2025"
     output: src/gax-internal/grpc-server
