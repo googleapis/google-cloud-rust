@@ -81,7 +81,7 @@ where
 
 #[cfg(test)]
 mod tests {
-    use super::super::tests::{MockPolicy, idempotent_state};
+    use super::super::tests::{MockPolicy, idempotent_state, non_idempotent_state};
     use super::*;
     use crate::error::rpc::{Code, Status};
     use crate::retry_policy::NeverRetry;
@@ -104,6 +104,8 @@ mod tests {
         let policy = ClientTimeout::new(NeverRetry);
         let result = policy.on_error(&idempotent_state(Instant::now()), timeout());
         assert!(matches!(result, RetryResult::Continue(_)), "{result:?}");
+        let result = policy.on_error(&non_idempotent_state(Instant::now()), timeout());
+        assert!(matches!(result, RetryResult::Exhausted(_)), "{result:?}");
         let result = policy.on_error(&idempotent_state(Instant::now()), permanent());
         assert!(matches!(result, RetryResult::Exhausted(_)), "{result:?}");
     }
@@ -114,6 +116,8 @@ mod tests {
         let policy = NeverRetry.continue_on_client_timeout();
         let result = policy.on_error(&idempotent_state(Instant::now()), timeout());
         assert!(matches!(result, RetryResult::Continue(_)), "{result:?}");
+        let result = policy.on_error(&non_idempotent_state(Instant::now()), timeout());
+        assert!(matches!(result, RetryResult::Exhausted(_)), "{result:?}");
         let result = policy.on_error(&idempotent_state(Instant::now()), permanent());
         assert!(matches!(result, RetryResult::Exhausted(_)), "{result:?}");
     }

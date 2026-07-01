@@ -231,7 +231,7 @@ pub trait RetryPolicyExt: RetryPolicy + Sized {
     /// Decorate a [RetryPolicy] to continue on client-side timeouts.
     ///
     /// This policy decorates an inner policy and retries any client-side timeout errors for
-    /// idempotent request. For other errors it returns the same value as the inner policy.
+    /// idempotent requests. For other errors it returns the same value as the inner policy.
     ///
     /// This policy is useful if you want to ignore connection timeouts, or retry if the service is
     /// taking too long to respond. Be aware that a client-side timeout may occur even after the
@@ -252,8 +252,6 @@ pub trait RetryPolicyExt: RetryPolicy + Sized {
     /// # Error::timeout("test-only")
     /// }
     /// ```
-    ///
-    /// [ResourceExhausted]: crate::error::rpc::Code::ResourceExhausted
     fn continue_on_client_timeout(self) -> ClientTimeout<Self> {
         ClientTimeout::new(self)
     }
