@@ -23,6 +23,14 @@ use crate::storage::perform_upload::PerformUpload;
 use crate::storage::read_object::Reader;
 use crate::storage::request_options::RequestOptions;
 use crate::storage::streaming_source::{Seek, StreamingSource};
+#[cfg(google_cloud_unstable_storage_bidi)]
+use crate::{
+    appendable_object_writer::AppendableObjectWriter,
+    model_ext::{OpenAppendableObjectRequest, ReopenAppendableObjectRequest},
+    storage::bidi_write::{
+        connector::Connector as BidiWriteConnector, transport::AppendableObjectWriterTransport,
+    },
+};
 use crate::{
     model_ext::OpenObjectRequest, object_descriptor::ObjectDescriptor,
     storage::bidi::connector::Connector, storage::bidi::transport::ObjectDescriptorTransport,
@@ -262,6 +270,28 @@ impl Storage {
             .collect::<Vec<_>>();
         Ok((descriptor, readers))
     }
+
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    async fn open_appendable_object_plain(
+        &self,
+        request: OpenAppendableObjectRequest,
+        options: RequestOptions,
+    ) -> Result<AppendableObjectWriter> {
+        let connector = BidiWriteConnector::new(options, self.inner.grpc.clone());
+        let transport = AppendableObjectWriterTransport::new_open(connector, request).await?;
+        Ok(AppendableObjectWriter::new(transport))
+    }
+
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    async fn reopen_appendable_object_plain(
+        &self,
+        request: ReopenAppendableObjectRequest,
+        options: RequestOptions,
+    ) -> Result<AppendableObjectWriter> {
+        let connector = BidiWriteConnector::new(options, self.inner.grpc.clone());
+        let transport = AppendableObjectWriterTransport::new_reopen(connector, request).await?;
+        Ok(AppendableObjectWriter::new(transport))
+    }
 }
 
 impl super::stub::Storage for Storage {
@@ -324,6 +354,26 @@ impl super::stub::Storage for Storage {
             return self.open_object_tracing(request, options).await;
         }
         self.open_object_plain(request, options).await
+    }
+
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    async fn open_appendable_object(
+        &self,
+        request: OpenAppendableObjectRequest,
+        options: RequestOptions,
+    ) -> Result<AppendableObjectWriter> {
+        // Tracing is deferred to PR 5.
+        self.open_appendable_object_plain(request, options).await
+    }
+
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    async fn reopen_appendable_object(
+        &self,
+        request: ReopenAppendableObjectRequest,
+        options: RequestOptions,
+    ) -> Result<AppendableObjectWriter> {
+        // Tracing is deferred to PR 5.
+        self.reopen_appendable_object_plain(request, options).await
     }
 }
 
@@ -654,6 +704,68 @@ mod tests {
             .unwrap_or_else(|| {
                 panic!("missing `read_range` span for ReadRange::tail(15): {range_spans:#?}")
             });
+        Ok(())
+    }
+
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[tokio::test]
+    async fn open_appendable_object() -> anyhow::Result<()> {
+        use gaxi::grpc::tonic::Status as TonicStatus;
+        use google_cloud_gax::error::rpc::Code;
+        use storage_grpc_mock::{MockStorage, start};
+
+        let mut mock = MockStorage::new();
+        mock.expect_bidi_write_object()
+            .return_once(|_| Err(TonicStatus::not_found("not here")));
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+
+        let client = crate::client::Storage::builder()
+            .with_credentials(Anonymous::new().build())
+            .with_endpoint(endpoint.clone())
+            .with_tracing()
+            .build()
+            .await?;
+        let response = client
+            .open_appendable_object("projects/_/buckets/test-bucket", "test-object")
+            .send()
+            .await;
+        assert!(
+            matches!(response, Err(ref e) if e.status().is_some_and(|s| s.code == Code::NotFound)),
+            "{response:?}"
+        );
+
+        // Tracing is deferred to PR 5, so we don't check `client_request_span` here yet.
+        Ok(())
+    }
+
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[tokio::test]
+    async fn reopen_appendable_object() -> anyhow::Result<()> {
+        use gaxi::grpc::tonic::Status as TonicStatus;
+        use google_cloud_gax::error::rpc::Code;
+        use storage_grpc_mock::{MockStorage, start};
+
+        let mut mock = MockStorage::new();
+        mock.expect_bidi_write_object()
+            .return_once(|_| Err(TonicStatus::not_found("not here")));
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+
+        let client = crate::client::Storage::builder()
+            .with_credentials(Anonymous::new().build())
+            .with_endpoint(endpoint.clone())
+            .with_tracing()
+            .build()
+            .await?;
+        let response = client
+            .reopen_appendable_object("projects/_/buckets/test-bucket", "test-object", 12345)
+            .send()
+            .await;
+        assert!(
+            matches!(response, Err(ref e) if e.status().is_some_and(|s| s.code == Code::NotFound)),
+            "{response:?}"
+        );
+
+        // Tracing is deferred to PR 5, so we don't check `client_request_span` here yet.
         Ok(())
     }
 

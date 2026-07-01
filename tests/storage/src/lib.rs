@@ -13,6 +13,8 @@
 // limitations under the License.
 
 pub mod bidi_read;
+#[cfg(google_cloud_unstable_storage_bidi)]
+pub mod bidi_write;
 pub mod read_object;
 pub mod write_object;
 
@@ -36,7 +38,9 @@ use google_cloud_test_utils::resource_names::random_bucket_id;
 use google_cloud_test_utils::runtime_config::{project_id, test_service_account};
 use google_cloud_wkt::FieldMask;
 use std::time::Duration;
-pub use storage_samples::{cleanup_stale_buckets, create_test_bucket, create_test_hns_bucket};
+pub use storage_samples::{
+    cleanup_stale_buckets, create_test_bucket, create_test_hns_bucket, create_test_rapid_bucket,
+};
 
 pub async fn objects(builder: StorageBuilder, bucket_name: &str, prefix: &str) -> Result<()> {
     let client = builder.build().await?;
