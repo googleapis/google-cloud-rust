@@ -21,4 +21,64 @@ impl google_cloud_lro::internal::DiscoveryOperation for Operation {
     fn done(&self) -> bool {
         self.status == Some(crate::model::operation::Status::Done)
     }
+    fn error(&self) -> Option<google_cloud_gax::error::rpc::Status> {
+        if self.error.is_none()
+            && self.http_error_status_code.is_none()
+            && self.http_error_message.is_none()
+        {
+            return None;
+        }
+
+        let mut status = google_cloud_gax::error::rpc::Status::default();
+
+        let http_status = self.http_error_status_code.unwrap_or(200);
+        let mut code = match http_status {
+            200 => google_cloud_gax::error::rpc::Code::Ok,
+            400 => google_cloud_gax::error::rpc::Code::InvalidArgument,
+            401 => google_cloud_gax::error::rpc::Code::Unauthenticated,
+            403 => google_cloud_gax::error::rpc::Code::PermissionDenied,
+            404 => google_cloud_gax::error::rpc::Code::NotFound,
+            409 => google_cloud_gax::error::rpc::Code::AlreadyExists,
+            429 => google_cloud_gax::error::rpc::Code::ResourceExhausted,
+            499 => google_cloud_gax::error::rpc::Code::Cancelled,
+            500 => google_cloud_gax::error::rpc::Code::Internal,
+            501 => google_cloud_gax::error::rpc::Code::Unimplemented,
+            503 => google_cloud_gax::error::rpc::Code::Unavailable,
+            504 => google_cloud_gax::error::rpc::Code::DeadlineExceeded,
+            _ => google_cloud_gax::error::rpc::Code::Unknown,
+        };
+
+        let mut message = self.http_error_message.clone().unwrap_or_default();
+
+        if let Some(first_err) = self.error.as_ref().and_then(|err| err.errors.first()) {
+            if code == google_cloud_gax::error::rpc::Code::Ok {
+                code = google_cloud_gax::error::rpc::Code::Unknown;
+            }
+            if let Some(err_code) = &first_err.code {
+                code = match err_code.as_str() {
+                    "QUOTA_EXCEEDED" => google_cloud_gax::error::rpc::Code::ResourceExhausted,
+                    "RESOURCE_EXHAUSTED" => google_cloud_gax::error::rpc::Code::ResourceExhausted,
+                    "NOT_FOUND" => google_cloud_gax::error::rpc::Code::NotFound,
+                    "PERMISSION_DENIED" => google_cloud_gax::error::rpc::Code::PermissionDenied,
+                    "INVALID_ARGUMENT" => google_cloud_gax::error::rpc::Code::InvalidArgument,
+                    "ALREADY_EXISTS" => google_cloud_gax::error::rpc::Code::AlreadyExists,
+                    "FAILED_PRECONDITION" => google_cloud_gax::error::rpc::Code::FailedPrecondition,
+                    "ABORTED" => google_cloud_gax::error::rpc::Code::Aborted,
+                    "UNAVAILABLE" => google_cloud_gax::error::rpc::Code::Unavailable,
+                    "DEADLINE_EXCEEDED" => google_cloud_gax::error::rpc::Code::DeadlineExceeded,
+                    _ => code,
+                };
+            }
+            if let Some(err_msg) = &first_err.message {
+                message = err_msg.clone();
+            }
+        }
+
+        if code == google_cloud_gax::error::rpc::Code::Ok && http_status == 200 {
+            return None;
+        }
+
+        status = status.set_code(code).set_message(message);
+        Some(status)
+    }
 }
