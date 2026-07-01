@@ -16,6 +16,7 @@
 
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
+#![allow(rustdoc::bare_urls)]
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;

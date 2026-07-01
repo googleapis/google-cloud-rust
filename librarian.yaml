@@ -1707,7 +1707,11 @@ libraries:
   - name: google-developers-knowledge-v1
     version: 1.0.0
     copyright_year: "2026"
-    rust: {}
+    rust:
+      disabled_rustdoc_warnings:
+        - redundant_explicit_links
+        - broken_intra_doc_links
+        - bare_urls
   - name: grpc-server
     copyright_year: "2025"
     output: src/gax-internal/grpc-server
