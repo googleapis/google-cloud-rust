@@ -521,6 +521,77 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     objects::object_csek_to_cmek::sample(&control, &id, "csek_file.txt", new_csek_key, &kms_key)
         .await?;
 
+    #[cfg(all(feature = "unstable-stream", google_cloud_unstable_storage_bidi))]
+    {
+        tracing::info!("create rapid bucket for appendable examples");
+        let rapid_bucket_id = random_bucket_id();
+        buckets.push(rapid_bucket_id.clone());
+        let _ = control
+            .create_bucket()
+            .set_parent("projects/_")
+            .set_bucket_id(rapid_bucket_id.clone())
+            .set_bucket(
+                Bucket::new()
+                    .set_project(format!("projects/{project_id}"))
+                    .set_location("us-central1")
+                    .set_custom_placement_config(
+                        CustomPlacementConfig::new()
+                            .set_data_locations(["us-central1-a".to_string()]),
+                    )
+                    .set_storage_class("RAPID")
+                    .set_hierarchical_namespace(HierarchicalNamespace::new().set_enabled(true))
+                    .set_iam_config(IamConfig::new().set_uniform_bucket_level_access(
+                        UniformBucketLevelAccess::new().set_enabled(true),
+                    )),
+            )
+            .send()
+            .await?;
+
+        tracing::info!("running open_appendable_object_write example");
+        objects::open_appendable_object_write::sample(
+            &client,
+            &rapid_bucket_id,
+            "appendable-write",
+        )
+        .await?;
+
+        tracing::info!("running open_appendable_object_pause_resume example");
+        objects::open_appendable_object_pause_resume::sample(
+            &client,
+            &rapid_bucket_id,
+            "appendable-pause-resume",
+        )
+        .await?;
+
+        let mut writer = client
+            .open_appendable_object(
+                format!("projects/_/buckets/{rapid_bucket_id}"),
+                "appendable-finalize",
+            )
+            .send()
+            .await?;
+        writer.append(bytes::Bytes::from("hello ")).await?;
+        let generation = writer.generation();
+        writer.close().await?;
+
+        tracing::info!("running open_appendable_object_finalize example");
+        objects::open_appendable_object_finalize::sample(
+            &client,
+            &rapid_bucket_id,
+            "appendable-finalize",
+            generation,
+        )
+        .await?;
+
+        tracing::info!("running open_appendable_object_read_tail example");
+        objects::open_appendable_object_read_tail::sample(
+            &client,
+            &rapid_bucket_id,
+            "appendable-write",
+        )
+        .await?;
+    }
+
     tracing::info!("create bucket for object ACL, retention examples");
     let id = random_bucket_id();
     buckets.push(id.clone());
@@ -548,6 +619,7 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     objects::remove_file_owner::sample(&control, &id, &service_account).await?;
     tracing::info!("running set_object_retention_policy example");
     objects::set_object_retention_policy::sample(&control, &id).await?;
+
     Ok(())
 }
 

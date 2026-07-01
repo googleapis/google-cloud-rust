@@ -41,6 +41,14 @@ pub mod list_object_contexts;
 pub mod make_public;
 pub mod move_file;
 pub mod object_csek_to_cmek;
+#[cfg(all(feature = "unstable-stream", google_cloud_unstable_storage_bidi))]
+pub mod open_appendable_object_finalize;
+#[cfg(all(feature = "unstable-stream", google_cloud_unstable_storage_bidi))]
+pub mod open_appendable_object_pause_resume;
+#[cfg(all(feature = "unstable-stream", google_cloud_unstable_storage_bidi))]
+pub mod open_appendable_object_read_tail;
+#[cfg(all(feature = "unstable-stream", google_cloud_unstable_storage_bidi))]
+pub mod open_appendable_object_write;
 pub mod open_multiple_objects_ranged_read;
 pub mod open_object_multiple_ranged_read;
 pub mod open_object_read_full_object;
