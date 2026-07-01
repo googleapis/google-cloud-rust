@@ -14,6 +14,7 @@
 
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod signals {
+    #[ignore = "TODO(#5983) - disable flaky test"]
     #[tokio::test(flavor = "multi_thread")]
     async fn run() -> anyhow::Result<()> {
         integration_tests_o11y::e2e::signals::run().await
