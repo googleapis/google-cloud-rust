@@ -53,6 +53,7 @@
 //!
 //! [idempotent]: https://en.wikipedia.org/wiki/Idempotence
 
+mod client_timeout;
 mod too_many_requests;
 
 use crate::error::Error;
@@ -62,6 +63,7 @@ use crate::throttle_result::ThrottleResult;
 use std::sync::Arc;
 use std::time::Duration;
 
+pub use client_timeout::ClientTimeout;
 pub use too_many_requests::TooManyRequests;
 
 /// Determines how errors are handled in the retry loop.
@@ -224,6 +226,34 @@ pub trait RetryPolicyExt: RetryPolicy + Sized {
     /// [ResourceExhausted]: crate::error::rpc::Code::ResourceExhausted
     fn continue_on_too_many_requests(self) -> TooManyRequests<Self> {
         TooManyRequests::new(self)
+    }
+
+    /// Decorate a [RetryPolicy] to continue on client-side timeouts.
+    ///
+    /// This policy decorates an inner policy and retries any client-side timeout errors for
+    /// idempotent requests. For other errors it returns the same value as the inner policy.
+    ///
+    /// This policy is useful if you want to ignore connection timeouts, or retry if the service is
+    /// taking too long to respond. Be aware that a client-side timeout may occur even after the
+    /// service receives the request. If your request has side-effects, such as creating or deleting
+    /// resources, it may be unsafe to retry the operation.
+    ///
+    /// # Example
+    /// ```
+    /// use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicy, RetryPolicyExt};
+    /// use google_cloud_gax::retry_state::RetryState;
+    /// let policy = Aip194Strict;
+    /// assert!(policy.on_error(&RetryState::new(false).set_attempt_count(0_u32), timeout()).is_permanent());
+    /// let policy = Aip194Strict.continue_on_client_timeout();
+    /// assert!(policy.on_error(&RetryState::new(true).set_attempt_count(0_u32), timeout()).is_continue());
+    ///
+    /// # use google_cloud_gax::error::Error;
+    /// fn timeout() -> Error {
+    /// # Error::timeout("test-only")
+    /// }
+    /// ```
+    fn continue_on_client_timeout(self) -> ClientTimeout<Self> {
+        ClientTimeout::new(self)
     }
 }
 
