@@ -36,6 +36,11 @@ cargo +nightly docs-rs --frozen -p google-cloud-auth
 cargo +nightly docs-rs --frozen -p google-cloud-gax-internal
 cargo +nightly docs-rs --frozen -p google-cloud-lro
 
+# On PRs we build a subset of the packages because the full build is too slow.
+# The `docs.sh` script builds new libraries on PRs. I (coryan@) think that
+# buiding new libraries in both `docs.sh` and `docs-rs.sh` is not worth it: the
+# most common problem caught by these is bad markdown at the source, that would
+# be detected by both builds.
 mapfile -t packages < <(cargo workspaces plan 2>/dev/null)
 if [[ "${GCB_TRIGGER_NAME:-}" != "gcb-pm-*" ]]; then
     packages=("${packages[@]:0:20}")
