@@ -25,10 +25,10 @@ cargo install --locked cargo-workspaces
 cargo version
 rustup show active-toolchain -v
 
-# Seed the basic common packages serially.
 export RUSTDOCFLAGS='-D warnings'
 .gcb/scripts/cargo-fetch.sh
 
+# Seed the basic common packages serially to warm up the build cache.
 cargo +nightly docs-rs --frozen -p google-cloud-wkt
 cargo +nightly docs-rs --frozen -p google-cloud-rpc
 cargo +nightly docs-rs --frozen -p google-cloud-gax
@@ -42,8 +42,9 @@ cargo +nightly docs-rs --frozen -p google-cloud-lro
 # most common problem caught by these is bad markdown at the source, that would
 # be detected by both builds.
 mapfile -t packages < <(cargo workspaces plan 2>/dev/null)
-if [[ "${GCB_TRIGGER_NAME:-}" != "gcb-pm-*" ]]; then
+if [[ "${GCB_TRIGGER_NAME:-}" != gcb-pm-* ]]; then
     packages=("${packages[@]:0:20}")
 fi
+echo "Generating documents for ${#packages[@]} crates"
 printf "%s\n" "${packages[@]}" | \
     xargs -P $(nproc) -I{} cargo +nightly --frozen docs-rs -p {}
