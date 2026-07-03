@@ -30,7 +30,7 @@ cargo doc --no-deps --frozen --all-features -p google-cloud-location
 
 # On PRs, detect any new libraries and compile their documentation. Without this
 # step the post-merge build may break, and we prefer to avoid this problem.
-if [[ "${GCB_TRIGGER_NAME:-}" != "gcb-pm-*" ]]; then
+if [[ "${GCB_TRIGGER_NAME:-}" != gcb-pm-* ]]; then
     git fetch --unshallow
     mapfile -t new_manifests < <(git diff "origin/main...HEAD" --name-only --diff-filter=A | grep /Cargo.toml)
     for manifest in "${new_manifests[@]}"; do
@@ -39,7 +39,7 @@ if [[ "${GCB_TRIGGER_NAME:-}" != "gcb-pm-*" ]]; then
 fi
 
 args=()
-if [[ "${GCB_TRIGGER_NAME:-}" == "gcb-pm-*" ]]; then
+if [[ "${GCB_TRIGGER_NAME:-}" == gcb-pm-* ]]; then
     args+=("--workspace")
 fi
 cargo doc --no-deps --frozen --all-features "${args[@]}"
