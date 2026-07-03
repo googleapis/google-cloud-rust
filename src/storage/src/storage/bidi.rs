@@ -30,6 +30,9 @@ use crate::request_options::RequestOptions;
 use gaxi::grpc::tonic::{Extensions, Response as TonicResponse, Result as TonicResult, Streaming};
 use tokio::sync::mpsc::Receiver;
 
+pub(crate) type GrpcClient = gaxi::grpc::Client;
+pub(crate) type GrpcStream = Streaming<BidiReadObjectResponse>;
+
 pub use super::open_object::OpenObject;
 
 /// A trait to mock `Streaming<T>` in the unit tests.
@@ -64,8 +67,8 @@ pub trait Client: std::fmt::Debug + Send + 'static {
     ) -> impl Future<Output = crate::Result<TonicResult<TonicResponse<Self::Stream>>>> + Send;
 }
 
-impl Client for gaxi::grpc::Client {
-    type Stream = Streaming<BidiReadObjectResponse>;
+impl Client for GrpcClient {
+    type Stream = GrpcStream;
     async fn start(
         &self,
         extensions: Extensions,
