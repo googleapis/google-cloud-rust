@@ -55,19 +55,11 @@ impl google_cloud_lro::internal::DiscoveryOperation for Operation {
                 code = google_cloud_gax::error::rpc::Code::Unknown;
             }
             if let Some(err_code) = &first_err.code {
-                code = match err_code.as_str() {
-                    "QUOTA_EXCEEDED" => google_cloud_gax::error::rpc::Code::ResourceExhausted,
-                    "RESOURCE_EXHAUSTED" => google_cloud_gax::error::rpc::Code::ResourceExhausted,
-                    "NOT_FOUND" => google_cloud_gax::error::rpc::Code::NotFound,
-                    "PERMISSION_DENIED" => google_cloud_gax::error::rpc::Code::PermissionDenied,
-                    "INVALID_ARGUMENT" => google_cloud_gax::error::rpc::Code::InvalidArgument,
-                    "ALREADY_EXISTS" => google_cloud_gax::error::rpc::Code::AlreadyExists,
-                    "FAILED_PRECONDITION" => google_cloud_gax::error::rpc::Code::FailedPrecondition,
-                    "ABORTED" => google_cloud_gax::error::rpc::Code::Aborted,
-                    "UNAVAILABLE" => google_cloud_gax::error::rpc::Code::Unavailable,
-                    "DEADLINE_EXCEEDED" => google_cloud_gax::error::rpc::Code::DeadlineExceeded,
-                    _ => code,
-                };
+                if let Ok(c) = google_cloud_gax::error::rpc::Code::try_from(err_code.as_str()) {
+                    code = c;
+                } else if err_code == "QUOTA_EXCEEDED" {
+                    code = google_cloud_gax::error::rpc::Code::ResourceExhausted;
+                }
             }
             if let Some(err_msg) = &first_err.message {
                 message = err_msg.clone();

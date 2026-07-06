@@ -576,6 +576,39 @@ mod tests {
         );
     }
 
+    #[test]
+    fn discovery_operation_blanket_and_default() {
+        struct DefaultOperation {
+            done: bool,
+            name: Option<String>,
+        }
+        impl DiscoveryOperation for DefaultOperation {
+            fn done(&self) -> bool {
+                self.done
+            }
+            fn name(&self) -> Option<&String> {
+                self.name.as_ref()
+            }
+        }
+
+        let op = DefaultOperation {
+            done: true,
+            name: Some("test-default".to_string()),
+        };
+
+        // 1. Default implementation of error()
+        assert!(op.error().is_none());
+
+        // 2. Blanket impl for &T
+        let op_ref = &op;
+        assert!(<&DefaultOperation as DiscoveryOperation>::done(&op_ref));
+        assert_eq!(
+            <&DefaultOperation as DiscoveryOperation>::name(&op_ref),
+            Some(&"test-default".to_string())
+        );
+        assert!(<&DefaultOperation as DiscoveryOperation>::error(&op_ref).is_none());
+    }
+
     fn is_transient(error: &Error) -> bool {
         error.status().is_some_and(|s| s == &transient_status())
     }
