@@ -14,7 +14,7 @@
 
 use super::redirect::handle_redirect;
 use super::retry_redirect::RetryRedirect;
-use super::{Client, TonicStreaming};
+use super::{Client, GrpcClient, GrpcStream, TonicStreaming};
 use crate::google::storage::v2::{
     BidiReadObjectRequest, BidiReadObjectResponse, BidiReadObjectSpec, ReadRange as ProtoRange,
 };
@@ -23,15 +23,14 @@ use crate::request_options::RequestOptions;
 use crate::storage::bidi::resume_redirect::ResumeRedirect;
 use crate::storage::info::X_GOOG_API_CLIENT_HEADER;
 use crate::{Error, Result};
-use gaxi::grpc::Client as GrpcClient;
-use gaxi::grpc::tonic::{Extensions, GrpcMethod, Status, Streaming};
+use gaxi::grpc::tonic::{Extensions, GrpcMethod, Status};
 use http::HeaderMap;
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
 use tokio::sync::mpsc::Sender;
 
 #[derive(Debug)]
-pub struct Connection<S = Streaming<BidiReadObjectResponse>> {
+pub struct Connection<S = GrpcStream> {
     pub tx: Sender<BidiReadObjectRequest>,
     pub rx: S,
 }

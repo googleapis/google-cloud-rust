@@ -16,7 +16,7 @@ use super::request_options::RequestOptions;
 use crate::builder::storage::ReadObject;
 use crate::builder::storage::WriteObject;
 use crate::read_resume_policy::ReadResumePolicy;
-use crate::storage::bidi::OpenObject;
+use crate::storage::bidi::{GrpcClient, OpenObject};
 use crate::storage::common_options::CommonOptions;
 use crate::streaming_source::Payload;
 use base64::Engine;
@@ -101,7 +101,7 @@ where
 pub(crate) struct StorageInner {
     pub client: gaxi::http::ReqwestClient,
     pub options: RequestOptions,
-    pub grpc: gaxi::grpc::Client,
+    pub grpc: GrpcClient,
 }
 
 impl Storage {
@@ -292,7 +292,7 @@ impl StorageInner {
     pub(self) fn new(
         client: gaxi::http::ReqwestClient,
         options: RequestOptions,
-        grpc: gaxi::grpc::Client,
+        grpc: GrpcClient,
     ) -> Self {
         Self {
             client,
@@ -313,14 +313,14 @@ impl StorageInner {
             client
         };
         let grpc = if gaxi::options::tracing_enabled(&config) {
-            gaxi::grpc::Client::new_with_instrumentation(
+            GrpcClient::new_with_instrumentation(
                 config,
                 super::DEFAULT_HOST,
                 &super::info::INSTRUMENTATION,
             )
             .await?
         } else {
-            gaxi::grpc::Client::new(config, super::DEFAULT_HOST).await?
+            GrpcClient::new(config, super::DEFAULT_HOST).await?
         };
 
         let inner = StorageInner::new(client, options, grpc);
