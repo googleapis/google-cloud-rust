@@ -698,10 +698,15 @@ impl ManagedZones {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::client::ManagedZones;
+    /// use google_cloud_lro::Poller;
     /// use google_cloud_dns_v1::Result;
     /// async fn sample(
     ///    client: &ManagedZones
     /// ) -> Result<()> {
+    ///     let response = client.patch()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
     /// ```
@@ -754,10 +759,15 @@ impl ManagedZones {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::client::ManagedZones;
+    /// use google_cloud_lro::Poller;
     /// use google_cloud_dns_v1::Result;
     /// async fn sample(
     ///    client: &ManagedZones
     /// ) -> Result<()> {
+    ///     let response = client.update()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
     /// ```

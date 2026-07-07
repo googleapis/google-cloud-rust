@@ -366,9 +366,7 @@ where
                 match &result {
                     Ok(response) => {
                         let op = response.body();
-                        // TODO(https://github.com/googleapis/librarian/issues/6286): Track recording error info for Discovery LROs
-                        let done = google_cloud_lro::internal::DiscoveryOperation::done(op);
-                        _span.record("gcp.longrunning.done", done);
+                        google_cloud_lro::record_discovery_polling_result!(&_span, op);
                     }
                     Err(e) => {
                         _span.record("otel.status_code", "ERROR");
