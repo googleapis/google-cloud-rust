@@ -19,8 +19,6 @@ mod grpc_helpers;
 pub mod status;
 pub mod tonic;
 
-use grpc_helpers::make_headers;
-
 use crate::observability::attributes::{self, keys::*, otel_status_codes};
 use crate::universe_domain::DEFAULT_UNIVERSE_DOMAIN;
 use ::tonic::client::Grpc;
@@ -47,6 +45,7 @@ use google_cloud_gax::retry_policy::{
     Aip194Strict as RetryAip194Strict, RetryPolicy, RetryPolicyExt as _,
 };
 use google_cloud_gax::retry_throttler::SharedRetryThrottler;
+use grpc_helpers::make_headers;
 use http::HeaderMap;
 use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
 use std::sync::Arc;

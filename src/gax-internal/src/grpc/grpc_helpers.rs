@@ -150,17 +150,17 @@ mod tests {
         let mut options = RequestOptions::default();
         options.set_user_agent("invalid\nagent");
         let res = make_headers(API_CLIENT_HEADER, "param=1", &options);
-        assert!(res.is_err());
+        assert!(res.is_err(), "{res:?}");
 
         // Invalid quota project
         let mut options = RequestOptions::default();
         options.set_quota_project("invalid\nproject");
         let res = make_headers(API_CLIENT_HEADER, "param=1", &options);
-        assert!(res.is_err());
+        assert!(res.is_err(), "{res:?}");
 
         // Invalid request params
         let options = RequestOptions::default();
         let res = make_headers(API_CLIENT_HEADER, "invalid\nparams", &options);
-        assert!(res.is_err());
+        assert!(res.is_err(), "{res:?}");
     }
 }
