@@ -15,6 +15,7 @@
 //! Implements the common features of all gRPC-based client.
 
 pub mod from_status;
+mod grpc_helpers;
 pub mod status;
 pub mod tonic;
 
@@ -44,6 +45,7 @@ use google_cloud_gax::retry_policy::{
     Aip194Strict as RetryAip194Strict, RetryPolicy, RetryPolicyExt as _,
 };
 use google_cloud_gax::retry_throttler::SharedRetryThrottler;
+use grpc_helpers::make_headers;
 use http::HeaderMap;
 use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
 use std::sync::Arc;
@@ -51,7 +53,6 @@ use std::time::Duration;
 
 // A tonic::transport::Channel always has a Buffer layer.
 const DEFAULT_REQUEST_BUFFER_CAPACITY: usize = 1024;
-const X_GOOG_USER_PROJECT: &str = "x-goog-user-project";
 
 pub type GrpcService = Channel;
 
@@ -159,7 +160,7 @@ impl Client {
         Request: prost::Message + Clone + 'static,
         Response: prost::Message + Default + 'static,
     {
-        let headers = Self::make_headers(api_client_header, request_params, &options).await?;
+        let headers = make_headers(api_client_header, request_params, &options)?;
         self.retry_loop::<Request, Response>(extensions, path, request, options, headers)
             .await
     }
@@ -209,7 +210,7 @@ impl Client {
         Response: prost::Message + Default + 'static,
     {
         use ::tonic::IntoStreamingRequest;
-        let headers = Self::make_headers(api_client_header, request_params, &options).await?;
+        let headers = make_headers(api_client_header, request_params, &options)?;
         let headers = self.add_auth_headers(headers).await?;
         let metadata = tonic::MetadataMap::from_headers(headers);
         let request = ::tonic::Request::from_parts(metadata, extensions, request);
@@ -274,7 +275,7 @@ impl Client {
         Response: prost::Message + Default + 'static,
     {
         use ::tonic::IntoRequest;
-        let headers = Self::make_headers(api_client_header, request_params, &options).await?;
+        let headers = make_headers(api_client_header, request_params, &options)?;
         let headers = self.add_auth_headers(headers).await?;
         let metadata = tonic::MetadataMap::from_headers(headers);
         let mut request = ::tonic::Request::from_parts(metadata, extensions, request);
@@ -552,48 +553,6 @@ impl Client {
         Ok(data)
     }
 
-    async fn make_headers(
-        api_client_header: &'static str,
-        request_params: &str,
-        options: &RequestOptions,
-    ) -> Result<http::header::HeaderMap> {
-        use google_cloud_gax::options::internal::RequestOptionsExt as _;
-
-        let mut headers = HeaderMap::new();
-        if let Some(user_agent) = options.user_agent() {
-            headers.insert(
-                http::header::USER_AGENT,
-                http::header::HeaderValue::from_str(user_agent).map_err(Error::ser)?,
-            );
-        }
-        if let Some(quota_project) = options.quota_project() {
-            headers.insert(
-                http::header::HeaderName::from_static(X_GOOG_USER_PROJECT),
-                http::header::HeaderValue::from_str(quota_project).map_err(Error::ser)?,
-            );
-        }
-        headers.append(
-            http::header::HeaderName::from_static("x-goog-api-client"),
-            http::header::HeaderValue::from_static(api_client_header),
-        );
-        if !request_params.is_empty() {
-            // When using routing info to populate the request parameters it is
-            // possible that none of the path template matches. AIP-4222 says:
-            //
-            //     If none of the routing parameters matched their respective
-            //     fields, the routing header **must not** be sent.
-            //
-            headers.append(
-                http::header::HeaderName::from_static("x-goog-request-params"),
-                http::header::HeaderValue::from_str(request_params).map_err(Error::ser)?,
-            );
-        }
-        if let Some(custom_headers) = options.get_extension::<HeaderMap>() {
-            headers.extend(custom_headers.clone());
-        }
-        Ok(headers)
-    }
-
     fn get_retry_policy(&self, options: &RequestOptions) -> Arc<dyn RetryPolicy> {
         options
             .retry_policy()
@@ -721,25 +680,5 @@ mod tests {
             .unwrap();
         // We can't easily assert the internal state without exposing more internals,
         // but this verifies the method exists and runs.
-    }
-
-    #[tokio::test]
-    async fn test_make_headers_with_custom_headers() {
-        use google_cloud_gax::options::internal::RequestOptionsExt as _;
-        let mut custom_headers = http::HeaderMap::new();
-        custom_headers.insert(
-            "x-custom-header",
-            http::HeaderValue::from_static("custom-value"),
-        );
-
-        let options = RequestOptions::default().insert_extension(custom_headers);
-
-        let headers = Client::make_headers("test-client/1.0", "param=1", &options)
-            .await
-            .unwrap();
-
-        assert_eq!(headers.get("x-custom-header").unwrap(), "custom-value");
-        assert_eq!(headers.get("x-goog-api-client").unwrap(), "test-client/1.0");
-        assert_eq!(headers.get("x-goog-request-params").unwrap(), "param=1");
     }
 }
