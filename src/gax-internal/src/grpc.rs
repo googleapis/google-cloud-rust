@@ -16,8 +16,12 @@
 
 pub mod from_status;
 mod grpc_helpers;
+#[cfg(google_cloud_unstable_grpc_rust)]
+mod grpc_rust;
 pub mod status;
 pub mod tonic;
+#[cfg(google_cloud_unstable_grpc_rust)]
+pub use grpc_rust::{GrpcRustClient, GrpcRustStreaming};
 
 use crate::observability::attributes::{self, keys::*, otel_status_codes};
 use crate::universe_domain::DEFAULT_UNIVERSE_DOMAIN;
