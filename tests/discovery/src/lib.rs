@@ -22,15 +22,28 @@ use google_cloud_compute_v1::model::{
 };
 use google_cloud_gax::error::rpc::{Code, StatusDetails};
 use google_cloud_gax::paginator::ItemPaginator as _;
+use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicy, RetryPolicyExt};
 use google_cloud_lro::Poller;
 use google_cloud_test_utils::resource_names::{random_image_name, random_vm_id, random_vm_prefix};
 use google_cloud_test_utils::runtime_config::{
     project_id, region_id, test_service_account, zone_id,
 };
 use google_cloud_wkt::Timestamp;
+use std::time::Duration;
+
+fn retry_policy() -> impl RetryPolicy {
+    Aip194Strict
+        .continue_on_client_timeout()
+        .continue_on_too_many_requests()
+        .with_time_limit(5 * Duration::from_secs(60))
+}
 
 pub async fn zones() -> Result<()> {
-    let client = Zones::builder().with_tracing().build().await?;
+    let client = Zones::builder()
+        .with_tracing()
+        .with_retry_policy(retry_policy())
+        .build()
+        .await?;
     let project_id = project_id()?;
     let zone_id = zone_id();
 
@@ -67,6 +80,7 @@ pub async fn errors() -> Result<()> {
     let credentials = Anonymous::new().build();
     let client = Zones::builder()
         .with_credentials(credentials)
+        .with_retry_policy(retry_policy())
         .build()
         .await?;
 
@@ -90,7 +104,10 @@ pub async fn errors() -> Result<()> {
         "{err:?}"
     );
 
-    let client = Zones::builder().build().await?;
+    let client = Zones::builder()
+        .with_retry_policy(retry_policy())
+        .build()
+        .await?;
     let err = client
         .get()
         .set_project("google-not-a-valid-project-name-starts-with-google--")
@@ -140,7 +157,11 @@ pub async fn errors() -> Result<()> {
 }
 
 pub async fn machine_types() -> Result<()> {
-    let client = MachineTypes::builder().with_tracing().build().await?;
+    let client = MachineTypes::builder()
+        .with_tracing()
+        .with_retry_policy(retry_policy())
+        .build()
+        .await?;
     let project_id = project_id()?;
     let zone_id = zone_id();
 

@@ -1,0 +1,15 @@
+{
+    "api_description": "The Developer Knowledge API provides access to Google's developer knowledge.",
+    "api_id": "developerknowledge.googleapis.com",
+    "api_shortname": "developerknowledge",
+    "client_documentation": "https://docs.rs/google-developers-knowledge-v1/latest",
+    "distribution_name": "google-developers-knowledge-v1",
+    "issue_tracker": "https://issuetracker.google.com/issues/new?component=190865\u0026template=1161103",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name": "developerknowledge",
+    "name_pretty": "Developer Knowledge",
+    "product_documentation": "https://developers.google.com/knowledge",
+    "release_level": "stable",
+    "repo": "googleapis/google-cloud-rust"
+}

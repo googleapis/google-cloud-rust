@@ -26,6 +26,14 @@ When reviewing or generating code, apply rigorous scrutiny:
 - **Demand Explosive Correctness:** Never swallow errors or ignore `Result`
   types. Fail loudly and explicitly when appropriate.
 
+### Compilation
+
+The CI has builds to verify the code compiles. You should not assert whether the
+code compiles or not.
+
+You should call out new code that is not compiled (e.g. if a module is not
+included, or if a feature gate is not exercised in the CI).
+
 ## Optimizations
 
 - **Unnecessary clones**: Scrutinize expensive uses of `clone()` (i.e. for
