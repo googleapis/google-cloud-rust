@@ -33,7 +33,6 @@ use tokio::sync::mpsc::Receiver;
 /// A trait to mock `Streaming<T>` in the unit tests.
 ///
 /// This is not a public trait, we only need this for our own testing.
-#[allow(dead_code)]
 pub(crate) trait TonicStreaming: std::fmt::Debug + Send + 'static {
     fn next_message(
         &mut self,
@@ -50,7 +49,6 @@ impl TonicStreaming for Streaming<BidiWriteObjectResponse> {
 /// A trait to mock `gaxi::grpc::Client` in the unit tests.
 ///
 /// This is not a public trait, we only need this for our own testing.
-#[allow(dead_code)]
 pub(crate) trait Client: std::fmt::Debug + Send + 'static {
     type Stream: Sized;
     fn start(
@@ -144,14 +142,12 @@ pub(crate) mod tests {
         )
     }
 
-    #[allow(dead_code)]
     pub(crate) fn test_options() -> RequestOptions {
         let mut options = RequestOptions::new();
         options.backoff_policy = Arc::new(test_backoff());
         options
     }
 
-    #[allow(dead_code)]
     fn test_backoff() -> impl google_cloud_gax::backoff_policy::BackoffPolicy {
         use std::time::Duration;
         google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder::new()
