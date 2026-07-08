@@ -25,6 +25,7 @@ use google_cloud_gax::error::rpc::Code;
 use prost::Message;
 use std::sync::{Arc, Mutex};
 
+#[allow(dead_code)]
 pub fn handle_redirect(state: Arc<Mutex<AppendObjectSpecState>>, status: Status) -> crate::Error {
     let Ok(rpc_status) = RpcStatus::decode(status.details()) else {
         return to_gax_error(status);

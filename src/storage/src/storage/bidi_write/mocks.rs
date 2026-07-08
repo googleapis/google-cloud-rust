@@ -77,6 +77,7 @@ pub trait TestClient: std::fmt::Debug {
 
 pub type MockStream = Receiver<TonicResult<BidiWriteObjectResponse>>;
 
+#[allow(dead_code)]
 pub fn mock_connector(mock: MockTestClient) -> Connector<SharedMockClient> {
     let client = SharedMockClient::new(mock);
 

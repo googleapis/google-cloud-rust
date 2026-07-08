@@ -19,7 +19,7 @@ use super::retry_redirect::RetryRedirect;
 use super::{Client, TonicStreaming};
 use crate::google::storage::v2::{
     AppendObjectSpec, BidiWriteObjectRequest, BidiWriteObjectResponse, CommonObjectRequestParams,
-    WriteObjectSpec, bidi_write_object_request::FirstMessage,
+    Object, WriteObjectSpec, bidi_write_object_request::FirstMessage,
     bidi_write_object_response::WriteStatus,
 };
 use crate::request_options::RequestOptions;
@@ -34,14 +34,17 @@ use google_cloud_gax::error::binding::{
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
 use tokio::sync::mpsc::Sender;
+
 /// Represents a bidirectional streaming connection.
 /// Contains the transmission channel for requests and the receiving stream for responses.
 #[derive(Debug)]
+#[allow(dead_code)]
 pub struct Connection<S = Streaming<BidiWriteObjectResponse>> {
     pub tx: Sender<BidiWriteObjectRequest>,
     pub rx: S,
 }
 
+#[allow(dead_code)]
 impl<S> Connection<S> {
     pub fn new(tx: Sender<BidiWriteObjectRequest>, rx: S) -> Self {
         Self { tx, rx }
@@ -50,6 +53,7 @@ impl<S> Connection<S> {
 
 /// Represents the state of the initial request in the stream.
 #[derive(Clone, Debug)]
+#[allow(dead_code)]
 pub enum AppendObjectSpecState {
     Write(Box<WriteObjectSpec>, Option<String>),
     Append(AppendObjectSpec),
@@ -65,6 +69,7 @@ pub enum AppendObjectSpecState {
 /// # Parameters
 /// - `T`: a type implementing the [Client] trait, this is used in tests.
 #[derive(Clone, Debug)]
+#[allow(dead_code)]
 pub struct Connector<T = GrpcClient> {
     spec: Arc<Mutex<AppendObjectSpecState>>,
     options: RequestOptions,
@@ -72,6 +77,7 @@ pub struct Connector<T = GrpcClient> {
     params: Option<CommonObjectRequestParams>,
 }
 
+#[allow(dead_code)]
 impl<T> Connector<T>
 where
     T: Client + Clone + Send + 'static,
@@ -95,8 +101,7 @@ where
     ) -> Result<(BidiWriteObjectResponse, Connection<T::Stream>)> {
         let resource = match req.spec.resource {
             Some(r) => {
-                let object: crate::google::storage::v2::Object = gaxi::prost::ToProto::to_proto(r)
-                    .map_err(|e: gaxi::prost::ConvertError| Error::io(e.to_string()))?;
+                let object: Object = r.to_proto().map_err(Error::deser)?;
                 Some(object)
             }
             None => None,
@@ -113,7 +118,7 @@ where
         };
         self.params = req
             .params
-            .map(|p| p.to_proto().map_err(|e| Error::io(e.to_string())))
+            .map(|p| p.to_proto().map_err(Error::deser))
             .transpose()?;
         *self.spec.lock().expect("never poisoned") =
             AppendObjectSpecState::Write(Box::new(spec), None);
@@ -137,7 +142,7 @@ where
         };
         self.params = req
             .params
-            .map(|p| p.to_proto().map_err(|e| Error::io(e.to_string())))
+            .map(|p| p.to_proto().map_err(Error::deser))
             .transpose()?;
         *self.spec.lock().expect("never poisoned") = AppendObjectSpecState::Append(spec);
         self.connect_attempt_loop().await
