@@ -5950,6 +5950,24 @@ pub mod tool_service {
             self
         }
 
+        /// Sets the value of [mock_config][crate::model::ExecuteToolRequest::mock_config].
+        pub fn set_mock_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MockConfig>,
+        {
+            self.0.request.mock_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [mock_config][crate::model::ExecuteToolRequest::mock_config].
+        pub fn set_or_clear_mock_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MockConfig>,
+        {
+            self.0.request.mock_config = v.map(|x| x.into());
+            self
+        }
+
         /// Sets the value of [tool_identifier][crate::model::ExecuteToolRequest::tool_identifier].
         ///
         /// Note that all the setters affecting `tool_identifier` are
@@ -6203,6 +6221,12 @@ pub mod tool_service {
         {
             use std::iter::Iterator;
             self.0.request.tool_ids = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [bypass_persistence_config][crate::model::RetrieveToolsRequest::bypass_persistence_config].
+        pub fn set_bypass_persistence_config<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.bypass_persistence_config = v.into();
             self
         }
     }

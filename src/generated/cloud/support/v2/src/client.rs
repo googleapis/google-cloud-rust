@@ -725,3 +725,274 @@ impl CommentService {
         super::builder::comment_service::GetComment::new(self.inner.clone())
     }
 }
+
+/// Implements a client for the Google Cloud Support API.
+///
+/// # Example
+/// ```
+/// # use google_cloud_support_v2::client::SupportEventSubscriptionService;
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// async fn sample(
+///    organization_id: &str,
+/// ) -> anyhow::Result<()> {
+///     let client = SupportEventSubscriptionService::builder().build().await?;
+///     let mut list = client.list_support_event_subscriptions()
+///         .set_parent(format!("organizations/{organization_id}"))
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// Service for managing customer support event subscriptions.
+///
+/// # Configuration
+///
+/// To configure `SupportEventSubscriptionService` use the `with_*` methods in the type returned
+/// by [builder()][SupportEventSubscriptionService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://cloudsupport.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::support_event_subscription_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::support_event_subscription_service::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `SupportEventSubscriptionService` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `SupportEventSubscriptionService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct SupportEventSubscriptionService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::SupportEventSubscriptionService>,
+}
+
+impl SupportEventSubscriptionService {
+    /// Returns a builder for [SupportEventSubscriptionService].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_support_v2::client::SupportEventSubscriptionService;
+    /// let client = SupportEventSubscriptionService::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::support_event_subscription_service::ClientBuilder {
+        crate::new_client_builder(
+            super::builder::support_event_subscription_service::client::Factory,
+        )
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::SupportEventSubscriptionService + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<
+        std::sync::Arc<dyn super::stub::dynamic::SupportEventSubscriptionService>,
+    > {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::SupportEventSubscriptionService> {
+        super::transport::SupportEventSubscriptionService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::SupportEventSubscriptionService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::SupportEventSubscriptionService::new)
+    }
+
+    /// Creates a support event subscription for an organization.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_support_v2::client::SupportEventSubscriptionService;
+    /// use google_cloud_support_v2::model::SupportEventSubscription;
+    /// use google_cloud_support_v2::Result;
+    /// async fn sample(
+    ///    client: &SupportEventSubscriptionService, organization_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_support_event_subscription()
+    ///         .set_parent(format!("organizations/{organization_id}"))
+    ///         .set_support_event_subscription(
+    ///             SupportEventSubscription::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_support_event_subscription(
+        &self,
+    ) -> super::builder::support_event_subscription_service::CreateSupportEventSubscription {
+        super::builder::support_event_subscription_service::CreateSupportEventSubscription::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Gets a support event subscription.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_support_v2::client::SupportEventSubscriptionService;
+    /// use google_cloud_support_v2::Result;
+    /// async fn sample(
+    ///    client: &SupportEventSubscriptionService, organization_id: &str, support_event_subscription_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_support_event_subscription()
+    ///         .set_name(format!("organizations/{organization_id}/supportEventSubscriptions/{support_event_subscription_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_support_event_subscription(
+        &self,
+    ) -> super::builder::support_event_subscription_service::GetSupportEventSubscription {
+        super::builder::support_event_subscription_service::GetSupportEventSubscription::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Lists support event subscriptions.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_support_v2::client::SupportEventSubscriptionService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_support_v2::Result;
+    /// async fn sample(
+    ///    client: &SupportEventSubscriptionService, organization_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_support_event_subscriptions()
+    ///         .set_parent(format!("organizations/{organization_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_support_event_subscriptions(
+        &self,
+    ) -> super::builder::support_event_subscription_service::ListSupportEventSubscriptions {
+        super::builder::support_event_subscription_service::ListSupportEventSubscriptions::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Updates a support event subscription.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_support_v2::client::SupportEventSubscriptionService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_support_v2::model::SupportEventSubscription;
+    /// use google_cloud_support_v2::Result;
+    /// async fn sample(
+    ///    client: &SupportEventSubscriptionService, organization_id: &str, support_event_subscription_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_support_event_subscription()
+    ///         .set_support_event_subscription(
+    ///             SupportEventSubscription::new().set_name(format!("organizations/{organization_id}/supportEventSubscriptions/{support_event_subscription_id}"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_support_event_subscription(
+        &self,
+    ) -> super::builder::support_event_subscription_service::UpdateSupportEventSubscription {
+        super::builder::support_event_subscription_service::UpdateSupportEventSubscription::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Soft deletes a support event subscription.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_support_v2::client::SupportEventSubscriptionService;
+    /// use google_cloud_support_v2::Result;
+    /// async fn sample(
+    ///    client: &SupportEventSubscriptionService, organization_id: &str, support_event_subscription_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.delete_support_event_subscription()
+    ///         .set_name(format!("organizations/{organization_id}/supportEventSubscriptions/{support_event_subscription_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_support_event_subscription(
+        &self,
+    ) -> super::builder::support_event_subscription_service::DeleteSupportEventSubscription {
+        super::builder::support_event_subscription_service::DeleteSupportEventSubscription::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Undeletes a support event subscription.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_support_v2::client::SupportEventSubscriptionService;
+    /// use google_cloud_support_v2::Result;
+    /// async fn sample(
+    ///    client: &SupportEventSubscriptionService, organization_id: &str, support_event_subscription_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.undelete_support_event_subscription()
+    ///         .set_name(format!("organizations/{organization_id}/supportEventSubscriptions/{support_event_subscription_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn undelete_support_event_subscription(
+        &self,
+    ) -> super::builder::support_event_subscription_service::UndeleteSupportEventSubscription {
+        super::builder::support_event_subscription_service::UndeleteSupportEventSubscription::new(
+            self.inner.clone(),
+        )
+    }
+}

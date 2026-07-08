@@ -243,20 +243,21 @@ impl Autokey {
     /// Lists information about the supported locations for this service.
     ///
     /// This method lists locations based on the resource scope provided in
-    /// the [ListLocationsRequest.name] field:
-    ///
-    /// * **Global locations**: If `name` is empty, the method lists the
-    ///   public locations available to all projects. * **Project-specific
-    ///   locations**: If `name` follows the format
-    ///   `projects/{project}`, the method lists locations visible to that
-    ///   specific project. This includes public, private, or other
-    ///   project-specific locations enabled for the project.
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
     ///
     /// For gRPC and client library implementations, the resource name is
     /// passed as the `name` field. For direct service calls, the resource
     /// name is
     /// incorporated into the request path based on the specific service
     /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```
@@ -594,20 +595,21 @@ impl AutokeyAdmin {
     /// Lists information about the supported locations for this service.
     ///
     /// This method lists locations based on the resource scope provided in
-    /// the [ListLocationsRequest.name] field:
-    ///
-    /// * **Global locations**: If `name` is empty, the method lists the
-    ///   public locations available to all projects. * **Project-specific
-    ///   locations**: If `name` follows the format
-    ///   `projects/{project}`, the method lists locations visible to that
-    ///   specific project. This includes public, private, or other
-    ///   project-specific locations enabled for the project.
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
     ///
     /// For gRPC and client library implementations, the resource name is
     /// passed as the `name` field. For direct service calls, the resource
     /// name is
     /// incorporated into the request path based on the specific service
     /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```
@@ -1044,20 +1046,21 @@ impl EkmService {
     /// Lists information about the supported locations for this service.
     ///
     /// This method lists locations based on the resource scope provided in
-    /// the [ListLocationsRequest.name] field:
-    ///
-    /// * **Global locations**: If `name` is empty, the method lists the
-    ///   public locations available to all projects. * **Project-specific
-    ///   locations**: If `name` follows the format
-    ///   `projects/{project}`, the method lists locations visible to that
-    ///   specific project. This includes public, private, or other
-    ///   project-specific locations enabled for the project.
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
     ///
     /// For gRPC and client library implementations, the resource name is
     /// passed as the `name` field. For direct service calls, the resource
     /// name is
     /// incorporated into the request path based on the specific service
     /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```
@@ -1617,20 +1620,21 @@ impl HsmManagement {
     /// Lists information about the supported locations for this service.
     ///
     /// This method lists locations based on the resource scope provided in
-    /// the [ListLocationsRequest.name] field:
-    ///
-    /// * **Global locations**: If `name` is empty, the method lists the
-    ///   public locations available to all projects. * **Project-specific
-    ///   locations**: If `name` follows the format
-    ///   `projects/{project}`, the method lists locations visible to that
-    ///   specific project. This includes public, private, or other
-    ///   project-specific locations enabled for the project.
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
     ///
     /// For gRPC and client library implementations, the resource name is
     /// passed as the `name` field. For direct service calls, the resource
     /// name is
     /// incorporated into the request path based on the specific service
     /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```
@@ -2886,20 +2890,21 @@ impl KeyManagementService {
     /// Lists information about the supported locations for this service.
     ///
     /// This method lists locations based on the resource scope provided in
-    /// the [ListLocationsRequest.name] field:
-    ///
-    /// * **Global locations**: If `name` is empty, the method lists the
-    ///   public locations available to all projects. * **Project-specific
-    ///   locations**: If `name` follows the format
-    ///   `projects/{project}`, the method lists locations visible to that
-    ///   specific project. This includes public, private, or other
-    ///   project-specific locations enabled for the project.
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
     ///
     /// For gRPC and client library implementations, the resource name is
     /// passed as the `name` field. For direct service calls, the resource
     /// name is
     /// incorporated into the request path based on the specific service
     /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```

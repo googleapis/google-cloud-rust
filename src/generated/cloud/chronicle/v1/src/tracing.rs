@@ -1451,6 +1451,257 @@ where
     }
 }
 
+/// Implements a [FindingsRefinementService](super::stub::FindingsRefinementService) decorator for logging and tracing.
+#[derive(Clone, Debug)]
+pub struct FindingsRefinementService<T>
+where
+    T: super::stub::FindingsRefinementService + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+    duration: gaxi::observability::DurationMetric,
+}
+
+impl<T> FindingsRefinementService<T>
+where
+    T: super::stub::FindingsRefinementService + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self {
+            inner,
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
+    }
+}
+
+impl<T> super::stub::FindingsRefinementService for FindingsRefinementService<T>
+where
+    T: super::stub::FindingsRefinementService + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_findings_refinement(
+        &self,
+        req: crate::model::GetFindingsRefinementRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FindingsRefinement>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::FindingsRefinementService::get_findings_refinement",
+            self.inner.get_findings_refinement(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_findings_refinements(
+        &self,
+        req: crate::model::ListFindingsRefinementsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListFindingsRefinementsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::FindingsRefinementService::list_findings_refinements",
+            self.inner.list_findings_refinements(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn create_findings_refinement(
+        &self,
+        req: crate::model::CreateFindingsRefinementRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FindingsRefinement>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::FindingsRefinementService::create_findings_refinement",
+            self.inner.create_findings_refinement(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_findings_refinement(
+        &self,
+        req: crate::model::UpdateFindingsRefinementRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FindingsRefinement>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::FindingsRefinementService::update_findings_refinement",
+            self.inner.update_findings_refinement(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_findings_refinement_deployment(
+        &self,
+        req: crate::model::GetFindingsRefinementDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FindingsRefinementDeployment>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::FindingsRefinementService::get_findings_refinement_deployment",
+            self.inner.get_findings_refinement_deployment(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_findings_refinement_deployment(
+        &self,
+        req: crate::model::UpdateFindingsRefinementDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FindingsRefinementDeployment>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::FindingsRefinementService::update_findings_refinement_deployment",
+            self.inner.update_findings_refinement_deployment(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_all_findings_refinement_deployments(
+        &self,
+        req: crate::model::ListAllFindingsRefinementDeploymentsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListAllFindingsRefinementDeploymentsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::FindingsRefinementService::list_all_findings_refinement_deployments",
+            self.inner.list_all_findings_refinement_deployments(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn compute_findings_refinement_activity(
+        &self,
+        req: crate::model::ComputeFindingsRefinementActivityRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ComputeFindingsRefinementActivityResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::FindingsRefinementService::compute_findings_refinement_activity",
+            self.inner.compute_findings_refinement_activity(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn compute_all_findings_refinement_activities(
+        &self,
+        req: crate::model::ComputeAllFindingsRefinementActivitiesRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ComputeAllFindingsRefinementActivitiesResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::FindingsRefinementService::compute_all_findings_refinement_activities",
+            self.inner.compute_all_findings_refinement_activities(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_operations(
+        &self,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::FindingsRefinementService::list_operations",
+            self.inner.list_operations(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_operation(
+        &self,
+        req: google_cloud_longrunning::model::GetOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::FindingsRefinementService::get_operation",
+            self.inner.get_operation(req, options));
+        #[cfg(google_cloud_unstable_tracing)]
+        google_cloud_lro::record_polling_attributes!(&_span);
+        let result = pending.await;
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            if google_cloud_lro::LroRecorder::current().is_some() {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete_operation(
+        &self,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::FindingsRefinementService::delete_operation",
+            self.inner.delete_operation(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn cancel_operation(
+        &self,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::FindingsRefinementService::cancel_operation",
+            self.inner.cancel_operation(req, options));
+        pending.await
+    }
+}
+
 /// Implements a [InstanceService](super::stub::InstanceService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct InstanceService<T>

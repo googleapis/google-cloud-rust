@@ -7124,6 +7124,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ImportJob {
             __expire_event_time,
             __state,
             __public_key,
+            __public_key_format,
             __attestation,
             __crypto_key_backend,
             Unknown(std::string::String),
@@ -7162,6 +7163,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ImportJob {
                             "state" => Ok(__FieldTag::__state),
                             "publicKey" => Ok(__FieldTag::__public_key),
                             "public_key" => Ok(__FieldTag::__public_key),
+                            "publicKeyFormat" => Ok(__FieldTag::__public_key_format),
+                            "public_key_format" => Ok(__FieldTag::__public_key_format),
                             "attestation" => Ok(__FieldTag::__attestation),
                             "cryptoKeyBackend" => Ok(__FieldTag::__crypto_key_backend),
                             "crypto_key_backend" => Ok(__FieldTag::__crypto_key_backend),
@@ -7273,6 +7276,14 @@ impl<'de> serde::de::Deserialize<'de> for super::ImportJob {
                                     crate::model::import_job::WrappingPublicKey,
                                 >>()?;
                         }
+                        __FieldTag::__public_key_format => {
+                            if !fields.insert(__FieldTag::__public_key_format) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for public_key_format",
+                                ));
+                            }
+                            result.public_key_format = map.next_value::<std::option::Option<crate::model::public_key::PublicKeyFormat>>()?.unwrap_or_default();
+                        }
                         __FieldTag::__attestation => {
                             if !fields.insert(__FieldTag::__attestation) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -7316,6 +7327,7 @@ impl<'de> serde::de::Deserialize<'de> for super::import_job::WrappingPublicKey {
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __pem,
+            __data,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -7337,6 +7349,7 @@ impl<'de> serde::de::Deserialize<'de> for super::import_job::WrappingPublicKey {
                         use std::string::ToString;
                         match value {
                             "pem" => Ok(__FieldTag::__pem),
+                            "data" => Ok(__FieldTag::__data),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -7371,6 +7384,25 @@ impl<'de> serde::de::Deserialize<'de> for super::import_job::WrappingPublicKey {
                             result.pem = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__data => {
+                            if !fields.insert(__FieldTag::__data) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for data",
+                                ));
+                            }
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.data = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -9300,6 +9332,7 @@ impl<'de> serde::de::Deserialize<'de> for super::GetImportJobRequest {
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __name,
+            __public_key_format,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -9321,6 +9354,8 @@ impl<'de> serde::de::Deserialize<'de> for super::GetImportJobRequest {
                         use std::string::ToString;
                         match value {
                             "name" => Ok(__FieldTag::__name),
+                            "publicKeyFormat" => Ok(__FieldTag::__public_key_format),
+                            "public_key_format" => Ok(__FieldTag::__public_key_format),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -9355,6 +9390,14 @@ impl<'de> serde::de::Deserialize<'de> for super::GetImportJobRequest {
                             result.name = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__public_key_format => {
+                            if !fields.insert(__FieldTag::__public_key_format) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for public_key_format",
+                                ));
+                            }
+                            result.public_key_format = map.next_value::<std::option::Option<crate::model::public_key::PublicKeyFormat>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

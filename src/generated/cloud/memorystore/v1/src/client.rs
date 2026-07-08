@@ -543,7 +543,100 @@ impl Memorystore {
         super::builder::memorystore::BackupInstance::new(self.inner.clone())
     }
 
+    /// Initiates the migration of a source instance to the target Memorystore
+    /// instance.
+    ///
+    /// After the successful completion of this operation, the target instance
+    /// will:
+    ///
+    /// 1. Set up replication with the source instance and replicate any writes to
+    ///    the source instance.
+    /// 1. Only allow reads.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memorystore_v1::client::Memorystore;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_memorystore_v1::Result;
+    /// async fn sample(
+    ///    client: &Memorystore
+    /// ) -> Result<()> {
+    ///     let response = client.start_migration()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn start_migration(&self) -> super::builder::memorystore::StartMigration {
+        super::builder::memorystore::StartMigration::new(self.inner.clone())
+    }
+
+    /// Finalizes the migration process.
+    ///
+    /// After the successful completion of this operation, the target instance
+    /// will:
+    ///
+    /// 1. Stop replicating from the source instance.
+    /// 1. Allow both reads and writes.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memorystore_v1::client::Memorystore;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_memorystore_v1::Result;
+    /// async fn sample(
+    ///    client: &Memorystore
+    /// ) -> Result<()> {
+    ///     let response = client.finish_migration()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn finish_migration(&self) -> super::builder::memorystore::FinishMigration {
+        super::builder::memorystore::FinishMigration::new(self.inner.clone())
+    }
+
     /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```

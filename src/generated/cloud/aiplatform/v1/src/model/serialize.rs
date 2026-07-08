@@ -31233,6 +31233,9 @@ impl serde::ser::Serialize for super::ReasoningEngineSpec {
         if !self.agent_framework.is_empty() {
             state.serialize_entry("agentFramework", &self.agent_framework)?;
         }
+        if !wkt::internal::is_default(&self.identity_type) {
+            state.serialize_entry("identityType", &self.identity_type)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

@@ -124,6 +124,9 @@ impl serde::ser::Serialize for super::template::TemplateMetadata {
         if self.multi_language_detection.is_some() {
             state.serialize_entry("multiLanguageDetection", &self.multi_language_detection)?;
         }
+        if !self.modalities.is_empty() {
+            state.serialize_entry("modalities", &self.modalities)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1037,6 +1040,9 @@ impl serde::ser::Serialize for super::SdpFilterResult {
         if let Some(value) = self.deidentify_result() {
             state.serialize_entry("deidentifyResult", value)?;
         }
+        if let Some(value) = self.redact_result() {
+            state.serialize_entry("redactResult", value)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1070,6 +1076,9 @@ impl serde::ser::Serialize for super::SdpInspectResult {
         }
         if !wkt::internal::is_default(&self.findings_truncated) {
             state.serialize_entry("findingsTruncated", &self.findings_truncated)?;
+        }
+        if !self.extracted_image_text.is_empty() {
+            state.serialize_entry("extractedImageText", &self.extracted_image_text)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1186,6 +1195,120 @@ impl serde::ser::Serialize for super::SdpDeidentifyResult {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::SdpImageFindingLocation {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.bounding_boxes.is_empty() {
+            state.serialize_entry("boundingBoxes", &self.bounding_boxes)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::sdp_image_finding_location::SdpBoundingBox {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.top) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("top", &__With(&self.top))?;
+        }
+        if !wkt::internal::is_default(&self.left) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("left", &__With(&self.left))?;
+        }
+        if !wkt::internal::is_default(&self.width) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("width", &__With(&self.width))?;
+        }
+        if !wkt::internal::is_default(&self.height) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("height", &__With(&self.height))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::SdpContentLocation {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.image_finding_location() {
+            state.serialize_entry("imageFindingLocation", value)?;
+        }
+        if !self.container_name.is_empty() {
+            state.serialize_entry("containerName", &self.container_name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::SdpFinding {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -1228,6 +1351,55 @@ impl serde::ser::Serialize for super::sdp_finding::SdpFindingLocation {
         }
         if self.codepoint_range.is_some() {
             state.serialize_entry("codepointRange", &self.codepoint_range)?;
+        }
+        if !self.content_locations.is_empty() {
+            state.serialize_entry("contentLocations", &self.content_locations)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::SdpRedactResult {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.execution_state) {
+            state.serialize_entry("executionState", &self.execution_state)?;
+        }
+        if !self.message_items.is_empty() {
+            state.serialize_entry("messageItems", &self.message_items)?;
+        }
+        if !wkt::internal::is_default(&self.match_state) {
+            state.serialize_entry("matchState", &self.match_state)?;
+        }
+        if !self.redacted_image.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("redactedImage", &__With(&self.redacted_image))?;
+        }
+        if !self.findings.is_empty() {
+            state.serialize_entry("findings", &self.findings)?;
+        }
+        if !self.extracted_image_text.is_empty() {
+            state.serialize_entry("extractedImageText", &self.extracted_image_text)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

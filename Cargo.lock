@@ -2119,6 +2119,7 @@ dependencies = [
  "google-cloud-gax",
  "google-cloud-gax-internal",
  "google-cloud-grafeas-v1",
+ "google-cloud-iam-v1",
  "google-cloud-wkt",
  "serde",
  "serde_json",

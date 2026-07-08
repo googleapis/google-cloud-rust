@@ -624,6 +624,7 @@ impl std::fmt::Debug for super::instance_flexibility_policy::InstanceSelection {
         let mut debug_struct = f.debug_struct("InstanceSelection");
         debug_struct.field("machine_types", &self.machine_types);
         debug_struct.field("rank", &self.rank);
+        debug_struct.field("disk_config", &self.disk_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -670,6 +671,21 @@ impl std::fmt::Debug for super::DiskConfig {
             "boot_disk_provisioned_throughput",
             &self.boot_disk_provisioned_throughput,
         );
+        debug_struct.field("attached_disk_configs", &self.attached_disk_configs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::AttachedDiskConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AttachedDiskConfig");
+        debug_struct.field("disk_type", &self.disk_type);
+        debug_struct.field("disk_size_gb", &self.disk_size_gb);
+        debug_struct.field("provisioned_iops", &self.provisioned_iops);
+        debug_struct.field("provisioned_throughput", &self.provisioned_throughput);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

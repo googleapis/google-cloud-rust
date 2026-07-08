@@ -72,6 +72,9 @@ impl serde::ser::Serialize for super::Policy {
         if self.update_time.is_some() {
             state.serialize_entry("updateTime", &self.update_time)?;
         }
+        if !self.etag.is_empty() {
+            state.serialize_entry("etag", &self.etag)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -153,6 +156,9 @@ impl serde::ser::Serialize for super::Attestor {
         if self.update_time.is_some() {
             state.serialize_entry("updateTime", &self.update_time)?;
         }
+        if !self.etag.is_empty() {
+            state.serialize_entry("etag", &self.etag)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -208,6 +214,9 @@ impl serde::ser::Serialize for super::PkixPublicKey {
         }
         if !wkt::internal::is_default(&self.signature_algorithm) {
             state.serialize_entry("signatureAlgorithm", &self.signature_algorithm)?;
+        }
+        if !self.key_id.is_empty() {
+            state.serialize_entry("keyId", &self.key_id)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

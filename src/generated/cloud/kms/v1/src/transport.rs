@@ -6361,6 +6361,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("publicKeyFormat", &req.public_key_format)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })

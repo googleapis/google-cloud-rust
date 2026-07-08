@@ -60,6 +60,7 @@ impl std::fmt::Debug for super::template::TemplateMetadata {
         debug_struct.field("log_sanitize_operations", &self.log_sanitize_operations);
         debug_struct.field("enforcement_type", &self.enforcement_type);
         debug_struct.field("multi_language_detection", &self.multi_language_detection);
+        debug_struct.field("modalities", &self.modalities);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -500,6 +501,7 @@ impl std::fmt::Debug for super::SdpInspectResult {
         debug_struct.field("match_state", &self.match_state);
         debug_struct.field("findings", &self.findings);
         debug_struct.field("findings_truncated", &self.findings_truncated);
+        debug_struct.field("extracted_image_text", &self.extracted_image_text);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -546,6 +548,43 @@ impl std::fmt::Debug for super::SdpDeidentifyResult {
     }
 }
 
+impl std::fmt::Debug for super::SdpImageFindingLocation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SdpImageFindingLocation");
+        debug_struct.field("bounding_boxes", &self.bounding_boxes);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::sdp_image_finding_location::SdpBoundingBox {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SdpBoundingBox");
+        debug_struct.field("top", &self.top);
+        debug_struct.field("left", &self.left);
+        debug_struct.field("width", &self.width);
+        debug_struct.field("height", &self.height);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SdpContentLocation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SdpContentLocation");
+        debug_struct.field("container_name", &self.container_name);
+        debug_struct.field("location", &self.location);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::SdpFinding {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SdpFinding");
@@ -564,6 +603,23 @@ impl std::fmt::Debug for super::sdp_finding::SdpFindingLocation {
         let mut debug_struct = f.debug_struct("SdpFindingLocation");
         debug_struct.field("byte_range", &self.byte_range);
         debug_struct.field("codepoint_range", &self.codepoint_range);
+        debug_struct.field("content_locations", &self.content_locations);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SdpRedactResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SdpRedactResult");
+        debug_struct.field("execution_state", &self.execution_state);
+        debug_struct.field("message_items", &self.message_items);
+        debug_struct.field("match_state", &self.match_state);
+        debug_struct.field("redacted_image", &self.redacted_image);
+        debug_struct.field("findings", &self.findings);
+        debug_struct.field("extracted_image_text", &self.extracted_image_text);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

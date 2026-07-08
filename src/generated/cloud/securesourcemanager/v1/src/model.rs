@@ -1045,6 +1045,12 @@ pub struct Repository {
     /// Input only. Initial configurations for the repository.
     pub initial_config: std::option::Option<crate::model::repository::InitialConfig>,
 
+    /// Optional. Repository level service account (BYOSA).
+    pub service_account: std::string::String,
+
+    /// Optional. Provides configuration for scanning.
+    pub scan_config: std::option::Option<crate::model::repository::ScanConfig>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1249,6 +1255,51 @@ impl Repository {
         T: std::convert::Into<crate::model::repository::InitialConfig>,
     {
         self.initial_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [service_account][crate::model::Repository::service_account].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_securesourcemanager_v1::model::Repository;
+    /// let x = Repository::new().set_service_account("example");
+    /// ```
+    pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.service_account = v.into();
+        self
+    }
+
+    /// Sets the value of [scan_config][crate::model::Repository::scan_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_securesourcemanager_v1::model::Repository;
+    /// use google_cloud_securesourcemanager_v1::model::repository::ScanConfig;
+    /// let x = Repository::new().set_scan_config(ScanConfig::default()/* use setters */);
+    /// ```
+    pub fn set_scan_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::repository::ScanConfig>,
+    {
+        self.scan_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [scan_config][crate::model::Repository::scan_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_securesourcemanager_v1::model::Repository;
+    /// use google_cloud_securesourcemanager_v1::model::repository::ScanConfig;
+    /// let x = Repository::new().set_or_clear_scan_config(Some(ScanConfig::default()/* use setters */));
+    /// let x = Repository::new().set_or_clear_scan_config(None::<ScanConfig>);
+    /// ```
+    pub fn set_or_clear_scan_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::repository::ScanConfig>,
+    {
+        self.scan_config = v.map(|x| x.into());
         self
     }
 }
@@ -1539,6 +1590,122 @@ pub mod repository {
     impl wkt::message::Message for InitialConfig {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.securesourcemanager.v1.Repository.InitialConfig"
+        }
+    }
+
+    /// Configuration for scanning.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ScanConfig {
+        /// Optional. Configuration for secret scanning.
+        pub secret_scan_config:
+            std::option::Option<crate::model::repository::scan_config::SecretScanConfig>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ScanConfig {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [secret_scan_config][crate::model::repository::ScanConfig::secret_scan_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_securesourcemanager_v1::model::repository::ScanConfig;
+        /// use google_cloud_securesourcemanager_v1::model::repository::scan_config::SecretScanConfig;
+        /// let x = ScanConfig::new().set_secret_scan_config(SecretScanConfig::default()/* use setters */);
+        /// ```
+        pub fn set_secret_scan_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::repository::scan_config::SecretScanConfig>,
+        {
+            self.secret_scan_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [secret_scan_config][crate::model::repository::ScanConfig::secret_scan_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_securesourcemanager_v1::model::repository::ScanConfig;
+        /// use google_cloud_securesourcemanager_v1::model::repository::scan_config::SecretScanConfig;
+        /// let x = ScanConfig::new().set_or_clear_secret_scan_config(Some(SecretScanConfig::default()/* use setters */));
+        /// let x = ScanConfig::new().set_or_clear_secret_scan_config(None::<SecretScanConfig>);
+        /// ```
+        pub fn set_or_clear_secret_scan_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::repository::scan_config::SecretScanConfig>,
+        {
+            self.secret_scan_config = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for ScanConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.securesourcemanager.v1.Repository.ScanConfig"
+        }
+    }
+
+    /// Defines additional types related to [ScanConfig].
+    pub mod scan_config {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Configuration for secret scanning.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct SecretScanConfig {
+            /// Optional. Enables secret scanning for the repository.
+            pub enabled: bool,
+
+            /// Optional. The DLP inspect template to use for secret scanning.
+            pub inspect_template: std::string::String,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl SecretScanConfig {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [enabled][crate::model::repository::scan_config::SecretScanConfig::enabled].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_securesourcemanager_v1::model::repository::scan_config::SecretScanConfig;
+            /// let x = SecretScanConfig::new().set_enabled(true);
+            /// ```
+            pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+                self.enabled = v.into();
+                self
+            }
+
+            /// Sets the value of [inspect_template][crate::model::repository::scan_config::SecretScanConfig::inspect_template].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_securesourcemanager_v1::model::repository::scan_config::SecretScanConfig;
+            /// let x = SecretScanConfig::new().set_inspect_template("example");
+            /// ```
+            pub fn set_inspect_template<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.inspect_template = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for SecretScanConfig {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.securesourcemanager.v1.Repository.ScanConfig.SecretScanConfig"
+            }
         }
     }
 }
