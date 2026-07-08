@@ -15,7 +15,7 @@
 #[cfg(all(test, feature = "_internal-grpc-client"))]
 mod tests {
     use google_cloud_auth::credentials::{Credentials, anonymous::Builder as Anonymous};
-    use google_cloud_gax::attempt_interceptor_internal::AttemptInterceptor;
+    use google_cloud_gax_internal::attempt_interceptor::AttemptInterceptor;
     use google_cloud_gax::backoff_policy::BackoffPolicy;
     use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
     use google_cloud_gax::options::RequestOptions;
@@ -120,9 +120,9 @@ mod tests {
         config.cred = Some(test_credentials());
         config.endpoint = Some(endpoint);
         config.backoff_policy = Some(Arc::new(test_backoff()));
-        config.attempt_interceptor = Some(tracker.clone());
 
-        let client = grpc::Client::new(config, "https://test-only.googleapis.com").await?;
+        let mut client = grpc::Client::new(config, "https://test-only.googleapis.com").await?;
+        client.set_attempt_interceptor(tracker.clone());
         let _response = send_request(client, "interceptor_on_retry").await?;
 
         let attempts = tracker.attempts.lock().unwrap().clone();

@@ -17,7 +17,7 @@ mod tests {
     use google_cloud_auth::credentials::{
         Credentials, anonymous::Builder as Anonymous, testing::error_credentials,
     };
-    use google_cloud_gax::attempt_interceptor_internal::AttemptInterceptor;
+    use google_cloud_gax_internal::attempt_interceptor::AttemptInterceptor;
     use google_cloud_gax::error::rpc::Code;
     use google_cloud_gax::options::RequestOptions;
     use google_cloud_gax::retry_policy::NeverRetry;
@@ -213,9 +213,9 @@ mod tests {
         let mut config = ClientConfig::default();
         config.cred = Some(test_credentials());
         config.endpoint = Some(endpoint);
-        config.attempt_interceptor = Some(Arc::new(TestInterceptor));
 
-        let client = grpc::Client::new(config, "https://test-only.googleapis.com").await?;
+        let mut client = grpc::Client::new(config, "https://test-only.googleapis.com").await?;
+        client.set_attempt_interceptor(Arc::new(TestInterceptor));
 
         let response = send_request(client, "test message", "").await?;
         assert_eq!(&response.message, "test message");

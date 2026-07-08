@@ -29,7 +29,7 @@ use google_cloud_auth::credentials::{
     Builder as CredentialsBuilder, CacheableResource, Credentials,
 };
 use google_cloud_gax::Result;
-use google_cloud_gax::attempt_interceptor_internal::AttemptInterceptor;
+use crate::attempt_interceptor::AttemptInterceptor;
 use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::client_builder::Error as BuilderError;
 use google_cloud_gax::client_builder::Result as ClientBuilderResult;
@@ -145,8 +145,13 @@ impl Client {
                 .polling_backoff_policy
                 .unwrap_or_else(|| Arc::new(ExponentialBackoff::default())),
             attempt_timeout: config.attempt_timeout,
-            attempt_interceptor: config.attempt_interceptor.clone(),
+            attempt_interceptor: None,
         })
+    }
+
+    /// Sets the attempt interceptor for the client.
+    pub fn set_attempt_interceptor(&mut self, interceptor: std::sync::Arc<dyn AttemptInterceptor>) {
+        self.attempt_interceptor = Some(interceptor);
     }
 
     /// Sends a request.

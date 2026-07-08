@@ -2996,7 +2996,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gax"
-version = "1.11.1"
+version = "1.11.0"
 dependencies = [
  "anyhow",
  "bytes",
@@ -3017,7 +3017,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gax-internal"
-version = "0.7.15"
+version = "0.7.16"
 dependencies = [
  "anyhow",
  "bytes",
