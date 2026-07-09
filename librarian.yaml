@@ -153,7 +153,13 @@ libraries:
           output: src/wkt/tests/common/src/generated
           api_path: src/wkt/tests/protos
           template: mod
+  - name: google-ads-datamanager-v1
+    version: 1.0.0
+    copyright_year: "2026"
   - name: google-apps-card-v1
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-apps-events-subscriptions-v1
     version: 1.0.0
     copyright_year: "2026"
   - name: google-backstory
