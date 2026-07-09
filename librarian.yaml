@@ -57,6 +57,9 @@ default:
         package: google-cloud-gax-internal
         feature: _internal-http-client
         used_if: services
+      - name: google-apps-card-v1
+        package: google-apps-card-v1
+        source: google.apps.card.v1
       - name: google-cloud-api
         package: google-cloud-api
         source: google.api
@@ -154,6 +157,9 @@ libraries:
           api_path: src/wkt/tests/protos
           template: mod
   - name: google-ads-datamanager-v1
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-apps-card-v1
     version: 1.0.0
     copyright_year: "2026"
   - name: google-apps-events-subscriptions-v1

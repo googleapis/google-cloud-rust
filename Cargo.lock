@@ -1131,6 +1131,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-apps-card-v1"
+version = "1.0.0"
+dependencies = [
+ "anyhow",
+ "bytes",
+ "google-cloud-type",
+ "google-cloud-wkt",
+ "serde",
+ "serde_json",
+ "serde_with",
+]
+
+[[package]]
 name = "google-apps-events-subscriptions-v1"
 version = "1.0.0"
 dependencies = [
