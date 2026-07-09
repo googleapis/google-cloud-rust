@@ -59,7 +59,7 @@ impl RowIterator {
             return None;
         }
 
-        if let Some(token) = self.page_token.take() {
+        while let Some(token) = self.page_token.take() {
             match self.fetch_page(&token).await {
                 Ok((fetched_rows, next_token)) => {
                     self.page_token = next_token;
