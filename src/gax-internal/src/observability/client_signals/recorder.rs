@@ -55,7 +55,7 @@ tokio::task_local! {
 /// The transport-level stub in the client library must call `on_client_request()` before calling the
 /// transport client.
 ///
-/// The transport clients ([ReqwestClient] and [GrpcClient]) must make matched calls to
+/// The transport clients (`ReqwestClient` and `GrpcClient`) must make matched calls to
 /// `on_<transport>_request` and one of `on_<transport>_response` or `on_<transport>_error()`. Any
 /// instrumentation on these clients can read the values directly from the `RequestRecorder` that is
 /// in scope.
@@ -80,9 +80,6 @@ tokio::task_local! {
 /// # panic!("")
 /// }
 /// ```
-///
-/// [ReqwestClient]: crate::http::ReqwestClient
-/// [GrpcClient]: crate::grpc::Client
 #[derive(Clone, Debug)]
 pub struct RequestRecorder {
     inner: Arc<Mutex<ClientSnapshot>>,

@@ -15,6 +15,7 @@
 //! Implements the common features of all gRPC-based client.
 
 pub mod from_status;
+mod grpc_helpers;
 pub mod status;
 pub mod tonic;
 
@@ -24,9 +25,7 @@ use ::tonic::client::Grpc;
 use ::tonic::transport::Channel;
 use from_status::to_gax_error;
 use futures::TryFutureExt;
-use google_cloud_auth::credentials::{
-    Builder as CredentialsBuilder, CacheableResource, Credentials,
-};
+use google_cloud_auth::credentials::Credentials;
 use google_cloud_gax::Result;
 use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::client_builder::Error as BuilderError;
@@ -44,6 +43,7 @@ use google_cloud_gax::retry_policy::{
     Aip194Strict as RetryAip194Strict, RetryPolicy, RetryPolicyExt as _,
 };
 use google_cloud_gax::retry_throttler::SharedRetryThrottler;
+use grpc_helpers::{add_auth_headers, make_credentials, make_headers};
 use http::HeaderMap;
 use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
 use std::sync::Arc;
@@ -51,7 +51,6 @@ use std::time::Duration;
 
 // A tonic::transport::Channel always has a Buffer layer.
 const DEFAULT_REQUEST_BUFFER_CAPACITY: usize = 1024;
-const X_GOOG_USER_PROJECT: &str = "x-goog-user-project";
 
 pub type GrpcService = Channel;
 
@@ -103,7 +102,7 @@ impl Client {
         default_endpoint: &str,
         instrumentation: Option<&'static crate::options::InstrumentationClientInfo>,
     ) -> ClientBuilderResult<Self> {
-        let credentials = Self::make_credentials(&config).await?;
+        let credentials = make_credentials(&config)?;
         let tracing_enabled = crate::options::tracing_enabled(&config);
         let universe_domain =
             crate::universe_domain::resolve(config.universe_domain.as_deref(), &credentials)
@@ -159,7 +158,7 @@ impl Client {
         Request: prost::Message + Clone + 'static,
         Response: prost::Message + Default + 'static,
     {
-        let headers = Self::make_headers(api_client_header, request_params, &options).await?;
+        let headers = make_headers(api_client_header, request_params, &options)?;
         self.retry_loop::<Request, Response>(extensions, path, request, options, headers)
             .await
     }
@@ -209,8 +208,8 @@ impl Client {
         Response: prost::Message + Default + 'static,
     {
         use ::tonic::IntoStreamingRequest;
-        let headers = Self::make_headers(api_client_header, request_params, &options).await?;
-        let headers = self.add_auth_headers(headers).await?;
+        let headers = make_headers(api_client_header, request_params, &options)?;
+        let headers = add_auth_headers(headers, &self.credentials).await?;
         let metadata = tonic::MetadataMap::from_headers(headers);
         let request = ::tonic::Request::from_parts(metadata, extensions, request);
         let codec = tonic_prost::ProstCodec::<Request, Response>::default();
@@ -274,8 +273,8 @@ impl Client {
         Response: prost::Message + Default + 'static,
     {
         use ::tonic::IntoRequest;
-        let headers = Self::make_headers(api_client_header, request_params, &options).await?;
-        let headers = self.add_auth_headers(headers).await?;
+        let headers = make_headers(api_client_header, request_params, &options)?;
+        let headers = add_auth_headers(headers, &self.credentials).await?;
         let metadata = tonic::MetadataMap::from_headers(headers);
         let mut request = ::tonic::Request::from_parts(metadata, extensions, request);
         if let Some(timeout) =
@@ -405,7 +404,7 @@ impl Client {
         };
 
         #[allow(unused_mut)]
-        let mut headers = self.add_auth_headers(headers).await?;
+        let mut headers = add_auth_headers(headers, &self.credentials).await?;
 
         crate::observability::propagation::inject_context(&span, &mut headers);
 
@@ -523,75 +522,6 @@ impl Client {
             endpoint = endpoint.http2_max_header_list_size(limit);
         }
         Ok(endpoint)
-    }
-
-    async fn make_credentials(
-        config: &crate::options::ClientConfig,
-    ) -> ClientBuilderResult<Credentials> {
-        if let Some(c) = config.cred.clone() {
-            return Ok(c);
-        }
-        CredentialsBuilder::default()
-            .build()
-            .map_err(BuilderError::cred)
-    }
-
-    async fn add_auth_headers(&self, headers: http::HeaderMap) -> Result<http::HeaderMap> {
-        let h = self
-            .credentials
-            .headers(http::Extensions::new())
-            .await
-            .map_err(Error::authentication)?;
-
-        let CacheableResource::New { mut data, .. } = h else {
-            unreachable!("headers are not cached");
-        };
-
-        // Note that client headers override credential headers (e.g. for `x-goog-user-project`).
-        data.extend(headers);
-        Ok(data)
-    }
-
-    async fn make_headers(
-        api_client_header: &'static str,
-        request_params: &str,
-        options: &RequestOptions,
-    ) -> Result<http::header::HeaderMap> {
-        use google_cloud_gax::options::internal::RequestOptionsExt as _;
-
-        let mut headers = HeaderMap::new();
-        if let Some(user_agent) = options.user_agent() {
-            headers.insert(
-                http::header::USER_AGENT,
-                http::header::HeaderValue::from_str(user_agent).map_err(Error::ser)?,
-            );
-        }
-        if let Some(quota_project) = options.quota_project() {
-            headers.insert(
-                http::header::HeaderName::from_static(X_GOOG_USER_PROJECT),
-                http::header::HeaderValue::from_str(quota_project).map_err(Error::ser)?,
-            );
-        }
-        headers.append(
-            http::header::HeaderName::from_static("x-goog-api-client"),
-            http::header::HeaderValue::from_static(api_client_header),
-        );
-        if !request_params.is_empty() {
-            // When using routing info to populate the request parameters it is
-            // possible that none of the path template matches. AIP-4222 says:
-            //
-            //     If none of the routing parameters matched their respective
-            //     fields, the routing header **must not** be sent.
-            //
-            headers.append(
-                http::header::HeaderName::from_static("x-goog-request-params"),
-                http::header::HeaderValue::from_str(request_params).map_err(Error::ser)?,
-            );
-        }
-        if let Some(custom_headers) = options.get_extension::<HeaderMap>() {
-            headers.extend(custom_headers.clone());
-        }
-        Ok(headers)
     }
 
     fn get_retry_policy(&self, options: &RequestOptions) -> Arc<dyn RetryPolicy> {
@@ -721,25 +651,5 @@ mod tests {
             .unwrap();
         // We can't easily assert the internal state without exposing more internals,
         // but this verifies the method exists and runs.
-    }
-
-    #[tokio::test]
-    async fn test_make_headers_with_custom_headers() {
-        use google_cloud_gax::options::internal::RequestOptionsExt as _;
-        let mut custom_headers = http::HeaderMap::new();
-        custom_headers.insert(
-            "x-custom-header",
-            http::HeaderValue::from_static("custom-value"),
-        );
-
-        let options = RequestOptions::default().insert_extension(custom_headers);
-
-        let headers = Client::make_headers("test-client/1.0", "param=1", &options)
-            .await
-            .unwrap();
-
-        assert_eq!(headers.get("x-custom-header").unwrap(), "custom-value");
-        assert_eq!(headers.get("x-goog-api-client").unwrap(), "test-client/1.0");
-        assert_eq!(headers.get("x-goog-request-params").unwrap(), "param=1");
     }
 }

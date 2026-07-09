@@ -17818,9 +17818,9 @@ impl std::fmt::Debug for super::reservation_aggregated_list::warning::Data {
 impl std::fmt::Debug for super::ReservationBlock {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReservationBlock");
-        debug_struct.field("block_health_info", &self.block_health_info);
         debug_struct.field("count", &self.count);
         debug_struct.field("creation_timestamp", &self.creation_timestamp);
+        debug_struct.field("health_info", &self.health_info);
         debug_struct.field("id", &self.id);
         debug_struct.field("in_use_count", &self.in_use_count);
         debug_struct.field("in_use_host_count", &self.in_use_host_count);
@@ -18144,6 +18144,7 @@ impl std::fmt::Debug for super::ReservationSubBlock {
         );
         debug_struct.field("count", &self.count);
         debug_struct.field("creation_timestamp", &self.creation_timestamp);
+        debug_struct.field("health_info", &self.health_info);
         debug_struct.field("id", &self.id);
         debug_struct.field("in_use_count", &self.in_use_count);
         debug_struct.field("in_use_host_count", &self.in_use_host_count);
@@ -18157,7 +18158,6 @@ impl std::fmt::Debug for super::ReservationSubBlock {
         debug_struct.field("self_link", &self.self_link);
         debug_struct.field("self_link_with_id", &self.self_link_with_id);
         debug_struct.field("status", &self.status);
-        debug_struct.field("sub_block_health_info", &self.sub_block_health_info);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

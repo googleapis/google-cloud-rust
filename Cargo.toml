@@ -73,6 +73,7 @@ members = [
   "src/firestore",
   "src/gax",
   "src/gax-internal",
+  "src/generated/ads/datamanager/v1",
   "src/generated/api/apikeys/v2",
   "src/generated/api/cloudquotas/v1",
   "src/generated/api/servicecontrol/v1",
@@ -261,6 +262,7 @@ members = [
   "src/generated/cloud/workstations/v1",
   "src/generated/container/v1",
   "src/generated/datastore/admin/v1",
+  "src/generated/developers/knowledge/v1",
   "src/generated/devtools/artifactregistry/v1",
   "src/generated/devtools/cloudbuild/v1",
   "src/generated/devtools/cloudbuild/v2",
@@ -457,7 +459,7 @@ flate2            = { default-features = false, version = "1.1.9" }
 hmac              = { default-features = false, version = "0.13.0" }
 httptest          = { default-features = false, version = "0.16.4" }
 md5               = { default-features = false, version = "0.8" }
-mockall           = { default-features = false, version = "0.14" }
+mockall           = { default-features = false, version = "0.15" }
 multer            = { default-features = false, version = "3" }
 mutants           = { default-features = false, version = "0.0.4" }
 once_cell         = { default-features = false, version = "1.19.0" }
