@@ -10187,7 +10187,7 @@ impl<'de> serde::de::Deserialize<'de> for super::PositionSectionRequest {
                                 ));
                             }
                             result.position = std::option::Option::Some(
-                                crate::model::position_section_request::Position::SortOrder(
+                                crate::model::position_section_request::PositionOneof::SortOrder(
                                     map.next_value::<__With>()?.0.unwrap_or_default(),
                                 ),
                             );
@@ -10204,11 +10204,8 @@ impl<'de> serde::de::Deserialize<'de> for super::PositionSectionRequest {
                                 ));
                             }
                             result.position = std::option::Option::Some(
-                                crate::model::position_section_request::Position::RelativePosition(
-                                    map.next_value::<std::option::Option<
-                                        crate::model::position_section_request::Position,
-                                    >>()?
-                                    .unwrap_or_default(),
+                                crate::model::position_section_request::PositionOneof::RelativePosition(
+                                    map.next_value::<std::option::Option<crate::model::position_section_request::Position>>()?.unwrap_or_default()
                                 ),
                             );
                         }

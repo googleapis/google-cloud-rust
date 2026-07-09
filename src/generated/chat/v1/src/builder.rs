@@ -4030,7 +4030,9 @@ pub mod chat_service {
         ///
         /// Note that all the setters affecting `position` are
         /// mutually exclusive.
-        pub fn set_position<T: Into<Option<crate::model::position_section_request::Position>>>(
+        pub fn set_position<
+            T: Into<Option<crate::model::position_section_request::PositionOneof>>,
+        >(
             mut self,
             v: T,
         ) -> Self {

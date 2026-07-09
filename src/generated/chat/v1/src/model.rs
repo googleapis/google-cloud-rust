@@ -12050,7 +12050,7 @@ pub struct PositionSectionRequest {
     pub name: std::string::String,
 
     /// Required. The new position of the section.
-    pub position: std::option::Option<crate::model::position_section_request::Position>,
+    pub position: std::option::Option<crate::model::position_section_request::PositionOneof>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -12083,11 +12083,13 @@ impl PositionSectionRequest {
     /// # Example
     /// ```ignore,no_run
     /// # use google_chat_v1::model::PositionSectionRequest;
-    /// use google_chat_v1::model::position_section_request::Position;
-    /// let x = PositionSectionRequest::new().set_position(Some(Position::SortOrder(42)));
+    /// use google_chat_v1::model::position_section_request::PositionOneof;
+    /// let x = PositionSectionRequest::new().set_position(Some(PositionOneof::SortOrder(42)));
     /// ```
     pub fn set_position<
-        T: std::convert::Into<std::option::Option<crate::model::position_section_request::Position>>,
+        T: std::convert::Into<
+                std::option::Option<crate::model::position_section_request::PositionOneof>,
+            >,
     >(
         mut self,
         v: T,
@@ -12102,7 +12104,7 @@ impl PositionSectionRequest {
     pub fn sort_order(&self) -> std::option::Option<&i32> {
         #[allow(unreachable_patterns)]
         self.position.as_ref().and_then(|v| match v {
-            crate::model::position_section_request::Position::SortOrder(v) => {
+            crate::model::position_section_request::PositionOneof::SortOrder(v) => {
                 std::option::Option::Some(v)
             }
             _ => std::option::Option::None,
@@ -12124,7 +12126,7 @@ impl PositionSectionRequest {
     /// ```
     pub fn set_sort_order<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.position = std::option::Option::Some(
-            crate::model::position_section_request::Position::SortOrder(v.into()),
+            crate::model::position_section_request::PositionOneof::SortOrder(v.into()),
         );
         self
     }
@@ -12137,7 +12139,7 @@ impl PositionSectionRequest {
     ) -> std::option::Option<&crate::model::position_section_request::Position> {
         #[allow(unreachable_patterns)]
         self.position.as_ref().and_then(|v| match v {
-            crate::model::position_section_request::Position::RelativePosition(v) => {
+            crate::model::position_section_request::PositionOneof::RelativePosition(v) => {
                 std::option::Option::Some(v)
             }
             _ => std::option::Option::None,
@@ -12168,7 +12170,7 @@ impl PositionSectionRequest {
         v: T,
     ) -> Self {
         self.position = std::option::Option::Some(
-            crate::model::position_section_request::Position::RelativePosition(v.into()),
+            crate::model::position_section_request::PositionOneof::RelativePosition(v.into()),
         );
         self
     }
@@ -12320,7 +12322,7 @@ pub mod position_section_request {
     /// Required. The new position of the section.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
-    pub enum Position {
+    pub enum PositionOneof {
         /// Optional. The absolute position of the section in the list of sections.
         /// The position must be greater than 0. If the position is greater than the
         /// number of sections, the section will be appended to the end of the list.
