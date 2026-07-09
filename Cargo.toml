@@ -494,7 +494,7 @@ google-cloud-lro         = { default-features = false, version = "1.8.0", path =
 google-cloud-rpc         = { default-features = false, version = "1.5.0", path = "src/generated/rpc/types", package = "google-cloud-rpc" }
 google-cloud-type        = { default-features = false, version = "1.5.0", path = "src/generated/type" }
 # These are used by specific generated libraries.
-google-apps-card-v1                       = { default-features = false, version = "1.0.0", path = "src/generated/apps/card/v1" }
+google-apps-card-v1                             = { default-features = false, version = "1.0.0", path = "src/generated/apps/card/v1" }
 google-cloud-apps-script-type                   = { default-features = false, version = "1.5.0", path = "src/generated/apps/script/gtype" }
 google-cloud-apps-script-type-calendar          = { default-features = false, version = "1.7.0", path = "src/generated/apps/script/calendar" }
 google-cloud-apps-script-type-docs              = { default-features = false, version = "1.7.0", path = "src/generated/apps/script/docs" }
