@@ -26,18 +26,18 @@ pub struct Row {
     pub(crate) schema: Arc<Schema>,
 }
 
-pub(crate) mod private {
+mod sealed {
     /// A sealed trait to prevent external implementation of `ColumnIndex`.
-    pub trait Sealed {}
-    impl Sealed for usize {}
-    impl Sealed for &str {}
-    impl Sealed for String {}
+    pub trait ColumnIndex {}
+    impl ColumnIndex for usize {}
+    impl ColumnIndex for &str {}
+    impl ColumnIndex for String {}
 }
 
 /// A trait for types that can be used to index into a [`Row`].
 ///
 /// This trait is sealed and cannot be implemented for types outside of this crate.
-pub trait ColumnIndex: private::Sealed + std::fmt::Debug {
+pub trait ColumnIndex: sealed::ColumnIndex + std::fmt::Debug {
     /// Returns the index of the column in the given row, if it exists.
     fn index(&self, row: &Row) -> Option<usize>;
 }
@@ -164,18 +164,10 @@ fn convert_value(
 
 fn convert_basic_type(value: String, field_name: &str, field_type: &str) -> Result<Value> {
     match field_type {
-        "STRING" => Ok(Value::String(value)),
-        "BYTES" => Ok(Value::String(value)),
-        "TIMESTAMP" => Ok(Value::String(value)),
-        "DATE" => Ok(Value::String(value)),
-        "TIME" => Ok(Value::String(value)),
-        "DATETIME" => Ok(Value::String(value)),
-        "NUMERIC" | "BIGNUMERIC" => Ok(Value::String(value)),
-        "BIGINT" => Ok(Value::String(value)),
-        "GEOGRAPHY" => Ok(Value::String(value)),
-        "JSON" => Ok(Value::String(value)),
-        "INTERVAL" => Ok(Value::String(value)),
-        "RANGE" => Ok(Value::String(value)),
+        "STRING" | "BYTES" | "TIMESTAMP" | "DATE" | "TIME" | "DATETIME" | "NUMERIC"
+        | "BIGNUMERIC" | "BIGINT" | "GEOGRAPHY" | "JSON" | "INTERVAL" | "RANGE" => {
+            Ok(Value::String(value))
+        }
         "INTEGER" | "INT64" => {
             let num = value.parse::<i64>().map_err(|e| RowError::TypeConversion {
                 column: field_name.to_string(),
@@ -214,24 +206,23 @@ fn convert_basic_type(value: String, field_name: &str, field_type: &str) -> Resu
 mod tests {
     use super::*;
     use google_cloud_bigquery_v2::model::{TableFieldSchema, TableSchema};
+    use serde_json::{Map, json};
     use test_case::test_case;
 
     type TestResult = anyhow::Result<()>;
 
     #[tokio::test]
     async fn convert_basic_types_from_row() -> TestResult {
-        let raw_row = serde_json::json!({
-            "f": [
+        let raw_row = Map::from_iter([(
+            "f".to_string(),
+            json!([
                 { "v": "James" },
                 { "v": "272793" },
                 { "v": "TRUE" },
                 { "v": null },
                 { "v": "64.0" },
-            ]
-        })
-        .as_object()
-        .expect("row is an object")
-        .clone();
+            ]),
+        )]);
         let schema = TableSchema::new().set_fields([
             TableFieldSchema::new()
                 .set_name("name")
@@ -275,35 +266,36 @@ mod tests {
         Ok(())
     }
 
-    #[test_case("INTEGER", "123", Some(Value::Number(123.into())); "integer positive")]
-    #[test_case("INTEGER", "-456", Some(Value::Number((-456).into())); "integer negative")]
-    #[test_case("INTEGER", "abc", None; "integer invalid")]
-    #[test_case("INT64", "9223372036854775807", Some(Value::Number(9223372036854775807_i64.into())); "int64 max")]
-    #[test_case("INT64", "9223372036854775808", None; "int64 overflow")]
-    #[test_case("FLOAT", "123.45", Some(Value::Number(serde_json::Number::from_f64(123.45).unwrap())); "float success")]
-    #[test_case("FLOAT64", "NaN", Some(Value::String("NaN".to_string())); "float NaN")]
-    #[test_case("FLOAT64", "+inf", Some(Value::String("+inf".to_string())); "float positive infinity")]
-    #[test_case("FLOAT64", "-inf", Some(Value::String("-inf".to_string())); "float negative infinity")]
-    #[test_case("FLOAT", "abc", None; "float invalid")]
-    #[test_case("BOOLEAN", "true", Some(Value::Bool(true)); "boolean true lowercase")]
-    #[test_case("BOOLEAN", "TRUE", Some(Value::Bool(true)); "boolean true uppercase")]
-    #[test_case("BOOL", "false", Some(Value::Bool(false)); "bool false")]
-    #[test_case("BOOL", "invalid", None; "bool invalid")]
-    #[test_case("UNKNOWN", "value", None; "unknown type")]
-    fn convert_basic_type_cases(field_type: &str, value: &str, expected: Option<Value>) {
+    #[test_case("INTEGER", "123", Value::Number(123.into()); "integer positive")]
+    #[test_case("INTEGER", "-456", Value::Number((-456).into()); "integer negative")]
+    #[test_case("INT64", "9223372036854775807", Value::Number(9223372036854775807_i64.into()); "int64 max")]
+    #[test_case("FLOAT", "123.45", Value::Number(serde_json::Number::from_f64(123.45).unwrap()); "float success")]
+    #[test_case("FLOAT64", "NaN", Value::String("NaN".to_string()); "float NaN")]
+    #[test_case("FLOAT64", "+inf", Value::String("+inf".to_string()); "float positive infinity")]
+    #[test_case("FLOAT64", "-inf", Value::String("-inf".to_string()); "float negative infinity")]
+    #[test_case("BOOLEAN", "true", Value::Bool(true); "boolean true lowercase")]
+    #[test_case("BOOLEAN", "TRUE", Value::Bool(true); "boolean true uppercase")]
+    #[test_case("BOOL", "false", Value::Bool(false); "bool false")]
+    fn convert_basic_type_cases_success(field_type: &str, value: &str, expected: Value) {
         let res = convert_basic_type(value.to_string(), "test_col", field_type);
-        match expected {
-            Some(expected_val) => {
-                assert_eq!(res.expect("should succeed"), expected_val);
-            }
-            None => {
-                let err = res.expect_err("should fail");
-                if field_type == "UNKNOWN" {
-                    assert!(matches!(err, RowError::InvalidRowFormat(_)));
-                } else {
-                    assert!(matches!(err, RowError::TypeConversion { .. }));
-                }
-            }
-        }
+        let value = res.expect("should succeed");
+        assert_eq!(value, expected);
+    }
+
+    #[test_case("INTEGER", "abc"; "integer invalid")]
+    #[test_case("INT64", "9223372036854775808"; "int64 overflow")]
+    #[test_case("FLOAT", "abc"; "float invalid")]
+    #[test_case("BOOL", "invalid"; "bool invalid")]
+    fn convert_basic_type_cases_conversion_fail(field_type: &str, value: &str) {
+        let res = convert_basic_type(value.to_string(), "test_col", field_type);
+        let err = res.unwrap_err();
+        assert!(matches!(err, RowError::TypeConversion { .. }));
+    }
+
+    #[test]
+    fn convert_basic_type_invalid_row_format() {
+        let res = convert_basic_type("value".to_string(), "test_col", "UNKNOWN");
+        let err = res.unwrap_err();
+        assert!(matches!(err, RowError::InvalidRowFormat(_)));
     }
 }
