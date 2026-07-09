@@ -336,18 +336,16 @@ pub mod config {
                 Ok(Operation::new(op))
             };
 
+            use google_cloud_lro::internal::PollerExt;
             {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [parent][crate::model::CreateDeploymentRequest::parent].
@@ -493,18 +491,16 @@ pub mod config {
                 Ok(Operation::new(op))
             };
 
+            use google_cloud_lro::internal::PollerExt;
             {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDeploymentRequest::update_mask].
@@ -652,18 +648,16 @@ pub mod config {
                 Ok(Operation::new(op))
             };
 
+            use google_cloud_lro::internal::PollerExt;
             {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [name][crate::model::DeleteDeploymentRequest::name].
@@ -1417,18 +1411,16 @@ pub mod config {
                 Ok(Operation::new(op))
             };
 
+            use google_cloud_lro::internal::PollerExt;
             {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [name][crate::model::LockDeploymentRequest::name].
@@ -1538,18 +1530,16 @@ pub mod config {
                 Ok(Operation::new(op))
             };
 
+            use google_cloud_lro::internal::PollerExt;
             {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [name][crate::model::UnlockDeploymentRequest::name].
@@ -1724,18 +1714,16 @@ pub mod config {
                 Ok(Operation::new(op))
             };
 
+            use google_cloud_lro::internal::PollerExt;
             {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [parent][crate::model::CreatePreviewRequest::parent].
@@ -2050,18 +2038,16 @@ pub mod config {
                 Ok(Operation::new(op))
             };
 
+            use google_cloud_lro::internal::PollerExt;
             {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [name][crate::model::DeletePreviewRequest::name].
@@ -2852,18 +2838,16 @@ pub mod config {
                 Ok(Operation::new(op))
             };
 
+            use google_cloud_lro::internal::PollerExt;
             {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAutoMigrationConfigRequest::update_mask].
@@ -3068,18 +3052,16 @@ pub mod config {
                 Ok(Operation::new(op))
             };
 
+            use google_cloud_lro::internal::PollerExt;
             {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [parent][crate::model::CreateDeploymentGroupRequest::parent].
@@ -3225,18 +3207,16 @@ pub mod config {
                 Ok(Operation::new(op))
             };
 
+            use google_cloud_lro::internal::PollerExt;
             {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDeploymentGroupRequest::update_mask].
@@ -3384,18 +3364,16 @@ pub mod config {
                 Ok(Operation::new(op))
             };
 
+            use google_cloud_lro::internal::PollerExt;
             {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [name][crate::model::DeleteDeploymentGroupRequest::name].
@@ -3648,18 +3626,16 @@ pub mod config {
                 Ok(Operation::new(op))
             };
 
+            use google_cloud_lro::internal::PollerExt;
             {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [name][crate::model::ProvisionDeploymentGroupRequest::name].
@@ -3782,18 +3758,16 @@ pub mod config {
                 Ok(Operation::new(op))
             };
 
+            use google_cloud_lro::internal::PollerExt;
             {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [name][crate::model::DeprovisionDeploymentGroupRequest::name].

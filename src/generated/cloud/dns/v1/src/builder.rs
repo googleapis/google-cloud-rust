@@ -1685,16 +1685,14 @@ pub mod managed_zones {
 
             let start = move || async { self.send().await };
 
-            {
-                use google_cloud_lro::internal::PollerExt;
-                google_cloud_lro::internal::new_discovery_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
-                .with_options(poller_options)
-            }
+            use google_cloud_lro::internal::PollerExt;
+            google_cloud_lro::internal::new_discovery_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+            .with_options(poller_options)
         }
 
         /// Sets the value of [client_operation_id][crate::model::managed_zones::PatchRequest::client_operation_id].
@@ -2002,16 +2000,14 @@ pub mod managed_zones {
 
             let start = move || async { self.send().await };
 
-            {
-                use google_cloud_lro::internal::PollerExt;
-                google_cloud_lro::internal::new_discovery_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
-                .with_options(poller_options)
-            }
+            use google_cloud_lro::internal::PollerExt;
+            google_cloud_lro::internal::new_discovery_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+            .with_options(poller_options)
         }
 
         /// Sets the value of [client_operation_id][crate::model::managed_zones::UpdateRequest::client_operation_id].
