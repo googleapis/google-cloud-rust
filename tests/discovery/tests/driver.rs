@@ -35,16 +35,12 @@ mod compute {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_compute_lro_errors() -> anyhow::Result<()> {
-        #[cfg(google_cloud_unstable_tracing)]
         let _guard = google_cloud_test_utils::test_layer::TestLayer::initialize();
-        #[cfg(not(google_cloud_unstable_tracing))]
-        let _guard = enable_tracing();
 
         integration_tests_discovery::lro_errors()
             .await
             .inspect_err(anydump)?;
 
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let spans = google_cloud_test_utils::test_layer::TestLayer::capture(&_guard);
 
@@ -105,7 +101,6 @@ mod compute {
         Ok(())
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     fn attribute_value_str(
         span: &google_cloud_test_utils::test_layer::CapturedSpan,
         key: &str,
