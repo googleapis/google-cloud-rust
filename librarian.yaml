@@ -165,6 +165,9 @@ libraries:
   - name: google-apps-events-subscriptions-v1
     version: 1.0.0
     copyright_year: "2026"
+  - name: google-apps-meet-v2
+    version: 1.0.0
+    copyright_year: "2026"
   - name: google-backstory
     version: 1.1.0
     apis:

@@ -1162,6 +1162,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-apps-meet-v2"
+version = "1.0.0"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-wkt",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tracing",
+]
+
+[[package]]
 name = "google-backstory"
 version = "1.1.0"
 dependencies = [

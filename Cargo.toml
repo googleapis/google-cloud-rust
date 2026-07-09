@@ -84,6 +84,7 @@ members = [
   "src/generated/appengine/v1",
   "src/generated/apps/card/v1",
   "src/generated/apps/events/subscriptions/v1",
+  "src/generated/apps/meet/v2",
   "src/generated/apps/script/calendar",
   "src/generated/apps/script/docs",
   "src/generated/apps/script/drive",
