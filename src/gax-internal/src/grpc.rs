@@ -148,7 +148,7 @@ impl Client {
     }
 
     /// Sets the attempt interceptor for the client.
-    pub fn set_attempt_interceptor(&mut self, interceptor: std::sync::Arc<dyn AttemptInterceptor>) {
+    pub fn set_attempt_interceptor(&mut self, interceptor: Arc<dyn AttemptInterceptor>) {
         self.attempt_interceptor = Some(interceptor);
     }
 
@@ -217,7 +217,8 @@ impl Client {
     {
         use ::tonic::IntoStreamingRequest;
         let headers = make_headers(api_client_header, request_params, &options)?;
-        let headers = add_auth_headers(headers, &self.credentials).await?;
+        let mut headers = add_auth_headers(headers, &self.credentials).await?;
+        self.attempt_interceptor.intercept(&mut headers, 1);
         let metadata = tonic::MetadataMap::from_headers(headers);
         let request = ::tonic::Request::from_parts(metadata, extensions, request);
         let codec = tonic_prost::ProstCodec::<Request, Response>::default();
@@ -363,13 +364,13 @@ impl Client {
         path: http::uri::PathAndQuery,
         request: Request,
         options: &RequestOptions,
-        remaining_time: Option<std::time::Duration>,
+        remaining_time: Option<Duration>,
         headers: HeaderMap,
         prior_attempt_count: i64,
     ) -> Result<tonic::Response<Response>>
     where
         Request: prost::Message + 'static,
-        Response: prost::Message + std::default::Default + 'static,
+        Response: prost::Message + Default + 'static,
     {
         let span = if let Some(attrs) = &self.tracing_attributes {
             let rpc_method = path.path().trim_start_matches('/');
