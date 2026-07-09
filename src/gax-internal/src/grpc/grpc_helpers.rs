@@ -12,7 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use google_cloud_auth::credentials::{
+    Builder as CredentialsBuilder, CacheableResource, Credentials,
+};
 use google_cloud_gax::Result;
+use google_cloud_gax::client_builder::{Error as BuilderError, Result as ClientBuilderResult};
 use google_cloud_gax::error::Error;
 use google_cloud_gax::options::RequestOptions;
 use google_cloud_gax::options::internal::RequestOptionsExt as _;
@@ -21,6 +25,41 @@ use http::{HeaderMap, header::HeaderName};
 const X_GOOG_API_CLIENT: HeaderName = HeaderName::from_static("x-goog-api-client");
 const X_GOOG_REQUEST_PARAMS: HeaderName = HeaderName::from_static("x-goog-request-params");
 const X_GOOG_USER_PROJECT: HeaderName = HeaderName::from_static("x-goog-user-project");
+
+/// Extends the supplied `headers` map with authentication headers from a
+/// `Credentials` object. For entries with the same header name, the one in
+/// `headers` takes precedence.
+pub(crate) async fn add_auth_headers(
+    headers: HeaderMap,
+    credentials: &Credentials,
+) -> Result<HeaderMap> {
+    let h = credentials
+        .headers(http::Extensions::new())
+        .await
+        .map_err(Error::authentication)?;
+
+    let CacheableResource::New { mut data, .. } = h else {
+        unreachable!("headers are not cached");
+    };
+
+    // Note that client headers override credential headers (e.g. for `x-goog-user-project`).
+    data.extend(headers);
+    Ok(data)
+}
+
+/// Returns a clone of `Credentials` if already present in `config`;
+/// otherwise, returns a new default `Credentials` object.
+pub(crate) fn make_credentials(
+    config: &crate::options::ClientConfig,
+) -> ClientBuilderResult<Credentials> {
+    if let Some(c) = config.cred.clone() {
+        return Ok(c);
+    }
+
+    CredentialsBuilder::default()
+        .build()
+        .map_err(BuilderError::cred)
+}
 
 /// Constructs the headers required for Google Cloud API requests.
 /// Custom headers can be provided through `RequestOptions`.
@@ -74,12 +113,116 @@ pub(crate) fn make_headers(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use http::header::HeaderValue;
+    use google_cloud_auth::credentials::{CacheableResource, CredentialsProvider, EntityTag};
+    use google_cloud_auth::errors::CredentialsError;
+    use http::{Extensions, header::HeaderName, header::HeaderValue};
     use pretty_assertions::assert_eq;
 
+    type AuthResult<T> = std::result::Result<T, CredentialsError>;
     type TestResult = anyhow::Result<()>;
 
+    mockall::mock! {
+        #[derive(Debug)]
+        Credentials {}
+
+        impl CredentialsProvider for Credentials {
+            async fn headers(&self, extensions: Extensions) -> AuthResult<CacheableResource<HeaderMap>>;
+            async fn universe_domain(&self) -> Option<String>;
+        }
+    }
+
     const API_CLIENT_HEADER: &str = "test-client/1.0";
+
+    #[tokio::test]
+    async fn add_auth_headers_merges_auth_and_client_headers() -> TestResult {
+        // Arrange
+        let credential_auth = "authorization";
+        let credential_token = "bearer test-token";
+        let credential_project = "credential-quota-project";
+
+        let request_project = "request-quota-project";
+        let request_header = "x-request-header";
+        let request_value = "request-value";
+
+        let auth_headers = HeaderMap::from_iter([
+            (
+                HeaderName::from_static(credential_auth),
+                HeaderValue::from_static(credential_token),
+            ),
+            (
+                X_GOOG_USER_PROJECT,
+                HeaderValue::from_static(credential_project),
+            ),
+        ]);
+
+        let mut provider = MockCredentials::new();
+        provider.expect_headers().return_once(|_extensions| {
+            Ok(CacheableResource::New {
+                entity_tag: EntityTag::default(),
+                data: auth_headers,
+            })
+        });
+        let credentials = Credentials::from(provider);
+
+        let mut request_headers = HeaderMap::new();
+        request_headers.insert(
+            // This one should take precedence.
+            X_GOOG_USER_PROJECT,
+            HeaderValue::from_static(request_project),
+        );
+        request_headers.insert(
+            HeaderName::from_static(request_header),
+            HeaderValue::from_static(request_value),
+        );
+
+        // Act
+        let headers = add_auth_headers(request_headers, &credentials).await?;
+
+        // Assert
+        assert_eq!(
+            headers.get(credential_auth).expect("auth header"),
+            credential_token
+        );
+        assert_eq!(
+            headers
+                .get(&X_GOOG_USER_PROJECT)
+                .expect("user project header"),
+            request_project
+        );
+        assert_eq!(
+            headers.get(request_header).expect("request header"),
+            request_value
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn make_credentials_uses_config_credentials() -> TestResult {
+        // No good way to directly check which credentials are used, so
+        // we check it indirectly.
+        // Arrange
+        let expected_domain = "domain";
+
+        let mut provider = MockCredentials::new();
+        provider
+            .expect_universe_domain()
+            .times(1)
+            .return_once(|| Some(expected_domain.to_string()));
+        let credentials = Credentials::from(provider);
+
+        let mut config = crate::options::ClientConfig::default();
+        config.cred = Some(credentials);
+
+        // Act
+        let result = make_credentials(&config)?;
+
+        // Assert
+        assert_eq!(
+            result.universe_domain().await.as_deref(),
+            Some(expected_domain)
+        );
+        Ok(())
+    }
 
     #[test]
     fn make_headers_with_standard_headers() -> TestResult {

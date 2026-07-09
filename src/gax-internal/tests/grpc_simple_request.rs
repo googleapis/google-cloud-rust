@@ -17,10 +17,10 @@ mod tests {
     use google_cloud_auth::credentials::{
         Credentials, anonymous::Builder as Anonymous, testing::error_credentials,
     };
-    use google_cloud_gax_internal::attempt_interceptor::AttemptInterceptor;
     use google_cloud_gax::error::rpc::Code;
     use google_cloud_gax::options::RequestOptions;
     use google_cloud_gax::retry_policy::NeverRetry;
+    use google_cloud_gax_internal::attempt_interceptor::AttemptInterceptor;
     use google_cloud_gax_internal::grpc;
     use google_cloud_gax_internal::options::ClientConfig;
     use grpc_server::{builder, google, start_echo_server, start_echo_server_with_address};

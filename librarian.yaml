@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.24.1-0.20260706153224-e26270201c2b
+version: v0.25.0
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
@@ -153,6 +153,9 @@ libraries:
           output: src/wkt/tests/common/src/generated
           api_path: src/wkt/tests/protos
           template: mod
+  - name: google-ads-datamanager-v1
+    version: 1.0.0
+    copyright_year: "2026"
   - name: google-backstory
     version: 1.0.0
     apis:
@@ -836,11 +839,11 @@ libraries:
     version: 1.12.0
     copyright_year: "2025"
   - name: google-cloud-gax
-    version: 1.11.1
+    version: 1.11.0
     copyright_year: "2025"
     output: src/gax
   - name: google-cloud-gax-internal
-    version: 0.7.15
+    version: 0.7.16
     copyright_year: "2025"
     output: src/gax-internal
     rust:

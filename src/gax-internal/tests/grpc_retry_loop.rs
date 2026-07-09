@@ -15,11 +15,11 @@
 #[cfg(all(test, feature = "_internal-grpc-client"))]
 mod tests {
     use google_cloud_auth::credentials::{Credentials, anonymous::Builder as Anonymous};
-    use google_cloud_gax_internal::attempt_interceptor::AttemptInterceptor;
     use google_cloud_gax::backoff_policy::BackoffPolicy;
     use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
     use google_cloud_gax::options::RequestOptions;
     use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
+    use google_cloud_gax_internal::attempt_interceptor::AttemptInterceptor;
     use google_cloud_gax_internal::grpc;
     use google_cloud_gax_internal::options::ClientConfig;
     use grpc_server::google::test::v1::EchoResponse;
