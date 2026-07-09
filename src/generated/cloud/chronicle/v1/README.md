@@ -40,20 +40,20 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-chronicle-v1/1.12.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-chronicle-v1/1.13.0)
 
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
-[BigQueryExportService]: https://docs.rs/google-cloud-chronicle-v1/1.12.0/google_cloud_chronicle_v1/client/struct.BigQueryExportService.html
-[DashboardChartService]: https://docs.rs/google-cloud-chronicle-v1/1.12.0/google_cloud_chronicle_v1/client/struct.DashboardChartService.html
-[DashboardQueryService]: https://docs.rs/google-cloud-chronicle-v1/1.12.0/google_cloud_chronicle_v1/client/struct.DashboardQueryService.html
-[DataAccessControlService]: https://docs.rs/google-cloud-chronicle-v1/1.12.0/google_cloud_chronicle_v1/client/struct.DataAccessControlService.html
-[DataTableService]: https://docs.rs/google-cloud-chronicle-v1/1.12.0/google_cloud_chronicle_v1/client/struct.DataTableService.html
-[EntityService]: https://docs.rs/google-cloud-chronicle-v1/1.12.0/google_cloud_chronicle_v1/client/struct.EntityService.html
-[FeaturedContentNativeDashboardService]: https://docs.rs/google-cloud-chronicle-v1/1.12.0/google_cloud_chronicle_v1/client/struct.FeaturedContentNativeDashboardService.html
-[FindingsRefinementService]: https://docs.rs/google-cloud-chronicle-v1/1.12.0/google_cloud_chronicle_v1/client/struct.FindingsRefinementService.html
-[InstanceService]: https://docs.rs/google-cloud-chronicle-v1/1.12.0/google_cloud_chronicle_v1/client/struct.InstanceService.html
-[NativeDashboardService]: https://docs.rs/google-cloud-chronicle-v1/1.12.0/google_cloud_chronicle_v1/client/struct.NativeDashboardService.html
-[ReferenceListService]: https://docs.rs/google-cloud-chronicle-v1/1.12.0/google_cloud_chronicle_v1/client/struct.ReferenceListService.html
-[RuleService]: https://docs.rs/google-cloud-chronicle-v1/1.12.0/google_cloud_chronicle_v1/client/struct.RuleService.html
-[RuleExecutionErrorService]: https://docs.rs/google-cloud-chronicle-v1/1.12.0/google_cloud_chronicle_v1/client/struct.RuleExecutionErrorService.html
+[BigQueryExportService]: https://docs.rs/google-cloud-chronicle-v1/1.13.0/google_cloud_chronicle_v1/client/struct.BigQueryExportService.html
+[DashboardChartService]: https://docs.rs/google-cloud-chronicle-v1/1.13.0/google_cloud_chronicle_v1/client/struct.DashboardChartService.html
+[DashboardQueryService]: https://docs.rs/google-cloud-chronicle-v1/1.13.0/google_cloud_chronicle_v1/client/struct.DashboardQueryService.html
+[DataAccessControlService]: https://docs.rs/google-cloud-chronicle-v1/1.13.0/google_cloud_chronicle_v1/client/struct.DataAccessControlService.html
+[DataTableService]: https://docs.rs/google-cloud-chronicle-v1/1.13.0/google_cloud_chronicle_v1/client/struct.DataTableService.html
+[EntityService]: https://docs.rs/google-cloud-chronicle-v1/1.13.0/google_cloud_chronicle_v1/client/struct.EntityService.html
+[FeaturedContentNativeDashboardService]: https://docs.rs/google-cloud-chronicle-v1/1.13.0/google_cloud_chronicle_v1/client/struct.FeaturedContentNativeDashboardService.html
+[FindingsRefinementService]: https://docs.rs/google-cloud-chronicle-v1/1.13.0/google_cloud_chronicle_v1/client/struct.FindingsRefinementService.html
+[InstanceService]: https://docs.rs/google-cloud-chronicle-v1/1.13.0/google_cloud_chronicle_v1/client/struct.InstanceService.html
+[NativeDashboardService]: https://docs.rs/google-cloud-chronicle-v1/1.13.0/google_cloud_chronicle_v1/client/struct.NativeDashboardService.html
+[ReferenceListService]: https://docs.rs/google-cloud-chronicle-v1/1.13.0/google_cloud_chronicle_v1/client/struct.ReferenceListService.html
+[RuleService]: https://docs.rs/google-cloud-chronicle-v1/1.13.0/google_cloud_chronicle_v1/client/struct.RuleService.html
+[RuleExecutionErrorService]: https://docs.rs/google-cloud-chronicle-v1/1.13.0/google_cloud_chronicle_v1/client/struct.RuleExecutionErrorService.html

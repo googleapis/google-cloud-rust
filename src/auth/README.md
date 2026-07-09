@@ -38,7 +38,7 @@ also describes the common terminology used with authentication, such as
 [authentication methods at google]: https://cloud.google.com/docs/authentication
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [credentials]: https://cloud.google.com/docs/authentication#credentials
-[credentials::credentials]: https://docs.rs/google-cloud-auth/1.13.0/google_cloud_auth/credentials/struct.Credentials.html
+[credentials::credentials]: https://docs.rs/google-cloud-auth/1.14.0/google_cloud_auth/credentials/struct.Credentials.html
 [gcloud-auth]: https://crates.io/crates/gcloud-auth
 [google distributed cloud]: https://cloud.google.com/distributed-cloud
 [jsonwebtoken]: https://crates.io/crates/jsonwebtoken
