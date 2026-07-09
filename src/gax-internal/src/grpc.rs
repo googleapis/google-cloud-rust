@@ -25,9 +25,7 @@ use ::tonic::client::Grpc;
 use ::tonic::transport::Channel;
 use from_status::to_gax_error;
 use futures::TryFutureExt;
-use google_cloud_auth::credentials::{
-    Builder as CredentialsBuilder, CacheableResource, Credentials,
-};
+use google_cloud_auth::credentials::Credentials;
 use google_cloud_gax::Result;
 use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::client_builder::Error as BuilderError;
@@ -45,7 +43,7 @@ use google_cloud_gax::retry_policy::{
     Aip194Strict as RetryAip194Strict, RetryPolicy, RetryPolicyExt as _,
 };
 use google_cloud_gax::retry_throttler::SharedRetryThrottler;
-use grpc_helpers::make_headers;
+use grpc_helpers::{add_auth_headers, make_credentials, make_headers};
 use http::HeaderMap;
 use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
 use std::sync::Arc;
@@ -104,7 +102,7 @@ impl Client {
         default_endpoint: &str,
         instrumentation: Option<&'static crate::options::InstrumentationClientInfo>,
     ) -> ClientBuilderResult<Self> {
-        let credentials = Self::make_credentials(&config).await?;
+        let credentials = make_credentials(&config)?;
         let tracing_enabled = crate::options::tracing_enabled(&config);
         let universe_domain =
             crate::universe_domain::resolve(config.universe_domain.as_deref(), &credentials)
@@ -211,7 +209,7 @@ impl Client {
     {
         use ::tonic::IntoStreamingRequest;
         let headers = make_headers(api_client_header, request_params, &options)?;
-        let headers = self.add_auth_headers(headers).await?;
+        let headers = add_auth_headers(headers, &self.credentials).await?;
         let metadata = tonic::MetadataMap::from_headers(headers);
         let request = ::tonic::Request::from_parts(metadata, extensions, request);
         let codec = tonic_prost::ProstCodec::<Request, Response>::default();
@@ -276,7 +274,7 @@ impl Client {
     {
         use ::tonic::IntoRequest;
         let headers = make_headers(api_client_header, request_params, &options)?;
-        let headers = self.add_auth_headers(headers).await?;
+        let headers = add_auth_headers(headers, &self.credentials).await?;
         let metadata = tonic::MetadataMap::from_headers(headers);
         let mut request = ::tonic::Request::from_parts(metadata, extensions, request);
         if let Some(timeout) =
@@ -406,7 +404,7 @@ impl Client {
         };
 
         #[allow(unused_mut)]
-        let mut headers = self.add_auth_headers(headers).await?;
+        let mut headers = add_auth_headers(headers, &self.credentials).await?;
 
         crate::observability::propagation::inject_context(&span, &mut headers);
 
@@ -524,33 +522,6 @@ impl Client {
             endpoint = endpoint.http2_max_header_list_size(limit);
         }
         Ok(endpoint)
-    }
-
-    async fn make_credentials(
-        config: &crate::options::ClientConfig,
-    ) -> ClientBuilderResult<Credentials> {
-        if let Some(c) = config.cred.clone() {
-            return Ok(c);
-        }
-        CredentialsBuilder::default()
-            .build()
-            .map_err(BuilderError::cred)
-    }
-
-    async fn add_auth_headers(&self, headers: http::HeaderMap) -> Result<http::HeaderMap> {
-        let h = self
-            .credentials
-            .headers(http::Extensions::new())
-            .await
-            .map_err(Error::authentication)?;
-
-        let CacheableResource::New { mut data, .. } = h else {
-            unreachable!("headers are not cached");
-        };
-
-        // Note that client headers override credential headers (e.g. for `x-goog-user-project`).
-        data.extend(headers);
-        Ok(data)
     }
 
     fn get_retry_policy(&self, options: &RequestOptions) -> Arc<dyn RetryPolicy> {
