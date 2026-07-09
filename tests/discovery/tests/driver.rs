@@ -70,7 +70,9 @@ mod compute {
                 .rfind(|s| {
                     s.name == "client_request"
                         && attribute_value_str(s, "rpc.method")
-                            == Some("google.cloud.compute.v1.zoneOperations/getOperation".to_string())
+                            == Some(
+                                "google.cloud.compute.v1.zoneOperations/getOperation".to_string(),
+                            )
                 })
                 .ok_or_else(|| {
                     anyhow::anyhow!("missing getOperation client_request span in {spans:#?}")
