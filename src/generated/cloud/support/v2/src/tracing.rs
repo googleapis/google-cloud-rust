@@ -278,6 +278,117 @@ where
     }
 }
 
+/// Implements a [SupportEventSubscriptionService](super::stub::SupportEventSubscriptionService) decorator for logging and tracing.
+#[derive(Clone, Debug)]
+pub struct SupportEventSubscriptionService<T>
+where
+    T: super::stub::SupportEventSubscriptionService + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+    duration: gaxi::observability::DurationMetric,
+}
+
+impl<T> SupportEventSubscriptionService<T>
+where
+    T: super::stub::SupportEventSubscriptionService + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self {
+            inner,
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
+    }
+}
+
+impl<T> super::stub::SupportEventSubscriptionService for SupportEventSubscriptionService<T>
+where
+    T: super::stub::SupportEventSubscriptionService + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn create_support_event_subscription(
+        &self,
+        req: crate::model::CreateSupportEventSubscriptionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SupportEventSubscription>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SupportEventSubscriptionService::create_support_event_subscription",
+            self.inner.create_support_event_subscription(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_support_event_subscription(
+        &self,
+        req: crate::model::GetSupportEventSubscriptionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SupportEventSubscription>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SupportEventSubscriptionService::get_support_event_subscription",
+            self.inner.get_support_event_subscription(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_support_event_subscriptions(
+        &self,
+        req: crate::model::ListSupportEventSubscriptionsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListSupportEventSubscriptionsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SupportEventSubscriptionService::list_support_event_subscriptions",
+            self.inner.list_support_event_subscriptions(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_support_event_subscription(
+        &self,
+        req: crate::model::UpdateSupportEventSubscriptionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SupportEventSubscription>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SupportEventSubscriptionService::update_support_event_subscription",
+            self.inner.update_support_event_subscription(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete_support_event_subscription(
+        &self,
+        req: crate::model::DeleteSupportEventSubscriptionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SupportEventSubscription>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SupportEventSubscriptionService::delete_support_event_subscription",
+            self.inner.delete_support_event_subscription(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn undelete_support_event_subscription(
+        &self,
+        req: crate::model::UndeleteSupportEventSubscriptionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SupportEventSubscription>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SupportEventSubscriptionService::undelete_support_event_subscription",
+            self.inner.undelete_support_event_subscription(req, options));
+        pending.await
+    }
+}
+
 pub(crate) mod info {
     const NAME: &str = env!("CARGO_PKG_NAME");
     const VERSION: &str = env!("CARGO_PKG_VERSION");

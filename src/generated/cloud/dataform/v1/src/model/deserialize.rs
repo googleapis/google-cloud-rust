@@ -374,8 +374,10 @@ impl<'de> serde::de::Deserialize<'de> for super::repository::GitRemoteSettings {
         enum __FieldTag {
             __url,
             __default_branch,
+            __effective_default_branch,
             __authentication_token_secret_version,
             __ssh_authentication_config,
+            __git_repository_link,
             __token_status,
             Unknown(std::string::String),
         }
@@ -400,6 +402,10 @@ impl<'de> serde::de::Deserialize<'de> for super::repository::GitRemoteSettings {
                             "url" => Ok(__FieldTag::__url),
                             "defaultBranch" => Ok(__FieldTag::__default_branch),
                             "default_branch" => Ok(__FieldTag::__default_branch),
+                            "effectiveDefaultBranch" => Ok(__FieldTag::__effective_default_branch),
+                            "effective_default_branch" => {
+                                Ok(__FieldTag::__effective_default_branch)
+                            }
                             "authenticationTokenSecretVersion" => {
                                 Ok(__FieldTag::__authentication_token_secret_version)
                             }
@@ -412,6 +418,8 @@ impl<'de> serde::de::Deserialize<'de> for super::repository::GitRemoteSettings {
                             "ssh_authentication_config" => {
                                 Ok(__FieldTag::__ssh_authentication_config)
                             }
+                            "gitRepositoryLink" => Ok(__FieldTag::__git_repository_link),
+                            "git_repository_link" => Ok(__FieldTag::__git_repository_link),
                             "tokenStatus" => Ok(__FieldTag::__token_status),
                             "token_status" => Ok(__FieldTag::__token_status),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
@@ -459,6 +467,16 @@ impl<'de> serde::de::Deserialize<'de> for super::repository::GitRemoteSettings {
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__effective_default_branch => {
+                            if !fields.insert(__FieldTag::__effective_default_branch) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for effective_default_branch",
+                                ));
+                            }
+                            result.effective_default_branch = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__authentication_token_secret_version => {
                             if !fields.insert(__FieldTag::__authentication_token_secret_version) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -477,6 +495,15 @@ impl<'de> serde::de::Deserialize<'de> for super::repository::GitRemoteSettings {
                             }
                             result.ssh_authentication_config = map.next_value::<std::option::Option<crate::model::repository::git_remote_settings::SshAuthenticationConfig>>()?
                                 ;
+                        }
+                        __FieldTag::__git_repository_link => {
+                            if !fields.insert(__FieldTag::__git_repository_link) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for git_repository_link",
+                                ));
+                            }
+                            result.git_repository_link =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__token_status => {
                             if !fields.insert(__FieldTag::__token_status) {

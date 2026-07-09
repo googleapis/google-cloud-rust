@@ -18,6 +18,7 @@ The main types to work with this crate are the clients:
 - [CaseAttachmentService]
 - [CaseService]
 - [CommentService]
+- [SupportEventSubscriptionService]
 
 ## Features
 
@@ -36,3 +37,4 @@ The main types to work with this crate are the clients:
 [CaseAttachmentService]: https://docs.rs/google-cloud-support-v2/1.10.0/google_cloud_support_v2/client/struct.CaseAttachmentService.html
 [CaseService]: https://docs.rs/google-cloud-support-v2/1.10.0/google_cloud_support_v2/client/struct.CaseService.html
 [CommentService]: https://docs.rs/google-cloud-support-v2/1.10.0/google_cloud_support_v2/client/struct.CommentService.html
+[SupportEventSubscriptionService]: https://docs.rs/google-cloud-support-v2/1.10.0/google_cloud_support_v2/client/struct.SupportEventSubscriptionService.html
