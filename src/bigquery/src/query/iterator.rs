@@ -28,21 +28,16 @@ pub struct RowIterator {
     schema: Arc<Schema>,
     page_token: Option<String>,
     rows: VecDeque<wkt::Struct>,
-    is_done: bool,
 }
 
 impl RowIterator {
     pub(crate) fn new(q: CompleteQuery) -> Self {
-        let rows = q.cached_rows;
-        let is_done = rows.is_empty() && q.page_token.is_none();
-
         Self {
             job_service: q.job_service,
             job_ref: q.job_ref,
             schema: q.schema,
             page_token: q.page_token,
-            rows,
-            is_done,
+            rows: q.cached_rows,
         }
     }
 
@@ -50,33 +45,30 @@ impl RowIterator {
     ///
     /// Returns `None` when all rows have been retrieved.
     pub async fn next(&mut self) -> Option<Result<Row>> {
-        if let Some(raw_row) = self.rows.pop_front() {
-            let row = Row::try_new(raw_row, &self.schema);
-            return Some(row);
-        }
+        loop {
+            if let Some(raw_row) = self.rows.pop_front() {
+                return Some(Row::try_new(raw_row, &self.schema));
+            }
 
-        if self.is_done {
-            return None;
-        }
+            if let Err(e) = self.try_fetch_page().await {
+                return Some(Err(e));
+            }
 
-        while let Some(token) = self.page_token.take() {
-            match self.fetch_page(&token).await {
-                Ok((fetched_rows, next_token)) => {
-                    self.page_token = next_token;
-                    self.rows.extend(fetched_rows);
-                    if let Some(raw_row) = self.rows.pop_front() {
-                        return Some(Row::try_new(raw_row, &self.schema));
-                    }
-                }
-                Err(e) => {
-                    self.page_token = Some(token);
-                    return Some(Err(e));
-                }
+            if self.rows.is_empty() && self.page_token.is_none() {
+                return None;
             }
         }
+    }
 
-        self.is_done = true;
-        None
+    async fn try_fetch_page(&mut self) -> Result<()> {
+        let Some(token) = &self.page_token.as_deref() else {
+            return Ok(());
+        };
+
+        let (fetched_rows, next_token) = self.fetch_page(token).await?;
+        self.page_token = next_token;
+        self.rows.extend(fetched_rows);
+        Ok(())
     }
 
     // Fetches the next page of results and the next page token.
@@ -140,7 +132,6 @@ mod tests {
         let q = create_test_complete_query(job_service, Some(create_test_job_ref()), vec![], None);
         let mut iter = q.read();
         assert!(iter.next().await.is_none(), "{iter:?}");
-        assert!(iter.is_done, "{iter:?}");
         Ok(())
     }
 
@@ -158,7 +149,6 @@ mod tests {
         assert_eq!(row2.get::<String, _>("col"), "second");
 
         assert!(iter.next().await.is_none(), "{iter:?}");
-        assert!(iter.is_done, "{iter:?}");
         Ok(())
     }
 

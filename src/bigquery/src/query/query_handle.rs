@@ -230,7 +230,8 @@ mod tests {
         MockBackoffPolicy, MockJobService, create_job_service, create_test_backoff_policy,
     };
     use google_cloud_bigquery_v2::model::{
-        ErrorProto, GetQueryResultsResponse, JobReference, QueryResponse, TableSchema,
+        ErrorProto, GetQueryResultsResponse, JobReference, QueryResponse, TableFieldSchema,
+        TableSchema,
     };
     use google_cloud_gax::error::Error as GaxError;
     use google_cloud_gax::error::rpc::{Code, Status};
@@ -468,12 +469,10 @@ mod tests {
         let job_ref = JobReference::new()
             .set_project_id("some_project")
             .set_job_id("some_job_id");
-        let schema = TableSchema::new().set_fields([
-            google_cloud_bigquery_v2::model::TableFieldSchema::new()
-                .set_name("name")
-                .set_type("STRING")
-                .set_mode("NULLABLE"),
-        ]);
+        let schema = TableSchema::new().set_fields([TableFieldSchema::new()
+            .set_name("name")
+            .set_type("STRING")
+            .set_mode("NULLABLE")]);
         let row = serde_json::Map::from_iter([(
             "f".to_string(),
             serde_json::json!([{ "v": "test_name" }]),
