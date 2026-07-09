@@ -139,9 +139,7 @@ pub mod analytics_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_retail_v2::client::AnalyticsService::export_analytics_metrics::until_done";
             }
@@ -167,7 +165,6 @@ pub mod analytics_service {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -179,16 +176,6 @@ pub mod analytics_service {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -1838,9 +1825,7 @@ pub mod completion_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_retail_v2::client::CompletionService::import_completion_data::until_done";
             }
@@ -1866,7 +1851,6 @@ pub mod completion_service {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -1878,16 +1862,6 @@ pub mod completion_service {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -3807,9 +3781,7 @@ pub mod model_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name =
                     "google_cloud_retail_v2::client::ModelService::create_model::until_done";
@@ -3836,7 +3808,6 @@ pub mod model_service {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -3848,16 +3819,6 @@ pub mod model_service {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -4416,9 +4377,7 @@ pub mod model_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name =
                     "google_cloud_retail_v2::client::ModelService::tune_model::until_done";
@@ -4445,7 +4404,6 @@ pub mod model_service {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -4457,16 +4415,6 @@ pub mod model_service {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -5610,9 +5558,7 @@ pub mod product_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name =
                     "google_cloud_retail_v2::client::ProductService::purge_products::until_done";
@@ -5639,7 +5585,6 @@ pub mod product_service {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -5651,16 +5596,6 @@ pub mod product_service {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -5759,9 +5694,7 @@ pub mod product_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name =
                     "google_cloud_retail_v2::client::ProductService::import_products::until_done";
@@ -5788,7 +5721,6 @@ pub mod product_service {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -5800,16 +5732,6 @@ pub mod product_service {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -5976,9 +5898,7 @@ pub mod product_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name =
                     "google_cloud_retail_v2::client::ProductService::set_inventory::until_done";
@@ -6005,7 +5925,6 @@ pub mod product_service {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -6017,16 +5936,6 @@ pub mod product_service {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -6170,9 +6079,7 @@ pub mod product_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_retail_v2::client::ProductService::add_fulfillment_places::until_done";
             }
@@ -6198,7 +6105,6 @@ pub mod product_service {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -6210,16 +6116,6 @@ pub mod product_service {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -6354,9 +6250,7 @@ pub mod product_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_retail_v2::client::ProductService::remove_fulfillment_places::until_done";
             }
@@ -6382,7 +6276,6 @@ pub mod product_service {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -6394,16 +6287,6 @@ pub mod product_service {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -6536,9 +6419,7 @@ pub mod product_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_retail_v2::client::ProductService::add_local_inventories::until_done";
             }
@@ -6564,7 +6445,6 @@ pub mod product_service {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -6576,16 +6456,6 @@ pub mod product_service {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -6728,9 +6598,7 @@ pub mod product_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_retail_v2::client::ProductService::remove_local_inventories::until_done";
             }
@@ -6756,7 +6624,6 @@ pub mod product_service {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -6768,16 +6635,6 @@ pub mod product_service {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -8788,9 +8645,7 @@ pub mod user_event_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_retail_v2::client::UserEventService::purge_user_events::until_done";
             }
@@ -8816,7 +8671,6 @@ pub mod user_event_service {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -8828,16 +8682,6 @@ pub mod user_event_service {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -8939,9 +8783,7 @@ pub mod user_event_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_retail_v2::client::UserEventService::import_user_events::until_done";
             }
@@ -8967,7 +8809,6 @@ pub mod user_event_service {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -8979,16 +8820,6 @@ pub mod user_event_service {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -9116,9 +8947,7 @@ pub mod user_event_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_retail_v2::client::UserEventService::rejoin_user_events::until_done";
             }
@@ -9144,7 +8973,6 @@ pub mod user_event_service {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -9156,16 +8984,6 @@ pub mod user_event_service {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 

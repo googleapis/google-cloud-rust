@@ -1187,9 +1187,7 @@ pub mod batch_controller {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name =
                     "google_cloud_dataproc_v1::client::BatchController::create_batch::until_done";
@@ -1216,7 +1214,6 @@ pub mod batch_controller {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -1228,16 +1225,6 @@ pub mod batch_controller {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -2234,9 +2221,7 @@ pub mod cluster_controller {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_dataproc_v1::client::ClusterController::create_cluster::until_done";
             }
@@ -2262,7 +2247,6 @@ pub mod cluster_controller {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -2274,16 +2258,6 @@ pub mod cluster_controller {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -2411,9 +2385,7 @@ pub mod cluster_controller {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_dataproc_v1::client::ClusterController::update_cluster::until_done";
             }
@@ -2439,7 +2411,6 @@ pub mod cluster_controller {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -2451,16 +2422,6 @@ pub mod cluster_controller {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -2630,9 +2591,7 @@ pub mod cluster_controller {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name =
                     "google_cloud_dataproc_v1::client::ClusterController::stop_cluster::until_done";
@@ -2659,7 +2618,6 @@ pub mod cluster_controller {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -2671,16 +2629,6 @@ pub mod cluster_controller {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -2791,9 +2739,7 @@ pub mod cluster_controller {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_dataproc_v1::client::ClusterController::start_cluster::until_done";
             }
@@ -2819,7 +2765,6 @@ pub mod cluster_controller {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -2831,16 +2776,6 @@ pub mod cluster_controller {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -2950,9 +2885,7 @@ pub mod cluster_controller {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_dataproc_v1::client::ClusterController::delete_cluster::until_done";
             }
@@ -2978,7 +2911,6 @@ pub mod cluster_controller {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -2990,16 +2922,6 @@ pub mod cluster_controller {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_unit_response_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -3308,9 +3230,7 @@ pub mod cluster_controller {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_dataproc_v1::client::ClusterController::diagnose_cluster::until_done";
             }
@@ -3336,7 +3256,6 @@ pub mod cluster_controller {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -3348,16 +3267,6 @@ pub mod cluster_controller {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -4248,9 +4157,7 @@ pub mod job_controller {
                 google_cloud_lro::internal::Operation<crate::model::Job, crate::model::JobMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_dataproc_v1::client::JobController::submit_job_as_operation::until_done";
             }
@@ -4276,7 +4183,6 @@ pub mod job_controller {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -4288,16 +4194,6 @@ pub mod job_controller {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -5545,9 +5441,7 @@ pub mod node_group_controller {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_dataproc_v1::client::NodeGroupController::create_node_group::until_done";
             }
@@ -5573,7 +5467,6 @@ pub mod node_group_controller {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -5585,16 +5478,6 @@ pub mod node_group_controller {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -5713,9 +5596,7 @@ pub mod node_group_controller {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_dataproc_v1::client::NodeGroupController::resize_node_group::until_done";
             }
@@ -5741,7 +5622,6 @@ pub mod node_group_controller {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -5753,16 +5633,6 @@ pub mod node_group_controller {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -7633,9 +7503,7 @@ pub mod session_controller {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_dataproc_v1::client::SessionController::create_session::until_done";
             }
@@ -7661,7 +7529,6 @@ pub mod session_controller {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -7673,16 +7540,6 @@ pub mod session_controller {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -7976,9 +7833,7 @@ pub mod session_controller {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_dataproc_v1::client::SessionController::terminate_session::until_done";
             }
@@ -8004,7 +7859,6 @@ pub mod session_controller {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -8016,16 +7870,6 @@ pub mod session_controller {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -8114,9 +7958,7 @@ pub mod session_controller {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_dataproc_v1::client::SessionController::delete_session::until_done";
             }
@@ -8142,7 +7984,6 @@ pub mod session_controller {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -8154,16 +7995,6 @@ pub mod session_controller {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -9050,9 +8881,7 @@ pub mod workflow_template_service {
                 google_cloud_lro::internal::Operation<wkt::Empty, crate::model::WorkflowMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_dataproc_v1::client::WorkflowTemplateService::instantiate_workflow_template::until_done";
             }
@@ -9078,7 +8907,6 @@ pub mod workflow_template_service {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -9090,16 +8918,6 @@ pub mod workflow_template_service {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_unit_response_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -9205,9 +9023,7 @@ pub mod workflow_template_service {
                 google_cloud_lro::internal::Operation<wkt::Empty, crate::model::WorkflowMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_dataproc_v1::client::WorkflowTemplateService::instantiate_inline_workflow_template::until_done";
             }
@@ -9233,7 +9049,6 @@ pub mod workflow_template_service {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -9245,16 +9060,6 @@ pub mod workflow_template_service {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_unit_response_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 

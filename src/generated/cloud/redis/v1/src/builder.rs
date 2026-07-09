@@ -365,9 +365,7 @@ pub mod cloud_redis {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name =
                     "google_cloud_redis_v1::client::CloudRedis::create_instance::until_done";
@@ -394,7 +392,6 @@ pub mod cloud_redis {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -406,16 +403,6 @@ pub mod cloud_redis {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -528,9 +515,7 @@ pub mod cloud_redis {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name =
                     "google_cloud_redis_v1::client::CloudRedis::update_instance::until_done";
@@ -557,7 +542,6 @@ pub mod cloud_redis {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -569,16 +553,6 @@ pub mod cloud_redis {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -697,9 +671,7 @@ pub mod cloud_redis {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name =
                     "google_cloud_redis_v1::client::CloudRedis::upgrade_instance::until_done";
@@ -726,7 +698,6 @@ pub mod cloud_redis {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -738,16 +709,6 @@ pub mod cloud_redis {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -838,9 +799,7 @@ pub mod cloud_redis {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name =
                     "google_cloud_redis_v1::client::CloudRedis::import_instance::until_done";
@@ -867,7 +826,6 @@ pub mod cloud_redis {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -879,16 +837,6 @@ pub mod cloud_redis {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -993,9 +941,7 @@ pub mod cloud_redis {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name =
                     "google_cloud_redis_v1::client::CloudRedis::export_instance::until_done";
@@ -1022,7 +968,6 @@ pub mod cloud_redis {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -1034,16 +979,6 @@ pub mod cloud_redis {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -1151,9 +1086,7 @@ pub mod cloud_redis {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name =
                     "google_cloud_redis_v1::client::CloudRedis::failover_instance::until_done";
@@ -1180,7 +1113,6 @@ pub mod cloud_redis {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -1192,16 +1124,6 @@ pub mod cloud_redis {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -1290,9 +1212,7 @@ pub mod cloud_redis {
                 google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name =
                     "google_cloud_redis_v1::client::CloudRedis::delete_instance::until_done";
@@ -1319,7 +1239,6 @@ pub mod cloud_redis {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -1331,16 +1250,6 @@ pub mod cloud_redis {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_unit_response_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -1426,9 +1335,7 @@ pub mod cloud_redis {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name =
                     "google_cloud_redis_v1::client::CloudRedis::reschedule_maintenance::until_done";
@@ -1455,7 +1362,6 @@ pub mod cloud_redis {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -1467,16 +1373,6 @@ pub mod cloud_redis {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 

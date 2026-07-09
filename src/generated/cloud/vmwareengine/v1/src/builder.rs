@@ -320,9 +320,7 @@ pub mod vmware_engine {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::create_private_cloud::until_done";
             }
@@ -348,7 +346,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -360,16 +357,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -497,9 +484,7 @@ pub mod vmware_engine {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::update_private_cloud::until_done";
             }
@@ -525,7 +510,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -537,16 +521,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -674,9 +648,7 @@ pub mod vmware_engine {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::delete_private_cloud::until_done";
             }
@@ -702,7 +674,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -714,16 +685,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -839,9 +800,7 @@ pub mod vmware_engine {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::undelete_private_cloud::until_done";
             }
@@ -867,7 +826,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -879,16 +837,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -1155,9 +1103,7 @@ pub mod vmware_engine {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::create_cluster::until_done";
             }
@@ -1183,7 +1129,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -1195,16 +1140,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -1329,9 +1264,7 @@ pub mod vmware_engine {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::update_cluster::until_done";
             }
@@ -1357,7 +1290,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -1369,16 +1301,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -1504,9 +1426,7 @@ pub mod vmware_engine {
                 google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::delete_cluster::until_done";
             }
@@ -1532,7 +1452,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -1544,16 +1463,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_unit_response_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -2108,9 +2017,7 @@ pub mod vmware_engine {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::create_external_address::until_done";
             }
@@ -2136,7 +2043,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -2148,16 +2054,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -2279,9 +2175,7 @@ pub mod vmware_engine {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::update_external_address::until_done";
             }
@@ -2307,7 +2201,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -2319,16 +2212,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -2451,9 +2334,7 @@ pub mod vmware_engine {
                 google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::delete_external_address::until_done";
             }
@@ -2479,7 +2360,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -2491,16 +2371,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_unit_response_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -2755,9 +2625,7 @@ pub mod vmware_engine {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name =
                     "google_cloud_vmwareengine_v1::client::VmwareEngine::update_subnet::until_done";
@@ -2784,7 +2652,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -2796,16 +2663,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -3119,9 +2976,7 @@ pub mod vmware_engine {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::create_external_access_rule::until_done";
             }
@@ -3147,7 +3002,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -3159,16 +3013,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -3294,9 +3138,7 @@ pub mod vmware_engine {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::update_external_access_rule::until_done";
             }
@@ -3322,7 +3164,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -3334,16 +3175,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -3468,9 +3299,7 @@ pub mod vmware_engine {
                 google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::delete_external_access_rule::until_done";
             }
@@ -3496,7 +3325,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -3508,16 +3336,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_unit_response_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -3795,9 +3613,7 @@ pub mod vmware_engine {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::create_logging_server::until_done";
             }
@@ -3823,7 +3639,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -3835,16 +3650,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -3966,9 +3771,7 @@ pub mod vmware_engine {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::update_logging_server::until_done";
             }
@@ -3994,7 +3797,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -4006,16 +3808,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -4138,9 +3930,7 @@ pub mod vmware_engine {
                 google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::delete_logging_server::until_done";
             }
@@ -4166,7 +3956,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -4178,16 +3967,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_unit_response_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -4587,9 +4366,7 @@ pub mod vmware_engine {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::reset_nsx_credentials::until_done";
             }
@@ -4615,7 +4392,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -4627,16 +4403,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -4730,9 +4496,7 @@ pub mod vmware_engine {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::reset_vcenter_credentials::until_done";
             }
@@ -4758,7 +4522,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -4770,16 +4533,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -4942,9 +4695,7 @@ pub mod vmware_engine {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::update_dns_forwarding::until_done";
             }
@@ -4970,7 +4721,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -4982,16 +4732,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -5305,9 +5045,7 @@ pub mod vmware_engine {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::create_network_peering::until_done";
             }
@@ -5333,7 +5071,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -5345,16 +5082,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -5471,9 +5198,7 @@ pub mod vmware_engine {
                 google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::delete_network_peering::until_done";
             }
@@ -5499,7 +5224,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -5511,16 +5235,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_unit_response_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -5612,9 +5326,7 @@ pub mod vmware_engine {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::update_network_peering::until_done";
             }
@@ -5640,7 +5352,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -5652,16 +5363,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -5904,9 +5605,7 @@ pub mod vmware_engine {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::create_hcx_activation_key::until_done";
             }
@@ -5932,7 +5631,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -5944,16 +5642,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -6435,9 +6123,7 @@ pub mod vmware_engine {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::create_network_policy::until_done";
             }
@@ -6463,7 +6149,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -6475,16 +6160,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -6606,9 +6281,7 @@ pub mod vmware_engine {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::update_network_policy::until_done";
             }
@@ -6634,7 +6307,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -6646,16 +6318,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -6778,9 +6440,7 @@ pub mod vmware_engine {
                 google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::delete_network_policy::until_done";
             }
@@ -6806,7 +6466,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -6818,16 +6477,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_unit_response_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -7113,9 +6762,7 @@ pub mod vmware_engine {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::create_management_dns_zone_binding::until_done";
             }
@@ -7141,7 +6788,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -7153,16 +6799,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -7294,9 +6930,7 @@ pub mod vmware_engine {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::update_management_dns_zone_binding::until_done";
             }
@@ -7322,7 +6956,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -7334,16 +6967,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -7471,9 +7094,7 @@ pub mod vmware_engine {
                 google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::delete_management_dns_zone_binding::until_done";
             }
@@ -7499,7 +7120,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -7511,16 +7131,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_unit_response_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -7616,9 +7226,7 @@ pub mod vmware_engine {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::repair_management_dns_zone_binding::until_done";
             }
@@ -7644,7 +7252,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -7656,16 +7263,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -7761,9 +7358,7 @@ pub mod vmware_engine {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::create_vmware_engine_network::until_done";
             }
@@ -7789,7 +7384,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -7801,16 +7395,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -7936,9 +7520,7 @@ pub mod vmware_engine {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::update_vmware_engine_network::until_done";
             }
@@ -7964,7 +7546,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -7976,16 +7557,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -8110,9 +7681,7 @@ pub mod vmware_engine {
                 google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::delete_vmware_engine_network::until_done";
             }
@@ -8138,7 +7707,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -8150,16 +7718,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_unit_response_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -8449,9 +8007,7 @@ pub mod vmware_engine {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::create_private_connection::until_done";
             }
@@ -8477,7 +8033,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -8489,16 +8044,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -8810,9 +8355,7 @@ pub mod vmware_engine {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::update_private_connection::until_done";
             }
@@ -8838,7 +8381,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -8850,16 +8392,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -8984,9 +8516,7 @@ pub mod vmware_engine {
                 google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::delete_private_connection::until_done";
             }
@@ -9012,7 +8542,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -9024,16 +8553,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_unit_response_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -9240,9 +8759,7 @@ pub mod vmware_engine {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::grant_dns_bind_permission::until_done";
             }
@@ -9268,7 +8785,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -9280,16 +8796,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 
@@ -9472,9 +8978,7 @@ pub mod vmware_engine {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_vmwareengine_v1::client::VmwareEngine::revoke_dns_bind_permission::until_done";
             }
@@ -9500,7 +9004,6 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 {
@@ -9512,16 +9015,6 @@ pub mod vmware_engine {
                     )
                 }
                 .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            {
-                google_cloud_lro::internal::new_poller(
-                    polling_error_policy,
-                    polling_backoff_policy,
-                    start,
-                    query,
-                )
             }
         }
 

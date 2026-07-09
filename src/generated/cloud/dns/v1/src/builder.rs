@@ -1656,9 +1656,7 @@ pub mod managed_zones {
         {
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name =
                     "google_cloud_dns_v1::client::ManagedZones::patch::until_done";
@@ -1687,7 +1685,6 @@ pub mod managed_zones {
 
             let start = move || async { self.send().await };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 google_cloud_lro::internal::new_discovery_poller(
@@ -1698,14 +1695,6 @@ pub mod managed_zones {
                 )
                 .with_options(poller_options)
             }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            google_cloud_lro::internal::new_discovery_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
         }
 
         /// Sets the value of [client_operation_id][crate::model::managed_zones::PatchRequest::client_operation_id].
@@ -1984,9 +1973,7 @@ pub mod managed_zones {
         {
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name =
                     "google_cloud_dns_v1::client::ManagedZones::update::until_done";
@@ -2015,7 +2002,6 @@ pub mod managed_zones {
 
             let start = move || async { self.send().await };
 
-            #[cfg(google_cloud_unstable_tracing)]
             {
                 use google_cloud_lro::internal::PollerExt;
                 google_cloud_lro::internal::new_discovery_poller(
@@ -2026,14 +2012,6 @@ pub mod managed_zones {
                 )
                 .with_options(poller_options)
             }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
-            google_cloud_lro::internal::new_discovery_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
         }
 
         /// Sets the value of [client_operation_id][crate::model::managed_zones::UpdateRequest::client_operation_id].
