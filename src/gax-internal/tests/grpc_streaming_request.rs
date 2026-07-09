@@ -22,6 +22,10 @@ mod tests {
     use google_cloud_gax_internal::grpc;
     use grpc_server::google::test::v1::{EchoRequest, EchoResponse};
     use grpc_server::{builder, start_echo_server};
+    use http::HeaderMap;
+    use std::sync::Arc;
+
+    type AttemptInterceptor = Arc<dyn Fn(&mut HeaderMap, u32) + Send + Sync>;
 
     fn test_credentials() -> Credentials {
         Anonymous::new().build()
@@ -117,6 +121,40 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn attempt_interceptor() -> anyhow::Result<()> {
+        use google_cloud_gax::options::internal::RequestOptionsExt as _;
+        use http::header::{HeaderName, HeaderValue};
+
+        let interceptor: AttemptInterceptor = Arc::new(|headers, attempt| {
+            headers.insert(
+                HeaderName::from_static("x-test-attempt"),
+                HeaderValue::from_str(&attempt.to_string()).expect("valid attempt number"),
+            );
+        });
+
+        let (endpoint, _server) = start_echo_server().await?;
+
+        let mut config = google_cloud_gax_internal::options::ClientConfig::default();
+        config.cred = Some(test_credentials());
+        config.endpoint = Some(endpoint);
+
+        let client = grpc::Client::new(config, "https://test-only.googleapis.com").await?;
+        let options = RequestOptions::default().insert_extension(interceptor);
+
+        let (tx, rx) = tokio::sync::mpsc::channel(100);
+        tx.send(simple_request("msg0")).await?;
+        let response = send_streaming_request_with_options(client, rx, "", options).await?;
+        let (_, mut stream, _) = response.into_parts();
+        let first_msg = stream.message().await?.unwrap();
+        assert_eq!(
+            first_msg.metadata.get("x-test-attempt").map(String::as_str),
+            Some("1")
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn credentials_error() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
 
@@ -159,6 +197,16 @@ mod tests {
         rx: tokio::sync::mpsc::Receiver<EchoRequest>,
         request_params: &str,
     ) -> google_cloud_gax::Result<tonic::Response<tonic::codec::Streaming<EchoResponse>>> {
+        send_streaming_request_with_options(client, rx, request_params, RequestOptions::default())
+            .await
+    }
+
+    async fn send_streaming_request_with_options(
+        client: grpc::Client,
+        rx: tokio::sync::mpsc::Receiver<EchoRequest>,
+        request_params: &str,
+        mut request_options: RequestOptions,
+    ) -> google_cloud_gax::Result<tonic::Response<tonic::codec::Streaming<EchoResponse>>> {
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -167,11 +215,9 @@ mod tests {
             ));
             e
         };
-        let request_options = {
-            let mut o = RequestOptions::default();
-            o.set_retry_policy(NeverRetry);
-            o
-        };
+        if request_options.retry_policy().is_none() {
+            request_options.set_retry_policy(NeverRetry);
+        }
         client
             .bidi_stream::<EchoRequest, EchoResponse>(
                 extensions,
