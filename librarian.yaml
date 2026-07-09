@@ -156,6 +156,9 @@ libraries:
   - name: google-ads-datamanager-v1
     version: 1.0.0
     copyright_year: "2026"
+  - name: google-apps-events-subscriptions-v1
+    version: 1.0.0
+    copyright_year: "2026"
   - name: google-backstory
     version: 1.0.0
     apis:
