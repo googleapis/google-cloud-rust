@@ -148,18 +148,39 @@ fn convert_value(
     value: Value,
     field_name: &str,
     field_type: &str,
-    _schema: &Arc<Schema>,
+    schema: &Arc<Schema>,
 ) -> Result<Value> {
     match value {
         Value::Null => Ok(Value::Null),
         Value::String(v) => convert_basic_type(v, field_name, field_type),
-        Value::Object(_) => unimplemented!("TODO(#5592): nested records not implemented"),
-        Value::Array(_) => unimplemented!("TODO(#5592): repeated fields not implemented"),
+        Value::Object(v) => convert_nested(v, schema),
+        Value::Array(v) => convert_repeated(v, field_name, field_type, schema),
         _ => Err(RowError::InvalidRowFormat(format!(
             "cell value is not an object: value={:?}, field_type={:?}",
             value, field_type
         ))),
     }
+}
+
+fn convert_repeated(
+    value: ListValue,
+    field_name: &str,
+    field_type: &str,
+    schema: &Arc<Schema>,
+) -> Result<Value> {
+    let mut values = ListValue::new();
+    for cell in value {
+        // each cell contains a single entry, keyed by "v"
+        let val = get_field_value(cell)?;
+        let v = convert_value(val, field_name, field_type, schema)?;
+        values.push(v);
+    }
+    Ok(Value::Array(values))
+}
+
+fn convert_nested(value: Struct, schema: &Arc<Schema>) -> Result<Value> {
+    let row = Row::try_new(value, schema)?;
+    Ok(row.values)
 }
 
 fn convert_basic_type(value: String, field_name: &str, field_type: &str) -> Result<Value> {
@@ -262,6 +283,171 @@ mod tests {
 
         assert_eq!(row.get::<f64, _>(4), 64.0);
         assert_eq!(row.get::<f64, _>("some_float"), 64.0);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn convert_record_from_row() -> TestResult {
+        let raw_row = Map::from_iter([(
+            "f".to_string(),
+            json!([
+                {
+                    "v": {
+                        "f": [
+                            { "v": "Alice" },
+                            { "v": "25" }
+                        ]
+                    }
+                }
+            ]),
+        )]);
+        let schema = TableSchema::new().set_fields([TableFieldSchema::new()
+            .set_name("user")
+            .set_type("RECORD")
+            .set_mode("NULLABLE")
+            .set_fields([
+                TableFieldSchema::new()
+                    .set_name("name")
+                    .set_type("STRING")
+                    .set_mode("NULLABLE"),
+                TableFieldSchema::new()
+                    .set_name("age")
+                    .set_type("INTEGER")
+                    .set_mode("NULLABLE"),
+            ])]);
+        let schema = Arc::new(Schema::new(schema));
+        let row = Row::try_new(raw_row, &schema)?;
+
+        assert_eq!(
+            row.get::<Value, _>(0),
+            Value::Array(vec![
+                Value::String("Alice".to_string()),
+                Value::Number(25.into()),
+            ])
+        );
+        assert_eq!(
+            row.get::<Value, _>("user"),
+            Value::Array(vec![
+                Value::String("Alice".to_string()),
+                Value::Number(25.into()),
+            ])
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn convert_repeated_from_row() -> TestResult {
+        let raw_row = Map::from_iter([(
+            "f".to_string(),
+            json!([
+                {
+                    "v": [
+                        { "v": "1" },
+                        { "v": "2" },
+                        { "v": "3" }
+                    ]
+                }
+            ]),
+        )]);
+        let schema = TableSchema::new().set_fields([TableFieldSchema::new()
+            .set_name("numbers")
+            .set_type("INTEGER")
+            .set_mode("REPEATED")]);
+        let schema = Arc::new(Schema::new(schema));
+        let row = Row::try_new(raw_row, &schema)?;
+
+        assert_eq!(
+            row.get::<Value, _>(0),
+            Value::Array(vec![
+                Value::Number(1.into()),
+                Value::Number(2.into()),
+                Value::Number(3.into()),
+            ])
+        );
+        assert_eq!(
+            row.get::<Value, _>("numbers"),
+            Value::Array(vec![
+                Value::Number(1.into()),
+                Value::Number(2.into()),
+                Value::Number(3.into()),
+            ])
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn convert_repeated_record_from_row() -> TestResult {
+        let raw_row = Map::from_iter([(
+            "f".to_string(),
+            json!([
+                {
+                    "v": [
+                        {
+                            "v": {
+                                "f": [
+                                    { "v": "Bob" },
+                                    { "v": "28" }
+                                ]
+                            }
+                        },
+                        {
+                            "v": {
+                                "f": [
+                                    { "v": "Charlie" },
+                                    { "v": "31" }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]),
+        )]);
+        let schema = TableSchema::new().set_fields([TableFieldSchema::new()
+            .set_name("users")
+            .set_type("RECORD")
+            .set_mode("REPEATED")
+            .set_fields([
+                TableFieldSchema::new()
+                    .set_name("name")
+                    .set_type("STRING")
+                    .set_mode("NULLABLE"),
+                TableFieldSchema::new()
+                    .set_name("age")
+                    .set_type("INTEGER")
+                    .set_mode("NULLABLE"),
+            ])]);
+        let schema = Arc::new(Schema::new(schema));
+        let row = Row::try_new(raw_row, &schema)?;
+
+        assert_eq!(
+            row.get::<Value, _>(0),
+            Value::Array(vec![
+                Value::Array(vec![
+                    Value::String("Bob".to_string()),
+                    Value::Number(28.into()),
+                ]),
+                Value::Array(vec![
+                    Value::String("Charlie".to_string()),
+                    Value::Number(31.into()),
+                ]),
+            ])
+        );
+        assert_eq!(
+            row.get::<Value, _>("users"),
+            Value::Array(vec![
+                Value::Array(vec![
+                    Value::String("Bob".to_string()),
+                    Value::Number(28.into()),
+                ]),
+                Value::Array(vec![
+                    Value::String("Charlie".to_string()),
+                    Value::Number(31.into()),
+                ]),
+            ])
+        );
 
         Ok(())
     }
