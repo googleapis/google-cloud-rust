@@ -136,9 +136,7 @@ pub mod service_usage {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_api_serviceusage_v1::client::ServiceUsage::enable_service::until_done";
             }
@@ -164,21 +162,7 @@ pub mod service_usage {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_poller(
                     polling_error_policy,
@@ -187,6 +171,7 @@ pub mod service_usage {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [name][crate::model::EnableServiceRequest::name].
@@ -268,9 +253,7 @@ pub mod service_usage {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_api_serviceusage_v1::client::ServiceUsage::disable_service::until_done";
             }
@@ -296,21 +279,7 @@ pub mod service_usage {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_poller(
                     polling_error_policy,
@@ -319,6 +288,7 @@ pub mod service_usage {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [name][crate::model::DisableServiceRequest::name].
@@ -588,9 +558,7 @@ pub mod service_usage {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_api_serviceusage_v1::client::ServiceUsage::batch_enable_services::until_done";
             }
@@ -616,21 +584,7 @@ pub mod service_usage {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_poller(
                     polling_error_policy,
@@ -639,6 +593,7 @@ pub mod service_usage {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [parent][crate::model::BatchEnableServicesRequest::parent].

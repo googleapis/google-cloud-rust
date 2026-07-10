@@ -84,6 +84,7 @@ members = [
   "src/generated/appengine/v1",
   "src/generated/apps/card/v1",
   "src/generated/apps/events/subscriptions/v1",
+  "src/generated/apps/meet/v2",
   "src/generated/apps/script/calendar",
   "src/generated/apps/script/docs",
   "src/generated/apps/script/drive",
@@ -93,6 +94,7 @@ members = [
   "src/generated/apps/script/slides",
   "src/generated/backstory",
   "src/generated/bigtable/admin/v2",
+  "src/generated/chat/v1",
   "src/generated/cloud/accessapproval/v1",
   "src/generated/cloud/advisorynotifications/v1",
   "src/generated/cloud/agentregistry/v1",
@@ -553,6 +555,7 @@ storage-grpc-mock         = { path = "src/storage/grpc-mock" }
 
 [workspace.lints.rust]
 unexpected_cfgs = { level = "deny", check-cfg = [
+  'cfg(google_cloud_unstable_grpc_rust)',
   'cfg(google_cloud_unstable_grpc_server_streaming)',
   'cfg(google_cloud_unstable_storage_bidi)',
   'cfg(google_cloud_unstable_tracing)',

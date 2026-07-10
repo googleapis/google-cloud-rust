@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.25.0
+version: v0.25.1-0.20260709214352-8266ce39cdfc
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
@@ -165,11 +165,19 @@ libraries:
   - name: google-apps-events-subscriptions-v1
     version: 1.0.0
     copyright_year: "2026"
+  - name: google-apps-meet-v2
+    version: 1.0.0
+    copyright_year: "2026"
   - name: google-backstory
     version: 1.1.0
     apis:
       - path: backstory
     copyright_year: "2026"
+  - name: google-chat-v1
+    version: 1.0.0
+    copyright_year: "2026"
+    rust:
+      name_overrides: .google.chat.v1.PositionSectionRequest.position=PositionOneof
   - name: google-cloud-accessapproval-v1
     version: 1.11.0
     copyright_year: "2025"
@@ -1118,7 +1126,7 @@ libraries:
     version: 1.12.0
     copyright_year: "2025"
   - name: google-cloud-oracledatabase-v1
-    version: 1.14.0
+    version: 2.0.0
     copyright_year: "2025"
   - name: google-cloud-orchestration-airflow-service-v1
     version: 1.13.0

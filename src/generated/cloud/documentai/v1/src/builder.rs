@@ -314,9 +314,7 @@ pub mod document_processor_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_documentai_v1::client::DocumentProcessorService::batch_process_documents::until_done";
             }
@@ -342,21 +340,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_poller(
                     polling_error_policy,
@@ -365,6 +349,7 @@ pub mod document_processor_service {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [name][crate::model::BatchProcessRequest::name].
@@ -929,9 +914,7 @@ pub mod document_processor_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_documentai_v1::client::DocumentProcessorService::train_processor_version::until_done";
             }
@@ -957,21 +940,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_poller(
                     polling_error_policy,
@@ -980,6 +949,7 @@ pub mod document_processor_service {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [parent][crate::model::TrainProcessorVersionRequest::parent].
@@ -1345,9 +1315,7 @@ pub mod document_processor_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_documentai_v1::client::DocumentProcessorService::delete_processor_version::until_done";
             }
@@ -1373,21 +1341,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_unit_response_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_unit_response_poller(
                     polling_error_policy,
@@ -1396,6 +1350,7 @@ pub mod document_processor_service {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [name][crate::model::DeleteProcessorVersionRequest::name].
@@ -1482,9 +1437,7 @@ pub mod document_processor_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_documentai_v1::client::DocumentProcessorService::deploy_processor_version::until_done";
             }
@@ -1510,21 +1463,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_poller(
                     polling_error_policy,
@@ -1533,6 +1472,7 @@ pub mod document_processor_service {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [name][crate::model::DeployProcessorVersionRequest::name].
@@ -1621,9 +1561,7 @@ pub mod document_processor_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_documentai_v1::client::DocumentProcessorService::undeploy_processor_version::until_done";
             }
@@ -1649,21 +1587,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_poller(
                     polling_error_policy,
@@ -1672,6 +1596,7 @@ pub mod document_processor_service {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [name][crate::model::UndeployProcessorVersionRequest::name].
@@ -1836,9 +1761,7 @@ pub mod document_processor_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_documentai_v1::client::DocumentProcessorService::delete_processor::until_done";
             }
@@ -1864,21 +1787,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_unit_response_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_unit_response_poller(
                     polling_error_policy,
@@ -1887,6 +1796,7 @@ pub mod document_processor_service {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [name][crate::model::DeleteProcessorRequest::name].
@@ -1970,9 +1880,7 @@ pub mod document_processor_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_documentai_v1::client::DocumentProcessorService::enable_processor::until_done";
             }
@@ -1998,21 +1906,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_poller(
                     polling_error_policy,
@@ -2021,6 +1915,7 @@ pub mod document_processor_service {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [name][crate::model::EnableProcessorRequest::name].
@@ -2107,9 +2002,7 @@ pub mod document_processor_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_documentai_v1::client::DocumentProcessorService::disable_processor::until_done";
             }
@@ -2135,21 +2028,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_poller(
                     polling_error_policy,
@@ -2158,6 +2037,7 @@ pub mod document_processor_service {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [name][crate::model::DisableProcessorRequest::name].
@@ -2246,9 +2126,7 @@ pub mod document_processor_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_documentai_v1::client::DocumentProcessorService::set_default_processor_version::until_done";
             }
@@ -2274,21 +2152,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_poller(
                     polling_error_policy,
@@ -2297,6 +2161,7 @@ pub mod document_processor_service {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [processor][crate::model::SetDefaultProcessorVersionRequest::processor].
@@ -2388,9 +2253,7 @@ pub mod document_processor_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_documentai_v1::client::DocumentProcessorService::review_document::until_done";
             }
@@ -2416,21 +2279,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_poller(
                     polling_error_policy,
@@ -2439,6 +2288,7 @@ pub mod document_processor_service {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [human_review_config][crate::model::ReviewDocumentRequest::human_review_config].
@@ -2587,9 +2437,7 @@ pub mod document_processor_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_documentai_v1::client::DocumentProcessorService::evaluate_processor_version::until_done";
             }
@@ -2615,21 +2463,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_poller(
                     polling_error_policy,
@@ -2638,6 +2472,7 @@ pub mod document_processor_service {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [processor_version][crate::model::EvaluateProcessorVersionRequest::processor_version].

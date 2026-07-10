@@ -305,9 +305,7 @@ pub mod service_manager {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_api_servicemanagement_v1::client::ServiceManager::create_service::until_done";
             }
@@ -333,21 +331,7 @@ pub mod service_manager {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_poller(
                     polling_error_policy,
@@ -356,6 +340,7 @@ pub mod service_manager {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [service][crate::model::CreateServiceRequest::service].
@@ -446,9 +431,7 @@ pub mod service_manager {
                 google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_api_servicemanagement_v1::client::ServiceManager::delete_service::until_done";
             }
@@ -474,21 +457,7 @@ pub mod service_manager {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_unit_response_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_unit_response_poller(
                     polling_error_policy,
@@ -497,6 +466,7 @@ pub mod service_manager {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [service_name][crate::model::DeleteServiceRequest::service_name].
@@ -580,9 +550,7 @@ pub mod service_manager {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_api_servicemanagement_v1::client::ServiceManager::undelete_service::until_done";
             }
@@ -608,21 +576,7 @@ pub mod service_manager {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_poller(
                     polling_error_policy,
@@ -631,6 +585,7 @@ pub mod service_manager {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [service_name][crate::model::UndeleteServiceRequest::service_name].
@@ -995,9 +950,7 @@ pub mod service_manager {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_api_servicemanagement_v1::client::ServiceManager::submit_config_source::until_done";
             }
@@ -1023,21 +976,7 @@ pub mod service_manager {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_poller(
                     polling_error_policy,
@@ -1046,6 +985,7 @@ pub mod service_manager {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [service_name][crate::model::SubmitConfigSourceRequest::service_name].
@@ -1348,9 +1288,7 @@ pub mod service_manager {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_api_servicemanagement_v1::client::ServiceManager::create_service_rollout::until_done";
             }
@@ -1376,21 +1314,7 @@ pub mod service_manager {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_poller(
                     polling_error_policy,
@@ -1399,6 +1323,7 @@ pub mod service_manager {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [service_name][crate::model::CreateServiceRolloutRequest::service_name].

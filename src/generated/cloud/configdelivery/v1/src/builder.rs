@@ -323,9 +323,7 @@ pub mod config_delivery {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_configdelivery_v1::client::ConfigDelivery::create_resource_bundle::until_done";
             }
@@ -351,21 +349,7 @@ pub mod config_delivery {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_poller(
                     polling_error_policy,
@@ -374,6 +358,7 @@ pub mod config_delivery {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [parent][crate::model::CreateResourceBundleRequest::parent].
@@ -494,9 +479,7 @@ pub mod config_delivery {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_configdelivery_v1::client::ConfigDelivery::update_resource_bundle::until_done";
             }
@@ -522,21 +505,7 @@ pub mod config_delivery {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_poller(
                     polling_error_policy,
@@ -545,6 +514,7 @@ pub mod config_delivery {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateResourceBundleRequest::update_mask].
@@ -666,9 +636,7 @@ pub mod config_delivery {
                 google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_configdelivery_v1::client::ConfigDelivery::delete_resource_bundle::until_done";
             }
@@ -694,21 +662,7 @@ pub mod config_delivery {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_unit_response_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_unit_response_poller(
                     polling_error_policy,
@@ -717,6 +671,7 @@ pub mod config_delivery {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [name][crate::model::DeleteResourceBundleRequest::name].
@@ -996,9 +951,7 @@ pub mod config_delivery {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_configdelivery_v1::client::ConfigDelivery::create_fleet_package::until_done";
             }
@@ -1024,21 +977,7 @@ pub mod config_delivery {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_poller(
                     polling_error_policy,
@@ -1047,6 +986,7 @@ pub mod config_delivery {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [parent][crate::model::CreateFleetPackageRequest::parent].
@@ -1167,9 +1107,7 @@ pub mod config_delivery {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_configdelivery_v1::client::ConfigDelivery::update_fleet_package::until_done";
             }
@@ -1195,21 +1133,7 @@ pub mod config_delivery {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_poller(
                     polling_error_policy,
@@ -1218,6 +1142,7 @@ pub mod config_delivery {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateFleetPackageRequest::update_mask].
@@ -1339,9 +1264,7 @@ pub mod config_delivery {
                 google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_configdelivery_v1::client::ConfigDelivery::delete_fleet_package::until_done";
             }
@@ -1367,21 +1290,7 @@ pub mod config_delivery {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_unit_response_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_unit_response_poller(
                     polling_error_policy,
@@ -1390,6 +1299,7 @@ pub mod config_delivery {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [name][crate::model::DeleteFleetPackageRequest::name].
@@ -1667,9 +1577,7 @@ pub mod config_delivery {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_configdelivery_v1::client::ConfigDelivery::create_release::until_done";
             }
@@ -1695,21 +1603,7 @@ pub mod config_delivery {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_poller(
                     polling_error_policy,
@@ -1718,6 +1612,7 @@ pub mod config_delivery {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [parent][crate::model::CreateReleaseRequest::parent].
@@ -1835,9 +1730,7 @@ pub mod config_delivery {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_configdelivery_v1::client::ConfigDelivery::update_release::until_done";
             }
@@ -1863,21 +1756,7 @@ pub mod config_delivery {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_poller(
                     polling_error_policy,
@@ -1886,6 +1765,7 @@ pub mod config_delivery {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateReleaseRequest::update_mask].
@@ -2004,9 +1884,7 @@ pub mod config_delivery {
                 google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_configdelivery_v1::client::ConfigDelivery::delete_release::until_done";
             }
@@ -2032,21 +1910,7 @@ pub mod config_delivery {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_unit_response_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_unit_response_poller(
                     polling_error_policy,
@@ -2055,6 +1919,7 @@ pub mod config_delivery {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [name][crate::model::DeleteReleaseRequest::name].
@@ -2326,9 +2191,7 @@ pub mod config_delivery {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_configdelivery_v1::client::ConfigDelivery::create_variant::until_done";
             }
@@ -2354,21 +2217,7 @@ pub mod config_delivery {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_poller(
                     polling_error_policy,
@@ -2377,6 +2226,7 @@ pub mod config_delivery {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [parent][crate::model::CreateVariantRequest::parent].
@@ -2494,9 +2344,7 @@ pub mod config_delivery {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_configdelivery_v1::client::ConfigDelivery::update_variant::until_done";
             }
@@ -2522,21 +2370,7 @@ pub mod config_delivery {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_poller(
                     polling_error_policy,
@@ -2545,6 +2379,7 @@ pub mod config_delivery {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateVariantRequest::update_mask].
@@ -2659,9 +2494,7 @@ pub mod config_delivery {
                 google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_configdelivery_v1::client::ConfigDelivery::delete_variant::until_done";
             }
@@ -2687,21 +2520,7 @@ pub mod config_delivery {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_unit_response_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_unit_response_poller(
                     polling_error_policy,
@@ -2710,6 +2529,7 @@ pub mod config_delivery {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [name][crate::model::DeleteVariantRequest::name].
@@ -2975,9 +2795,7 @@ pub mod config_delivery {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_configdelivery_v1::client::ConfigDelivery::suspend_rollout::until_done";
             }
@@ -3003,21 +2821,7 @@ pub mod config_delivery {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_poller(
                     polling_error_policy,
@@ -3026,6 +2830,7 @@ pub mod config_delivery {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [name][crate::model::SuspendRolloutRequest::name].
@@ -3113,9 +2918,7 @@ pub mod config_delivery {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_configdelivery_v1::client::ConfigDelivery::resume_rollout::until_done";
             }
@@ -3141,21 +2944,7 @@ pub mod config_delivery {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_poller(
                     polling_error_policy,
@@ -3164,6 +2953,7 @@ pub mod config_delivery {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [name][crate::model::ResumeRolloutRequest::name].
@@ -3251,9 +3041,7 @@ pub mod config_delivery {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_configdelivery_v1::client::ConfigDelivery::abort_rollout::until_done";
             }
@@ -3279,21 +3067,7 @@ pub mod config_delivery {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_poller(
                     polling_error_policy,
@@ -3302,6 +3076,7 @@ pub mod config_delivery {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [name][crate::model::AbortRolloutRequest::name].

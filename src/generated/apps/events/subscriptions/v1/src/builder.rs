@@ -139,9 +139,7 @@ pub mod subscriptions_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_apps_events_subscriptions_v1::client::SubscriptionsService::create_subscription::until_done";
             }
@@ -167,21 +165,7 @@ pub mod subscriptions_service {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_poller(
                     polling_error_policy,
@@ -190,6 +174,7 @@ pub mod subscriptions_service {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [subscription][crate::model::CreateSubscriptionRequest::subscription].
@@ -293,9 +278,7 @@ pub mod subscriptions_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_apps_events_subscriptions_v1::client::SubscriptionsService::delete_subscription::until_done";
             }
@@ -321,21 +304,7 @@ pub mod subscriptions_service {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_unit_response_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_unit_response_poller(
                     polling_error_policy,
@@ -344,6 +313,7 @@ pub mod subscriptions_service {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [name][crate::model::DeleteSubscriptionRequest::name].
@@ -619,9 +589,7 @@ pub mod subscriptions_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_apps_events_subscriptions_v1::client::SubscriptionsService::update_subscription::until_done";
             }
@@ -647,21 +615,7 @@ pub mod subscriptions_service {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_poller(
                     polling_error_policy,
@@ -670,6 +624,7 @@ pub mod subscriptions_service {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [subscription][crate::model::UpdateSubscriptionRequest::subscription].
@@ -794,9 +749,7 @@ pub mod subscriptions_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_apps_events_subscriptions_v1::client::SubscriptionsService::reactivate_subscription::until_done";
             }
@@ -822,21 +775,7 @@ pub mod subscriptions_service {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_poller(
                     polling_error_policy,
@@ -845,6 +784,7 @@ pub mod subscriptions_service {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [name][crate::model::ReactivateSubscriptionRequest::name].

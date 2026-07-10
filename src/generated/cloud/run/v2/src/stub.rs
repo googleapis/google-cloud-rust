@@ -215,7 +215,6 @@ pub trait Executions: std::fmt::Debug + Send + Sync {
         std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     /// Returns the poller options.
     ///
@@ -372,7 +371,6 @@ pub trait Instances: std::fmt::Debug + Send + Sync {
         std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     /// Returns the poller options.
     ///
@@ -564,7 +562,6 @@ pub trait Jobs: std::fmt::Debug + Send + Sync {
         std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     /// Returns the poller options.
     ///
@@ -688,7 +685,6 @@ pub trait Revisions: std::fmt::Debug + Send + Sync {
         std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     /// Returns the poller options.
     ///
@@ -869,7 +865,6 @@ pub trait Services: std::fmt::Debug + Send + Sync {
         std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     /// Returns the poller options.
     ///
@@ -1128,7 +1123,6 @@ pub trait WorkerPools: std::fmt::Debug + Send + Sync {
         std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     /// Returns the poller options.
     ///
