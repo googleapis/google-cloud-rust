@@ -157,8 +157,7 @@ mod tests {
     use tracing::subscriber::DefaultGuard;
     use tracing_subscriber::fmt::format::FmtSpan;
 
-    #[tokio::test]
-    #[ignore = "TODO(#6023) - disable flaky test"]
+    #[tokio::test(start_paused = true)]
     async fn no_recorder() -> anyhow::Result<()> {
         let (_guard, buffer) = capture_logs();
 
@@ -170,8 +169,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
-    #[ignore = "TODO(#6023) - disable flaky test"]
+    #[tokio::test(start_paused = true)]
     async fn ok() -> anyhow::Result<()> {
         let (_guard, buffer) = capture_logs();
 
@@ -190,7 +188,6 @@ mod tests {
     }
 
     #[tokio::test]
-    #[ignore = "TODO(#6023) - disable flaky test"]
     async fn error_with_partial_recorder() -> anyhow::Result<()> {
         const BAD_URL: &str = "https://127.0.0.1:1";
 
@@ -241,7 +238,6 @@ mod tests {
     }
 
     #[tokio::test]
-    #[ignore = "TODO(#6023) - disable flaky test"]
     async fn error_with_full_recorder() -> anyhow::Result<()> {
         let (_guard, buffer) = capture_logs();
 
