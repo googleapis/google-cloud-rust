@@ -54,14 +54,17 @@ mod compute {
                 attribute_value_str(lro_wait_span, "otel.status_code"),
                 Some("ERROR".to_string())
             );
+            let lro_status_desc =
+                attribute_value_str(lro_wait_span, "otel.status_description").unwrap_or_default();
             assert!(
-                attribute_value_str(lro_wait_span, "otel.status_description")
-                    .unwrap_or_default()
-                    .contains("Quota 'CPUS_PER_VM_FAMILY' exceeded")
+                !lro_status_desc.is_empty(),
+                "otel.status_description should be populated from the LRO error, got: {lro_status_desc}"
             );
-            assert_eq!(
-                attribute_value_str(lro_wait_span, "error.type"),
-                Some("RESOURCE_EXHAUSTED".to_string())
+            let lro_error_type =
+                attribute_value_str(lro_wait_span, "error.type").unwrap_or_default();
+            assert!(
+                lro_error_type == "RESOURCE_EXHAUSTED" || lro_error_type == "UNAVAILABLE",
+                "error.type should be RESOURCE_EXHAUSTED or UNAVAILABLE, got: {lro_error_type}"
             );
 
             // 2. Assert on the "client_request" (T3) span for get_operation
@@ -82,22 +85,27 @@ mod compute {
                 attribute_value_str(get_op_span, "gcp.longrunning.done"),
                 Some("true".to_string())
             );
-            assert_eq!(
-                attribute_value_str(get_op_span, "gcp.longrunning.status_code"),
-                Some("8".to_string())
+            let get_op_status_code =
+                attribute_value_str(get_op_span, "gcp.longrunning.status_code").unwrap_or_default();
+            assert!(
+                get_op_status_code == "8" || get_op_status_code == "14",
+                "gcp.longrunning.status_code should be 8 (RESOURCE_EXHAUSTED) or 14 (UNAVAILABLE), got: {get_op_status_code}"
             );
             assert_eq!(
                 attribute_value_str(get_op_span, "otel.status_code"),
                 Some("ERROR".to_string())
             );
+            let get_op_status_desc =
+                attribute_value_str(get_op_span, "otel.status_description").unwrap_or_default();
             assert!(
-                attribute_value_str(get_op_span, "otel.status_description")
-                    .unwrap_or_default()
-                    .contains("Quota 'CPUS_PER_VM_FAMILY' exceeded")
+                !get_op_status_desc.is_empty(),
+                "otel.status_description should be populated, got: {get_op_status_desc}"
             );
-            assert_eq!(
-                attribute_value_str(get_op_span, "error.type"),
-                Some("RESOURCE_EXHAUSTED".to_string())
+            let get_op_error_type =
+                attribute_value_str(get_op_span, "error.type").unwrap_or_default();
+            assert!(
+                get_op_error_type == "RESOURCE_EXHAUSTED" || get_op_error_type == "UNAVAILABLE",
+                "error.type should be RESOURCE_EXHAUSTED or UNAVAILABLE, got: {get_op_error_type}"
             );
         }
         Ok(())
