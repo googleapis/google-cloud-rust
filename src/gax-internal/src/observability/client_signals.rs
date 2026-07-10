@@ -165,7 +165,7 @@ mod tests {
     };
     pub(crate) static TEST_URL_TEMPLATE: &str = "/v1/projects/{}:test_method";
     pub(crate) static TEST_METHOD: &str = "google.test.v1.Service/TestMethod";
-    pub(crate) const TEST_REQUEST_DURATION: Duration = Duration::from_millis(750);
+    pub(crate) const TEST_REQUEST_DURATION: Duration = Duration::from_millis(120);
     const COMMON_ATTRIBUTES: [(&str, &str); 3] = [
         ("rpc.system.name", "http"),
         ("url.domain", "example.com"),
@@ -175,7 +175,11 @@ mod tests {
     // Simulate the transport HTTP client for a request that fills the `RequestRecorder` data.
     async fn recorded_request_transport_client(url: &str) -> Result<String, Error> {
         let recorder = RequestRecorder::current().expect("current recorder should be available");
-        let client = reqwest::Client::new();
+        let client = reqwest::Client::builder()
+            .connect_timeout(Duration::from_secs(2))
+            .timeout(Duration::from_secs(5))
+            .build()
+            .map_err(Error::io)?;
         let request = client
             .get(url)
             .build()
@@ -209,7 +213,7 @@ mod tests {
         recorded_request_transport_client(url).await
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio::test]
     async fn client_request() -> anyhow::Result<()> {
         const PATH: &str = "/v1/projects/test-only:test_method";
 
@@ -511,7 +515,6 @@ mod tests {
     #[cfg(feature = "_internal-grpc-client")]
     #[tokio::test]
     async fn grpc_client_request() -> anyhow::Result<()> {
-        tokio::time::pause();
         let (endpoint, _server) = grpc_server::start_echo_server().await?;
         let signals = SignalProviders::new();
 
@@ -604,9 +607,7 @@ mod tests {
 
     #[cfg(feature = "_internal-grpc-client")]
     #[tokio::test]
-    #[ignore = "TODO(#6023) - disable flaky test"]
     async fn grpc_client_request_retry() -> anyhow::Result<()> {
-        tokio::time::pause();
         let (endpoint, _server) = grpc_server::start_fixed_responses(vec![
             Err(tonic::Status::unavailable("try again")),
             Ok(tonic::Response::new(EchoResponse {
@@ -653,10 +654,8 @@ mod tests {
 
     #[cfg(feature = "_internal-grpc-client")]
     #[tokio::test]
-    #[ignore = "TODO(#6023) - disable flaky test"]
     async fn grpc_client_request_success() -> anyhow::Result<()> {
         let (endpoint, _server) = grpc_server::start_echo_server().await?;
-        tokio::time::pause();
         let signals = SignalProviders::new();
 
         let metric = DurationMetric::new_with_provider(

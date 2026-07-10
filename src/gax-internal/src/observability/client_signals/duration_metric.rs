@@ -181,17 +181,14 @@ impl DurationMetric {
 #[cfg(test)]
 mod tests {
     use super::super::tests::{
-        TEST_INFO, TEST_METHOD, TEST_URL_TEMPLATE, check_metric_data, check_metric_scope,
+        TEST_INFO, TEST_METHOD, TEST_REQUEST_DURATION, TEST_URL_TEMPLATE, check_metric_data,
+        check_metric_scope,
     };
     use super::*;
     use crate::observability::ClientRequestAttributes;
     use google_cloud_gax::error::rpc::Status;
     use opentelemetry_sdk::metrics::{InMemoryMetricExporter, PeriodicReader, SdkMeterProvider};
     use std::sync::Arc;
-    use std::time::Duration;
-
-    // This is in the middle of the [0.5, 1.0) bucket defined in `boundaries`.
-    const DELAY: Duration = Duration::from_millis(750);
 
     #[tokio::test(start_paused = true)]
     async fn global_record_error() -> anyhow::Result<()> {
@@ -218,7 +215,7 @@ mod tests {
                 .set_rpc_method(TEST_METHOD),
         );
         // Use a long pause so it gets recorded as such.
-        tokio::time::sleep(DELAY).await;
+        tokio::time::sleep(TEST_REQUEST_DURATION).await;
         let _ = recorder
             .scope(async {
                 metric.with_recorder_ok();
@@ -268,7 +265,7 @@ mod tests {
                 .set_rpc_method(TEST_METHOD),
         );
         // Use a long pause so it gets recorded as such.
-        tokio::time::sleep(DELAY).await;
+        tokio::time::sleep(TEST_REQUEST_DURATION).await;
         let error = Error::service(
             Status::default()
                 .set_code(Code::NotFound)
@@ -324,7 +321,7 @@ mod tests {
                 .set_rpc_method(TEST_METHOD),
         );
         // Use a long pause so it gets recorded as such.
-        tokio::time::sleep(DELAY).await;
+        tokio::time::sleep(TEST_REQUEST_DURATION).await;
         let error = Error::http(429, http::HeaderMap::new(), bytes::Bytes::new());
         let _ = recorder
             .scope(async {
