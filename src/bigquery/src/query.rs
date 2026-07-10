@@ -17,6 +17,7 @@
 
 pub(crate) mod execution;
 mod from_sql;
+mod iterator;
 mod query_handle;
 mod query_reference;
 mod row;
@@ -24,7 +25,8 @@ mod run_query;
 mod schema;
 
 pub(crate) use from_sql::FromSql;
-pub(crate) use query_handle::Query;
+pub(crate) use iterator::RowIterator;
+pub(crate) use query_handle::{CompleteQuery, Query};
 pub(crate) use row::Row;
 pub(crate) use schema::Schema;
 

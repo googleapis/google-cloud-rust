@@ -14,7 +14,7 @@
 
 use crate::error::QueryError;
 use crate::model::QueryMetadata;
-use crate::query::{QueryReference, Result, Schema};
+use crate::query::{QueryReference, Result, RowIterator, Schema};
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::{
     GetQueryResultsRequest, GetQueryResultsResponse, Job, JobReference, QueryResponse,
@@ -172,6 +172,11 @@ impl CompleteQuery {
         }
     }
 
+    /// Returns a row iterator for the query result.
+    pub fn read(self) -> RowIterator {
+        RowIterator::new(self)
+    }
+
     /// Returns the cached metadata for this query.
     pub fn metadata(&self) -> &QueryMetadata {
         &self.metadata
@@ -225,7 +230,8 @@ mod tests {
         MockBackoffPolicy, MockJobService, create_job_service, create_test_backoff_policy,
     };
     use google_cloud_bigquery_v2::model::{
-        ErrorProto, GetQueryResultsResponse, JobReference, QueryResponse, TableSchema,
+        ErrorProto, GetQueryResultsResponse, JobReference, QueryResponse, TableFieldSchema,
+        TableSchema,
     };
     use google_cloud_gax::error::Error as GaxError;
     use google_cloud_gax::error::rpc::{Code, Status};
@@ -453,6 +459,37 @@ mod tests {
             _ => panic!("expected QueryError::Rpc, got {err:?}"),
         };
         assert_eq!(source.status().unwrap().code, Code::InvalidArgument);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_complete_query_read() -> TestResult {
+        let job_service = create_job_service(MockJobService::new());
+        let job_ref = JobReference::new()
+            .set_project_id("some_project")
+            .set_job_id("some_job_id");
+        let schema = TableSchema::new().set_fields([TableFieldSchema::new()
+            .set_name("name")
+            .set_type("STRING")
+            .set_mode("NULLABLE")]);
+        let row = serde_json::Map::from_iter([(
+            "f".to_string(),
+            serde_json::json!([{ "v": "test_name" }]),
+        )]);
+        let query_res = QueryResponse::new()
+            .set_job_complete(true)
+            .set_job_reference(job_ref.clone())
+            .set_schema(schema)
+            .set_rows(vec![row]);
+
+        let complete_query =
+            CompleteQuery::from_query_response(job_service, Some(job_ref), query_res);
+
+        let mut iter = complete_query.read();
+        let row = iter.next().await.expect("should return first row")?;
+        assert_eq!(row.get::<String, _>("name"), "test_name");
+        assert!(iter.next().await.is_none(), "{iter:?}");
 
         Ok(())
     }
