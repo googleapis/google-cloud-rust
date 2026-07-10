@@ -1191,6 +1191,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-chat-v1"
+version = "1.0.0"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "bytes",
+ "google-apps-card-v1",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-rpc",
+ "google-cloud-wkt",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tracing",
+]
+
+[[package]]
 name = "google-cloud-accessapproval-v1"
 version = "1.11.0"
 dependencies = [

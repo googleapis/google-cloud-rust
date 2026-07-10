@@ -94,6 +94,7 @@ members = [
   "src/generated/apps/script/slides",
   "src/generated/backstory",
   "src/generated/bigtable/admin/v2",
+  "src/generated/chat/v1",
   "src/generated/cloud/accessapproval/v1",
   "src/generated/cloud/advisorynotifications/v1",
   "src/generated/cloud/agentregistry/v1",

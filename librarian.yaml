@@ -173,6 +173,11 @@ libraries:
     apis:
       - path: backstory
     copyright_year: "2026"
+  - name: google-chat-v1
+    version: 1.0.0
+    copyright_year: "2026"
+    rust:
+      name_overrides: .google.chat.v1.PositionSectionRequest.position=PositionOneof
   - name: google-cloud-accessapproval-v1
     version: 1.11.0
     copyright_year: "2025"
