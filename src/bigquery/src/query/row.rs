@@ -180,7 +180,15 @@ fn convert_repeated(
 
 fn convert_nested(value: Struct, schema: &Arc<Schema>) -> Result<Value> {
     let row = Row::try_new(value, schema)?;
-    Ok(row.values)
+    let mut obj = Struct::new();
+    if let Value::Array(list) = row.values {
+        for (i, val) in list.into_iter().enumerate() {
+            if let Some(field) = schema.get_field_by_index(i) {
+                obj.insert(field.name.clone(), val);
+            }
+        }
+    }
+    Ok(Value::Object(obj))
 }
 
 fn convert_basic_type(value: String, field_name: &str, field_type: &str) -> Result<Value> {
@@ -319,20 +327,12 @@ mod tests {
         let schema = Arc::new(Schema::new(schema));
         let row = Row::try_new(raw_row, &schema)?;
 
-        assert_eq!(
-            row.get::<Value, _>(0),
-            Value::Array(vec![
-                Value::String("Alice".to_string()),
-                Value::Number(25.into()),
-            ])
-        );
-        assert_eq!(
-            row.get::<Value, _>("user"),
-            Value::Array(vec![
-                Value::String("Alice".to_string()),
-                Value::Number(25.into()),
-            ])
-        );
+        let expected = json!({
+            "name": "Alice",
+            "age": 25,
+        });
+        assert_eq!(row.get::<Value, _>(0), expected);
+        assert_eq!(row.get::<Value, _>("user"), expected);
 
         Ok(())
     }
@@ -358,22 +358,8 @@ mod tests {
         let schema = Arc::new(Schema::new(schema));
         let row = Row::try_new(raw_row, &schema)?;
 
-        assert_eq!(
-            row.get::<Value, _>(0),
-            Value::Array(vec![
-                Value::Number(1.into()),
-                Value::Number(2.into()),
-                Value::Number(3.into()),
-            ])
-        );
-        assert_eq!(
-            row.get::<Value, _>("numbers"),
-            Value::Array(vec![
-                Value::Number(1.into()),
-                Value::Number(2.into()),
-                Value::Number(3.into()),
-            ])
-        );
+        assert_eq!(row.get::<Vec<i64>, _>(0), vec![1, 2, 3]);
+        assert_eq!(row.get::<Vec<i64>, _>("numbers"), vec![1, 2, 3]);
 
         Ok(())
     }
@@ -422,32 +408,18 @@ mod tests {
         let schema = Arc::new(Schema::new(schema));
         let row = Row::try_new(raw_row, &schema)?;
 
-        assert_eq!(
-            row.get::<Value, _>(0),
-            Value::Array(vec![
-                Value::Array(vec![
-                    Value::String("Bob".to_string()),
-                    Value::Number(28.into()),
-                ]),
-                Value::Array(vec![
-                    Value::String("Charlie".to_string()),
-                    Value::Number(31.into()),
-                ]),
-            ])
-        );
-        assert_eq!(
-            row.get::<Value, _>("users"),
-            Value::Array(vec![
-                Value::Array(vec![
-                    Value::String("Bob".to_string()),
-                    Value::Number(28.into()),
-                ]),
-                Value::Array(vec![
-                    Value::String("Charlie".to_string()),
-                    Value::Number(31.into()),
-                ]),
-            ])
-        );
+        let expected = json!([
+            {
+                "name": "Bob",
+                "age": 28,
+            },
+            {
+                "name": "Charlie",
+                "age": 31,
+            },
+        ]);
+        assert_eq!(row.get::<Value, _>(0), expected);
+        assert_eq!(row.get::<Value, _>("users"), expected);
 
         Ok(())
     }
