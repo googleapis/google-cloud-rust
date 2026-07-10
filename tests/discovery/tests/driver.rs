@@ -35,16 +35,12 @@ mod compute {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_compute_lro_errors() -> anyhow::Result<()> {
-        #[cfg(google_cloud_unstable_tracing)]
         let _guard = google_cloud_test_utils::test_layer::TestLayer::initialize();
-        #[cfg(not(google_cloud_unstable_tracing))]
-        let _guard = enable_tracing();
 
         integration_tests_discovery::lro_errors()
             .await
             .inspect_err(anydump)?;
 
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let spans = google_cloud_test_utils::test_layer::TestLayer::capture(&_guard);
 
@@ -74,7 +70,9 @@ mod compute {
                 .rfind(|s| {
                     s.name == "client_request"
                         && attribute_value_str(s, "rpc.method")
-                            == Some("google.cloud.compute.v1.instances/getOperation".to_string())
+                            == Some(
+                                "google.cloud.compute.v1.zoneOperations/getOperation".to_string(),
+                            )
                 })
                 .ok_or_else(|| {
                     anyhow::anyhow!("missing getOperation client_request span in {spans:#?}")
@@ -105,7 +103,6 @@ mod compute {
         Ok(())
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     fn attribute_value_str(
         span: &google_cloud_test_utils::test_layer::CapturedSpan,
         key: &str,
