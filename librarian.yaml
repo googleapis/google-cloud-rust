@@ -1702,6 +1702,9 @@ libraries:
   - name: google-developers-knowledge-v1
     version: 1.0.0
     copyright_year: "2026"
+  - name: google-streetview-publish-v1
+    version: 1.0.0
+    copyright_year: "2026"
   - name: grpc-server
     copyright_year: "2025"
     output: src/gax-internal/grpc-server
