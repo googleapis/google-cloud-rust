@@ -1975,11 +1975,13 @@ dependencies = [
  "google-cloud-bigquery-v2",
  "google-cloud-gax",
  "google-cloud-gax-internal",
+ "google-cloud-type",
  "google-cloud-wkt",
  "mockall",
  "serde_json",
  "test-case",
  "thiserror",
+ "time",
  "tokio",
 ]
 
@@ -6112,6 +6114,8 @@ dependencies = [
  "google-cloud-bigquery-v2",
  "google-cloud-gax",
  "google-cloud-test-utils",
+ "google-cloud-type",
+ "google-cloud-wkt",
  "rand 0.10.1",
  "tokio",
 ]
