@@ -327,12 +327,12 @@ mod tests {
         let schema = Arc::new(Schema::new(schema));
         let row = Row::try_new(raw_row, &schema)?;
 
-        let expected = json!({
+        let expected: Struct = serde_json::from_value(json!({
             "name": "Alice",
             "age": 25,
-        });
-        assert_eq!(row.get::<Value, _>(0), expected);
-        assert_eq!(row.get::<Value, _>("user"), expected);
+        }))?;
+        assert_eq!(row.get::<Struct, _>(0), expected);
+        assert_eq!(row.get::<Struct, _>("user"), expected);
 
         Ok(())
     }
@@ -408,7 +408,7 @@ mod tests {
         let schema = Arc::new(Schema::new(schema));
         let row = Row::try_new(raw_row, &schema)?;
 
-        let expected = json!([
+        let expected: Vec<Struct> = serde_json::from_value(json!([
             {
                 "name": "Bob",
                 "age": 28,
@@ -417,9 +417,9 @@ mod tests {
                 "name": "Charlie",
                 "age": 31,
             },
-        ]);
-        assert_eq!(row.get::<Value, _>(0), expected);
-        assert_eq!(row.get::<Value, _>("users"), expected);
+        ]))?;
+        assert_eq!(row.get::<Vec<Struct>, _>(0), expected);
+        assert_eq!(row.get::<Vec<Struct>, _>("users"), expected);
 
         Ok(())
     }
