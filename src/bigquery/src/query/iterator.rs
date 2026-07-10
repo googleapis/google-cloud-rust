@@ -303,7 +303,6 @@ mod tests {
         Ok(())
     }
 
-
     #[tokio::test]
     async fn test_row_iterator_fetch_page_rpc_error() -> TestResult {
         let mut mock = MockJobService::new();
