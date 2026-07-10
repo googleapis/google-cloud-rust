@@ -39,6 +39,7 @@ locals {
     "--cfg google_cloud_unstable_storage_bidi",
     "--cfg google_cloud_unstable_grpc_server_streaming",
     "--cfg google_cloud_unstable_tracing",
+    "--cfg google_cloud_unstable_grpc_rust",
   ])
 
   tokio_unstable_flags = "--cfg tokio_unstable"
