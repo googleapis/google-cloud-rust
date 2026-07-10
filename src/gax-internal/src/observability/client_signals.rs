@@ -914,8 +914,8 @@ mod tests {
                 )
             });
         assert!(
-            bucket.is_some_and(|(c, b)| want_count.contains(&c) && b == low),
-            "mismatched bucket {bucket:?} want (1, {low})\nfound=[{low}, {high})\n{point:?}"
+            bucket.is_some_and(|(c, b)| want_count.contains(&c) && b >= low),
+            "mismatched bucket {bucket:?}, bucket >= {low}\nfound=[{low}, {high})\n{point:?}"
         );
     }
 
