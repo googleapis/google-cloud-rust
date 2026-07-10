@@ -267,6 +267,7 @@ members = [
   "src/generated/container/v1",
   "src/generated/datastore/admin/v1",
   "src/generated/developers/knowledge/v1",
+  "src/generated/devicesandservices/health/v4",
   "src/generated/devtools/artifactregistry/v1",
   "src/generated/devtools/cloudbuild/v1",
   "src/generated/devtools/cloudbuild/v2",
