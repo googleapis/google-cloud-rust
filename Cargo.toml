@@ -298,6 +298,7 @@ members = [
   "src/generated/spanner/admin/database/v1",
   "src/generated/spanner/admin/instance/v1",
   "src/generated/storagetransfer/v1",
+  "src/generated/streetview/publish/v1",
   "src/generated/type",
   "src/lro",
   "src/pubsub",
