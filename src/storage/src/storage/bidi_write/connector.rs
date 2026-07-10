@@ -14,13 +14,12 @@
 
 // TODO(#5716): Lift to shared bidi module
 
-use super::redirect::handle_redirect;
 use super::retry_redirect::RetryRedirect;
+use super::state::AppendObjectSpecState;
 use super::{Client, TonicStreaming};
 use crate::google::storage::v2::{
     AppendObjectSpec, BidiWriteObjectRequest, BidiWriteObjectResponse, CommonObjectRequestParams,
     Object, WriteObjectSpec, bidi_write_object_request::FirstMessage,
-    bidi_write_object_response::WriteStatus,
 };
 use crate::request_options::RequestOptions;
 use crate::storage::info::X_GOOG_API_CLIENT_HEADER;
@@ -35,28 +34,21 @@ use std::sync::{Arc, Mutex};
 use std::time::Duration;
 use tokio::sync::mpsc::Sender;
 
+/// The number of queued messages allowed in the request channel.
+const MAX_QUEUED_REQUESTS: usize = 100;
+
 /// Represents a bidirectional streaming connection.
 /// Contains the transmission channel for requests and the receiving stream for responses.
 #[derive(Debug)]
-#[allow(dead_code)]
 pub struct Connection<S = Streaming<BidiWriteObjectResponse>> {
     pub tx: Sender<BidiWriteObjectRequest>,
     pub rx: S,
 }
 
-#[allow(dead_code)]
 impl<S> Connection<S> {
     pub fn new(tx: Sender<BidiWriteObjectRequest>, rx: S) -> Self {
         Self { tx, rx }
     }
-}
-
-/// Represents the state of the initial request in the stream.
-#[derive(Clone, Debug)]
-#[allow(dead_code)]
-pub enum AppendObjectSpecState {
-    Write(Box<WriteObjectSpec>, Option<String>),
-    Append(AppendObjectSpec),
 }
 
 /// Establishes and handles the initial handshake for bidi streaming writes.
@@ -69,7 +61,6 @@ pub enum AppendObjectSpecState {
 /// # Parameters
 /// - `T`: a type implementing the [Client] trait, this is used in tests.
 #[derive(Clone, Debug)]
-#[allow(dead_code)]
 pub struct Connector<T = GrpcClient> {
     spec: Arc<Mutex<AppendObjectSpecState>>,
     options: RequestOptions,
@@ -77,7 +68,6 @@ pub struct Connector<T = GrpcClient> {
     params: Option<CommonObjectRequestParams>,
 }
 
-#[allow(dead_code)]
 impl<T> Connector<T>
 where
     T: Client + Clone + Send + 'static,
@@ -182,64 +172,12 @@ where
         options: &RequestOptions,
         params: Option<CommonObjectRequestParams>,
     ) -> Result<(BidiWriteObjectResponse, Connection<T::Stream>)> {
-        let (first_message, routing_token) = match &*spec.lock().expect("never poisoned") {
-            AppendObjectSpecState::Write(spec, rt) => {
-                (FirstMessage::WriteObjectSpec(*spec.clone()), rt.clone())
-            }
-            AppendObjectSpecState::Append(spec) => (
-                FirstMessage::AppendObjectSpec(spec.clone()),
-                spec.routing_token.clone(),
-            ),
+        let (request, x_goog_request_params) = {
+            let guard = spec.lock().expect("never poisoned");
+            prepare_request(&guard, params)?
         };
 
-        let state_lookup = matches!(first_message, FirstMessage::AppendObjectSpec(_));
-
-        let request = BidiWriteObjectRequest {
-            first_message: Some(first_message),
-            common_object_request_params: params,
-            state_lookup,
-            ..BidiWriteObjectRequest::default()
-        };
-
-        let bucket_name = request
-            .first_message
-            .as_ref()
-            .and_then(|m| match m {
-                FirstMessage::WriteObjectSpec(s) => s.resource.as_ref().map(|r| r.bucket.as_str()),
-                FirstMessage::AppendObjectSpec(s) => Some(s.bucket.as_str()),
-                _ => None,
-            })
-            .unwrap_or_default();
-
-        if bucket_name
-            .strip_prefix("projects/_/buckets/")
-            .is_none_or(|x| x.is_empty())
-        {
-            let problem = SubstitutionFail::MismatchExpecting(
-                bucket_name.to_string(),
-                "projects/_/buckets/*",
-            );
-            let mismatch = SubstitutionMismatch {
-                field_name: "bucket",
-                problem,
-            };
-            let mismatch = PathMismatch {
-                subs: vec![mismatch],
-            };
-            let mismatch = BindingError {
-                paths: vec![mismatch],
-            };
-
-            return Err(crate::Error::binding(mismatch));
-        }
-
-        let mut x_goog_request_params = format!("bucket={bucket_name}");
-        if let Some(token) = routing_token {
-            x_goog_request_params.push_str("&routing_token=");
-            x_goog_request_params.push_str(&token);
-        }
-
-        let (tx, rx) = tokio::sync::mpsc::channel::<BidiWriteObjectRequest>(100);
+        let (tx, rx) = tokio::sync::mpsc::channel::<BidiWriteObjectRequest>(MAX_QUEUED_REQUESTS);
         tx.send(request).await.map_err(Error::io)?;
 
         let extensions = {
@@ -266,52 +204,92 @@ where
 
         let response = match response {
             Ok(r) => r,
-            Err(status) => return Err(handle_redirect(spec, status)),
+            Err(status) => {
+                let mut guard = spec.lock().expect("never poisoned");
+                return Err(guard.handle_redirect(status));
+            }
         };
 
         let (_metadata, mut stream, _) = response.into_parts();
         match stream.next_message().await {
             Ok(Some(m)) => {
                 let mut guard = spec.lock().expect("never poisoned");
-                let mut new_generation = None;
-                if let Some(WriteStatus::Resource(resource)) = &m.write_status {
-                    new_generation = Some(resource.generation);
-                }
-
-                let new_state = match &*guard {
-                    AppendObjectSpecState::Write(s, _) => {
-                        AppendObjectSpecState::Append(AppendObjectSpec {
-                            bucket: s
-                                .resource
-                                .as_ref()
-                                .map(|r| r.bucket.clone())
-                                .unwrap_or_default(),
-                            object: s
-                                .resource
-                                .as_ref()
-                                .map(|r| r.name.clone())
-                                .unwrap_or_default(),
-                            generation: new_generation.unwrap_or(0),
-                            write_handle: m.write_handle.clone(),
-                            ..Default::default()
-                        })
-                    }
-                    AppendObjectSpecState::Append(s) => {
-                        AppendObjectSpecState::Append(AppendObjectSpec {
-                            generation: new_generation.unwrap_or(s.generation),
-                            write_handle: m.write_handle.clone().or_else(|| s.write_handle.clone()),
-                            ..s.clone()
-                        })
-                    }
-                };
-                *guard = new_state;
+                guard.handle_response(&m);
 
                 Ok((m, Connection::new(tx, stream)))
             }
             Ok(None) => Err(Error::io("bidi_write_object stream closed before start")),
-            Err(status) => Err(handle_redirect(spec, status)),
+            Err(status) => {
+                let mut guard = spec.lock().expect("never poisoned");
+                Err(guard.handle_redirect(status))
+            }
         }
     }
+}
+
+fn prepare_request(
+    state: &AppendObjectSpecState,
+    params: Option<CommonObjectRequestParams>,
+) -> Result<(BidiWriteObjectRequest, String)> {
+    let (first_message, routing_token) = match state {
+        AppendObjectSpecState::Write(spec, rt) => {
+            (FirstMessage::WriteObjectSpec((**spec).clone()), rt.clone())
+        }
+        AppendObjectSpecState::Append(spec) => (
+            FirstMessage::AppendObjectSpec(spec.clone()),
+            spec.routing_token.clone(),
+        ),
+    };
+
+    let state_lookup = matches!(first_message, FirstMessage::AppendObjectSpec(_));
+
+    let request = BidiWriteObjectRequest {
+        first_message: Some(first_message),
+        common_object_request_params: params,
+        state_lookup,
+        ..BidiWriteObjectRequest::default()
+    };
+
+    let bucket_name = request
+        .first_message
+        .as_ref()
+        .and_then(|m| match m {
+            FirstMessage::WriteObjectSpec(s) => s.resource.as_ref().map(|r| r.bucket.as_str()),
+            FirstMessage::AppendObjectSpec(s) => Some(s.bucket.as_str()),
+            _ => None,
+        })
+        .unwrap_or_default();
+
+    if bucket_name
+        .strip_prefix("projects/_/buckets/")
+        .is_none_or(|x| x.is_empty())
+    {
+        return Err(invalid_bucket_name(bucket_name));
+    }
+
+    let mut x_goog_request_params = format!("bucket={}", crate::storage::client::enc(bucket_name));
+    if let Some(token) = routing_token {
+        x_goog_request_params.push_str("&routing_token=");
+        x_goog_request_params.push_str(&crate::storage::client::enc(&token));
+    }
+
+    Ok((request, x_goog_request_params))
+}
+
+fn invalid_bucket_name(bucket_name: &str) -> crate::Error {
+    let problem =
+        SubstitutionFail::MismatchExpecting(bucket_name.to_string(), "projects/_/buckets/*");
+    let mismatch = SubstitutionMismatch {
+        field_name: "bucket",
+        problem,
+    };
+    let mismatch = PathMismatch {
+        subs: vec![mismatch],
+    };
+    let mismatch = BindingError {
+        paths: vec![mismatch],
+    };
+    crate::Error::binding(mismatch)
 }
 
 #[cfg(test)]
@@ -452,7 +430,7 @@ mod tests {
                 );
                 assert_eq!(path.path(), "/google.storage.v2.Storage/BidiWriteObject");
                 assert_eq!(header, *crate::storage::info::X_GOOG_API_CLIENT_HEADER);
-                assert_eq!(params, "bucket=projects/_/buckets/test-bucket");
+                assert_eq!(params, "bucket=projects%2F_%2Fbuckets%2Ftest-bucket");
                 save.lock().expect("never poisoned").push(rx);
                 Err(permanent_error())
             });
@@ -524,7 +502,7 @@ mod tests {
                 assert_eq!(header, *crate::storage::info::X_GOOG_API_CLIENT_HEADER);
                 let mut split = params.split('&').collect::<Vec<_>>();
                 split.sort();
-                assert_eq!(split, vec!["bucket=projects/_/buckets/test-bucket", "routing_token=test-routing-token"]);
+                assert_eq!(split, vec!["bucket=projects%2F_%2Fbuckets%2Ftest-bucket", "routing_token=test-routing-token"]);
                 save.lock().expect("never poisoned").push(rx);
 
                 Err(permanent_error())

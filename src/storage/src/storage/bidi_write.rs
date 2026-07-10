@@ -14,9 +14,14 @@
 
 //! Internal traits and types for Appendable Object Write (Bidi Write).
 
+#[allow(dead_code)]
 pub(crate) mod connector;
+#[allow(dead_code)]
 mod redirect;
+#[allow(dead_code)]
 mod retry_redirect;
+#[allow(dead_code)]
+pub(crate) mod state;
 pub(crate) mod stub;
 
 use crate::google::storage::v2::{BidiWriteObjectRequest, BidiWriteObjectResponse};
