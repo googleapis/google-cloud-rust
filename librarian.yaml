@@ -1126,7 +1126,7 @@ libraries:
     version: 1.12.0
     copyright_year: "2025"
   - name: google-cloud-oracledatabase-v1
-    version: 1.14.0
+    version: 2.0.0
     copyright_year: "2025"
   - name: google-cloud-orchestration-airflow-service-v1
     version: 1.13.0
