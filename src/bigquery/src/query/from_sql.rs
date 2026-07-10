@@ -100,9 +100,34 @@ impl<T: FromSql> FromSql for Option<T> {
     }
 }
 
+impl<T: FromSql> FromSql for Vec<T> {
+    fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
+        match value {
+            wkt::Value::Array(arr) => arr.into_iter().map(T::from_sql).collect(),
+            wkt::Value::Null => Err(ConvertError::NotNull),
+            other => Err(ConvertError::TypeMismatch {
+                expected: "array",
+                got: other,
+            }),
+        }
+    }
+}
+
+impl FromSql for wkt::Struct {
+    fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
+        match value {
+            wkt::Value::Object(obj) => Ok(obj),
+            wkt::Value::Null => Err(ConvertError::NotNull),
+            other => Err(ConvertError::TypeMismatch {
+                expected: "object",
+                got: other,
+            }),
+        }
+    }
+}
+
 // TODO(#5592): implement for more Rust
-//  types: f32, i32, Vec<T>, Decimal,
-//  wkt::Timestamp, wkt::Struct, etc.
+// types: f32, i32, Decimal, wkt::Timestamp, etc.
 
 #[cfg(test)]
 mod tests {
@@ -174,6 +199,21 @@ mod tests {
     #[test_case(wkt::Value::Number(123.into()) => Ok(Some(123)) ; "option some i64")]
     #[test_case(wkt::Value::String("hello".to_string()) => Err(TestConvertError::Convert("invalid digit found in string".to_string())) ; "option error i64")]
     fn test_from_sql_option(value: wkt::Value) -> Result<Option<i64>, TestConvertError> {
+        FromSql::from_sql(value).map_err(TestConvertError::from)
+    }
+
+    #[test_case(wkt::Value::Array(vec![wkt::Value::Number(1.into()), wkt::Value::Number(2.into())]) => Ok(vec![1, 2]) ; "vec i64")]
+    #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "vec null")]
+    #[test_case(wkt::Value::String("hello".to_string()) => Err(TestConvertError::TypeMismatch("array")) ; "vec type mismatch")]
+    #[test_case(wkt::Value::Array(vec![wkt::Value::String("invalid".to_string())]) => Err(TestConvertError::Convert("invalid digit found in string".to_string())) ; "vec element convert error")]
+    fn test_from_sql_vec(value: wkt::Value) -> Result<Vec<i64>, TestConvertError> {
+        FromSql::from_sql(value).map_err(TestConvertError::from)
+    }
+
+    #[test_case(wkt::Value::Object(wkt::Struct::from_iter([("a".to_string(), wkt::Value::Number(1.into()))])) => Ok(wkt::Struct::from_iter([("a".to_string(), wkt::Value::Number(1.into()))])) ; "struct ok")]
+    #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "struct null")]
+    #[test_case(wkt::Value::String("hello".to_string()) => Err(TestConvertError::TypeMismatch("object")) ; "struct type mismatch")]
+    fn test_from_sql_struct(value: wkt::Value) -> Result<wkt::Struct, TestConvertError> {
         FromSql::from_sql(value).map_err(TestConvertError::from)
     }
 }
