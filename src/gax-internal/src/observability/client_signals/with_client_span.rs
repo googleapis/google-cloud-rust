@@ -207,7 +207,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio::test(start_paused = true)]
     async fn poll_err() -> anyhow::Result<()> {
         let providers = SignalProviders::new();
 
