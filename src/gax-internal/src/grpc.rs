@@ -20,6 +20,7 @@ mod grpc_helpers;
 mod grpc_rust;
 pub mod status;
 pub mod tonic;
+mod transport_policies;
 #[cfg(google_cloud_unstable_grpc_rust)]
 pub use grpc_rust::{GrpcRustClient, GrpcRustStreaming};
 
@@ -39,11 +40,12 @@ use google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy;
 use google_cloud_gax::polling_error_policy::PollingErrorPolicy;
 use google_cloud_gax::response::{Parts, Response};
 use google_cloud_gax::retry_loop_internal::retry_loop;
-use grpc_helpers::{TransportPolicies, add_auth_headers, make_credentials, make_headers};
+use grpc_helpers::{add_auth_headers, make_credentials, make_headers};
 use http::HeaderMap;
 use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
 use std::sync::Arc;
 use std::time::Duration;
+use transport_policies::TransportPolicies;
 
 // A tonic::transport::Channel always has a Buffer layer.
 const DEFAULT_REQUEST_BUFFER_CAPACITY: usize = 1024;
