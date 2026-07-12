@@ -20,9 +20,19 @@ pub(crate) mod stub;
 
 use crate::google::storage::v2::{BidiWriteObjectRequest, BidiWriteObjectResponse};
 use crate::request_options::RequestOptions;
-use gaxi::grpc::tonic::{Extensions, Response as TonicResponse, Result as TonicResult, Streaming};
+use gaxi::grpc::tonic::{Extensions, Response as TonicResponse, Result as TonicResult};
 use std::future::Future;
 use tokio::sync::mpsc::Receiver;
+
+#[cfg(google_cloud_unstable_grpc_rust)]
+pub(crate) type GrpcClient = gaxi::grpc::GrpcRustClient;
+#[cfg(google_cloud_unstable_grpc_rust)]
+pub(crate) type GrpcStream = gaxi::grpc::GrpcRustStreaming<BidiWriteObjectResponse>;
+
+#[cfg(not(google_cloud_unstable_grpc_rust))]
+pub(crate) type GrpcClient = gaxi::grpc::Client;
+#[cfg(not(google_cloud_unstable_grpc_rust))]
+pub(crate) type GrpcStream = gaxi::grpc::tonic::Streaming<BidiWriteObjectResponse>;
 
 /// A trait to mock `Streaming<T>` in the unit tests.
 ///
@@ -35,7 +45,7 @@ pub(crate) trait TonicStreaming: std::fmt::Debug + Send + 'static {
 }
 
 /// Implement [TonicStreaming] for the one `Streaming<T>`` we use.
-impl TonicStreaming for Streaming<BidiWriteObjectResponse> {
+impl TonicStreaming for GrpcStream {
     async fn next_message(&mut self) -> TonicResult<Option<BidiWriteObjectResponse>> {
         self.message().await
     }
@@ -58,8 +68,8 @@ pub(crate) trait Client: std::fmt::Debug + Send + 'static {
     ) -> impl Future<Output = crate::Result<TonicResult<TonicResponse<Self::Stream>>>> + Send;
 }
 
-impl Client for gaxi::grpc::Client {
-    type Stream = Streaming<BidiWriteObjectResponse>;
+impl Client for GrpcClient {
+    type Stream = GrpcStream;
     async fn start(
         &self,
         extensions: Extensions,
