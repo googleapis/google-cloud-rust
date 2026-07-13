@@ -370,11 +370,11 @@ pub async fn query_client_numeric_limits() -> Result<()> {
     // and errors on out-of-range values.
     assert_eq!(
         row.get::<RustDecimal, _>("standard_numeric"),
-        RustDecimal::from_str_exact("123.123456789").unwrap()
+        "123.123456789".parse().expect("valid decimal")
     );
     assert_eq!(
         row.get::<RustDecimal, _>("standard_bignumeric"),
-        RustDecimal::from_str_exact("1234567890.1234567890").unwrap()
+        "1234567890.1234567890".parse().expect("valid decimal")
     );
     assert!(row.try_get::<RustDecimal, _>("max_numeric").is_err());
     assert!(row.try_get::<RustDecimal, _>("max_bignumeric").is_err());

@@ -302,9 +302,14 @@ impl FromSql for google_cloud_type::model::Decimal {
 impl FromSql for rust_decimal::Decimal {
     fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
         match value {
-            wkt::Value::String(s) => rust_decimal::Decimal::from_str_exact(&s)
+            wkt::Value::String(s) => s
+                .trim()
+                .parse::<rust_decimal::Decimal>()
                 .map_err(|e| ConvertError::Convert(Box::new(e))),
-            wkt::Value::Number(n) => rust_decimal::Decimal::from_str_exact(&n.to_string())
+            wkt::Value::Number(n) => n
+                .to_string()
+                .trim()
+                .parse::<rust_decimal::Decimal>()
                 .map_err(|e| ConvertError::Convert(Box::new(e))),
             wkt::Value::Null => Err(ConvertError::NotNull),
             other => Err(ConvertError::TypeMismatch {

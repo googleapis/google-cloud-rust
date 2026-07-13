@@ -308,6 +308,7 @@ mod tests {
             json!([
                 { "v": "123.456" },
                 { "v": "99999999999999999999.123456789" },
+                { "v": "99999999999999999999999999999999.123" },
             ]),
         )]);
         let schema = TableSchema::new().set_fields([
@@ -317,6 +318,10 @@ mod tests {
                 .set_mode("NULLABLE"),
             TableFieldSchema::new()
                 .set_name("big_amount")
+                .set_type("BIGNUMERIC")
+                .set_mode("NULLABLE"),
+            TableFieldSchema::new()
+                .set_name("overflow_amount")
                 .set_type("BIGNUMERIC")
                 .set_mode("NULLABLE"),
         ]);
@@ -343,15 +348,28 @@ mod tests {
 
         assert_eq!(
             row.get::<RustDecimal, _>(0),
-            RustDecimal::from_str_exact("123.456").unwrap()
+            "123.456".parse().expect("valid decimal")
         );
         assert_eq!(
             row.get::<RustDecimal, _>("price"),
-            RustDecimal::from_str_exact("123.456").unwrap()
+            "123.456".parse().expect("valid decimal")
         );
 
-        assert!(row.try_get::<RustDecimal, _>(1).is_err());
-        assert!(row.try_get::<RustDecimal, _>("big_amount").is_err());
+        assert_eq!(
+            row.get::<RustDecimal, _>(1),
+            "99999999999999999999.123456789"
+                .parse()
+                .expect("valid decimal")
+        );
+        assert_eq!(
+            row.get::<RustDecimal, _>("big_amount"),
+            "99999999999999999999.123456789"
+                .parse()
+                .expect("valid decimal")
+        );
+
+        assert!(row.try_get::<RustDecimal, _>(2).is_err());
+        assert!(row.try_get::<RustDecimal, _>("overflow_amount").is_err());
 
         Ok(())
     }
