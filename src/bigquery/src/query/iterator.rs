@@ -15,7 +15,7 @@
 use crate::error::RowError;
 use crate::query::{CompleteQuery, Row, Schema};
 use google_cloud_bigquery_v2::client::JobService;
-use google_cloud_bigquery_v2::model::JobReference;
+use google_cloud_bigquery_v2::model::{GetQueryResultsRequest, JobReference};
 use std::collections::VecDeque;
 use std::sync::Arc;
 
@@ -28,6 +28,7 @@ pub struct RowIterator {
     schema: Arc<Schema>,
     page_token: Option<String>,
     rows: VecDeque<wkt::Struct>,
+    max_rows_buffered: Option<u32>,
 }
 
 impl RowIterator {
@@ -38,7 +39,14 @@ impl RowIterator {
             schema: q.schema,
             page_token: q.page_token,
             rows: q.cached_rows,
+            max_rows_buffered: None,
         }
+    }
+
+    /// Sets the maximum number of rows to buffer in memory.
+    pub fn set_max_rows_buffered(mut self, max_rows_buffered: u32) -> Self {
+        self.max_rows_buffered = Some(max_rows_buffered);
+        self
     }
 
     /// Fetches the next row from the result set.
@@ -61,7 +69,7 @@ impl RowIterator {
     }
 
     async fn try_fetch_page(&mut self) -> Result<()> {
-        let Some(token) = &self.page_token.as_deref() else {
+        let Some(token) = self.page_token.as_deref() else {
             return Ok(());
         };
 
@@ -72,9 +80,38 @@ impl RowIterator {
     }
 
     // Fetches the next page of results and the next page token.
-    async fn fetch_page(&self, _token: &str) -> Result<(Vec<wkt::Struct>, Option<String>)> {
-        // TODO(#5592): implement page fetching with jobs.getQueryResults
-        unimplemented!("pagination support not yet implemented")
+    async fn fetch_page(&self, token: &str) -> Result<(Vec<wkt::Struct>, Option<String>)> {
+        let job_ref = self.job_ref.as_ref().expect(
+            "only queries with a job reference should have page tokens and can fetch more pages",
+        );
+
+        let mut req = GetQueryResultsRequest::new()
+            .set_project_id(job_ref.project_id.clone())
+            .set_or_clear_max_results(self.max_rows_buffered)
+            .set_job_id(job_ref.job_id.clone())
+            .set_page_token(token)
+            .set_format_options(
+                google_cloud_bigquery_v2::model::DataFormatOptions::new()
+                    .set_use_int64_timestamp(true),
+            );
+        if let Some(location) = job_ref.location.clone() {
+            req = req.set_location(location);
+        }
+
+        let res = self
+            .job_service
+            .get_query_results()
+            .with_request(req)
+            .send()
+            .await?;
+
+        let page_token = if res.page_token.is_empty() {
+            None
+        } else {
+            Some(res.page_token)
+        };
+
+        Ok((res.rows, page_token))
     }
 }
 
@@ -83,8 +120,12 @@ mod tests {
     use super::*;
     use crate::query::tests::{MockJobService, create_job_service};
     use google_cloud_bigquery_v2::model::{
-        JobReference, QueryResponse, TableFieldSchema, TableSchema,
+        DataFormatOptions, GetQueryResultsResponse, JobReference, QueryResponse, TableFieldSchema,
+        TableSchema,
     };
+    use google_cloud_gax::error::Error as GaxError;
+    use google_cloud_gax::error::rpc::{Code, Status};
+    use google_cloud_gax::response::Response;
     use serde_json::{Map, json};
     use std::sync::Arc;
 
@@ -167,6 +208,126 @@ mod tests {
         let err = iter.next().await.expect("should return error").unwrap_err();
         assert!(matches!(err, RowError::InvalidRowFormat(_)), "{err:?}");
         assert!(iter.next().await.is_none(), "{iter:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_row_iterator_fetch_multiple_pages() -> TestResult {
+        let mut mock = MockJobService::new();
+        let mut seq = mockall::Sequence::new();
+
+        mock.expect_get_query_results()
+            .in_sequence(&mut seq)
+            .times(1)
+            .returning(|req, _| {
+                assert_eq!(req.page_token, "token_page_1");
+                let res = GetQueryResultsResponse::new()
+                    .set_rows(vec![
+                        create_test_row("page_1_row_1"),
+                        create_test_row("page_1_row_2"),
+                    ])
+                    .set_page_token("token_page_2");
+                Ok(Response::from(res))
+            });
+
+        mock.expect_get_query_results()
+            .in_sequence(&mut seq)
+            .times(1)
+            .returning(|req, _| {
+                assert_eq!(req.page_token, "token_page_2");
+                let res = GetQueryResultsResponse::new()
+                    .set_rows(vec![create_test_row("page_2_row_1")])
+                    .set_page_token("");
+                Ok(Response::from(res))
+            });
+
+        let job_service = create_job_service(mock);
+        let q = create_test_complete_query(
+            job_service,
+            Some(create_test_job_ref()),
+            vec![create_test_row("cached_row")],
+            Some("token_page_1".to_string()),
+        );
+        let mut iter = q.read();
+
+        let row1 = iter.next().await.expect("should have row 1")?;
+        assert_eq!(row1.get::<String, _>("col"), "cached_row");
+
+        let row2 = iter.next().await.expect("should have row 2")?;
+        assert_eq!(row2.get::<String, _>("col"), "page_1_row_1");
+
+        let row3 = iter.next().await.expect("should have row 3")?;
+        assert_eq!(row3.get::<String, _>("col"), "page_1_row_2");
+
+        let row4 = iter.next().await.expect("should have row 4")?;
+        assert_eq!(row4.get::<String, _>("col"), "page_2_row_1");
+
+        assert!(iter.next().await.is_none(), "{iter:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_row_iterator_fetch_page_request_parameters() -> TestResult {
+        let mut mock = MockJobService::new();
+        mock.expect_get_query_results()
+            .times(1)
+            .returning(|req, _| {
+                assert_eq!(req.project_id, "test_project");
+                assert_eq!(req.job_id, "test_job");
+                assert_eq!(req.page_token, "token_1");
+                assert_eq!(req.max_results, Some(50));
+                assert_eq!(req.location, "us-east1");
+                assert_eq!(
+                    req.format_options,
+                    Some(DataFormatOptions::new().set_use_int64_timestamp(true))
+                );
+                let res = GetQueryResultsResponse::new()
+                    .set_rows(vec![create_test_row("page_row")])
+                    .set_page_token("");
+                Ok(Response::from(res))
+            });
+
+        let job_service = create_job_service(mock);
+        let q = create_test_complete_query(
+            job_service,
+            Some(create_test_job_ref_with_location("us-east1")),
+            vec![],
+            Some("token_1".to_string()),
+        );
+        let mut iter = q.read().set_max_rows_buffered(50);
+
+        let row = iter.next().await.expect("should have row")?;
+        assert_eq!(row.get::<String, _>("col"), "page_row");
+
+        assert!(iter.next().await.is_none(), "{iter:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_row_iterator_fetch_page_rpc_error() -> TestResult {
+        let mut mock = MockJobService::new();
+        mock.expect_get_query_results().returning(|_, _| {
+            let status = Status::default()
+                .set_code(Code::Unavailable)
+                .set_message("temporary service error");
+            Err(GaxError::service(status))
+        });
+
+        let job_service = create_job_service(mock);
+        let q = create_test_complete_query(
+            job_service,
+            Some(create_test_job_ref()),
+            vec![],
+            Some("token_err".to_string()),
+        );
+        let mut iter = q.read();
+
+        let err = iter.next().await.expect("should return error").unwrap_err();
+        assert!(matches!(err, RowError::Rpc { .. }), "{err:?}");
+        assert!(
+            err.to_string().contains("temporary service error"),
+            "{err:?}"
+        );
         Ok(())
     }
 }

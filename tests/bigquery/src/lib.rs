@@ -244,7 +244,10 @@ pub async fn query_client() -> Result<()> {
 
     assert_eq!(complete_query.metadata().total_rows, Some(1));
 
-    // TODO(#5592): iterate on rows
+    let mut iter = complete_query.read();
+    let row = iter.next().await.expect("should return first row")?;
+    assert_eq!(row.get::<i64, _>("one"), 1);
+    assert!(iter.next().await.is_none(), "{iter:?}");
 
     Ok(())
 }
@@ -343,7 +346,12 @@ pub async fn query_client_multi_page() -> Result<()> {
 
     assert_eq!(complete_query.metadata().total_rows, Some(10000));
 
-    // TODO(#5592): iterate on rows with max_results = 1000
+    let mut iter = complete_query.read().set_max_rows_buffered(1000);
+    let mut count = 0;
+    while let Some(_row) = iter.next().await.transpose()? {
+        count += 1;
+    }
+    assert_eq!(count, 10000);
 
     Ok(())
 }
@@ -365,7 +373,10 @@ pub async fn query_client_job() -> Result<()> {
 
     assert_eq!(complete_query.metadata().total_rows, Some(1));
 
-    // TODO(#5592): iterate on rows
+    let mut iter = complete_query.read();
+    let row = iter.next().await.expect("should return first row")?;
+    assert_eq!(row.get::<i64, _>("two"), 2);
+    assert!(iter.next().await.is_none(), "{iter:?}");
 
     Ok(())
 }
