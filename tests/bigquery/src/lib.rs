@@ -271,8 +271,7 @@ pub async fn query_client_multi_page() -> Result<()> {
 
     let mut iter = complete_query.read().set_max_rows_buffered(1000);
     let mut count = 0;
-    while let Some(row) = iter.next().await {
-        let _row = row?;
+    while let Some(_row) = iter.next().await.transpose()? {
         count += 1;
     }
     assert_eq!(count, 10000);
