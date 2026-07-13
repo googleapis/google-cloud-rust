@@ -22,7 +22,9 @@ use google_cloud_bigquery_v2::model::{
 };
 use google_cloud_gax::{error::rpc::Code, paginator::ItemPaginator};
 use google_cloud_test_utils::runtime_config::project_id;
+use google_cloud_type::model::Decimal;
 use rand::{RngExt, distr::Alphanumeric};
+use rust_decimal::Decimal as RustDecimal;
 
 const INSTANCE_LABEL: &str = "rust-sdk-integration-test";
 
@@ -323,6 +325,59 @@ pub async fn query_client_datatypes() -> Result<()> {
 
     assert_eq!(row.get::<Option<String>, _>("nullable_name"), None);
     assert_eq!(row.get::<Option<i64>, _>("nullable_age"), None);
+
+    assert!(iter.next().await.is_none());
+
+    Ok(())
+}
+
+pub async fn query_client_numeric_limits() -> Result<()> {
+    let project_id = project_id()?;
+    let bq = BigQuery::builder().build().await?;
+
+    let query = bq
+        .query(
+            "SELECT \
+                 CAST('99999999999999999999999999999.999999999' AS NUMERIC) AS max_numeric, \
+                 CAST('99999999999999999999999999999999999999.99999999999999999999999999999999999999' AS BIGNUMERIC) AS max_bignumeric, \
+                 CAST('123.123456789' AS NUMERIC) AS standard_numeric, \
+                 CAST('1234567890.1234567890' AS BIGNUMERIC) AS standard_bignumeric",
+        )
+        .with_project_id(project_id)
+        .set_labels(vec![(INSTANCE_LABEL, "true")])
+        .run()
+        .await?;
+
+    let complete_query = query.until_done().await?;
+    assert_eq!(complete_query.metadata().total_rows, Some(1));
+
+    let mut iter = complete_query.read();
+    let row = iter.next().await.expect("row must exist")?;
+
+    // Verify google_cloud_type::model::Decimal preserves values for NUMERIC (38 digits) and BIGNUMERIC (76 digits).
+    assert_eq!(
+        row.get::<Decimal, _>("max_numeric"),
+        Decimal::new().set_value("99999999999999999999999999999.999999999")
+    );
+    assert_eq!(
+        row.get::<Decimal, _>("max_bignumeric"),
+        Decimal::new().set_value(
+            "99999999999999999999999999999999999999.99999999999999999999999999999999999999"
+        )
+    );
+
+    // Verify rust_decimal handles numbers within its 96-bit bounds (around 28 digits)
+    // and errors on out-of-range values.
+    assert_eq!(
+        row.get::<RustDecimal, _>("standard_numeric"),
+        RustDecimal::from_str_exact("123.123456789").unwrap()
+    );
+    assert_eq!(
+        row.get::<RustDecimal, _>("standard_bignumeric"),
+        RustDecimal::from_str_exact("1234567890.1234567890").unwrap()
+    );
+    assert!(row.try_get::<RustDecimal, _>("max_numeric").is_err());
+    assert!(row.try_get::<RustDecimal, _>("max_bignumeric").is_err());
 
     assert!(iter.next().await.is_none());
 
