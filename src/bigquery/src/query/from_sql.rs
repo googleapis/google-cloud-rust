@@ -306,11 +306,18 @@ impl FromSql for rust_decimal::Decimal {
                 .trim()
                 .parse::<rust_decimal::Decimal>()
                 .map_err(|e| ConvertError::Convert(Box::new(e))),
-            wkt::Value::Number(n) => n
-                .to_string()
-                .trim()
-                .parse::<rust_decimal::Decimal>()
-                .map_err(|e| ConvertError::Convert(Box::new(e))),
+            wkt::Value::Number(n) => {
+                if let Some(i) = n.as_i64() {
+                    Ok(rust_decimal::Decimal::from(i))
+                } else if let Some(u) = n.as_u64() {
+                    Ok(rust_decimal::Decimal::from(u))
+                } else if let Some(f) = n.as_f64() {
+                    rust_decimal::Decimal::try_from(f)
+                        .map_err(|e| ConvertError::Convert(Box::new(e)))
+                } else {
+                    Err(ConvertError::Convert("invalid number".into()))
+                }
+            }
             wkt::Value::Null => Err(ConvertError::NotNull),
             other => Err(ConvertError::TypeMismatch {
                 expected: "string or number",
