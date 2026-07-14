@@ -217,6 +217,7 @@ members = [
   "src/generated/cloud/policytroubleshooter/iam/v3",
   "src/generated/cloud/policytroubleshooter/v1",
   "src/generated/cloud/privilegedaccessmanager/v1",
+  "src/generated/cloud/productregistry/v1",
   "src/generated/cloud/rapidmigrationassessment/v1",
   "src/generated/cloud/recaptchaenterprise/v1",
   "src/generated/cloud/recommender/logging/v1",

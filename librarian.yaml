@@ -1194,6 +1194,9 @@ libraries:
   - name: google-cloud-privilegedaccessmanager-v1
     version: 1.13.0
     copyright_year: "2025"
+  - name: google-cloud-productregistry-v1
+    version: 1.0.0
+    copyright_year: "2026"
   - name: google-cloud-profiler-v2
     version: 1.11.0
     apis:
