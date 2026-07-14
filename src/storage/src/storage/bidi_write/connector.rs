@@ -306,6 +306,14 @@ mod tests {
     use std::error::Error as _;
     use std::sync::Arc;
 
+    use super::super::mocks::{MockTestClient, SharedMockClient};
+    use super::super::tests::{permanent_error, redirect_status};
+    use gaxi::grpc::tonic::GrpcMethod;
+    use gaxi::grpc::tonic::Response as TonicResponse;
+    use gaxi::grpc::tonic::Result as TonicResult;
+    use google_cloud_gax::error::binding::{BindingError, SubstitutionFail};
+    use std::sync::Mutex;
+
     fn test_credentials() -> Credentials {
         Anonymous::new().build()
     }
@@ -359,7 +367,6 @@ mod tests {
     #[test_case::test_case("")]
     #[test_case::test_case("my-bucket")]
     async fn binding_error(bucket_name: &str) -> Result<()> {
-        use super::super::mocks::{MockTestClient, SharedMockClient};
         let mut mock = MockTestClient::new();
         // Binding errors are detected before a request is sent.
         mock.expect_start().never();
@@ -382,7 +389,6 @@ mod tests {
 
         let err = connector.connect_open(req).await.unwrap_err();
         assert!(err.is_binding(), "{err:?}");
-        use google_cloud_gax::error::binding::{BindingError, SubstitutionFail};
         let source = err.source().and_then(|e| e.downcast_ref::<BindingError>());
         assert!(matches!(source, Some(BindingError { .. })), "{err:?}");
         // Extract all the field names that did not match, and expect a single name:
@@ -413,11 +419,6 @@ mod tests {
 
     #[tokio::test]
     async fn start_error() -> Result<()> {
-        use super::super::mocks::{MockTestClient, SharedMockClient};
-        use super::super::tests::permanent_error;
-        use gaxi::grpc::tonic::GrpcMethod;
-        use std::sync::Mutex;
-
         let receivers = Arc::new(Mutex::new(Vec::new()));
         let save = receivers.clone();
         let mut mock = MockTestClient::new();
@@ -480,11 +481,6 @@ mod tests {
 
     #[tokio::test]
     async fn start_error_with_routing() -> Result<()> {
-        use super::super::mocks::{MockTestClient, SharedMockClient};
-        use super::super::tests::permanent_error;
-        use gaxi::grpc::tonic::GrpcMethod;
-        use std::sync::Mutex;
-
         let receivers = Arc::new(Mutex::new(Vec::new()));
         let save = receivers.clone();
         let mut mock = MockTestClient::new();
@@ -547,10 +543,6 @@ mod tests {
 
     #[tokio::test]
     async fn start_redirect_then_error() -> Result<()> {
-        use super::super::mocks::{MockTestClient, SharedMockClient};
-        use super::super::tests::{permanent_error, redirect_status};
-        use std::sync::Mutex;
-
         let mut seq = mockall::Sequence::new();
         let mut mock = MockTestClient::new();
         let receivers = Arc::new(Mutex::new(Vec::new()));
@@ -571,7 +563,6 @@ mod tests {
                 Err(permanent_error())
             });
         let client = SharedMockClient::new(mock);
-
         let mut connector = Connector::new(test_options(), client);
 
         let mut req = OpenAppendableObjectRequest {
@@ -652,10 +643,6 @@ mod tests {
 
     #[tokio::test]
     async fn start_immediately_closed() -> Result<()> {
-        use super::super::mocks::{MockTestClient, SharedMockClient};
-        use gaxi::grpc::tonic::Response as TonicResponse;
-        use gaxi::grpc::tonic::Result as TonicResult;
-
         let (tx1, rx1) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(5);
         let stream1 = TonicResponse::from(rx1);
         drop(tx1);
@@ -722,6 +709,132 @@ mod tests {
             panic!("Expected AppendObjectSpecState::Append");
         }
         drop(tx2);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn start_open_with_redirect_then_error() -> Result<()> {
+        let mut seq = mockall::Sequence::new();
+        let mut mock = MockTestClient::new();
+        let receivers = Arc::new(Mutex::new(Vec::new()));
+
+        // Forge an asynchronous stream that immediately yields a redirect error
+        // on its very first message instead of closing normally.
+        let (tx1, rx1) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(5);
+        let stream1 = TonicResponse::from(rx1);
+        tx1.send(Err(redirect_status("r1"))).await?;
+        drop(tx1);
+
+        let save = receivers.clone();
+        // The first attempt will successfully "start" the gRPC call and return
+        // our forged stream containing the redirect.
+        mock.expect_start()
+            .times(1)
+            .in_sequence(&mut seq)
+            .return_once(move |_, _, rx, _, _, _| {
+                save.lock().expect("never poisoned").push(rx);
+                Ok(Ok(stream1))
+            });
+
+        let save = receivers.clone();
+        // The second attempt, triggered by the automatic retry loop, will hit a
+        // permanent error so we can exit the retry loop and test our results.
+        mock.expect_start()
+            .times(1)
+            .in_sequence(&mut seq)
+            .return_once(move |_, _, rx, _, _, _| {
+                save.lock().expect("never poisoned").push(rx);
+                Err(permanent_error())
+            });
+
+        let client = SharedMockClient::new(mock);
+        let mut connector = Connector::new(test_options(), client);
+
+        let mut req = OpenAppendableObjectRequest {
+            spec: crate::model::WriteObjectSpec::default(),
+            params: None,
+        };
+        req.spec = crate::model::WriteObjectSpec {
+            resource: Some(crate::model::Object {
+                bucket: "projects/_/buckets/test-bucket".into(),
+                name: "test-object".into(),
+                ..Default::default()
+            }),
+            ..Default::default()
+        };
+
+        // Running the stream evaluates the retry loop. It should catch the
+        // redirect off the stream, retry, hit our permanent error, and return
+        // the permanent error.
+        let err = connector.connect_open(req).await.unwrap_err();
+        assert_eq!(err.status(), permanent_error().status(), "{err:?}");
+
+        // Validate that catching the redirect successfully mutated our
+        // spec state to an `Append` state tracking the new routing token.
+        let got = connector.spec.lock().expect("never poisoned").clone();
+        match got {
+            AppendObjectSpecState::Write(_, _) => panic!("Should be Append"),
+            AppendObjectSpecState::Append(got) => {
+                assert_eq!(got.routing_token.as_deref(), Some("r1"));
+            }
+        }
+
+        // We pushed the outgoing `rx` connection channels into a vector
+        // sequentially. Popping the last element gives us the second
+        // (retry) attempt's outgoing connection. It must have dynamically
+        // pivoted its setup structure to an `AppendObjectSpec` logic.
+        let mut rx = receivers
+            .lock()
+            .expect("never poisoned")
+            .pop()
+            .expect("at least two receiver");
+
+        // This is the second receiver. This should include an AppendObjectSpec
+        // with the redirect options.
+        let got = rx.recv().await.expect("at least one request sent");
+        let want = crate::google::storage::v2::AppendObjectSpec {
+            bucket: "projects/_/buckets/test-bucket".into(),
+            object: "test-object".into(),
+            routing_token: Some("r1".to_string()),
+            ..crate::google::storage::v2::AppendObjectSpec::default()
+        };
+        let spec = match got.first_message.unwrap() {
+            crate::google::storage::v2::bidi_write_object_request::FirstMessage::AppendObjectSpec(s) => s,
+            _ => panic!("Expected AppendObjectSpec"),
+        };
+        assert_eq!(spec.bucket, want.bucket);
+        assert_eq!(spec.object, want.object);
+        assert_eq!(spec.routing_token, want.routing_token);
+
+        let mut rx = receivers
+            .lock()
+            .expect("never poisoned")
+            .pop()
+            .expect("at least two receiver");
+
+        // This is the first receiver. This should include a plain WriteObjectSpec.
+        let got = rx.recv().await.expect("at least one request sent");
+        let want = crate::google::storage::v2::WriteObjectSpec {
+            resource: Some(crate::google::storage::v2::Object {
+                bucket: "projects/_/buckets/test-bucket".into(),
+                name: "test-object".into(),
+                ..Default::default()
+            }),
+            ..crate::google::storage::v2::WriteObjectSpec::default()
+        };
+        let spec = match got.first_message.unwrap() {
+            crate::google::storage::v2::bidi_write_object_request::FirstMessage::WriteObjectSpec(s) => s,
+            _ => panic!("Expected WriteObjectSpec"),
+        };
+        assert_eq!(
+            spec.resource.as_ref().unwrap().bucket,
+            want.resource.as_ref().unwrap().bucket
+        );
+        assert_eq!(
+            spec.resource.as_ref().unwrap().name,
+            want.resource.as_ref().unwrap().name
+        );
 
         Ok(())
     }
