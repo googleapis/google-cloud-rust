@@ -23,6 +23,10 @@ mod tests {
     use google_cloud_gax_internal::grpc;
     use google_cloud_gax_internal::options::ClientConfig;
     use grpc_server::{builder, google, start_echo_server, start_echo_server_with_address};
+    use http::HeaderMap;
+    use std::sync::Arc;
+
+    type AttemptInterceptor = Arc<dyn Fn(&mut HeaderMap, u32) + Send + Sync>;
 
     fn test_credentials() -> Credentials {
         Anonymous::new().build()
@@ -192,10 +196,50 @@ mod tests {
         Ok(())
     }
 
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn attempt_interceptor() -> anyhow::Result<()> {
+        use google_cloud_gax::options::internal::RequestOptionsExt as _;
+        use http::header::{HeaderName, HeaderValue};
+
+        let interceptor: AttemptInterceptor = Arc::new(|headers, attempt| {
+            headers.insert(
+                HeaderName::from_static("x-test-attempt"),
+                HeaderValue::from_str(&attempt.to_string()).expect("valid attempt number"),
+            );
+        });
+
+        let (endpoint, _server) = start_echo_server().await?;
+
+        let mut config = ClientConfig::default();
+        config.cred = Some(test_credentials());
+        config.endpoint = Some(endpoint);
+
+        let client = grpc::Client::new(config, "https://test-only.googleapis.com").await?;
+        let options = RequestOptions::default().insert_extension(interceptor);
+
+        let response = send_request_with_options(client, "test message", "", options).await?;
+        assert_eq!(&response.message, "test message");
+
+        assert_eq!(
+            response.metadata.get("x-test-attempt").map(String::as_str),
+            Some("1")
+        );
+        Ok(())
+    }
+
     async fn send_request(
         client: grpc::Client,
         msg: &str,
         request_params: &str,
+    ) -> google_cloud_gax::Result<google::test::v1::EchoResponse> {
+        send_request_with_options(client, msg, request_params, RequestOptions::default()).await
+    }
+
+    async fn send_request_with_options(
+        client: grpc::Client,
+        msg: &str,
+        request_params: &str,
+        mut request_options: RequestOptions,
     ) -> google_cloud_gax::Result<google::test::v1::EchoResponse> {
         let extensions = {
             let mut e = tonic::Extensions::new();
@@ -209,11 +253,9 @@ mod tests {
             message: msg.into(),
             ..google::test::v1::EchoRequest::default()
         };
-        let request_options = {
-            let mut o = RequestOptions::default();
-            o.set_retry_policy(NeverRetry);
-            o
-        };
+        if request_options.retry_policy().is_none() {
+            request_options.set_retry_policy(NeverRetry);
+        }
         client
             .execute(
                 extensions,

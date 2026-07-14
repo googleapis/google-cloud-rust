@@ -36,6 +36,7 @@ use google_cloud_gax::client_builder::Error as BuilderError;
 use google_cloud_gax::client_builder::Result as ClientBuilderResult;
 use google_cloud_gax::error::Error;
 use google_cloud_gax::options::RequestOptions;
+use google_cloud_gax::options::internal::RequestOptionsExt as _;
 use google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy;
 use google_cloud_gax::polling_error_policy::PollingErrorPolicy;
 use google_cloud_gax::response::{Parts, Response};
@@ -54,6 +55,8 @@ pub type GrpcService = Channel;
 
 /// The inner gRPC client type.
 pub type InnerClient = Grpc<GrpcService>;
+
+pub(crate) type AttemptInterceptor = Arc<dyn Fn(&mut http::HeaderMap, u32) + Send + Sync>;
 
 #[derive(Clone, Debug)]
 pub struct TracingAttributes {
@@ -184,7 +187,10 @@ impl Client {
     {
         use ::tonic::IntoStreamingRequest;
         let headers = make_headers(api_client_header, request_params, &options)?;
-        let headers = add_auth_headers(headers, &self.credentials).await?;
+        let mut headers = add_auth_headers(headers, &self.credentials).await?;
+        if let Some(interceptor) = options.get_extension::<AttemptInterceptor>() {
+            interceptor(&mut headers, 1);
+        }
         let metadata = tonic::MetadataMap::from_headers(headers);
         let request = ::tonic::Request::from_parts(metadata, extensions, request);
         let codec = tonic_prost::ProstCodec::<Request, Response>::default();
@@ -249,7 +255,10 @@ impl Client {
     {
         use ::tonic::IntoRequest;
         let headers = make_headers(api_client_header, request_params, &options)?;
-        let headers = add_auth_headers(headers, &self.credentials).await?;
+        let mut headers = add_auth_headers(headers, &self.credentials).await?;
+        if let Some(interceptor) = options.get_extension::<AttemptInterceptor>() {
+            interceptor(&mut headers, 1);
+        }
         let metadata = tonic::MetadataMap::from_headers(headers);
         let mut request = ::tonic::Request::from_parts(metadata, extensions, request);
         if let Some(timeout) = crate::options::resolve_effective_timeout(
@@ -333,7 +342,7 @@ impl Client {
         options: &RequestOptions,
         remaining_time: Option<std::time::Duration>,
         headers: HeaderMap,
-        _prior_attempt_count: i64,
+        prior_attempt_count: i64,
     ) -> Result<tonic::Response<Response>>
     where
         Request: prost::Message + 'static,
@@ -351,8 +360,8 @@ impl Client {
             } else {
                 (None, None, None, None)
             };
-            let resend_count = if _prior_attempt_count > 0 {
-                Some(_prior_attempt_count)
+            let resend_count = if prior_attempt_count > 0 {
+                Some(prior_attempt_count)
             } else {
                 None
             };
@@ -384,6 +393,9 @@ impl Client {
         let mut headers = add_auth_headers(headers, &self.credentials).await?;
 
         crate::observability::propagation::inject_context(&span, &mut headers);
+        if let Some(interceptor) = options.get_extension::<AttemptInterceptor>() {
+            interceptor(&mut headers, prior_attempt_count as u32 + 1);
+        }
 
         let metadata = tonic::MetadataMap::from_headers(headers);
         let mut request = ::tonic::Request::from_parts(metadata, extensions, request);
@@ -408,7 +420,7 @@ impl Client {
         use crate::observability::{WithTransportLogging, WithTransportMetric, WithTransportSpan};
 
         let pending =
-            WithTransportMetric::new(self.metric.clone(), pending, _prior_attempt_count as u32);
+            WithTransportMetric::new(self.metric.clone(), pending, prior_attempt_count as u32);
         let pending = WithTransportLogging::new(pending);
         let pending = WithTransportSpan::new(span, pending);
 
