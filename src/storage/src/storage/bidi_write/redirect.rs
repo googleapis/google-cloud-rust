@@ -16,33 +16,11 @@
 
 use crate::Error;
 use crate::google::rpc::Status as RpcStatus;
-use crate::google::storage::v2::{AppendObjectSpec, BidiWriteObjectRedirectedError};
+use crate::google::storage::v2::BidiWriteObjectRedirectedError;
 use gaxi::as_inner::as_inner;
-use gaxi::grpc::from_status::to_gax_error;
 use gaxi::grpc::tonic::Status;
 use google_cloud_gax::error::rpc::Code;
 use prost::Message;
-use std::sync::{Arc, Mutex};
-
-#[allow(dead_code)]
-pub fn handle_redirect(spec: Arc<Mutex<AppendObjectSpec>>, status: Status) -> crate::Error {
-    let Ok(rpc_status) = RpcStatus::decode(status.details()) else {
-        return to_gax_error(status);
-    };
-    if let Some(redirect) = rpc_status
-        .details
-        .into_iter()
-        .find_map(|d| d.to_msg::<BidiWriteObjectRedirectedError>().ok())
-    {
-        let mut guard = spec.lock().expect("never poisoned");
-        guard.routing_token = redirect.routing_token;
-        guard.write_handle = redirect.write_handle;
-        if let Some(generation) = redirect.generation {
-            guard.generation = generation;
-        }
-    }
-    to_gax_error(status)
-}
 
 /// Determine if an error is a redirect error.
 ///
@@ -51,7 +29,6 @@ pub fn handle_redirect(spec: Arc<Mutex<AppendObjectSpec>>, status: Status) -> cr
 ///
 /// Checking `Code::Aborted` first safely avoids the overhead of decoding
 /// `RpcStatus` details for other error codes.
-#[allow(dead_code)]
 pub fn is_redirect(error: &Error) -> bool {
     if error.status().is_none_or(|s| s.code != Code::Aborted) {
         return false;
@@ -73,80 +50,9 @@ pub fn is_redirect(error: &Error) -> bool {
 mod tests {
     use super::super::tests::{permanent_error, redirect_error, transient_error};
     use super::*;
-    use crate::google::storage::v2::BidiWriteHandle;
+    use gaxi::grpc::from_status::to_gax_error;
     use gaxi::grpc::tonic::Code;
     use test_case::test_case;
-
-    #[test_case(Some("routing"), Some("handle"))]
-    #[test_case(None, Some("handle"))]
-    #[test_case(Some("routing"), None)]
-    #[test_case(None, None)]
-    fn reset(routing: Option<&str>, handle: Option<&str>) {
-        let write_handle = handle.map(|s| BidiWriteHandle {
-            handle: bytes::Bytes::from_owner(s.to_string()),
-        });
-        let redirect = BidiWriteObjectRedirectedError {
-            routing_token: routing.map(str::to_string),
-            write_handle: write_handle.clone(),
-            generation: Some(42),
-        };
-        let redirect = prost_types::Any::from_msg(&redirect).unwrap();
-        let status = RpcStatus {
-            code: Code::Aborted as i32,
-            message: "test-only".to_string(),
-            details: vec![redirect],
-        };
-        let details = bytes::Bytes::from_owner(status.encode_to_vec());
-        let status = Status::with_details(Code::Aborted, "test-only", details);
-        let spec = AppendObjectSpec {
-            bucket: "test-bucket".into(),
-            object: "test-object".into(),
-            generation: 1,
-            routing_token: Some("initial-token".into()),
-            write_handle: Some(BidiWriteHandle {
-                handle: bytes::Bytes::from_static(b"initial-handle"),
-            }),
-            ..Default::default()
-        };
-        let spec = Arc::new(Mutex::new(spec));
-
-        let got = handle_redirect(spec.clone(), status);
-        assert!(got.status().is_some(), "{got:?}");
-        let guard = spec.lock().expect("not poisoned");
-        assert_eq!(guard.routing_token.as_deref(), routing);
-        assert_eq!(guard.write_handle, write_handle);
-        assert_eq!(guard.generation, 42);
-    }
-
-    #[test]
-    fn no_change() {
-        let status = RpcStatus {
-            code: Code::Aborted as i32,
-            message: "test-only".to_string(),
-            ..Default::default()
-        };
-        let details = bytes::Bytes::from_owner(status.encode_to_vec());
-        let status = Status::with_details(Code::Aborted, "test-only", details);
-        let initial_handle = BidiWriteHandle {
-            handle: bytes::Bytes::from_static(b"initial-handle"),
-        };
-        let spec = AppendObjectSpec {
-            bucket: "test-bucket".into(),
-            object: "test-object".into(),
-            generation: 1,
-            routing_token: Some("initial-token".into()),
-            write_handle: Some(initial_handle.clone()),
-            ..Default::default()
-        };
-        let spec = Arc::new(Mutex::new(spec));
-
-        let got = handle_redirect(spec.clone(), status);
-        assert!(got.status().is_some(), "{got:?}");
-        let guard = spec.lock().expect("not poisoned");
-        assert_eq!(guard.routing_token.as_deref(), Some("initial-token"));
-        assert_eq!(guard.write_handle, Some(initial_handle));
-        assert_eq!(guard.generation, 1);
-    }
 
     #[test_case(permanent_error(), false)]
     #[test_case(transient_error(), false)]
