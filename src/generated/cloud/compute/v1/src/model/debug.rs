@@ -3829,6 +3829,7 @@ impl std::fmt::Debug for super::DistributionPolicyZoneConfiguration {
     feature = "backend-services",
     feature = "future-reservations",
     feature = "instance-group-manager-resize-requests",
+    feature = "instance-group-managers",
     feature = "instance-templates",
     feature = "instances",
     feature = "license-codes",
@@ -3838,6 +3839,7 @@ impl std::fmt::Debug for super::DistributionPolicyZoneConfiguration {
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-instance-group-manager-resize-requests",
+    feature = "region-instance-group-managers",
     feature = "region-instance-templates",
     feature = "region-instances",
     feature = "region-notification-endpoints",
@@ -7607,6 +7609,7 @@ impl std::fmt::Debug for super::Instance {
         debug_struct.field("last_start_timestamp", &self.last_start_timestamp);
         debug_struct.field("last_stop_timestamp", &self.last_stop_timestamp);
         debug_struct.field("last_suspended_timestamp", &self.last_suspended_timestamp);
+        debug_struct.field("local_ssd_encryption_mode", &self.local_ssd_encryption_mode);
         debug_struct.field("machine_type", &self.machine_type);
         debug_struct.field("metadata", &self.metadata);
         debug_struct.field("min_cpu_platform", &self.min_cpu_platform);
@@ -8140,6 +8143,7 @@ impl std::fmt::Debug for super::InstanceGroupManagerResizeRequest {
         debug_struct.field("creation_timestamp", &self.creation_timestamp);
         debug_struct.field("description", &self.description);
         debug_struct.field("id", &self.id);
+        debug_struct.field("instances", &self.instances);
         debug_struct.field("kind", &self.kind);
         debug_struct.field("name", &self.name);
         debug_struct.field("region", &self.region);
@@ -9333,6 +9337,7 @@ impl std::fmt::Debug for super::InstanceProperties {
             &self.key_revocation_action_type,
         );
         debug_struct.field("labels", &self.labels);
+        debug_struct.field("local_ssd_encryption_mode", &self.local_ssd_encryption_mode);
         debug_struct.field("machine_type", &self.machine_type);
         debug_struct.field("metadata", &self.metadata);
         debug_struct.field("min_cpu_platform", &self.min_cpu_platform);
@@ -12411,6 +12416,8 @@ impl std::fmt::Debug for super::ManagedInstance {
             "properties_from_flexibility_policy",
             &self.properties_from_flexibility_policy,
         );
+        debug_struct.field("scheduling", &self.scheduling);
+        debug_struct.field("shutdown_details", &self.shutdown_details);
         debug_struct.field("version", &self.version);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -12509,6 +12516,41 @@ impl std::fmt::Debug for super::ManagedInstancePropertiesFromFlexibilityPolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ManagedInstancePropertiesFromFlexibilityPolicy");
         debug_struct.field("machine_type", &self.machine_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::ManagedInstanceScheduling {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ManagedInstanceScheduling");
+        debug_struct.field(
+            "graceful_shutdown_timestamp",
+            &self.graceful_shutdown_timestamp,
+        );
+        debug_struct.field("termination_timestamp", &self.termination_timestamp);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::ManagedInstanceShutdownDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ManagedInstanceShutdownDetails");
+        debug_struct.field("max_duration", &self.max_duration);
+        debug_struct.field("request_timestamp", &self.request_timestamp);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -12620,6 +12662,22 @@ impl std::fmt::Debug for super::NamedPort {
         let mut debug_struct = f.debug_struct("NamedPort");
         debug_struct.field("name", &self.name);
         debug_struct.field("port", &self.port);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "routers")]
+impl std::fmt::Debug for super::NamedSet {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NamedSet");
+        debug_struct.field("description", &self.description);
+        debug_struct.field("elements", &self.elements);
+        debug_struct.field("fingerprint", &self.fingerprint);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("r#type", &self.r#type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -15981,7 +16039,9 @@ impl std::fmt::Debug for super::PathRule {
 }
 
 #[cfg(any(
+    feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
 ))]
 impl std::fmt::Debug for super::PerInstanceConfig {
@@ -16079,7 +16139,9 @@ impl std::fmt::Debug for super::PreconfiguredWafSet {
 }
 
 #[cfg(any(
+    feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
 ))]
 impl std::fmt::Debug for super::PreservedState {
@@ -16097,7 +16159,9 @@ impl std::fmt::Debug for super::PreservedState {
 }
 
 #[cfg(any(
+    feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
 ))]
 impl std::fmt::Debug for super::PreservedStatePreservedDisk {
@@ -16114,7 +16178,9 @@ impl std::fmt::Debug for super::PreservedStatePreservedDisk {
 }
 
 #[cfg(any(
+    feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
 ))]
 impl std::fmt::Debug for super::PreservedStatePreservedNetworkIp {
@@ -16130,7 +16196,9 @@ impl std::fmt::Debug for super::PreservedStatePreservedNetworkIp {
 }
 
 #[cfg(any(
+    feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
 ))]
 impl std::fmt::Debug for super::PreservedStatePreservedNetworkIpIpAddress {
@@ -19899,6 +19967,19 @@ impl std::fmt::Debug for super::RouterStatusResponse {
 }
 
 #[cfg(feature = "routers")]
+impl std::fmt::Debug for super::RoutersGetNamedSetResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RoutersGetNamedSetResponse");
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("resource", &self.resource);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "routers")]
 impl std::fmt::Debug for super::RoutersGetRoutePolicyResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RoutersGetRoutePolicyResponse");
@@ -19945,6 +20026,52 @@ impl std::fmt::Debug for super::routers_list_bgp_routes::Warning {
 
 #[cfg(feature = "routers")]
 impl std::fmt::Debug for super::routers_list_bgp_routes::warning::Data {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Data");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "routers")]
+impl std::fmt::Debug for super::RoutersListNamedSets {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RoutersListNamedSets");
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("result", &self.result);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("unreachables", &self.unreachables);
+        debug_struct.field("warning", &self.warning);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "routers")]
+impl std::fmt::Debug for super::routers_list_named_sets::Warning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Warning");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "routers")]
+impl std::fmt::Debug for super::routers_list_named_sets::warning::Data {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Data");
         debug_struct.field("key", &self.key);
@@ -23130,6 +23257,8 @@ impl std::fmt::Debug for super::SubnetworkSecondaryRange {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SubnetworkSecondaryRange");
         debug_struct.field("ip_cidr_range", &self.ip_cidr_range);
+        debug_struct.field("ip_collection", &self.ip_collection);
+        debug_struct.field("ip_version", &self.ip_version);
         debug_struct.field("range_name", &self.range_name);
         debug_struct.field("reserved_internal_range", &self.reserved_internal_range);
         if !self._unknown_fields.is_empty() {
@@ -29582,6 +29711,7 @@ impl std::fmt::Debug for super::instance_group_managers::DeleteRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteRequest");
         debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("no_graceful_shutdown", &self.no_graceful_shutdown);
         debug_struct.field("project", &self.project);
         debug_struct.field("request_id", &self.request_id);
         debug_struct.field("zone", &self.zone);
@@ -29597,6 +29727,7 @@ impl std::fmt::Debug for super::instance_group_managers::DeleteInstancesRequest 
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteInstancesRequest");
         debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("no_graceful_shutdown", &self.no_graceful_shutdown);
         debug_struct.field("project", &self.project);
         debug_struct.field("request_id", &self.request_id);
         debug_struct.field("zone", &self.zone);
@@ -29764,6 +29895,7 @@ impl std::fmt::Debug for super::instance_group_managers::RecreateInstancesReques
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RecreateInstancesRequest");
         debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("no_graceful_shutdown", &self.no_graceful_shutdown);
         debug_struct.field("project", &self.project);
         debug_struct.field("request_id", &self.request_id);
         debug_struct.field("zone", &self.zone);
@@ -29860,6 +29992,7 @@ impl std::fmt::Debug for super::instance_group_managers::StopInstancesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StopInstancesRequest");
         debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("no_graceful_shutdown", &self.no_graceful_shutdown);
         debug_struct.field("project", &self.project);
         debug_struct.field("request_id", &self.request_id);
         debug_struct.field("zone", &self.zone);
@@ -35961,6 +36094,7 @@ impl std::fmt::Debug for super::region_instance_group_managers::DeleteRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteRequest");
         debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("no_graceful_shutdown", &self.no_graceful_shutdown);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
         debug_struct.field("request_id", &self.request_id);
@@ -35976,6 +36110,7 @@ impl std::fmt::Debug for super::region_instance_group_managers::DeleteInstancesR
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteInstancesRequest");
         debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("no_graceful_shutdown", &self.no_graceful_shutdown);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
         debug_struct.field("request_id", &self.request_id);
@@ -36143,6 +36278,7 @@ impl std::fmt::Debug for super::region_instance_group_managers::RecreateInstance
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RecreateInstancesRequest");
         debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("no_graceful_shutdown", &self.no_graceful_shutdown);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
         debug_struct.field("request_id", &self.request_id);
@@ -36239,6 +36375,7 @@ impl std::fmt::Debug for super::region_instance_group_managers::StopInstancesReq
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StopInstancesRequest");
         debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("no_graceful_shutdown", &self.no_graceful_shutdown);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
         debug_struct.field("request_id", &self.request_id);
@@ -38993,6 +39130,22 @@ impl std::fmt::Debug for super::routers::DeleteRequest {
 }
 
 #[cfg(feature = "routers")]
+impl std::fmt::Debug for super::routers::DeleteNamedSetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteNamedSetRequest");
+        debug_struct.field("named_set", &self.named_set);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("router", &self.router);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "routers")]
 impl std::fmt::Debug for super::routers::DeleteRoutePolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteRoutePolicyRequest");
@@ -39012,6 +39165,21 @@ impl std::fmt::Debug for super::routers::DeleteRoutePolicyRequest {
 impl std::fmt::Debug for super::routers::GetRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("router", &self.router);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "routers")]
+impl std::fmt::Debug for super::routers::GetNamedSetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetNamedSetRequest");
+        debug_struct.field("named_set", &self.named_set);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
         debug_struct.field("router", &self.router);
@@ -39144,6 +39312,25 @@ impl std::fmt::Debug for super::routers::ListBgpRoutesRequest {
 }
 
 #[cfg(feature = "routers")]
+impl std::fmt::Debug for super::routers::ListNamedSetsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListNamedSetsRequest");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        debug_struct.field("router", &self.router);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "routers")]
 impl std::fmt::Debug for super::routers::ListRoutePoliciesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListRoutePoliciesRequest");
@@ -39166,6 +39353,22 @@ impl std::fmt::Debug for super::routers::ListRoutePoliciesRequest {
 impl std::fmt::Debug for super::routers::PatchRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PatchRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("router", &self.router);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "routers")]
+impl std::fmt::Debug for super::routers::PatchNamedSetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PatchNamedSetRequest");
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
         debug_struct.field("request_id", &self.request_id);
@@ -39213,6 +39416,22 @@ impl std::fmt::Debug for super::routers::PreviewRequest {
 impl std::fmt::Debug for super::routers::UpdateRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("router", &self.router);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "routers")]
+impl std::fmt::Debug for super::routers::UpdateNamedSetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateNamedSetRequest");
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
         debug_struct.field("request_id", &self.request_id);

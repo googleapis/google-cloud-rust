@@ -2197,6 +2197,9 @@ impl serde::ser::Serialize for super::GroundingMetadata {
         if self.search_entry_point.is_some() {
             state.serialize_entry("searchEntryPoint", &self.search_entry_point)?;
         }
+        if !self.retrieval_queries.is_empty() {
+            state.serialize_entry("retrievalQueries", &self.retrieval_queries)?;
+        }
         if !self.grounding_chunks.is_empty() {
             state.serialize_entry("groundingChunks", &self.grounding_chunks)?;
         }

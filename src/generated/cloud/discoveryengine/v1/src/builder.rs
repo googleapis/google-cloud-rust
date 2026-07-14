@@ -11883,6 +11883,24 @@ pub mod search_service {
             self
         }
 
+        /// Sets the value of [relevance_filter_spec][crate::model::SearchRequest::relevance_filter_spec].
+        pub fn set_relevance_filter_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::RelevanceFilterSpec>,
+        {
+            self.0.request.relevance_filter_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [relevance_filter_spec][crate::model::SearchRequest::relevance_filter_spec].
+        pub fn set_or_clear_relevance_filter_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::RelevanceFilterSpec>,
+        {
+            self.0.request.relevance_filter_spec = v.map(|x| x.into());
+            self
+        }
+
         /// Sets the value of [relevance_score_spec][crate::model::SearchRequest::relevance_score_spec].
         pub fn set_relevance_score_spec<T>(mut self, v: T) -> Self
         where
@@ -12348,6 +12366,24 @@ pub mod search_service {
             v: T,
         ) -> Self {
             self.0.request.relevance_threshold = v.into();
+            self
+        }
+
+        /// Sets the value of [relevance_filter_spec][crate::model::SearchRequest::relevance_filter_spec].
+        pub fn set_relevance_filter_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::RelevanceFilterSpec>,
+        {
+            self.0.request.relevance_filter_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [relevance_filter_spec][crate::model::SearchRequest::relevance_filter_spec].
+        pub fn set_or_clear_relevance_filter_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::RelevanceFilterSpec>,
+        {
+            self.0.request.relevance_filter_spec = v.map(|x| x.into());
             self
         }
 
