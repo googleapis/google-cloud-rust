@@ -223,7 +223,7 @@ resource "google_cloudbuild_trigger" "pull-request" {
   repository_event_config {
     repository = google_cloudbuildv2_repository.main.id
     pull_request {
-      branch          = "^main$"
+      branch          = "^(main|grpc_rust)$"
       comment_control = "COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY"
     }
   }
@@ -257,7 +257,7 @@ resource "google_cloudbuild_trigger" "post-merge" {
   repository_event_config {
     repository = google_cloudbuildv2_repository.main.id
     push {
-      branch = "^main$"
+      branch = "^(main|grpc_rust)$"
     }
   }
 
