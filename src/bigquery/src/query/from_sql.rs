@@ -94,7 +94,7 @@ impl FromSql for f32 {
             wkt::Value::Number(n) => n
                 .as_f64()
                 .map(|v| v as f32)
-                .ok_or_else(|| ConvertError::Convert("invalid f32 number".into())),
+                .ok_or_else(|| ConvertError::Convert("number is not a valid f32".into())),
             wkt::Value::String(s) => s
                 .parse::<f32>()
                 .map_err(|e| ConvertError::Convert(Box::new(e))),
@@ -112,7 +112,7 @@ impl FromSql for f64 {
         match value {
             wkt::Value::Number(n) => n
                 .as_f64()
-                .ok_or_else(|| ConvertError::Convert("invalid f64 number".into())),
+                .ok_or_else(|| ConvertError::Convert("number is not a valid f64".into())),
             wkt::Value::String(s) => s
                 .parse::<f64>()
                 .map_err(|e| ConvertError::Convert(Box::new(e))),
