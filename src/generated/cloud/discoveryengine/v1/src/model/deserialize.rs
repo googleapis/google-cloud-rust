@@ -33898,6 +33898,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SearchRequest {
             __session,
             __session_spec,
             __relevance_threshold,
+            __relevance_filter_spec,
             __relevance_score_spec,
             Unknown(std::string::String),
         }
@@ -33987,6 +33988,8 @@ impl<'de> serde::de::Deserialize<'de> for super::SearchRequest {
                             "session_spec" => Ok(__FieldTag::__session_spec),
                             "relevanceThreshold" => Ok(__FieldTag::__relevance_threshold),
                             "relevance_threshold" => Ok(__FieldTag::__relevance_threshold),
+                            "relevanceFilterSpec" => Ok(__FieldTag::__relevance_filter_spec),
+                            "relevance_filter_spec" => Ok(__FieldTag::__relevance_filter_spec),
                             "relevanceScoreSpec" => Ok(__FieldTag::__relevance_score_spec),
                             "relevance_score_spec" => Ok(__FieldTag::__relevance_score_spec),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
@@ -34382,6 +34385,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SearchRequest {
                                     crate::model::search_request::RelevanceThreshold,
                                 >>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__relevance_filter_spec => {
+                            if !fields.insert(__FieldTag::__relevance_filter_spec) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for relevance_filter_spec",
+                                ));
+                            }
+                            result.relevance_filter_spec = map.next_value::<std::option::Option<
+                                crate::model::search_request::RelevanceFilterSpec,
+                            >>()?;
                         }
                         __FieldTag::__relevance_score_spec => {
                             if !fields.insert(__FieldTag::__relevance_score_spec) {
@@ -37125,6 +37138,241 @@ impl<'de> serde::de::Deserialize<'de> for super::search_request::RelevanceScoreS
                             result.return_relevance_score = map
                                 .next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+))]
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::search_request::RelevanceFilterSpec {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __keyword_search_threshold,
+            __semantic_search_threshold,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for RelevanceFilterSpec")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "keywordSearchThreshold" => Ok(__FieldTag::__keyword_search_threshold),
+                            "keyword_search_threshold" => {
+                                Ok(__FieldTag::__keyword_search_threshold)
+                            }
+                            "semanticSearchThreshold" => {
+                                Ok(__FieldTag::__semantic_search_threshold)
+                            }
+                            "semantic_search_threshold" => {
+                                Ok(__FieldTag::__semantic_search_threshold)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::search_request::RelevanceFilterSpec;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct RelevanceFilterSpec")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__keyword_search_threshold => {
+                            if !fields.insert(__FieldTag::__keyword_search_threshold) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for keyword_search_threshold",
+                                ));
+                            }
+                            result.keyword_search_threshold = map.next_value::<std::option::Option<crate::model::search_request::relevance_filter_spec::RelevanceThresholdSpec>>()?
+                                ;
+                        }
+                        __FieldTag::__semantic_search_threshold => {
+                            if !fields.insert(__FieldTag::__semantic_search_threshold) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for semantic_search_threshold",
+                                ));
+                            }
+                            result.semantic_search_threshold = map.next_value::<std::option::Option<crate::model::search_request::relevance_filter_spec::RelevanceThresholdSpec>>()?
+                                ;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+))]
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de>
+    for super::search_request::relevance_filter_spec::RelevanceThresholdSpec
+{
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __relevance_threshold,
+            __semantic_relevance_threshold,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for RelevanceThresholdSpec")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "relevanceThreshold" => Ok(__FieldTag::__relevance_threshold),
+                            "relevance_threshold" => Ok(__FieldTag::__relevance_threshold),
+                            "semanticRelevanceThreshold" => {
+                                Ok(__FieldTag::__semantic_relevance_threshold)
+                            }
+                            "semantic_relevance_threshold" => {
+                                Ok(__FieldTag::__semantic_relevance_threshold)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::search_request::relevance_filter_spec::RelevanceThresholdSpec;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct RelevanceThresholdSpec")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__relevance_threshold => {
+                            if !fields.insert(__FieldTag::__relevance_threshold) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for relevance_threshold",
+                                ));
+                            }
+                            if result.relevance_threshold_spec.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `relevance_threshold_spec`, a oneof with full ID .google.cloud.discoveryengine.v1.SearchRequest.RelevanceFilterSpec.RelevanceThresholdSpec.relevance_threshold, latest field was relevanceThreshold",
+                                ));
+                            }
+                            result.relevance_threshold_spec = std::option::Option::Some(
+                                crate::model::search_request::relevance_filter_spec::relevance_threshold_spec::RelevanceThresholdSpec::RelevanceThreshold(
+                                    map.next_value::<std::option::Option<crate::model::search_request::RelevanceThreshold>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__semantic_relevance_threshold => {
+                            if !fields.insert(__FieldTag::__semantic_relevance_threshold) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for semantic_relevance_threshold",
+                                ));
+                            }
+                            struct __With(std::option::Option<f32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            if result.relevance_threshold_spec.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `relevance_threshold_spec`, a oneof with full ID .google.cloud.discoveryengine.v1.SearchRequest.RelevanceFilterSpec.RelevanceThresholdSpec.semantic_relevance_threshold, latest field was semanticRelevanceThreshold",
+                                ));
+                            }
+                            result.relevance_threshold_spec = std::option::Option::Some(
+                                crate::model::search_request::relevance_filter_spec::relevance_threshold_spec::RelevanceThresholdSpec::SemanticRelevanceThreshold(
+                                    map.next_value::<__With>()?.0.unwrap_or_default()
+                                ),
+                            );
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

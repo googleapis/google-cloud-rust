@@ -17284,6 +17284,12 @@ pub trait Routers: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Operation>>;
 
+    async fn delete_named_set(
+        &self,
+        req: crate::model::routers::DeleteNamedSetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
     async fn delete_route_policy(
         &self,
         req: crate::model::routers::DeleteRoutePolicyRequest,
@@ -17295,6 +17301,12 @@ pub trait Routers: std::fmt::Debug + Send + Sync {
         req: crate::model::routers::GetRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Router>>;
+
+    async fn get_named_set(
+        &self,
+        req: crate::model::routers::GetNamedSetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RoutersGetNamedSetResponse>>;
 
     async fn get_nat_ip_info(
         &self,
@@ -17338,6 +17350,12 @@ pub trait Routers: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::RoutersListBgpRoutes>>;
 
+    async fn list_named_sets(
+        &self,
+        req: crate::model::routers::ListNamedSetsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RoutersListNamedSets>>;
+
     async fn list_route_policies(
         &self,
         req: crate::model::routers::ListRoutePoliciesRequest,
@@ -17347,6 +17365,12 @@ pub trait Routers: std::fmt::Debug + Send + Sync {
     async fn patch(
         &self,
         req: crate::model::routers::PatchRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn patch_named_set(
+        &self,
+        req: crate::model::routers::PatchNamedSetRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Operation>>;
 
@@ -17365,6 +17389,12 @@ pub trait Routers: std::fmt::Debug + Send + Sync {
     async fn update(
         &self,
         req: crate::model::routers::UpdateRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn update_named_set(
+        &self,
+        req: crate::model::routers::UpdateNamedSetRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Operation>>;
 
@@ -17419,6 +17449,15 @@ impl<T: super::Routers> Routers for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn delete_named_set(
+        &self,
+        req: crate::model::routers::DeleteNamedSetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::delete_named_set(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn delete_route_policy(
         &self,
         req: crate::model::routers::DeleteRoutePolicyRequest,
@@ -17434,6 +17473,15 @@ impl<T: super::Routers> Routers for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Router>> {
         T::get(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_named_set(
+        &self,
+        req: crate::model::routers::GetNamedSetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RoutersGetNamedSetResponse>> {
+        T::get_named_set(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -17500,6 +17548,15 @@ impl<T: super::Routers> Routers for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn list_named_sets(
+        &self,
+        req: crate::model::routers::ListNamedSetsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RoutersListNamedSets>> {
+        T::list_named_sets(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn list_route_policies(
         &self,
         req: crate::model::routers::ListRoutePoliciesRequest,
@@ -17515,6 +17572,15 @@ impl<T: super::Routers> Routers for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Operation>> {
         T::patch(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn patch_named_set(
+        &self,
+        req: crate::model::routers::PatchNamedSetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::patch_named_set(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -17542,6 +17608,15 @@ impl<T: super::Routers> Routers for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Operation>> {
         T::update(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_named_set(
+        &self,
+        req: crate::model::routers::UpdateNamedSetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::update_named_set(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

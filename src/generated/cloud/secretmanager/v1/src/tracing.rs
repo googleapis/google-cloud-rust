@@ -252,6 +252,34 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn enable_managed_rotation(
+        &self,
+        req: crate::model::EnableManagedRotationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SecretVersion>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecretManagerService::enable_managed_rotation",
+            self.inner.enable_managed_rotation(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn rotate_secret(
+        &self,
+        req: crate::model::RotateSecretRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SecretVersion>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecretManagerService::rotate_secret",
+            self.inner.rotate_secret(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,

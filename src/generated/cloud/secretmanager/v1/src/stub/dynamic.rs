@@ -107,6 +107,18 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>;
 
+    async fn enable_managed_rotation(
+        &self,
+        req: crate::model::EnableManagedRotationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SecretVersion>>;
+
+    async fn rotate_secret(
+        &self,
+        req: crate::model::RotateSecretRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SecretVersion>>;
+
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -257,6 +269,24 @@ impl<T: super::SecretManagerService> SecretManagerService for T {
     ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
     {
         T::test_iam_permissions(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn enable_managed_rotation(
+        &self,
+        req: crate::model::EnableManagedRotationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SecretVersion>> {
+        T::enable_managed_rotation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn rotate_secret(
+        &self,
+        req: crate::model::RotateSecretRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SecretVersion>> {
+        T::rotate_secret(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

@@ -13518,6 +13518,16 @@ pub trait Routers: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::Routers::delete_named_set].
+    fn delete_named_set(
+        &self,
+        _req: crate::model::routers::DeleteNamedSetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::Routers::delete_route_policy].
     fn delete_route_policy(
         &self,
@@ -13535,6 +13545,17 @@ pub trait Routers: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Router>>> + Send
     {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Routers::get_named_set].
+    fn get_named_set(
+        &self,
+        _req: crate::model::routers::GetNamedSetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::RoutersGetNamedSetResponse>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -13613,6 +13634,17 @@ pub trait Routers: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::Routers::list_named_sets].
+    fn list_named_sets(
+        &self,
+        _req: crate::model::routers::ListNamedSetsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::RoutersListNamedSets>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::Routers::list_route_policies].
     fn list_route_policies(
         &self,
@@ -13628,6 +13660,16 @@ pub trait Routers: std::fmt::Debug + Send + Sync {
     fn patch(
         &self,
         _req: crate::model::routers::PatchRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Routers::patch_named_set].
+    fn patch_named_set(
+        &self,
+        _req: crate::model::routers::PatchNamedSetRequest,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
     {
@@ -13659,6 +13701,16 @@ pub trait Routers: std::fmt::Debug + Send + Sync {
     fn update(
         &self,
         _req: crate::model::routers::UpdateRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Routers::update_named_set].
+    fn update_named_set(
+        &self,
+        _req: crate::model::routers::UpdateNamedSetRequest,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
     {
