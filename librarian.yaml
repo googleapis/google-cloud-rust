@@ -501,8 +501,14 @@ libraries:
     version: 1.0.0
     copyright_year: "2025"
     skip_release: true
+    keep:
+      - src/operation.rs
     rust:
       package_name_override: google-cloud-bigquery-v2
+      package_dependencies:
+        - name: google-cloud-lro
+          package: google-cloud-lro
+          force_used: true
   - name: google-cloud-bigquery-write
     copyright_year: "2026"
     output: src/bigquery-write
