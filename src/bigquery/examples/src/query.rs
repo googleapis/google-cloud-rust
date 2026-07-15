@@ -22,6 +22,6 @@ pub async fn run_samples() -> anyhow::Result<()> {
 
     println!("Running sample for `bigquery_query`...");
     query::sample(&project_id).await?;
-    
+
     Ok(())
 }
