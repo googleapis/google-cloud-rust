@@ -35,4 +35,4 @@ tokio.workspace            = true
 tracing.workspace          = true
 
 [features]
-run-integration-tests     = []
+run-integration-tests = []
