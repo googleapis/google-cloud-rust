@@ -125,6 +125,10 @@ default:
     detailed_tracing_attributes: true
     lro_stub_options: true
 libraries:
+  - name: bigquery-samples
+    copyright_year: "2026"
+    output: src/bigquery/examples
+    skip_release: true
   - name: bigquery-write-grpc-mock
     copyright_year: "2026"
     output: src/bigquery-write/grpc-mock
