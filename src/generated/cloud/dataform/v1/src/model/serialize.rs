@@ -125,6 +125,9 @@ impl serde::ser::Serialize for super::repository::GitRemoteSettings {
         if !self.default_branch.is_empty() {
             state.serialize_entry("defaultBranch", &self.default_branch)?;
         }
+        if !self.effective_default_branch.is_empty() {
+            state.serialize_entry("effectiveDefaultBranch", &self.effective_default_branch)?;
+        }
         if !self.authentication_token_secret_version.is_empty() {
             state.serialize_entry(
                 "authenticationTokenSecretVersion",
@@ -133,6 +136,9 @@ impl serde::ser::Serialize for super::repository::GitRemoteSettings {
         }
         if self.ssh_authentication_config.is_some() {
             state.serialize_entry("sshAuthenticationConfig", &self.ssh_authentication_config)?;
+        }
+        if self.git_repository_link.is_some() {
+            state.serialize_entry("gitRepositoryLink", &self.git_repository_link)?;
         }
         if !wkt::internal::is_default(&self.token_status) {
             state.serialize_entry("tokenStatus", &self.token_status)?;

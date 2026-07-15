@@ -908,6 +908,7 @@ impl std::fmt::Debug for super::ImportJob {
         debug_struct.field("expire_event_time", &self.expire_event_time);
         debug_struct.field("state", &self.state);
         debug_struct.field("public_key", &self.public_key);
+        debug_struct.field("public_key_format", &self.public_key_format);
         debug_struct.field("attestation", &self.attestation);
         debug_struct.field("crypto_key_backend", &self.crypto_key_backend);
         if !self._unknown_fields.is_empty() {
@@ -921,6 +922,7 @@ impl std::fmt::Debug for super::import_job::WrappingPublicKey {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("WrappingPublicKey");
         debug_struct.field("pem", &self.pem);
+        debug_struct.field("data", &self.data);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1154,6 +1156,7 @@ impl std::fmt::Debug for super::GetImportJobRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetImportJobRequest");
         debug_struct.field("name", &self.name);
+        debug_struct.field("public_key_format", &self.public_key_format);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

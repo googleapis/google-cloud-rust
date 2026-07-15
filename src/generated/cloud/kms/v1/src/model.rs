@@ -9768,6 +9768,16 @@ pub struct ImportJob {
     /// [google.cloud.kms.v1.ImportJob.state]: crate::model::ImportJob::state
     pub public_key: std::option::Option<crate::model::import_job::WrappingPublicKey>,
 
+    /// Output only. Specifies the
+    /// [WrappingPublicKey][google.cloud.kms.v1.ImportJob.WrappingPublicKey] format
+    /// provided by the customer in the
+    /// [KeyManagementService.GetImportJob][google.cloud.kms.v1.KeyManagementService.GetImportJob]
+    /// request.
+    ///
+    /// [google.cloud.kms.v1.ImportJob.WrappingPublicKey]: crate::model::import_job::WrappingPublicKey
+    /// [google.cloud.kms.v1.KeyManagementService.GetImportJob]: crate::client::KeyManagementService::get_import_job
+    pub public_key_format: crate::model::public_key::PublicKeyFormat,
+
     /// Output only. Statement that was generated and signed by the key creator
     /// (for example, an HSM) at key creation time. Use this statement to verify
     /// attributes of the key as stored on the HSM, independently of Google.
@@ -10035,6 +10045,26 @@ impl ImportJob {
         self
     }
 
+    /// Sets the value of [public_key_format][crate::model::ImportJob::public_key_format].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ImportJob;
+    /// use google_cloud_kms_v1::model::public_key::PublicKeyFormat;
+    /// let x0 = ImportJob::new().set_public_key_format(PublicKeyFormat::Pem);
+    /// let x1 = ImportJob::new().set_public_key_format(PublicKeyFormat::Der);
+    /// let x2 = ImportJob::new().set_public_key_format(PublicKeyFormat::NistPqc);
+    /// ```
+    pub fn set_public_key_format<
+        T: std::convert::Into<crate::model::public_key::PublicKeyFormat>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.public_key_format = v.into();
+        self
+    }
+
     /// Sets the value of [attestation][crate::model::ImportJob::attestation].
     ///
     /// # Example
@@ -10108,7 +10138,26 @@ pub mod import_job {
         /// Considerations](https://tools.ietf.org/html/rfc7468#section-2) and
         /// [Textual Encoding of Subject Public Key Info]
         /// (<https://tools.ietf.org/html/rfc7468#section-13>).
+        /// This field gets populated by default for RSA-based import methods, if no
+        /// public_key_format is specified in the request.
+        /// If you want to retrieve the wrapping key of an
+        /// [ImportJob][google.cloud.kms.v1.ImportJob] in some other format, use
+        /// [KeyManagementService.GetImportJob][google.cloud.kms.v1.KeyManagementService.GetImportJob]
+        /// and set the public_key_format to the desired public key format.
+        ///
+        /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
+        /// [google.cloud.kms.v1.KeyManagementService.GetImportJob]: crate::client::KeyManagementService::get_import_job
         pub pem: std::string::String,
+
+        /// Output only. Contains the public key, formatted according to the
+        /// [PublicKey.PublicKeyFormat][google.cloud.kms.v1.PublicKey.PublicKeyFormat]
+        /// specified in the
+        /// [KeyManagementService.GetImportJob][google.cloud.kms.v1.KeyManagementService.GetImportJob]
+        /// request.
+        ///
+        /// [google.cloud.kms.v1.KeyManagementService.GetImportJob]: crate::client::KeyManagementService::get_import_job
+        /// [google.cloud.kms.v1.PublicKey.PublicKeyFormat]: crate::model::public_key::PublicKeyFormat
+        pub data: ::bytes::Bytes,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -10128,6 +10177,18 @@ pub mod import_job {
         /// ```
         pub fn set_pem<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.pem = v.into();
+            self
+        }
+
+        /// Sets the value of [data][crate::model::import_job::WrappingPublicKey::data].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_kms_v1::model::import_job::WrappingPublicKey;
+        /// let x = WrappingPublicKey::new().set_data(bytes::Bytes::from_static(b"example"));
+        /// ```
+        pub fn set_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+            self.data = v.into();
             self
         }
     }
@@ -10201,6 +10262,30 @@ pub mod import_job {
         /// to technical limitations of RSA wrapping, this method cannot be used to
         /// wrap RSA keys for import.
         RsaOaep4096Sha256,
+        /// Represents the Hybrid Public Key Encryption (HPKE) Scheme originally
+        /// defined in [RFC 9180](https://www.rfc-editor.org/rfc/rfc9180). It
+        /// involves wrapping the raw key with an ephemeral AES key, derived with
+        /// HKDF-SHA256 from an encryption context, that is, in turn obtained from
+        /// the receiver’s public key with the help of the ML-KEM-768 KEM. For more
+        /// details, see the [ML-KEM HPKE
+        /// standard](http://datatracker.ietf.org/doc/draft-ietf-hpke-pq/01/).
+        HpkeKemMlKem768HkdfSha256Aes256Gcm,
+        /// Represents the Hybrid Public Key Encryption (HPKE) Scheme originally
+        /// defined in [RFC 9180](https://www.rfc-editor.org/rfc/rfc9180). It
+        /// involves wrapping the raw key with an ephemeral AES key, derived with
+        /// HKDF-SHA256 from an encryption context, that is, in turn obtained from
+        /// the receiver’s public key with the help of the ML-KEM-1024 KEM. For more
+        /// details, see the [ML-KEM HPKE
+        /// standard](http://datatracker.ietf.org/doc/draft-ietf-hpke-pq/01/).
+        HpkeKemMlKem1024HkdfSha256Aes256Gcm,
+        /// Represents the Hybrid Public Key Encryption (HPKE) Scheme originally
+        /// defined in [RFC 9180](https://www.rfc-editor.org/rfc/rfc9180). It
+        /// involves wrapping the raw key with an ephemeral AES key, derived with
+        /// HKDF-SHA256 from an encryption context, that is, in turn obtained from
+        /// the receiver’s public key with the help of the X-Wing hybrid KEM. For
+        /// more details, see the [X-Wing
+        /// standard](http://datatracker.ietf.org/doc/draft-connolly-cfrg-xwing-kem/09/).
+        HpkeKemXwingHkdfSha256Aes256Gcm,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [ImportMethod::value] or
@@ -10230,6 +10315,9 @@ pub mod import_job {
                 Self::RsaOaep4096Sha256Aes256 => std::option::Option::Some(4),
                 Self::RsaOaep3072Sha256 => std::option::Option::Some(5),
                 Self::RsaOaep4096Sha256 => std::option::Option::Some(6),
+                Self::HpkeKemMlKem768HkdfSha256Aes256Gcm => std::option::Option::Some(8),
+                Self::HpkeKemMlKem1024HkdfSha256Aes256Gcm => std::option::Option::Some(9),
+                Self::HpkeKemXwingHkdfSha256Aes256Gcm => std::option::Option::Some(10),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -10255,6 +10343,15 @@ pub mod import_job {
                 }
                 Self::RsaOaep3072Sha256 => std::option::Option::Some("RSA_OAEP_3072_SHA256"),
                 Self::RsaOaep4096Sha256 => std::option::Option::Some("RSA_OAEP_4096_SHA256"),
+                Self::HpkeKemMlKem768HkdfSha256Aes256Gcm => {
+                    std::option::Option::Some("HPKE_KEM_ML_KEM_768_HKDF_SHA256_AES_256_GCM")
+                }
+                Self::HpkeKemMlKem1024HkdfSha256Aes256Gcm => {
+                    std::option::Option::Some("HPKE_KEM_ML_KEM_1024_HKDF_SHA256_AES_256_GCM")
+                }
+                Self::HpkeKemXwingHkdfSha256Aes256Gcm => {
+                    std::option::Option::Some("HPKE_KEM_XWING_HKDF_SHA256_AES_256_GCM")
+                }
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -10283,6 +10380,9 @@ pub mod import_job {
                 4 => Self::RsaOaep4096Sha256Aes256,
                 5 => Self::RsaOaep3072Sha256,
                 6 => Self::RsaOaep4096Sha256,
+                8 => Self::HpkeKemMlKem768HkdfSha256Aes256Gcm,
+                9 => Self::HpkeKemMlKem1024HkdfSha256Aes256Gcm,
+                10 => Self::HpkeKemXwingHkdfSha256Aes256Gcm,
                 _ => Self::UnknownValue(import_method::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -10301,6 +10401,13 @@ pub mod import_job {
                 "RSA_OAEP_4096_SHA256_AES_256" => Self::RsaOaep4096Sha256Aes256,
                 "RSA_OAEP_3072_SHA256" => Self::RsaOaep3072Sha256,
                 "RSA_OAEP_4096_SHA256" => Self::RsaOaep4096Sha256,
+                "HPKE_KEM_ML_KEM_768_HKDF_SHA256_AES_256_GCM" => {
+                    Self::HpkeKemMlKem768HkdfSha256Aes256Gcm
+                }
+                "HPKE_KEM_ML_KEM_1024_HKDF_SHA256_AES_256_GCM" => {
+                    Self::HpkeKemMlKem1024HkdfSha256Aes256Gcm
+                }
+                "HPKE_KEM_XWING_HKDF_SHA256_AES_256_GCM" => Self::HpkeKemXwingHkdfSha256Aes256Gcm,
                 _ => Self::UnknownValue(import_method::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -10321,6 +10428,9 @@ pub mod import_job {
                 Self::RsaOaep4096Sha256Aes256 => serializer.serialize_i32(4),
                 Self::RsaOaep3072Sha256 => serializer.serialize_i32(5),
                 Self::RsaOaep4096Sha256 => serializer.serialize_i32(6),
+                Self::HpkeKemMlKem768HkdfSha256Aes256Gcm => serializer.serialize_i32(8),
+                Self::HpkeKemMlKem1024HkdfSha256Aes256Gcm => serializer.serialize_i32(9),
+                Self::HpkeKemXwingHkdfSha256Aes256Gcm => serializer.serialize_i32(10),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -12124,6 +12234,18 @@ pub struct GetImportJobRequest {
     /// [google.cloud.kms.v1.ImportJob.name]: crate::model::ImportJob::name
     pub name: std::string::String,
 
+    /// Optional. Specifies the [WrappingPublicKey][] format.
+    /// If not specified:
+    ///
+    /// * For RSA-based import methods, the wrapping key will be returned in PEM
+    ///   format
+    /// * For pure ML-KEM-based import methods, the wrapping key will be returned
+    ///   in the raw bytes format specified in FIPS-203
+    /// * For X-Wing-based import methods, the wrapping key will be returned in
+    ///   the raw bytes format specified in
+    ///   <https://datatracker.ietf.org/doc/draft-connolly-cfrg-xwing-kem>.
+    pub public_key_format: crate::model::public_key::PublicKeyFormat,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -12146,6 +12268,26 @@ impl GetImportJobRequest {
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [public_key_format][crate::model::GetImportJobRequest::public_key_format].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::GetImportJobRequest;
+    /// use google_cloud_kms_v1::model::public_key::PublicKeyFormat;
+    /// let x0 = GetImportJobRequest::new().set_public_key_format(PublicKeyFormat::Pem);
+    /// let x1 = GetImportJobRequest::new().set_public_key_format(PublicKeyFormat::Der);
+    /// let x2 = GetImportJobRequest::new().set_public_key_format(PublicKeyFormat::NistPqc);
+    /// ```
+    pub fn set_public_key_format<
+        T: std::convert::Into<crate::model::public_key::PublicKeyFormat>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.public_key_format = v.into();
         self
     }
 }

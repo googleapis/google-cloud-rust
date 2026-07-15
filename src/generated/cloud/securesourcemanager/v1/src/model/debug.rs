@@ -107,6 +107,8 @@ impl std::fmt::Debug for super::Repository {
         debug_struct.field("etag", &self.etag);
         debug_struct.field("uris", &self.uris);
         debug_struct.field("initial_config", &self.initial_config);
+        debug_struct.field("service_account", &self.service_account);
+        debug_struct.field("scan_config", &self.scan_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -134,6 +136,29 @@ impl std::fmt::Debug for super::repository::InitialConfig {
         debug_struct.field("gitignores", &self.gitignores);
         debug_struct.field("license", &self.license);
         debug_struct.field("readme", &self.readme);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::repository::ScanConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ScanConfig");
+        debug_struct.field("secret_scan_config", &self.secret_scan_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::repository::scan_config::SecretScanConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SecretScanConfig");
+        debug_struct.field("enabled", &self.enabled);
+        debug_struct.field("inspect_template", &self.inspect_template);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

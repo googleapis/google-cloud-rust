@@ -30,6 +30,7 @@
 //! * [CaseAttachmentService](client/struct.CaseAttachmentService.html)
 //! * [CaseService](client/struct.CaseService.html)
 //! * [CommentService](client/struct.CommentService.html)
+//! * [SupportEventSubscriptionService](client/struct.SupportEventSubscriptionService.html)
 //!
 //! # Features
 //!

@@ -119,7 +119,7 @@ pub struct Instance {
     /// Optional. Endpoints for the instance.
     pub endpoints: std::vec::Vec<crate::model::instance::InstanceEndpoint>,
 
-    /// Optional. The mode config for the instance.
+    /// Optional. Immutable. The mode config for the instance.
     pub mode: crate::model::instance::Mode,
 
     /// Optional. Input only. Simulate a maintenance event.
@@ -193,6 +193,9 @@ pub struct Instance {
 
     /// Optional. Input only. Rotate the server certificates.
     pub rotate_server_certificate: std::option::Option<bool>,
+
+    /// Output only. Migration config for the instance.
+    pub migration_config: std::option::Option<crate::model::MigrationConfig>,
 
     /// The source to import from.
     pub import_sources: std::option::Option<crate::model::instance::ImportSources>,
@@ -1324,6 +1327,39 @@ impl Instance {
         self
     }
 
+    /// Sets the value of [migration_config][crate::model::Instance::migration_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::MigrationConfig;
+    /// let x = Instance::new().set_migration_config(MigrationConfig::default()/* use setters */);
+    /// ```
+    pub fn set_migration_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MigrationConfig>,
+    {
+        self.migration_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [migration_config][crate::model::Instance::migration_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::MigrationConfig;
+    /// let x = Instance::new().set_or_clear_migration_config(Some(MigrationConfig::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_migration_config(None::<MigrationConfig>);
+    /// ```
+    pub fn set_or_clear_migration_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MigrationConfig>,
+    {
+        self.migration_config = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [import_sources][crate::model::Instance::import_sources].
     ///
     /// Note that all the setters affecting `import_sources` are mutually
@@ -2009,6 +2045,8 @@ pub mod instance {
         Updating,
         /// Instance is being deleted.
         Deleting,
+        /// Instance is being migrated.
+        Migrating,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [State::value] or
@@ -2036,6 +2074,7 @@ pub mod instance {
                 Self::Active => std::option::Option::Some(2),
                 Self::Updating => std::option::Option::Some(3),
                 Self::Deleting => std::option::Option::Some(4),
+                Self::Migrating => std::option::Option::Some(6),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -2051,6 +2090,7 @@ pub mod instance {
                 Self::Active => std::option::Option::Some("ACTIVE"),
                 Self::Updating => std::option::Option::Some("UPDATING"),
                 Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::Migrating => std::option::Option::Some("MIGRATING"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -2077,6 +2117,7 @@ pub mod instance {
                 2 => Self::Active,
                 3 => Self::Updating,
                 4 => Self::Deleting,
+                6 => Self::Migrating,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -2093,6 +2134,7 @@ pub mod instance {
                 "ACTIVE" => Self::Active,
                 "UPDATING" => Self::Updating,
                 "DELETING" => Self::Deleting,
+                "MIGRATING" => Self::Migrating,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -2111,6 +2153,7 @@ pub mod instance {
                 Self::Active => serializer.serialize_i32(2),
                 Self::Updating => serializer.serialize_i32(3),
                 Self::Deleting => serializer.serialize_i32(4),
+                Self::Migrating => serializer.serialize_i32(6),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -2433,7 +2476,7 @@ pub mod instance {
         HighcpuMedium,
         /// Standard large.
         StandardLarge,
-        /// High memory 2x large.
+        /// High memory 2xlarge.
         Highmem2Xlarge,
         /// Custom pico.
         CustomPico,
@@ -2883,6 +2926,557 @@ pub mod instance {
         /// Optional. Immutable. Backups that generated and managed by memorystore
         /// service.
         ManagedBackupSource(std::boxed::Box<crate::model::instance::ManagedBackupSource>),
+    }
+}
+
+/// Request for `StartMigration`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct StartMigrationRequest {
+    /// Required. The resource name of the instance to start migration on.
+    /// Format: projects/{project}/locations/{location}/instances/{instance}
+    pub name: std::string::String,
+
+    /// Defines the source of the migration.
+    pub source: std::option::Option<crate::model::start_migration_request::Source>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl StartMigrationRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::StartMigrationRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::StartMigrationRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = StartMigrationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [source][crate::model::StartMigrationRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::StartMigrationRequest;
+    /// use google_cloud_memorystore_v1::model::SelfManagedSource;
+    /// let x = StartMigrationRequest::new().set_source(Some(
+    ///     google_cloud_memorystore_v1::model::start_migration_request::Source::SelfManagedSource(SelfManagedSource::default().into())));
+    /// ```
+    pub fn set_source<
+        T: std::convert::Into<std::option::Option<crate::model::start_migration_request::Source>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source = v.into();
+        self
+    }
+
+    /// The value of [source][crate::model::StartMigrationRequest::source]
+    /// if it holds a `SelfManagedSource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn self_managed_source(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SelfManagedSource>> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::start_migration_request::Source::SelfManagedSource(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source][crate::model::StartMigrationRequest::source]
+    /// to hold a `SelfManagedSource`.
+    ///
+    /// Note that all the setters affecting `source` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::StartMigrationRequest;
+    /// use google_cloud_memorystore_v1::model::SelfManagedSource;
+    /// let x = StartMigrationRequest::new().set_self_managed_source(SelfManagedSource::default()/* use setters */);
+    /// assert!(x.self_managed_source().is_some());
+    /// ```
+    pub fn set_self_managed_source<
+        T: std::convert::Into<std::boxed::Box<crate::model::SelfManagedSource>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source = std::option::Option::Some(
+            crate::model::start_migration_request::Source::SelfManagedSource(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for StartMigrationRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.StartMigrationRequest"
+    }
+}
+
+/// Defines additional types related to [StartMigrationRequest].
+pub mod start_migration_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Defines the source of the migration.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Source {
+        /// Required. Configuration for migrating from a self-managed Valkey/Redis
+        /// instance
+        SelfManagedSource(std::boxed::Box<crate::model::SelfManagedSource>),
+    }
+}
+
+/// Request for `FinishMigration`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FinishMigrationRequest {
+    /// Required. The resource name of the instance to finalize migration on.
+    /// Format: projects/{project}/locations/{location}/instances/{instance}
+    pub name: std::string::String,
+
+    /// Optional. By default, the `FinishMigration` operation ensures the target
+    /// replication offset to catch up to the source offset as of the time of the
+    /// call. Set this field to `true` to bypass this offset verification check.
+    pub force: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FinishMigrationRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::FinishMigrationRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::FinishMigrationRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = FinishMigrationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [force][crate::model::FinishMigrationRequest::force].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::FinishMigrationRequest;
+    /// let x = FinishMigrationRequest::new().set_force(true);
+    /// ```
+    pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.force = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for FinishMigrationRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.FinishMigrationRequest"
+    }
+}
+
+/// Details of the self-managed source instance.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SelfManagedSource {
+    /// Required. The IP address of the source instance.
+    /// This IP address should be a stable IP address that can be accessed by the
+    /// Memorystore instance throughout the migration process.
+    pub ip_address: std::string::String,
+
+    /// Required. The port of the source instance.
+    /// This port should be a stable port that can be accessed by the Memorystore
+    /// instance throughout the migration process.
+    pub port: i32,
+
+    /// Required. The resource name of the Private Service Connect Network
+    /// Attachment used to establish connectivity to the source instance. This
+    /// network attachment has the following requirements:
+    ///
+    /// 1. It must be in the same project as the Memorystore instance.
+    /// 1. It must be in the same region as the Memorystore instance.
+    /// 1. The subnet attached to the network attachment must be in the same VPC
+    ///    network as the source instance nodes.
+    ///
+    /// Format:
+    /// projects/{project}/regions/{region}/networkAttachments/{network_attachment}
+    pub network_attachment: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SelfManagedSource {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [ip_address][crate::model::SelfManagedSource::ip_address].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::SelfManagedSource;
+    /// let x = SelfManagedSource::new().set_ip_address("example");
+    /// ```
+    pub fn set_ip_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.ip_address = v.into();
+        self
+    }
+
+    /// Sets the value of [port][crate::model::SelfManagedSource::port].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::SelfManagedSource;
+    /// let x = SelfManagedSource::new().set_port(42);
+    /// ```
+    pub fn set_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.port = v.into();
+        self
+    }
+
+    /// Sets the value of [network_attachment][crate::model::SelfManagedSource::network_attachment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::SelfManagedSource;
+    /// let x = SelfManagedSource::new().set_network_attachment("example");
+    /// ```
+    pub fn set_network_attachment<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.network_attachment = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SelfManagedSource {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.SelfManagedSource"
+    }
+}
+
+/// Configuration for the migration of an instance.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MigrationConfig {
+    /// Output only. Migration state of the instance.
+    pub state: crate::model::migration_config::State,
+
+    /// Output only. Represents a boolean flag to force migration finalization
+    /// without offset catch up validation between source and target before
+    /// stopping replication.
+    pub force_finish_migration: bool,
+
+    /// Details about the migration source.
+    pub source: std::option::Option<crate::model::migration_config::Source>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MigrationConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [state][crate::model::MigrationConfig::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::MigrationConfig;
+    /// use google_cloud_memorystore_v1::model::migration_config::State;
+    /// let x0 = MigrationConfig::new().set_state(State::RolledBack);
+    /// let x1 = MigrationConfig::new().set_state(State::RollingBack);
+    /// let x2 = MigrationConfig::new().set_state(State::ReplicationEstablished);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::migration_config::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [force_finish_migration][crate::model::MigrationConfig::force_finish_migration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::MigrationConfig;
+    /// let x = MigrationConfig::new().set_force_finish_migration(true);
+    /// ```
+    pub fn set_force_finish_migration<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.force_finish_migration = v.into();
+        self
+    }
+
+    /// Sets the value of [source][crate::model::MigrationConfig::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::MigrationConfig;
+    /// use google_cloud_memorystore_v1::model::SelfManagedSource;
+    /// let x = MigrationConfig::new().set_source(Some(
+    ///     google_cloud_memorystore_v1::model::migration_config::Source::SelfManagedSource(SelfManagedSource::default().into())));
+    /// ```
+    pub fn set_source<
+        T: std::convert::Into<std::option::Option<crate::model::migration_config::Source>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source = v.into();
+        self
+    }
+
+    /// The value of [source][crate::model::MigrationConfig::source]
+    /// if it holds a `SelfManagedSource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn self_managed_source(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SelfManagedSource>> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::migration_config::Source::SelfManagedSource(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source][crate::model::MigrationConfig::source]
+    /// to hold a `SelfManagedSource`.
+    ///
+    /// Note that all the setters affecting `source` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::MigrationConfig;
+    /// use google_cloud_memorystore_v1::model::SelfManagedSource;
+    /// let x = MigrationConfig::new().set_self_managed_source(SelfManagedSource::default()/* use setters */);
+    /// assert!(x.self_managed_source().is_some());
+    /// ```
+    pub fn set_self_managed_source<
+        T: std::convert::Into<std::boxed::Box<crate::model::SelfManagedSource>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source = std::option::Option::Some(
+            crate::model::migration_config::Source::SelfManagedSource(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for MigrationConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.MigrationConfig"
+    }
+}
+
+/// Defines additional types related to [MigrationConfig].
+pub mod migration_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Migration state of the instance.
+    /// New values may be added in the future.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Instance has no migration related activity. This is the initial state.
+        Unspecified,
+        /// Instance is not currently migrating. The instance underwent a migration
+        /// attempt that failed, and the subsequent rollback was successful. The
+        /// instance is now ready for a new migration attempt if desired.
+        RolledBack,
+        /// Indicates a previous migration attempt failed. The high-level instance
+        /// state will be `MIGRATING`. The instance is not ready for a new migration
+        /// attempt. Rollback is in progress to restore the instance to its original
+        /// state. The instance will remain in this state until rollback is
+        /// successful.
+        RollingBack,
+        /// Instance is in the process of migration. Instance has established
+        /// successful replication and is ready for cutover.
+        ReplicationEstablished,
+        /// Instance is successfully migrated.
+        Migrated,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::RolledBack => std::option::Option::Some(1),
+                Self::RollingBack => std::option::Option::Some(5),
+                Self::ReplicationEstablished => std::option::Option::Some(6),
+                Self::Migrated => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::RolledBack => std::option::Option::Some("ROLLED_BACK"),
+                Self::RollingBack => std::option::Option::Some("ROLLING_BACK"),
+                Self::ReplicationEstablished => {
+                    std::option::Option::Some("REPLICATION_ESTABLISHED")
+                }
+                Self::Migrated => std::option::Option::Some("MIGRATED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::RolledBack,
+                4 => Self::Migrated,
+                5 => Self::RollingBack,
+                6 => Self::ReplicationEstablished,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ROLLED_BACK" => Self::RolledBack,
+                "ROLLING_BACK" => Self::RollingBack,
+                "REPLICATION_ESTABLISHED" => Self::ReplicationEstablished,
+                "MIGRATED" => Self::Migrated,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::RolledBack => serializer.serialize_i32(1),
+                Self::RollingBack => serializer.serialize_i32(5),
+                Self::ReplicationEstablished => serializer.serialize_i32(6),
+                Self::Migrated => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.memorystore.v1.MigrationConfig.State",
+            ))
+        }
+    }
+
+    /// Details about the migration source.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Source {
+        /// Output only. Configuration for migrating from a self-managed Valkey/Redis
+        /// instance
+        SelfManagedSource(std::boxed::Box<crate::model::SelfManagedSource>),
     }
 }
 
@@ -5020,7 +5614,7 @@ pub struct PscAutoConnection {
     pub project_id: std::string::String,
 
     /// Required. The network where the PSC endpoints are created, in the form of
-    /// projects/{project_id}/global/networks/{network_id}.
+    /// projects/{project_id}/global/networks/{network_name}.
     pub network: std::string::String,
 
     /// Output only. The service attachment which is the target of the PSC
@@ -5255,7 +5849,7 @@ pub struct PscConnection {
     pub project_id: std::string::String,
 
     /// Required. The consumer network where the IP address resides, in the form of
-    /// projects/{project_id}/global/networks/{network_id}.
+    /// projects/{project_id}/global/networks/{network_name}.
     pub network: std::string::String,
 
     /// Required. The service attachment which is the target of the PSC connection,
@@ -5479,7 +6073,7 @@ pub struct DiscoveryEndpoint {
 
     /// Output only. The network where the IP address of the discovery endpoint
     /// will be reserved, in the form of
-    /// projects/{network_project}/global/networks/{network_id}.
+    /// projects/{network_project}/global/networks/{network_name}.
     pub network: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -6793,7 +7387,7 @@ impl wkt::message::Message for ListInstancesRequest {
     }
 }
 
-/// Response message for [ListInstances][].
+/// Response message for `ListInstances`.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesResponse {
@@ -7240,7 +7834,7 @@ impl wkt::message::Message for DeleteInstanceRequest {
     }
 }
 
-/// Request for [ListBackupCollections]
+/// Request for `ListBackupCollections`.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupCollectionsRequest {
@@ -7255,14 +7849,12 @@ pub struct ListBackupCollectionsRequest {
     /// If not specified, a default value of 1000 will be used by the service.
     /// Regardless of the page_size value, the response may include a partial list
     /// and a caller should only rely on response's
-    /// [`next_page_token`][google.cloud.memorystore.v1.ListBackupCollectionsResponse.next_page_token]
+    /// `next_page_token`
     /// to determine if there are more clusters left to be queried.
-    ///
-    /// [google.cloud.memorystore.v1.ListBackupCollectionsResponse.next_page_token]: crate::model::ListBackupCollectionsResponse::next_page_token
     pub page_size: i32,
 
     /// Optional. The `next_page_token` value returned from a previous
-    /// [ListBackupCollections] request, if any.
+    /// `ListBackupCollections` request, if any.
     pub page_token: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -7319,7 +7911,7 @@ impl wkt::message::Message for ListBackupCollectionsRequest {
     }
 }
 
-/// Response for [ListBackupCollections].
+/// Response for `ListBackupCollections`.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupCollectionsResponse {
@@ -7423,7 +8015,7 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListBackupColle
     }
 }
 
-/// Request for [GetBackupCollection].
+/// Request for `GetBackupCollection`.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBackupCollectionRequest {
@@ -7463,7 +8055,7 @@ impl wkt::message::Message for GetBackupCollectionRequest {
     }
 }
 
-/// Request for [ListBackups].
+/// Request for `ListBackups`.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupsRequest {
@@ -7476,14 +8068,12 @@ pub struct ListBackupsRequest {
     /// If not specified, a default value of 1000 will be used by the service.
     /// Regardless of the page_size value, the response may include a partial list
     /// and a caller should only rely on response's
-    /// [`next_page_token`][google.cloud.memorystore.v1.ListBackupsResponse.next_page_token]
+    /// `next_page_token`
     /// to determine if there are more clusters left to be queried.
-    ///
-    /// [google.cloud.memorystore.v1.ListBackupsResponse.next_page_token]: crate::model::ListBackupsResponse::next_page_token
     pub page_size: i32,
 
     /// Optional. The `next_page_token` value returned from a previous
-    /// [ListBackupCollections] request, if any.
+    /// `ListBackupCollections` request, if any.
     pub page_token: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -7541,7 +8131,7 @@ impl wkt::message::Message for ListBackupsRequest {
     }
 }
 
-/// Response for [ListBackups].
+/// Response for `ListBackups`.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupsResponse {
@@ -7636,7 +8226,7 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListBackupsResp
     }
 }
 
-/// Request for [GetBackup].
+/// Request for `GetBackup`.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBackupRequest {
@@ -7676,7 +8266,7 @@ impl wkt::message::Message for GetBackupRequest {
     }
 }
 
-/// Request for [DeleteBackup].
+/// Request for `DeleteBackup`.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteBackupRequest {
@@ -7731,7 +8321,7 @@ impl wkt::message::Message for DeleteBackupRequest {
     }
 }
 
-/// Request for [ExportBackup].
+/// Request for `ExportBackup`.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportBackupRequest {
@@ -7841,7 +8431,7 @@ pub mod export_backup_request {
     }
 }
 
-/// Request for [BackupInstance].
+/// Request for `BackupInstance`.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BackupInstanceRequest {
@@ -7953,7 +8543,7 @@ impl wkt::message::Message for BackupInstanceRequest {
     }
 }
 
-/// Request message for [GetCertificateAuthority][].
+/// Request message for `GetCertificateAuthority`.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCertificateAuthorityRequest {
@@ -8422,10 +9012,7 @@ pub mod shared_regional_certificate_authority {
     }
 }
 
-/// Request for
-/// [GetSharedRegionalCertificateAuthority][google.cloud.memorystore.v1.Memorystore.GetSharedRegionalCertificateAuthority].
-///
-/// [google.cloud.memorystore.v1.Memorystore.GetSharedRegionalCertificateAuthority]: crate::client::Memorystore::get_shared_regional_certificate_authority
+/// Request for `GetSharedRegionalCertificateAuthority`.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSharedRegionalCertificateAuthorityRequest {

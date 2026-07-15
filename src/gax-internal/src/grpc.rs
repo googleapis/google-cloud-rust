@@ -16,8 +16,13 @@
 
 pub mod from_status;
 mod grpc_helpers;
+#[cfg(google_cloud_unstable_grpc_rust)]
+mod grpc_rust;
 pub mod status;
 pub mod tonic;
+mod transport_policies;
+#[cfg(google_cloud_unstable_grpc_rust)]
+pub use grpc_rust::{GrpcRustClient, GrpcRustStreaming};
 
 use crate::attempt_interceptor::AttemptInterceptor;
 use crate::observability::attributes::{self, keys::*, otel_status_codes};
@@ -28,27 +33,20 @@ use from_status::to_gax_error;
 use futures::TryFutureExt;
 use google_cloud_auth::credentials::Credentials;
 use google_cloud_gax::Result;
-use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::client_builder::Error as BuilderError;
 use google_cloud_gax::client_builder::Result as ClientBuilderResult;
 use google_cloud_gax::error::Error;
-use google_cloud_gax::exponential_backoff::ExponentialBackoff;
 use google_cloud_gax::options::RequestOptions;
 use google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy;
-use google_cloud_gax::polling_error_policy::{
-    Aip194Strict as PollingAip194Strict, PollingErrorPolicy,
-};
+use google_cloud_gax::polling_error_policy::PollingErrorPolicy;
 use google_cloud_gax::response::{Parts, Response};
 use google_cloud_gax::retry_loop_internal::retry_loop;
-use google_cloud_gax::retry_policy::{
-    Aip194Strict as RetryAip194Strict, RetryPolicy, RetryPolicyExt as _,
-};
-use google_cloud_gax::retry_throttler::SharedRetryThrottler;
 use grpc_helpers::{add_auth_headers, make_credentials, make_headers};
 use http::HeaderMap;
 use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
 use std::sync::Arc;
 use std::time::Duration;
+use transport_policies::TransportPolicies;
 
 // A tonic::transport::Channel always has a Buffer layer.
 const DEFAULT_REQUEST_BUFFER_CAPACITY: usize = 1024;
@@ -72,12 +70,7 @@ pub struct Client {
     metric: crate::observability::TransportMetric,
     tracing_attributes: Option<TracingAttributes>,
     credentials: Credentials,
-    retry_policy: Arc<dyn RetryPolicy>,
-    backoff_policy: Arc<dyn BackoffPolicy>,
-    retry_throttler: SharedRetryThrottler,
-    polling_error_policy: Arc<dyn PollingErrorPolicy>,
-    polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
-    attempt_timeout: Option<Duration>,
+    transport_policies: TransportPolicies,
     attempt_interceptor: Option<Arc<dyn AttemptInterceptor>>,
 }
 
@@ -124,25 +117,7 @@ impl Client {
             metric: crate::observability::TransportMetric::new(instrumentation),
             tracing_attributes,
             credentials,
-            retry_policy: config.retry_policy.clone().unwrap_or_else(|| {
-                Arc::new(
-                    RetryAip194Strict
-                        .with_attempt_limit(10)
-                        .with_time_limit(Duration::from_secs(60)),
-                )
-            }),
-            backoff_policy: config
-                .backoff_policy
-                .clone()
-                .unwrap_or_else(|| Arc::new(ExponentialBackoff::default())),
-            retry_throttler: config.retry_throttler,
-            polling_error_policy: config
-                .polling_error_policy
-                .unwrap_or_else(|| Arc::new(PollingAip194Strict)),
-            polling_backoff_policy: config
-                .polling_backoff_policy
-                .unwrap_or_else(|| Arc::new(ExponentialBackoff::default())),
-            attempt_timeout: config.attempt_timeout,
+            transport_policies: TransportPolicies::from_config(&config),
             attempt_interceptor: None,
         })
     }
@@ -287,9 +262,11 @@ impl Client {
         self.attempt_interceptor.intercept(&mut headers, 1);
         let metadata = tonic::MetadataMap::from_headers(headers);
         let mut request = ::tonic::Request::from_parts(metadata, extensions, request);
-        if let Some(timeout) =
-            crate::options::resolve_effective_timeout(&options, self.attempt_timeout, None)
-        {
+        if let Some(timeout) = crate::options::resolve_effective_timeout(
+            &options,
+            self.transport_policies.attempt_timeout(),
+            None,
+        ) {
             request.set_timeout(timeout);
         }
         let codec = tonic_prost::ProstCodec::<Request, Response>::default();
@@ -324,9 +301,9 @@ impl Client {
         Response: prost::Message + Default + 'static,
     {
         let idempotent = options.idempotent().unwrap_or(false);
-        let retry_throttler = self.get_retry_throttler(&options);
-        let retry_policy = self.get_retry_policy(&options);
-        let backoff_policy = self.get_backoff_policy(&options);
+        let retry_throttler = self.transport_policies.get_retry_throttler(&options);
+        let retry_policy = self.transport_policies.get_retry_policy(&options);
+        let backoff_policy = self.transport_policies.get_backoff_policy(&options);
         let this = self.clone();
         let mut prior_attempt_count: i64 = 0;
         let inner = async move |remaining_time: Option<Duration>| {
@@ -423,9 +400,11 @@ impl Client {
         let metadata = tonic::MetadataMap::from_headers(headers);
         let mut request = ::tonic::Request::from_parts(metadata, extensions, request);
 
-        if let Some(timeout) =
-            crate::options::resolve_effective_timeout(options, self.attempt_timeout, remaining_time)
-        {
+        if let Some(timeout) = crate::options::resolve_effective_timeout(
+            options,
+            self.transport_policies.attempt_timeout(),
+            remaining_time,
+        ) {
             request.set_timeout(timeout);
         }
         let codec = tonic_prost::ProstCodec::<Request, Response>::default();
@@ -536,45 +515,18 @@ impl Client {
         Ok(endpoint)
     }
 
-    fn get_retry_policy(&self, options: &RequestOptions) -> Arc<dyn RetryPolicy> {
-        options
-            .retry_policy()
-            .clone()
-            .unwrap_or_else(|| self.retry_policy.clone())
-    }
-
-    pub(crate) fn get_backoff_policy(&self, options: &RequestOptions) -> Arc<dyn BackoffPolicy> {
-        options
-            .backoff_policy()
-            .clone()
-            .unwrap_or_else(|| self.backoff_policy.clone())
-    }
-
-    pub(crate) fn get_retry_throttler(&self, options: &RequestOptions) -> SharedRetryThrottler {
-        options
-            .retry_throttler()
-            .clone()
-            .unwrap_or_else(|| self.retry_throttler.clone())
-    }
-
     pub fn get_polling_error_policy(
         &self,
         options: &RequestOptions,
     ) -> Arc<dyn PollingErrorPolicy> {
-        options
-            .polling_error_policy()
-            .clone()
-            .unwrap_or_else(|| self.polling_error_policy.clone())
+        self.transport_policies.get_polling_error_policy(options)
     }
 
     pub fn get_polling_backoff_policy(
         &self,
         options: &RequestOptions,
     ) -> Arc<dyn PollingBackoffPolicy> {
-        options
-            .polling_backoff_policy()
-            .clone()
-            .unwrap_or_else(|| self.polling_backoff_policy.clone())
+        self.transport_policies.get_polling_backoff_policy(options)
     }
 }
 

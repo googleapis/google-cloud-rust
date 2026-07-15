@@ -32,7 +32,6 @@ use google_cloud_gax::polling_state::PollingState;
 use google_cloud_gax::retry_result::RetryResult;
 use std::sync::Arc;
 
-#[cfg(google_cloud_unstable_tracing)]
 use {super::LroRecorder, crate::Error, gaxi::observability::errors::error_type};
 
 /// Defines the trait for an "Operation" type in the discovery poller.
@@ -147,7 +146,6 @@ where
     async fn poll(&mut self) -> Option<PollingResult<O, O>> {
         if let Some(start) = self.start.take() {
             let result = start.await;
-            #[cfg(google_cloud_unstable_tracing)]
             if let Ok(ref op) = result {
                 let name = op.name();
                 if let (Some(name), Some(recorder)) = (name, LroRecorder::current()) {
@@ -155,7 +153,6 @@ where
                 }
             }
             let (op, poll) = self::handle_start(result);
-            #[cfg(google_cloud_unstable_tracing)]
             self::maybe_record_completed_error(&poll);
             self.operation = op;
             return Some(poll);
@@ -165,13 +162,10 @@ where
             let result = (self.query)(name.clone()).await;
             let (op, poll) =
                 self::handle_poll(self.error_policy.clone(), &self.state, name, result);
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                if let (Some(next_name), Some(recorder)) = (&op, LroRecorder::current()) {
-                    recorder.record_destination_id(next_name);
-                }
-                self::maybe_record_completed_error(&poll);
+            if let (Some(next_name), Some(recorder)) = (&op, LroRecorder::current()) {
+                recorder.record_destination_id(next_name);
             }
+            self::maybe_record_completed_error(&poll);
             self.operation = op;
             return Some(poll);
         }
@@ -187,7 +181,6 @@ where
     }
 }
 
-#[cfg(google_cloud_unstable_tracing)]
 fn maybe_record_completed_error<O>(poll: &PollingResult<O, O>)
 where
     O: DiscoveryOperation,
@@ -267,28 +260,8 @@ mod tests {
     use google_cloud_gax::polling_error_policy::{Aip194Strict, AlwaysContinue};
     use std::time::Duration;
 
-    #[cfg(not(google_cloud_unstable_tracing))]
-    pub(crate) struct DummySpan;
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    fn test_span() -> DummySpan {
-        DummySpan
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    pub(crate) trait Instrument: Sized {
-        fn instrument(self, _span: DummySpan) -> Self {
-            self
-        }
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    impl<T> Instrument for T {}
-
-    #[cfg(google_cloud_unstable_tracing)]
     use tracing::Instrument;
 
-    #[cfg(google_cloud_unstable_tracing)]
     fn test_span() -> tracing::Span {
         tracing::info_span!(
             "test_span",
@@ -657,7 +630,6 @@ mod tests {
         }
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[tokio::test]
     async fn test_discovery_poller_tracing() {
         let guard = google_cloud_test_utils::test_layer::TestLayer::initialize();
@@ -744,7 +716,6 @@ mod tests {
         }
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[tokio::test]
     async fn test_discovery_poller_tracing_error() {
         let guard = google_cloud_test_utils::test_layer::TestLayer::initialize();

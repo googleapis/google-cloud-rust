@@ -6005,6 +6005,1208 @@ pub mod featured_content_native_dashboard_service {
     }
 }
 
+/// Request and client builders for [FindingsRefinementService][crate::client::FindingsRefinementService].
+pub mod findings_refinement_service {
+    use crate::Result;
+
+    /// A builder for [FindingsRefinementService][crate::client::FindingsRefinementService].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_chronicle_v1::*;
+    /// # use builder::findings_refinement_service::ClientBuilder;
+    /// # use client::FindingsRefinementService;
+    /// let builder : ClientBuilder = FindingsRefinementService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://chronicle.googleapis.com")
+    ///     .build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::FindingsRefinementService;
+        pub struct Factory;
+        impl crate::ClientFactory for Factory {
+            type Client = FindingsRefinementService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> crate::ClientBuilderResult<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
+    /// Common implementation for [crate::client::FindingsRefinementService] request builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::FindingsRefinementService>,
+        request: R,
+        options: crate::RequestOptions,
+    }
+
+    impl<R> RequestBuilder<R>
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FindingsRefinementService>,
+        ) -> Self {
+            Self {
+                stub,
+                request: R::default(),
+                options: crate::RequestOptions::default(),
+            }
+        }
+    }
+
+    /// The request builder for [FindingsRefinementService::get_findings_refinement][crate::client::FindingsRefinementService::get_findings_refinement] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::builder::findings_refinement_service::GetFindingsRefinement;
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetFindingsRefinement {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetFindingsRefinement(RequestBuilder<crate::model::GetFindingsRefinementRequest>);
+
+    impl GetFindingsRefinement {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FindingsRefinementService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetFindingsRefinementRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::FindingsRefinement> {
+            (*self.0.stub)
+                .get_findings_refinement(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetFindingsRefinementRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetFindingsRefinement {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FindingsRefinementService::list_findings_refinements][crate::client::FindingsRefinementService::list_findings_refinements] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::builder::findings_refinement_service::ListFindingsRefinements;
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListFindingsRefinements {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListFindingsRefinements(
+        RequestBuilder<crate::model::ListFindingsRefinementsRequest>,
+    );
+
+    impl ListFindingsRefinements {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FindingsRefinementService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListFindingsRefinementsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListFindingsRefinementsResponse> {
+            (*self.0.stub)
+                .list_findings_refinements(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListFindingsRefinementsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListFindingsRefinementsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListFindingsRefinementsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListFindingsRefinementsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListFindingsRefinementsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListFindingsRefinements {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FindingsRefinementService::create_findings_refinement][crate::client::FindingsRefinementService::create_findings_refinement] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::builder::findings_refinement_service::CreateFindingsRefinement;
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CreateFindingsRefinement {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateFindingsRefinement(
+        RequestBuilder<crate::model::CreateFindingsRefinementRequest>,
+    );
+
+    impl CreateFindingsRefinement {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FindingsRefinementService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateFindingsRefinementRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::FindingsRefinement> {
+            (*self.0.stub)
+                .create_findings_refinement(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [parent][crate::model::CreateFindingsRefinementRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [findings_refinement][crate::model::CreateFindingsRefinementRequest::findings_refinement].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_findings_refinement<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FindingsRefinement>,
+        {
+            self.0.request.findings_refinement = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [findings_refinement][crate::model::CreateFindingsRefinementRequest::findings_refinement].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_findings_refinement<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::FindingsRefinement>,
+        {
+            self.0.request.findings_refinement = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CreateFindingsRefinement {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FindingsRefinementService::update_findings_refinement][crate::client::FindingsRefinementService::update_findings_refinement] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::builder::findings_refinement_service::UpdateFindingsRefinement;
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateFindingsRefinement {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateFindingsRefinement(
+        RequestBuilder<crate::model::UpdateFindingsRefinementRequest>,
+    );
+
+    impl UpdateFindingsRefinement {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FindingsRefinementService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateFindingsRefinementRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::FindingsRefinement> {
+            (*self.0.stub)
+                .update_findings_refinement(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [findings_refinement][crate::model::UpdateFindingsRefinementRequest::findings_refinement].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_findings_refinement<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FindingsRefinement>,
+        {
+            self.0.request.findings_refinement = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [findings_refinement][crate::model::UpdateFindingsRefinementRequest::findings_refinement].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_findings_refinement<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::FindingsRefinement>,
+        {
+            self.0.request.findings_refinement = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateFindingsRefinementRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateFindingsRefinementRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateFindingsRefinement {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FindingsRefinementService::get_findings_refinement_deployment][crate::client::FindingsRefinementService::get_findings_refinement_deployment] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::builder::findings_refinement_service::GetFindingsRefinementDeployment;
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetFindingsRefinementDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetFindingsRefinementDeployment(
+        RequestBuilder<crate::model::GetFindingsRefinementDeploymentRequest>,
+    );
+
+    impl GetFindingsRefinementDeployment {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FindingsRefinementService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetFindingsRefinementDeploymentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::FindingsRefinementDeployment> {
+            (*self.0.stub)
+                .get_findings_refinement_deployment(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetFindingsRefinementDeploymentRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetFindingsRefinementDeployment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FindingsRefinementService::update_findings_refinement_deployment][crate::client::FindingsRefinementService::update_findings_refinement_deployment] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::builder::findings_refinement_service::UpdateFindingsRefinementDeployment;
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateFindingsRefinementDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateFindingsRefinementDeployment(
+        RequestBuilder<crate::model::UpdateFindingsRefinementDeploymentRequest>,
+    );
+
+    impl UpdateFindingsRefinementDeployment {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FindingsRefinementService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateFindingsRefinementDeploymentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::FindingsRefinementDeployment> {
+            (*self.0.stub)
+                .update_findings_refinement_deployment(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [findings_refinement_deployment][crate::model::UpdateFindingsRefinementDeploymentRequest::findings_refinement_deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_findings_refinement_deployment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FindingsRefinementDeployment>,
+        {
+            self.0.request.findings_refinement_deployment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [findings_refinement_deployment][crate::model::UpdateFindingsRefinementDeploymentRequest::findings_refinement_deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_findings_refinement_deployment<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::FindingsRefinementDeployment>,
+        {
+            self.0.request.findings_refinement_deployment = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateFindingsRefinementDeploymentRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateFindingsRefinementDeploymentRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateFindingsRefinementDeployment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FindingsRefinementService::list_all_findings_refinement_deployments][crate::client::FindingsRefinementService::list_all_findings_refinement_deployments] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::builder::findings_refinement_service::ListAllFindingsRefinementDeployments;
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListAllFindingsRefinementDeployments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListAllFindingsRefinementDeployments(
+        RequestBuilder<crate::model::ListAllFindingsRefinementDeploymentsRequest>,
+    );
+
+    impl ListAllFindingsRefinementDeployments {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FindingsRefinementService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListAllFindingsRefinementDeploymentsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(
+            self,
+        ) -> Result<crate::model::ListAllFindingsRefinementDeploymentsResponse> {
+            (*self.0.stub)
+                .list_all_findings_refinement_deployments(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListAllFindingsRefinementDeploymentsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListAllFindingsRefinementDeploymentsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [instance][crate::model::ListAllFindingsRefinementDeploymentsRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListAllFindingsRefinementDeploymentsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListAllFindingsRefinementDeploymentsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::ListAllFindingsRefinementDeploymentsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListAllFindingsRefinementDeployments {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FindingsRefinementService::compute_findings_refinement_activity][crate::client::FindingsRefinementService::compute_findings_refinement_activity] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::builder::findings_refinement_service::ComputeFindingsRefinementActivity;
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ComputeFindingsRefinementActivity {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ComputeFindingsRefinementActivity(
+        RequestBuilder<crate::model::ComputeFindingsRefinementActivityRequest>,
+    );
+
+    impl ComputeFindingsRefinementActivity {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FindingsRefinementService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ComputeFindingsRefinementActivityRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ComputeFindingsRefinementActivityResponse> {
+            (*self.0.stub)
+                .compute_findings_refinement_activity(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::ComputeFindingsRefinementActivityRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [interval][crate::model::ComputeFindingsRefinementActivityRequest::interval].
+        pub fn set_interval<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<google_cloud_type::model::Interval>,
+        {
+            self.0.request.interval = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [interval][crate::model::ComputeFindingsRefinementActivityRequest::interval].
+        pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<google_cloud_type::model::Interval>,
+        {
+            self.0.request.interval = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ComputeFindingsRefinementActivity {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FindingsRefinementService::compute_all_findings_refinement_activities][crate::client::FindingsRefinementService::compute_all_findings_refinement_activities] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::builder::findings_refinement_service::ComputeAllFindingsRefinementActivities;
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ComputeAllFindingsRefinementActivities {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ComputeAllFindingsRefinementActivities(
+        RequestBuilder<crate::model::ComputeAllFindingsRefinementActivitiesRequest>,
+    );
+
+    impl ComputeAllFindingsRefinementActivities {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FindingsRefinementService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::ComputeAllFindingsRefinementActivitiesRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(
+            self,
+        ) -> Result<crate::model::ComputeAllFindingsRefinementActivitiesResponse> {
+            (*self.0.stub)
+                .compute_all_findings_refinement_activities(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [instance][crate::model::ComputeAllFindingsRefinementActivitiesRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance = v.into();
+            self
+        }
+
+        /// Sets the value of [interval][crate::model::ComputeAllFindingsRefinementActivitiesRequest::interval].
+        pub fn set_interval<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<google_cloud_type::model::Interval>,
+        {
+            self.0.request.interval = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [interval][crate::model::ComputeAllFindingsRefinementActivitiesRequest::interval].
+        pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<google_cloud_type::model::Interval>,
+        {
+            self.0.request.interval = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ComputeAllFindingsRefinementActivities {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FindingsRefinementService::list_operations][crate::client::FindingsRefinementService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::builder::findings_refinement_service::ListOperations;
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListOperations(
+        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+    );
+
+    impl ListOperations {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FindingsRefinementService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_longrunning::model::ListOperationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::ListOperationsResponse> {
+            (*self.0.stub)
+                .list_operations(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            google_cloud_longrunning::model::ListOperationsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            google_cloud_longrunning::model::ListOperationsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [name][google_cloud_longrunning::model::ListOperationsRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][google_cloud_longrunning::model::ListOperationsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][google_cloud_longrunning::model::ListOperationsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][google_cloud_longrunning::model::ListOperationsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][google_cloud_longrunning::model::ListOperationsRequest::return_partial_success].
+        pub fn set_return_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.return_partial_success = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListOperations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FindingsRefinementService::get_operation][crate::client::FindingsRefinementService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::builder::findings_refinement_service::GetOperation;
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+
+    impl GetOperation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FindingsRefinementService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FindingsRefinementService::delete_operation][crate::client::FindingsRefinementService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::builder::findings_refinement_service::DeleteOperation;
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteOperation(
+        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+    );
+
+    impl DeleteOperation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FindingsRefinementService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_longrunning::model::DeleteOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<()> {
+            (*self.0.stub)
+                .delete_operation(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FindingsRefinementService::cancel_operation][crate::client::FindingsRefinementService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::builder::findings_refinement_service::CancelOperation;
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CancelOperation(
+        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+    );
+
+    impl CancelOperation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FindingsRefinementService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_longrunning::model::CancelOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<()> {
+            (*self.0.stub)
+                .cancel_operation(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CancelOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+}
+
 /// Request and client builders for [InstanceService][crate::client::InstanceService].
 pub mod instance_service {
     use crate::Result;
@@ -9471,9 +10673,7 @@ pub mod rule_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name =
                     "google_cloud_chronicle_v1::client::RuleService::create_retrohunt::until_done";
@@ -9500,21 +10700,7 @@ pub mod rule_service {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_poller(
                     polling_error_policy,
@@ -9523,6 +10709,7 @@ pub mod rule_service {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [parent][crate::model::CreateRetrohuntRequest::parent].

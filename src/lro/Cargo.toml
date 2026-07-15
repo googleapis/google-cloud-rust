@@ -19,7 +19,7 @@ name        = "google-cloud-lro"
 #     version of all downstream dependencies. For details see:
 #         https://github.com/googleapis/google-cloud-rust/issues/3237
 #         https://github.com/googleapis/google-cloud-rust/issues/3265
-version = "1.8.0"
+version = "1.9.0"
 # Inherit other attributes from the workspace.
 authors.workspace      = true
 categories.workspace   = true
@@ -49,15 +49,8 @@ google-cloud-gax         = { workspace = true }
 google-cloud-longrunning = { workspace = true }
 google-cloud-rpc         = { workspace = true }
 google-cloud-wkt         = { workspace = true }
-
-[target.'cfg(google_cloud_unstable_tracing)'.dependencies]
-tracing = { workspace = true }
-gaxi    = { workspace = true, features = ["_internal-common"] }
-
-[target.'cfg(google_cloud_unstable_tracing)'.dev-dependencies]
-tracing-subscriber      = { workspace = true, features = ["registry"] }
-google-cloud-test-utils = { workspace = true }
-gaxi                    = { workspace = true, features = ["_internal-common"] }
+tracing                  = { workspace = true }
+gaxi                     = { workspace = true, features = ["_internal-grpc-client"] }
 
 [features]
 unstable-stream = ["dep:futures", "dep:pin-project"]
@@ -67,13 +60,14 @@ unstable-stream = ["dep:futures", "dep:pin-project"]
 # features and offer no guarantees on their stability.
 _internal-semver = []
 
-
 [dev-dependencies]
-anyhow.workspace     = true
-httptest.workspace   = true
-mockall.workspace    = true
-serde_json.workspace = true
-tokio                = { workspace = true, features = ["test-util"] }
+tracing-subscriber      = { workspace = true, features = ["registry"] }
+google-cloud-test-utils = { workspace = true }
+anyhow.workspace        = true
+httptest.workspace      = true
+mockall.workspace       = true
+serde_json.workspace    = true
+tokio                   = { workspace = true, features = ["test-util"] }
 # Local dependencies
 google-cloud-auth.workspace = true
 google-cloud-lro            = { path = ".", features = ["unstable-stream"] }

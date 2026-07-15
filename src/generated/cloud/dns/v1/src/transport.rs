@@ -1365,7 +1365,7 @@ impl super::stub::ManagedZones for ManagedZones {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method(".managedZones/getOperation")
+                    .set_rpc_method(".managedZoneOperations/getOperation")
                     .set_url_template(_path_template),
             );
         }

@@ -2070,6 +2070,9 @@ impl serde::ser::Serialize for super::ImportJob {
         if self.public_key.is_some() {
             state.serialize_entry("publicKey", &self.public_key)?;
         }
+        if !wkt::internal::is_default(&self.public_key_format) {
+            state.serialize_entry("publicKeyFormat", &self.public_key_format)?;
+        }
         if self.attestation.is_some() {
             state.serialize_entry("attestation", &self.attestation)?;
         }
@@ -2097,6 +2100,18 @@ impl serde::ser::Serialize for super::import_job::WrappingPublicKey {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.pem.is_empty() {
             state.serialize_entry("pem", &self.pem)?;
+        }
+        if !self.data.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("data", &__With(&self.data))?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2688,6 +2703,9 @@ impl serde::ser::Serialize for super::GetImportJobRequest {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
+        }
+        if !wkt::internal::is_default(&self.public_key_format) {
+            state.serialize_entry("publicKeyFormat", &self.public_key_format)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

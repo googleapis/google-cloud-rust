@@ -14,6 +14,18 @@
 
 use crate::error::ConvertError;
 
+pub(crate) const BIGQUERY_DATE_FORMAT: &[time::format_description::FormatItem<'static>] =
+    time::macros::format_description!("[year]-[month]-[day]");
+pub(crate) const BIGQUERY_TIME_FORMAT: &[time::format_description::FormatItem<'static>] =
+    time::macros::format_description!("[hour]:[minute]:[second]");
+pub(crate) const BIGQUERY_TIME_SUBSEC_FORMAT: &[time::format_description::FormatItem<'static>] =
+    time::macros::format_description!("[hour]:[minute]:[second].[subsecond]");
+pub(crate) const BIGQUERY_DATETIME_FORMAT: &[time::format_description::FormatItem<'static>] =
+    time::macros::format_description!("[year]-[month]-[day]T[hour]:[minute]:[second]");
+pub(crate) const BIGQUERY_DATETIME_SUBSEC_FORMAT: &[time::format_description::FormatItem<
+    'static,
+>] = time::macros::format_description!("[year]-[month]-[day]T[hour]:[minute]:[second].[subsecond]");
+
 /// Converts BigQuery internal [wkt::Value] to Rust types.
 pub trait FromSql: Sized {
     /// Converts a BigQuery `wkt::Value` into the implementing type.
@@ -100,9 +112,141 @@ impl<T: FromSql> FromSql for Option<T> {
     }
 }
 
+impl<T: FromSql> FromSql for Vec<T> {
+    fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
+        match value {
+            wkt::Value::Array(arr) => arr.into_iter().map(T::from_sql).collect(),
+            wkt::Value::Null => Err(ConvertError::NotNull),
+            other => Err(ConvertError::TypeMismatch {
+                expected: "array",
+                got: other,
+            }),
+        }
+    }
+}
+
+impl FromSql for wkt::Struct {
+    fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
+        match value {
+            wkt::Value::Object(obj) => Ok(obj),
+            wkt::Value::Null => Err(ConvertError::NotNull),
+            other => Err(ConvertError::TypeMismatch {
+                expected: "object",
+                got: other,
+            }),
+        }
+    }
+}
+
+impl FromSql for wkt::Timestamp {
+    fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
+        match value {
+            wkt::Value::String(s) => {
+                let micros = s
+                    .parse::<i64>()
+                    .map_err(|e| ConvertError::Convert(Box::new(e)))?;
+                timestamp_from_micros(micros)
+            }
+            wkt::Value::Number(n) => {
+                let micros = n.as_i64().ok_or_else(|| {
+                    ConvertError::Convert("timestamp number is not valid i64".into())
+                })?;
+                timestamp_from_micros(micros)
+            }
+            wkt::Value::Null => Err(ConvertError::NotNull),
+            other => Err(ConvertError::TypeMismatch {
+                expected: "string or number",
+                got: other,
+            }),
+        }
+    }
+}
+
+fn timestamp_from_micros(micros: i64) -> Result<wkt::Timestamp, ConvertError> {
+    wkt::Timestamp::new(
+        micros.div_euclid(1_000_000),
+        (micros.rem_euclid(1_000_000) * 1_000) as i32,
+    )
+    .map_err(|e| ConvertError::Convert(Box::new(e)))
+}
+
+impl FromSql for google_cloud_type::model::Date {
+    fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
+        match value {
+            wkt::Value::String(s) => {
+                let date = time::Date::parse(s.as_str(), BIGQUERY_DATE_FORMAT)
+                    .map_err(|e| ConvertError::Convert(Box::new(e)))?;
+                Ok(google_cloud_type::model::Date::new()
+                    .set_year(date.year())
+                    .set_month(u8::from(date.month()) as i32)
+                    .set_day(date.day() as i32))
+            }
+            wkt::Value::Null => Err(ConvertError::NotNull),
+            other => Err(ConvertError::TypeMismatch {
+                expected: "string",
+                got: other,
+            }),
+        }
+    }
+}
+
+impl FromSql for google_cloud_type::model::TimeOfDay {
+    fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
+        match value {
+            wkt::Value::String(s) => {
+                let format = if s.contains('.') {
+                    BIGQUERY_TIME_SUBSEC_FORMAT
+                } else {
+                    BIGQUERY_TIME_FORMAT
+                };
+                let t = time::Time::parse(s.as_str(), format)
+                    .map_err(|e| ConvertError::Convert(Box::new(e)))?;
+                Ok(google_cloud_type::model::TimeOfDay::new()
+                    .set_hours(t.hour() as i32)
+                    .set_minutes(t.minute() as i32)
+                    .set_seconds(t.second() as i32)
+                    .set_nanos(t.nanosecond() as i32))
+            }
+            wkt::Value::Null => Err(ConvertError::NotNull),
+            other => Err(ConvertError::TypeMismatch {
+                expected: "string",
+                got: other,
+            }),
+        }
+    }
+}
+
+impl FromSql for google_cloud_type::model::DateTime {
+    fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
+        match value {
+            wkt::Value::String(s) => {
+                let format = if s.contains('.') {
+                    BIGQUERY_DATETIME_SUBSEC_FORMAT
+                } else {
+                    BIGQUERY_DATETIME_FORMAT
+                };
+                let dt = time::PrimitiveDateTime::parse(s.as_str(), format)
+                    .map_err(|e| ConvertError::Convert(Box::new(e)))?;
+                Ok(google_cloud_type::model::DateTime::new()
+                    .set_year(dt.year())
+                    .set_month(u8::from(dt.month()) as i32)
+                    .set_day(dt.day() as i32)
+                    .set_hours(dt.hour() as i32)
+                    .set_minutes(dt.minute() as i32)
+                    .set_seconds(dt.second() as i32)
+                    .set_nanos(dt.nanosecond() as i32))
+            }
+            wkt::Value::Null => Err(ConvertError::NotNull),
+            other => Err(ConvertError::TypeMismatch {
+                expected: "string",
+                got: other,
+            }),
+        }
+    }
+}
+
 // TODO(#5592): implement for more Rust
-//  types: f32, i32, Vec<T>, Decimal,
-//  wkt::Timestamp, wkt::Struct, etc.
+// types: f32, i32, Decimal, etc.
 
 #[cfg(test)]
 mod tests {
@@ -174,6 +318,62 @@ mod tests {
     #[test_case(wkt::Value::Number(123.into()) => Ok(Some(123)) ; "option some i64")]
     #[test_case(wkt::Value::String("hello".to_string()) => Err(TestConvertError::Convert("invalid digit found in string".to_string())) ; "option error i64")]
     fn test_from_sql_option(value: wkt::Value) -> Result<Option<i64>, TestConvertError> {
+        FromSql::from_sql(value).map_err(TestConvertError::from)
+    }
+
+    #[test_case(wkt::Value::Array(vec![wkt::Value::Number(1.into()), wkt::Value::Number(2.into())]) => Ok(vec![1, 2]) ; "vec i64")]
+    #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "vec null")]
+    #[test_case(wkt::Value::String("hello".to_string()) => Err(TestConvertError::TypeMismatch("array")) ; "vec type mismatch")]
+    #[test_case(wkt::Value::Array(vec![wkt::Value::String("invalid".to_string())]) => Err(TestConvertError::Convert("invalid digit found in string".to_string())) ; "vec element convert error")]
+    fn test_from_sql_vec(value: wkt::Value) -> Result<Vec<i64>, TestConvertError> {
+        FromSql::from_sql(value).map_err(TestConvertError::from)
+    }
+
+    #[test_case(wkt::Value::Object(wkt::Struct::from_iter([("a".to_string(), wkt::Value::Number(1.into()))])) => Ok(wkt::Struct::from_iter([("a".to_string(), wkt::Value::Number(1.into()))])) ; "struct ok")]
+    #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "struct null")]
+    #[test_case(wkt::Value::String("hello".to_string()) => Err(TestConvertError::TypeMismatch("object")) ; "struct type mismatch")]
+    fn test_from_sql_struct(value: wkt::Value) -> Result<wkt::Struct, TestConvertError> {
+        FromSql::from_sql(value).map_err(TestConvertError::from)
+    }
+
+    #[test_case(wkt::Value::String("1779982200000000".to_string()) => Ok(wkt::Timestamp::new(1779982200, 0).unwrap()) ; "timestamp micro integer string")]
+    #[test_case(wkt::Value::Number(1779982200000000i64.into()) => Ok(wkt::Timestamp::new(1779982200, 0).unwrap()) ; "timestamp micro integer number")]
+    #[test_case(wkt::Value::String("2026-05-28T15:30:00Z".to_string()) => Err(TestConvertError::Convert("invalid digit found in string".to_string())) ; "timestamp rfc3339 string fails")]
+    #[test_case(wkt::Value::Number(serde_json::Number::from_f64(1779982200.5).unwrap()) => Err(TestConvertError::Convert("timestamp number is not valid i64".to_string())) ; "timestamp f64 number fails")]
+    #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "timestamp null")]
+    #[test_case(wkt::Value::Bool(true) => Err(TestConvertError::TypeMismatch("string or number")) ; "timestamp type mismatch")]
+    fn test_from_sql_timestamp(value: wkt::Value) -> Result<wkt::Timestamp, TestConvertError> {
+        FromSql::from_sql(value).map_err(TestConvertError::from)
+    }
+
+    #[test_case(wkt::Value::String("2026-05-28".to_string()) => Ok(google_cloud_type::model::Date::new().set_year(2026).set_month(5).set_day(28)) ; "date valid")]
+    #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "date null")]
+    #[test_case(wkt::Value::Number(123.into()) => Err(TestConvertError::TypeMismatch("string")) ; "date type mismatch")]
+    #[test_case(wkt::Value::String("invalid-date".to_string()) => Err(TestConvertError::Convert("the 'year' component could not be parsed".to_string())) ; "date invalid format")]
+    #[test_case(wkt::Value::String("2026-abc-28".to_string()) => Err(TestConvertError::Convert("the 'month' component could not be parsed".to_string())) ; "date invalid digits")]
+    fn test_from_sql_date(
+        value: wkt::Value,
+    ) -> Result<google_cloud_type::model::Date, TestConvertError> {
+        FromSql::from_sql(value).map_err(TestConvertError::from)
+    }
+
+    #[test_case(wkt::Value::String("15:30:00".to_string()) => Ok(google_cloud_type::model::TimeOfDay::new().set_hours(15).set_minutes(30).set_seconds(0).set_nanos(0)) ; "time of day valid")]
+    #[test_case(wkt::Value::String("15:30:00.123456".to_string()) => Ok(google_cloud_type::model::TimeOfDay::new().set_hours(15).set_minutes(30).set_seconds(0).set_nanos(123_456_000)) ; "time of day fractional")]
+    #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "time of day null")]
+    #[test_case(wkt::Value::Number(123.into()) => Err(TestConvertError::TypeMismatch("string")) ; "time of day type mismatch")]
+    fn test_from_sql_time_of_day(
+        value: wkt::Value,
+    ) -> Result<google_cloud_type::model::TimeOfDay, TestConvertError> {
+        FromSql::from_sql(value).map_err(TestConvertError::from)
+    }
+
+    #[test_case(wkt::Value::String("2026-05-28T15:30:00".to_string()) => Ok(google_cloud_type::model::DateTime::new().set_year(2026).set_month(5).set_day(28).set_hours(15).set_minutes(30).set_seconds(0).set_nanos(0)) ; "datetime without subseconds")]
+    #[test_case(wkt::Value::String("2026-05-28T15:30:00.123456".to_string()) => Ok(google_cloud_type::model::DateTime::new().set_year(2026).set_month(5).set_day(28).set_hours(15).set_minutes(30).set_seconds(0).set_nanos(123_456_000)) ; "datetime with subseconds")]
+    #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "datetime null")]
+    #[test_case(wkt::Value::Number(123.into()) => Err(TestConvertError::TypeMismatch("string")) ; "datetime type mismatch")]
+    fn test_from_sql_datetime(
+        value: wkt::Value,
+    ) -> Result<google_cloud_type::model::DateTime, TestConvertError> {
         FromSql::from_sql(value).map_err(TestConvertError::from)
     }
 }

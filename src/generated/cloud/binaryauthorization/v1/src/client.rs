@@ -138,13 +138,16 @@ impl BinauthzManagementServiceV1 {
             .map(super::tracing::BinauthzManagementServiceV1::new)
     }
 
-    /// A [policy][google.cloud.binaryauthorization.v1.Policy] specifies the [attestors][google.cloud.binaryauthorization.v1.Attestor] that must attest to
-    /// a container image, before the project is allowed to deploy that
-    /// image. There is at most one policy per project. All image admission
-    /// requests are permitted if a project has no policy.
+    /// A [policy][google.cloud.binaryauthorization.v1.Policy] specifies the
+    /// [attestors][google.cloud.binaryauthorization.v1.Attestor] that must attest
+    /// to a container image, before the project is allowed to deploy that image.
+    /// There is at most one policy per project. All image admission requests are
+    /// permitted if a project has no policy.
     ///
-    /// Gets the [policy][google.cloud.binaryauthorization.v1.Policy] for this project. Returns a default
-    /// [policy][google.cloud.binaryauthorization.v1.Policy] if the project does not have one.
+    /// Gets the [policy][google.cloud.binaryauthorization.v1.Policy] for this
+    /// project. Returns a default
+    /// [policy][google.cloud.binaryauthorization.v1.Policy] if the project does
+    /// not have one.
     ///
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
     /// [google.cloud.binaryauthorization.v1.Policy]: crate::model::Policy
@@ -167,11 +170,12 @@ impl BinauthzManagementServiceV1 {
         super::builder::binauthz_management_service_v_1::GetPolicy::new(self.inner.clone())
     }
 
-    /// Creates or updates a project's [policy][google.cloud.binaryauthorization.v1.Policy], and returns a copy of the
-    /// new [policy][google.cloud.binaryauthorization.v1.Policy]. A policy is always updated as a whole, to avoid race
-    /// conditions with concurrent policy enforcement (or management!)
-    /// requests. Returns NOT_FOUND if the project does not exist, INVALID_ARGUMENT
-    /// if the request is malformed.
+    /// Creates or updates a project's
+    /// [policy][google.cloud.binaryauthorization.v1.Policy], and returns a copy of
+    /// the new [policy][google.cloud.binaryauthorization.v1.Policy]. A policy is
+    /// always updated as a whole, to avoid race conditions with concurrent policy
+    /// enforcement (or management!) requests. Returns `NOT_FOUND` if the project
+    /// does not exist, `INVALID_ARGUMENT` if the request is malformed.
     ///
     /// [google.cloud.binaryauthorization.v1.Policy]: crate::model::Policy
     ///
@@ -196,9 +200,11 @@ impl BinauthzManagementServiceV1 {
         super::builder::binauthz_management_service_v_1::UpdatePolicy::new(self.inner.clone())
     }
 
-    /// Creates an [attestor][google.cloud.binaryauthorization.v1.Attestor], and returns a copy of the new
-    /// [attestor][google.cloud.binaryauthorization.v1.Attestor]. Returns NOT_FOUND if the project does not exist,
-    /// INVALID_ARGUMENT if the request is malformed, ALREADY_EXISTS if the
+    /// Creates an [attestor][google.cloud.binaryauthorization.v1.Attestor], and
+    /// returns a copy of the new
+    /// [attestor][google.cloud.binaryauthorization.v1.Attestor]. Returns
+    /// `NOT_FOUND` if the project does not exist, `INVALID_ARGUMENT` if the
+    /// request is malformed, `ALREADY_EXISTS` if the
     /// [attestor][google.cloud.binaryauthorization.v1.Attestor] already exists.
     ///
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
@@ -229,7 +235,8 @@ impl BinauthzManagementServiceV1 {
     }
 
     /// Gets an [attestor][google.cloud.binaryauthorization.v1.Attestor].
-    /// Returns NOT_FOUND if the [attestor][google.cloud.binaryauthorization.v1.Attestor] does not exist.
+    /// Returns `NOT_FOUND` if the
+    /// [attestor][google.cloud.binaryauthorization.v1.Attestor] does not exist.
     ///
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
     ///
@@ -252,7 +259,8 @@ impl BinauthzManagementServiceV1 {
     }
 
     /// Updates an [attestor][google.cloud.binaryauthorization.v1.Attestor].
-    /// Returns NOT_FOUND if the [attestor][google.cloud.binaryauthorization.v1.Attestor] does not exist.
+    /// Returns `NOT_FOUND` if the
+    /// [attestor][google.cloud.binaryauthorization.v1.Attestor] does not exist.
     ///
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
     ///
@@ -280,7 +288,7 @@ impl BinauthzManagementServiceV1 {
     }
 
     /// Lists [attestors][google.cloud.binaryauthorization.v1.Attestor].
-    /// Returns INVALID_ARGUMENT if the project does not exist.
+    /// Returns `INVALID_ARGUMENT` if the project does not exist.
     ///
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
     ///
@@ -305,7 +313,8 @@ impl BinauthzManagementServiceV1 {
         super::builder::binauthz_management_service_v_1::ListAttestors::new(self.inner.clone())
     }
 
-    /// Deletes an [attestor][google.cloud.binaryauthorization.v1.Attestor]. Returns NOT_FOUND if the
+    /// Deletes an [attestor][google.cloud.binaryauthorization.v1.Attestor].
+    /// Returns `NOT_FOUND` if the
     /// [attestor][google.cloud.binaryauthorization.v1.Attestor] does not exist.
     ///
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
@@ -327,6 +336,79 @@ impl BinauthzManagementServiceV1 {
         &self,
     ) -> super::builder::binauthz_management_service_v_1::DeleteAttestor {
         super::builder::binauthz_management_service_v_1::DeleteAttestor::new(self.inner.clone())
+    }
+
+    /// Sets the access control policy on the specified resource. Replaces
+    /// any existing policy.
+    ///
+    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
+    /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_binaryauthorization_v1::client::BinauthzManagementServiceV1;
+    /// use google_cloud_binaryauthorization_v1::Result;
+    /// async fn sample(
+    ///    client: &BinauthzManagementServiceV1
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::binauthz_management_service_v_1::SetIamPolicy {
+        super::builder::binauthz_management_service_v_1::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Gets the access control policy for a resource. Returns an empty policy
+    /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_binaryauthorization_v1::client::BinauthzManagementServiceV1;
+    /// use google_cloud_binaryauthorization_v1::Result;
+    /// async fn sample(
+    ///    client: &BinauthzManagementServiceV1
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::binauthz_management_service_v_1::GetIamPolicy {
+        super::builder::binauthz_management_service_v_1::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource. If the
+    /// resource does not exist, this will return an empty set of
+    /// permissions, not a `NOT_FOUND` error.
+    ///
+    /// Note: This operation is designed to be used for building
+    /// permission-aware UIs and command-line tools, not for authorization
+    /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_binaryauthorization_v1::client::BinauthzManagementServiceV1;
+    /// use google_cloud_binaryauthorization_v1::Result;
+    /// async fn sample(
+    ///    client: &BinauthzManagementServiceV1
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(
+        &self,
+    ) -> super::builder::binauthz_management_service_v_1::TestIamPermissions {
+        super::builder::binauthz_management_service_v_1::TestIamPermissions::new(self.inner.clone())
     }
 }
 
@@ -455,6 +537,77 @@ impl SystemPolicyV1 {
     pub fn get_system_policy(&self) -> super::builder::system_policy_v_1::GetSystemPolicy {
         super::builder::system_policy_v_1::GetSystemPolicy::new(self.inner.clone())
     }
+
+    /// Sets the access control policy on the specified resource. Replaces
+    /// any existing policy.
+    ///
+    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
+    /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_binaryauthorization_v1::client::SystemPolicyV1;
+    /// use google_cloud_binaryauthorization_v1::Result;
+    /// async fn sample(
+    ///    client: &SystemPolicyV1
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::system_policy_v_1::SetIamPolicy {
+        super::builder::system_policy_v_1::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Gets the access control policy for a resource. Returns an empty policy
+    /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_binaryauthorization_v1::client::SystemPolicyV1;
+    /// use google_cloud_binaryauthorization_v1::Result;
+    /// async fn sample(
+    ///    client: &SystemPolicyV1
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::system_policy_v_1::GetIamPolicy {
+        super::builder::system_policy_v_1::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource. If the
+    /// resource does not exist, this will return an empty set of
+    /// permissions, not a `NOT_FOUND` error.
+    ///
+    /// Note: This operation is designed to be used for building
+    /// permission-aware UIs and command-line tools, not for authorization
+    /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_binaryauthorization_v1::client::SystemPolicyV1;
+    /// use google_cloud_binaryauthorization_v1::Result;
+    /// async fn sample(
+    ///    client: &SystemPolicyV1
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::system_policy_v_1::TestIamPermissions {
+        super::builder::system_policy_v_1::TestIamPermissions::new(self.inner.clone())
+    }
 }
 
 /// Implements a client for the Binary Authorization API.
@@ -563,8 +716,8 @@ impl ValidationHelperV1 {
             .map(super::tracing::ValidationHelperV1::new)
     }
 
-    /// Returns whether the given Attestation for the given image URI
-    /// was signed by the given Attestor
+    /// Returns whether the given `Attestation` for the given image URI
+    /// was signed by the given `Attestor`
     ///
     /// # Example
     /// ```
@@ -586,5 +739,78 @@ impl ValidationHelperV1 {
         super::builder::validation_helper_v_1::ValidateAttestationOccurrence::new(
             self.inner.clone(),
         )
+    }
+
+    /// Sets the access control policy on the specified resource. Replaces
+    /// any existing policy.
+    ///
+    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
+    /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_binaryauthorization_v1::client::ValidationHelperV1;
+    /// use google_cloud_binaryauthorization_v1::Result;
+    /// async fn sample(
+    ///    client: &ValidationHelperV1
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::validation_helper_v_1::SetIamPolicy {
+        super::builder::validation_helper_v_1::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Gets the access control policy for a resource. Returns an empty policy
+    /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_binaryauthorization_v1::client::ValidationHelperV1;
+    /// use google_cloud_binaryauthorization_v1::Result;
+    /// async fn sample(
+    ///    client: &ValidationHelperV1
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::validation_helper_v_1::GetIamPolicy {
+        super::builder::validation_helper_v_1::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource. If the
+    /// resource does not exist, this will return an empty set of
+    /// permissions, not a `NOT_FOUND` error.
+    ///
+    /// Note: This operation is designed to be used for building
+    /// permission-aware UIs and command-line tools, not for authorization
+    /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_binaryauthorization_v1::client::ValidationHelperV1;
+    /// use google_cloud_binaryauthorization_v1::Result;
+    /// async fn sample(
+    ///    client: &ValidationHelperV1
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(
+        &self,
+    ) -> super::builder::validation_helper_v_1::TestIamPermissions {
+        super::builder::validation_helper_v_1::TestIamPermissions::new(self.inner.clone())
     }
 }

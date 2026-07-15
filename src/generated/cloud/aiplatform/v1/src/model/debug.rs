@@ -13779,6 +13779,7 @@ impl std::fmt::Debug for super::ReasoningEngineSpec {
         debug_struct.field("deployment_spec", &self.deployment_spec);
         debug_struct.field("class_methods", &self.class_methods);
         debug_struct.field("agent_framework", &self.agent_framework);
+        debug_struct.field("identity_type", &self.identity_type);
         debug_struct.field("deployment_source", &self.deployment_source);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

@@ -107,6 +107,18 @@ pub trait Memorystore: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
+    async fn start_migration(
+        &self,
+        req: crate::model::StartMigrationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn finish_migration(
+        &self,
+        req: crate::model::FinishMigrationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -153,7 +165,6 @@ pub trait Memorystore: std::fmt::Debug + Send + Sync {
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 
-    #[cfg(google_cloud_unstable_tracing)]
     fn get_poller_options(
         &self,
         options: &crate::RequestOptions,
@@ -299,6 +310,24 @@ impl<T: super::Memorystore> Memorystore for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn start_migration(
+        &self,
+        req: crate::model::StartMigrationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::start_migration(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn finish_migration(
+        &self,
+        req: crate::model::FinishMigrationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::finish_migration(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -367,7 +396,6 @@ impl<T: super::Memorystore> Memorystore for T {
         T::get_polling_backoff_policy(self, options)
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     fn get_poller_options(
         &self,
         options: &crate::RequestOptions,

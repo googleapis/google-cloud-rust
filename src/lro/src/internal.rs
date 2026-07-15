@@ -21,9 +21,7 @@
 mod aip151;
 mod discovery;
 mod either;
-#[cfg(google_cloud_unstable_tracing)]
 mod ext;
-#[cfg(google_cloud_unstable_tracing)]
 mod tracing;
 
 #[allow(deprecated)]
@@ -33,9 +31,6 @@ pub use aip151::{
 
 pub use discovery::{DiscoveryOperation, new_discovery_poller};
 pub use either::Either;
-#[cfg(google_cloud_unstable_tracing)]
 pub use ext::{PollerExt, PollerOptions, TracingDetails};
-#[cfg(google_cloud_unstable_tracing)]
 pub use tracing::LroRecorder;
-#[cfg(google_cloud_unstable_tracing)]
 pub use tracing::Tracing;

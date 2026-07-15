@@ -24,6 +24,7 @@ extern crate bytes;
 extern crate gaxi;
 extern crate google_cloud_gax;
 extern crate google_cloud_grafeas_v1;
+extern crate google_cloud_iam_v1;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -35,7 +36,8 @@ mod debug;
 mod deserialize;
 mod serialize;
 
-/// A [policy][google.cloud.binaryauthorization.v1.Policy] for container image binary authorization.
+/// A [policy][google.cloud.binaryauthorization.v1.Policy] for container image
+/// binary authorization.
 ///
 /// [google.cloud.binaryauthorization.v1.Policy]: crate::model::Policy
 #[derive(Clone, Default, PartialEq)]
@@ -59,7 +61,12 @@ pub struct Policy {
     /// third-party infrastructure images from Binary Authorization policies.
     pub admission_whitelist_patterns: std::vec::Vec<crate::model::AdmissionWhitelistPattern>,
 
-    /// Optional. Per-cluster admission rules. Cluster spec format:
+    /// Optional. A valid policy has only one of the following rule maps non-empty,
+    /// i.e. only one of `cluster_admission_rules`,
+    /// `kubernetes_namespace_admission_rules`,
+    /// `kubernetes_service_account_admission_rules`,
+    /// or `istio_service_identity_admission_rules` can be non-empty.
+    /// Per-cluster admission rules. Cluster spec format:
     /// `location.clusterId`. There can be at most one admission rule per cluster
     /// spec.
     /// A `location` is either a compute zone (e.g. us-central1-a) or a region
@@ -69,21 +76,22 @@ pub struct Policy {
     pub cluster_admission_rules:
         std::collections::HashMap<std::string::String, crate::model::AdmissionRule>,
 
-    /// Optional. Per-kubernetes-namespace admission rules. K8s namespace spec format:
-    /// [a-z.-]+, e.g. 'some-namespace'
+    /// Optional. Per-kubernetes-namespace admission rules. K8s namespace spec
+    /// format:
+    /// `[a-z.-]+`, e.g. `some-namespace`
     pub kubernetes_namespace_admission_rules:
         std::collections::HashMap<std::string::String, crate::model::AdmissionRule>,
 
     /// Optional. Per-kubernetes-service-account admission rules. Service account
-    /// spec format: `namespace:serviceaccount`. e.g. 'test-ns:default'
+    /// spec format: `namespace:serviceaccount`. e.g. `test-ns:default`
     pub kubernetes_service_account_admission_rules:
         std::collections::HashMap<std::string::String, crate::model::AdmissionRule>,
 
     /// Optional. Per-istio-service-identity admission rules. Istio service
     /// identity spec format:
-    /// spiffe://\<domain\>/ns/\<namespace\>/sa/\<serviceaccount\> or
-    /// \<domain\>/ns/\<namespace\>/sa/\<serviceaccount\>
-    /// e.g. spiffe://example.com/ns/test-ns/sa/default
+    /// `spiffe://<domain>/ns/<namespace>/sa/<serviceaccount>` or
+    /// `<domain>/ns/<namespace>/sa/<serviceaccount>`
+    /// e.g. `spiffe://example.com/ns/test-ns/sa/default`
     pub istio_service_identity_admission_rules:
         std::collections::HashMap<std::string::String, crate::model::AdmissionRule>,
 
@@ -93,6 +101,11 @@ pub struct Policy {
 
     /// Output only. Time when the policy was last updated.
     pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. A checksum, returned by the server, that can be sent on update
+    /// requests to ensure the policy has an up-to-date value before attempting to
+    /// update it. See <https://google.aip.dev/154>.
+    pub etag: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -325,6 +338,18 @@ impl Policy {
         self.update_time = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [etag][crate::model::Policy::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_binaryauthorization_v1::model::Policy;
+    /// let x = Policy::new().set_etag("example");
+    /// ```
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for Policy {
@@ -356,7 +381,7 @@ pub mod policy {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum GlobalPolicyEvaluationMode {
-        /// Not specified: DISABLE is assumed.
+        /// Not specified: `DISABLE` is assumed.
         Unspecified,
         /// Enables system policy evaluation.
         Enable,
@@ -475,8 +500,10 @@ pub mod policy {
     }
 }
 
-/// An [admission allowlist pattern][google.cloud.binaryauthorization.v1.AdmissionWhitelistPattern] exempts images
-/// from checks by [admission rules][google.cloud.binaryauthorization.v1.AdmissionRule].
+/// An [admission allowlist
+/// pattern][google.cloud.binaryauthorization.v1.AdmissionWhitelistPattern]
+/// exempts images from checks by [admission
+/// rules][google.cloud.binaryauthorization.v1.AdmissionRule].
 ///
 /// [google.cloud.binaryauthorization.v1.AdmissionRule]: crate::model::AdmissionRule
 /// [google.cloud.binaryauthorization.v1.AdmissionWhitelistPattern]: crate::model::AdmissionWhitelistPattern
@@ -517,13 +544,15 @@ impl wkt::message::Message for AdmissionWhitelistPattern {
     }
 }
 
-/// An [admission rule][google.cloud.binaryauthorization.v1.AdmissionRule] specifies either that all container images
-/// used in a pod creation request must be attested to by one or more
-/// [attestors][google.cloud.binaryauthorization.v1.Attestor], that all pod creations will be allowed, or that all
-/// pod creations will be denied.
+/// An [admission rule][google.cloud.binaryauthorization.v1.AdmissionRule]
+/// specifies either that all container images used in a pod creation request
+/// must be attested to by one or more
+/// [attestors][google.cloud.binaryauthorization.v1.Attestor], that all pod
+/// creations will be allowed, or that all pod creations will be denied.
 ///
-/// Images matching an [admission allowlist pattern][google.cloud.binaryauthorization.v1.AdmissionWhitelistPattern]
-/// are exempted from admission rules and will never block a pod creation.
+/// Images matching an [admission allowlist
+/// pattern][google.cloud.binaryauthorization.v1.AdmissionWhitelistPattern] are
+/// exempted from admission rules and will never block a pod creation.
 ///
 /// [google.cloud.binaryauthorization.v1.AdmissionRule]: crate::model::AdmissionRule
 /// [google.cloud.binaryauthorization.v1.AdmissionWhitelistPattern]: crate::model::AdmissionWhitelistPattern
@@ -540,8 +569,8 @@ pub struct AdmissionRule {
     /// to a policy the principal issuing the policy change request must be able
     /// to read the attestor resource.
     ///
-    /// Note: this field must be non-empty when the evaluation_mode field specifies
-    /// REQUIRE_ATTESTATION, otherwise it must be empty.
+    /// Note: this field must be non-empty when the `evaluation_mode` field
+    /// specifies `REQUIRE_ATTESTATION`, otherwise it must be empty.
     pub require_attestations_by: std::vec::Vec<std::string::String>,
 
     /// Required. The action when a pod creation is denied by the admission rule.
@@ -644,10 +673,10 @@ pub mod admission_rule {
     pub enum EvaluationMode {
         /// Do not use.
         Unspecified,
-        /// This rule allows all all pod creations.
+        /// This rule allows all pod creations.
         AlwaysAllow,
         /// This rule allows a pod creation if all the attestors listed in
-        /// 'require_attestations_by' have valid attestations for all of the
+        /// `require_attestations_by` have valid attestations for all of the
         /// images in the pod spec.
         RequireAttestation,
         /// This rule denies all pod creations.
@@ -902,9 +931,9 @@ pub mod admission_rule {
     }
 }
 
-/// An [attestor][google.cloud.binaryauthorization.v1.Attestor] that attests to container image
-/// artifacts. An existing attestor cannot be modified except where
-/// indicated.
+/// An [attestor][google.cloud.binaryauthorization.v1.Attestor] that attests to
+/// container image artifacts. An existing attestor cannot be modified except
+/// where indicated.
 ///
 /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
 #[derive(Clone, Default, PartialEq)]
@@ -920,6 +949,11 @@ pub struct Attestor {
 
     /// Output only. Time when the attestor was last updated.
     pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. A checksum, returned by the server, that can be sent on update
+    /// requests to ensure the attestor has an up-to-date value before attempting
+    /// to update it. See <https://google.aip.dev/154>.
+    pub etag: std::string::String,
 
     #[allow(missing_docs)]
     pub attestor_type: std::option::Option<crate::model::attestor::AttestorType>,
@@ -989,6 +1023,18 @@ impl Attestor {
         T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::Attestor::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_binaryauthorization_v1::model::Attestor;
+    /// let x = Attestor::new().set_etag("example");
+    /// ```
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
         self
     }
 
@@ -1076,16 +1122,17 @@ pub mod attestor {
     }
 }
 
-/// An [user owned Grafeas note][google.cloud.binaryauthorization.v1.UserOwnedGrafeasNote] references a Grafeas
-/// Attestation.Authority Note created by the user.
+/// An [user owned Grafeas
+/// note][google.cloud.binaryauthorization.v1.UserOwnedGrafeasNote] references a
+/// Grafeas Attestation.Authority Note created by the user.
 ///
 /// [google.cloud.binaryauthorization.v1.UserOwnedGrafeasNote]: crate::model::UserOwnedGrafeasNote
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UserOwnedGrafeasNote {
     /// Required. The Grafeas resource name of a Attestation.Authority Note,
-    /// created by the user, in the format: `projects/*/notes/*`. This field may
-    /// not be updated.
+    /// created by the user, in the format: `projects/[PROJECT_ID]/notes/*`. This
+    /// field may not be updated. A project ID must be used, not a project number.
     ///
     /// An attestation by this attestor is stored as a Grafeas
     /// Attestation.Authority Occurrence that names a container image and that
@@ -1104,14 +1151,17 @@ pub struct UserOwnedGrafeasNote {
     pub public_keys: std::vec::Vec<crate::model::AttestorPublicKey>,
 
     /// Output only. This field will contain the service account email address
-    /// that this Attestor will use as the principal when querying Container
+    /// that this attestor will use as the principal when querying Container
     /// Analysis. Attestor administrators must grant this service account the
-    /// IAM role needed to read attestations from the [note_reference][Note] in
-    /// Container Analysis (`containeranalysis.notes.occurrences.viewer`).
+    /// IAM role needed to read attestations from the
+    /// [note_reference][google.cloud.binaryauthorization.v1.UserOwnedGrafeasNote.note_reference]
+    /// in Container Analysis (`containeranalysis.notes.occurrences.viewer`).
     ///
-    /// This email address is fixed for the lifetime of the Attestor, but callers
+    /// This email address is fixed for the lifetime of the attestor, but callers
     /// should not make any other assumptions about the service account email;
     /// future versions may use an email based on a different naming pattern.
+    ///
+    /// [google.cloud.binaryauthorization.v1.UserOwnedGrafeasNote.note_reference]: crate::model::UserOwnedGrafeasNote::note_reference
     pub delegation_service_account_email: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1179,10 +1229,9 @@ impl wkt::message::Message for UserOwnedGrafeasNote {
     }
 }
 
-/// A public key in the PkixPublicKey format (see
-/// <https://tools.ietf.org/html/rfc5280#section-4.1.2.7> for details).
-/// Public keys of this type are typically textually encoded using the PEM
-/// format.
+/// A public key in the PkixPublicKey
+/// [format](https://tools.ietf.org/html/rfc5280#section-4.1.2.7). Public keys of
+/// this type are typically textually encoded using the PEM format.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PkixPublicKey {
@@ -1196,6 +1245,22 @@ pub struct PkixPublicKey {
     /// identifiers encoded in `public_key_pem` (i.e. this algorithm must match
     /// that of the public key).
     pub signature_algorithm: crate::model::pkix_public_key::SignatureAlgorithm,
+
+    /// Optional. The ID of this public key.
+    /// Signatures verified by Binary Authorization must include the ID of the
+    /// public key that can be used to verify them. The ID must match exactly
+    /// contents of the `key_id` field exactly.
+    ///
+    /// The ID may be explicitly provided by the caller, but it MUST be a valid
+    /// RFC3986 URI. If `key_id` is left blank and this `PkixPublicKey` is not used
+    /// in the context of a wrapper (see next paragraph), a default key ID will be
+    /// computed based on the digest of the DER encoding of the public key.
+    ///
+    /// If this `PkixPublicKey` is used in the context of a wrapper that has its
+    /// own notion of key ID (e.g. `AttestorPublicKey`), then this field can
+    /// either match that value exactly, or be left blank, in which case it behaves
+    /// exactly as though it is equal to that wrapper value.
+    pub key_id: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1225,8 +1290,8 @@ impl PkixPublicKey {
     /// # use google_cloud_binaryauthorization_v1::model::PkixPublicKey;
     /// use google_cloud_binaryauthorization_v1::model::pkix_public_key::SignatureAlgorithm;
     /// let x0 = PkixPublicKey::new().set_signature_algorithm(SignatureAlgorithm::RsaPss2048Sha256);
-    /// let x1 = PkixPublicKey::new().set_signature_algorithm(SignatureAlgorithm::RsaPss3072Sha256);
-    /// let x2 = PkixPublicKey::new().set_signature_algorithm(SignatureAlgorithm::RsaPss4096Sha256);
+    /// let x1 = PkixPublicKey::new().set_signature_algorithm(SignatureAlgorithm::RsaSignPss2048Sha256);
+    /// let x2 = PkixPublicKey::new().set_signature_algorithm(SignatureAlgorithm::RsaPss3072Sha256);
     /// ```
     pub fn set_signature_algorithm<
         T: std::convert::Into<crate::model::pkix_public_key::SignatureAlgorithm>,
@@ -1235,6 +1300,18 @@ impl PkixPublicKey {
         v: T,
     ) -> Self {
         self.signature_algorithm = v.into();
+        self
+    }
+
+    /// Sets the value of [key_id][crate::model::PkixPublicKey::key_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_binaryauthorization_v1::model::PkixPublicKey;
+    /// let x = PkixPublicKey::new().set_key_id("example");
+    /// ```
+    pub fn set_key_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.key_id = v.into();
         self
     }
 }
@@ -1253,9 +1330,10 @@ pub mod pkix_public_key {
     /// Represents a signature algorithm and other information necessary to verify
     /// signatures with a given public key.
     /// This is based primarily on the public key types supported by Tink's
-    /// PemKeyType, which is in turn based on KMS's supported signing algorithms.
-    /// See <https://cloud.google.com/kms/docs/algorithms>. In the future, BinAuthz
-    /// might support additional public key types independently of Tink and/or KMS.
+    /// PemKeyType, which is in turn based on KMS's supported signing
+    /// [algorithms](https://cloud.google.com/kms/docs/algorithms). In the future,
+    /// Binary Authorization might support additional public key types
+    /// independently of Tink and/or KMS.
     ///
     /// # Working with unknown values
     ///
@@ -1277,12 +1355,20 @@ pub mod pkix_public_key {
         Unspecified,
         /// RSASSA-PSS 2048 bit key with a SHA256 digest.
         RsaPss2048Sha256,
+        /// RSASSA-PSS 2048 bit key with a SHA256 digest.
+        RsaSignPss2048Sha256,
         /// RSASSA-PSS 3072 bit key with a SHA256 digest.
         RsaPss3072Sha256,
+        /// RSASSA-PSS 3072 bit key with a SHA256 digest.
+        RsaSignPss3072Sha256,
         /// RSASSA-PSS 4096 bit key with a SHA256 digest.
         RsaPss4096Sha256,
+        /// RSASSA-PSS 4096 bit key with a SHA256 digest.
+        RsaSignPss4096Sha256,
         /// RSASSA-PSS 4096 bit key with a SHA512 digest.
         RsaPss4096Sha512,
+        /// RSASSA-PSS 4096 bit key with a SHA512 digest.
+        RsaSignPss4096Sha512,
         /// RSASSA-PKCS1-v1_5 with a 2048 bit key and a SHA256 digest.
         RsaSignPkcs12048Sha256,
         /// RSASSA-PKCS1-v1_5 with a 3072 bit key and a SHA256 digest.
@@ -1303,6 +1389,8 @@ pub mod pkix_public_key {
         EcdsaP521Sha512,
         /// ECDSA on the NIST P-521 curve with a SHA512 digest.
         EcSignP521Sha512,
+        /// ML-DSA-65 Post-Quantum Cryptography signature algorithm.
+        MlDsa65,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [SignatureAlgorithm::value] or
@@ -1327,9 +1415,13 @@ pub mod pkix_public_key {
             match self {
                 Self::Unspecified => std::option::Option::Some(0),
                 Self::RsaPss2048Sha256 => std::option::Option::Some(1),
+                Self::RsaSignPss2048Sha256 => std::option::Option::Some(1),
                 Self::RsaPss3072Sha256 => std::option::Option::Some(2),
+                Self::RsaSignPss3072Sha256 => std::option::Option::Some(2),
                 Self::RsaPss4096Sha256 => std::option::Option::Some(3),
+                Self::RsaSignPss4096Sha256 => std::option::Option::Some(3),
                 Self::RsaPss4096Sha512 => std::option::Option::Some(4),
+                Self::RsaSignPss4096Sha512 => std::option::Option::Some(4),
                 Self::RsaSignPkcs12048Sha256 => std::option::Option::Some(5),
                 Self::RsaSignPkcs13072Sha256 => std::option::Option::Some(6),
                 Self::RsaSignPkcs14096Sha256 => std::option::Option::Some(7),
@@ -1340,6 +1432,7 @@ pub mod pkix_public_key {
                 Self::EcSignP384Sha384 => std::option::Option::Some(10),
                 Self::EcdsaP521Sha512 => std::option::Option::Some(11),
                 Self::EcSignP521Sha512 => std::option::Option::Some(11),
+                Self::MlDsa65 => std::option::Option::Some(13),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -1352,9 +1445,13 @@ pub mod pkix_public_key {
             match self {
                 Self::Unspecified => std::option::Option::Some("SIGNATURE_ALGORITHM_UNSPECIFIED"),
                 Self::RsaPss2048Sha256 => std::option::Option::Some("RSA_PSS_2048_SHA256"),
+                Self::RsaSignPss2048Sha256 => std::option::Option::Some("RSA_SIGN_PSS_2048_SHA256"),
                 Self::RsaPss3072Sha256 => std::option::Option::Some("RSA_PSS_3072_SHA256"),
+                Self::RsaSignPss3072Sha256 => std::option::Option::Some("RSA_SIGN_PSS_3072_SHA256"),
                 Self::RsaPss4096Sha256 => std::option::Option::Some("RSA_PSS_4096_SHA256"),
+                Self::RsaSignPss4096Sha256 => std::option::Option::Some("RSA_SIGN_PSS_4096_SHA256"),
                 Self::RsaPss4096Sha512 => std::option::Option::Some("RSA_PSS_4096_SHA512"),
+                Self::RsaSignPss4096Sha512 => std::option::Option::Some("RSA_SIGN_PSS_4096_SHA512"),
                 Self::RsaSignPkcs12048Sha256 => {
                     std::option::Option::Some("RSA_SIGN_PKCS1_2048_SHA256")
                 }
@@ -1373,6 +1470,7 @@ pub mod pkix_public_key {
                 Self::EcSignP384Sha384 => std::option::Option::Some("EC_SIGN_P384_SHA384"),
                 Self::EcdsaP521Sha512 => std::option::Option::Some("ECDSA_P521_SHA512"),
                 Self::EcSignP521Sha512 => std::option::Option::Some("EC_SIGN_P521_SHA512"),
+                Self::MlDsa65 => std::option::Option::Some("ML_DSA_65"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -1406,6 +1504,7 @@ pub mod pkix_public_key {
                 9 => Self::EcdsaP256Sha256,
                 10 => Self::EcdsaP384Sha384,
                 11 => Self::EcdsaP521Sha512,
+                13 => Self::MlDsa65,
                 _ => Self::UnknownValue(signature_algorithm::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -1419,9 +1518,13 @@ pub mod pkix_public_key {
             match value {
                 "SIGNATURE_ALGORITHM_UNSPECIFIED" => Self::Unspecified,
                 "RSA_PSS_2048_SHA256" => Self::RsaPss2048Sha256,
+                "RSA_SIGN_PSS_2048_SHA256" => Self::RsaSignPss2048Sha256,
                 "RSA_PSS_3072_SHA256" => Self::RsaPss3072Sha256,
+                "RSA_SIGN_PSS_3072_SHA256" => Self::RsaSignPss3072Sha256,
                 "RSA_PSS_4096_SHA256" => Self::RsaPss4096Sha256,
+                "RSA_SIGN_PSS_4096_SHA256" => Self::RsaSignPss4096Sha256,
                 "RSA_PSS_4096_SHA512" => Self::RsaPss4096Sha512,
+                "RSA_SIGN_PSS_4096_SHA512" => Self::RsaSignPss4096Sha512,
                 "RSA_SIGN_PKCS1_2048_SHA256" => Self::RsaSignPkcs12048Sha256,
                 "RSA_SIGN_PKCS1_3072_SHA256" => Self::RsaSignPkcs13072Sha256,
                 "RSA_SIGN_PKCS1_4096_SHA256" => Self::RsaSignPkcs14096Sha256,
@@ -1432,6 +1535,7 @@ pub mod pkix_public_key {
                 "EC_SIGN_P384_SHA384" => Self::EcSignP384Sha384,
                 "ECDSA_P521_SHA512" => Self::EcdsaP521Sha512,
                 "EC_SIGN_P521_SHA512" => Self::EcSignP521Sha512,
+                "ML_DSA_65" => Self::MlDsa65,
                 _ => Self::UnknownValue(signature_algorithm::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -1447,9 +1551,13 @@ pub mod pkix_public_key {
             match self {
                 Self::Unspecified => serializer.serialize_i32(0),
                 Self::RsaPss2048Sha256 => serializer.serialize_i32(1),
+                Self::RsaSignPss2048Sha256 => serializer.serialize_i32(1),
                 Self::RsaPss3072Sha256 => serializer.serialize_i32(2),
+                Self::RsaSignPss3072Sha256 => serializer.serialize_i32(2),
                 Self::RsaPss4096Sha256 => serializer.serialize_i32(3),
+                Self::RsaSignPss4096Sha256 => serializer.serialize_i32(3),
                 Self::RsaPss4096Sha512 => serializer.serialize_i32(4),
+                Self::RsaSignPss4096Sha512 => serializer.serialize_i32(4),
                 Self::RsaSignPkcs12048Sha256 => serializer.serialize_i32(5),
                 Self::RsaSignPkcs13072Sha256 => serializer.serialize_i32(6),
                 Self::RsaSignPkcs14096Sha256 => serializer.serialize_i32(7),
@@ -1460,6 +1568,7 @@ pub mod pkix_public_key {
                 Self::EcSignP384Sha384 => serializer.serialize_i32(10),
                 Self::EcdsaP521Sha512 => serializer.serialize_i32(11),
                 Self::EcSignP521Sha512 => serializer.serialize_i32(11),
+                Self::MlDsa65 => serializer.serialize_i32(13),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -1477,8 +1586,9 @@ pub mod pkix_public_key {
     }
 }
 
-/// An [attestor public key][google.cloud.binaryauthorization.v1.AttestorPublicKey] that will be used to verify
-/// attestations signed by this attestor.
+/// An [attestor public
+/// key][google.cloud.binaryauthorization.v1.AttestorPublicKey] that will be used
+/// to verify attestations signed by this attestor.
 ///
 /// [google.cloud.binaryauthorization.v1.AttestorPublicKey]: crate::model::AttestorPublicKey
 #[derive(Clone, Default, PartialEq)]
@@ -1488,12 +1598,11 @@ pub struct AttestorPublicKey {
     pub comment: std::string::String,
 
     /// The ID of this public key.
-    /// Signatures verified by BinAuthz must include the ID of the public key that
-    /// can be used to verify them, and that ID must match the contents of this
-    /// field exactly.
-    /// Additional restrictions on this field can be imposed based on which public
-    /// key type is encapsulated. See the documentation on `public_key` cases below
-    /// for details.
+    /// Signatures verified by Binary Authorization must include the ID of the
+    /// public key that can be used to verify them, and that ID must match the
+    /// contents of this field exactly. Additional restrictions on this field can
+    /// be imposed based on which public key type is encapsulated. See the
+    /// documentation on `public_key` cases below for details.
     pub id: std::string::String,
 
     #[allow(missing_docs)]
@@ -1649,11 +1758,11 @@ pub mod attestor_public_key {
         /// ASCII-armored representation of a PGP public key, as the entire output by
         /// the command `gpg --export --armor foo@example.com` (either LF or CRLF
         /// line endings).
-        /// When using this field, `id` should be left blank.  The BinAuthz API
-        /// handlers will calculate the ID and fill it in automatically.  BinAuthz
-        /// computes this ID as the OpenPGP RFC4880 V4 fingerprint, represented as
-        /// upper-case hex.  If `id` is provided by the caller, it will be
-        /// overwritten by the API-calculated ID.
+        /// When using this field, `id` should be left blank.  The Binary
+        /// Authorization API handlers will calculate the ID and fill it in
+        /// automatically.  Binary Authorization computes this ID as the OpenPGP
+        /// RFC4880 V4 fingerprint, represented as upper-case hex.  If `id` is
+        /// provided by the caller, it will be overwritten by the API-calculated ID.
         AsciiArmoredPgpPublicKey(std::string::String),
         /// A raw PKIX SubjectPublicKeyInfo format public key.
         ///
@@ -1665,12 +1774,16 @@ pub mod attestor_public_key {
     }
 }
 
-/// Request message for [BinauthzManagementService.GetPolicy][].
+/// Request message for
+/// [BinauthzManagementServiceV1.GetPolicy][google.cloud.binaryauthorization.v1.BinauthzManagementServiceV1.GetPolicy].
+///
+/// [google.cloud.binaryauthorization.v1.BinauthzManagementServiceV1.GetPolicy]: crate::client::BinauthzManagementServiceV1::get_policy
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPolicyRequest {
-    /// Required. The resource name of the [policy][google.cloud.binaryauthorization.v1.Policy] to retrieve,
-    /// in the format `projects/*/policy`.
+    /// Required. The resource name of the
+    /// [policy][google.cloud.binaryauthorization.v1.Policy] to retrieve, in the
+    /// format `projects/*/policy`.
     ///
     /// [google.cloud.binaryauthorization.v1.Policy]: crate::model::Policy
     pub name: std::string::String,
@@ -1704,13 +1817,18 @@ impl wkt::message::Message for GetPolicyRequest {
     }
 }
 
-/// Request message for [BinauthzManagementService.UpdatePolicy][].
+/// Request message for
+/// [BinauthzManagementServiceV1.UpdatePolicy][google.cloud.binaryauthorization.v1.BinauthzManagementServiceV1.UpdatePolicy].
+///
+/// [google.cloud.binaryauthorization.v1.BinauthzManagementServiceV1.UpdatePolicy]: crate::client::BinauthzManagementServiceV1::update_policy
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdatePolicyRequest {
-    /// Required. A new or updated [policy][google.cloud.binaryauthorization.v1.Policy] value. The service will
-    /// overwrite the [policy name][google.cloud.binaryauthorization.v1.Policy.name] field with the resource name in
-    /// the request URL, in the format `projects/*/policy`.
+    /// Required. A new or updated
+    /// [policy][google.cloud.binaryauthorization.v1.Policy] value. The service
+    /// will overwrite the [policy
+    /// name][google.cloud.binaryauthorization.v1.Policy.name] field with the
+    /// resource name in the request URL, in the format `projects/*/policy`.
     ///
     /// [google.cloud.binaryauthorization.v1.Policy]: crate::model::Policy
     /// [google.cloud.binaryauthorization.v1.Policy.name]: crate::model::Policy::name
@@ -1765,11 +1883,15 @@ impl wkt::message::Message for UpdatePolicyRequest {
     }
 }
 
-/// Request message for [BinauthzManagementService.CreateAttestor][].
+/// Request message for
+/// [BinauthzManagementServiceV1.CreateAttestor][google.cloud.binaryauthorization.v1.BinauthzManagementServiceV1.CreateAttestor].
+///
+/// [google.cloud.binaryauthorization.v1.BinauthzManagementServiceV1.CreateAttestor]: crate::client::BinauthzManagementServiceV1::create_attestor
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAttestorRequest {
-    /// Required. The parent of this [attestor][google.cloud.binaryauthorization.v1.Attestor].
+    /// Required. The parent of this
+    /// [attestor][google.cloud.binaryauthorization.v1.Attestor].
     ///
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
     pub parent: std::string::String,
@@ -1779,9 +1901,11 @@ pub struct CreateAttestorRequest {
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
     pub attestor_id: std::string::String,
 
-    /// Required. The initial [attestor][google.cloud.binaryauthorization.v1.Attestor] value. The service will
-    /// overwrite the [attestor name][google.cloud.binaryauthorization.v1.Attestor.name] field with the resource name,
-    /// in the format `projects/*/attestors/*`.
+    /// Required. The initial
+    /// [attestor][google.cloud.binaryauthorization.v1.Attestor] value. The service
+    /// will overwrite the [attestor
+    /// name][google.cloud.binaryauthorization.v1.Attestor.name] field with the
+    /// resource name, in the format `projects/*/attestors/*`.
     ///
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
     /// [google.cloud.binaryauthorization.v1.Attestor.name]: crate::model::Attestor::name
@@ -1860,12 +1984,16 @@ impl wkt::message::Message for CreateAttestorRequest {
     }
 }
 
-/// Request message for [BinauthzManagementService.GetAttestor][].
+/// Request message for
+/// [BinauthzManagementServiceV1.GetAttestor][google.cloud.binaryauthorization.v1.BinauthzManagementServiceV1.GetAttestor].
+///
+/// [google.cloud.binaryauthorization.v1.BinauthzManagementServiceV1.GetAttestor]: crate::client::BinauthzManagementServiceV1::get_attestor
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAttestorRequest {
-    /// Required. The name of the [attestor][google.cloud.binaryauthorization.v1.Attestor] to retrieve, in the format
-    /// `projects/*/attestors/*`.
+    /// Required. The name of the
+    /// [attestor][google.cloud.binaryauthorization.v1.Attestor] to retrieve, in
+    /// the format `projects/*/attestors/*`.
     ///
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
     pub name: std::string::String,
@@ -1900,13 +2028,18 @@ impl wkt::message::Message for GetAttestorRequest {
     }
 }
 
-/// Request message for [BinauthzManagementService.UpdateAttestor][].
+/// Request message for
+/// [BinauthzManagementServiceV1.UpdateAttestor][google.cloud.binaryauthorization.v1.BinauthzManagementServiceV1.UpdateAttestor].
+///
+/// [google.cloud.binaryauthorization.v1.BinauthzManagementServiceV1.UpdateAttestor]: crate::client::BinauthzManagementServiceV1::update_attestor
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAttestorRequest {
-    /// Required. The updated [attestor][google.cloud.binaryauthorization.v1.Attestor] value. The service will
-    /// overwrite the [attestor name][google.cloud.binaryauthorization.v1.Attestor.name] field with the resource name
-    /// in the request URL, in the format `projects/*/attestors/*`.
+    /// Required. The updated
+    /// [attestor][google.cloud.binaryauthorization.v1.Attestor] value. The service
+    /// will overwrite the [attestor
+    /// name][google.cloud.binaryauthorization.v1.Attestor.name] field with the
+    /// resource name in the request URL, in the format `projects/*/attestors/*`.
     ///
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
     /// [google.cloud.binaryauthorization.v1.Attestor.name]: crate::model::Attestor::name
@@ -1961,12 +2094,16 @@ impl wkt::message::Message for UpdateAttestorRequest {
     }
 }
 
-/// Request message for [BinauthzManagementService.ListAttestors][].
+/// Request message for
+/// [BinauthzManagementServiceV1.ListAttestors][google.cloud.binaryauthorization.v1.BinauthzManagementServiceV1.ListAttestors].
+///
+/// [google.cloud.binaryauthorization.v1.BinauthzManagementServiceV1.ListAttestors]: crate::client::BinauthzManagementServiceV1::list_attestors
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAttestorsRequest {
     /// Required. The resource name of the project associated with the
-    /// [attestors][google.cloud.binaryauthorization.v1.Attestor], in the format `projects/*`.
+    /// [attestors][google.cloud.binaryauthorization.v1.Attestor], in the format
+    /// `projects/*`.
     ///
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
     pub parent: std::string::String,
@@ -1976,8 +2113,9 @@ pub struct ListAttestorsRequest {
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return. Typically,
-    /// this is the value of [ListAttestorsResponse.next_page_token][google.cloud.binaryauthorization.v1.ListAttestorsResponse.next_page_token] returned
-    /// from the previous call to the `ListAttestors` method.
+    /// this is the value of
+    /// [ListAttestorsResponse.next_page_token][google.cloud.binaryauthorization.v1.ListAttestorsResponse.next_page_token]
+    /// returned from the previous call to the `ListAttestors` method.
     ///
     /// [google.cloud.binaryauthorization.v1.ListAttestorsResponse.next_page_token]: crate::model::ListAttestorsResponse::next_page_token
     pub page_token: std::string::String,
@@ -2034,7 +2172,10 @@ impl wkt::message::Message for ListAttestorsRequest {
     }
 }
 
-/// Response message for [BinauthzManagementService.ListAttestors][].
+/// Response message for
+/// [BinauthzManagementServiceV1.ListAttestors][google.cloud.binaryauthorization.v1.BinauthzManagementServiceV1.ListAttestors].
+///
+/// [google.cloud.binaryauthorization.v1.BinauthzManagementServiceV1.ListAttestors]: crate::client::BinauthzManagementServiceV1::list_attestors
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAttestorsResponse {
@@ -2044,8 +2185,9 @@ pub struct ListAttestorsResponse {
     pub attestors: std::vec::Vec<crate::model::Attestor>,
 
     /// A token to retrieve the next page of results. Pass this value in the
-    /// [ListAttestorsRequest.page_token][google.cloud.binaryauthorization.v1.ListAttestorsRequest.page_token] field in the subsequent call to the
-    /// `ListAttestors` method to retrieve the next page of results.
+    /// [ListAttestorsRequest.page_token][google.cloud.binaryauthorization.v1.ListAttestorsRequest.page_token]
+    /// field in the subsequent call to the `ListAttestors` method to retrieve the
+    /// next page of results.
     ///
     /// [google.cloud.binaryauthorization.v1.ListAttestorsRequest.page_token]: crate::model::ListAttestorsRequest::page_token
     pub next_page_token: std::string::String,
@@ -2114,12 +2256,16 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListAttestorsRe
     }
 }
 
-/// Request message for [BinauthzManagementService.DeleteAttestor][].
+/// Request message for
+/// [BinauthzManagementServiceV1.DeleteAttestor][google.cloud.binaryauthorization.v1.BinauthzManagementServiceV1.DeleteAttestor].
+///
+/// [google.cloud.binaryauthorization.v1.BinauthzManagementServiceV1.DeleteAttestor]: crate::client::BinauthzManagementServiceV1::delete_attestor
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAttestorRequest {
-    /// Required. The name of the [attestors][google.cloud.binaryauthorization.v1.Attestor] to delete, in the format
-    /// `projects/*/attestors/*`.
+    /// Required. The name of the
+    /// [attestors][google.cloud.binaryauthorization.v1.Attestor] to delete, in the
+    /// format `projects/*/attestors/*`.
     ///
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
     pub name: std::string::String,
@@ -2198,7 +2344,8 @@ impl wkt::message::Message for GetSystemPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ValidateAttestationOccurrenceRequest {
-    /// Required. The resource name of the [Attestor][google.cloud.binaryauthorization.v1.Attestor] of the
+    /// Required. The resource name of the
+    /// [Attestor][google.cloud.binaryauthorization.v1.Attestor] of the
     /// [occurrence][grafeas.v1.Occurrence], in the format
     /// `projects/*/attestors/*`.
     ///
@@ -2206,9 +2353,9 @@ pub struct ValidateAttestationOccurrenceRequest {
     pub attestor: std::string::String,
 
     /// Required. An [AttestationOccurrence][grafeas.v1.AttestationOccurrence] to
-    /// be checked that it can be verified by the Attestor. It does not have to be
-    /// an existing entity in Container Analysis. It must otherwise be a valid
-    /// AttestationOccurrence.
+    /// be checked that it can be verified by the `Attestor`. It does not have to
+    /// be an existing entity in Container Analysis. It must otherwise be a valid
+    /// `AttestationOccurrence`.
     ///
     /// [grafeas.v1.AttestationOccurrence]: google_cloud_grafeas_v1::model::AttestationOccurrence
     pub attestation: std::option::Option<google_cloud_grafeas_v1::model::AttestationOccurrence>,
@@ -2374,7 +2521,7 @@ pub mod validate_attestation_occurrence_response {
     #[allow(unused_imports)]
     use super::*;
 
-    /// The enum returned in the "result" field.
+    /// The enum returned in the `result` field.
     ///
     /// # Working with unknown values
     ///

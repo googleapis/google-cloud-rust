@@ -40,6 +40,7 @@ impl std::fmt::Debug for super::Agent {
         debug_struct.field("toolsets", &self.toolsets);
         debug_struct.field("generated_summary", &self.generated_summary);
         debug_struct.field("transfer_rules", &self.transfer_rules);
+        debug_struct.field("validation_errors", &self.validation_errors);
         debug_struct.field("agent_type", &self.agent_type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -70,6 +71,7 @@ impl std::fmt::Debug for super::agent::RemoteDialogflowAgent {
             "respect_response_interruption_settings",
             &self.respect_response_interruption_settings,
         );
+        debug_struct.field("language_code_variable", &self.language_code_variable);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -82,6 +84,65 @@ impl std::fmt::Debug for super::agent::AgentToolset {
         let mut debug_struct = f.debug_struct("AgentToolset");
         debug_struct.field("toolset", &self.toolset);
         debug_struct.field("tool_ids", &self.tool_ids);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::AgentCard {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AgentCard");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("supported_interfaces", &self.supported_interfaces);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("skills", &self.skills);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::AgentInterface {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AgentInterface");
+        debug_struct.field("url", &self.url);
+        debug_struct.field("protocol_binding", &self.protocol_binding);
+        debug_struct.field("tenant", &self.tenant);
+        debug_struct.field("protocol_version", &self.protocol_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::AgentSkill {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AgentSkill");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("tags", &self.tags);
+        debug_struct.field("examples", &self.examples);
+        debug_struct.field("input_modes", &self.input_modes);
+        debug_struct.field("output_modes", &self.output_modes);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::RemoteAgentTool {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RemoteAgentTool");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("agent_card", &self.agent_card);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1005,7 +1066,9 @@ impl std::fmt::Debug for super::App {
             "client_certificate_settings",
             &self.client_certificate_settings,
         );
+        debug_struct.field("vpc_sc_settings", &self.vpc_sc_settings);
         debug_struct.field("locked", &self.locked);
+        debug_struct.field("validation_errors", &self.validation_errors);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1096,7 +1159,10 @@ impl std::fmt::Debug for super::SynthesizeSpeechConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SynthesizeSpeechConfig");
         debug_struct.field("voice", &self.voice);
+        debug_struct.field("voice_sample_gcs_uri", &self.voice_sample_gcs_uri);
         debug_struct.field("speaking_rate", &self.speaking_rate);
+        debug_struct.field("model", &self.model);
+        debug_struct.field("instruction", &self.instruction);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1120,7 +1186,15 @@ impl std::fmt::Debug for super::LoggingSettings {
         let mut debug_struct = f.debug_struct("LoggingSettings");
         debug_struct.field("redaction_config", &self.redaction_config);
         debug_struct.field("audio_recording_config", &self.audio_recording_config);
+        debug_struct.field(
+            "unredacted_audio_recording_config",
+            &self.unredacted_audio_recording_config,
+        );
         debug_struct.field("bigquery_export_settings", &self.bigquery_export_settings);
+        debug_struct.field(
+            "unredacted_bigquery_export_settings",
+            &self.unredacted_bigquery_export_settings,
+        );
         debug_struct.field("cloud_logging_settings", &self.cloud_logging_settings);
         debug_struct.field(
             "conversation_logging_settings",
@@ -1142,6 +1216,31 @@ impl std::fmt::Debug for super::ErrorHandlingSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ErrorHandlingSettings");
         debug_struct.field("error_handling_strategy", &self.error_handling_strategy);
+        debug_struct.field("fallback_response_config", &self.fallback_response_config);
+        debug_struct.field("end_session_config", &self.end_session_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::error_handling_settings::FallbackResponseConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FallbackResponseConfig");
+        debug_struct.field("custom_fallback_messages", &self.custom_fallback_messages);
+        debug_struct.field("max_fallback_attempts", &self.max_fallback_attempts);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::error_handling_settings::EndSessionConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EndSessionConfig");
+        debug_struct.field("escalate_session", &self.escalate_session);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1242,6 +1341,17 @@ impl std::fmt::Debug for super::ClientCertificateSettings {
     }
 }
 
+impl std::fmt::Debug for super::VpcScSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VpcScSettings");
+        debug_struct.field("allowed_origins", &self.allowed_origins);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::ConversationLoggingSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConversationLoggingSettings");
@@ -1249,6 +1359,7 @@ impl std::fmt::Debug for super::ConversationLoggingSettings {
             "disable_conversation_logging",
             &self.disable_conversation_logging,
         );
+        debug_struct.field("retention_window", &self.retention_window);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1633,6 +1744,8 @@ impl std::fmt::Debug for super::ChannelProfile {
         debug_struct.field("disable_barge_in_control", &self.disable_barge_in_control);
         debug_struct.field("web_widget_config", &self.web_widget_config);
         debug_struct.field("noise_suppression_level", &self.noise_suppression_level);
+        debug_struct.field("whatsapp_config", &self.whatsapp_config);
+        debug_struct.field("instagram_config", &self.instagram_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1672,6 +1785,36 @@ impl std::fmt::Debug for super::channel_profile::web_widget_config::SecuritySett
         debug_struct.field("enable_origin_check", &self.enable_origin_check);
         debug_struct.field("allowed_origins", &self.allowed_origins);
         debug_struct.field("enable_recaptcha", &self.enable_recaptcha);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::channel_profile::WhatsAppConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WhatsAppConfig");
+        debug_struct.field("waba_id", &self.waba_id);
+        debug_struct.field("phone_number_id", &self.phone_number_id);
+        debug_struct.field("phone_number", &self.phone_number);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("thumbnail_url", &self.thumbnail_url);
+        debug_struct.field("description", &self.description);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::channel_profile::InstagramConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstagramConfig");
+        debug_struct.field("instagram_account_id", &self.instagram_account_id);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("thumbnail_url", &self.thumbnail_url);
+        debug_struct.field("description", &self.description);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1971,6 +2114,42 @@ impl std::fmt::Debug for super::data_store_tool::ModalityConfig {
     }
 }
 
+impl std::fmt::Debug for super::ExperimentConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExperimentConfig");
+        debug_struct.field("version_release", &self.version_release);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::experiment_config::VersionRelease {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VersionRelease");
+        debug_struct.field("state", &self.state);
+        debug_struct.field("traffic_allocations", &self.traffic_allocations);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::experiment_config::version_release::TrafficAllocation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TrafficAllocation");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("traffic_percentage", &self.traffic_percentage);
+        debug_struct.field("app_version", &self.app_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::Deployment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Deployment");
@@ -1981,6 +2160,37 @@ impl std::fmt::Debug for super::Deployment {
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("etag", &self.etag);
+        debug_struct.field("experiment_config", &self.experiment_config);
+        debug_struct.field("whatsapp_credentials", &self.whatsapp_credentials);
+        debug_struct.field("instagram_credentials", &self.instagram_credentials);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::WhatsAppCredentials {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WhatsAppCredentials");
+        debug_struct.field("auth_code", &self.auth_code);
+        debug_struct.field("pin", &self.pin);
+        debug_struct.field("phone_number", &self.phone_number);
+        debug_struct.field("business_account_id", &self.business_account_id);
+        debug_struct.field("waba_id", &self.waba_id);
+        debug_struct.field("conversation_profile_id", &self.conversation_profile_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::InstagramCredentials {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstagramCredentials");
+        debug_struct.field("auth_code", &self.auth_code);
+        debug_struct.field("conversation_profile_id", &self.conversation_profile_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2280,6 +2490,7 @@ impl std::fmt::Debug for super::McpTool {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("McpTool");
         debug_struct.field("name", &self.name);
+        debug_struct.field("name_override", &self.name_override);
         debug_struct.field("description", &self.description);
         debug_struct.field("input_schema", &self.input_schema);
         debug_struct.field("output_schema", &self.output_schema);
@@ -2288,6 +2499,7 @@ impl std::fmt::Debug for super::McpTool {
         debug_struct.field("tls_config", &self.tls_config);
         debug_struct.field("service_directory_config", &self.service_directory_config);
         debug_struct.field("custom_headers", &self.custom_headers);
+        debug_struct.field("state", &self.state);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2303,6 +2515,48 @@ impl std::fmt::Debug for super::McpToolset {
         debug_struct.field("service_directory_config", &self.service_directory_config);
         debug_struct.field("tls_config", &self.tls_config);
         debug_struct.field("custom_headers", &self.custom_headers);
+        debug_struct.field("tool_overrides", &self.tool_overrides);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::McpToolOverride {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("McpToolOverride");
+        debug_struct.field("tool", &self.tool);
+        debug_struct.field("name_override", &self.name_override);
+        debug_struct.field("description_override", &self.description_override);
+        debug_struct.field("snapshot", &self.snapshot);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::McpToolDefinition {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("McpToolDefinition");
+        debug_struct.field("description", &self.description);
+        debug_struct.field("input_schema", &self.input_schema);
+        debug_struct.field("output_schema", &self.output_schema);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::MockedToolCall {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MockedToolCall");
+        debug_struct.field("tool", &self.tool);
+        debug_struct.field("expected_args_pattern", &self.expected_args_pattern);
+        debug_struct.field("mock_response", &self.mock_response);
+        debug_struct.field("tool_identifier", &self.tool_identifier);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2460,6 +2714,7 @@ impl std::fmt::Debug for super::PythonFunction {
         debug_struct.field("name", &self.name);
         debug_struct.field("python_code", &self.python_code);
         debug_struct.field("description", &self.description);
+        debug_struct.field("service_directory_config", &self.service_directory_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2540,6 +2795,21 @@ impl std::fmt::Debug for super::EndpointControlPolicy {
         let mut debug_struct = f.debug_struct("EndpointControlPolicy");
         debug_struct.field("enforcement_scope", &self.enforcement_scope);
         debug_struct.field("allowed_origins", &self.allowed_origins);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::MockConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MockConfig");
+        debug_struct.field("mocked_tool_calls", &self.mocked_tool_calls);
+        debug_struct.field(
+            "unmatched_tool_call_behavior",
+            &self.unmatched_tool_call_behavior,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2647,6 +2917,7 @@ impl std::fmt::Debug for super::citations::CitedChunk {
         debug_struct.field("uri", &self.uri);
         debug_struct.field("title", &self.title);
         debug_struct.field("text", &self.text);
+        debug_struct.field("requires_attribution", &self.requires_attribution);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2683,6 +2954,7 @@ impl std::fmt::Debug for super::SessionOutput {
         debug_struct.field("turn_index", &self.turn_index);
         debug_struct.field("turn_completed", &self.turn_completed);
         debug_struct.field("diagnostic_info", &self.diagnostic_info);
+        debug_struct.field("context", &self.context);
         debug_struct.field("output_type", &self.output_type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -2809,6 +3081,7 @@ impl std::fmt::Debug for super::Tool {
         debug_struct.field("name", &self.name);
         debug_struct.field("display_name", &self.display_name);
         debug_struct.field("execution_type", &self.execution_type);
+        debug_struct.field("timeout", &self.timeout);
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("etag", &self.etag);
@@ -2827,6 +3100,7 @@ impl std::fmt::Debug for super::ExecuteToolRequest {
         let mut debug_struct = f.debug_struct("ExecuteToolRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("args", &self.args);
+        debug_struct.field("mock_config", &self.mock_config);
         debug_struct.field("tool_identifier", &self.tool_identifier);
         debug_struct.field("tool_execution_context", &self.tool_execution_context);
         if !self._unknown_fields.is_empty() {
@@ -2841,6 +3115,8 @@ impl std::fmt::Debug for super::ExecuteToolResponse {
         let mut debug_struct = f.debug_struct("ExecuteToolResponse");
         debug_struct.field("response", &self.response);
         debug_struct.field("variables", &self.variables);
+        debug_struct.field("citations", &self.citations);
+        debug_struct.field("google_search_suggestions", &self.google_search_suggestions);
         debug_struct.field("tool_identifier", &self.tool_identifier);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -2879,6 +3155,7 @@ impl std::fmt::Debug for super::RetrieveToolsRequest {
         let mut debug_struct = f.debug_struct("RetrieveToolsRequest");
         debug_struct.field("toolset", &self.toolset);
         debug_struct.field("tool_ids", &self.tool_ids);
+        debug_struct.field("bypass_persistence_config", &self.bypass_persistence_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2903,6 +3180,7 @@ impl std::fmt::Debug for super::Toolset {
         debug_struct.field("name", &self.name);
         debug_struct.field("display_name", &self.display_name);
         debug_struct.field("description", &self.description);
+        debug_struct.field("timeout", &self.timeout);
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("etag", &self.etag);
@@ -2962,7 +3240,21 @@ impl std::fmt::Debug for super::WidgetTool {
         debug_struct.field("widget_type", &self.widget_type);
         debug_struct.field("ui_config", &self.ui_config);
         debug_struct.field("data_mapping", &self.data_mapping);
+        debug_struct.field("text_response_config", &self.text_response_config);
         debug_struct.field("input", &self.input);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::widget_tool::TextResponseConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TextResponseConfig");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("static_text", &self.static_text);
+        debug_struct.field("text_response_instruction", &self.text_response_instruction);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
