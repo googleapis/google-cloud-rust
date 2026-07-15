@@ -18,15 +18,21 @@ use google_cloud_bigquery::client::BigQuery;
 pub async fn sample(project_id: &str) -> anyhow::Result<()> {
     let client = BigQuery::builder().build().await?;
 
-    let mut rows = client.query("SELECT \
+    let mut rows = client
+        .query(
+            "SELECT \
         name FROM `bigquery-public-data.usa_names.usa_1910_2013` \
         WHERE state = 'TX' \
-        LIMIT 100")
-                .with_project_id(project_id)
-                .set_location("US")
-                .run().await?
-                .until_done().await?.read();
-    
+        LIMIT 100",
+        )
+        .with_project_id(project_id)
+        .set_location("US")
+        .run()
+        .await?
+        .until_done()
+        .await?
+        .read();
+
     while let Some(row) = rows.next().await.transpose()? {
         let name: String = row.get("name");
         println!("Name: {name}");
