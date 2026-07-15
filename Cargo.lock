@@ -201,7 +201,7 @@ dependencies = [
  "google-cloud-bigquery-v2",
  "google-cloud-test-utils",
  "google-cloud-wkt",
- "rand 0.10.1",
+ "rand 0.10.2",
  "tokio",
  "tracing",
 ]
