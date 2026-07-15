@@ -21,6 +21,7 @@ use google_cloud_bigquery_v2::model::{
     Dataset, DatasetReference, Job, JobConfiguration, JobConfigurationQuery, JobReference,
 };
 use google_cloud_gax::{error::rpc::Code, paginator::ItemPaginator};
+use google_cloud_lro::Poller;
 use google_cloud_test_utils::runtime_config::project_id;
 use rand::{RngExt, distr::Alphanumeric};
 
@@ -198,7 +199,8 @@ pub async fn job_service() -> Result<()> {
                         .set_query(JobConfigurationQuery::new().set_query(query)),
                 ),
         )
-        .send()
+        .poller()
+        .until_done()
         .await?;
     println!("CREATE JOB = {job:?}");
 
