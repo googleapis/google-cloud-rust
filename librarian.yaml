@@ -500,6 +500,8 @@ libraries:
   - name: google-cloud-bigquery-v2
     version: 1.0.0
     copyright_year: "2025"
+    keep:
+      - src/operation.rs
     skip_release: true
     rust:
       package_name_override: google-cloud-bigquery-v2
