@@ -22,9 +22,11 @@ pub mod status;
 #[cfg(google_cloud_unstable_gapic_streaming)]
 pub(crate) mod streaming;
 pub mod tonic;
+mod tracing_attributes;
 mod transport_policies;
 #[cfg(google_cloud_unstable_grpc_rust)]
 pub use grpc_rust::{GrpcRustClient, GrpcRustStreaming};
+pub use tracing_attributes::TracingAttributes;
 
 use crate::attempt_interceptor::AttemptInterceptor;
 use crate::universe_domain::DEFAULT_UNIVERSE_DOMAIN;
@@ -58,14 +60,6 @@ pub type GrpcService = Channel;
 
 /// The inner gRPC client type.
 pub type InnerClient = Grpc<GrpcService>;
-
-#[derive(Clone, Debug)]
-pub struct TracingAttributes {
-    pub server_address: String,
-    pub server_port: Option<i64>,
-    pub url_domain: String,
-    pub instrumentation: Option<&'static crate::options::InstrumentationClientInfo>,
-}
 
 #[derive(Clone, Debug)]
 pub struct Client {
