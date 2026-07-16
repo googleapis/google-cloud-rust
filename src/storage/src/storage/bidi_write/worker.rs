@@ -16,15 +16,17 @@
 
 use super::connector::Connection;
 use super::{Client, TonicStreaming};
+use crate::Error;
 use crate::error::WriteError;
 use crate::google::storage::v2::{BidiWriteObjectRequest, BidiWriteObjectResponse};
 use gaxi::grpc::tonic::Result as TonicResult;
+use std::sync::Arc;
 
 use tokio::sync::mpsc::Receiver;
 use tokio::sync::oneshot;
 
 type WriteResult<T> = std::result::Result<T, WriteError>;
-type LoopResult<T> = std::result::Result<T, crate::Error>;
+type LoopResult<T> = std::result::Result<T, Error>;
 
 /// The intent sent from the foreground task to the background worker.
 pub enum UploadIntent {
@@ -93,24 +95,14 @@ where
                 intent = requests.recv() => {
                     match intent {
                         Some(intent) => {
-                            let request = match intent {
-                                UploadIntent::Append(req) => req,
-                                UploadIntent::Flush(req, sender) => {
-                                    self.pending_flushes.push_back(sender);
-                                    req
-                                }
-                                UploadIntent::Finalize(req, sender) => {
-                                    self.pending_flushes.push_back(sender);
-                                    self.finalized = true;
-                                    req
-                                }
-                            };
+                            let request = self.process_intent(intent);
                             if let Err(e) = tx.send(request).await {
-                                break Some(crate::Error::io(e));
+                                break Some(Error::io(e));
                             }
                         }
                         None => {
-                            break None;
+                            drop(tx);
+                            break self.wait_for_server_completion(rx).await;
                         }
                     }
                 }
@@ -118,13 +110,61 @@ where
         };
 
         if let Some(e) = error {
-            for sender in self.pending_flushes.drain(..) {
-                let _ = sender.send(Err(crate::Error::io(e.to_string())));
-            }
-            return Err(e);
+            let shared_error = Arc::new(e);
+            self.drain_intents_on_error(requests, Arc::clone(&shared_error))
+                .await;
+            return Err(Error::ser(shared_error));
         }
 
         Ok(())
+    }
+
+    fn process_intent(&mut self, intent: UploadIntent) -> BidiWriteObjectRequest {
+        match intent {
+            UploadIntent::Append(req) => req,
+            UploadIntent::Flush(mut req, sender) => {
+                req.state_lookup = true; // Ensure the server acknowledges this flush.
+                self.pending_flushes.push_back(sender);
+                req
+            }
+            UploadIntent::Finalize(req, sender) => {
+                self.pending_flushes.push_back(sender);
+                self.finalized = true;
+                req
+            }
+        }
+    }
+
+    async fn wait_for_server_completion(&mut self, mut rx: C::Stream) -> Option<Error> {
+        loop {
+            match rx.next_message().await {
+                Ok(Some(msg)) => {
+                    self.handle_response_success(msg);
+                }
+                Ok(None) => break None,
+                Err(e) => break Some(Error::io(e)),
+            }
+        }
+    }
+
+    async fn drain_intents_on_error(
+        &mut self,
+        mut requests: Receiver<UploadIntent>,
+        shared_error: Arc<Error>,
+    ) {
+        for sender in self.pending_flushes.drain(..) {
+            let _ = sender.send(Err(Error::ser(Arc::clone(&shared_error))));
+        }
+        // Drain remaining requests to notify pending flush/finalize intents if the stream failed.
+        requests.close();
+        while let Some(intent) = requests.recv().await {
+            match intent {
+                UploadIntent::Flush(_, sender) | UploadIntent::Finalize(_, sender) => {
+                    let _ = sender.send(Err(Error::ser(Arc::clone(&shared_error))));
+                }
+                UploadIntent::Append(_) => {}
+            }
+        }
     }
 
     pub fn handle_response(
@@ -138,11 +178,11 @@ where
                 // intends to finalize the upload, treat it as an error to prevent silent
                 // failures on subsequent client writes.
                 if !self.pending_flushes.is_empty() || !self.finalized {
-                    return Some(Err(crate::Error::io("stream closed unexpectedly")));
+                    return Some(Err(Error::io("stream closed unexpectedly")));
                 }
                 return None;
             }
-            Err(e) => return Some(Err(crate::Error::io(e))),
+            Err(e) => return Some(Err(Error::io(e))),
         };
         self.handle_response_success(response);
 
@@ -210,6 +250,8 @@ mod tests {
         assert_eq!(stream_req.write_offset, 10);
 
         drop(tx);
+        tokio::task::yield_now().await;
+        drop(_response_tx);
         handle.await??;
         Ok(())
     }
@@ -228,6 +270,7 @@ mod tests {
 
         let stream_req = request_rx.recv().await.unwrap();
         assert!(stream_req.flush);
+        assert!(stream_req.state_lookup);
 
         let server_resp = BidiWriteObjectResponse {
             write_status: Some(WriteStatus::PersistedSize(100)),
@@ -239,8 +282,9 @@ mod tests {
         assert_eq!(received_resp.write_status, server_resp.write_status);
 
         drop(tx);
-        handle.await??;
+        tokio::task::yield_now().await;
         drop(response_tx);
+        handle.await??;
         Ok(())
     }
 
@@ -280,6 +324,8 @@ mod tests {
     async fn run_stop_on_closed_requests() -> anyhow::Result<()> {
         let (handle, tx, _request_rx, _response_tx) = spawn_test_worker();
         drop(tx);
+        tokio::task::yield_now().await;
+        drop(_response_tx);
         handle.await??;
         Ok(())
     }
@@ -295,7 +341,7 @@ mod tests {
         assert!(result.is_err());
         assert_eq!(
             result.unwrap_err().to_string(),
-            "the transport reports an error: stream closed unexpectedly"
+            "cannot serialize the request the transport reports an error: stream closed unexpectedly"
         );
 
         Ok(())
@@ -323,11 +369,69 @@ mod tests {
         assert!(received_resp.is_err());
         assert_eq!(
             received_resp.unwrap_err().to_string(),
-            "the transport reports an error: the transport reports an error: stream closed unexpectedly"
+            "cannot serialize the request the transport reports an error: stream closed unexpectedly"
         );
 
         let result = handle.await?;
         assert!(result.is_err());
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn run_stream_error_then_queue_requests() -> anyhow::Result<()> {
+        let (request_tx, _request_rx) = mpsc::channel(10);
+        let (response_tx, response_rx) = mpsc::channel(10);
+        let (tx, rx) = mpsc::channel(10);
+        let connection = Connection::new(request_tx, response_rx);
+
+        let mut mock = MockTestClient::new();
+        mock.expect_start().never();
+
+        let connector = mock_connector(mock);
+        let worker = Worker::new(connector);
+        let handle = tokio::spawn(worker.run(connection, rx));
+
+        let (flush_tx1, flush_rx1) = oneshot::channel();
+        let (flush_tx2, flush_rx2) = oneshot::channel();
+
+        // Drop the server response stream to simulate the remote network crash.
+        // The worker will wake up and eventually process this, triggering the drain.
+        drop(response_tx);
+
+        // Put requests into the channel immediately. Because it has capacity 10
+        // and we haven't yielded, these are queued in the requests buffer synchronously.
+        tx.send(UploadIntent::Flush(
+            BidiWriteObjectRequest::default(),
+            flush_tx1,
+        ))
+        .await?;
+        tx.send(UploadIntent::Flush(
+            BidiWriteObjectRequest::default(),
+            flush_tx2,
+        ))
+        .await?;
+
+        let payload1 = flush_rx1.await.unwrap();
+        assert!(payload1.is_err());
+        assert!(
+            payload1
+                .unwrap_err()
+                .to_string()
+                .contains("stream closed unexpectedly")
+        );
+
+        let payload2 = flush_rx2.await.unwrap();
+        assert!(payload2.is_err());
+        assert!(
+            payload2
+                .unwrap_err()
+                .to_string()
+                .contains("stream closed unexpectedly")
+        );
+
+        let result = handle.await?;
+        assert!(result.is_err());
+
         Ok(())
     }
 }
