@@ -1020,7 +1020,8 @@ pub mod job_service {
         pub fn poller(self) -> impl google_cloud_lro::Poller<crate::model::Job, crate::model::Job> {
             let req = self.0.request.clone();
             let stub = self.0.stub.clone();
-            let options = self.0.options.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
 
             let polling_error_policy =
                 std::sync::Arc::new(google_cloud_gax::polling_error_policy::AlwaysContinue);
@@ -1030,9 +1031,8 @@ pub mod job_service {
 
             let query = move |name: String| {
                 let stub_clone = stub.clone();
-                let mut options_clone = options.clone();
+                let options_clone = options.clone();
                 let req_clone = req.clone();
-                options_clone.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
                 async move {
                     let get_req = crate::model::GetJobRequest {
                         project_id: req_clone.project_id.clone(),
@@ -1046,7 +1046,7 @@ pub mod job_service {
                         _unknown_fields: std::default::Default::default(),
                     };
                     let job = stub_clone
-                        .get_job(get_req, options_clone.clone())
+                        .get_job(get_req, options_clone)
                         .await
                         .map(crate::Response::into_body)?;
 
