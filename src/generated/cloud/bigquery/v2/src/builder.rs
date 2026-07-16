@@ -1029,20 +1029,32 @@ pub mod job_service {
                 google_cloud_gax::exponential_backoff::ExponentialBackoff::default(),
             );
 
+            let shared_location = std::sync::Arc::new(std::sync::OnceLock::<String>::new());
+            let shared_location_for_start = shared_location.clone();
+            let shared_location_for_query = shared_location.clone();
+
             let query = move |name: String| {
                 let stub_clone = stub.clone();
                 let options_clone = options.clone();
                 let req_clone = req.clone();
+                let shared_location_clone = shared_location_for_query.clone();
                 async move {
+                    let loc = shared_location_clone
+                        .get()
+                        .cloned()
+                        .or_else(|| {
+                            req_clone
+                                .job
+                                .as_ref()
+                                .and_then(|j| j.job_reference.as_ref())
+                                .and_then(|jr| jr.location.clone())
+                        })
+                        .unwrap_or_default();
+
                     let get_req = crate::model::GetJobRequest {
                         project_id: req_clone.project_id.clone(),
                         job_id: name,
-                        location: req_clone
-                            .job
-                            .as_ref()
-                            .and_then(|j| j.job_reference.as_ref())
-                            .and_then(|jr| jr.location.clone())
-                            .unwrap_or_default(),
+                        location: loc,
                         _unknown_fields: std::default::Default::default(),
                     };
                     let job = stub_clone
@@ -1054,7 +1066,19 @@ pub mod job_service {
                 }
             };
 
-            let start = move || async move { self.send().await };
+            let start = move || {
+                let shared_location_clone = shared_location_for_start.clone();
+                async move {
+                    let res = self.send().await;
+                    if let Ok(ref job) = res
+                        && let Some(ref jr) = job.job_reference
+                        && let Some(ref loc) = jr.location
+                    {
+                        let _ = shared_location_clone.set(loc.clone());
+                    }
+                    res
+                }
+            };
 
             google_cloud_lro::internal::new_discovery_poller(
                 polling_error_policy,
