@@ -171,6 +171,12 @@ impl ToValue for f32 {
 
 impl ToValue for Vec<u8> {
     fn to_value(&self) -> Value {
+        self.as_slice().to_value()
+    }
+}
+
+impl ToValue for &[u8] {
+    fn to_value(&self) -> Value {
         Value(ProtoValue {
             kind: Some(prost_types::value::Kind::StringValue(
                 BASE64_STANDARD.encode(self),
@@ -250,6 +256,16 @@ mod tests {
         let v = bytes.to_value();
         assert_eq!(v.kind(), Kind::String);
         assert_eq!(v.as_string(), "AQID"); // Base64 encoded
+    }
+
+    #[test]
+    fn test_to_value_bytes_slice() {
+        let bytes: Vec<u8> = vec![1, 2, 3];
+        let slice: &[u8] = &bytes;
+        let v = slice.to_value();
+        assert_eq!(v.kind(), Kind::String);
+        assert_eq!(v.as_string(), "AQID"); // Base64 encoded
+        assert_eq!(v, bytes.to_value());
     }
 
     #[test]
