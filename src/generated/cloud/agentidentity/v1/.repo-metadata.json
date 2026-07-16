@@ -1,0 +1,14 @@
+{
+    "api_id": "agentidentity.googleapis.com",
+    "api_shortname": "agentidentity",
+    "client_documentation": "https://docs.rs/google-cloud-agentidentity-v1/latest",
+    "distribution_name": "google-cloud-agentidentity-v1",
+    "issue_tracker": "https://issuetracker.google.com/issues/new?component=961386",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name": "agentidentity",
+    "name_pretty": "Agent Identity",
+    "product_documentation": "https://cloud.google.com/agentidentity/",
+    "release_level": "stable",
+    "repo": "googleapis/google-cloud-rust"
+}
