@@ -75,6 +75,68 @@ impl std::fmt::Debug for super::AffectedResources {
     }
 }
 
+impl std::fmt::Debug for super::Agent {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Agent");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("display_name", &self.display_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::AgentAnomaly {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AgentAnomaly");
+        debug_struct.field("confidence_score", &self.confidence_score);
+        debug_struct.field("detector_references", &self.detector_references);
+        debug_struct.field("invocation_references", &self.invocation_references);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DetectorReference {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DetectorReference");
+        debug_struct.field("severity", &self.severity);
+        debug_struct.field("detector_id", &self.detector_id);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("explanation", &self.explanation);
+        debug_struct.field("recommendation", &self.recommendation);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::InvocationReference {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InvocationReference");
+        debug_struct.field("invocation_id", &self.invocation_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::AgentSession {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AgentSession");
+        debug_struct.field("session_id", &self.session_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::AiModel {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AiModel");
@@ -651,6 +713,9 @@ impl std::fmt::Debug for super::Finding {
         debug_struct.field("ai_model", &self.ai_model);
         debug_struct.field("chokepoint", &self.chokepoint);
         debug_struct.field("vertex_ai", &self.vertex_ai);
+        debug_struct.field("agent", &self.agent);
+        debug_struct.field("agent_sessions", &self.agent_sessions);
+        debug_struct.field("agent_anomaly", &self.agent_anomaly);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

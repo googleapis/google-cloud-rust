@@ -33,13 +33,11 @@ use std::sync::Arc;
 /// the decorator has no effect. If the error is "permanent", but happens to be
 /// a redirect, then it is treated as retryable.
 #[derive(Clone, Debug)]
-#[allow(dead_code)]
 pub struct RetryRedirect<T> {
     inner: T,
 }
 
 impl<T> RetryRedirect<T> {
-    #[allow(dead_code)]
     pub fn new(inner: T) -> Self {
         Self { inner }
     }

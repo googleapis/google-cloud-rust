@@ -25,6 +25,7 @@ extern crate gaxi;
 extern crate google_cloud_gax;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_location;
+extern crate google_cloud_rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -157,6 +158,19 @@ pub struct Secret {
     ///
     /// Tags can be used to control policy evaluation for the resource.
     pub tags: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. Immutable. This defines the type of the secret.
+    /// Enforces certain structural requirements on the
+    /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion].
+    /// For secret of type UNSPECIFIED, the SecretVersions can be of any type.
+    ///
+    /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
+    pub secret_type: crate::model::secret::SecretType,
+
+    /// Output only. Defines the policy member for the secret.
+    /// This will be used to check if the caller has the permission to perform
+    /// certain operations on the typed secret.
+    pub policy_member: std::option::Option<google_cloud_iam_v1::model::ResourcePolicyMember>,
 
     /// Expiration policy attached to the
     /// [Secret][google.cloud.secretmanager.v1.Secret]. If specified the
@@ -480,6 +494,57 @@ impl Secret {
         self
     }
 
+    /// Sets the value of [secret_type][crate::model::Secret::secret_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// use google_cloud_secretmanager_v1::model::secret::SecretType;
+    /// let x0 = Secret::new().set_secret_type(SecretType::CloudSqlDbCredentials);
+    /// let x1 = Secret::new().set_secret_type(SecretType::AccessKey);
+    /// let x2 = Secret::new().set_secret_type(SecretType::Certificate);
+    /// ```
+    pub fn set_secret_type<T: std::convert::Into<crate::model::secret::SecretType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.secret_type = v.into();
+        self
+    }
+
+    /// Sets the value of [policy_member][crate::model::Secret::policy_member].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// use google_cloud_iam_v1::model::ResourcePolicyMember;
+    /// let x = Secret::new().set_policy_member(ResourcePolicyMember::default()/* use setters */);
+    /// ```
+    pub fn set_policy_member<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_cloud_iam_v1::model::ResourcePolicyMember>,
+    {
+        self.policy_member = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [policy_member][crate::model::Secret::policy_member].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// use google_cloud_iam_v1::model::ResourcePolicyMember;
+    /// let x = Secret::new().set_or_clear_policy_member(Some(ResourcePolicyMember::default()/* use setters */));
+    /// let x = Secret::new().set_or_clear_policy_member(None::<ResourcePolicyMember>);
+    /// ```
+    pub fn set_or_clear_policy_member<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_cloud_iam_v1::model::ResourcePolicyMember>,
+    {
+        self.policy_member = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [expiration][crate::model::Secret::expiration].
     ///
     /// Note that all the setters affecting `expiration` are mutually
@@ -578,6 +643,164 @@ impl wkt::message::Message for Secret {
 pub mod secret {
     #[allow(unused_imports)]
     use super::*;
+
+    /// This defines the various values of the type of secret can be.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum SecretType {
+        /// Applicable to all secrets which do not have any restriction on the
+        /// SecretVersions.
+        Unspecified,
+        /// Applicable to secrets which are used for the managed rotation feature
+        /// for Cloud SQL Single User.
+        CloudSqlDbCredentials,
+        /// Applicable to secrets where the payload contains an access key.
+        AccessKey,
+        /// Applicable to secrets where the payload contains a certificate.
+        Certificate,
+        /// Applicable to secrets where the payload contains database credentials.
+        OtherDbCredentials,
+        /// Applicable to secrets whose type doesn't belong to any of the above
+        /// defined types.
+        Other,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [SecretType::value] or
+        /// [SecretType::name].
+        UnknownValue(secret_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod secret_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl SecretType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::CloudSqlDbCredentials => std::option::Option::Some(1),
+                Self::AccessKey => std::option::Option::Some(2),
+                Self::Certificate => std::option::Option::Some(3),
+                Self::OtherDbCredentials => std::option::Option::Some(4),
+                Self::Other => std::option::Option::Some(50),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SECRET_TYPE_UNSPECIFIED"),
+                Self::CloudSqlDbCredentials => {
+                    std::option::Option::Some("CLOUD_SQL_DB_CREDENTIALS")
+                }
+                Self::AccessKey => std::option::Option::Some("ACCESS_KEY"),
+                Self::Certificate => std::option::Option::Some("CERTIFICATE"),
+                Self::OtherDbCredentials => std::option::Option::Some("OTHER_DB_CREDENTIALS"),
+                Self::Other => std::option::Option::Some("OTHER"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for SecretType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for SecretType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for SecretType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::CloudSqlDbCredentials,
+                2 => Self::AccessKey,
+                3 => Self::Certificate,
+                4 => Self::OtherDbCredentials,
+                50 => Self::Other,
+                _ => Self::UnknownValue(secret_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for SecretType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SECRET_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "CLOUD_SQL_DB_CREDENTIALS" => Self::CloudSqlDbCredentials,
+                "ACCESS_KEY" => Self::AccessKey,
+                "CERTIFICATE" => Self::Certificate,
+                "OTHER_DB_CREDENTIALS" => Self::OtherDbCredentials,
+                "OTHER" => Self::Other,
+                _ => Self::UnknownValue(secret_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for SecretType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::CloudSqlDbCredentials => serializer.serialize_i32(1),
+                Self::AccessKey => serializer.serialize_i32(2),
+                Self::Certificate => serializer.serialize_i32(3),
+                Self::OtherDbCredentials => serializer.serialize_i32(4),
+                Self::Other => serializer.serialize_i32(50),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SecretType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<SecretType>::new(
+                ".google.cloud.secretmanager.v1.Secret.SecretType",
+            ))
+        }
+    }
 
     /// Expiration policy attached to the
     /// [Secret][google.cloud.secretmanager.v1.Secret]. If specified the
@@ -2042,6 +2265,11 @@ pub struct Rotation {
     /// [google.cloud.secretmanager.v1.Rotation.rotation_period]: crate::model::Rotation::rotation_period
     pub rotation_period: std::option::Option<wkt::Duration>,
 
+    /// Output only. The current status of the managed rotation.
+    /// This field is only applicable to Typed Secrets.
+    /// This field is set by the service and cannot be set by the user.
+    pub managed_rotation_status: std::option::Option<crate::model::rotation::ManagedRotationStatus>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2116,11 +2344,275 @@ impl Rotation {
         self.rotation_period = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [managed_rotation_status][crate::model::Rotation::managed_rotation_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_secretmanager_v1::model::Rotation;
+    /// use google_cloud_secretmanager_v1::model::rotation::ManagedRotationStatus;
+    /// let x = Rotation::new().set_managed_rotation_status(ManagedRotationStatus::default()/* use setters */);
+    /// ```
+    pub fn set_managed_rotation_status<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::rotation::ManagedRotationStatus>,
+    {
+        self.managed_rotation_status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [managed_rotation_status][crate::model::Rotation::managed_rotation_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_secretmanager_v1::model::Rotation;
+    /// use google_cloud_secretmanager_v1::model::rotation::ManagedRotationStatus;
+    /// let x = Rotation::new().set_or_clear_managed_rotation_status(Some(ManagedRotationStatus::default()/* use setters */));
+    /// let x = Rotation::new().set_or_clear_managed_rotation_status(None::<ManagedRotationStatus>);
+    /// ```
+    pub fn set_or_clear_managed_rotation_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::rotation::ManagedRotationStatus>,
+    {
+        self.managed_rotation_status = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for Rotation {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.secretmanager.v1.Rotation"
+    }
+}
+
+/// Defines additional types related to [Rotation].
+pub mod rotation {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Represents the status of a managed rotation.
+    ///
+    /// This is applicable only to Typed Secrets. It indicates whether the
+    /// rotation is active and any errors that may have occurred during the
+    /// asynchronous managed rotation.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ManagedRotationStatus {
+        /// Output only. Indicates whether the Managed Rotation is active or not.
+        pub state: crate::model::rotation::managed_rotation_status::State,
+
+        /// Output only. Displays customer-facing issues that occurred during an
+        /// asynchronous managed rotation. For example, if there are some permission
+        /// errors.
+        pub error: std::option::Option<google_cloud_rpc::model::Status>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ManagedRotationStatus {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [state][crate::model::rotation::ManagedRotationStatus::state].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_secretmanager_v1::model::rotation::ManagedRotationStatus;
+        /// use google_cloud_secretmanager_v1::model::rotation::managed_rotation_status::State;
+        /// let x0 = ManagedRotationStatus::new().set_state(State::Active);
+        /// let x1 = ManagedRotationStatus::new().set_state(State::Inactive);
+        /// ```
+        pub fn set_state<
+            T: std::convert::Into<crate::model::rotation::managed_rotation_status::State>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.state = v.into();
+            self
+        }
+
+        /// Sets the value of [error][crate::model::rotation::ManagedRotationStatus::error].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_secretmanager_v1::model::rotation::ManagedRotationStatus;
+        /// use google_cloud_rpc::model::Status;
+        /// let x = ManagedRotationStatus::new().set_error(Status::default()/* use setters */);
+        /// ```
+        pub fn set_error<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<google_cloud_rpc::model::Status>,
+        {
+            self.error = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [error][crate::model::rotation::ManagedRotationStatus::error].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_secretmanager_v1::model::rotation::ManagedRotationStatus;
+        /// use google_cloud_rpc::model::Status;
+        /// let x = ManagedRotationStatus::new().set_or_clear_error(Some(Status::default()/* use setters */));
+        /// let x = ManagedRotationStatus::new().set_or_clear_error(None::<Status>);
+        /// ```
+        pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<google_cloud_rpc::model::Status>,
+        {
+            self.error = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for ManagedRotationStatus {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.secretmanager.v1.Rotation.ManagedRotationStatus"
+        }
+    }
+
+    /// Defines additional types related to [ManagedRotationStatus].
+    pub mod managed_rotation_status {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// This defines the various states in which the managed rotation can be.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum State {
+            /// Not specified. This value is unused and invalid.
+            Unspecified,
+            /// Indicates that the Managed rotation is ACTIVE.
+            Active,
+            /// Indicates that the Managed rotation is INACTIVE.
+            Inactive,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [State::value] or
+            /// [State::name].
+            UnknownValue(state::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod state {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl State {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Active => std::option::Option::Some(1),
+                    Self::Inactive => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                    Self::Active => std::option::Option::Some("ACTIVE"),
+                    Self::Inactive => std::option::Option::Some("INACTIVE"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for State {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for State {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for State {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Active,
+                    2 => Self::Inactive,
+                    _ => Self::UnknownValue(state::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for State {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "STATE_UNSPECIFIED" => Self::Unspecified,
+                    "ACTIVE" => Self::Active,
+                    "INACTIVE" => Self::Inactive,
+                    _ => Self::UnknownValue(state::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for State {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Active => serializer.serialize_i32(1),
+                    Self::Inactive => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for State {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                    ".google.cloud.secretmanager.v1.Rotation.ManagedRotationStatus.State",
+                ))
+            }
+        }
     }
 }
 
@@ -2602,6 +3094,261 @@ impl AddSecretVersionRequest {
 impl wkt::message::Message for AddSecretVersionRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.secretmanager.v1.AddSecretVersionRequest"
+    }
+}
+
+/// Request message for
+/// [SecretManagerService.EnableManagedRotation][google.cloud.secretmanager.v1.SecretManagerService.EnableManagedRotation].
+///
+/// [google.cloud.secretmanager.v1.SecretManagerService.EnableManagedRotation]: crate::client::SecretManagerService::enable_managed_rotation
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct EnableManagedRotationRequest {
+    /// Required. The resource name of the
+    /// [Secret][google.cloud.secretmanager.v1.Secret] to associate with the
+    /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] in the format
+    /// `projects/*/secrets/*` or `projects/*/locations/*/secrets/*`.
+    ///
+    /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
+    /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
+    pub parent: std::string::String,
+
+    /// The credentials required for Managed Rotation.
+    /// Right now, only Cloud SQL Single User credentials are supported.
+    pub credentials:
+        std::option::Option<crate::model::enable_managed_rotation_request::Credentials>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl EnableManagedRotationRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::EnableManagedRotationRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_secretmanager_v1::model::EnableManagedRotationRequest;
+    /// # let project_id = "project_id";
+    /// # let secret_id = "secret_id";
+    /// let x = EnableManagedRotationRequest::new().set_parent(format!("projects/{project_id}/secrets/{secret_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [credentials][crate::model::EnableManagedRotationRequest::credentials].
+    ///
+    /// Note that all the setters affecting `credentials` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_secretmanager_v1::model::EnableManagedRotationRequest;
+    /// use google_cloud_secretmanager_v1::model::enable_managed_rotation_request::CloudSQLSingleUserCredentials;
+    /// let x = EnableManagedRotationRequest::new().set_credentials(Some(
+    ///     google_cloud_secretmanager_v1::model::enable_managed_rotation_request::Credentials::CloudSqlSingleUserCredentials(CloudSQLSingleUserCredentials::default().into())));
+    /// ```
+    pub fn set_credentials<
+        T: std::convert::Into<
+                std::option::Option<crate::model::enable_managed_rotation_request::Credentials>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.credentials = v.into();
+        self
+    }
+
+    /// The value of [credentials][crate::model::EnableManagedRotationRequest::credentials]
+    /// if it holds a `CloudSqlSingleUserCredentials`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn cloud_sql_single_user_credentials(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<
+            crate::model::enable_managed_rotation_request::CloudSQLSingleUserCredentials,
+        >,
+    > {
+        #[allow(unreachable_patterns)]
+        self.credentials.as_ref().and_then(|v| match v {
+            crate::model::enable_managed_rotation_request::Credentials::CloudSqlSingleUserCredentials(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [credentials][crate::model::EnableManagedRotationRequest::credentials]
+    /// to hold a `CloudSqlSingleUserCredentials`.
+    ///
+    /// Note that all the setters affecting `credentials` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_secretmanager_v1::model::EnableManagedRotationRequest;
+    /// use google_cloud_secretmanager_v1::model::enable_managed_rotation_request::CloudSQLSingleUserCredentials;
+    /// let x = EnableManagedRotationRequest::new().set_cloud_sql_single_user_credentials(CloudSQLSingleUserCredentials::default()/* use setters */);
+    /// assert!(x.cloud_sql_single_user_credentials().is_some());
+    /// ```
+    pub fn set_cloud_sql_single_user_credentials<
+        T: std::convert::Into<
+                std::boxed::Box<
+                    crate::model::enable_managed_rotation_request::CloudSQLSingleUserCredentials,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.credentials = std::option::Option::Some(
+            crate::model::enable_managed_rotation_request::Credentials::CloudSqlSingleUserCredentials(
+                v.into()
+            )
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for EnableManagedRotationRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.EnableManagedRotationRequest"
+    }
+}
+
+/// Defines additional types related to [EnableManagedRotationRequest].
+pub mod enable_managed_rotation_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// These are the credentials required for Cloud SQL DB for Single user
+    /// Managed Rotation.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct CloudSQLSingleUserCredentials {
+        /// Required. Instance ID of the Cloud SQL instance.
+        pub instance_id: std::string::String,
+
+        /// Required. Username of the Cloud SQL instance.
+        pub username: std::string::String,
+
+        /// Optional. Password of the Cloud SQL instance. If this is not provided,
+        /// a random password will be generated.
+        pub password: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl CloudSQLSingleUserCredentials {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [instance_id][crate::model::enable_managed_rotation_request::CloudSQLSingleUserCredentials::instance_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_secretmanager_v1::model::enable_managed_rotation_request::CloudSQLSingleUserCredentials;
+        /// let x = CloudSQLSingleUserCredentials::new().set_instance_id("example");
+        /// ```
+        pub fn set_instance_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.instance_id = v.into();
+            self
+        }
+
+        /// Sets the value of [username][crate::model::enable_managed_rotation_request::CloudSQLSingleUserCredentials::username].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_secretmanager_v1::model::enable_managed_rotation_request::CloudSQLSingleUserCredentials;
+        /// let x = CloudSQLSingleUserCredentials::new().set_username("example");
+        /// ```
+        pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.username = v.into();
+            self
+        }
+
+        /// Sets the value of [password][crate::model::enable_managed_rotation_request::CloudSQLSingleUserCredentials::password].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_secretmanager_v1::model::enable_managed_rotation_request::CloudSQLSingleUserCredentials;
+        /// let x = CloudSQLSingleUserCredentials::new().set_password("example");
+        /// ```
+        pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.password = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for CloudSQLSingleUserCredentials {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.secretmanager.v1.EnableManagedRotationRequest.CloudSQLSingleUserCredentials"
+        }
+    }
+
+    /// The credentials required for Managed Rotation.
+    /// Right now, only Cloud SQL Single User credentials are supported.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Credentials {
+        /// Credentials required for Cloud SQL DB for Single user Managed Rotation.
+        CloudSqlSingleUserCredentials(
+            std::boxed::Box<
+                crate::model::enable_managed_rotation_request::CloudSQLSingleUserCredentials,
+            >,
+        ),
+    }
+}
+
+/// Request message for
+/// [SecretManagerService.RotateSecret][google.cloud.secretmanager.v1.SecretManagerService.RotateSecret].
+///
+/// [google.cloud.secretmanager.v1.SecretManagerService.RotateSecret]: crate::client::SecretManagerService::rotate_secret
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RotateSecretRequest {
+    /// Required. The resource name of the
+    /// [Secret][google.cloud.secretmanager.v1.Secret] to associate with the
+    /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] in the format
+    /// `projects/*/secrets/*` or `projects/*/locations/*/secrets/*`.
+    ///
+    /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
+    /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
+    pub parent: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RotateSecretRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::RotateSecretRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_secretmanager_v1::model::RotateSecretRequest;
+    /// # let project_id = "project_id";
+    /// # let secret_id = "secret_id";
+    /// let x = RotateSecretRequest::new().set_parent(format!("projects/{project_id}/secrets/{secret_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RotateSecretRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.RotateSecretRequest"
     }
 }
 
