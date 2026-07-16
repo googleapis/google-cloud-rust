@@ -76,9 +76,11 @@ impl BatchDmlBuilder {
     /// let statement1 = Statement::builder("UPDATE Users SET Active = true WHERE Id = 1").build();
     /// let batch = BatchDml::builder()
     ///     .add_statement(statement1)
-    ///     .set_priority(Priority::High)
+    ///     .set_priority(Priority::Low)
     ///     .build();
     /// ```
+    ///
+    /// If not specified, the default priority is `Priority::High`.
     pub fn set_priority(mut self, priority: Priority) -> Self {
         self.request_options
             .get_or_insert_with(RequestOptions::default)
