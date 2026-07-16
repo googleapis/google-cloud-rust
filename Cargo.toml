@@ -388,17 +388,18 @@ incremental = false
 [workspace.dependencies]
 async-trait           = { default-features = false, version = "0.1.85" }
 base64                = { default-features = false, version = "0.22", features = ["std"] }
-bytes                 = { default-features = false, version = "1.10", features = ["serde"] }
+bytes                 = { default-features = false, version = "1.10.1", features = ["serde"] }
 cargo_metadata        = { default-features = false, version = "0.23" }
 chrono                = { default-features = false, version = "0.4.44" }
 crates_io_api         = { default-features = false, version = "0.12" }
 clap                  = { default-features = false, version = "4" }
 crc32c                = { default-features = false, version = "0.6.8" }
 futures               = { default-features = false, version = "0.3" }
+grpc                  = { version = "0.9.0" }
 h2                    = { default-features = false, version = "0.4.14" }
 hex                   = { default-features = false, version = "0.4.3" }
 http                  = { default-features = false, version = "1.1", features = ["std"] }
-http-body             = { default-features = false, version = "1" }
+http-body             = { default-features = false, version = "1.0.1" }
 humantime             = { default-features = false, version = "2" }
 hyper                 = { default-features = false, version = "1.10" }
 jsonwebtoken          = { default-features = false, version = "10.2" }
@@ -431,7 +432,7 @@ toml_edit             = { default-features = false, version = "0.25" }
 tracing-log           = { default-features = false, version = "0.2" }
 tracing-opentelemetry = { default-features = false, version = "0.33" }
 tracing-subscriber    = { default-features = false, version = "0.3.23" }
-url                   = { default-features = false, version = "2.4" }
+url                   = { default-features = false, version = "2.5.0" }
 uuid                  = { default-features = false, version = "1.23", features = ["v4"] }
 
 opentelemetry-semantic-conventions = { default-features = false, version = "0.32.0" }
@@ -446,9 +447,9 @@ prost-types = { default-features = false, version = "0.14" }
 # WARNING: When this changes to 0.14 we need to bump the google-cloud-gax-internal major version.
 reqwest = { default-features = false, version = "0.13.4" }
 # WARNING: When any of these change to 0.15 we need to bump the google-cloud-gax-internal major version.
-tonic             = { default-features = false, version = "0.14.5", features = ["tls-native-roots"] }
-tonic-prost       = { default-features = false, version = "0.14.5" }
-tonic-prost-build = { default-features = false, version = "0.14.5" }
+tonic             = { default-features = false, version = "0.14.6", features = ["tls-native-roots"] }
+tonic-prost       = { default-features = false, version = "0.14.6" }
+tonic-prost-build = { default-features = false, version = "0.14.6" }
 # WARNING: When this changes to 0.6 we need to bump the google-cloud-gax-internal major version.
 tower = { default-features = false, version = "0.5.2", features = ["util"] }
 # WARNING: When this changes to 0.2 we need to bump the google-cloud-gax-internal major version.
@@ -488,7 +489,7 @@ static_assertions = { default-features = false, version = "1.1" }
 syn               = { default-features = false, version = "2.0.117" }
 tempfile          = { default-features = false, version = "3.26" }
 test-case         = { default-features = false, version = "3.3" }
-tokio-stream      = { default-features = false, version = "0.1.16" }
+tokio-stream      = { default-features = false, version = "0.1.17" }
 
 # Local packages used as dependencies.
 google-cloud-auth        = { default-features = false, version = "1.14.0", path = "src/auth" }
