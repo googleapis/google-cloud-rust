@@ -21,11 +21,13 @@ use crate::model::{
 use crate::server_streaming::builder;
 use gaxi::options::{ClientConfig, Credentials};
 use google_cloud_auth::credentials::anonymous;
+use google_cloud_gax::backoff_policy::BackoffPolicyArg;
 use google_cloud_gax::client_builder::ClientBuilder as GaxClientBuilder;
-use google_cloud_gax::client_builder::internal::new_builder;
 use google_cloud_gax::options::{
     RequestOptions as GaxRequestOptions, internal::RequestOptionsExt as _,
 };
+use google_cloud_gax::retry_policy::RetryPolicyArg;
+use google_cloud_gax::retry_throttler::RetryThrottlerArg;
 use google_cloud_spanner_admin_database_v1::builder::database_admin::ClientBuilder as DatabaseAdminBuilder;
 use google_cloud_spanner_admin_instance_v1::builder::instance_admin::ClientBuilder as InstanceAdminBuilder;
 use http::{
@@ -54,14 +56,39 @@ pub struct Spanner {
     pub(crate) is_emulator: bool,
 }
 
-/// A factory for constructing `Spanner` clients.
-pub struct Factory;
+/// A builder for the Spanner client.
+///
+/// Obtain one with [`Spanner::builder`]. The builder is pre-configured with
+/// standard defaults; the setters below override individual behaviors.
+#[derive(Clone, Debug)]
+pub struct ClientBuilder {
+    config: ClientConfig,
+    num_channels: Option<usize>,
+}
 
-impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
-    type Client = Spanner;
-    type Credentials = Credentials;
+impl ClientBuilder {
+    fn new() -> Self {
+        Self {
+            config: ClientConfig::default(),
+            num_channels: None,
+        }
+    }
 
-    async fn build(self, mut config: ClientConfig) -> crate::ClientBuilderResult<Self::Client> {
+    /// Creates the `Spanner` client.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let spanner = Spanner::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub async fn build(self) -> crate::ClientBuilderResult<Spanner> {
+        let ClientBuilder {
+            mut config,
+            num_channels,
+        } = self;
+
         let mut is_emulator = false;
         if let Some(endpoint) = std::env::var("SPANNER_EMULATOR_HOST")
             .ok()
@@ -76,9 +103,12 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
             }
         }
 
-        let num_channels = std::env::var("SPANNER_NUM_CHANNELS")
-            .ok()
-            .and_then(|s| s.parse::<usize>().ok())
+        let num_channels = num_channels
+            .or_else(|| {
+                std::env::var("SPANNER_NUM_CHANNELS")
+                    .ok()
+                    .and_then(|s| s.parse::<usize>().ok())
+            })
             .unwrap_or(4);
 
         let mut channels = Vec::with_capacity(num_channels);
@@ -93,10 +123,214 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
             is_emulator,
         })
     }
-}
 
-/// A builder for the Spanner client.
-pub type ClientBuilder = google_cloud_gax::client_builder::ClientBuilder<Factory, Credentials>;
+    /// Sets the size of the gRPC channel pool.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let spanner = Spanner::builder().with_num_channels(8).build().await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// The Spanner client demultiplexes requests over a pool of gRPC channels.
+    /// A larger pool can improve throughput for highly concurrent workloads at
+    /// the cost of more open connections.
+    ///
+    /// When unset, the pool size is read from the `SPANNER_NUM_CHANNELS`
+    /// environment variable, and defaults to `4` if that is unset or invalid.
+    /// An explicit value set here takes precedence over the environment
+    /// variable.
+    pub fn with_num_channels(mut self, v: usize) -> Self {
+        self.num_channels = Some(v);
+        self
+    }
+
+    /// Sets the endpoint.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let spanner = Spanner::builder()
+    ///     .with_endpoint("https://private.googleapis.com")
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_endpoint<V: Into<String>>(mut self, v: V) -> Self {
+        self.config.endpoint = Some(v.into());
+        self
+    }
+
+    /// Enables tracing.
+    ///
+    /// The client libraries can be dynamically instrumented with the Tokio
+    /// [tracing] framework. Setting this flag enables this instrumentation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let spanner = Spanner::builder()
+    ///     .with_tracing()
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [tracing]: https://docs.rs/tracing/latest/tracing/
+    pub fn with_tracing(mut self) -> Self {
+        self.config.tracing = true;
+        self
+    }
+
+    /// Configures the authentication credentials.
+    ///
+    /// Most Google Cloud services require authentication, though some services
+    /// allow for anonymous access, and some services provide emulators where
+    /// no authentication is required. More information about valid credentials
+    /// types can be found in the [google-cloud-auth] crate documentation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// use google_cloud_auth::credentials::mds;
+    /// let spanner = Spanner::builder()
+    ///     .with_credentials(
+    ///         mds::Builder::default()
+    ///             .with_scopes(["https://www.googleapis.com/auth/cloud-platform.read-only"])
+    ///             .build()?)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [google-cloud-auth]: https://docs.rs/google-cloud-auth
+    pub fn with_credentials<T: Into<Credentials>>(mut self, v: T) -> Self {
+        self.config.cred = Some(v.into());
+        self
+    }
+
+    /// Configures the universe domain.
+    ///
+    /// Most applications do not need to set this field, it is only required
+    /// when connecting to services in a non-default [universe domain]. When
+    /// unset the client uses the default universe domain
+    /// (`googleapis.com`).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let spanner = Spanner::builder()
+    ///     .with_universe_domain("my-universe.example.com")
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [universe domain]: https://cloud.google.com/iam/docs/federated-identity-supported-services
+    pub fn with_universe_domain<V: Into<String>>(mut self, v: V) -> Self {
+        self.config.universe_domain = Some(v.into());
+        self
+    }
+
+    /// Configures the retry policy.
+    ///
+    /// The client libraries can automatically retry operations that fail. The
+    /// retry policy controls what errors are considered retryable, sets limits
+    /// on the number of attempts or the time trying to make attempts.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// use google_cloud_gax::retry_policy::RetryPolicyExt;
+    /// use google_cloud_spanner::retry_policy::SpannerRetryPolicy;
+    /// let spanner = Spanner::builder()
+    ///     .with_retry_policy(SpannerRetryPolicy::new().with_attempt_limit(3))
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
+        self.config.retry_policy = Some(v.into().into());
+        self
+    }
+
+    /// Configures the retry backoff policy.
+    ///
+    /// The client libraries can automatically retry operations that fail. The
+    /// backoff policy controls how long to wait in between retry attempts.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+    /// let spanner = Spanner::builder()
+    ///     .with_backoff_policy(ExponentialBackoff::default())
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_backoff_policy<V: Into<BackoffPolicyArg>>(mut self, v: V) -> Self {
+        self.config.backoff_policy = Some(v.into().into());
+        self
+    }
+
+    /// Configures the per-attempt timeout used as the client default.
+    ///
+    /// When using a retry policy, this timeout applies to each individual
+    /// attempt rather than the overall operation. It is used as the default for
+    /// requests that do not override the timeout in their own request options.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// use std::time::Duration;
+    /// let spanner = Spanner::builder()
+    ///     .with_attempt_timeout(Duration::from_secs(5))
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_attempt_timeout<V: Into<std::time::Duration>>(mut self, v: V) -> Self {
+        self.config.attempt_timeout = Some(v.into());
+        self
+    }
+
+    /// Configures the retry throttler.
+    ///
+    /// Advanced applications may want to configure a retry throttler to
+    /// [Address Cascading Failures] and when [Handling Overload] conditions.
+    /// The client libraries throttle their retry loop, using a policy to
+    /// control the throttling algorithm. Use this method to fine tune or
+    /// customize the default retry throttler.
+    ///
+    /// [Handling Overload]: https://sre.google/sre-book/handling-overload/
+    /// [Address Cascading Failures]: https://sre.google/sre-book/addressing-cascading-failures/
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// use google_cloud_gax::retry_throttler::AdaptiveThrottler;
+    /// let spanner = Spanner::builder()
+    ///     .with_retry_throttler(AdaptiveThrottler::default())
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_retry_throttler<V: Into<RetryThrottlerArg>>(mut self, v: V) -> Self {
+        self.config.retry_throttler = v.into().into();
+        self
+    }
+}
 
 fn parse_emulator_endpoint(endpoint: &str) -> String {
     match url::Url::parse(endpoint) {
@@ -196,7 +430,7 @@ impl Spanner {
     /// detects and connects to the Spanner emulator if the `SPANNER_EMULATOR_HOST`
     /// environment variable is set.
     pub fn builder() -> ClientBuilder {
-        new_builder(Factory)
+        ClientBuilder::new()
     }
 
     /// Returns a builder for the [DatabaseAdmin] client.
@@ -450,6 +684,24 @@ mod tests {
             .expect("Failed to build client");
 
         assert_eq!(client.channels.len(), 4);
+    }
+
+    #[tokio_test_no_panics]
+    async fn channel_pool_builder_override() {
+        let mock = MockSpanner::new();
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .with_num_channels(2)
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        assert_eq!(client.channels.len(), 2);
     }
 
     #[test]
