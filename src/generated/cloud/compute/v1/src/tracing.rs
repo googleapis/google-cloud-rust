@@ -18934,6 +18934,20 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete_named_set(
+        &self,
+        req: crate::model::routers::DeleteNamedSetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Routers::delete_named_set",
+            self.inner.delete_named_set(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_route_policy(
         &self,
         req: crate::model::routers::DeleteRoutePolicyRequest,
@@ -18958,6 +18972,20 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::Routers::get",
             self.inner.get(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_named_set(
+        &self,
+        req: crate::model::routers::GetNamedSetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RoutersGetNamedSetResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Routers::get_named_set",
+            self.inner.get_named_set(req, options));
         pending.await
     }
 
@@ -19060,6 +19088,20 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_named_sets(
+        &self,
+        req: crate::model::routers::ListNamedSetsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RoutersListNamedSets>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Routers::list_named_sets",
+            self.inner.list_named_sets(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_route_policies(
         &self,
         req: crate::model::routers::ListRoutePoliciesRequest,
@@ -19084,6 +19126,20 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::Routers::patch",
             self.inner.patch(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn patch_named_set(
+        &self,
+        req: crate::model::routers::PatchNamedSetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Routers::patch_named_set",
+            self.inner.patch_named_set(req, options));
         pending.await
     }
 
@@ -19126,6 +19182,20 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::Routers::update",
             self.inner.update(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_named_set(
+        &self,
+        req: crate::model::routers::UpdateNamedSetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Routers::update_named_set",
+            self.inner.update_named_set(req, options));
         pending.await
     }
 

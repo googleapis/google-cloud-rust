@@ -20,9 +20,11 @@ mod grpc_helpers;
 mod grpc_rust;
 pub mod status;
 pub mod tonic;
+mod transport_policies;
 #[cfg(google_cloud_unstable_grpc_rust)]
 pub use grpc_rust::{GrpcRustClient, GrpcRustStreaming};
 
+use crate::attempt_interceptor::AttemptInterceptor;
 use crate::observability::attributes::{self, keys::*, otel_status_codes};
 use crate::universe_domain::DEFAULT_UNIVERSE_DOMAIN;
 use ::tonic::client::Grpc;
@@ -39,11 +41,12 @@ use google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy;
 use google_cloud_gax::polling_error_policy::PollingErrorPolicy;
 use google_cloud_gax::response::{Parts, Response};
 use google_cloud_gax::retry_loop_internal::retry_loop;
-use grpc_helpers::{TransportPolicies, add_auth_headers, make_credentials, make_headers};
+use grpc_helpers::{add_auth_headers, make_credentials, make_headers};
 use http::HeaderMap;
 use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
 use std::sync::Arc;
 use std::time::Duration;
+use transport_policies::TransportPolicies;
 
 // A tonic::transport::Channel always has a Buffer layer.
 const DEFAULT_REQUEST_BUFFER_CAPACITY: usize = 1024;
@@ -68,6 +71,7 @@ pub struct Client {
     tracing_attributes: Option<TracingAttributes>,
     credentials: Credentials,
     transport_policies: TransportPolicies,
+    attempt_interceptor: Option<Arc<dyn AttemptInterceptor>>,
 }
 
 impl Client {
@@ -114,7 +118,13 @@ impl Client {
             tracing_attributes,
             credentials,
             transport_policies: TransportPolicies::from_config(&config),
+            attempt_interceptor: None,
         })
+    }
+
+    /// Sets the attempt interceptor for the client.
+    pub fn set_attempt_interceptor(&mut self, interceptor: Arc<dyn AttemptInterceptor>) {
+        self.attempt_interceptor = Some(interceptor);
     }
 
     /// Sends a request.
@@ -182,7 +192,8 @@ impl Client {
     {
         use ::tonic::IntoStreamingRequest;
         let headers = make_headers(api_client_header, request_params, &options)?;
-        let headers = add_auth_headers(headers, &self.credentials).await?;
+        let mut headers = add_auth_headers(headers, &self.credentials).await?;
+        self.attempt_interceptor.intercept(&mut headers, 1);
         let metadata = tonic::MetadataMap::from_headers(headers);
         let request = ::tonic::Request::from_parts(metadata, extensions, request);
         let codec = tonic_prost::ProstCodec::<Request, Response>::default();
@@ -247,7 +258,8 @@ impl Client {
     {
         use ::tonic::IntoRequest;
         let headers = make_headers(api_client_header, request_params, &options)?;
-        let headers = add_auth_headers(headers, &self.credentials).await?;
+        let mut headers = add_auth_headers(headers, &self.credentials).await?;
+        self.attempt_interceptor.intercept(&mut headers, 1);
         let metadata = tonic::MetadataMap::from_headers(headers);
         let mut request = ::tonic::Request::from_parts(metadata, extensions, request);
         if let Some(timeout) = crate::options::resolve_effective_timeout(
@@ -329,13 +341,13 @@ impl Client {
         path: http::uri::PathAndQuery,
         request: Request,
         options: &RequestOptions,
-        remaining_time: Option<std::time::Duration>,
+        remaining_time: Option<Duration>,
         headers: HeaderMap,
-        _prior_attempt_count: i64,
+        prior_attempt_count: i64,
     ) -> Result<tonic::Response<Response>>
     where
         Request: prost::Message + 'static,
-        Response: prost::Message + std::default::Default + 'static,
+        Response: prost::Message + Default + 'static,
     {
         let span = if let Some(attrs) = &self.tracing_attributes {
             let rpc_method = path.path().trim_start_matches('/');
@@ -349,8 +361,8 @@ impl Client {
             } else {
                 (None, None, None, None)
             };
-            let resend_count = if _prior_attempt_count > 0 {
-                Some(_prior_attempt_count)
+            let resend_count = if prior_attempt_count > 0 {
+                Some(prior_attempt_count)
             } else {
                 None
             };
@@ -382,6 +394,8 @@ impl Client {
         let mut headers = add_auth_headers(headers, &self.credentials).await?;
 
         crate::observability::propagation::inject_context(&span, &mut headers);
+        self.attempt_interceptor
+            .intercept(&mut headers, prior_attempt_count as u32 + 1);
 
         let metadata = tonic::MetadataMap::from_headers(headers);
         let mut request = ::tonic::Request::from_parts(metadata, extensions, request);
@@ -406,7 +420,7 @@ impl Client {
         use crate::observability::{WithTransportLogging, WithTransportMetric, WithTransportSpan};
 
         let pending =
-            WithTransportMetric::new(self.metric.clone(), pending, _prior_attempt_count as u32);
+            WithTransportMetric::new(self.metric.clone(), pending, prior_attempt_count as u32);
         let pending = WithTransportLogging::new(pending);
         let pending = WithTransportSpan::new(span, pending);
 

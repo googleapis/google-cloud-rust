@@ -218,6 +218,17 @@ impl std::fmt::Debug for super::UploadAttachmentResponse {
     }
 }
 
+impl std::fmt::Debug for super::Audience {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Audience");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::Availability {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Availability");
@@ -1386,6 +1397,44 @@ impl std::fmt::Debug for super::space::AccessSettings {
         let mut debug_struct = f.debug_struct("AccessSettings");
         debug_struct.field("access_state", &self.access_state);
         debug_struct.field("audience", &self.audience);
+        debug_struct.field(
+            "access_permission_settings",
+            &self.access_permission_settings,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::space::AccessPermissionSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AccessPermissionSettings");
+        debug_struct.field("discover_space_setting", &self.discover_space_setting);
+        debug_struct.field("join_space_setting", &self.join_space_setting);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::space::AccessPermissionSetting {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AccessPermissionSetting");
+        debug_struct.field("principals", &self.principals);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::space::Principal {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Principal");
+        debug_struct.field("principal_type", &self.principal_type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
