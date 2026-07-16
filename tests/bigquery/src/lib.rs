@@ -244,7 +244,87 @@ pub async fn query_client() -> Result<()> {
 
     assert_eq!(complete_query.metadata().total_rows, Some(1));
 
-    // TODO(#5592): iterate on rows
+    let mut iter = complete_query.read();
+    let row = iter.next().await.expect("should return first row")?;
+    assert_eq!(row.get::<i64, _>("one"), 1);
+    assert!(iter.next().await.is_none(), "{iter:?}");
+
+    Ok(())
+}
+
+pub async fn query_client_datatypes() -> Result<()> {
+    let project_id = project_id()?;
+    let bq = BigQuery::builder().build().await?;
+
+    let query = bq
+        .query(
+            "SELECT \
+                 'John Doe' AS name, \
+                 30 AS age, \
+                 1.85 AS height, \
+                 true AS active, \
+                 TIMESTAMP '2026-05-28 15:30:00 UTC' AS created_at, \
+                 DATE '2026-05-28' AS birth_date, \
+                 TIME '15:30:00' AS daily_alarm, \
+                 DATETIME '2026-05-28 15:30:00' AS event_time, \
+                 CAST(NULL AS STRING) AS nullable_name, \
+                 CAST(NULL AS INT64) AS nullable_age",
+        )
+        .with_project_id(project_id)
+        .set_labels(vec![(INSTANCE_LABEL, "true")])
+        .run()
+        .await?;
+
+    let complete_query = query.until_done().await?;
+    assert_eq!(complete_query.metadata().total_rows, Some(1));
+
+    let mut iter = complete_query.read();
+    let row = iter.next().await.expect("row must exist")?;
+
+    assert_eq!(row.get::<String, _>("name"), "John Doe");
+    assert_eq!(row.get::<i64, _>("age"), 30);
+    assert_eq!(row.get::<f64, _>("height"), 1.85);
+    assert!(row.get::<bool, _>("active"));
+
+    let created_at = row.get::<wkt::Timestamp, _>("created_at");
+    assert_eq!(created_at, wkt::Timestamp::new(1779982200, 0).unwrap());
+
+    let birth_date = row.get::<google_cloud_type::model::Date, _>("birth_date");
+    assert_eq!(
+        birth_date,
+        google_cloud_type::model::Date::new()
+            .set_year(2026)
+            .set_month(5)
+            .set_day(28)
+    );
+
+    let daily_alarm = row.get::<google_cloud_type::model::TimeOfDay, _>("daily_alarm");
+    assert_eq!(
+        daily_alarm,
+        google_cloud_type::model::TimeOfDay::new()
+            .set_hours(15)
+            .set_minutes(30)
+            .set_seconds(0)
+            .set_nanos(0)
+    );
+
+    let event_time = row.get::<google_cloud_type::model::DateTime, _>("event_time");
+    assert_eq!(
+        event_time,
+        google_cloud_type::model::DateTime::new()
+            .set_year(2026)
+            .set_month(5)
+            .set_day(28)
+            .set_hours(15)
+            .set_minutes(30)
+            .set_seconds(0)
+            .set_nanos(0)
+    );
+
+    assert_eq!(row.get::<Option<String>, _>("nullable_name"), None);
+    assert_eq!(row.get::<Option<i64>, _>("nullable_age"), None);
+
+    assert!(iter.next().await.is_none());
 
     Ok(())
 }
@@ -266,7 +346,12 @@ pub async fn query_client_multi_page() -> Result<()> {
 
     assert_eq!(complete_query.metadata().total_rows, Some(10000));
 
-    // TODO(#5592): iterate on rows with max_results = 1000
+    let mut iter = complete_query.read().set_max_rows_buffered(1000);
+    let mut count = 0;
+    while let Some(_row) = iter.next().await.transpose()? {
+        count += 1;
+    }
+    assert_eq!(count, 10000);
 
     Ok(())
 }
@@ -288,7 +373,10 @@ pub async fn query_client_job() -> Result<()> {
 
     assert_eq!(complete_query.metadata().total_rows, Some(1));
 
-    // TODO(#5592): iterate on rows
+    let mut iter = complete_query.read();
+    let row = iter.next().await.expect("should return first row")?;
+    assert_eq!(row.get::<i64, _>("two"), 2);
+    assert!(iter.next().await.is_none(), "{iter:?}");
 
     Ok(())
 }

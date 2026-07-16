@@ -16,16 +16,16 @@ name: Rust SDK
 permissions: read-all # zizmor: ignore[excessive-permissions]
 on:
   push:
-    branches: [main, 'release-*']
+    branches: [main, grpc_rust, 'release-*']
   pull_request:
-    branches: [main, 'release-*']
+    branches: [main, grpc_rust, 'release-*']
   release:
     types: [published]
 env:
   GHA_RUST_VERSIONS: '{ "rust:current": "1.96" }'
   GHA_GO_VERSIONS: '{ "go:current": "1.25.6" }'
   # Define the unstable flags once
-  UNSTABLE_CFGS: &unstable_cfgs '--cfg google_cloud_unstable_trust_boundaries --cfg google_cloud_unstable_storage_bidi --cfg google_cloud_unstable_grpc_server_streaming --cfg google_cloud_unstable_tracing'
+  UNSTABLE_CFGS: &unstable_cfgs '--cfg google_cloud_unstable_trust_boundaries --cfg google_cloud_unstable_storage_bidi --cfg google_cloud_unstable_grpc_server_streaming --cfg google_cloud_unstable_tracing --cfg google_cloud_unstable_gapic_streaming'
 
 jobs:
   build:
@@ -100,6 +100,8 @@ jobs:
         if: github.event_name != 'release'
       - name: Check for major breaks in key libraries
         # TODO(#3265) - replace with a standard tool or a program in Go or Rust.
+        env:
+          BASE_REF: ${{ github.base_ref || github.ref_name }}
         run: |
           set -e
           if [[ '${{ contains(github.event.pull_request.labels.*.name, 'rust: no-semver-checks') }}' == 'true' ]]; then
@@ -114,7 +116,7 @@ jobs:
             src/generated/iam/v1
             src/generated/longrunning
           )
-          git fetch origin main
+          git fetch origin "${BASE_REF}"
           cat >major-break.awk <<'_EOF_'
             function v(s) {
                 s = substr(s, 2, length(s)-2);
@@ -142,7 +144,7 @@ jobs:
           _EOF_
           set +e
           for name in "${dirs[@]}"; do
-            if git diff origin/main..HEAD -- "${name}/Cargo.toml" | awk -F' = ' -f major-break.awk; then
+            if git diff origin/"${BASE_REF}"..HEAD -- "${name}/Cargo.toml" | awk -F' = ' -f major-break.awk; then
               cat <<_EOF_
           The major version (or minor for a 0.x series) of a critical package
           (located in ${name}) is changing. The types from this package are part

@@ -12,18 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.25.1-0.20260709214352-8266ce39cdfc
+version: v0.26.0
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
   discovery:
-    commit: 1c6496fb0cf9fa04a35e24e8af871c58298ae37e
-    sha256: c3cd1ca564a28485970bdf348cac9bcde65d45792a5c2df1c179654d3ad8b877
+    commit: c0b2eef05f127c60901de1a70715cf09b06c1229
+    sha256: ae12f85f219c662cf5c1d0f4d5253a7a77962fb25e4f682c6d22854790dfc3ff
   googleapis:
-    commit: 99f54e6513f09d8df1707a6c553b0a3c6ef9b5fb
-    sha256: 7cee15fe1ae76a16aaf70425c4380a3a0fcbfeb4ea8e30c934c43f5cd54b9657
+    commit: 82363dc40e9c448d66fb557cc92b434b0d9548d5
+    sha256: 2a57eed61d050b89f2972f46de8a908613ddc09b2b157934e62abc484aa8a577
   protobuf:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
@@ -125,6 +125,10 @@ default:
     detailed_tracing_attributes: true
     lro_stub_options: true
 libraries:
+  - name: bigquery-samples
+    copyright_year: "2026"
+    output: src/bigquery/examples
+    skip_release: true
   - name: bigquery-write-grpc-mock
     copyright_year: "2026"
     output: src/bigquery-write/grpc-mock
@@ -860,7 +864,7 @@ libraries:
     copyright_year: "2025"
     output: src/gax
   - name: google-cloud-gax-internal
-    version: 0.7.15
+    version: 0.7.16
     copyright_year: "2025"
     output: src/gax-internal
     rust:
@@ -1194,6 +1198,9 @@ libraries:
   - name: google-cloud-privilegedaccessmanager-v1
     version: 1.13.0
     copyright_year: "2025"
+  - name: google-cloud-productregistry-v1
+    version: 1.0.0
+    copyright_year: "2026"
   - name: google-cloud-profiler-v2
     version: 1.11.0
     apis:

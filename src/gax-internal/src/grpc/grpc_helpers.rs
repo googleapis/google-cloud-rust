@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::options::ClientConfig;
 use google_cloud_auth::credentials::{
     Builder as CredentialsBuilder, CacheableResource, Credentials,
 };
@@ -49,9 +50,7 @@ pub(crate) async fn add_auth_headers(
 
 /// Returns a clone of `Credentials` if already present in `config`;
 /// otherwise, returns a new default `Credentials` object.
-pub(crate) fn make_credentials(
-    config: &crate::options::ClientConfig,
-) -> ClientBuilderResult<Credentials> {
+pub(crate) fn make_credentials(config: &ClientConfig) -> ClientBuilderResult<Credentials> {
     if let Some(c) = config.cred.clone() {
         return Ok(c);
     }
@@ -210,7 +209,7 @@ mod tests {
             .return_once(|| Some(expected_domain.to_string()));
         let credentials = Credentials::from(provider);
 
-        let mut config = crate::options::ClientConfig::default();
+        let mut config = ClientConfig::default();
         config.cred = Some(credentials);
 
         // Act
