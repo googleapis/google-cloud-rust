@@ -109,7 +109,8 @@ impl ClientBuilder {
                     .ok()
                     .and_then(|s| s.parse::<usize>().ok())
             })
-            .unwrap_or(4);
+            .unwrap_or(4)
+            .max(1);
 
         let mut channels = Vec::with_capacity(num_channels);
         for _ in 0..num_channels {
