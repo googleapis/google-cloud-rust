@@ -298,9 +298,18 @@ pub struct ValueBinder {
 
 impl ValueBinder {
     /// Sets the value for the column.
-    pub fn to<T: ToValue + ?Sized>(mut self, value: &T) -> WriteBuilder {
+    pub fn to<T: ToValue + ?Sized>(self, value: &T) -> WriteBuilder {
+        self.to_value(value.to_value())
+    }
+
+    /// Sets the value for the column, taking ownership of the value.
+    ///
+    /// This behaves like [`to`](Self::to) but accepts an owned value (anything convertible into a
+    /// [`Value`]). When the caller already holds a `Value`, this avoids the deep clone that
+    /// [`to`](Self::to) performs via [`ToValue::to_value`].
+    pub fn to_value(mut self, value: impl Into<Value>) -> WriteBuilder {
         self.builder.columns.push(self.column);
-        self.builder.values.push(value.to_value());
+        self.builder.values.push(value.into());
         self.builder
     }
 }
@@ -407,6 +416,19 @@ mod tests {
 
         let mutations: Vec<_> = (&group).into_iter().collect();
         assert_eq!(mutations, vec![&mutation1, &mutation2]);
+    }
+
+    #[test]
+    fn value_binder_to_value_owned() {
+        let by_ref = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(&1)
+            .build();
+        let by_value = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to_value(1.to_value())
+            .build();
+        assert_eq!(by_ref, by_value);
     }
 
     #[test]

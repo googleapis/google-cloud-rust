@@ -69,8 +69,17 @@ impl StatementBuilder {
     /// It is recommended to use untyped parameter values, unless you explicitly want Spanner to
     /// verify that the type of the parameter value is exactly the same as the type that would
     /// otherwise be inferred from the SQL string.
-    pub fn add_param<T: ToValue + ?Sized>(mut self, name: impl Into<String>, value: &T) -> Self {
-        self.params.insert(name.into(), value.to_value());
+    pub fn add_param<T: ToValue + ?Sized>(self, name: impl Into<String>, value: &T) -> Self {
+        self.add_param_value(name, value.to_value())
+    }
+
+    /// Adds a parameter value to this Statement, taking ownership of the value.
+    ///
+    /// This behaves like [`add_param`](Self::add_param) but accepts an owned value (anything
+    /// convertible into a [`Value`]). When the caller already holds a `Value`, this avoids the
+    /// deep clone that [`add_param`](Self::add_param) performs via [`ToValue::to_value`].
+    pub fn add_param_value(mut self, name: impl Into<String>, value: impl Into<Value>) -> Self {
+        self.params.insert(name.into(), value.into());
         self
     }
 
@@ -79,13 +88,28 @@ impl StatementBuilder {
     /// The parameter value is sent with an explicit type code to Spanner. The type code must
     /// correspond with the expression in the SQL string that the query parameter is bound to.
     pub fn add_typed_param<T: ToValue + ?Sized>(
-        mut self,
+        self,
         name: impl Into<String>,
         value: &T,
         param_type: Type,
     ) -> Self {
+        self.add_typed_param_value(name, value.to_value(), param_type)
+    }
+
+    /// Adds a typed parameter value to this Statement, taking ownership of the value.
+    ///
+    /// This behaves like [`add_typed_param`](Self::add_typed_param) but accepts an owned value
+    /// (anything convertible into a [`Value`]). When the caller already holds a `Value`, this
+    /// avoids the deep clone that [`add_typed_param`](Self::add_typed_param) performs via
+    /// [`ToValue::to_value`].
+    pub fn add_typed_param_value(
+        mut self,
+        name: impl Into<String>,
+        value: impl Into<Value>,
+        param_type: Type,
+    ) -> Self {
         let name = name.into();
-        self.params.insert(name.clone(), value.to_value());
+        self.params.insert(name.clone(), value.into());
         self.param_types.insert(name, param_type);
         self
     }
@@ -446,6 +470,49 @@ mod tests {
 
         let val = stmt.params.get("age").unwrap();
         assert_eq!(val.as_string(), "21");
+    }
+
+    #[test]
+    fn test_param_value_owned() {
+        let value = 21i32.to_value();
+        let stmt = Statement::builder("SELECT * FROM users WHERE age > @age")
+            .add_param_value("age", value)
+            .build();
+
+        assert_eq!(stmt.param_types.len(), 0);
+        assert_eq!(stmt.params.len(), 1);
+        assert_eq!(
+            stmt.params
+                .get("age")
+                .expect("parameter 'age' should be present")
+                .as_string(),
+            "21"
+        );
+    }
+
+    #[test]
+    fn test_typed_param_value_owned() {
+        use crate::types;
+        let value = "user-123".to_value();
+        let stmt = Statement::builder("SELECT * FROM users WHERE id = @id")
+            .add_typed_param_value("id", value, types::string())
+            .build();
+
+        assert_eq!(stmt.param_types.len(), 1);
+        assert_eq!(
+            stmt.param_types
+                .get("id")
+                .expect("parameter type for 'id' should be present"),
+            &types::string()
+        );
+        assert_eq!(stmt.params.len(), 1);
+        assert_eq!(
+            stmt.params
+                .get("id")
+                .expect("parameter 'id' should be present")
+                .as_string(),
+            "user-123"
+        );
     }
 
     #[test]
