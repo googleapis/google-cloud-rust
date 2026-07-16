@@ -19,6 +19,7 @@ default-members = [
   "guide/samples",
   "src/auth",
   "src/bigquery",
+  "src/bigquery-derive",
   "src/bigquery-write",
   "src/bigquery/examples",
   "src/bigtable",
@@ -67,6 +68,7 @@ members = [
   "guide/samples",
   "src/auth",
   "src/bigquery",
+  "src/bigquery-derive",
   "src/bigquery-write",
   "src/bigquery-write/grpc-mock",
   "src/bigquery/examples",
@@ -536,6 +538,7 @@ google-cloud-storage                 = { default-features = false, path = "src/s
 google-cloud-pubsub                  = { default-features = false, path = "src/pubsub" }
 google-cloud-spanner                 = { default-features = false, path = "src/spanner" }
 google-cloud-bigquery                = { default-features = false, path = "src/bigquery" }
+google-cloud-bigquery-derive         = { default-features = false, path = "src/bigquery-derive" }
 google-cloud-bigquery-v2             = { default-features = false, path = "src/generated/cloud/bigquery/v2" }
 google-cloud-iam-credentials-v1      = { default-features = false, path = "src/generated/iam/credentials/v1" }
 google-cloud-language-v2             = { default-features = false, path = "src/generated/cloud/language/v2" }

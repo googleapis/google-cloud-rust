@@ -2090,6 +2090,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-bigquery-derive"
+version = "0.0.0"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.118",
+]
+
+[[package]]
 name = "google-cloud-bigquery-migration-v2"
 version = "1.11.0"
 dependencies = [
