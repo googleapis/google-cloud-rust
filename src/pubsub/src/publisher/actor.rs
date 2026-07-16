@@ -114,8 +114,7 @@ impl Dispatcher {
     ///    for its ordering key.
     ///
     /// Each batch actor owns its own lazy flush timer (see `ConcurrentBatchActor`
-    /// and `SequentialBatchActor`), so the Dispatcher no longer runs a timer of
-    /// its own.
+    /// and `SequentialBatchActor`).
     ///
     /// The loop terminates when the `rx` channel is closed, which happens when all
     /// `Publisher` clones have been dropped.
@@ -154,12 +153,15 @@ impl Dispatcher {
                                 flush_set.spawn(rx);
                             }
                             tokio::spawn(async move {
+                                // Wait on all the flush operations.
                                 flush_set.join_all().await;
                                 let _ = tx.send(());
                             });
                         },
                         Some(ToDispatcher::ResumePublish(ordering_key)) => {
                             if let Some(batch_actor) = batch_actors.get_mut(&ordering_key) {
+                                // Send down the same tx for the BatchActors to directly signal completion
+                                // instead of spawning a new task.
                                 if batch_actor.sender.send(ToBatchActor::ResumePublish()).is_err() {
                                     return; // Stop the dispatcher if a batch actor is dropped.
                                 }
@@ -167,12 +169,19 @@ impl Dispatcher {
                         }
                         None => {
                             // Gracefully shutdown since the Publisher has dropped the Sender.
+                            // By dropping the BatchActorHandles, they will individually handle the
+                            // shutdown procedures.
                             drop(batch_actors);
+                            // When we drop actor_tasks, some batch actors may not have started execution
+                            // so the batch actor is aborted with messages in its receiving channel.
+                            // We wait for the batch actors instead of aborting so that it can
+                            // gracefully shutdown.
                             while actor_tasks.join_next().await.is_some() {};
                             break;
                         }
                     }
                 }
+
             }
         }
     }
@@ -241,12 +250,13 @@ impl ConcurrentBatchActor {
     /// The loop terminates when the `rx` channel is closed, which happens when the
     /// Dispatcher drops the Sender.
     async fn run(mut self) {
-        // We have multiple inflight batches concurrently.
         let delay = self.context.batching_options.delay_threshold;
-        // Lazy timer: armed on the first message, disarmed after a flush that
-        // leaves the batch empty. An idle actor blocks in recv() with no time-
-        // wheel entry — zero scheduler overhead at rest.
+        // Lazy timer: armed when the first message enters a batch and dropped
+        // (`None`) when a flush drains the batch. Dropping the timer unregisters
+        // it from Tokio's timer driver, so idle actors hold zero time-wheel
+        // entries and incur zero CPU wakeups at rest.
         let mut timer: Option<std::pin::Pin<Box<tokio::time::Sleep>>> = None;
+        // We have multiple inflight batches concurrently.
         let mut inflight = JoinSet::new();
         let mut batch = Batch::new(
             self.context.topic.len() as u32,
@@ -258,21 +268,26 @@ impl ConcurrentBatchActor {
                 _ = inflight.join_next(), if !inflight.is_empty() => {
                     continue;
                 }
-                // Flush on timer — only active when messages are pending.
+                // Flush on timer. flush spawns the batch send into `inflight`
+                // (reaped by the join_next arm above) and drains the batch, so
+                // the timer is dropped afterwards; a later message re-arms it.
+                // The timer is wrapped in an async block so the unwrap runs only
+                // when the branch is polled (i.e. when timer.is_some()); select!
+                // evaluates the branch expression eagerly, so a bare
+                // `timer.as_mut().unwrap()` would unwrap None.
                 _ = async { timer.as_mut().unwrap().await }, if timer.is_some() => {
                     self.flush(&mut inflight, &mut batch);
-                    if batch.is_empty() && inflight.is_empty() {
-                        timer = None;
-                    } else {
-                        timer.as_mut().unwrap().as_mut()
-                            .reset(tokio::time::Instant::now() + delay);
-                    }
+                    timer = None;
                 }
                 msg = self.context.rx.recv() => {
                     match msg {
                         Some(ToBatchActor::Publish(msg)) => {
                             self.add_msg_and_flush(&mut inflight, &mut batch, msg);
-                            if timer.is_none() {
+                            // add_msg_and_flush may have flushed on a threshold,
+                            // leaving the batch empty; disarm if so, otherwise arm.
+                            if batch.is_empty() {
+                                timer = None;
+                            } else if timer.is_none() {
                                 timer = Some(Box::pin(tokio::time::sleep(delay)));
                             }
                         },
@@ -287,6 +302,8 @@ impl ConcurrentBatchActor {
                             // Nothing to resume as we do not pause without ordering key.
                         }
                         None => {
+                            // This isn't guaranteed to execute if a user does not .await on the
+                            // corresponding PublishFutures.
                             self.flush(&mut inflight, &mut batch);
                             inflight.join_all().await;
                             break;
@@ -412,16 +429,16 @@ impl SequentialBatchActor {
                     self.handle_inflight_join(join);
                     self.move_to_batch_and_flush(&mut inflight, &mut batch);
                 }
-                // Flush on timer — only active when messages are pending.
+                // Flush on timer. flush drains all pending messages, so the
+                // timer is dropped afterwards; a later message re-arms it. This
+                // mirrors the Flush branch below. The timer is wrapped in an
+                // async block so the unwrap runs only when the branch is polled
+                // (i.e. when timer.is_some()); select! evaluates the branch
+                // expression eagerly, so a bare unwrap would unwrap None.
                 _ = async { timer.as_mut().unwrap().await }, if timer.is_some() => {
                     self.flush(&mut inflight, &mut batch).await;
                     inflight = JoinSet::new();
-                    if self.pending_msgs.is_empty() && batch.is_empty() {
-                        timer = None;
-                    } else {
-                        timer.as_mut().unwrap().as_mut()
-                            .reset(tokio::time::Instant::now() + delay);
-                    }
+                    timer = None;
                 }
                 msg = self.context.rx.recv() => {
                     match msg {
@@ -430,7 +447,11 @@ impl SequentialBatchActor {
                             if inflight.is_empty() {
                                 self.move_to_batch_and_flush(&mut inflight, &mut batch);
                             }
-                            if timer.is_none() {
+                            // move_to_batch_and_flush may have flushed on a
+                            // threshold, draining everything; disarm if so, else arm.
+                            if self.pending_msgs.is_empty() && batch.is_empty() {
+                                timer = None;
+                            } else if timer.is_none() {
                                 timer = Some(Box::pin(tokio::time::sleep(delay)));
                             }
                         },
@@ -444,6 +465,8 @@ impl SequentialBatchActor {
                             // Nothing to resume as we are not paused.
                         },
                         None => {
+                            // This isn't guaranteed to execute if a user does not .await on the
+                            // corresponding PublishFutures.
                             self.flush(&mut inflight, &mut batch).await;
                             break;
                         }
