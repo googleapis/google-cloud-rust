@@ -93,21 +93,13 @@ impl Row {
         })
     }
 
-    /// Retrieves a value from the row by column name or zero-based index.
-    pub fn try_get<T: FromSql, I: ColumnIndex>(&self, index: I) -> Result<T> {
-        let idx = index
-            .index(self)
-            .ok_or_else(|| RowError::ColumnNotFound(format!("{:?}", index)))?;
+    fn resolve_index<I: ColumnIndex>(&self, col: &I) -> Result<usize> {
+        col.index(self)
+            .ok_or_else(|| RowError::ColumnNotFound(format!("{:?}", col)))
+    }
 
-        let val = self
-            .values
-            .get(idx)
-            .ok_or_else(|| RowError::IndexOutOfRange {
-                index: idx,
-                len: self.schema.len(),
-            })?;
-
-        T::from_sql(val.clone()).map_err(|e| {
+    fn convert_value_at<T: FromSql>(&self, idx: usize, val: Value) -> Result<T> {
+        T::from_sql(val).map_err(|e| {
             let field_name = self
                 .schema
                 .get_field_by_index(idx)
@@ -118,6 +110,38 @@ impl Row {
                 source: e,
             }
         })
+    }
+
+    /// Retrieves a value from the row by column name or zero-based index.
+    pub fn try_get<T: FromSql, I: ColumnIndex>(&self, index: I) -> Result<T> {
+        let idx = self.resolve_index(&index)?;
+        let val = self
+            .values
+            .get(idx)
+            .ok_or_else(|| RowError::IndexOutOfRange {
+                index: idx,
+                len: self.schema.len(),
+            })?;
+
+        self.convert_value_at(idx, val.clone())
+    }
+
+    /// Takes ownership of a value from the row by column name or zero-based index.
+    /// The value in the row is replaced with `Value::Null` in-place to avoid cloning.
+    pub fn take<T: FromSql, I: ColumnIndex>(&mut self, index: I) -> Result<T> {
+        let idx = self.resolve_index(&index)?;
+
+        let val = self
+            .values
+            .get_mut(idx)
+            .ok_or_else(|| RowError::IndexOutOfRange {
+                index: idx,
+                len: self.schema.len(),
+            })?;
+
+        // swap out the value in-place to avoid clones
+        let owned_val = std::mem::replace(val, Value::Null);
+        self.convert_value_at(idx, owned_val)
     }
 
     /// Retrieves a value from the row by column name or zero-based index, panicking on error.
@@ -277,7 +301,7 @@ mod tests {
                 .set_mode("NULLABLE"),
         ]);
         let schema = Arc::new(Schema::new(schema));
-        let row = Row::try_new(raw_row, &schema)?;
+        let mut row = Row::try_new(raw_row, &schema)?;
 
         assert_eq!(row.get::<String, _>(0), "James");
         assert_eq!(row.get::<String, _>("name"), "James");
@@ -297,6 +321,21 @@ mod tests {
         assert_eq!(row.get::<f32, _>("some_float"), 64.0);
         assert_eq!(row.get::<f64, _>(4), 64.0);
         assert_eq!(row.get::<f64, _>("some_float"), 64.0);
+
+        assert_eq!(row.take::<String, _>(0)?, "James");
+        assert_eq!(row.try_get::<Option<String>, _>(0)?, None);
+
+        assert_eq!(row.take::<i32, _>(1)?, 272793);
+        assert_eq!(row.try_get::<Option<i32>, _>(1)?, None);
+
+        assert!(row.take::<bool, _>(2)?);
+        assert_eq!(row.try_get::<Option<bool>, _>(2)?, None);
+
+        assert_eq!(row.take::<Option<i64>, _>(3)?, None);
+        assert_eq!(row.try_get::<Option<i64>, _>(3)?, None);
+
+        assert_eq!(row.take::<f32, _>(4)?, 64.0);
+        assert_eq!(row.try_get::<Option<f32>, _>(4)?, None);
 
         Ok(())
     }
@@ -326,7 +365,7 @@ mod tests {
                 .set_mode("NULLABLE"),
         ]);
         let schema = Arc::new(Schema::new(schema));
-        let row = Row::try_new(raw_row, &schema)?;
+        let mut row = Row::try_new(raw_row, &schema)?;
 
         assert_eq!(
             row.get::<Decimal, _>(0),
@@ -371,6 +410,18 @@ mod tests {
         assert!(row.try_get::<RustDecimal, _>(2).is_err());
         assert!(row.try_get::<RustDecimal, _>("overflow_amount").is_err());
 
+        assert_eq!(
+            row.take::<Decimal, _>(0)?,
+            Decimal::new().set_value("123.456")
+        );
+        assert_eq!(row.try_get::<Option<Decimal>, _>(0)?, None);
+
+        assert_eq!(
+            row.take::<RustDecimal, _>(1)?,
+            "99999999999999999999.123456789".parse()?
+        );
+        assert_eq!(row.try_get::<Option<RustDecimal>, _>(1)?, None);
+
         Ok(())
     }
 
@@ -404,7 +455,7 @@ mod tests {
                     .set_mode("NULLABLE"),
             ])]);
         let schema = Arc::new(Schema::new(schema));
-        let row = Row::try_new(raw_row, &schema)?;
+        let mut row = Row::try_new(raw_row, &schema)?;
 
         let expected: Struct = serde_json::from_value(json!({
             "name": "Alice",
@@ -412,6 +463,8 @@ mod tests {
         }))?;
         assert_eq!(row.get::<Struct, _>(0), expected);
         assert_eq!(row.get::<Struct, _>("user"), expected);
+        assert_eq!(row.take::<Struct, _>("user")?, expected);
+        assert_eq!(row.try_get::<Option<Struct>, _>("user")?, None);
 
         Ok(())
     }
@@ -435,10 +488,12 @@ mod tests {
             .set_type("INTEGER")
             .set_mode("REPEATED")]);
         let schema = Arc::new(Schema::new(schema));
-        let row = Row::try_new(raw_row, &schema)?;
+        let mut row = Row::try_new(raw_row, &schema)?;
 
         assert_eq!(row.get::<Vec<i64>, _>(0), vec![1, 2, 3]);
         assert_eq!(row.get::<Vec<i64>, _>("numbers"), vec![1, 2, 3]);
+        assert_eq!(row.take::<Vec<i64>, _>("numbers")?, vec![1, 2, 3]);
+        assert_eq!(row.try_get::<Option<Vec<i64>>, _>("numbers")?, None);
 
         Ok(())
     }
@@ -485,7 +540,7 @@ mod tests {
                     .set_mode("NULLABLE"),
             ])]);
         let schema = Arc::new(Schema::new(schema));
-        let row = Row::try_new(raw_row, &schema)?;
+        let mut row = Row::try_new(raw_row, &schema)?;
 
         let expected: Vec<Struct> = serde_json::from_value(json!([
             {
@@ -499,6 +554,8 @@ mod tests {
         ]))?;
         assert_eq!(row.get::<Vec<Struct>, _>(0), expected);
         assert_eq!(row.get::<Vec<Struct>, _>("users"), expected);
+        assert_eq!(row.take::<Vec<Struct>, _>("users")?, expected);
+        assert_eq!(row.try_get::<Option<Vec<Struct>>, _>("users")?, None);
 
         Ok(())
     }
