@@ -109,6 +109,7 @@ wrappers = [
   # the main motivation for denying `tonic` in general: we want to avoid
   # accidental use of the crate in other crates.
   "google-cloud-gax-internal",
+  "grpc",
   # Use in tests is fine.
   "bigquery-write-grpc-mock",
   "grpc-server",
