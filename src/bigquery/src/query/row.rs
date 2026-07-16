@@ -235,6 +235,8 @@ fn convert_basic_type(value: String, field_name: &str, field_type: &str) -> Resu
 mod tests {
     use super::*;
     use google_cloud_bigquery_v2::model::{TableFieldSchema, TableSchema};
+    use google_cloud_type::model::Decimal;
+    use rust_decimal::Decimal as RustDecimal;
     use serde_json::{Map, json};
     use test_case::test_case;
 
@@ -280,6 +282,8 @@ mod tests {
         assert_eq!(row.get::<String, _>(0), "James");
         assert_eq!(row.get::<String, _>("name"), "James");
 
+        assert_eq!(row.get::<i32, _>(1), 272793);
+        assert_eq!(row.get::<i32, _>("some_int"), 272793);
         assert_eq!(row.get::<i64, _>(1), 272793);
         assert_eq!(row.get::<i64, _>("some_int"), 272793);
 
@@ -289,8 +293,83 @@ mod tests {
         assert_eq!(row.get::<Option<i64>, _>(3), None);
         assert_eq!(row.get::<Option<i64>, _>("some_null"), None);
 
+        assert_eq!(row.get::<f32, _>(4), 64.0);
+        assert_eq!(row.get::<f32, _>("some_float"), 64.0);
         assert_eq!(row.get::<f64, _>(4), 64.0);
         assert_eq!(row.get::<f64, _>("some_float"), 64.0);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn convert_numeric_from_row() -> TestResult {
+        let raw_row = Map::from_iter([(
+            "f".to_string(),
+            json!([
+                { "v": "123.456" },
+                { "v": "99999999999999999999.123456789" },
+                { "v": "99999999999999999999999999999999.123" },
+            ]),
+        )]);
+        let schema = TableSchema::new().set_fields([
+            TableFieldSchema::new()
+                .set_name("price")
+                .set_type("NUMERIC")
+                .set_mode("NULLABLE"),
+            TableFieldSchema::new()
+                .set_name("big_amount")
+                .set_type("BIGNUMERIC")
+                .set_mode("NULLABLE"),
+            TableFieldSchema::new()
+                .set_name("overflow_amount")
+                .set_type("BIGNUMERIC")
+                .set_mode("NULLABLE"),
+        ]);
+        let schema = Arc::new(Schema::new(schema));
+        let row = Row::try_new(raw_row, &schema)?;
+
+        assert_eq!(
+            row.get::<Decimal, _>(0),
+            Decimal::new().set_value("123.456")
+        );
+        assert_eq!(
+            row.get::<Decimal, _>("price"),
+            Decimal::new().set_value("123.456")
+        );
+
+        assert_eq!(
+            row.get::<Decimal, _>(1),
+            Decimal::new().set_value("99999999999999999999.123456789")
+        );
+        assert_eq!(
+            row.get::<Decimal, _>("big_amount"),
+            Decimal::new().set_value("99999999999999999999.123456789")
+        );
+
+        assert_eq!(
+            row.get::<RustDecimal, _>(0),
+            "123.456".parse().expect("valid decimal")
+        );
+        assert_eq!(
+            row.get::<RustDecimal, _>("price"),
+            "123.456".parse().expect("valid decimal")
+        );
+
+        assert_eq!(
+            row.get::<RustDecimal, _>(1),
+            "99999999999999999999.123456789"
+                .parse()
+                .expect("valid decimal")
+        );
+        assert_eq!(
+            row.get::<RustDecimal, _>("big_amount"),
+            "99999999999999999999.123456789"
+                .parse()
+                .expect("valid decimal")
+        );
+
+        assert!(row.try_get::<RustDecimal, _>(2).is_err());
+        assert!(row.try_get::<RustDecimal, _>("overflow_amount").is_err());
 
         Ok(())
     }

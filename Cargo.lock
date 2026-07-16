@@ -1993,6 +1993,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "mockall",
+ "rust_decimal",
  "serde_json",
  "test-case",
  "thiserror",
@@ -6169,6 +6170,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "rand 0.10.2",
+ "rust_decimal",
  "tokio",
 ]
 
