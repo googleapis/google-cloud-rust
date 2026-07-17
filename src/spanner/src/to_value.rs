@@ -175,7 +175,7 @@ impl ToValue for Vec<u8> {
     }
 }
 
-impl ToValue for &[u8] {
+impl ToValue for [u8] {
     fn to_value(&self) -> Value {
         Value(ProtoValue {
             kind: Some(prost_types::value::Kind::StringValue(
