@@ -5671,6 +5671,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-geo-type"
+version = "1.0.0"
+dependencies = [
+ "anyhow",
+ "bytes",
+ "google-cloud-type",
+ "google-cloud-wkt",
+ "serde",
+ "serde_json",
+ "serde_with",
+]
+
+[[package]]
 name = "google-streetview-publish-v1"
 version = "1.0.0"
 dependencies = [
