@@ -23,6 +23,7 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gaxi;
 extern crate google_cloud_gax;
+extern crate google_cloud_lro;
 extern crate google_cloud_type;
 extern crate serde;
 extern crate serde_json;

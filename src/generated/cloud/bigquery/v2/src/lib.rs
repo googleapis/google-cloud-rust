@@ -110,3 +110,6 @@ pub(crate) use google_cloud_gax::client_builder::internal::new_builder as new_cl
 pub(crate) use google_cloud_gax::options::RequestOptions;
 pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
 pub(crate) use google_cloud_gax::response::Response;
+
+#[allow(missing_docs)]
+pub mod operation;

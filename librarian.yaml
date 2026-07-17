@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.26.0
+version: v0.26.1-0.20260716180500-d5ce8a9d2faa
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
@@ -507,6 +507,8 @@ libraries:
   - name: google-cloud-bigquery-v2
     version: 1.0.0
     copyright_year: "2025"
+    keep:
+      - src/operation.rs
     skip_release: true
     rust:
       package_name_override: google-cloud-bigquery-v2
