@@ -51,9 +51,9 @@ pub mod dataset_service {
     /// Common implementation for [crate::client::DatasetService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::DatasetService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::DatasetService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -88,7 +88,7 @@ pub mod dataset_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDataset(RequestBuilder<crate::model::GetDatasetRequest>);
+    pub struct GetDataset(pub(crate) RequestBuilder<crate::model::GetDatasetRequest>);
 
     impl GetDataset {
         pub(crate) fn new(
@@ -173,7 +173,7 @@ pub mod dataset_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct InsertDataset(RequestBuilder<crate::model::InsertDatasetRequest>);
+    pub struct InsertDataset(pub(crate) RequestBuilder<crate::model::InsertDatasetRequest>);
 
     impl InsertDataset {
         pub(crate) fn new(
@@ -263,7 +263,7 @@ pub mod dataset_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct PatchDataset(RequestBuilder<crate::model::UpdateOrPatchDatasetRequest>);
+    pub struct PatchDataset(pub(crate) RequestBuilder<crate::model::UpdateOrPatchDatasetRequest>);
 
     impl PatchDataset {
         pub(crate) fn new(
@@ -375,7 +375,7 @@ pub mod dataset_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateDataset(RequestBuilder<crate::model::UpdateOrPatchDatasetRequest>);
+    pub struct UpdateDataset(pub(crate) RequestBuilder<crate::model::UpdateOrPatchDatasetRequest>);
 
     impl UpdateDataset {
         pub(crate) fn new(
@@ -487,7 +487,7 @@ pub mod dataset_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteDataset(RequestBuilder<crate::model::DeleteDatasetRequest>);
+    pub struct DeleteDataset(pub(crate) RequestBuilder<crate::model::DeleteDatasetRequest>);
 
     impl DeleteDataset {
         pub(crate) fn new(
@@ -567,7 +567,7 @@ pub mod dataset_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDatasets(RequestBuilder<crate::model::ListDatasetsRequest>);
+    pub struct ListDatasets(pub(crate) RequestBuilder<crate::model::ListDatasetsRequest>);
 
     impl ListDatasets {
         pub(crate) fn new(
@@ -689,7 +689,7 @@ pub mod dataset_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UndeleteDataset(RequestBuilder<crate::model::UndeleteDatasetRequest>);
+    pub struct UndeleteDataset(pub(crate) RequestBuilder<crate::model::UndeleteDatasetRequest>);
 
     impl UndeleteDataset {
         pub(crate) fn new(
@@ -798,9 +798,9 @@ pub mod job_service {
     /// Common implementation for [crate::client::JobService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::JobService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::JobService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -835,7 +835,7 @@ pub mod job_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CancelJob(RequestBuilder<crate::model::CancelJobRequest>);
+    pub struct CancelJob(pub(crate) RequestBuilder<crate::model::CancelJobRequest>);
 
     impl CancelJob {
         pub(crate) fn new(
@@ -911,7 +911,7 @@ pub mod job_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetJob(RequestBuilder<crate::model::GetJobRequest>);
+    pub struct GetJob(pub(crate) RequestBuilder<crate::model::GetJobRequest>);
 
     impl GetJob {
         pub(crate) fn new(
@@ -987,7 +987,7 @@ pub mod job_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct InsertJob(RequestBuilder<crate::model::InsertJobRequest>);
+    pub struct InsertJob(pub(crate) RequestBuilder<crate::model::InsertJobRequest>);
 
     impl InsertJob {
         pub(crate) fn new(
@@ -1137,7 +1137,7 @@ pub mod job_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteJob(RequestBuilder<crate::model::DeleteJobRequest>);
+    pub struct DeleteJob(pub(crate) RequestBuilder<crate::model::DeleteJobRequest>);
 
     impl DeleteJob {
         pub(crate) fn new(
@@ -1217,7 +1217,7 @@ pub mod job_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListJobs(RequestBuilder<crate::model::ListJobsRequest>);
+    pub struct ListJobs(pub(crate) RequestBuilder<crate::model::ListJobsRequest>);
 
     impl ListJobs {
         pub(crate) fn new(
@@ -1381,7 +1381,7 @@ pub mod job_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetQueryResults(RequestBuilder<crate::model::GetQueryResultsRequest>);
+    pub struct GetQueryResults(pub(crate) RequestBuilder<crate::model::GetQueryResultsRequest>);
 
     impl GetQueryResults {
         pub(crate) fn new(
@@ -1535,7 +1535,7 @@ pub mod job_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct Query(RequestBuilder<crate::model::PostQueryRequest>);
+    pub struct Query(pub(crate) RequestBuilder<crate::model::PostQueryRequest>);
 
     impl Query {
         pub(crate) fn new(
@@ -1636,9 +1636,9 @@ pub mod model_service {
     /// Common implementation for [crate::client::ModelService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -1673,7 +1673,7 @@ pub mod model_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetModel(RequestBuilder<crate::model::GetModelRequest>);
+    pub struct GetModel(pub(crate) RequestBuilder<crate::model::GetModelRequest>);
 
     impl GetModel {
         pub(crate) fn new(
@@ -1755,7 +1755,7 @@ pub mod model_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListModels(RequestBuilder<crate::model::ListModelsRequest>);
+    pub struct ListModels(pub(crate) RequestBuilder<crate::model::ListModelsRequest>);
 
     impl ListModels {
         pub(crate) fn new(
@@ -1875,7 +1875,7 @@ pub mod model_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct PatchModel(RequestBuilder<crate::model::PatchModelRequest>);
+    pub struct PatchModel(pub(crate) RequestBuilder<crate::model::PatchModelRequest>);
 
     impl PatchModel {
         pub(crate) fn new(
@@ -1975,7 +1975,7 @@ pub mod model_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteModel(RequestBuilder<crate::model::DeleteModelRequest>);
+    pub struct DeleteModel(pub(crate) RequestBuilder<crate::model::DeleteModelRequest>);
 
     impl DeleteModel {
         pub(crate) fn new(
@@ -2074,9 +2074,9 @@ pub mod project_service {
     /// Common implementation for [crate::client::ProjectService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::ProjectService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::ProjectService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -2111,7 +2111,7 @@ pub mod project_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetServiceAccount(RequestBuilder<crate::model::GetServiceAccountRequest>);
+    pub struct GetServiceAccount(pub(crate) RequestBuilder<crate::model::GetServiceAccountRequest>);
 
     impl GetServiceAccount {
         pub(crate) fn new(
@@ -2197,9 +2197,9 @@ pub mod routine_service {
     /// Common implementation for [crate::client::RoutineService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RoutineService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::RoutineService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -2234,7 +2234,7 @@ pub mod routine_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRoutine(RequestBuilder<crate::model::GetRoutineRequest>);
+    pub struct GetRoutine(pub(crate) RequestBuilder<crate::model::GetRoutineRequest>);
 
     impl GetRoutine {
         pub(crate) fn new(
@@ -2312,7 +2312,7 @@ pub mod routine_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct InsertRoutine(RequestBuilder<crate::model::InsertRoutineRequest>);
+    pub struct InsertRoutine(pub(crate) RequestBuilder<crate::model::InsertRoutineRequest>);
 
     impl InsertRoutine {
         pub(crate) fn new(
@@ -2404,7 +2404,7 @@ pub mod routine_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateRoutine(RequestBuilder<crate::model::UpdateRoutineRequest>);
+    pub struct UpdateRoutine(pub(crate) RequestBuilder<crate::model::UpdateRoutineRequest>);
 
     impl UpdateRoutine {
         pub(crate) fn new(
@@ -2504,7 +2504,7 @@ pub mod routine_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteRoutine(RequestBuilder<crate::model::DeleteRoutineRequest>);
+    pub struct DeleteRoutine(pub(crate) RequestBuilder<crate::model::DeleteRoutineRequest>);
 
     impl DeleteRoutine {
         pub(crate) fn new(
@@ -2586,7 +2586,7 @@ pub mod routine_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListRoutines(RequestBuilder<crate::model::ListRoutinesRequest>);
+    pub struct ListRoutines(pub(crate) RequestBuilder<crate::model::ListRoutinesRequest>);
 
     impl ListRoutines {
         pub(crate) fn new(
@@ -2733,9 +2733,9 @@ pub mod row_access_policy_service {
     /// Common implementation for [crate::client::RowAccessPolicyService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -2774,7 +2774,9 @@ pub mod row_access_policy_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListRowAccessPolicies(RequestBuilder<crate::model::ListRowAccessPoliciesRequest>);
+    pub struct ListRowAccessPolicies(
+        pub(crate) RequestBuilder<crate::model::ListRowAccessPoliciesRequest>,
+    );
 
     impl ListRowAccessPolicies {
         pub(crate) fn new(
@@ -2895,7 +2897,9 @@ pub mod row_access_policy_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetRowAccessPolicy(RequestBuilder<crate::model::GetRowAccessPolicyRequest>);
+    pub struct GetRowAccessPolicy(
+        pub(crate) RequestBuilder<crate::model::GetRowAccessPolicyRequest>,
+    );
 
     impl GetRowAccessPolicy {
         pub(crate) fn new(
@@ -2984,7 +2988,9 @@ pub mod row_access_policy_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateRowAccessPolicy(RequestBuilder<crate::model::CreateRowAccessPolicyRequest>);
+    pub struct CreateRowAccessPolicy(
+        pub(crate) RequestBuilder<crate::model::CreateRowAccessPolicyRequest>,
+    );
 
     impl CreateRowAccessPolicy {
         pub(crate) fn new(
@@ -3087,7 +3093,9 @@ pub mod row_access_policy_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateRowAccessPolicy(RequestBuilder<crate::model::UpdateRowAccessPolicyRequest>);
+    pub struct UpdateRowAccessPolicy(
+        pub(crate) RequestBuilder<crate::model::UpdateRowAccessPolicyRequest>,
+    );
 
     impl UpdateRowAccessPolicy {
         pub(crate) fn new(
@@ -3198,7 +3206,9 @@ pub mod row_access_policy_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteRowAccessPolicy(RequestBuilder<crate::model::DeleteRowAccessPolicyRequest>);
+    pub struct DeleteRowAccessPolicy(
+        pub(crate) RequestBuilder<crate::model::DeleteRowAccessPolicyRequest>,
+    );
 
     impl DeleteRowAccessPolicy {
         pub(crate) fn new(
@@ -3306,7 +3316,7 @@ pub mod row_access_policy_service {
     /// ```
     #[derive(Clone, Debug)]
     pub struct BatchDeleteRowAccessPolicies(
-        RequestBuilder<crate::model::BatchDeleteRowAccessPoliciesRequest>,
+        pub(crate) RequestBuilder<crate::model::BatchDeleteRowAccessPoliciesRequest>,
     );
 
     impl BatchDeleteRowAccessPolicies {
@@ -3440,9 +3450,9 @@ pub mod table_service {
     /// Common implementation for [crate::client::TableService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: std::sync::Arc<dyn super::super::stub::dynamic::TableService>,
-        request: R,
-        options: crate::RequestOptions,
+        pub(crate) stub: std::sync::Arc<dyn super::super::stub::dynamic::TableService>,
+        pub(crate) request: R,
+        pub(crate) options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -3477,7 +3487,7 @@ pub mod table_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetTable(RequestBuilder<crate::model::GetTableRequest>);
+    pub struct GetTable(pub(crate) RequestBuilder<crate::model::GetTableRequest>);
 
     impl GetTable {
         pub(crate) fn new(
@@ -3570,7 +3580,7 @@ pub mod table_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct InsertTable(RequestBuilder<crate::model::InsertTableRequest>);
+    pub struct InsertTable(pub(crate) RequestBuilder<crate::model::InsertTableRequest>);
 
     impl InsertTable {
         pub(crate) fn new(
@@ -3662,7 +3672,7 @@ pub mod table_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct PatchTable(RequestBuilder<crate::model::UpdateOrPatchTableRequest>);
+    pub struct PatchTable(pub(crate) RequestBuilder<crate::model::UpdateOrPatchTableRequest>);
 
     impl PatchTable {
         pub(crate) fn new(
@@ -3771,7 +3781,7 @@ pub mod table_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateTable(RequestBuilder<crate::model::UpdateOrPatchTableRequest>);
+    pub struct UpdateTable(pub(crate) RequestBuilder<crate::model::UpdateOrPatchTableRequest>);
 
     impl UpdateTable {
         pub(crate) fn new(
@@ -3880,7 +3890,7 @@ pub mod table_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteTable(RequestBuilder<crate::model::DeleteTableRequest>);
+    pub struct DeleteTable(pub(crate) RequestBuilder<crate::model::DeleteTableRequest>);
 
     impl DeleteTable {
         pub(crate) fn new(
@@ -3962,7 +3972,7 @@ pub mod table_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListTables(RequestBuilder<crate::model::ListTablesRequest>);
+    pub struct ListTables(pub(crate) RequestBuilder<crate::model::ListTablesRequest>);
 
     impl ListTables {
         pub(crate) fn new(
