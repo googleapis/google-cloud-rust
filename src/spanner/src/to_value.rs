@@ -79,7 +79,7 @@ impl ToValue for str {
 
 impl ToValue for &str {
     fn to_value(&self) -> Value {
-        (**self).to_value()
+        <str as ToValue>::to_value(*self)
     }
 }
 
