@@ -144,7 +144,9 @@ fn is_retryable_code(code: StatusCode) -> bool {
         // Internal server errors do not indicate that there is anything wrong
         // with our request, so we retry them.
         StatusCode::INTERNAL_SERVER_ERROR
+        | StatusCode::BAD_GATEWAY
         | StatusCode::SERVICE_UNAVAILABLE
+        | StatusCode::GATEWAY_TIMEOUT
         | StatusCode::REQUEST_TIMEOUT
         | StatusCode::TOO_MANY_REQUESTS => true,
         _ => false,
@@ -160,7 +162,9 @@ mod tests {
     use test_case::test_case;
 
     #[test_case(StatusCode::INTERNAL_SERVER_ERROR)]
+    #[test_case(StatusCode::BAD_GATEWAY)]
     #[test_case(StatusCode::SERVICE_UNAVAILABLE)]
+    #[test_case(StatusCode::GATEWAY_TIMEOUT)]
     #[test_case(StatusCode::REQUEST_TIMEOUT)]
     #[test_case(StatusCode::TOO_MANY_REQUESTS)]
     fn retryable(c: StatusCode) {
@@ -170,7 +174,6 @@ mod tests {
     #[test_case(StatusCode::NOT_FOUND)]
     #[test_case(StatusCode::UNAUTHORIZED)]
     #[test_case(StatusCode::BAD_REQUEST)]
-    #[test_case(StatusCode::BAD_GATEWAY)]
     #[test_case(StatusCode::PRECONDITION_FAILED)]
     fn non_retryable(c: StatusCode) {
         assert!(!is_retryable_code(c));
