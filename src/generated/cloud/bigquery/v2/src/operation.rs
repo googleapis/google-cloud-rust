@@ -37,3 +37,91 @@ impl google_cloud_lro::internal::DiscoveryOperation for Job {
         })
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::model::{Job, JobReference, JobStatus, ErrorProto};
+    use google_cloud_lro::internal::DiscoveryOperation;
+
+    #[test]
+    fn name_none() {
+        let job = Job::default();
+        assert_eq!(job.name(), None);
+    }
+
+    #[test]
+    fn name_some() {
+        let job = Job {
+            job_reference: Some(JobReference {
+                job_id: "test-id".to_string(),
+                ..Default::default()
+            }),
+            ..Default::default()
+        };
+        assert_eq!(job.name().map(|s| s.as_str()), Some("test-id"));
+    }
+
+    #[test]
+    fn done_none() {
+        let job = Job::default();
+        assert!(!job.done());
+    }
+
+    #[test]
+    fn done_false() {
+        let job = Job {
+            status: Some(JobStatus {
+                state: "RUNNING".to_string(),
+                ..Default::default()
+            }),
+            ..Default::default()
+        };
+        assert!(!job.done());
+    }
+
+    #[test]
+    fn done_true() {
+        let job = Job {
+            status: Some(JobStatus {
+                state: "DONE".to_string(),
+                ..Default::default()
+            }),
+            ..Default::default()
+        };
+        assert!(job.done());
+    }
+
+    #[test]
+    fn error_none() {
+        let job = Job::default();
+        assert!(job.error().is_none());
+
+        let job_no_error = Job {
+            status: Some(JobStatus {
+                state: "DONE".to_string(),
+                ..Default::default()
+            }),
+            ..Default::default()
+        };
+        assert!(job_no_error.error().is_none());
+    }
+
+    #[test]
+    fn error_some() {
+        let job = Job {
+            status: Some(JobStatus {
+                state: "DONE".to_string(),
+                error_result: Some(ErrorProto {
+                    message: "test error".to_string(),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }),
+            ..Default::default()
+        };
+        let err = job.error().expect("should have error");
+        assert_eq!(err.code, Code::Unknown);
+        assert_eq!(err.message, "test error");
+    }
+}
