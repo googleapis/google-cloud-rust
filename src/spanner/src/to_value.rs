@@ -269,6 +269,18 @@ mod tests {
     }
 
     #[test]
+    fn test_to_value_slice_trait_bound() {
+        fn bind_param<T: ToValue + ?Sized>(val: &T) -> Value {
+            val.to_value()
+        }
+
+        let slice: &[u8] = &[1, 2, 3];
+        let v = bind_param(slice);
+        assert_eq!(v.kind(), Kind::String);
+        assert_eq!(v.as_string(), "AQID");
+    }
+
+    #[test]
     fn test_to_value_decimal() {
         let d = Decimal::from_str("123.456").unwrap();
         let v = d.to_value();
