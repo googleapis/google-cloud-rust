@@ -65,17 +65,21 @@ impl ToValue for ProtoValue {
 
 impl ToValue for String {
     fn to_value(&self) -> Value {
+        self.as_str().to_value()
+    }
+}
+
+impl ToValue for str {
+    fn to_value(&self) -> Value {
         Value(ProtoValue {
-            kind: Some(prost_types::value::Kind::StringValue(self.clone())),
+            kind: Some(prost_types::value::Kind::StringValue(self.to_string())),
         })
     }
 }
 
 impl ToValue for &str {
     fn to_value(&self) -> Value {
-        Value(ProtoValue {
-            kind: Some(prost_types::value::Kind::StringValue(self.to_string())),
-        })
+        (**self).to_value()
     }
 }
 
@@ -209,6 +213,22 @@ mod tests {
         let v = "world".to_value();
         assert_eq!(v.kind(), Kind::String);
         assert_eq!(v.as_string(), "world");
+    }
+
+    #[test]
+    fn test_to_value_str_trait_bound() {
+        fn bind_param<T: ToValue + ?Sized>(val: &T) -> Value {
+            val.to_value()
+        }
+
+        let v = bind_param("hello");
+        assert_eq!(v.kind(), Kind::String);
+        assert_eq!(v.as_string(), "hello");
+
+        let owned: String = "hello".to_string();
+        assert_eq!(bind_param(&owned), v);
+        let borrowed: &str = &owned;
+        assert_eq!(bind_param(&borrowed), v);
     }
 
     #[test]
