@@ -140,17 +140,12 @@ fn is_retryable(err: &reqwest::Error) -> bool {
 }
 
 fn is_retryable_code(code: StatusCode) -> bool {
-    match code {
-        // Internal server errors do not indicate that there is anything wrong
-        // with our request, so we retry them.
-        StatusCode::INTERNAL_SERVER_ERROR
-        | StatusCode::BAD_GATEWAY
-        | StatusCode::SERVICE_UNAVAILABLE
-        | StatusCode::GATEWAY_TIMEOUT
-        | StatusCode::REQUEST_TIMEOUT
-        | StatusCode::TOO_MANY_REQUESTS => true,
-        _ => false,
-    }
+    // Retry all 5xx server errors, along with 408 (Request Timeout) and 429 (Too Many Requests).
+    code.is_server_error()
+        || matches!(
+            code,
+            StatusCode::REQUEST_TIMEOUT | StatusCode::TOO_MANY_REQUESTS
+        )
 }
 
 #[cfg(test)]
@@ -165,6 +160,7 @@ mod tests {
     #[test_case(StatusCode::BAD_GATEWAY)]
     #[test_case(StatusCode::SERVICE_UNAVAILABLE)]
     #[test_case(StatusCode::GATEWAY_TIMEOUT)]
+    #[test_case(StatusCode::HTTP_VERSION_NOT_SUPPORTED)]
     #[test_case(StatusCode::REQUEST_TIMEOUT)]
     #[test_case(StatusCode::TOO_MANY_REQUESTS)]
     fn retryable(c: StatusCode) {
@@ -173,6 +169,7 @@ mod tests {
 
     #[test_case(StatusCode::NOT_FOUND)]
     #[test_case(StatusCode::UNAUTHORIZED)]
+    #[test_case(StatusCode::FORBIDDEN)]
     #[test_case(StatusCode::BAD_REQUEST)]
     #[test_case(StatusCode::PRECONDITION_FAILED)]
     fn non_retryable(c: StatusCode) {
