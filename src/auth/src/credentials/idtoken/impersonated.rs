@@ -82,14 +82,20 @@ use crate::{
     token_cache::TokenCache,
 };
 use async_trait::async_trait;
-use google_cloud_gax::backoff_policy::BackoffPolicyArg;
-use google_cloud_gax::error::CredentialsError;
-use google_cloud_gax::retry_policy::RetryPolicyArg;
-use google_cloud_gax::retry_throttler::RetryThrottlerArg;
+use google_cloud_gax::Result as GaxResult;
+use google_cloud_gax::backoff_policy::{BackoffPolicy, BackoffPolicyArg};
+use google_cloud_gax::error::{CredentialsError, Error as GaxError};
+use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+use google_cloud_gax::retry_loop_internal::retry_loop;
+use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicy, RetryPolicyArg, RetryPolicyExt};
+use google_cloud_gax::retry_throttler::{
+    AdaptiveThrottler, RetryThrottlerArg, SharedRetryThrottler,
+};
 use http::{Extensions, HeaderMap};
 use reqwest::Client;
 use serde_json::Value;
 use std::sync::Arc;
+use std::time::Duration;
 
 /// A builder for constructing Impersonated Service Account [IDTokenCredentials] instance.
 ///
@@ -384,41 +390,130 @@ async fn generate_id_token(
     include_email: Option<bool>,
     service_account_impersonation_url: &str,
 ) -> Result<Token> {
-    let client = Client::new();
-
-    let body = GenerateIdTokenRequest {
-        audience,
+    GenerateIdTokenClient::new(
+        source_headers,
         delegates,
+        audience,
         include_email,
-    };
+        service_account_impersonation_url.to_string(),
+    )
+    .fetch()
+    .await
+}
 
+async fn generate_id_token_call(
+    client: &Client,
+    url: &str,
+    source_headers: HeaderMap,
+    body: &GenerateIdTokenRequest,
+) -> GaxResult<reqwest::Response> {
     let response = client
-        .post(service_account_impersonation_url)
+        .post(url)
         .header("Content-Type", "application/json")
         .header(
             headers_util::X_GOOG_API_CLIENT,
             metrics_header_value(ID_TOKEN_REQUEST_TYPE, IMPERSONATED_CREDENTIAL_TYPE),
         )
         .headers(source_headers)
-        .json(&body)
+        .json(body)
         .send()
         .await
-        .map_err(|e| errors::from_http_error(e, MSG))?;
+        .map_err(GaxError::io)?;
 
-    if !response.status().is_success() {
-        let err = errors::from_http_response(response, MSG).await;
-        return Err(err);
+    let status = response.status();
+    if !status.is_success() {
+        let err_headers = response.headers().clone();
+        let err_payload = response
+            .bytes()
+            .await
+            .map_err(|e| GaxError::transport(err_headers.clone(), e))?;
+        return Err(GaxError::http(
+            status.as_u16(),
+            err_headers,
+            format!("{MSG}: {err_payload:?}").into(),
+        ));
     }
 
-    let token_response = response
-        .json::<GenerateIdTokenResponse>()
-        .await
-        .map_err(|e| {
-            let retryable = !e.is_decode();
-            CredentialsError::from_source(retryable, e)
-        })?;
+    Ok(response)
+}
 
-    parse_id_token_from_str(token_response.token)
+#[derive(Debug)]
+struct GenerateIdTokenClient {
+    source_headers: HeaderMap,
+    delegates: Option<Vec<String>>,
+    audience: String,
+    include_email: Option<bool>,
+    url: String,
+    retry_policy: Arc<dyn RetryPolicy>,
+    backoff_policy: Arc<dyn BackoffPolicy>,
+}
+
+impl GenerateIdTokenClient {
+    fn new(
+        source_headers: HeaderMap,
+        delegates: Option<Vec<String>>,
+        audience: String,
+        include_email: Option<bool>,
+        url: String,
+    ) -> Self {
+        let retry_policy = Aip194Strict.with_time_limit(Duration::from_secs(60));
+        let backoff_policy = ExponentialBackoff::default();
+
+        Self {
+            source_headers,
+            delegates,
+            audience,
+            include_email,
+            url,
+            retry_policy: Arc::new(retry_policy),
+            backoff_policy: Arc::new(backoff_policy),
+        }
+    }
+
+    async fn fetch(self) -> Result<Token> {
+        let client = Client::new();
+        let body = GenerateIdTokenRequest {
+            audience: self.audience,
+            delegates: self.delegates,
+            include_email: self.include_email,
+        };
+
+        let sleep = async |d| tokio::time::sleep(d).await;
+        let retry_throttler: RetryThrottlerArg = AdaptiveThrottler::default().into();
+        let retry_throttler: SharedRetryThrottler = retry_throttler.into();
+        let url = self.url;
+        let source_headers = self.source_headers;
+
+        let response = retry_loop(
+            async move |d| {
+                let attempt = generate_id_token_call(&client, &url, source_headers.clone(), &body);
+                match d {
+                    Some(timeout) => match tokio::time::timeout(timeout, attempt).await {
+                        Ok(r) => r,
+                        Err(e) => Err(GaxError::timeout(e)),
+                    },
+                    None => attempt.await,
+                }
+            },
+            sleep,
+            true, // generate_id_token is idempotent
+            retry_throttler,
+            self.retry_policy.clone(),
+            self.backoff_policy.clone(),
+        )
+        .await
+        .map_err(|e| errors::from_gax_error(e, MSG))?;
+
+        let token_response = response
+            .json::<GenerateIdTokenResponse>()
+            .await
+            .map_err(|e| {
+                let retryable = !e.is_decode();
+                CredentialsError::from_source(retryable, e)
+            })?;
+
+        parse_id_token_from_str(token_response.token)
+    }
 }
 
 #[async_trait]
@@ -467,6 +562,7 @@ mod tests {
     use crate::credentials::tests::{
         get_mock_auth_retry_policy, get_mock_backoff_policy, get_mock_retry_throttler,
     };
+    use httptest::cycle;
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use serde_json::json;
 
@@ -479,6 +575,63 @@ mod tests {
                 .map(|u| u.with_endpoint(endpoint));
             self
         }
+    }
+
+    #[tokio::test]
+    async fn test_generate_id_token_client_retry_success() -> TestResult {
+        let server = Server::run();
+        let impersonation_path = "/v1/projects/-/serviceAccounts/test-principal:generateIdToken";
+        let token_string = generate_test_id_token("https://my-service.a.run.app");
+        server.expect(
+            Expectation::matching(request::method_path("POST", impersonation_path))
+                .times(2)
+                .respond_with(cycle![
+                    status_code(503).body("try-again"),
+                    json_encoded(json!({
+                        "token": token_string,
+                    })),
+                ]),
+        );
+
+        let url = server.url(impersonation_path).to_string();
+        let mut client = GenerateIdTokenClient::new(
+            HeaderMap::new(),
+            None,
+            "https://my-service.a.run.app".to_string(),
+            None,
+            url,
+        );
+        client.retry_policy = Arc::new(get_mock_auth_retry_policy(3));
+        client.backoff_policy = Arc::new(get_mock_backoff_policy());
+
+        let token = client.fetch().await?;
+        assert_eq!(token.token, token_string);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_generate_id_token_client_retry_exhausted() {
+        let server = Server::run();
+        let impersonation_path = "/v1/projects/-/serviceAccounts/test-principal:generateIdToken";
+        server.expect(
+            Expectation::matching(request::method_path("POST", impersonation_path))
+                .times(3)
+                .respond_with(status_code(503)),
+        );
+
+        let url = server.url(impersonation_path).to_string();
+        let mut client = GenerateIdTokenClient::new(
+            HeaderMap::new(),
+            None,
+            "https://my-service.a.run.app".to_string(),
+            None,
+            url,
+        );
+        client.retry_policy = Arc::new(get_mock_auth_retry_policy(3));
+        client.backoff_policy = Arc::new(get_mock_backoff_policy());
+
+        let err = client.fetch().await.unwrap_err();
+        assert!(err.is_transient(), "{err:?}");
     }
 
     #[tokio::test]
