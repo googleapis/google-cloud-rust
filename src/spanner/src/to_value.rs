@@ -194,6 +194,17 @@ where
     }
 }
 
+/// Converts a reference to any [ToValue] type into a [Value] by calling
+/// [ToValue::to_value], which copies the referenced data.
+//
+// This impl is what lets methods accepting `impl Into<Value>`, like
+// `StatementBuilder::add_param`, also accept `&T` for any `T: ToValue`.
+impl<T: ToValue + ?Sized> From<&T> for Value {
+    fn from(t: &T) -> Self {
+        t.to_value()
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

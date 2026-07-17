@@ -15,7 +15,6 @@
 use crate::key::KeySet;
 use crate::model::batch_write_request::MutationGroup as ProtoMutationGroup;
 use crate::model::mutation::Operation;
-use crate::to_value::ToValue;
 use crate::value::Value;
 use rand::seq::IteratorRandom;
 use std::slice::Iter;
@@ -298,16 +297,7 @@ pub struct ValueBinder {
 
 impl ValueBinder {
     /// Sets the value for the column.
-    pub fn to<T: ToValue + ?Sized>(self, value: &T) -> WriteBuilder {
-        self.to_value(value.to_value())
-    }
-
-    /// Sets the value for the column, taking ownership of the value.
-    ///
-    /// This behaves like [`to`](Self::to) but accepts an owned value (anything convertible into a
-    /// [`Value`]). When the caller already holds a `Value`, this avoids the deep clone that
-    /// [`to`](Self::to) performs via [`ToValue::to_value`].
-    pub fn to_value(mut self, value: impl Into<Value>) -> WriteBuilder {
+    pub fn to<T: Into<Value>>(mut self, value: T) -> WriteBuilder {
         self.builder.columns.push(self.column);
         self.builder.values.push(value.into());
         self.builder
@@ -359,6 +349,7 @@ impl<'a> IntoIterator for &'a MutationGroup {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::to_value::ToValue;
 
     #[test]
     fn auto_traits() {
@@ -419,14 +410,14 @@ mod tests {
     }
 
     #[test]
-    fn value_binder_to_value_owned() {
+    fn value_binder_to_owned_value() {
         let by_ref = Mutation::new_insert_builder("Users")
             .set("UserId")
             .to(&1)
             .build();
         let by_value = Mutation::new_insert_builder("Users")
             .set("UserId")
-            .to_value(1.to_value())
+            .to(1.to_value())
             .build();
         assert_eq!(by_ref, by_value);
     }
