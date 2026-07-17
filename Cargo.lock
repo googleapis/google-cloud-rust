@@ -2255,6 +2255,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-blockchainnodeengine-v1"
+version = "1.0.0"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-location",
+ "google-cloud-longrunning",
+ "google-cloud-lro",
+ "google-cloud-wkt",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tracing",
+]
+
+[[package]]
 name = "google-cloud-build-v1"
 version = "1.12.0"
 dependencies = [
