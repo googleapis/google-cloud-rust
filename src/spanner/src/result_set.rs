@@ -105,6 +105,9 @@ pub(crate) struct ResultSetParams {
 // This maximum is therefore primarily for safety.
 const MAX_BUFFERED_PARTIAL_RESULT_SETS: usize = 10;
 
+// The default maximum number of attempts, including the initial attempt.
+const DEFAULT_ATTEMPT_LIMIT: u32 = 10;
+
 impl ResultSet {
     /// Creates a new result set asynchronously, waiting for the first chunk to arrive.
     pub(crate) async fn create(params: ResultSetParams) -> crate::Result<Self> {
@@ -156,7 +159,9 @@ impl ResultSet {
 
     fn apply_defaults(mut gax_options: GaxRequestOptions) -> GaxRequestOptions {
         if gax_options.retry_policy().is_none() {
-            gax_options.set_retry_policy(SpannerRetryPolicy::new().with_attempt_limit(10));
+            gax_options.set_retry_policy(
+                SpannerRetryPolicy::new().with_attempt_limit(DEFAULT_ATTEMPT_LIMIT),
+            );
         }
         if gax_options.backoff_policy().is_none() {
             gax_options.set_backoff_policy(Self::default_backoff_policy());
@@ -673,8 +678,9 @@ impl ResultSet {
 
     fn check_retry(&self, e: crate::Error) -> Result<(), crate::Error> {
         if let Some(policy) = self.gax_options.retry_policy() {
-            let state =
-                RetryState::new(self.safe_to_retry).set_attempt_count(self.retry_count as u32);
+            // Initial attempt plus number of retries.
+            let attempt_count = 1 + self.retry_count as u32;
+            let state = RetryState::new(self.safe_to_retry).set_attempt_count(attempt_count);
 
             match policy.on_error(&state, e) {
                 RetryResult::Continue(_) => return Ok(()),
@@ -2255,8 +2261,12 @@ pub(crate) mod tests {
     async fn test_result_set_retry_limit_exceeded() -> anyhow::Result<()> {
         let mut mock = MockSpanner::new();
 
+        let attempt_limit = DEFAULT_ATTEMPT_LIMIT as usize;
+        // The first attempt is not a retry, so backoff is called one less time.
+        let expected_backoffs = attempt_limit - 1;
+
         mock.expect_execute_streaming_sql()
-            .times(11) // 1 initial + 10 retries
+            .times(attempt_limit)
             .returning(|_request| {
                 let stream = adapt([Err(Status::unavailable("Unavailable error"))]);
                 Ok(Response::from(stream))
@@ -2283,7 +2293,7 @@ pub(crate) mod tests {
         let mut mock_backoff = MockBackoffPolicy::new();
         mock_backoff
             .expect_on_failure()
-            .times(10)
+            .times(expected_backoffs)
             .returning(|_| Duration::from_nanos(1));
 
         let stmt = Statement::builder("SELECT 1")
