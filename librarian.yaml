@@ -99,6 +99,9 @@ default:
       - name: google-geo-type
         package: google-geo-type
         source: google.geo.type
+      - name: google-shopping-type
+        package: google-shopping-type
+        source: google.shopping.type
       - name: serde
         package: serde
         force_used: true
@@ -1727,6 +1730,10 @@ libraries:
     version: 1.0.0
     copyright_year: "2026"
     output: src/generated/geo/gtype
+  - name: google-shopping-type
+    version: 1.0.0
+    copyright_year: "2026"
+    output: src/generated/shopping/gtype
   - name: google-streetview-publish-v1
     version: 1.0.0
     copyright_year: "2026"

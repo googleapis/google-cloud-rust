@@ -303,6 +303,7 @@ members = [
   "src/generated/privacy/dlp/v2",
   "src/generated/rpc/context",
   "src/generated/rpc/types",
+  "src/generated/shopping/gtype",
   "src/generated/showcase",
   "src/generated/spanner/admin/database/v1",
   "src/generated/spanner/admin/instance/v1",
@@ -533,6 +534,7 @@ google-cloud-rpc-context                        = { default-features = false, ve
 google-cloud-spanner-admin-database-v1          = { default-features = false, version = "1.13.0", path = "src/generated/spanner/admin/database/v1" }
 google-cloud-spanner-admin-instance-v1          = { default-features = false, version = "1.13.0", path = "src/generated/spanner/admin/instance/v1" }
 google-geo-type                                 = { default-features = false, version = "1.0.0", path = "src/generated/geo/gtype" }
+google-shopping-type                            = { default-features = false, version = "1.0.0", path = "src/generated/shopping/gtype" }
 # Used in integration tests, these are leaf nodes in the dependency graph. Should not get a `version`.
 google-cloud-speech-v2               = { default-features = false, path = "src/generated/cloud/speech/v2" }
 google-cloud-secretmanager-v1        = { default-features = false, path = "src/generated/cloud/secretmanager/v1" }
