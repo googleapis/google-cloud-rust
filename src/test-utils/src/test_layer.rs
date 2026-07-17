@@ -215,11 +215,7 @@ fn find_test_id<S: Subscriber + for<'b> tracing_subscriber::registry::LookupSpan
         if span_ref.name() == "test_layer" {
             return span_ref.extensions().get::<TestId>().map(|t| t.0.clone());
         }
-        if let Some(parent) = span_ref.parent() {
-            span_ref = parent;
-        } else {
-            return None;
-        }
+        span_ref = span_ref.parent()?;
     }
 }
 

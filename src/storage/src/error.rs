@@ -72,8 +72,7 @@ impl std::fmt::Display for ChecksumMismatch {
             ),
             Self::Md5 { got, want } => write!(
                 f,
-                "the MD5 hashes do not match: got={:0x?}, want={:0x?}",
-                &got, &want
+                "the MD5 hashes do not match: got={got:0x?}, want={want:0x?}"
             ),
             Self::Both { got, want } => {
                 write!(

@@ -137,7 +137,7 @@ impl Dispatcher {
                 // If needed, this can be moved into the batch actors such that each are running
                 // on a separate timer.
                 _ = &mut timer => {
-                    for (_, batch_actor) in batch_actors.iter() {
+                    for batch_actor in batch_actors.values() {
                         let (tx, _) = oneshot::channel();
                         if batch_actor.sender.send(ToBatchActor::Flush(tx)).is_err() {
                             return; // Stop the dispatcher if a batch actor is dropped.
@@ -159,7 +159,7 @@ impl Dispatcher {
                         },
                         Some(ToDispatcher::Flush(tx)) => {
                             let mut flush_set = JoinSet::new();
-                            for (_, batch_actor) in batch_actors.iter() {
+                            for batch_actor in batch_actors.values() {
                                 let (tx, rx) = oneshot::channel();
                                 if batch_actor.sender.send(ToBatchActor::Flush(tx)).is_err() {
                                     return; // Stop the dispatcher if a batch actor is dropped.
