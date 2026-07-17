@@ -122,12 +122,21 @@ where
     fn process_intent(&mut self, intent: UploadIntent) -> BidiWriteObjectRequest {
         match intent {
             UploadIntent::Append(req) => req,
-            UploadIntent::Flush(mut req, sender) => {
-                req.state_lookup = true; // Ensure the server acknowledges this flush.
+            UploadIntent::Flush(req, sender) => {
+                assert!(
+                    req.state_lookup,
+                    "state_lookup must be true for Flush intents"
+                );
+                assert!(req.flush, "flush must be true for Flush intents");
                 self.pending_flushes.push_back(sender);
                 req
             }
             UploadIntent::Finalize(req, sender) => {
+                assert!(req.flush, "flush must be true for Finalize intents");
+                assert!(
+                    req.finish_write,
+                    "finish_write must be true for Finalize intents"
+                );
                 self.pending_flushes.push_back(sender);
                 self.finalized = true;
                 req
@@ -263,6 +272,7 @@ mod tests {
         let (flush_tx, flush_rx) = oneshot::channel();
         let flush_request = BidiWriteObjectRequest {
             flush: true,
+            state_lookup: true,
             ..Default::default()
         };
         tx.send(UploadIntent::Flush(flush_request.clone(), flush_tx))
@@ -294,6 +304,7 @@ mod tests {
 
         let (finalize_tx, finalize_rx) = oneshot::channel();
         let finalize_request = BidiWriteObjectRequest {
+            flush: true,
             finish_write: true,
             ..Default::default()
         };
@@ -354,6 +365,7 @@ mod tests {
         let (flush_tx, flush_rx) = oneshot::channel();
         let flush_request = BidiWriteObjectRequest {
             flush: true,
+            state_lookup: true,
             ..Default::default()
         };
         tx.send(UploadIntent::Flush(flush_request.clone(), flush_tx))
@@ -400,16 +412,15 @@ mod tests {
 
         // Put requests into the channel immediately. Because it has capacity 10
         // and we haven't yielded, these are queued in the requests buffer synchronously.
-        tx.send(UploadIntent::Flush(
-            BidiWriteObjectRequest::default(),
-            flush_tx1,
-        ))
-        .await?;
-        tx.send(UploadIntent::Flush(
-            BidiWriteObjectRequest::default(),
-            flush_tx2,
-        ))
-        .await?;
+        let valid_flush = || BidiWriteObjectRequest {
+            flush: true,
+            state_lookup: true,
+            ..Default::default()
+        };
+        tx.send(UploadIntent::Flush(valid_flush(), flush_tx1))
+            .await?;
+        tx.send(UploadIntent::Flush(valid_flush(), flush_tx2))
+            .await?;
 
         let payload1 = flush_rx1.await.unwrap();
         assert!(payload1.is_err());
@@ -433,5 +444,61 @@ mod tests {
         assert!(result.is_err());
 
         Ok(())
+    }
+
+    #[tokio::test]
+    async fn run_panic_on_flush_missing_state_lookup() {
+        let (handle, tx, _request_rx, _response_tx) = spawn_test_worker();
+        let (flush_tx, _flush_rx) = oneshot::channel();
+        let flush_request = BidiWriteObjectRequest {
+            flush: true,
+            state_lookup: false, // Invalid
+            ..Default::default()
+        };
+        let _ = tx.send(UploadIntent::Flush(flush_request, flush_tx)).await;
+        assert!(handle.await.unwrap_err().is_panic());
+    }
+
+    #[tokio::test]
+    async fn run_panic_on_flush_missing_flush() {
+        let (handle, tx, _request_rx, _response_tx) = spawn_test_worker();
+        let (flush_tx, _flush_rx) = oneshot::channel();
+        let flush_request = BidiWriteObjectRequest {
+            flush: false, // Invalid
+            state_lookup: true,
+            ..Default::default()
+        };
+        let _ = tx.send(UploadIntent::Flush(flush_request, flush_tx)).await;
+        assert!(handle.await.unwrap_err().is_panic());
+    }
+
+    #[tokio::test]
+    async fn run_panic_on_finalize_missing_finish_write() {
+        let (handle, tx, _request_rx, _response_tx) = spawn_test_worker();
+        let (finalize_tx, _finalize_rx) = oneshot::channel();
+        let finalize_request = BidiWriteObjectRequest {
+            finish_write: false, // Invalid
+            flush: true,
+            ..Default::default()
+        };
+        let _ = tx
+            .send(UploadIntent::Finalize(finalize_request, finalize_tx))
+            .await;
+        assert!(handle.await.unwrap_err().is_panic());
+    }
+
+    #[tokio::test]
+    async fn run_panic_on_finalize_missing_flush() {
+        let (handle, tx, _request_rx, _response_tx) = spawn_test_worker();
+        let (finalize_tx, _finalize_rx) = oneshot::channel();
+        let finalize_request = BidiWriteObjectRequest {
+            finish_write: true,
+            flush: false, // Invalid
+            ..Default::default()
+        };
+        let _ = tx
+            .send(UploadIntent::Finalize(finalize_request, finalize_tx))
+            .await;
+        assert!(handle.await.unwrap_err().is_panic());
     }
 }
