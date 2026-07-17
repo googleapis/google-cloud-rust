@@ -184,7 +184,7 @@ where
         use futures::StreamExt;
         let mut guard = self.ranges.lock().await;
         let closing = futures::stream::FuturesUnordered::new();
-        for (_, active) in guard.iter_mut() {
+        for active in guard.values_mut() {
             closing.push(active.interrupted(error.clone()));
         }
         let _ = closing.count().await;

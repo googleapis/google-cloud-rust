@@ -59,10 +59,10 @@ impl Checker {
         let mut lines = found.into_iter();
         if let Some(first) = lines.next() {
             if !self.copyright.is_match(&first) {
-                return Err(format!("Missing copyright in first line, found={first}"))?;
+                Err(format!("Missing copyright in first line, found={first}"))?;
             }
         } else {
-            return Err("Could not read any boilerplate lines".to_string())?;
+            Err("Could not read any boilerplate lines".to_string())?;
         }
 
         let first_mismatch = lines
@@ -83,7 +83,7 @@ impl Checker {
             })
             .nth(0);
         if let Some(msg) = first_mismatch {
-            return Err(msg)?;
+            Err(msg)?;
         }
 
         Ok(())
