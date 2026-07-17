@@ -54,19 +54,13 @@ impl FromSql for String {
 impl FromSql for i32 {
     fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
         match value {
-            wkt::Value::Number(n) => {
-                n.as_i64()
-                    .and_then(|v| i32::try_from(v).ok())
-                    .ok_or_else(|| {
-                        ConvertError::Convert(
-                            "number is not a valid i32".into(),
-                            wkt::Value::Number(n),
-                        )
-                    })
-            }
+            wkt::Value::Number(n) => n
+                .as_i64()
+                .and_then(|v| i32::try_from(v).ok())
+                .ok_or_else(|| ConvertError::Convert("number is not a valid i32".into())),
             wkt::Value::String(s) => s
                 .parse::<i32>()
-                .map_err(|e| ConvertError::Convert(Box::new(e), wkt::Value::String(s))),
+                .map_err(|e| ConvertError::Convert(Box::new(e))),
             wkt::Value::Null => Err(ConvertError::NotNull),
             other => Err(ConvertError::TypeMismatch {
                 expected: "number or string",
@@ -79,12 +73,12 @@ impl FromSql for i32 {
 impl FromSql for i64 {
     fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
         match value {
-            wkt::Value::Number(n) => n.as_i64().ok_or_else(|| {
-                ConvertError::Convert("number is not a valid i64".into(), wkt::Value::Number(n))
-            }),
+            wkt::Value::Number(n) => n
+                .as_i64()
+                .ok_or_else(|| ConvertError::Convert("number is not a valid i64".into())),
             wkt::Value::String(s) => s
                 .parse::<i64>()
-                .map_err(|e| ConvertError::Convert(Box::new(e), wkt::Value::String(s))),
+                .map_err(|e| ConvertError::Convert(Box::new(e))),
             wkt::Value::Null => Err(ConvertError::NotNull),
             other => Err(ConvertError::TypeMismatch {
                 expected: "number or string",
@@ -97,12 +91,13 @@ impl FromSql for i64 {
 impl FromSql for f32 {
     fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
         match value {
-            wkt::Value::Number(n) => n.as_f64().map(|v| v as f32).ok_or_else(|| {
-                ConvertError::Convert("number is not a valid f32".into(), wkt::Value::Number(n))
-            }),
+            wkt::Value::Number(n) => n
+                .as_f64()
+                .map(|v| v as f32)
+                .ok_or_else(|| ConvertError::Convert("number is not a valid f32".into())),
             wkt::Value::String(s) => s
                 .parse::<f32>()
-                .map_err(|e| ConvertError::Convert(Box::new(e), wkt::Value::String(s))),
+                .map_err(|e| ConvertError::Convert(Box::new(e))),
             wkt::Value::Null => Err(ConvertError::NotNull),
             other => Err(ConvertError::TypeMismatch {
                 expected: "number or string",
@@ -115,12 +110,12 @@ impl FromSql for f32 {
 impl FromSql for f64 {
     fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
         match value {
-            wkt::Value::Number(n) => n.as_f64().ok_or_else(|| {
-                ConvertError::Convert("number is not a valid f64".into(), wkt::Value::Number(n))
-            }),
+            wkt::Value::Number(n) => n
+                .as_f64()
+                .ok_or_else(|| ConvertError::Convert("number is not a valid f64".into())),
             wkt::Value::String(s) => s
                 .parse::<f64>()
-                .map_err(|e| ConvertError::Convert(Box::new(e), wkt::Value::String(s))),
+                .map_err(|e| ConvertError::Convert(Box::new(e))),
             wkt::Value::Null => Err(ConvertError::NotNull),
             other => Err(ConvertError::TypeMismatch {
                 expected: "number or string",
@@ -136,7 +131,7 @@ impl FromSql for bool {
             wkt::Value::Bool(b) => Ok(b),
             wkt::Value::String(s) => s
                 .parse::<bool>()
-                .map_err(|e| ConvertError::Convert(Box::new(e), wkt::Value::String(s))),
+                .map_err(|e| ConvertError::Convert(Box::new(e))),
             wkt::Value::Null => Err(ConvertError::NotNull),
             other => Err(ConvertError::TypeMismatch {
                 expected: "bool or string",
@@ -184,17 +179,18 @@ impl FromSql for wkt::Struct {
 impl FromSql for wkt::Timestamp {
     fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
         match value {
-            wkt::Value::String(s) => match s.parse::<i64>() {
-                Ok(micros) => timestamp_from_micros(micros, wkt::Value::String(s)),
-                Err(e) => Err(ConvertError::Convert(Box::new(e), wkt::Value::String(s))),
-            },
-            wkt::Value::Number(n) => match n.as_i64() {
-                Some(micros) => timestamp_from_micros(micros, wkt::Value::Number(n)),
-                None => Err(ConvertError::Convert(
-                    "timestamp number is not valid i64".into(),
-                    wkt::Value::Number(n),
-                )),
-            },
+            wkt::Value::String(s) => {
+                let micros = s
+                    .parse::<i64>()
+                    .map_err(|e| ConvertError::Convert(Box::new(e)))?;
+                timestamp_from_micros(micros)
+            }
+            wkt::Value::Number(n) => {
+                let micros = n.as_i64().ok_or_else(|| {
+                    ConvertError::Convert("timestamp number is not valid i64".into())
+                })?;
+                timestamp_from_micros(micros)
+            }
             wkt::Value::Null => Err(ConvertError::NotNull),
             other => Err(ConvertError::TypeMismatch {
                 expected: "string or number",
@@ -204,12 +200,12 @@ impl FromSql for wkt::Timestamp {
     }
 }
 
-fn timestamp_from_micros(micros: i64, value: wkt::Value) -> Result<wkt::Timestamp, ConvertError> {
+fn timestamp_from_micros(micros: i64) -> Result<wkt::Timestamp, ConvertError> {
     wkt::Timestamp::new(
         micros.div_euclid(1_000_000),
         (micros.rem_euclid(1_000_000) * 1_000) as i32,
     )
-    .map_err(|e| ConvertError::Convert(Box::new(e), value))
+    .map_err(|e| ConvertError::Convert(Box::new(e)))
 }
 
 impl FromSql for google_cloud_type::model::Date {
@@ -217,7 +213,7 @@ impl FromSql for google_cloud_type::model::Date {
         match value {
             wkt::Value::String(s) => {
                 let date = time::Date::parse(s.as_str(), BIGQUERY_DATE_FORMAT)
-                    .map_err(|e| ConvertError::Convert(Box::new(e), wkt::Value::String(s)))?;
+                    .map_err(|e| ConvertError::Convert(Box::new(e)))?;
                 Ok(google_cloud_type::model::Date::new()
                     .set_year(date.year())
                     .set_month(u8::from(date.month()) as i32)
@@ -242,7 +238,7 @@ impl FromSql for google_cloud_type::model::TimeOfDay {
                     BIGQUERY_TIME_FORMAT
                 };
                 let t = time::Time::parse(s.as_str(), format)
-                    .map_err(|e| ConvertError::Convert(Box::new(e), wkt::Value::String(s)))?;
+                    .map_err(|e| ConvertError::Convert(Box::new(e)))?;
                 Ok(google_cloud_type::model::TimeOfDay::new()
                     .set_hours(t.hour() as i32)
                     .set_minutes(t.minute() as i32)
@@ -268,7 +264,7 @@ impl FromSql for google_cloud_type::model::DateTime {
                     BIGQUERY_DATETIME_FORMAT
                 };
                 let dt = time::PrimitiveDateTime::parse(s.as_str(), format)
-                    .map_err(|e| ConvertError::Convert(Box::new(e), wkt::Value::String(s)))?;
+                    .map_err(|e| ConvertError::Convert(Box::new(e)))?;
                 Ok(google_cloud_type::model::DateTime::new()
                     .set_year(dt.year())
                     .set_month(u8::from(dt.month()) as i32)
@@ -309,7 +305,7 @@ impl FromSql for rust_decimal::Decimal {
             wkt::Value::String(s) => s
                 .trim()
                 .parse::<rust_decimal::Decimal>()
-                .map_err(|e| ConvertError::Convert(Box::new(e), wkt::Value::String(s))),
+                .map_err(|e| ConvertError::Convert(Box::new(e))),
             wkt::Value::Number(n) => {
                 if let Some(i) = n.as_i64() {
                     Ok(rust_decimal::Decimal::from(i))
@@ -317,12 +313,9 @@ impl FromSql for rust_decimal::Decimal {
                     Ok(rust_decimal::Decimal::from(u))
                 } else if let Some(f) = n.as_f64() {
                     rust_decimal::Decimal::try_from(f)
-                        .map_err(|e| ConvertError::Convert(Box::new(e), wkt::Value::Number(n)))
+                        .map_err(|e| ConvertError::Convert(Box::new(e)))
                 } else {
-                    Err(ConvertError::Convert(
-                        "invalid number".into(),
-                        wkt::Value::Number(n),
-                    ))
+                    Err(ConvertError::Convert("invalid number".into()))
                 }
             }
             wkt::Value::Null => Err(ConvertError::NotNull),
@@ -359,7 +352,7 @@ mod tests {
             match err {
                 ConvertError::NotNull => Self::NotNull,
                 ConvertError::TypeMismatch { expected, .. } => Self::TypeMismatch(expected),
-                ConvertError::Convert(e, _) => Self::Convert(e.to_string()),
+                ConvertError::Convert(e) => Self::Convert(e.to_string()),
             }
         }
     }

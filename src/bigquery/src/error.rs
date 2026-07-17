@@ -110,31 +110,10 @@ pub enum ConvertError {
     /// An error occurred during custom conversion (e.g. parsing date/time strings).
     #[error("cannot convert value: {0}")]
     Convert(
-        #[source] Box<dyn std::error::Error + Send + Sync + 'static>,
-        /// The actual value received.
-        wkt::Value,
+        #[from]
+        #[source]
+        Box<dyn std::error::Error + Send + Sync + 'static>,
     ),
-}
-
-impl ConvertError {
-    /// Consumes this error, returning the original [`wkt::Value`] that caused the error.
-    pub fn into_value(self) -> wkt::Value {
-        match self {
-            ConvertError::TypeMismatch { got, .. } => got,
-            ConvertError::NotNull => wkt::Value::Null,
-            ConvertError::Convert(_, val) => val,
-        }
-    }
-}
-
-impl RowError {
-    /// Consumes this error, returning the original [`wkt::Value`] that caused the type conversion error, if applicable.
-    pub fn into_value(self) -> Option<wkt::Value> {
-        match self {
-            RowError::TypeConversion { source, .. } => Some(source.into_value()),
-            _ => None,
-        }
-    }
 }
 
 #[cfg(test)]
@@ -223,23 +202,7 @@ mod tests {
         assert_eq!(err.to_string(), "expected non-null value, got null");
 
         let inner_err: Box<dyn std::error::Error + Send + Sync> = "invalid integer".into();
-        let err = ConvertError::Convert(inner_err, wkt::Value::String("hello".to_string()));
+        let err = ConvertError::Convert(inner_err);
         assert_eq!(err.to_string(), "cannot convert value: invalid integer");
-    }
-
-    #[test]
-    fn test_convert_error_recovery_methods() {
-        let val = wkt::Value::String("hello".to_string());
-        let err = ConvertError::TypeMismatch {
-            expected: "i64",
-            got: val.clone(),
-        };
-        assert_eq!(err.into_value(), val.clone());
-
-        let row_err = RowError::TypeConversion {
-            column: "age".to_string(),
-            source: ConvertError::NotNull,
-        };
-        assert_eq!(row_err.into_value(), Some(wkt::Value::Null));
     }
 }

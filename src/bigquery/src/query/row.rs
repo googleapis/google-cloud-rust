@@ -128,9 +128,6 @@ impl Row {
 
     /// Takes ownership of a value from the row by column name or zero-based index.
     /// The value in the row is replaced with `Value::Null` in-place to avoid cloning.
-    ///
-    /// If type conversion fails, the original cell value is not restored into the row,
-    /// but can be extracted from the returned [`RowError`] via `into_value()`.
     pub fn take<T: FromSql, I: ColumnIndex>(&mut self, index: I) -> Result<T> {
         let idx = self.resolve_index(&index)?;
 
@@ -227,27 +224,27 @@ fn convert_basic_type(value: String, field_name: &str, field_type: &str) -> Resu
         "INTEGER" | "INT64" => {
             let num = value.parse::<i64>().map_err(|e| RowError::TypeConversion {
                 column: field_name.to_string(),
-                source: ConvertError::Convert(Box::new(e), Value::String(value)),
+                source: ConvertError::Convert(Box::new(e)),
             })?;
             Ok(Value::Number(serde_json::Number::from(num)))
         }
-        "FLOAT" | "FLOAT64" => match value.parse::<f64>() {
-            Ok(num) => match serde_json::Number::from_f64(num) {
+        "FLOAT" | "FLOAT64" => {
+            let num = value.parse::<f64>().map_err(|e| RowError::TypeConversion {
+                column: field_name.to_string(),
+                source: ConvertError::Convert(Box::new(e)),
+            })?;
+            match serde_json::Number::from_f64(num) {
                 Some(n) => Ok(Value::Number(n)),
                 None => Ok(Value::String(value)),
-            },
-            Err(e) => Err(RowError::TypeConversion {
-                column: field_name.to_string(),
-                source: ConvertError::Convert(Box::new(e), Value::String(value)),
-            }),
-        },
+            }
+        }
         "BOOLEAN" | "BOOL" => {
             let b = value
                 .to_lowercase()
                 .parse::<bool>()
                 .map_err(|e| RowError::TypeConversion {
                     column: field_name.to_string(),
-                    source: ConvertError::Convert(Box::new(e), Value::String(value)),
+                    source: ConvertError::Convert(Box::new(e)),
                 })?;
             Ok(Value::Bool(b))
         }
@@ -559,39 +556,6 @@ mod tests {
         assert_eq!(row.get::<Vec<Struct>, _>("users"), expected);
         assert_eq!(row.take::<Vec<Struct>, _>("users")?, expected);
         assert_eq!(row.try_get::<Option<Vec<Struct>>, _>("users")?, None);
-
-        Ok(())
-    }
-
-    #[test]
-    fn test_take_error_into_value() -> Result<()> {
-        let raw_row: Struct = serde_json::from_value(json!({
-            "f": [
-                {
-                    "v": "hello"
-                },
-            ]
-        }))
-        .unwrap();
-        let schema = TableSchema::new().set_fields(vec![
-            TableFieldSchema::new()
-                .set_name("age")
-                .set_type("STRING")
-                .set_mode("NULLABLE"),
-        ]);
-        let schema = Arc::new(Schema::new(schema));
-        let mut row = Row::try_new(raw_row, &schema)?;
-
-        // Trying to take as i64 should fail because the cell value is "hello"
-        let err = row.take::<i64, _>("age").unwrap_err();
-        assert!(matches!(err, RowError::TypeConversion { .. }));
-        assert_eq!(
-            err.into_value(),
-            Some(wkt::Value::String("hello".to_string()))
-        );
-
-        // Because take replaced the value in-place without rolling back, the cell is now Null
-        assert_eq!(row.try_get::<Option<String>, _>("age")?, None);
 
         Ok(())
     }
