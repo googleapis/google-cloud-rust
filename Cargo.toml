@@ -283,6 +283,7 @@ members = [
   "src/generated/devtools/cloudtrace/v2",
   "src/generated/devtools/containeranalysis/v1",
   "src/generated/firestore/admin/v1",
+  "src/generated/geo/gtype",
   "src/generated/grafeas/v1",
   "src/generated/iam/admin/v1",
   "src/generated/iam/credentials/v1",
@@ -532,6 +533,7 @@ google-cloud-recommender-v1                     = { default-features = false, ve
 google-cloud-rpc-context                        = { default-features = false, version = "1.6.0", path = "src/generated/rpc/context" }
 google-cloud-spanner-admin-database-v1          = { default-features = false, version = "1.13.0", path = "src/generated/spanner/admin/database/v1" }
 google-cloud-spanner-admin-instance-v1          = { default-features = false, version = "1.13.0", path = "src/generated/spanner/admin/instance/v1" }
+google-geo-type                                 = { default-features = false, version = "1.0.0", path = "src/generated/geo/gtype" }
 google-shopping-type                            = { default-features = false, version = "1.0.0", path = "src/generated/shopping/gtype" }
 # Used in integration tests, these are leaf nodes in the dependency graph. Should not get a `version`.
 google-cloud-speech-v2               = { default-features = false, path = "src/generated/cloud/speech/v2" }

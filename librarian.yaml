@@ -96,6 +96,9 @@ default:
       - name: google-cloud-type
         package: google-cloud-type
         source: google.type
+      - name: google-geo-type
+        package: google-geo-type
+        source: google.geo.type
       - name: google-shopping-type
         package: google-shopping-type
         source: google.shopping.type
@@ -1723,6 +1726,10 @@ libraries:
   - name: google-devicesandservices-health-v4
     version: 1.0.0
     copyright_year: "2026"
+  - name: google-geo-type
+    version: 1.0.0
+    copyright_year: "2026"
+    output: src/generated/geo/gtype
   - name: google-shopping-type
     version: 1.0.0
     copyright_year: "2026"
