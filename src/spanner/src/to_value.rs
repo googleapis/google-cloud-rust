@@ -65,7 +65,7 @@ impl ToValue for ProtoValue {
 
 impl ToValue for String {
     fn to_value(&self) -> Value {
-        self.as_str().to_value()
+        <str as ToValue>::to_value(self)
     }
 }
 
