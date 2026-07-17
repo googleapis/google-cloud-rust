@@ -106,9 +106,15 @@ use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use crate::{BuildResult, Result};
 use async_trait::async_trait;
-use google_cloud_gax::backoff_policy::BackoffPolicyArg;
-use google_cloud_gax::retry_policy::RetryPolicyArg;
-use google_cloud_gax::retry_throttler::RetryThrottlerArg;
+use google_cloud_gax::Result as GaxResult;
+use google_cloud_gax::backoff_policy::{BackoffPolicy, BackoffPolicyArg};
+use google_cloud_gax::error::Error as GaxError;
+use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+use google_cloud_gax::retry_loop_internal::retry_loop;
+use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicy, RetryPolicyArg, RetryPolicyExt};
+use google_cloud_gax::retry_throttler::{
+    AdaptiveThrottler, RetryThrottlerArg, SharedRetryThrottler,
+};
 use http::{Extensions, HeaderMap};
 use reqwest::Client;
 use serde_json::Value;
@@ -902,55 +908,146 @@ pub(crate) async fn generate_access_token(
     lifetime: Duration,
     service_account_impersonation_url: &str,
 ) -> Result<Token> {
-    let client = Client::new();
-    let body = GenerateAccessTokenRequest {
+    GenerateAccessTokenClient::new(
+        source_headers,
         delegates,
-        scope: scopes,
-        lifetime: format!("{}s", lifetime.as_secs_f64()),
-    };
+        scopes,
+        lifetime,
+        service_account_impersonation_url.to_string(),
+    )
+    .fetch()
+    .await
+}
 
+async fn generate_access_token_call(
+    client: &Client,
+    url: &str,
+    source_headers: HeaderMap,
+    body: &GenerateAccessTokenRequest,
+) -> GaxResult<reqwest::Response> {
     let response = client
-        .post(service_account_impersonation_url)
+        .post(url)
         .header("Content-Type", "application/json")
         .header(
             headers_util::X_GOOG_API_CLIENT,
             metrics_header_value(ACCESS_TOKEN_REQUEST_TYPE, IMPERSONATED_CREDENTIAL_TYPE),
         )
         .headers(source_headers)
-        .json(&body)
+        .json(body)
         .send()
         .await
-        .map_err(|e| errors::from_http_error(e, MSG))?;
+        .map_err(GaxError::io)?;
 
-    if !response.status().is_success() {
-        let err = errors::from_http_response(response, MSG).await;
-        return Err(err);
+    let status = response.status();
+    if !status.is_success() {
+        let err_headers = response.headers().clone();
+        let err_payload = response
+            .bytes()
+            .await
+            .map_err(|e| GaxError::transport(err_headers.clone(), e))?;
+        return Err(GaxError::http(
+            status.as_u16(),
+            err_headers,
+            format!("{MSG}: {err_payload:?}").into(),
+        ));
     }
 
-    let token_response = response
-        .json::<GenerateAccessTokenResponse>()
+    Ok(response)
+}
+
+#[derive(Debug)]
+struct GenerateAccessTokenClient {
+    source_headers: HeaderMap,
+    delegates: Option<Vec<String>>,
+    scopes: Vec<String>,
+    lifetime: Duration,
+    url: String,
+    retry_policy: Arc<dyn RetryPolicy>,
+    backoff_policy: Arc<dyn BackoffPolicy>,
+}
+
+impl GenerateAccessTokenClient {
+    fn new(
+        source_headers: HeaderMap,
+        delegates: Option<Vec<String>>,
+        scopes: Vec<String>,
+        lifetime: Duration,
+        url: String,
+    ) -> Self {
+        let retry_policy = Aip194Strict.with_time_limit(Duration::from_secs(60));
+        let backoff_policy = ExponentialBackoff::default();
+
+        Self {
+            source_headers,
+            delegates,
+            scopes,
+            lifetime,
+            url,
+            retry_policy: Arc::new(retry_policy),
+            backoff_policy: Arc::new(backoff_policy),
+        }
+    }
+
+    async fn fetch(self) -> Result<Token> {
+        let client = Client::new();
+        let body = GenerateAccessTokenRequest {
+            delegates: self.delegates,
+            scope: self.scopes,
+            lifetime: format!("{}s", self.lifetime.as_secs_f64()),
+        };
+
+        let sleep = async |d| tokio::time::sleep(d).await;
+        let retry_throttler: RetryThrottlerArg = AdaptiveThrottler::default().into();
+        let retry_throttler: SharedRetryThrottler = retry_throttler.into();
+        let url = self.url;
+        let source_headers = self.source_headers;
+
+        let response = retry_loop(
+            async move |d| {
+                let attempt =
+                    generate_access_token_call(&client, &url, source_headers.clone(), &body);
+                match d {
+                    Some(timeout) => match tokio::time::timeout(timeout, attempt).await {
+                        Ok(r) => r,
+                        Err(e) => Err(GaxError::timeout(e)),
+                    },
+                    None => attempt.await,
+                }
+            },
+            sleep,
+            true, // generate_access_token is idempotent
+            retry_throttler,
+            self.retry_policy.clone(),
+            self.backoff_policy.clone(),
+        )
         .await
-        .map_err(|e| {
-            let retryable = !e.is_decode();
-            CredentialsError::from_source(retryable, e)
-        })?;
+        .map_err(|e| errors::from_gax_error(e, MSG))?;
 
-    let parsed_dt = OffsetDateTime::parse(
-        &token_response.expire_time,
-        &time::format_description::well_known::Rfc3339,
-    )
-    .map_err(errors::non_retryable)?;
+        let token_response = response
+            .json::<GenerateAccessTokenResponse>()
+            .await
+            .map_err(|e| {
+                let retryable = !e.is_decode();
+                CredentialsError::from_source(retryable, e)
+            })?;
 
-    let remaining_duration = parsed_dt - OffsetDateTime::now_utc();
-    let expires_at = Instant::now() + remaining_duration.try_into().unwrap();
+        let parsed_dt = OffsetDateTime::parse(
+            &token_response.expire_time,
+            &time::format_description::well_known::Rfc3339,
+        )
+        .map_err(errors::non_retryable)?;
 
-    let token = Token {
-        token: token_response.access_token,
-        token_type: "Bearer".to_string(),
-        expires_at: Some(expires_at),
-        metadata: None,
-    };
-    Ok(token)
+        let remaining_duration = parsed_dt - OffsetDateTime::now_utc();
+        let expires_at = Instant::now() + remaining_duration.try_into().unwrap();
+
+        let token = Token {
+            token: token_response.access_token,
+            token_type: "Bearer".to_string(),
+            expires_at: Some(expires_at),
+            metadata: None,
+        };
+        Ok(token)
+    }
 }
 
 #[async_trait]
@@ -1039,6 +1136,67 @@ mod tests {
             self.endpoint = Some(endpoint.to_string());
             self
         }
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_generate_access_token_client_retry_success() -> TestResult {
+        let server = Server::run();
+        let impersonation_path =
+            "/v1/projects/-/serviceAccounts/test-principal:generateAccessToken";
+        server.expect(
+            Expectation::matching(request::method_path("POST", impersonation_path))
+                .times(2)
+                .respond_with(cycle![
+                    status_code(503).body("try-again"),
+                    json_encoded(json!({
+                        "accessToken": "impersonated-token-success",
+                        "expireTime": "2030-01-01T00:00:00Z",
+                    })),
+                ]),
+        );
+
+        let url = server.url(impersonation_path).to_string();
+        let mut client = GenerateAccessTokenClient::new(
+            HeaderMap::new(),
+            None,
+            vec!["scope1".to_string()],
+            Duration::from_secs(3600),
+            url,
+        );
+        client.retry_policy = Arc::new(get_mock_auth_retry_policy(3));
+        client.backoff_policy = Arc::new(get_mock_backoff_policy());
+
+        let token = client.fetch().await?;
+        assert_eq!(token.token, "impersonated-token-success");
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_generate_access_token_client_retry_exhausted() {
+        let server = Server::run();
+        let impersonation_path =
+            "/v1/projects/-/serviceAccounts/test-principal:generateAccessToken";
+        server.expect(
+            Expectation::matching(request::method_path("POST", impersonation_path))
+                .times(3)
+                .respond_with(status_code(503)),
+        );
+
+        let url = server.url(impersonation_path).to_string();
+        let mut client = GenerateAccessTokenClient::new(
+            HeaderMap::new(),
+            None,
+            vec!["scope1".to_string()],
+            Duration::from_secs(3600),
+            url,
+        );
+        client.retry_policy = Arc::new(get_mock_auth_retry_policy(3));
+        client.backoff_policy = Arc::new(get_mock_backoff_policy());
+
+        let err = client.fetch().await.unwrap_err();
+        assert!(err.is_transient(), "{err:?}");
     }
 
     #[tokio::test]
