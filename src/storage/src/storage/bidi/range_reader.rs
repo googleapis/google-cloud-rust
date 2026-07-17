@@ -30,6 +30,9 @@ pub struct RangeReader {
     // Unused, holding to a copy prevents the worker task from terminating
     // early.
     _tx: Sender<ActiveRead>,
+    checksum: crate::storage::checksum::details::Checksum,
+    offset: u64,
+    exhausted: bool,
 }
 
 impl RangeReader {
@@ -40,11 +43,15 @@ impl RangeReader {
         inner: Receiver<Result<bytes::Bytes, ReadError>>,
         object: Arc<Object>,
         tx: Sender<ActiveRead>,
+        checksum: crate::storage::checksum::details::Checksum,
     ) -> Self {
         Self {
             inner,
             object,
             _tx: tx,
+            checksum,
+            offset: 0,
+            exhausted: false,
         }
     }
 }
@@ -68,8 +75,32 @@ impl ReadObjectResponse for RangeReader {
     }
 
     async fn next(&mut self) -> Option<crate::Result<bytes::Bytes>> {
-        let msg = self.inner.recv().await?;
-        Some(msg.map_err(Error::io))
+        if self.exhausted {
+            return None;
+        }
+        let msg = self.inner.recv().await;
+        match msg {
+            Some(Ok(b)) => {
+                self.checksum.update(self.offset, &b);
+                self.offset += b.len() as u64;
+                Some(Ok(b))
+            }
+            Some(Err(e)) => Some(Err(Error::io(e))),
+            None => {
+                self.exhausted = true;
+                if let Some(expected) = &self.object.checksums {
+                    let computed = self.checksum.finalize();
+                    let res = crate::storage::checksum::details::validate(
+                        expected,
+                        &Some(computed),
+                    );
+                    if let Err(e) = res {
+                        return Some(Err(Error::deser(ReadError::ChecksumMismatch(e))));
+                    }
+                }
+                None
+            }
+        }
     }
 }
 
@@ -98,7 +129,12 @@ mod tests {
         let (tx, inner) = tokio::sync::mpsc::channel(1);
         let (pending_tx, mut pending_rx) = tokio::sync::mpsc::channel(100);
 
-        let mut reader = RangeReader::new(inner, object.clone(), pending_tx);
+        let mut reader = RangeReader::new(
+            inner,
+            object.clone(),
+            pending_tx,
+            crate::storage::checksum::details::Checksum::default(),
+        );
         let got = reader.object();
         let want = ObjectHighlights {
             generation: 123456,

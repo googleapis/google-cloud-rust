@@ -62,7 +62,7 @@ pub fn validate(
 }
 
 /// Computes a checksum or hash for [Cloud Storage] transfers.
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Default)]
 pub struct Checksum {
     pub crc32c: Option<Crc32c>,
     pub md5_hash: Option<Md5>,

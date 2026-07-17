@@ -124,6 +124,53 @@ impl<S> OpenObject<S> {
         }
     }
 
+    /// Enables computation of MD5 checksums.
+    ///
+    /// By default, MD5 checksums are disabled, as they are not supported by the GCS gRPC API.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let builder = client
+    ///     .open_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .compute_md5();
+    /// # Ok(()) }
+    /// ```
+    pub fn compute_md5(self) -> Self {
+        let mut this = self;
+        this.options.checksum.md5_hash = Some(crate::storage::checksum::details::Md5::default());
+        this
+    }
+
+    /// Enables computation of CRC32C checksums.
+    ///
+    /// Note that the library computes and verifies (if available) CRC32C checksums at the end of
+    /// the download. Use `compute_crc32c(false)` to disable the computation, but note
+    /// that this reduces the data integrity guarantees. Data *can* be corrupted even when
+    /// downloaded over HTTPS or other encrypted channels.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let builder = client
+    ///     .open_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .compute_crc32c(false);
+    /// # Ok(()) }
+    /// ```
+    pub fn compute_crc32c(mut self, enable: bool) -> Self {
+        if enable {
+            self.options
+                .checksum
+                .crc32c
+                .get_or_insert_with(crate::storage::checksum::details::Crc32c::default);
+        } else {
+            self.options.checksum.crc32c = None;
+        }
+        self
+    }
+
     /// If present, selects a specific revision of this object (as
     /// opposed to the latest version, the default).
     ///
