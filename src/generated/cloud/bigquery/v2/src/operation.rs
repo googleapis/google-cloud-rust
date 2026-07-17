@@ -41,7 +41,7 @@ impl google_cloud_lro::internal::DiscoveryOperation for Job {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::model::{Job, JobReference, JobStatus, ErrorProto};
+    use crate::model::{ErrorProto, Job, JobReference, JobStatus};
     use google_cloud_lro::internal::DiscoveryOperation;
 
     #[test]
