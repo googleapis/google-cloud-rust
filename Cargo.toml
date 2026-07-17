@@ -410,7 +410,7 @@ opentelemetry_sdk     = { default-features = false, version = "0.32" }
 opentelemetry-http    = { default-features = false, version = "0.32" }
 opentelemetry-otlp    = { default-features = false, version = "0.32" }
 parse-size            = { default-features = false, version = "1.1" }
-percent-encoding      = { default-features = false, version = "2.3" }
+percent-encoding      = { default-features = false, version = "2.3.1" }
 pin-project           = { default-features = false, version = "1.1.13" }
 rand                  = { default-features = false, version = "0.10" }
 p256                  = { default-features = false, version = "0.13" }
@@ -432,7 +432,7 @@ toml_edit             = { default-features = false, version = "0.25" }
 tracing-log           = { default-features = false, version = "0.2" }
 tracing-opentelemetry = { default-features = false, version = "0.33" }
 tracing-subscriber    = { default-features = false, version = "0.3.23" }
-url                   = { default-features = false, version = "2.5.0" }
+url                   = { default-features = false, version = "2.5.4" }
 uuid                  = { default-features = false, version = "1.23", features = ["v4"] }
 
 opentelemetry-semantic-conventions = { default-features = false, version = "0.32.0" }
