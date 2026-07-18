@@ -39,7 +39,7 @@ pub mod paginator;
 
 pub mod response;
 
-#[cfg(google_cloud_unstable_gapic_streaming)]
+#[cfg(all(feature = "grpc", google_cloud_unstable_gapic_streaming))]
 pub mod streaming;
 
 pub mod backoff_policy;
