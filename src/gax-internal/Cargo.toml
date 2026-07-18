@@ -94,7 +94,7 @@ _internal-common = [
 _default-rustls-provider = ["google-cloud-auth?/default-rustls-provider", "tonic?/tls-aws-lc"]
 # Enable gRPC transport support. This is a public feature flag that enables
 # gRPC streaming capabilities in client libraries.
-grpc = ["_internal-grpc-client"]
+grpc = ["_internal-grpc-client", "google-cloud-gax/grpc"]
 # Enables the unstable server streaming functionality in the gRPC client.
 _internal-grpc-server-streaming = []
 
