@@ -61,3 +61,7 @@ extend-ignore-re = [
   # Access Front End (AFE) latency header parameter in Spanner server-timing tests
   "afe;dur=",
 ]
+
+# TODO(#5991): remove once grpc-rust corrects the typo.
+[default.extend-words]
+Credendials = "Credendials"
