@@ -57,3 +57,7 @@ extend-ignore-re = [
   "_GAE\\W",
   "_gae\\W",
 ]
+
+# TODO(#5991): remove once grpc-rust corrects the typo.
+[default.extend-words]
+Credendials = "Credendials"
