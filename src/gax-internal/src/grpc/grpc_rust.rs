@@ -24,9 +24,14 @@ use google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy;
 use google_cloud_gax::polling_error_policy::PollingErrorPolicy;
 use grpc::client::{Channel, ChannelOptions};
 use grpc::credentials::LocalChannelCredentials;
-use grpc::credentials::rustls::client::{ClientTlsConfig, RustlsChannelCredendials};
+// TODO(#5991): remove once grpc-rust corrects the typo.
+use grpc::credentials::rustls::client::{
+    ClientTlsConfig, RustlsChannelCredendials as RustlsChannelCredentials,
+};
 use http::Uri;
 use std::sync::Arc;
+
+mod bidi;
 
 /// A gRPC client backed by the [grpc-rust][grpc] crate.
 #[derive(Clone)]
@@ -338,17 +343,17 @@ fn make_tracing_attributes(
 
 // NOTE: Tonic first uses an installed process-default CryptoProvider;
 // otherwise, it selects the provider enabled through its Cargo features. In
-// contrast, grpc-rust's RustlsChannelCredendials::new requires a
+// contrast, grpc-rust's RustlsChannelCredentials::new requires a
 // process-wide rustls CryptoProvider to be installed.
 //
 // For now, we install aws-lc-rs if the _default-rustls-provider feature
 // is enabled; otherwise, we raise an error if the user hasn't installed
 // a process-wide one.
-fn make_tls_credentials() -> ClientBuilderResult<Arc<RustlsChannelCredendials>> {
+fn make_tls_credentials() -> ClientBuilderResult<Arc<RustlsChannelCredentials>> {
     #[cfg(feature = "_default-rustls-provider")]
     let _ = rustls::crypto::aws_lc_rs::default_provider().install_default();
 
-    RustlsChannelCredendials::new(ClientTlsConfig::new())
+    RustlsChannelCredentials::new(ClientTlsConfig::new())
         .map(Arc::new)
         .map_err(|source| {
             BuilderError::transport(format!(
