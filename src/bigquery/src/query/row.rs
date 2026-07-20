@@ -37,7 +37,7 @@ mod sealed {
 /// A trait for types that can be used to index into a [`Row`].
 ///
 /// This trait is sealed and cannot be implemented for types outside of this crate.
-pub trait ColumnIndex: sealed::ColumnIndex + std::fmt::Debug {
+pub trait ColumnIndex: sealed::ColumnIndex + std::fmt::Display {
     /// Returns the index of the column in the given row, if it exists.
     fn index(&self, row: &Row) -> Option<usize>;
 }
@@ -58,12 +58,6 @@ impl ColumnIndex for String {
     fn index(&self, row: &Row) -> Option<usize> {
         self.as_str().index(row)
     }
-}
-
-/// A trait for types that can be created from a BigQuery [`Row`].
-pub trait FromRow: Sized {
-    /// Creates an instance of this type by consuming the given [`Row`].
-    fn from_row(row: Row) -> Result<Self>;
 }
 
 impl Row {
@@ -101,7 +95,7 @@ impl Row {
 
     fn resolve_index<I: ColumnIndex>(&self, col: &I) -> Result<usize> {
         col.index(self)
-            .ok_or_else(|| RowError::ColumnNotFound(format!("{:?}", col)))
+            .ok_or_else(|| RowError::ColumnNotFound(format!("{col}")))
     }
 
     fn convert_value_at<T: FromSql>(&self, idx: usize, val: Value) -> Result<T> {
@@ -642,22 +636,9 @@ mod tests {
         let schema = Arc::new(Schema::new(schema));
         let row = Row::try_new(raw_row, &schema)?;
 
-        // TryFrom<&Row>
-        let from_ref = TestRow::try_from(&row)?;
+        let converted_row = TestRow::try_from(row)?;
         assert_eq!(
-            from_ref,
-            TestRow {
-                name: "James".to_string(),
-                some_int: 272793,
-                some_bool: true,
-                some_null: None,
-            }
-        );
-
-        // TryFrom<Row> / FromRow::from_row
-        let from_owned = TestRow::try_from(row)?;
-        assert_eq!(
-            from_owned,
+            converted_row,
             TestRow {
                 name: "James".to_string(),
                 some_int: 272793,
@@ -702,7 +683,7 @@ mod tests {
         let row = Row::try_new(raw_row, &schema)?;
 
         let err = TestRow::try_from(row).unwrap_err();
-        assert!(matches!(err, RowError::ColumnNotFound(col) if col == "\"custom_int\""));
+        assert!(matches!(err, RowError::ColumnNotFound(col) if col == "custom_int"));
         Ok(())
     }
 }

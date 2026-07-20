@@ -20,7 +20,7 @@ use proc_macro::TokenStream;
 use quote::quote;
 use syn::{Data, DeriveInput, Fields, parse_macro_input};
 
-/// Derives the `FromRow` trait for a struct.
+/// Derives standard library [`TryFrom`](std::convert::TryFrom) for converting a BigQuery `Row` into a struct.
 ///
 /// Supports renaming attributes via `#[bigquery(rename = "new_name")]`.
 #[proc_macro_derive(FromRow, attributes(bigquery))]
@@ -61,29 +61,15 @@ pub fn derive_from_row(input: TokenStream) -> TokenStream {
     // TODO(#5592): check that the schema and this struct have same columns/attributes count.
 
     let expanded = quote! {
-        impl google_cloud_bigquery::FromRow for #name {
-            fn from_row(mut row: google_cloud_bigquery::Row) -> std::result::Result<Self, google_cloud_bigquery::RowError> {
+        impl std::convert::TryFrom<google_cloud_bigquery::Row> for #name {
+            type Error = google_cloud_bigquery::RowError;
+
+            fn try_from(mut row: google_cloud_bigquery::Row) -> std::result::Result<Self, Self::Error> {
                 #( #value_extractions )*
 
                 std::result::Result::Ok(Self {
                     #( #field_idents, )*
                 })
-            }
-        }
-
-        impl std::convert::TryFrom<google_cloud_bigquery::Row> for #name {
-            type Error = google_cloud_bigquery::RowError;
-
-            fn try_from(row: google_cloud_bigquery::Row) -> std::result::Result<Self, Self::Error> {
-                google_cloud_bigquery::FromRow::from_row(row)
-            }
-        }
-
-        impl<'a> std::convert::TryFrom<&'a google_cloud_bigquery::Row> for #name {
-            type Error = google_cloud_bigquery::RowError;
-
-            fn try_from(row: &'a google_cloud_bigquery::Row) -> std::result::Result<Self, Self::Error> {
-                google_cloud_bigquery::FromRow::from_row(row.clone())
             }
         }
     };

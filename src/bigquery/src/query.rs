@@ -30,7 +30,7 @@ pub(crate) use query_handle::{CompleteQuery, Query};
 pub(crate) use schema::Schema;
 
 pub use query_reference::QueryReference;
-pub use row::{FromRow, Row};
+pub use row::Row;
 pub use run_query::RunQuery;
 
 /// Result type for query execution.
