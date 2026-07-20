@@ -84,7 +84,7 @@ async fn run_batch3_samples(project_id: &str, dataset_id: &str) -> anyhow::Resul
             &table_id_2,
         )),
     ];
-    let _: Vec<_> = futures::future::join_all(pending)
+    let _ = futures::future::join_all(pending)
         .await
         .into_iter()
         .collect::<anyhow::Result<Vec<_>>>()?;
