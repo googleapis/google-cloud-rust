@@ -17,6 +17,10 @@ mod dry_run;
 mod job_optional;
 mod legacy;
 mod no_cache;
+mod params_arrays;
+mod params_named;
+mod params_positional;
+mod params_timestamps;
 #[allow(clippy::module_inception)]
 mod query;
 
@@ -34,6 +38,10 @@ pub async fn run_samples() -> anyhow::Result<()> {
         Box::pin(dry_run::sample(&project_id)),
         Box::pin(legacy::sample(&project_id)),
         Box::pin(job_optional::sample(&project_id)),
+        Box::pin(params_positional::sample(&project_id)),
+        Box::pin(params_named::sample(&project_id)),
+        Box::pin(params_arrays::sample(&project_id)),
+        Box::pin(params_timestamps::sample(&project_id)),
     ];
     let _ = futures::future::join_all(pending)
         .await
