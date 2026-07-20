@@ -35,7 +35,7 @@ pub async fn run_samples() -> anyhow::Result<()> {
         Box::pin(legacy::sample(&project_id)),
         Box::pin(job_optional::sample(&project_id)),
     ];
-    let _: Vec<_> = futures::future::join_all(pending)
+    let _ = futures::future::join_all(pending)
         .await
         .into_iter()
         .collect::<anyhow::Result<Vec<_>>>()?;
