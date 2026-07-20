@@ -12,6 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+mod batch;
+mod dry_run;
+mod job_optional;
+mod legacy;
+mod no_cache;
 mod params_arrays;
 mod params_named;
 mod params_positional;
@@ -28,6 +33,11 @@ pub async fn run_samples() -> anyhow::Result<()> {
 
     let pending: Vec<Pin<Box<dyn Future<Output = anyhow::Result<()>>>>> = vec![
         Box::pin(query::sample(&project_id)),
+        Box::pin(no_cache::sample(&project_id)),
+        Box::pin(batch::sample(&project_id)),
+        Box::pin(dry_run::sample(&project_id)),
+        Box::pin(legacy::sample(&project_id)),
+        Box::pin(job_optional::sample(&project_id)),
         Box::pin(params_positional::sample(&project_id)),
         Box::pin(params_named::sample(&project_id)),
         Box::pin(params_arrays::sample(&project_id)),
