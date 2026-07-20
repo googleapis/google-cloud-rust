@@ -322,12 +322,24 @@ mod tests {
 
         let mut custom_headers = HeaderMap::new();
         // Try to override system headers with conflicting custom values
-        custom_headers.insert(http::header::USER_AGENT, HeaderValue::from_static("custom-agent"));
-        custom_headers.insert(X_GOOG_USER_PROJECT, HeaderValue::from_static("custom-project"));
+        custom_headers.insert(
+            http::header::USER_AGENT,
+            HeaderValue::from_static("custom-agent"),
+        );
+        custom_headers.insert(
+            X_GOOG_USER_PROJECT,
+            HeaderValue::from_static("custom-project"),
+        );
         custom_headers.insert(X_GOOG_API_CLIENT, HeaderValue::from_static("custom-client"));
-        custom_headers.insert(X_GOOG_REQUEST_PARAMS, HeaderValue::from_static("custom-params"));
+        custom_headers.insert(
+            X_GOOG_REQUEST_PARAMS,
+            HeaderValue::from_static("custom-params"),
+        );
         // A legitimate custom header
-        custom_headers.insert("x-legitimate-header", HeaderValue::from_static("legitimate-value"));
+        custom_headers.insert(
+            "x-legitimate-header",
+            HeaderValue::from_static("legitimate-value"),
+        );
 
         let options = options.insert_extension(custom_headers);
 
@@ -336,24 +348,48 @@ mod tests {
 
         // Assert
         // We expect the system headers to be the ONLY values present for these keys.
-        let user_agents: Vec<_> = headers.get_all(http::header::USER_AGENT).into_iter().collect();
-        assert_eq!(user_agents.len(), 1, "Should only have one user-agent header");
+        let user_agents: Vec<_> = headers
+            .get_all(http::header::USER_AGENT)
+            .into_iter()
+            .collect();
+        assert_eq!(
+            user_agents.len(),
+            1,
+            "Should only have one user-agent header"
+        );
         assert_eq!(user_agents[0], USER_AGENT);
 
         let quota_projects: Vec<_> = headers.get_all(X_GOOG_USER_PROJECT).into_iter().collect();
-        assert_eq!(quota_projects.len(), 1, "Should only have one quota-project header");
+        assert_eq!(
+            quota_projects.len(),
+            1,
+            "Should only have one quota-project header"
+        );
         assert_eq!(quota_projects[0], QUOTA_PROJECT);
 
         let api_clients: Vec<_> = headers.get_all(X_GOOG_API_CLIENT).into_iter().collect();
-        assert_eq!(api_clients.len(), 1, "Should only have one api-client header");
+        assert_eq!(
+            api_clients.len(),
+            1,
+            "Should only have one api-client header"
+        );
         assert_eq!(api_clients[0], API_CLIENT_HEADER);
 
         let request_params: Vec<_> = headers.get_all(X_GOOG_REQUEST_PARAMS).into_iter().collect();
-        assert_eq!(request_params.len(), 1, "Should only have one request-params header");
+        assert_eq!(
+            request_params.len(),
+            1,
+            "Should only have one request-params header"
+        );
         assert_eq!(request_params[0], REQUEST_PARAMS);
 
         // Assert the legitimate header is still present
-        assert_eq!(headers.get("x-legitimate-header").expect("x-legitimate-header should be present"), "legitimate-value");
+        assert_eq!(
+            headers
+                .get("x-legitimate-header")
+                .expect("x-legitimate-header should be present"),
+            "legitimate-value"
+        );
 
         Ok(())
     }
