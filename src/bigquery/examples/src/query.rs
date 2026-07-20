@@ -77,19 +77,19 @@ pub async fn run_samples_with_resources() -> anyhow::Result<()> {
         .send()
         .await?;
 
-    let table_id_1 = format!("dest_{}", random_id_suffix());
-    let table_id_2 = format!("dest_legacy_{}", random_id_suffix());
+    let destination_table_id = format!("dest_{}", random_id_suffix());
+    let dest_legacy_table_id = format!("dest_legacy_{}", random_id_suffix());
 
     let pending: Vec<Pin<Box<dyn Future<Output = anyhow::Result<()>>>>> = vec![
         Box::pin(destination_table::sample(
             &project_id,
             &dataset_id,
-            &table_id_1,
+            &destination_table_id,
         )),
         Box::pin(legacy_large_results::sample(
             &project_id,
             &dataset_id,
-            &table_id_2,
+            &dest_legacy_table_id,
         )),
     ];
     let res: anyhow::Result<Vec<_>> = futures::future::join_all(pending)
