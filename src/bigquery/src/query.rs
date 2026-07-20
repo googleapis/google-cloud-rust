@@ -27,10 +27,10 @@ mod schema;
 pub(crate) use from_sql::FromSql;
 pub(crate) use iterator::RowIterator;
 pub(crate) use query_handle::{CompleteQuery, Query};
-pub(crate) use row::Row;
 pub(crate) use schema::Schema;
 
 pub use query_reference::QueryReference;
+pub use row::{FromRow, Row};
 pub use run_query::RunQuery;
 
 /// Result type for query execution.
