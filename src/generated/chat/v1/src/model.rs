@@ -2562,6 +2562,57 @@ impl wkt::message::Message for UploadAttachmentResponse {
     }
 }
 
+/// A target audience in Google Chat. A target audience represents a group of
+/// users within a Google Workspace organization, defined by an administrator.
+/// Target audiences are used to configure access and visibility settings for
+/// resources, such as making a space discoverable to a specific group of users.
+///
+/// For more details, see [Target
+/// audiences](https://support.google.com/a/answer/9934697) and [Make a space
+/// discoverable to a target
+/// audience](https://developers.google.com/workspace/chat/space-target-audience).
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Audience {
+    /// The resource name of the [target
+    /// audience](https://support.google.com/a/answer/9934697) who can discover
+    /// or join the space. For details, see [Make a space
+    /// discoverable to a target
+    /// audience](https://developers.google.com/workspace/chat/space-target-audience).
+    /// Format: `audiences/{audience}`
+    ///
+    /// To use the default target audience for the Google Workspace organization,
+    /// set to `audiences/default`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Audience {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::Audience::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::Audience;
+    /// let x = Audience::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for Audience {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.chat.v1.Audience"
+    }
+}
+
 /// Represents a user's current availability information in Google Chat,
 /// including their state (for example, Active, Away, Do Not Disturb) and any
 /// custom status.
@@ -13545,6 +13596,13 @@ pub mod space {
         /// authentication](https://developers.google.com/workspace/chat/authenticate-authorize-chat-user).
         pub audience: std::string::String,
 
+        /// Optional. Access permission settings for the space.
+        ///
+        /// To set the target audience when creating a space, specify the
+        /// `accessSettings.audience` field in your request.
+        pub access_permission_settings:
+            std::option::Option<crate::model::space::AccessPermissionSettings>,
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -13582,6 +13640,42 @@ pub mod space {
         /// ```
         pub fn set_audience<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.audience = v.into();
+            self
+        }
+
+        /// Sets the value of [access_permission_settings][crate::model::space::AccessSettings::access_permission_settings].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_chat_v1::model::space::AccessSettings;
+        /// use google_chat_v1::model::space::AccessPermissionSettings;
+        /// let x = AccessSettings::new().set_access_permission_settings(AccessPermissionSettings::default()/* use setters */);
+        /// ```
+        pub fn set_access_permission_settings<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::space::AccessPermissionSettings>,
+        {
+            self.access_permission_settings = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [access_permission_settings][crate::model::space::AccessSettings::access_permission_settings].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_chat_v1::model::space::AccessSettings;
+        /// use google_chat_v1::model::space::AccessPermissionSettings;
+        /// let x = AccessSettings::new().set_or_clear_access_permission_settings(Some(AccessPermissionSettings::default()/* use setters */));
+        /// let x = AccessSettings::new().set_or_clear_access_permission_settings(None::<AccessPermissionSettings>);
+        /// ```
+        pub fn set_or_clear_access_permission_settings<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::space::AccessPermissionSettings>,
+        {
+            self.access_permission_settings = v.map(|x| x.into());
             self
         }
     }
@@ -13739,6 +13833,239 @@ pub mod space {
                     ".google.chat.v1.Space.AccessSettings.AccessState",
                 ))
             }
+        }
+    }
+
+    /// Access permission settings for a space.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct AccessPermissionSettings {
+        /// Optional. Access permission setting for discovering the space.
+        pub discover_space_setting:
+            std::option::Option<crate::model::space::AccessPermissionSetting>,
+
+        /// Optional. Access permission setting for joining the space.
+        pub join_space_setting: std::option::Option<crate::model::space::AccessPermissionSetting>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl AccessPermissionSettings {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [discover_space_setting][crate::model::space::AccessPermissionSettings::discover_space_setting].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_chat_v1::model::space::AccessPermissionSettings;
+        /// use google_chat_v1::model::space::AccessPermissionSetting;
+        /// let x = AccessPermissionSettings::new().set_discover_space_setting(AccessPermissionSetting::default()/* use setters */);
+        /// ```
+        pub fn set_discover_space_setting<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::space::AccessPermissionSetting>,
+        {
+            self.discover_space_setting = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [discover_space_setting][crate::model::space::AccessPermissionSettings::discover_space_setting].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_chat_v1::model::space::AccessPermissionSettings;
+        /// use google_chat_v1::model::space::AccessPermissionSetting;
+        /// let x = AccessPermissionSettings::new().set_or_clear_discover_space_setting(Some(AccessPermissionSetting::default()/* use setters */));
+        /// let x = AccessPermissionSettings::new().set_or_clear_discover_space_setting(None::<AccessPermissionSetting>);
+        /// ```
+        pub fn set_or_clear_discover_space_setting<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::space::AccessPermissionSetting>,
+        {
+            self.discover_space_setting = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [join_space_setting][crate::model::space::AccessPermissionSettings::join_space_setting].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_chat_v1::model::space::AccessPermissionSettings;
+        /// use google_chat_v1::model::space::AccessPermissionSetting;
+        /// let x = AccessPermissionSettings::new().set_join_space_setting(AccessPermissionSetting::default()/* use setters */);
+        /// ```
+        pub fn set_join_space_setting<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::space::AccessPermissionSetting>,
+        {
+            self.join_space_setting = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [join_space_setting][crate::model::space::AccessPermissionSettings::join_space_setting].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_chat_v1::model::space::AccessPermissionSettings;
+        /// use google_chat_v1::model::space::AccessPermissionSetting;
+        /// let x = AccessPermissionSettings::new().set_or_clear_join_space_setting(Some(AccessPermissionSetting::default()/* use setters */));
+        /// let x = AccessPermissionSettings::new().set_or_clear_join_space_setting(None::<AccessPermissionSetting>);
+        /// ```
+        pub fn set_or_clear_join_space_setting<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::space::AccessPermissionSetting>,
+        {
+            self.join_space_setting = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for AccessPermissionSettings {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.chat.v1.Space.AccessPermissionSettings"
+        }
+    }
+
+    /// An access permission setting.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct AccessPermissionSetting {
+        /// Optional. Unordered list. Allowed principals for this permission.
+        pub principals: std::vec::Vec<crate::model::space::Principal>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl AccessPermissionSetting {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [principals][crate::model::space::AccessPermissionSetting::principals].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_chat_v1::model::space::AccessPermissionSetting;
+        /// use google_chat_v1::model::space::Principal;
+        /// let x = AccessPermissionSetting::new()
+        ///     .set_principals([
+        ///         Principal::default()/* use setters */,
+        ///         Principal::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_principals<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::space::Principal>,
+        {
+            use std::iter::Iterator;
+            self.principals = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for AccessPermissionSetting {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.chat.v1.Space.AccessPermissionSetting"
+        }
+    }
+
+    /// A principal representing an entity granted access.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Principal {
+        /// The type of principal.
+        pub principal_type: std::option::Option<crate::model::space::principal::PrincipalType>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Principal {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [principal_type][crate::model::space::Principal::principal_type].
+        ///
+        /// Note that all the setters affecting `principal_type` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_chat_v1::model::space::Principal;
+        /// use google_chat_v1::model::Audience;
+        /// let x = Principal::new().set_principal_type(Some(
+        ///     google_chat_v1::model::space::principal::PrincipalType::Audience(Audience::default().into())));
+        /// ```
+        pub fn set_principal_type<
+            T: std::convert::Into<std::option::Option<crate::model::space::principal::PrincipalType>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.principal_type = v.into();
+            self
+        }
+
+        /// The value of [principal_type][crate::model::space::Principal::principal_type]
+        /// if it holds a `Audience`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn audience(&self) -> std::option::Option<&std::boxed::Box<crate::model::Audience>> {
+            #[allow(unreachable_patterns)]
+            self.principal_type.as_ref().and_then(|v| match v {
+                crate::model::space::principal::PrincipalType::Audience(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [principal_type][crate::model::space::Principal::principal_type]
+        /// to hold a `Audience`.
+        ///
+        /// Note that all the setters affecting `principal_type` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_chat_v1::model::space::Principal;
+        /// use google_chat_v1::model::Audience;
+        /// let x = Principal::new().set_audience(Audience::default()/* use setters */);
+        /// assert!(x.audience().is_some());
+        /// ```
+        pub fn set_audience<T: std::convert::Into<std::boxed::Box<crate::model::Audience>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.principal_type = std::option::Option::Some(
+                crate::model::space::principal::PrincipalType::Audience(v.into()),
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for Principal {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.chat.v1.Space.Principal"
+        }
+    }
+
+    /// Defines additional types related to [Principal].
+    pub mod principal {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The type of principal.
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum PrincipalType {
+            /// An audience.
+            Audience(std::boxed::Box<crate::model::Audience>),
         }
     }
 
@@ -15375,6 +15702,24 @@ pub struct UpdateSpaceRequest {
     /// To learn more, see [Make a space discoverable to specific
     /// users](https://developers.google.com/workspace/chat/space-target-audience).
     /// `access_settings.audience` is not supported with `useAdminAccess`.
+    ///
+    /// `access_settings.access_permission_settings`: Updates the [access
+    /// permission
+    /// settings](https://support.google.com/chat/answer/11971020) of who can
+    /// discover and join the space where `spaceType` field is `SPACE`. Principals
+    /// allowed to join the space must also be allowed to discover it. To update
+    /// access permission settings for a space, the authenticating user must be a
+    /// space manager or assistant manager and omit all other field masks in the
+    /// request. You can't update this field if the space is in [import
+    /// mode](https://developers.google.com/workspace/chat/import-data-overview).
+    /// To learn more, see [Make a space discoverable to specific
+    /// users](https://developers.google.com/workspace/chat/space-target-audience).
+    /// `access_settings.access_permission_settings` is not supported with
+    /// `useAdminAccess`.
+    /// The supported field masks include:
+    ///
+    /// - `access_settings.access_permission_settings.discoverSpaceSetting`
+    /// - `access_settings.access_permission_settings.joinSpaceSetting`
     ///
     /// `permission_settings`: Supports changing the
     /// [permission settings](https://support.google.com/chat/answer/13340792)

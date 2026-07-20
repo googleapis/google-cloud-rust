@@ -13,9 +13,8 @@
 // limitations under the License.
 
 use regex::Regex;
-use std::error::Error;
 
-fn main() -> Result<(), Box<dyn Error>> {
+fn main() -> anyhow::Result<()> {
     let checker = Checker::new()?;
 
     let (_success, errors): (Vec<_>, Vec<_>) = std::env::args()
@@ -42,7 +41,7 @@ struct Checker {
 }
 
 impl Checker {
-    fn new() -> Result<Checker, Box<dyn Error>> {
+    fn new() -> anyhow::Result<Checker> {
         const COPYRIGHT_RE: &str = "^ Copyright [0-9]{4} Google LLC$";
 
         let boilerplate = Self::load_boilerplate(file!())?;
@@ -54,15 +53,15 @@ impl Checker {
         })
     }
 
-    fn verify(&self, filename: &str) -> Result<(), Box<dyn Error>> {
+    fn verify(&self, filename: &str) -> anyhow::Result<()> {
         let found = Self::load_boilerplate(filename)?;
         let mut lines = found.into_iter();
         if let Some(first) = lines.next() {
             if !self.copyright.is_match(&first) {
-                return Err(format!("Missing copyright in first line, found={first}"))?;
+                anyhow::bail!("Missing copyright in first line, found={first}");
             }
         } else {
-            return Err("Could not read any boilerplate lines".to_string())?;
+            anyhow::bail!("Could not read any boilerplate lines".to_string());
         }
 
         let first_mismatch = lines
@@ -83,13 +82,13 @@ impl Checker {
             })
             .nth(0);
         if let Some(msg) = first_mismatch {
-            return Err(msg)?;
+            anyhow::bail!(msg);
         }
 
         Ok(())
     }
 
-    fn load_boilerplate(filename: &str) -> Result<Vec<String>, Box<dyn Error>> {
+    fn load_boilerplate(filename: &str) -> anyhow::Result<Vec<String>> {
         let prefix = Self::comment_prefix(filename);
         use std::io::BufRead;
         let file = std::fs::File::open(filename)?;

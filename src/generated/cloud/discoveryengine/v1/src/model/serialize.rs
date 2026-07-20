@@ -10040,6 +10040,9 @@ impl serde::ser::Serialize for super::SearchRequest {
         if !wkt::internal::is_default(&self.relevance_threshold) {
             state.serialize_entry("relevanceThreshold", &self.relevance_threshold)?;
         }
+        if self.relevance_filter_spec.is_some() {
+            state.serialize_entry("relevanceFilterSpec", &self.relevance_filter_spec)?;
+        }
         if self.relevance_score_spec.is_some() {
             state.serialize_entry("relevanceScoreSpec", &self.relevance_score_spec)?;
         }
@@ -10973,6 +10976,79 @@ impl serde::ser::Serialize for super::search_request::RelevanceScoreSpec {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.return_relevance_score) {
             state.serialize_entry("returnRelevanceScore", &self.return_relevance_score)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::search_request::RelevanceFilterSpec {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.keyword_search_threshold.is_some() {
+            state.serialize_entry("keywordSearchThreshold", &self.keyword_search_threshold)?;
+        }
+        if self.semantic_search_threshold.is_some() {
+            state.serialize_entry("semanticSearchThreshold", &self.semantic_search_threshold)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize
+    for super::search_request::relevance_filter_spec::RelevanceThresholdSpec
+{
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.relevance_threshold() {
+            state.serialize_entry("relevanceThreshold", value)?;
+        }
+        if let Some(value) = self.semantic_relevance_threshold() {
+            struct __With<'a>(&'a f32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("semanticRelevanceThreshold", &__With(value))?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

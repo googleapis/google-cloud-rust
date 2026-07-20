@@ -40,6 +40,7 @@ locals {
     "--cfg google_cloud_unstable_grpc_server_streaming",
     "--cfg google_cloud_unstable_tracing",
     "--cfg google_cloud_unstable_grpc_rust",
+    "--cfg google_cloud_unstable_gapic_streaming",
   ])
 
   tokio_unstable_flags = "--cfg tokio_unstable"
@@ -223,7 +224,7 @@ resource "google_cloudbuild_trigger" "pull-request" {
   repository_event_config {
     repository = google_cloudbuildv2_repository.main.id
     pull_request {
-      branch          = "^main$"
+      branch          = "^(main|grpc_rust)$"
       comment_control = "COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY"
     }
   }
@@ -257,7 +258,7 @@ resource "google_cloudbuild_trigger" "post-merge" {
   repository_event_config {
     repository = google_cloudbuildv2_repository.main.id
     push {
-      branch = "^main$"
+      branch = "^(main|grpc_rust)$"
     }
   }
 

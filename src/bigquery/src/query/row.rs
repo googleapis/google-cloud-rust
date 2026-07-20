@@ -37,7 +37,7 @@ mod sealed {
 /// A trait for types that can be used to index into a [`Row`].
 ///
 /// This trait is sealed and cannot be implemented for types outside of this crate.
-pub trait ColumnIndex: sealed::ColumnIndex + std::fmt::Debug {
+pub trait ColumnIndex: sealed::ColumnIndex + std::fmt::Display {
     /// Returns the index of the column in the given row, if it exists.
     fn index(&self, row: &Row) -> Option<usize>;
 }
@@ -93,21 +93,13 @@ impl Row {
         })
     }
 
-    /// Retrieves a value from the row by column name or zero-based index.
-    pub fn try_get<T: FromSql, I: ColumnIndex>(&self, index: I) -> Result<T> {
-        let idx = index
-            .index(self)
-            .ok_or_else(|| RowError::ColumnNotFound(format!("{:?}", index)))?;
+    fn resolve_index<I: ColumnIndex>(&self, col: &I) -> Result<usize> {
+        col.index(self)
+            .ok_or_else(|| RowError::ColumnNotFound(format!("{col}")))
+    }
 
-        let val = self
-            .values
-            .get(idx)
-            .ok_or_else(|| RowError::IndexOutOfRange {
-                index: idx,
-                len: self.schema.len(),
-            })?;
-
-        T::from_sql(val.clone()).map_err(|e| {
+    fn convert_value_at<T: FromSql>(&self, idx: usize, val: Value) -> Result<T> {
+        T::from_sql(val).map_err(|e| {
             let field_name = self
                 .schema
                 .get_field_by_index(idx)
@@ -118,6 +110,38 @@ impl Row {
                 source: e,
             }
         })
+    }
+
+    /// Retrieves a value from the row by column name or zero-based index.
+    pub fn try_get<T: FromSql, I: ColumnIndex>(&self, index: I) -> Result<T> {
+        let idx = self.resolve_index(&index)?;
+        let val = self
+            .values
+            .get(idx)
+            .ok_or_else(|| RowError::IndexOutOfRange {
+                index: idx,
+                len: self.schema.len(),
+            })?;
+
+        self.convert_value_at(idx, val.clone())
+    }
+
+    /// Takes ownership of a value from the row by column name or zero-based index.
+    /// The value in the row is replaced with `Value::Null` in-place to avoid cloning.
+    pub fn take<T: FromSql, I: ColumnIndex>(&mut self, index: I) -> Result<T> {
+        let idx = self.resolve_index(&index)?;
+
+        let val = self
+            .values
+            .get_mut(idx)
+            .ok_or_else(|| RowError::IndexOutOfRange {
+                index: idx,
+                len: self.schema.len(),
+            })?;
+
+        // swap out the value in-place to avoid clones
+        let owned_val = std::mem::replace(val, Value::Null);
+        self.convert_value_at(idx, owned_val)
     }
 
     /// Retrieves a value from the row by column name or zero-based index, panicking on error.
@@ -234,7 +258,11 @@ fn convert_basic_type(value: String, field_name: &str, field_type: &str) -> Resu
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate as google_cloud_bigquery;
+    use crate::FromRow;
     use google_cloud_bigquery_v2::model::{TableFieldSchema, TableSchema};
+    use google_cloud_type::model::Decimal;
+    use rust_decimal::Decimal as RustDecimal;
     use serde_json::{Map, json};
     use test_case::test_case;
 
@@ -275,11 +303,13 @@ mod tests {
                 .set_mode("NULLABLE"),
         ]);
         let schema = Arc::new(Schema::new(schema));
-        let row = Row::try_new(raw_row, &schema)?;
+        let mut row = Row::try_new(raw_row, &schema)?;
 
         assert_eq!(row.get::<String, _>(0), "James");
         assert_eq!(row.get::<String, _>("name"), "James");
 
+        assert_eq!(row.get::<i32, _>(1), 272793);
+        assert_eq!(row.get::<i32, _>("some_int"), 272793);
         assert_eq!(row.get::<i64, _>(1), 272793);
         assert_eq!(row.get::<i64, _>("some_int"), 272793);
 
@@ -289,8 +319,110 @@ mod tests {
         assert_eq!(row.get::<Option<i64>, _>(3), None);
         assert_eq!(row.get::<Option<i64>, _>("some_null"), None);
 
+        assert_eq!(row.get::<f32, _>(4), 64.0);
+        assert_eq!(row.get::<f32, _>("some_float"), 64.0);
         assert_eq!(row.get::<f64, _>(4), 64.0);
         assert_eq!(row.get::<f64, _>("some_float"), 64.0);
+
+        assert_eq!(row.take::<String, _>(0)?, "James");
+        assert_eq!(row.try_get::<Option<String>, _>(0)?, None);
+
+        assert_eq!(row.take::<i32, _>(1)?, 272793);
+        assert_eq!(row.try_get::<Option<i32>, _>(1)?, None);
+
+        assert!(row.take::<bool, _>(2)?);
+        assert_eq!(row.try_get::<Option<bool>, _>(2)?, None);
+
+        assert_eq!(row.take::<Option<i64>, _>(3)?, None);
+        assert_eq!(row.try_get::<Option<i64>, _>(3)?, None);
+
+        assert_eq!(row.take::<f32, _>(4)?, 64.0);
+        assert_eq!(row.try_get::<Option<f32>, _>(4)?, None);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn convert_numeric_from_row() -> TestResult {
+        let raw_row = Map::from_iter([(
+            "f".to_string(),
+            json!([
+                { "v": "123.456" },
+                { "v": "99999999999999999999.123456789" },
+                { "v": "99999999999999999999999999999999.123" },
+            ]),
+        )]);
+        let schema = TableSchema::new().set_fields([
+            TableFieldSchema::new()
+                .set_name("price")
+                .set_type("NUMERIC")
+                .set_mode("NULLABLE"),
+            TableFieldSchema::new()
+                .set_name("big_amount")
+                .set_type("BIGNUMERIC")
+                .set_mode("NULLABLE"),
+            TableFieldSchema::new()
+                .set_name("overflow_amount")
+                .set_type("BIGNUMERIC")
+                .set_mode("NULLABLE"),
+        ]);
+        let schema = Arc::new(Schema::new(schema));
+        let mut row = Row::try_new(raw_row, &schema)?;
+
+        assert_eq!(
+            row.get::<Decimal, _>(0),
+            Decimal::new().set_value("123.456")
+        );
+        assert_eq!(
+            row.get::<Decimal, _>("price"),
+            Decimal::new().set_value("123.456")
+        );
+
+        assert_eq!(
+            row.get::<Decimal, _>(1),
+            Decimal::new().set_value("99999999999999999999.123456789")
+        );
+        assert_eq!(
+            row.get::<Decimal, _>("big_amount"),
+            Decimal::new().set_value("99999999999999999999.123456789")
+        );
+
+        assert_eq!(
+            row.get::<RustDecimal, _>(0),
+            "123.456".parse().expect("valid decimal")
+        );
+        assert_eq!(
+            row.get::<RustDecimal, _>("price"),
+            "123.456".parse().expect("valid decimal")
+        );
+
+        assert_eq!(
+            row.get::<RustDecimal, _>(1),
+            "99999999999999999999.123456789"
+                .parse()
+                .expect("valid decimal")
+        );
+        assert_eq!(
+            row.get::<RustDecimal, _>("big_amount"),
+            "99999999999999999999.123456789"
+                .parse()
+                .expect("valid decimal")
+        );
+
+        assert!(row.try_get::<RustDecimal, _>(2).is_err());
+        assert!(row.try_get::<RustDecimal, _>("overflow_amount").is_err());
+
+        assert_eq!(
+            row.take::<Decimal, _>(0)?,
+            Decimal::new().set_value("123.456")
+        );
+        assert_eq!(row.try_get::<Option<Decimal>, _>(0)?, None);
+
+        assert_eq!(
+            row.take::<RustDecimal, _>(1)?,
+            "99999999999999999999.123456789".parse()?
+        );
+        assert_eq!(row.try_get::<Option<RustDecimal>, _>(1)?, None);
 
         Ok(())
     }
@@ -325,7 +457,7 @@ mod tests {
                     .set_mode("NULLABLE"),
             ])]);
         let schema = Arc::new(Schema::new(schema));
-        let row = Row::try_new(raw_row, &schema)?;
+        let mut row = Row::try_new(raw_row, &schema)?;
 
         let expected: Struct = serde_json::from_value(json!({
             "name": "Alice",
@@ -333,6 +465,8 @@ mod tests {
         }))?;
         assert_eq!(row.get::<Struct, _>(0), expected);
         assert_eq!(row.get::<Struct, _>("user"), expected);
+        assert_eq!(row.take::<Struct, _>("user")?, expected);
+        assert_eq!(row.try_get::<Option<Struct>, _>("user")?, None);
 
         Ok(())
     }
@@ -356,10 +490,12 @@ mod tests {
             .set_type("INTEGER")
             .set_mode("REPEATED")]);
         let schema = Arc::new(Schema::new(schema));
-        let row = Row::try_new(raw_row, &schema)?;
+        let mut row = Row::try_new(raw_row, &schema)?;
 
         assert_eq!(row.get::<Vec<i64>, _>(0), vec![1, 2, 3]);
         assert_eq!(row.get::<Vec<i64>, _>("numbers"), vec![1, 2, 3]);
+        assert_eq!(row.take::<Vec<i64>, _>("numbers")?, vec![1, 2, 3]);
+        assert_eq!(row.try_get::<Option<Vec<i64>>, _>("numbers")?, None);
 
         Ok(())
     }
@@ -406,7 +542,7 @@ mod tests {
                     .set_mode("NULLABLE"),
             ])]);
         let schema = Arc::new(Schema::new(schema));
-        let row = Row::try_new(raw_row, &schema)?;
+        let mut row = Row::try_new(raw_row, &schema)?;
 
         let expected: Vec<Struct> = serde_json::from_value(json!([
             {
@@ -420,6 +556,8 @@ mod tests {
         ]))?;
         assert_eq!(row.get::<Vec<Struct>, _>(0), expected);
         assert_eq!(row.get::<Vec<Struct>, _>("users"), expected);
+        assert_eq!(row.take::<Vec<Struct>, _>("users")?, expected);
+        assert_eq!(row.try_get::<Option<Vec<Struct>>, _>("users")?, None);
 
         Ok(())
     }
@@ -455,5 +593,97 @@ mod tests {
         let res = convert_basic_type("value".to_string(), "test_col", "UNKNOWN");
         let err = res.unwrap_err();
         assert!(matches!(err, RowError::InvalidRowFormat(_)));
+    }
+
+    #[derive(FromRow, Debug, PartialEq)]
+    struct TestRow {
+        name: String,
+        #[bigquery(rename = "custom_int")]
+        some_int: i64,
+        some_bool: bool,
+        some_null: Option<i64>,
+    }
+
+    #[tokio::test]
+    async fn derive_from_row_success() -> TestResult {
+        let raw_row = Map::from_iter([(
+            "f".to_string(),
+            json!([
+                { "v": "James" },
+                { "v": "272793" },
+                { "v": "TRUE" },
+                { "v": null },
+            ]),
+        )]);
+        let schema = TableSchema::new().set_fields([
+            TableFieldSchema::new()
+                .set_name("name")
+                .set_type("STRING")
+                .set_mode("NULLABLE"),
+            TableFieldSchema::new()
+                .set_name("custom_int")
+                .set_type("INTEGER")
+                .set_mode("NULLABLE"),
+            TableFieldSchema::new()
+                .set_name("some_bool")
+                .set_type("BOOLEAN")
+                .set_mode("NULLABLE"),
+            TableFieldSchema::new()
+                .set_name("some_null")
+                .set_type("INTEGER")
+                .set_mode("NULLABLE"),
+        ]);
+        let schema = Arc::new(Schema::new(schema));
+        let row = Row::try_new(raw_row, &schema)?;
+
+        let converted_row = TestRow::try_from(row)?;
+        assert_eq!(
+            converted_row,
+            TestRow {
+                name: "James".to_string(),
+                some_int: 272793,
+                some_bool: true,
+                some_null: None,
+            }
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn derive_from_row_missing_column() -> TestResult {
+        let raw_row = Map::from_iter([(
+            "f".to_string(),
+            json!([
+                { "v": "James" },
+                { "v": "123" },
+                { "v": "TRUE" },
+                { "v": null },
+            ]),
+        )]);
+        let schema = TableSchema::new().set_fields([
+            TableFieldSchema::new()
+                .set_name("name")
+                .set_type("STRING")
+                .set_mode("NULLABLE"),
+            TableFieldSchema::new()
+                .set_name("wrong_col")
+                .set_type("INTEGER")
+                .set_mode("NULLABLE"),
+            TableFieldSchema::new()
+                .set_name("some_bool")
+                .set_type("BOOLEAN")
+                .set_mode("NULLABLE"),
+            TableFieldSchema::new()
+                .set_name("some_null")
+                .set_type("INTEGER")
+                .set_mode("NULLABLE"),
+        ]);
+        let schema = Arc::new(Schema::new(schema));
+        let row = Row::try_new(raw_row, &schema)?;
+
+        let err = TestRow::try_from(row).unwrap_err();
+        assert!(matches!(err, RowError::ColumnNotFound(col) if col == "custom_int"));
+        Ok(())
     }
 }

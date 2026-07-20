@@ -22,7 +22,9 @@ use google_cloud_bigquery_v2::model::{
 };
 use google_cloud_gax::{error::rpc::Code, paginator::ItemPaginator};
 use google_cloud_test_utils::runtime_config::project_id;
+use google_cloud_type::model::Decimal;
 use rand::{RngExt, distr::Alphanumeric};
+use rust_decimal::Decimal as RustDecimal;
 
 const INSTANCE_LABEL: &str = "rust-sdk-integration-test";
 
@@ -252,6 +254,21 @@ pub async fn query_client() -> Result<()> {
     Ok(())
 }
 
+#[derive(google_cloud_bigquery::FromRow, Debug, PartialEq)]
+struct UserData {
+    name: String,
+    age: i64,
+    height: f64,
+    active: bool,
+    numbers: Vec<i64>,
+    created_at: wkt::Timestamp,
+    birth_date: google_cloud_type::model::Date,
+    daily_alarm: google_cloud_type::model::TimeOfDay,
+    event_time: google_cloud_type::model::DateTime,
+    nullable_name: Option<String>,
+    nullable_age: Option<i64>,
+}
+
 pub async fn query_client_datatypes() -> Result<()> {
     let project_id = project_id()?;
     let bq = BigQuery::builder().build().await?;
@@ -263,6 +280,7 @@ pub async fn query_client_datatypes() -> Result<()> {
                  30 AS age, \
                  1.85 AS height, \
                  true AS active, \
+                 ARRAY[1, 2, 3] AS numbers, \
                  TIMESTAMP '2026-05-28 15:30:00 UTC' AS created_at, \
                  DATE '2026-05-28' AS birth_date, \
                  TIME '15:30:00' AS daily_alarm, \
@@ -281,48 +299,119 @@ pub async fn query_client_datatypes() -> Result<()> {
     let mut iter = complete_query.read();
     let row = iter.next().await.expect("row must exist")?;
 
-    assert_eq!(row.get::<String, _>("name"), "John Doe");
-    assert_eq!(row.get::<i64, _>("age"), 30);
-    assert_eq!(row.get::<f64, _>("height"), 1.85);
-    assert!(row.get::<bool, _>("active"));
-
-    let created_at = row.get::<wkt::Timestamp, _>("created_at");
-    assert_eq!(created_at, wkt::Timestamp::new(1779982200, 0).unwrap());
-
-    let birth_date = row.get::<google_cloud_type::model::Date, _>("birth_date");
-    assert_eq!(
-        birth_date,
-        google_cloud_type::model::Date::new()
+    let expected = UserData {
+        name: "John Doe".to_string(),
+        age: 30,
+        height: 1.85,
+        active: true,
+        numbers: vec![1, 2, 3],
+        created_at: wkt::Timestamp::new(1779982200, 0).unwrap(),
+        birth_date: google_cloud_type::model::Date::new()
             .set_year(2026)
             .set_month(5)
-            .set_day(28)
-    );
-
-    let daily_alarm = row.get::<google_cloud_type::model::TimeOfDay, _>("daily_alarm");
-    assert_eq!(
-        daily_alarm,
-        google_cloud_type::model::TimeOfDay::new()
+            .set_day(28),
+        daily_alarm: google_cloud_type::model::TimeOfDay::new()
             .set_hours(15)
             .set_minutes(30)
             .set_seconds(0)
-            .set_nanos(0)
-    );
-
-    let event_time = row.get::<google_cloud_type::model::DateTime, _>("event_time");
-    assert_eq!(
-        event_time,
-        google_cloud_type::model::DateTime::new()
+            .set_nanos(0),
+        event_time: google_cloud_type::model::DateTime::new()
             .set_year(2026)
             .set_month(5)
             .set_day(28)
             .set_hours(15)
             .set_minutes(30)
             .set_seconds(0)
-            .set_nanos(0)
+            .set_nanos(0),
+        nullable_name: None,
+        nullable_age: None,
+    };
+
+    assert_eq!(row.get::<String, _>("name"), expected.name);
+    assert_eq!(row.get::<i64, _>("age"), expected.age);
+    assert_eq!(row.get::<f64, _>("height"), expected.height);
+    assert_eq!(row.get::<bool, _>("active"), expected.active);
+    assert_eq!(row.get::<Vec<i64>, _>("numbers"), expected.numbers);
+    assert_eq!(
+        row.get::<wkt::Timestamp, _>("created_at"),
+        expected.created_at
+    );
+    assert_eq!(
+        row.get::<google_cloud_type::model::Date, _>("birth_date"),
+        expected.birth_date
+    );
+    assert_eq!(
+        row.get::<google_cloud_type::model::TimeOfDay, _>("daily_alarm"),
+        expected.daily_alarm
+    );
+    assert_eq!(
+        row.get::<google_cloud_type::model::DateTime, _>("event_time"),
+        expected.event_time
+    );
+    assert_eq!(
+        row.get::<Option<String>, _>("nullable_name"),
+        expected.nullable_name
+    );
+    assert_eq!(
+        row.get::<Option<i64>, _>("nullable_age"),
+        expected.nullable_age
     );
 
-    assert_eq!(row.get::<Option<String>, _>("nullable_name"), None);
-    assert_eq!(row.get::<Option<i64>, _>("nullable_age"), None);
+    let data: UserData = row.try_into()?;
+    assert_eq!(data, expected);
+
+    assert!(iter.next().await.is_none());
+
+    Ok(())
+}
+
+pub async fn query_client_numeric_limits() -> Result<()> {
+    let project_id = project_id()?;
+    let bq = BigQuery::builder().build().await?;
+
+    let query = bq
+        .query(
+            "SELECT \
+                 CAST('99999999999999999999999999999.999999999' AS NUMERIC) AS max_numeric, \
+                 CAST('99999999999999999999999999999999999999.99999999999999999999999999999999999999' AS BIGNUMERIC) AS max_bignumeric, \
+                 CAST('123.123456789' AS NUMERIC) AS standard_numeric, \
+                 CAST('1234567890.1234567890' AS BIGNUMERIC) AS standard_bignumeric",
+        )
+        .with_project_id(project_id)
+        .set_labels(vec![(INSTANCE_LABEL, "true")])
+        .run()
+        .await?;
+
+    let complete_query = query.until_done().await?;
+    assert_eq!(complete_query.metadata().total_rows, Some(1));
+
+    let mut iter = complete_query.read();
+    let row = iter.next().await.expect("row must exist")?;
+
+    // Verify google_cloud_type::model::Decimal preserves values for NUMERIC (38 digits) and BIGNUMERIC (76 digits).
+    assert_eq!(
+        row.get::<Decimal, _>("max_numeric"),
+        Decimal::new().set_value("99999999999999999999999999999.999999999")
+    );
+    assert_eq!(
+        row.get::<Decimal, _>("max_bignumeric"),
+        Decimal::new().set_value(
+            "99999999999999999999999999999999999999.99999999999999999999999999999999999999"
+        )
+    );
+
+    // Verify rust_decimal handles numbers within its 96-bit bounds (around 28 digits)
+    // and errors on out-of-range values.
+    assert_eq!(
+        row.get::<RustDecimal, _>("standard_numeric"),
+        "123.123456789".parse().expect("valid decimal")
+    );
+    assert_eq!(
+        row.get::<RustDecimal, _>("standard_bignumeric"),
+        "1234567890.1234567890".parse().expect("valid decimal")
+    );
+    assert!(row.try_get::<RustDecimal, _>("max_numeric").is_err());
+    assert!(row.try_get::<RustDecimal, _>("max_bignumeric").is_err());
 
     assert!(iter.next().await.is_none());
 

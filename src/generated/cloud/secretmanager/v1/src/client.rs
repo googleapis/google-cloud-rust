@@ -539,6 +539,58 @@ impl SecretManagerService {
         super::builder::secret_manager_service::TestIamPermissions::new(self.inner.clone())
     }
 
+    /// Enables the managed rotation feature for a
+    /// [Secret][google.cloud.secretmanager.v1.Secret]. This method can only be
+    /// triggered once for a secret. In order to do further rotations, RotateSecret
+    /// should be used. This method will add a secret version and update the
+    /// password in Cloud SQL.
+    ///
+    /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
+    /// use google_cloud_secretmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> Result<()> {
+    ///     let response = client.enable_managed_rotation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn enable_managed_rotation(
+        &self,
+    ) -> super::builder::secret_manager_service::EnableManagedRotation {
+        super::builder::secret_manager_service::EnableManagedRotation::new(self.inner.clone())
+    }
+
+    /// Do a managed rotation for a [Secret][google.cloud.secretmanager.v1.Secret].
+    /// This can only be triggered after Managed rotation has been enabled.
+    /// This method will add a secret version and update the password in Cloud SQL.
+    ///
+    /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
+    /// use google_cloud_secretmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> Result<()> {
+    ///     let response = client.rotate_secret()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn rotate_secret(&self) -> super::builder::secret_manager_service::RotateSecret {
+        super::builder::secret_manager_service::RotateSecret::new(self.inner.clone())
+    }
+
     /// Lists information about the supported locations for this service.
     ///
     /// # Example

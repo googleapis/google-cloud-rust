@@ -35,5 +35,6 @@ google-cloud-gax         = { workspace = true, features = ["unstable-stream"] }
 google-cloud-test-utils  = { workspace = true }
 google-cloud-type        = { workspace = true }
 rand.workspace           = true
+rust_decimal             = { workspace = true }
 tokio.workspace          = true
 wkt.workspace            = true

@@ -30,6 +30,8 @@ pub mod mutation;
 pub mod read;
 /// Spanner execution result streams and rows.
 pub mod result;
+/// RPC retry policies used by the Spanner client.
+pub mod retry_policy;
 /// SQL statement builders and parameter bindings.
 pub mod statement;
 /// Spanner primitive type constructors for typed parameter binding.
@@ -83,7 +85,6 @@ pub(crate) mod read_only_transaction;
 pub(crate) mod read_write_transaction;
 pub(crate) mod result_set;
 pub(crate) mod result_set_metadata;
-pub(crate) mod retry_policy;
 pub(crate) mod row;
 pub(crate) mod server_streaming;
 pub(crate) mod session_maintainer;

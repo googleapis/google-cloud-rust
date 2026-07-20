@@ -240,12 +240,12 @@ mod tests {
         assert!(builder.config.cred.is_none(), "{builder:?}");
         assert!(!builder.config.tracing);
         assert!(
-            format!("{:?}", &builder.config).contains("AdaptiveThrottler"),
+            format!("{:?}", builder.config).contains("AdaptiveThrottler"),
             "{:?}",
             builder.config
         );
         assert!(builder.config.backoff_policy.is_some(), "{builder:?}");
-        let debug_str = format!("{:?}", &builder.config);
+        let debug_str = format!("{:?}", builder.config);
         assert!(
             debug_str.contains("initial_delay: 100ms"),
             "actual: {debug_str}"
@@ -284,7 +284,7 @@ mod tests {
         assert!(builder.config.cred.is_some(), "{builder:?}");
         assert!(builder.config.tracing);
         assert!(
-            format!("{:?}", &builder.config).contains("CircuitBreaker"),
+            format!("{:?}", builder.config).contains("CircuitBreaker"),
             "{:?}",
             builder.config
         );

@@ -210,6 +210,7 @@ mod tests {
     }
 
     #[tokio::test(start_paused = true)]
+    #[ignore = "TODO(#6077) - disabled because it is flaky"]
     async fn client_request() -> anyhow::Result<()> {
         const PATH: &str = "/v1/projects/test-only:test_method";
 

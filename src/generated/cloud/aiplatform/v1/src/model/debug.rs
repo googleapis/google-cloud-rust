@@ -897,6 +897,7 @@ impl std::fmt::Debug for super::GroundingMetadata {
         let mut debug_struct = f.debug_struct("GroundingMetadata");
         debug_struct.field("web_search_queries", &self.web_search_queries);
         debug_struct.field("search_entry_point", &self.search_entry_point);
+        debug_struct.field("retrieval_queries", &self.retrieval_queries);
         debug_struct.field("grounding_chunks", &self.grounding_chunks);
         debug_struct.field("grounding_supports", &self.grounding_supports);
         debug_struct.field("retrieval_metadata", &self.retrieval_metadata);

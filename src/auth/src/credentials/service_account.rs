@@ -602,7 +602,7 @@ impl ServiceAccountTokenGenerator {
         let token = format!(
             "{}.{}",
             encoded_header_claims,
-            &BASE64_URL_SAFE_NO_PAD.encode(sig)
+            BASE64_URL_SAFE_NO_PAD.encode(sig)
         );
 
         Ok(token)
