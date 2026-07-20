@@ -29,11 +29,14 @@ impl<Req> RequestSender<Req> {
     }
 
     /// Sends a request item over the stream.
-    pub async fn send(&self, item: Req) -> Result<(), crate::error::Error> {
+    pub async fn send(&self, item: Req) -> Result<(), crate::error::Error>
+    where
+        Req: Send + Sync + 'static,
+    {
         self.req_tx
             .send(item)
             .await
-            .map_err(|_| crate::error::Error::io("stream closed"))
+            .map_err(crate::error::Error::io)
     }
 }
 
@@ -75,5 +78,18 @@ mod tests {
 
         drop(resp_tx);
         assert!(receiver.recv().await.is_none());
+    }
+
+    #[tokio::test]
+    async fn test_request_sender_send_error() {
+        use std::error::Error as _;
+
+        let (req_tx, req_rx) = mpsc::channel::<String>(16);
+        let sender = RequestSender::new(req_tx);
+
+        drop(req_rx);
+        let err = sender.send("hello".to_string()).await.unwrap_err();
+        assert!(err.is_io());
+        assert!(err.source().is_some());
     }
 }
