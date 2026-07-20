@@ -20,6 +20,7 @@ mod job_optional;
 mod legacy;
 mod legacy_large_results;
 mod no_cache;
+mod partitioned_table;
 #[allow(clippy::module_inception)]
 mod query;
 
@@ -49,6 +50,7 @@ pub async fn run_samples() -> anyhow::Result<()> {
         Box::pin(legacy::sample(&project_id)),
         Box::pin(job_optional::sample(&project_id)),
         Box::pin(clustered_table::sample(&project_id)),
+        Box::pin(partitioned_table::sample(&project_id)),
     ];
     let _ = futures::future::join_all(pending)
         .await
