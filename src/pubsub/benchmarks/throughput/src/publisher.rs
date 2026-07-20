@@ -89,13 +89,15 @@ async fn run_publisher(config: Arc<PublisherArgs>, publisher: Publisher) -> anyh
                 "# Pre-seeding {} total ordering key batch actors ({} will be active)...",
                 num_keys, active_keys_count
             );
+            let mut set = tokio::task::JoinSet::new();
             for key in &keys {
                 let msg = Message::new().set_data(data.clone()).set_ordering_key(key);
                 let p = publisher.publish(msg);
-                tokio::spawn(async move {
+                set.spawn(async move {
                     let _ = p.await;
                 });
             }
+            while set.join_next().await.is_some() {}
             println!("# Pre-seeding complete. Starting benchmark loop...");
         }
 
