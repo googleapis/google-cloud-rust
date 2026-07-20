@@ -15,7 +15,6 @@
 mod clustered_table;
 mod destination_table;
 mod legacy_large_results;
-mod partitioned_table;
 #[allow(clippy::module_inception)]
 mod query;
 
@@ -71,7 +70,6 @@ async fn run_batch3_samples(project_id: &str, dataset_id: &str) -> anyhow::Resul
 
     let pending: Vec<Pin<Box<dyn Future<Output = anyhow::Result<()>>>>> = vec![
         Box::pin(query::sample(project_id)),
-        Box::pin(partitioned_table::sample(project_id)),
         Box::pin(clustered_table::sample(project_id)),
         Box::pin(destination_table::sample(
             project_id,
