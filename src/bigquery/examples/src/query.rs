@@ -20,6 +20,10 @@ mod label_job;
 mod legacy;
 mod no_cache;
 mod pagination;
+mod params_arrays;
+mod params_named;
+mod params_positional;
+mod params_timestamps;
 #[allow(clippy::module_inception)]
 mod query;
 mod script;
@@ -39,6 +43,10 @@ pub async fn run_samples() -> anyhow::Result<()> {
         Box::pin(dry_run::sample(&project_id)),
         Box::pin(legacy::sample(&project_id)),
         Box::pin(job_optional::sample(&project_id)),
+        Box::pin(params_positional::sample(&project_id)),
+        Box::pin(params_named::sample(&project_id)),
+        Box::pin(params_arrays::sample(&project_id)),
+        Box::pin(params_timestamps::sample(&project_id)),
         Box::pin(browse_table::sample(&project_id)),
         Box::pin(pagination::sample(&project_id)),
         Box::pin(total_rows::sample(&project_id)),
