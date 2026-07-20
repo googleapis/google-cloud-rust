@@ -59,7 +59,7 @@ pub fn derive_from_row(input: TokenStream) -> TokenStream {
         .map(|f| f.ident.as_ref().expect("named field must have identifier"));
 
     // TODO(#5592): check that the schema and this struct have same columns/attributes count.
-    
+
     let expanded = quote! {
         impl google_cloud_bigquery::FromRow for #name {
             fn from_row(mut row: google_cloud_bigquery::Row) -> std::result::Result<Self, google_cloud_bigquery::RowError> {
