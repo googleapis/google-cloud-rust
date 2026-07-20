@@ -13,12 +13,17 @@
 // limitations under the License.
 
 mod batch;
+mod browse_table;
 mod dry_run;
 mod job_optional;
+mod label_job;
 mod legacy;
 mod no_cache;
+mod pagination;
 #[allow(clippy::module_inception)]
 mod query;
+mod script;
+mod total_rows;
 
 use google_cloud_test_utils::runtime_config::project_id;
 use std::future::Future;
@@ -34,6 +39,11 @@ pub async fn run_samples() -> anyhow::Result<()> {
         Box::pin(dry_run::sample(&project_id)),
         Box::pin(legacy::sample(&project_id)),
         Box::pin(job_optional::sample(&project_id)),
+        Box::pin(browse_table::sample(&project_id)),
+        Box::pin(pagination::sample(&project_id)),
+        Box::pin(total_rows::sample(&project_id)),
+        Box::pin(label_job::sample(&project_id)),
+        Box::pin(script::sample(&project_id)),
     ];
     let _ = futures::future::join_all(pending)
         .await
