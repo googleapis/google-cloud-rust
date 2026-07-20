@@ -20,7 +20,7 @@ use proc_macro::TokenStream;
 use quote::quote;
 use syn::{Data, DeriveInput, Fields, parse_macro_input};
 
-/// Derives standard library [`TryFrom`](std::convert::TryFrom) for converting a BigQuery `Row` into a struct.
+/// Derives standard library [TryFrom] for converting a BigQuery `Row` into a struct.
 ///
 /// Supports renaming attributes via `#[bigquery(rename = "new_name")]`.
 #[proc_macro_derive(FromRow, attributes(bigquery))]
