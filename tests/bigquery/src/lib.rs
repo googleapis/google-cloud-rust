@@ -332,7 +332,10 @@ pub async fn query_client_datatypes() -> Result<()> {
     assert_eq!(row.get::<f64, _>("height"), expected.height);
     assert_eq!(row.get::<bool, _>("active"), expected.active);
     assert_eq!(row.get::<Vec<i64>, _>("numbers"), expected.numbers);
-    assert_eq!(row.get::<wkt::Timestamp, _>("created_at"), expected.created_at);
+    assert_eq!(
+        row.get::<wkt::Timestamp, _>("created_at"),
+        expected.created_at
+    );
     assert_eq!(
         row.get::<google_cloud_type::model::Date, _>("birth_date"),
         expected.birth_date
