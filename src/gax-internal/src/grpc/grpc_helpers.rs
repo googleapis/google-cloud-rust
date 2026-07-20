@@ -353,7 +353,7 @@ mod tests {
         assert_eq!(request_params[0], REQUEST_PARAMS);
 
         // Assert the legitimate header is still present
-        assert_eq!(headers.get("x-legitimate-header").unwrap(), "legitimate-value");
+        assert_eq!(headers.get("x-legitimate-header").expect("x-legitimate-header should be present"), "legitimate-value");
 
         Ok(())
     }
