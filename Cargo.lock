@@ -2006,6 +2006,7 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "google-cloud-auth",
+ "google-cloud-bigquery-derive",
  "google-cloud-bigquery-v2",
  "google-cloud-gax",
  "google-cloud-gax-internal",

@@ -37,7 +37,7 @@ mod sealed {
 /// A trait for types that can be used to index into a [`Row`].
 ///
 /// This trait is sealed and cannot be implemented for types outside of this crate.
-pub trait ColumnIndex: sealed::ColumnIndex + std::fmt::Debug {
+pub trait ColumnIndex: sealed::ColumnIndex + std::fmt::Display {
     /// Returns the index of the column in the given row, if it exists.
     fn index(&self, row: &Row) -> Option<usize>;
 }
@@ -95,7 +95,7 @@ impl Row {
 
     fn resolve_index<I: ColumnIndex>(&self, col: &I) -> Result<usize> {
         col.index(self)
-            .ok_or_else(|| RowError::ColumnNotFound(format!("{:?}", col)))
+            .ok_or_else(|| RowError::ColumnNotFound(format!("{col}")))
     }
 
     fn convert_value_at<T: FromSql>(&self, idx: usize, val: Value) -> Result<T> {
@@ -258,6 +258,8 @@ fn convert_basic_type(value: String, field_name: &str, field_type: &str) -> Resu
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate as google_cloud_bigquery;
+    use crate::FromRow;
     use google_cloud_bigquery_v2::model::{TableFieldSchema, TableSchema};
     use google_cloud_type::model::Decimal;
     use rust_decimal::Decimal as RustDecimal;
@@ -591,5 +593,97 @@ mod tests {
         let res = convert_basic_type("value".to_string(), "test_col", "UNKNOWN");
         let err = res.unwrap_err();
         assert!(matches!(err, RowError::InvalidRowFormat(_)));
+    }
+
+    #[derive(FromRow, Debug, PartialEq)]
+    struct TestRow {
+        name: String,
+        #[bigquery(rename = "custom_int")]
+        some_int: i64,
+        some_bool: bool,
+        some_null: Option<i64>,
+    }
+
+    #[tokio::test]
+    async fn derive_from_row_success() -> TestResult {
+        let raw_row = Map::from_iter([(
+            "f".to_string(),
+            json!([
+                { "v": "James" },
+                { "v": "272793" },
+                { "v": "TRUE" },
+                { "v": null },
+            ]),
+        )]);
+        let schema = TableSchema::new().set_fields([
+            TableFieldSchema::new()
+                .set_name("name")
+                .set_type("STRING")
+                .set_mode("NULLABLE"),
+            TableFieldSchema::new()
+                .set_name("custom_int")
+                .set_type("INTEGER")
+                .set_mode("NULLABLE"),
+            TableFieldSchema::new()
+                .set_name("some_bool")
+                .set_type("BOOLEAN")
+                .set_mode("NULLABLE"),
+            TableFieldSchema::new()
+                .set_name("some_null")
+                .set_type("INTEGER")
+                .set_mode("NULLABLE"),
+        ]);
+        let schema = Arc::new(Schema::new(schema));
+        let row = Row::try_new(raw_row, &schema)?;
+
+        let converted_row = TestRow::try_from(row)?;
+        assert_eq!(
+            converted_row,
+            TestRow {
+                name: "James".to_string(),
+                some_int: 272793,
+                some_bool: true,
+                some_null: None,
+            }
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn derive_from_row_missing_column() -> TestResult {
+        let raw_row = Map::from_iter([(
+            "f".to_string(),
+            json!([
+                { "v": "James" },
+                { "v": "123" },
+                { "v": "TRUE" },
+                { "v": null },
+            ]),
+        )]);
+        let schema = TableSchema::new().set_fields([
+            TableFieldSchema::new()
+                .set_name("name")
+                .set_type("STRING")
+                .set_mode("NULLABLE"),
+            TableFieldSchema::new()
+                .set_name("wrong_col")
+                .set_type("INTEGER")
+                .set_mode("NULLABLE"),
+            TableFieldSchema::new()
+                .set_name("some_bool")
+                .set_type("BOOLEAN")
+                .set_mode("NULLABLE"),
+            TableFieldSchema::new()
+                .set_name("some_null")
+                .set_type("INTEGER")
+                .set_mode("NULLABLE"),
+        ]);
+        let schema = Arc::new(Schema::new(schema));
+        let row = Row::try_new(raw_row, &schema)?;
+
+        let err = TestRow::try_from(row).unwrap_err();
+        assert!(matches!(err, RowError::ColumnNotFound(col) if col == "custom_int"));
+        Ok(())
     }
 }
