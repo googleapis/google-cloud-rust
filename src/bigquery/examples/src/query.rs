@@ -12,9 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+mod batch;
 mod clustered_table;
 mod destination_table;
+mod dry_run;
+mod job_optional;
+mod legacy;
 mod legacy_large_results;
+mod no_cache;
 #[allow(clippy::module_inception)]
 mod query;
 
@@ -35,6 +40,26 @@ fn random_id_suffix() -> String {
 
 pub async fn run_samples() -> anyhow::Result<()> {
     let project_id = project_id()?;
+
+    let pending: Vec<Pin<Box<dyn Future<Output = anyhow::Result<()>>>>> = vec![
+        Box::pin(query::sample(&project_id)),
+        Box::pin(no_cache::sample(&project_id)),
+        Box::pin(batch::sample(&project_id)),
+        Box::pin(dry_run::sample(&project_id)),
+        Box::pin(legacy::sample(&project_id)),
+        Box::pin(job_optional::sample(&project_id)),
+        Box::pin(clustered_table::sample(&project_id)),
+    ];
+    let _ = futures::future::join_all(pending)
+        .await
+        .into_iter()
+        .collect::<anyhow::Result<Vec<_>>>()?;
+
+    Ok(())
+}
+
+pub async fn run_samples_with_resources() -> anyhow::Result<()> {
+    let project_id = project_id()?;
     let dataset_service = DatasetService::builder().build().await?;
     let dataset_id = format!("rust_bq_samples_{}", random_id_suffix());
 
@@ -50,7 +75,25 @@ pub async fn run_samples() -> anyhow::Result<()> {
         .send()
         .await?;
 
-    let res = run_batch3_samples(&project_id, &dataset_id).await;
+    let table_id_1 = format!("dest_{}", random_id_suffix());
+    let table_id_2 = format!("dest_legacy_{}", random_id_suffix());
+
+    let pending: Vec<Pin<Box<dyn Future<Output = anyhow::Result<()>>>>> = vec![
+        Box::pin(destination_table::sample(
+            &project_id,
+            &dataset_id,
+            &table_id_1,
+        )),
+        Box::pin(legacy_large_results::sample(
+            &project_id,
+            &dataset_id,
+            &table_id_2,
+        )),
+    ];
+    let res: anyhow::Result<Vec<_>> = futures::future::join_all(pending)
+        .await
+        .into_iter()
+        .collect();
 
     println!("Deleting sample dataset `{dataset_id}`...");
     let _ = dataset_service
@@ -61,31 +104,6 @@ pub async fn run_samples() -> anyhow::Result<()> {
         .send()
         .await;
 
-    res
-}
-
-async fn run_batch3_samples(project_id: &str, dataset_id: &str) -> anyhow::Result<()> {
-    let table_id_1 = format!("dest_{}", random_id_suffix());
-    let table_id_2 = format!("dest_legacy_{}", random_id_suffix());
-
-    let pending: Vec<Pin<Box<dyn Future<Output = anyhow::Result<()>>>>> = vec![
-        Box::pin(query::sample(project_id)),
-        Box::pin(clustered_table::sample(project_id)),
-        Box::pin(destination_table::sample(
-            project_id,
-            dataset_id,
-            &table_id_1,
-        )),
-        Box::pin(legacy_large_results::sample(
-            project_id,
-            dataset_id,
-            &table_id_2,
-        )),
-    ];
-    let _ = futures::future::join_all(pending)
-        .await
-        .into_iter()
-        .collect::<anyhow::Result<Vec<_>>>()?;
-
+    let _ = res?;
     Ok(())
 }
