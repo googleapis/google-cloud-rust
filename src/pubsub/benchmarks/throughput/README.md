@@ -64,3 +64,44 @@ cargo run --release -p pubsub-throughput -- subscriber \
     --report-interval 10s \
     --duration 1m
 ```
+
+## Example Benchmark Scenarios
+
+### Scenario 1: Unordered Keys
+
+Measures maximum streaming throughput without setting an ordering key.
+
+```bash
+cargo run --release -p pubsub-throughput -- publisher \
+    --project ${GOOGLE_CLOUD_PROJECT} \
+    --topic-id perf-test-unordered \
+    --ordering-keys 0 \
+    --duration 1m
+```
+
+### Scenario 2: Idle Ordering Keys (5,000 Total, 10 Active)
+
+Simulates a multi-tenant application with thousands of distinct ordering keys where only a small subset is actively publishing messages.
+
+> **Note:** Keep `--batch-delay` within standard thresholds (e.g. `100ms`) during idle ordering key tests, as pre-seeded messages for idle keys will remain buffered until `--batch-delay` expires.
+
+```bash
+cargo run --release -p pubsub-throughput -- publisher \
+    --project ${GOOGLE_CLOUD_PROJECT} \
+    --topic-id perf-test-idle \
+    --ordering-keys 5000 \
+    --active-ordering-keys 10 \
+    --duration 1m
+```
+
+### Scenario 3: Active Ordering Keys (1,000 Active Keys)
+
+Simulates heavy parallel publishing across 1,000 ordering keys that are all actively receiving messages simultaneously.
+
+```bash
+cargo run --release -p pubsub-throughput -- publisher \
+    --project ${GOOGLE_CLOUD_PROJECT} \
+    --topic-id perf-test-active \
+    --ordering-keys 1000 \
+    --duration 1m
+```
