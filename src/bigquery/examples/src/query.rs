@@ -20,6 +20,10 @@ mod job_optional;
 mod legacy;
 mod legacy_large_results;
 mod no_cache;
+mod params_arrays;
+mod params_named;
+mod params_positional;
+mod params_timestamps;
 mod partitioned_table;
 #[allow(clippy::module_inception)]
 mod query;
@@ -49,6 +53,10 @@ pub async fn run_samples() -> anyhow::Result<()> {
         Box::pin(dry_run::sample(&project_id)),
         Box::pin(legacy::sample(&project_id)),
         Box::pin(job_optional::sample(&project_id)),
+        Box::pin(params_positional::sample(&project_id)),
+        Box::pin(params_named::sample(&project_id)),
+        Box::pin(params_arrays::sample(&project_id)),
+        Box::pin(params_timestamps::sample(&project_id)),
         Box::pin(clustered_table::sample(&project_id)),
         Box::pin(partitioned_table::sample(&project_id)),
     ];
@@ -77,19 +85,19 @@ pub async fn run_samples_with_resources() -> anyhow::Result<()> {
         .send()
         .await?;
 
-    let destination_table_id = format!("dest_{}", random_id_suffix());
-    let dest_legacy_table_id = format!("dest_legacy_{}", random_id_suffix());
+    let table_id_1 = format!("dest_{}", random_id_suffix());
+    let table_id_2 = format!("dest_legacy_{}", random_id_suffix());
 
     let pending: Vec<Pin<Box<dyn Future<Output = anyhow::Result<()>>>>> = vec![
         Box::pin(destination_table::sample(
             &project_id,
             &dataset_id,
-            &destination_table_id,
+            &table_id_1,
         )),
         Box::pin(legacy_large_results::sample(
             &project_id,
             &dataset_id,
-            &dest_legacy_table_id,
+            &table_id_2,
         )),
     ];
     let res: anyhow::Result<Vec<_>> = futures::future::join_all(pending)
