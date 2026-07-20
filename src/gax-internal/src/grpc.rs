@@ -17,7 +17,7 @@
 pub mod from_status;
 mod grpc_helpers;
 #[cfg(google_cloud_unstable_grpc_rust)]
-mod grpc_rust;
+pub mod grpc_rust;
 pub mod status;
 #[cfg(google_cloud_unstable_gapic_streaming)]
 pub(crate) mod streaming;
