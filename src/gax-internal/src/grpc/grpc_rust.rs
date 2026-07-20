@@ -31,7 +31,9 @@ use grpc::credentials::rustls::client::{
 use http::Uri;
 use std::sync::Arc;
 
-mod bidi;
+// TODO(#5991): Will be used by bidi streaming in an upcoming commit.
+#[allow(dead_code)]
+pub mod bidi;
 
 /// A gRPC client backed by the [grpc-rust][grpc] crate.
 #[derive(Clone)]
@@ -70,6 +72,11 @@ impl GrpcRustClient {
         instrumentation: &'static InstrumentationClientInfo,
     ) -> ClientBuilderResult<Self> {
         Self::build(config, default_endpoint, Some(instrumentation)).await
+    }
+
+    // TODO(#5991): Temporary helper for testing. Remove once `bidi_stream` is implemented.
+    pub fn invoker(&self) -> &Channel {
+        &self.inner.invoker
     }
 
     pub async fn execute<Request, Response>(
