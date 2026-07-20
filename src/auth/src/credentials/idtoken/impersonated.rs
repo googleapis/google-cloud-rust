@@ -427,11 +427,7 @@ async fn generate_id_token_call(
             .bytes()
             .await
             .map_err(|e| GaxError::transport(err_headers.clone(), e))?;
-        return Err(GaxError::http(
-            status.as_u16(),
-            err_headers,
-            format!("{MSG}: {err_payload:?}").into(),
-        ));
+        return Err(GaxError::http(status.as_u16(), err_headers, err_payload));
     }
 
     Ok(response)
