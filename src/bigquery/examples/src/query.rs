@@ -12,16 +12,31 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+mod params_arrays;
+mod params_named;
+mod params_positional;
+mod params_timestamps;
 #[allow(clippy::module_inception)]
 mod query;
 
 use google_cloud_test_utils::runtime_config::project_id;
+use std::future::Future;
+use std::pin::Pin;
 
 pub async fn run_samples() -> anyhow::Result<()> {
     let project_id = project_id()?;
 
-    println!("Running sample for `bigquery_query`...");
-    query::sample(&project_id).await?;
+    let pending: Vec<Pin<Box<dyn Future<Output = anyhow::Result<()>>>>> = vec![
+        Box::pin(query::sample(&project_id)),
+        Box::pin(params_positional::sample(&project_id)),
+        Box::pin(params_named::sample(&project_id)),
+        Box::pin(params_arrays::sample(&project_id)),
+        Box::pin(params_timestamps::sample(&project_id)),
+    ];
+    let _: Vec<_> = futures::future::join_all(pending)
+        .await
+        .into_iter()
+        .collect::<anyhow::Result<Vec<_>>>()?;
 
     Ok(())
 }
