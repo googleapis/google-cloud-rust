@@ -82,8 +82,7 @@ pub async fn run() -> Result<()> {
     let list = get_all_secret_names(&client, &project_id).await?;
     assert!(
         list.iter().any(|name| name == &secret_name),
-        "missing secret {} in {list:?}",
-        &secret_name
+        "missing secret {secret_name} in {list:?}"
     );
 
     run_secret_versions(&client, &project_id, &secret_id).await?;
@@ -250,7 +249,7 @@ async fn run_secret_versions(
             .iter()
             .any(|name| Some(name) == get.name.as_ref()),
         "missing secret version {:?} in {secret_versions_list:?}",
-        &get.name
+        get.name
     );
 
     println!("\nTesting access_secret_version()");

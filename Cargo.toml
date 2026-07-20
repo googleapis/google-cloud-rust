@@ -19,7 +19,9 @@ default-members = [
   "guide/samples",
   "src/auth",
   "src/bigquery",
+  "src/bigquery-derive",
   "src/bigquery-write",
+  "src/bigquery/examples",
   "src/bigtable",
   "src/datastore",
   "src/firestore",
@@ -66,8 +68,10 @@ members = [
   "guide/samples",
   "src/auth",
   "src/bigquery",
+  "src/bigquery-derive",
   "src/bigquery-write",
   "src/bigquery-write/grpc-mock",
+  "src/bigquery/examples",
   "src/bigtable",
   "src/datastore",
   "src/firestore",
@@ -97,6 +101,7 @@ members = [
   "src/generated/chat/v1",
   "src/generated/cloud/accessapproval/v1",
   "src/generated/cloud/advisorynotifications/v1",
+  "src/generated/cloud/agentidentity/v1",
   "src/generated/cloud/agentregistry/v1",
   "src/generated/cloud/aiplatform/schema/predict/instance",
   "src/generated/cloud/aiplatform/schema/predict/params",
@@ -131,6 +136,7 @@ members = [
   "src/generated/cloud/bigquery/v2",
   "src/generated/cloud/billing/v1",
   "src/generated/cloud/binaryauthorization/v1",
+  "src/generated/cloud/blockchainnodeengine/v1",
   "src/generated/cloud/certificatemanager/v1",
   "src/generated/cloud/ces/v1",
   "src/generated/cloud/chronicle/v1",
@@ -277,6 +283,7 @@ members = [
   "src/generated/devtools/cloudtrace/v2",
   "src/generated/devtools/containeranalysis/v1",
   "src/generated/firestore/admin/v1",
+  "src/generated/geo/gtype",
   "src/generated/grafeas/v1",
   "src/generated/iam/admin/v1",
   "src/generated/iam/credentials/v1",
@@ -296,6 +303,7 @@ members = [
   "src/generated/privacy/dlp/v2",
   "src/generated/rpc/context",
   "src/generated/rpc/types",
+  "src/generated/shopping/gtype",
   "src/generated/showcase",
   "src/generated/spanner/admin/database/v1",
   "src/generated/spanner/admin/instance/v1",
@@ -525,6 +533,8 @@ google-cloud-recommender-v1                     = { default-features = false, ve
 google-cloud-rpc-context                        = { default-features = false, version = "1.6.0", path = "src/generated/rpc/context" }
 google-cloud-spanner-admin-database-v1          = { default-features = false, version = "1.13.0", path = "src/generated/spanner/admin/database/v1" }
 google-cloud-spanner-admin-instance-v1          = { default-features = false, version = "1.13.0", path = "src/generated/spanner/admin/instance/v1" }
+google-geo-type                                 = { default-features = false, version = "1.0.0", path = "src/generated/geo/gtype" }
+google-shopping-type                            = { default-features = false, version = "1.0.0", path = "src/generated/shopping/gtype" }
 # Used in integration tests, these are leaf nodes in the dependency graph. Should not get a `version`.
 google-cloud-speech-v2               = { default-features = false, path = "src/generated/cloud/speech/v2" }
 google-cloud-secretmanager-v1        = { default-features = false, path = "src/generated/cloud/secretmanager/v1" }
@@ -533,6 +543,8 @@ google-cloud-compute-v1              = { default-features = false, path = "src/g
 google-cloud-storage                 = { default-features = false, path = "src/storage" }
 google-cloud-pubsub                  = { default-features = false, path = "src/pubsub" }
 google-cloud-spanner                 = { default-features = false, path = "src/spanner" }
+google-cloud-bigquery                = { default-features = false, path = "src/bigquery" }
+google-cloud-bigquery-derive         = { default-features = false, path = "src/bigquery-derive" }
 google-cloud-bigquery-v2             = { default-features = false, path = "src/generated/cloud/bigquery/v2" }
 google-cloud-iam-credentials-v1      = { default-features = false, path = "src/generated/iam/credentials/v1" }
 google-cloud-language-v2             = { default-features = false, path = "src/generated/cloud/language/v2" }
@@ -551,6 +563,7 @@ google-cloud-test-utils   = { default-features = false, path = "src/test-utils" 
 integration-tests         = { path = "tests/integration" }
 integration-tests-o11y    = { default-features = false, path = "tests/o11y" }
 integration-tests-spanner = { path = "tests/spanner" }
+bigquery-samples          = { path = "src/bigquery/examples" }
 pubsub-samples            = { path = "src/pubsub/examples" }
 spanner-samples           = { path = "src/spanner/examples" }
 storage-samples           = { path = "src/storage/examples" }
@@ -558,6 +571,7 @@ storage-grpc-mock         = { path = "src/storage/grpc-mock" }
 
 [workspace.lints.rust]
 unexpected_cfgs = { level = "deny", check-cfg = [
+  'cfg(google_cloud_unstable_gapic_streaming)',
   'cfg(google_cloud_unstable_grpc_rust)',
   'cfg(google_cloud_unstable_grpc_server_streaming)',
   'cfg(google_cloud_unstable_storage_bidi)',

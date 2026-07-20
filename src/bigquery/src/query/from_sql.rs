@@ -51,6 +51,25 @@ impl FromSql for String {
     }
 }
 
+impl FromSql for i32 {
+    fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
+        match value {
+            wkt::Value::Number(n) => n
+                .as_i64()
+                .and_then(|v| i32::try_from(v).ok())
+                .ok_or_else(|| ConvertError::Convert("number is not a valid i32".into())),
+            wkt::Value::String(s) => s
+                .parse::<i32>()
+                .map_err(|e| ConvertError::Convert(Box::new(e))),
+            wkt::Value::Null => Err(ConvertError::NotNull),
+            other => Err(ConvertError::TypeMismatch {
+                expected: "number or string",
+                got: other,
+            }),
+        }
+    }
+}
+
 impl FromSql for i64 {
     fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
         match value {
@@ -69,12 +88,31 @@ impl FromSql for i64 {
     }
 }
 
+impl FromSql for f32 {
+    fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
+        match value {
+            wkt::Value::Number(n) => n
+                .as_f64()
+                .map(|v| v as f32)
+                .ok_or_else(|| ConvertError::Convert("number is not a valid f32".into())),
+            wkt::Value::String(s) => s
+                .parse::<f32>()
+                .map_err(|e| ConvertError::Convert(Box::new(e))),
+            wkt::Value::Null => Err(ConvertError::NotNull),
+            other => Err(ConvertError::TypeMismatch {
+                expected: "number or string",
+                got: other,
+            }),
+        }
+    }
+}
+
 impl FromSql for f64 {
     fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
         match value {
             wkt::Value::Number(n) => n
                 .as_f64()
-                .ok_or_else(|| ConvertError::Convert("invalid f64 number".into())),
+                .ok_or_else(|| ConvertError::Convert("number is not a valid f64".into())),
             wkt::Value::String(s) => s
                 .parse::<f64>()
                 .map_err(|e| ConvertError::Convert(Box::new(e))),
@@ -245,12 +283,58 @@ impl FromSql for google_cloud_type::model::DateTime {
     }
 }
 
-// TODO(#5592): implement for more Rust
-// types: f32, i32, Decimal, etc.
+impl FromSql for google_cloud_type::model::Decimal {
+    fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
+        match value {
+            wkt::Value::String(s) => Ok(google_cloud_type::model::Decimal::new().set_value(s)),
+            wkt::Value::Number(n) => {
+                Ok(google_cloud_type::model::Decimal::new().set_value(n.to_string()))
+            }
+            wkt::Value::Null => Err(ConvertError::NotNull),
+            other => Err(ConvertError::TypeMismatch {
+                expected: "string or number",
+                got: other,
+            }),
+        }
+    }
+}
+
+impl FromSql for rust_decimal::Decimal {
+    fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
+        match value {
+            wkt::Value::String(s) => s
+                .trim()
+                .parse::<rust_decimal::Decimal>()
+                .map_err(|e| ConvertError::Convert(Box::new(e))),
+            wkt::Value::Number(n) => {
+                if let Some(i) = n.as_i64() {
+                    Ok(rust_decimal::Decimal::from(i))
+                } else if let Some(u) = n.as_u64() {
+                    Ok(rust_decimal::Decimal::from(u))
+                } else if let Some(f) = n.as_f64() {
+                    rust_decimal::Decimal::try_from(f)
+                        .map_err(|e| ConvertError::Convert(Box::new(e)))
+                } else {
+                    Err(ConvertError::Convert("invalid number".into()))
+                }
+            }
+            wkt::Value::Null => Err(ConvertError::NotNull),
+            other => Err(ConvertError::TypeMismatch {
+                expected: "string or number",
+                got: other,
+            }),
+        }
+    }
+}
+
+// TODO(#5592): implement for more BigQuery types
+// types: Range, Interval, etc.
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use google_cloud_type::model::Decimal;
+    use rust_decimal::Decimal as RustDecimal;
     use test_case::test_case;
 
     // Test-only representation of `ConvertError` that implements `PartialEq`.
@@ -374,6 +458,42 @@ mod tests {
     fn test_from_sql_datetime(
         value: wkt::Value,
     ) -> Result<google_cloud_type::model::DateTime, TestConvertError> {
+        FromSql::from_sql(value).map_err(TestConvertError::from)
+    }
+
+    #[test_case(wkt::Value::Number(123.into()) => Ok(123) ; "i32 from number")]
+    #[test_case(wkt::Value::String("123".to_string()) => Ok(123) ; "i32 from string")]
+    #[test_case(wkt::Value::Number(3_000_000_000i64.into()) => Err(TestConvertError::Convert("number is not a valid i32".to_string())) ; "i32 overflow from number")]
+    #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null i32")]
+    #[test_case(wkt::Value::Bool(true) => Err(TestConvertError::TypeMismatch("number or string")) ; "try bool as i32")]
+    #[test_case(wkt::Value::String("hello".to_string()) => Err(TestConvertError::Convert("invalid digit found in string".to_string())) ; "invalid string as i32")]
+    fn test_from_sql_i32(value: wkt::Value) -> Result<i32, TestConvertError> {
+        FromSql::from_sql(value).map_err(TestConvertError::from)
+    }
+
+    #[test_case(wkt::Value::Number(serde_json::Number::from_f64(123.45).unwrap()) => Ok(123.45) ; "f32 from number")]
+    #[test_case(wkt::Value::String("123.45".to_string()) => Ok(123.45) ; "f32 from string")]
+    #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null f32")]
+    #[test_case(wkt::Value::Bool(true) => Err(TestConvertError::TypeMismatch("number or string")) ; "try bool as f32")]
+    #[test_case(wkt::Value::String("hello".to_string()) => Err(TestConvertError::Convert("invalid float literal".to_string())) ; "invalid string as f32")]
+    fn test_from_sql_f32(value: wkt::Value) -> Result<f32, TestConvertError> {
+        FromSql::from_sql(value).map_err(TestConvertError::from)
+    }
+
+    #[test_case(wkt::Value::String("123.456".to_string()) => Ok(Decimal::new().set_value("123.456")) ; "decimal from string")]
+    #[test_case(wkt::Value::Number(serde_json::Number::from_f64(123.456).unwrap()) => Ok(Decimal::new().set_value("123.456")) ; "decimal from number")]
+    #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null decimal")]
+    #[test_case(wkt::Value::Bool(true) => Err(TestConvertError::TypeMismatch("string or number")) ; "try bool as decimal")]
+    fn test_from_sql_decimal(value: wkt::Value) -> Result<Decimal, TestConvertError> {
+        FromSql::from_sql(value).map_err(TestConvertError::from)
+    }
+
+    #[test_case(wkt::Value::String("123.456".to_string()) => Ok(RustDecimal::from_str_exact("123.456").unwrap()) ; "rust_decimal from string")]
+    #[test_case(wkt::Value::Number(serde_json::Number::from_f64(123.456).unwrap()) => Ok(RustDecimal::from_str_exact("123.456").unwrap()) ; "rust_decimal from number")]
+    #[test_case(wkt::Value::String("99999999999999999999999999999999.123".to_string()) => Err(TestConvertError::Convert("Invalid decimal: overflow from too many digits".to_string())) ; "rust_decimal overflow")]
+    #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null rust_decimal")]
+    #[test_case(wkt::Value::Bool(true) => Err(TestConvertError::TypeMismatch("string or number")) ; "try bool as rust_decimal")]
+    fn test_from_sql_rust_decimal(value: wkt::Value) -> Result<RustDecimal, TestConvertError> {
         FromSql::from_sql(value).map_err(TestConvertError::from)
     }
 }

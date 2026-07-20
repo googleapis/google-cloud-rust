@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.26.0
+version: v0.26.1-0.20260716180500-d5ce8a9d2faa
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
@@ -96,6 +96,12 @@ default:
       - name: google-cloud-type
         package: google-cloud-type
         source: google.type
+      - name: google-geo-type
+        package: google-geo-type
+        source: google.geo.type
+      - name: google-shopping-type
+        package: google-shopping-type
+        source: google.shopping.type
       - name: serde
         package: serde
         force_used: true
@@ -125,6 +131,10 @@ default:
     detailed_tracing_attributes: true
     lro_stub_options: true
 libraries:
+  - name: bigquery-samples
+    copyright_year: "2026"
+    output: src/bigquery/examples
+    skip_release: true
   - name: bigquery-write-grpc-mock
     copyright_year: "2026"
     output: src/bigquery-write/grpc-mock
@@ -184,6 +194,9 @@ libraries:
   - name: google-cloud-advisorynotifications-v1
     version: 1.11.0
     copyright_year: "2025"
+  - name: google-cloud-agentidentity-v1
+    version: 1.0.0
+    copyright_year: "2026"
   - name: google-cloud-agentregistry-v1
     version: 1.0.0
     copyright_year: "2026"
@@ -500,6 +513,8 @@ libraries:
   - name: google-cloud-bigquery-v2
     version: 1.0.0
     copyright_year: "2025"
+    keep:
+      - src/operation.rs
     skip_release: true
     rust:
       package_name_override: google-cloud-bigquery-v2
@@ -545,6 +560,9 @@ libraries:
   - name: google-cloud-binaryauthorization-v1
     version: 1.11.0
     copyright_year: "2025"
+  - name: google-cloud-blockchainnodeengine-v1
+    version: 1.0.0
+    copyright_year: "2026"
   - name: google-cloud-build-v1
     version: 1.12.0
     apis:
@@ -1708,6 +1726,14 @@ libraries:
   - name: google-devicesandservices-health-v4
     version: 1.0.0
     copyright_year: "2026"
+  - name: google-geo-type
+    version: 1.0.0
+    copyright_year: "2026"
+    output: src/generated/geo/gtype
+  - name: google-shopping-type
+    version: 1.0.0
+    copyright_year: "2026"
+    output: src/generated/shopping/gtype
   - name: google-streetview-publish-v1
     version: 1.0.0
     copyright_year: "2026"

@@ -1,0 +1,12 @@
+{
+    "api_id": "blockchainnodeengine.googleapis.com",
+    "api_shortname": "blockchainnodeengine",
+    "client_documentation": "https://docs.rs/google-cloud-blockchainnodeengine-v1/latest",
+    "distribution_name": "google-cloud-blockchainnodeengine-v1",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name": "blockchainnodeengine",
+    "name_pretty": "Blockchain Node Engine",
+    "release_level": "stable",
+    "repo": "googleapis/google-cloud-rust"
+}
