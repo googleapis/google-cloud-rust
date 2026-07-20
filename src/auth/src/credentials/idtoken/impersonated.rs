@@ -456,7 +456,10 @@ impl GenerateIdTokenClient {
         include_email: Option<bool>,
         url: String,
     ) -> Self {
-        let retry_policy = Aip194Strict.with_time_limit(Duration::from_secs(60));
+        let retry_policy = Aip194Strict
+            .continue_on_too_many_requests()
+            .continue_on_client_timeout()
+            .with_time_limit(Duration::from_secs(60));
         let backoff_policy = ExponentialBackoff::default();
 
         Self {
@@ -487,12 +490,11 @@ impl GenerateIdTokenClient {
         let response = retry_loop(
             async move |d| {
                 let attempt = generate_id_token_call(&client, &url, source_headers.clone(), &body);
-                match d {
-                    Some(timeout) => match tokio::time::timeout(timeout, attempt).await {
-                        Ok(r) => r,
-                        Err(e) => Err(GaxError::timeout(e)),
-                    },
-                    None => attempt.await,
+                let max_time_limit = Duration::from_secs(10);
+                let time_limit = d.map_or(max_time_limit, |d| d.min(max_time_limit));
+                match tokio::time::timeout(time_limit, attempt).await {
+                    Ok(r) => r,
+                    Err(e) => Err(GaxError::timeout(e)),
                 }
             },
             sleep,
