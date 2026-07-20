@@ -14,12 +14,12 @@
 
 use bytes::{Buf, Bytes};
 use grpc::StatusCodeError;
+use grpc::client::{RecvStream, ResponseStreamItem};
 use grpc::core::{RecvMessage, SendMessage, Trailers};
+use prost::Message;
 
 /// A [`SendMessage`] adapter that encodes Prost protobuf messages for `grpc-rust`.
-// TODO(#5991): Will be used by bidi streaming in an upcoming commit.
-#[allow(dead_code)]
-pub(super) struct GrpcRustSend<T>(pub(super) T);
+pub struct GrpcRustSend<T>(pub T);
 
 impl<T> SendMessage for GrpcRustSend<T>
 where
@@ -31,8 +31,7 @@ where
 }
 
 /// A [`RecvMessage`] adapter that decodes raw byte payloads into Prost protobuf messages.
-// TODO(#5991): Will be used by bidi streaming in an upcoming commit.
-pub(super) struct GrpcRustRecv<T>(Option<T>);
+struct GrpcRustRecv<T>(Option<T>);
 
 impl<T> Default for GrpcRustRecv<T> {
     fn default() -> Self {
@@ -42,14 +41,12 @@ impl<T> Default for GrpcRustRecv<T> {
 
 impl<T> GrpcRustRecv<T> {
     /// Creates a new unpopulated [`GrpcRustRecv`] receiver.
-    #[allow(dead_code)]
-    pub(super) const fn new() -> Self {
+    const fn new() -> Self {
         Self(None)
     }
 
     /// Takes the decoded message.
-    #[allow(dead_code)]
-    pub(super) fn take(&mut self) -> tonic::Result<T> {
+    fn take(&mut self) -> tonic::Result<T> {
         self.0.take().ok_or_else(|| {
             tonic::Status::internal("grpc-rust response message missing or already taken")
         })
@@ -67,8 +64,6 @@ where
 }
 
 /// Converts gRPC response [`Trailers`] into a [`tonic::Status`], preserving status code, message, metadata, and `grpc-status-details-bin`.
-// TODO(#5991): Will be used by bidi streaming in an upcoming commit.
-#[allow(dead_code)]
 pub(super) fn trailers_to_tonic_status(trailers: Trailers) -> Option<tonic::Status> {
     let status = trailers.status().as_ref().err()?;
     let metadata: tonic::metadata::MetadataMap = trailers.metadata().clone().into();
@@ -85,11 +80,9 @@ pub(super) fn trailers_to_tonic_status(trailers: Trailers) -> Option<tonic::Stat
 }
 
 /// Maps a `grpc-rust` [`StatusCodeError`] to the corresponding [`tonic::Code`].
-// TODO(#5991): Will be used by bidi streaming in an upcoming commit.
 // TODO(#5991): Consider skipping conversion to `tonic::Code` by mapping
 // directly to `google_cloud_gax` error types
 // (https://github.com/googleapis/google-cloud-rust/pull/6082#discussion_r3603786027).
-#[allow(dead_code)]
 fn grpc_rust_error_to_tonic_code(code: StatusCodeError) -> tonic::Code {
     match code {
         StatusCodeError::Cancelled => tonic::Code::Cancelled,
@@ -108,6 +101,89 @@ fn grpc_rust_error_to_tonic_code(code: StatusCodeError) -> tonic::Code {
         StatusCodeError::Unavailable => tonic::Code::Unavailable,
         StatusCodeError::DataLoss => tonic::Code::DataLoss,
         StatusCodeError::Unauthenticated => tonic::Code::Unauthenticated,
+    }
+}
+
+/// A background task handle that pumps responses from a `grpc-rust` [`RecvStream`].
+///
+/// This background pump is required because [`RecvStream::recv`](grpc::client::RecvStream::recv) is not cancellation-safe.
+/// If an outer caller cancels an async operation (e.g., via a timeout, `tokio::select!`, or dropping a stream early) that directly
+/// uses `RecvStream::recv`, the stream could become corrupted.
+///
+/// Isolating `RecvStream` in a dedicated background task ensures `recv` calls run to completion, while aborting the task
+/// on drop cleanly releases the owned [`RecvStream`]. Because `RecvStream` is owned by the background loop,
+/// `recv()` is never interrupted mid-call by outer task drops. Downstream application code only reads from a
+/// [`tokio::sync::mpsc::Receiver`], which is completely safe to drop or cancel at any time.
+pub struct ReceiveTask {
+    handle: tokio::task::JoinHandle<()>,
+}
+
+impl ReceiveTask {
+    /// Spawns a background task that pumps responses from `recv` into a bounded channel.
+    ///
+    /// Returns a channel receiver for responses and a [`ReceiveTask`] handle for managing task cancellation.
+    pub fn spawn<Response, R>(
+        recv: R,
+    ) -> (
+        tokio::sync::mpsc::Receiver<tonic::Result<Option<Response>>>,
+        Self,
+    )
+    where
+        Response: Message + Default + Send + 'static,
+        R: RecvStream + 'static,
+    {
+        let (tx, rx) = tokio::sync::mpsc::channel(1);
+        let handle = tokio::spawn(receive_responses(recv, tx));
+        (rx, Self { handle })
+    }
+}
+
+impl Drop for ReceiveTask {
+    fn drop(&mut self) {
+        // The task owns the RecvStream, so aborting drops that too.
+        self.handle.abort();
+    }
+}
+
+/// Drives the response pump loop
+async fn receive_responses<Response, R>(
+    mut recv: R,
+    tx: tokio::sync::mpsc::Sender<tonic::Result<Option<Response>>>,
+) where
+    Response: Message + Default + Send + 'static,
+    R: RecvStream + 'static,
+{
+    // A container into which incoming message payloads are decoded.
+    let mut slot = GrpcRustRecv::<Response>::default();
+    loop {
+        // Reserve before receiving to apply backpressure.
+        let Ok(permit) = tx.reserve().await else {
+            return;
+        };
+        let (response, is_terminal) = match recv.recv(&mut slot).await {
+            // TODO(#5991): Headers will be processed separately in a later PR.
+            ResponseStreamItem::Headers(_) => continue,
+            ResponseStreamItem::Message => match slot.take() {
+                Ok(message) => (Ok(Some(message)), false),
+                // A missing/undecodable message breaks the stream sequence
+                // and renders it unrecoverable.
+                Err(status) => (Err(status), true),
+            },
+            ResponseStreamItem::Trailers(trailers) => (
+                trailers_to_tonic_status(trailers).map_or(Ok(None), Err),
+                true,
+            ),
+            ResponseStreamItem::StreamClosed => (
+                Err(tonic::Status::internal(
+                    "grpc-rust response stream closed without trailers",
+                )),
+                true,
+            ),
+        };
+        permit.send(response);
+        if is_terminal {
+            return;
+        }
     }
 }
 
