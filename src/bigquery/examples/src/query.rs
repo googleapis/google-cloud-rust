@@ -21,27 +21,24 @@ mod no_cache;
 mod query;
 
 use google_cloud_test_utils::runtime_config::project_id;
+use std::future::Future;
+use std::pin::Pin;
 
 pub async fn run_samples() -> anyhow::Result<()> {
     let project_id = project_id()?;
 
-    println!("Running sample for `bigquery_query`...");
-    Box::pin(query::sample(&project_id)).await?;
-
-    println!("Running sample for `bigquery_query_no_cache`...");
-    Box::pin(no_cache::sample(&project_id)).await?;
-
-    println!("Running sample for `bigquery_query_batch`...");
-    Box::pin(batch::sample(&project_id)).await?;
-
-    println!("Running sample for `bigquery_query_dry_run`...");
-    Box::pin(dry_run::sample(&project_id)).await?;
-
-    println!("Running sample for `bigquery_query_legacy`...");
-    Box::pin(legacy::sample(&project_id)).await?;
-
-    println!("Running sample for `bigquery_query_job_optional`...");
-    Box::pin(job_optional::sample(&project_id)).await?;
+    let pending: Vec<Pin<Box<dyn Future<Output = anyhow::Result<()>>>>> = vec![
+        Box::pin(query::sample(&project_id)),
+        Box::pin(no_cache::sample(&project_id)),
+        Box::pin(batch::sample(&project_id)),
+        Box::pin(dry_run::sample(&project_id)),
+        Box::pin(legacy::sample(&project_id)),
+        Box::pin(job_optional::sample(&project_id)),
+    ];
+    let _: Vec<_> = futures::future::join_all(pending)
+        .await
+        .into_iter()
+        .collect::<anyhow::Result<Vec<_>>>()?;
 
     Ok(())
 }
