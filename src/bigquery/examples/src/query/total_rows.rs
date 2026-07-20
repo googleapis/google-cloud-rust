@@ -36,11 +36,6 @@ pub async fn sample(project_id: &str) -> anyhow::Result<()> {
         println!("Query result reported total matching rows: {total}");
     }
 
-    let mut rows = query_res.read();
-    if let Some(row) = rows.next().await.transpose()? {
-        let name: String = row.get("name");
-        println!("First row name: {name}");
-    }
     Ok(())
 }
 // [END bigquery_query_total_rows]
