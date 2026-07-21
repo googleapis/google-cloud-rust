@@ -358,49 +358,29 @@ mod tests {
         let headers = make_headers(API_CLIENT_HEADER, TEST_REQUEST_PARAMS, &options)?;
 
         // Assert
-        // We expect the system headers to be the ONLY values present for these keys.
-        let user_agents: Vec<_> = headers
-            .get_all(http::header::USER_AGENT)
-            .into_iter()
-            .collect();
-        assert_eq!(
-            user_agents.len(),
-            1,
-            "Should only have one user-agent header"
-        );
-        assert_eq!(user_agents[0], TEST_USER_AGENT);
-
-        let quota_projects: Vec<_> = headers.get_all(X_GOOG_USER_PROJECT).into_iter().collect();
-        assert_eq!(
-            quota_projects.len(),
-            1,
-            "Should only have one quota-project header"
-        );
-        assert_eq!(quota_projects[0], TEST_QUOTA_PROJECT);
-
-        let request_params: Vec<_> = headers.get_all(X_GOOG_REQUEST_PARAMS).into_iter().collect();
-        assert_eq!(
-            request_params.len(),
-            1,
-            "Should only have one request-params header"
-        );
-        assert_eq!(request_params[0], TEST_REQUEST_PARAMS);
-
-        let api_clients: Vec<_> = headers.get_all(X_GOOG_API_CLIENT).into_iter().collect();
-        assert_eq!(
-            api_clients.len(),
-            1,
-            "Should only have one api-client header"
-        );
-        assert_eq!(api_clients[0], API_CLIENT_HEADER);
-
-        // Assert the legitimate header is still present
-        assert_eq!(
-            headers
-                .get("x-legitimate-header")
-                .expect("x-legitimate-header should be present"),
-            "legitimate-value"
-        );
+        let expected = HeaderMap::from_iter([
+            (
+                http::header::USER_AGENT,
+                HeaderValue::from_static(TEST_USER_AGENT),
+            ),
+            (
+                X_GOOG_USER_PROJECT,
+                HeaderValue::from_static(TEST_QUOTA_PROJECT),
+            ),
+            (
+                X_GOOG_REQUEST_PARAMS,
+                HeaderValue::from_static(TEST_REQUEST_PARAMS),
+            ),
+            (
+                X_GOOG_API_CLIENT,
+                HeaderValue::from_static(API_CLIENT_HEADER),
+            ),
+            (
+                HeaderName::from_static("x-legitimate-header"),
+                HeaderValue::from_static("legitimate-value"),
+            ),
+        ]);
+        assert_eq!(headers, expected);
 
         Ok(())
     }
@@ -414,35 +394,17 @@ mod tests {
         let headers = make_headers(API_CLIENT_HEADER, "", &options)?;
 
         // Assert
-        // We expect custom headers to be completely stripped, leaving no value except api_client.
-        assert_eq!(
-            headers
-                .get_all(http::header::USER_AGENT)
-                .into_iter()
-                .count(),
-            0
-        );
-        assert_eq!(headers.get_all(X_GOOG_USER_PROJECT).into_iter().count(), 0);
-        assert_eq!(
-            headers.get_all(X_GOOG_REQUEST_PARAMS).into_iter().count(),
-            0
-        );
-
-        let api_clients: Vec<_> = headers.get_all(X_GOOG_API_CLIENT).into_iter().collect();
-        assert_eq!(
-            api_clients.len(),
-            1,
-            "Should only have one api-client header"
-        );
-        assert_eq!(api_clients[0], API_CLIENT_HEADER);
-
-        // Assert the legitimate header is still present
-        assert_eq!(
-            headers
-                .get("x-legitimate-header")
-                .expect("x-legitimate-header should be present"),
-            "legitimate-value"
-        );
+        let expected = HeaderMap::from_iter([
+            (
+                X_GOOG_API_CLIENT,
+                HeaderValue::from_static(API_CLIENT_HEADER),
+            ),
+            (
+                HeaderName::from_static("x-legitimate-header"),
+                HeaderValue::from_static("legitimate-value"),
+            ),
+        ]);
+        assert_eq!(headers, expected);
 
         Ok(())
     }
