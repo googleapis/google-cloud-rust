@@ -114,6 +114,7 @@ impl AppendableObjectWriterTransport {
         }
         // If persisted_size > 0 but the server didn't provide a checksum,
         // we can't reliably continue a running checksum, so it remains `None`.
+        // TODO(#5716): Check whether this is a valid case.
 
         let (tx, rx) = tokio::sync::mpsc::channel(100);
         let worker = Worker::new(connector);
