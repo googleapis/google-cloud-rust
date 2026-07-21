@@ -265,6 +265,8 @@ struct UserData {
     birth_date: google_cloud_type::model::Date,
     daily_alarm: google_cloud_type::model::TimeOfDay,
     event_time: google_cloud_type::model::DateTime,
+    date_range: google_cloud_bigquery::Range<google_cloud_type::model::Date>,
+    timestamp_range: google_cloud_bigquery::Range<wkt::Timestamp>,
     nullable_name: Option<String>,
     nullable_age: Option<i64>,
 }
@@ -285,6 +287,8 @@ pub async fn query_client_datatypes() -> Result<()> {
                  DATE '2026-05-28' AS birth_date, \
                  TIME '15:30:00' AS daily_alarm, \
                  DATETIME '2026-05-28 15:30:00' AS event_time, \
+                 RANGE(DATE '2026-05-28', DATE '2026-05-29') AS date_range, \
+                 RANGE(TIMESTAMP '2026-05-28 15:30:00 UTC', NULL) AS timestamp_range, \
                  CAST(NULL AS STRING) AS nullable_name, \
                  CAST(NULL AS INT64) AS nullable_age",
         )
@@ -323,6 +327,24 @@ pub async fn query_client_datatypes() -> Result<()> {
             .set_minutes(30)
             .set_seconds(0)
             .set_nanos(0),
+        date_range: google_cloud_bigquery::Range {
+            start: Some(
+                google_cloud_type::model::Date::new()
+                    .set_year(2026)
+                    .set_month(5)
+                    .set_day(28),
+            ),
+            end: Some(
+                google_cloud_type::model::Date::new()
+                    .set_year(2026)
+                    .set_month(5)
+                    .set_day(29),
+            ),
+        },
+        timestamp_range: google_cloud_bigquery::Range {
+            start: Some(wkt::Timestamp::new(1779982200, 0).unwrap()),
+            end: None,
+        },
         nullable_name: None,
         nullable_age: None,
     };
@@ -347,6 +369,14 @@ pub async fn query_client_datatypes() -> Result<()> {
     assert_eq!(
         row.get::<google_cloud_type::model::DateTime, _>("event_time"),
         expected.event_time
+    );
+    assert_eq!(
+        row.get::<google_cloud_bigquery::Range<google_cloud_type::model::Date>, _>("date_range"),
+        expected.date_range
+    );
+    assert_eq!(
+        row.get::<google_cloud_bigquery::Range<wkt::Timestamp>, _>("timestamp_range"),
+        expected.timestamp_range
     );
     assert_eq!(
         row.get::<Option<String>, _>("nullable_name"),
