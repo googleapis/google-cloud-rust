@@ -13,24 +13,12 @@
 // limitations under the License.
 
 pub use super::receive::ReceiveTask;
-use bytes::{Buf, Bytes};
-use grpc::core::SendMessage;
-
-/// A [`SendMessage`] adapter that encodes Prost protobuf messages for `grpc-rust`.
-pub struct GrpcRustSend<T>(pub T);
-
-impl<T> SendMessage for GrpcRustSend<T>
-where
-    T: prost::Message,
-{
-    fn encode(&self) -> std::result::Result<Box<dyn Buf + Send + Sync>, String> {
-        Ok(Box::new(Bytes::from(self.0.encode_to_vec())))
-    }
-}
+pub use super::send::GrpcRustSend;
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use grpc::core::SendMessage;
     use pretty_assertions::assert_eq;
     use prost::Message;
 

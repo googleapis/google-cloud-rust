@@ -56,7 +56,7 @@ where
     }
 }
 
-/// A background task handle that pumps responses from a `grpc-rust` [`RecvStream`].
+/// A handle for the background task pulling responses from a `grpc-rust` [`RecvStream`].
 ///
 /// This background pump is required because [`RecvStream::recv`](grpc::client::RecvStream::recv) is not cancellation-safe.
 /// If an outer caller cancels an async operation (e.g., via a timeout, `tokio::select!`, or dropping a stream early) that directly
@@ -120,10 +120,13 @@ impl ReceiveTask {
         let result = handle.await;
         self.handle.take();
         match result {
+            // Task exited cleanly.
             Ok(()) => tonic::Status::internal(Self::ERROR_MESSAGE_TASK_EXITED),
+            // Task was explicitly cancelled.
             Err(error) if error.is_cancelled() => {
                 tonic::Status::cancelled(Self::ERROR_MESSAGE_TASK_CANCELLED)
             }
+            // Task panicked or failed unexpectedly.
             Err(error) => {
                 tonic::Status::internal(format!("grpc-rust response task failed: {error}"))
             }
