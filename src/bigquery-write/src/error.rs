@@ -28,6 +28,8 @@ pub enum AppendError {
     },
 }
 
+pub(crate) type AppendResult<T> = std::result::Result<T, AppendError>;
+
 #[cfg(test)]
 mod tests {
     use super::*;
