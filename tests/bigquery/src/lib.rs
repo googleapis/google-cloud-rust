@@ -424,7 +424,6 @@ pub async fn query_client_multi_page() -> Result<()> {
 
     let query = bq
         .query("SELECT * FROM UNNEST(GENERATE_ARRAY(1, 10000)) AS val")
-        .set_use_legacy_sql(false)
         .set_max_results(1000_u32)
         .with_project_id(project_id)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
@@ -451,7 +450,6 @@ pub async fn query_client_job() -> Result<()> {
 
     let query = bq
         .query("SELECT 2 as two")
-        .set_use_legacy_sql(false)
         .set_priority("INTERACTIVE") // force job path
         .with_project_id(project_id)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
@@ -506,7 +504,6 @@ pub async fn query_client_nested_types() -> Result<()> {
 
     let query = bq
         .query(sql)
-        .set_use_legacy_sql(false)
         .with_project_id(project_id)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
         .run()
@@ -528,11 +525,15 @@ pub async fn query_client_nested_types() -> Result<()> {
     assert_eq!(data.numbers, vec![1, 2, 3]);
 
     // verify repeated struct
-    assert_eq!(data.users.len(), 2);
-    assert_eq!(data.users[0].name, "Bob");
-    assert_eq!(data.users[0].age, 28);
-    assert_eq!(data.users[1].name, "Charlie");
-    assert_eq!(data.users[1].age, 31);
+    let bob = UserRecord {
+        name: "Bob".to_string(),
+        age: 28,
+    };
+    let charlie = UserRecord {
+        name: "Charlie".to_string(),
+        age: 31,
+    };
+    assert_eq!(data.users, [bob, charlie]);
 
     // verify user-defined struct with BQ-specific date field
     assert_eq!(data.profile.name, "Dave");
