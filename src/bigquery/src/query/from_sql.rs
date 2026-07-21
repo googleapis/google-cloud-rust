@@ -526,23 +526,29 @@ mod tests {
     }
 
     #[test_case(wkt::Value::String("AQIDBA==".to_string()) => Ok(vec![1, 2, 3, 4]) ; "vec u8 from base64")]
+    #[test_case(wkt::Value::String("".to_string()) => Ok(vec![]) ; "vec u8 from empty base64")]
     #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null vec u8")]
     #[test_case(wkt::Value::Bool(true) => Err(TestConvertError::TypeMismatch("string (base64 encoded)")) ; "try bool as vec u8")]
     fn test_from_sql_vec_u8(value: wkt::Value) -> Result<Vec<u8>, TestConvertError> {
         FromSql::from_sql(value).map_err(TestConvertError::from)
     }
 
-    #[test]
-    fn test_from_sql_vec_u8_invalid_base64() {
-        let err = Vec::<u8>::from_sql(wkt::Value::String("!!!invalid***".to_string())).unwrap_err();
-        assert!(matches!(err, ConvertError::Convert(_)));
-    }
-
     #[test_case(wkt::Value::String("AQIDBA==".to_string()) => Ok(bytes::Bytes::from_static(&[1, 2, 3, 4])) ; "bytes from base64")]
+    #[test_case(wkt::Value::String("".to_string()) => Ok(bytes::Bytes::from_static(&[])) ; "bytes from empty base64")]
     #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null bytes")]
     #[test_case(wkt::Value::Bool(true) => Err(TestConvertError::TypeMismatch("string (base64 encoded)")) ; "try bool as bytes")]
     fn test_from_sql_bytes(value: wkt::Value) -> Result<bytes::Bytes, TestConvertError> {
         FromSql::from_sql(value).map_err(TestConvertError::from)
+    }
+
+    #[test_case("AQIDBA" ; "missing padding")]
+    #[test_case("Not a base64 string" ; "words with spaces")]
+    fn test_from_sql_bytes_invalid_base64(input: &str) {
+        let err = bytes::Bytes::from_sql(wkt::Value::String(input.to_string())).unwrap_err();
+        assert!(matches!(err, ConvertError::Convert(_)));
+
+        let err = Vec::<u8>::from_sql(wkt::Value::String(input.to_string())).unwrap_err();
+        assert!(matches!(err, ConvertError::Convert(_)));
     }
 
     #[derive(FromSql, Debug, PartialEq)]
