@@ -13,10 +13,17 @@
 // limitations under the License.
 
 // [START bigquery_query_params_structs]
+use google_cloud_bigquery::FromRow;
 use google_cloud_bigquery::client::BigQuery;
 use google_cloud_bigquery::model::{
     QueryParameter, QueryParameterStructType, QueryParameterType, QueryParameterValue,
 };
+
+#[derive(FromRow, Debug)]
+struct NameCount {
+    name: String,
+    number: i64,
+}
 
 pub async fn sample(project_id: &str) -> anyhow::Result<()> {
     let client = BigQuery::builder().build().await?;
@@ -56,9 +63,8 @@ pub async fn sample(project_id: &str) -> anyhow::Result<()> {
         .read();
 
     while let Some(row) = rows.next().await.transpose()? {
-        let name: String = row.get("name");
-        let number: i64 = row.get("number");
-        println!("Name: {name}, Number: {number}");
+        let name_count: NameCount = row.try_into()?;
+        println!("Name: {}, Number: {}", name_count.name, name_count.number);
     }
     Ok(())
 }
