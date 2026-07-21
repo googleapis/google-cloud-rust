@@ -13,17 +13,21 @@
 // limitations under the License.
 
 mod batch;
+mod clustered_table;
 mod ddl_create_routine;
 mod ddl_create_view;
+mod destination_table;
 mod dml_update;
 mod dry_run;
 mod job_optional;
 mod legacy;
+mod legacy_large_results;
 mod no_cache;
 mod params_arrays;
 mod params_named;
 mod params_positional;
 mod params_timestamps;
+mod partitioned_table;
 #[allow(clippy::module_inception)]
 mod query;
 mod query_append;
@@ -57,6 +61,8 @@ pub async fn run_samples() -> anyhow::Result<()> {
         Box::pin(params_named::sample(&project_id)),
         Box::pin(params_arrays::sample(&project_id)),
         Box::pin(params_timestamps::sample(&project_id)),
+        Box::pin(clustered_table::sample(&project_id)),
+        Box::pin(partitioned_table::sample(&project_id)),
     ];
     let _ = futures::future::join_all(pending)
         .await
@@ -83,12 +89,24 @@ pub async fn run_samples_with_resources() -> anyhow::Result<()> {
         .send()
         .await?;
 
+    let dest_id_1 = format!("dest_{}", random_id_suffix());
+    let dest_id_2 = format!("dest_legacy_{}", random_id_suffix());
     let table_id_1 = format!("dml_{}", random_id_suffix());
     let view_id_1 = format!("view_{}", random_id_suffix());
     let routine_id_1 = format!("fn_{}", random_id_suffix());
     let table_id_2 = format!("append_{}", random_id_suffix());
 
     let pending: Vec<Pin<Box<dyn Future<Output = anyhow::Result<()>>>>> = vec![
+        Box::pin(destination_table::sample(
+            &project_id,
+            &dataset_id,
+            &dest_id_1,
+        )),
+        Box::pin(legacy_large_results::sample(
+            &project_id,
+            &dataset_id,
+            &dest_id_2,
+        )),
         Box::pin(dml_update::sample(&project_id, &dataset_id, &table_id_1)),
         Box::pin(ddl_create_view::sample(
             &project_id,
