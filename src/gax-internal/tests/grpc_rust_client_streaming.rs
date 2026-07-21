@@ -144,7 +144,7 @@ mod tests {
             .await;
 
         // Start the response pump
-        let (rx, pump_task) = ReceiveTask::spawn::<EchoResponse, _>(recv_stream);
+        let (rx, pump_task) = ReceiveTask::start::<EchoResponse, _>(recv_stream);
 
         Ok((client, send_stream, rx, pump_task, server_task))
     }
