@@ -179,4 +179,155 @@ mod tests {
 
         Ok(())
     }
+
+    #[tokio::test]
+    async fn object_with_checksum_success() -> anyhow::Result<()> {
+        use crate::storage::checksum::details::{Checksum, Crc32c, Md5};
+        let data = bytes::Bytes::from_static(b"the quick brown fox jumps over the lazy dog");
+        let crc32c = crc32c::crc32c(&data);
+        let md5 = bytes::Bytes::from_owner(Vec::from_iter(md5::compute(&data).0));
+
+        let object = Object::new()
+            .set_checksums(ObjectChecksums::new().set_crc32c(crc32c).set_md5_hash(md5));
+        let object = Arc::new(object);
+
+        let (tx, inner) = tokio::sync::mpsc::channel(1);
+        let (pending_tx, _pending_rx) = tokio::sync::mpsc::channel(100);
+
+        let mut reader = RangeReader::new(
+            inner,
+            object.clone(),
+            pending_tx,
+            Checksum {
+                crc32c: Some(Crc32c::default()),
+                md5_hash: Some(Md5::default()),
+            },
+        );
+
+        tx.send(Ok(data.clone())).await?;
+        let got = reader.next().await;
+        assert!(matches!(got, Some(Ok(ref d)) if *d == data), "{got:?}");
+
+        drop(tx);
+
+        let got = reader.next().await;
+        assert!(got.is_none(), "{got:?}"); // Successfully matched checksums
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn object_with_checksum_mismatch() -> anyhow::Result<()> {
+        use crate::storage::checksum::details::{Checksum, Crc32c};
+        let data = bytes::Bytes::from_static(b"the quick brown fox jumps over the lazy dog");
+        let wrong_crc32c = crc32c::crc32c(&data) + 1; // Incorrect checksum
+
+        let object = Object::new()
+            .set_checksums(ObjectChecksums::new().set_crc32c(wrong_crc32c));
+        let object = Arc::new(object);
+
+        let (tx, inner) = tokio::sync::mpsc::channel(1);
+        let (pending_tx, _pending_rx) = tokio::sync::mpsc::channel(100);
+
+        let mut reader = RangeReader::new(
+            inner,
+            object.clone(),
+            pending_tx,
+            Checksum {
+                crc32c: Some(Crc32c::default()),
+                md5_hash: None,
+            },
+        );
+
+        tx.send(Ok(data.clone())).await?;
+        let got = reader.next().await;
+        assert!(matches!(got, Some(Ok(ref d)) if *d == data), "{got:?}");
+
+        drop(tx);
+
+        let got = reader.next().await;
+        // Should yield a ChecksumMismatch error
+        assert!(matches!(got, Some(Err(_))), "{got:?}");
+        let err = got.unwrap().unwrap_err();
+        
+        let source = err.source().and_then(|e| e.downcast_ref::<ReadError>());
+        assert!(
+            matches!(source, Some(ReadError::ChecksumMismatch(_))),
+            "{source:?}"
+        );
+
+        // Subsequent calls should yield None
+        let got_none = reader.next().await;
+        assert!(got_none.is_none(), "{got_none:?}");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn object_with_checksum_bypassed_due_to_ranged_read() -> anyhow::Result<()> {
+        let data = bytes::Bytes::from_static(b"the quick brown fox jumps over the lazy dog");
+        let wrong_crc32c = crc32c::crc32c(&data) + 1; // Incorrect checksum for the whole object
+
+        let object = Object::new()
+            .set_checksums(ObjectChecksums::new().set_crc32c(wrong_crc32c));
+        let object = Arc::new(object);
+
+        let (tx, inner) = tokio::sync::mpsc::channel(1);
+        let (pending_tx, _pending_rx) = tokio::sync::mpsc::channel(100);
+
+        // Using Checksum::default() simulates passing disabled checksum (bypassed by ranged read)
+        let mut reader = RangeReader::new(
+            inner,
+            object.clone(),
+            pending_tx,
+            crate::storage::checksum::details::Checksum::default(),
+        );
+
+        tx.send(Ok(data.clone())).await?;
+        let got = reader.next().await;
+        assert!(matches!(got, Some(Ok(ref d)) if *d == data), "{got:?}");
+
+        drop(tx);
+
+        let got = reader.next().await;
+        assert!(got.is_none(), "{got:?}"); // Successfully bypassed checksums, no error returned
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn object_with_checksum_disabled() -> anyhow::Result<()> {
+        use crate::storage::checksum::details::{Checksum, Crc32c};
+        let data = bytes::Bytes::from_static(b"the quick brown fox jumps over the lazy dog");
+        let wrong_md5 = bytes::Bytes::from_static(b"wrongmd5hashhere");
+
+        let object = Object::new()
+            .set_checksums(ObjectChecksums::new().set_md5_hash(wrong_md5));
+        let object = Arc::new(object);
+
+        let (tx, inner) = tokio::sync::mpsc::channel(1);
+        let (pending_tx, _pending_rx) = tokio::sync::mpsc::channel(100);
+
+        // Using Checksum with md5_hash=None simulates compute_md5 not called
+        let mut reader = RangeReader::new(
+            inner,
+            object.clone(),
+            pending_tx,
+            Checksum {
+                crc32c: Some(Crc32c::default()),
+                md5_hash: None,
+            },
+        );
+
+        tx.send(Ok(data.clone())).await?;
+        let got = reader.next().await;
+        assert!(matches!(got, Some(Ok(ref d)) if *d == data), "{got:?}");
+
+        drop(tx);
+
+        let got = reader.next().await;
+        assert!(got.is_none(), "{got:?}"); // Successfully bypassed md5 checksums, no error returned
+
+        Ok(())
+    }
 }
