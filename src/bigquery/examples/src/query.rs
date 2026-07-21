@@ -25,7 +25,10 @@ mod no_cache;
 mod pagination;
 mod params_arrays;
 mod params_named;
+mod params_named_types;
 mod params_positional;
+mod params_positional_types;
+mod params_structs;
 mod params_timestamps;
 mod partitioned_table;
 #[allow(clippy::module_inception)]
@@ -66,6 +69,9 @@ pub async fn run_samples() -> anyhow::Result<()> {
         Box::pin(params_timestamps::sample(&project_id)),
         Box::pin(clustered_table::sample(&project_id)),
         Box::pin(partitioned_table::sample(&project_id)),
+        Box::pin(params_structs::sample(&project_id)),
+        Box::pin(params_named_types::sample(&project_id)),
+        Box::pin(params_positional_types::sample(&project_id)),
         Box::pin(browse_table::sample(&project_id)),
         Box::pin(pagination::sample(&project_id)),
         Box::pin(total_rows::sample(&project_id)),
