@@ -26,7 +26,7 @@ pub async fn sample(project_id: &str, dataset_id: &str, table_id: &str) -> anyho
          SELECT 'Alice' AS name;"
     );
     client
-        .query(&create_sql)
+        .query(create_sql)
         .with_project_id(project_id)
         .set_location("US")
         .run()

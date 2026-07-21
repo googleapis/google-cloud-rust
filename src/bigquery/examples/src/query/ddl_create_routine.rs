@@ -26,7 +26,7 @@ pub async fn sample(project_id: &str, dataset_id: &str, routine_id: &str) -> any
     );
 
     client
-        .query(&ddl_sql)
+        .query(ddl_sql)
         .with_project_id(project_id)
         .set_location("US")
         .run()
