@@ -16,6 +16,8 @@ use super::request_options::RequestOptions;
 #[cfg(google_cloud_unstable_storage_bidi)]
 use crate::builder::storage::OpenAppendableObject;
 use crate::builder::storage::ReadObject;
+#[cfg(google_cloud_unstable_storage_bidi)]
+use crate::builder::storage::ReopenAppendableObject;
 use crate::builder::storage::WriteObject;
 use crate::read_resume_policy::ReadResumePolicy;
 use crate::storage::bidi::{GrpcClient, OpenObject};
@@ -313,6 +315,49 @@ where
         O: Into<String>,
     {
         OpenAppendableObject::new(self.stub.clone(), bucket, object, self.options.clone())
+    }
+
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
+    /// Reopens an existing appendable object for exclusive appends.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # use bytes::Bytes;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let mut writer = client
+    ///     .reopen_appendable_object("projects/_/buckets/my-bucket", "my-object", 12345)
+    ///     .send()
+    ///     .await?;
+    ///
+    /// writer.append(Bytes::from_static(b"more bytes")).await?;
+    /// writer.flush().await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// # Parameters
+    /// * `bucket` - the bucket name containing the object. In
+    ///   `projects/_/buckets/{bucket_id}` format.
+    /// * `object` - the object name.
+    /// * `generation` - the object generation.
+    pub fn reopen_appendable_object<B, O>(
+        &self,
+        bucket: B,
+        object: O,
+        generation: i64,
+    ) -> ReopenAppendableObject<S>
+    where
+        B: Into<String>,
+        O: Into<String>,
+    {
+        ReopenAppendableObject::new(
+            self.stub.clone(),
+            bucket,
+            object,
+            generation,
+            self.options.clone(),
+        )
     }
 }
 

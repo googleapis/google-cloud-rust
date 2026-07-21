@@ -103,6 +103,9 @@ pub mod builder {
         pub use crate::storage::open_object::OpenObject;
         pub use crate::storage::post_policy::{PostPolicyV4Builder, PostPolicyV4Result};
         pub use crate::storage::read_object::ReadObject;
+        #[cfg(google_cloud_unstable_storage_bidi)]
+        #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
+        pub use crate::storage::reopen_appendable_object::ReopenAppendableObject;
         pub use crate::storage::signed_url::SignedUrlBuilder;
         pub use crate::storage::write_object::WriteObject;
     }
