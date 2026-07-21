@@ -23,7 +23,7 @@ use tokio::sync::{mpsc, oneshot};
 use tokio::task::JoinHandle;
 
 #[derive(Debug)]
-struct WriteRequest {
+pub(crate) struct WriteRequest {
     pub(crate) req: AppendRowsRequest,
     pub(crate) resp_tx: oneshot::Sender<AppendResult<AppendRowsResponse>>,
 }
