@@ -67,6 +67,12 @@ pub struct PublisherArgs {
 
     #[arg(long, value_parser = parse_duration, default_value = "100ms")]
     pub batch_delay: std::time::Duration,
+
+    #[arg(long, default_value_t = 0)]
+    pub ordering_keys: usize,
+
+    #[arg(long, default_value_t = 0)]
+    pub active_ordering_keys: usize,
 }
 
 #[derive(Args, Debug, Clone)]
