@@ -424,7 +424,6 @@ pub async fn query_client_multi_page() -> Result<()> {
 
     let query = bq
         .query("SELECT * FROM UNNEST(GENERATE_ARRAY(1, 10000)) AS val")
-        .set_use_legacy_sql(false)
         .set_max_results(1000_u32)
         .with_project_id(project_id)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
@@ -451,7 +450,6 @@ pub async fn query_client_job() -> Result<()> {
 
     let query = bq
         .query("SELECT 2 as two")
-        .set_use_legacy_sql(false)
         .set_priority("INTERACTIVE") // force job path
         .with_project_id(project_id)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
@@ -466,6 +464,83 @@ pub async fn query_client_job() -> Result<()> {
     let row = iter.next().await.expect("should return first row")?;
     assert_eq!(row.get::<i64, _>("two"), 2);
     assert!(iter.next().await.is_none(), "{iter:?}");
+
+    Ok(())
+}
+
+#[derive(google_cloud_bigquery::FromSql, Debug, PartialEq)]
+struct UserRecord {
+    name: String,
+    age: i64,
+}
+
+#[derive(google_cloud_bigquery::FromSql, Debug, PartialEq)]
+struct UserProfile {
+    name: String,
+    age: i64,
+    birth_date: google_cloud_type::model::Date,
+}
+
+#[derive(google_cloud_bigquery::FromRow, Debug, PartialEq)]
+struct RowData {
+    user: UserRecord,
+    numbers: Vec<i64>,
+    users: Vec<UserRecord>,
+    profile: UserProfile,
+}
+
+pub async fn query_client_nested_types() -> Result<()> {
+    let project_id = project_id()?;
+    let bq = google_cloud_bigquery::client::BigQuery::builder()
+        .build()
+        .await?;
+
+    println!("STARTING NESTED TYPES INTEGRATION TEST");
+    let sql = "SELECT \
+                 STRUCT('Alice' AS name, 25 AS age) AS user, \
+                 ARRAY[1, 2, 3] AS numbers, \
+                 ARRAY[STRUCT('Bob' AS name, 28 AS age), STRUCT('Charlie' AS name, 31 AS age)] AS users, \
+                 STRUCT('Dave' AS name, 40 AS age, DATE '1986-05-28' AS birth_date) AS profile";
+
+    let query = bq
+        .query(sql)
+        .with_project_id(project_id)
+        .set_labels(vec![(INSTANCE_LABEL, "true")])
+        .run()
+        .await?;
+
+    let complete_query = query.until_done().await?;
+    let mut rows = complete_query.read();
+
+    let row = rows.next().await.expect("row must exist")?;
+
+    // Deserialize the entire row as user defined struct
+    let data: RowData = row.try_into()?;
+
+    // verify nested struct
+    assert_eq!(data.user.name, "Alice");
+    assert_eq!(data.user.age, 25);
+
+    // verify repeated basic type (ARRAY)
+    assert_eq!(data.numbers, vec![1, 2, 3]);
+
+    // verify repeated struct
+    let bob = UserRecord {
+        name: "Bob".to_string(),
+        age: 28,
+    };
+    let charlie = UserRecord {
+        name: "Charlie".to_string(),
+        age: 31,
+    };
+    assert_eq!(data.users, [bob, charlie]);
+
+    // verify user-defined struct with BQ-specific date field
+    assert_eq!(data.profile.name, "Dave");
+    assert_eq!(data.profile.age, 40);
+    assert_eq!(data.profile.birth_date.year, 1986);
+    assert_eq!(data.profile.birth_date.month, 5);
+    assert_eq!(data.profile.birth_date.day, 28);
 
     Ok(())
 }
