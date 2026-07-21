@@ -39,6 +39,8 @@ use rand::{RngExt, distr::Alphanumeric};
 use std::future::Future;
 use std::pin::Pin;
 
+const INSTANCE_LABEL: &str = "rust-sdk-integration-test";
+
 fn random_id_suffix() -> String {
     rand::rng()
         .sample_iter(&Alphanumeric)
@@ -84,41 +86,45 @@ pub async fn run_samples_with_resources() -> anyhow::Result<()> {
         .set_dataset(
             Dataset::new()
                 .set_dataset_reference(DatasetReference::new().set_dataset_id(&dataset_id))
-                .set_labels([("rust-sdk-integration-test", "true")]),
+                .set_labels([(INSTANCE_LABEL, "true")]),
         )
         .send()
         .await?;
 
-    let dest_id_1 = format!("dest_{}", random_id_suffix());
-    let dest_id_2 = format!("dest_legacy_{}", random_id_suffix());
-    let table_id_1 = format!("dml_{}", random_id_suffix());
-    let view_id_1 = format!("view_{}", random_id_suffix());
-    let routine_id_1 = format!("fn_{}", random_id_suffix());
-    let table_id_2 = format!("append_{}", random_id_suffix());
+    let destination_table_id = format!("dest_{}", random_id_suffix());
+    let dest_legacy_table_id = format!("dest_legacy_{}", random_id_suffix());
+    let dml_table_id = format!("dml_{}", random_id_suffix());
+    let ddl_view_id = format!("view_{}", random_id_suffix());
+    let ddl_routine_id = format!("fn_{}", random_id_suffix());
+    let append_table_id = format!("append_{}", random_id_suffix());
 
     let pending: Vec<Pin<Box<dyn Future<Output = anyhow::Result<()>>>>> = vec![
         Box::pin(destination_table::sample(
             &project_id,
             &dataset_id,
-            &dest_id_1,
+            &destination_table_id,
         )),
         Box::pin(legacy_large_results::sample(
             &project_id,
             &dataset_id,
-            &dest_id_2,
+            &dest_legacy_table_id,
         )),
-        Box::pin(dml_update::sample(&project_id, &dataset_id, &table_id_1)),
+        Box::pin(dml_update::sample(&project_id, &dataset_id, &dml_table_id)),
         Box::pin(ddl_create_view::sample(
             &project_id,
             &dataset_id,
-            &view_id_1,
+            &ddl_view_id,
         )),
         Box::pin(ddl_create_routine::sample(
             &project_id,
             &dataset_id,
-            &routine_id_1,
+            &ddl_routine_id,
         )),
-        Box::pin(query_append::sample(&project_id, &dataset_id, &table_id_2)),
+        Box::pin(query_append::sample(
+            &project_id,
+            &dataset_id,
+            &append_table_id,
+        )),
     ];
     let res: anyhow::Result<Vec<_>> = futures::future::join_all(pending)
         .await
