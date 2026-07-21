@@ -13,6 +13,9 @@
 // limitations under the License.
 
 mod batch;
+mod ddl_create_routine;
+mod ddl_create_view;
+mod dml_update;
 mod dry_run;
 mod job_optional;
 mod legacy;
@@ -23,10 +26,22 @@ mod params_positional;
 mod params_timestamps;
 #[allow(clippy::module_inception)]
 mod query;
+mod query_append;
 
+use google_cloud_bigquery_v2::client::DatasetService;
+use google_cloud_bigquery_v2::model::{Dataset, DatasetReference};
 use google_cloud_test_utils::runtime_config::project_id;
+use rand::{RngExt, distr::Alphanumeric};
 use std::future::Future;
 use std::pin::Pin;
+
+fn random_id_suffix() -> String {
+    rand::rng()
+        .sample_iter(&Alphanumeric)
+        .take(8)
+        .map(char::from)
+        .collect()
+}
 
 pub async fn run_samples() -> anyhow::Result<()> {
     let project_id = project_id()?;
@@ -48,5 +63,59 @@ pub async fn run_samples() -> anyhow::Result<()> {
         .into_iter()
         .collect::<anyhow::Result<Vec<_>>>()?;
 
+    Ok(())
+}
+
+pub async fn run_samples_with_resources() -> anyhow::Result<()> {
+    let project_id = project_id()?;
+    let dataset_service = DatasetService::builder().build().await?;
+    let dataset_id = format!("rust_bq_samples_{}", random_id_suffix());
+
+    println!("Creating sample dataset `{dataset_id}`...");
+    dataset_service
+        .insert_dataset()
+        .set_project_id(&project_id)
+        .set_dataset(
+            Dataset::new()
+                .set_dataset_reference(DatasetReference::new().set_dataset_id(&dataset_id))
+                .set_labels([("rust-sdk-integration-test", "true")]),
+        )
+        .send()
+        .await?;
+
+    let table_id_1 = format!("dml_{}", random_id_suffix());
+    let view_id_1 = format!("view_{}", random_id_suffix());
+    let routine_id_1 = format!("fn_{}", random_id_suffix());
+    let table_id_2 = format!("append_{}", random_id_suffix());
+
+    let pending: Vec<Pin<Box<dyn Future<Output = anyhow::Result<()>>>>> = vec![
+        Box::pin(dml_update::sample(&project_id, &dataset_id, &table_id_1)),
+        Box::pin(ddl_create_view::sample(
+            &project_id,
+            &dataset_id,
+            &view_id_1,
+        )),
+        Box::pin(ddl_create_routine::sample(
+            &project_id,
+            &dataset_id,
+            &routine_id_1,
+        )),
+        Box::pin(query_append::sample(&project_id, &dataset_id, &table_id_2)),
+    ];
+    let res: anyhow::Result<Vec<_>> = futures::future::join_all(pending)
+        .await
+        .into_iter()
+        .collect();
+
+    println!("Deleting sample dataset `{dataset_id}`...");
+    let _ = dataset_service
+        .delete_dataset()
+        .set_project_id(&project_id)
+        .set_dataset_id(&dataset_id)
+        .set_delete_contents(true)
+        .send()
+        .await;
+
+    let _ = res?;
     Ok(())
 }
