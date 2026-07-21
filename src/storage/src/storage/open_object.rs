@@ -773,6 +773,71 @@ mod tests {
         Ok(())
     }
 
+    #[tokio::test]
+    async fn send_and_read_checksum_mismatch() -> anyhow::Result<()> {
+        let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(1);
+        let payload = Vec::from_iter((0..32).map(|i| i as u8));
+        let expected_checksum = crc32c::crc32c(&payload);
+        let corrupted_checksum = expected_checksum + 1; // Corrupted!
+        let initial = BidiReadObjectResponse {
+            metadata: Some(ProtoObject {
+                bucket: BUCKET_NAME.to_string(),
+                name: OBJECT_NAME.to_string(),
+                generation: 123456,
+                checksums: Some(storage_grpc_mock::google::storage::v2::ObjectChecksums {
+                    crc32c: Some(corrupted_checksum),
+                    ..Default::default()
+                }),
+                ..ProtoObject::default()
+            }),
+            object_data_ranges: vec![ObjectRangeData {
+                read_range: Some(ProtoRange {
+                    read_id: 0_i64,
+                    ..ProtoRange::default()
+                }),
+                range_end: true,
+                checksummed_data: Some(ChecksummedData {
+                    content: payload.clone(),
+                    crc32c: None,
+                }),
+            }],
+            ..BidiReadObjectResponse::default()
+        };
+        tx.send(Ok(initial)).await?;
+
+        let mut mock = MockStorage::new();
+        mock.expect_bidi_read_object()
+            .return_once(|_| Ok(TonicResponse::from(rx)));
+        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
+
+        let client = Storage::builder()
+            .with_credentials(Anonymous::new().build())
+            .with_endpoint(endpoint)
+            .build()
+            .await?;
+
+        let (_descriptor, mut reader) = client
+            .open_object(BUCKET_NAME, OBJECT_NAME)
+            .send_and_read(ReadRange::all())
+            .await?;
+
+        let mut got_payload = Vec::new();
+        let mut got_err = false;
+        while let Some(res) = reader.next().await {
+            match res {
+                Ok(chunk) => got_payload.extend_from_slice(&chunk),
+                Err(e) => {
+                    got_err = true;
+                    let fmt = format!("{e:?}");
+                    assert!(fmt.contains("ChecksumMismatch"), "{fmt}");
+                }
+            }
+        }
+        assert!(got_err, "Expected a checksum mismatch error");
+        assert_eq!(got_payload, payload);
+        Ok(())
+    }
+
     #[tokio::test(start_paused = true)]
     async fn timeout() -> anyhow::Result<()> {
         let (_tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(1);
