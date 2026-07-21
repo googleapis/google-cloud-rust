@@ -24,6 +24,8 @@ mod retry_redirect;
 pub(crate) mod state;
 pub(crate) mod stub;
 #[allow(dead_code)]
+pub(crate) mod transport;
+#[allow(dead_code)]
 mod worker;
 
 use crate::google::storage::v2::{BidiWriteObjectRequest, BidiWriteObjectResponse};

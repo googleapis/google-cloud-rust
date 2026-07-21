@@ -14,24 +14,39 @@
 
 mod batch;
 mod browse_table;
+mod clustered_table;
+mod destination_table;
 mod dry_run;
 mod job_optional;
 mod label_job;
 mod legacy;
+mod legacy_large_results;
 mod no_cache;
 mod pagination;
 mod params_arrays;
 mod params_named;
 mod params_positional;
 mod params_timestamps;
+mod partitioned_table;
 #[allow(clippy::module_inception)]
 mod query;
 mod script;
 mod total_rows;
 
+use google_cloud_bigquery_v2::client::DatasetService;
+use google_cloud_bigquery_v2::model::{Dataset, DatasetReference};
 use google_cloud_test_utils::runtime_config::project_id;
+use rand::{RngExt, distr::Alphanumeric};
 use std::future::Future;
 use std::pin::Pin;
+
+fn random_id_suffix() -> String {
+    rand::rng()
+        .sample_iter(&Alphanumeric)
+        .take(8)
+        .map(char::from)
+        .collect()
+}
 
 pub async fn run_samples() -> anyhow::Result<()> {
     let project_id = project_id()?;
@@ -47,6 +62,8 @@ pub async fn run_samples() -> anyhow::Result<()> {
         Box::pin(params_named::sample(&project_id)),
         Box::pin(params_arrays::sample(&project_id)),
         Box::pin(params_timestamps::sample(&project_id)),
+        Box::pin(clustered_table::sample(&project_id)),
+        Box::pin(partitioned_table::sample(&project_id)),
         Box::pin(browse_table::sample(&project_id)),
         Box::pin(pagination::sample(&project_id)),
         Box::pin(total_rows::sample(&project_id)),
@@ -58,5 +75,55 @@ pub async fn run_samples() -> anyhow::Result<()> {
         .into_iter()
         .collect::<anyhow::Result<Vec<_>>>()?;
 
+    Ok(())
+}
+
+pub async fn run_samples_with_resources() -> anyhow::Result<()> {
+    let project_id = project_id()?;
+    let dataset_service = DatasetService::builder().build().await?;
+    let dataset_id = format!("rust_bq_samples_{}", random_id_suffix());
+
+    println!("Creating sample dataset `{dataset_id}`...");
+    dataset_service
+        .insert_dataset()
+        .set_project_id(&project_id)
+        .set_dataset(
+            Dataset::new()
+                .set_dataset_reference(DatasetReference::new().set_dataset_id(&dataset_id))
+                .set_labels([("rust-sdk-integration-test", "true")]),
+        )
+        .send()
+        .await?;
+
+    let table_id_1 = format!("dest_{}", random_id_suffix());
+    let table_id_2 = format!("dest_legacy_{}", random_id_suffix());
+
+    let pending: Vec<Pin<Box<dyn Future<Output = anyhow::Result<()>>>>> = vec![
+        Box::pin(destination_table::sample(
+            &project_id,
+            &dataset_id,
+            &table_id_1,
+        )),
+        Box::pin(legacy_large_results::sample(
+            &project_id,
+            &dataset_id,
+            &table_id_2,
+        )),
+    ];
+    let res: anyhow::Result<Vec<_>> = futures::future::join_all(pending)
+        .await
+        .into_iter()
+        .collect();
+
+    println!("Deleting sample dataset `{dataset_id}`...");
+    let _ = dataset_service
+        .delete_dataset()
+        .set_project_id(&project_id)
+        .set_dataset_id(&dataset_id)
+        .set_delete_contents(true)
+        .send()
+        .await;
+
+    let _ = res?;
     Ok(())
 }

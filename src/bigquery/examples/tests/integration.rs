@@ -21,4 +21,11 @@ mod tests {
     async fn query_samples() -> anyhow::Result<()> {
         query::run_samples().await.inspect_err(anydump)
     }
+
+    #[tokio::test]
+    async fn query_samples_with_resources() -> anyhow::Result<()> {
+        query::run_samples_with_resources()
+            .await
+            .inspect_err(anydump)
+    }
 }
