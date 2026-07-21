@@ -12,10 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::query::validate_resource_names;
 // [START bigquery_ddl_create_view]
 use google_cloud_bigquery::client::BigQuery;
 
 pub async fn sample(project_id: &str, dataset_id: &str, view_id: &str) -> anyhow::Result<()> {
+    // Query parameters cannot be used as substitutes for identifiers, column names or table
+    // names. Ensure resource identifiers are validated before formatting into SQL statements
+    // to prevent SQL injection.
+    validate_resource_names(project_id, dataset_id, view_id)?;
+
     let client = BigQuery::builder().build().await?;
 
     // Create a view using standard SQL DDL

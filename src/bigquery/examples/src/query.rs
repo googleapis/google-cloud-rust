@@ -153,3 +153,28 @@ pub async fn run_samples_with_resources() -> anyhow::Result<()> {
     let _ = res?;
     Ok(())
 }
+
+// Validates resource identifier as a valid BigQuery resource name.
+fn validate_resource_name(name: &str) -> anyhow::Result<()> {
+    if name.is_empty()
+        || !name
+            .chars()
+            .all(|c| c.is_ascii_alphanumeric() || c == '_' || c == '-' || c == '.')
+    {
+        anyhow::bail!("Invalid resource identifier: {name}");
+    }
+    Ok(())
+}
+
+// Validates resource identifiers before constructing SQL strings to prevent SQL injection.
+pub(crate) fn validate_resource_names(
+    project_id: &str,
+    dataset_id: &str,
+    resource_id: &str, // table, routine or view
+) -> anyhow::Result<()> {
+    validate_resource_name(project_id)?;
+    validate_resource_name(dataset_id)?;
+    validate_resource_name(resource_id)?;
+
+    Ok(())
+}

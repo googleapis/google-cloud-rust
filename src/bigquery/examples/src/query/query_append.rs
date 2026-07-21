@@ -12,11 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::query::validate_resource_names;
 // [START bigquery_add_column_query_append]
 use google_cloud_bigquery::client::BigQuery;
 use google_cloud_bigquery::model::TableReference;
 
 pub async fn sample(project_id: &str, dataset_id: &str, table_id: &str) -> anyhow::Result<()> {
+    // Query parameters cannot be used as substitutes for identifiers, column names or table
+    // names. Ensure resource identifiers are validated before formatting into SQL statements
+    // to prevent SQL injection.
+    validate_resource_names(project_id, dataset_id, table_id)?;
+
     let client = BigQuery::builder().build().await?;
 
     // First, initialize the destination table with a single column
