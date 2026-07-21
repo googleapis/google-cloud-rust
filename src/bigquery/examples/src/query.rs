@@ -13,13 +13,16 @@
 // limitations under the License.
 
 mod batch;
+mod browse_table;
 mod clustered_table;
 mod destination_table;
 mod dry_run;
 mod job_optional;
+mod label_job;
 mod legacy;
 mod legacy_large_results;
 mod no_cache;
+mod pagination;
 mod params_arrays;
 mod params_named;
 mod params_positional;
@@ -27,6 +30,8 @@ mod params_timestamps;
 mod partitioned_table;
 #[allow(clippy::module_inception)]
 mod query;
+mod script;
+mod total_rows;
 
 use google_cloud_bigquery_v2::client::DatasetService;
 use google_cloud_bigquery_v2::model::{Dataset, DatasetReference};
@@ -61,6 +66,11 @@ pub async fn run_samples() -> anyhow::Result<()> {
         Box::pin(params_timestamps::sample(&project_id)),
         Box::pin(clustered_table::sample(&project_id)),
         Box::pin(partitioned_table::sample(&project_id)),
+        Box::pin(browse_table::sample(&project_id)),
+        Box::pin(pagination::sample(&project_id)),
+        Box::pin(total_rows::sample(&project_id)),
+        Box::pin(label_job::sample(&project_id)),
+        Box::pin(script::sample(&project_id)),
     ];
     let _ = futures::future::join_all(pending)
         .await

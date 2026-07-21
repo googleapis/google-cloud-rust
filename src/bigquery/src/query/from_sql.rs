@@ -395,6 +395,8 @@ impl<T: FromSql> FromSql for Range<T> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate as google_cloud_bigquery;
+    use crate::FromSql;
     use google_cloud_type::model::Decimal;
     use rust_decimal::Decimal as RustDecimal;
     use test_case::test_case;
@@ -407,6 +409,7 @@ mod tests {
         NotNull,
         TypeMismatch(&'static str),
         Convert(String),
+        MissingField(String),
     }
 
     impl From<ConvertError> for TestConvertError {
@@ -415,6 +418,7 @@ mod tests {
                 ConvertError::NotNull => Self::NotNull,
                 ConvertError::TypeMismatch { expected, .. } => Self::TypeMismatch(expected),
                 ConvertError::Convert(e) => Self::Convert(e.to_string()),
+                ConvertError::MissingField(f) => Self::MissingField(f),
             }
         }
     }
@@ -572,6 +576,22 @@ mod tests {
     fn test_from_sql_range(
         value: wkt::Value,
     ) -> Result<Range<google_cloud_type::model::Date>, TestConvertError> {
+        FromSql::from_sql(value).map_err(TestConvertError::from)
+    }
+
+    #[derive(FromSql, Debug, PartialEq)]
+    struct TestSqlStruct {
+        name: String,
+        #[bigquery(rename = "custom_int")]
+        some_int: i64,
+        some_bool: bool,
+    }
+
+    #[test_case(wkt::Value::Array(vec![wkt::Value::String("James".to_string()), wkt::Value::Number(272793.into()), wkt::Value::Bool(true)]) => Ok(TestSqlStruct { name: "James".to_string(), some_int: 272793, some_bool: true }) ; "array success")]
+    #[test_case(wkt::Value::Object(wkt::Struct::from_iter([("name".to_string(), wkt::Value::String("James".to_string())), ("custom_int".to_string(), wkt::Value::Number(272793.into())), ("some_bool".to_string(), wkt::Value::Bool(true))])) => Ok(TestSqlStruct { name: "James".to_string(), some_int: 272793, some_bool: true }) ; "object success")]
+    #[test_case(wkt::Value::Object(wkt::Struct::from_iter([("name".to_string(), wkt::Value::String("James".to_string())), ("some_bool".to_string(), wkt::Value::Bool(true))])) => Err(TestConvertError::MissingField("custom_int".to_string())) ; "missing field")]
+    #[test_case(wkt::Value::String("invalid".to_string()) => Err(TestConvertError::TypeMismatch("array or object")) ; "type mismatch")]
+    fn test_derive_from_sql(value: wkt::Value) -> Result<TestSqlStruct, TestConvertError> {
         FromSql::from_sql(value).map_err(TestConvertError::from)
     }
 }
