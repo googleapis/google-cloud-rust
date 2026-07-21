@@ -470,6 +470,80 @@ pub async fn query_client_job() -> Result<()> {
     Ok(())
 }
 
+#[derive(google_cloud_bigquery::FromSql, Debug, PartialEq)]
+struct UserRecord {
+    name: String,
+    age: i64,
+}
+
+#[derive(google_cloud_bigquery::FromSql, Debug, PartialEq)]
+struct UserProfile {
+    name: String,
+    age: i64,
+    birth_date: google_cloud_type::model::Date,
+}
+
+#[derive(google_cloud_bigquery::FromRow, Debug, PartialEq)]
+struct RowData {
+    user: UserRecord,
+    numbers: Vec<i64>,
+    users: Vec<UserRecord>,
+    profile: UserProfile,
+}
+
+pub async fn query_client_nested_types() -> Result<()> {
+    let project_id = project_id()?;
+    let bq = google_cloud_bigquery::client::BigQuery::builder()
+        .build()
+        .await?;
+
+    println!("STARTING NESTED TYPES INTEGRATION TEST");
+    let sql = "SELECT \
+                 STRUCT('Alice' AS name, 25 AS age) AS user, \
+                 ARRAY[1, 2, 3] AS numbers, \
+                 ARRAY[STRUCT('Bob' AS name, 28 AS age), STRUCT('Charlie' AS name, 31 AS age)] AS users, \
+                 STRUCT('Dave' AS name, 40 AS age, DATE '1986-05-28' AS birth_date) AS profile";
+
+    let query = bq
+        .query(sql)
+        .set_use_legacy_sql(false)
+        .with_project_id(project_id)
+        .set_labels(vec![(INSTANCE_LABEL, "true")])
+        .run()
+        .await?;
+
+    let complete_query = query.until_done().await?;
+    let mut rows = complete_query.read();
+
+    let row = rows.next().await.expect("row must exist")?;
+
+    // Deserialize the entire row as user defined struct
+    let data: RowData = row.try_into()?;
+
+    // verify nested struct
+    assert_eq!(data.user.name, "Alice");
+    assert_eq!(data.user.age, 25);
+
+    // verify repeated basic type (ARRAY)
+    assert_eq!(data.numbers, vec![1, 2, 3]);
+
+    // verify repeated struct
+    assert_eq!(data.users.len(), 2);
+    assert_eq!(data.users[0].name, "Bob");
+    assert_eq!(data.users[0].age, 28);
+    assert_eq!(data.users[1].name, "Charlie");
+    assert_eq!(data.users[1].age, 31);
+
+    // verify user-defined struct with BQ-specific date field
+    assert_eq!(data.profile.name, "Dave");
+    assert_eq!(data.profile.age, 40);
+    assert_eq!(data.profile.birth_date.year, 1986);
+    assert_eq!(data.profile.birth_date.month, 5);
+    assert_eq!(data.profile.birth_date.day, 28);
+
+    Ok(())
+}
+
 async fn cleanup_stale_jobs(client: &JobService, project_id: &str) -> Result<()> {
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
     let stale_deadline = SystemTime::now().duration_since(UNIX_EPOCH)?;

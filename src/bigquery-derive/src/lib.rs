@@ -77,6 +77,89 @@ pub fn derive_from_row(input: TokenStream) -> TokenStream {
     expanded.into()
 }
 
+/// Derives `FromSql` for converting a BigQuery value into a struct.
+///
+/// Supports renaming attributes via `#[bigquery(rename = "new_name")]`.
+#[proc_macro_derive(FromSql, attributes(bigquery))]
+pub fn derive_from_sql(input: TokenStream) -> TokenStream {
+    let input = parse_macro_input!(input as DeriveInput);
+    let name = input.ident;
+
+    let fields = match input.data {
+        Data::Struct(data) => match data.fields {
+            Fields::Named(fields) => fields.named,
+            _ => {
+                return syn::Error::new_spanned(
+                    name,
+                    "FromSql can only be derived for structs with named fields",
+                )
+                .to_compile_error()
+                .into();
+            }
+        },
+        _ => {
+            return syn::Error::new_spanned(name, "FromSql can only be derived for structs")
+                .to_compile_error()
+                .into();
+        }
+    };
+
+    let field_idents_struct_array = fields
+        .iter()
+        .map(|f| f.ident.as_ref().expect("named field must have identifier"));
+    let field_idents_struct_obj = fields
+        .iter()
+        .map(|f| f.ident.as_ref().expect("named field must have identifier"));
+
+    let field_extractions_array = fields.iter().map(|f| {
+        let field_name = f.ident.as_ref().expect("named field must have identifier");
+        let db_column_name = get_field_name(f);
+        quote! {
+            let #field_name = iter.next()
+                .ok_or_else(|| google_cloud_bigquery::ConvertError::MissingField(#db_column_name.to_string()))?;
+            let #field_name = google_cloud_bigquery::FromSql::from_sql(#field_name)?;
+        }
+    });
+
+    let field_extractions_obj = fields.iter().map(|f| {
+        let field_name = f.ident.as_ref().expect("named field must have identifier");
+        let db_column_name = get_field_name(f);
+        quote! {
+            let #field_name = obj.remove(#db_column_name)
+                .ok_or_else(|| google_cloud_bigquery::ConvertError::MissingField(#db_column_name.to_string()))?;
+            let #field_name = google_cloud_bigquery::FromSql::from_sql(#field_name)?;
+        }
+    });
+
+    let expanded = quote! {
+        impl google_cloud_bigquery::FromSql for #name {
+            fn from_sql(value: wkt::Value) -> std::result::Result<Self, google_cloud_bigquery::ConvertError> {
+                match value {
+                    wkt::Value::Array(arr) => {
+                        let mut iter = arr.into_iter();
+                        #( #field_extractions_array )*
+                        std::result::Result::Ok(Self {
+                            #( #field_idents_struct_array, )*
+                        })
+                    }
+                    wkt::Value::Object(mut obj) => {
+                        #( #field_extractions_obj )*
+                        std::result::Result::Ok(Self {
+                            #( #field_idents_struct_obj, )*
+                        })
+                    }
+                    other => std::result::Result::Err(google_cloud_bigquery::ConvertError::TypeMismatch {
+                        expected: "array or object",
+                        got: other,
+                    }),
+                }
+            }
+        }
+    };
+
+    expanded.into()
+}
+
 fn get_field_name(field: &syn::Field) -> String {
     for attr in &field.attrs {
         if attr.path().is_ident("bigquery") {

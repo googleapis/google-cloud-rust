@@ -28,8 +28,8 @@ pub use google_cloud_gax::Result;
 pub use google_cloud_gax::error::Error;
 pub mod error;
 pub use crate::error::{ConvertError, QueryError, RowError};
-pub use crate::query::Row;
-pub use google_cloud_bigquery_derive::FromRow;
+pub use crate::query::{FromSql, Row};
+pub use google_cloud_bigquery_derive::{FromRow, FromSql};
 
 pub(crate) mod generated;
 pub(crate) mod query;
