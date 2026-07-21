@@ -36,6 +36,7 @@ impl Stream {
 
 /// One attempt to open a stream for the `AppendRows` RPC.
 async fn open_stream(inner: Arc<Transport>, initial_req: AppendRowsRequest) -> Result<Stream> {
+    // TODO(#6122) - configure flow control settings
     let (request_tx, request_rx) = channel(100);
     let request_params = format!("write_stream={}", initial_req.write_stream);
 
