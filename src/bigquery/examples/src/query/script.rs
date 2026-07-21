@@ -20,10 +20,12 @@ pub async fn sample(project_id: &str) -> anyhow::Result<()> {
 
     let mut rows = client
         .query(
-            "DECLARE target_state STRING DEFAULT 'TX'; \
-        SELECT name FROM `bigquery-public-data.usa_names.usa_1910_2013` \
-        WHERE state = target_state \
-        LIMIT 10;",
+            r#"
+DECLARE target_state STRING DEFAULT 'TX';
+SELECT name FROM `bigquery-public-data.usa_names.usa_1910_2013`
+WHERE state = target_state
+LIMIT 10;
+"#,
         )
         .with_project_id(project_id)
         .set_location("US")

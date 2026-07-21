@@ -20,9 +20,11 @@ pub async fn sample(project_id: &str) -> anyhow::Result<()> {
 
     let mut rows = client
         .query(
-            "SELECT \
-        name, gender, number FROM `bigquery-public-data.usa_names.usa_1910_2013` \
-        LIMIT 10",
+            r#"
+SELECT name, gender, number
+FROM `bigquery-public-data.usa_names.usa_1910_2013`
+LIMIT 10
+"#,
         )
         .with_project_id(project_id)
         .set_max_results(5_u32)

@@ -20,10 +20,12 @@ pub async fn sample(project_id: &str) -> anyhow::Result<()> {
 
     let query_res = client
         .query(
-            "SELECT \
-        name FROM `bigquery-public-data.usa_names.usa_1910_2013` \
-        WHERE state = 'TX' \
-        LIMIT 100",
+            r#"
+SELECT name
+FROM `bigquery-public-data.usa_names.usa_1910_2013`
+WHERE state = 'TX'
+LIMIT 100
+"#,
         )
         .with_project_id(project_id)
         .set_location("US")
@@ -35,7 +37,6 @@ pub async fn sample(project_id: &str) -> anyhow::Result<()> {
     if let Some(total) = query_res.metadata().total_rows {
         println!("Query result reported total matching rows: {total}");
     }
-
     Ok(())
 }
 // [END bigquery_query_total_rows]
