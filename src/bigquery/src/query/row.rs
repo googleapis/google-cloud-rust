@@ -428,6 +428,60 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn convert_bytes_from_row() -> TestResult {
+        let raw_row = Map::from_iter([(
+            "f".to_string(),
+            json!([
+                { "v": "AQIDBA==" },
+                { "v": "SGVsbG8=" },
+                { "v": null },
+            ]),
+        )]);
+        let schema = TableSchema::new().set_fields([
+            TableFieldSchema::new()
+                .set_name("payload_vec")
+                .set_type("BYTES")
+                .set_mode("NULLABLE"),
+            TableFieldSchema::new()
+                .set_name("payload_bytes")
+                .set_type("BYTES")
+                .set_mode("NULLABLE"),
+            TableFieldSchema::new()
+                .set_name("null_bytes")
+                .set_type("BYTES")
+                .set_mode("NULLABLE"),
+        ]);
+        let schema = Arc::new(Schema::new(schema));
+        let mut row = Row::try_new(raw_row, &schema)?;
+
+        assert_eq!(row.get::<Vec<u8>, _>(0), vec![1, 2, 3, 4]);
+        assert_eq!(row.get::<Vec<u8>, _>("payload_vec"), vec![1, 2, 3, 4]);
+
+        assert_eq!(
+            row.get::<bytes::Bytes, _>(1),
+            bytes::Bytes::from_static(b"Hello")
+        );
+        assert_eq!(
+            row.get::<bytes::Bytes, _>("payload_bytes"),
+            bytes::Bytes::from_static(b"Hello")
+        );
+
+        assert_eq!(row.get::<Option<Vec<u8>>, _>(2), None);
+        assert_eq!(row.get::<Option<bytes::Bytes>, _>("null_bytes"), None);
+
+        assert_eq!(row.take::<Vec<u8>, _>(0)?, vec![1, 2, 3, 4]);
+        assert_eq!(row.try_get::<Option<Vec<u8>>, _>(0)?, None);
+
+        assert_eq!(
+            row.take::<bytes::Bytes, _>(1)?,
+            bytes::Bytes::from_static(b"Hello")
+        );
+        assert_eq!(row.try_get::<Option<bytes::Bytes>, _>(1)?, None);
+
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn convert_record_from_row() -> TestResult {
         let raw_row = Map::from_iter([(
             "f".to_string(),
