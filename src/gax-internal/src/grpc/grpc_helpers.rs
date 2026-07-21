@@ -74,6 +74,15 @@ pub(crate) fn make_headers(
         headers.extend(custom_headers.clone());
     }
 
+    // Sanitize user custom headers by stripping away any keys conflicting with system headers.
+    for key in [
+        http::header::USER_AGENT,
+        X_GOOG_USER_PROJECT,
+        X_GOOG_REQUEST_PARAMS,
+    ] {
+        headers.remove(key);
+    }
+
     if let Some(user_agent) = options.user_agent() {
         headers.insert(
             http::header::USER_AGENT,
@@ -309,17 +318,7 @@ mod tests {
         assert!(res.is_err(), "{res:?}");
     }
 
-    #[test]
-    fn make_headers_enforces_system_wins_precedence() -> TestResult {
-        // Arrange
-        const USER_AGENT: &str = "system-user-agent/v1.2.3";
-        const QUOTA_PROJECT: &str = "system-quota-project";
-        const REQUEST_PARAMS: &str = "resource=projects%2Ftest";
-
-        let mut options = RequestOptions::default();
-        options.set_user_agent(USER_AGENT);
-        options.set_quota_project(QUOTA_PROJECT);
-
+    fn test_custom_headers() -> HeaderMap {
         let mut custom_headers = HeaderMap::new();
         // Try to override system headers with conflicting custom values
         custom_headers.insert(
@@ -340,11 +339,23 @@ mod tests {
             "x-legitimate-header",
             HeaderValue::from_static("legitimate-value"),
         );
+        custom_headers
+    }
 
-        let options = options.insert_extension(custom_headers);
+    #[test]
+    fn make_headers_enforces_system_precedence_with_values() -> TestResult {
+        // Arrange
+        const TEST_USER_AGENT: &str = "system-user-agent/v1.2.3";
+        const TEST_QUOTA_PROJECT: &str = "system-quota-project";
+        const TEST_REQUEST_PARAMS: &str = "resource=projects%2Ftest";
+
+        let mut options = RequestOptions::default();
+        options.set_user_agent(TEST_USER_AGENT);
+        options.set_quota_project(TEST_QUOTA_PROJECT);
+        let options = options.insert_extension(test_custom_headers());
 
         // Act
-        let headers = make_headers(API_CLIENT_HEADER, REQUEST_PARAMS, &options)?;
+        let headers = make_headers(API_CLIENT_HEADER, TEST_REQUEST_PARAMS, &options)?;
 
         // Assert
         // We expect the system headers to be the ONLY values present for these keys.
@@ -357,7 +368,7 @@ mod tests {
             1,
             "Should only have one user-agent header"
         );
-        assert_eq!(user_agents[0], USER_AGENT);
+        assert_eq!(user_agents[0], TEST_USER_AGENT);
 
         let quota_projects: Vec<_> = headers.get_all(X_GOOG_USER_PROJECT).into_iter().collect();
         assert_eq!(
@@ -365,7 +376,15 @@ mod tests {
             1,
             "Should only have one quota-project header"
         );
-        assert_eq!(quota_projects[0], QUOTA_PROJECT);
+        assert_eq!(quota_projects[0], TEST_QUOTA_PROJECT);
+
+        let request_params: Vec<_> = headers.get_all(X_GOOG_REQUEST_PARAMS).into_iter().collect();
+        assert_eq!(
+            request_params.len(),
+            1,
+            "Should only have one request-params header"
+        );
+        assert_eq!(request_params[0], TEST_REQUEST_PARAMS);
 
         let api_clients: Vec<_> = headers.get_all(X_GOOG_API_CLIENT).into_iter().collect();
         assert_eq!(
@@ -375,13 +394,47 @@ mod tests {
         );
         assert_eq!(api_clients[0], API_CLIENT_HEADER);
 
-        let request_params: Vec<_> = headers.get_all(X_GOOG_REQUEST_PARAMS).into_iter().collect();
+        // Assert the legitimate header is still present
         assert_eq!(
-            request_params.len(),
-            1,
-            "Should only have one request-params header"
+            headers
+                .get("x-legitimate-header")
+                .expect("x-legitimate-header should be present"),
+            "legitimate-value"
         );
-        assert_eq!(request_params[0], REQUEST_PARAMS);
+
+        Ok(())
+    }
+
+    #[test]
+    fn make_headers_enforces_system_precedence_without_values() -> TestResult {
+        // Arrange
+        let options = RequestOptions::default().insert_extension(test_custom_headers());
+
+        // Act (pass empty request params, empty user agent, empty quota project)
+        let headers = make_headers(API_CLIENT_HEADER, "", &options)?;
+
+        // Assert
+        // We expect custom headers to be completely stripped, leaving no value except api_client.
+        assert_eq!(
+            headers
+                .get_all(http::header::USER_AGENT)
+                .into_iter()
+                .count(),
+            0
+        );
+        assert_eq!(headers.get_all(X_GOOG_USER_PROJECT).into_iter().count(), 0);
+        assert_eq!(
+            headers.get_all(X_GOOG_REQUEST_PARAMS).into_iter().count(),
+            0
+        );
+
+        let api_clients: Vec<_> = headers.get_all(X_GOOG_API_CLIENT).into_iter().collect();
+        assert_eq!(
+            api_clients.len(),
+            1,
+            "Should only have one api-client header"
+        );
+        assert_eq!(api_clients[0], API_CLIENT_HEADER);
 
         // Assert the legitimate header is still present
         assert_eq!(
