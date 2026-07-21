@@ -341,14 +341,15 @@ impl<T: FromSql> FromSql for Range<T> {
         match value {
             wkt::Value::String(s) => {
                 let trimmed = s.trim();
-                if trimmed.len() < 2 {
-                    return Err(ConvertError::Convert(
-                        "invalid range format: too short".into(),
-                    ));
-                }
-
                 // Strip leading [ or ( and trailing ] or )
-                let content = &trimmed[1..trimmed.len() - 1];
+                let content = trimmed
+                    .strip_prefix(['[', '('])
+                    .and_then(|c| c.strip_suffix([']', ')']))
+                    .ok_or_else(|| {
+                        ConvertError::Convert(
+                            "invalid range format: missing enclosing brackets".into(),
+                        )
+                    })?;
 
                 // Split on the comma
                 let parts: Vec<&str> = content.split(',').collect();
@@ -566,7 +567,8 @@ mod tests {
     #[test_case(wkt::Value::Number(123.into()) => Err(TestConvertError::TypeMismatch("string")) ; "range type mismatch")]
     #[test_case(wkt::Value::String("[2026-05-28)".to_string()) => Err(TestConvertError::Convert("invalid range format: expected 2 parts, got 1".to_string())) ; "range invalid format one part")]
     #[test_case(wkt::Value::String("[2026-05-28, 2026-05-29, 2026-05-30)".to_string()) => Err(TestConvertError::Convert("invalid range format: expected 2 parts, got 3".to_string())) ; "range invalid format three parts")]
-    #[test_case(wkt::Value::String("[".to_string()) => Err(TestConvertError::Convert("invalid range format: too short".to_string())) ; "range too short")]
+    #[test_case(wkt::Value::String("[".to_string()) => Err(TestConvertError::Convert("invalid range format: missing enclosing brackets".to_string())) ; "range too short")]
+    #[test_case(wkt::Value::String("2026-05-28, 2026-05-29".to_string()) => Err(TestConvertError::Convert("invalid range format: missing enclosing brackets".to_string())) ; "range missing brackets")]
     fn test_from_sql_range(
         value: wkt::Value,
     ) -> Result<Range<google_cloud_type::model::Date>, TestConvertError> {
