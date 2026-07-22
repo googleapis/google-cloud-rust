@@ -113,8 +113,6 @@ pub(crate) fn create_http_attempt_span(
         { otel_trace::HTTP_RESPONSE_STATUS_CODE } = field::Empty,
         { otel_trace::HTTP_RESPONSE_BODY_SIZE } = field::Empty,
         { otel_trace::ERROR_TYPE } = field::Empty,
-        { otel_attr::RPC_GRPC_STATUS_CODE } = field::Empty,
-        { GRPC_STATUS } = field::Empty,
     )
 }
 
