@@ -355,44 +355,55 @@ impl FromSql for Interval {
     fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
         match value {
             wkt::Value::String(s) => {
-                let parts: Vec<&str> = s.split_whitespace().collect();
-                if parts.len() != 3 {
-                    return Err(ConvertError::Convert(
-                        format!(
-                            "invalid interval format: expected 3 parts, got {}",
-                            parts.len()
-                        )
-                        .into(),
-                    ));
-                }
+                let mut parts = s.split_whitespace();
+                let ym_str = parts.next();
+                let days_str = parts.next();
+                let time_str = parts.next();
+                let extra = parts.next();
+
+                let (ym_str, days_str, time_str) = match (ym_str, days_str, time_str, extra) {
+                    (Some(ym), Some(d), Some(t), None) => (ym, d, t),
+                    _ => {
+                        let count = s.split_whitespace().count();
+                        return Err(ConvertError::Convert(
+                            format!("invalid interval format: expected 3 parts, got {count}")
+                                .into(),
+                        ));
+                    }
+                };
 
                 // Parse Y-M
-                let ym_str = parts[0];
                 let ym_neg = ym_str.starts_with('-');
                 let ym_content = if ym_neg { &ym_str[1..] } else { ym_str };
-                let ym_parts: Vec<&str> = ym_content.split('-').collect();
-                if ym_parts.len() != 2 {
-                    return Err(ConvertError::Convert(
-                        "invalid interval year-month format".into(),
-                    ));
-                }
+                let mut ym_parts = ym_content.split('-');
+                let y_str = ym_parts.next();
+                let m_str = ym_parts.next();
+                let ym_extra = ym_parts.next();
+
+                let (y_str, m_str) = match (y_str, m_str, ym_extra) {
+                    (Some(y), Some(m), None) => (y, m),
+                    _ => {
+                        return Err(ConvertError::Convert(
+                            "invalid interval year-month format".into(),
+                        ));
+                    }
+                };
                 let ym_sign = if ym_neg { -1 } else { 1 };
-                let years = ym_parts[0]
+                let years = y_str
                     .parse::<i32>()
                     .map_err(|e| ConvertError::Convert(Box::new(e)))?
                     * ym_sign;
-                let months = ym_parts[1]
+                let months = m_str
                     .parse::<i32>()
                     .map_err(|e| ConvertError::Convert(Box::new(e)))?
                     * ym_sign;
 
                 // Parse Days
-                let days = parts[1]
+                let days = days_str
                     .parse::<i32>()
                     .map_err(|e| ConvertError::Convert(Box::new(e)))?;
 
                 // Parse H:M:S.F
-                let time_str = parts[2];
                 let time_neg = time_str.starts_with('-');
                 let time_content = if time_neg { &time_str[1..] } else { time_str };
                 let t = parse_time(time_content)?;
