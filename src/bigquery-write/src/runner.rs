@@ -82,7 +82,7 @@ async fn run_stream_task(inner: Arc<Transport>, mut req_rx: mpsc::Receiver<Write
 
 fn process_gax_response(
     resp_txs: &mut VecDeque<oneshot::Sender<AppendResult<AppendRowsResponse>>>,
-    result: Result<AppendRowsResponse>,
+    resp: Result<AppendRowsResponse>,
 ) {
     // Pop the response channel associated with this response.
     let resp_tx = resp_txs
