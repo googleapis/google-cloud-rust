@@ -635,6 +635,11 @@ pub mod agent_gateway {
         /// Location
         pub resource_uri: std::string::String,
 
+        /// Optional. List of supported Google Cloud networking proxies in the Project and
+        /// Location.
+        /// resource_uris is mutually exclusive with resource_uri.
+        pub resource_uris: std::vec::Vec<std::string::String>,
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -656,6 +661,23 @@ pub mod agent_gateway {
             v: T,
         ) -> Self {
             self.resource_uri = v.into();
+            self
+        }
+
+        /// Sets the value of [resource_uris][crate::model::agent_gateway::SelfManaged::resource_uris].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networkservices_v1::model::agent_gateway::SelfManaged;
+        /// let x = SelfManaged::new().set_resource_uris(["a", "b", "c"]);
+        /// ```
+        pub fn set_resource_uris<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.resource_uris = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }

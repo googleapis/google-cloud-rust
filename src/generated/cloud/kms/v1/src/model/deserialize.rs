@@ -2787,6 +2787,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SingleTenantHsmInstanceProposal
             __add_quorum_member,
             __remove_quorum_member,
             __refresh_single_tenant_hsm_instance,
+            __upgrade_key_trust,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -2862,6 +2863,8 @@ impl<'de> serde::de::Deserialize<'de> for super::SingleTenantHsmInstanceProposal
                             "refresh_single_tenant_hsm_instance" => {
                                 Ok(__FieldTag::__refresh_single_tenant_hsm_instance)
                             }
+                            "upgradeKeyTrust" => Ok(__FieldTag::__upgrade_key_trust),
+                            "upgrade_key_trust" => Ok(__FieldTag::__upgrade_key_trust),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3130,6 +3133,23 @@ impl<'de> serde::de::Deserialize<'de> for super::SingleTenantHsmInstanceProposal
                             result.operation = std::option::Option::Some(
                                 crate::model::single_tenant_hsm_instance_proposal::Operation::RefreshSingleTenantHsmInstance(
                                     map.next_value::<std::option::Option<std::boxed::Box<crate::model::single_tenant_hsm_instance_proposal::RefreshSingleTenantHsmInstance>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__upgrade_key_trust => {
+                            if !fields.insert(__FieldTag::__upgrade_key_trust) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for upgrade_key_trust",
+                                ));
+                            }
+                            if result.operation.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `operation`, a oneof with full ID .google.cloud.kms.v1.SingleTenantHsmInstanceProposal.upgrade_key_trust, latest field was upgradeKeyTrust",
+                                ));
+                            }
+                            result.operation = std::option::Option::Some(
+                                crate::model::single_tenant_hsm_instance_proposal::Operation::UpgradeKeyTrust(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::single_tenant_hsm_instance_proposal::UpgradeKeyTrust>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -3927,6 +3947,103 @@ impl<'de> serde::de::Deserialize<'de>
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de>
+    for super::single_tenant_hsm_instance_proposal::UpgradeKeyTrust
+{
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __two_factor_public_key_pem,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for UpgradeKeyTrust")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "twoFactorPublicKeyPem" => Ok(__FieldTag::__two_factor_public_key_pem),
+                            "two_factor_public_key_pem" => {
+                                Ok(__FieldTag::__two_factor_public_key_pem)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::single_tenant_hsm_instance_proposal::UpgradeKeyTrust;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct UpgradeKeyTrust")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__two_factor_public_key_pem => {
+                            if !fields.insert(__FieldTag::__two_factor_public_key_pem) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for two_factor_public_key_pem",
+                                ));
+                            }
+                            result.two_factor_public_key_pem = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -6572,6 +6689,8 @@ impl<'de> serde::de::Deserialize<'de> for super::CryptoKeyVersion {
             __external_destruction_failure_reason,
             __external_protection_level_options,
             __reimport_eligible,
+            __trusted_wrapping_enabled,
+            __hsm_trusted,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -6632,6 +6751,12 @@ impl<'de> serde::de::Deserialize<'de> for super::CryptoKeyVersion {
                             }
                             "reimportEligible" => Ok(__FieldTag::__reimport_eligible),
                             "reimport_eligible" => Ok(__FieldTag::__reimport_eligible),
+                            "trustedWrappingEnabled" => Ok(__FieldTag::__trusted_wrapping_enabled),
+                            "trusted_wrapping_enabled" => {
+                                Ok(__FieldTag::__trusted_wrapping_enabled)
+                            }
+                            "hsmTrusted" => Ok(__FieldTag::__hsm_trusted),
+                            "hsm_trusted" => Ok(__FieldTag::__hsm_trusted),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -6813,6 +6938,26 @@ impl<'de> serde::de::Deserialize<'de> for super::CryptoKeyVersion {
                                 ));
                             }
                             result.reimport_eligible = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__trusted_wrapping_enabled => {
+                            if !fields.insert(__FieldTag::__trusted_wrapping_enabled) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for trusted_wrapping_enabled",
+                                ));
+                            }
+                            result.trusted_wrapping_enabled = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__hsm_trusted => {
+                            if !fields.insert(__FieldTag::__hsm_trusted) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for hsm_trusted",
+                                ));
+                            }
+                            result.hsm_trusted = map
                                 .next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
                         }
@@ -9611,6 +9756,7 @@ impl<'de> serde::de::Deserialize<'de> for super::CreateCryptoKeyRequest {
             __crypto_key_id,
             __crypto_key,
             __skip_initial_version_creation,
+            __trusted_wrapping_enabled,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -9641,6 +9787,10 @@ impl<'de> serde::de::Deserialize<'de> for super::CreateCryptoKeyRequest {
                             }
                             "skip_initial_version_creation" => {
                                 Ok(__FieldTag::__skip_initial_version_creation)
+                            }
+                            "trustedWrappingEnabled" => Ok(__FieldTag::__trusted_wrapping_enabled),
+                            "trusted_wrapping_enabled" => {
+                                Ok(__FieldTag::__trusted_wrapping_enabled)
                             }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
@@ -9703,6 +9853,16 @@ impl<'de> serde::de::Deserialize<'de> for super::CreateCryptoKeyRequest {
                                 ));
                             }
                             result.skip_initial_version_creation = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__trusted_wrapping_enabled => {
+                            if !fields.insert(__FieldTag::__trusted_wrapping_enabled) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for trusted_wrapping_enabled",
+                                ));
+                            }
+                            result.trusted_wrapping_enabled = map
                                 .next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
                         }
@@ -9988,6 +10148,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ImportCryptoKeyVersionRequest {
             __import_job,
             __wrapped_key,
             __rsa_aes_wrapped_key,
+            __trusted_wrapping_enabled,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -10018,6 +10179,10 @@ impl<'de> serde::de::Deserialize<'de> for super::ImportCryptoKeyVersionRequest {
                             "wrapped_key" => Ok(__FieldTag::__wrapped_key),
                             "rsaAesWrappedKey" => Ok(__FieldTag::__rsa_aes_wrapped_key),
                             "rsa_aes_wrapped_key" => Ok(__FieldTag::__rsa_aes_wrapped_key),
+                            "trustedWrappingEnabled" => Ok(__FieldTag::__trusted_wrapping_enabled),
+                            "trusted_wrapping_enabled" => {
+                                Ok(__FieldTag::__trusted_wrapping_enabled)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -10131,6 +10296,369 @@ impl<'de> serde::de::Deserialize<'de> for super::ImportCryptoKeyVersionRequest {
                                     map.next_value::<__With>()?.0.unwrap_or_default()
                                 ),
                             );
+                        }
+                        __FieldTag::__trusted_wrapping_enabled => {
+                            if !fields.insert(__FieldTag::__trusted_wrapping_enabled) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for trusted_wrapping_enabled",
+                                ));
+                            }
+                            result.trusted_wrapping_enabled = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ImportTrustedKeyWrappedCryptoKeyVersionRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __importing_key,
+            __crypto_key_version,
+            __wrapped_key,
+            __algorithm,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str(
+                            "a field name for ImportTrustedKeyWrappedCryptoKeyVersionRequest",
+                        )
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "importingKey" => Ok(__FieldTag::__importing_key),
+                            "importing_key" => Ok(__FieldTag::__importing_key),
+                            "cryptoKeyVersion" => Ok(__FieldTag::__crypto_key_version),
+                            "crypto_key_version" => Ok(__FieldTag::__crypto_key_version),
+                            "wrappedKey" => Ok(__FieldTag::__wrapped_key),
+                            "wrapped_key" => Ok(__FieldTag::__wrapped_key),
+                            "algorithm" => Ok(__FieldTag::__algorithm),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ImportTrustedKeyWrappedCryptoKeyVersionRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ImportTrustedKeyWrappedCryptoKeyVersionRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__importing_key => {
+                            if !fields.insert(__FieldTag::__importing_key) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for importing_key",
+                                ));
+                            }
+                            result.importing_key = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__crypto_key_version => {
+                            if !fields.insert(__FieldTag::__crypto_key_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for crypto_key_version",
+                                ));
+                            }
+                            result.crypto_key_version = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__wrapped_key => {
+                            if !fields.insert(__FieldTag::__wrapped_key) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for wrapped_key",
+                                ));
+                            }
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.wrapped_key = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__algorithm => {
+                            if !fields.insert(__FieldTag::__algorithm) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for algorithm",
+                                ));
+                            }
+                            result.algorithm = map
+                                .next_value::<std::option::Option<
+                                    crate::model::crypto_key_version::CryptoKeyVersionAlgorithm,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ExportTrustedKeyWrappedCryptoKeyVersionRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __wrapping_key,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str(
+                            "a field name for ExportTrustedKeyWrappedCryptoKeyVersionRequest",
+                        )
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "wrappingKey" => Ok(__FieldTag::__wrapping_key),
+                            "wrapping_key" => Ok(__FieldTag::__wrapping_key),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ExportTrustedKeyWrappedCryptoKeyVersionRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ExportTrustedKeyWrappedCryptoKeyVersionRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__wrapping_key => {
+                            if !fields.insert(__FieldTag::__wrapping_key) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for wrapping_key",
+                                ));
+                            }
+                            result.wrapping_key = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ExportTrustedKeyWrappedCryptoKeyVersionResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __wrapped_key,
+            __wrapped_key_crc32c,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str(
+                            "a field name for ExportTrustedKeyWrappedCryptoKeyVersionResponse",
+                        )
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "wrappedKey" => Ok(__FieldTag::__wrapped_key),
+                            "wrapped_key" => Ok(__FieldTag::__wrapped_key),
+                            "wrappedKeyCrc32c" => Ok(__FieldTag::__wrapped_key_crc32c),
+                            "wrapped_key_crc32c" => Ok(__FieldTag::__wrapped_key_crc32c),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ExportTrustedKeyWrappedCryptoKeyVersionResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ExportTrustedKeyWrappedCryptoKeyVersionResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__wrapped_key => {
+                            if !fields.insert(__FieldTag::__wrapped_key) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for wrapped_key",
+                                ));
+                            }
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.wrapped_key = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__wrapped_key_crc32c => {
+                            if !fields.insert(__FieldTag::__wrapped_key_crc32c) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for wrapped_key_crc32c",
+                                ));
+                            }
+                            struct __With(std::option::Option<wkt::Int64Value>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.wrapped_key_crc32c = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
