@@ -132,9 +132,18 @@ impl<S> OpenObject<S> {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::model_ext::ReadRange;
     /// let builder = client
     ///     .open_object("projects/_/buckets/my-bucket", "my-object")
     ///     .compute_md5();
+    /// let (descriptor, mut reader) = builder
+    ///     .send_and_read(ReadRange::all())
+    ///     .await?;
+    /// let mut contents = Vec::new();
+    /// while let Some(chunk) = reader.next().await.transpose()? {
+    ///     contents.extend_from_slice(&chunk);
+    /// }
+    /// println!("object contents={:?}", contents);
     /// # Ok(()) }
     /// ```
     pub fn compute_md5(self) -> Self {
@@ -154,9 +163,18 @@ impl<S> OpenObject<S> {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::model_ext::ReadRange;
     /// let builder = client
     ///     .open_object("projects/_/buckets/my-bucket", "my-object")
     ///     .compute_crc32c(false);
+    /// let (descriptor, mut reader) = builder
+    ///     .send_and_read(ReadRange::all())
+    ///     .await?;
+    /// let mut contents = Vec::new();
+    /// while let Some(chunk) = reader.next().await.transpose()? {
+    ///     contents.extend_from_slice(&chunk);
+    /// }
+    /// println!("object contents={:?}", contents);
     /// # Ok(()) }
     /// ```
     pub fn compute_crc32c(mut self, enable: bool) -> Self {
