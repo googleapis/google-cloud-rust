@@ -53,7 +53,7 @@ where
     ///
     /// Example:
     /// ```ignore
-    /// # use google_cloud_storage::{model_ext::KeyAes256, client::Storage};
+    /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let mut writer = client
     ///     .open_appendable_object("projects/_/buckets/my-bucket", "my-object")
@@ -99,7 +99,9 @@ impl<S> OpenAppendableObject<S> {
     }
 
     /// Set a [request precondition] making the operation conditional on whether
-    /// the object's current generation matches the given value.
+    /// the object's current generation matches the given value. Setting to 0
+    /// makes the operation succeed only if there are no live versions of the
+    /// object.
     ///
     /// # Example
     /// ```
@@ -124,8 +126,8 @@ impl<S> OpenAppendableObject<S> {
 
     /// Set a [request precondition] making the operation conditional on whether
     /// the object's live generation does not match the given value. If no live
-    /// object exists, the precondition succeeds if the given value is 0, and
-    /// fails otherwise.
+    /// object exists, the precondition fails. Setting to 0 makes the operation
+    /// succeed only if there is a live version of the object.
     ///
     /// # Example
     /// ```
@@ -648,12 +650,15 @@ mod tests {
             ObjectCustomContextPayload::new().set_value("context-value"),
         )]));
 
+        assert_eq!(builder.request.spec.appendable, Some(true));
         assert_eq!(builder.request.spec.if_generation_match, Some(234));
         assert_eq!(builder.request.spec.if_generation_not_match, Some(345));
         assert_eq!(builder.request.spec.if_metageneration_match, Some(456));
         assert_eq!(builder.request.spec.if_metageneration_not_match, Some(567));
 
         let r = builder.request.spec.resource.as_ref().unwrap();
+        assert_eq!(r.bucket, BUCKET_NAME);
+        assert_eq!(r.name, OBJECT_NAME);
         assert_eq!(r.cache_control, "public; max-age=7200");
         assert_eq!(r.content_disposition, "attachment; filename=test.txt");
         assert_eq!(r.content_encoding, "gzip");

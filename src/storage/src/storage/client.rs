@@ -307,8 +307,6 @@ where
     /// * `bucket` - the bucket name containing the object. In
     ///   `projects/_/buckets/{bucket_id}` format.
     /// * `object` - the object name.
-    #[cfg(google_cloud_unstable_storage_bidi)]
-    #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
     pub fn open_appendable_object<B, O>(&self, bucket: B, object: O) -> OpenAppendableObject<S>
     where
         B: Into<String>,
