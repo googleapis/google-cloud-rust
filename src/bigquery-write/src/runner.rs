@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use crate::Result;
-use crate::error::{AppendError, AppendResult};
+use crate::error::AppendResult;
 use crate::google::cloud::bigquery::storage::v1::{AppendRowsRequest, AppendRowsResponse};
 use crate::stream::Stream;
 use crate::transport::Transport;
@@ -90,13 +90,14 @@ fn process_gax_response(
         .expect("the service sends one response per request");
 
     // Forward the result.
-    let resp = result.map_err(|e| AppendError::Rpc { source: e });
+    let resp = result.map_err(|e| e.into());
     let _ = resp_tx.send(resp);
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::error::AppendError;
     use crate::transport::tests::*;
     use bigquery_write_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::{Response as TonicResponse, Status as TonicStatus};
