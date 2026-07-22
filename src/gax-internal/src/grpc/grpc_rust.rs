@@ -34,6 +34,8 @@ use std::sync::Arc;
 // TODO(#5991): Will be used by bidi streaming in an upcoming commit.
 #[allow(dead_code)]
 pub mod bidi;
+#[allow(dead_code)]
+mod receive;
 
 /// A gRPC client backed by the [grpc-rust][grpc] crate.
 #[derive(Clone)]
