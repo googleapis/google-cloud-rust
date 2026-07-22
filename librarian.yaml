@@ -511,11 +511,10 @@ libraries:
     version: 1.11.0
     copyright_year: "2025"
   - name: google-cloud-bigquery-v2
-    version: 1.0.0
+    version: 0.0.1
     copyright_year: "2025"
     keep:
       - src/operation.rs
-    skip_release: true
     rust:
       package_name_override: google-cloud-bigquery-v2
   - name: google-cloud-bigquery-write
