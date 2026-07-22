@@ -104,7 +104,7 @@ impl ObjectDescriptorTransport {
         let active = ActiveRead::new(tx, range);
 
         // Skip checksums for ranged reads.
-        // Note: We do not skip checksums for gzip-encoded objects (decompressive transcoding) 
+        // Note: We do not skip checksums for gzip-encoded objects (decompressive transcoding)
         // because gRPC automatic object decompression is not supported by the server.
         // The client receives the raw compressed bytes which match the stored checksum.
         let is_ranged = !matches!(range, RequestedRange::Offset(0));
@@ -126,7 +126,8 @@ impl ObjectDescriptor for ObjectDescriptorTransport {
     }
 
     async fn read_range(&self, range: ReadRange) -> ReadObjectResponse {
-        let (active, response) = Self::map_range(range.0, &self.tx, &self.object, self.checksum.clone());
+        let (active, response) =
+            Self::map_range(range.0, &self.tx, &self.object, self.checksum.clone());
         self.tx
             .send(active)
             .await

@@ -90,10 +90,8 @@ impl ReadObjectResponse for RangeReader {
                 self.exhausted = true;
                 if let Some(expected) = &self.object.checksums {
                     let computed = self.checksum.finalize();
-                    let res = crate::storage::checksum::details::validate(
-                        expected,
-                        &Some(computed),
-                    );
+                    let res =
+                        crate::storage::checksum::details::validate(expected, &Some(computed));
                     if let Err(e) = res {
                         return Some(Err(Error::deser(ReadError::ChecksumMismatch(e))));
                     }
@@ -222,8 +220,7 @@ mod tests {
         let data = bytes::Bytes::from_static(b"the quick brown fox jumps over the lazy dog");
         let wrong_crc32c = crc32c::crc32c(&data) + 1; // Incorrect checksum
 
-        let object = Object::new()
-            .set_checksums(ObjectChecksums::new().set_crc32c(wrong_crc32c));
+        let object = Object::new().set_checksums(ObjectChecksums::new().set_crc32c(wrong_crc32c));
         let object = Arc::new(object);
 
         let (tx, inner) = tokio::sync::mpsc::channel(1);
@@ -249,7 +246,7 @@ mod tests {
         // Should yield a ChecksumMismatch error
         assert!(matches!(got, Some(Err(_))), "{got:?}");
         let err = got.unwrap().unwrap_err();
-        
+
         let source = err.source().and_then(|e| e.downcast_ref::<ReadError>());
         assert!(
             matches!(source, Some(ReadError::ChecksumMismatch(_))),
@@ -268,8 +265,7 @@ mod tests {
         let data = bytes::Bytes::from_static(b"the quick brown fox jumps over the lazy dog");
         let wrong_crc32c = crc32c::crc32c(&data) + 1; // Incorrect checksum for the whole object
 
-        let object = Object::new()
-            .set_checksums(ObjectChecksums::new().set_crc32c(wrong_crc32c));
+        let object = Object::new().set_checksums(ObjectChecksums::new().set_crc32c(wrong_crc32c));
         let object = Arc::new(object);
 
         let (tx, inner) = tokio::sync::mpsc::channel(1);
@@ -301,8 +297,7 @@ mod tests {
         let data = bytes::Bytes::from_static(b"the quick brown fox jumps over the lazy dog");
         let wrong_md5 = bytes::Bytes::from_static(b"wrongmd5hashhere");
 
-        let object = Object::new()
-            .set_checksums(ObjectChecksums::new().set_md5_hash(wrong_md5));
+        let object = Object::new().set_checksums(ObjectChecksums::new().set_md5_hash(wrong_md5));
         let object = Arc::new(object);
 
         let (tx, inner) = tokio::sync::mpsc::channel(1);

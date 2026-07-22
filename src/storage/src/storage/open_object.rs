@@ -154,10 +154,13 @@ impl<S> OpenObject<S> {
 
     /// Enables computation of CRC32C checksums.
     ///
-    /// Note that the library computes and verifies (if available) CRC32C checksums at the end of
-    /// the download. Use `compute_crc32c(false)` to disable the computation, but note
+    /// Note that the library computes and verifies (if available) rolling CRC32C checksums at the end of
+    /// the download. Use `compute_crc32c(false)` to disable this object-level rolling computation, but note
     /// that this reduces the data integrity guarantees. Data *can* be corrupted even when
     /// downloaded over HTTPS or other encrypted channels.
+    ///
+    /// Note: Chunk-level CRC32C validation (validating each individual gRPC message as it arrives)
+    /// remains permanently enabled for maximum safety, as it is hardware-accelerated and adds negligible latency.
     ///
     /// # Example
     /// ```
