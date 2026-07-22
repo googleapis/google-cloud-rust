@@ -517,6 +517,15 @@ libraries:
       - src/operation.rs
     rust:
       package_name_override: google-cloud-bigquery-v2
+      package_dependencies:
+        - name: tokio
+          package: tokio
+          force_used: true
+          features:
+            - time
+        - name: uuid
+          package: uuid
+          force_used: true
   - name: google-cloud-bigquery-write
     copyright_year: "2026"
     output: src/bigquery-write

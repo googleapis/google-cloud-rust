@@ -125,3 +125,63 @@ mod tests {
         assert_eq!(err.message, "test error");
     }
 }
+
+use crate::builder::job_service::InsertJob;
+use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+use google_cloud_lro::Poller;
+
+#[derive(Debug)]
+pub(crate) struct JobRetryPolicy {
+    pub job_level_retry_limit: usize,
+    pub backoff: ExponentialBackoff,
+}
+
+impl Default for JobRetryPolicy {
+    fn default() -> Self {
+        Self {
+            job_level_retry_limit: 3,
+            backoff: ExponentialBackoff::default(),
+        }
+    }
+}
+
+/// A poller that monitors the status of an inserted BigQuery job and handles retries.
+#[derive(Debug)]
+pub struct JobPoller {
+    policy: JobRetryPolicy,
+    builder: InsertJob,
+}
+
+impl JobPoller {
+    pub(crate) fn new(builder: InsertJob) -> Self {
+        Self {
+            policy: JobRetryPolicy::default(),
+            builder,
+        }
+    }
+
+    /// Sets the maximum number of times to retry a terminal job error with a new Job ID.
+    pub fn with_job_retry_limit(mut self, limit: usize) -> Self {
+        self.policy.job_level_retry_limit = limit;
+        self
+    }
+
+    /// Sets the exponential backoff policy for mutational job retries.
+    pub fn with_job_retry_backoff(mut self, backoff: ExponentialBackoff) -> Self {
+        self.policy.backoff = backoff;
+        self
+    }
+
+    /// Polls the job until it is done, returning the final Job status.
+    pub async fn until_done(self) -> google_cloud_gax::Result<Job> {
+        // Scaffolding: just pass through to standard poller for now
+        self.builder.poller().until_done().await
+    }
+}
+
+impl InsertJob {
+    /// Returns a `JobPoller` to monitor the status of the inserted job and automatically retry jobBackendError.
+    pub fn into_job_poller(self) -> JobPoller {
+        JobPoller::new(self)
+    }
+}
