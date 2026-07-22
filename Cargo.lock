@@ -2002,7 +2002,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-bigquery"
-version = "0.0.0"
+version = "0.16.0-preview"
 dependencies = [
  "anyhow",
  "base64",
