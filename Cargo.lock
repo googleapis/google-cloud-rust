@@ -2005,6 +2005,8 @@ name = "google-cloud-bigquery"
 version = "0.0.0"
 dependencies = [
  "anyhow",
+ "base64",
+ "bytes",
  "google-cloud-auth",
  "google-cloud-bigquery-derive",
  "google-cloud-bigquery-v2",
@@ -2191,6 +2193,7 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_with",
+ "thiserror",
  "tokio",
  "tokio-stream",
  "tracing",
@@ -6236,6 +6239,7 @@ name = "integration-tests-bigquery"
 version = "0.0.0"
 dependencies = [
  "anyhow",
+ "bytes",
  "futures",
  "google-cloud-bigquery",
  "google-cloud-bigquery-v2",

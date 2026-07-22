@@ -15,7 +15,10 @@
 mod batch;
 mod browse_table;
 mod clustered_table;
+mod ddl_create_routine;
+mod ddl_create_view;
 mod destination_table;
+mod dml_update;
 mod dry_run;
 mod job_optional;
 mod label_job;
@@ -25,11 +28,15 @@ mod no_cache;
 mod pagination;
 mod params_arrays;
 mod params_named;
+mod params_named_types;
 mod params_positional;
+mod params_positional_types;
+mod params_structs;
 mod params_timestamps;
 mod partitioned_table;
 #[allow(clippy::module_inception)]
 mod query;
+mod query_append;
 mod script;
 mod total_rows;
 
@@ -66,6 +73,9 @@ pub async fn run_samples() -> anyhow::Result<()> {
         Box::pin(params_timestamps::sample(&project_id)),
         Box::pin(clustered_table::sample(&project_id)),
         Box::pin(partitioned_table::sample(&project_id)),
+        Box::pin(params_structs::sample(&project_id)),
+        Box::pin(params_named_types::sample(&project_id)),
+        Box::pin(params_positional_types::sample(&project_id)),
         Box::pin(browse_table::sample(&project_id)),
         Box::pin(pagination::sample(&project_id)),
         Box::pin(total_rows::sample(&project_id)),
@@ -99,6 +109,10 @@ pub async fn run_samples_with_resources() -> anyhow::Result<()> {
 
     let destination_table_id = format!("dest_{}", random_id_suffix());
     let dest_legacy_table_id = format!("dest_legacy_{}", random_id_suffix());
+    let dml_table_id = format!("dml_{}", random_id_suffix());
+    let ddl_view_id = format!("view_{}", random_id_suffix());
+    let ddl_routine_id = format!("fn_{}", random_id_suffix());
+    let append_table_id = format!("append_{}", random_id_suffix());
 
     let pending: Vec<Pin<Box<dyn Future<Output = anyhow::Result<()>>>>> = vec![
         Box::pin(destination_table::sample(
@@ -110,6 +124,22 @@ pub async fn run_samples_with_resources() -> anyhow::Result<()> {
             &project_id,
             &dataset_id,
             &dest_legacy_table_id,
+        )),
+        Box::pin(dml_update::sample(&project_id, &dataset_id, &dml_table_id)),
+        Box::pin(ddl_create_view::sample(
+            &project_id,
+            &dataset_id,
+            &ddl_view_id,
+        )),
+        Box::pin(ddl_create_routine::sample(
+            &project_id,
+            &dataset_id,
+            &ddl_routine_id,
+        )),
+        Box::pin(query_append::sample(
+            &project_id,
+            &dataset_id,
+            &append_table_id,
         )),
     ];
     let res: anyhow::Result<Vec<_>> = futures::future::join_all(pending)
@@ -127,5 +157,30 @@ pub async fn run_samples_with_resources() -> anyhow::Result<()> {
         .await;
 
     let _ = res?;
+    Ok(())
+}
+
+// Validates resource identifier as a valid BigQuery resource name.
+fn validate_resource_name(name: &str) -> anyhow::Result<()> {
+    if name.is_empty()
+        || !name
+            .chars()
+            .all(|c| c.is_ascii_alphanumeric() || c == '_' || c == '-' || c == '.')
+    {
+        anyhow::bail!("Invalid resource identifier: {name}");
+    }
+    Ok(())
+}
+
+// Validates resource identifiers before constructing SQL strings to prevent SQL injection.
+pub(crate) fn validate_resource_names(
+    project_id: &str,
+    dataset_id: &str,
+    resource_id: &str, // table, routine or view
+) -> anyhow::Result<()> {
+    validate_resource_name(project_id)?;
+    validate_resource_name(dataset_id)?;
+    validate_resource_name(resource_id)?;
+
     Ok(())
 }
