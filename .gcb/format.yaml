@@ -126,17 +126,18 @@ steps:
     waitFor: ['-']
     env:
       - GOTOOLCHAIN=auto
-  - name: 'ubuntu:24.04'
-    id: 'Format Protobuf files'
-    script: |
-      #!/usr/bin/env bash
-      set -euv
-      # Make three attempts to avoid download flakes.
-      apt -o Acquire::Retries=3 update
-      apt -o Acquire::Retries=3 install -y clang-format git
-      git ls-files -z -- '*.proto' ':!:**/testdata/googleapis/**' ':!:**/grpc-mock/**' | \
-        xargs -0 -r -P "$(nproc)" -n 50 clang-format -i
-    waitFor: ['-']
+  # TODO(#6139) - reenable proto formatting step.
+  # - name: 'ubuntu:24.04'
+  #   id: 'Format Protobuf files'
+  #   script: |
+  #     #!/usr/bin/env bash
+  #     set -euv
+  #     # Make three attempts to avoid download flakes.
+  #     apt -o Acquire::Retries=3 update
+  #     apt -o Acquire::Retries=3 install -y clang-format git
+  #     git ls-files -z -- '*.proto' ':!:**/testdata/googleapis/**' ':!:**/grpc-mock/**' | \
+  #       xargs -0 -r -P "$(nproc)" -n 50 clang-format -i
+  #   waitFor: ['-']
   - name: 'python:${_PYTHON_VERSION}'
     id: 'Format Markdown (.md) files'
     # Need entrypoint otherwise it starts Python.
