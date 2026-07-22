@@ -18,8 +18,7 @@ use crate::google::cloud::bigquery::storage::v1::{AppendRowsRequest, AppendRowsR
 use crate::stream::Stream;
 use crate::transport::Transport;
 use gaxi::grpc::from_status::to_gax_error;
-use gaxi::grpc::tonic::Status as TonicStatus;
-use gaxi::grpc::tonic::Streaming;
+use gaxi::grpc::tonic::{Status as TonicStatus, Streaming};
 use std::collections::VecDeque;
 use std::sync::Arc;
 use tokio::sync::{mpsc, oneshot};
@@ -102,6 +101,7 @@ async fn run_stream_task(inner: Arc<Transport>, mut req_rx: mpsc::Receiver<Write
             resp = stream.message() => {
                 match resp.transpose() {
                     Some(r) => process_response(&mut resp_txs, r),
+                    // Note that tonic yields `None` after an `Err(e)`.
                     None => break,
                 }
             }
@@ -145,9 +145,8 @@ mod tests {
         AppendResult, Response,
     };
     use crate::transport::tests::*;
-    use crate::transport::tests::*;
     use bigquery_write_grpc_mock::{MockBigQueryWrite, start};
-    use gaxi::grpc::tonic::{Response as TonicResponse, Status as TonicStatus};
+    use gaxi::grpc::tonic::Response as TonicResponse;
     use google_cloud_gax::error::rpc::Code;
 
     #[tokio::test]
@@ -313,7 +312,7 @@ mod tests {
         assert_eq!(status.message, "fail");
 
         // resp 3 - channel closed error
-        let resp3 = resp_rx3.await.expect_err("channel should be closed");
+        let _resp3 = resp_rx3.await.expect_err("channel should be closed");
 
         drop(req_tx);
         drop(response_tx);
@@ -427,10 +426,10 @@ mod tests {
         drop(response_tx);
 
         // resp 2 - channel closed error
-        let resp2 = resp_rx2.await.expect_err("channel should be closed");
+        let _resp2 = resp_rx2.await.expect_err("channel should be closed");
 
         // resp 3 - channel closed error
-        let resp3 = resp_rx3.await.expect_err("channel should be closed");
+        let _resp3 = resp_rx3.await.expect_err("channel should be closed");
         handle.await?;
 
         Ok(())
