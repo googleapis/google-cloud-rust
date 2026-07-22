@@ -5002,7 +5002,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-storage"
-version = "1.16.0"
+version = "1.17.0"
 dependencies = [
  "anyhow",
  "async-trait",
