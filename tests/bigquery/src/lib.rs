@@ -267,6 +267,7 @@ struct UserData {
     event_time: google_cloud_type::model::DateTime,
     nullable_name: Option<String>,
     nullable_age: Option<i64>,
+    interval_val: google_cloud_bigquery::Interval,
 }
 
 pub async fn query_client_datatypes() -> Result<()> {
@@ -286,7 +287,8 @@ pub async fn query_client_datatypes() -> Result<()> {
                  TIME '15:30:00' AS daily_alarm, \
                  DATETIME '2026-05-28 15:30:00' AS event_time, \
                  CAST(NULL AS STRING) AS nullable_name, \
-                 CAST(NULL AS INT64) AS nullable_age",
+                 CAST(NULL AS INT64) AS nullable_age, \
+                 INTERVAL '1 2:30:45.123456' DAY TO SECOND AS interval_val",
         )
         .with_project_id(project_id)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
@@ -325,6 +327,15 @@ pub async fn query_client_datatypes() -> Result<()> {
             .set_nanos(0),
         nullable_name: None,
         nullable_age: None,
+        interval_val: google_cloud_bigquery::Interval {
+            years: 0,
+            months: 0,
+            days: 1,
+            hours: 2,
+            minutes: 30,
+            seconds: 45,
+            nanos: 123_456_000,
+        },
     };
 
     assert_eq!(row.get::<String, _>("name"), expected.name);
@@ -355,6 +366,10 @@ pub async fn query_client_datatypes() -> Result<()> {
     assert_eq!(
         row.get::<Option<i64>, _>("nullable_age"),
         expected.nullable_age
+    );
+    assert_eq!(
+        row.get::<google_cloud_bigquery::Interval, _>("interval_val"),
+        expected.interval_val
     );
 
     let data: UserData = row.try_into()?;
