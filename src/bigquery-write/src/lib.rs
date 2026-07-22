@@ -34,8 +34,11 @@ pub(crate) use google_cloud_gax::options::RequestOptions;
 pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
 pub(crate) use google_cloud_gax::response::Response;
 
+#[cfg_attr(not(test), expect(dead_code))]
+mod error;
 mod proto_schema;
 #[cfg_attr(not(test), expect(dead_code))]
+mod stream;
 mod transport;
 
 // TODO(#4832) - remove handwritten code.

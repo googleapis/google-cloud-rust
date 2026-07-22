@@ -28,6 +28,7 @@ log-integration-tests = []
 
 [dependencies]
 anyhow.workspace         = true
+bytes.workspace          = true
 futures.workspace        = true
 google-cloud-bigquery    = { path = "../../src/bigquery" }
 google-cloud-bigquery-v2 = { workspace = true, features = ["default"] }

@@ -254,6 +254,24 @@ pub async fn query_client() -> Result<()> {
     Ok(())
 }
 
+#[derive(google_cloud_bigquery::FromRow, Debug, PartialEq)]
+struct UserData {
+    name: String,
+    age: i64,
+    height: f64,
+    active: bool,
+    numbers: Vec<i64>,
+    created_at: wkt::Timestamp,
+    birth_date: google_cloud_type::model::Date,
+    daily_alarm: google_cloud_type::model::TimeOfDay,
+    event_time: google_cloud_type::model::DateTime,
+    nullable_name: Option<String>,
+    nullable_age: Option<i64>,
+    raw_bytes: Vec<u8>,
+    payload_bytes: bytes::Bytes,
+    nullable_bytes: Option<Vec<u8>>,
+}
+
 pub async fn query_client_datatypes() -> Result<()> {
     let project_id = project_id()?;
     let bq = BigQuery::builder().build().await?;
@@ -265,12 +283,16 @@ pub async fn query_client_datatypes() -> Result<()> {
                  30 AS age, \
                  1.85 AS height, \
                  true AS active, \
+                 ARRAY[1, 2, 3] AS numbers, \
                  TIMESTAMP '2026-05-28 15:30:00 UTC' AS created_at, \
                  DATE '2026-05-28' AS birth_date, \
                  TIME '15:30:00' AS daily_alarm, \
                  DATETIME '2026-05-28 15:30:00' AS event_time, \
                  CAST(NULL AS STRING) AS nullable_name, \
-                 CAST(NULL AS INT64) AS nullable_age",
+                 CAST(NULL AS INT64) AS nullable_age, \
+                 B'hello world' AS raw_bytes, \
+                 B'payload in bytes' AS payload_bytes, \
+                 CAST(NULL AS BYTES) AS nullable_bytes",
         )
         .with_project_id(project_id)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
@@ -283,48 +305,78 @@ pub async fn query_client_datatypes() -> Result<()> {
     let mut iter = complete_query.read();
     let row = iter.next().await.expect("row must exist")?;
 
-    assert_eq!(row.get::<String, _>("name"), "John Doe");
-    assert_eq!(row.get::<i64, _>("age"), 30);
-    assert_eq!(row.get::<f64, _>("height"), 1.85);
-    assert!(row.get::<bool, _>("active"));
-
-    let created_at = row.get::<wkt::Timestamp, _>("created_at");
-    assert_eq!(created_at, wkt::Timestamp::new(1779982200, 0).unwrap());
-
-    let birth_date = row.get::<google_cloud_type::model::Date, _>("birth_date");
-    assert_eq!(
-        birth_date,
-        google_cloud_type::model::Date::new()
+    let expected = UserData {
+        name: "John Doe".to_string(),
+        age: 30,
+        height: 1.85,
+        active: true,
+        numbers: vec![1, 2, 3],
+        created_at: wkt::Timestamp::new(1779982200, 0).unwrap(),
+        birth_date: google_cloud_type::model::Date::new()
             .set_year(2026)
             .set_month(5)
-            .set_day(28)
-    );
-
-    let daily_alarm = row.get::<google_cloud_type::model::TimeOfDay, _>("daily_alarm");
-    assert_eq!(
-        daily_alarm,
-        google_cloud_type::model::TimeOfDay::new()
+            .set_day(28),
+        daily_alarm: google_cloud_type::model::TimeOfDay::new()
             .set_hours(15)
             .set_minutes(30)
             .set_seconds(0)
-            .set_nanos(0)
-    );
-
-    let event_time = row.get::<google_cloud_type::model::DateTime, _>("event_time");
-    assert_eq!(
-        event_time,
-        google_cloud_type::model::DateTime::new()
+            .set_nanos(0),
+        event_time: google_cloud_type::model::DateTime::new()
             .set_year(2026)
             .set_month(5)
             .set_day(28)
             .set_hours(15)
             .set_minutes(30)
             .set_seconds(0)
-            .set_nanos(0)
+            .set_nanos(0),
+        nullable_name: None,
+        nullable_age: None,
+        raw_bytes: b"hello world".to_vec(),
+        payload_bytes: bytes::Bytes::from_static(b"payload in bytes"),
+        nullable_bytes: None,
+    };
+
+    assert_eq!(row.get::<String, _>("name"), expected.name);
+    assert_eq!(row.get::<i64, _>("age"), expected.age);
+    assert_eq!(row.get::<f64, _>("height"), expected.height);
+    assert_eq!(row.get::<bool, _>("active"), expected.active);
+    assert_eq!(row.get::<Vec<i64>, _>("numbers"), expected.numbers);
+    assert_eq!(
+        row.get::<wkt::Timestamp, _>("created_at"),
+        expected.created_at
+    );
+    assert_eq!(
+        row.get::<google_cloud_type::model::Date, _>("birth_date"),
+        expected.birth_date
+    );
+    assert_eq!(
+        row.get::<google_cloud_type::model::TimeOfDay, _>("daily_alarm"),
+        expected.daily_alarm
+    );
+    assert_eq!(
+        row.get::<google_cloud_type::model::DateTime, _>("event_time"),
+        expected.event_time
+    );
+    assert_eq!(
+        row.get::<Option<String>, _>("nullable_name"),
+        expected.nullable_name
+    );
+    assert_eq!(
+        row.get::<Option<i64>, _>("nullable_age"),
+        expected.nullable_age
+    );
+    assert_eq!(row.get::<Vec<u8>, _>("raw_bytes"), expected.raw_bytes);
+    assert_eq!(
+        row.get::<bytes::Bytes, _>("payload_bytes"),
+        expected.payload_bytes
+    );
+    assert_eq!(
+        row.get::<Option<Vec<u8>>, _>("nullable_bytes"),
+        expected.nullable_bytes
     );
 
-    assert_eq!(row.get::<Option<String>, _>("nullable_name"), None);
-    assert_eq!(row.get::<Option<i64>, _>("nullable_age"), None);
+    let data: UserData = row.try_into()?;
+    assert_eq!(data, expected);
 
     assert!(iter.next().await.is_none());
 
@@ -390,7 +442,6 @@ pub async fn query_client_multi_page() -> Result<()> {
 
     let query = bq
         .query("SELECT * FROM UNNEST(GENERATE_ARRAY(1, 10000)) AS val")
-        .set_use_legacy_sql(false)
         .set_max_results(1000_u32)
         .with_project_id(project_id)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
@@ -417,7 +468,6 @@ pub async fn query_client_job() -> Result<()> {
 
     let query = bq
         .query("SELECT 2 as two")
-        .set_use_legacy_sql(false)
         .set_priority("INTERACTIVE") // force job path
         .with_project_id(project_id)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
@@ -432,6 +482,83 @@ pub async fn query_client_job() -> Result<()> {
     let row = iter.next().await.expect("should return first row")?;
     assert_eq!(row.get::<i64, _>("two"), 2);
     assert!(iter.next().await.is_none(), "{iter:?}");
+
+    Ok(())
+}
+
+#[derive(google_cloud_bigquery::FromSql, Debug, PartialEq)]
+struct UserRecord {
+    name: String,
+    age: i64,
+}
+
+#[derive(google_cloud_bigquery::FromSql, Debug, PartialEq)]
+struct UserProfile {
+    name: String,
+    age: i64,
+    birth_date: google_cloud_type::model::Date,
+}
+
+#[derive(google_cloud_bigquery::FromRow, Debug, PartialEq)]
+struct RowData {
+    user: UserRecord,
+    numbers: Vec<i64>,
+    users: Vec<UserRecord>,
+    profile: UserProfile,
+}
+
+pub async fn query_client_nested_types() -> Result<()> {
+    let project_id = project_id()?;
+    let bq = google_cloud_bigquery::client::BigQuery::builder()
+        .build()
+        .await?;
+
+    println!("STARTING NESTED TYPES INTEGRATION TEST");
+    let sql = "SELECT \
+                 STRUCT('Alice' AS name, 25 AS age) AS user, \
+                 ARRAY[1, 2, 3] AS numbers, \
+                 ARRAY[STRUCT('Bob' AS name, 28 AS age), STRUCT('Charlie' AS name, 31 AS age)] AS users, \
+                 STRUCT('Dave' AS name, 40 AS age, DATE '1986-05-28' AS birth_date) AS profile";
+
+    let query = bq
+        .query(sql)
+        .with_project_id(project_id)
+        .set_labels(vec![(INSTANCE_LABEL, "true")])
+        .run()
+        .await?;
+
+    let complete_query = query.until_done().await?;
+    let mut rows = complete_query.read();
+
+    let row = rows.next().await.expect("row must exist")?;
+
+    // Deserialize the entire row as user defined struct
+    let data: RowData = row.try_into()?;
+
+    // verify nested struct
+    assert_eq!(data.user.name, "Alice");
+    assert_eq!(data.user.age, 25);
+
+    // verify repeated basic type (ARRAY)
+    assert_eq!(data.numbers, vec![1, 2, 3]);
+
+    // verify repeated struct
+    let bob = UserRecord {
+        name: "Bob".to_string(),
+        age: 28,
+    };
+    let charlie = UserRecord {
+        name: "Charlie".to_string(),
+        age: 31,
+    };
+    assert_eq!(data.users, [bob, charlie]);
+
+    // verify user-defined struct with BQ-specific date field
+    assert_eq!(data.profile.name, "Dave");
+    assert_eq!(data.profile.age, 40);
+    assert_eq!(data.profile.birth_date.year, 1986);
+    assert_eq!(data.profile.birth_date.month, 5);
+    assert_eq!(data.profile.birth_date.day, 28);
 
     Ok(())
 }

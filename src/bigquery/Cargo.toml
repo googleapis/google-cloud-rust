@@ -27,17 +27,20 @@ categories.workspace   = true
 rust-version.workspace = true
 
 [dependencies]
-serde_json.workspace       = true
-google-cloud-auth          = { workspace = true }
-google-cloud-gax.workspace = true
-google-cloud-bigquery-v2   = { workspace = true }
-google-cloud-type          = { workspace = true }
-thiserror.workspace        = true
-time                       = { workspace = true, features = ["formatting", "macros", "parsing"] }
-wkt.workspace              = true
-gaxi                       = { workspace = true, features = ["_internal-common", "_internal-grpc-client", "_internal-http-client"] }
-tokio                      = { workspace = true, features = ["time"] }
-rust_decimal.workspace     = true
+base64.workspace             = true
+bytes.workspace              = true
+serde_json.workspace         = true
+google-cloud-auth            = { workspace = true }
+google-cloud-gax.workspace   = true
+google-cloud-bigquery-v2     = { workspace = true }
+google-cloud-bigquery-derive = { workspace = true }
+google-cloud-type            = { workspace = true }
+thiserror.workspace          = true
+time                         = { workspace = true, features = ["formatting", "macros", "parsing"] }
+wkt.workspace                = true
+gaxi                         = { workspace = true, features = ["_internal-common", "_internal-grpc-client", "_internal-http-client"] }
+tokio                        = { workspace = true, features = ["time"] }
+rust_decimal.workspace       = true
 
 [dev-dependencies]
 anyhow.workspace    = true
