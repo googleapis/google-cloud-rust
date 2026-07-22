@@ -113,6 +113,19 @@ impl std::fmt::Debug for super::iceberg_catalog::federated_catalog_options::Glue
     }
 }
 
+impl std::fmt::Debug for super::iceberg_catalog::federated_catalog_options::SnowflakeCatalogInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SnowflakeCatalogInfo");
+        debug_struct.field("account_identifier", &self.account_identifier);
+        debug_struct.field("warehouse", &self.warehouse);
+        debug_struct.field("snowflake_role", &self.snowflake_role);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::iceberg_catalog::federated_catalog_options::RefreshSchedule {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RefreshSchedule");
@@ -215,6 +228,7 @@ impl std::fmt::Debug for super::ListIcebergCatalogsRequest {
         debug_struct.field("view", &self.view);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

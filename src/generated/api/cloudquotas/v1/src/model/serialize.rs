@@ -260,6 +260,93 @@ impl serde::ser::Serialize for super::UpdateQuotaPreferenceRequest {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::GetQuotaAdjusterSettingsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::UpdateQuotaAdjusterSettingsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.quota_adjuster_settings.is_some() {
+            state.serialize_entry("quotaAdjusterSettings", &self.quota_adjuster_settings)?;
+        }
+        if self.update_mask.is_some() {
+            state.serialize_entry("updateMask", &self.update_mask)?;
+        }
+        if !wkt::internal::is_default(&self.validate_only) {
+            state.serialize_entry("validateOnly", &self.validate_only)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::QuotaAdjusterSettings {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !wkt::internal::is_default(&self.enablement) {
+            state.serialize_entry("enablement", &self.enablement)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
+        }
+        if !self.etag.is_empty() {
+            state.serialize_entry("etag", &self.etag)?;
+        }
+        if !wkt::internal::is_default(&self.inherited) {
+            state.serialize_entry("inherited", &self.inherited)?;
+        }
+        if !self.inherited_from.is_empty() {
+            state.serialize_entry("inheritedFrom", &self.inherited_from)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::QuotaInfo {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where

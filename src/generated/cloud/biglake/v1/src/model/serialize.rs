@@ -144,6 +144,9 @@ impl serde::ser::Serialize for super::iceberg_catalog::FederatedCatalogOptions {
         if let Some(value) = self.glue_catalog_info() {
             state.serialize_entry("glue-catalog-info", value)?;
         }
+        if let Some(value) = self.snowflake_catalog_info() {
+            state.serialize_entry("snowflake-catalog-info", value)?;
+        }
         if self.secret_name.is_some() {
             state.serialize_entry("secret-name", &self.secret_name)?;
         }
@@ -214,6 +217,36 @@ impl serde::ser::Serialize for super::iceberg_catalog::federated_catalog_options
         }
         if self.aws_role_arn.is_some() {
             state.serialize_entry("aws-role-arn", &self.aws_role_arn)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize
+    for super::iceberg_catalog::federated_catalog_options::SnowflakeCatalogInfo
+{
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.account_identifier.is_some() {
+            state.serialize_entry("account-identifier", &self.account_identifier)?;
+        }
+        if self.warehouse.is_some() {
+            state.serialize_entry("warehouse", &self.warehouse)?;
+        }
+        if self.snowflake_role.is_some() {
+            state.serialize_entry("snowflake-role", &self.snowflake_role)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -451,6 +484,9 @@ impl serde::ser::Serialize for super::ListIcebergCatalogsRequest {
         }
         if !self.page_token.is_empty() {
             state.serialize_entry("page-token", &self.page_token)?;
+        }
+        if !self.filter.is_empty() {
+            state.serialize_entry("filter", &self.filter)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

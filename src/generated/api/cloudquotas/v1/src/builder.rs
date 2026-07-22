@@ -649,3 +649,233 @@ pub mod cloud_quotas {
         }
     }
 }
+
+/// Request and client builders for [QuotaAdjusterSettingsManager][crate::client::QuotaAdjusterSettingsManager].
+pub mod quota_adjuster_settings_manager {
+    use crate::Result;
+
+    /// A builder for [QuotaAdjusterSettingsManager][crate::client::QuotaAdjusterSettingsManager].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_api_cloudquotas_v1::*;
+    /// # use builder::quota_adjuster_settings_manager::ClientBuilder;
+    /// # use client::QuotaAdjusterSettingsManager;
+    /// let builder : ClientBuilder = QuotaAdjusterSettingsManager::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://cloudquotas.googleapis.com")
+    ///     .build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::QuotaAdjusterSettingsManager;
+        pub struct Factory;
+        impl crate::ClientFactory for Factory {
+            type Client = QuotaAdjusterSettingsManager;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> crate::ClientBuilderResult<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
+    /// Common implementation for [crate::client::QuotaAdjusterSettingsManager] request builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::QuotaAdjusterSettingsManager>,
+        request: R,
+        options: crate::RequestOptions,
+    }
+
+    impl<R> RequestBuilder<R>
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::QuotaAdjusterSettingsManager>,
+        ) -> Self {
+            Self {
+                stub,
+                request: R::default(),
+                options: crate::RequestOptions::default(),
+            }
+        }
+    }
+
+    /// The request builder for [QuotaAdjusterSettingsManager::update_quota_adjuster_settings][crate::client::QuotaAdjusterSettingsManager::update_quota_adjuster_settings] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_cloudquotas_v1::builder::quota_adjuster_settings_manager::UpdateQuotaAdjusterSettings;
+    /// # async fn sample() -> google_cloud_api_cloudquotas_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateQuotaAdjusterSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateQuotaAdjusterSettings(
+        RequestBuilder<crate::model::UpdateQuotaAdjusterSettingsRequest>,
+    );
+
+    impl UpdateQuotaAdjusterSettings {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::QuotaAdjusterSettingsManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateQuotaAdjusterSettingsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::QuotaAdjusterSettings> {
+            (*self.0.stub)
+                .update_quota_adjuster_settings(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [quota_adjuster_settings][crate::model::UpdateQuotaAdjusterSettingsRequest::quota_adjuster_settings].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_quota_adjuster_settings<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::QuotaAdjusterSettings>,
+        {
+            self.0.request.quota_adjuster_settings = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [quota_adjuster_settings][crate::model::UpdateQuotaAdjusterSettingsRequest::quota_adjuster_settings].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_quota_adjuster_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::QuotaAdjusterSettings>,
+        {
+            self.0.request.quota_adjuster_settings = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateQuotaAdjusterSettingsRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateQuotaAdjusterSettingsRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [validate_only][crate::model::UpdateQuotaAdjusterSettingsRequest::validate_only].
+        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.validate_only = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateQuotaAdjusterSettings {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [QuotaAdjusterSettingsManager::get_quota_adjuster_settings][crate::client::QuotaAdjusterSettingsManager::get_quota_adjuster_settings] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_cloudquotas_v1::builder::quota_adjuster_settings_manager::GetQuotaAdjusterSettings;
+    /// # async fn sample() -> google_cloud_api_cloudquotas_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetQuotaAdjusterSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetQuotaAdjusterSettings(
+        RequestBuilder<crate::model::GetQuotaAdjusterSettingsRequest>,
+    );
+
+    impl GetQuotaAdjusterSettings {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::QuotaAdjusterSettingsManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetQuotaAdjusterSettingsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::QuotaAdjusterSettings> {
+            (*self.0.stub)
+                .get_quota_adjuster_settings(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetQuotaAdjusterSettingsRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetQuotaAdjusterSettings {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+}

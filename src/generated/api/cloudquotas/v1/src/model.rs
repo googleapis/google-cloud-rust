@@ -38,7 +38,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListQuotaInfosRequest {
-    /// Required. Parent value of QuotaInfo resources.
+    /// Required. Identifier. Parent value of QuotaInfo resources.
     /// Listing across different resource containers (such as 'projects/-') is not
     /// allowed.
     ///
@@ -189,7 +189,7 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListQuotaInfosR
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetQuotaInfoRequest {
-    /// Required. The resource name of the quota info.
+    /// Required. Identifier. The resource name of the quota info.
     ///
     /// An example name:
     /// `projects/123/locations/global/services/compute.googleapis.com/quotaInfos/CpusPerProjectPerRegion`
@@ -231,7 +231,7 @@ impl wkt::message::Message for GetQuotaInfoRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListQuotaPreferencesRequest {
-    /// Required. Parent value of QuotaPreference resources.
+    /// Required. Identifier. Parent value of QuotaPreference resources.
     /// Listing across different resource containers (such as 'projects/-') is not
     /// allowed.
     ///
@@ -443,7 +443,7 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListQuotaPrefer
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetQuotaPreferenceRequest {
-    /// Required. Name of the resource
+    /// Required. Identifier. Name of the resource
     ///
     /// Example name:
     /// `projects/123/locations/global/quota_preferences/my-config-for-us-east1`
@@ -484,7 +484,7 @@ impl wkt::message::Message for GetQuotaPreferenceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateQuotaPreferenceRequest {
-    /// Required. Value for parent.
+    /// Required. Identifier. Value for parent.
     ///
     /// Example:
     /// `projects/123/locations/global`
@@ -752,6 +752,449 @@ impl wkt::message::Message for UpdateQuotaPreferenceRequest {
     }
 }
 
+/// Request for getting QuotaAdjusterSettings
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetQuotaAdjusterSettingsRequest {
+    /// Required. Identifier. Name of the `quotaAdjusterSettings` configuration.
+    /// Only a single setting per project is supported.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetQuotaAdjusterSettingsRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetQuotaAdjusterSettingsRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_api_cloudquotas_v1::model::GetQuotaAdjusterSettingsRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = GetQuotaAdjusterSettingsRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/quotaAdjusterSettings"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetQuotaAdjusterSettingsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.api.cloudquotas.v1.GetQuotaAdjusterSettingsRequest"
+    }
+}
+
+/// Request for updating QuotaAdjusterSettings
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateQuotaAdjusterSettingsRequest {
+    /// Required. The QuotaAdjusterSettings to update.
+    pub quota_adjuster_settings: std::option::Option<crate::model::QuotaAdjusterSettings>,
+
+    /// Optional. The list of fields to update.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Optional. If set to true, checks the syntax of the request but doesn't
+    /// update the quota adjuster settings value. Note that although a request can
+    /// be valid, that doesn't guarantee that the request will be fulfilled.
+    pub validate_only: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateQuotaAdjusterSettingsRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [quota_adjuster_settings][crate::model::UpdateQuotaAdjusterSettingsRequest::quota_adjuster_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_api_cloudquotas_v1::model::UpdateQuotaAdjusterSettingsRequest;
+    /// use google_cloud_api_cloudquotas_v1::model::QuotaAdjusterSettings;
+    /// let x = UpdateQuotaAdjusterSettingsRequest::new().set_quota_adjuster_settings(QuotaAdjusterSettings::default()/* use setters */);
+    /// ```
+    pub fn set_quota_adjuster_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::QuotaAdjusterSettings>,
+    {
+        self.quota_adjuster_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [quota_adjuster_settings][crate::model::UpdateQuotaAdjusterSettingsRequest::quota_adjuster_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_api_cloudquotas_v1::model::UpdateQuotaAdjusterSettingsRequest;
+    /// use google_cloud_api_cloudquotas_v1::model::QuotaAdjusterSettings;
+    /// let x = UpdateQuotaAdjusterSettingsRequest::new().set_or_clear_quota_adjuster_settings(Some(QuotaAdjusterSettings::default()/* use setters */));
+    /// let x = UpdateQuotaAdjusterSettingsRequest::new().set_or_clear_quota_adjuster_settings(None::<QuotaAdjusterSettings>);
+    /// ```
+    pub fn set_or_clear_quota_adjuster_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::QuotaAdjusterSettings>,
+    {
+        self.quota_adjuster_settings = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateQuotaAdjusterSettingsRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_api_cloudquotas_v1::model::UpdateQuotaAdjusterSettingsRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateQuotaAdjusterSettingsRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateQuotaAdjusterSettingsRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_api_cloudquotas_v1::model::UpdateQuotaAdjusterSettingsRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateQuotaAdjusterSettingsRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateQuotaAdjusterSettingsRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [validate_only][crate::model::UpdateQuotaAdjusterSettingsRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_api_cloudquotas_v1::model::UpdateQuotaAdjusterSettingsRequest;
+    /// let x = UpdateQuotaAdjusterSettingsRequest::new().set_validate_only(true);
+    /// ```
+    pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.validate_only = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateQuotaAdjusterSettingsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.api.cloudquotas.v1.UpdateQuotaAdjusterSettingsRequest"
+    }
+}
+
+/// The QuotaAdjusterSettings resource defines the settings for the Quota
+/// Adjuster.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct QuotaAdjusterSettings {
+    /// Identifier. Name of the configuration, in the formats below:
+    ///
+    /// * For a project:
+    ///   projects/PROJECT_NUMBER/locations/global/quotaAdjusterSettings
+    /// * For a folder:
+    ///   folders/FOLDER_NUMBER/locations/global/quotaAdjusterSettings
+    /// * For an organization:
+    ///   organizations/ORGANIZATION_NUMBER/locations/global/quotaAdjusterSettings
+    pub name: std::string::String,
+
+    /// Optional. The configured value of the enablement at the given resource.
+    pub enablement: crate::model::quota_adjuster_settings::Enablement,
+
+    /// Output only. The timestamp when the QuotaAdjusterSettings resource was last
+    /// updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. The current ETag of the QuotaAdjusterSettings. If an ETag is
+    /// provided on update and does not match the current server's ETag in the
+    /// QuotaAdjusterSettings, the request is blocked and returns an ABORTED error.
+    /// See <https://google.aip.dev/134#etags> for more details on ETags.
+    pub etag: std::string::String,
+
+    /// Optional. Indicates whether the setting is inherited or explicitly
+    /// specified.
+    pub inherited: bool,
+
+    /// Output only. The resource container from which the setting is inherited.
+    /// This refers to the  nearest ancestor with enablement set (either ENABLED or
+    /// DISABLED). The value can be an organizations/{organization_id},
+    /// folders/{folder_id}, or can be 'default' if no ancestor exists with
+    /// enablement set. The value will be empty when enablement is directly set on
+    /// this container.
+    pub inherited_from: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl QuotaAdjusterSettings {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::QuotaAdjusterSettings::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_api_cloudquotas_v1::model::QuotaAdjusterSettings;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = QuotaAdjusterSettings::new().set_name(format!("projects/{project_id}/locations/{location_id}/quotaAdjusterSettings"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [enablement][crate::model::QuotaAdjusterSettings::enablement].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_api_cloudquotas_v1::model::QuotaAdjusterSettings;
+    /// use google_cloud_api_cloudquotas_v1::model::quota_adjuster_settings::Enablement;
+    /// let x0 = QuotaAdjusterSettings::new().set_enablement(Enablement::Enabled);
+    /// let x1 = QuotaAdjusterSettings::new().set_enablement(Enablement::Disabled);
+    /// ```
+    pub fn set_enablement<
+        T: std::convert::Into<crate::model::quota_adjuster_settings::Enablement>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.enablement = v.into();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::QuotaAdjusterSettings::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_api_cloudquotas_v1::model::QuotaAdjusterSettings;
+    /// use wkt::Timestamp;
+    /// let x = QuotaAdjusterSettings::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::QuotaAdjusterSettings::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_api_cloudquotas_v1::model::QuotaAdjusterSettings;
+    /// use wkt::Timestamp;
+    /// let x = QuotaAdjusterSettings::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = QuotaAdjusterSettings::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::QuotaAdjusterSettings::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_api_cloudquotas_v1::model::QuotaAdjusterSettings;
+    /// let x = QuotaAdjusterSettings::new().set_etag("example");
+    /// ```
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [inherited][crate::model::QuotaAdjusterSettings::inherited].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_api_cloudquotas_v1::model::QuotaAdjusterSettings;
+    /// let x = QuotaAdjusterSettings::new().set_inherited(true);
+    /// ```
+    pub fn set_inherited<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.inherited = v.into();
+        self
+    }
+
+    /// Sets the value of [inherited_from][crate::model::QuotaAdjusterSettings::inherited_from].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_api_cloudquotas_v1::model::QuotaAdjusterSettings;
+    /// let x = QuotaAdjusterSettings::new().set_inherited_from("example");
+    /// ```
+    pub fn set_inherited_from<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.inherited_from = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for QuotaAdjusterSettings {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.api.cloudquotas.v1.QuotaAdjusterSettings"
+    }
+}
+
+/// Defines additional types related to [QuotaAdjusterSettings].
+pub mod quota_adjuster_settings {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The enablement status of the quota adjuster.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Enablement {
+        /// The quota adjuster is in an unknown state.
+        Unspecified,
+        /// The quota adjuster is enabled.
+        Enabled,
+        /// The quota adjuster is disabled.
+        Disabled,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Enablement::value] or
+        /// [Enablement::name].
+        UnknownValue(enablement::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod enablement {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Enablement {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Enabled => std::option::Option::Some(2),
+                Self::Disabled => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("ENABLEMENT_UNSPECIFIED"),
+                Self::Enabled => std::option::Option::Some("ENABLED"),
+                Self::Disabled => std::option::Option::Some("DISABLED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Enablement {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Enablement {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Enablement {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                2 => Self::Enabled,
+                3 => Self::Disabled,
+                _ => Self::UnknownValue(enablement::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Enablement {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ENABLEMENT_UNSPECIFIED" => Self::Unspecified,
+                "ENABLED" => Self::Enabled,
+                "DISABLED" => Self::Disabled,
+                _ => Self::UnknownValue(enablement::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Enablement {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Enabled => serializer.serialize_i32(2),
+                Self::Disabled => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Enablement {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Enablement>::new(
+                ".google.api.cloudquotas.v1.QuotaAdjusterSettings.Enablement",
+            ))
+        }
+    }
+}
+
 /// QuotaInfo represents information about a particular quota for a given
 /// project, folder or organization.
 #[derive(Clone, Default, PartialEq)]
@@ -759,21 +1202,21 @@ impl wkt::message::Message for UpdateQuotaPreferenceRequest {
 pub struct QuotaInfo {
     /// Resource name of this QuotaInfo.
     /// The ID component following "locations/" must be "global".
-    /// Example:
+    /// For example,
     /// `projects/123/locations/global/services/compute.googleapis.com/quotaInfos/CpusPerProjectPerRegion`
     pub name: std::string::String,
 
     /// The id of the quota, which is unique within the service.
-    /// Example: `CpusPerProjectPerRegion`
+    /// For example, `CpusPerProjectPerRegion`
     pub quota_id: std::string::String,
 
     /// The metric of the quota. It specifies the resources consumption the quota
     /// is defined for.
-    /// Example: `compute.googleapis.com/cpus`
+    /// For example, `compute.googleapis.com/cpus`
     pub metric: std::string::String,
 
     /// The name of the service in which the quota is defined.
-    /// Example: `compute.googleapis.com`
+    /// For example, `compute.googleapis.com`
     pub service: std::string::String,
 
     /// Whether this is a precise quota. A precise quota is tracked with absolute
@@ -782,8 +1225,8 @@ pub struct QuotaInfo {
 
     /// The reset time interval for the quota. Refresh interval applies to rate
     /// quota only.
-    /// Example: "minute" for per minute, "day" for per day, or "10 seconds" for
-    /// every 10 seconds.
+    /// For example, "minute" for per minute, "day" for per day, or "10 seconds"
+    /// for every 10 seconds.
     pub refresh_interval: std::string::String,
 
     /// The container type of the QuotaInfo.
@@ -1456,25 +1899,26 @@ pub mod quota_increase_eligibility {
 pub struct QuotaPreference {
     /// Required except in the CREATE requests.
     /// The resource name of the quota preference.
-    /// The ID component following "locations/" must be "global".
-    /// Example:
+    /// The path that follows `/locations` must be `/global`.
+    /// For example:
     /// `projects/123/locations/global/quotaPreferences/my-config-for-us-east1`
     pub name: std::string::String,
 
     /// Immutable. The dimensions that this quota preference applies to. The key of
-    /// the map entry is the name of a dimension, such as "region", "zone",
-    /// "network_id", and the value of the map entry is the dimension value.
+    /// the map entry is the name of a dimension, such as `region`, `zone`,
+    /// `network_id`, and the value of the map entry is the dimension value.
     ///
     /// If a dimension is missing from the map of dimensions, the quota preference
     /// applies to all the dimension values except for those that have other quota
     /// preferences configured for the specific value.
     ///
-    /// NOTE: QuotaPreferences can only be applied across all values of "user" and
-    /// "resource" dimension. Do not set values for "user" or "resource" in the
+    /// Note: QuotaPreferences can only be applied across all values of `user` and
+    /// `resource` dimension. Do not set values for `user` or `resource` in the
     /// dimension map.
     ///
-    /// Example: {"provider", "Foo Inc"} where "provider" is a service specific
-    /// dimension.
+    /// For example: `{"provider" : "Example Organization"}` where `provider` is a
+    /// service-specific quota dimension and `Example Organization` is the provider
+    /// name.
     pub dimensions: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. Preferred quota configuration.
@@ -1496,7 +1940,7 @@ pub struct QuotaPreference {
     pub service: std::string::String,
 
     /// Required. The id of the quota to which the quota preference is applied. A
-    /// quota name is unique in the service. Example: `CpusPerProjectPerRegion`
+    /// quota name is unique in the service. For example, `CpusPerProjectPerRegion`
     pub quota_id: std::string::String,
 
     /// Output only. Is the quota preference pending Google Cloud approval and
@@ -1506,9 +1950,9 @@ pub struct QuotaPreference {
     /// The reason / justification for this quota preference.
     pub justification: std::string::String,
 
-    /// Input only. An email address that can be used to contact the the user, in
-    /// case Google Cloud needs more information to make a decision before
-    /// additional quota can be granted.
+    /// Input only. An email address that can be used to contact the user, in case
+    /// Google Cloud needs more information to make a decision before additional
+    /// quota can be granted.
     ///
     /// When requesting a quota increase, the email address is required.
     /// When requesting a quota decrease, the email address is optional.
@@ -2035,20 +2479,21 @@ pub mod quota_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DimensionsInfo {
-    /// The map of dimensions for this dimensions info. The key of a map entry
-    /// is "region", "zone" or the name of a service specific dimension, and the
-    /// value of a map entry is the value of the dimension.  If a dimension does
+    /// The map of dimensions in key-value pairs. The key of a map entry
+    /// is "region", "zone", or the name of a service-specific dimension, and the
+    /// value of a map entry is the value of the dimension. If a dimension does
     /// not appear in the map of dimensions, the dimensions info applies to all
-    /// the dimension values except for those that have another DimenisonInfo
+    /// the dimension values except for those that have another DimensionInfo
     /// instance configured for the specific value.
-    /// Example: {"provider" : "Foo Inc"} where "provider" is a service specific
-    /// dimension of a quota.
+    /// For example: `{"provider" : "Example Organization"}` where `provider` is a
+    /// service-specific quota dimension and `Example Organization` is the provider
+    /// name.
     pub dimensions: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Quota details for the specified dimensions.
     pub details: std::option::Option<crate::model::QuotaDetails>,
 
-    /// The applicable regions or zones of this dimensions info. The field will be
+    /// The applicable regions or zones of this dimension. The field is
     /// set to ['global'] for quotas that are not per region or per zone.
     /// Otherwise, it will be set to the list of locations this dimension info is
     /// applicable to.

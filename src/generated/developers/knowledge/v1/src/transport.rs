@@ -211,4 +211,48 @@ impl super::stub::DeveloperKnowledge for DeveloperKnowledge {
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
+
+    async fn answer_query(
+        &self,
+        req: crate::model::AnswerQueryRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AnswerQueryResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let path = "/v1:answerQuery".to_string();
+                let path_template = "/v1:answerQuery";
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.developers.knowledge.v1.DeveloperKnowledge/AnswerQuery")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
+    }
 }

@@ -329,4 +329,66 @@ pub mod developer_knowledge {
             &mut self.0.options
         }
     }
+
+    /// The request builder for [DeveloperKnowledge::answer_query][crate::client::DeveloperKnowledge::answer_query] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_developers_knowledge_v1::builder::developer_knowledge::AnswerQuery;
+    /// # async fn sample() -> google_developers_knowledge_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> AnswerQuery {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct AnswerQuery(RequestBuilder<crate::model::AnswerQueryRequest>);
+
+    impl AnswerQuery {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperKnowledge>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::AnswerQueryRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::AnswerQueryResponse> {
+            (*self.0.stub)
+                .answer_query(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [query][crate::model::AnswerQueryRequest::query].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_query<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.query = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for AnswerQuery {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
 }

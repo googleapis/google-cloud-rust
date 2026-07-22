@@ -226,4 +226,24 @@ impl DeveloperKnowledge {
     pub fn batch_get_documents(&self) -> super::builder::developer_knowledge::BatchGetDocuments {
         super::builder::developer_knowledge::BatchGetDocuments::new(self.inner.clone())
     }
+
+    /// Answers a query using grounded generation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_developers_knowledge_v1::client::DeveloperKnowledge;
+    /// use google_developers_knowledge_v1::Result;
+    /// async fn sample(
+    ///    client: &DeveloperKnowledge
+    /// ) -> Result<()> {
+    ///     let response = client.answer_query()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn answer_query(&self) -> super::builder::developer_knowledge::AnswerQuery {
+        super::builder::developer_knowledge::AnswerQuery::new(self.inner.clone())
+    }
 }

@@ -860,6 +860,30 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::KeyManagementService::import_trusted_key_wrapped_crypto_key_version].
+    fn import_trusted_key_wrapped_crypto_key_version(
+        &self,
+        _req: crate::model::ImportTrustedKeyWrappedCryptoKeyVersionRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::CryptoKeyVersion>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::KeyManagementService::export_trusted_key_wrapped_crypto_key_version].
+    fn export_trusted_key_wrapped_crypto_key_version(
+        &self,
+        _req: crate::model::ExportTrustedKeyWrappedCryptoKeyVersionRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<crate::model::ExportTrustedKeyWrappedCryptoKeyVersionResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::KeyManagementService::create_import_job].
     fn create_import_job(
         &self,

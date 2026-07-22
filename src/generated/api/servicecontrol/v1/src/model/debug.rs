@@ -199,6 +199,7 @@ impl std::fmt::Debug for super::Operation {
         debug_struct.field("metric_value_sets", &self.metric_value_sets);
         debug_struct.field("log_entries", &self.log_entries);
         debug_struct.field("importance", &self.importance);
+        debug_struct.field("user_labels", &self.user_labels);
         debug_struct.field("extensions", &self.extensions);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

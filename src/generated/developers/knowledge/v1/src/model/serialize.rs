@@ -51,6 +51,18 @@ impl serde::ser::Serialize for super::Document {
         if !wkt::internal::is_default(&self.view) {
             state.serialize_entry("view", &self.view)?;
         }
+        if !wkt::internal::is_default(&self.content_length_bytes) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("contentLengthBytes", &__With(&self.content_length_bytes))?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -187,6 +199,199 @@ impl serde::ser::Serialize for super::BatchGetDocumentsResponse {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.documents.is_empty() {
             state.serialize_entry("documents", &self.documents)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AnswerQueryRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.query.is_empty() {
+            state.serialize_entry("query", &self.query)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AnswerQueryResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.answer.is_some() {
+            state.serialize_entry("answer", &self.answer)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Answer {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.answer_text.is_empty() {
+            state.serialize_entry("answerText", &self.answer_text)?;
+        }
+        if !self.citations.is_empty() {
+            state.serialize_entry("citations", &self.citations)?;
+        }
+        if !self.references.is_empty() {
+            state.serialize_entry("references", &self.references)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::answer::AnswerCitation {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.start_index) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("startIndex", &__With(&self.start_index))?;
+        }
+        if !wkt::internal::is_default(&self.end_index) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("endIndex", &__With(&self.end_index))?;
+        }
+        if !self.sources.is_empty() {
+            state.serialize_entry("sources", &self.sources)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::answer::CitationSource {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.reference_index) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("referenceIndex", &__With(&self.reference_index))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::answer::AnswerReference {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.document_reference() {
+            state.serialize_entry("documentReference", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::answer::DocumentReference {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.document_chunk.is_some() {
+            state.serialize_entry("documentChunk", &self.document_chunk)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

@@ -280,6 +280,118 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_token_auth_users(
+        &self,
+        req: crate::model::ListTokenAuthUsersRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListTokenAuthUsersResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Memorystore::list_token_auth_users",
+            self.inner.list_token_auth_users(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_token_auth_user(
+        &self,
+        req: crate::model::GetTokenAuthUserRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TokenAuthUser>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Memorystore::get_token_auth_user",
+            self.inner.get_token_auth_user(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_auth_tokens(
+        &self,
+        req: crate::model::ListAuthTokensRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListAuthTokensResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Memorystore::list_auth_tokens",
+            self.inner.list_auth_tokens(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_auth_token(
+        &self,
+        req: crate::model::GetAuthTokenRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AuthToken>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Memorystore::get_auth_token",
+            self.inner.get_auth_token(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn add_token_auth_user(
+        &self,
+        req: crate::model::AddTokenAuthUserRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Memorystore::add_token_auth_user",
+            self.inner.add_token_auth_user(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete_token_auth_user(
+        &self,
+        req: crate::model::DeleteTokenAuthUserRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Memorystore::delete_token_auth_user",
+            self.inner.delete_token_auth_user(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn add_auth_token(
+        &self,
+        req: crate::model::AddAuthTokenRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Memorystore::add_auth_token",
+            self.inner.add_auth_token(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete_auth_token(
+        &self,
+        req: crate::model::DeleteAuthTokenRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Memorystore::delete_auth_token",
+            self.inner.delete_auth_token(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,

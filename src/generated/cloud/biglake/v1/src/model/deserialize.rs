@@ -448,6 +448,7 @@ impl<'de> serde::de::Deserialize<'de> for super::iceberg_catalog::FederatedCatal
         enum __FieldTag {
             __unity_catalog_info,
             __glue_catalog_info,
+            __snowflake_catalog_info,
             __secret_name,
             __service_directory_name,
             __refresh_options,
@@ -476,6 +477,8 @@ impl<'de> serde::de::Deserialize<'de> for super::iceberg_catalog::FederatedCatal
                             "unity_catalog_info" => Ok(__FieldTag::__unity_catalog_info),
                             "glue-catalog-info" => Ok(__FieldTag::__glue_catalog_info),
                             "glue_catalog_info" => Ok(__FieldTag::__glue_catalog_info),
+                            "snowflake-catalog-info" => Ok(__FieldTag::__snowflake_catalog_info),
+                            "snowflake_catalog_info" => Ok(__FieldTag::__snowflake_catalog_info),
                             "secret-name" => Ok(__FieldTag::__secret_name),
                             "secret_name" => Ok(__FieldTag::__secret_name),
                             "service-directory-name" => Ok(__FieldTag::__service_directory_name),
@@ -540,6 +543,23 @@ impl<'de> serde::de::Deserialize<'de> for super::iceberg_catalog::FederatedCatal
                             result.remote_catalog_info = std::option::Option::Some(
                                 crate::model::iceberg_catalog::federated_catalog_options::RemoteCatalogInfo::GlueCatalogInfo(
                                     map.next_value::<std::option::Option<std::boxed::Box<crate::model::iceberg_catalog::federated_catalog_options::GlueCatalogInfo>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__snowflake_catalog_info => {
+                            if !fields.insert(__FieldTag::__snowflake_catalog_info) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for snowflake_catalog_info",
+                                ));
+                            }
+                            if result.remote_catalog_info.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `remote_catalog_info`, a oneof with full ID .google.cloud.biglake.v1.IcebergCatalog.FederatedCatalogOptions.snowflake_catalog_info, latest field was snowflake-catalog-info",
+                                ));
+                            }
+                            result.remote_catalog_info = std::option::Option::Some(
+                                crate::model::iceberg_catalog::federated_catalog_options::RemoteCatalogInfo::SnowflakeCatalogInfo(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::iceberg_catalog::federated_catalog_options::SnowflakeCatalogInfo>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -792,6 +812,111 @@ impl<'de> serde::de::Deserialize<'de>
                                 ));
                             }
                             result.aws_role_arn =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de>
+    for super::iceberg_catalog::federated_catalog_options::SnowflakeCatalogInfo
+{
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __account_identifier,
+            __warehouse,
+            __snowflake_role,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SnowflakeCatalogInfo")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "account-identifier" => Ok(__FieldTag::__account_identifier),
+                            "account_identifier" => Ok(__FieldTag::__account_identifier),
+                            "warehouse" => Ok(__FieldTag::__warehouse),
+                            "snowflake-role" => Ok(__FieldTag::__snowflake_role),
+                            "snowflake_role" => Ok(__FieldTag::__snowflake_role),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::iceberg_catalog::federated_catalog_options::SnowflakeCatalogInfo;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SnowflakeCatalogInfo")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__account_identifier => {
+                            if !fields.insert(__FieldTag::__account_identifier) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for account_identifier",
+                                ));
+                            }
+                            result.account_identifier =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__warehouse => {
+                            if !fields.insert(__FieldTag::__warehouse) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for warehouse",
+                                ));
+                            }
+                            result.warehouse =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__snowflake_role => {
+                            if !fields.insert(__FieldTag::__snowflake_role) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for snowflake_role",
+                                ));
+                            }
+                            result.snowflake_role =
                                 map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
@@ -1555,6 +1680,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ListIcebergCatalogsRequest {
             __view,
             __page_size,
             __page_token,
+            __filter,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1581,6 +1707,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ListIcebergCatalogsRequest {
                             "page_size" => Ok(__FieldTag::__page_size),
                             "page-token" => Ok(__FieldTag::__page_token),
                             "page_token" => Ok(__FieldTag::__page_token),
+                            "filter" => Ok(__FieldTag::__filter),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1654,6 +1781,16 @@ impl<'de> serde::de::Deserialize<'de> for super::ListIcebergCatalogsRequest {
                                 ));
                             }
                             result.page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__filter => {
+                            if !fields.insert(__FieldTag::__filter) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for filter",
+                                ));
+                            }
+                            result.filter = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
