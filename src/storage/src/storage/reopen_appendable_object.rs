@@ -14,7 +14,7 @@
 
 use crate::Result;
 use crate::appendable_object_writer::AppendableObjectWriter;
-use crate::model_ext::{KeyAes256, ReopenAppendableObjectRequest};
+use crate::model_ext::ReopenAppendableObjectRequest;
 use crate::request_options::RequestOptions;
 use std::sync::Arc;
 use std::time::Duration;
@@ -24,18 +24,15 @@ use std::time::Duration;
 ///
 /// # Example
 /// ```
-/// use google_cloud_storage::client::Storage;
-/// # use google_cloud_storage::builder::storage::ReopenAppendableObject;
-/// async fn sample(client: &Storage) -> anyhow::Result<()> {
-///     let builder: ReopenAppendableObject = client
-///         .reopen_appendable_object("projects/_/buckets/my-bucket", "my-object", 123456);
-///     let mut writer = builder
-///         .send()
-///         .await?;
-///     writer.append(bytes::Bytes::from("hello")).await?;
-///     writer.finalize().await?;
-///     Ok(())
-/// }
+/// # use google_cloud_storage::client::Storage;
+/// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+/// let mut writer = client
+///     .reopen_appendable_object("projects/_/buckets/my-bucket", "my-object", 123456)
+///     .send()
+///     .await?;
+/// writer.append(bytes::Bytes::from("hello")).await?;
+/// writer.finalize().await?;
+/// # Ok(()) }
 /// ```
 #[derive(Clone, Debug)]
 pub struct ReopenAppendableObject<S = crate::storage::transport::Storage> {
@@ -98,40 +95,116 @@ impl<S> ReopenAppendableObject<S> {
         }
     }
 
-    /// Makes the operation conditional on whether the object's current
-    /// metageneration matches the given value.
-    pub fn set_if_metageneration_match(mut self, v: i64) -> Self {
-        self.request.if_metageneration_match = Some(v);
+    /// Set a [request precondition] making the operation conditional on whether
+    /// the object's current metageneration matches the given value.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let mut writer = client
+    ///     .reopen_appendable_object("projects/_/buckets/my-bucket", "my-object", 123456)
+    ///     .set_if_metageneration_match(123456)
+    ///     .send()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [request precondition]: https://cloud.google.com/storage/docs/request-preconditions
+    pub fn set_if_metageneration_match<V>(mut self, v: V) -> Self
+    where
+        V: Into<i64>,
+    {
+        self.request.if_metageneration_match = Some(v.into());
         self
     }
 
-    /// Makes the operation conditional on whether the object's current
-    /// metageneration does not match the given value.
-    pub fn set_if_metageneration_not_match(mut self, v: i64) -> Self {
-        self.request.if_metageneration_not_match = Some(v);
+    /// Set a [request precondition] making the operation conditional on whether
+    /// the object's current metageneration does not match the given value.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let mut writer = client
+    ///     .reopen_appendable_object("projects/_/buckets/my-bucket", "my-object", 123456)
+    ///     .set_if_metageneration_not_match(123456)
+    ///     .send()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [request precondition]: https://cloud.google.com/storage/docs/request-preconditions
+    pub fn set_if_metageneration_not_match<V>(mut self, v: V) -> Self
+    where
+        V: Into<i64>,
+    {
+        self.request.if_metageneration_not_match = Some(v.into());
         self
     }
 
     /// Explicitly provide the routing token from the previous operation.
-    pub fn set_routing_token(mut self, token: impl Into<String>) -> Self {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let mut writer = client
+    ///     .reopen_appendable_object("projects/_/buckets/my-bucket", "my-object", 123456)
+    ///     .set_routing_token("my-token")
+    ///     .send()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn set_routing_token<V>(mut self, token: V) -> Self
+    where
+        V: Into<String>,
+    {
         self.request.routing_token = Some(token.into());
         self
     }
 
     /// Explicitly provide the write handle from the previous operation.
-    pub fn set_write_handle(mut self, handle: bytes::Bytes) -> Self {
-        self.request.write_handle = Some(handle);
-        self
-    }
-
-    /// The encryption key used with the Customer-Supplied Encryption Keys
-    /// feature. In raw bytes format (not base64-encoded).
-    pub fn set_key(mut self, v: KeyAes256) -> Self {
-        self.request.params = Some(crate::model::CommonObjectRequestParams::from(v));
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let mut writer = client
+    ///     .reopen_appendable_object("projects/_/buckets/my-bucket", "my-object", 123456)
+    ///     .set_write_handle(bytes::Bytes::from("my-handle"))
+    ///     .send()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn set_write_handle<V>(mut self, handle: V) -> Self
+    where
+        V: Into<bytes::Bytes>,
+    {
+        self.request.write_handle = Some(handle.into());
         self
     }
 
     /// The retry policy used for this request.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::retry_policy::RetryableErrors;
+    /// use std::time::Duration;
+    /// use google_cloud_gax::retry_policy::RetryPolicyExt;
+    /// let mut writer = client
+    ///     .reopen_appendable_object("projects/_/buckets/my-bucket", "my-object", 123456)
+    ///     .with_retry_policy(
+    ///         RetryableErrors
+    ///             .with_attempt_limit(5)
+    ///             .with_time_limit(Duration::from_secs(10)),
+    ///     )
+    ///     .send()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
     pub fn with_retry_policy<V: Into<google_cloud_gax::retry_policy::RetryPolicyArg>>(
         mut self,
         v: V,
@@ -141,6 +214,20 @@ impl<S> ReopenAppendableObject<S> {
     }
 
     /// The backoff policy used for this request.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use std::time::Duration;
+    /// use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+    /// let mut writer = client
+    ///     .reopen_appendable_object("projects/_/buckets/my-bucket", "my-object", 123456)
+    ///     .with_backoff_policy(ExponentialBackoff::default())
+    ///     .send()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
     pub fn with_backoff_policy<V: Into<google_cloud_gax::backoff_policy::BackoffPolicyArg>>(
         mut self,
         v: V,
@@ -150,6 +237,26 @@ impl<S> ReopenAppendableObject<S> {
     }
 
     /// The retry throttler used for this request.
+    ///
+    /// Most of the time you want to use the same throttler for all the requests
+    /// in a client, and even the same throttler for many clients. Rarely it
+    /// may be necessary to use an custom throttler for some subset of the
+    /// requests.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let mut writer = client
+    ///     .reopen_appendable_object("projects/_/buckets/my-bucket", "my-object", 123456)
+    ///     .with_retry_throttler(adhoc_throttler())
+    ///     .send()
+    ///     .await?;
+    /// fn adhoc_throttler() -> google_cloud_gax::retry_throttler::SharedRetryThrottler {
+    ///     # panic!();
+    /// }
+    /// # Ok(()) }
+    /// ```
     pub fn with_retry_throttler<V: Into<google_cloud_gax::retry_throttler::RetryThrottlerArg>>(
         mut self,
         v: V,
@@ -159,20 +266,78 @@ impl<S> ReopenAppendableObject<S> {
     }
 
     /// Configure per-attempt timeout.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use std::time::Duration;
+    /// let mut writer = client
+    ///     .reopen_appendable_object("projects/_/buckets/my-bucket", "my-object", 123456)
+    ///     .with_attempt_timeout(Duration::from_secs(120))
+    ///     .send()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// The Cloud Storage client library times out `reopen_appendable_object()` attempts by
+    /// default (with a 60s timeout). Applications may want to set a different
+    /// value depending on how they are deployed.
+    ///
+    /// Note that the per-attempt timeout is subject to the overall retry loop
+    /// time limits (if any). The effective timeout for each attempt is the
+    /// smallest of (a) the per-attempt timeout, and (b) the remaining time in
+    /// the retry loop.
     pub fn with_attempt_timeout(mut self, v: Duration) -> Self {
         self.options.set_bidi_attempt_timeout(v);
         self
     }
 
     /// Sets the `User-Agent` header for this request.
-    pub fn with_user_agent(mut self, user_agent: impl Into<String>) -> Self {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let mut writer = client
+    ///     .reopen_appendable_object("projects/_/buckets/my-bucket", "my-object", 123456)
+    ///     .with_user_agent("my-app/1.0.0")
+    ///     .send()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_user_agent<V>(mut self, user_agent: V) -> Self
+    where
+        V: Into<String>,
+    {
         self.options.user_agent = Some(user_agent.into());
         self
     }
 
     /// Sets the project that will be billed for this request.
-    pub fn with_quota_project(mut self, project: impl Into<String>) -> Self {
-        self.options.set_quota_project(project);
+    ///
+    /// Required for [Requester Pays] buckets. The value overrides any
+    /// `quota_project_id` configured on the credentials; the credential-level
+    /// header is suppressed for this RPC.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let mut writer = client
+    ///     .reopen_appendable_object("projects/_/buckets/my-bucket", "my-object", 123456)
+    ///     .with_quota_project("my-billing-project")
+    ///     .send()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [Requester Pays]: https://cloud.google.com/storage/docs/requester-pays
+    pub fn with_quota_project<V>(mut self, project: V) -> Self
+    where
+        V: Into<String>,
+    {
+        self.options.set_quota_project(project.into());
         self
     }
 }
@@ -237,6 +402,35 @@ mod tests {
         assert_eq!(
             builder.request.write_handle,
             Some(bytes::Bytes::from("handle"))
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn options() -> Result<()> {
+        use crate::retry_policy::RetryableErrors;
+        use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+        let client = crate::client::Storage::builder()
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let builder = client
+            .reopen_appendable_object(BUCKET_NAME, OBJECT_NAME, 123456)
+            .with_attempt_timeout(std::time::Duration::from_secs(12))
+            .with_user_agent("test-agent")
+            .with_quota_project("test-project")
+            .with_retry_policy(RetryableErrors)
+            .with_backoff_policy(ExponentialBackoff::default())
+            .with_retry_throttler(google_cloud_gax::retry_throttler::CircuitBreaker::default());
+
+        assert_eq!(
+            builder.options.bidi_attempt_timeout,
+            std::time::Duration::from_secs(12)
+        );
+        assert_eq!(builder.options.user_agent.as_deref(), Some("test-agent"));
+        assert_eq!(
+            builder.options.quota_project.as_deref(),
+            Some("test-project")
         );
         Ok(())
     }
