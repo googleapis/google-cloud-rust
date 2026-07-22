@@ -27,6 +27,8 @@ categories.workspace   = true
 rust-version.workspace = true
 
 [dependencies]
+base64.workspace             = true
+bytes.workspace              = true
 serde_json.workspace         = true
 google-cloud-auth            = { workspace = true }
 google-cloud-gax.workspace   = true

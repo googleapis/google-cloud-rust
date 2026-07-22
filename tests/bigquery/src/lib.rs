@@ -267,6 +267,9 @@ struct UserData {
     event_time: google_cloud_type::model::DateTime,
     nullable_name: Option<String>,
     nullable_age: Option<i64>,
+    raw_bytes: Vec<u8>,
+    payload_bytes: bytes::Bytes,
+    nullable_bytes: Option<Vec<u8>>,
 }
 
 pub async fn query_client_datatypes() -> Result<()> {
@@ -286,7 +289,10 @@ pub async fn query_client_datatypes() -> Result<()> {
                  TIME '15:30:00' AS daily_alarm, \
                  DATETIME '2026-05-28 15:30:00' AS event_time, \
                  CAST(NULL AS STRING) AS nullable_name, \
-                 CAST(NULL AS INT64) AS nullable_age",
+                 CAST(NULL AS INT64) AS nullable_age, \
+                 B'hello world' AS raw_bytes, \
+                 B'payload in bytes' AS payload_bytes, \
+                 CAST(NULL AS BYTES) AS nullable_bytes",
         )
         .with_project_id(project_id)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
@@ -325,6 +331,9 @@ pub async fn query_client_datatypes() -> Result<()> {
             .set_nanos(0),
         nullable_name: None,
         nullable_age: None,
+        raw_bytes: b"hello world".to_vec(),
+        payload_bytes: bytes::Bytes::from_static(b"payload in bytes"),
+        nullable_bytes: None,
     };
 
     assert_eq!(row.get::<String, _>("name"), expected.name);
@@ -355,6 +364,15 @@ pub async fn query_client_datatypes() -> Result<()> {
     assert_eq!(
         row.get::<Option<i64>, _>("nullable_age"),
         expected.nullable_age
+    );
+    assert_eq!(row.get::<Vec<u8>, _>("raw_bytes"), expected.raw_bytes);
+    assert_eq!(
+        row.get::<bytes::Bytes, _>("payload_bytes"),
+        expected.payload_bytes
+    );
+    assert_eq!(
+        row.get::<Option<Vec<u8>>, _>("nullable_bytes"),
+        expected.nullable_bytes
     );
 
     let data: UserData = row.try_into()?;

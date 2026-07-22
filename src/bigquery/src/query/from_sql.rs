@@ -12,6 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use base64::Engine;
+use base64::prelude::BASE64_STANDARD;
+
 use crate::error::ConvertError;
 
 pub(crate) const BIGQUERY_DATE_FORMAT: &[time::format_description::FormatItem<'static>] =
@@ -327,6 +330,27 @@ impl FromSql for rust_decimal::Decimal {
     }
 }
 
+impl FromSql for Vec<u8> {
+    fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
+        match value {
+            wkt::Value::String(s) => BASE64_STANDARD
+                .decode(s)
+                .map_err(|e| ConvertError::Convert(Box::new(e))),
+            wkt::Value::Null => Err(ConvertError::NotNull),
+            other => Err(ConvertError::TypeMismatch {
+                expected: "string (base64 encoded)",
+                got: other,
+            }),
+        }
+    }
+}
+
+impl FromSql for bytes::Bytes {
+    fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
+        Vec::<u8>::from_sql(value).map(bytes::Bytes::from)
+    }
+}
+
 // TODO(#5592): implement for more BigQuery types
 // types: Range, Interval, etc.
 
@@ -499,6 +523,32 @@ mod tests {
     #[test_case(wkt::Value::Bool(true) => Err(TestConvertError::TypeMismatch("string or number")) ; "try bool as rust_decimal")]
     fn test_from_sql_rust_decimal(value: wkt::Value) -> Result<RustDecimal, TestConvertError> {
         FromSql::from_sql(value).map_err(TestConvertError::from)
+    }
+
+    #[test_case(wkt::Value::String("AQIDBA==".to_string()) => Ok(vec![1, 2, 3, 4]) ; "vec u8 from base64")]
+    #[test_case(wkt::Value::String("".to_string()) => Ok(vec![]) ; "vec u8 from empty base64")]
+    #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null vec u8")]
+    #[test_case(wkt::Value::Bool(true) => Err(TestConvertError::TypeMismatch("string (base64 encoded)")) ; "try bool as vec u8")]
+    fn test_from_sql_vec_u8(value: wkt::Value) -> Result<Vec<u8>, TestConvertError> {
+        FromSql::from_sql(value).map_err(TestConvertError::from)
+    }
+
+    #[test_case(wkt::Value::String("AQIDBA==".to_string()) => Ok(bytes::Bytes::from_static(&[1, 2, 3, 4])) ; "bytes from base64")]
+    #[test_case(wkt::Value::String("".to_string()) => Ok(bytes::Bytes::from_static(&[])) ; "bytes from empty base64")]
+    #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null bytes")]
+    #[test_case(wkt::Value::Bool(true) => Err(TestConvertError::TypeMismatch("string (base64 encoded)")) ; "try bool as bytes")]
+    fn test_from_sql_bytes(value: wkt::Value) -> Result<bytes::Bytes, TestConvertError> {
+        FromSql::from_sql(value).map_err(TestConvertError::from)
+    }
+
+    #[test_case("AQIDBA" ; "missing padding")]
+    #[test_case("Not a base64 string" ; "words with spaces")]
+    fn test_from_sql_bytes_invalid_base64(input: &str) {
+        let err = bytes::Bytes::from_sql(wkt::Value::String(input.to_string())).unwrap_err();
+        assert!(matches!(err, ConvertError::Convert(_)));
+
+        let err = Vec::<u8>::from_sql(wkt::Value::String(input.to_string())).unwrap_err();
+        assert!(matches!(err, ConvertError::Convert(_)));
     }
 
     #[derive(FromSql, Debug, PartialEq)]
