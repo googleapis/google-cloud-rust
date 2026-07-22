@@ -103,10 +103,12 @@ impl ObjectDescriptorTransport {
         let (tx, rx) = tokio::sync::mpsc::channel(100);
         let active = ActiveRead::new(tx, range);
 
-        // Skip checksums for transcoded or ranged reads.
-        let is_transcoded = object.content_encoding == "gzip";
+        // Skip checksums for ranged reads.
+        // Note: We do not skip checksums for gzip-encoded objects (decompressive transcoding) 
+        // because gRPC automatic object decompression is not supported by the server.
+        // The client receives the raw compressed bytes which match the stored checksum.
         let is_ranged = !matches!(range, RequestedRange::Offset(0));
-        if is_transcoded || is_ranged {
+        if is_ranged {
             checksum = crate::storage::checksum::details::Checksum::default();
         }
 
