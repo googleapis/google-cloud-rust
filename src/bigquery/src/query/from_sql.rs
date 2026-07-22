@@ -456,9 +456,6 @@ impl FromSql for bytes::Bytes {
     }
 }
 
-// TODO(#5592): implement for more BigQuery types
-// types: Range, etc.
-
 #[cfg(test)]
 mod tests {
     use super::*;
