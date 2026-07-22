@@ -571,7 +571,7 @@ pub(crate) async fn execute_begin_transaction(
 
     client
         .spanner
-        .begin_transaction(request, request_options, channel_hint)
+        .begin_transaction(request, request_options, channel_hint, &client.o11y)
         .await
 }
 

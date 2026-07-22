@@ -14,6 +14,7 @@
 
 use crate::client::Spanner;
 use crate::model::{CreateSessionRequest, Session};
+use crate::observability::Observability;
 use crate::{RequestOptions, Result};
 use std::sync::{Arc, RwLock, Weak};
 use std::time::Duration;
@@ -34,6 +35,7 @@ pub(crate) struct ManagedSessionMaintainer {
     pub(crate) database_name: String,
     pub(crate) database_role: String,
     pub(crate) options: RequestOptions,
+    pub(crate) o11y: Arc<Observability>,
 }
 
 #[derive(Debug)]
@@ -59,9 +61,10 @@ impl ManagedSessionMaintainer {
         database_name: String,
         database_role: String,
         options: RequestOptions,
+        o11y: Arc<Observability>,
     ) -> Result<Arc<Self>> {
         let session =
-            Self::create_session(&spanner, &database_name, &database_role, &options).await?;
+            Self::create_session(&spanner, &database_name, &database_role, &options, &o11y).await?;
 
         let maintainer = Arc::new(ManagedSessionMaintainer {
             spanner,
@@ -72,6 +75,7 @@ impl ManagedSessionMaintainer {
             database_name,
             database_role,
             options,
+            o11y,
         });
 
         let weak_maintainer = Arc::downgrade(&maintainer);
@@ -105,6 +109,7 @@ impl ManagedSessionMaintainer {
             &self.database_name,
             &self.database_role,
             &self.options,
+            &self.o11y,
         )
         .await?;
 
@@ -125,6 +130,7 @@ impl ManagedSessionMaintainer {
         database_name: &str,
         database_role: &str,
         options: &RequestOptions,
+        o11y: &Observability,
     ) -> Result<Session> {
         let request = CreateSessionRequest::new()
             .set_database(database_name)
@@ -135,7 +141,7 @@ impl ManagedSessionMaintainer {
             );
 
         spanner
-            .create_session(request, options.clone(), spanner.next_channel_hint())
+            .create_session(request, options.clone(), spanner.next_channel_hint(), o11y)
             .await
     }
 
@@ -218,6 +224,7 @@ mod tests {
             "projects/test-project/instances/test-instance/databases/test-db".to_string(),
             "test-role".to_string(),
             RequestOptions::default(),
+            Arc::new(Observability::disabled()),
         )
         .await
         .expect("Failed to create ManagedSessionMaintainer");
@@ -288,6 +295,7 @@ mod tests {
             "projects/test-project/instances/test-instance/databases/test-db".to_string(),
             "test-role".to_string(),
             RequestOptions::default(),
+            Arc::new(Observability::disabled()),
         )
         .await
         .expect("Failed to create ManagedSessionMaintainer");
@@ -330,6 +338,7 @@ mod tests {
             "projects/test-project/instances/test-instance/databases/test-db".to_string(),
             "test-role".to_string(),
             RequestOptions::default(),
+            Arc::new(Observability::disabled()),
         )
         .await
         .expect("Failed to create ManagedSessionMaintainer");
@@ -394,6 +403,7 @@ mod tests {
             "projects/test-project/instances/test-instance/databases/test-db".to_string(),
             "test-role".to_string(),
             RequestOptions::default(),
+            Arc::new(Observability::disabled()),
         )
         .await
         .expect("Failed to create ManagedSessionMaintainer");
@@ -543,6 +553,7 @@ mod tests {
             "projects/p/instances/i/databases/d".to_string(),
             "test-role".to_string(),
             RequestOptions::default(),
+            Arc::new(Observability::disabled()),
         )
         .await
         .expect("Failed to create ManagedSessionMaintainer");
@@ -551,6 +562,7 @@ mod tests {
             spanner,
             session_maintainer: maintainer.clone(),
             leader_aware_routing_enabled: true,
+            o11y: std::sync::Arc::new(crate::observability::Observability::disabled()),
         };
 
         // 1. Create builder (captures session 1)
