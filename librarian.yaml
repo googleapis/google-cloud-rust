@@ -491,7 +491,8 @@ libraries:
           template: bigquery
   - name: google-cloud-bigquery-derive
     version: 0.1.0-preview
-    copyright_year: "2026"    
+    copyright_year: "2026"
+    output: src/bigquery-derive
   - name: google-cloud-bigquery-analyticshub-v1
     version: 1.13.0
     copyright_year: "2025"
