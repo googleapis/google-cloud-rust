@@ -33,8 +33,7 @@ LIMIT 10
         .await?
         .until_done()
         .await?
-        .read()
-        .set_max_rows_buffered(5);
+        .read();
 
     while let Some(row) = rows.next().await.transpose()? {
         let name: String = row.get("name");
