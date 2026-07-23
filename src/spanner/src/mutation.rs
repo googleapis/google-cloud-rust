@@ -15,7 +15,6 @@
 use crate::key::KeySet;
 use crate::model::batch_write_request::MutationGroup as ProtoMutationGroup;
 use crate::model::mutation::Operation;
-use crate::to_value::ToValue;
 use crate::value::Value;
 use rand::seq::IteratorRandom;
 use std::slice::Iter;
@@ -298,9 +297,9 @@ pub struct ValueBinder {
 
 impl ValueBinder {
     /// Sets the value for the column.
-    pub fn to<T: ToValue + ?Sized>(mut self, value: &T) -> WriteBuilder {
+    pub fn to<T: Into<Value>>(mut self, value: T) -> WriteBuilder {
         self.builder.columns.push(self.column);
-        self.builder.values.push(value.to_value());
+        self.builder.values.push(value.into());
         self.builder
     }
 }
@@ -350,6 +349,7 @@ impl<'a> IntoIterator for &'a MutationGroup {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::to_value::ToValue;
 
     #[test]
     fn auto_traits() {
@@ -407,6 +407,19 @@ mod tests {
 
         let mutations: Vec<_> = (&group).into_iter().collect();
         assert_eq!(mutations, vec![&mutation1, &mutation2]);
+    }
+
+    #[test]
+    fn value_binder_to_owned_value() {
+        let by_ref = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(&1)
+            .build();
+        let by_value = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(1.to_value())
+            .build();
+        assert_eq!(by_ref, by_value);
     }
 
     #[test]

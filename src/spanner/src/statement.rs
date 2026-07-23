@@ -16,7 +16,6 @@ use crate::model::DirectedReadOptions;
 use crate::model::execute_sql_request::QueryMode;
 use crate::model::execute_sql_request::QueryOptions;
 use crate::model::request_options::Priority;
-use crate::to_value::ToValue;
 use crate::types::Type;
 use crate::value::Value;
 use google_cloud_gax::backoff_policy::BackoffPolicyArg;
@@ -69,8 +68,8 @@ impl StatementBuilder {
     /// It is recommended to use untyped parameter values, unless you explicitly want Spanner to
     /// verify that the type of the parameter value is exactly the same as the type that would
     /// otherwise be inferred from the SQL string.
-    pub fn add_param<T: ToValue + ?Sized>(mut self, name: impl Into<String>, value: &T) -> Self {
-        self.params.insert(name.into(), value.to_value());
+    pub fn add_param<T: Into<Value>>(mut self, name: impl Into<String>, value: T) -> Self {
+        self.params.insert(name.into(), value.into());
         self
     }
 
@@ -78,14 +77,14 @@ impl StatementBuilder {
     ///
     /// The parameter value is sent with an explicit type code to Spanner. The type code must
     /// correspond with the expression in the SQL string that the query parameter is bound to.
-    pub fn add_typed_param<T: ToValue + ?Sized>(
+    pub fn add_typed_param<T: Into<Value>>(
         mut self,
         name: impl Into<String>,
-        value: &T,
+        value: T,
         param_type: Type,
     ) -> Self {
         let name = name.into();
-        self.params.insert(name.clone(), value.to_value());
+        self.params.insert(name.clone(), value.into());
         self.param_types.insert(name, param_type);
         self
     }
@@ -425,6 +424,7 @@ impl From<&str> for Statement {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::to_value::ToValue;
     use anyhow::Context;
 
     #[test]
@@ -446,6 +446,49 @@ mod tests {
 
         let val = stmt.params.get("age").unwrap();
         assert_eq!(val.as_string(), "21");
+    }
+
+    #[test]
+    fn test_param_owned_value() {
+        let value = 21i32.to_value();
+        let stmt = Statement::builder("SELECT * FROM users WHERE age > @age")
+            .add_param("age", value)
+            .build();
+
+        assert_eq!(stmt.param_types.len(), 0);
+        assert_eq!(stmt.params.len(), 1);
+        assert_eq!(
+            stmt.params
+                .get("age")
+                .expect("parameter 'age' should be present")
+                .as_string(),
+            "21"
+        );
+    }
+
+    #[test]
+    fn test_typed_param_owned_value() {
+        use crate::types;
+        let value = "user-123".to_value();
+        let stmt = Statement::builder("SELECT * FROM users WHERE id = @id")
+            .add_typed_param("id", value, types::string())
+            .build();
+
+        assert_eq!(stmt.param_types.len(), 1);
+        assert_eq!(
+            stmt.param_types
+                .get("id")
+                .expect("parameter type for 'id' should be present"),
+            &types::string()
+        );
+        assert_eq!(stmt.params.len(), 1);
+        assert_eq!(
+            stmt.params
+                .get("id")
+                .expect("parameter 'id' should be present")
+                .as_string(),
+            "user-123"
+        );
     }
 
     #[test]
