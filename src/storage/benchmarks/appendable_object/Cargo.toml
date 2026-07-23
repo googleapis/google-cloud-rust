@@ -1,0 +1,30 @@
+[package]
+name                 = "storage-benchmark-appendable-object"
+version              = "0.0.0"
+publish              = false
+edition.workspace    = true
+authors.workspace    = true
+license.workspace    = true
+repository.workspace = true
+keywords.workspace   = true
+categories.workspace = true
+
+[dependencies]
+anyhow.workspace                 = true
+bytes.workspace                  = true
+clap                             = { workspace = true, features = ["derive", "env", "help", "std", "usage"] }
+futures.workspace                = true
+google-cloud-auth.workspace      = true
+google-cloud-gax.workspace       = true
+google-cloud-storage             = { workspace = true, features = ["default-rustls-provider", "unstable-stream"] }
+humantime.workspace              = true
+parse-size.workspace             = true
+rand.workspace                   = true
+tokio                            = { workspace = true, features = ["macros"] }
+tracing.workspace                = true
+tracing-log                      = { workspace = true, features = ["log-tracer", "std"] }
+tracing-subscriber               = { workspace = true, features = ["env-filter", "fmt", "std"] }
+uuid.workspace                   = true
+
+[lints]
+workspace = true

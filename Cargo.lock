@@ -8367,6 +8367,27 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a2eb9349b6444b326872e140eb1cf5e7c522154d69e7a0ffb0fb81c06b37543f"
 
 [[package]]
+name = "storage-benchmark-appendable-object"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "bytes",
+ "clap",
+ "futures",
+ "google-cloud-auth",
+ "google-cloud-gax",
+ "google-cloud-storage",
+ "humantime",
+ "parse-size",
+ "rand 0.10.1",
+ "tokio",
+ "tracing",
+ "tracing-log",
+ "tracing-subscriber",
+ "uuid",
+]
+
+[[package]]
 name = "storage-grpc-mock"
 version = "0.0.0"
 dependencies = [
