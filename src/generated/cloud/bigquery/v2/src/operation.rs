@@ -124,6 +124,15 @@ mod tests {
         assert_eq!(err.code, Code::Unknown);
         assert_eq!(err.message, "test error");
     }
+
+    #[test]
+    fn custom_retry_policy_builder() {
+        let mut policy = JobRetryPolicy::default();
+        assert_eq!(policy.job_level_retry_limit, 3);
+
+        policy.job_level_retry_limit = 5;
+        assert_eq!(policy.job_level_retry_limit, 5);
+    }
 }
 
 use crate::builder::job_service::InsertJob;
