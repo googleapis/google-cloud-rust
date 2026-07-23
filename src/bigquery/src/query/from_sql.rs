@@ -330,6 +330,68 @@ impl FromSql for rust_decimal::Decimal {
     }
 }
 
+/// Represents a BigQuery RANGE value.
+#[derive(Clone, Debug, PartialEq)]
+pub struct Range<T> {
+    /// The inclusive start of the range (or None if unbounded).
+    pub start: Option<T>,
+    /// The exclusive end of the range (or None if unbounded).
+    pub end: Option<T>,
+}
+
+impl<T: FromSql> FromSql for Range<T> {
+    fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
+        match value {
+            wkt::Value::String(s) => {
+                let trimmed = s.trim();
+                // Strip leading [ and trailing )
+                let content = trimmed
+                    .strip_prefix('[')
+                    .and_then(|c| c.strip_suffix(')'))
+                    .ok_or_else(|| {
+                        ConvertError::Convert(
+                            "invalid range format: missing enclosing brackets".into(),
+                        )
+                    })?;
+
+                // Split on the comma
+                let parts: Vec<&str> = content.split(',').collect();
+                if parts.len() != 2 {
+                    return Err(ConvertError::Convert(
+                        format!(
+                            "invalid range format: expected 2 parts, got {}",
+                            parts.len()
+                        )
+                        .into(),
+                    ));
+                }
+
+                let start_str = parts[0].trim();
+                let end_str = parts[1].trim();
+
+                let start = if start_str.is_empty() || start_str == "UNBOUNDED" {
+                    None
+                } else {
+                    Some(T::from_sql(wkt::Value::String(start_str.to_string()))?)
+                };
+
+                let end = if end_str.is_empty() || end_str == "UNBOUNDED" {
+                    None
+                } else {
+                    Some(T::from_sql(wkt::Value::String(end_str.to_string()))?)
+                };
+
+                Ok(Range { start, end })
+            }
+            wkt::Value::Null => Err(ConvertError::NotNull),
+            other => Err(ConvertError::TypeMismatch {
+                expected: "string",
+                got: other,
+            }),
+        }
+    }
+}
+
 impl FromSql for Vec<u8> {
     fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
         match value {
@@ -350,9 +412,6 @@ impl FromSql for bytes::Bytes {
         Vec::<u8>::from_sql(value).map(bytes::Bytes::from)
     }
 }
-
-// TODO(#5592): implement for more BigQuery types
-// types: Range, Interval, etc.
 
 #[cfg(test)]
 mod tests {
@@ -522,6 +581,24 @@ mod tests {
     #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null rust_decimal")]
     #[test_case(wkt::Value::Bool(true) => Err(TestConvertError::TypeMismatch("string or number")) ; "try bool as rust_decimal")]
     fn test_from_sql_rust_decimal(value: wkt::Value) -> Result<RustDecimal, TestConvertError> {
+        FromSql::from_sql(value).map_err(TestConvertError::from)
+    }
+
+    #[test_case(wkt::Value::String("[2026-05-28, 2026-05-29)".to_string()) => Ok(Range { start: Some(google_cloud_type::model::Date::new().set_year(2026).set_month(5).set_day(28)), end: Some(google_cloud_type::model::Date::new().set_year(2026).set_month(5).set_day(29)) }) ; "date range bounded")]
+    #[test_case(wkt::Value::String("[2026-05-28, UNBOUNDED)".to_string()) => Ok(Range { start: Some(google_cloud_type::model::Date::new().set_year(2026).set_month(5).set_day(28)), end: None }) ; "date range unbounded end")]
+    #[test_case(wkt::Value::String("[UNBOUNDED, 2026-05-29)".to_string()) => Ok(Range { start: None, end: Some(google_cloud_type::model::Date::new().set_year(2026).set_month(5).set_day(29)) }) ; "date range unbounded start")]
+    #[test_case(wkt::Value::String("[UNBOUNDED, UNBOUNDED)".to_string()) => Ok(Range { start: None, end: None }) ; "date range unbounded both")]
+    #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null range")]
+    #[test_case(wkt::Value::Number(123.into()) => Err(TestConvertError::TypeMismatch("string")) ; "range type mismatch")]
+    #[test_case(wkt::Value::String("[2026-05-28)".to_string()) => Err(TestConvertError::Convert("invalid range format: expected 2 parts, got 1".to_string())) ; "range invalid format one part")]
+    #[test_case(wkt::Value::String("[2026-05-28, 2026-05-29, 2026-05-30)".to_string()) => Err(TestConvertError::Convert("invalid range format: expected 2 parts, got 3".to_string())) ; "range invalid format three parts")]
+    #[test_case(wkt::Value::String("[".to_string()) => Err(TestConvertError::Convert("invalid range format: missing enclosing brackets".to_string())) ; "range too short")]
+    #[test_case(wkt::Value::String("2026-05-28, 2026-05-29".to_string()) => Err(TestConvertError::Convert("invalid range format: missing enclosing brackets".to_string())) ; "range missing brackets")]
+    #[test_case(wkt::Value::String("(2026-05-28, 2026-05-29)".to_string()) => Err(TestConvertError::Convert("invalid range format: missing enclosing brackets".to_string())) ; "range invalid leading parenthesis")]
+    #[test_case(wkt::Value::String("[2026-05-28, 2026-05-29]".to_string()) => Err(TestConvertError::Convert("invalid range format: missing enclosing brackets".to_string())) ; "range invalid trailing square bracket")]
+    fn test_from_sql_range(
+        value: wkt::Value,
+    ) -> Result<Range<google_cloud_type::model::Date>, TestConvertError> {
         FromSql::from_sql(value).map_err(TestConvertError::from)
     }
 
