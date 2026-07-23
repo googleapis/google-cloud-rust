@@ -344,10 +344,10 @@ impl<T: FromSql> FromSql for Range<T> {
         match value {
             wkt::Value::String(s) => {
                 let trimmed = s.trim();
-                // Strip leading [ or ( and trailing ] or )
+                // Strip leading [ and trailing )
                 let content = trimmed
-                    .strip_prefix(['[', '('])
-                    .and_then(|c| c.strip_suffix([']', ')']))
+                    .strip_prefix('[')
+                    .and_then(|c| c.strip_suffix(')'))
                     .ok_or_else(|| {
                         ConvertError::Convert(
                             "invalid range format: missing enclosing brackets".into(),
@@ -594,6 +594,8 @@ mod tests {
     #[test_case(wkt::Value::String("[2026-05-28, 2026-05-29, 2026-05-30)".to_string()) => Err(TestConvertError::Convert("invalid range format: expected 2 parts, got 3".to_string())) ; "range invalid format three parts")]
     #[test_case(wkt::Value::String("[".to_string()) => Err(TestConvertError::Convert("invalid range format: missing enclosing brackets".to_string())) ; "range too short")]
     #[test_case(wkt::Value::String("2026-05-28, 2026-05-29".to_string()) => Err(TestConvertError::Convert("invalid range format: missing enclosing brackets".to_string())) ; "range missing brackets")]
+    #[test_case(wkt::Value::String("(2026-05-28, 2026-05-29)".to_string()) => Err(TestConvertError::Convert("invalid range format: missing enclosing brackets".to_string())) ; "range invalid leading parenthesis")]
+    #[test_case(wkt::Value::String("[2026-05-28, 2026-05-29]".to_string()) => Err(TestConvertError::Convert("invalid range format: missing enclosing brackets".to_string())) ; "range invalid trailing square bracket")]
     fn test_from_sql_range(
         value: wkt::Value,
     ) -> Result<Range<google_cloud_type::model::Date>, TestConvertError> {
