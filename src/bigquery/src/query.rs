@@ -41,8 +41,8 @@ pub(crate) mod tests {
     use google_cloud_bigquery_v2::Result;
     use google_cloud_bigquery_v2::client::JobService;
     use google_cloud_bigquery_v2::model::{
-        GetQueryResultsRequest, GetQueryResultsResponse, InsertJobRequest, Job, PostQueryRequest,
-        QueryResponse,
+        GetJobRequest, GetQueryResultsRequest, GetQueryResultsResponse, InsertJobRequest, Job,
+        PostQueryRequest, QueryResponse,
     };
     use google_cloud_gax::options::RequestOptions;
     use google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy;
@@ -54,6 +54,11 @@ pub(crate) mod tests {
         #[derive(Debug)]
         pub JobService {}
         impl google_cloud_bigquery_v2::stub::JobService for JobService {
+            async fn get_job(
+                &self,
+                req: GetJobRequest,
+                options: RequestOptions,
+            ) -> Result<Response<Job>>;
             async fn insert_job(
                 &self,
                 req: InsertJobRequest,

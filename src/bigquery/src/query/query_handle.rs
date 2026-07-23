@@ -177,6 +177,27 @@ impl CompleteQuery {
     pub fn metadata(&self) -> &QueryMetadata {
         &self.metadata
     }
+
+    /// Fetches the full `Job` information for the given query.
+    /// Stateless queries will return `QueryError::StatelessQuery`.
+    pub async fn job_metadata(&self) -> Result<Job> {
+        let job_ref = self.job_ref.as_ref().ok_or(QueryError::StatelessQuery)?;
+
+        let req = self
+            .job_service
+            .get_job()
+            .set_job_id(job_ref.job_id.clone())
+            .set_project_id(job_ref.project_id.clone());
+
+        let req = job_ref
+            .location
+            .clone()
+            .into_iter()
+            .fold(req, |req, location| req.set_location(location));
+
+        let job = req.send().await?;
+        Ok(job)
+    }
 }
 
 /// Helper function to poll getQueryResults until a job finishes.
@@ -226,7 +247,7 @@ mod tests {
         MockBackoffPolicy, MockJobService, create_job_service, create_test_backoff_policy,
     };
     use google_cloud_bigquery_v2::model::{
-        ErrorProto, GetQueryResultsResponse, JobReference, QueryResponse, TableFieldSchema,
+        ErrorProto, GetQueryResultsResponse, Job, JobReference, QueryResponse, TableFieldSchema,
         TableSchema,
     };
     use google_cloud_gax::error::Error as GaxError;
@@ -487,6 +508,70 @@ mod tests {
         assert_eq!(row.get::<String, _>("name"), "test_name");
         assert!(iter.next().await.is_none(), "{iter:?}");
 
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_complete_query_job_metadata_success() -> TestResult {
+        let mut mock = MockJobService::new();
+        mock.expect_get_job().returning(|req, _| {
+            assert_eq!(req.project_id, "some_project");
+            assert_eq!(req.job_id, "some_job_id");
+            assert_eq!(req.location, "us-central1");
+            let res = Job::new()
+                .set_job_reference(JobReference::new().set_job_id(req.job_id))
+                .set_user_email("test@example.com");
+            Ok(Response::from(res))
+        });
+        let job_service = create_job_service(mock);
+        let job_ref = JobReference::new()
+            .set_project_id("some_project")
+            .set_job_id("some_job_id")
+            .set_location("us-central1");
+        let query_res = QueryResponse::new().set_schema(TableSchema::new());
+
+        let complete_query =
+            CompleteQuery::from_query_response(job_service, Some(job_ref), query_res);
+        let job = complete_query.job_metadata().await?;
+        assert_eq!(job.user_email, "test@example.com");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_complete_query_job_metadata_stateless() -> TestResult {
+        let job_service = create_job_service(MockJobService::new());
+        let query_res = QueryResponse::new().set_schema(TableSchema::new());
+        let complete_query = CompleteQuery::from_query_response(job_service, None, query_res);
+        let err = complete_query.job_metadata().await.unwrap_err();
+        assert!(matches!(err, QueryError::StatelessQuery));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_complete_query_job_metadata_rpc_error() -> TestResult {
+        let mut mock = MockJobService::new();
+        mock.expect_get_job().returning(|req, _| {
+            assert_eq!(req.project_id, "some_project");
+            assert_eq!(req.job_id, "some_job_id");
+            let status = Status::default()
+                .set_code(Code::NotFound)
+                .set_message("job not found");
+            Err(GaxError::service(status))
+        });
+        let job_service = create_job_service(mock);
+        let job_ref = JobReference::new()
+            .set_project_id("some_project")
+            .set_job_id("some_job_id");
+        let query_res = QueryResponse::new().set_schema(TableSchema::new());
+
+        let complete_query =
+            CompleteQuery::from_query_response(job_service, Some(job_ref), query_res);
+        let err = complete_query.job_metadata().await.unwrap_err();
+        let source = match err {
+            QueryError::Rpc { source } => source,
+            _ => panic!("expected QueryError::Rpc, got {err:?}"),
+        };
+        assert_eq!(source.status().unwrap().code, Code::NotFound);
         Ok(())
     }
 }
