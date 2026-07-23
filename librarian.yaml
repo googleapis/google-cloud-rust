@@ -520,6 +520,13 @@ libraries:
     keep:
       - src/operation.rs
     rust:
+      package_dependencies:
+        - name: tokio
+          package: tokio
+          force_used: true
+        - name: uuid
+          package: uuid
+          force_used: true
       package_name_override: google-cloud-bigquery-v2
   - name: google-cloud-bigquery-write
     copyright_year: "2026"
