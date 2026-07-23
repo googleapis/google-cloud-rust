@@ -499,7 +499,7 @@ pub async fn query_client_job() -> Result<()> {
     let query = bq
         .query("SELECT 2 as two")
         .set_priority("INTERACTIVE") // force job path
-        .with_project_id(project_id)
+        .with_project_id(project_id.clone())
         .set_labels(vec![(INSTANCE_LABEL, "true")])
         .run()
         .await?;
@@ -508,11 +508,7 @@ pub async fn query_client_job() -> Result<()> {
 
     assert_eq!(complete_query.metadata().total_rows, Some(1));
 
-    let mut iter = complete_query.read();
-    let row = iter.next().await.expect("should return first row")?;
-    assert_eq!(row.get::<i64, _>("two"), 2);
-    assert!(iter.next().await.is_none(), "{iter:?}");
-
+    // fetch full job metadata
     let job = complete_query.job_metadata().await?;
 
     let job_ref = job
@@ -529,7 +525,13 @@ pub async fn query_client_job() -> Result<()> {
         .and_then(|c| c.query.as_ref())
         .map(|q| q.query.as_str())
         .expect("job should have configuration.query");
-    assert_eq!(config_query, sql);
+    assert_eq!(config_query, "SELECT 2 as two");
+
+    // read the results
+    let mut iter = complete_query.read();
+    let row = iter.next().await.expect("should return first row")?;
+    assert_eq!(row.get::<i64, _>("two"), 2);
+    assert!(iter.next().await.is_none(), "{iter:?}");
 
     Ok(())
 }
