@@ -272,6 +272,7 @@ struct UserData {
     raw_bytes: Vec<u8>,
     payload_bytes: bytes::Bytes,
     nullable_bytes: Option<Vec<u8>>,
+    interval_val: google_cloud_bigquery::Interval,
 }
 
 pub async fn query_client_datatypes() -> Result<()> {
@@ -296,7 +297,8 @@ pub async fn query_client_datatypes() -> Result<()> {
                  CAST(NULL AS INT64) AS nullable_age, \
                  B'hello world' AS raw_bytes, \
                  B'payload in bytes' AS payload_bytes, \
-                 CAST(NULL AS BYTES) AS nullable_bytes",
+                 CAST(NULL AS BYTES) AS nullable_bytes, \
+                 INTERVAL '1 2:30:45.123456' DAY TO SECOND AS interval_val",
         )
         .with_project_id(project_id)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
@@ -356,6 +358,15 @@ pub async fn query_client_datatypes() -> Result<()> {
         raw_bytes: b"hello world".to_vec(),
         payload_bytes: bytes::Bytes::from_static(b"payload in bytes"),
         nullable_bytes: None,
+        interval_val: google_cloud_bigquery::Interval {
+            years: 0,
+            months: 0,
+            days: 1,
+            hours: 2,
+            minutes: 30,
+            seconds: 45,
+            nanos: 123_456_000,
+        },
     };
 
     assert_eq!(row.get::<String, _>("name"), expected.name);
@@ -403,6 +414,10 @@ pub async fn query_client_datatypes() -> Result<()> {
     assert_eq!(
         row.get::<Option<Vec<u8>>, _>("nullable_bytes"),
         expected.nullable_bytes
+    );
+    assert_eq!(
+        row.get::<google_cloud_bigquery::Interval, _>("interval_val"),
+        expected.interval_val
     );
 
     let data: UserData = row.try_into()?;
