@@ -160,13 +160,13 @@ impl JobPoller {
         }
     }
 
-    /// Sets the maximum number of times to retry a terminal job error with a new Job ID.
+    /// Sets the maximum number of job-level retry attempts.
     pub fn with_job_retry_limit(mut self, limit: usize) -> Self {
         self.policy.job_level_retry_limit = limit;
         self
     }
 
-    /// Sets the exponential backoff policy for mutational job retries.
+    /// Sets the exponential backoff policy for job-level retries.
     pub fn with_job_retry_backoff(mut self, backoff: ExponentialBackoff) -> Self {
         self.policy.backoff = backoff;
         self
@@ -180,7 +180,20 @@ impl JobPoller {
 }
 
 impl InsertJob {
-    /// Returns a `JobPoller` to monitor the status of the inserted job and automatically retry jobBackendError.
+    /// Returns a `JobPoller`, which can retry on [job-level errors].
+    ///
+    /// If the job fails with an internal error, the `JobPoller` will retry the
+    /// `InsertJob` operation. Note that the client library will supply a
+    /// synthetic job ID for any retries.
+    ///
+    /// ```no_run
+    /// # async fn example(builder: google_cloud_bigquery_v2::builder::job_service::InsertJob) -> Result<(), Box<dyn std::error::Error>> {
+    /// let job = builder.into_job_poller().until_done().await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// [job-level errors]: https://docs.cloud.google.com/bigquery/docs/error-messages#errortable
     pub fn into_job_poller(self) -> JobPoller {
         JobPoller::new(self)
     }
