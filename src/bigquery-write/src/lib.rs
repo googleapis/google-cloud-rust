@@ -34,6 +34,17 @@ pub(crate) use google_cloud_gax::options::RequestOptions;
 pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
 pub(crate) use google_cloud_gax::response::Response;
 
+/// Clients to interact with Cloud BigQuery Storage Write API
+pub mod client;
+/// Builders to interact with Cloud BigQuery Storage Write API
+pub mod builder {
+    /// Request and client builders for the Data [Client][crate::client::Client].
+    pub mod data {
+        pub use crate::client_builder::ClientBuilder;
+    }
+    // TODO(#6152) - add admin client.
+}
+mod client_builder;
 mod error;
 mod proto_schema;
 #[cfg_attr(not(test), expect(dead_code))]
