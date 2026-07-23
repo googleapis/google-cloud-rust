@@ -17,6 +17,7 @@ should not introduce breaking changes to the client libraries.
 The main types to work with this crate are the clients:
 
 - [CloudQuotas]
+- [QuotaAdjusterSettingsManager]
 
 ## Features
 
@@ -33,3 +34,4 @@ The main types to work with this crate are the clients:
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
 [CloudQuotas]: https://docs.rs/google-cloud-api-cloudquotas-v1/1.11.0/google_cloud_api_cloudquotas_v1/client/struct.CloudQuotas.html
+[QuotaAdjusterSettingsManager]: https://docs.rs/google-cloud-api-cloudquotas-v1/1.11.0/google_cloud_api_cloudquotas_v1/client/struct.QuotaAdjusterSettingsManager.html

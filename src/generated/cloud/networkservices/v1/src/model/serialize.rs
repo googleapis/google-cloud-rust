@@ -107,6 +107,9 @@ impl serde::ser::Serialize for super::agent_gateway::SelfManaged {
         if !self.resource_uri.is_empty() {
             state.serialize_entry("resourceUri", &self.resource_uri)?;
         }
+        if !self.resource_uris.is_empty() {
+            state.serialize_entry("resourceUris", &self.resource_uris)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

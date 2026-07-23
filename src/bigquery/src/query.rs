@@ -28,7 +28,7 @@ pub(crate) use iterator::RowIterator;
 pub(crate) use query_handle::{CompleteQuery, Query};
 pub(crate) use schema::Schema;
 
-pub use from_sql::{FromSql, Interval};
+pub use from_sql::{FromSql, Interval, Range};
 pub use query_reference::QueryReference;
 pub use row::Row;
 pub use run_query::RunQuery;

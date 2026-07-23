@@ -919,6 +919,18 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::CryptoKeyVersion>>;
 
+    async fn import_trusted_key_wrapped_crypto_key_version(
+        &self,
+        req: crate::model::ImportTrustedKeyWrappedCryptoKeyVersionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CryptoKeyVersion>>;
+
+    async fn export_trusted_key_wrapped_crypto_key_version(
+        &self,
+        req: crate::model::ExportTrustedKeyWrappedCryptoKeyVersionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ExportTrustedKeyWrappedCryptoKeyVersionResponse>>;
+
     async fn create_import_job(
         &self,
         req: crate::model::CreateImportJobRequest,
@@ -1221,6 +1233,25 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::CryptoKeyVersion>> {
         T::import_crypto_key_version(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn import_trusted_key_wrapped_crypto_key_version(
+        &self,
+        req: crate::model::ImportTrustedKeyWrappedCryptoKeyVersionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CryptoKeyVersion>> {
+        T::import_trusted_key_wrapped_crypto_key_version(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn export_trusted_key_wrapped_crypto_key_version(
+        &self,
+        req: crate::model::ExportTrustedKeyWrappedCryptoKeyVersionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ExportTrustedKeyWrappedCryptoKeyVersionResponse>>
+    {
+        T::export_trusted_key_wrapped_crypto_key_version(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

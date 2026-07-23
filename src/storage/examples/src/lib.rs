@@ -28,7 +28,7 @@ use google_cloud_gax::{
 };
 use google_cloud_storage::client::{Storage, StorageControl};
 use google_cloud_storage::model::bucket::{
-    ObjectRetention,
+    CustomPlacementConfig, ObjectRetention,
     iam_config::UniformBucketLevelAccess,
     {HierarchicalNamespace, IamConfig},
 };
@@ -711,6 +711,38 @@ pub async fn create_test_hns_bucket() -> anyhow::Result<(StorageControl, Bucket)
         .send()
         .await?;
     println!("create_test_hns_bucket(): {create:?}");
+    Ok((client, create))
+}
+
+pub async fn create_test_rapid_bucket() -> anyhow::Result<(StorageControl, Bucket)> {
+    let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
+    let client = client_for_create_bucket().await?;
+    cleanup_stale_buckets(&client, &project_id).await?;
+
+    let bucket_id = crate::random_bucket_id();
+
+    let create = client
+        .create_bucket()
+        .set_parent("projects/_")
+        .set_bucket_id(bucket_id)
+        .set_bucket(
+            Bucket::new()
+                .set_project(format!("projects/{project_id}"))
+                .set_location("us-central1")
+                .set_custom_placement_config(
+                    CustomPlacementConfig::new().set_data_locations(["us-central1-a"]),
+                )
+                .set_storage_class("RAPID")
+                .set_labels([("integration-test", "true")])
+                .set_hierarchical_namespace(HierarchicalNamespace::new().set_enabled(true))
+                .set_iam_config(IamConfig::new().set_uniform_bucket_level_access(
+                    UniformBucketLevelAccess::new().set_enabled(true),
+                )),
+        )
+        .with_idempotency(true)
+        .send()
+        .await?;
+    println!("create_test_rapid_bucket(): {create:?}");
     Ok((client, create))
 }
 

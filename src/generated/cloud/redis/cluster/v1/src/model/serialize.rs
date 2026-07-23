@@ -612,6 +612,12 @@ impl serde::ser::Serialize for super::Cluster {
         if self.encryption_info.is_some() {
             state.serialize_entry("encryptionInfo", &self.encryption_info)?;
         }
+        if self.async_cluster_endpoints_deletion_enabled.is_some() {
+            state.serialize_entry(
+                "asyncClusterEndpointsDeletionEnabled",
+                &self.async_cluster_endpoints_deletion_enabled,
+            )?;
+        }
         if self.server_ca_mode.is_some() {
             state.serialize_entry("serverCaMode", &self.server_ca_mode)?;
         }

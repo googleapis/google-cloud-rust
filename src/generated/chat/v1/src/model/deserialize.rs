@@ -4936,6 +4936,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Membership {
             __group_member,
             __create_time,
             __delete_time,
+            __affiliation,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -4966,6 +4967,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Membership {
                             "create_time" => Ok(__FieldTag::__create_time),
                             "deleteTime" => Ok(__FieldTag::__delete_time),
                             "delete_time" => Ok(__FieldTag::__delete_time),
+                            "affiliation" => Ok(__FieldTag::__affiliation),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -5076,6 +5078,14 @@ impl<'de> serde::de::Deserialize<'de> for super::Membership {
                             }
                             result.delete_time =
                                 map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__affiliation => {
+                            if !fields.insert(__FieldTag::__affiliation) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for affiliation",
+                                ));
+                            }
+                            result.affiliation = map.next_value::<std::option::Option<crate::model::membership::Affiliation>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

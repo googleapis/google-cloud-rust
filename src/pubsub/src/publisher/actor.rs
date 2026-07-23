@@ -16,8 +16,10 @@ use super::options::BatchingOptions;
 use crate::generated::gapic_dataplane::client::Publisher as GapicPublisher;
 use crate::publisher::batch::Batch;
 use std::collections::{HashMap, VecDeque};
+use std::pin::Pin;
 use tokio::sync::{mpsc, oneshot};
 use tokio::task::JoinSet;
+use tokio::time::Sleep;
 use tokio_util::task::JoinMap;
 
 /// A command sent from the `Publisher` to the background Dispatcher actor.
@@ -255,7 +257,7 @@ impl ConcurrentBatchActor {
         // (`None`) when a flush drains the batch. Dropping the timer unregisters
         // it from Tokio's timer driver, so idle actors hold zero time-wheel
         // entries and incur zero CPU wakeups at rest.
-        let mut timer: Option<std::pin::Pin<Box<tokio::time::Sleep>>> = None;
+        let mut timer: Option<Pin<Box<Sleep>>> = None;
         // We have multiple inflight batches concurrently.
         let mut inflight = JoinSet::new();
         let mut batch = Batch::new(
@@ -388,7 +390,7 @@ impl SequentialBatchActor {
         // Lazy timer: same pattern as ConcurrentBatchActor — armed when the
         // first message arrives in a new batch cycle, disarmed after a flush
         // that drains all pending messages.
-        let mut timer: Option<std::pin::Pin<Box<tokio::time::Sleep>>> = None;
+        let mut timer: Option<Pin<Box<Sleep>>> = None;
         // While it is possible to use Some(JoinHandle) here as there is at max
         // a single inflight task at any given time, the use of JoinSet
         // simplify the managing the inflight JoinHandle.

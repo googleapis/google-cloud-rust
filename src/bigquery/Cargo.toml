@@ -14,8 +14,8 @@
 
 [package]
 name        = "google-cloud-bigquery"
-publish     = false
-version     = "0.0.0"
+publish     = true
+version     = "0.16.0-preview"
 description = "Google Cloud Client Libraries for Rust - BigQuery"
 # Inherit other attributes from the workspace.
 edition.workspace      = true

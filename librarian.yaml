@@ -19,11 +19,11 @@ sources:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
   discovery:
-    commit: c0b2eef05f127c60901de1a70715cf09b06c1229
-    sha256: ae12f85f219c662cf5c1d0f4d5253a7a77962fb25e4f682c6d22854790dfc3ff
+    commit: ae1716748979a2f6d5668b67cd7362a2f4a5e3d3
+    sha256: 40a3e0f15a96629bcdeffd8293cebcaeece86510c87ba861b5dd2c4d12561776
   googleapis:
-    commit: 82363dc40e9c448d66fb557cc92b434b0d9548d5
-    sha256: 2a57eed61d050b89f2972f46de8a908613ddc09b2b157934e62abc484aa8a577
+    commit: eeacbcfd6305391efe503993bae5f0ffa4311b28
+    sha256: e02aadee1ace11c36d5740d6c4a88fa058e22c3e775bcbf5e20052e117e46e5b
   protobuf:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
@@ -481,9 +481,9 @@ libraries:
     version: 2.0.0
     copyright_year: "2025"
   - name: google-cloud-bigquery
+    version: 0.16.0-preview
     copyright_year: "2026"
     output: src/bigquery
-    skip_release: true
     rust:
       modules:
         - output: src/bigquery/src/generated
@@ -504,6 +504,10 @@ libraries:
   - name: google-cloud-bigquery-datatransfer-v1
     version: 1.11.0
     copyright_year: "2025"
+  - name: google-cloud-bigquery-derive
+    version: 0.1.0-preview
+    copyright_year: "2026"
+    output: src/bigquery-derive
   - name: google-cloud-bigquery-migration-v2
     version: 1.11.0
     copyright_year: "2025"
@@ -511,11 +515,10 @@ libraries:
     version: 1.11.0
     copyright_year: "2025"
   - name: google-cloud-bigquery-v2
-    version: 1.0.0
+    version: 0.1.0
     copyright_year: "2025"
     keep:
       - src/operation.rs
-    skip_release: true
     rust:
       package_name_override: google-cloud-bigquery-v2
   - name: google-cloud-bigquery-write
@@ -1470,7 +1473,7 @@ libraries:
           item_field: items
       quickstart_service_override: SqlInstancesService
   - name: google-cloud-storage
-    version: 1.16.0
+    version: 1.17.0
     copyright_year: "2025"
     output: src/storage
     rust:
