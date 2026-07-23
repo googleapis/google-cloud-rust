@@ -28,7 +28,7 @@ pub struct RowIterator {
     schema: Arc<Schema>,
     page_token: Option<String>,
     rows: VecDeque<wkt::Struct>,
-    max_rows_buffered: Option<u32>,
+    max_results: Option<u32>,
 }
 
 impl RowIterator {
@@ -39,13 +39,13 @@ impl RowIterator {
             schema: q.schema,
             page_token: q.page_token,
             rows: q.cached_rows,
-            max_rows_buffered: None,
+            max_results: q.max_results,
         }
     }
 
     /// Sets the maximum number of rows to buffer in memory.
-    pub fn set_max_rows_buffered(mut self, max_rows_buffered: u32) -> Self {
-        self.max_rows_buffered = Some(max_rows_buffered);
+    pub fn set_max_results(mut self, max_results: u32) -> Self {
+        self.max_results = Some(max_results);
         self
     }
 
@@ -87,7 +87,7 @@ impl RowIterator {
 
         let mut req = GetQueryResultsRequest::new()
             .set_project_id(job_ref.project_id.clone())
-            .set_or_clear_max_results(self.max_rows_buffered)
+            .set_or_clear_max_results(self.max_results)
             .set_job_id(job_ref.job_id.clone())
             .set_page_token(token)
             .set_format_options(
@@ -164,7 +164,7 @@ mod tests {
         if let Some(token) = page_token {
             res = res.set_page_token(token);
         }
-        CompleteQuery::from_query_response(job_service, job_ref, res)
+        CompleteQuery::from_query_response(job_service, job_ref, res, None)
     }
 
     #[tokio::test]
@@ -294,11 +294,42 @@ mod tests {
             vec![],
             Some("token_1".to_string()),
         );
-        let mut iter = q.read().set_max_rows_buffered(50);
+        let mut iter = q.read().set_max_results(50);
 
         let row = iter.next().await.expect("should have row")?;
         assert_eq!(row.get::<String, _>("col"), "page_row");
 
+        assert!(iter.next().await.is_none(), "{iter:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_row_iterator_inherits_max_results() -> TestResult {
+        let mut mock = MockJobService::new();
+        mock.expect_get_query_results()
+            .times(1)
+            .returning(|req, _| {
+                assert_eq!(req.max_results, Some(25));
+                let res = GetQueryResultsResponse::new()
+                    .set_rows(vec![create_test_row("page_row")])
+                    .set_page_token("");
+                Ok(Response::from(res))
+            });
+
+        let job_service = create_job_service(mock);
+        let res = QueryResponse::new()
+            .set_schema(create_test_schema())
+            .set_page_token("token_1");
+        let q = CompleteQuery::from_query_response(
+            job_service,
+            Some(create_test_job_ref()),
+            res,
+            Some(25),
+        );
+        let mut iter = q.read();
+
+        let row = iter.next().await.expect("should have row")?;
+        assert_eq!(row.get::<String, _>("col"), "page_row");
         assert!(iter.next().await.is_none(), "{iter:?}");
         Ok(())
     }
