@@ -14,7 +14,7 @@
 
 [package]
 name                   = "google-cloud-bigquery-derive"
-version                = "0.0.0"
+version                = "0.1.0-preview"
 description            = "Derive macros for the Google Cloud BigQuery client."
 edition.workspace      = true
 authors.workspace      = true
@@ -23,7 +23,7 @@ repository.workspace   = true
 keywords.workspace     = true
 categories.workspace   = true
 rust-version.workspace = true
-publish                = false
+publish                = true
 
 [lib]
 proc-macro = true

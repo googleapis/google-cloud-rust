@@ -481,9 +481,9 @@ libraries:
     version: 2.0.0
     copyright_year: "2025"
   - name: google-cloud-bigquery
+    version: 0.16.0-preview
     copyright_year: "2026"
     output: src/bigquery
-    skip_release: true
     rust:
       modules:
         - output: src/bigquery/src/generated
@@ -504,6 +504,10 @@ libraries:
   - name: google-cloud-bigquery-datatransfer-v1
     version: 1.11.0
     copyright_year: "2025"
+  - name: google-cloud-bigquery-derive
+    version: 0.1.0-preview
+    copyright_year: "2026"
+    output: src/bigquery-derive
   - name: google-cloud-bigquery-migration-v2
     version: 1.11.0
     copyright_year: "2025"
