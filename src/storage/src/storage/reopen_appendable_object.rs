@@ -49,7 +49,7 @@ where
     ///
     /// Example:
     /// ```ignore
-    /// # use google_cloud_storage::{model_ext::KeyAes256, client::Storage};
+    /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let mut writer = client
     ///     .reopen_appendable_object("projects/_/buckets/my-bucket", "my-object", 123456)
@@ -110,6 +110,8 @@ impl<S> ReopenAppendableObject<S> {
     /// # Ok(()) }
     /// ```
     ///
+    /// Note that this precondition is ignored if a `write_handle` is also set.
+    ///
     /// [request precondition]: https://cloud.google.com/storage/docs/request-preconditions
     pub fn set_if_metageneration_match<V>(mut self, v: V) -> Self
     where
@@ -133,6 +135,8 @@ impl<S> ReopenAppendableObject<S> {
     ///     .await?;
     /// # Ok(()) }
     /// ```
+    ///
+    /// Note that this precondition is ignored if a `write_handle` is also set.
     ///
     /// [request precondition]: https://cloud.google.com/storage/docs/request-preconditions
     pub fn set_if_metageneration_not_match<V>(mut self, v: V) -> Self
@@ -177,6 +181,9 @@ impl<S> ReopenAppendableObject<S> {
     ///     .await?;
     /// # Ok(()) }
     /// ```
+    ///
+    /// Note that setting a `write_handle` will cause metageneration preconditions
+    /// (`if_metageneration_match` and `if_metageneration_not_match`) to be ignored.
     pub fn set_write_handle<V>(mut self, handle: V) -> Self
     where
         V: Into<bytes::Bytes>,
@@ -337,7 +344,7 @@ impl<S> ReopenAppendableObject<S> {
     where
         V: Into<String>,
     {
-        self.options.set_quota_project(project.into());
+        self.options.set_quota_project(project);
         self
     }
 }
@@ -381,8 +388,8 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
-    async fn attributes() -> Result<()> {
+    #[test]
+    fn attributes() {
         let options = RequestOptions::new();
         let builder = ReopenAppendableObject::new(
             Arc::new(StorageStub),
@@ -403,7 +410,6 @@ mod tests {
             builder.request.write_handle,
             Some(bytes::Bytes::from("handle"))
         );
-        Ok(())
     }
 
     #[tokio::test]

@@ -709,7 +709,7 @@ mod tests {
 
     #[cfg(google_cloud_unstable_storage_bidi)]
     #[tokio::test]
-    async fn open_appendable_object() -> anyhow::Result<()> {
+    async fn open_appendable_object_not_found() -> anyhow::Result<()> {
         use gaxi::grpc::tonic::Status as TonicStatus;
         use google_cloud_gax::error::rpc::Code;
         use storage_grpc_mock::{MockStorage, start};
@@ -740,7 +740,7 @@ mod tests {
 
     #[cfg(google_cloud_unstable_storage_bidi)]
     #[tokio::test]
-    async fn reopen_appendable_object() -> anyhow::Result<()> {
+    async fn reopen_appendable_object_not_found() -> anyhow::Result<()> {
         use gaxi::grpc::tonic::Status as TonicStatus;
         use google_cloud_gax::error::rpc::Code;
         use storage_grpc_mock::{MockStorage, start};
