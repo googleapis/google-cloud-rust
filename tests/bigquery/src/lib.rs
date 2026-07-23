@@ -513,6 +513,24 @@ pub async fn query_client_job() -> Result<()> {
     assert_eq!(row.get::<i64, _>("two"), 2);
     assert!(iter.next().await.is_none(), "{iter:?}");
 
+    let job = complete_query.job_metadata().await?;
+
+    let job_ref = job
+        .job_reference
+        .as_ref()
+        .expect("job should have job_reference");
+    assert_eq!(job_ref.project_id, project_id);
+    assert!(!job_ref.job_id.is_empty(), "{job_ref:?}");
+    assert!(job.status.is_some(), "{job:?}");
+    assert!(job.statistics.is_some(), "{job:?}");
+    let config_query = job
+        .configuration
+        .as_ref()
+        .and_then(|c| c.query.as_ref())
+        .map(|q| q.query.as_str())
+        .expect("job should have configuration.query");
+    assert_eq!(config_query, sql);
+
     Ok(())
 }
 
