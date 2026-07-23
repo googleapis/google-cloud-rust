@@ -2185,6 +2185,7 @@ dependencies = [
  "bigquery-write-grpc-mock",
  "bytes",
  "google-cloud-auth",
+ "google-cloud-bigquery-write",
  "google-cloud-gax",
  "google-cloud-gax-internal",
  "google-cloud-rpc",
