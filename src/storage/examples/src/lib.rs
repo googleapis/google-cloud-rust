@@ -730,7 +730,7 @@ pub async fn create_test_rapid_bucket() -> anyhow::Result<(StorageControl, Bucke
                 .set_project(format!("projects/{project_id}"))
                 .set_location("us-central1")
                 .set_custom_placement_config(
-                    CustomPlacementConfig::new().set_data_locations(["us-central1-a".to_string()]),
+                    CustomPlacementConfig::new().set_data_locations(["us-central1-a"]),
                 )
                 .set_storage_class("RAPID")
                 .set_labels([("integration-test", "true")])

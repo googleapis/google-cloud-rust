@@ -208,7 +208,7 @@ pub async fn signed_post_policies_v4(
     Ok(())
 }
 
-async fn read_all(mut response: ReadObjectResponse) -> Result<Vec<u8>> {
+pub async fn read_all(mut response: ReadObjectResponse) -> Result<Vec<u8>> {
     let mut contents = Vec::new();
     while let Some(b) = response.next().await.transpose()? {
         contents.extend_from_slice(&b);

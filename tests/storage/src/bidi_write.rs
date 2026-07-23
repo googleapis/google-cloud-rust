@@ -31,22 +31,15 @@ async fn check_object_contents(
     object: &str,
     expected: &[u8],
 ) -> anyhow::Result<()> {
-    let mut resp = client.read_object(bucket, object).send().await?;
-    let mut buf = Vec::new();
-    while let Some(chunk) = resp.next().await {
-        buf.extend_from_slice(&chunk?);
-    }
+    let resp = client.read_object(bucket, object).send().await?;
+    let buf = crate::read_all(resp).await?;
     assert_eq!(buf, expected);
     Ok(())
 }
 
 async fn test_bidi_write_single_block(client: &Storage, bucket: &str) -> anyhow::Result<()> {
     tracing::info!("run test_bidi_write_single_block");
-    let now = SystemTime::now()
-        .duration_since(SystemTime::UNIX_EPOCH)
-        .unwrap()
-        .as_nanos();
-    let object_name = format!("test_bidi_write_single_block_{now}");
+    let object_name = append_time_to_object_name("test_bidi_write_single_block");
 
     let mut writer = client
         .open_appendable_object(bucket, &object_name)
@@ -66,11 +59,7 @@ async fn test_bidi_write_single_block(client: &Storage, bucket: &str) -> anyhow:
 
 async fn test_bidi_write_chunked_appends(client: &Storage, bucket: &str) -> anyhow::Result<()> {
     tracing::info!("run test_bidi_write_chunked_appends");
-    let now = SystemTime::now()
-        .duration_since(SystemTime::UNIX_EPOCH)
-        .unwrap()
-        .as_nanos();
-    let object_name = format!("test_bidi_write_chunked_appends_{now}");
+    let object_name = append_time_to_object_name("test_bidi_write_chunked_appends");
 
     let mut writer = client
         .open_appendable_object(bucket, &object_name)
@@ -79,8 +68,11 @@ async fn test_bidi_write_chunked_appends(client: &Storage, bucket: &str) -> anyh
 
     writer.append(Bytes::from("chunk1")).await?;
     writer.append(Bytes::from("chunk2")).await?;
+
     let persisted = writer.flush().await?;
     tracing::info!("flushed, persisted_size: {}", persisted);
+    assert_eq!(persisted, 12);
+
     writer.append(Bytes::from("chunk3")).await?;
     let object_metadata = writer.finalize().await?;
     tracing::info!("object finalized: {:?}", object_metadata);
@@ -94,11 +86,7 @@ async fn test_bidi_write_chunked_appends(client: &Storage, bucket: &str) -> anyh
 
 async fn test_bidi_write_resume_append(client: &Storage, bucket: &str) -> anyhow::Result<()> {
     tracing::info!("run test_bidi_write_resume_append");
-    let now = SystemTime::now()
-        .duration_since(SystemTime::UNIX_EPOCH)
-        .unwrap()
-        .as_nanos();
-    let object_name = format!("test_bidi_write_resume_append_{now}");
+    let object_name = append_time_to_object_name("test_bidi_write_resume_append");
 
     let mut writer = client
         .open_appendable_object(bucket, &object_name)
@@ -138,11 +126,7 @@ async fn test_bidi_write_drop_stream(client: &Storage, bucket: &str) -> anyhow::
     // Test reopen and finalize after a dropped connection. We'll append some
     // data and drop the connection without flushing or finalizing. Since we
     // didn't flush the data, it may or may not be persisted.
-    let now = SystemTime::now()
-        .duration_since(SystemTime::UNIX_EPOCH)
-        .unwrap()
-        .as_nanos();
-    let object_name = format!("test_bidi_write_drop_stream_{now}");
+    let object_name = append_time_to_object_name("test_bidi_write_drop_stream");
 
     let mut writer = client
         .open_appendable_object(bucket, &object_name)
@@ -159,9 +143,6 @@ async fn test_bidi_write_drop_stream(client: &Storage, bucket: &str) -> anyhow::
 
     // Explicitly drop the writer without flush/finalize/close.
     drop(writer);
-
-    // Give the server a moment to recognize the dropped connection.
-    tokio::time::sleep(std::time::Duration::from_millis(500)).await;
 
     // Reopen using the generation.
     let mut writer2 = client
@@ -187,13 +168,18 @@ async fn test_bidi_write_drop_stream(client: &Storage, bucket: &str) -> anyhow::
     // We can't strictly check exact contents because the data may or may not
     // have been persisted, but we know it starts with "hello " and ends with
     // "world".
-    let mut resp = client.read_object(bucket, &object_name).send().await?;
-    let mut buf = Vec::new();
-    while let Some(chunk) = resp.next().await {
-        buf.extend_from_slice(&chunk?);
-    }
+    let resp = client.read_object(bucket, &object_name).send().await?;
+    let buf = crate::read_all(resp).await?;
     assert!(buf.starts_with(b"hello "));
     assert!(buf.ends_with(b"world"));
 
     Ok(())
+}
+
+fn append_time_to_object_name(prefix: &str) -> String {
+    let now = SystemTime::now()
+        .duration_since(SystemTime::UNIX_EPOCH)
+        .unwrap()
+        .as_nanos();
+    format!("{prefix}_{now}")
 }
