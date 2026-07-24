@@ -934,6 +934,30 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn checksum_toggles() -> Result<()> {
+        let options = RequestOptions::new();
+
+        // By default, crc32c is enabled and md5 is disabled.
+        assert!(options.checksum.crc32c.is_some());
+        assert!(options.checksum.md5_hash.is_none());
+
+        let builder = OpenObject::new(
+            Arc::new(StorageStub),
+            BUCKET_NAME.to_string(),
+            OBJECT_NAME.to_string(),
+            options,
+        )
+        .compute_crc32c(false)
+        .compute_md5();
+
+        let got = builder.options;
+        assert!(got.checksum.crc32c.is_none());
+        assert!(got.checksum.md5_hash.is_some());
+
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn quota_project() -> anyhow::Result<()> {
         const PROJECT_NAME: &str = "project_lazy_dog";
         let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(1);
