@@ -38,10 +38,13 @@ impl google_cloud_lro::internal::DiscoveryOperation for Job {
     }
 }
 
-/// Determines if a BigQuery job failure reason is transient and eligible for job-level retry.
+/// Determines if a BigQuery job failure reason is transient and eligible for
+/// job-level retry.
 ///
-/// Returns `true` for retryable reasons (`jobBackendError`, `jobInternalError`, `jobRateLimitExceeded`,
-/// `tableUnavailable`) per BigQuery error handling specification.
+/// Returns `true` for retryable reasons (`jobBackendError`,
+/// `jobInternalError`, `jobRateLimitExceeded`, `tableUnavailable`) per
+/// BigQuery error handling specification.
+#[allow(dead_code)]
 pub(crate) fn is_retryable_job_error(reason: &str) -> bool {
     matches!(
         reason,
@@ -52,15 +55,12 @@ pub(crate) fn is_retryable_job_error(reason: &str) -> bool {
 /// Prepares a `Job` instance for retry by assigning a new synthetic job ID
 /// and clearing existing execution status.
 ///
-/// To preserve idempotency and avoid job execution collisions, each job-level retry must
-/// use a unique job ID while retaining original reference details (project ID, location)
-/// and configuration settings.
+/// To preserve idempotency and avoid job execution collisions, each job-level
+/// retry must use a unique job ID while retaining original reference details
+/// (project ID, location) and configuration settings.
+#[allow(dead_code)]
 pub(crate) fn prepare_job_for_retry(mut job: Job) -> Job {
-    let existing_ref = job.job_reference.unwrap_or_default();
-    job.job_reference = Some(crate::model::JobReference {
-        job_id: uuid::Uuid::new_v4().to_string(),
-        ..existing_ref
-    });
+    job.job_reference.get_or_insert_default().job_id = uuid::Uuid::new_v4().to_string();
     job.status = None;
     job
 }
@@ -68,7 +68,9 @@ pub(crate) fn prepare_job_for_retry(mut job: Job) -> Job {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::model::{ErrorProto, Job, JobReference, JobStatus};
+    use crate::model::{
+        ErrorProto, Job, JobConfiguration, JobConfigurationQuery, JobReference, JobStatus,
+    };
     use google_cloud_lro::internal::DiscoveryOperation;
 
     #[test]
@@ -79,13 +81,7 @@ mod tests {
 
     #[test]
     fn name_some() {
-        let job = Job {
-            job_reference: Some(JobReference {
-                job_id: "test-id".to_string(),
-                ..Default::default()
-            }),
-            ..Default::default()
-        };
+        let job = Job::new().set_job_reference(JobReference::new().set_job_id("test-id"));
         assert_eq!(job.name().map(|s| s.as_str()), Some("test-id"));
     }
 
@@ -97,25 +93,13 @@ mod tests {
 
     #[test]
     fn done_false() {
-        let job = Job {
-            status: Some(JobStatus {
-                state: "RUNNING".to_string(),
-                ..Default::default()
-            }),
-            ..Default::default()
-        };
+        let job = Job::new().set_status(JobStatus::new().set_state("RUNNING"));
         assert!(!job.done());
     }
 
     #[test]
     fn done_true() {
-        let job = Job {
-            status: Some(JobStatus {
-                state: "DONE".to_string(),
-                ..Default::default()
-            }),
-            ..Default::default()
-        };
+        let job = Job::new().set_status(JobStatus::new().set_state("DONE"));
         assert!(job.done());
     }
 
@@ -124,29 +108,17 @@ mod tests {
         let job = Job::default();
         assert!(job.error().is_none());
 
-        let job_no_error = Job {
-            status: Some(JobStatus {
-                state: "DONE".to_string(),
-                ..Default::default()
-            }),
-            ..Default::default()
-        };
+        let job_no_error = Job::new().set_status(JobStatus::new().set_state("DONE"));
         assert!(job_no_error.error().is_none());
     }
 
     #[test]
     fn error_some() {
-        let job = Job {
-            status: Some(JobStatus {
-                state: "DONE".to_string(),
-                error_result: Some(ErrorProto {
-                    message: "test error".to_string(),
-                    ..Default::default()
-                }),
-                ..Default::default()
-            }),
-            ..Default::default()
-        };
+        let job = Job::new().set_status(
+            JobStatus::new()
+                .set_state("DONE")
+                .set_error_result(ErrorProto::new().set_message("test error")),
+        );
         let err = job.error().expect("should have error");
         assert_eq!(err.code, Code::Unknown);
         assert_eq!(err.message, "test error");
@@ -174,24 +146,20 @@ mod tests {
 
     #[test]
     fn prepare_job_for_retry_generates_new_id_and_resets_status() {
-        let original_job = Job {
-            job_reference: Some(JobReference {
-                project_id: "test-project".to_string(),
-                job_id: "original-job-id".to_string(),
-                location: Some("US".to_string()),
-                ..Default::default()
-            }),
-            status: Some(JobStatus {
-                state: "DONE".to_string(),
-                error_result: Some(ErrorProto {
-                    reason: "jobBackendError".to_string(),
-                    message: "backend failed".to_string(),
-                    ..Default::default()
-                }),
-                ..Default::default()
-            }),
-            ..Default::default()
-        };
+        let original_job = Job::new()
+            .set_job_reference(
+                JobReference::new()
+                    .set_project_id("test-project")
+                    .set_job_id("original-job-id")
+                    .set_location("US"),
+            )
+            .set_status(
+                JobStatus::new().set_state("DONE").set_error_result(
+                    ErrorProto::new()
+                        .set_reason("jobBackendError")
+                        .set_message("backend failed"),
+                ),
+            );
 
         let retried_job = prepare_job_for_retry(original_job);
 
@@ -208,14 +176,7 @@ mod tests {
 
     #[test]
     fn prepare_job_for_retry_handles_none_job_reference() {
-        let original_job = Job {
-            job_reference: None,
-            status: Some(JobStatus {
-                state: "DONE".to_string(),
-                ..Default::default()
-            }),
-            ..Default::default()
-        };
+        let original_job = Job::new().set_status(JobStatus::new().set_state("DONE"));
 
         let retried_job = prepare_job_for_retry(original_job);
         assert!(retried_job.status.is_none());
@@ -228,35 +189,26 @@ mod tests {
 
     #[test]
     fn prepare_job_for_retry_preserves_job_configuration_and_metadata() {
-        use crate::model::{JobConfiguration, JobConfigurationQuery};
-
-        let original_job = Job {
-            job_reference: Some(JobReference {
-                project_id: "my-project".to_string(),
-                job_id: "initial-id".to_string(),
-                location: Some("EU".to_string()),
-                ..Default::default()
-            }),
-            configuration: Some(JobConfiguration {
-                query: Some(JobConfigurationQuery {
-                    query: "SELECT 42".to_string(),
-                    ..Default::default()
-                }),
-                labels: std::collections::HashMap::from([("env".to_string(), "test".to_string())]),
-                ..Default::default()
-            }),
-            user_email: "user@example.com".to_string(),
-            status: Some(JobStatus {
-                state: "DONE".to_string(),
-                error_result: Some(ErrorProto {
-                    reason: "jobInternalError".to_string(),
-                    message: "internal error".to_string(),
-                    ..Default::default()
-                }),
-                ..Default::default()
-            }),
-            ..Default::default()
-        };
+        let original_job = Job::new()
+            .set_job_reference(
+                JobReference::new()
+                    .set_project_id("my-project")
+                    .set_job_id("initial-id")
+                    .set_location("EU"),
+            )
+            .set_configuration(
+                JobConfiguration::new()
+                    .set_query(JobConfigurationQuery::new().set_query("SELECT 42"))
+                    .set_labels([("env".to_string(), "test".to_string())]),
+            )
+            .set_user_email("user@example.com")
+            .set_status(
+                JobStatus::new().set_state("DONE").set_error_result(
+                    ErrorProto::new()
+                        .set_reason("jobInternalError")
+                        .set_message("internal error"),
+                ),
+            );
 
         let retried = prepare_job_for_retry(original_job);
 
@@ -350,34 +302,8 @@ impl JobPoller {
 
     /// Polls the job until it is done, returning the final Job status.
     pub async fn until_done(self) -> google_cloud_gax::Result<Job> {
-        let mut attempts = 0;
-        let mut builder = self.builder;
-        let backoff = self.policy.backoff;
-        let start_time = std::time::Instant::now();
-        use google_cloud_gax::backoff_policy::BackoffPolicy;
-
-        loop {
-            attempts += 1;
-
-            let job_result = builder.clone().poller().until_done().await?;
-
-            if let Some(status) = &job_result.status
-                && let Some(err) = &status.error_result
-                && is_retryable_job_error(&err.reason)
-                && attempts < self.policy.job_level_retry_limit
-            {
-                let retry_job = prepare_job_for_retry(job_result);
-                builder = builder.set_job(retry_job);
-
-                let retry_state = google_cloud_gax::retry_state::RetryState::new(true)
-                    .set_start(start_time)
-                    .set_attempt_count(attempts as u32);
-                let delay = backoff.on_failure(&retry_state);
-                tokio::time::sleep(delay).await;
-                continue;
-            }
-            return Ok(job_result);
-        }
+        // Scaffolding: just pass through to standard poller for now
+        self.builder.poller().until_done().await
     }
 }
 
