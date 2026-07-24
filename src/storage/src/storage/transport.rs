@@ -782,9 +782,7 @@ mod tests {
         Ok(())
     }
 
-    /// Models a complete lifecycle: `open` -> `append` -> `flush` -> `close`.
-    /// This tests all spans and attributes without redundant test cases for
-    /// identical transport logic.
+    /// Models a complete lifecycle ending in close: `open` -> `append` -> `flush` -> `close`.
     #[cfg(google_cloud_unstable_storage_bidi)]
     #[tokio::test]
     async fn open_appendable_object_success() -> anyhow::Result<()> {
@@ -861,6 +859,97 @@ mod tests {
         check_bidi_write_span_attributes(&captured, "append", 98765, Some(5));
         check_bidi_write_span_attributes(&captured, "flush", 98765, Some(5));
         check_bidi_write_span_attributes(&captured, "close", 98765, Some(5));
+
+        Ok(())
+    }
+
+    /// Models a complete lifecycle ending in finalize: `open` -> `append` -> `flush` -> `finalize`.
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[tokio::test]
+    async fn open_appendable_object_finalize_success() -> anyhow::Result<()> {
+        use bytes::Bytes;
+        use gaxi::grpc::tonic::{Response as TonicResponse, Result as TonicResult};
+        use storage_grpc_mock::google::storage::v2::{
+            BidiWriteObjectResponse, Object, bidi_write_object_response::WriteStatus,
+        };
+        use storage_grpc_mock::{MockStorage, start};
+        const BUCKET_NAME: &str = "projects/_/buckets/test-bucket";
+        const OBJECT_NAME: &str = "test-object";
+        const BIND_ADDRESS: &str = "0.0.0.0:0";
+
+        let guard = TestLayer::initialize();
+
+        let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(10);
+
+        let initial_response = BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::Resource(Object {
+                bucket: BUCKET_NAME.to_string(),
+                name: OBJECT_NAME.to_string(),
+                generation: 98765,
+                ..Default::default()
+            })),
+            ..BidiWriteObjectResponse::default()
+        };
+
+        let flush_response = BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::PersistedSize(5)),
+            ..BidiWriteObjectResponse::default()
+        };
+
+        let finalize_response = BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::Resource(Object {
+                bucket: BUCKET_NAME.to_string(),
+                name: OBJECT_NAME.to_string(),
+                generation: 98765,
+                size: 5,
+                ..Default::default()
+            })),
+            ..BidiWriteObjectResponse::default()
+        };
+
+        tx.send(Ok(initial_response)).await?;
+
+        let mut mock = MockStorage::new();
+        mock.expect_bidi_write_object().return_once(move |req| {
+            let mut stream = req.into_inner();
+            tokio::spawn(async move {
+                while let Some(Ok(msg)) = stream.recv().await {
+                    if msg.finish_write {
+                        let _ = tx.send(Ok(finalize_response.clone())).await;
+                    } else if msg.flush {
+                        let _ = tx.send(Ok(flush_response.clone())).await;
+                    }
+                }
+            });
+            Ok(TonicResponse::new(rx))
+        });
+        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
+
+        let client = crate::client::Storage::builder()
+            .with_credentials(Anonymous::new().build())
+            .with_endpoint(endpoint.clone())
+            .with_tracing()
+            .build()
+            .await?;
+        let mut writer = client
+            .open_appendable_object(BUCKET_NAME, OBJECT_NAME)
+            .send()
+            .await?;
+
+        writer.append(Bytes::from_static(b"hello")).await?;
+        writer.flush().await?;
+        let obj = writer.finalize().await?;
+        assert_eq!(obj.size, 5);
+
+        let captured = TestLayer::capture(&guard);
+        let _span = captured
+            .iter()
+            .find(|s| s.name == "client_request")
+            .unwrap_or_else(|| panic!("missing `client_request` span in capture: {captured:#?}"));
+
+        check_bidi_write_span_attributes(&captured, "append", 98765, Some(5));
+        check_bidi_write_span_attributes(&captured, "flush", 98765, Some(5));
+        check_bidi_write_span_attributes(&captured, "finalize", 98765, Some(5));
 
         Ok(())
     }
