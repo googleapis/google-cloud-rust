@@ -114,13 +114,11 @@ use crate::storage::stub::AppendableObjectWriter as AppendableObjectWriterStub;
 #[cfg(google_cloud_unstable_storage_bidi)]
 /// Implements the [AppendableObjectWriterStub][DynamicAppendableObjectWriterStub] trait with tracing annotations.
 #[derive(Debug)]
-#[allow(dead_code)]
 pub struct TracingAppendableObjectWriter<T> {
     inner: T,
 }
 
 #[cfg(google_cloud_unstable_storage_bidi)]
-#[allow(dead_code)]
 impl<T> TracingAppendableObjectWriter<T> {
     pub(crate) fn new(inner: T) -> Self {
         Self { inner }
