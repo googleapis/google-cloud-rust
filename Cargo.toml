@@ -295,6 +295,7 @@ members = [
   "src/generated/logging/type",
   "src/generated/logging/v2",
   "src/generated/longrunning",
+  "src/generated/maps/fleetengine/v1",
   "src/generated/monitoring/dashboard/v1",
   "src/generated/monitoring/metricsscope/v1",
   "src/generated/monitoring/v3",
