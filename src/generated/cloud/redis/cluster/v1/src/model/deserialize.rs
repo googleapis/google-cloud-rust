@@ -1641,6 +1641,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Cluster {
             __kms_key,
             __automated_backup_config,
             __encryption_info,
+            __async_cluster_endpoints_deletion_enabled,
             __server_ca_mode,
             __server_ca_pool,
             __rotate_server_certificate,
@@ -1731,6 +1732,12 @@ impl<'de> serde::de::Deserialize<'de> for super::Cluster {
                             "automated_backup_config" => Ok(__FieldTag::__automated_backup_config),
                             "encryptionInfo" => Ok(__FieldTag::__encryption_info),
                             "encryption_info" => Ok(__FieldTag::__encryption_info),
+                            "asyncClusterEndpointsDeletionEnabled" => {
+                                Ok(__FieldTag::__async_cluster_endpoints_deletion_enabled)
+                            }
+                            "async_cluster_endpoints_deletion_enabled" => {
+                                Ok(__FieldTag::__async_cluster_endpoints_deletion_enabled)
+                            }
                             "serverCaMode" => Ok(__FieldTag::__server_ca_mode),
                             "server_ca_mode" => Ok(__FieldTag::__server_ca_mode),
                             "serverCaPool" => Ok(__FieldTag::__server_ca_pool),
@@ -2118,6 +2125,17 @@ impl<'de> serde::de::Deserialize<'de> for super::Cluster {
                             result.encryption_info = map
                                 .next_value::<std::option::Option<crate::model::EncryptionInfo>>(
                                 )?;
+                        }
+                        __FieldTag::__async_cluster_endpoints_deletion_enabled => {
+                            if !fields
+                                .insert(__FieldTag::__async_cluster_endpoints_deletion_enabled)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for async_cluster_endpoints_deletion_enabled",
+                                ));
+                            }
+                            result.async_cluster_endpoints_deletion_enabled =
+                                map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__server_ca_mode => {
                             if !fields.insert(__FieldTag::__server_ca_mode) {

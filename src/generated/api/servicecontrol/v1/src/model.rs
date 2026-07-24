@@ -177,15 +177,19 @@ pub mod check_error {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Code {
-        /// This is never used in `CheckResponse`.
+        /// This is the default value if error code is not explicitly set.
+        /// It should not be used directly.
         ErrorCodeUnspecified,
         /// The consumer's project id, network container, or resource container was
-        /// not found. Same as [google.rpc.Code.NOT_FOUND][google.rpc.Code.NOT_FOUND].
+        /// not found. Same as
+        /// [google.rpc.Code.NOT_FOUND][google.rpc.Code.NOT_FOUND].
         NotFound,
         /// The consumer doesn't have access to the specified resource.
-        /// Same as [google.rpc.Code.PERMISSION_DENIED][google.rpc.Code.PERMISSION_DENIED].
+        /// Same as
+        /// [google.rpc.Code.PERMISSION_DENIED][google.rpc.Code.PERMISSION_DENIED].
         PermissionDenied,
-        /// Quota check failed. Same as [google.rpc.Code.RESOURCE_EXHAUSTED][google.rpc.Code.RESOURCE_EXHAUSTED].
+        /// Quota check failed. Same as
+        /// [google.rpc.Code.RESOURCE_EXHAUSTED][google.rpc.Code.RESOURCE_EXHAUSTED].
         ResourceExhausted,
         /// The consumer hasn't activated the service.
         ServiceNotActivated,
@@ -471,7 +475,7 @@ pub struct Distribution {
     /// The buckets are defined below in `bucket_option`. There are N buckets.
     /// `bucket_counts[0]` is the number of samples in the underflow bucket.
     /// `bucket_counts[1]` to `bucket_counts[N-1]` are the numbers of samples
-    /// in each of the finite buckets. And `bucket_counts[N] is the number
+    /// in each of the finite buckets. And `bucket_counts[N]` is the number
     /// of samples in the overflow bucket. See the comments of `bucket_option`
     /// below for more details.
     ///
@@ -1049,7 +1053,7 @@ pub struct HttpRequest {
 
     /// The referer URL of the request, as defined in
     /// [HTTP/1.1 Header Field
-    /// Definitions](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html).
+    /// Definitions](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html).
     pub referer: std::string::String,
 
     /// The request processing latency on the server, from the time the request was
@@ -1868,9 +1872,10 @@ impl wkt::message::Message for LogEntrySourceLocation {
 #[non_exhaustive]
 pub struct MetricValue {
     /// The labels describing the metric value.
-    /// See comments on [google.api.servicecontrol.v1.Operation.labels][google.api.servicecontrol.v1.Operation.labels] for
-    /// the overriding relationship.
-    /// Note that this map must not contain monitored resource labels.
+    /// See comments on
+    /// [google.api.servicecontrol.v1.Operation.labels][google.api.servicecontrol.v1.Operation.labels]
+    /// for the overriding relationship. Note that this map must not contain
+    /// monitored resource labels.
     ///
     /// [google.api.servicecontrol.v1.Operation.labels]: crate::model::Operation::labels
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
@@ -1879,14 +1884,16 @@ pub struct MetricValue {
     /// applies. The time period has different semantics for different metric
     /// types (cumulative, delta, and gauge). See the metric definition
     /// documentation in the service configuration for details. If not specified,
-    /// [google.api.servicecontrol.v1.Operation.start_time][google.api.servicecontrol.v1.Operation.start_time] will be used.
+    /// [google.api.servicecontrol.v1.Operation.start_time][google.api.servicecontrol.v1.Operation.start_time]
+    /// will be used.
     ///
     /// [google.api.servicecontrol.v1.Operation.start_time]: crate::model::Operation::start_time
     pub start_time: std::option::Option<wkt::Timestamp>,
 
     /// The end of the time period over which this metric value's measurement
     /// applies.  If not specified,
-    /// [google.api.servicecontrol.v1.Operation.end_time][google.api.servicecontrol.v1.Operation.end_time] will be used.
+    /// [google.api.servicecontrol.v1.Operation.end_time][google.api.servicecontrol.v1.Operation.end_time]
+    /// will be used.
     ///
     /// [google.api.servicecontrol.v1.Operation.end_time]: crate::model::Operation::end_time
     pub end_time: std::option::Option<wkt::Timestamp>,
@@ -2361,6 +2368,12 @@ pub struct Operation {
     /// DO NOT USE. This is an experimental field.
     pub importance: crate::model::operation::Importance,
 
+    /// Private Preview. This feature is only available for approved services.
+    ///
+    /// User defined labels for the resource that this operation is associated
+    /// with.
+    pub user_labels: std::collections::HashMap<std::string::String, std::string::String>,
+
     /// Unimplemented.
     pub extensions: std::vec::Vec<wkt::Any>,
 
@@ -2556,6 +2569,27 @@ impl Operation {
         self
     }
 
+    /// Sets the value of [user_labels][crate::model::Operation::user_labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_api_servicecontrol_v1::model::Operation;
+    /// let x = Operation::new().set_user_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_user_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [extensions][crate::model::Operation::extensions].
     ///
     /// # Example
@@ -2726,7 +2760,8 @@ pub struct AllocateQuotaRequest {
     /// Name of the service as specified in the service configuration. For example,
     /// `"pubsub.googleapis.com"`.
     ///
-    /// See [google.api.Service][google.api.Service] for the definition of a service name.
+    /// See [google.api.Service][google.api.Service] for the definition of a
+    /// service name.
     pub service_name: std::string::String,
 
     /// Operation that describes the quota allocation.
@@ -2817,9 +2852,9 @@ impl wkt::message::Message for AllocateQuotaRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QuotaOperation {
-    /// Identity of the operation. This is expected to be unique within the scope
-    /// of the service that generated the operation, and guarantees idempotency in
-    /// case of retries.
+    /// Identity of the operation. For Allocation Quota, this is expected to be
+    /// unique within the scope of the service that generated the operation, and
+    /// guarantees idempotency in case of retries.
     ///
     /// In order to ensure best performance and latency in the Quota backends,
     /// operation_ids are optimally associated with time, so that related
@@ -3276,7 +3311,8 @@ impl wkt::message::Message for AllocateQuotaResponse {
     }
 }
 
-/// Represents error information for [QuotaOperation][google.api.servicecontrol.v1.QuotaOperation].
+/// Represents error information for
+/// [QuotaOperation][google.api.servicecontrol.v1.QuotaOperation].
 ///
 /// [google.api.servicecontrol.v1.QuotaOperation]: crate::model::QuotaOperation
 #[derive(Clone, Default, PartialEq)]
@@ -3418,7 +3454,8 @@ pub mod quota_error {
         /// This is never used.
         Unspecified,
         /// Quota allocation failed.
-        /// Same as [google.rpc.Code.RESOURCE_EXHAUSTED][google.rpc.Code.RESOURCE_EXHAUSTED].
+        /// Same as
+        /// [google.rpc.Code.RESOURCE_EXHAUSTED][google.rpc.Code.RESOURCE_EXHAUSTED].
         ResourceExhausted,
         /// Consumer cannot access the service because the service requires active
         /// billing.

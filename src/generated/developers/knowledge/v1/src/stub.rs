@@ -69,4 +69,15 @@ pub trait DeveloperKnowledge: std::fmt::Debug + Send + Sync {
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
+
+    /// Implements [super::client::DeveloperKnowledge::answer_query].
+    fn answer_query(
+        &self,
+        _req: crate::model::AnswerQueryRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::AnswerQueryResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
 }

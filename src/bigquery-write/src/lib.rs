@@ -34,10 +34,10 @@ pub(crate) use google_cloud_gax::options::RequestOptions;
 pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
 pub(crate) use google_cloud_gax::response::Response;
 
-#[cfg_attr(not(test), expect(dead_code))]
 mod error;
 mod proto_schema;
 #[cfg_attr(not(test), expect(dead_code))]
+mod runner;
 mod stream;
 mod transport;
 

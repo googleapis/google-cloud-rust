@@ -70,6 +70,19 @@ pub(crate) fn make_headers(
 ) -> Result<HeaderMap> {
     let mut headers = HeaderMap::new();
 
+    if let Some(custom_headers) = options.get_extension::<HeaderMap>() {
+        headers.extend(custom_headers.clone());
+    }
+
+    // Sanitize user custom headers by stripping away any keys conflicting with system headers.
+    for key in [
+        http::header::USER_AGENT,
+        X_GOOG_USER_PROJECT,
+        X_GOOG_REQUEST_PARAMS,
+    ] {
+        headers.remove(key);
+    }
+
     if let Some(user_agent) = options.user_agent() {
         headers.insert(
             http::header::USER_AGENT,
@@ -84,7 +97,7 @@ pub(crate) fn make_headers(
         );
     }
 
-    headers.append(
+    headers.insert(
         X_GOOG_API_CLIENT,
         http::header::HeaderValue::from_static(api_client_header),
     );
@@ -96,14 +109,13 @@ pub(crate) fn make_headers(
         //     If none of the routing parameters matched their respective
         //     fields, the routing header **must not** be sent.
         //
-        headers.append(
+        // It also specifies that multiple parameters must be sent as URL-encoded
+        // key=value pairs separated by an ampersand, which means there should
+        // only ever be a single X-Goog-Request-Params header.
+        headers.insert(
             X_GOOG_REQUEST_PARAMS,
             http::header::HeaderValue::from_str(request_params).map_err(Error::ser)?,
         );
-    }
-
-    if let Some(custom_headers) = options.get_extension::<HeaderMap>() {
-        headers.extend(custom_headers.clone());
     }
 
     Ok(headers)
@@ -304,5 +316,96 @@ mod tests {
         let options = RequestOptions::default();
         let res = make_headers(API_CLIENT_HEADER, "invalid\nparams", &options);
         assert!(res.is_err(), "{res:?}");
+    }
+
+    fn test_custom_headers() -> HeaderMap {
+        let mut custom_headers = HeaderMap::new();
+        // Try to override system headers with conflicting custom values
+        custom_headers.insert(
+            http::header::USER_AGENT,
+            HeaderValue::from_static("custom-agent"),
+        );
+        custom_headers.insert(
+            X_GOOG_USER_PROJECT,
+            HeaderValue::from_static("custom-project"),
+        );
+        custom_headers.insert(X_GOOG_API_CLIENT, HeaderValue::from_static("custom-client"));
+        custom_headers.insert(
+            X_GOOG_REQUEST_PARAMS,
+            HeaderValue::from_static("custom-params"),
+        );
+        // A legitimate custom header
+        custom_headers.insert(
+            "x-legitimate-header",
+            HeaderValue::from_static("legitimate-value"),
+        );
+        custom_headers
+    }
+
+    #[test]
+    fn make_headers_enforces_system_precedence_with_values() -> TestResult {
+        // Arrange
+        const TEST_USER_AGENT: &str = "system-user-agent/v1.2.3";
+        const TEST_QUOTA_PROJECT: &str = "system-quota-project";
+        const TEST_REQUEST_PARAMS: &str = "resource=projects%2Ftest";
+
+        let mut options = RequestOptions::default();
+        options.set_user_agent(TEST_USER_AGENT);
+        options.set_quota_project(TEST_QUOTA_PROJECT);
+        let options = options.insert_extension(test_custom_headers());
+
+        // Act
+        let headers = make_headers(API_CLIENT_HEADER, TEST_REQUEST_PARAMS, &options)?;
+
+        // Assert
+        let expected = HeaderMap::from_iter([
+            (
+                http::header::USER_AGENT,
+                HeaderValue::from_static(TEST_USER_AGENT),
+            ),
+            (
+                X_GOOG_USER_PROJECT,
+                HeaderValue::from_static(TEST_QUOTA_PROJECT),
+            ),
+            (
+                X_GOOG_REQUEST_PARAMS,
+                HeaderValue::from_static(TEST_REQUEST_PARAMS),
+            ),
+            (
+                X_GOOG_API_CLIENT,
+                HeaderValue::from_static(API_CLIENT_HEADER),
+            ),
+            (
+                HeaderName::from_static("x-legitimate-header"),
+                HeaderValue::from_static("legitimate-value"),
+            ),
+        ]);
+        assert_eq!(headers, expected);
+
+        Ok(())
+    }
+
+    #[test]
+    fn make_headers_enforces_system_precedence_without_values() -> TestResult {
+        // Arrange
+        let options = RequestOptions::default().insert_extension(test_custom_headers());
+
+        // Act (pass empty request params, empty user agent, empty quota project)
+        let headers = make_headers(API_CLIENT_HEADER, "", &options)?;
+
+        // Assert
+        let expected = HeaderMap::from_iter([
+            (
+                X_GOOG_API_CLIENT,
+                HeaderValue::from_static(API_CLIENT_HEADER),
+            ),
+            (
+                HeaderName::from_static("x-legitimate-header"),
+                HeaderValue::from_static("legitimate-value"),
+            ),
+        ]);
+        assert_eq!(headers, expected);
+
+        Ok(())
     }
 }

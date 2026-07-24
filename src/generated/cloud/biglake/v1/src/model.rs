@@ -678,7 +678,11 @@ pub mod iceberg_catalog {
         /// the catalog's location.
         /// If the version is not specified, the latest version will be used.
         ///
-        /// This field is not used when `service_principal_application_id` is set.
+        /// This field is not used when
+        /// [google.cloud.biglake.v1main.IcebergCatalog.FederatedCatalogOptions.UnityCatalogInfo.service_principal_application_id][google.cloud.biglake.v1main.IcebergCatalog.FederatedCatalogOptions.UnityCatalogInfo.service_principal_application_id]
+        /// or
+        /// [google.cloud.biglake.v1main.IcebergCatalog.FederatedCatalogOptions.SnowflakeCatalogInfo.snowflake_role][google.cloud.biglake.v1main.IcebergCatalog.FederatedCatalogOptions.SnowflakeCatalogInfo.snowflake_role]
+        /// is set.
         pub secret_name: std::option::Option<std::string::String>,
 
         /// Optional. The service directory resource name for routing traffic over a
@@ -903,6 +907,7 @@ pub mod iceberg_catalog {
         /// let x = FederatedCatalogOptions::new().set_unity_catalog_info(UnityCatalogInfo::default()/* use setters */);
         /// assert!(x.unity_catalog_info().is_some());
         /// assert!(x.glue_catalog_info().is_none());
+        /// assert!(x.snowflake_catalog_info().is_none());
         /// ```
         pub fn set_unity_catalog_info<
             T: std::convert::Into<
@@ -952,6 +957,7 @@ pub mod iceberg_catalog {
         /// let x = FederatedCatalogOptions::new().set_glue_catalog_info(GlueCatalogInfo::default()/* use setters */);
         /// assert!(x.glue_catalog_info().is_some());
         /// assert!(x.unity_catalog_info().is_none());
+        /// assert!(x.snowflake_catalog_info().is_none());
         /// ```
         pub fn set_glue_catalog_info<
             T: std::convert::Into<
@@ -965,6 +971,47 @@ pub mod iceberg_catalog {
         ) -> Self {
             self.remote_catalog_info = std::option::Option::Some(
                 crate::model::iceberg_catalog::federated_catalog_options::RemoteCatalogInfo::GlueCatalogInfo(
+                    v.into()
+                )
+            );
+            self
+        }
+
+        /// The value of [remote_catalog_info][crate::model::iceberg_catalog::FederatedCatalogOptions::remote_catalog_info]
+        /// if it holds a `SnowflakeCatalogInfo`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn snowflake_catalog_info(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::iceberg_catalog::federated_catalog_options::SnowflakeCatalogInfo,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.remote_catalog_info.as_ref().and_then(|v| match v {
+                crate::model::iceberg_catalog::federated_catalog_options::RemoteCatalogInfo::SnowflakeCatalogInfo(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [remote_catalog_info][crate::model::iceberg_catalog::FederatedCatalogOptions::remote_catalog_info]
+        /// to hold a `SnowflakeCatalogInfo`.
+        ///
+        /// Note that all the setters affecting `remote_catalog_info` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_biglake_v1::model::iceberg_catalog::FederatedCatalogOptions;
+        /// use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::SnowflakeCatalogInfo;
+        /// let x = FederatedCatalogOptions::new().set_snowflake_catalog_info(SnowflakeCatalogInfo::default()/* use setters */);
+        /// assert!(x.snowflake_catalog_info().is_some());
+        /// assert!(x.unity_catalog_info().is_none());
+        /// assert!(x.glue_catalog_info().is_none());
+        /// ```
+        pub fn set_snowflake_catalog_info<T: std::convert::Into<std::boxed::Box<crate::model::iceberg_catalog::federated_catalog_options::SnowflakeCatalogInfo>>>(mut self, v: T) -> Self{
+            self.remote_catalog_info = std::option::Option::Some(
+                crate::model::iceberg_catalog::federated_catalog_options::RemoteCatalogInfo::SnowflakeCatalogInfo(
                     v.into()
                 )
             );
@@ -998,7 +1045,7 @@ pub mod iceberg_catalog {
 
             /// Optional. The application ID of the Databricks service principal that
             /// will be used to access the Unity Catalog in the OIDC authentication
-            /// flow. With OIDC, the secret_name field is not used.
+            /// flow.
             pub service_principal_application_id: std::option::Option<std::string::String>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1244,6 +1291,144 @@ pub mod iceberg_catalog {
         impl wkt::message::Message for GlueCatalogInfo {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.biglake.v1.IcebergCatalog.FederatedCatalogOptions.GlueCatalogInfo"
+            }
+        }
+
+        /// Snowflake Catalog info.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct SnowflakeCatalogInfo {
+            /// Required. The account identifier in Snowflake (See:
+            /// <https://docs.snowflake.com/en/user-guide/admin-account-identifier>). It
+            /// is the prefix to log into your Snowflake deployment URL. For example:
+            /// https://<account_identifier>.snowflakecomputing.com.
+            pub account_identifier: std::option::Option<std::string::String>,
+
+            /// Required. The warehouse to connect to in Snowflake REST Catalog.
+            /// https://<account_identifier>.snowflakecomputing.com/polaris/api/catalog/v1/config?warehouse=<database_name>.
+            ///
+            /// This is the Snowflake database name containing the Iceberg metadata to
+            /// be federated.
+            ///
+            /// Must be non-empty.
+            pub warehouse: std::option::Option<std::string::String>,
+
+            /// Optional. The specific Snowflake role name to request in the OAuth
+            /// token scope (via session:role:$ROLE) for the Iceberg REST Catalog
+            /// session. This role grants the GCP BigLake service account the necessary
+            /// permissions to interact with the Iceberg catalog, namespaces, and
+            /// tables.
+            ///
+            /// Note: The role provided here must be the DEFAULT_ROLE or be granted to,
+            /// the Snowflake service user mapped to the BigLake service account.
+            pub snowflake_role: std::option::Option<std::string::String>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl SnowflakeCatalogInfo {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [account_identifier][crate::model::iceberg_catalog::federated_catalog_options::SnowflakeCatalogInfo::account_identifier].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::SnowflakeCatalogInfo;
+            /// let x = SnowflakeCatalogInfo::new().set_account_identifier("example");
+            /// ```
+            pub fn set_account_identifier<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.account_identifier = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [account_identifier][crate::model::iceberg_catalog::federated_catalog_options::SnowflakeCatalogInfo::account_identifier].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::SnowflakeCatalogInfo;
+            /// let x = SnowflakeCatalogInfo::new().set_or_clear_account_identifier(Some("example"));
+            /// let x = SnowflakeCatalogInfo::new().set_or_clear_account_identifier(None::<String>);
+            /// ```
+            pub fn set_or_clear_account_identifier<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.account_identifier = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [warehouse][crate::model::iceberg_catalog::federated_catalog_options::SnowflakeCatalogInfo::warehouse].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::SnowflakeCatalogInfo;
+            /// let x = SnowflakeCatalogInfo::new().set_warehouse("example");
+            /// ```
+            pub fn set_warehouse<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.warehouse = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [warehouse][crate::model::iceberg_catalog::federated_catalog_options::SnowflakeCatalogInfo::warehouse].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::SnowflakeCatalogInfo;
+            /// let x = SnowflakeCatalogInfo::new().set_or_clear_warehouse(Some("example"));
+            /// let x = SnowflakeCatalogInfo::new().set_or_clear_warehouse(None::<String>);
+            /// ```
+            pub fn set_or_clear_warehouse<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.warehouse = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [snowflake_role][crate::model::iceberg_catalog::federated_catalog_options::SnowflakeCatalogInfo::snowflake_role].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::SnowflakeCatalogInfo;
+            /// let x = SnowflakeCatalogInfo::new().set_snowflake_role("example");
+            /// ```
+            pub fn set_snowflake_role<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.snowflake_role = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [snowflake_role][crate::model::iceberg_catalog::federated_catalog_options::SnowflakeCatalogInfo::snowflake_role].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_biglake_v1::model::iceberg_catalog::federated_catalog_options::SnowflakeCatalogInfo;
+            /// let x = SnowflakeCatalogInfo::new().set_or_clear_snowflake_role(Some("example"));
+            /// let x = SnowflakeCatalogInfo::new().set_or_clear_snowflake_role(None::<String>);
+            /// ```
+            pub fn set_or_clear_snowflake_role<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.snowflake_role = v.map(|x| x.into());
+                self
+            }
+        }
+
+        impl wkt::message::Message for SnowflakeCatalogInfo {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.biglake.v1.IcebergCatalog.FederatedCatalogOptions.SnowflakeCatalogInfo"
             }
         }
 
@@ -1603,6 +1788,12 @@ pub mod iceberg_catalog {
             GlueCatalogInfo(
                 std::boxed::Box<
                     crate::model::iceberg_catalog::federated_catalog_options::GlueCatalogInfo,
+                >,
+            ),
+            /// Optional. Info specific to a Snowflake Catalog.
+            SnowflakeCatalogInfo(
+                std::boxed::Box<
+                    crate::model::iceberg_catalog::federated_catalog_options::SnowflakeCatalogInfo,
                 >,
             ),
         }
@@ -2203,6 +2394,19 @@ pub struct ListIcebergCatalogsRequest {
     /// call. Provide this to retrieve the subsequent page.
     pub page_token: std::string::String,
 
+    /// Optional. The filter expression.
+    /// The only parameter currently supported is filtering based on the
+    /// `IcebergCatalog.catalog_type` field.
+    ///
+    /// Examples:
+    ///
+    /// * `catalog_type = CATALOG_TYPE_BIGLAKE`
+    /// * `catalog_type != CATALOG_TYPE_GCS_BUCKET`
+    /// * `catalog_type = CATALOG_TYPE_BIGLAKE OR catalog_type =
+    ///   CATALOG_TYPE_GCS_BUCKET`
+    /// * `NOT catalog_type = CATALOG_TYPE_GCS_BUCKET`
+    pub filter: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2264,6 +2468,18 @@ impl ListIcebergCatalogsRequest {
     /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListIcebergCatalogsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::ListIcebergCatalogsRequest;
+    /// let x = ListIcebergCatalogsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
         self
     }
 }

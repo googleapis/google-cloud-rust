@@ -1349,6 +1349,9 @@ impl serde::ser::Serialize for super::Membership {
         if self.delete_time.is_some() {
             state.serialize_entry("deleteTime", &self.delete_time)?;
         }
+        if !wkt::internal::is_default(&self.affiliation) {
+            state.serialize_entry("affiliation", &self.affiliation)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

@@ -109,7 +109,7 @@ impl StreamingSource for TestDataSource {
         }
     }
     async fn size_hint(&self) -> std::result::Result<SizeHint, Self::Error> {
-        Ok(self.hint.clone())
+        Ok(self.hint)
     }
 }
 

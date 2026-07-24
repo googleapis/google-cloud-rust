@@ -124,4 +124,86 @@ mod tests {
         assert_eq!(err.code, Code::Unknown);
         assert_eq!(err.message, "test error");
     }
+
+    #[test]
+    fn custom_retry_policy_builder() {
+        let mut policy = JobRetryPolicy::default();
+        assert_eq!(policy.job_level_retry_limit, 3);
+
+        policy.job_level_retry_limit = 5;
+        assert_eq!(policy.job_level_retry_limit, 5);
+    }
+}
+
+use crate::builder::job_service::InsertJob;
+use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+use google_cloud_lro::Poller;
+
+#[derive(Debug)]
+pub(crate) struct JobRetryPolicy {
+    pub job_level_retry_limit: usize,
+    pub backoff: ExponentialBackoff,
+}
+
+impl Default for JobRetryPolicy {
+    fn default() -> Self {
+        Self {
+            job_level_retry_limit: 3,
+            backoff: ExponentialBackoff::default(),
+        }
+    }
+}
+
+/// A poller that monitors the status of an inserted BigQuery job and handles retries.
+#[derive(Debug)]
+pub struct JobPoller {
+    policy: JobRetryPolicy,
+    builder: InsertJob,
+}
+
+impl JobPoller {
+    pub(crate) fn new(builder: InsertJob) -> Self {
+        Self {
+            policy: JobRetryPolicy::default(),
+            builder,
+        }
+    }
+
+    /// Sets the maximum number of job-level retry attempts.
+    pub fn with_job_retry_limit(mut self, limit: usize) -> Self {
+        self.policy.job_level_retry_limit = limit;
+        self
+    }
+
+    /// Sets the exponential backoff policy for job-level retries.
+    pub fn with_job_retry_backoff(mut self, backoff: ExponentialBackoff) -> Self {
+        self.policy.backoff = backoff;
+        self
+    }
+
+    /// Polls the job until it is done, returning the final Job status.
+    pub async fn until_done(self) -> google_cloud_gax::Result<Job> {
+        // Scaffolding: just pass through to standard poller for now
+        self.builder.poller().until_done().await
+    }
+}
+
+impl InsertJob {
+    /// Returns a `JobPoller`, which can retry on [job-level errors].
+    ///
+    /// If the job fails with an internal error, the `JobPoller` will retry the
+    /// `InsertJob` operation. Note that the client library will supply a
+    /// synthetic job ID for any retries.
+    ///
+    /// ```no_run
+    /// # async fn example(builder: google_cloud_bigquery_v2::builder::job_service::InsertJob) -> Result<(), Box<dyn std::error::Error>> {
+    /// let job = builder.into_job_poller().until_done().await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// [job-level errors]: https://docs.cloud.google.com/bigquery/docs/error-messages#errortable
+    pub fn into_job_poller(self) -> JobPoller {
+        JobPoller::new(self)
+    }
 }

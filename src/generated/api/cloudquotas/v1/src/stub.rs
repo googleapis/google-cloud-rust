@@ -103,3 +103,38 @@ pub trait CloudQuotas: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
+
+/// Defines the trait used to implement [super::client::QuotaAdjusterSettingsManager].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::QuotaAdjusterSettingsManager`.  In other use-cases, application developers only
+/// use `client::QuotaAdjusterSettingsManager` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+pub trait QuotaAdjusterSettingsManager: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::QuotaAdjusterSettingsManager::update_quota_adjuster_settings].
+    fn update_quota_adjuster_settings(
+        &self,
+        _req: crate::model::UpdateQuotaAdjusterSettingsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::QuotaAdjusterSettings>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::QuotaAdjusterSettingsManager::get_quota_adjuster_settings].
+    fn get_quota_adjuster_settings(
+        &self,
+        _req: crate::model::GetQuotaAdjusterSettingsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::QuotaAdjusterSettings>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+}

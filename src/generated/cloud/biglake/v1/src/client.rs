@@ -18,7 +18,7 @@
 #![allow(rustdoc::invalid_html_tags)]
 #![allow(rustdoc::redundant_explicit_links)]
 
-/// Implements a client for the BigLake API.
+/// Implements a client for the Lakehouse API.
 ///
 /// # Example
 /// ```

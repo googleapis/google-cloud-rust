@@ -1242,6 +1242,35 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn import_trusted_key_wrapped_crypto_key_version(
+        &self,
+        req: crate::model::ImportTrustedKeyWrappedCryptoKeyVersionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CryptoKeyVersion>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::KeyManagementService::import_trusted_key_wrapped_crypto_key_version",
+            self.inner.import_trusted_key_wrapped_crypto_key_version(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn export_trusted_key_wrapped_crypto_key_version(
+        &self,
+        req: crate::model::ExportTrustedKeyWrappedCryptoKeyVersionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ExportTrustedKeyWrappedCryptoKeyVersionResponse>>
+    {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::KeyManagementService::export_trusted_key_wrapped_crypto_key_version",
+            self.inner.export_trusted_key_wrapped_crypto_key_version(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_import_job(
         &self,
         req: crate::model::CreateImportJobRequest,

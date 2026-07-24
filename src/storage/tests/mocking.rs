@@ -60,7 +60,12 @@ mod tests {
                 _request: gcs::model_ext::OpenAppendableObjectRequest,
                 _options: RequestOptions,
             ) -> Result<gcs::appendable_object_writer::AppendableObjectWriter>;
-
+            #[cfg(google_cloud_unstable_storage_bidi)]
+            async fn reopen_appendable_object(
+                &self,
+                _request: gcs::model_ext::ReopenAppendableObjectRequest,
+                _options: RequestOptions,
+            ) -> Result<gcs::appendable_object_writer::AppendableObjectWriter>;
         }
     }
 
@@ -161,6 +166,22 @@ mod tests {
         let client = gcs::client::Storage::from_stub(mock);
         let err = client
             .open_appendable_object("projects/_/buckets/my-bucket", "my-object")
+            .send()
+            .await
+            .unwrap_err();
+        assert_eq!(err.status(), Some(&want), "{err:?}");
+    }
+    #[tokio::test]
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    async fn mock_reopen_appendable_object_fail() {
+        let status = Status::default().set_code(Code::Aborted);
+        let want = status.clone();
+        let mut mock = MockStorage::new();
+        mock.expect_reopen_appendable_object()
+            .return_once(move |_, _| Err(Error::service(status)));
+        let client = gcs::client::Storage::from_stub(mock);
+        let err = client
+            .reopen_appendable_object("projects/_/buckets/my-bucket", "my-object", 1234)
             .send()
             .await
             .unwrap_err();

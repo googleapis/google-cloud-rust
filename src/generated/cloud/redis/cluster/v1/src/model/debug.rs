@@ -252,6 +252,10 @@ impl std::fmt::Debug for super::Cluster {
         debug_struct.field("kms_key", &self.kms_key);
         debug_struct.field("automated_backup_config", &self.automated_backup_config);
         debug_struct.field("encryption_info", &self.encryption_info);
+        debug_struct.field(
+            "async_cluster_endpoints_deletion_enabled",
+            &self.async_cluster_endpoints_deletion_enabled,
+        );
         debug_struct.field("server_ca_mode", &self.server_ca_mode);
         debug_struct.field("server_ca_pool", &self.server_ca_pool);
         debug_struct.field("rotate_server_certificate", &self.rotate_server_certificate);

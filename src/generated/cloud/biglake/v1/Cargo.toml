@@ -17,7 +17,7 @@
 [package]
 name                   = "google-cloud-biglake-v1"
 version                = "2.0.0"
-description            = "Google Cloud Client Libraries for Rust - BigLake API"
+description            = "Google Cloud Client Libraries for Rust - Lakehouse API"
 edition.workspace      = true
 authors.workspace      = true
 license.workspace      = true

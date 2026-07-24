@@ -106,6 +106,124 @@ impl ObjectDescriptorStub for TracingObjectDescriptor<Arc<dyn DynamicObjectDescr
     }
 }
 
+#[cfg(google_cloud_unstable_storage_bidi)]
+use crate::storage::bidi_write::stub::dynamic::AppendableObjectWriter as DynamicAppendableObjectWriterStub;
+#[cfg(google_cloud_unstable_storage_bidi)]
+use crate::storage::stub::AppendableObjectWriter as AppendableObjectWriterStub;
+
+#[cfg(google_cloud_unstable_storage_bidi)]
+/// Implements the [AppendableObjectWriterStub][DynamicAppendableObjectWriterStub] trait with tracing annotations.
+#[derive(Debug)]
+pub struct TracingAppendableObjectWriter<T> {
+    inner: T,
+}
+
+#[cfg(google_cloud_unstable_storage_bidi)]
+impl<T> TracingAppendableObjectWriter<T> {
+    pub(crate) fn new(inner: T) -> Self {
+        Self { inner }
+    }
+}
+
+#[cfg(google_cloud_unstable_storage_bidi)]
+impl AppendableObjectWriterStub
+    for TracingAppendableObjectWriter<Box<dyn DynamicAppendableObjectWriterStub>>
+{
+    #[tracing::instrument(
+        name = "append",
+        err,
+        skip(self, chunk),
+        fields(
+            otel.kind = "Internal",
+            rpc.system.name = "grpc",
+            gcp.client.service = INSTRUMENTATION.service_name,
+            gcp.client.version = INSTRUMENTATION.client_version,
+            gcp.client.repo = GCP_CLIENT_REPO_GOOGLEAPIS,
+            gcp.client.artifact = INSTRUMENTATION.client_artifact,
+            gcp.schema.url = SCHEMA_URL_VALUE,
+            append.chunk_size = chunk.len(),
+            append.generation = self.inner.generation(),
+        )
+    )]
+    async fn append(&mut self, chunk: bytes::Bytes) -> crate::Result<()> {
+        self.inner.append(chunk).await
+    }
+
+    #[tracing::instrument(
+        name = "flush",
+        err,
+        skip(self),
+        fields(
+            otel.kind = "Internal",
+            rpc.system.name = "grpc",
+            gcp.client.service = INSTRUMENTATION.service_name,
+            gcp.client.version = INSTRUMENTATION.client_version,
+            gcp.client.repo = GCP_CLIENT_REPO_GOOGLEAPIS,
+            gcp.client.artifact = INSTRUMENTATION.client_artifact,
+            gcp.schema.url = SCHEMA_URL_VALUE,
+            flush.generation = self.inner.generation(),
+            flush.persisted_size = tracing::field::Empty,
+        )
+    )]
+    async fn flush(&mut self) -> crate::Result<i64> {
+        self.inner.flush().await.inspect(|size| {
+            tracing::Span::current().record("flush.persisted_size", size);
+        })
+    }
+
+    #[tracing::instrument(
+        name = "finalize",
+        err,
+        skip(self),
+        fields(
+            otel.kind = "Internal",
+            rpc.system.name = "grpc",
+            gcp.client.service = INSTRUMENTATION.service_name,
+            gcp.client.version = INSTRUMENTATION.client_version,
+            gcp.client.repo = GCP_CLIENT_REPO_GOOGLEAPIS,
+            gcp.client.artifact = INSTRUMENTATION.client_artifact,
+            gcp.schema.url = SCHEMA_URL_VALUE,
+            finalize.generation = self.inner.generation(),
+            finalize.persisted_size = tracing::field::Empty,
+        )
+    )]
+    async fn finalize(self) -> crate::Result<crate::model::Object> {
+        self.inner.finalize().await.inspect(|obj| {
+            tracing::Span::current().record("finalize.persisted_size", obj.size);
+        })
+    }
+
+    #[tracing::instrument(
+        name = "close",
+        err,
+        skip(self),
+        fields(
+            otel.kind = "Internal",
+            rpc.system.name = "grpc",
+            gcp.client.service = INSTRUMENTATION.service_name,
+            gcp.client.version = INSTRUMENTATION.client_version,
+            gcp.client.repo = GCP_CLIENT_REPO_GOOGLEAPIS,
+            gcp.client.artifact = INSTRUMENTATION.client_artifact,
+            gcp.schema.url = SCHEMA_URL_VALUE,
+            close.generation = self.inner.generation(),
+            close.persisted_size = tracing::field::Empty,
+        )
+    )]
+    async fn close(self) -> crate::Result<i64> {
+        self.inner.close().await.inspect(|size| {
+            tracing::Span::current().record("close.persisted_size", size);
+        })
+    }
+
+    fn generation(&self) -> i64 {
+        self.inner.generation()
+    }
+
+    fn persisted_size(&self) -> i64 {
+        self.inner.persisted_size()
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -138,5 +256,71 @@ mod tests {
         assert_eq!(descriptor.object(), object);
         assert_eq!(descriptor.headers(), headers);
         let _reader = descriptor.read_range(ReadRange::segment(100, 200)).await;
+    }
+
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    mockall::mock! {
+        #[derive(Debug)]
+        Writer {}
+        impl crate::stub::AppendableObjectWriter for Writer {
+            async fn append(&mut self, chunk: bytes::Bytes) -> crate::Result<()>;
+            async fn flush(&mut self) -> crate::Result<i64>;
+            async fn finalize(self) -> crate::Result<crate::model::Object>;
+            async fn close(self) -> crate::Result<i64>;
+            fn generation(&self) -> i64;
+            fn persisted_size(&self) -> i64;
+        }
+    }
+
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[tokio::test]
+    async fn appendable_writer_forwards_calls()
+    -> std::result::Result<(), Box<dyn std::error::Error>> {
+        use crate::appendable_object_writer::AppendableObjectWriter;
+        use bytes::Bytes;
+
+        const GENERATION: i64 = 123;
+        const PERSISTED_SIZE: i64 = 456;
+        const FLUSH_SIZE: i64 = 789;
+        const FINALIZE_SIZE: i64 = 999;
+        const CLOSE_SIZE: i64 = 100;
+
+        let mut mock = MockWriter::new();
+        mock.expect_generation().returning(|| GENERATION);
+        mock.expect_persisted_size().returning(|| PERSISTED_SIZE);
+        mock.expect_append().returning(|_| Ok(()));
+        mock.expect_flush().returning(|| Ok(FLUSH_SIZE));
+
+        let writer = AppendableObjectWriter::new(mock);
+        let mut writer =
+            AppendableObjectWriter::new(TracingAppendableObjectWriter::new(writer.into_parts()));
+
+        writer.append(Bytes::from("test")).await?;
+        assert_eq!(writer.flush().await?, FLUSH_SIZE);
+        assert_eq!(writer.generation(), GENERATION);
+        assert_eq!(writer.persisted_size(), PERSISTED_SIZE);
+
+        let mut mock = MockWriter::new();
+        mock.expect_generation().returning(|| GENERATION);
+        mock.expect_finalize().returning(|| {
+            Ok(crate::model::Object {
+                size: FINALIZE_SIZE,
+                ..Default::default()
+            })
+        });
+        let writer = AppendableObjectWriter::new(mock);
+        let writer =
+            AppendableObjectWriter::new(TracingAppendableObjectWriter::new(writer.into_parts()));
+        assert_eq!(writer.finalize().await?.size, FINALIZE_SIZE);
+
+        let mut mock = MockWriter::new();
+        mock.expect_generation().returning(|| GENERATION);
+        mock.expect_close().returning(|| Ok(CLOSE_SIZE));
+        let writer = AppendableObjectWriter::new(mock);
+        let writer =
+            AppendableObjectWriter::new(TracingAppendableObjectWriter::new(writer.into_parts()));
+        assert_eq!(writer.close().await?, CLOSE_SIZE);
+
+        Ok(())
     }
 }

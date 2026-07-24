@@ -5510,6 +5510,11 @@ pub struct Membership {
     /// when used to import historical memberships in import mode spaces.
     pub delete_time: std::option::Option<wkt::Timestamp>,
 
+    /// Output only. A user's relationship to the Workspace organization that owns
+    /// the space. In spaces owned by consumer accounts, the affiliation of all
+    /// members is `EXTERNAL`.
+    pub affiliation: crate::model::membership::Affiliation,
+
     /// Member associated with this membership. Other member types might be
     /// supported in the future.
     pub member_type: std::option::Option<crate::model::membership::MemberType>,
@@ -5636,6 +5641,24 @@ impl Membership {
         T: std::convert::Into<wkt::Timestamp>,
     {
         self.delete_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [affiliation][crate::model::Membership::affiliation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::Membership;
+    /// use google_chat_v1::model::membership::Affiliation;
+    /// let x0 = Membership::new().set_affiliation(Affiliation::Internal);
+    /// let x1 = Membership::new().set_affiliation(Affiliation::External);
+    /// let x2 = Membership::new().set_affiliation(Affiliation::ManagedExternal);
+    /// ```
+    pub fn set_affiliation<T: std::convert::Into<crate::model::membership::Affiliation>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.affiliation = v.into();
         self
     }
 
@@ -6080,6 +6103,152 @@ pub mod membership {
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<MembershipRole>::new(
                 ".google.chat.v1.Membership.MembershipRole",
+            ))
+        }
+    }
+
+    /// Represents the affiliation of a user to the Google Workspace organization
+    /// that owns the space. This enum may have more values added in the future.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Affiliation {
+        /// Default value. This value is unused.
+        Unspecified,
+        /// An account managed by the same Google Workspace organization that owns
+        /// the space.
+        Internal,
+        /// An account external to the Google Workspace organization that owns the
+        /// space (e.g., a consumer account, or an account managed by a different
+        /// Workspace organization).
+        External,
+        /// An account managed by the Workspace organization that owns the space,
+        /// but provisioned for a user who is external to the organization (e.g., a
+        /// Guest user). To learn more about guests, see
+        /// <https://support.google.com/chat/answer/16997417>.
+        ManagedExternal,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Affiliation::value] or
+        /// [Affiliation::name].
+        UnknownValue(affiliation::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod affiliation {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Affiliation {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Internal => std::option::Option::Some(1),
+                Self::External => std::option::Option::Some(2),
+                Self::ManagedExternal => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("AFFILIATION_UNSPECIFIED"),
+                Self::Internal => std::option::Option::Some("INTERNAL"),
+                Self::External => std::option::Option::Some("EXTERNAL"),
+                Self::ManagedExternal => std::option::Option::Some("MANAGED_EXTERNAL"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Affiliation {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Affiliation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Affiliation {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Internal,
+                2 => Self::External,
+                3 => Self::ManagedExternal,
+                _ => Self::UnknownValue(affiliation::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Affiliation {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "AFFILIATION_UNSPECIFIED" => Self::Unspecified,
+                "INTERNAL" => Self::Internal,
+                "EXTERNAL" => Self::External,
+                "MANAGED_EXTERNAL" => Self::ManagedExternal,
+                _ => Self::UnknownValue(affiliation::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Affiliation {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Internal => serializer.serialize_i32(1),
+                Self::External => serializer.serialize_i32(2),
+                Self::ManagedExternal => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Affiliation {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Affiliation>::new(
+                ".google.chat.v1.Membership.Affiliation",
             ))
         }
     }
