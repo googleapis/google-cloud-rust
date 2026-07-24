@@ -56,7 +56,7 @@ where
     }
 }
 
-/// A background task handle that pumps responses from a `grpc-rust` [`RecvStream`].
+/// A handle for the background task pulling responses from a `grpc-rust` [`RecvStream`].
 ///
 /// This background pump is required because [`RecvStream::recv`](grpc::client::RecvStream::recv) is not cancellation-safe.
 /// If an outer caller cancels an async operation (e.g., via a timeout, `tokio::select!`, or dropping a stream early) that directly
@@ -66,6 +66,7 @@ where
 /// on drop cleanly releases the owned [`RecvStream`]. Because `RecvStream` is owned by the background loop,
 /// `recv()` is never interrupted mid-call by outer task drops. Downstream application code only reads from a
 /// [`tokio::sync::mpsc::Receiver`], which is safe to drop or cancel at any time.
+#[derive(Debug)]
 pub struct ReceiveTask {
     // The handle is wrapped in an `Option` to ensure the handle is not aborted twice if the
     // [`ReceiveTask`] is [`join()`](Self::join)ed before it is dropped.
@@ -120,10 +121,13 @@ impl ReceiveTask {
         let result = handle.await;
         self.handle.take();
         match result {
+            // Task exited cleanly.
             Ok(()) => tonic::Status::internal(Self::ERROR_MESSAGE_TASK_EXITED),
+            // Task was explicitly cancelled.
             Err(error) if error.is_cancelled() => {
                 tonic::Status::cancelled(Self::ERROR_MESSAGE_TASK_CANCELLED)
             }
+            // Task panicked or failed unexpectedly.
             Err(error) => {
                 tonic::Status::internal(format!("grpc-rust response task failed: {error}"))
             }
@@ -289,6 +293,24 @@ mod tests {
     struct TestMessage {
         #[prost(string, tag = "1")]
         value: String,
+    }
+
+    #[test]
+    fn grpc_rust_recv_decodes_correctly() -> anyhow::Result<()> {
+        // Arrange
+        let want = TestMessage {
+            value: "hello".to_string(),
+        };
+        let mut encoded = bytes::Bytes::from(want.encode_to_vec());
+        let mut recv = GrpcRustRecv::<TestMessage>::new();
+
+        // Act
+        RecvMessage::decode(&mut recv, &mut encoded).map_err(anyhow::Error::msg)?;
+        let got = recv.take()?;
+
+        // Assert
+        assert_eq!(got, want);
+        Ok(())
     }
 
     struct TestClosedStream;
