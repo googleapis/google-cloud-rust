@@ -94,8 +94,6 @@ impl SendTask {
             Ok(Ok(())) => Ok(()),
             // Task completed, but send loop returned a status error (e.g., stream closed).
             Ok(Err(status)) => Err(status),
-            // Task was cleanly cancelled (e.g., overall RPC finished or dropped).
-            Err(error) if error.is_cancelled() => Ok(()),
             // Task panicked or failed unexpectedly.
             Err(error) => Err(tonic::Status::internal(format!(
                 "grpc-rust request task failed: {error}"
@@ -186,25 +184,6 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn send_task_join_returns_ok_when_task_cancelled() -> anyhow::Result<()> {
-        // Arrange
-        let stream = tokio_stream::pending::<TestMessage>();
-        let mut task = SendTask::start(TestPendingSendStream, stream);
-        let handle = task
-            .handle
-            .as_ref()
-            .expect("SendTask should contain task handle after start");
-        handle.abort();
-
-        // Act
-        let result = task.join().await;
-
-        // Assert
-        assert!(result.is_ok(), "finished cancelled task should return Ok");
-        Ok(())
-    }
-
-    #[tokio::test]
     async fn send_task_join_returns_status_when_send_fails() -> anyhow::Result<()> {
         // Arrange
         let stream = tokio_stream::iter(vec![TestMessage {
@@ -261,19 +240,14 @@ mod tests {
     #[tokio::test]
     async fn send_task_join_clears_handle_allowing_safe_drop() -> anyhow::Result<()> {
         // Arrange
-        let stream = tokio_stream::pending::<TestMessage>();
+        let stream = tokio_stream::empty::<TestMessage>();
         let mut task = SendTask::start(TestPendingSendStream, stream);
-        let handle = task
-            .handle
-            .as_ref()
-            .expect("SendTask should contain task handle after start");
-        handle.abort();
 
         // Act
         let result = task.join().await;
 
         // Assert
-        assert!(result.is_ok(), "finished cancelled task should return Ok");
+        assert!(result.is_ok(), "task join should return Ok");
         assert!(
             !task.is_joinable(),
             "task should no longer be joinable after join"
