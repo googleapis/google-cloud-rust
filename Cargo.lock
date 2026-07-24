@@ -5691,6 +5691,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-maps-fleetengine-v1"
+version = "1.0.0"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-type",
+ "google-cloud-wkt",
+ "google-geo-type",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tracing",
+]
+
+[[package]]
 name = "google-shopping-type"
 version = "1.0.0"
 dependencies = [
