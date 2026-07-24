@@ -28,6 +28,7 @@ pub struct ObjectDescriptorTransport {
     object: Arc<Object>,
     headers: HeaderMap,
     tx: Sender<ActiveRead>,
+    checksum: crate::storage::checksum::details::Checksum,
 }
 
 impl ObjectDescriptorTransport {
@@ -51,6 +52,8 @@ impl ObjectDescriptorTransport {
             .map(|(id, r)| r.as_proto(id as i64))
             .collect::<Vec<_>>();
 
+        let checksum = connector.options.checksum.clone();
+
         // Establish the gRPC connection and extract object metadata.
         let (mut initial, headers, connection) = connector.connect(proto_ranges).await?;
         let object = FromProto::cnv(initial.metadata.take().ok_or_else(|| {
@@ -62,7 +65,7 @@ impl ObjectDescriptorTransport {
         // Construct the initial `ActiveRead`s and their corresponding `ReadObjectResponse` streams.
         let (actives, responses) = requested_ranges
             .into_iter()
-            .map(|r| Self::map_range(r, &tx, &object))
+            .map(|r| Self::map_range(r, &tx, &object, checksum.clone()))
             .unzip();
 
         // Process any data ranges in the initial response and spawn the worker task.
@@ -78,6 +81,7 @@ impl ObjectDescriptorTransport {
                 object,
                 headers,
                 tx,
+                checksum,
             },
             responses,
         ))
@@ -94,10 +98,21 @@ impl ObjectDescriptorTransport {
         range: RequestedRange,
         requests: &Sender<ActiveRead>,
         object: &Arc<Object>,
+        mut checksum: crate::storage::checksum::details::Checksum,
     ) -> (ActiveRead, ReadObjectResponse) {
         let (tx, rx) = tokio::sync::mpsc::channel(100);
         let active = ActiveRead::new(tx, range);
-        let reader = RangeReader::new(rx, object.clone(), requests.clone());
+
+        // Skip checksums for ranged reads.
+        // Note: We do not skip checksums for gzip-encoded objects (decompressive transcoding)
+        // because gRPC automatic object decompression is not supported by the server.
+        // The client receives the raw compressed bytes which match the stored checksum.
+        let is_ranged = !matches!(range, RequestedRange::Offset(0));
+        if is_ranged {
+            checksum = crate::storage::checksum::details::Checksum::default();
+        }
+
+        let reader = RangeReader::new(rx, object.clone(), requests.clone(), checksum);
         (active, ReadObjectResponse::new(Box::new(reader)))
     }
 }
@@ -111,7 +126,8 @@ impl ObjectDescriptor for ObjectDescriptorTransport {
     }
 
     async fn read_range(&self, range: ReadRange) -> ReadObjectResponse {
-        let (active, response) = Self::map_range(range.0, &self.tx, &self.object);
+        let (active, response) =
+            Self::map_range(range.0, &self.tx, &self.object, self.checksum.clone());
         self.tx
             .send(active)
             .await

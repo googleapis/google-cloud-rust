@@ -60,7 +60,7 @@ impl<S> Connection<S> {
 #[derive(Clone, Debug)]
 pub struct Connector<T = GrpcClient> {
     spec: Arc<Mutex<BidiReadObjectSpec>>,
-    options: RequestOptions,
+    pub(crate) options: RequestOptions,
     // This is used in testing, the client library always uses `GrpcClient`.
     client: T,
     reconnect_attempts: u32,

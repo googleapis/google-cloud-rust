@@ -124,6 +124,74 @@ impl<S> OpenObject<S> {
         }
     }
 
+    /// Enables computation of MD5 checksums.
+    ///
+    /// By default, MD5 checksums are disabled, as they are not supported by the GCS gRPC API.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::model_ext::ReadRange;
+    /// let builder = client
+    ///     .open_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .compute_md5();
+    /// let (descriptor, mut reader) = builder
+    ///     .send_and_read(ReadRange::all())
+    ///     .await?;
+    /// let mut contents = Vec::new();
+    /// while let Some(chunk) = reader.next().await.transpose()? {
+    ///     contents.extend_from_slice(&chunk);
+    /// }
+    /// println!("object contents={:?}", contents);
+    /// # Ok(()) }
+    /// ```
+    pub fn compute_md5(self) -> Self {
+        let mut this = self;
+        this.options.checksum.md5_hash = Some(crate::storage::checksum::details::Md5::default());
+        this
+    }
+
+    /// Enables computation of CRC32C checksums.
+    ///
+    /// Note that the library computes and verifies (if available) rolling CRC32C checksums at the end of
+    /// the download. Use `compute_crc32c(false)` to disable this object-level rolling computation, but note
+    /// that this reduces the data integrity guarantees. Data *can* be corrupted even when
+    /// downloaded over HTTPS or other encrypted channels.
+    ///
+    /// Note: Chunk-level CRC32C validation (validating each individual gRPC message as it arrives)
+    /// remains permanently enabled for maximum safety, as it is hardware-accelerated and adds negligible latency.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::model_ext::ReadRange;
+    /// let builder = client
+    ///     .open_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .compute_crc32c(false);
+    /// let (descriptor, mut reader) = builder
+    ///     .send_and_read(ReadRange::all())
+    ///     .await?;
+    /// let mut contents = Vec::new();
+    /// while let Some(chunk) = reader.next().await.transpose()? {
+    ///     contents.extend_from_slice(&chunk);
+    /// }
+    /// println!("object contents={:?}", contents);
+    /// # Ok(()) }
+    /// ```
+    pub fn compute_crc32c(mut self, enable: bool) -> Self {
+        if !enable {
+            self.options.checksum.crc32c = None;
+            return self;
+        }
+        self.options
+            .checksum
+            .crc32c
+            .get_or_insert_with(crate::storage::checksum::details::Crc32c::default);
+        self
+    }
+
     /// If present, selects a specific revision of this object (as
     /// opposed to the latest version, the default).
     ///
@@ -726,6 +794,71 @@ mod tests {
         Ok(())
     }
 
+    #[tokio::test]
+    async fn send_and_read_checksum_mismatch() -> anyhow::Result<()> {
+        let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(1);
+        let payload = Vec::from_iter((0..32).map(|i| i as u8));
+        let expected_checksum = crc32c::crc32c(&payload);
+        let corrupted_checksum = expected_checksum + 1; // Corrupted!
+        let initial = BidiReadObjectResponse {
+            metadata: Some(ProtoObject {
+                bucket: BUCKET_NAME.to_string(),
+                name: OBJECT_NAME.to_string(),
+                generation: 123456,
+                checksums: Some(storage_grpc_mock::google::storage::v2::ObjectChecksums {
+                    crc32c: Some(corrupted_checksum),
+                    ..Default::default()
+                }),
+                ..ProtoObject::default()
+            }),
+            object_data_ranges: vec![ObjectRangeData {
+                read_range: Some(ProtoRange {
+                    read_id: 0_i64,
+                    ..ProtoRange::default()
+                }),
+                range_end: true,
+                checksummed_data: Some(ChecksummedData {
+                    content: payload.clone(),
+                    crc32c: None,
+                }),
+            }],
+            ..BidiReadObjectResponse::default()
+        };
+        tx.send(Ok(initial)).await?;
+
+        let mut mock = MockStorage::new();
+        mock.expect_bidi_read_object()
+            .return_once(|_| Ok(TonicResponse::from(rx)));
+        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
+
+        let client = Storage::builder()
+            .with_credentials(Anonymous::new().build())
+            .with_endpoint(endpoint)
+            .build()
+            .await?;
+
+        let (_descriptor, mut reader) = client
+            .open_object(BUCKET_NAME, OBJECT_NAME)
+            .send_and_read(ReadRange::all())
+            .await?;
+
+        let mut got_payload = Vec::new();
+        let mut got_err = false;
+        while let Some(res) = reader.next().await {
+            match res {
+                Ok(chunk) => got_payload.extend_from_slice(&chunk),
+                Err(e) => {
+                    got_err = true;
+                    let fmt = format!("{e:?}");
+                    assert!(fmt.contains("ChecksumMismatch"), "{fmt}");
+                }
+            }
+        }
+        assert!(got_err, "Expected a checksum mismatch error");
+        assert_eq!(got_payload, payload);
+        Ok(())
+    }
+
     #[tokio::test(start_paused = true)]
     async fn timeout() -> anyhow::Result<()> {
         let (_tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(1);
@@ -797,6 +930,30 @@ mod tests {
             .with_user_agent(USER_AGENT)
             .send()
             .await?;
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn checksum_toggles() -> Result<()> {
+        let options = RequestOptions::new();
+
+        // By default, crc32c is enabled and md5 is disabled.
+        assert!(options.checksum.crc32c.is_some());
+        assert!(options.checksum.md5_hash.is_none());
+
+        let builder = OpenObject::new(
+            Arc::new(StorageStub),
+            BUCKET_NAME.to_string(),
+            OBJECT_NAME.to_string(),
+            options,
+        )
+        .compute_crc32c(false)
+        .compute_md5();
+
+        let got = builder.options;
+        assert!(got.checksum.crc32c.is_none());
+        assert!(got.checksum.md5_hash.is_some());
+
         Ok(())
     }
 
