@@ -13,23 +13,24 @@
 // limitations under the License.
 
 use crate::ClientBuilderResult as BuilderResult;
-use crate::client::Client;
+use crate::client::Write;
 use gaxi::options::ClientConfig;
 use google_cloud_auth::credentials::Credentials;
 
-/// A builder for [Client].
+/// A builder for [Write].
 ///
 /// # Example
 /// ```
-/// # use google_cloud_bigquery_write::client::Client;
+/// # use google_cloud_bigquery_write::client::Write;
 /// # async fn sample() -> anyhow::Result<()> {
-/// let builder = Client::builder();
+/// let builder = Write::builder();
 /// let client = builder
 ///     .with_endpoint("https://bigquerystoragewrite.googleapis.com")
 ///     .build()
 ///     .await?;
 /// # Ok(()) }
 /// ```
+#[derive(Debug)]
 pub struct ClientBuilder {
     pub(super) config: ClientConfig,
 }
@@ -45,22 +46,22 @@ impl ClientBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_bigquery_write::client::Client;
+    /// # use google_cloud_bigquery_write::client::Write;
     /// # async fn sample() -> anyhow::Result<()> {
-    /// let client = Client::builder().build().await?;
+    /// let client = Write::builder().build().await?;
     /// # Ok(()) }
     /// ```
-    pub async fn build(self) -> BuilderResult<Client> {
-        Client::new(self).await
+    pub async fn build(self) -> BuilderResult<Write> {
+        Write::new(self).await
     }
 
     /// Sets the endpoint.
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_bigquery_write::client::Client;
+    /// # use google_cloud_bigquery_write::client::Write;
     /// # async fn sample() -> anyhow::Result<()> {
-    /// let client = Client::builder()
+    /// let client = Write::builder()
     ///     .with_endpoint("https://private.googleapis.com")
     ///     .build()
     ///     .await?;
@@ -78,10 +79,10 @@ impl ClientBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_bigquery_write::client::Client;
+    /// # use google_cloud_bigquery_write::client::Write;
     /// # async fn sample() -> anyhow::Result<()> {
     /// use google_cloud_auth::credentials::mds;
-    /// let client = Client::builder()
+    /// let client = Write::builder()
     ///     .with_credentials(
     ///         mds::Builder::default()
     ///             .with_scopes(["https://www.googleapis.com/auth/cloud-platform.read-only"])
@@ -101,10 +102,10 @@ impl ClientBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_bigquery_write::client::Client;
+    /// # use google_cloud_bigquery_write::client::Write;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let count = std::thread::available_parallelism()?.get();
-    /// let client = Client::builder()
+    /// let client = Write::builder()
     ///     .with_grpc_subchannel_count(count)
     ///     .build()
     ///     .await?;
@@ -115,8 +116,8 @@ impl ClientBuilder {
     /// demuxed over a single HTTP/2 connection (often called a *subchannel* in
     /// gRPC).
     ///
-    /// Consider using more subchannels if your application opens many message
-    /// streams. Consider using fewer subchannels if your application needs the
+    /// Consider using more subchannels if your application creates many
+    /// writers. Consider using fewer subchannels if your application needs the
     /// file descriptors for other purposes.
     pub fn with_grpc_subchannel_count(mut self, v: usize) -> Self {
         self.config.grpc_subchannel_count = Some(v);

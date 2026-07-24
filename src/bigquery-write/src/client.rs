@@ -18,12 +18,13 @@ use crate::transport::Transport;
 use std::sync::Arc;
 
 /// A client for BigQuery Storage Write API.
-pub struct Client {
+#[derive(Debug)]
+pub struct Write {
     #[allow(unused)]
     inner: Arc<Transport>,
 }
 
-impl Client {
+impl Write {
     /// Creates a new [ClientBuilder].
     pub fn builder() -> ClientBuilder {
         ClientBuilder::new()
@@ -44,7 +45,7 @@ mod tests {
 
     #[tokio::test]
     async fn test_client_builder() -> anyhow::Result<()> {
-        let _ = Client::builder()
+        let _ = Write::builder()
             .with_credentials(Anonymous::new().build())
             .build()
             .await?;
