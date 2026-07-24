@@ -1,0 +1,15 @@
+{
+    "api_description": "The Maps Aerial View API.",
+    "api_id": "aerialview.googleapis.com",
+    "api_shortname": "aerialview",
+    "client_documentation": "https://docs.rs/google-maps-aerialview-v1/latest",
+    "distribution_name": "google-maps-aerialview-v1",
+    "issue_tracker": "https://issuetracker.google.com/issues/new?component=1347175",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name": "aerialview",
+    "name_pretty": "Aerial View",
+    "product_documentation": "https://developers.google.com/maps/documentation/aerial-view",
+    "release_level": "stable",
+    "repo": "googleapis/google-cloud-rust"
+}
