@@ -38,7 +38,7 @@ pub(crate) use google_cloud_gax::response::Response;
 pub mod client;
 /// Builders to interact with Cloud BigQuery Storage Write API
 pub mod builder {
-    /// Request and client builders for the [Write][crate::client::Client] client
+    /// Request and client builders for the [Write][crate::client::Write] client
     pub mod write {
         pub use crate::client_builder::ClientBuilder;
     }
