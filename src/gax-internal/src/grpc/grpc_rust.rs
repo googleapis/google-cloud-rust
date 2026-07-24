@@ -36,6 +36,8 @@ use std::sync::Arc;
 pub mod bidi;
 #[allow(dead_code)]
 mod receive;
+#[allow(dead_code)]
+mod send;
 
 /// A gRPC client backed by the [grpc-rust][grpc] crate.
 #[derive(Clone)]
