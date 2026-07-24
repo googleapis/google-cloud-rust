@@ -168,11 +168,9 @@ impl AppendableObjectWriterStub
         )
     )]
     async fn flush(&mut self) -> crate::Result<i64> {
-        let res = self.inner.flush().await;
-        if let Ok(size) = &res {
-            tracing::Span::current().record("flush.persisted_size", *size);
-        }
-        res
+        self.inner.flush().await.inspect(|size| {
+            tracing::Span::current().record("flush.persisted_size", size);
+        })
     }
 
     #[tracing::instrument(
@@ -192,11 +190,9 @@ impl AppendableObjectWriterStub
         )
     )]
     async fn finalize(self) -> crate::Result<crate::model::Object> {
-        let res = self.inner.finalize().await;
-        if let Ok(obj) = &res {
+        self.inner.finalize().await.inspect(|obj| {
             tracing::Span::current().record("finalize.persisted_size", obj.size);
-        }
-        res
+        })
     }
 
     #[tracing::instrument(
@@ -216,11 +212,9 @@ impl AppendableObjectWriterStub
         )
     )]
     async fn close(self) -> crate::Result<i64> {
-        let res = self.inner.close().await;
-        if let Ok(size) = &res {
+        self.inner.close().await.inspect(|size| {
             tracing::Span::current().record("close.persisted_size", size);
-        }
-        res
+        })
     }
 
     fn generation(&self) -> i64 {
@@ -282,46 +276,53 @@ mod tests {
 
     #[cfg(google_cloud_unstable_storage_bidi)]
     #[tokio::test]
-    async fn appendable_writer_forwards_calls() {
+    async fn appendable_writer_forwards_calls()
+    -> std::result::Result<(), Box<dyn std::error::Error>> {
         use crate::appendable_object_writer::AppendableObjectWriter;
         use bytes::Bytes;
 
+        const GENERATION: i64 = 123;
+        const PERSISTED_SIZE: i64 = 456;
+        const FLUSH_SIZE: i64 = 789;
+        const FINALIZE_SIZE: i64 = 999;
+        const CLOSE_SIZE: i64 = 100;
+
         let mut mock = MockWriter::new();
-        mock.expect_generation().returning(|| 123);
-        mock.expect_persisted_size().returning(|| 456);
+        mock.expect_generation().returning(|| GENERATION);
+        mock.expect_persisted_size().returning(|| PERSISTED_SIZE);
         mock.expect_append().returning(|_| Ok(()));
-        mock.expect_flush().returning(|| Ok(789));
+        mock.expect_flush().returning(|| Ok(FLUSH_SIZE));
 
         let writer = AppendableObjectWriter::new(mock);
         let mut writer =
             AppendableObjectWriter::new(TracingAppendableObjectWriter::new(writer.into_parts()));
 
-        writer.append(Bytes::from("test")).await.unwrap();
-        assert_eq!(writer.flush().await.unwrap(), 789);
-        assert_eq!(writer.generation(), 123);
-        assert_eq!(writer.persisted_size(), 456);
+        writer.append(Bytes::from("test")).await?;
+        assert_eq!(writer.flush().await?, FLUSH_SIZE);
+        assert_eq!(writer.generation(), GENERATION);
+        assert_eq!(writer.persisted_size(), PERSISTED_SIZE);
 
         let mut mock = MockWriter::new();
-        mock.expect_generation().returning(|| 123);
-        mock.expect_persisted_size().returning(|| 456);
+        mock.expect_generation().returning(|| GENERATION);
         mock.expect_finalize().returning(|| {
             Ok(crate::model::Object {
-                size: 999,
+                size: FINALIZE_SIZE,
                 ..Default::default()
             })
         });
         let writer = AppendableObjectWriter::new(mock);
         let writer =
             AppendableObjectWriter::new(TracingAppendableObjectWriter::new(writer.into_parts()));
-        assert_eq!(writer.finalize().await.unwrap().size, 999);
+        assert_eq!(writer.finalize().await?.size, FINALIZE_SIZE);
 
         let mut mock = MockWriter::new();
-        mock.expect_generation().returning(|| 123);
-        mock.expect_persisted_size().returning(|| 456);
-        mock.expect_close().returning(|| Ok(100));
+        mock.expect_generation().returning(|| GENERATION);
+        mock.expect_close().returning(|| Ok(CLOSE_SIZE));
         let writer = AppendableObjectWriter::new(mock);
         let writer =
             AppendableObjectWriter::new(TracingAppendableObjectWriter::new(writer.into_parts()));
-        assert_eq!(writer.close().await.unwrap(), 100);
+        assert_eq!(writer.close().await?, CLOSE_SIZE);
+
+        Ok(())
     }
 }
