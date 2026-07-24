@@ -79,6 +79,26 @@ impl BasePublisherBuilder {
         self
     }
 
+    /// Configure the universe domain.
+    ///
+    /// The universe domain is the default service domain for a given cloud universe.
+    /// The default value is "googleapis.com".
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::BasePublisher;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = BasePublisher::builder()
+    ///     .with_universe_domain("googleapis.com")
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_universe_domain<V: Into<String>>(mut self, v: V) -> Self {
+        self.config.universe_domain = Some(v.into());
+        self
+    }
+
     /// Enables tracing.
     ///
     /// The client libraries can be dynamically instrumented with the Tokio
@@ -238,6 +258,7 @@ mod tests {
         let builder = BasePublisherBuilder::new();
         assert!(builder.config.endpoint.is_none(), "{builder:?}");
         assert!(builder.config.cred.is_none(), "{builder:?}");
+        assert!(builder.config.universe_domain.is_none(), "{builder:?}");
         assert!(!builder.config.tracing);
         assert!(
             format!("{:?}", builder.config).contains("AdaptiveThrottler"),
@@ -269,6 +290,7 @@ mod tests {
         use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
         let builder = BasePublisherBuilder::new()
             .with_endpoint("test-endpoint.com")
+            .with_universe_domain("test-ud.com")
             .with_credentials(Anonymous::new().build())
             .with_tracing()
             .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
@@ -280,6 +302,10 @@ mod tests {
         assert_eq!(
             builder.config.endpoint,
             Some("test-endpoint.com".to_string())
+        );
+        assert_eq!(
+            builder.config.universe_domain,
+            Some("test-ud.com".to_string())
         );
         assert!(builder.config.cred.is_some(), "{builder:?}");
         assert!(builder.config.tracing);
