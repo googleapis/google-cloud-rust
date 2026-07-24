@@ -85,7 +85,10 @@ impl ReadObjectResponse for RangeReader {
                 self.offset += b.len() as u64;
                 Some(Ok(b))
             }
-            Some(Err(e)) => Some(Err(Error::io(e))),
+            Some(Err(e)) => {
+                self.exhausted = true;
+                Some(Err(Error::io(e)))
+            }
             None => {
                 self.exhausted = true;
                 if let Some(expected) = &self.object.checksums {
