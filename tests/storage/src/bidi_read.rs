@@ -127,7 +127,11 @@ pub async fn send_and_read_md5(client: &Storage, bucket_name: &str) -> anyhow::R
 pub async fn send_and_read_full(client: &Storage, bucket_name: &str) -> anyhow::Result<()> {
     let payload = String::from_iter(('a'..='z').cycle().take(100_000));
     let write = client
-        .write_object(bucket_name, "open_and_read_full/source.txt", payload.clone())
+        .write_object(
+            bucket_name,
+            "open_and_read_full/source.txt",
+            payload.clone(),
+        )
         .set_if_generation_match(0)
         .send_unbuffered()
         .await?;
@@ -158,25 +162,29 @@ pub async fn send_and_read_full(client: &Storage, bucket_name: &str) -> anyhow::
 /// This test verifies the checksum validation behavior for gzip-encoded objects
 /// over the gRPC Bidi read stream.
 ///
-/// Unlike the JSON REST API, which often transcodes (decompresses) gzip objects 
-/// on the fly, the gRPC Bidi read stream delivers the raw, compressed bytes directly. 
-/// Because no on-the-fly decompression occurs, the CRC32C checksum of the received 
+/// Unlike the JSON REST API, which often transcodes (decompresses) gzip objects
+/// on the fly, the gRPC Bidi read stream delivers the raw, compressed bytes directly.
+/// Because no on-the-fly decompression occurs, the CRC32C checksum of the received
 /// chunks will naturally match the server's stored checksum of the compressed object.
-/// 
-/// We explicitly expect `RangeReader`'s automatic checksum validation to succeed 
-/// without throwing a `ChecksumMismatch` error, proving that we do not need to 
+///
+/// We explicitly expect `RangeReader`'s automatic checksum validation to succeed
+/// without throwing a `ChecksumMismatch` error, proving that we do not need to
 /// bypass checksum validation for `content-encoding: gzip` objects in gRPC.
 pub async fn send_and_read_gzip(client: &Storage, bucket_name: &str) -> anyhow::Result<()> {
     use std::io::Write;
     let payload = String::from_iter(('a'..='z').cycle().take(100_000));
-    
+
     // Compress the payload
     let mut e = flate2::write::GzEncoder::new(Vec::new(), flate2::Compression::default());
     e.write_all(payload.as_bytes())?;
     let compressed_payload = e.finish()?;
-    
+
     let write = client
-        .write_object(bucket_name, "open_and_read_gzip/source.txt", bytes::Bytes::from_owner(compressed_payload.clone()))
+        .write_object(
+            bucket_name,
+            "open_and_read_gzip/source.txt",
+            bytes::Bytes::from_owner(compressed_payload.clone()),
+        )
         .set_if_generation_match(0)
         .set_content_encoding("gzip")
         .send_unbuffered()
