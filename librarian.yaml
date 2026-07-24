@@ -1740,6 +1740,9 @@ libraries:
     version: 1.0.0
     copyright_year: "2026"
     output: src/generated/geo/gtype
+  - name: google-maps-fleetengine-delivery-v1
+    version: 1.0.0
+    copyright_year: "2026"
   - name: google-maps-fleetengine-v1
     version: 1.0.0
     copyright_year: "2026"
