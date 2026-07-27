@@ -32,6 +32,11 @@ impl PostQueryExecutor {
     }
 
     pub(crate) async fn execute(self) -> Result<Query> {
+        let max_results = self
+            .request
+            .query_request
+            .as_ref()
+            .and_then(|q| q.max_results);
         let res = self
             .job_service
             .query()
@@ -52,6 +57,7 @@ impl PostQueryExecutor {
             completed,
             initial_response: Some(res),
             initial_job: None,
+            max_results,
         })
     }
 }
@@ -59,13 +65,19 @@ impl PostQueryExecutor {
 pub(crate) struct InsertJobExecutor {
     pub(crate) job_service: Arc<JobService>,
     pub(crate) request: InsertJobRequest,
+    pub(crate) max_results: Option<u32>,
 }
 
 impl InsertJobExecutor {
-    pub(crate) fn new(job_service: Arc<JobService>, request: InsertJobRequest) -> Self {
+    pub(crate) fn new(
+        job_service: Arc<JobService>,
+        request: InsertJobRequest,
+        max_results: Option<u32>,
+    ) -> Self {
         Self {
             job_service,
             request,
+            max_results,
         }
     }
 
@@ -103,6 +115,7 @@ impl InsertJobExecutor {
             completed,
             initial_job: Some(res),
             initial_response: None,
+            max_results: self.max_results,
         })
     }
 }
@@ -204,7 +217,7 @@ mod tests {
         let mock = MockJobService::new();
         let job_service = create_job_service(mock);
         let req = InsertJobRequest::new(); // no job config at all
-        let executor = InsertJobExecutor::new(job_service, req);
+        let executor = InsertJobExecutor::new(job_service, req, None);
         let res = executor.execute().await;
         assert!(matches!(res, Err(QueryError::UnsupportedJobType)));
         Ok(())
@@ -224,7 +237,7 @@ mod tests {
         let job_config = JobConfiguration::new().set_query(JobConfigurationQuery::new());
         let job = Job::new().set_configuration(job_config);
         let req = InsertJobRequest::new().set_job(job);
-        let executor = InsertJobExecutor::new(job_service, req);
+        let executor = InsertJobExecutor::new(job_service, req, None);
         let res = executor.execute().await;
         assert!(matches!(res, Err(QueryError::Rpc { .. })));
         Ok(())
@@ -248,7 +261,7 @@ mod tests {
         let job_config = JobConfiguration::new().set_query(JobConfigurationQuery::new());
         let job = Job::new().set_configuration(job_config);
         let req = InsertJobRequest::new().set_job(job);
-        let executor = InsertJobExecutor::new(job_service, req);
+        let executor = InsertJobExecutor::new(job_service, req, None);
         let err = executor.execute().await.unwrap_err();
 
         let errors = match err {
@@ -287,7 +300,7 @@ mod tests {
         let job_config = JobConfiguration::new().set_query(JobConfigurationQuery::new());
         let job = Job::new().set_configuration(job_config);
         let req = InsertJobRequest::new().set_job(job);
-        let executor = InsertJobExecutor::new(job_service, req);
+        let executor = InsertJobExecutor::new(job_service, req, None);
         let query = executor.execute().await?;
 
         assert_eq!(query.completed, completed);

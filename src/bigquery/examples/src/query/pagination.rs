@@ -35,7 +35,7 @@ LIMIT 2500
         .until_done()
         .await?
         .read()
-        .set_max_rows_buffered(1000);
+        .set_max_results(1000);
 
     let mut count = 0;
     while let Some(row) = rows.next().await.transpose()? {

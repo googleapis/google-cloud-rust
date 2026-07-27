@@ -133,6 +133,24 @@ impl PublisherBuilder {
         self
     }
 
+    /// Configure the universe domain.
+    ///
+    /// The universe domain is the default service domain for a given cloud universe.
+    /// The default value is "googleapis.com".
+    ///
+    /// ```
+    /// # use google_cloud_pubsub::client::Publisher;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = Publisher::builder("projects/my-project/topics/my-topic")
+    ///     .with_universe_domain("googleapis.com")
+    ///     .build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_universe_domain<V: Into<String>>(mut self, v: V) -> Self {
+        self.base_builder = self.base_builder.with_universe_domain(v);
+        self
+    }
+
     /// Enables tracing.
     ///
     /// The client libraries can be dynamically instrumented with the Tokio
@@ -468,6 +486,7 @@ mod tests {
         base_config: &gaxi::options::ClientConfig,
     ) {
         assert_eq!(pub_config.endpoint, base_config.endpoint);
+        assert_eq!(pub_config.universe_domain, base_config.universe_domain);
         assert_eq!(pub_config.cred.is_some(), base_config.cred.is_some());
         assert_eq!(pub_config.tracing, base_config.tracing);
         assert_eq!(
@@ -502,6 +521,7 @@ mod tests {
         let throttler = google_cloud_gax::retry_throttler::CircuitBreaker::default();
         let pub_builder = Publisher::builder("projects/my-project/topics/my-topic")
             .with_endpoint("test-endpoint.com")
+            .with_universe_domain("test-ud.com")
             .with_credentials(Anonymous::new().build())
             .with_tracing()
             .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
@@ -512,6 +532,7 @@ mod tests {
             .with_grpc_subchannel_count(16);
         let base_builder = BasePublisher::builder()
             .with_endpoint("test-endpoint.com")
+            .with_universe_domain("test-ud.com")
             .with_credentials(Anonymous::new().build())
             .with_tracing()
             .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
