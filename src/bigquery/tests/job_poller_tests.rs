@@ -19,18 +19,17 @@ use google_cloud_gax::Result as GaxResult;
 use google_cloud_gax::options::RequestOptions;
 use google_cloud_gax::response::Response;
 use mockall::{Sequence, mock};
-use std::future::Future;
 
 mock! {
     #[derive(Debug)]
     pub TestJobService {}
 
     impl JobServiceStub for TestJobService {
-        fn insert_job(
+        async fn insert_job(
             &self,
             req: InsertJobRequest,
             options: RequestOptions,
-        ) -> impl Future<Output = GaxResult<Response<Job>>> + Send;
+        ) -> GaxResult<Response<Job>>;
     }
 }
 
@@ -46,11 +45,9 @@ fn transient_job_failure() -> Job {
 async fn job_poller_until_done_with_mock_stub() -> Result<(), Box<dyn std::error::Error>> {
     let mut mock = MockTestJobService::new();
     mock.expect_insert_job().return_once(|_, _| {
-        Box::pin(async move {
-            Ok(Response::from(
-                Job::new().set_status(JobStatus::new().set_state("DONE")),
-            ))
-        })
+        Ok(Response::from(
+            Job::new().set_status(JobStatus::new().set_state("DONE")),
+        ))
     });
 
     let client = JobService::from_stub(mock);
@@ -92,7 +89,7 @@ async fn job_poller_retries_transient_error_and_succeeds() -> Result<(), Box<dyn
                     .job_id,
                 "job-1"
             );
-            Box::pin(async move { Ok(Response::from(failed_job)) })
+            Ok(Response::from(failed_job))
         });
 
     mock.expect_insert_job()
@@ -102,7 +99,7 @@ async fn job_poller_retries_transient_error_and_succeeds() -> Result<(), Box<dyn
             let retried_job = req.job.as_ref().unwrap();
             assert!(retried_job.status.is_none());
             assert_ne!(retried_job.job_reference.as_ref().unwrap().job_id, "job-1");
-            Box::pin(async move { Ok(Response::from(success_job)) })
+            Ok(Response::from(success_job))
         });
 
     let client = JobService::from_stub(mock);
@@ -139,7 +136,7 @@ async fn job_poller_does_not_retry_non_retryable_error() -> Result<(), Box<dyn s
     let mut mock = MockTestJobService::new();
 
     mock.expect_insert_job()
-        .return_once(move |_, _| Box::pin(async move { Ok(Response::from(failed_job)) }));
+        .return_once(move |_, _| Ok(Response::from(failed_job)));
 
     let client = JobService::from_stub(mock);
     let poller = client.insert_job().into_job_poller();
@@ -159,7 +156,7 @@ async fn retry_exhausted() -> Result<(), Box<dyn std::error::Error>> {
 
     mock.expect_insert_job().times(3).returning(move |_, _| {
         let job = transient_job_failure();
-        Box::pin(async move { Ok(Response::from(job)) })
+        Ok(Response::from(job))
     });
 
     let client = JobService::from_stub(mock);
