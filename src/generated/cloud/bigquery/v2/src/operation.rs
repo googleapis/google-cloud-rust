@@ -14,8 +14,11 @@
 
 use crate::builder::job_service::InsertJob;
 use crate::model::Job;
+use google_cloud_gax::Result as GaxResult;
+use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::error::rpc::{Code, Status};
 use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+use google_cloud_gax::retry_state::RetryState;
 use google_cloud_lro::Poller;
 
 impl google_cloud_lro::internal::DiscoveryOperation for Job {
@@ -114,12 +117,11 @@ impl JobPoller {
     }
 
     /// Polls the job until it is done, returning the final Job status.
-    pub async fn until_done(self) -> google_cloud_gax::Result<Job> {
+    pub async fn until_done(self) -> GaxResult<Job> {
         let mut attempts = 0;
         let mut builder = self.builder;
         let backoff = self.policy.backoff;
         let start_time = std::time::Instant::now();
-        use google_cloud_gax::backoff_policy::BackoffPolicy;
 
         loop {
             attempts += 1;
@@ -134,7 +136,7 @@ impl JobPoller {
                 let retry_job = prepare_job_for_retry(job_result);
                 builder = builder.set_job(retry_job);
 
-                let retry_state = google_cloud_gax::retry_state::RetryState::new(true)
+                let retry_state = RetryState::new(true)
                     .set_start(start_time)
                     .set_attempt_count(attempts as u32);
                 let delay = backoff.on_failure(&retry_state);
