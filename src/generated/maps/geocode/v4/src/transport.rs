@@ -167,7 +167,9 @@ impl super::stub::GeocodeService for GeocodeService {
             })
             .or_else(|| {
                 let var_address_query = try_match(
-                    Some(&req).map(|m| &m.address_query).map(|s| s.as_str()),
+                    Some(&req)
+                        .and_then(|m| m.address_query())
+                        .map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/v4/geocode/address/{}", var_address_query,);
@@ -209,7 +211,9 @@ impl super::stub::GeocodeService for GeocodeService {
                 {
                     let builder = PathMismatchBuilder::default();
                     let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.address_query).map(|s| s.as_str()),
+                        Some(&req)
+                            .and_then(|m| m.address_query())
+                            .map(|s| s.as_str()),
                         &[Segment::SingleWildcard],
                         "address_query",
                         "*",
@@ -283,7 +287,9 @@ impl super::stub::GeocodeService for GeocodeService {
             })
             .or_else(|| {
                 let var_location_query = try_match(
-                    Some(&req).map(|m| &m.location_query).map(|s| s.as_str()),
+                    Some(&req)
+                        .and_then(|m| m.location_query())
+                        .map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/v4/geocode/location/{}", var_location_query,);
@@ -323,7 +329,9 @@ impl super::stub::GeocodeService for GeocodeService {
                 {
                     let builder = PathMismatchBuilder::default();
                     let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.location_query).map(|s| s.as_str()),
+                        Some(&req)
+                            .and_then(|m| m.location_query())
+                            .map(|s| s.as_str()),
                         &[Segment::SingleWildcard],
                         "location_query",
                         "*",
