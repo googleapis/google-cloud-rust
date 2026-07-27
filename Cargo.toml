@@ -302,7 +302,12 @@ members = [
   "src/generated/maps/fleetengine/v1",
   "src/generated/maps/geocode/v4",
   "src/generated/maps/isochrones/v1",
+  "src/generated/maps/mapsplatformdatasets/v1",
+  "src/generated/maps/navconnect/v1",
   "src/generated/maps/places/v1",
+  "src/generated/maps/roads/v1op",
+  "src/generated/maps/routes/v1",
+  "src/generated/maps/routing/v2",
   "src/generated/monitoring/dashboard/v1",
   "src/generated/monitoring/metricsscope/v1",
   "src/generated/monitoring/v3",
@@ -341,8 +346,6 @@ members = [
   "tests/crypto-providers/gaxi-with-ring",
   "tests/crypto-providers/idtoken-with-aws-lc-rs",
   "tests/crypto-providers/idtoken-with-default",
-  # excluded because jsonwebtoken cannot have two backends:
-  # "tests/crypto-providers/idtoken-with-rust-crypto",
   "tests/crypto-providers/secret-manager-with-aws-lc-rs",
   "tests/crypto-providers/secret-manager-with-default",
   "tests/crypto-providers/secret-manager-with-ring",
@@ -375,6 +378,9 @@ members = [
   "tools/check-copyright",
   "tools/check-versions",
   "tools/minimal-version-helper",
+  # "tests/crypto-providers/idtoken-with-rust-crypto",
+  # excluded because jsonwebtoken cannot have two backends:
+
 ]
 
 [workspace.package]

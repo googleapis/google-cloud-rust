@@ -309,10 +309,9 @@ libraries:
           match: |2
                 - `folders/<folder-number>`
                 - `organizations/<organization-number>`
-          replace: |+
+          replace: |
             - `folders/<folder-number>`
             - `organizations/<organization-number>`
-
   - name: google-cloud-api-servicemanagement-v1
     version: 1.13.0
     apis:
@@ -1761,7 +1760,22 @@ libraries:
   - name: google-maps-isochrones-v1
     version: 1.0.0
     copyright_year: "2026"
+  - name: google-maps-mapsplatformdatasets-v1
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-maps-navconnect-v1
+    version: 1.0.0
+    copyright_year: "2026"
   - name: google-maps-places-v1
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-maps-roads-v1op
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-maps-routes-v1
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-maps-routing-v2
     version: 1.0.0
     copyright_year: "2026"
   - name: google-shopping-type
