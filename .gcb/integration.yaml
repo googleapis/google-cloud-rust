@@ -49,11 +49,11 @@ steps:
       #!/usr/bin/env bash
       set -e
       for attempt in 1 2 3 4 5; do
-        if CONTAINER=$(docker run -d --network=cloudbuild gcr.io/cloud-spanner-emulator/emulator 2>&1); then
+        if CONTAINER=$(docker run -d --network=cloudbuild gcr.io/cloud-spanner-emulator/emulator); then
           break
         fi
         if [ "$attempt" -eq 5 ]; then
-          echo "Failed to start Spanner Emulator after 5 attempts: $CONTAINER"
+          echo "Failed to start Spanner Emulator after 5 attempts"
           exit 1
         fi
         delay=$(( 2 ** attempt ))
