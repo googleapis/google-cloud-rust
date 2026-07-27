@@ -179,6 +179,7 @@ impl CompleteQuery {
     }
 
     /// Fetches the full `Job` information for the given query.
+    ///
     /// Stateless queries will return `QueryError::StatelessQuery`.
     pub async fn job_metadata(&self) -> Result<Job> {
         let job_ref = self.job_ref.as_ref().ok_or(QueryError::StatelessQuery)?;
