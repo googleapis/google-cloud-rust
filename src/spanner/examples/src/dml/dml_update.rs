@@ -60,7 +60,7 @@ pub async fn sample(client: &DatabaseClient) -> anyhow::Result<()> {
                  SET MarketingBudget = @AlbumBudget
                  WHERE SingerId = 1 AND AlbumId = 1"#,
             )
-            .add_param("AlbumBudget", &album1_budget)
+            .add_param("AlbumBudget", album1_budget)
             .build();
             transaction.execute_update(update_statement1).await?;
 
@@ -69,7 +69,7 @@ pub async fn sample(client: &DatabaseClient) -> anyhow::Result<()> {
                  SET MarketingBudget = @AlbumBudget
                  WHERE SingerId = 2 AND AlbumId = 2"#,
             )
-            .add_param("AlbumBudget", &album2_budget)
+            .add_param("AlbumBudget", album2_budget)
             .build();
             transaction.execute_update(update_statement2).await?;
 

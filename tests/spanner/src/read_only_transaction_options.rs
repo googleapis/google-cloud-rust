@@ -62,7 +62,7 @@ pub async fn read_only_bounded_staleness(db_client: &DatabaseClient) -> anyhow::
                 .set("Id")
                 .to(&id)
                 .set("ColInt64")
-                .to(&999_i64)
+                .to(999_i64)
                 .build();
             tx.buffer(vec![mutation])?;
             Ok(())

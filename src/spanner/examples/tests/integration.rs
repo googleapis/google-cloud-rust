@@ -202,14 +202,14 @@ mod tests {
                 Statement::builder(
                     "SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' AND table_name = $1",
                 )
-                .add_param("p1", &table_name)
+                .add_param("p1", table_name)
                 .build()
             }
             _ => {
                 Statement::builder(
                     "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '' AND TABLE_NAME = @table_name",
                 )
-                .add_param("table_name", &table_name)
+                .add_param("table_name", table_name)
                 .build()
             }
         };

@@ -20,19 +20,19 @@ pub async fn sample(client: &DatabaseClient) -> anyhow::Result<()> {
     let mutations = vec![
         Mutation::new_update_builder("Albums")
             .set("SingerId")
-            .to(&1)
+            .to(1)
             .set("AlbumId")
-            .to(&1)
+            .to(1)
             .set("MarketingBudget")
-            .to(&100000)
+            .to(100000)
             .build(),
         Mutation::new_update_builder("Albums")
             .set("SingerId")
-            .to(&2)
+            .to(2)
             .set("AlbumId")
-            .to(&2)
+            .to(2)
             .set("MarketingBudget")
-            .to(&500000)
+            .to(500000)
             .build(),
     ];
 

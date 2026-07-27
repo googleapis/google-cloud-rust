@@ -36,25 +36,25 @@ pub async fn partitioned_query(db_client: &DatabaseClient) -> anyhow::Result<()>
             .set("Id")
             .to(&id1)
             .set("ColInt64")
-            .to(&1_i64)
+            .to(1_i64)
             .set("ColString")
-            .to(&"Value 1".to_string())
+            .to("Value 1".to_string())
             .build(),
         Mutation::new_insert_or_update_builder("AllTypes")
             .set("Id")
             .to(&id2)
             .set("ColInt64")
-            .to(&2_i64)
+            .to(2_i64)
             .set("ColString")
-            .to(&"Value 2".to_string())
+            .to("Value 2".to_string())
             .build(),
         Mutation::new_insert_or_update_builder("AllTypes")
             .set("Id")
             .to(&id3)
             .set("ColInt64")
-            .to(&3_i64)
+            .to(3_i64)
             .set("ColString")
-            .to(&"Value 3".to_string())
+            .to("Value 3".to_string())
             .build(),
     ];
     let write_tx = db_client.write_only_transaction().build();
@@ -125,25 +125,25 @@ pub async fn partitioned_read(db_client: &DatabaseClient) -> anyhow::Result<()> 
             .set("Id")
             .to(&id1)
             .set("ColInt64")
-            .to(&1_i64)
+            .to(1_i64)
             .set("ColString")
-            .to(&"Value 1".to_string())
+            .to("Value 1".to_string())
             .build(),
         Mutation::new_insert_or_update_builder("AllTypes")
             .set("Id")
             .to(&id2)
             .set("ColInt64")
-            .to(&2_i64)
+            .to(2_i64)
             .set("ColString")
-            .to(&"Value 2".to_string())
+            .to("Value 2".to_string())
             .build(),
         Mutation::new_insert_or_update_builder("AllTypes")
             .set("Id")
             .to(&id3)
             .set("ColInt64")
-            .to(&3_i64)
+            .to(3_i64)
             .set("ColString")
-            .to(&"Value 3".to_string())
+            .to("Value 3".to_string())
             .build(),
     ];
     let write_tx = db_client.write_only_transaction().build();
@@ -215,9 +215,9 @@ pub async fn partition_tuning_and_data_boost(db_client: &DatabaseClient) -> anyh
                 .set("Id")
                 .to(id)
                 .set("ColInt64")
-                .to(&(idx as i64 + 1))
+                .to(idx as i64 + 1)
                 .set("ColString")
-                .to(&format!("Boost Value {}", idx + 1))
+                .to(format!("Boost Value {}", idx + 1))
                 .build()
         })
         .collect();
@@ -237,8 +237,8 @@ pub async fn partition_tuning_and_data_boost(db_client: &DatabaseClient) -> anyh
         hint
     );
     let stmt = Statement::builder(sql)
-        .add_param("start_id", &format!("batch-boost-1-{}", run_id))
-        .add_param("end_id", &format!("batch-boost-5-{}", run_id))
+        .add_param("start_id", format!("batch-boost-1-{}", run_id))
+        .add_param("end_id", format!("batch-boost-5-{}", run_id))
         .build();
     let options = PartitionOptions::default()
         .set_partition_size_bytes(512)
@@ -282,7 +282,7 @@ pub async fn parallel_partition_execution(db_client: &DatabaseClient) -> anyhow:
                 .set("Id")
                 .to(id)
                 .set("ColInt64")
-                .to(&(idx as i64 + 1))
+                .to(idx as i64 + 1)
                 .build()
         })
         .collect();
@@ -302,8 +302,8 @@ pub async fn parallel_partition_execution(db_client: &DatabaseClient) -> anyhow:
         hint
     );
     let stmt = Statement::builder(sql)
-        .add_param("start_id", &format!("batch-parallel-01-{}", run_id))
-        .add_param("end_id", &format!("batch-parallel-20-{}", run_id))
+        .add_param("start_id", format!("batch-parallel-01-{}", run_id))
+        .add_param("end_id", format!("batch-parallel-20-{}", run_id))
         .build();
     let options = PartitionOptions::default()
         .set_partition_size_bytes(256)
