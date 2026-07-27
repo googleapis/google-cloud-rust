@@ -146,10 +146,9 @@ impl<S> OpenObject<S> {
     /// println!("object contents={:?}", contents);
     /// # Ok(()) }
     /// ```
-    pub fn compute_md5(self) -> Self {
-        let mut this = self;
-        this.options.checksum.md5_hash = Some(crate::storage::checksum::details::Md5::default());
-        this
+    pub fn compute_md5(mut self) -> Self {
+        self.options.checksum.md5_hash = Some(crate::storage::checksum::details::Md5::default());
+        self
     }
 
     /// Enables computation of CRC32C checksums.
