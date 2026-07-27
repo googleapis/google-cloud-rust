@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::error::{BatchUpdateError, internal_error};
+use crate::model::request_options::Priority;
 use crate::model::result_set_stats::RowCount;
 use crate::model::{ExecuteBatchDmlResponse, RequestOptions};
 use crate::statement::Statement;
@@ -62,6 +63,28 @@ impl BatchDmlBuilder {
         self.request_options
             .get_or_insert_with(RequestOptions::default)
             .request_tag = tag.into();
+        self
+    }
+
+    /// Sets the RPC priority to use for this batch DML request.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::statement::Statement;
+    /// # use google_cloud_spanner::batch::BatchDml;
+    /// # use google_cloud_spanner::model::request_options::Priority;
+    /// let statement1 = Statement::builder("UPDATE Users SET Active = true WHERE Id = 1").build();
+    /// let batch = BatchDml::builder()
+    ///     .add_statement(statement1)
+    ///     .set_priority(Priority::Low)
+    ///     .build();
+    /// ```
+    ///
+    /// If not specified, the default priority is `Priority::High`.
+    pub fn set_priority(mut self, priority: Priority) -> Self {
+        self.request_options
+            .get_or_insert_with(RequestOptions::default)
+            .priority = priority;
         self
     }
 
@@ -264,6 +287,25 @@ mod tests {
                 .expect("request options missing")
                 .request_tag,
             "tag1"
+        );
+    }
+
+    #[test]
+    fn builder_with_priority() {
+        let stmt = Statement::builder("UPDATE t SET c = 1 WHERE id = 1").build();
+
+        let batch = BatchDml::builder()
+            .add_statement(stmt)
+            .set_priority(Priority::High)
+            .build();
+
+        assert_eq!(batch.statements.len(), 1);
+        assert_eq!(
+            batch
+                .request_options
+                .expect("request options missing")
+                .priority,
+            Priority::High
         );
     }
 

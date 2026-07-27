@@ -82,6 +82,20 @@ where
             self.inner.batch_get_documents(req, options));
         pending.await
     }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn answer_query(
+        &self,
+        req: crate::model::AnswerQueryRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AnswerQueryResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::DeveloperKnowledge::answer_query",
+            self.inner.answer_query(req, options));
+        pending.await
+    }
 }
 
 pub(crate) mod info {

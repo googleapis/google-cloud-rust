@@ -1016,6 +1016,78 @@ pub mod job_service {
                 .map(crate::Response::into_body)
         }
 
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `InsertJob`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<crate::model::Job, crate::model::Job> {
+            let req = self.0.request.clone();
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+
+            let polling_error_policy =
+                std::sync::Arc::new(google_cloud_gax::polling_error_policy::AlwaysContinue);
+            let polling_backoff_policy = std::sync::Arc::new(
+                google_cloud_gax::exponential_backoff::ExponentialBackoff::default(),
+            );
+
+            let shared_location = std::sync::Arc::new(std::sync::OnceLock::<String>::new());
+            let shared_location_for_start = shared_location.clone();
+            let shared_location_for_query = shared_location.clone();
+
+            let query = move |name: String| {
+                let stub_clone = stub.clone();
+                let options_clone = options.clone();
+                let req_clone = req.clone();
+                let shared_location_clone = shared_location_for_query.clone();
+                async move {
+                    let loc = shared_location_clone
+                        .get()
+                        .cloned()
+                        .or_else(|| {
+                            req_clone
+                                .job
+                                .as_ref()
+                                .and_then(|j| j.job_reference.as_ref())
+                                .and_then(|jr| jr.location.clone())
+                        })
+                        .unwrap_or_default();
+
+                    let get_req = crate::model::GetJobRequest {
+                        project_id: req_clone.project_id.clone(),
+                        job_id: name,
+                        location: loc,
+                        _unknown_fields: std::default::Default::default(),
+                    };
+                    let job = stub_clone
+                        .get_job(get_req, options_clone)
+                        .await
+                        .map(crate::Response::into_body)?;
+
+                    Ok(job)
+                }
+            };
+
+            let start = move || {
+                let shared_location_clone = shared_location_for_start.clone();
+                async move {
+                    let res = self.send().await;
+                    if let Ok(ref job) = res
+                        && let Some(ref jr) = job.job_reference
+                        && let Some(ref loc) = jr.location
+                    {
+                        let _ = shared_location_clone.set(loc.clone());
+                    }
+                    res
+                }
+            };
+
+            google_cloud_lro::internal::new_discovery_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [project_id][crate::model::InsertJobRequest::project_id].
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();

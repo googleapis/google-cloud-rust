@@ -32,6 +32,7 @@ use google_cloud_auth::credentials::{
 use google_cloud_auth::errors::SubjectTokenProviderError;
 use google_cloud_bigquery_v2::client::DatasetService;
 use google_cloud_gax::error::rpc::Code;
+use google_cloud_gax::options::RequestOptionsBuilder;
 use google_cloud_iam_credentials_v1::client::IAMCredentials;
 use google_cloud_language_v2::client::LanguageService;
 use google_cloud_language_v2::model::{Document, document::Type};
@@ -532,6 +533,7 @@ async fn generate_id_token(
 
     let res = client
         .generate_id_token()
+        .with_idempotency(true)
         .set_audience(audience)
         .set_include_email(true)
         .set_name(format!(

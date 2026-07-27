@@ -373,7 +373,7 @@ fn new_request() -> RepeatRequest {
         .set_f_bool(true);
 
     let child = ComplianceDataChild::new()
-        .set_f_float(1.5)
+        .set_f_float(1.5_f32)
         .set_f_double(2.5)
         .set_f_bool(true)
         .set_f_continent(Continent::Europe)
@@ -386,7 +386,7 @@ fn new_request() -> RepeatRequest {
             "Benjamín pidió una bebida de kiwi y fresa. ",
             "Noé, sin vergüenza, la más exquisita champaña del menú"
         ))
-        .set_p_float(4.75)
+        .set_p_float(4.75_f32)
         .set_p_double(16.25)
         .set_p_bool(false)
         .set_p_continent(Continent::Australia)

@@ -23,4 +23,5 @@ license.workspace    = true
 repository.workspace = true
 
 [dependencies]
-regex.workspace = true
+regex.workspace  = true
+anyhow.workspace = true

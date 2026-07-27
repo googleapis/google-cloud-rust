@@ -665,7 +665,7 @@ pub mod examples {
             assert_eq!(config.cred, None);
             assert!(!config.tracing);
             assert!(
-                format!("{:?}", &config).contains("AdaptiveThrottler"),
+                format!("{config:?}").contains("AdaptiveThrottler"),
                 "{config:?}"
             );
             assert!(config.retry_policy.is_none(), "{config:?}");
@@ -807,7 +807,7 @@ pub mod examples {
                 .unwrap();
             let config = client.0;
             assert!(
-                format!("{:?}", &config).contains("CircuitBreaker"),
+                format!("{config:?}").contains("CircuitBreaker"),
                 "{config:?}"
             );
         }

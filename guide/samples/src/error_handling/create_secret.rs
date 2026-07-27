@@ -31,7 +31,7 @@ pub async fn create_secret(
         .with_retry_policy(
             AlwaysRetry
                 .with_attempt_limit(5)
-                .with_time_limit(Duration::from_secs(15)),
+                .with_time_limit(Duration::from_secs(60)),
         )
         .set_secret_id(secret_id)
         .set_secret(

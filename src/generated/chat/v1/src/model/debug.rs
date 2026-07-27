@@ -626,6 +626,7 @@ impl std::fmt::Debug for super::Membership {
         debug_struct.field("role", &self.role);
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("delete_time", &self.delete_time);
+        debug_struct.field("affiliation", &self.affiliation);
         debug_struct.field("member_type", &self.member_type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

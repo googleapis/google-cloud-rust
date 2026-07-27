@@ -1904,6 +1904,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Operation {
             __metric_value_sets,
             __log_entries,
             __importance,
+            __user_labels,
             __extensions,
             Unknown(std::string::String),
         }
@@ -1941,6 +1942,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Operation {
                             "logEntries" => Ok(__FieldTag::__log_entries),
                             "log_entries" => Ok(__FieldTag::__log_entries),
                             "importance" => Ok(__FieldTag::__importance),
+                            "userLabels" => Ok(__FieldTag::__user_labels),
+                            "user_labels" => Ok(__FieldTag::__user_labels),
                             "extensions" => Ok(__FieldTag::__extensions),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
@@ -2057,6 +2060,21 @@ impl<'de> serde::de::Deserialize<'de> for super::Operation {
                                 ));
                             }
                             result.importance = map.next_value::<std::option::Option<crate::model::operation::Importance>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__user_labels => {
+                            if !fields.insert(__FieldTag::__user_labels) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for user_labels",
+                                ));
+                            }
+                            result.user_labels = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__extensions => {
                             if !fields.insert(__FieldTag::__extensions) {
