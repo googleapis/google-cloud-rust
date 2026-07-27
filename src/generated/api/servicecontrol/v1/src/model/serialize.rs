@@ -648,6 +648,9 @@ impl serde::ser::Serialize for super::Operation {
         if !wkt::internal::is_default(&self.importance) {
             state.serialize_entry("importance", &self.importance)?;
         }
+        if !self.user_labels.is_empty() {
+            state.serialize_entry("userLabels", &self.user_labels)?;
+        }
         if !self.extensions.is_empty() {
             state.serialize_entry("extensions", &self.extensions)?;
         }

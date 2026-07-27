@@ -71,7 +71,38 @@ async fn run_publisher(config: Arc<PublisherArgs>, publisher: Publisher) -> anyh
 
     // Start a background task to publish messages.
     let publisher_stats = stats.clone();
+    let publisher_config = config.clone();
     let publisher_handle = tokio::task::spawn(async move {
+        let num_keys = publisher_config.ordering_keys;
+        let active_keys_count = if publisher_config.active_ordering_keys > 0 {
+            publisher_config.active_ordering_keys.min(num_keys)
+        } else {
+            num_keys
+        };
+        let keys: Vec<String> = (0..num_keys).map(|i| format!("key-{i}")).collect();
+
+        // Pre-seed all `num_keys` ordering key batch actors to spawn idle actors if needed.
+        // Note: batch_delay should not be set excessively long when running idle ordering key
+        // scenarios, as pre-seeded messages for idle keys will remain buffered until batch_delay expires.
+        if num_keys > active_keys_count && active_keys_count > 0 {
+            println!(
+                "# Pre-seeding {} total ordering key batch actors ({} will be active)...",
+                num_keys, active_keys_count
+            );
+            let mut set = tokio::task::JoinSet::new();
+            for key in &keys {
+                let msg = Message::new().set_data(data.clone()).set_ordering_key(key);
+                let p = publisher.publish(msg);
+                set.spawn(async move {
+                    let _ = p.await;
+                });
+            }
+            while set.join_next().await.is_some() {}
+            println!("# Pre-seeding complete. Starting benchmark loop...");
+        }
+
+        let mut msg_counter: usize = 0;
+
         loop {
             // Respect the max_outstanding_messages limit.
             let permit = match semaphore.clone().acquire_owned().await {
@@ -81,7 +112,15 @@ async fn run_publisher(config: Arc<PublisherArgs>, publisher: Publisher) -> anyh
                     break;
                 }
             };
-            let p = publisher.publish(Message::new().set_data(data.clone()));
+
+            let mut msg = Message::new().set_data(data.clone());
+            if active_keys_count > 0 {
+                let key_idx = msg_counter % active_keys_count;
+                msg = msg.set_ordering_key(&keys[key_idx]);
+            }
+            msg_counter = msg_counter.wrapping_add(1);
+
+            let p = publisher.publish(msg);
             publisher_stats.send_count.fetch_add(1, Ordering::Relaxed);
             publisher_stats
                 .send_bytes

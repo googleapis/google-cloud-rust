@@ -10825,7 +10825,9 @@ pub mod grounding_chunk {
         }
     }
 
-    /// Chunk from Google Maps.
+    /// A `Maps` chunk is a piece of evidence that comes from Google Maps,
+    /// containing information about places or routes. This is used to provide
+    /// the user with rich, location-based information.
     #[cfg(any(feature = "prediction-service", feature = "session-service",))]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
@@ -10848,6 +10850,9 @@ pub mod grounding_chunk {
         /// answer, as well as uris to flag content.
         pub place_answer_sources:
             std::option::Option<crate::model::grounding_chunk::maps::PlaceAnswerSources>,
+
+        /// Output only. Route information.
+        pub route: std::option::Option<crate::model::grounding_chunk::maps::Route>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -11015,6 +11020,39 @@ pub mod grounding_chunk {
             self.place_answer_sources = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [route][crate::model::grounding_chunk::Maps::route].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_aiplatform_v1::model::grounding_chunk::Maps;
+        /// use google_cloud_aiplatform_v1::model::grounding_chunk::maps::Route;
+        /// let x = Maps::new().set_route(Route::default()/* use setters */);
+        /// ```
+        pub fn set_route<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::grounding_chunk::maps::Route>,
+        {
+            self.route = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [route][crate::model::grounding_chunk::Maps::route].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_aiplatform_v1::model::grounding_chunk::Maps;
+        /// use google_cloud_aiplatform_v1::model::grounding_chunk::maps::Route;
+        /// let x = Maps::new().set_or_clear_route(Some(Route::default()/* use setters */));
+        /// let x = Maps::new().set_or_clear_route(None::<Route>);
+        /// ```
+        pub fn set_or_clear_route<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::grounding_chunk::maps::Route>,
+        {
+            self.route = v.map(|x| x.into());
+            self
+        }
     }
 
     #[cfg(any(feature = "prediction-service", feature = "session-service",))]
@@ -11163,6 +11201,99 @@ pub mod grounding_chunk {
                 fn typename() -> &'static str {
                     "type.googleapis.com/google.cloud.aiplatform.v1.GroundingChunk.Maps.PlaceAnswerSources.ReviewSnippet"
                 }
+            }
+        }
+
+        /// Route information from Google Maps.
+        #[cfg(any(feature = "prediction-service", feature = "session-service",))]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct Route {
+            /// The total distance of the route, in meters.
+            pub distance_meters: i32,
+
+            /// The total duration of the route.
+            pub duration: std::option::Option<wkt::Duration>,
+
+            /// An encoded polyline of the route. See
+            /// <https://developers.google.com/maps/documentation/utilities/polylinealgorithm>
+            pub encoded_polyline: std::string::String,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(any(feature = "prediction-service", feature = "session-service",))]
+        impl Route {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [distance_meters][crate::model::grounding_chunk::maps::Route::distance_meters].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_aiplatform_v1::model::grounding_chunk::maps::Route;
+            /// let x = Route::new().set_distance_meters(42);
+            /// ```
+            pub fn set_distance_meters<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                self.distance_meters = v.into();
+                self
+            }
+
+            /// Sets the value of [duration][crate::model::grounding_chunk::maps::Route::duration].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_aiplatform_v1::model::grounding_chunk::maps::Route;
+            /// use wkt::Duration;
+            /// let x = Route::new().set_duration(Duration::default()/* use setters */);
+            /// ```
+            pub fn set_duration<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<wkt::Duration>,
+            {
+                self.duration = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [duration][crate::model::grounding_chunk::maps::Route::duration].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_aiplatform_v1::model::grounding_chunk::maps::Route;
+            /// use wkt::Duration;
+            /// let x = Route::new().set_or_clear_duration(Some(Duration::default()/* use setters */));
+            /// let x = Route::new().set_or_clear_duration(None::<Duration>);
+            /// ```
+            pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<wkt::Duration>,
+            {
+                self.duration = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [encoded_polyline][crate::model::grounding_chunk::maps::Route::encoded_polyline].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_aiplatform_v1::model::grounding_chunk::maps::Route;
+            /// let x = Route::new().set_encoded_polyline("example");
+            /// ```
+            pub fn set_encoded_polyline<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.encoded_polyline = v.into();
+                self
+            }
+        }
+
+        #[cfg(any(feature = "prediction-service", feature = "session-service",))]
+        impl wkt::message::Message for Route {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.aiplatform.v1.GroundingChunk.Maps.Route"
             }
         }
     }

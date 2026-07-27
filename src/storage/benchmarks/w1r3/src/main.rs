@@ -266,7 +266,7 @@ async fn upload(
     let timeout = args.retry_timeout.unwrap_or(DEFAULT_TIMEOUT);
     let builder = client
         .write_object(
-            format!("projects/_/buckets/{}", &args.bucket_name),
+            format!("projects/_/buckets/{}", args.bucket_name),
             name,
             buffer,
         )
@@ -293,7 +293,7 @@ async fn get_object(control: &StorageControl, args: &Args, name: &str) -> Storag
     let timeout = args.retry_timeout.unwrap_or(DEFAULT_TIMEOUT);
     let future = control
         .get_object()
-        .set_bucket(format!("projects/_/buckets/{}", &args.bucket_name))
+        .set_bucket(format!("projects/_/buckets/{}", args.bucket_name))
         .set_object(name)
         .with_retry_policy(DebugRetry::new(RetryableErrors.with_time_limit(timeout)))
         .send();

@@ -2,9 +2,10 @@
 
 This crate implements the [BigQuery] client library.
 
-**WARNING:** this crate is under active development. We expect multiple breaking
-changes in the upcoming releases. Testing is also incomplete, we do **not**
-recommend that you use this crate in production. We welcome feedback about the
-APIs, documentation, missing features, bugs, etc.
+**WARNING:** this is a preview release of the crate. We believe the APIs to be
+stable. We also are seeking feedback about the APIs and may need to make
+breaking changes if we discover that some parts are hard to use.
+
+We welcome feedback about the APIs, documentation, missing features, bugs, etc.
 
 [bigquery]: https://cloud.google.com/bigquery

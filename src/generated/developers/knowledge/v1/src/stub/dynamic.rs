@@ -34,6 +34,12 @@ pub trait DeveloperKnowledge: std::fmt::Debug + Send + Sync {
         req: crate::model::BatchGetDocumentsRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::BatchGetDocumentsResponse>>;
+
+    async fn answer_query(
+        &self,
+        req: crate::model::AnswerQueryRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AnswerQueryResponse>>;
 }
 
 /// All implementations of [super::DeveloperKnowledge] also implement [DeveloperKnowledge].
@@ -64,5 +70,14 @@ impl<T: super::DeveloperKnowledge> DeveloperKnowledge for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::BatchGetDocumentsResponse>> {
         T::batch_get_documents(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn answer_query(
+        &self,
+        req: crate::model::AnswerQueryRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AnswerQueryResponse>> {
+        T::answer_query(self, req, options).await
     }
 }

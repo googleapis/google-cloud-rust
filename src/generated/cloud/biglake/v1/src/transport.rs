@@ -1247,6 +1247,7 @@ impl super::stub::IcebergCatalogService for IcebergCatalogService {
                 let builder = builder.query(&[("view", &req.view)]);
                 let builder = builder.query(&[("page-size", &req.page_size)]);
                 let builder = builder.query(&[("page-token", &req.page_token)]);
+                let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })

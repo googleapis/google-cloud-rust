@@ -71,6 +71,9 @@ pub struct Document {
     /// [google.developers.knowledge.v1.DocumentView]: crate::model::DocumentView
     pub view: crate::model::DocumentView,
 
+    /// Output only. The length of the `content` field in bytes.
+    pub content_length_bytes: i32,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -200,6 +203,18 @@ impl Document {
         self.view = v.into();
         self
     }
+
+    /// Sets the value of [content_length_bytes][crate::model::Document::content_length_bytes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_developers_knowledge_v1::model::Document;
+    /// let x = Document::new().set_content_length_bytes(42);
+    /// ```
+    pub fn set_content_length_bytes<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.content_length_bytes = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for Document {
@@ -224,8 +239,7 @@ pub struct SearchDocumentChunksRequest {
     ///
     /// If unspecified, at most 5 results will be returned.
     ///
-    /// The maximum value is 20; values above 20 will result in an INVALID_ARGUMENT
-    /// error.
+    /// The maximum value is 100; values above 100 will be coerced to 100.
     pub page_size: i32,
 
     /// Optional. Contains a page token, received from a previous
@@ -257,6 +271,10 @@ pub struct SearchDocumentChunksRequest {
     ///
     /// TIMESTAMP fields support `=`, `<`, `<=`, `>`, and `>=` operators.
     /// Timestamps must be in RFC-3339 format, e.g., `"2025-01-01T00:00:00Z"`.
+    ///
+    /// Note: Field names must be in `snake_case` (e.g., `data_source`). Values on
+    /// the right-hand side of filtering expressions must be string literals
+    /// enclosed in double quotes (e.g., `"docs.cloud.google.com"`).
     ///
     /// You can combine expressions using `AND`, `OR`, and `NOT` (or `-`) logical
     /// operators. `OR` has higher precedence than `AND`. Use parentheses for
@@ -620,6 +638,473 @@ impl wkt::message::Message for BatchGetDocumentsResponse {
     }
 }
 
+/// Request message for
+/// [DeveloperKnowledge.AnswerQuery][google.developers.knowledge.v1.DeveloperKnowledge.AnswerQuery].
+///
+/// [google.developers.knowledge.v1.DeveloperKnowledge.AnswerQuery]: crate::client::DeveloperKnowledge::answer_query
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AnswerQueryRequest {
+    /// Required. The query to answer.
+    pub query: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AnswerQueryRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [query][crate::model::AnswerQueryRequest::query].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_developers_knowledge_v1::model::AnswerQueryRequest;
+    /// let x = AnswerQueryRequest::new().set_query("example");
+    /// ```
+    pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.query = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AnswerQueryRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.developers.knowledge.v1.AnswerQueryRequest"
+    }
+}
+
+/// Response message for
+/// [DeveloperKnowledge.AnswerQuery][google.developers.knowledge.v1.DeveloperKnowledge.AnswerQuery].
+///
+/// [google.developers.knowledge.v1.DeveloperKnowledge.AnswerQuery]: crate::client::DeveloperKnowledge::answer_query
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AnswerQueryResponse {
+    /// The answer to the query.
+    pub answer: std::option::Option<crate::model::Answer>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AnswerQueryResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [answer][crate::model::AnswerQueryResponse::answer].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_developers_knowledge_v1::model::AnswerQueryResponse;
+    /// use google_developers_knowledge_v1::model::Answer;
+    /// let x = AnswerQueryResponse::new().set_answer(Answer::default()/* use setters */);
+    /// ```
+    pub fn set_answer<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Answer>,
+    {
+        self.answer = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [answer][crate::model::AnswerQueryResponse::answer].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_developers_knowledge_v1::model::AnswerQueryResponse;
+    /// use google_developers_knowledge_v1::model::Answer;
+    /// let x = AnswerQueryResponse::new().set_or_clear_answer(Some(Answer::default()/* use setters */));
+    /// let x = AnswerQueryResponse::new().set_or_clear_answer(None::<Answer>);
+    /// ```
+    pub fn set_or_clear_answer<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Answer>,
+    {
+        self.answer = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for AnswerQueryResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.developers.knowledge.v1.AnswerQueryResponse"
+    }
+}
+
+/// An answer to a query.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Answer {
+    /// Contains the text of the answer.
+    pub answer_text: std::string::String,
+
+    /// Output only. Contains citations for the answer.
+    pub citations: std::vec::Vec<crate::model::answer::AnswerCitation>,
+
+    /// Output only. Contains references for the answer.
+    pub references: std::vec::Vec<crate::model::answer::AnswerReference>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Answer {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [answer_text][crate::model::Answer::answer_text].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_developers_knowledge_v1::model::Answer;
+    /// let x = Answer::new().set_answer_text("example");
+    /// ```
+    pub fn set_answer_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.answer_text = v.into();
+        self
+    }
+
+    /// Sets the value of [citations][crate::model::Answer::citations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_developers_knowledge_v1::model::Answer;
+    /// use google_developers_knowledge_v1::model::answer::AnswerCitation;
+    /// let x = Answer::new()
+    ///     .set_citations([
+    ///         AnswerCitation::default()/* use setters */,
+    ///         AnswerCitation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_citations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::answer::AnswerCitation>,
+    {
+        use std::iter::Iterator;
+        self.citations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [references][crate::model::Answer::references].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_developers_knowledge_v1::model::Answer;
+    /// use google_developers_knowledge_v1::model::answer::AnswerReference;
+    /// let x = Answer::new()
+    ///     .set_references([
+    ///         AnswerReference::default()/* use setters */,
+    ///         AnswerReference::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_references<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::answer::AnswerReference>,
+    {
+        use std::iter::Iterator;
+        self.references = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for Answer {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.developers.knowledge.v1.Answer"
+    }
+}
+
+/// Defines additional types related to [Answer].
+pub mod answer {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Citation info for a segment.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct AnswerCitation {
+        /// Output only. Indicates the start of the segment, measured in bytes (UTF-8
+        /// unicode), inclusive. If there are multi-byte characters, such as
+        /// non-ASCII characters, the index measurement is longer than the string
+        /// length.
+        pub start_index: i32,
+
+        /// Output only. Indicates the end of the segment, measured in bytes (UTF-8
+        /// unicode), exclusive. If there are multi-byte characters, such as
+        /// non-ASCII characters, the index measurement is longer than the string
+        /// length.
+        pub end_index: i32,
+
+        /// Output only. Contains citation sources for the attributed segment.
+        pub sources: std::vec::Vec<crate::model::answer::CitationSource>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl AnswerCitation {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [start_index][crate::model::answer::AnswerCitation::start_index].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_developers_knowledge_v1::model::answer::AnswerCitation;
+        /// let x = AnswerCitation::new().set_start_index(42);
+        /// ```
+        pub fn set_start_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.start_index = v.into();
+            self
+        }
+
+        /// Sets the value of [end_index][crate::model::answer::AnswerCitation::end_index].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_developers_knowledge_v1::model::answer::AnswerCitation;
+        /// let x = AnswerCitation::new().set_end_index(42);
+        /// ```
+        pub fn set_end_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.end_index = v.into();
+            self
+        }
+
+        /// Sets the value of [sources][crate::model::answer::AnswerCitation::sources].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_developers_knowledge_v1::model::answer::AnswerCitation;
+        /// use google_developers_knowledge_v1::model::answer::CitationSource;
+        /// let x = AnswerCitation::new()
+        ///     .set_sources([
+        ///         CitationSource::default()/* use setters */,
+        ///         CitationSource::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_sources<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::answer::CitationSource>,
+        {
+            use std::iter::Iterator;
+            self.sources = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for AnswerCitation {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.developers.knowledge.v1.Answer.AnswerCitation"
+        }
+    }
+
+    /// Citation source.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct CitationSource {
+        /// Output only. Contains the index of the
+        /// [Answer.AnswerReference][google.developers.knowledge.v1.Answer.AnswerReference]
+        /// in the `references` repeated field.
+        ///
+        /// [google.developers.knowledge.v1.Answer.AnswerReference]: crate::model::answer::AnswerReference
+        pub reference_index: i32,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl CitationSource {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [reference_index][crate::model::answer::CitationSource::reference_index].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_developers_knowledge_v1::model::answer::CitationSource;
+        /// let x = CitationSource::new().set_reference_index(42);
+        /// ```
+        pub fn set_reference_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.reference_index = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for CitationSource {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.developers.knowledge.v1.Answer.CitationSource"
+        }
+    }
+
+    /// Represents a reference to a source.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct AnswerReference {
+        /// Contains the content of the reference.
+        pub content: std::option::Option<crate::model::answer::answer_reference::Content>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl AnswerReference {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [content][crate::model::answer::AnswerReference::content].
+        ///
+        /// Note that all the setters affecting `content` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_developers_knowledge_v1::model::answer::AnswerReference;
+        /// use google_developers_knowledge_v1::model::answer::DocumentReference;
+        /// let x = AnswerReference::new().set_content(Some(
+        ///     google_developers_knowledge_v1::model::answer::answer_reference::Content::DocumentReference(DocumentReference::default().into())));
+        /// ```
+        pub fn set_content<
+            T: std::convert::Into<
+                    std::option::Option<crate::model::answer::answer_reference::Content>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.content = v.into();
+            self
+        }
+
+        /// The value of [content][crate::model::answer::AnswerReference::content]
+        /// if it holds a `DocumentReference`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn document_reference(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::answer::DocumentReference>>
+        {
+            #[allow(unreachable_patterns)]
+            self.content.as_ref().and_then(|v| match v {
+                crate::model::answer::answer_reference::Content::DocumentReference(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [content][crate::model::answer::AnswerReference::content]
+        /// to hold a `DocumentReference`.
+        ///
+        /// Note that all the setters affecting `content` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_developers_knowledge_v1::model::answer::AnswerReference;
+        /// use google_developers_knowledge_v1::model::answer::DocumentReference;
+        /// let x = AnswerReference::new().set_document_reference(DocumentReference::default()/* use setters */);
+        /// assert!(x.document_reference().is_some());
+        /// ```
+        pub fn set_document_reference<
+            T: std::convert::Into<std::boxed::Box<crate::model::answer::DocumentReference>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.content = std::option::Option::Some(
+                crate::model::answer::answer_reference::Content::DocumentReference(v.into()),
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for AnswerReference {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.developers.knowledge.v1.Answer.AnswerReference"
+        }
+    }
+
+    /// Defines additional types related to [AnswerReference].
+    pub mod answer_reference {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Contains the content of the reference.
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Content {
+            /// Output only. The reference document.
+            DocumentReference(std::boxed::Box<crate::model::answer::DocumentReference>),
+        }
+    }
+
+    /// Represents a reference to a document.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct DocumentReference {
+        /// Output only. Contains the document chunk. The `document_chunk.id` field
+        /// is not set and will be empty.
+        pub document_chunk: std::option::Option<crate::model::DocumentChunk>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl DocumentReference {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [document_chunk][crate::model::answer::DocumentReference::document_chunk].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_developers_knowledge_v1::model::answer::DocumentReference;
+        /// use google_developers_knowledge_v1::model::DocumentChunk;
+        /// let x = DocumentReference::new().set_document_chunk(DocumentChunk::default()/* use setters */);
+        /// ```
+        pub fn set_document_chunk<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentChunk>,
+        {
+            self.document_chunk = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [document_chunk][crate::model::answer::DocumentReference::document_chunk].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_developers_knowledge_v1::model::answer::DocumentReference;
+        /// use google_developers_knowledge_v1::model::DocumentChunk;
+        /// let x = DocumentReference::new().set_or_clear_document_chunk(Some(DocumentChunk::default()/* use setters */));
+        /// let x = DocumentReference::new().set_or_clear_document_chunk(None::<DocumentChunk>);
+        /// ```
+        pub fn set_or_clear_document_chunk<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentChunk>,
+        {
+            self.document_chunk = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for DocumentReference {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.developers.knowledge.v1.Answer.DocumentReference"
+        }
+    }
+}
+
 /// A DocumentChunk represents a piece of content from a
 /// [Document][google.developers.knowledge.v1.Document] in the DeveloperKnowledge
 /// corpus. To fetch the entire document content, pass the `parent` to
@@ -789,6 +1274,7 @@ pub enum DocumentView {
     /// - `description`
     /// - `update_time`
     /// - `view`
+    /// - `content_length_bytes`
     ///
     /// This is the default of view for
     /// [DeveloperKnowledge.SearchDocumentChunks][google.developers.knowledge.v1.DeveloperKnowledge.SearchDocumentChunks].

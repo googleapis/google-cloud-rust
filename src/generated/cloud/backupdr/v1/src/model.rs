@@ -6261,11 +6261,9 @@ pub struct BackupVault {
     /// Stores small amounts of arbitrary data.
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
-    /// Optional. Note: This field is added for future use case and will not be
-    /// supported in the current release.
-    ///
-    /// Access restriction for the backup vault.
-    /// Default value is WITHIN_ORGANIZATION if not provided during creation.
+    /// Optional. Restricts access to certain sources and destinations for data
+    /// being sent into, or restored from, the backup vault.
+    /// Defaults to WITHIN_ORGANIZATION if not provided during creation.
     pub access_restriction: crate::model::backup_vault::AccessRestriction,
 
     /// Optional. The encryption config of the backup vault.

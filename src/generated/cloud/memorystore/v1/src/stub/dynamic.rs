@@ -119,6 +119,54 @@ pub trait Memorystore: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
+    async fn list_token_auth_users(
+        &self,
+        req: crate::model::ListTokenAuthUsersRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListTokenAuthUsersResponse>>;
+
+    async fn get_token_auth_user(
+        &self,
+        req: crate::model::GetTokenAuthUserRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TokenAuthUser>>;
+
+    async fn list_auth_tokens(
+        &self,
+        req: crate::model::ListAuthTokensRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAuthTokensResponse>>;
+
+    async fn get_auth_token(
+        &self,
+        req: crate::model::GetAuthTokenRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AuthToken>>;
+
+    async fn add_token_auth_user(
+        &self,
+        req: crate::model::AddTokenAuthUserRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn delete_token_auth_user(
+        &self,
+        req: crate::model::DeleteTokenAuthUserRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn add_auth_token(
+        &self,
+        req: crate::model::AddAuthTokenRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn delete_auth_token(
+        &self,
+        req: crate::model::DeleteAuthTokenRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -325,6 +373,78 @@ impl<T: super::Memorystore> Memorystore for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::finish_migration(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_token_auth_users(
+        &self,
+        req: crate::model::ListTokenAuthUsersRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListTokenAuthUsersResponse>> {
+        T::list_token_auth_users(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_token_auth_user(
+        &self,
+        req: crate::model::GetTokenAuthUserRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TokenAuthUser>> {
+        T::get_token_auth_user(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_auth_tokens(
+        &self,
+        req: crate::model::ListAuthTokensRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAuthTokensResponse>> {
+        T::list_auth_tokens(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_auth_token(
+        &self,
+        req: crate::model::GetAuthTokenRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AuthToken>> {
+        T::get_auth_token(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn add_token_auth_user(
+        &self,
+        req: crate::model::AddTokenAuthUserRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::add_token_auth_user(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_token_auth_user(
+        &self,
+        req: crate::model::DeleteTokenAuthUserRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::delete_token_auth_user(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn add_auth_token(
+        &self,
+        req: crate::model::AddAuthTokenRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::add_auth_token(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_auth_token(
+        &self,
+        req: crate::model::DeleteAuthTokenRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::delete_auth_token(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

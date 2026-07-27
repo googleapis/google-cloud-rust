@@ -844,6 +844,7 @@ impl std::fmt::Debug for super::grounding_chunk::Maps {
         debug_struct.field("text", &self.text);
         debug_struct.field("place_id", &self.place_id);
         debug_struct.field("place_answer_sources", &self.place_answer_sources);
+        debug_struct.field("route", &self.route);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -870,6 +871,20 @@ impl std::fmt::Debug for super::grounding_chunk::maps::place_answer_sources::Rev
         debug_struct.field("review_id", &self.review_id);
         debug_struct.field("google_maps_uri", &self.google_maps_uri);
         debug_struct.field("title", &self.title);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "prediction-service", feature = "session-service",))]
+impl std::fmt::Debug for super::grounding_chunk::maps::Route {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Route");
+        debug_struct.field("distance_meters", &self.distance_meters);
+        debug_struct.field("duration", &self.duration);
+        debug_struct.field("encoded_polyline", &self.encoded_polyline);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

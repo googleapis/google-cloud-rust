@@ -111,3 +111,41 @@ impl<T: super::CloudQuotas> CloudQuotas for T {
         T::update_quota_preference(self, req, options).await
     }
 }
+
+/// A dyn-compatible, crate-private version of [super::QuotaAdjusterSettingsManager].
+#[async_trait::async_trait]
+pub trait QuotaAdjusterSettingsManager: std::fmt::Debug + Send + Sync {
+    async fn update_quota_adjuster_settings(
+        &self,
+        req: crate::model::UpdateQuotaAdjusterSettingsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QuotaAdjusterSettings>>;
+
+    async fn get_quota_adjuster_settings(
+        &self,
+        req: crate::model::GetQuotaAdjusterSettingsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QuotaAdjusterSettings>>;
+}
+
+/// All implementations of [super::QuotaAdjusterSettingsManager] also implement [QuotaAdjusterSettingsManager].
+#[async_trait::async_trait]
+impl<T: super::QuotaAdjusterSettingsManager> QuotaAdjusterSettingsManager for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_quota_adjuster_settings(
+        &self,
+        req: crate::model::UpdateQuotaAdjusterSettingsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QuotaAdjusterSettings>> {
+        T::update_quota_adjuster_settings(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_quota_adjuster_settings(
+        &self,
+        req: crate::model::GetQuotaAdjusterSettingsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QuotaAdjusterSettings>> {
+        T::get_quota_adjuster_settings(self, req, options).await
+    }
+}

@@ -77,7 +77,7 @@ async fn create(args: &Args, client: Storage, control: StorageControl) -> Result
     );
     tracing::info!("random data ready");
 
-    let bucket_name = format!("projects/_/buckets/{}", &args.bucket_name);
+    let bucket_name = format!("projects/_/buckets/{}", args.bucket_name);
     let mut block = client
         .write_object(&bucket_name, random_object_name(), data)
         .set_if_generation_match(0)

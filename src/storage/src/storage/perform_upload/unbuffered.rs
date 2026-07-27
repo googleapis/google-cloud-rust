@@ -55,7 +55,7 @@ where
         let inner = async move |_| {
             let previous = count;
             count += 1;
-            self.resumable_attempt(&mut upload_url, hint.clone(), previous)
+            self.resumable_attempt(&mut upload_url, hint, previous)
                 .await
         };
         google_cloud_gax::retry_loop_internal::retry_loop(
@@ -143,7 +143,7 @@ where
         let inner = async move |_| {
             let previous = count;
             count += 1;
-            self.single_shot_attempt(hint.clone(), previous).await
+            self.single_shot_attempt(hint, previous).await
         };
         google_cloud_gax::retry_loop_internal::retry_loop(
             inner,
