@@ -180,14 +180,8 @@ impl<S> OpenObject<S> {
     /// # Ok(()) }
     /// ```
     pub fn compute_crc32c(mut self, enable: bool) -> Self {
-        if !enable {
-            self.options.checksum.crc32c = None;
-            return self;
-        }
-        self.options
-            .checksum
-            .crc32c
-            .get_or_insert_with(crate::storage::checksum::details::Crc32c::default);
+        self.options.checksum.crc32c =
+            enable.then(crate::storage::checksum::details::Crc32c::default);
         self
     }
 
