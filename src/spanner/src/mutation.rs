@@ -365,11 +365,11 @@ mod tests {
     fn mutation_group() {
         let mutation1 = Mutation::new_insert_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build();
         let mutation2 = Mutation::new_insert_builder("Users")
             .set("UserId")
-            .to(&2)
+            .to(2)
             .build();
         let group = MutationGroup::new(vec![mutation1.clone(), mutation2.clone()]);
         assert_eq!(group.mutations.len(), 2);
@@ -381,11 +381,11 @@ mod tests {
     fn mutation_group_into_iter() {
         let mutation1 = Mutation::new_insert_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build();
         let mutation2 = Mutation::new_insert_builder("Users")
             .set("UserId")
-            .to(&2)
+            .to(2)
             .build();
         let group = MutationGroup::new(vec![mutation1.clone(), mutation2.clone()]);
 
@@ -397,11 +397,11 @@ mod tests {
     fn mutation_group_iter_ref() {
         let mutation1 = Mutation::new_insert_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build();
         let mutation2 = Mutation::new_insert_builder("Users")
             .set("UserId")
-            .to(&2)
+            .to(2)
             .build();
         let group = MutationGroup::new(vec![mutation1.clone(), mutation2.clone()]);
 
@@ -413,13 +413,42 @@ mod tests {
     fn value_binder_to_owned_value() {
         let by_ref = Mutation::new_insert_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build();
         let by_value = Mutation::new_insert_builder("Users")
             .set("UserId")
             .to(1.to_value())
             .build();
         assert_eq!(by_ref, by_value);
+    }
+
+    #[test]
+    #[allow(clippy::needless_borrows_for_generic_args)]
+    fn test_value_binder_borrowed_types() {
+        let id_string = String::from("user-123");
+        let age = 42i64;
+        let active = true;
+
+        let mutation = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(&id_string)
+            .set("Age")
+            .to(&age)
+            .set("Active")
+            .to(&active)
+            .set("Role")
+            .to(&"admin")
+            .build();
+
+        match mutation.inner {
+            InternalMutation::Insert(write) => {
+                assert_eq!(write.values[0].as_string(), "user-123");
+                assert_eq!(write.values[1].as_string(), "42");
+                assert!(write.values[2].as_bool());
+                assert_eq!(write.values[3].as_string(), "admin");
+            }
+            _ => panic!("Expected Insert mutation"),
+        }
     }
 
     #[test]
@@ -457,9 +486,9 @@ mod tests {
     fn insert_builder() {
         let mutation = Mutation::new_insert_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .set("UserName")
-            .to(&"Alice")
+            .to("Alice")
             .build();
 
         match mutation.inner {
@@ -478,7 +507,7 @@ mod tests {
     fn update_builder() {
         let mutation = Mutation::new_update_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build();
 
         match mutation.inner {
@@ -496,7 +525,7 @@ mod tests {
     fn insert_or_update_builder() {
         let mutation = Mutation::new_insert_or_update_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build();
 
         match mutation.inner {
@@ -514,7 +543,7 @@ mod tests {
     fn replace_builder() {
         let mutation = Mutation::new_replace_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build();
 
         match mutation.inner {
@@ -532,9 +561,9 @@ mod tests {
     fn build_proto_insert() {
         let mutation = Mutation::new_insert_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .set("UserName")
-            .to(&"Alice")
+            .to("Alice")
             .build();
         let proto = mutation.build_proto();
         match proto.operation {
@@ -554,7 +583,7 @@ mod tests {
     fn build_proto_update() {
         let mutation = Mutation::new_update_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build();
         let proto = mutation.build_proto();
         match proto.operation {
@@ -571,7 +600,7 @@ mod tests {
     fn build_proto_insert_or_update() {
         let mutation = Mutation::new_insert_or_update_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build();
         let proto = mutation.build_proto();
         match proto.operation {
@@ -591,7 +620,7 @@ mod tests {
     fn build_proto_replace() {
         let mutation = Mutation::new_replace_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build();
         let proto = mutation.build_proto();
         match proto.operation {
@@ -628,12 +657,12 @@ mod tests {
     fn test_select_mutation_key_prefers_insert_or_update_over_insert() {
         let m1 = Mutation::new_insert_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build()
             .build_proto();
         let m2 = Mutation::new_insert_or_update_builder("Users")
             .set("UserId")
-            .to(&2)
+            .to(2)
             .build()
             .build_proto();
         let mutations = vec![m1.clone(), m2.clone()];
@@ -645,7 +674,7 @@ mod tests {
     fn test_select_mutation_key_only_insert_prefers_largest() {
         let m1 = Mutation::new_insert_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build()
             .build_proto();
 
@@ -671,17 +700,17 @@ mod tests {
     fn test_select_mutation_key_mix() {
         let m1 = Mutation::new_insert_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build()
             .build_proto();
         let m2 = Mutation::new_update_builder("Users")
             .set("UserId")
-            .to(&2)
+            .to(2)
             .build()
             .build_proto();
         let m3 = Mutation::new_insert_or_update_builder("Users")
             .set("UserId")
-            .to(&3)
+            .to(3)
             .build()
             .build_proto();
         let mutations = vec![m1.clone(), m2.clone(), m3.clone()];
@@ -698,12 +727,12 @@ mod tests {
     fn test_select_mutation_key_only_non_insert() {
         let m1 = Mutation::new_update_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build()
             .build_proto();
         let m2 = Mutation::new_replace_builder("Users")
             .set("UserId")
-            .to(&2)
+            .to(2)
             .build()
             .build_proto();
         let mutations = vec![m1.clone(), m2.clone()];

@@ -2939,7 +2939,7 @@ mod tests {
 
         let mutation = Mutation::new_insert_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build();
         tx.buffer([mutation]).expect("Buffer should succeed");
 

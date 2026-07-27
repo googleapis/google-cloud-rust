@@ -437,7 +437,7 @@ mod tests {
     #[test]
     fn test_untyped_param() {
         let stmt = Statement::builder("SELECT * FROM users WHERE age > @age")
-            .add_param("age", &21)
+            .add_param("age", 21)
             .build();
 
         assert_eq!(stmt.sql, "SELECT * FROM users WHERE age > @age");
@@ -447,6 +447,54 @@ mod tests {
 
         let val = stmt.params.get("age").unwrap();
         assert_eq!(val.as_string(), "21");
+    }
+
+    #[test]
+    fn test_param_direct_types() {
+        let id_str = "user-123";
+        let id_string = String::from("user-456");
+        let age_i64 = 42i64;
+        let active_bool = true;
+
+        let stmt = Statement::builder(
+            "SELECT * FROM users WHERE id = @id AND age = @age AND active = @active",
+        )
+        .add_param("id", id_str)
+        .add_param("id2", id_string)
+        .add_param("age", age_i64)
+        .add_param("active", active_bool)
+        .build();
+
+        assert_eq!(stmt.params.get("id").unwrap().as_string(), "user-123");
+        assert_eq!(stmt.params.get("id2").unwrap().as_string(), "user-456");
+        assert_eq!(stmt.params.get("age").unwrap().as_string(), "42");
+        assert!(stmt.params.get("active").unwrap().as_bool());
+    }
+
+    #[test]
+    #[allow(clippy::needless_borrows_for_generic_args)]
+    fn test_param_borrowed_types() {
+        use crate::types;
+        let id_str = "user-123";
+        let id_string = String::from("user-456");
+        let age_i64 = 42i64;
+        let active_bool = true;
+
+        let stmt = Statement::builder(
+            "SELECT * FROM users WHERE id = @id AND age = @age AND active = @active",
+        )
+        .add_param("id", &id_str)
+        .add_param("id2", &id_string)
+        .add_param("age", &age_i64)
+        .add_param("active", &active_bool)
+        .add_typed_param("role", &"admin", types::string())
+        .build();
+
+        assert_eq!(stmt.params.get("id").unwrap().as_string(), "user-123");
+        assert_eq!(stmt.params.get("id2").unwrap().as_string(), "user-456");
+        assert_eq!(stmt.params.get("age").unwrap().as_string(), "42");
+        assert!(stmt.params.get("active").unwrap().as_bool());
+        assert_eq!(stmt.params.get("role").unwrap().as_string(), "admin");
     }
 
     #[test]
@@ -522,7 +570,7 @@ mod tests {
     fn test_typed_param() {
         use crate::types;
         let stmt = Statement::builder("SELECT * FROM users WHERE id = @id")
-            .add_typed_param("id", &"user-123", types::string())
+            .add_typed_param("id", "user-123", types::string())
             .build();
 
         assert_eq!(stmt.param_types.len(), 1);
@@ -537,8 +585,8 @@ mod tests {
     fn test_multiple_params() {
         use crate::types;
         let stmt = Statement::builder("SELECT * FROM users WHERE age > @age AND role = @role")
-            .add_param("age", &21)
-            .add_typed_param("role", &"admin", types::string())
+            .add_param("age", 21)
+            .add_typed_param("role", "admin", types::string())
             .build();
 
         assert_eq!(stmt.params.len(), 2);
@@ -563,8 +611,8 @@ mod tests {
     fn test_from_builder_conversion() {
         use crate::types;
         let builder = Statement::builder("SELECT * FROM users WHERE age > @age AND role = @role")
-            .add_param("age", &21)
-            .add_typed_param("role", &"admin", types::string());
+            .add_param("age", 21)
+            .add_typed_param("role", "admin", types::string());
 
         let stmt: Statement = builder.into();
         assert_eq!(
@@ -579,8 +627,8 @@ mod tests {
     fn test_into_request() {
         use crate::types;
         let stmt = Statement::builder("SELECT * FROM users WHERE age > @age AND role = @role")
-            .add_param("age", &21)
-            .add_typed_param("role", &"admin", types::string())
+            .add_param("age", 21)
+            .add_typed_param("role", "admin", types::string())
             .build();
 
         let req = stmt.into_request();

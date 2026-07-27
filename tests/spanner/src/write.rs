@@ -94,76 +94,76 @@ async fn write_internal(
         .set("Id")
         .to(&id1)
         .set("ColBool")
-        .to(&true)
+        .to(true)
         .set("ColInt64")
-        .to(&100_i64)
+        .to(100_i64)
         .set("ColFloat32")
-        .to(&1.0_f32)
+        .to(1.0_f32)
         .set("ColFloat64")
-        .to(&1.0_f64)
+        .to(1.0_f64)
         .set("ColNumeric")
-        .to(&"1.0".to_string())
+        .to("1.0".to_string())
         .set("ColString")
-        .to(&"hello".to_string())
+        .to("hello".to_string())
         .set("ColBytes")
-        .to(&vec![1_u8, 2_u8, 3_u8])
+        .to(vec![1_u8, 2_u8, 3_u8])
         .set("ColDate")
-        .to(&"2026-03-09".to_string())
+        .to("2026-03-09".to_string())
         .set("ColTimestamp")
-        .to(&"2026-03-09T16:20:00Z".to_string())
+        .to("2026-03-09T16:20:00Z".to_string())
         .set("ColJson")
-        .to(&"{\"value\": 1}".to_string())
+        .to("{\"value\": 1}".to_string())
         .set("ColArrayBool")
-        .to(&array_val(vec![
+        .to(array_val(vec![
             bool_val(true),
             bool_val(false),
             null_val(),
         ]))
         .set("ColArrayInt64")
-        .to(&array_val(vec![
+        .to(array_val(vec![
             string_val("1"),
             string_val("2"),
             null_val(),
         ]))
         .set("ColArrayFloat32")
-        .to(&array_val(vec![
+        .to(array_val(vec![
             number_val(1.0),
             number_val(2.0),
             null_val(),
         ]))
         .set("ColArrayFloat64")
-        .to(&array_val(vec![
+        .to(array_val(vec![
             number_val(1.0),
             number_val(2.0),
             null_val(),
         ]))
         .set("ColArrayNumeric")
-        .to(&array_val(vec![
+        .to(array_val(vec![
             string_val("1.0"),
             string_val("2.0"),
             null_val(),
         ]))
         .set("ColArrayString")
-        .to(&array_val(vec![
+        .to(array_val(vec![
             string_val("hello"),
             string_val("world"),
             null_val(),
         ]))
         .set("ColArrayBytes")
-        .to(&array_val(vec![
+        .to(array_val(vec![
             string_val(&BASE64_STANDARD.encode([1_u8, 2_u8])),
             string_val(&BASE64_STANDARD.encode([3_u8])),
             null_val(),
         ]))
         .set("ColArrayDate")
-        .to(&array_val(vec![string_val("2026-03-09"), null_val()]))
+        .to(array_val(vec![string_val("2026-03-09"), null_val()]))
         .set("ColArrayTimestamp")
-        .to(&array_val(vec![
+        .to(array_val(vec![
             string_val("2026-03-09T16:20:00Z"),
             null_val(),
         ]))
         .set("ColArrayJson")
-        .to(&array_val(vec![string_val("{\"value\": 1}"), null_val()]))
+        .to(array_val(vec![string_val("{\"value\": 1}"), null_val()]))
         .build();
 
     let m2 = Mutation::new_insert_or_update_builder("AllTypes")
@@ -597,23 +597,23 @@ pub async fn all_data_types_roundtrip(db_client: &DatabaseClient) -> anyhow::Res
         .set("Id")
         .to(&id)
         .set("ColBool")
-        .to(&val_bool)
+        .to(val_bool)
         .set("ColInt64")
-        .to(&val_int64)
+        .to(val_int64)
         .set("ColFloat32")
-        .to(&val_float32)
+        .to(val_float32)
         .set("ColFloat64")
-        .to(&val_float64)
+        .to(val_float64)
         .set("ColNumeric")
-        .to(&val_numeric)
+        .to(val_numeric)
         .set("ColString")
         .to(&val_string)
         .set("ColBytes")
         .to(&val_bytes)
         .set("ColDate")
-        .to(&val_date)
+        .to(val_date)
         .set("ColTimestamp")
-        .to(&val_timestamp)
+        .to(val_timestamp)
         .set("ColJson")
         .to(&val_json)
         .set("ColUuid")
@@ -1099,23 +1099,23 @@ pub async fn all_data_types_parameter_binding(db_client: &DatabaseClient) -> any
         .set("Id")
         .to(&id)
         .set("ColBool")
-        .to(&val_bool)
+        .to(val_bool)
         .set("ColInt64")
-        .to(&val_int64)
+        .to(val_int64)
         .set("ColFloat32")
-        .to(&val_float32)
+        .to(val_float32)
         .set("ColFloat64")
-        .to(&val_float64)
+        .to(val_float64)
         .set("ColNumeric")
-        .to(&val_numeric)
+        .to(val_numeric)
         .set("ColString")
         .to(&val_string)
         .set("ColBytes")
         .to(&val_bytes)
         .set("ColDate")
-        .to(&val_date)
+        .to(val_date)
         .set("ColTimestamp")
-        .to(&val_timestamp)
+        .to(val_timestamp)
         .set("ColJson")
         .to(&val_json)
         .set("ColUuid")
@@ -1167,15 +1167,15 @@ pub async fn all_data_types_parameter_binding(db_client: &DatabaseClient) -> any
         ColBytes = @bytes AND ColDate = @date AND ColTimestamp = @timestamp AND ColUuid = @uuid",
     )
     .add_param("id", &id)
-    .add_param("bool", &val_bool)
-    .add_param("int64", &val_int64)
-    .add_param("float32", &val_float32)
-    .add_param("float64", &val_float64)
-    .add_param("numeric", &val_numeric)
+    .add_param("bool", val_bool)
+    .add_param("int64", val_int64)
+    .add_param("float32", val_float32)
+    .add_param("float64", val_float64)
+    .add_param("numeric", val_numeric)
     .add_param("string", &val_string)
     .add_param("bytes", &val_bytes)
-    .add_param("date", &val_date)
-    .add_param("timestamp", &val_timestamp)
+    .add_param("date", val_date)
+    .add_param("timestamp", val_timestamp)
     .add_param("uuid", &val_uuid)
     .add_param("array_bool", &val_array_bool)
     .add_param("array_int64", &val_array_int64)

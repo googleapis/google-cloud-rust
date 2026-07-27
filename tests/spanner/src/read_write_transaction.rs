@@ -28,7 +28,7 @@ pub async fn successful_read_write_transaction(db_client: &DatabaseClient) -> an
         .set("Id")
         .to(&id)
         .set("ColInt64")
-        .to(&100_i64)
+        .to(100_i64)
         .build();
     db_client
         .write_only_transaction()
@@ -57,7 +57,7 @@ pub async fn successful_read_write_transaction(db_client: &DatabaseClient) -> an
 
             let update_statement =
                 Statement::builder("UPDATE AllTypes SET ColInt64 = @new_val WHERE Id = @id")
-                    .add_param("new_val", &(current_val + 50))
+                    .add_param("new_val", current_val + 50)
                     .add_param("id", &id)
                     .set_request_tag("update-tag")
                     .build();
@@ -95,7 +95,7 @@ pub async fn rolled_back_read_write_transaction(db_client: &DatabaseClient) -> a
         .set("Id")
         .to(&id)
         .set("ColInt64")
-        .to(&100_i64)
+        .to(100_i64)
         .build();
     db_client
         .write_only_transaction()
@@ -124,7 +124,7 @@ pub async fn rolled_back_read_write_transaction(db_client: &DatabaseClient) -> a
 
             let update_statement =
                 Statement::builder("UPDATE AllTypes SET ColInt64 = @new_val WHERE Id = @id")
-                    .add_param("new_val", &(current_val + 50))
+                    .add_param("new_val", current_val + 50)
                     .add_param("id", &id)
                     .set_request_tag("update-tag")
                     .build();
@@ -178,7 +178,7 @@ pub async fn concurrent_read_write_transaction_retries(
             .set("Id")
             .to(&id)
             .set("ColInt64")
-            .to(&100_i64)
+            .to(100_i64)
             .build();
         mutations.push(mutation);
     }
@@ -236,7 +236,7 @@ pub async fn concurrent_read_write_transaction_retries(
                         Statement::builder(
                             "UPDATE AllTypes SET ColInt64 = ColInt64 + @inc WHERE Id = @id",
                         )
-                        .add_param("inc", &50_i64)
+                        .add_param("inc", 50_i64)
                         .add_param("id", &update_id)
                         .set_request_tag("concurrent-update")
                         .build()
@@ -290,7 +290,7 @@ pub async fn read_write_transaction_with_mutations(
         .set("Id")
         .to(&id1)
         .set("ColInt64")
-        .to(&100_i64)
+        .to(100_i64)
         .build();
     db_client
         .write_only_transaction()
@@ -322,7 +322,7 @@ pub async fn read_write_transaction_with_mutations(
                 .set("Id")
                 .to(&id2)
                 .set("ColInt64")
-                .to(&(current_val + 100))
+                .to(current_val + 100)
                 .build();
             transaction.buffer([buffer_mut])?;
 
@@ -362,7 +362,7 @@ pub async fn read_write_transaction_mutation_only(
         .set("Id")
         .to(&id)
         .set("ColInt64")
-        .to(&555_i64)
+        .to(555_i64)
         .build();
 
     let runner = db_client
@@ -411,13 +411,13 @@ pub async fn read_write_transaction_multiple_queries_and_dml(
         .set("Id")
         .to(&first_id)
         .set("ColInt64")
-        .to(&100_i64)
+        .to(100_i64)
         .build();
     let second_mutation = Mutation::new_insert_builder("AllTypes")
         .set("Id")
         .to(&second_id)
         .set("ColInt64")
-        .to(&200_i64)
+        .to(200_i64)
         .build();
     db_client
         .write_only_transaction()
@@ -461,7 +461,7 @@ pub async fn read_write_transaction_multiple_queries_and_dml(
             // DML statement
             let update_statement =
                 Statement::builder("UPDATE AllTypes SET ColInt64 = @new_val WHERE Id = @id")
-                    .add_param("new_val", &(first_value + second_value))
+                    .add_param("new_val", first_value + second_value)
                     .add_param("id", &first_id)
                     .build();
             transaction.execute_update(update_statement).await?;
@@ -502,13 +502,13 @@ pub async fn consecutive_reads(db_client: &DatabaseClient) -> anyhow::Result<()>
         .set("Id")
         .to(&id1)
         .set("ColInt64")
-        .to(&10_i64)
+        .to(10_i64)
         .build();
     let mutation2 = Mutation::new_insert_builder("AllTypes")
         .set("Id")
         .to(&id2)
         .set("ColInt64")
-        .to(&20_i64)
+        .to(20_i64)
         .build();
     db_client
         .write_only_transaction()
@@ -550,7 +550,7 @@ pub async fn consecutive_reads(db_client: &DatabaseClient) -> anyhow::Result<()>
 
             let update_statement =
                 Statement::builder("UPDATE AllTypes SET ColInt64 = @new_val WHERE Id = @id")
-                    .add_param("new_val", &(val1 + val2))
+                    .add_param("new_val", val1 + val2)
                     .add_param("id", &id1)
                     .build();
             transaction.execute_update(update_statement).await?;
@@ -590,13 +590,13 @@ pub async fn mixed_reads_and_queries(db_client: &DatabaseClient) -> anyhow::Resu
         .set("Id")
         .to(&id1)
         .set("ColInt64")
-        .to(&100_i64)
+        .to(100_i64)
         .build();
     let mutation2 = Mutation::new_insert_builder("AllTypes")
         .set("Id")
         .to(&id2)
         .set("ColInt64")
-        .to(&200_i64)
+        .to(200_i64)
         .build();
     db_client
         .write_only_transaction()
@@ -637,7 +637,7 @@ pub async fn mixed_reads_and_queries(db_client: &DatabaseClient) -> anyhow::Resu
 
             let update_statement =
                 Statement::builder("UPDATE AllTypes SET ColInt64 = @new_val WHERE Id = @id")
-                    .add_param("new_val", &(val1 + val2 + 50))
+                    .add_param("new_val", val1 + val2 + 50)
                     .add_param("id", &id1)
                     .build();
             transaction.execute_update(update_statement).await?;
@@ -677,13 +677,13 @@ pub async fn multiple_execute_updates(db_client: &DatabaseClient) -> anyhow::Res
         .set("Id")
         .to(&id1)
         .set("ColInt64")
-        .to(&5_i64)
+        .to(5_i64)
         .build();
     let mutation2 = Mutation::new_insert_builder("AllTypes")
         .set("Id")
         .to(&id2)
         .set("ColInt64")
-        .to(&10_i64)
+        .to(10_i64)
         .build();
     db_client
         .write_only_transaction()
@@ -755,7 +755,7 @@ pub async fn read_your_writes_consistency(db_client: &DatabaseClient) -> anyhow:
         .set("Id")
         .to(&id)
         .set("ColInt64")
-        .to(&100_i64)
+        .to(100_i64)
         .build();
     db_client
         .write_only_transaction()
@@ -820,7 +820,7 @@ pub async fn buffered_mutation_interleaving(db_client: &DatabaseClient) -> anyho
         .set("Id")
         .to(&id1)
         .set("ColInt64")
-        .to(&100_i64)
+        .to(100_i64)
         .build();
     db_client
         .write_only_transaction()
@@ -840,7 +840,7 @@ pub async fn buffered_mutation_interleaving(db_client: &DatabaseClient) -> anyho
                 .set("Id")
                 .to(&id2)
                 .set("ColInt64")
-                .to(&999_i64)
+                .to(999_i64)
                 .build();
             transaction.buffer([buffer_mutation])?;
 
@@ -911,13 +911,13 @@ pub async fn intermediate_statement_constraint_error(
         .set("Id")
         .to(&id1)
         .set("ColInt64")
-        .to(&10_i64)
+        .to(10_i64)
         .build();
     let mutation2 = Mutation::new_insert_builder("AllTypes")
         .set("Id")
         .to(&id2)
         .set("ColInt64")
-        .to(&20_i64)
+        .to(20_i64)
         .build();
     db_client
         .write_only_transaction()
@@ -969,7 +969,7 @@ pub async fn buffered_mutation_commit_rejection(db_client: &DatabaseClient) -> a
         .set("Id")
         .to(&id)
         .set("ColInt64")
-        .to(&100_i64)
+        .to(100_i64)
         .build();
     db_client
         .write_only_transaction()
@@ -996,7 +996,7 @@ pub async fn buffered_mutation_commit_rejection(db_client: &DatabaseClient) -> a
                 .set("Id")
                 .to(&id)
                 .set("ColInt64")
-                .to(&500_i64)
+                .to(500_i64)
                 .build();
             transaction.buffer([duplicate_mutation])?;
 
@@ -1020,7 +1020,7 @@ pub async fn application_error_explicit_rollback(db_client: &DatabaseClient) -> 
         .set("Id")
         .to(&id1)
         .set("ColInt64")
-        .to(&100_i64)
+        .to(100_i64)
         .build();
     db_client
         .write_only_transaction()
@@ -1046,7 +1046,7 @@ pub async fn application_error_explicit_rollback(db_client: &DatabaseClient) -> 
                 .set("Id")
                 .to(&id2)
                 .set("ColInt64")
-                .to(&300_i64)
+                .to(300_i64)
                 .build();
             transaction.buffer([buffered_mutation])?;
 
@@ -1216,7 +1216,7 @@ pub async fn read_write_transaction_last_statement(
         .set("Id")
         .to(&id)
         .set("ColInt64")
-        .to(&100_i64)
+        .to(100_i64)
         .build();
     db_client
         .write_only_transaction()
@@ -1320,7 +1320,7 @@ pub async fn read_write_transaction_batch_last_statements(
         .set("Id")
         .to(&id)
         .set("ColInt64")
-        .to(&100_i64)
+        .to(100_i64)
         .build();
     db_client
         .write_only_transaction()
