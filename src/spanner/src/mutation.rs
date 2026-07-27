@@ -423,6 +423,37 @@ mod tests {
     }
 
     #[test]
+    fn value_binder_to_turbofished_ref_none() {
+        let mut_ref_turbofished = Mutation::new_insert_builder("Users")
+            .set("Age")
+            .to::<&Option<i64>>(&None)
+            .build();
+        let mut_owned_none = Mutation::new_insert_builder("Users")
+            .set("Age")
+            .to::<Option<i64>>(None)
+            .build();
+        assert_eq!(mut_ref_turbofished, mut_owned_none);
+    }
+
+    #[test]
+    fn value_binder_to_untyped_null() {
+        let mut_null = Mutation::new_insert_builder("Users")
+            .set("Age")
+            .to(Value::null())
+            .build();
+        let mut_unit_none = Mutation::new_insert_builder("Users")
+            .set("Age")
+            .to(None::<()>)
+            .build();
+        let mut_value_none = Mutation::new_insert_builder("Users")
+            .set("Age")
+            .to(None::<Value>)
+            .build();
+        assert_eq!(mut_null, mut_unit_none);
+        assert_eq!(mut_null, mut_value_none);
+    }
+
+    #[test]
     fn insert_builder() {
         let mutation = Mutation::new_insert_builder("Users")
             .set("UserId")

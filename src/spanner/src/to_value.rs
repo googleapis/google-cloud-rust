@@ -51,6 +51,12 @@ where
     }
 }
 
+impl ToValue for () {
+    fn to_value(&self) -> Value {
+        Value::null()
+    }
+}
+
 impl ToValue for Value {
     fn to_value(&self) -> Value {
         self.clone()
@@ -196,12 +202,16 @@ where
 
 /// Converts a reference to any [ToValue] type into a [Value] by calling
 /// [ToValue::to_value], which copies the referenced data.
-//
-// This impl is what lets methods accepting `impl Into<Value>`, like
-// `StatementBuilder::add_param`, also accept `&T` for any `T: ToValue`.
 impl<T: ToValue + ?Sized> From<&T> for Value {
     fn from(t: &T) -> Self {
         t.to_value()
+    }
+}
+
+/// Converts an optional [ToValue] type into a [Value].
+impl<T: ToValue> From<Option<T>> for Value {
+    fn from(opt: Option<T>) -> Self {
+        opt.to_value()
     }
 }
 
@@ -210,6 +220,21 @@ mod tests {
     use super::*;
     use crate::value::Kind;
     use std::str::FromStr;
+
+    #[test]
+    fn test_null_value_conversions() {
+        let null_val = Value::null();
+        assert_eq!(null_val.kind(), Kind::Null);
+
+        let opt_unit: Value = None::<()>.into();
+        assert_eq!(opt_unit, null_val);
+
+        let opt_val: Value = None::<Value>.into();
+        assert_eq!(opt_val, null_val);
+
+        let opt_i64: Value = None::<i64>.into();
+        assert_eq!(opt_i64, null_val);
+    }
 
     #[test]
     fn test_to_value_string() {

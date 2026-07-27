@@ -18,6 +18,7 @@ use crate::model::execute_sql_request::QueryOptions;
 use crate::model::request_options::Priority;
 use crate::types::Type;
 use crate::value::Value;
+
 use google_cloud_gax::backoff_policy::BackoffPolicyArg;
 use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
 use google_cloud_gax::retry_policy::RetryPolicyArg;
@@ -489,6 +490,32 @@ mod tests {
                 .as_string(),
             "user-123"
         );
+    }
+
+    #[test]
+    fn test_param_turbofished_ref_none() {
+        let stmt_ref_turbofished = Statement::builder("SELECT * FROM users WHERE age > @age")
+            .add_param::<&Option<i64>>("age", &None)
+            .build();
+        let stmt_owned_none = Statement::builder("SELECT * FROM users WHERE age > @age")
+            .add_param::<Option<i64>>("age", None)
+            .build();
+        assert_eq!(stmt_ref_turbofished.params, stmt_owned_none.params);
+    }
+
+    #[test]
+    fn test_param_untyped_null() {
+        let stmt_null = Statement::builder("SELECT * FROM users WHERE age > @age")
+            .add_param("age", Value::null())
+            .build();
+        let stmt_unit_none = Statement::builder("SELECT * FROM users WHERE age > @age")
+            .add_param("age", None::<()>)
+            .build();
+        let stmt_value_none = Statement::builder("SELECT * FROM users WHERE age > @age")
+            .add_param("age", None::<Value>)
+            .build();
+        assert_eq!(stmt_null.params, stmt_unit_none.params);
+        assert_eq!(stmt_null.params, stmt_value_none.params);
     }
 
     #[test]
