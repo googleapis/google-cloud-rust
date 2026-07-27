@@ -48,7 +48,18 @@ steps:
     script: |
       #!/usr/bin/env bash
       set -e
-      CONTAINER=$(docker run -d --network=cloudbuild gcr.io/cloud-spanner-emulator/emulator)
+      for attempt in 1 2 3 4 5; do
+        if CONTAINER=$(docker run -d --network=cloudbuild gcr.io/cloud-spanner-emulator/emulator 2>&1); then
+          break
+        fi
+        if [ "$attempt" -eq 5 ]; then
+          echo "Failed to start Spanner Emulator after 5 attempts: $CONTAINER"
+          exit 1
+        fi
+        delay=$(( 2 ** attempt ))
+        echo "Failed to start Spanner Emulator (attempt $attempt/5). Retrying in ${delay}s..."
+        sleep "$delay"
+      done
       CONTAINER_IP=$(docker inspect -f '{{(index .NetworkSettings.Networks "cloudbuild").IPAddress}}' $CONTAINER)
       echo "$CONTAINER_IP" > /workspace/spanner_emulator_ip.txt
     waitFor: ['-']
