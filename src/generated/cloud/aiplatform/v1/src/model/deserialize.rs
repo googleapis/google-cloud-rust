@@ -6578,6 +6578,7 @@ impl<'de> serde::de::Deserialize<'de> for super::grounding_chunk::Maps {
             __text,
             __place_id,
             __place_answer_sources,
+            __route,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -6605,6 +6606,7 @@ impl<'de> serde::de::Deserialize<'de> for super::grounding_chunk::Maps {
                             "place_id" => Ok(__FieldTag::__place_id),
                             "placeAnswerSources" => Ok(__FieldTag::__place_answer_sources),
                             "place_answer_sources" => Ok(__FieldTag::__place_answer_sources),
+                            "route" => Ok(__FieldTag::__route),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -6675,6 +6677,15 @@ impl<'de> serde::de::Deserialize<'de> for super::grounding_chunk::Maps {
                             result.place_answer_sources = map.next_value::<std::option::Option<
                                 crate::model::grounding_chunk::maps::PlaceAnswerSources,
                             >>()?;
+                        }
+                        __FieldTag::__route => {
+                            if !fields.insert(__FieldTag::__route) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for route",
+                                ));
+                            }
+                            result.route = map.next_value::<std::option::Option<crate::model::grounding_chunk::maps::Route>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -6880,6 +6891,122 @@ impl<'de> serde::de::Deserialize<'de>
 
 #[cfg(any(feature = "prediction-service", feature = "session-service",))]
 #[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::grounding_chunk::maps::Route {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __distance_meters,
+            __duration,
+            __encoded_polyline,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Route")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "distanceMeters" => Ok(__FieldTag::__distance_meters),
+                            "distance_meters" => Ok(__FieldTag::__distance_meters),
+                            "duration" => Ok(__FieldTag::__duration),
+                            "encodedPolyline" => Ok(__FieldTag::__encoded_polyline),
+                            "encoded_polyline" => Ok(__FieldTag::__encoded_polyline),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::grounding_chunk::maps::Route;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Route")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__distance_meters => {
+                            if !fields.insert(__FieldTag::__distance_meters) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for distance_meters",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.distance_meters =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__duration => {
+                            if !fields.insert(__FieldTag::__duration) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for duration",
+                                ));
+                            }
+                            result.duration =
+                                map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
+                        __FieldTag::__encoded_polyline => {
+                            if !fields.insert(__FieldTag::__encoded_polyline) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for encoded_polyline",
+                                ));
+                            }
+                            result.encoded_polyline = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[cfg(any(feature = "prediction-service", feature = "session-service",))]
+#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::GroundingSupport {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -7023,6 +7150,7 @@ impl<'de> serde::de::Deserialize<'de> for super::GroundingMetadata {
         enum __FieldTag {
             __web_search_queries,
             __search_entry_point,
+            __retrieval_queries,
             __grounding_chunks,
             __grounding_supports,
             __retrieval_metadata,
@@ -7052,6 +7180,8 @@ impl<'de> serde::de::Deserialize<'de> for super::GroundingMetadata {
                             "web_search_queries" => Ok(__FieldTag::__web_search_queries),
                             "searchEntryPoint" => Ok(__FieldTag::__search_entry_point),
                             "search_entry_point" => Ok(__FieldTag::__search_entry_point),
+                            "retrievalQueries" => Ok(__FieldTag::__retrieval_queries),
+                            "retrieval_queries" => Ok(__FieldTag::__retrieval_queries),
                             "groundingChunks" => Ok(__FieldTag::__grounding_chunks),
                             "grounding_chunks" => Ok(__FieldTag::__grounding_chunks),
                             "groundingSupports" => Ok(__FieldTag::__grounding_supports),
@@ -7108,6 +7238,14 @@ impl<'de> serde::de::Deserialize<'de> for super::GroundingMetadata {
                             result.search_entry_point = map
                                 .next_value::<std::option::Option<crate::model::SearchEntryPoint>>(
                                 )?;
+                        }
+                        __FieldTag::__retrieval_queries => {
+                            if !fields.insert(__FieldTag::__retrieval_queries) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for retrieval_queries",
+                                ));
+                            }
+                            result.retrieval_queries = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                         }
                         __FieldTag::__grounding_chunks => {
                             if !fields.insert(__FieldTag::__grounding_chunks) {
@@ -106076,6 +106214,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ReasoningEngineSpec {
             __deployment_spec,
             __class_methods,
             __agent_framework,
+            __identity_type,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -106110,6 +106249,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ReasoningEngineSpec {
                             "class_methods" => Ok(__FieldTag::__class_methods),
                             "agentFramework" => Ok(__FieldTag::__agent_framework),
                             "agent_framework" => Ok(__FieldTag::__agent_framework),
+                            "identityType" => Ok(__FieldTag::__identity_type),
+                            "identity_type" => Ok(__FieldTag::__identity_type),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -106216,6 +106357,18 @@ impl<'de> serde::de::Deserialize<'de> for super::ReasoningEngineSpec {
                             }
                             result.agent_framework = map
                                 .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__identity_type => {
+                            if !fields.insert(__FieldTag::__identity_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for identity_type",
+                                ));
+                            }
+                            result.identity_type = map
+                                .next_value::<std::option::Option<
+                                    crate::model::reasoning_engine_spec::IdentityType,
+                                >>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {

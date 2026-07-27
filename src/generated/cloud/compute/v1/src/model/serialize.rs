@@ -9149,6 +9149,7 @@ impl serde::ser::Serialize for super::DistributionPolicyZoneConfiguration {
     feature = "backend-services",
     feature = "future-reservations",
     feature = "instance-group-manager-resize-requests",
+    feature = "instance-group-managers",
     feature = "instance-templates",
     feature = "instances",
     feature = "license-codes",
@@ -9158,6 +9159,7 @@ impl serde::ser::Serialize for super::DistributionPolicyZoneConfiguration {
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-instance-group-manager-resize-requests",
+    feature = "region-instance-group-managers",
     feature = "region-instance-templates",
     feature = "region-instances",
     feature = "region-notification-endpoints",
@@ -17320,6 +17322,9 @@ impl serde::ser::Serialize for super::Instance {
         if self.last_suspended_timestamp.is_some() {
             state.serialize_entry("lastSuspendedTimestamp", &self.last_suspended_timestamp)?;
         }
+        if self.local_ssd_encryption_mode.is_some() {
+            state.serialize_entry("localSsdEncryptionMode", &self.local_ssd_encryption_mode)?;
+        }
         if self.machine_type.is_some() {
             state.serialize_entry("machineType", &self.machine_type)?;
         }
@@ -18767,6 +18772,9 @@ impl serde::ser::Serialize for super::InstanceGroupManagerResizeRequest {
                 }
             }
             state.serialize_entry("id", &__With(&self.id))?;
+        }
+        if !self.instances.is_empty() {
+            state.serialize_entry("instances", &self.instances)?;
         }
         if self.kind.is_some() {
             state.serialize_entry("kind", &self.kind)?;
@@ -21263,6 +21271,9 @@ impl serde::ser::Serialize for super::InstanceProperties {
         }
         if !self.labels.is_empty() {
             state.serialize_entry("labels", &self.labels)?;
+        }
+        if self.local_ssd_encryption_mode.is_some() {
+            state.serialize_entry("localSsdEncryptionMode", &self.local_ssd_encryption_mode)?;
         }
         if self.machine_type.is_some() {
             state.serialize_entry("machineType", &self.machine_type)?;
@@ -28083,6 +28094,12 @@ impl serde::ser::Serialize for super::ManagedInstance {
                 &self.properties_from_flexibility_policy,
             )?;
         }
+        if self.scheduling.is_some() {
+            state.serialize_entry("scheduling", &self.scheduling)?;
+        }
+        if self.shutdown_details.is_some() {
+            state.serialize_entry("shutdownDetails", &self.shutdown_details)?;
+        }
         if self.version.is_some() {
             state.serialize_entry("version", &self.version)?;
         }
@@ -28262,6 +28279,67 @@ impl serde::ser::Serialize for super::ManagedInstancePropertiesFromFlexibilityPo
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.machine_type.is_some() {
             state.serialize_entry("machineType", &self.machine_type)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ManagedInstanceScheduling {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.graceful_shutdown_timestamp.is_some() {
+            state.serialize_entry(
+                "gracefulShutdownTimestamp",
+                &self.graceful_shutdown_timestamp,
+            )?;
+        }
+        if self.termination_timestamp.is_some() {
+            state.serialize_entry("terminationTimestamp", &self.termination_timestamp)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ManagedInstanceShutdownDetails {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.max_duration.is_some() {
+            state.serialize_entry("maxDuration", &self.max_duration)?;
+        }
+        if self.request_timestamp.is_some() {
+            state.serialize_entry("requestTimestamp", &self.request_timestamp)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -28477,6 +28555,54 @@ impl serde::ser::Serialize for super::NamedPort {
                 }
             }
             state.serialize_entry("port", &__With(&self.port))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "routers")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::NamedSet {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.description.is_some() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if !self.elements.is_empty() {
+            state.serialize_entry("elements", &self.elements)?;
+        }
+        if self.fingerprint.is_some() {
+            struct __With<'a>(&'a std::option::Option<::bytes::Bytes>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<
+                        std::option::Option<
+                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
+                        >,
+                    >::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
+        }
+        if self.name.is_some() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if self.r#type.is_some() {
+            state.serialize_entry("type", &self.r#type)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -35364,7 +35490,9 @@ impl serde::ser::Serialize for super::PathRule {
 }
 
 #[cfg(any(
+    feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
 ))]
 #[doc(hidden)]
@@ -35563,7 +35691,9 @@ impl serde::ser::Serialize for super::PreconfiguredWafSet {
 }
 
 #[cfg(any(
+    feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
 ))]
 #[doc(hidden)]
@@ -35598,7 +35728,9 @@ impl serde::ser::Serialize for super::PreservedState {
 }
 
 #[cfg(any(
+    feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
 ))]
 #[doc(hidden)]
@@ -35630,7 +35762,9 @@ impl serde::ser::Serialize for super::PreservedStatePreservedDisk {
 }
 
 #[cfg(any(
+    feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
 ))]
 #[doc(hidden)]
@@ -35659,7 +35793,9 @@ impl serde::ser::Serialize for super::PreservedStatePreservedNetworkIp {
 }
 
 #[cfg(any(
+    feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
 ))]
 #[doc(hidden)]
@@ -44329,6 +44465,32 @@ impl serde::ser::Serialize for super::RouterStatusResponse {
 
 #[cfg(feature = "routers")]
 #[doc(hidden)]
+impl serde::ser::Serialize for super::RoutersGetNamedSetResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.etag.is_some() {
+            state.serialize_entry("etag", &self.etag)?;
+        }
+        if self.resource.is_some() {
+            state.serialize_entry("resource", &self.resource)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "routers")]
+#[doc(hidden)]
 impl serde::ser::Serialize for super::RoutersGetRoutePolicyResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -44426,6 +44588,105 @@ impl serde::ser::Serialize for super::routers_list_bgp_routes::Warning {
 #[cfg(feature = "routers")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::routers_list_bgp_routes::warning::Data {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.key.is_some() {
+            state.serialize_entry("key", &self.key)?;
+        }
+        if self.value.is_some() {
+            state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "routers")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::RoutersListNamedSets {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.etag.is_some() {
+            state.serialize_entry("etag", &self.etag)?;
+        }
+        if self.id.is_some() {
+            state.serialize_entry("id", &self.id)?;
+        }
+        if self.kind.is_some() {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if self.next_page_token.is_some() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self.result.is_empty() {
+            state.serialize_entry("result", &self.result)?;
+        }
+        if self.self_link.is_some() {
+            state.serialize_entry("selfLink", &self.self_link)?;
+        }
+        if !self.unreachables.is_empty() {
+            state.serialize_entry("unreachables", &self.unreachables)?;
+        }
+        if self.warning.is_some() {
+            state.serialize_entry("warning", &self.warning)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "routers")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::routers_list_named_sets::Warning {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.code.is_some() {
+            state.serialize_entry("code", &self.code)?;
+        }
+        if !self.data.is_empty() {
+            state.serialize_entry("data", &self.data)?;
+        }
+        if self.message.is_some() {
+            state.serialize_entry("message", &self.message)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "routers")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::routers_list_named_sets::warning::Data {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -51403,6 +51664,12 @@ impl serde::ser::Serialize for super::SubnetworkSecondaryRange {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.ip_cidr_range.is_some() {
             state.serialize_entry("ipCidrRange", &self.ip_cidr_range)?;
+        }
+        if self.ip_collection.is_some() {
+            state.serialize_entry("ipCollection", &self.ip_collection)?;
+        }
+        if self.ip_version.is_some() {
+            state.serialize_entry("ipVersion", &self.ip_version)?;
         }
         if self.range_name.is_some() {
             state.serialize_entry("rangeName", &self.range_name)?;

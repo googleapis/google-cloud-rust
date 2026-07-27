@@ -37,6 +37,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Policy {
             __istio_service_identity_admission_rules,
             __default_admission_rule,
             __update_time,
+            __etag,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -95,6 +96,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Policy {
                             "default_admission_rule" => Ok(__FieldTag::__default_admission_rule),
                             "updateTime" => Ok(__FieldTag::__update_time),
                             "update_time" => Ok(__FieldTag::__update_time),
+                            "etag" => Ok(__FieldTag::__etag),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -244,6 +246,16 @@ impl<'de> serde::de::Deserialize<'de> for super::Policy {
                             }
                             result.update_time =
                                 map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__etag => {
+                            if !fields.insert(__FieldTag::__etag) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for etag",
+                                ));
+                            }
+                            result.etag = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -462,6 +474,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Attestor {
             __description,
             __user_owned_grafeas_note,
             __update_time,
+            __etag,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -488,6 +501,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Attestor {
                             "user_owned_grafeas_note" => Ok(__FieldTag::__user_owned_grafeas_note),
                             "updateTime" => Ok(__FieldTag::__update_time),
                             "update_time" => Ok(__FieldTag::__update_time),
+                            "etag" => Ok(__FieldTag::__etag),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -561,6 +575,16 @@ impl<'de> serde::de::Deserialize<'de> for super::Attestor {
                             }
                             result.update_time =
                                 map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__etag => {
+                            if !fields.insert(__FieldTag::__etag) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for etag",
+                                ));
+                            }
+                            result.etag = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -700,6 +724,7 @@ impl<'de> serde::de::Deserialize<'de> for super::PkixPublicKey {
         enum __FieldTag {
             __public_key_pem,
             __signature_algorithm,
+            __key_id,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -724,6 +749,8 @@ impl<'de> serde::de::Deserialize<'de> for super::PkixPublicKey {
                             "public_key_pem" => Ok(__FieldTag::__public_key_pem),
                             "signatureAlgorithm" => Ok(__FieldTag::__signature_algorithm),
                             "signature_algorithm" => Ok(__FieldTag::__signature_algorithm),
+                            "keyId" => Ok(__FieldTag::__key_id),
+                            "key_id" => Ok(__FieldTag::__key_id),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -769,6 +796,16 @@ impl<'de> serde::de::Deserialize<'de> for super::PkixPublicKey {
                                 .next_value::<std::option::Option<
                                     crate::model::pkix_public_key::SignatureAlgorithm,
                                 >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__key_id => {
+                            if !fields.insert(__FieldTag::__key_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for key_id",
+                                ));
+                            }
+                            result.key_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {

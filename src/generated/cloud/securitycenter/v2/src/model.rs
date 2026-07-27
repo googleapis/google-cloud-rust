@@ -419,6 +419,474 @@ impl wkt::message::Message for AffectedResources {
     }
 }
 
+/// Represents a monitored AI Agent.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Agent {
+    /// Identifier of the agent.
+    pub id: std::string::String,
+
+    /// The user friendly name of the specific agent instance where the finding was
+    /// detected, for example, "Banking Agent".
+    pub display_name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Agent {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [id][crate::model::Agent::id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_securitycenter_v2::model::Agent;
+    /// let x = Agent::new().set_id("example");
+    /// ```
+    pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.id = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::Agent::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_securitycenter_v2::model::Agent;
+    /// let x = Agent::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for Agent {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.securitycenter.v2.Agent"
+    }
+}
+
+/// Represents details about an anomaly detected in an AI agent's behavior.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AgentAnomaly {
+    /// The overall confidence score indicating the likelihood that this session
+    /// contains a true anomaly. The score ranges from 0.0 to 1.0, where 1.0
+    /// signifies 100% confidence in the presence of an anomaly and 0.0 signifies
+    /// 0% confidence.
+    pub confidence_score: f64,
+
+    /// The list of references to specific detectors that identified anomalies
+    /// within this session.
+    pub detector_references: std::vec::Vec<crate::model::DetectorReference>,
+
+    /// References to the OpenTelemetry invocations.
+    pub invocation_references: std::vec::Vec<crate::model::InvocationReference>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AgentAnomaly {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [confidence_score][crate::model::AgentAnomaly::confidence_score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_securitycenter_v2::model::AgentAnomaly;
+    /// let x = AgentAnomaly::new().set_confidence_score(42.0);
+    /// ```
+    pub fn set_confidence_score<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+        self.confidence_score = v.into();
+        self
+    }
+
+    /// Sets the value of [detector_references][crate::model::AgentAnomaly::detector_references].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_securitycenter_v2::model::AgentAnomaly;
+    /// use google_cloud_securitycenter_v2::model::DetectorReference;
+    /// let x = AgentAnomaly::new()
+    ///     .set_detector_references([
+    ///         DetectorReference::default()/* use setters */,
+    ///         DetectorReference::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_detector_references<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DetectorReference>,
+    {
+        use std::iter::Iterator;
+        self.detector_references = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [invocation_references][crate::model::AgentAnomaly::invocation_references].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_securitycenter_v2::model::AgentAnomaly;
+    /// use google_cloud_securitycenter_v2::model::InvocationReference;
+    /// let x = AgentAnomaly::new()
+    ///     .set_invocation_references([
+    ///         InvocationReference::default()/* use setters */,
+    ///         InvocationReference::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_invocation_references<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::InvocationReference>,
+    {
+        use std::iter::Iterator;
+        self.invocation_references = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for AgentAnomaly {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.securitycenter.v2.AgentAnomaly"
+    }
+}
+
+/// Represents a reference to a specific anomaly detector.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DetectorReference {
+    /// The severity of the detector.
+    pub severity: crate::model::detector_reference::Severity,
+
+    /// The unique identifier of the detector.
+    pub detector_id: std::string::String,
+
+    /// A human readable name for the detector, providing context on its purpose.
+    /// For example, "ASI02: Tool Misuse", or "Excessive API Calls".
+    pub display_name: std::string::String,
+
+    /// A detailed explanation generated by an LLM or the detector itself,
+    /// describing why this specific anomaly was flagged. This provides rationale
+    /// and context for the detection.
+    pub explanation: std::string::String,
+
+    /// Recommended steps or actions to remediate or investigate the anomaly
+    /// flagged by this detector. These could include configuration changes, code
+    /// adjustments, or further diagnostic procedures.
+    pub recommendation: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DetectorReference {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [severity][crate::model::DetectorReference::severity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_securitycenter_v2::model::DetectorReference;
+    /// use google_cloud_securitycenter_v2::model::detector_reference::Severity;
+    /// let x0 = DetectorReference::new().set_severity(Severity::Critical);
+    /// let x1 = DetectorReference::new().set_severity(Severity::High);
+    /// let x2 = DetectorReference::new().set_severity(Severity::Medium);
+    /// ```
+    pub fn set_severity<T: std::convert::Into<crate::model::detector_reference::Severity>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.severity = v.into();
+        self
+    }
+
+    /// Sets the value of [detector_id][crate::model::DetectorReference::detector_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_securitycenter_v2::model::DetectorReference;
+    /// let x = DetectorReference::new().set_detector_id("example");
+    /// ```
+    pub fn set_detector_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.detector_id = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::DetectorReference::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_securitycenter_v2::model::DetectorReference;
+    /// let x = DetectorReference::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [explanation][crate::model::DetectorReference::explanation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_securitycenter_v2::model::DetectorReference;
+    /// let x = DetectorReference::new().set_explanation("example");
+    /// ```
+    pub fn set_explanation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.explanation = v.into();
+        self
+    }
+
+    /// Sets the value of [recommendation][crate::model::DetectorReference::recommendation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_securitycenter_v2::model::DetectorReference;
+    /// let x = DetectorReference::new().set_recommendation("example");
+    /// ```
+    pub fn set_recommendation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.recommendation = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DetectorReference {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.securitycenter.v2.DetectorReference"
+    }
+}
+
+/// Defines additional types related to [DetectorReference].
+pub mod detector_reference {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Severity levels for detectors.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Severity {
+        /// Unspecified severity.
+        Unspecified,
+        /// Critical severity.
+        Critical,
+        /// High severity.
+        High,
+        /// Medium severity.
+        Medium,
+        /// Low severity.
+        Low,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Severity::value] or
+        /// [Severity::name].
+        UnknownValue(severity::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod severity {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Severity {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Critical => std::option::Option::Some(1),
+                Self::High => std::option::Option::Some(2),
+                Self::Medium => std::option::Option::Some(3),
+                Self::Low => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SEVERITY_UNSPECIFIED"),
+                Self::Critical => std::option::Option::Some("CRITICAL"),
+                Self::High => std::option::Option::Some("HIGH"),
+                Self::Medium => std::option::Option::Some("MEDIUM"),
+                Self::Low => std::option::Option::Some("LOW"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Severity {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Severity {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Severity {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Critical,
+                2 => Self::High,
+                3 => Self::Medium,
+                4 => Self::Low,
+                _ => Self::UnknownValue(severity::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Severity {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SEVERITY_UNSPECIFIED" => Self::Unspecified,
+                "CRITICAL" => Self::Critical,
+                "HIGH" => Self::High,
+                "MEDIUM" => Self::Medium,
+                "LOW" => Self::Low,
+                _ => Self::UnknownValue(severity::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Severity {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Critical => serializer.serialize_i32(1),
+                Self::High => serializer.serialize_i32(2),
+                Self::Medium => serializer.serialize_i32(3),
+                Self::Low => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Severity {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Severity>::new(
+                ".google.cloud.securitycenter.v2.DetectorReference.Severity",
+            ))
+        }
+    }
+}
+
+/// Represents a reference to a specific OpenTelemetry invocation.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct InvocationReference {
+    /// The unique identifier of the invocation.
+    pub invocation_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl InvocationReference {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [invocation_id][crate::model::InvocationReference::invocation_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_securitycenter_v2::model::InvocationReference;
+    /// let x = InvocationReference::new().set_invocation_id("example");
+    /// ```
+    pub fn set_invocation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.invocation_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for InvocationReference {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.securitycenter.v2.InvocationReference"
+    }
+}
+
+/// Represents a conversational session where the finding occurred.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AgentSession {
+    /// The session ID of a conversation.
+    pub session_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AgentSession {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [session_id][crate::model::AgentSession::session_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_securitycenter_v2::model::AgentSession;
+    /// let x = AgentSession::new().set_session_id("example");
+    /// ```
+    pub fn set_session_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.session_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AgentSession {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.securitycenter.v2.AgentSession"
+    }
+}
+
 /// Contains information about the AI model associated with the finding.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -5877,6 +6345,15 @@ pub struct Finding {
     /// VertexAi associated with the finding.
     pub vertex_ai: std::option::Option<crate::model::VertexAi>,
 
+    /// Primary Agent that the specified finding was flagged for
+    pub agent: std::option::Option<crate::model::Agent>,
+
+    /// Conversational session(s) where the finding occurred.
+    pub agent_sessions: std::vec::Vec<crate::model::AgentSession>,
+
+    /// Details about behavior anomalies detected in AI agents.
+    pub agent_anomaly: std::option::Option<crate::model::AgentAnomaly>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -7417,6 +7894,94 @@ impl Finding {
         T: std::convert::Into<crate::model::VertexAi>,
     {
         self.vertex_ai = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [agent][crate::model::Finding::agent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::Agent;
+    /// let x = Finding::new().set_agent(Agent::default()/* use setters */);
+    /// ```
+    pub fn set_agent<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Agent>,
+    {
+        self.agent = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [agent][crate::model::Finding::agent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::Agent;
+    /// let x = Finding::new().set_or_clear_agent(Some(Agent::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_agent(None::<Agent>);
+    /// ```
+    pub fn set_or_clear_agent<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Agent>,
+    {
+        self.agent = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [agent_sessions][crate::model::Finding::agent_sessions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::AgentSession;
+    /// let x = Finding::new()
+    ///     .set_agent_sessions([
+    ///         AgentSession::default()/* use setters */,
+    ///         AgentSession::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_agent_sessions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AgentSession>,
+    {
+        use std::iter::Iterator;
+        self.agent_sessions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [agent_anomaly][crate::model::Finding::agent_anomaly].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::AgentAnomaly;
+    /// let x = Finding::new().set_agent_anomaly(AgentAnomaly::default()/* use setters */);
+    /// ```
+    pub fn set_agent_anomaly<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AgentAnomaly>,
+    {
+        self.agent_anomaly = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [agent_anomaly][crate::model::Finding::agent_anomaly].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_securitycenter_v2::model::Finding;
+    /// use google_cloud_securitycenter_v2::model::AgentAnomaly;
+    /// let x = Finding::new().set_or_clear_agent_anomaly(Some(AgentAnomaly::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_agent_anomaly(None::<AgentAnomaly>);
+    /// ```
+    pub fn set_or_clear_agent_anomaly<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AgentAnomaly>,
+    {
+        self.agent_anomaly = v.map(|x| x.into());
         self
     }
 }

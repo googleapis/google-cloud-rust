@@ -162,7 +162,6 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
         std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     /// Returns the poller options.
     ///
@@ -655,7 +654,6 @@ pub trait HsmManagement: std::fmt::Debug + Send + Sync {
         std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     /// Returns the poller options.
     ///
@@ -858,6 +856,30 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::CryptoKeyVersion>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::KeyManagementService::import_trusted_key_wrapped_crypto_key_version].
+    fn import_trusted_key_wrapped_crypto_key_version(
+        &self,
+        _req: crate::model::ImportTrustedKeyWrappedCryptoKeyVersionRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::CryptoKeyVersion>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::KeyManagementService::export_trusted_key_wrapped_crypto_key_version].
+    fn export_trusted_key_wrapped_crypto_key_version(
+        &self,
+        _req: crate::model::ExportTrustedKeyWrappedCryptoKeyVersionRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<crate::model::ExportTrustedKeyWrappedCryptoKeyVersionResponse>,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -1127,7 +1149,6 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     /// Returns the poller options.
     ///

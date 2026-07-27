@@ -133,6 +133,10 @@ pub struct Agent {
     /// If multiple rules match, the first one in the list will be used.
     pub transfer_rules: std::vec::Vec<crate::model::TransferRule>,
 
+    /// Output only. Misconfigurations or errors in the agent that may affect agent
+    /// quality.
+    pub validation_errors: std::vec::Vec<std::string::String>,
+
     /// The type of agent.
     pub agent_type: std::option::Option<crate::model::agent::AgentType>,
 
@@ -550,6 +554,23 @@ impl Agent {
         self
     }
 
+    /// Sets the value of [validation_errors][crate::model::Agent::validation_errors].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::Agent;
+    /// let x = Agent::new().set_validation_errors(["a", "b", "c"]);
+    /// ```
+    pub fn set_validation_errors<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.validation_errors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [agent_type][crate::model::Agent::agent_type].
     ///
     /// Note that all the setters affecting `agent_type` are mutually
@@ -726,6 +747,11 @@ pub mod agent {
         ///   app-level barge-in settings.
         pub respect_response_interruption_settings: bool,
 
+        /// Optional. The name of the variable that contains the language code to be
+        /// used for the Dialogflow session. If unspecified, the default language
+        /// code of the Dialogflow agent will be used.
+        pub language_code_variable: std::string::String,
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -832,6 +858,21 @@ pub mod agent {
             self.respect_response_interruption_settings = v.into();
             self
         }
+
+        /// Sets the value of [language_code_variable][crate::model::agent::RemoteDialogflowAgent::language_code_variable].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_ces_v1::model::agent::RemoteDialogflowAgent;
+        /// let x = RemoteDialogflowAgent::new().set_language_code_variable("example");
+        /// ```
+        pub fn set_language_code_variable<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.language_code_variable = v.into();
+            self
+        }
     }
 
     impl wkt::message::Message for RemoteDialogflowAgent {
@@ -916,6 +957,453 @@ pub mod agent {
         /// should grant `roles/dialogflow.client` to the CES service agent
         /// `service-<PROJECT-NUMBER>@gcp-sa-ces.iam.gserviceaccount.com`.
         RemoteDialogflowAgent(std::boxed::Box<crate::model::agent::RemoteDialogflowAgent>),
+    }
+}
+
+/// AgentCard conveys key information about a remote agent.
+/// It is a trimmed version of the AgentCard defined in the A2A protocol
+/// <https://a2a-protocol.org/dev/specification/#441-agentcard>
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AgentCard {
+    /// Required. A human-readable name for the agent.
+    pub name: std::string::String,
+
+    /// Required. A description of the agent's domain of action/solution space.
+    pub description: std::string::String,
+
+    /// Required. Ordered list of supported interfaces. The first entry is
+    /// preferred.
+    pub supported_interfaces: std::vec::Vec<crate::model::AgentInterface>,
+
+    /// Required. The version of the agent.
+    pub version: std::string::String,
+
+    /// Required. Skills represent a unit of ability an agent can perform. This may
+    /// somewhat abstract but represents a more focused set of actions that the
+    /// agent is highly likely to succeed at.
+    pub skills: std::vec::Vec<crate::model::AgentSkill>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AgentCard {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::AgentCard::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::AgentCard;
+    /// let x = AgentCard::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::AgentCard::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::AgentCard;
+    /// let x = AgentCard::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [supported_interfaces][crate::model::AgentCard::supported_interfaces].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::AgentCard;
+    /// use google_cloud_ces_v1::model::AgentInterface;
+    /// let x = AgentCard::new()
+    ///     .set_supported_interfaces([
+    ///         AgentInterface::default()/* use setters */,
+    ///         AgentInterface::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_supported_interfaces<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AgentInterface>,
+    {
+        use std::iter::Iterator;
+        self.supported_interfaces = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [version][crate::model::AgentCard::version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::AgentCard;
+    /// let x = AgentCard::new().set_version("example");
+    /// ```
+    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.version = v.into();
+        self
+    }
+
+    /// Sets the value of [skills][crate::model::AgentCard::skills].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::AgentCard;
+    /// use google_cloud_ces_v1::model::AgentSkill;
+    /// let x = AgentCard::new()
+    ///     .set_skills([
+    ///         AgentSkill::default()/* use setters */,
+    ///         AgentSkill::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_skills<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AgentSkill>,
+    {
+        use std::iter::Iterator;
+        self.skills = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for AgentCard {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.ces.v1.AgentCard"
+    }
+}
+
+/// Declares a combination of a target URL, transport and protocol version for
+/// interacting with the agent. This allows agents to expose the same
+/// functionality over multiple protocol binding mechanisms.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AgentInterface {
+    /// Required. The URL where this interface is available. Must be a valid
+    /// absolute HTTPS URL in production. Example:
+    /// `https://api.example.com/a2a/v1`, `https://grpc.example.com/a2a`
+    pub url: std::string::String,
+
+    /// Required. The protocol binding supported at this URL. This is an open form
+    /// string, to be easily extended for other protocol bindings. The core ones
+    /// officially supported are `JSONRPC`, `GRPC` and `HTTP+JSON`.
+    pub protocol_binding: std::string::String,
+
+    /// Tenant ID to be used in the request when calling the agent.
+    pub tenant: std::string::String,
+
+    /// Required. The version of the A2A protocol this interface exposes.
+    /// Use the latest supported minor version per major version.
+    /// Examples: "0.3", "1.0"
+    pub protocol_version: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AgentInterface {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [url][crate::model::AgentInterface::url].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::AgentInterface;
+    /// let x = AgentInterface::new().set_url("example");
+    /// ```
+    pub fn set_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.url = v.into();
+        self
+    }
+
+    /// Sets the value of [protocol_binding][crate::model::AgentInterface::protocol_binding].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::AgentInterface;
+    /// let x = AgentInterface::new().set_protocol_binding("example");
+    /// ```
+    pub fn set_protocol_binding<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.protocol_binding = v.into();
+        self
+    }
+
+    /// Sets the value of [tenant][crate::model::AgentInterface::tenant].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::AgentInterface;
+    /// let x = AgentInterface::new().set_tenant("example");
+    /// ```
+    pub fn set_tenant<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.tenant = v.into();
+        self
+    }
+
+    /// Sets the value of [protocol_version][crate::model::AgentInterface::protocol_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::AgentInterface;
+    /// let x = AgentInterface::new().set_protocol_version("example");
+    /// ```
+    pub fn set_protocol_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.protocol_version = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AgentInterface {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.ces.v1.AgentInterface"
+    }
+}
+
+/// Represents a distinct capability or function that an agent can perform.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AgentSkill {
+    /// Required. A unique identifier for the agent's skill.
+    pub id: std::string::String,
+
+    /// Required. A human-readable name for the skill.
+    pub name: std::string::String,
+
+    /// Required. A detailed description of the skill.
+    pub description: std::string::String,
+
+    /// Required. A set of keywords describing the skill's capabilities.
+    pub tags: std::vec::Vec<std::string::String>,
+
+    /// Example prompts or scenarios that this skill can handle.
+    pub examples: std::vec::Vec<std::string::String>,
+
+    /// The set of supported input media types for this skill, overriding the
+    /// agent's defaults.
+    pub input_modes: std::vec::Vec<std::string::String>,
+
+    /// The set of supported output media types for this skill, overriding the
+    /// agent's defaults.
+    pub output_modes: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AgentSkill {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [id][crate::model::AgentSkill::id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::AgentSkill;
+    /// let x = AgentSkill::new().set_id("example");
+    /// ```
+    pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.id = v.into();
+        self
+    }
+
+    /// Sets the value of [name][crate::model::AgentSkill::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::AgentSkill;
+    /// let x = AgentSkill::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::AgentSkill::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::AgentSkill;
+    /// let x = AgentSkill::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [tags][crate::model::AgentSkill::tags].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::AgentSkill;
+    /// let x = AgentSkill::new().set_tags(["a", "b", "c"]);
+    /// ```
+    pub fn set_tags<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [examples][crate::model::AgentSkill::examples].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::AgentSkill;
+    /// let x = AgentSkill::new().set_examples(["a", "b", "c"]);
+    /// ```
+    pub fn set_examples<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.examples = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [input_modes][crate::model::AgentSkill::input_modes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::AgentSkill;
+    /// let x = AgentSkill::new().set_input_modes(["a", "b", "c"]);
+    /// ```
+    pub fn set_input_modes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.input_modes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [output_modes][crate::model::AgentSkill::output_modes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::AgentSkill;
+    /// let x = AgentSkill::new().set_output_modes(["a", "b", "c"]);
+    /// ```
+    pub fn set_output_modes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.output_modes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for AgentSkill {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.ces.v1.AgentSkill"
+    }
+}
+
+/// Represents a tool that allows the agent to call another remote agent.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RemoteAgentTool {
+    /// Required. The name of the tool.
+    pub name: std::string::String,
+
+    /// Required. The description of the tool.
+    pub description: std::string::String,
+
+    /// Required. The agent card of the remote agent that this tool invokes.
+    pub agent_card: std::option::Option<crate::model::AgentCard>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RemoteAgentTool {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::RemoteAgentTool::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::RemoteAgentTool;
+    /// let x = RemoteAgentTool::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::RemoteAgentTool::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::RemoteAgentTool;
+    /// let x = RemoteAgentTool::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [agent_card][crate::model::RemoteAgentTool::agent_card].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::RemoteAgentTool;
+    /// use google_cloud_ces_v1::model::AgentCard;
+    /// let x = RemoteAgentTool::new().set_agent_card(AgentCard::default()/* use setters */);
+    /// ```
+    pub fn set_agent_card<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AgentCard>,
+    {
+        self.agent_card = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [agent_card][crate::model::RemoteAgentTool::agent_card].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::RemoteAgentTool;
+    /// use google_cloud_ces_v1::model::AgentCard;
+    /// let x = RemoteAgentTool::new().set_or_clear_agent_card(Some(AgentCard::default()/* use setters */));
+    /// let x = RemoteAgentTool::new().set_or_clear_agent_card(None::<AgentCard>);
+    /// ```
+    pub fn set_or_clear_agent_card<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AgentCard>,
+    {
+        self.agent_card = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for RemoteAgentTool {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.ces.v1.RemoteAgentTool"
     }
 }
 
@@ -7372,9 +7860,15 @@ pub struct App {
     /// Optional. The default client certificate settings for the app.
     pub client_certificate_settings: std::option::Option<crate::model::ClientCertificateSettings>,
 
+    /// Optional. VPC-SC settings for the app.
+    pub vpc_sc_settings: std::option::Option<crate::model::VpcScSettings>,
+
     /// Optional. Indicates whether the app is locked for changes. If the app is
     /// locked, modifications to the app resources will be rejected.
     pub locked: bool,
+
+    /// Output only. Misconfigurations or warnings in the app.
+    pub validation_errors: std::vec::Vec<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -7989,6 +8483,39 @@ impl App {
         self
     }
 
+    /// Sets the value of [vpc_sc_settings][crate::model::App::vpc_sc_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::App;
+    /// use google_cloud_ces_v1::model::VpcScSettings;
+    /// let x = App::new().set_vpc_sc_settings(VpcScSettings::default()/* use setters */);
+    /// ```
+    pub fn set_vpc_sc_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::VpcScSettings>,
+    {
+        self.vpc_sc_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [vpc_sc_settings][crate::model::App::vpc_sc_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::App;
+    /// use google_cloud_ces_v1::model::VpcScSettings;
+    /// let x = App::new().set_or_clear_vpc_sc_settings(Some(VpcScSettings::default()/* use setters */));
+    /// let x = App::new().set_or_clear_vpc_sc_settings(None::<VpcScSettings>);
+    /// ```
+    pub fn set_or_clear_vpc_sc_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::VpcScSettings>,
+    {
+        self.vpc_sc_settings = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [locked][crate::model::App::locked].
     ///
     /// # Example
@@ -7998,6 +8525,23 @@ impl App {
     /// ```
     pub fn set_locked<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.locked = v.into();
+        self
+    }
+
+    /// Sets the value of [validation_errors][crate::model::App::validation_errors].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::App;
+    /// let x = App::new().set_validation_errors(["a", "b", "c"]);
+    /// ```
+    pub fn set_validation_errors<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.validation_errors = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -8928,12 +9472,12 @@ pub mod ambient_sound_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BargeInConfig {
-    /// Optional. Disables user barge-in while the agent is speaking. If true, user
-    /// input during agent response playback will be ignored.
-    ///
-    /// Deprecated: `disable_barge_in` is deprecated in favor of
+    /// Optional. Deprecated: `disable_barge_in` is deprecated in favor of
     /// [`disable_barge_in_control`][google.cloud.ces.v1.ChannelProfile.disable_barge_in_control]
     /// in ChannelProfile.
+    ///
+    /// Disables user barge-in while the agent is speaking. If true, user input
+    /// during agent response playback will be ignored.
     ///
     /// [google.cloud.ces.v1.ChannelProfile.disable_barge_in_control]: crate::model::ChannelProfile::disable_barge_in_control
     #[deprecated]
@@ -8998,11 +9542,30 @@ pub struct SynthesizeSpeechConfig {
     /// Text-to-Speech.
     pub voice: std::string::String,
 
+    /// Optional. The Cloud Storage URI to the audio sample for voice cloning. The
+    /// audio sample should be a mono-channel, 24kHz WAV file.
+    ///
+    /// Note: Please make sure the CES service agent
+    /// `service-<PROJECT-NUMBER>@gcp-sa-ces.iam.gserviceaccount.com` has
+    /// `storage.objects.get` permission to the Cloud Storage object.
+    pub voice_sample_gcs_uri: std::string::String,
+
     /// Optional. The speaking rate/speed in the range [0.25, 2.0]. 1.0 is the
     /// normal native speed supported by the specific voice. 2.0 is twice as fast,
     /// and 0.5 is half as fast. Values outside of the range [0.25, 2.0] will
     /// return an error.
     pub speaking_rate: f64,
+
+    /// Optional. The model used to synthesize audio.
+    /// Currently supported values:
+    ///
+    /// - "gemini-3.1-flash-tts-preview"
+    ///   If empty, Chirp3-HD is used.
+    pub model: std::string::String,
+
+    /// Optional. The instruction used to synthesize speech when using a generative
+    /// model.
+    pub instruction: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -9025,6 +9588,21 @@ impl SynthesizeSpeechConfig {
         self
     }
 
+    /// Sets the value of [voice_sample_gcs_uri][crate::model::SynthesizeSpeechConfig::voice_sample_gcs_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::SynthesizeSpeechConfig;
+    /// let x = SynthesizeSpeechConfig::new().set_voice_sample_gcs_uri("example");
+    /// ```
+    pub fn set_voice_sample_gcs_uri<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.voice_sample_gcs_uri = v.into();
+        self
+    }
+
     /// Sets the value of [speaking_rate][crate::model::SynthesizeSpeechConfig::speaking_rate].
     ///
     /// # Example
@@ -9034,6 +9612,30 @@ impl SynthesizeSpeechConfig {
     /// ```
     pub fn set_speaking_rate<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.speaking_rate = v.into();
+        self
+    }
+
+    /// Sets the value of [model][crate::model::SynthesizeSpeechConfig::model].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::SynthesizeSpeechConfig;
+    /// let x = SynthesizeSpeechConfig::new().set_model("example");
+    /// ```
+    pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.model = v.into();
+        self
+    }
+
+    /// Sets the value of [instruction][crate::model::SynthesizeSpeechConfig::instruction].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::SynthesizeSpeechConfig;
+    /// let x = SynthesizeSpeechConfig::new().set_instruction("example");
+    /// ```
+    pub fn set_instruction<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.instruction = v.into();
         self
     }
 }
@@ -9089,12 +9691,33 @@ pub struct LoggingSettings {
     /// Optional. Configuration for how sensitive data should be redacted.
     pub redaction_config: std::option::Option<crate::model::RedactionConfig>,
 
-    /// Optional. Configuration for how audio interactions should be recorded.
+    /// Optional. Configuration for how audio interactions should be recorded. The
+    /// audio is subject to redaction as configured in
+    /// [RedactionConfig][google.cloud.ces.v1.LoggingSettings.redaction_config].
+    ///
+    /// [google.cloud.ces.v1.LoggingSettings.redaction_config]: crate::model::LoggingSettings::redaction_config
     pub audio_recording_config: std::option::Option<crate::model::AudioRecordingConfig>,
 
-    /// Optional. Settings to describe the BigQuery export behaviors for the app.
-    /// The conversation data will be exported to BigQuery tables if it is enabled.
+    /// Optional. Configures an additional recording of unredacted audio. This can
+    /// be used to maintain a raw audio copy when audio redaction is
+    /// [enabled][google.cloud.ces.v1.RedactionConfig.enable_redaction], typically
+    /// for auditing or monitoring purposes.
+    ///
+    /// [google.cloud.ces.v1.RedactionConfig.enable_redaction]: crate::model::RedactionConfig::enable_redaction
+    pub unredacted_audio_recording_config: std::option::Option<crate::model::AudioRecordingConfig>,
+
+    /// Optional. Configures the BigQuery export behaviors for the app. The
+    /// conversation data is subject to redaction as configured in
+    /// [RedactionConfig][google.cloud.ces.v1.LoggingSettings.redaction_config].
+    ///
+    /// [google.cloud.ces.v1.LoggingSettings.redaction_config]: crate::model::LoggingSettings::redaction_config
     pub bigquery_export_settings: std::option::Option<crate::model::BigQueryExportSettings>,
+
+    /// Optional. Configures the BigQuery export behaviors for the app.
+    /// The unredacted conversation data will be exported to BigQuery tables if it
+    /// is enabled.
+    pub unredacted_bigquery_export_settings:
+        std::option::Option<crate::model::BigQueryExportSettings>,
 
     /// Optional. Settings to describe the Cloud Logging behaviors for the app.
     pub cloud_logging_settings: std::option::Option<crate::model::CloudLoggingSettings>,
@@ -9188,6 +9811,42 @@ impl LoggingSettings {
         self
     }
 
+    /// Sets the value of [unredacted_audio_recording_config][crate::model::LoggingSettings::unredacted_audio_recording_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::LoggingSettings;
+    /// use google_cloud_ces_v1::model::AudioRecordingConfig;
+    /// let x = LoggingSettings::new().set_unredacted_audio_recording_config(AudioRecordingConfig::default()/* use setters */);
+    /// ```
+    pub fn set_unredacted_audio_recording_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AudioRecordingConfig>,
+    {
+        self.unredacted_audio_recording_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [unredacted_audio_recording_config][crate::model::LoggingSettings::unredacted_audio_recording_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::LoggingSettings;
+    /// use google_cloud_ces_v1::model::AudioRecordingConfig;
+    /// let x = LoggingSettings::new().set_or_clear_unredacted_audio_recording_config(Some(AudioRecordingConfig::default()/* use setters */));
+    /// let x = LoggingSettings::new().set_or_clear_unredacted_audio_recording_config(None::<AudioRecordingConfig>);
+    /// ```
+    pub fn set_or_clear_unredacted_audio_recording_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::AudioRecordingConfig>,
+    {
+        self.unredacted_audio_recording_config = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [bigquery_export_settings][crate::model::LoggingSettings::bigquery_export_settings].
     ///
     /// # Example
@@ -9218,6 +9877,42 @@ impl LoggingSettings {
         T: std::convert::Into<crate::model::BigQueryExportSettings>,
     {
         self.bigquery_export_settings = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [unredacted_bigquery_export_settings][crate::model::LoggingSettings::unredacted_bigquery_export_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::LoggingSettings;
+    /// use google_cloud_ces_v1::model::BigQueryExportSettings;
+    /// let x = LoggingSettings::new().set_unredacted_bigquery_export_settings(BigQueryExportSettings::default()/* use setters */);
+    /// ```
+    pub fn set_unredacted_bigquery_export_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BigQueryExportSettings>,
+    {
+        self.unredacted_bigquery_export_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [unredacted_bigquery_export_settings][crate::model::LoggingSettings::unredacted_bigquery_export_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::LoggingSettings;
+    /// use google_cloud_ces_v1::model::BigQueryExportSettings;
+    /// let x = LoggingSettings::new().set_or_clear_unredacted_bigquery_export_settings(Some(BigQueryExportSettings::default()/* use setters */));
+    /// let x = LoggingSettings::new().set_or_clear_unredacted_bigquery_export_settings(None::<BigQueryExportSettings>);
+    /// ```
+    pub fn set_or_clear_unredacted_bigquery_export_settings<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::BigQueryExportSettings>,
+    {
+        self.unredacted_bigquery_export_settings = v.map(|x| x.into());
         self
     }
 
@@ -9373,6 +10068,15 @@ pub struct ErrorHandlingSettings {
     /// Optional. The strategy to use for error handling.
     pub error_handling_strategy: crate::model::error_handling_settings::ErrorHandlingStrategy,
 
+    /// Optional. Configuration for handling fallback responses.
+    pub fallback_response_config:
+        std::option::Option<crate::model::error_handling_settings::FallbackResponseConfig>,
+
+    /// Optional. Configuration for ending the session in case of system errors
+    /// (e.g. LLM errors).
+    pub end_session_config:
+        std::option::Option<crate::model::error_handling_settings::EndSessionConfig>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -9401,6 +10105,72 @@ impl ErrorHandlingSettings {
         self.error_handling_strategy = v.into();
         self
     }
+
+    /// Sets the value of [fallback_response_config][crate::model::ErrorHandlingSettings::fallback_response_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::ErrorHandlingSettings;
+    /// use google_cloud_ces_v1::model::error_handling_settings::FallbackResponseConfig;
+    /// let x = ErrorHandlingSettings::new().set_fallback_response_config(FallbackResponseConfig::default()/* use setters */);
+    /// ```
+    pub fn set_fallback_response_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::error_handling_settings::FallbackResponseConfig>,
+    {
+        self.fallback_response_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [fallback_response_config][crate::model::ErrorHandlingSettings::fallback_response_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::ErrorHandlingSettings;
+    /// use google_cloud_ces_v1::model::error_handling_settings::FallbackResponseConfig;
+    /// let x = ErrorHandlingSettings::new().set_or_clear_fallback_response_config(Some(FallbackResponseConfig::default()/* use setters */));
+    /// let x = ErrorHandlingSettings::new().set_or_clear_fallback_response_config(None::<FallbackResponseConfig>);
+    /// ```
+    pub fn set_or_clear_fallback_response_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::error_handling_settings::FallbackResponseConfig>,
+    {
+        self.fallback_response_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [end_session_config][crate::model::ErrorHandlingSettings::end_session_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::ErrorHandlingSettings;
+    /// use google_cloud_ces_v1::model::error_handling_settings::EndSessionConfig;
+    /// let x = ErrorHandlingSettings::new().set_end_session_config(EndSessionConfig::default()/* use setters */);
+    /// ```
+    pub fn set_end_session_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::error_handling_settings::EndSessionConfig>,
+    {
+        self.end_session_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_session_config][crate::model::ErrorHandlingSettings::end_session_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::ErrorHandlingSettings;
+    /// use google_cloud_ces_v1::model::error_handling_settings::EndSessionConfig;
+    /// let x = ErrorHandlingSettings::new().set_or_clear_end_session_config(Some(EndSessionConfig::default()/* use setters */));
+    /// let x = ErrorHandlingSettings::new().set_or_clear_end_session_config(None::<EndSessionConfig>);
+    /// ```
+    pub fn set_or_clear_end_session_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::error_handling_settings::EndSessionConfig>,
+    {
+        self.end_session_config = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for ErrorHandlingSettings {
@@ -9413,6 +10183,135 @@ impl wkt::message::Message for ErrorHandlingSettings {
 pub mod error_handling_settings {
     #[allow(unused_imports)]
     use super::*;
+
+    /// Configuration for handling fallback responses.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct FallbackResponseConfig {
+        /// Optional. The fallback messages in case of system errors (e.g. LLM
+        /// errors), mapped by [supported language
+        /// code](https://docs.cloud.google.com/customer-engagement-ai/conversational-agents/ps/reference/language).
+        pub custom_fallback_messages:
+            std::collections::HashMap<std::string::String, std::string::String>,
+
+        /// Optional. The maximum number of fallback attempts to make before the
+        /// agent emitting [EndSession][google.cloud.ces.v1.EndSession] Signal.
+        ///
+        /// [google.cloud.ces.v1.EndSession]: crate::model::EndSession
+        pub max_fallback_attempts: i32,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl FallbackResponseConfig {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [custom_fallback_messages][crate::model::error_handling_settings::FallbackResponseConfig::custom_fallback_messages].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_ces_v1::model::error_handling_settings::FallbackResponseConfig;
+        /// let x = FallbackResponseConfig::new().set_custom_fallback_messages([
+        ///     ("key0", "abc"),
+        ///     ("key1", "xyz"),
+        /// ]);
+        /// ```
+        pub fn set_custom_fallback_messages<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.custom_fallback_messages =
+                v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [max_fallback_attempts][crate::model::error_handling_settings::FallbackResponseConfig::max_fallback_attempts].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_ces_v1::model::error_handling_settings::FallbackResponseConfig;
+        /// let x = FallbackResponseConfig::new().set_max_fallback_attempts(42);
+        /// ```
+        pub fn set_max_fallback_attempts<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.max_fallback_attempts = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for FallbackResponseConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.ces.v1.ErrorHandlingSettings.FallbackResponseConfig"
+        }
+    }
+
+    /// Configuration for ending the session in case of system errors (e.g. LLM
+    /// errors).
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct EndSessionConfig {
+        /// Optional. Whether to escalate the session in
+        /// [EndSession][google.cloud.ces.v1.EndSession]. If session is escalated,
+        /// [metadata in EndSession][google.cloud.ces.v1.EndSession.metadata] will
+        /// contain `session_escalated = true`. See
+        /// <https://docs.cloud.google.com/customer-engagement-ai/conversational-agents/ps/deploy/google-telephony-platform#transfer_a_call_to_a_human_agent>
+        /// for details.
+        ///
+        /// [google.cloud.ces.v1.EndSession]: crate::model::EndSession
+        /// [google.cloud.ces.v1.EndSession.metadata]: crate::model::EndSession::metadata
+        pub escalate_session: std::option::Option<bool>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl EndSessionConfig {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [escalate_session][crate::model::error_handling_settings::EndSessionConfig::escalate_session].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_ces_v1::model::error_handling_settings::EndSessionConfig;
+        /// let x = EndSessionConfig::new().set_escalate_session(true);
+        /// ```
+        pub fn set_escalate_session<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.escalate_session = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [escalate_session][crate::model::error_handling_settings::EndSessionConfig::escalate_session].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_ces_v1::model::error_handling_settings::EndSessionConfig;
+        /// let x = EndSessionConfig::new().set_or_clear_escalate_session(Some(false));
+        /// let x = EndSessionConfig::new().set_or_clear_escalate_session(None::<bool>);
+        /// ```
+        pub fn set_or_clear_escalate_session<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.escalate_session = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for EndSessionConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.ces.v1.ErrorHandlingSettings.EndSessionConfig"
+        }
+    }
 
     /// Defines the strategy for handling errors.
     ///
@@ -10554,12 +11453,60 @@ impl wkt::message::Message for ClientCertificateSettings {
     }
 }
 
+/// VPC-SC settings for the app.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct VpcScSettings {
+    /// Optional. The allowed HTTP(s) origins that OpenAPI tools in the App are
+    /// able to directly call when VPC Service Controls are enabled. These strings
+    /// must match the origin exactly, including the port if specified. For
+    /// example, `https://example.com` or "<https://example.com>:443". This list does
+    /// not yet apply to Python tools that may make direct HTTP calls.
+    pub allowed_origins: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl VpcScSettings {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [allowed_origins][crate::model::VpcScSettings::allowed_origins].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::VpcScSettings;
+    /// let x = VpcScSettings::new().set_allowed_origins(["a", "b", "c"]);
+    /// ```
+    pub fn set_allowed_origins<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.allowed_origins = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for VpcScSettings {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.ces.v1.VpcScSettings"
+    }
+}
+
 /// Settings to describe the conversation logging behaviors for the app.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConversationLoggingSettings {
     /// Optional. Whether to disable conversation logging for the sessions.
     pub disable_conversation_logging: bool,
+
+    /// Optional. Controls the retention window for the conversation.
+    /// If not set, the conversation will be retained for 365 days.
+    pub retention_window: std::option::Option<wkt::Duration>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -10579,6 +11526,39 @@ impl ConversationLoggingSettings {
     /// ```
     pub fn set_disable_conversation_logging<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disable_conversation_logging = v.into();
+        self
+    }
+
+    /// Sets the value of [retention_window][crate::model::ConversationLoggingSettings::retention_window].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::ConversationLoggingSettings;
+    /// use wkt::Duration;
+    /// let x = ConversationLoggingSettings::new().set_retention_window(Duration::default()/* use setters */);
+    /// ```
+    pub fn set_retention_window<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.retention_window = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [retention_window][crate::model::ConversationLoggingSettings::retention_window].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::ConversationLoggingSettings;
+    /// use wkt::Duration;
+    /// let x = ConversationLoggingSettings::new().set_or_clear_retention_window(Some(Duration::default()/* use setters */));
+    /// let x = ConversationLoggingSettings::new().set_or_clear_retention_window(None::<Duration>);
+    /// ```
+    pub fn set_or_clear_retention_window<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.retention_window = v.map(|x| x.into());
         self
     }
 }
@@ -13765,6 +14745,12 @@ pub struct ChannelProfile {
     /// Available values are "low", "moderate", "high", "very_high".
     pub noise_suppression_level: std::string::String,
 
+    /// Optional. Configuration specific to WhatsApp deployments.
+    pub whatsapp_config: std::option::Option<crate::model::channel_profile::WhatsAppConfig>,
+
+    /// Optional. Configuration specific to Instagram deployments.
+    pub instagram_config: std::option::Option<crate::model::channel_profile::InstagramConfig>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -13906,6 +14892,72 @@ impl ChannelProfile {
         v: T,
     ) -> Self {
         self.noise_suppression_level = v.into();
+        self
+    }
+
+    /// Sets the value of [whatsapp_config][crate::model::ChannelProfile::whatsapp_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::ChannelProfile;
+    /// use google_cloud_ces_v1::model::channel_profile::WhatsAppConfig;
+    /// let x = ChannelProfile::new().set_whatsapp_config(WhatsAppConfig::default()/* use setters */);
+    /// ```
+    pub fn set_whatsapp_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::channel_profile::WhatsAppConfig>,
+    {
+        self.whatsapp_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [whatsapp_config][crate::model::ChannelProfile::whatsapp_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::ChannelProfile;
+    /// use google_cloud_ces_v1::model::channel_profile::WhatsAppConfig;
+    /// let x = ChannelProfile::new().set_or_clear_whatsapp_config(Some(WhatsAppConfig::default()/* use setters */));
+    /// let x = ChannelProfile::new().set_or_clear_whatsapp_config(None::<WhatsAppConfig>);
+    /// ```
+    pub fn set_or_clear_whatsapp_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::channel_profile::WhatsAppConfig>,
+    {
+        self.whatsapp_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [instagram_config][crate::model::ChannelProfile::instagram_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::ChannelProfile;
+    /// use google_cloud_ces_v1::model::channel_profile::InstagramConfig;
+    /// let x = ChannelProfile::new().set_instagram_config(InstagramConfig::default()/* use setters */);
+    /// ```
+    pub fn set_instagram_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::channel_profile::InstagramConfig>,
+    {
+        self.instagram_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [instagram_config][crate::model::ChannelProfile::instagram_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::ChannelProfile;
+    /// use google_cloud_ces_v1::model::channel_profile::InstagramConfig;
+    /// let x = ChannelProfile::new().set_or_clear_instagram_config(Some(InstagramConfig::default()/* use setters */));
+    /// let x = ChannelProfile::new().set_or_clear_instagram_config(None::<InstagramConfig>);
+    /// ```
+    pub fn set_or_clear_instagram_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::channel_profile::InstagramConfig>,
+    {
+        self.instagram_config = v.map(|x| x.into());
         self
     }
 }
@@ -14613,6 +15665,217 @@ pub mod channel_profile {
         }
     }
 
+    /// Configuration specific to WhatsApp deployments.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct WhatsAppConfig {
+        /// Required. The WhatsApp Business Account ID.
+        pub waba_id: std::string::String,
+
+        /// Required. The Meta phone number ID.
+        pub phone_number_id: std::string::String,
+
+        /// Optional. The phone number in E.164 format.
+        pub phone_number: std::string::String,
+
+        /// Output only. The fetched Meta business page name.
+        pub display_name: std::string::String,
+
+        /// Output only. The fetched Meta business profile thumbnail URL.
+        pub thumbnail_url: std::string::String,
+
+        /// Output only. The description of the Meta business page or profile.
+        pub description: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl WhatsAppConfig {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [waba_id][crate::model::channel_profile::WhatsAppConfig::waba_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_ces_v1::model::channel_profile::WhatsAppConfig;
+        /// let x = WhatsAppConfig::new().set_waba_id("example");
+        /// ```
+        pub fn set_waba_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.waba_id = v.into();
+            self
+        }
+
+        /// Sets the value of [phone_number_id][crate::model::channel_profile::WhatsAppConfig::phone_number_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_ces_v1::model::channel_profile::WhatsAppConfig;
+        /// let x = WhatsAppConfig::new().set_phone_number_id("example");
+        /// ```
+        pub fn set_phone_number_id<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.phone_number_id = v.into();
+            self
+        }
+
+        /// Sets the value of [phone_number][crate::model::channel_profile::WhatsAppConfig::phone_number].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_ces_v1::model::channel_profile::WhatsAppConfig;
+        /// let x = WhatsAppConfig::new().set_phone_number("example");
+        /// ```
+        pub fn set_phone_number<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.phone_number = v.into();
+            self
+        }
+
+        /// Sets the value of [display_name][crate::model::channel_profile::WhatsAppConfig::display_name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_ces_v1::model::channel_profile::WhatsAppConfig;
+        /// let x = WhatsAppConfig::new().set_display_name("example");
+        /// ```
+        pub fn set_display_name<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.display_name = v.into();
+            self
+        }
+
+        /// Sets the value of [thumbnail_url][crate::model::channel_profile::WhatsAppConfig::thumbnail_url].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_ces_v1::model::channel_profile::WhatsAppConfig;
+        /// let x = WhatsAppConfig::new().set_thumbnail_url("example");
+        /// ```
+        pub fn set_thumbnail_url<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.thumbnail_url = v.into();
+            self
+        }
+
+        /// Sets the value of [description][crate::model::channel_profile::WhatsAppConfig::description].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_ces_v1::model::channel_profile::WhatsAppConfig;
+        /// let x = WhatsAppConfig::new().set_description("example");
+        /// ```
+        pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.description = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for WhatsAppConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.ces.v1.ChannelProfile.WhatsAppConfig"
+        }
+    }
+
+    /// Configuration specific to Instagram deployments.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct InstagramConfig {
+        /// Required. The Instagram Account ID.
+        pub instagram_account_id: std::string::String,
+
+        /// Output only. The fetched Meta business page name.
+        pub display_name: std::string::String,
+
+        /// Output only. The fetched Meta business profile thumbnail URL.
+        pub thumbnail_url: std::string::String,
+
+        /// Output only. The description of the Meta business page or profile.
+        pub description: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl InstagramConfig {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [instagram_account_id][crate::model::channel_profile::InstagramConfig::instagram_account_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_ces_v1::model::channel_profile::InstagramConfig;
+        /// let x = InstagramConfig::new().set_instagram_account_id("example");
+        /// ```
+        pub fn set_instagram_account_id<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.instagram_account_id = v.into();
+            self
+        }
+
+        /// Sets the value of [display_name][crate::model::channel_profile::InstagramConfig::display_name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_ces_v1::model::channel_profile::InstagramConfig;
+        /// let x = InstagramConfig::new().set_display_name("example");
+        /// ```
+        pub fn set_display_name<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.display_name = v.into();
+            self
+        }
+
+        /// Sets the value of [thumbnail_url][crate::model::channel_profile::InstagramConfig::thumbnail_url].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_ces_v1::model::channel_profile::InstagramConfig;
+        /// let x = InstagramConfig::new().set_thumbnail_url("example");
+        /// ```
+        pub fn set_thumbnail_url<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.thumbnail_url = v.into();
+            self
+        }
+
+        /// Sets the value of [description][crate::model::channel_profile::InstagramConfig::description].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_ces_v1::model::channel_profile::InstagramConfig;
+        /// let x = InstagramConfig::new().set_description("example");
+        /// ```
+        pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.description = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for InstagramConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.ces.v1.ChannelProfile.InstagramConfig"
+        }
+    }
+
     /// The type of the channel profile.
     ///
     /// # Working with unknown values
@@ -14643,10 +15906,16 @@ pub mod channel_profile {
         GoogleTelephonyPlatform,
         /// Contact Center as a Service (CCaaS) channel.
         ContactCenterAsAService,
+        /// Contact Center as a Service (CCaaS Chat) channel.
+        ContactCenterAsAServiceChat,
         /// Five9 channel.
         Five9,
         /// Third party contact center integration channel.
         ContactCenterIntegration,
+        /// WhatsApp channel.
+        Whatsapp,
+        /// Instagram channel.
+        Instagram,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [ChannelType::value] or
@@ -14675,8 +15944,11 @@ pub mod channel_profile {
                 Self::Twilio => std::option::Option::Some(4),
                 Self::GoogleTelephonyPlatform => std::option::Option::Some(5),
                 Self::ContactCenterAsAService => std::option::Option::Some(6),
+                Self::ContactCenterAsAServiceChat => std::option::Option::Some(11),
                 Self::Five9 => std::option::Option::Some(7),
                 Self::ContactCenterIntegration => std::option::Option::Some(8),
+                Self::Whatsapp => std::option::Option::Some(9),
+                Self::Instagram => std::option::Option::Some(10),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -14697,10 +15969,15 @@ pub mod channel_profile {
                 Self::ContactCenterAsAService => {
                     std::option::Option::Some("CONTACT_CENTER_AS_A_SERVICE")
                 }
+                Self::ContactCenterAsAServiceChat => {
+                    std::option::Option::Some("CONTACT_CENTER_AS_A_SERVICE_CHAT")
+                }
                 Self::Five9 => std::option::Option::Some("FIVE9"),
                 Self::ContactCenterIntegration => {
                     std::option::Option::Some("CONTACT_CENTER_INTEGRATION")
                 }
+                Self::Whatsapp => std::option::Option::Some("WHATSAPP"),
+                Self::Instagram => std::option::Option::Some("INSTAGRAM"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -14730,6 +16007,9 @@ pub mod channel_profile {
                 6 => Self::ContactCenterAsAService,
                 7 => Self::Five9,
                 8 => Self::ContactCenterIntegration,
+                9 => Self::Whatsapp,
+                10 => Self::Instagram,
+                11 => Self::ContactCenterAsAServiceChat,
                 _ => Self::UnknownValue(channel_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -14747,8 +16027,11 @@ pub mod channel_profile {
                 "TWILIO" => Self::Twilio,
                 "GOOGLE_TELEPHONY_PLATFORM" => Self::GoogleTelephonyPlatform,
                 "CONTACT_CENTER_AS_A_SERVICE" => Self::ContactCenterAsAService,
+                "CONTACT_CENTER_AS_A_SERVICE_CHAT" => Self::ContactCenterAsAServiceChat,
                 "FIVE9" => Self::Five9,
                 "CONTACT_CENTER_INTEGRATION" => Self::ContactCenterIntegration,
+                "WHATSAPP" => Self::Whatsapp,
+                "INSTAGRAM" => Self::Instagram,
                 _ => Self::UnknownValue(channel_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -14768,8 +16051,11 @@ pub mod channel_profile {
                 Self::Twilio => serializer.serialize_i32(4),
                 Self::GoogleTelephonyPlatform => serializer.serialize_i32(5),
                 Self::ContactCenterAsAService => serializer.serialize_i32(6),
+                Self::ContactCenterAsAServiceChat => serializer.serialize_i32(11),
                 Self::Five9 => serializer.serialize_i32(7),
                 Self::ContactCenterIntegration => serializer.serialize_i32(8),
+                Self::Whatsapp => serializer.serialize_i32(9),
+                Self::Instagram => serializer.serialize_i32(10),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -15872,8 +17158,8 @@ impl Conversation {
     /// use google_cloud_ces_v1::model::conversation::InputType;
     /// let x = Conversation::new().set_input_types([
     ///     InputType::Text,
+    ///     InputType::Event,
     ///     InputType::Audio,
-    ///     InputType::Image,
     /// ]);
     /// ```
     pub fn set_input_types<T, V>(mut self, v: T) -> Self
@@ -16231,6 +17517,9 @@ pub mod conversation {
         Simulator,
         /// The conversation is from the evaluation.
         Eval,
+        /// The conversation is from an agent tool. Agent tool runs the agent in a
+        /// separate session, which is persisted for testing and debugging purposes.
+        AgentTool,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [Source::value] or
@@ -16257,6 +17546,7 @@ pub mod conversation {
                 Self::Live => std::option::Option::Some(1),
                 Self::Simulator => std::option::Option::Some(2),
                 Self::Eval => std::option::Option::Some(3),
+                Self::AgentTool => std::option::Option::Some(4),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -16271,6 +17561,7 @@ pub mod conversation {
                 Self::Live => std::option::Option::Some("LIVE"),
                 Self::Simulator => std::option::Option::Some("SIMULATOR"),
                 Self::Eval => std::option::Option::Some("EVAL"),
+                Self::AgentTool => std::option::Option::Some("AGENT_TOOL"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -16296,6 +17587,7 @@ pub mod conversation {
                 1 => Self::Live,
                 2 => Self::Simulator,
                 3 => Self::Eval,
+                4 => Self::AgentTool,
                 _ => Self::UnknownValue(source::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -16311,6 +17603,7 @@ pub mod conversation {
                 "LIVE" => Self::Live,
                 "SIMULATOR" => Self::Simulator,
                 "EVAL" => Self::Eval,
+                "AGENT_TOOL" => Self::AgentTool,
                 _ => Self::UnknownValue(source::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -16328,6 +17621,7 @@ pub mod conversation {
                 Self::Live => serializer.serialize_i32(1),
                 Self::Simulator => serializer.serialize_i32(2),
                 Self::Eval => serializer.serialize_i32(3),
+                Self::AgentTool => serializer.serialize_i32(4),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -16364,17 +17658,19 @@ pub mod conversation {
     pub enum InputType {
         /// Unspecified input type.
         Unspecified,
-        /// The input message is text.
+        /// Text input.
         Text,
-        /// The input message is audio.
+        /// Event input.
+        Event,
+        /// Audio input.
         Audio,
-        /// The input message is image.
+        /// Image input.
         Image,
-        /// The input message is blob file.
+        /// Blob input.
         Blob,
-        /// The input message is client function tool response.
+        /// Client function tool response input.
         ToolResponse,
-        /// The input message are variables.
+        /// Variables input.
         Variables,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -16400,6 +17696,7 @@ pub mod conversation {
             match self {
                 Self::Unspecified => std::option::Option::Some(0),
                 Self::Text => std::option::Option::Some(1),
+                Self::Event => std::option::Option::Some(7),
                 Self::Audio => std::option::Option::Some(2),
                 Self::Image => std::option::Option::Some(3),
                 Self::Blob => std::option::Option::Some(4),
@@ -16417,6 +17714,7 @@ pub mod conversation {
             match self {
                 Self::Unspecified => std::option::Option::Some("INPUT_TYPE_UNSPECIFIED"),
                 Self::Text => std::option::Option::Some("INPUT_TYPE_TEXT"),
+                Self::Event => std::option::Option::Some("INPUT_TYPE_EVENT"),
                 Self::Audio => std::option::Option::Some("INPUT_TYPE_AUDIO"),
                 Self::Image => std::option::Option::Some("INPUT_TYPE_IMAGE"),
                 Self::Blob => std::option::Option::Some("INPUT_TYPE_BLOB"),
@@ -16450,6 +17748,7 @@ pub mod conversation {
                 4 => Self::Blob,
                 5 => Self::ToolResponse,
                 6 => Self::Variables,
+                7 => Self::Event,
                 _ => Self::UnknownValue(input_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -16463,6 +17762,7 @@ pub mod conversation {
             match value {
                 "INPUT_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "INPUT_TYPE_TEXT" => Self::Text,
+                "INPUT_TYPE_EVENT" => Self::Event,
                 "INPUT_TYPE_AUDIO" => Self::Audio,
                 "INPUT_TYPE_IMAGE" => Self::Image,
                 "INPUT_TYPE_BLOB" => Self::Blob,
@@ -16483,6 +17783,7 @@ pub mod conversation {
             match self {
                 Self::Unspecified => serializer.serialize_i32(0),
                 Self::Text => serializer.serialize_i32(1),
+                Self::Event => serializer.serialize_i32(7),
                 Self::Audio => serializer.serialize_i32(2),
                 Self::Image => serializer.serialize_i32(3),
                 Self::Blob => serializer.serialize_i32(4),
@@ -18780,6 +20081,365 @@ pub mod data_store_tool {
     }
 }
 
+/// Experiment for the deployment.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExperimentConfig {
+    /// Optional. Version release for the experiment.
+    pub version_release: std::option::Option<crate::model::experiment_config::VersionRelease>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExperimentConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [version_release][crate::model::ExperimentConfig::version_release].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::ExperimentConfig;
+    /// use google_cloud_ces_v1::model::experiment_config::VersionRelease;
+    /// let x = ExperimentConfig::new().set_version_release(VersionRelease::default()/* use setters */);
+    /// ```
+    pub fn set_version_release<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::experiment_config::VersionRelease>,
+    {
+        self.version_release = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [version_release][crate::model::ExperimentConfig::version_release].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::ExperimentConfig;
+    /// use google_cloud_ces_v1::model::experiment_config::VersionRelease;
+    /// let x = ExperimentConfig::new().set_or_clear_version_release(Some(VersionRelease::default()/* use setters */));
+    /// let x = ExperimentConfig::new().set_or_clear_version_release(None::<VersionRelease>);
+    /// ```
+    pub fn set_or_clear_version_release<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::experiment_config::VersionRelease>,
+    {
+        self.version_release = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for ExperimentConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.ces.v1.ExperimentConfig"
+    }
+}
+
+/// Defines additional types related to [ExperimentConfig].
+pub mod experiment_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Version release for the experiment.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct VersionRelease {
+        /// Optional. State of the version release.
+        pub state: crate::model::experiment_config::State,
+
+        /// Optional. Traffic allocations for the version release.
+        pub traffic_allocations:
+            std::vec::Vec<crate::model::experiment_config::version_release::TrafficAllocation>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl VersionRelease {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [state][crate::model::experiment_config::VersionRelease::state].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_ces_v1::model::experiment_config::VersionRelease;
+        /// use google_cloud_ces_v1::model::experiment_config::State;
+        /// let x0 = VersionRelease::new().set_state(State::Pending);
+        /// let x1 = VersionRelease::new().set_state(State::Running);
+        /// let x2 = VersionRelease::new().set_state(State::Done);
+        /// ```
+        pub fn set_state<T: std::convert::Into<crate::model::experiment_config::State>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.state = v.into();
+            self
+        }
+
+        /// Sets the value of [traffic_allocations][crate::model::experiment_config::VersionRelease::traffic_allocations].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_ces_v1::model::experiment_config::VersionRelease;
+        /// use google_cloud_ces_v1::model::experiment_config::version_release::TrafficAllocation;
+        /// let x = VersionRelease::new()
+        ///     .set_traffic_allocations([
+        ///         TrafficAllocation::default()/* use setters */,
+        ///         TrafficAllocation::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_traffic_allocations<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<
+                    crate::model::experiment_config::version_release::TrafficAllocation,
+                >,
+        {
+            use std::iter::Iterator;
+            self.traffic_allocations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for VersionRelease {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.ces.v1.ExperimentConfig.VersionRelease"
+        }
+    }
+
+    /// Defines additional types related to [VersionRelease].
+    pub mod version_release {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Traffic allocation for the version release.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct TrafficAllocation {
+            /// Optional. Id of the traffic allocation.
+            /// Free format string, up to 128 characters.
+            pub id: std::string::String,
+
+            /// Optional. Traffic percentage of the traffic allocation.
+            /// Must be between 0 and 100.
+            pub traffic_percentage: i32,
+
+            /// Optional. App version of the traffic allocation.
+            /// Format:
+            /// `projects/{project}/locations/{location}/apps/{app}/versions/{version}`
+            pub app_version: std::string::String,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl TrafficAllocation {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [id][crate::model::experiment_config::version_release::TrafficAllocation::id].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_ces_v1::model::experiment_config::version_release::TrafficAllocation;
+            /// let x = TrafficAllocation::new().set_id("example");
+            /// ```
+            pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.id = v.into();
+                self
+            }
+
+            /// Sets the value of [traffic_percentage][crate::model::experiment_config::version_release::TrafficAllocation::traffic_percentage].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_ces_v1::model::experiment_config::version_release::TrafficAllocation;
+            /// let x = TrafficAllocation::new().set_traffic_percentage(42);
+            /// ```
+            pub fn set_traffic_percentage<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                self.traffic_percentage = v.into();
+                self
+            }
+
+            /// Sets the value of [app_version][crate::model::experiment_config::version_release::TrafficAllocation::app_version].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_ces_v1::model::experiment_config::version_release::TrafficAllocation;
+            /// # let project_id = "project_id";
+            /// # let location_id = "location_id";
+            /// # let app_id = "app_id";
+            /// # let version_id = "version_id";
+            /// let x = TrafficAllocation::new().set_app_version(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/versions/{version_id}"));
+            /// ```
+            pub fn set_app_version<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.app_version = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for TrafficAllocation {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.ces.v1.ExperimentConfig.VersionRelease.TrafficAllocation"
+            }
+        }
+    }
+
+    /// State of the experiment.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Unspecified state.
+        Unspecified,
+        /// Deprecated: This state is no longer used.
+        Pending,
+        /// Running state. Experiment is running and valid.
+        Running,
+        /// Deprecated: This state is no longer used.
+        Done,
+        /// Deprecated: This state is no longer used.
+        Expired,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Pending => std::option::Option::Some(1),
+                Self::Running => std::option::Option::Some(2),
+                Self::Done => std::option::Option::Some(3),
+                Self::Expired => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Pending => std::option::Option::Some("PENDING"),
+                Self::Running => std::option::Option::Some("RUNNING"),
+                Self::Done => std::option::Option::Some("DONE"),
+                Self::Expired => std::option::Option::Some("EXPIRED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Pending,
+                2 => Self::Running,
+                3 => Self::Done,
+                4 => Self::Expired,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "PENDING" => Self::Pending,
+                "RUNNING" => Self::Running,
+                "DONE" => Self::Done,
+                "EXPIRED" => Self::Expired,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Pending => serializer.serialize_i32(1),
+                Self::Running => serializer.serialize_i32(2),
+                Self::Done => serializer.serialize_i32(3),
+                Self::Expired => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.ces.v1.ExperimentConfig.State",
+            ))
+        }
+    }
+}
+
 /// A deployment represents an immutable, queryable version of the app.
 /// It is used to deploy an app version with a specific channel profile.
 #[derive(Clone, Default, PartialEq)]
@@ -18813,6 +20473,17 @@ pub struct Deployment {
     /// read-modify-write operation. If the etag is empty, the update will
     /// overwrite any concurrent changes.
     pub etag: std::string::String,
+
+    /// Optional. Experiment configuration for the deployment.
+    pub experiment_config: std::option::Option<crate::model::ExperimentConfig>,
+
+    /// Optional. Input only. Ephemeral WhatsApp credentials required when
+    /// configuring a WhatsApp channel profile.
+    pub whatsapp_credentials: std::option::Option<crate::model::WhatsAppCredentials>,
+
+    /// Optional. Input only. Ephemeral Instagram credentials required when
+    /// configuring a Instagram channel profile.
+    pub instagram_credentials: std::option::Option<crate::model::InstagramCredentials>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -18977,11 +20648,279 @@ impl Deployment {
         self.etag = v.into();
         self
     }
+
+    /// Sets the value of [experiment_config][crate::model::Deployment::experiment_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::Deployment;
+    /// use google_cloud_ces_v1::model::ExperimentConfig;
+    /// let x = Deployment::new().set_experiment_config(ExperimentConfig::default()/* use setters */);
+    /// ```
+    pub fn set_experiment_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ExperimentConfig>,
+    {
+        self.experiment_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [experiment_config][crate::model::Deployment::experiment_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::Deployment;
+    /// use google_cloud_ces_v1::model::ExperimentConfig;
+    /// let x = Deployment::new().set_or_clear_experiment_config(Some(ExperimentConfig::default()/* use setters */));
+    /// let x = Deployment::new().set_or_clear_experiment_config(None::<ExperimentConfig>);
+    /// ```
+    pub fn set_or_clear_experiment_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ExperimentConfig>,
+    {
+        self.experiment_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [whatsapp_credentials][crate::model::Deployment::whatsapp_credentials].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::Deployment;
+    /// use google_cloud_ces_v1::model::WhatsAppCredentials;
+    /// let x = Deployment::new().set_whatsapp_credentials(WhatsAppCredentials::default()/* use setters */);
+    /// ```
+    pub fn set_whatsapp_credentials<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::WhatsAppCredentials>,
+    {
+        self.whatsapp_credentials = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [whatsapp_credentials][crate::model::Deployment::whatsapp_credentials].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::Deployment;
+    /// use google_cloud_ces_v1::model::WhatsAppCredentials;
+    /// let x = Deployment::new().set_or_clear_whatsapp_credentials(Some(WhatsAppCredentials::default()/* use setters */));
+    /// let x = Deployment::new().set_or_clear_whatsapp_credentials(None::<WhatsAppCredentials>);
+    /// ```
+    pub fn set_or_clear_whatsapp_credentials<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::WhatsAppCredentials>,
+    {
+        self.whatsapp_credentials = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [instagram_credentials][crate::model::Deployment::instagram_credentials].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::Deployment;
+    /// use google_cloud_ces_v1::model::InstagramCredentials;
+    /// let x = Deployment::new().set_instagram_credentials(InstagramCredentials::default()/* use setters */);
+    /// ```
+    pub fn set_instagram_credentials<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::InstagramCredentials>,
+    {
+        self.instagram_credentials = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [instagram_credentials][crate::model::Deployment::instagram_credentials].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::Deployment;
+    /// use google_cloud_ces_v1::model::InstagramCredentials;
+    /// let x = Deployment::new().set_or_clear_instagram_credentials(Some(InstagramCredentials::default()/* use setters */));
+    /// let x = Deployment::new().set_or_clear_instagram_credentials(None::<InstagramCredentials>);
+    /// ```
+    pub fn set_or_clear_instagram_credentials<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::InstagramCredentials>,
+    {
+        self.instagram_credentials = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for Deployment {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.ces.v1.Deployment"
+    }
+}
+
+/// Ephemeral Meta credentials for WhatsApp native integration.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct WhatsAppCredentials {
+    /// Required. The Meta auth code provided by the embedded signup flow.
+    pub auth_code: std::string::String,
+
+    /// Required. The 6-digit PIN created by the user for two-step verification.
+    pub pin: std::string::String,
+
+    /// Required. The phone number to register with WhatsApp.
+    pub phone_number: std::string::String,
+
+    /// Required. The Business Account ID to use for the phone number.
+    pub business_account_id: std::string::String,
+
+    /// Required. The WhatsApp Business Account ID.
+    pub waba_id: std::string::String,
+
+    /// Required. The Conversation Profile ID to use for the deployment.
+    pub conversation_profile_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl WhatsAppCredentials {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [auth_code][crate::model::WhatsAppCredentials::auth_code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::WhatsAppCredentials;
+    /// let x = WhatsAppCredentials::new().set_auth_code("example");
+    /// ```
+    pub fn set_auth_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.auth_code = v.into();
+        self
+    }
+
+    /// Sets the value of [pin][crate::model::WhatsAppCredentials::pin].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::WhatsAppCredentials;
+    /// let x = WhatsAppCredentials::new().set_pin("example");
+    /// ```
+    pub fn set_pin<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.pin = v.into();
+        self
+    }
+
+    /// Sets the value of [phone_number][crate::model::WhatsAppCredentials::phone_number].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::WhatsAppCredentials;
+    /// let x = WhatsAppCredentials::new().set_phone_number("example");
+    /// ```
+    pub fn set_phone_number<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.phone_number = v.into();
+        self
+    }
+
+    /// Sets the value of [business_account_id][crate::model::WhatsAppCredentials::business_account_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::WhatsAppCredentials;
+    /// let x = WhatsAppCredentials::new().set_business_account_id("example");
+    /// ```
+    pub fn set_business_account_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.business_account_id = v.into();
+        self
+    }
+
+    /// Sets the value of [waba_id][crate::model::WhatsAppCredentials::waba_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::WhatsAppCredentials;
+    /// let x = WhatsAppCredentials::new().set_waba_id("example");
+    /// ```
+    pub fn set_waba_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.waba_id = v.into();
+        self
+    }
+
+    /// Sets the value of [conversation_profile_id][crate::model::WhatsAppCredentials::conversation_profile_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::WhatsAppCredentials;
+    /// let x = WhatsAppCredentials::new().set_conversation_profile_id("example");
+    /// ```
+    pub fn set_conversation_profile_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.conversation_profile_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for WhatsAppCredentials {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.ces.v1.WhatsAppCredentials"
+    }
+}
+
+/// Ephemeral Meta credentials for Instagram native integration.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct InstagramCredentials {
+    /// Required. The Meta auth code provided by the embedded signup flow.
+    pub auth_code: std::string::String,
+
+    /// Required. The Conversation Profile ID to use for the deployment.
+    pub conversation_profile_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl InstagramCredentials {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [auth_code][crate::model::InstagramCredentials::auth_code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::InstagramCredentials;
+    /// let x = InstagramCredentials::new().set_auth_code("example");
+    /// ```
+    pub fn set_auth_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.auth_code = v.into();
+        self
+    }
+
+    /// Sets the value of [conversation_profile_id][crate::model::InstagramCredentials::conversation_profile_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::InstagramCredentials;
+    /// let x = InstagramCredentials::new().set_conversation_profile_id("example");
+    /// ```
+    pub fn set_conversation_profile_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.conversation_profile_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for InstagramCredentials {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.ces.v1.InstagramCredentials"
     }
 }
 
@@ -22875,6 +24814,10 @@ pub struct McpTool {
     /// Required. The name of the MCP tool.
     pub name: std::string::String,
 
+    /// Optional. The name override of the MCP tool.
+    /// This is populated if the name was overridden by a Toolset override.
+    pub name_override: std::string::String,
+
     /// Optional. The description of the MCP tool.
     pub description: std::string::String,
 
@@ -22914,6 +24857,10 @@ pub struct McpTool {
     /// for more details.
     pub custom_headers: std::collections::HashMap<std::string::String, std::string::String>,
 
+    /// Output only. The dynamic availability state of the tool on the external
+    /// server.
+    pub state: crate::model::mcp_tool::State,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -22932,6 +24879,18 @@ impl McpTool {
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [name_override][crate::model::McpTool::name_override].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::McpTool;
+    /// let x = McpTool::new().set_name_override("example");
+    /// ```
+    pub fn set_name_override<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name_override = v.into();
         self
     }
 
@@ -23144,11 +25103,173 @@ impl McpTool {
         self.custom_headers = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
+
+    /// Sets the value of [state][crate::model::McpTool::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::McpTool;
+    /// use google_cloud_ces_v1::model::mcp_tool::State;
+    /// let x0 = McpTool::new().set_state(State::Active);
+    /// let x1 = McpTool::new().set_state(State::Inactive);
+    /// let x2 = McpTool::new().set_state(State::Stale);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::mcp_tool::State>>(mut self, v: T) -> Self {
+        self.state = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for McpTool {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.ces.v1.McpTool"
+    }
+}
+
+/// Defines additional types related to [McpTool].
+pub mod mcp_tool {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Represents the dynamic availability state of the tool.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Default state.
+        Unspecified,
+        /// The tool is available and actively offered by the server.
+        Active,
+        /// The tool is configured or pinned, but currently not offered by the
+        /// server.
+        Inactive,
+        /// The tool exists on the server, but does not match the version on the
+        /// server.
+        Stale,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(1),
+                Self::Inactive => std::option::Option::Some(2),
+                Self::Stale => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Inactive => std::option::Option::Some("INACTIVE"),
+                Self::Stale => std::option::Option::Some("STALE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Active,
+                2 => Self::Inactive,
+                3 => Self::Stale,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ACTIVE" => Self::Active,
+                "INACTIVE" => Self::Inactive,
+                "STALE" => Self::Stale,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(1),
+                Self::Inactive => serializer.serialize_i32(2),
+                Self::Stale => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.ces.v1.McpTool.State",
+            ))
+        }
     }
 }
 
@@ -23185,6 +25306,11 @@ pub struct McpToolset {
     /// <https://docs.cloud.google.com/customer-engagement-ai/conversational-agents/ps/tool/open-api#openapi-injection>
     /// for more details.
     pub custom_headers: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. Overrides for individual tools within this toolset.
+    /// This allows overriding specific details like descriptions, names,
+    /// or pinning the tools' states so they aren't fully dynamic.
+    pub tool_overrides: std::vec::Vec<crate::model::McpToolOverride>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -23326,11 +25452,488 @@ impl McpToolset {
         self.custom_headers = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
+
+    /// Sets the value of [tool_overrides][crate::model::McpToolset::tool_overrides].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::McpToolset;
+    /// use google_cloud_ces_v1::model::McpToolOverride;
+    /// let x = McpToolset::new()
+    ///     .set_tool_overrides([
+    ///         McpToolOverride::default()/* use setters */,
+    ///         McpToolOverride::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_tool_overrides<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::McpToolOverride>,
+    {
+        use std::iter::Iterator;
+        self.tool_overrides = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for McpToolset {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.ces.v1.McpToolset"
+    }
+}
+
+/// Overrides associated with a given tool in a Toolset.
+/// This enables "pinning" or "overriding" of tool definitions from the external
+/// dynamic server.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct McpToolOverride {
+    /// Required. The original name of the tool as it is emitted by the MCP server.
+    pub tool: std::string::String,
+
+    /// Optional. If present, this tool uses this name in the Agent instead of the
+    /// original name. This is primarily used as an alias if the MCP server offers
+    /// poorly named tools.
+    pub name_override: std::string::String,
+
+    /// Optional. If present, this tool uses this description instead of the
+    /// original description from the server.
+    pub description_override: std::string::String,
+
+    /// Output only. If present, this tool is "Pinned" and uses the snapshot values
+    /// as fallbacks if the server becomes temporarily unavailable or if no
+    /// Override is present.
+    pub snapshot: std::option::Option<crate::model::McpToolDefinition>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl McpToolOverride {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [tool][crate::model::McpToolOverride::tool].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::McpToolOverride;
+    /// let x = McpToolOverride::new().set_tool("example");
+    /// ```
+    pub fn set_tool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.tool = v.into();
+        self
+    }
+
+    /// Sets the value of [name_override][crate::model::McpToolOverride::name_override].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::McpToolOverride;
+    /// let x = McpToolOverride::new().set_name_override("example");
+    /// ```
+    pub fn set_name_override<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name_override = v.into();
+        self
+    }
+
+    /// Sets the value of [description_override][crate::model::McpToolOverride::description_override].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::McpToolOverride;
+    /// let x = McpToolOverride::new().set_description_override("example");
+    /// ```
+    pub fn set_description_override<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.description_override = v.into();
+        self
+    }
+
+    /// Sets the value of [snapshot][crate::model::McpToolOverride::snapshot].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::McpToolOverride;
+    /// use google_cloud_ces_v1::model::McpToolDefinition;
+    /// let x = McpToolOverride::new().set_snapshot(McpToolDefinition::default()/* use setters */);
+    /// ```
+    pub fn set_snapshot<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::McpToolDefinition>,
+    {
+        self.snapshot = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [snapshot][crate::model::McpToolOverride::snapshot].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::McpToolOverride;
+    /// use google_cloud_ces_v1::model::McpToolDefinition;
+    /// let x = McpToolOverride::new().set_or_clear_snapshot(Some(McpToolDefinition::default()/* use setters */));
+    /// let x = McpToolOverride::new().set_or_clear_snapshot(None::<McpToolDefinition>);
+    /// ```
+    pub fn set_or_clear_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::McpToolDefinition>,
+    {
+        self.snapshot = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for McpToolOverride {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.ces.v1.McpToolOverride"
+    }
+}
+
+/// Container for a tool's core definition elements that are snapshot.
+/// Schemas in the snapshot are used as-is and cannot be overridden.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct McpToolDefinition {
+    /// Output only. The description of the MCP tool. This can be overridden
+    /// by `description_override` in `McpToolOverride`.
+    pub description: std::string::String,
+
+    /// Output only. The schema of the input arguments of the MCP tool.
+    pub input_schema: std::option::Option<crate::model::Schema>,
+
+    /// Output only. The schema of the output arguments of the MCP tool.
+    pub output_schema: std::option::Option<crate::model::Schema>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl McpToolDefinition {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [description][crate::model::McpToolDefinition::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::McpToolDefinition;
+    /// let x = McpToolDefinition::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [input_schema][crate::model::McpToolDefinition::input_schema].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::McpToolDefinition;
+    /// use google_cloud_ces_v1::model::Schema;
+    /// let x = McpToolDefinition::new().set_input_schema(Schema::default()/* use setters */);
+    /// ```
+    pub fn set_input_schema<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Schema>,
+    {
+        self.input_schema = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [input_schema][crate::model::McpToolDefinition::input_schema].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::McpToolDefinition;
+    /// use google_cloud_ces_v1::model::Schema;
+    /// let x = McpToolDefinition::new().set_or_clear_input_schema(Some(Schema::default()/* use setters */));
+    /// let x = McpToolDefinition::new().set_or_clear_input_schema(None::<Schema>);
+    /// ```
+    pub fn set_or_clear_input_schema<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Schema>,
+    {
+        self.input_schema = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [output_schema][crate::model::McpToolDefinition::output_schema].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::McpToolDefinition;
+    /// use google_cloud_ces_v1::model::Schema;
+    /// let x = McpToolDefinition::new().set_output_schema(Schema::default()/* use setters */);
+    /// ```
+    pub fn set_output_schema<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Schema>,
+    {
+        self.output_schema = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [output_schema][crate::model::McpToolDefinition::output_schema].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::McpToolDefinition;
+    /// use google_cloud_ces_v1::model::Schema;
+    /// let x = McpToolDefinition::new().set_or_clear_output_schema(Some(Schema::default()/* use setters */));
+    /// let x = McpToolDefinition::new().set_or_clear_output_schema(None::<Schema>);
+    /// ```
+    pub fn set_or_clear_output_schema<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Schema>,
+    {
+        self.output_schema = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for McpToolDefinition {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.ces.v1.McpToolDefinition"
+    }
+}
+
+/// A mocked tool call.
+///
+/// Expresses the target tool + a pattern to match against that tool's
+/// args / inputs. If the pattern matches, then the mock response will be
+/// returned.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MockedToolCall {
+    /// Optional. Deprecated. Use tool_identifier instead.
+    #[deprecated]
+    pub tool: std::string::String,
+
+    /// Required. A pattern to match against the args / inputs of all dispatched
+    /// tool calls. If the tool call inputs match this pattern, then mock output
+    /// will be returned.
+    pub expected_args_pattern: std::option::Option<wkt::Struct>,
+
+    /// Optional. The mock response / output to return if the tool call args /
+    /// inputs match the pattern.
+    pub mock_response: std::option::Option<wkt::Struct>,
+
+    /// The identifier of the tool to mock.
+    pub tool_identifier: std::option::Option<crate::model::mocked_tool_call::ToolIdentifier>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MockedToolCall {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [tool][crate::model::MockedToolCall::tool].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::MockedToolCall;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let tool_id = "tool_id";
+    /// let x = MockedToolCall::new().set_tool(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/tools/{tool_id}"));
+    /// ```
+    #[deprecated]
+    pub fn set_tool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.tool = v.into();
+        self
+    }
+
+    /// Sets the value of [expected_args_pattern][crate::model::MockedToolCall::expected_args_pattern].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::MockedToolCall;
+    /// use wkt::Struct;
+    /// let x = MockedToolCall::new().set_expected_args_pattern(Struct::default()/* use setters */);
+    /// ```
+    pub fn set_expected_args_pattern<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.expected_args_pattern = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [expected_args_pattern][crate::model::MockedToolCall::expected_args_pattern].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::MockedToolCall;
+    /// use wkt::Struct;
+    /// let x = MockedToolCall::new().set_or_clear_expected_args_pattern(Some(Struct::default()/* use setters */));
+    /// let x = MockedToolCall::new().set_or_clear_expected_args_pattern(None::<Struct>);
+    /// ```
+    pub fn set_or_clear_expected_args_pattern<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.expected_args_pattern = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [mock_response][crate::model::MockedToolCall::mock_response].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::MockedToolCall;
+    /// use wkt::Struct;
+    /// let x = MockedToolCall::new().set_mock_response(Struct::default()/* use setters */);
+    /// ```
+    pub fn set_mock_response<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.mock_response = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [mock_response][crate::model::MockedToolCall::mock_response].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::MockedToolCall;
+    /// use wkt::Struct;
+    /// let x = MockedToolCall::new().set_or_clear_mock_response(Some(Struct::default()/* use setters */));
+    /// let x = MockedToolCall::new().set_or_clear_mock_response(None::<Struct>);
+    /// ```
+    pub fn set_or_clear_mock_response<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.mock_response = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [tool_identifier][crate::model::MockedToolCall::tool_identifier].
+    ///
+    /// Note that all the setters affecting `tool_identifier` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::MockedToolCall;
+    /// use google_cloud_ces_v1::model::mocked_tool_call::ToolIdentifier;
+    /// let x = MockedToolCall::new().set_tool_identifier(Some(ToolIdentifier::ToolId("example".to_string())));
+    /// ```
+    pub fn set_tool_identifier<
+        T: std::convert::Into<std::option::Option<crate::model::mocked_tool_call::ToolIdentifier>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.tool_identifier = v.into();
+        self
+    }
+
+    /// The value of [tool_identifier][crate::model::MockedToolCall::tool_identifier]
+    /// if it holds a `ToolId`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn tool_id(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.tool_identifier.as_ref().and_then(|v| match v {
+            crate::model::mocked_tool_call::ToolIdentifier::ToolId(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [tool_identifier][crate::model::MockedToolCall::tool_identifier]
+    /// to hold a `ToolId`.
+    ///
+    /// Note that all the setters affecting `tool_identifier` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::MockedToolCall;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let app_id = "app_id";
+    /// # let tool_id = "tool_id";
+    /// let x = MockedToolCall::new().set_tool_id(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/tools/{tool_id}"));
+    /// assert!(x.tool_id().is_some());
+    /// assert!(x.toolset().is_none());
+    /// ```
+    pub fn set_tool_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.tool_identifier = std::option::Option::Some(
+            crate::model::mocked_tool_call::ToolIdentifier::ToolId(v.into()),
+        );
+        self
+    }
+
+    /// The value of [tool_identifier][crate::model::MockedToolCall::tool_identifier]
+    /// if it holds a `Toolset`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn toolset(&self) -> std::option::Option<&std::boxed::Box<crate::model::ToolsetTool>> {
+        #[allow(unreachable_patterns)]
+        self.tool_identifier.as_ref().and_then(|v| match v {
+            crate::model::mocked_tool_call::ToolIdentifier::Toolset(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [tool_identifier][crate::model::MockedToolCall::tool_identifier]
+    /// to hold a `Toolset`.
+    ///
+    /// Note that all the setters affecting `tool_identifier` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::MockedToolCall;
+    /// use google_cloud_ces_v1::model::ToolsetTool;
+    /// let x = MockedToolCall::new().set_toolset(ToolsetTool::default()/* use setters */);
+    /// assert!(x.toolset().is_some());
+    /// assert!(x.tool_id().is_none());
+    /// ```
+    pub fn set_toolset<T: std::convert::Into<std::boxed::Box<crate::model::ToolsetTool>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.tool_identifier = std::option::Option::Some(
+            crate::model::mocked_tool_call::ToolIdentifier::Toolset(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for MockedToolCall {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.ces.v1.MockedToolCall"
+    }
+}
+
+/// Defines additional types related to [MockedToolCall].
+pub mod mocked_tool_call {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The identifier of the tool to mock.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ToolIdentifier {
+        /// Optional. The name of the tool to mock.
+        /// Format: `projects/{project}/locations/{location}/apps/{app}/tools/{tool}`
+        ToolId(std::string::String),
+        /// Optional. The toolset to mock.
+        Toolset(std::boxed::Box<crate::model::ToolsetTool>),
     }
 }
 
@@ -24593,6 +27196,9 @@ pub struct PythonFunction {
     /// code's docstring.
     pub description: std::string::String,
 
+    /// Optional. Service Directory configuration for the tool.
+    pub service_directory_config: std::option::Option<crate::model::ServiceDirectoryConfig>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -24635,6 +27241,39 @@ impl PythonFunction {
     /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [service_directory_config][crate::model::PythonFunction::service_directory_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::PythonFunction;
+    /// use google_cloud_ces_v1::model::ServiceDirectoryConfig;
+    /// let x = PythonFunction::new().set_service_directory_config(ServiceDirectoryConfig::default()/* use setters */);
+    /// ```
+    pub fn set_service_directory_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ServiceDirectoryConfig>,
+    {
+        self.service_directory_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [service_directory_config][crate::model::PythonFunction::service_directory_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::PythonFunction;
+    /// use google_cloud_ces_v1::model::ServiceDirectoryConfig;
+    /// let x = PythonFunction::new().set_or_clear_service_directory_config(Some(ServiceDirectoryConfig::default()/* use setters */));
+    /// let x = PythonFunction::new().set_or_clear_service_directory_config(None::<ServiceDirectoryConfig>);
+    /// ```
+    pub fn set_or_clear_service_directory_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ServiceDirectoryConfig>,
+    {
+        self.service_directory_config = v.map(|x| x.into());
         self
     }
 }
@@ -25785,6 +28424,217 @@ pub mod endpoint_control_policy {
     }
 }
 
+/// Mock tool calls configuration for the session.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MockConfig {
+    /// Optional. All tool calls to mock for the duration of the session.
+    pub mocked_tool_calls: std::vec::Vec<crate::model::MockedToolCall>,
+
+    /// Required. Beavhior for tool calls that don't match any args patterns in
+    /// mocked_tool_calls.
+    pub unmatched_tool_call_behavior: crate::model::mock_config::UnmatchedToolCallBehavior,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MockConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [mocked_tool_calls][crate::model::MockConfig::mocked_tool_calls].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::MockConfig;
+    /// use google_cloud_ces_v1::model::MockedToolCall;
+    /// let x = MockConfig::new()
+    ///     .set_mocked_tool_calls([
+    ///         MockedToolCall::default()/* use setters */,
+    ///         MockedToolCall::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_mocked_tool_calls<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::MockedToolCall>,
+    {
+        use std::iter::Iterator;
+        self.mocked_tool_calls = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [unmatched_tool_call_behavior][crate::model::MockConfig::unmatched_tool_call_behavior].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::MockConfig;
+    /// use google_cloud_ces_v1::model::mock_config::UnmatchedToolCallBehavior;
+    /// let x0 = MockConfig::new().set_unmatched_tool_call_behavior(UnmatchedToolCallBehavior::Fail);
+    /// let x1 = MockConfig::new().set_unmatched_tool_call_behavior(UnmatchedToolCallBehavior::PassThrough);
+    /// ```
+    pub fn set_unmatched_tool_call_behavior<
+        T: std::convert::Into<crate::model::mock_config::UnmatchedToolCallBehavior>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.unmatched_tool_call_behavior = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for MockConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.ces.v1.MockConfig"
+    }
+}
+
+/// Defines additional types related to [MockConfig].
+pub mod mock_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// What to do when a tool call doesn't match any mocked tool calls.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum UnmatchedToolCallBehavior {
+        /// Default value. This value is unused.
+        Unspecified,
+        /// Throw an error for any tool calls that don't match a mock expected input
+        /// pattern.
+        Fail,
+        /// For unmatched tool calls, pass the tool call through to real tool.
+        PassThrough,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [UnmatchedToolCallBehavior::value] or
+        /// [UnmatchedToolCallBehavior::name].
+        UnknownValue(unmatched_tool_call_behavior::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod unmatched_tool_call_behavior {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl UnmatchedToolCallBehavior {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Fail => std::option::Option::Some(1),
+                Self::PassThrough => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("UNMATCHED_TOOL_CALL_BEHAVIOR_UNSPECIFIED")
+                }
+                Self::Fail => std::option::Option::Some("FAIL"),
+                Self::PassThrough => std::option::Option::Some("PASS_THROUGH"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for UnmatchedToolCallBehavior {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for UnmatchedToolCallBehavior {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for UnmatchedToolCallBehavior {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Fail,
+                2 => Self::PassThrough,
+                _ => Self::UnknownValue(unmatched_tool_call_behavior::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for UnmatchedToolCallBehavior {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "UNMATCHED_TOOL_CALL_BEHAVIOR_UNSPECIFIED" => Self::Unspecified,
+                "FAIL" => Self::Fail,
+                "PASS_THROUGH" => Self::PassThrough,
+                _ => Self::UnknownValue(unmatched_tool_call_behavior::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for UnmatchedToolCallBehavior {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Fail => serializer.serialize_i32(1),
+                Self::PassThrough => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for UnmatchedToolCallBehavior {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(
+                wkt::internal::EnumVisitor::<UnmatchedToolCallBehavior>::new(
+                    ".google.cloud.ces.v1.MockConfig.UnmatchedToolCallBehavior",
+                ),
+            )
+        }
+    }
+}
+
 /// InputAudioConfig configures how the CES agent should interpret the incoming
 /// audio data.
 #[derive(Clone, Default, PartialEq)]
@@ -26480,6 +29330,9 @@ pub mod citations {
         /// Text used for citation.
         pub text: std::string::String,
 
+        /// Whether this citation requires attribution to be shown to the end users.
+        pub requires_attribution: bool,
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -26522,6 +29375,18 @@ pub mod citations {
         /// ```
         pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.text = v.into();
+            self
+        }
+
+        /// Sets the value of [requires_attribution][crate::model::citations::CitedChunk::requires_attribution].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_ces_v1::model::citations::CitedChunk;
+        /// let x = CitedChunk::new().set_requires_attribution(true);
+        /// ```
+        pub fn set_requires_attribution<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.requires_attribution = v.into();
             self
         }
     }
@@ -27001,6 +29866,9 @@ pub struct SessionOutput {
     /// `turn_completed=true`) for each turn.
     pub diagnostic_info: std::option::Option<crate::model::session_output::DiagnosticInfo>,
 
+    /// Context messages for external supervision guardrails.
+    pub context: std::vec::Vec<wkt::Any>,
+
     /// The type of the output.
     pub output_type: std::option::Option<crate::model::session_output::OutputType>,
 
@@ -27067,6 +29935,28 @@ impl SessionOutput {
         T: std::convert::Into<crate::model::session_output::DiagnosticInfo>,
     {
         self.diagnostic_info = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [context][crate::model::SessionOutput::context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::SessionOutput;
+    /// use wkt::Any;
+    /// let x = SessionOutput::new()
+    ///     .set_context([
+    ///         Any::default()/* use setters */,
+    ///         Any::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_context<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::Any>,
+    {
+        use std::iter::Iterator;
+        self.context = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -28274,6 +31164,11 @@ pub struct Tool {
     /// Optional. The execution type of the tool.
     pub execution_type: crate::model::ExecutionType,
 
+    /// Optional. The timeout for the tool execution. If not set, the default
+    /// timeout is 30 seconds for `SYNCHRONOUS` tools and 60 seconds for
+    /// `ASYNCHRONOUS` tools.
+    pub timeout: std::option::Option<wkt::Duration>,
+
     /// Output only. Timestamp when the tool was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -28346,6 +31241,39 @@ impl Tool {
         v: T,
     ) -> Self {
         self.execution_type = v.into();
+        self
+    }
+
+    /// Sets the value of [timeout][crate::model::Tool::timeout].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::Tool;
+    /// use wkt::Duration;
+    /// let x = Tool::new().set_timeout(Duration::default()/* use setters */);
+    /// ```
+    pub fn set_timeout<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.timeout = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [timeout][crate::model::Tool::timeout].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::Tool;
+    /// use wkt::Duration;
+    /// let x = Tool::new().set_or_clear_timeout(Some(Duration::default()/* use setters */));
+    /// let x = Tool::new().set_or_clear_timeout(None::<Duration>);
+    /// ```
+    pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.timeout = v.map(|x| x.into());
         self
     }
 
@@ -28532,6 +31460,7 @@ impl Tool {
     /// assert!(x.system_tool().is_none());
     /// assert!(x.agent_tool().is_none());
     /// assert!(x.widget_tool().is_none());
+    /// assert!(x.remote_agent_tool().is_none());
     /// ```
     pub fn set_client_function<
         T: std::convert::Into<std::boxed::Box<crate::model::ClientFunction>>,
@@ -28579,6 +31508,7 @@ impl Tool {
     /// assert!(x.system_tool().is_none());
     /// assert!(x.agent_tool().is_none());
     /// assert!(x.widget_tool().is_none());
+    /// assert!(x.remote_agent_tool().is_none());
     /// ```
     pub fn set_open_api_tool<T: std::convert::Into<std::boxed::Box<crate::model::OpenApiTool>>>(
         mut self,
@@ -28624,6 +31554,7 @@ impl Tool {
     /// assert!(x.system_tool().is_none());
     /// assert!(x.agent_tool().is_none());
     /// assert!(x.widget_tool().is_none());
+    /// assert!(x.remote_agent_tool().is_none());
     /// ```
     pub fn set_google_search_tool<
         T: std::convert::Into<std::boxed::Box<crate::model::GoogleSearchTool>>,
@@ -28671,6 +31602,7 @@ impl Tool {
     /// assert!(x.system_tool().is_none());
     /// assert!(x.agent_tool().is_none());
     /// assert!(x.widget_tool().is_none());
+    /// assert!(x.remote_agent_tool().is_none());
     /// ```
     pub fn set_connector_tool<
         T: std::convert::Into<std::boxed::Box<crate::model::ConnectorTool>>,
@@ -28718,6 +31650,7 @@ impl Tool {
     /// assert!(x.system_tool().is_none());
     /// assert!(x.agent_tool().is_none());
     /// assert!(x.widget_tool().is_none());
+    /// assert!(x.remote_agent_tool().is_none());
     /// ```
     pub fn set_data_store_tool<
         T: std::convert::Into<std::boxed::Box<crate::model::DataStoreTool>>,
@@ -28765,6 +31698,7 @@ impl Tool {
     /// assert!(x.system_tool().is_none());
     /// assert!(x.agent_tool().is_none());
     /// assert!(x.widget_tool().is_none());
+    /// assert!(x.remote_agent_tool().is_none());
     /// ```
     pub fn set_python_function<
         T: std::convert::Into<std::boxed::Box<crate::model::PythonFunction>>,
@@ -28810,6 +31744,7 @@ impl Tool {
     /// assert!(x.system_tool().is_none());
     /// assert!(x.agent_tool().is_none());
     /// assert!(x.widget_tool().is_none());
+    /// assert!(x.remote_agent_tool().is_none());
     /// ```
     pub fn set_mcp_tool<T: std::convert::Into<std::boxed::Box<crate::model::McpTool>>>(
         mut self,
@@ -28854,6 +31789,7 @@ impl Tool {
     /// assert!(x.system_tool().is_none());
     /// assert!(x.agent_tool().is_none());
     /// assert!(x.widget_tool().is_none());
+    /// assert!(x.remote_agent_tool().is_none());
     /// ```
     pub fn set_file_search_tool<
         T: std::convert::Into<std::boxed::Box<crate::model::FileSearchTool>>,
@@ -28899,6 +31835,7 @@ impl Tool {
     /// assert!(x.file_search_tool().is_none());
     /// assert!(x.agent_tool().is_none());
     /// assert!(x.widget_tool().is_none());
+    /// assert!(x.remote_agent_tool().is_none());
     /// ```
     pub fn set_system_tool<T: std::convert::Into<std::boxed::Box<crate::model::SystemTool>>>(
         mut self,
@@ -28942,6 +31879,7 @@ impl Tool {
     /// assert!(x.file_search_tool().is_none());
     /// assert!(x.system_tool().is_none());
     /// assert!(x.widget_tool().is_none());
+    /// assert!(x.remote_agent_tool().is_none());
     /// ```
     pub fn set_agent_tool<T: std::convert::Into<std::boxed::Box<crate::model::AgentTool>>>(
         mut self,
@@ -28985,6 +31923,7 @@ impl Tool {
     /// assert!(x.file_search_tool().is_none());
     /// assert!(x.system_tool().is_none());
     /// assert!(x.agent_tool().is_none());
+    /// assert!(x.remote_agent_tool().is_none());
     /// ```
     pub fn set_widget_tool<T: std::convert::Into<std::boxed::Box<crate::model::WidgetTool>>>(
         mut self,
@@ -28992,6 +31931,54 @@ impl Tool {
     ) -> Self {
         self.tool_type =
             std::option::Option::Some(crate::model::tool::ToolType::WidgetTool(v.into()));
+        self
+    }
+
+    /// The value of [tool_type][crate::model::Tool::tool_type]
+    /// if it holds a `RemoteAgentTool`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn remote_agent_tool(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::RemoteAgentTool>> {
+        #[allow(unreachable_patterns)]
+        self.tool_type.as_ref().and_then(|v| match v {
+            crate::model::tool::ToolType::RemoteAgentTool(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [tool_type][crate::model::Tool::tool_type]
+    /// to hold a `RemoteAgentTool`.
+    ///
+    /// Note that all the setters affecting `tool_type` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::Tool;
+    /// use google_cloud_ces_v1::model::RemoteAgentTool;
+    /// let x = Tool::new().set_remote_agent_tool(RemoteAgentTool::default()/* use setters */);
+    /// assert!(x.remote_agent_tool().is_some());
+    /// assert!(x.client_function().is_none());
+    /// assert!(x.open_api_tool().is_none());
+    /// assert!(x.google_search_tool().is_none());
+    /// assert!(x.connector_tool().is_none());
+    /// assert!(x.data_store_tool().is_none());
+    /// assert!(x.python_function().is_none());
+    /// assert!(x.mcp_tool().is_none());
+    /// assert!(x.file_search_tool().is_none());
+    /// assert!(x.system_tool().is_none());
+    /// assert!(x.agent_tool().is_none());
+    /// assert!(x.widget_tool().is_none());
+    /// ```
+    pub fn set_remote_agent_tool<
+        T: std::convert::Into<std::boxed::Box<crate::model::RemoteAgentTool>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.tool_type =
+            std::option::Option::Some(crate::model::tool::ToolType::RemoteAgentTool(v.into()));
         self
     }
 }
@@ -29034,6 +32021,8 @@ pub mod tool {
         AgentTool(std::boxed::Box<crate::model::AgentTool>),
         /// Optional. The widget tool.
         WidgetTool(std::boxed::Box<crate::model::WidgetTool>),
+        /// Optional. The remote agent tool.
+        RemoteAgentTool(std::boxed::Box<crate::model::RemoteAgentTool>),
     }
 }
 
@@ -29051,6 +32040,11 @@ pub struct ExecuteToolRequest {
     /// Optional. The input parameters and values for the tool in JSON object
     /// format.
     pub args: std::option::Option<wkt::Struct>,
+
+    /// Optional. Mock configuration for the tool execution.
+    /// If this field is set, tools that call other tools will be
+    /// mocked based on the provided patterns and responses.
+    pub mock_config: std::option::Option<crate::model::MockConfig>,
 
     /// The identifier of the tool to execute. It could be either a persisted tool
     /// or a tool from a toolset.
@@ -29114,6 +32108,39 @@ impl ExecuteToolRequest {
         T: std::convert::Into<wkt::Struct>,
     {
         self.args = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [mock_config][crate::model::ExecuteToolRequest::mock_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::ExecuteToolRequest;
+    /// use google_cloud_ces_v1::model::MockConfig;
+    /// let x = ExecuteToolRequest::new().set_mock_config(MockConfig::default()/* use setters */);
+    /// ```
+    pub fn set_mock_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MockConfig>,
+    {
+        self.mock_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [mock_config][crate::model::ExecuteToolRequest::mock_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::ExecuteToolRequest;
+    /// use google_cloud_ces_v1::model::MockConfig;
+    /// let x = ExecuteToolRequest::new().set_or_clear_mock_config(Some(MockConfig::default()/* use setters */));
+    /// let x = ExecuteToolRequest::new().set_or_clear_mock_config(None::<MockConfig>);
+    /// ```
+    pub fn set_or_clear_mock_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MockConfig>,
+    {
+        self.mock_config = v.map(|x| x.into());
         self
     }
 
@@ -29365,6 +32392,13 @@ pub struct ExecuteToolResponse {
     /// The variable values at the end of the tool execution.
     pub variables: std::option::Option<wkt::Struct>,
 
+    /// Citations that provide the source information for the tool's execution.
+    pub citations: std::option::Option<crate::model::Citations>,
+
+    /// The suggestions returned from Google Search as a result of invoking the
+    /// Google Search Tool during the tool execution.
+    pub google_search_suggestions: std::option::Option<crate::model::GoogleSearchSuggestions>,
+
     /// The identifier of the tool that got executed.
     pub tool_identifier: std::option::Option<crate::model::execute_tool_response::ToolIdentifier>,
 
@@ -29440,6 +32474,72 @@ impl ExecuteToolResponse {
         T: std::convert::Into<wkt::Struct>,
     {
         self.variables = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [citations][crate::model::ExecuteToolResponse::citations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::ExecuteToolResponse;
+    /// use google_cloud_ces_v1::model::Citations;
+    /// let x = ExecuteToolResponse::new().set_citations(Citations::default()/* use setters */);
+    /// ```
+    pub fn set_citations<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Citations>,
+    {
+        self.citations = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [citations][crate::model::ExecuteToolResponse::citations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::ExecuteToolResponse;
+    /// use google_cloud_ces_v1::model::Citations;
+    /// let x = ExecuteToolResponse::new().set_or_clear_citations(Some(Citations::default()/* use setters */));
+    /// let x = ExecuteToolResponse::new().set_or_clear_citations(None::<Citations>);
+    /// ```
+    pub fn set_or_clear_citations<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Citations>,
+    {
+        self.citations = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [google_search_suggestions][crate::model::ExecuteToolResponse::google_search_suggestions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::ExecuteToolResponse;
+    /// use google_cloud_ces_v1::model::GoogleSearchSuggestions;
+    /// let x = ExecuteToolResponse::new().set_google_search_suggestions(GoogleSearchSuggestions::default()/* use setters */);
+    /// ```
+    pub fn set_google_search_suggestions<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GoogleSearchSuggestions>,
+    {
+        self.google_search_suggestions = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [google_search_suggestions][crate::model::ExecuteToolResponse::google_search_suggestions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::ExecuteToolResponse;
+    /// use google_cloud_ces_v1::model::GoogleSearchSuggestions;
+    /// let x = ExecuteToolResponse::new().set_or_clear_google_search_suggestions(Some(GoogleSearchSuggestions::default()/* use setters */));
+    /// let x = ExecuteToolResponse::new().set_or_clear_google_search_suggestions(None::<GoogleSearchSuggestions>);
+    /// ```
+    pub fn set_or_clear_google_search_suggestions<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GoogleSearchSuggestions>,
+    {
+        self.google_search_suggestions = v.map(|x| x.into());
         self
     }
 
@@ -29958,6 +33058,11 @@ pub struct RetrieveToolsRequest {
     /// If empty, all tools in the toolset will be returned.
     pub tool_ids: std::vec::Vec<std::string::String>,
 
+    /// Optional. If true, the returned tools will contain raw descriptions and
+    /// schemas directly from the server, bypassing any stored persistence
+    /// configurations (overrides/snapshots).
+    pub bypass_persistence_config: bool,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -29997,6 +33102,18 @@ impl RetrieveToolsRequest {
     {
         use std::iter::Iterator;
         self.tool_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [bypass_persistence_config][crate::model::RetrieveToolsRequest::bypass_persistence_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::RetrieveToolsRequest;
+    /// let x = RetrieveToolsRequest::new().set_bypass_persistence_config(true);
+    /// ```
+    pub fn set_bypass_persistence_config<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.bypass_persistence_config = v.into();
         self
     }
 }
@@ -30072,6 +33189,11 @@ pub struct Toolset {
     /// Optional. The description of the toolset.
     pub description: std::string::String,
 
+    /// Optional. The timeout for the toolset execution. If not set, the default
+    /// timeout is 30 seconds for `SYNCHRONOUS` toolsets and 60 seconds for
+    /// `ASYNCHRONOUS` toolsets.
+    pub timeout: std::option::Option<wkt::Duration>,
+
     /// Output only. Timestamp when the toolset was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -30138,6 +33260,39 @@ impl Toolset {
     /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [timeout][crate::model::Toolset::timeout].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::Toolset;
+    /// use wkt::Duration;
+    /// let x = Toolset::new().set_timeout(Duration::default()/* use setters */);
+    /// ```
+    pub fn set_timeout<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.timeout = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [timeout][crate::model::Toolset::timeout].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::Toolset;
+    /// use wkt::Duration;
+    /// let x = Toolset::new().set_or_clear_timeout(Some(Duration::default()/* use setters */));
+    /// let x = Toolset::new().set_or_clear_timeout(None::<Duration>);
+    /// ```
+    pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.timeout = v.map(|x| x.into());
         self
     }
 
@@ -30678,6 +33833,9 @@ pub struct WidgetTool {
     /// the widget's input parameters.
     pub data_mapping: std::option::Option<crate::model::widget_tool::DataMapping>,
 
+    /// Optional. Configuration for always-included text responses.
+    pub text_response_config: std::option::Option<crate::model::widget_tool::TextResponseConfig>,
+
     /// The input of the widget tool.
     pub input: std::option::Option<crate::model::widget_tool::Input>,
 
@@ -30798,6 +33956,39 @@ impl WidgetTool {
         self
     }
 
+    /// Sets the value of [text_response_config][crate::model::WidgetTool::text_response_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::WidgetTool;
+    /// use google_cloud_ces_v1::model::widget_tool::TextResponseConfig;
+    /// let x = WidgetTool::new().set_text_response_config(TextResponseConfig::default()/* use setters */);
+    /// ```
+    pub fn set_text_response_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::widget_tool::TextResponseConfig>,
+    {
+        self.text_response_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [text_response_config][crate::model::WidgetTool::text_response_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::WidgetTool;
+    /// use google_cloud_ces_v1::model::widget_tool::TextResponseConfig;
+    /// let x = WidgetTool::new().set_or_clear_text_response_config(Some(TextResponseConfig::default()/* use setters */));
+    /// let x = WidgetTool::new().set_or_clear_text_response_config(None::<TextResponseConfig>);
+    /// ```
+    pub fn set_or_clear_text_response_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::widget_tool::TextResponseConfig>,
+    {
+        self.text_response_config = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [input][crate::model::WidgetTool::input].
     ///
     /// Note that all the setters affecting `input` are mutually
@@ -30864,6 +34055,233 @@ impl wkt::message::Message for WidgetTool {
 pub mod widget_tool {
     #[allow(unused_imports)]
     use super::*;
+
+    /// Configuration for the text response returned with the widget.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct TextResponseConfig {
+        /// Optional. The strategy for providing the text response.
+        pub r#type: crate::model::widget_tool::text_response_config::Type,
+
+        /// Optional. The static text response to return when type is STATIC.
+        pub static_text: std::string::String,
+
+        /// Optional. Instruction for the LLM on how to generate the text response.
+        /// Used as the description for the text response parameter if type is
+        /// LLM_GENERATED.
+        pub text_response_instruction: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl TextResponseConfig {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [r#type][crate::model::widget_tool::TextResponseConfig::type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_ces_v1::model::widget_tool::TextResponseConfig;
+        /// use google_cloud_ces_v1::model::widget_tool::text_response_config::Type;
+        /// let x0 = TextResponseConfig::new().set_type(Type::None);
+        /// let x1 = TextResponseConfig::new().set_type(Type::LlmGenerated);
+        /// let x2 = TextResponseConfig::new().set_type(Type::Static);
+        /// ```
+        pub fn set_type<
+            T: std::convert::Into<crate::model::widget_tool::text_response_config::Type>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.r#type = v.into();
+            self
+        }
+
+        /// Sets the value of [static_text][crate::model::widget_tool::TextResponseConfig::static_text].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_ces_v1::model::widget_tool::TextResponseConfig;
+        /// let x = TextResponseConfig::new().set_static_text("example");
+        /// ```
+        pub fn set_static_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.static_text = v.into();
+            self
+        }
+
+        /// Sets the value of [text_response_instruction][crate::model::widget_tool::TextResponseConfig::text_response_instruction].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_ces_v1::model::widget_tool::TextResponseConfig;
+        /// let x = TextResponseConfig::new().set_text_response_instruction("example");
+        /// ```
+        pub fn set_text_response_instruction<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.text_response_instruction = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for TextResponseConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.ces.v1.WidgetTool.TextResponseConfig"
+        }
+    }
+
+    /// Defines additional types related to [TextResponseConfig].
+    pub mod text_response_config {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Defines how the text response is produced.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Type {
+            /// Unspecified type.
+            Unspecified,
+            /// The LLM dynamically decides whether to generate a text response
+            /// alongside the widget based on the conversation context.
+            None,
+            /// The LLM is explicitly required to generate a text response.
+            LlmGenerated,
+            /// A pre-defined static text response is always used.
+            Static,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [Type::value] or
+            /// [Type::name].
+            UnknownValue(r#type::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod r#type {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl Type {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::None => std::option::Option::Some(1),
+                    Self::LlmGenerated => std::option::Option::Some(2),
+                    Self::Static => std::option::Option::Some(3),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
+                    Self::None => std::option::Option::Some("NONE"),
+                    Self::LlmGenerated => std::option::Option::Some("LLM_GENERATED"),
+                    Self::Static => std::option::Option::Some("STATIC"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for Type {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for Type {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for Type {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::None,
+                    2 => Self::LlmGenerated,
+                    3 => Self::Static,
+                    _ => Self::UnknownValue(r#type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for Type {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "TYPE_UNSPECIFIED" => Self::Unspecified,
+                    "NONE" => Self::None,
+                    "LLM_GENERATED" => Self::LlmGenerated,
+                    "STATIC" => Self::Static,
+                    _ => Self::UnknownValue(r#type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for Type {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::None => serializer.serialize_i32(1),
+                    Self::LlmGenerated => serializer.serialize_i32(2),
+                    Self::Static => serializer.serialize_i32(3),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Type {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                    ".google.cloud.ces.v1.WidgetTool.TextResponseConfig.Type",
+                ))
+            }
+        }
+    }
 
     /// Configuration for mapping data from a source tool to the widget's input
     /// parameters.

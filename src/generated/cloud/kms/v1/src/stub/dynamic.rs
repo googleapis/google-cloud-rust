@@ -81,7 +81,6 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 
-    #[cfg(google_cloud_unstable_tracing)]
     fn get_poller_options(
         &self,
         options: &crate::RequestOptions,
@@ -187,7 +186,6 @@ impl<T: super::Autokey> Autokey for T {
         T::get_polling_backoff_policy(self, options)
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     fn get_poller_options(
         &self,
         options: &crate::RequestOptions,
@@ -647,7 +645,6 @@ pub trait HsmManagement: std::fmt::Debug + Send + Sync {
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 
-    #[cfg(google_cloud_unstable_tracing)]
     fn get_poller_options(
         &self,
         options: &crate::RequestOptions,
@@ -809,7 +806,6 @@ impl<T: super::HsmManagement> HsmManagement for T {
         T::get_polling_backoff_policy(self, options)
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     fn get_poller_options(
         &self,
         options: &crate::RequestOptions,
@@ -922,6 +918,18 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         req: crate::model::ImportCryptoKeyVersionRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::CryptoKeyVersion>>;
+
+    async fn import_trusted_key_wrapped_crypto_key_version(
+        &self,
+        req: crate::model::ImportTrustedKeyWrappedCryptoKeyVersionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CryptoKeyVersion>>;
+
+    async fn export_trusted_key_wrapped_crypto_key_version(
+        &self,
+        req: crate::model::ExportTrustedKeyWrappedCryptoKeyVersionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ExportTrustedKeyWrappedCryptoKeyVersionResponse>>;
 
     async fn create_import_job(
         &self,
@@ -1065,7 +1073,6 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 
-    #[cfg(google_cloud_unstable_tracing)]
     fn get_poller_options(
         &self,
         options: &crate::RequestOptions,
@@ -1226,6 +1233,25 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::CryptoKeyVersion>> {
         T::import_crypto_key_version(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn import_trusted_key_wrapped_crypto_key_version(
+        &self,
+        req: crate::model::ImportTrustedKeyWrappedCryptoKeyVersionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CryptoKeyVersion>> {
+        T::import_trusted_key_wrapped_crypto_key_version(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn export_trusted_key_wrapped_crypto_key_version(
+        &self,
+        req: crate::model::ExportTrustedKeyWrappedCryptoKeyVersionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ExportTrustedKeyWrappedCryptoKeyVersionResponse>>
+    {
+        T::export_trusted_key_wrapped_crypto_key_version(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -1441,7 +1467,6 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
         T::get_polling_backoff_policy(self, options)
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     fn get_poller_options(
         &self,
         options: &crate::RequestOptions,

@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! RPC retry policies used by the Spanner client.
+
 use google_cloud_gax::error::Error;
 use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicy};
 use google_cloud_gax::retry_result::RetryResult;
@@ -19,17 +21,45 @@ use google_cloud_gax::retry_state::RetryState;
 use google_cloud_gax::throttle_result::ThrottleResult;
 use std::time::Duration;
 
-/// A custom retry policy for Cloud Spanner that decorates/extends `Aip194Strict`.
+/// The retry policy the Spanner client applies to RPCs that do not configure
+/// their own. It decorates/extends [google_cloud_gax::retry_policy::Aip194Strict].
 ///
-/// Spanner allows transport/connection errors to be retried on idempotent operations.
-/// This policy explicitly allows retries on these transport/network errors if the request is idempotent.
+/// Like `Aip194Strict`, this policy retries `UNAVAILABLE` errors and transient
+/// failures that occur before the request reaches the service, but only for
+/// idempotent requests. In addition — because Spanner allows transport and
+/// connection errors to be retried on idempotent operations — it also retries
+/// transport/network and I/O errors that `Aip194Strict` would classify as
+/// permanent (such as a connection dropped after the request was sent), again
+/// only if the request is idempotent.
+///
+/// The policy places no limit on the number of attempts or the elapsed time.
+/// Applications that want to bound the client's default retry behavior can
+/// decorate this policy with
+/// [RetryPolicyExt][google_cloud_gax::retry_policy::RetryPolicyExt] instead of
+/// re-implementing its error classification:
+///
+/// # Example
+/// ```
+/// # use std::time::Duration;
+/// # use google_cloud_spanner::retry_policy::SpannerRetryPolicy;
+/// # use google_cloud_spanner::statement::Statement;
+/// # use google_cloud_gax::retry_policy::RetryPolicyExt;
+/// let statement = Statement::builder("SELECT * FROM Users")
+///     .with_retry_policy(
+///         SpannerRetryPolicy::new()
+///             .with_attempt_limit(5)
+///             .with_time_limit(Duration::from_secs(30)),
+///     )
+///     .build();
+/// ```
 #[derive(Clone, Debug)]
-pub(crate) struct SpannerRetryPolicy {
+pub struct SpannerRetryPolicy {
     inner: Aip194Strict,
 }
 
 impl SpannerRetryPolicy {
-    pub(crate) fn new() -> Self {
+    /// Creates a new Spanner retry policy.
+    pub fn new() -> Self {
         Self {
             inner: Aip194Strict,
         }

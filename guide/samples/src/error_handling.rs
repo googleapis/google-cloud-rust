@@ -34,7 +34,7 @@ pub async fn drive_update_secret() -> anyhow::Result<()> {
         .with_retry_policy(
             AlwaysRetry
                 .with_attempt_limit(5)
-                .with_time_limit(Duration::from_secs(15)),
+                .with_time_limit(Duration::from_secs(60)),
         )
         .build()
         .await?;
@@ -76,7 +76,7 @@ pub async fn drive_update_secret_not_found() -> anyhow::Result<()> {
         .with_retry_policy(
             AlwaysRetry
                 .with_attempt_limit(5)
-                .with_time_limit(Duration::from_secs(15)),
+                .with_time_limit(Duration::from_secs(60)),
         )
         .build()
         .await?;

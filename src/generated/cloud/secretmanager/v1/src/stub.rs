@@ -200,6 +200,28 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::SecretManagerService::enable_managed_rotation].
+    fn enable_managed_rotation(
+        &self,
+        _req: crate::model::EnableManagedRotationRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::SecretVersion>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SecretManagerService::rotate_secret].
+    fn rotate_secret(
+        &self,
+        _req: crate::model::RotateSecretRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::SecretVersion>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::SecretManagerService::list_locations].
     fn list_locations(
         &self,

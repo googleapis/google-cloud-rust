@@ -946,7 +946,10 @@ impl BackendServices {
         super::builder::backend_services::List::new(self.inner.clone())
     }
 
-    /// Retrieves a list of all usable backend services in the specified project.
+    /// Retrieves a list of all usable backend services for Application Load
+    /// Balancers and Proxy Network Load Balancers in the specified project.
+    /// Backend services for external and internal passthrough Network Load
+    /// Balancers are not included in the response.
     pub fn list_usable(&self) -> super::builder::backend_services::ListUsable {
         super::builder::backend_services::ListUsable::new(self.inner.clone())
     }
@@ -10590,8 +10593,10 @@ impl RegionBackendServices {
         super::builder::region_backend_services::List::new(self.inner.clone())
     }
 
-    /// Retrieves a list of all usable backend services in the specified project in
-    /// the given region.
+    /// Retrieves a list of all usable backend services for Application Load
+    /// Balancers and Proxy Network Load Balancers in the specified project in the
+    /// given region. Backend services for external and internal passthrough
+    /// Network Load Balancers are not included in the response.
     pub fn list_usable(&self) -> super::builder::region_backend_services::ListUsable {
         super::builder::region_backend_services::ListUsable::new(self.inner.clone())
     }
@@ -16691,6 +16696,11 @@ impl Routers {
         super::builder::routers::Delete::new(self.inner.clone())
     }
 
+    /// Deletes Named Set
+    pub fn delete_named_set(&self) -> super::builder::routers::DeleteNamedSet {
+        super::builder::routers::DeleteNamedSet::new(self.inner.clone())
+    }
+
     /// Deletes Route Policy
     pub fn delete_route_policy(&self) -> super::builder::routers::DeleteRoutePolicy {
         super::builder::routers::DeleteRoutePolicy::new(self.inner.clone())
@@ -16699,6 +16709,11 @@ impl Routers {
     /// Returns the specified Router resource.
     pub fn get(&self) -> super::builder::routers::Get {
         super::builder::routers::Get::new(self.inner.clone())
+    }
+
+    /// Returns specified Named Set
+    pub fn get_named_set(&self) -> super::builder::routers::GetNamedSet {
+        super::builder::routers::GetNamedSet::new(self.inner.clone())
     }
 
     /// Retrieves runtime NAT IP information.
@@ -16737,6 +16752,12 @@ impl Routers {
         super::builder::routers::ListBgpRoutes::new(self.inner.clone())
     }
 
+    /// Retrieves a list of router named set subresources available to the
+    /// specified project.
+    pub fn list_named_sets(&self) -> super::builder::routers::ListNamedSets {
+        super::builder::routers::ListNamedSets::new(self.inner.clone())
+    }
+
     /// Retrieves a list of router route policy subresources available to the
     /// specified project.
     pub fn list_route_policies(&self) -> super::builder::routers::ListRoutePolicies {
@@ -16749,6 +16770,11 @@ impl Routers {
     /// patch format and processing rules.
     pub fn patch(&self) -> super::builder::routers::Patch {
         super::builder::routers::Patch::new(self.inner.clone())
+    }
+
+    /// Patches Named Set
+    pub fn patch_named_set(&self) -> super::builder::routers::PatchNamedSet {
+        super::builder::routers::PatchNamedSet::new(self.inner.clone())
     }
 
     /// Patches Route Policy
@@ -16768,6 +16794,11 @@ impl Routers {
     /// representation enclosed in the request message payload.
     pub fn update(&self) -> super::builder::routers::Update {
         super::builder::routers::Update::new(self.inner.clone())
+    }
+
+    /// Updates or creates new Named Set
+    pub fn update_named_set(&self) -> super::builder::routers::UpdateNamedSet {
+        super::builder::routers::UpdateNamedSet::new(self.inner.clone())
     }
 
     /// Updates or creates new Route Policy

@@ -35,6 +35,8 @@ impl std::fmt::Debug for super::Secret {
             &self.customer_managed_encryption,
         );
         debug_struct.field("tags", &self.tags);
+        debug_struct.field("secret_type", &self.secret_type);
+        debug_struct.field("policy_member", &self.policy_member);
         debug_struct.field("expiration", &self.expiration);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -208,6 +210,19 @@ impl std::fmt::Debug for super::Rotation {
         let mut debug_struct = f.debug_struct("Rotation");
         debug_struct.field("next_rotation_time", &self.next_rotation_time);
         debug_struct.field("rotation_period", &self.rotation_period);
+        debug_struct.field("managed_rotation_status", &self.managed_rotation_status);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::rotation::ManagedRotationStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ManagedRotationStatus");
+        debug_struct.field("state", &self.state);
+        debug_struct.field("error", &self.error);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -272,6 +287,42 @@ impl std::fmt::Debug for super::AddSecretVersionRequest {
         let mut debug_struct = f.debug_struct("AddSecretVersionRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("payload", &self.payload);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::EnableManagedRotationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EnableManagedRotationRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("credentials", &self.credentials);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::enable_managed_rotation_request::CloudSQLSingleUserCredentials {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudSQLSingleUserCredentials");
+        debug_struct.field("instance_id", &self.instance_id);
+        debug_struct.field("username", &self.username);
+        debug_struct.field("password", &self.password);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::RotateSecretRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RotateSecretRequest");
+        debug_struct.field("parent", &self.parent);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -844,6 +844,7 @@ impl std::fmt::Debug for super::grounding_chunk::Maps {
         debug_struct.field("text", &self.text);
         debug_struct.field("place_id", &self.place_id);
         debug_struct.field("place_answer_sources", &self.place_answer_sources);
+        debug_struct.field("route", &self.route);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -878,6 +879,20 @@ impl std::fmt::Debug for super::grounding_chunk::maps::place_answer_sources::Rev
 }
 
 #[cfg(any(feature = "prediction-service", feature = "session-service",))]
+impl std::fmt::Debug for super::grounding_chunk::maps::Route {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Route");
+        debug_struct.field("distance_meters", &self.distance_meters);
+        debug_struct.field("duration", &self.duration);
+        debug_struct.field("encoded_polyline", &self.encoded_polyline);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "prediction-service", feature = "session-service",))]
 impl std::fmt::Debug for super::GroundingSupport {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GroundingSupport");
@@ -897,6 +912,7 @@ impl std::fmt::Debug for super::GroundingMetadata {
         let mut debug_struct = f.debug_struct("GroundingMetadata");
         debug_struct.field("web_search_queries", &self.web_search_queries);
         debug_struct.field("search_entry_point", &self.search_entry_point);
+        debug_struct.field("retrieval_queries", &self.retrieval_queries);
         debug_struct.field("grounding_chunks", &self.grounding_chunks);
         debug_struct.field("grounding_supports", &self.grounding_supports);
         debug_struct.field("retrieval_metadata", &self.retrieval_metadata);
@@ -13779,6 +13795,7 @@ impl std::fmt::Debug for super::ReasoningEngineSpec {
         debug_struct.field("deployment_spec", &self.deployment_spec);
         debug_struct.field("class_methods", &self.class_methods);
         debug_struct.field("agent_framework", &self.agent_framework);
+        debug_struct.field("identity_type", &self.identity_type);
         debug_struct.field("deployment_source", &self.deployment_source);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

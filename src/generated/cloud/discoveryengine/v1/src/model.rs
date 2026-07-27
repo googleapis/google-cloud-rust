@@ -40116,6 +40116,16 @@ pub struct SearchRequest {
     /// This feature is not supported for healthcare search.
     pub relevance_threshold: crate::model::search_request::RelevanceThreshold,
 
+    /// Optional. The granular relevance filtering specification.
+    ///
+    /// If not specified, the global `relevance_threshold` will be used for all
+    /// sub-searches. If specified, this overrides the global
+    /// `relevance_threshold` to use thresholds on a per sub-search basis.
+    ///
+    /// This feature is currently supported only for custom and site search.
+    pub relevance_filter_spec:
+        std::option::Option<crate::model::search_request::RelevanceFilterSpec>,
+
     /// Optional. The specification for returning the relevance score.
     pub relevance_score_spec: std::option::Option<crate::model::search_request::RelevanceScoreSpec>,
 
@@ -40823,6 +40833,39 @@ impl SearchRequest {
         v: T,
     ) -> Self {
         self.relevance_threshold = v.into();
+        self
+    }
+
+    /// Sets the value of [relevance_filter_spec][crate::model::SearchRequest::relevance_filter_spec].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_discoveryengine_v1::model::SearchRequest;
+    /// use google_cloud_discoveryengine_v1::model::search_request::RelevanceFilterSpec;
+    /// let x = SearchRequest::new().set_relevance_filter_spec(RelevanceFilterSpec::default()/* use setters */);
+    /// ```
+    pub fn set_relevance_filter_spec<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::search_request::RelevanceFilterSpec>,
+    {
+        self.relevance_filter_spec = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [relevance_filter_spec][crate::model::SearchRequest::relevance_filter_spec].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_discoveryengine_v1::model::SearchRequest;
+    /// use google_cloud_discoveryengine_v1::model::search_request::RelevanceFilterSpec;
+    /// let x = SearchRequest::new().set_or_clear_relevance_filter_spec(Some(RelevanceFilterSpec::default()/* use setters */));
+    /// let x = SearchRequest::new().set_or_clear_relevance_filter_spec(None::<RelevanceFilterSpec>);
+    /// ```
+    pub fn set_or_clear_relevance_filter_spec<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::search_request::RelevanceFilterSpec>,
+    {
+        self.relevance_filter_spec = v.map(|x| x.into());
         self
     }
 
@@ -45746,6 +45789,321 @@ pub mod search_request {
     impl wkt::message::Message for RelevanceScoreSpec {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.RelevanceScoreSpec"
+        }
+    }
+
+    /// Relevance filtering specification.
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct RelevanceFilterSpec {
+        /// Optional. Relevance filtering threshold specification for keyword search.
+        pub keyword_search_threshold: std::option::Option<
+            crate::model::search_request::relevance_filter_spec::RelevanceThresholdSpec,
+        >,
+
+        /// Optional. Relevance filtering threshold specification for semantic
+        /// search.
+        pub semantic_search_threshold: std::option::Option<
+            crate::model::search_request::relevance_filter_spec::RelevanceThresholdSpec,
+        >,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
+    impl RelevanceFilterSpec {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [keyword_search_threshold][crate::model::search_request::RelevanceFilterSpec::keyword_search_threshold].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_discoveryengine_v1::model::search_request::RelevanceFilterSpec;
+        /// use google_cloud_discoveryengine_v1::model::search_request::relevance_filter_spec::RelevanceThresholdSpec;
+        /// let x = RelevanceFilterSpec::new().set_keyword_search_threshold(RelevanceThresholdSpec::default()/* use setters */);
+        /// ```
+        pub fn set_keyword_search_threshold<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::search_request::relevance_filter_spec::RelevanceThresholdSpec,
+                >,
+        {
+            self.keyword_search_threshold = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [keyword_search_threshold][crate::model::search_request::RelevanceFilterSpec::keyword_search_threshold].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_discoveryengine_v1::model::search_request::RelevanceFilterSpec;
+        /// use google_cloud_discoveryengine_v1::model::search_request::relevance_filter_spec::RelevanceThresholdSpec;
+        /// let x = RelevanceFilterSpec::new().set_or_clear_keyword_search_threshold(Some(RelevanceThresholdSpec::default()/* use setters */));
+        /// let x = RelevanceFilterSpec::new().set_or_clear_keyword_search_threshold(None::<RelevanceThresholdSpec>);
+        /// ```
+        pub fn set_or_clear_keyword_search_threshold<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::search_request::relevance_filter_spec::RelevanceThresholdSpec,
+                >,
+        {
+            self.keyword_search_threshold = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [semantic_search_threshold][crate::model::search_request::RelevanceFilterSpec::semantic_search_threshold].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_discoveryengine_v1::model::search_request::RelevanceFilterSpec;
+        /// use google_cloud_discoveryengine_v1::model::search_request::relevance_filter_spec::RelevanceThresholdSpec;
+        /// let x = RelevanceFilterSpec::new().set_semantic_search_threshold(RelevanceThresholdSpec::default()/* use setters */);
+        /// ```
+        pub fn set_semantic_search_threshold<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::search_request::relevance_filter_spec::RelevanceThresholdSpec,
+                >,
+        {
+            self.semantic_search_threshold = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [semantic_search_threshold][crate::model::search_request::RelevanceFilterSpec::semantic_search_threshold].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_discoveryengine_v1::model::search_request::RelevanceFilterSpec;
+        /// use google_cloud_discoveryengine_v1::model::search_request::relevance_filter_spec::RelevanceThresholdSpec;
+        /// let x = RelevanceFilterSpec::new().set_or_clear_semantic_search_threshold(Some(RelevanceThresholdSpec::default()/* use setters */));
+        /// let x = RelevanceFilterSpec::new().set_or_clear_semantic_search_threshold(None::<RelevanceThresholdSpec>);
+        /// ```
+        pub fn set_or_clear_semantic_search_threshold<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::search_request::relevance_filter_spec::RelevanceThresholdSpec,
+                >,
+        {
+            self.semantic_search_threshold = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
+    impl wkt::message::Message for RelevanceFilterSpec {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.RelevanceFilterSpec"
+        }
+    }
+
+    /// Defines additional types related to [RelevanceFilterSpec].
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
+    pub mod relevance_filter_spec {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Specification for relevance filtering on a specific sub-search.
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct RelevanceThresholdSpec {
+
+            /// Configures how the relevance threshold is determined.
+            pub relevance_threshold_spec: std::option::Option<crate::model::search_request::relevance_filter_spec::relevance_threshold_spec::RelevanceThresholdSpec>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
+        impl RelevanceThresholdSpec {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [relevance_threshold_spec][crate::model::search_request::relevance_filter_spec::RelevanceThresholdSpec::relevance_threshold_spec].
+            ///
+            /// Note that all the setters affecting `relevance_threshold_spec` are mutually
+            /// exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_discoveryengine_v1::model::search_request::relevance_filter_spec::RelevanceThresholdSpec;
+            /// use google_cloud_discoveryengine_v1::model::search_request::RelevanceThreshold;
+            /// let x0 = RelevanceThresholdSpec::new().set_relevance_threshold_spec(Some(
+            ///     google_cloud_discoveryengine_v1::model::search_request::relevance_filter_spec::relevance_threshold_spec::RelevanceThresholdSpec::RelevanceThreshold(RelevanceThreshold::Lowest)));
+            /// let x1 = RelevanceThresholdSpec::new().set_relevance_threshold_spec(Some(
+            ///     google_cloud_discoveryengine_v1::model::search_request::relevance_filter_spec::relevance_threshold_spec::RelevanceThresholdSpec::RelevanceThreshold(RelevanceThreshold::Low)));
+            /// let x2 = RelevanceThresholdSpec::new().set_relevance_threshold_spec(Some(
+            ///     google_cloud_discoveryengine_v1::model::search_request::relevance_filter_spec::relevance_threshold_spec::RelevanceThresholdSpec::RelevanceThreshold(RelevanceThreshold::Medium)));
+            /// ```
+            pub fn set_relevance_threshold_spec<T: std::convert::Into<std::option::Option<crate::model::search_request::relevance_filter_spec::relevance_threshold_spec::RelevanceThresholdSpec>>>(mut self, v: T) -> Self
+            {
+                self.relevance_threshold_spec = v.into();
+                self
+            }
+
+            /// The value of [relevance_threshold_spec][crate::model::search_request::relevance_filter_spec::RelevanceThresholdSpec::relevance_threshold_spec]
+            /// if it holds a `RelevanceThreshold`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn relevance_threshold(
+                &self,
+            ) -> std::option::Option<&crate::model::search_request::RelevanceThreshold>
+            {
+                #[allow(unreachable_patterns)]
+                self.relevance_threshold_spec.as_ref().and_then(|v| match v {
+                    crate::model::search_request::relevance_filter_spec::relevance_threshold_spec::RelevanceThresholdSpec::RelevanceThreshold(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [relevance_threshold_spec][crate::model::search_request::relevance_filter_spec::RelevanceThresholdSpec::relevance_threshold_spec]
+            /// to hold a `RelevanceThreshold`.
+            ///
+            /// Note that all the setters affecting `relevance_threshold_spec` are
+            /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_discoveryengine_v1::model::search_request::relevance_filter_spec::RelevanceThresholdSpec;
+            /// use google_cloud_discoveryengine_v1::model::search_request::RelevanceThreshold;
+            /// let x0 = RelevanceThresholdSpec::new().set_relevance_threshold(RelevanceThreshold::Lowest);
+            /// let x1 = RelevanceThresholdSpec::new().set_relevance_threshold(RelevanceThreshold::Low);
+            /// let x2 = RelevanceThresholdSpec::new().set_relevance_threshold(RelevanceThreshold::Medium);
+            /// assert!(x0.relevance_threshold().is_some());
+            /// assert!(x0.semantic_relevance_threshold().is_none());
+            /// assert!(x1.relevance_threshold().is_some());
+            /// assert!(x1.semantic_relevance_threshold().is_none());
+            /// assert!(x2.relevance_threshold().is_some());
+            /// assert!(x2.semantic_relevance_threshold().is_none());
+            /// ```
+            pub fn set_relevance_threshold<
+                T: std::convert::Into<crate::model::search_request::RelevanceThreshold>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.relevance_threshold_spec = std::option::Option::Some(
+                    crate::model::search_request::relevance_filter_spec::relevance_threshold_spec::RelevanceThresholdSpec::RelevanceThreshold(
+                        v.into()
+                    )
+                );
+                self
+            }
+
+            /// The value of [relevance_threshold_spec][crate::model::search_request::relevance_filter_spec::RelevanceThresholdSpec::relevance_threshold_spec]
+            /// if it holds a `SemanticRelevanceThreshold`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn semantic_relevance_threshold(&self) -> std::option::Option<&f32> {
+                #[allow(unreachable_patterns)]
+                self.relevance_threshold_spec.as_ref().and_then(|v| match v {
+                    crate::model::search_request::relevance_filter_spec::relevance_threshold_spec::RelevanceThresholdSpec::SemanticRelevanceThreshold(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [relevance_threshold_spec][crate::model::search_request::relevance_filter_spec::RelevanceThresholdSpec::relevance_threshold_spec]
+            /// to hold a `SemanticRelevanceThreshold`.
+            ///
+            /// Note that all the setters affecting `relevance_threshold_spec` are
+            /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_discoveryengine_v1::model::search_request::relevance_filter_spec::RelevanceThresholdSpec;
+            /// let x = RelevanceThresholdSpec::new().set_semantic_relevance_threshold(42.0);
+            /// assert!(x.semantic_relevance_threshold().is_some());
+            /// assert!(x.relevance_threshold().is_none());
+            /// ```
+            pub fn set_semantic_relevance_threshold<T: std::convert::Into<f32>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.relevance_threshold_spec = std::option::Option::Some(
+                    crate::model::search_request::relevance_filter_spec::relevance_threshold_spec::RelevanceThresholdSpec::SemanticRelevanceThreshold(
+                        v.into()
+                    )
+                );
+                self
+            }
+        }
+
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
+        impl wkt::message::Message for RelevanceThresholdSpec {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.RelevanceFilterSpec.RelevanceThresholdSpec"
+            }
+        }
+
+        /// Defines additional types related to [RelevanceThresholdSpec].
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
+        pub mod relevance_threshold_spec {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// Configures how the relevance threshold is determined.
+            #[cfg(any(
+                feature = "assistant-service",
+                feature = "conversational-search-service",
+                feature = "search-service",
+                feature = "serving-config-service",
+            ))]
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum RelevanceThresholdSpec {
+                /// Pre-defined relevance threshold for the sub-search.
+                RelevanceThreshold(crate::model::search_request::RelevanceThreshold),
+                /// Custom relevance threshold for the sub-search.
+                /// The value must be in [0.0, 1.0].
+                SemanticRelevanceThreshold(f32),
+            }
         }
     }
 

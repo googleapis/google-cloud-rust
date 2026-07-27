@@ -186,7 +186,6 @@ pub trait CmekConfigService: std::fmt::Debug + Send + Sync {
         std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     /// Returns the poller options.
     ///
@@ -324,7 +323,6 @@ pub trait CompletionService: std::fmt::Debug + Send + Sync {
         std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     /// Returns the poller options.
     ///
@@ -741,7 +739,6 @@ pub trait DataStoreService: std::fmt::Debug + Send + Sync {
         std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     /// Returns the poller options.
     ///
@@ -907,7 +904,6 @@ pub trait DocumentService: std::fmt::Debug + Send + Sync {
         std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     /// Returns the poller options.
     ///
@@ -1043,7 +1039,6 @@ pub trait EngineService: std::fmt::Debug + Send + Sync {
         std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     /// Returns the poller options.
     ///
@@ -1273,7 +1268,6 @@ pub trait IdentityMappingStoreService: std::fmt::Debug + Send + Sync {
         std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     /// Returns the poller options.
     ///
@@ -1367,7 +1361,6 @@ pub trait ProjectService: std::fmt::Debug + Send + Sync {
         std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     /// Returns the poller options.
     ///
@@ -1622,7 +1615,6 @@ pub trait SchemaService: std::fmt::Debug + Send + Sync {
         std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     /// Returns the poller options.
     ///
@@ -1797,7 +1789,6 @@ pub trait SearchTuningService: std::fmt::Debug + Send + Sync {
         std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     /// Returns the poller options.
     ///
@@ -2203,7 +2194,6 @@ pub trait SiteSearchEngineService: std::fmt::Debug + Send + Sync {
         std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     /// Returns the poller options.
     ///
@@ -2329,7 +2319,6 @@ pub trait UserEventService: std::fmt::Debug + Send + Sync {
         std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     /// Returns the poller options.
     ///
@@ -2434,7 +2423,6 @@ pub trait UserLicenseService: std::fmt::Debug + Send + Sync {
         std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     /// Returns the poller options.
     ///

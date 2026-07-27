@@ -128,4 +128,22 @@ mod storage {
                 .inspect_err(anydump);
         result
     }
+
+    #[tokio::test(flavor = "multi_thread")]
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    async fn run_storage_bidi_write() -> anyhow::Result<()> {
+        let _guard = enable_tracing();
+        let (control, bucket) = integration_tests_storage::create_test_rapid_bucket()
+            .await
+            .inspect_err(anydump)?;
+        let result = integration_tests_storage::bidi_write::run(&bucket.name)
+            .await
+            .inspect_err(anydump);
+        let _ =
+            storage_samples::cleanup_bucket(control, bucket.name.clone(), bucket.project.clone())
+                .await
+                .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
+                .inspect_err(anydump);
+        result
+    }
 }

@@ -51,6 +51,9 @@ pub mod grpc;
 #[cfg(feature = "_internal-grpc-client")]
 pub mod prost;
 
+#[cfg(feature = "_internal-grpc-client")]
+pub mod attempt_interceptor;
+
 #[cfg(feature = "_internal-common")]
 pub mod options;
 

@@ -92,10 +92,8 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::AssistantService::get_operation",
             self.inner.get_operation(req, options));
-        #[cfg(google_cloud_unstable_tracing)]
         google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
-        #[cfg(google_cloud_unstable_tracing)]
         {
             if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
@@ -262,10 +260,8 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::CmekConfigService::get_operation",
             self.inner.get_operation(req, options));
-        #[cfg(google_cloud_unstable_tracing)]
         google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
-        #[cfg(google_cloud_unstable_tracing)]
         {
             if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
@@ -335,7 +331,6 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     fn get_poller_options(
         &self,
@@ -472,10 +467,8 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::CompletionService::get_operation",
             self.inner.get_operation(req, options));
-        #[cfg(google_cloud_unstable_tracing)]
         google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
-        #[cfg(google_cloud_unstable_tracing)]
         {
             if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
@@ -545,7 +538,6 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     fn get_poller_options(
         &self,
@@ -682,10 +674,8 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::ControlService::get_operation",
             self.inner.get_operation(req, options));
-        #[cfg(google_cloud_unstable_tracing)]
         google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
-        #[cfg(google_cloud_unstable_tracing)]
         {
             if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
@@ -978,10 +968,8 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::ConversationalSearchService::get_operation",
             self.inner.get_operation(req, options));
-        #[cfg(google_cloud_unstable_tracing)]
         google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
-        #[cfg(google_cloud_unstable_tracing)]
         {
             if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
@@ -1162,10 +1150,8 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::DataStoreService::get_operation",
             self.inner.get_operation(req, options));
-        #[cfg(google_cloud_unstable_tracing)]
         google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
-        #[cfg(google_cloud_unstable_tracing)]
         {
             if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
@@ -1235,7 +1221,6 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     fn get_poller_options(
         &self,
@@ -1414,10 +1399,8 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::DocumentService::get_operation",
             self.inner.get_operation(req, options));
-        #[cfg(google_cloud_unstable_tracing)]
         google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
-        #[cfg(google_cloud_unstable_tracing)]
         {
             if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
@@ -1487,7 +1470,6 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     fn get_poller_options(
         &self,
@@ -1624,10 +1606,8 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::EngineService::get_operation",
             self.inner.get_operation(req, options));
-        #[cfg(google_cloud_unstable_tracing)]
         google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
-        #[cfg(google_cloud_unstable_tracing)]
         {
             if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
@@ -1697,7 +1677,6 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     fn get_poller_options(
         &self,
@@ -1792,10 +1771,8 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::GroundedGenerationService::get_operation",
             self.inner.get_operation(req, options));
-        #[cfg(google_cloud_unstable_tracing)]
         google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
-        #[cfg(google_cloud_unstable_tracing)]
         {
             if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
@@ -2004,10 +1981,8 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::IdentityMappingStoreService::get_operation",
             self.inner.get_operation(req, options));
-        #[cfg(google_cloud_unstable_tracing)]
         google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
-        #[cfg(google_cloud_unstable_tracing)]
         {
             if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
@@ -2077,7 +2052,6 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     fn get_poller_options(
         &self,
@@ -2158,10 +2132,8 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::ProjectService::get_operation",
             self.inner.get_operation(req, options));
-        #[cfg(google_cloud_unstable_tracing)]
         google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
-        #[cfg(google_cloud_unstable_tracing)]
         {
             if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
@@ -2231,7 +2203,6 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     fn get_poller_options(
         &self,
@@ -2312,10 +2283,8 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::RankService::get_operation",
             self.inner.get_operation(req, options));
-        #[cfg(google_cloud_unstable_tracing)]
         google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
-        #[cfg(google_cloud_unstable_tracing)]
         {
             if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
@@ -2440,10 +2409,8 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::RecommendationService::get_operation",
             self.inner.get_operation(req, options));
-        #[cfg(google_cloud_unstable_tracing)]
         google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
-        #[cfg(google_cloud_unstable_tracing)]
         {
             if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
@@ -2624,10 +2591,8 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::SchemaService::get_operation",
             self.inner.get_operation(req, options));
-        #[cfg(google_cloud_unstable_tracing)]
         google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
-        #[cfg(google_cloud_unstable_tracing)]
         {
             if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
@@ -2697,7 +2662,6 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     fn get_poller_options(
         &self,
@@ -2792,10 +2756,8 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::SearchService::get_operation",
             self.inner.get_operation(req, options));
-        #[cfg(google_cloud_unstable_tracing)]
         google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
-        #[cfg(google_cloud_unstable_tracing)]
         {
             if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
@@ -2934,10 +2896,8 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::SearchTuningService::get_operation",
             self.inner.get_operation(req, options));
-        #[cfg(google_cloud_unstable_tracing)]
         google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
-        #[cfg(google_cloud_unstable_tracing)]
         {
             if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
@@ -3007,7 +2967,6 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     fn get_poller_options(
         &self,
@@ -3088,10 +3047,8 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::ServingConfigService::get_operation",
             self.inner.get_operation(req, options));
-        #[cfg(google_cloud_unstable_tracing)]
         google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
-        #[cfg(google_cloud_unstable_tracing)]
         {
             if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
@@ -3272,10 +3229,8 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::SessionService::get_operation",
             self.inner.get_operation(req, options));
-        #[cfg(google_cloud_unstable_tracing)]
         google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
-        #[cfg(google_cloud_unstable_tracing)]
         {
             if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
@@ -3596,10 +3551,8 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::SiteSearchEngineService::get_operation",
             self.inner.get_operation(req, options));
-        #[cfg(google_cloud_unstable_tracing)]
         google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
-        #[cfg(google_cloud_unstable_tracing)]
         {
             if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
@@ -3669,7 +3622,6 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     fn get_poller_options(
         &self,
@@ -3792,10 +3744,8 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::UserEventService::get_operation",
             self.inner.get_operation(req, options));
-        #[cfg(google_cloud_unstable_tracing)]
         google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
-        #[cfg(google_cloud_unstable_tracing)]
         {
             if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
@@ -3865,7 +3815,6 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     fn get_poller_options(
         &self,
@@ -3960,10 +3909,8 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::UserLicenseService::get_operation",
             self.inner.get_operation(req, options));
-        #[cfg(google_cloud_unstable_tracing)]
         google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
-        #[cfg(google_cloud_unstable_tracing)]
         {
             if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
@@ -4033,7 +3980,6 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     fn get_poller_options(
         &self,

@@ -1312,3 +1312,579 @@ pub mod comment_service {
         }
     }
 }
+
+/// Request and client builders for [SupportEventSubscriptionService][crate::client::SupportEventSubscriptionService].
+pub mod support_event_subscription_service {
+    use crate::Result;
+
+    /// A builder for [SupportEventSubscriptionService][crate::client::SupportEventSubscriptionService].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_support_v2::*;
+    /// # use builder::support_event_subscription_service::ClientBuilder;
+    /// # use client::SupportEventSubscriptionService;
+    /// let builder : ClientBuilder = SupportEventSubscriptionService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://cloudsupport.googleapis.com")
+    ///     .build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::SupportEventSubscriptionService;
+        pub struct Factory;
+        impl crate::ClientFactory for Factory {
+            type Client = SupportEventSubscriptionService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> crate::ClientBuilderResult<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
+    /// Common implementation for [crate::client::SupportEventSubscriptionService] request builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::SupportEventSubscriptionService>,
+        request: R,
+        options: crate::RequestOptions,
+    }
+
+    impl<R> RequestBuilder<R>
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SupportEventSubscriptionService>,
+        ) -> Self {
+            Self {
+                stub,
+                request: R::default(),
+                options: crate::RequestOptions::default(),
+            }
+        }
+    }
+
+    /// The request builder for [SupportEventSubscriptionService::create_support_event_subscription][crate::client::SupportEventSubscriptionService::create_support_event_subscription] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_support_v2::builder::support_event_subscription_service::CreateSupportEventSubscription;
+    /// # async fn sample() -> google_cloud_support_v2::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CreateSupportEventSubscription {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateSupportEventSubscription(
+        RequestBuilder<crate::model::CreateSupportEventSubscriptionRequest>,
+    );
+
+    impl CreateSupportEventSubscription {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SupportEventSubscriptionService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateSupportEventSubscriptionRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::SupportEventSubscription> {
+            (*self.0.stub)
+                .create_support_event_subscription(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [parent][crate::model::CreateSupportEventSubscriptionRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [support_event_subscription][crate::model::CreateSupportEventSubscriptionRequest::support_event_subscription].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_support_event_subscription<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SupportEventSubscription>,
+        {
+            self.0.request.support_event_subscription = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [support_event_subscription][crate::model::CreateSupportEventSubscriptionRequest::support_event_subscription].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_support_event_subscription<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::SupportEventSubscription>,
+        {
+            self.0.request.support_event_subscription = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CreateSupportEventSubscription {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SupportEventSubscriptionService::get_support_event_subscription][crate::client::SupportEventSubscriptionService::get_support_event_subscription] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_support_v2::builder::support_event_subscription_service::GetSupportEventSubscription;
+    /// # async fn sample() -> google_cloud_support_v2::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetSupportEventSubscription {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetSupportEventSubscription(
+        RequestBuilder<crate::model::GetSupportEventSubscriptionRequest>,
+    );
+
+    impl GetSupportEventSubscription {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SupportEventSubscriptionService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetSupportEventSubscriptionRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::SupportEventSubscription> {
+            (*self.0.stub)
+                .get_support_event_subscription(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetSupportEventSubscriptionRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetSupportEventSubscription {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SupportEventSubscriptionService::list_support_event_subscriptions][crate::client::SupportEventSubscriptionService::list_support_event_subscriptions] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_support_v2::builder::support_event_subscription_service::ListSupportEventSubscriptions;
+    /// # async fn sample() -> google_cloud_support_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListSupportEventSubscriptions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListSupportEventSubscriptions(
+        RequestBuilder<crate::model::ListSupportEventSubscriptionsRequest>,
+    );
+
+    impl ListSupportEventSubscriptions {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SupportEventSubscriptionService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListSupportEventSubscriptionsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListSupportEventSubscriptionsResponse> {
+            (*self.0.stub)
+                .list_support_event_subscriptions(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListSupportEventSubscriptionsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListSupportEventSubscriptionsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListSupportEventSubscriptionsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::ListSupportEventSubscriptionsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [show_deleted][crate::model::ListSupportEventSubscriptionsRequest::show_deleted].
+        pub fn set_show_deleted<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.show_deleted = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListSupportEventSubscriptionsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListSupportEventSubscriptionsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListSupportEventSubscriptions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SupportEventSubscriptionService::update_support_event_subscription][crate::client::SupportEventSubscriptionService::update_support_event_subscription] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_support_v2::builder::support_event_subscription_service::UpdateSupportEventSubscription;
+    /// # async fn sample() -> google_cloud_support_v2::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateSupportEventSubscription {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateSupportEventSubscription(
+        RequestBuilder<crate::model::UpdateSupportEventSubscriptionRequest>,
+    );
+
+    impl UpdateSupportEventSubscription {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SupportEventSubscriptionService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateSupportEventSubscriptionRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::SupportEventSubscription> {
+            (*self.0.stub)
+                .update_support_event_subscription(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [support_event_subscription][crate::model::UpdateSupportEventSubscriptionRequest::support_event_subscription].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_support_event_subscription<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SupportEventSubscription>,
+        {
+            self.0.request.support_event_subscription = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [support_event_subscription][crate::model::UpdateSupportEventSubscriptionRequest::support_event_subscription].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_support_event_subscription<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::SupportEventSubscription>,
+        {
+            self.0.request.support_event_subscription = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateSupportEventSubscriptionRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSupportEventSubscriptionRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateSupportEventSubscription {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SupportEventSubscriptionService::delete_support_event_subscription][crate::client::SupportEventSubscriptionService::delete_support_event_subscription] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_support_v2::builder::support_event_subscription_service::DeleteSupportEventSubscription;
+    /// # async fn sample() -> google_cloud_support_v2::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteSupportEventSubscription {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteSupportEventSubscription(
+        RequestBuilder<crate::model::DeleteSupportEventSubscriptionRequest>,
+    );
+
+    impl DeleteSupportEventSubscription {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SupportEventSubscriptionService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteSupportEventSubscriptionRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::SupportEventSubscription> {
+            (*self.0.stub)
+                .delete_support_event_subscription(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::DeleteSupportEventSubscriptionRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteSupportEventSubscription {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SupportEventSubscriptionService::undelete_support_event_subscription][crate::client::SupportEventSubscriptionService::undelete_support_event_subscription] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_support_v2::builder::support_event_subscription_service::UndeleteSupportEventSubscription;
+    /// # async fn sample() -> google_cloud_support_v2::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UndeleteSupportEventSubscription {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UndeleteSupportEventSubscription(
+        RequestBuilder<crate::model::UndeleteSupportEventSubscriptionRequest>,
+    );
+
+    impl UndeleteSupportEventSubscription {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SupportEventSubscriptionService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UndeleteSupportEventSubscriptionRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::SupportEventSubscription> {
+            (*self.0.stub)
+                .undelete_support_event_subscription(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::UndeleteSupportEventSubscriptionRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UndeleteSupportEventSubscription {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+}

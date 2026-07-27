@@ -227,6 +227,12 @@ impl serde::ser::Serialize for super::Repository {
         if self.initial_config.is_some() {
             state.serialize_entry("initialConfig", &self.initial_config)?;
         }
+        if !self.service_account.is_empty() {
+            state.serialize_entry("serviceAccount", &self.service_account)?;
+        }
+        if self.scan_config.is_some() {
+            state.serialize_entry("scanConfig", &self.scan_config)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -285,6 +291,53 @@ impl serde::ser::Serialize for super::repository::InitialConfig {
         }
         if !self.readme.is_empty() {
             state.serialize_entry("readme", &self.readme)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::repository::ScanConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.secret_scan_config.is_some() {
+            state.serialize_entry("secretScanConfig", &self.secret_scan_config)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::repository::scan_config::SecretScanConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.enabled) {
+            state.serialize_entry("enabled", &self.enabled)?;
+        }
+        if !self.inspect_template.is_empty() {
+            state.serialize_entry("inspectTemplate", &self.inspect_template)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

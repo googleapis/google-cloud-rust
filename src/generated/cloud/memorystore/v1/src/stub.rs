@@ -201,6 +201,115 @@ pub trait Memorystore: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::Memorystore::start_migration].
+    fn start_migration(
+        &self,
+        _req: crate::model::StartMigrationRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Memorystore::finish_migration].
+    fn finish_migration(
+        &self,
+        _req: crate::model::FinishMigrationRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Memorystore::list_token_auth_users].
+    fn list_token_auth_users(
+        &self,
+        _req: crate::model::ListTokenAuthUsersRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListTokenAuthUsersResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Memorystore::get_token_auth_user].
+    fn get_token_auth_user(
+        &self,
+        _req: crate::model::GetTokenAuthUserRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::TokenAuthUser>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Memorystore::list_auth_tokens].
+    fn list_auth_tokens(
+        &self,
+        _req: crate::model::ListAuthTokensRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListAuthTokensResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Memorystore::get_auth_token].
+    fn get_auth_token(
+        &self,
+        _req: crate::model::GetAuthTokenRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::AuthToken>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Memorystore::add_token_auth_user].
+    fn add_token_auth_user(
+        &self,
+        _req: crate::model::AddTokenAuthUserRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Memorystore::delete_token_auth_user].
+    fn delete_token_auth_user(
+        &self,
+        _req: crate::model::DeleteTokenAuthUserRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Memorystore::add_auth_token].
+    fn add_auth_token(
+        &self,
+        _req: crate::model::AddAuthTokenRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Memorystore::delete_auth_token].
+    fn delete_auth_token(
+        &self,
+        _req: crate::model::DeleteAuthTokenRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::Memorystore::list_locations].
     fn list_locations(
         &self,
@@ -289,7 +398,6 @@ pub trait Memorystore: std::fmt::Debug + Send + Sync {
         std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     /// Returns the poller options.
     ///

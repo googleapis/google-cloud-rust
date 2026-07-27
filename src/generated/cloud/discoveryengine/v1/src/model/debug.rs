@@ -4437,6 +4437,7 @@ impl std::fmt::Debug for super::SearchRequest {
         debug_struct.field("session", &self.session);
         debug_struct.field("session_spec", &self.session_spec);
         debug_struct.field("relevance_threshold", &self.relevance_threshold);
+        debug_struct.field("relevance_filter_spec", &self.relevance_filter_spec);
         debug_struct.field("relevance_score_spec", &self.relevance_score_spec);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -4906,6 +4907,41 @@ impl std::fmt::Debug for super::search_request::RelevanceScoreSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RelevanceScoreSpec");
         debug_struct.field("return_relevance_score", &self.return_relevance_score);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+))]
+impl std::fmt::Debug for super::search_request::RelevanceFilterSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RelevanceFilterSpec");
+        debug_struct.field("keyword_search_threshold", &self.keyword_search_threshold);
+        debug_struct.field("semantic_search_threshold", &self.semantic_search_threshold);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+))]
+impl std::fmt::Debug for super::search_request::relevance_filter_spec::RelevanceThresholdSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RelevanceThresholdSpec");
+        debug_struct.field("relevance_threshold_spec", &self.relevance_threshold_spec);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

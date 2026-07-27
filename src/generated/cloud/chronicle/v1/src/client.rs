@@ -2384,6 +2384,447 @@ impl FeaturedContentNativeDashboardService {
 ///
 /// # Example
 /// ```
+/// # use google_cloud_chronicle_v1::client::FindingsRefinementService;
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    instance_id: &str,
+/// ) -> anyhow::Result<()> {
+///     let client = FindingsRefinementService::builder().build().await?;
+///     let mut list = client.list_findings_refinements()
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// FindingsRefinementService provides an interface for filtering out
+/// findings that are unlikely to be real threats to prevent them
+/// from triggering alerts or notifications.
+///
+/// # Configuration
+///
+/// To configure `FindingsRefinementService` use the `with_*` methods in the type returned
+/// by [builder()][FindingsRefinementService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://chronicle.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::findings_refinement_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::findings_refinement_service::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `FindingsRefinementService` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `FindingsRefinementService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct FindingsRefinementService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::FindingsRefinementService>,
+}
+
+impl FindingsRefinementService {
+    /// Returns a builder for [FindingsRefinementService].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_chronicle_v1::client::FindingsRefinementService;
+    /// let client = FindingsRefinementService::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::findings_refinement_service::ClientBuilder {
+        crate::new_client_builder(super::builder::findings_refinement_service::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::FindingsRefinementService + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<
+        std::sync::Arc<dyn super::stub::dynamic::FindingsRefinementService>,
+    > {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::FindingsRefinementService> {
+        super::transport::FindingsRefinementService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::FindingsRefinementService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::FindingsRefinementService::new)
+    }
+
+    /// Gets a single findings refinement.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FindingsRefinementService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FindingsRefinementService, project_id: &str, location_id: &str, instance_id: &str, findings_refinement_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_findings_refinement()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/findingsRefinements/{findings_refinement_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_findings_refinement(
+        &self,
+    ) -> super::builder::findings_refinement_service::GetFindingsRefinement {
+        super::builder::findings_refinement_service::GetFindingsRefinement::new(self.inner.clone())
+    }
+
+    /// Lists a collection of findings refinements.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FindingsRefinementService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FindingsRefinementService, project_id: &str, location_id: &str, instance_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_findings_refinements()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_findings_refinements(
+        &self,
+    ) -> super::builder::findings_refinement_service::ListFindingsRefinements {
+        super::builder::findings_refinement_service::ListFindingsRefinements::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Creates a new findings refinement.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FindingsRefinementService;
+    /// use google_cloud_chronicle_v1::model::FindingsRefinement;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FindingsRefinementService, project_id: &str, location_id: &str, instance_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_findings_refinement()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
+    ///         .set_findings_refinement(
+    ///             FindingsRefinement::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_findings_refinement(
+        &self,
+    ) -> super::builder::findings_refinement_service::CreateFindingsRefinement {
+        super::builder::findings_refinement_service::CreateFindingsRefinement::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Updates a findings refinement.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FindingsRefinementService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_chronicle_v1::model::FindingsRefinement;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FindingsRefinementService, project_id: &str, location_id: &str, instance_id: &str, findings_refinement_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_findings_refinement()
+    ///         .set_findings_refinement(
+    ///             FindingsRefinement::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/findingsRefinements/{findings_refinement_id}"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_findings_refinement(
+        &self,
+    ) -> super::builder::findings_refinement_service::UpdateFindingsRefinement {
+        super::builder::findings_refinement_service::UpdateFindingsRefinement::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Gets a findings refinement deployment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FindingsRefinementService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FindingsRefinementService, project_id: &str, location_id: &str, instance_id: &str, findings_refinement_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_findings_refinement_deployment()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/findingsRefinements/{findings_refinement_id}/deployment"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_findings_refinement_deployment(
+        &self,
+    ) -> super::builder::findings_refinement_service::GetFindingsRefinementDeployment {
+        super::builder::findings_refinement_service::GetFindingsRefinementDeployment::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Updates a findings refinement deployment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FindingsRefinementService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_chronicle_v1::model::FindingsRefinementDeployment;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FindingsRefinementService, project_id: &str, location_id: &str, instance_id: &str, findings_refinement_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_findings_refinement_deployment()
+    ///         .set_findings_refinement_deployment(
+    ///             FindingsRefinementDeployment::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/findingsRefinements/{findings_refinement_id}/deployment"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_findings_refinement_deployment(
+        &self,
+    ) -> super::builder::findings_refinement_service::UpdateFindingsRefinementDeployment {
+        super::builder::findings_refinement_service::UpdateFindingsRefinementDeployment::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Lists all findings refinement deployments.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FindingsRefinementService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FindingsRefinementService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_all_findings_refinement_deployments()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_all_findings_refinement_deployments(
+        &self,
+    ) -> super::builder::findings_refinement_service::ListAllFindingsRefinementDeployments {
+        super::builder::findings_refinement_service::ListAllFindingsRefinementDeployments::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Returns findings refinement activity for a specific findings refinement.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FindingsRefinementService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FindingsRefinementService
+    /// ) -> Result<()> {
+    ///     let response = client.compute_findings_refinement_activity()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn compute_findings_refinement_activity(
+        &self,
+    ) -> super::builder::findings_refinement_service::ComputeFindingsRefinementActivity {
+        super::builder::findings_refinement_service::ComputeFindingsRefinementActivity::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Returns findings refinement activity for all findings refinements.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FindingsRefinementService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FindingsRefinementService
+    /// ) -> Result<()> {
+    ///     let response = client.compute_all_findings_refinement_activities()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn compute_all_findings_refinement_activities(
+        &self,
+    ) -> super::builder::findings_refinement_service::ComputeAllFindingsRefinementActivities {
+        super::builder::findings_refinement_service::ComputeAllFindingsRefinementActivities::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FindingsRefinementService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FindingsRefinementService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_operations(&self) -> super::builder::findings_refinement_service::ListOperations {
+        super::builder::findings_refinement_service::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FindingsRefinementService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FindingsRefinementService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::findings_refinement_service::GetOperation {
+        super::builder::findings_refinement_service::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FindingsRefinementService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FindingsRefinementService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::findings_refinement_service::DeleteOperation {
+        super::builder::findings_refinement_service::DeleteOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FindingsRefinementService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FindingsRefinementService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::findings_refinement_service::CancelOperation {
+        super::builder::findings_refinement_service::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Chronicle API.
+///
+/// # Example
+/// ```
 /// # use google_cloud_chronicle_v1::client::InstanceService;
 /// async fn sample(
 ///    project_id: &str,

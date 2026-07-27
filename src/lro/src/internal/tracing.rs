@@ -371,7 +371,6 @@ mod tests {
             .await;
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[tokio::test]
     async fn record_polling_attributes_macro() {
         let guard = TestLayer::initialize();
@@ -410,7 +409,6 @@ mod tests {
         );
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[tokio::test]
     async fn record_polling_attributes_macro_no_recorder() {
         let guard = TestLayer::initialize();
@@ -429,13 +427,13 @@ mod tests {
             .unwrap();
 
         assert!(
+            !got.attributes
+                .contains_key("gcp.longrunning.poll_attempt_count"),
+            "found poll_attempt_count in attributes: {:#?}",
             got.attributes
-                .get("gcp.longrunning.poll_attempt_count")
-                .is_none()
         );
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[tokio::test]
     async fn record_polling_attributes_macro_no_attempt_count() {
         let guard = TestLayer::initialize();
@@ -460,9 +458,10 @@ mod tests {
             .unwrap();
 
         assert!(
+            !got.attributes
+                .contains_key("gcp.longrunning.poll_attempt_count"),
+            "found poll_attempt_count in attributes: {:#?}",
             got.attributes
-                .get("gcp.longrunning.poll_attempt_count")
-                .is_none()
         );
     }
 
@@ -604,7 +603,11 @@ mod tests {
                     .and_then(|v| v.as_bool()),
                 Some(false)
             );
-            assert!(got.attributes.get("gcp.longrunning.status_code").is_none());
+            assert!(
+                !got.attributes.contains_key("gcp.longrunning.status_code"),
+                "found status_code in attributes: {:#?}",
+                got.attributes
+            );
         }
     }
 }

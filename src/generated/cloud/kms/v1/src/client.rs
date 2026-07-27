@@ -243,20 +243,21 @@ impl Autokey {
     /// Lists information about the supported locations for this service.
     ///
     /// This method lists locations based on the resource scope provided in
-    /// the [ListLocationsRequest.name] field:
-    ///
-    /// * **Global locations**: If `name` is empty, the method lists the
-    ///   public locations available to all projects. * **Project-specific
-    ///   locations**: If `name` follows the format
-    ///   `projects/{project}`, the method lists locations visible to that
-    ///   specific project. This includes public, private, or other
-    ///   project-specific locations enabled for the project.
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
     ///
     /// For gRPC and client library implementations, the resource name is
     /// passed as the `name` field. For direct service calls, the resource
     /// name is
     /// incorporated into the request path based on the specific service
     /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```
@@ -594,20 +595,21 @@ impl AutokeyAdmin {
     /// Lists information about the supported locations for this service.
     ///
     /// This method lists locations based on the resource scope provided in
-    /// the [ListLocationsRequest.name] field:
-    ///
-    /// * **Global locations**: If `name` is empty, the method lists the
-    ///   public locations available to all projects. * **Project-specific
-    ///   locations**: If `name` follows the format
-    ///   `projects/{project}`, the method lists locations visible to that
-    ///   specific project. This includes public, private, or other
-    ///   project-specific locations enabled for the project.
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
     ///
     /// For gRPC and client library implementations, the resource name is
     /// passed as the `name` field. For direct service calls, the resource
     /// name is
     /// incorporated into the request path based on the specific service
     /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```
@@ -1044,20 +1046,21 @@ impl EkmService {
     /// Lists information about the supported locations for this service.
     ///
     /// This method lists locations based on the resource scope provided in
-    /// the [ListLocationsRequest.name] field:
-    ///
-    /// * **Global locations**: If `name` is empty, the method lists the
-    ///   public locations available to all projects. * **Project-specific
-    ///   locations**: If `name` follows the format
-    ///   `projects/{project}`, the method lists locations visible to that
-    ///   specific project. This includes public, private, or other
-    ///   project-specific locations enabled for the project.
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
     ///
     /// For gRPC and client library implementations, the resource name is
     /// passed as the `name` field. For direct service calls, the resource
     /// name is
     /// incorporated into the request path based on the specific service
     /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```
@@ -1617,20 +1620,21 @@ impl HsmManagement {
     /// Lists information about the supported locations for this service.
     ///
     /// This method lists locations based on the resource scope provided in
-    /// the [ListLocationsRequest.name] field:
-    ///
-    /// * **Global locations**: If `name` is empty, the method lists the
-    ///   public locations available to all projects. * **Project-specific
-    ///   locations**: If `name` follows the format
-    ///   `projects/{project}`, the method lists locations visible to that
-    ///   specific project. This includes public, private, or other
-    ///   project-specific locations enabled for the project.
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
     ///
     /// For gRPC and client library implementations, the resource name is
     /// passed as the `name` field. For direct service calls, the resource
     /// name is
     /// incorporated into the request path based on the specific service
     /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```
@@ -2390,6 +2394,82 @@ impl KeyManagementService {
         super::builder::key_management_service::ImportCryptoKeyVersion::new(self.inner.clone())
     }
 
+    /// Import wrapped key material into a
+    /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] with a trusted
+    /// key.
+    ///
+    /// All requests must specify a [CryptoKey][google.cloud.kms.v1.CryptoKey]. If
+    /// a [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] is additionally
+    /// specified in the request, key material will be reimported into that
+    /// version. Otherwise, a new version will be created, and will be assigned the
+    /// next sequential id within the [CryptoKey][google.cloud.kms.v1.CryptoKey].
+    ///
+    /// The [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] will have
+    /// trusted_wrapping_enabled set to true.
+    ///
+    /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
+    /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::KeyManagementService;
+    /// use google_cloud_kms_v1::Result;
+    /// async fn sample(
+    ///    client: &KeyManagementService
+    /// ) -> Result<()> {
+    ///     let response = client.import_trusted_key_wrapped_crypto_key_version()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn import_trusted_key_wrapped_crypto_key_version(
+        &self,
+    ) -> super::builder::key_management_service::ImportTrustedKeyWrappedCryptoKeyVersion {
+        super::builder::key_management_service::ImportTrustedKeyWrappedCryptoKeyVersion::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Exports a [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] with a
+    /// trusted key.
+    ///
+    /// The [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] must have
+    /// trusted_wrapping_enabled set to true. The
+    /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] of the
+    /// [wrapping_key] must have the
+    /// [AES_WRAPPING][google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.AES_WRAPPING]
+    /// purpose. The [wrapping_key] must have the
+    /// [AES_256_KWP][google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionAlgorithm.AES_256_KWP]
+    /// algorithm.
+    ///
+    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.AES_WRAPPING]: crate::model::crypto_key::CryptoKeyPurpose::AesWrapping
+    /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
+    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionAlgorithm.AES_256_KWP]: crate::model::crypto_key_version::CryptoKeyVersionAlgorithm::Aes256Kwp
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::client::KeyManagementService;
+    /// use google_cloud_kms_v1::Result;
+    /// async fn sample(
+    ///    client: &KeyManagementService
+    /// ) -> Result<()> {
+    ///     let response = client.export_trusted_key_wrapped_crypto_key_version()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn export_trusted_key_wrapped_crypto_key_version(
+        &self,
+    ) -> super::builder::key_management_service::ExportTrustedKeyWrappedCryptoKeyVersion {
+        super::builder::key_management_service::ExportTrustedKeyWrappedCryptoKeyVersion::new(
+            self.inner.clone(),
+        )
+    }
+
     /// Create a new [ImportJob][google.cloud.kms.v1.ImportJob] within a
     /// [KeyRing][google.cloud.kms.v1.KeyRing].
     ///
@@ -2886,20 +2966,21 @@ impl KeyManagementService {
     /// Lists information about the supported locations for this service.
     ///
     /// This method lists locations based on the resource scope provided in
-    /// the [ListLocationsRequest.name] field:
-    ///
-    /// * **Global locations**: If `name` is empty, the method lists the
-    ///   public locations available to all projects. * **Project-specific
-    ///   locations**: If `name` follows the format
-    ///   `projects/{project}`, the method lists locations visible to that
-    ///   specific project. This includes public, private, or other
-    ///   project-specific locations enabled for the project.
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
     ///
     /// For gRPC and client library implementations, the resource name is
     /// passed as the `name` field. For direct service calls, the resource
     /// name is
     /// incorporated into the request path based on the specific service
     /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```

@@ -206,10 +206,8 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::Folders::get_operation",
             self.inner.get_operation(req, options));
-        #[cfg(google_cloud_unstable_tracing)]
         google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
-        #[cfg(google_cloud_unstable_tracing)]
         {
             if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
@@ -265,7 +263,6 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     fn get_poller_options(
         &self,
@@ -385,10 +382,8 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::Organizations::get_operation",
             self.inner.get_operation(req, options));
-        #[cfg(google_cloud_unstable_tracing)]
         google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
-        #[cfg(google_cloud_unstable_tracing)]
         {
             if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
@@ -622,10 +617,8 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::Projects::get_operation",
             self.inner.get_operation(req, options));
-        #[cfg(google_cloud_unstable_tracing)]
         google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
-        #[cfg(google_cloud_unstable_tracing)]
         {
             if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
@@ -681,7 +674,6 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     fn get_poller_options(
         &self,
@@ -787,10 +779,8 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::TagBindings::get_operation",
             self.inner.get_operation(req, options));
-        #[cfg(google_cloud_unstable_tracing)]
         google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
-        #[cfg(google_cloud_unstable_tracing)]
         {
             if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
@@ -846,7 +836,6 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     fn get_poller_options(
         &self,
@@ -938,10 +927,8 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::TagHolds::get_operation",
             self.inner.get_operation(req, options));
-        #[cfg(google_cloud_unstable_tracing)]
         google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
-        #[cfg(google_cloud_unstable_tracing)]
         {
             if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
@@ -997,7 +984,6 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     fn get_poller_options(
         &self,
@@ -1173,10 +1159,8 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::TagKeys::get_operation",
             self.inner.get_operation(req, options));
-        #[cfg(google_cloud_unstable_tracing)]
         google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
-        #[cfg(google_cloud_unstable_tracing)]
         {
             if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
@@ -1232,7 +1216,6 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     fn get_poller_options(
         &self,
@@ -1408,10 +1391,8 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::TagValues::get_operation",
             self.inner.get_operation(req, options));
-        #[cfg(google_cloud_unstable_tracing)]
         google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
-        #[cfg(google_cloud_unstable_tracing)]
         {
             if google_cloud_lro::LroRecorder::current().is_some() {
                 match &result {
@@ -1467,7 +1448,6 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[doc(hidden)]
     fn get_poller_options(
         &self,

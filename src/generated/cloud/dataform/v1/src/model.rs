@@ -504,8 +504,14 @@ pub mod repository {
         /// Required. The Git remote's URL.
         pub url: std::string::String,
 
-        /// Required. The Git remote's default branch name.
+        /// Optional. The Git remote's default branch name.
+        /// If not set, `main` will be used.
         pub default_branch: std::string::String,
+
+        /// Output only. The Git remote's effective default branch name.
+        /// This is the default branch name of the Git remote if it is set,
+        /// otherwise it is `main`.
+        pub effective_default_branch: std::string::String,
 
         /// Optional. The name of the Secret Manager secret version to use as an
         /// authentication token for Git operations. Must be in the format
@@ -516,6 +522,11 @@ pub mod repository {
         pub ssh_authentication_config: std::option::Option<
             crate::model::repository::git_remote_settings::SshAuthenticationConfig,
         >,
+
+        /// Optional. Resource name for the `GitRepositoryLink` used for machine
+        /// credentials. Must be in the format
+        /// `projects/*/locations/*/connections/*/gitRepositoryLinks/*`
+        pub git_repository_link: std::option::Option<std::string::String>,
 
         /// Output only. Deprecated: The field does not contain any token status
         /// information.
@@ -555,6 +566,21 @@ pub mod repository {
             v: T,
         ) -> Self {
             self.default_branch = v.into();
+            self
+        }
+
+        /// Sets the value of [effective_default_branch][crate::model::repository::GitRemoteSettings::effective_default_branch].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataform_v1::model::repository::GitRemoteSettings;
+        /// let x = GitRemoteSettings::new().set_effective_default_branch("example");
+        /// ```
+        pub fn set_effective_default_branch<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.effective_default_branch = v.into();
             self
         }
 
@@ -612,6 +638,37 @@ pub mod repository {
                 >,
         {
             self.ssh_authentication_config = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [git_repository_link][crate::model::repository::GitRemoteSettings::git_repository_link].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataform_v1::model::repository::GitRemoteSettings;
+        /// let x = GitRemoteSettings::new().set_git_repository_link("example");
+        /// ```
+        pub fn set_git_repository_link<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.git_repository_link = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [git_repository_link][crate::model::repository::GitRemoteSettings::git_repository_link].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataform_v1::model::repository::GitRemoteSettings;
+        /// let x = GitRemoteSettings::new().set_or_clear_git_repository_link(Some("example"));
+        /// let x = GitRemoteSettings::new().set_or_clear_git_repository_link(None::<String>);
+        /// ```
+        pub fn set_or_clear_git_repository_link<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.git_repository_link = v.map(|x| x.into());
             self
         }
 
@@ -4758,9 +4815,11 @@ pub mod directory_entry {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Entry {
-        /// A file in the directory.
+        /// A file in the directory. The path is returned including the full
+        /// folder structure from the root.
         File(std::string::String),
-        /// A child directory in the directory.
+        /// A child directory in the directory. The path is returned including
+        /// the full folder structure from the root.
         Directory(std::string::String),
     }
 }
@@ -13589,9 +13648,10 @@ pub mod workflow_invocation_action {
         /// Output only. The code contents of a Notebook to be run.
         pub contents: std::string::String,
 
-        /// Output only. The ID of the Vertex job that executed the notebook in
-        /// contents and also the ID used for the outputs created in Google Cloud
-        /// Storage buckets. Only set once the job has started to run.
+        /// Output only. The ID of the Gemini Enterprise Agent Platform job that
+        /// executed the notebook in contents and also the ID used for the outputs
+        /// created in Google Cloud Storage buckets. Only set once the job has
+        /// started to run.
         pub job_id: std::string::String,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -14809,8 +14869,8 @@ pub struct Folder {
     /// Optional. The containing Folder resource name. This should take
     /// the format: projects/{project}/locations/{location}/folders/{folder},
     /// projects/{project}/locations/{location}/teamFolders/{teamFolder}, or just
-    /// projects/{project}/locations/{location} if this is a root Folder. This
-    /// field can only be updated through MoveFolder.
+    /// "" if this is a root Folder. This field can only be updated through
+    /// MoveFolder.
     pub containing_folder: std::string::String,
 
     /// Output only. The resource name of the TeamFolder that this Folder is
@@ -15778,7 +15838,7 @@ pub mod delete_folder_tree_metadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryFolderContentsRequest {
-    /// Required. Name of the folder whose contents to list.
+    /// Required. Resource name of the Folder to list contents for.
     /// Format: projects/*/locations/*/folders/*
     pub folder: std::string::String,
 
@@ -15801,8 +15861,8 @@ pub struct QueryFolderContentsRequest {
     /// last_modified_time.
     /// Examples:
     ///
-    /// - `orderBy="display_name"`
-    /// - `orderBy="display_name desc"`
+    /// * `orderBy="display_name"`
+    /// * `orderBy="display_name desc"`
     pub order_by: std::string::String,
 
     /// Optional. Optional filtering for the returned list. Filtering is currently
@@ -15810,7 +15870,7 @@ pub struct QueryFolderContentsRequest {
     ///
     /// Example:
     ///
-    /// - `filter="display_name="MyFolder""`
+    /// * `filter="display_name="MyFolder""`
     pub filter: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -16120,7 +16180,7 @@ pub mod query_folder_contents_response {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryUserRootContentsRequest {
-    /// Required. Location of the user root folder whose contents to list.
+    /// Required. Location of the user root folder to list contents for.
     /// Format: projects/*/locations/*
     pub location: std::string::String,
 
@@ -16142,8 +16202,8 @@ pub struct QueryUserRootContentsRequest {
     /// order. Supported keywords: display_name (default), created_at,
     /// last_modified_at. Examples:
     ///
-    /// - `orderBy="display_name"`
-    /// - `orderBy="display_name desc"`
+    /// * `orderBy="display_name"`
+    /// * `orderBy="display_name desc"`
     pub order_by: std::string::String,
 
     /// Optional. Optional filtering for the returned list. Filtering is currently
@@ -16151,7 +16211,7 @@ pub struct QueryUserRootContentsRequest {
     ///
     /// Example:
     ///
-    /// - `filter="display_name="MyFolder""`
+    /// * `filter="display_name="MyFolder""`
     pub filter: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -16896,7 +16956,7 @@ impl wkt::message::Message for DeleteTeamFolderRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryTeamFolderContentsRequest {
-    /// Required. Name of the team_folder whose contents to list.
+    /// Required. Resource name of the TeamFolder to list contents for.
     /// Format: `projects/*/locations/*/teamFolders/*`.
     pub team_folder: std::string::String,
 
@@ -16919,8 +16979,8 @@ pub struct QueryTeamFolderContentsRequest {
     /// last_modified_time.
     /// Examples:
     ///
-    /// - `orderBy="display_name"`
-    /// - `orderBy="display_name desc"`
+    /// * `orderBy="display_name"`
+    /// * `orderBy="display_name desc"`
     pub order_by: std::string::String,
 
     /// Optional. Optional filtering for the returned list. Filtering is currently
@@ -16928,7 +16988,7 @@ pub struct QueryTeamFolderContentsRequest {
     ///
     /// Example:
     ///
-    /// - `filter="display_name="MyFolder""`
+    /// * `filter="display_name="MyFolder""`
     pub filter: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -17237,9 +17297,9 @@ pub struct SearchTeamFoldersRequest {
     /// Format: `projects/*/locations/*`.
     pub location: std::string::String,
 
-    /// Optional. Maximum number of TeamFolders to return. The server may return
-    /// fewer items than requested. If unspecified, the server will pick an
-    /// appropriate default.
+    /// Optional. Maximum number of `TeamFolders` to return. The server may return
+    /// fewer items than requested. If unspecified, the server will pick a default
+    /// of `page_size` = 50.
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `SearchTeamFolders` call.
@@ -17254,8 +17314,8 @@ pub struct SearchTeamFoldersRequest {
     /// Supported keywords: `display_name` (default), `create_time`,
     /// `last_modified_time`. Examples:
     ///
-    /// - `orderBy="display_name"`
-    /// - `orderBy="display_name desc"`
+    /// * `orderBy="display_name"`
+    /// * `orderBy="display_name desc"`
     pub order_by: std::string::String,
 
     /// Optional. Optional filtering for the returned list. Filtering is currently
@@ -17263,7 +17323,7 @@ pub struct SearchTeamFoldersRequest {
     ///
     /// Example:
     ///
-    /// - `filter="display_name="MyFolder""`
+    /// * `filter="display_name="MyFolder""`
     pub filter: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -18128,7 +18188,7 @@ pub mod move_repository_metadata {
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum DirectoryContentsView {
-    /// The default / unset value. Defaults to DIRECTORY_CONTENTS_VIEW_BASIC.
+    /// The default unset value. Defaults to DIRECTORY_CONTENTS_VIEW_BASIC.
     Unspecified,
     /// Includes only the file or directory name. This is the default behavior.
     Basic,

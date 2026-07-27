@@ -1221,7 +1221,7 @@ impl super::stub::Addresses for Addresses {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.addresses/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -2141,7 +2141,7 @@ impl super::stub::Autoscalers for Autoscalers {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.autoscalers/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.zoneOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -3324,7 +3324,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.backendBuckets/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -4726,7 +4726,7 @@ impl super::stub::BackendServices for BackendServices {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.backendServices/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -5260,7 +5260,7 @@ impl super::stub::CrossSiteNetworks for CrossSiteNetworks {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.crossSiteNetworks/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -7420,7 +7420,7 @@ impl super::stub::Disks for Disks {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.disks/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.zoneOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -7964,7 +7964,7 @@ impl super::stub::ExternalVpnGateways for ExternalVpnGateways {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.externalVpnGateways/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -9274,7 +9274,9 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.firewallPolicies/getOperation")
+                    .set_rpc_method(
+                        "google.cloud.compute.v1.globalOrganizationOperations/getOperation",
+                    )
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -9920,7 +9922,7 @@ impl super::stub::Firewalls for Firewalls {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.firewalls/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -10705,7 +10707,7 @@ impl super::stub::ForwardingRules for ForwardingRules {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.forwardingRules/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -11415,7 +11417,7 @@ impl super::stub::FutureReservations for FutureReservations {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.futureReservations/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.zoneOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -12059,7 +12061,7 @@ impl super::stub::GlobalAddresses for GlobalAddresses {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.globalAddresses/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -12709,7 +12711,7 @@ impl super::stub::GlobalForwardingRules for GlobalForwardingRules {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.globalForwardingRules/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -13328,9 +13330,7 @@ impl super::stub::GlobalNetworkEndpointGroups for GlobalNetworkEndpointGroups {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method(
-                        "google.cloud.compute.v1.globalNetworkEndpointGroups/getOperation",
-                    )
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -14475,9 +14475,7 @@ impl super::stub::GlobalPublicDelegatedPrefixes for GlobalPublicDelegatedPrefixe
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method(
-                        "google.cloud.compute.v1.globalPublicDelegatedPrefixes/getOperation",
-                    )
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -15046,9 +15044,7 @@ impl super::stub::GlobalVmExtensionPolicies for GlobalVmExtensionPolicies {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method(
-                        "google.cloud.compute.v1.globalVmExtensionPolicies/getOperation",
-                    )
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -15783,7 +15779,7 @@ impl super::stub::HealthChecks for HealthChecks {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.healthChecks/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -16432,7 +16428,7 @@ impl super::stub::HttpHealthChecks for HttpHealthChecks {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.httpHealthChecks/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -17097,7 +17093,7 @@ impl super::stub::HttpsHealthChecks for HttpsHealthChecks {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.httpsHealthChecks/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -18171,7 +18167,7 @@ impl super::stub::Images for Images {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.images/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -18725,9 +18721,7 @@ impl super::stub::InstanceGroupManagerResizeRequests for InstanceGroupManagerRes
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method(
-                        "google.cloud.compute.v1.instanceGroupManagerResizeRequests/getOperation",
-                    )
+                    .set_rpc_method("google.cloud.compute.v1.zoneOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -19148,6 +19142,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 var_instance_group_manager,
             );
             let builder = self.inner.builder(Method::DELETE, path);
+            let builder = req.no_graceful_shutdown.iter().fold(builder, |builder, p| builder.query(&[("noGracefulShutdown", p)]));
             let builder = req.request_id.iter().fold(builder, |builder, p| builder.query(&[("requestId", p)]));
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
@@ -19225,6 +19220,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 var_instance_group_manager,
             );
             let builder = self.inner.builder(Method::POST, path);
+            let builder = req.no_graceful_shutdown.iter().fold(builder, |builder, p| builder.query(&[("noGracefulShutdown", p)]));
             let builder = req.request_id.iter().fold(builder, |builder, p| builder.query(&[("requestId", p)]));
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20037,6 +20033,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 var_instance_group_manager,
             );
             let builder = self.inner.builder(Method::POST, path);
+            let builder = req.no_graceful_shutdown.iter().fold(builder, |builder, p| builder.query(&[("noGracefulShutdown", p)]));
             let builder = req.request_id.iter().fold(builder, |builder, p| builder.query(&[("requestId", p)]));
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20504,6 +20501,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 var_instance_group_manager,
             );
             let builder = self.inner.builder(Method::POST, path);
+            let builder = req.no_graceful_shutdown.iter().fold(builder, |builder, p| builder.query(&[("noGracefulShutdown", p)]));
             let builder = req.request_id.iter().fold(builder, |builder, p| builder.query(&[("requestId", p)]));
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20777,7 +20775,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.instanceGroupManagers/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.zoneOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -21737,7 +21735,7 @@ impl super::stub::InstanceGroups for InstanceGroups {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.instanceGroups/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.zoneOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -22033,7 +22031,7 @@ impl super::stub::InstanceSettings for InstanceSettings {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.instanceSettings/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.zoneOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -22753,7 +22751,7 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.instanceTemplates/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -27137,7 +27135,7 @@ impl super::stub::Instances for Instances {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.instances/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.zoneOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -27835,7 +27833,7 @@ impl super::stub::InstantSnapshotGroups for InstantSnapshotGroups {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.instantSnapshotGroups/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.zoneOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -28692,7 +28690,7 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.instantSnapshots/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.zoneOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -29455,9 +29453,7 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method(
-                        "google.cloud.compute.v1.interconnectAttachmentGroups/getOperation",
-                    )
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -30171,7 +30167,7 @@ impl super::stub::InterconnectAttachments for InterconnectAttachments {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.interconnectAttachments/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -31040,7 +31036,7 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.interconnectGroups/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -32116,7 +32112,7 @@ impl super::stub::Interconnects for Interconnects {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.interconnects/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -33184,7 +33180,7 @@ impl super::stub::Licenses for Licenses {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.licenses/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -33903,7 +33899,7 @@ impl super::stub::MachineImages for MachineImages {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.machineImages/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -35068,7 +35064,7 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.networkAttachments/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -35612,9 +35608,7 @@ impl super::stub::NetworkEdgeSecurityServices for NetworkEdgeSecurityServices {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method(
-                        "google.cloud.compute.v1.networkEdgeSecurityServices/getOperation",
-                    )
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -36487,7 +36481,7 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.networkEndpointGroups/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.zoneOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -38143,7 +38137,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.networkFirewallPolicies/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -39468,7 +39462,7 @@ impl super::stub::Networks for Networks {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.networks/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -40860,7 +40854,7 @@ impl super::stub::NodeGroups for NodeGroups {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.nodeGroups/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.zoneOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -41661,7 +41655,7 @@ impl super::stub::NodeTemplates for NodeTemplates {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.nodeTemplates/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -43158,7 +43152,7 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method(
-                        "google.cloud.compute.v1.organizationSecurityPolicies/getOperation",
+                        "google.cloud.compute.v1.globalOrganizationOperations/getOperation",
                     )
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
@@ -43865,7 +43859,7 @@ impl super::stub::PacketMirrorings for PacketMirrorings {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.packetMirrorings/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -44223,7 +44217,7 @@ impl super::stub::PreviewFeatures for PreviewFeatures {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.previewFeatures/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -45243,7 +45237,7 @@ impl super::stub::Projects for Projects {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.projects/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -45858,7 +45852,7 @@ impl super::stub::PublicAdvertisedPrefixes for PublicAdvertisedPrefixes {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.publicAdvertisedPrefixes/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -46645,7 +46639,7 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.publicDelegatedPrefixes/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -47365,7 +47359,7 @@ impl super::stub::RegionAutoscalers for RegionAutoscalers {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.regionAutoscalers/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -48231,7 +48225,7 @@ impl super::stub::RegionBackendBuckets for RegionBackendBuckets {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.regionBackendBuckets/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -49329,7 +49323,7 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.regionBackendServices/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -49917,7 +49911,7 @@ impl super::stub::RegionCommitments for RegionCommitments {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.regionCommitments/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -50704,9 +50698,7 @@ impl super::stub::RegionCompositeHealthChecks for RegionCompositeHealthChecks {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method(
-                        "google.cloud.compute.v1.regionCompositeHealthChecks/getOperation",
-                    )
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -52570,7 +52562,7 @@ impl super::stub::RegionDisks for RegionDisks {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.regionDisks/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -53283,9 +53275,7 @@ impl super::stub::RegionHealthAggregationPolicies for RegionHealthAggregationPol
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method(
-                        "google.cloud.compute.v1.regionHealthAggregationPolicies/getOperation",
-                    )
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -53995,9 +53985,7 @@ impl super::stub::RegionHealthCheckServices for RegionHealthCheckServices {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method(
-                        "google.cloud.compute.v1.regionHealthCheckServices/getOperation",
-                    )
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -54731,7 +54719,7 @@ impl super::stub::RegionHealthChecks for RegionHealthChecks {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.regionHealthChecks/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -55546,7 +55534,7 @@ impl super::stub::RegionHealthSources for RegionHealthSources {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.regionHealthSources/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -56103,9 +56091,9 @@ impl super::stub::RegionInstanceGroupManagerResizeRequests
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.regionInstanceGroupManagerResizeRequests/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -56431,6 +56419,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 var_instance_group_manager,
             );
             let builder = self.inner.builder(Method::DELETE, path);
+            let builder = req.no_graceful_shutdown.iter().fold(builder, |builder, p| builder.query(&[("noGracefulShutdown", p)]));
             let builder = req.request_id.iter().fold(builder, |builder, p| builder.query(&[("requestId", p)]));
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
@@ -56508,6 +56497,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 var_instance_group_manager,
             );
             let builder = self.inner.builder(Method::POST, path);
+            let builder = req.no_graceful_shutdown.iter().fold(builder, |builder, p| builder.query(&[("noGracefulShutdown", p)]));
             let builder = req.request_id.iter().fold(builder, |builder, p| builder.query(&[("requestId", p)]));
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -57318,6 +57308,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 var_instance_group_manager,
             );
             let builder = self.inner.builder(Method::POST, path);
+            let builder = req.no_graceful_shutdown.iter().fold(builder, |builder, p| builder.query(&[("noGracefulShutdown", p)]));
             let builder = req.request_id.iter().fold(builder, |builder, p| builder.query(&[("requestId", p)]));
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -57791,6 +57782,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 var_instance_group_manager,
             );
             let builder = self.inner.builder(Method::POST, path);
+            let builder = req.no_graceful_shutdown.iter().fold(builder, |builder, p| builder.query(&[("noGracefulShutdown", p)]));
             let builder = req.request_id.iter().fold(builder, |builder, p| builder.query(&[("requestId", p)]));
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -58064,9 +58056,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method(
-                        "google.cloud.compute.v1.regionInstanceGroupManagers/getOperation",
-                    )
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -58607,7 +58597,7 @@ impl super::stub::RegionInstanceGroups for RegionInstanceGroups {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.regionInstanceGroups/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -59068,7 +59058,7 @@ impl super::stub::RegionInstanceTemplates for RegionInstanceTemplates {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.regionInstanceTemplates/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -59279,7 +59269,7 @@ impl super::stub::RegionInstances for RegionInstances {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.regionInstances/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -59981,9 +59971,7 @@ impl super::stub::RegionInstantSnapshotGroups for RegionInstantSnapshotGroups {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method(
-                        "google.cloud.compute.v1.regionInstantSnapshotGroups/getOperation",
-                    )
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -60752,7 +60740,7 @@ impl super::stub::RegionInstantSnapshots for RegionInstantSnapshots {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.regionInstantSnapshots/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -61450,9 +61438,7 @@ impl super::stub::RegionNetworkEndpointGroups for RegionNetworkEndpointGroups {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method(
-                        "google.cloud.compute.v1.regionNetworkEndpointGroups/getOperation",
-                    )
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -62931,9 +62917,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method(
-                        "google.cloud.compute.v1.regionNetworkFirewallPolicies/getOperation",
-                    )
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -63567,9 +63551,7 @@ impl super::stub::RegionNotificationEndpoints for RegionNotificationEndpoints {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method(
-                        "google.cloud.compute.v1.regionNotificationEndpoints/getOperation",
-                    )
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -64893,7 +64875,7 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.regionSecurityPolicies/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -65191,7 +65173,7 @@ impl super::stub::RegionSnapshotSettings for RegionSnapshotSettings {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.regionSnapshotSettings/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -66054,7 +66036,7 @@ impl super::stub::RegionSnapshots for RegionSnapshots {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.regionSnapshots/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -66515,7 +66497,7 @@ impl super::stub::RegionSslCertificates for RegionSslCertificates {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.regionSslCertificates/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -67159,7 +67141,7 @@ impl super::stub::RegionSslPolicies for RegionSslPolicies {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.regionSslPolicies/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -67697,7 +67679,7 @@ impl super::stub::RegionTargetHttpProxies for RegionTargetHttpProxies {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.regionTargetHttpProxies/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -68391,7 +68373,7 @@ impl super::stub::RegionTargetHttpsProxies for RegionTargetHttpsProxies {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.regionTargetHttpsProxies/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -68852,7 +68834,7 @@ impl super::stub::RegionTargetTcpProxies for RegionTargetTcpProxies {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.regionTargetTcpProxies/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -69595,7 +69577,7 @@ impl super::stub::RegionUrlMaps for RegionUrlMaps {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.regionUrlMaps/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -70547,7 +70529,7 @@ impl super::stub::ReservationBlocks for ReservationBlocks {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.reservationBlocks/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.zoneOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -71036,7 +71018,7 @@ impl super::stub::ReservationSlots for ReservationSlots {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.reservationSlots/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.zoneOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -71831,7 +71813,7 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.reservationSubBlocks/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.zoneOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -72903,7 +72885,7 @@ impl super::stub::Reservations for Reservations {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.reservations/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.zoneOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -73765,7 +73747,7 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.resourcePolicies/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -74182,7 +74164,7 @@ impl super::stub::RolloutPlans for RolloutPlans {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.rolloutPlans/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -74865,7 +74847,7 @@ impl super::stub::Rollouts for Rollouts {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.rollouts/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -75107,6 +75089,84 @@ impl super::stub::Routers for Routers {
         self.inner.execute(builder, body, options).await
     }
 
+    async fn delete_named_set(
+        &self,
+        req: crate::model::routers::DeleteNamedSetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+        .or_else(|| {
+            let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_region = try_match(Some(&req).map(|m| &m.region).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_router = try_match(Some(&req).map(|m| &m.router).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/compute/v1/projects/{}/regions/{}/routers/{}/deleteNamedSet",
+                var_project,
+                var_region,
+                var_router,
+            );
+            let path_template = "/compute/v1/projects/{project}/regions/{region}/routers/{router}/deleteNamedSet";
+
+            let resource_name = format!(
+                "//compute.googleapis.com/projects/{}/regions/{}/routers/{}",
+                var_project,
+                var_region,
+                var_router,
+            );
+            let builder = self.inner.builder(Method::POST, path);
+            let builder = req.named_set.iter().fold(builder, |builder, p| builder.query(&[("namedSet", p)]));
+            let builder = req.request_id.iter().fold(builder, |builder, p| builder.query(&[("requestId", p)]));
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "project",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.region).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "region",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.router).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "router",
+                    "*");
+                paths.push(builder.build());
+            }
+            google_cloud_gax::error::Error::binding(BindingError { paths })
+        })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.compute.v1.routers/deleteNamedSet")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
     async fn delete_route_policy(
         &self,
         req: crate::model::routers::DeleteRoutePolicyRequest,
@@ -75254,6 +75314,95 @@ impl super::stub::Routers for Routers {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.compute.v1.routers/get")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_named_set(
+        &self,
+        req: crate::model::routers::GetNamedSetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RoutersGetNamedSetResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_region = try_match(
+                    Some(&req).map(|m| &m.region).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_router = try_match(
+                    Some(&req).map(|m| &m.router).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!(
+                    "/compute/v1/projects/{}/regions/{}/routers/{}/getNamedSet",
+                    var_project, var_region, var_router,
+                );
+                let path_template =
+                    "/compute/v1/projects/{project}/regions/{region}/routers/{router}/getNamedSet";
+
+                let resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/routers/{}",
+                    var_project, var_region, var_router,
+                );
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = req
+                    .named_set
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("namedSet", p)]));
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.region).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "region",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.router).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "router",
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.compute.v1.routers/getNamedSet")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -75854,6 +76003,87 @@ impl super::stub::Routers for Routers {
         self.inner.execute(builder, body, options).await
     }
 
+    async fn list_named_sets(
+        &self,
+        req: crate::model::routers::ListNamedSetsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RoutersListNamedSets>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+        .or_else(|| {
+            let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_region = try_match(Some(&req).map(|m| &m.region).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_router = try_match(Some(&req).map(|m| &m.router).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/compute/v1/projects/{}/regions/{}/routers/{}/listNamedSets",
+                var_project,
+                var_region,
+                var_router,
+            );
+            let path_template = "/compute/v1/projects/{project}/regions/{region}/routers/{router}/listNamedSets";
+
+            let resource_name = format!(
+                "//compute.googleapis.com/projects/{}/regions/{}/routers/{}",
+                var_project,
+                var_region,
+                var_router,
+            );
+            let builder = self.inner.builder(Method::GET, path);
+            let builder = req.filter.iter().fold(builder, |builder, p| builder.query(&[("filter", p)]));
+            let builder = req.max_results.iter().fold(builder, |builder, p| builder.query(&[("maxResults", p)]));
+            let builder = req.order_by.iter().fold(builder, |builder, p| builder.query(&[("orderBy", p)]));
+            let builder = req.page_token.iter().fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
+            let builder = req.return_partial_success.iter().fold(builder, |builder, p| builder.query(&[("returnPartialSuccess", p)]));
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "project",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.region).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "region",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.router).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "router",
+                    "*");
+                paths.push(builder.build());
+            }
+            google_cloud_gax::error::Error::binding(BindingError { paths })
+        })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.compute.v1.routers/listNamedSets")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
     async fn list_route_policies(
         &self,
         req: crate::model::routers::ListRoutePoliciesRequest,
@@ -76008,6 +76238,83 @@ impl super::stub::Routers for Routers {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.compute.v1.routers/patch")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.body, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn patch_named_set(
+        &self,
+        req: crate::model::routers::PatchNamedSetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+        .or_else(|| {
+            let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_region = try_match(Some(&req).map(|m| &m.region).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_router = try_match(Some(&req).map(|m| &m.router).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/compute/v1/projects/{}/regions/{}/routers/{}/patchNamedSet",
+                var_project,
+                var_region,
+                var_router,
+            );
+            let path_template = "/compute/v1/projects/{project}/regions/{region}/routers/{router}/patchNamedSet";
+
+            let resource_name = format!(
+                "//compute.googleapis.com/projects/{}/regions/{}/routers/{}",
+                var_project,
+                var_region,
+                var_router,
+            );
+            let builder = self.inner.builder(Method::POST, path);
+            let builder = req.request_id.iter().fold(builder, |builder, p| builder.query(&[("requestId", p)]));
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "project",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.region).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "region",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.router).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "router",
+                    "*");
+                paths.push(builder.build());
+            }
+            google_cloud_gax::error::Error::binding(BindingError { paths })
+        })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.compute.v1.routers/patchNamedSet")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -76275,6 +76582,83 @@ impl super::stub::Routers for Routers {
         self.inner.execute(builder, body, options).await
     }
 
+    async fn update_named_set(
+        &self,
+        req: crate::model::routers::UpdateNamedSetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+        .or_else(|| {
+            let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_region = try_match(Some(&req).map(|m| &m.region).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_router = try_match(Some(&req).map(|m| &m.router).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/compute/v1/projects/{}/regions/{}/routers/{}/updateNamedSet",
+                var_project,
+                var_region,
+                var_router,
+            );
+            let path_template = "/compute/v1/projects/{project}/regions/{region}/routers/{router}/updateNamedSet";
+
+            let resource_name = format!(
+                "//compute.googleapis.com/projects/{}/regions/{}/routers/{}",
+                var_project,
+                var_region,
+                var_router,
+            );
+            let builder = self.inner.builder(Method::POST, path);
+            let builder = req.request_id.iter().fold(builder, |builder, p| builder.query(&[("requestId", p)]));
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "project",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.region).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "region",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.router).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "router",
+                    "*");
+                paths.push(builder.build());
+            }
+            google_cloud_gax::error::Error::binding(BindingError { paths })
+        })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.compute.v1.routers/updateNamedSet")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.body, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
     async fn update_route_policy(
         &self,
         req: crate::model::routers::UpdateRoutePolicyRequest,
@@ -76420,7 +76804,7 @@ impl super::stub::Routers for Routers {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.routers/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -76910,7 +77294,7 @@ impl super::stub::Routes for Routes {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.routes/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -77944,7 +78328,7 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.securityPolicies/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -78804,7 +79188,7 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.serviceAttachments/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -79063,7 +79447,7 @@ impl super::stub::SnapshotSettings for SnapshotSettings {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.snapshotSettings/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -79863,7 +80247,7 @@ impl super::stub::Snapshots for Snapshots {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.snapshots/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -80378,7 +80762,7 @@ impl super::stub::SslCertificates for SslCertificates {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.sslCertificates/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -81050,7 +81434,7 @@ impl super::stub::SslPolicies for SslPolicies {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.sslPolicies/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -82330,7 +82714,7 @@ impl super::stub::StoragePools for StoragePools {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.storagePools/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.zoneOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -83479,7 +83863,7 @@ impl super::stub::Subnetworks for Subnetworks {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.subnetworks/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -83981,7 +84365,7 @@ impl super::stub::TargetGrpcProxies for TargetGrpcProxies {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.targetGrpcProxies/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -84644,7 +85028,7 @@ impl super::stub::TargetHttpProxies for TargetHttpProxies {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.targetHttpProxies/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -85595,7 +85979,7 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.targetHttpsProxies/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -86320,7 +86704,7 @@ impl super::stub::TargetInstances for TargetInstances {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.targetInstances/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.zoneOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -87507,7 +87891,7 @@ impl super::stub::TargetPools for TargetPools {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.targetPools/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -88343,7 +88727,7 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.targetSslProxies/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -89064,7 +89448,7 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.targetTcpProxies/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -89694,7 +90078,7 @@ impl super::stub::TargetVpnGateways for TargetVpnGateways {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.targetVpnGateways/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -90583,7 +90967,7 @@ impl super::stub::UrlMaps for UrlMaps {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.urlMaps/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -91384,7 +91768,7 @@ impl super::stub::VpnGateways for VpnGateways {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.vpnGateways/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -92030,7 +92414,7 @@ impl super::stub::VpnTunnels for VpnTunnels {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.vpnTunnels/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.regionOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -92528,7 +92912,7 @@ impl super::stub::WireGroups for WireGroups {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.wireGroups/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.globalOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );
@@ -93456,7 +93840,7 @@ impl super::stub::ZoneVmExtensionPolicies for ZoneVmExtensionPolicies {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.zoneVmExtensionPolicies/getOperation")
+                    .set_rpc_method("google.cloud.compute.v1.zoneOperations/getOperation")
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );

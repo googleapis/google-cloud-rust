@@ -232,3 +232,101 @@ impl<T: super::CommentService> CommentService for T {
         T::get_comment(self, req, options).await
     }
 }
+
+/// A dyn-compatible, crate-private version of [super::SupportEventSubscriptionService].
+#[async_trait::async_trait]
+pub trait SupportEventSubscriptionService: std::fmt::Debug + Send + Sync {
+    async fn create_support_event_subscription(
+        &self,
+        req: crate::model::CreateSupportEventSubscriptionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SupportEventSubscription>>;
+
+    async fn get_support_event_subscription(
+        &self,
+        req: crate::model::GetSupportEventSubscriptionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SupportEventSubscription>>;
+
+    async fn list_support_event_subscriptions(
+        &self,
+        req: crate::model::ListSupportEventSubscriptionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListSupportEventSubscriptionsResponse>>;
+
+    async fn update_support_event_subscription(
+        &self,
+        req: crate::model::UpdateSupportEventSubscriptionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SupportEventSubscription>>;
+
+    async fn delete_support_event_subscription(
+        &self,
+        req: crate::model::DeleteSupportEventSubscriptionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SupportEventSubscription>>;
+
+    async fn undelete_support_event_subscription(
+        &self,
+        req: crate::model::UndeleteSupportEventSubscriptionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SupportEventSubscription>>;
+}
+
+/// All implementations of [super::SupportEventSubscriptionService] also implement [SupportEventSubscriptionService].
+#[async_trait::async_trait]
+impl<T: super::SupportEventSubscriptionService> SupportEventSubscriptionService for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_support_event_subscription(
+        &self,
+        req: crate::model::CreateSupportEventSubscriptionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SupportEventSubscription>> {
+        T::create_support_event_subscription(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_support_event_subscription(
+        &self,
+        req: crate::model::GetSupportEventSubscriptionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SupportEventSubscription>> {
+        T::get_support_event_subscription(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_support_event_subscriptions(
+        &self,
+        req: crate::model::ListSupportEventSubscriptionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListSupportEventSubscriptionsResponse>> {
+        T::list_support_event_subscriptions(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_support_event_subscription(
+        &self,
+        req: crate::model::UpdateSupportEventSubscriptionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SupportEventSubscription>> {
+        T::update_support_event_subscription(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_support_event_subscription(
+        &self,
+        req: crate::model::DeleteSupportEventSubscriptionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SupportEventSubscription>> {
+        T::delete_support_event_subscription(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn undelete_support_event_subscription(
+        &self,
+        req: crate::model::UndeleteSupportEventSubscriptionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SupportEventSubscription>> {
+        T::undelete_support_event_subscription(self, req, options).await
+    }
+}

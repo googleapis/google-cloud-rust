@@ -1099,6 +1099,213 @@ impl<T: super::FeaturedContentNativeDashboardService> FeaturedContentNativeDashb
     }
 }
 
+/// A dyn-compatible, crate-private version of [super::FindingsRefinementService].
+#[async_trait::async_trait]
+pub trait FindingsRefinementService: std::fmt::Debug + Send + Sync {
+    async fn get_findings_refinement(
+        &self,
+        req: crate::model::GetFindingsRefinementRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FindingsRefinement>>;
+
+    async fn list_findings_refinements(
+        &self,
+        req: crate::model::ListFindingsRefinementsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListFindingsRefinementsResponse>>;
+
+    async fn create_findings_refinement(
+        &self,
+        req: crate::model::CreateFindingsRefinementRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FindingsRefinement>>;
+
+    async fn update_findings_refinement(
+        &self,
+        req: crate::model::UpdateFindingsRefinementRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FindingsRefinement>>;
+
+    async fn get_findings_refinement_deployment(
+        &self,
+        req: crate::model::GetFindingsRefinementDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FindingsRefinementDeployment>>;
+
+    async fn update_findings_refinement_deployment(
+        &self,
+        req: crate::model::UpdateFindingsRefinementDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FindingsRefinementDeployment>>;
+
+    async fn list_all_findings_refinement_deployments(
+        &self,
+        req: crate::model::ListAllFindingsRefinementDeploymentsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAllFindingsRefinementDeploymentsResponse>>;
+
+    async fn compute_findings_refinement_activity(
+        &self,
+        req: crate::model::ComputeFindingsRefinementActivityRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ComputeFindingsRefinementActivityResponse>>;
+
+    async fn compute_all_findings_refinement_activities(
+        &self,
+        req: crate::model::ComputeAllFindingsRefinementActivitiesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ComputeAllFindingsRefinementActivitiesResponse>>;
+
+    async fn list_operations(
+        &self,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
+
+    async fn get_operation(
+        &self,
+        req: google_cloud_longrunning::model::GetOperationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn delete_operation(
+        &self,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
+
+    async fn cancel_operation(
+        &self,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
+}
+
+/// All implementations of [super::FindingsRefinementService] also implement [FindingsRefinementService].
+#[async_trait::async_trait]
+impl<T: super::FindingsRefinementService> FindingsRefinementService for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_findings_refinement(
+        &self,
+        req: crate::model::GetFindingsRefinementRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FindingsRefinement>> {
+        T::get_findings_refinement(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_findings_refinements(
+        &self,
+        req: crate::model::ListFindingsRefinementsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListFindingsRefinementsResponse>> {
+        T::list_findings_refinements(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_findings_refinement(
+        &self,
+        req: crate::model::CreateFindingsRefinementRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FindingsRefinement>> {
+        T::create_findings_refinement(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_findings_refinement(
+        &self,
+        req: crate::model::UpdateFindingsRefinementRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FindingsRefinement>> {
+        T::update_findings_refinement(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_findings_refinement_deployment(
+        &self,
+        req: crate::model::GetFindingsRefinementDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FindingsRefinementDeployment>> {
+        T::get_findings_refinement_deployment(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_findings_refinement_deployment(
+        &self,
+        req: crate::model::UpdateFindingsRefinementDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FindingsRefinementDeployment>> {
+        T::update_findings_refinement_deployment(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_all_findings_refinement_deployments(
+        &self,
+        req: crate::model::ListAllFindingsRefinementDeploymentsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAllFindingsRefinementDeploymentsResponse>>
+    {
+        T::list_all_findings_refinement_deployments(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn compute_findings_refinement_activity(
+        &self,
+        req: crate::model::ComputeFindingsRefinementActivityRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ComputeFindingsRefinementActivityResponse>>
+    {
+        T::compute_findings_refinement_activity(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn compute_all_findings_refinement_activities(
+        &self,
+        req: crate::model::ComputeAllFindingsRefinementActivitiesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ComputeAllFindingsRefinementActivitiesResponse>>
+    {
+        T::compute_all_findings_refinement_activities(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_operations(
+        &self,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
+        T::list_operations(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: google_cloud_longrunning::model::GetOperationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_operation(
+        &self,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
+        T::delete_operation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn cancel_operation(
+        &self,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
+        T::cancel_operation(self, req, options).await
+    }
+}
+
 /// A dyn-compatible, crate-private version of [super::InstanceService].
 #[async_trait::async_trait]
 pub trait InstanceService: std::fmt::Debug + Send + Sync {
@@ -1691,7 +1898,6 @@ pub trait RuleService: std::fmt::Debug + Send + Sync {
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 
-    #[cfg(google_cloud_unstable_tracing)]
     fn get_poller_options(
         &self,
         options: &crate::RequestOptions,
@@ -1869,7 +2075,6 @@ impl<T: super::RuleService> RuleService for T {
         T::get_polling_backoff_policy(self, options)
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     fn get_poller_options(
         &self,
         options: &crate::RequestOptions,

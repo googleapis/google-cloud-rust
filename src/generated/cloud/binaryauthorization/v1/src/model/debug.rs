@@ -45,6 +45,7 @@ impl std::fmt::Debug for super::Policy {
         );
         debug_struct.field("default_admission_rule", &self.default_admission_rule);
         debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("etag", &self.etag);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -82,6 +83,7 @@ impl std::fmt::Debug for super::Attestor {
         debug_struct.field("name", &self.name);
         debug_struct.field("description", &self.description);
         debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("etag", &self.etag);
         debug_struct.field("attestor_type", &self.attestor_type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -111,6 +113,7 @@ impl std::fmt::Debug for super::PkixPublicKey {
         let mut debug_struct = f.debug_struct("PkixPublicKey");
         debug_struct.field("public_key_pem", &self.public_key_pem);
         debug_struct.field("signature_algorithm", &self.signature_algorithm);
+        debug_struct.field("key_id", &self.key_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

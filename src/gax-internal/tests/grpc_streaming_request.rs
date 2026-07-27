@@ -19,9 +19,12 @@ mod tests {
     };
     use google_cloud_gax::options::*;
     use google_cloud_gax::retry_policy::NeverRetry;
+    use google_cloud_gax_internal::attempt_interceptor::AttemptInterceptor;
     use google_cloud_gax_internal::grpc;
     use grpc_server::google::test::v1::{EchoRequest, EchoResponse};
     use grpc_server::{builder, start_echo_server};
+    use http::HeaderMap;
+    use std::sync::Arc;
 
     fn test_credentials() -> Credentials {
         Anonymous::new().build()
@@ -112,6 +115,46 @@ mod tests {
             send_streaming_request_with_status(client.clone(), rx, "resource=error").await?;
         let status = response.unwrap_err();
         assert_eq!(status.code(), tonic::Code::Aborted, "{status:?}");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn attempt_interceptor() -> anyhow::Result<()> {
+        use http::header::{HeaderName, HeaderValue};
+
+        #[derive(Debug)]
+        struct TestInterceptor;
+        impl AttemptInterceptor for TestInterceptor {
+            fn intercept(&self, headers: &mut HeaderMap, attempt: u32) {
+                headers.insert(
+                    HeaderName::from_static("x-test-attempt"),
+                    HeaderValue::from_str(&attempt.to_string()).expect("valid attempt number"),
+                );
+            }
+        }
+
+        let (endpoint, _server) = start_echo_server().await?;
+
+        let mut config = google_cloud_gax_internal::options::ClientConfig::default();
+        config.cred = Some(test_credentials());
+        config.endpoint = Some(endpoint);
+
+        let mut client = grpc::Client::new(config, "https://test-only.googleapis.com").await?;
+        client.set_attempt_interceptor(Arc::new(TestInterceptor));
+
+        let (tx, rx) = tokio::sync::mpsc::channel(100);
+        tx.send(simple_request("msg0")).await?;
+        let response = send_streaming_request(client, rx, "").await?;
+        let (_, mut stream, _) = response.into_parts();
+        let first_msg = stream
+            .message()
+            .await?
+            .expect("stream should yield a message");
+        assert_eq!(
+            first_msg.metadata.get("x-test-attempt").map(String::as_str),
+            Some("1")
+        );
 
         Ok(())
     }

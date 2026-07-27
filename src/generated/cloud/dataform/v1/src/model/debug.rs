@@ -66,11 +66,13 @@ impl std::fmt::Debug for super::repository::GitRemoteSettings {
         let mut debug_struct = f.debug_struct("GitRemoteSettings");
         debug_struct.field("url", &self.url);
         debug_struct.field("default_branch", &self.default_branch);
+        debug_struct.field("effective_default_branch", &self.effective_default_branch);
         debug_struct.field(
             "authentication_token_secret_version",
             &self.authentication_token_secret_version,
         );
         debug_struct.field("ssh_authentication_config", &self.ssh_authentication_config);
+        debug_struct.field("git_repository_link", &self.git_repository_link);
         debug_struct.field("token_status", &self.token_status);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

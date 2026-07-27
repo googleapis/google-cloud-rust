@@ -857,6 +857,9 @@ impl serde::ser::Serialize for super::SingleTenantHsmInstanceProposal {
         if let Some(value) = self.refresh_single_tenant_hsm_instance() {
             state.serialize_entry("refreshSingleTenantHsmInstance", value)?;
         }
+        if let Some(value) = self.upgrade_key_trust() {
+            state.serialize_entry("upgradeKeyTrust", value)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1115,6 +1118,31 @@ impl serde::ser::Serialize
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::single_tenant_hsm_instance_proposal::UpgradeKeyTrust {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.two_factor_public_key_pem.is_empty() {
+            state.serialize_entry("twoFactorPublicKeyPem", &self.two_factor_public_key_pem)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1928,6 +1956,12 @@ impl serde::ser::Serialize for super::CryptoKeyVersion {
         if !wkt::internal::is_default(&self.reimport_eligible) {
             state.serialize_entry("reimportEligible", &self.reimport_eligible)?;
         }
+        if !wkt::internal::is_default(&self.trusted_wrapping_enabled) {
+            state.serialize_entry("trustedWrappingEnabled", &self.trusted_wrapping_enabled)?;
+        }
+        if !wkt::internal::is_default(&self.hsm_trusted) {
+            state.serialize_entry("hsmTrusted", &self.hsm_trusted)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2070,6 +2104,9 @@ impl serde::ser::Serialize for super::ImportJob {
         if self.public_key.is_some() {
             state.serialize_entry("publicKey", &self.public_key)?;
         }
+        if !wkt::internal::is_default(&self.public_key_format) {
+            state.serialize_entry("publicKeyFormat", &self.public_key_format)?;
+        }
         if self.attestation.is_some() {
             state.serialize_entry("attestation", &self.attestation)?;
         }
@@ -2097,6 +2134,18 @@ impl serde::ser::Serialize for super::import_job::WrappingPublicKey {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.pem.is_empty() {
             state.serialize_entry("pem", &self.pem)?;
+        }
+        if !self.data.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("data", &__With(&self.data))?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2689,6 +2738,9 @@ impl serde::ser::Serialize for super::GetImportJobRequest {
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
         }
+        if !wkt::internal::is_default(&self.public_key_format) {
+            state.serialize_entry("publicKeyFormat", &self.public_key_format)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2772,6 +2824,9 @@ impl serde::ser::Serialize for super::CreateCryptoKeyRequest {
                 "skipInitialVersionCreation",
                 &self.skip_initial_version_creation,
             )?;
+        }
+        if !wkt::internal::is_default(&self.trusted_wrapping_enabled) {
+            state.serialize_entry("trustedWrappingEnabled", &self.trusted_wrapping_enabled)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2896,6 +2951,122 @@ impl serde::ser::Serialize for super::ImportCryptoKeyVersionRequest {
                 }
             }
             state.serialize_entry("rsaAesWrappedKey", &__With(value))?;
+        }
+        if !wkt::internal::is_default(&self.trusted_wrapping_enabled) {
+            state.serialize_entry("trustedWrappingEnabled", &self.trusted_wrapping_enabled)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ImportTrustedKeyWrappedCryptoKeyVersionRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !self.importing_key.is_empty() {
+            state.serialize_entry("importingKey", &self.importing_key)?;
+        }
+        if !self.crypto_key_version.is_empty() {
+            state.serialize_entry("cryptoKeyVersion", &self.crypto_key_version)?;
+        }
+        if !self.wrapped_key.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("wrappedKey", &__With(&self.wrapped_key))?;
+        }
+        if !wkt::internal::is_default(&self.algorithm) {
+            state.serialize_entry("algorithm", &self.algorithm)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ExportTrustedKeyWrappedCryptoKeyVersionRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.wrapping_key.is_empty() {
+            state.serialize_entry("wrappingKey", &self.wrapping_key)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ExportTrustedKeyWrappedCryptoKeyVersionResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.wrapped_key.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("wrappedKey", &__With(&self.wrapped_key))?;
+        }
+        if self.wrapped_key_crc32c.is_some() {
+            struct __With<'a>(&'a std::option::Option<wkt::Int64Value>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("wrappedKeyCrc32c", &__With(&self.wrapped_key_crc32c))?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

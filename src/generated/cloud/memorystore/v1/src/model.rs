@@ -119,7 +119,7 @@ pub struct Instance {
     /// Optional. Endpoints for the instance.
     pub endpoints: std::vec::Vec<crate::model::instance::InstanceEndpoint>,
 
-    /// Optional. The mode config for the instance.
+    /// Optional. Immutable. The mode config for the instance.
     pub mode: crate::model::instance::Mode,
 
     /// Optional. Input only. Simulate a maintenance event.
@@ -193,6 +193,9 @@ pub struct Instance {
 
     /// Optional. Input only. Rotate the server certificates.
     pub rotate_server_certificate: std::option::Option<bool>,
+
+    /// Output only. Migration config for the instance.
+    pub migration_config: std::option::Option<crate::model::MigrationConfig>,
 
     /// The source to import from.
     pub import_sources: std::option::Option<crate::model::instance::ImportSources>,
@@ -407,6 +410,7 @@ impl Instance {
     /// use google_cloud_memorystore_v1::model::instance::AuthorizationMode;
     /// let x0 = Instance::new().set_authorization_mode(AuthorizationMode::AuthDisabled);
     /// let x1 = Instance::new().set_authorization_mode(AuthorizationMode::IamAuth);
+    /// let x2 = Instance::new().set_authorization_mode(AuthorizationMode::TokenAuth);
     /// ```
     pub fn set_authorization_mode<
         T: std::convert::Into<crate::model::instance::AuthorizationMode>,
@@ -1324,6 +1328,39 @@ impl Instance {
         self
     }
 
+    /// Sets the value of [migration_config][crate::model::Instance::migration_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::MigrationConfig;
+    /// let x = Instance::new().set_migration_config(MigrationConfig::default()/* use setters */);
+    /// ```
+    pub fn set_migration_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MigrationConfig>,
+    {
+        self.migration_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [migration_config][crate::model::Instance::migration_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::MigrationConfig;
+    /// let x = Instance::new().set_or_clear_migration_config(Some(MigrationConfig::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_migration_config(None::<MigrationConfig>);
+    /// ```
+    pub fn set_or_clear_migration_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MigrationConfig>,
+    {
+        self.migration_config = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [import_sources][crate::model::Instance::import_sources].
     ///
     /// Note that all the setters affecting `import_sources` are mutually
@@ -2009,6 +2046,8 @@ pub mod instance {
         Updating,
         /// Instance is being deleted.
         Deleting,
+        /// Instance is being migrated.
+        Migrating,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [State::value] or
@@ -2036,6 +2075,7 @@ pub mod instance {
                 Self::Active => std::option::Option::Some(2),
                 Self::Updating => std::option::Option::Some(3),
                 Self::Deleting => std::option::Option::Some(4),
+                Self::Migrating => std::option::Option::Some(6),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -2051,6 +2091,7 @@ pub mod instance {
                 Self::Active => std::option::Option::Some("ACTIVE"),
                 Self::Updating => std::option::Option::Some("UPDATING"),
                 Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::Migrating => std::option::Option::Some("MIGRATING"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -2077,6 +2118,7 @@ pub mod instance {
                 2 => Self::Active,
                 3 => Self::Updating,
                 4 => Self::Deleting,
+                6 => Self::Migrating,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -2093,6 +2135,7 @@ pub mod instance {
                 "ACTIVE" => Self::Active,
                 "UPDATING" => Self::Updating,
                 "DELETING" => Self::Deleting,
+                "MIGRATING" => Self::Migrating,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -2111,6 +2154,7 @@ pub mod instance {
                 Self::Active => serializer.serialize_i32(2),
                 Self::Updating => serializer.serialize_i32(3),
                 Self::Deleting => serializer.serialize_i32(4),
+                Self::Migrating => serializer.serialize_i32(6),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -2151,6 +2195,8 @@ pub mod instance {
         AuthDisabled,
         /// IAM basic authorization.
         IamAuth,
+        /// Token based authorization.
+        TokenAuth,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [AuthorizationMode::value] or
@@ -2176,6 +2222,7 @@ pub mod instance {
                 Self::Unspecified => std::option::Option::Some(0),
                 Self::AuthDisabled => std::option::Option::Some(1),
                 Self::IamAuth => std::option::Option::Some(2),
+                Self::TokenAuth => std::option::Option::Some(3),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -2189,6 +2236,7 @@ pub mod instance {
                 Self::Unspecified => std::option::Option::Some("AUTHORIZATION_MODE_UNSPECIFIED"),
                 Self::AuthDisabled => std::option::Option::Some("AUTH_DISABLED"),
                 Self::IamAuth => std::option::Option::Some("IAM_AUTH"),
+                Self::TokenAuth => std::option::Option::Some("TOKEN_AUTH"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -2213,6 +2261,7 @@ pub mod instance {
                 0 => Self::Unspecified,
                 1 => Self::AuthDisabled,
                 2 => Self::IamAuth,
+                3 => Self::TokenAuth,
                 _ => Self::UnknownValue(authorization_mode::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -2227,6 +2276,7 @@ pub mod instance {
                 "AUTHORIZATION_MODE_UNSPECIFIED" => Self::Unspecified,
                 "AUTH_DISABLED" => Self::AuthDisabled,
                 "IAM_AUTH" => Self::IamAuth,
+                "TOKEN_AUTH" => Self::TokenAuth,
                 _ => Self::UnknownValue(authorization_mode::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -2243,6 +2293,7 @@ pub mod instance {
                 Self::Unspecified => serializer.serialize_i32(0),
                 Self::AuthDisabled => serializer.serialize_i32(1),
                 Self::IamAuth => serializer.serialize_i32(2),
+                Self::TokenAuth => serializer.serialize_i32(3),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -2433,7 +2484,7 @@ pub mod instance {
         HighcpuMedium,
         /// Standard large.
         StandardLarge,
-        /// High memory 2x large.
+        /// High memory 2xlarge.
         Highmem2Xlarge,
         /// Custom pico.
         CustomPico,
@@ -2883,6 +2934,557 @@ pub mod instance {
         /// Optional. Immutable. Backups that generated and managed by memorystore
         /// service.
         ManagedBackupSource(std::boxed::Box<crate::model::instance::ManagedBackupSource>),
+    }
+}
+
+/// Request for `StartMigration`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct StartMigrationRequest {
+    /// Required. The resource name of the instance to start migration on.
+    /// Format: projects/{project}/locations/{location}/instances/{instance}
+    pub name: std::string::String,
+
+    /// Defines the source of the migration.
+    pub source: std::option::Option<crate::model::start_migration_request::Source>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl StartMigrationRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::StartMigrationRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::StartMigrationRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = StartMigrationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [source][crate::model::StartMigrationRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::StartMigrationRequest;
+    /// use google_cloud_memorystore_v1::model::SelfManagedSource;
+    /// let x = StartMigrationRequest::new().set_source(Some(
+    ///     google_cloud_memorystore_v1::model::start_migration_request::Source::SelfManagedSource(SelfManagedSource::default().into())));
+    /// ```
+    pub fn set_source<
+        T: std::convert::Into<std::option::Option<crate::model::start_migration_request::Source>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source = v.into();
+        self
+    }
+
+    /// The value of [source][crate::model::StartMigrationRequest::source]
+    /// if it holds a `SelfManagedSource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn self_managed_source(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SelfManagedSource>> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::start_migration_request::Source::SelfManagedSource(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source][crate::model::StartMigrationRequest::source]
+    /// to hold a `SelfManagedSource`.
+    ///
+    /// Note that all the setters affecting `source` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::StartMigrationRequest;
+    /// use google_cloud_memorystore_v1::model::SelfManagedSource;
+    /// let x = StartMigrationRequest::new().set_self_managed_source(SelfManagedSource::default()/* use setters */);
+    /// assert!(x.self_managed_source().is_some());
+    /// ```
+    pub fn set_self_managed_source<
+        T: std::convert::Into<std::boxed::Box<crate::model::SelfManagedSource>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source = std::option::Option::Some(
+            crate::model::start_migration_request::Source::SelfManagedSource(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for StartMigrationRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.StartMigrationRequest"
+    }
+}
+
+/// Defines additional types related to [StartMigrationRequest].
+pub mod start_migration_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Defines the source of the migration.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Source {
+        /// Required. Configuration for migrating from a self-managed Valkey/Redis
+        /// instance
+        SelfManagedSource(std::boxed::Box<crate::model::SelfManagedSource>),
+    }
+}
+
+/// Request for `FinishMigration`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FinishMigrationRequest {
+    /// Required. The resource name of the instance to finalize migration on.
+    /// Format: projects/{project}/locations/{location}/instances/{instance}
+    pub name: std::string::String,
+
+    /// Optional. By default, the `FinishMigration` operation ensures the target
+    /// replication offset to catch up to the source offset as of the time of the
+    /// call. Set this field to `true` to bypass this offset verification check.
+    pub force: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FinishMigrationRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::FinishMigrationRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::FinishMigrationRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = FinishMigrationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [force][crate::model::FinishMigrationRequest::force].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::FinishMigrationRequest;
+    /// let x = FinishMigrationRequest::new().set_force(true);
+    /// ```
+    pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.force = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for FinishMigrationRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.FinishMigrationRequest"
+    }
+}
+
+/// Details of the self-managed source instance.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SelfManagedSource {
+    /// Required. The IP address of the source instance.
+    /// This IP address should be a stable IP address that can be accessed by the
+    /// Memorystore instance throughout the migration process.
+    pub ip_address: std::string::String,
+
+    /// Required. The port of the source instance.
+    /// This port should be a stable port that can be accessed by the Memorystore
+    /// instance throughout the migration process.
+    pub port: i32,
+
+    /// Required. The resource name of the Private Service Connect Network
+    /// Attachment used to establish connectivity to the source instance. This
+    /// network attachment has the following requirements:
+    ///
+    /// 1. It must be in the same project as the Memorystore instance.
+    /// 1. It must be in the same region as the Memorystore instance.
+    /// 1. The subnet attached to the network attachment must be in the same VPC
+    ///    network as the source instance nodes.
+    ///
+    /// Format:
+    /// projects/{project}/regions/{region}/networkAttachments/{network_attachment}
+    pub network_attachment: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SelfManagedSource {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [ip_address][crate::model::SelfManagedSource::ip_address].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::SelfManagedSource;
+    /// let x = SelfManagedSource::new().set_ip_address("example");
+    /// ```
+    pub fn set_ip_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.ip_address = v.into();
+        self
+    }
+
+    /// Sets the value of [port][crate::model::SelfManagedSource::port].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::SelfManagedSource;
+    /// let x = SelfManagedSource::new().set_port(42);
+    /// ```
+    pub fn set_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.port = v.into();
+        self
+    }
+
+    /// Sets the value of [network_attachment][crate::model::SelfManagedSource::network_attachment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::SelfManagedSource;
+    /// let x = SelfManagedSource::new().set_network_attachment("example");
+    /// ```
+    pub fn set_network_attachment<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.network_attachment = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SelfManagedSource {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.SelfManagedSource"
+    }
+}
+
+/// Configuration for the migration of an instance.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MigrationConfig {
+    /// Output only. Migration state of the instance.
+    pub state: crate::model::migration_config::State,
+
+    /// Output only. Represents a boolean flag to force migration finalization
+    /// without offset catch up validation between source and target before
+    /// stopping replication.
+    pub force_finish_migration: bool,
+
+    /// Details about the migration source.
+    pub source: std::option::Option<crate::model::migration_config::Source>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MigrationConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [state][crate::model::MigrationConfig::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::MigrationConfig;
+    /// use google_cloud_memorystore_v1::model::migration_config::State;
+    /// let x0 = MigrationConfig::new().set_state(State::RolledBack);
+    /// let x1 = MigrationConfig::new().set_state(State::RollingBack);
+    /// let x2 = MigrationConfig::new().set_state(State::ReplicationEstablished);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::migration_config::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [force_finish_migration][crate::model::MigrationConfig::force_finish_migration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::MigrationConfig;
+    /// let x = MigrationConfig::new().set_force_finish_migration(true);
+    /// ```
+    pub fn set_force_finish_migration<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.force_finish_migration = v.into();
+        self
+    }
+
+    /// Sets the value of [source][crate::model::MigrationConfig::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::MigrationConfig;
+    /// use google_cloud_memorystore_v1::model::SelfManagedSource;
+    /// let x = MigrationConfig::new().set_source(Some(
+    ///     google_cloud_memorystore_v1::model::migration_config::Source::SelfManagedSource(SelfManagedSource::default().into())));
+    /// ```
+    pub fn set_source<
+        T: std::convert::Into<std::option::Option<crate::model::migration_config::Source>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source = v.into();
+        self
+    }
+
+    /// The value of [source][crate::model::MigrationConfig::source]
+    /// if it holds a `SelfManagedSource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn self_managed_source(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SelfManagedSource>> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::migration_config::Source::SelfManagedSource(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source][crate::model::MigrationConfig::source]
+    /// to hold a `SelfManagedSource`.
+    ///
+    /// Note that all the setters affecting `source` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::MigrationConfig;
+    /// use google_cloud_memorystore_v1::model::SelfManagedSource;
+    /// let x = MigrationConfig::new().set_self_managed_source(SelfManagedSource::default()/* use setters */);
+    /// assert!(x.self_managed_source().is_some());
+    /// ```
+    pub fn set_self_managed_source<
+        T: std::convert::Into<std::boxed::Box<crate::model::SelfManagedSource>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source = std::option::Option::Some(
+            crate::model::migration_config::Source::SelfManagedSource(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for MigrationConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.MigrationConfig"
+    }
+}
+
+/// Defines additional types related to [MigrationConfig].
+pub mod migration_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Migration state of the instance.
+    /// New values may be added in the future.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Instance has no migration related activity. This is the initial state.
+        Unspecified,
+        /// Instance is not currently migrating. The instance underwent a migration
+        /// attempt that failed, and the subsequent rollback was successful. The
+        /// instance is now ready for a new migration attempt if desired.
+        RolledBack,
+        /// Indicates a previous migration attempt failed. The high-level instance
+        /// state will be `MIGRATING`. The instance is not ready for a new migration
+        /// attempt. Rollback is in progress to restore the instance to its original
+        /// state. The instance will remain in this state until rollback is
+        /// successful.
+        RollingBack,
+        /// Instance is in the process of migration. Instance has established
+        /// successful replication and is ready for cutover.
+        ReplicationEstablished,
+        /// Instance is successfully migrated.
+        Migrated,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::RolledBack => std::option::Option::Some(1),
+                Self::RollingBack => std::option::Option::Some(5),
+                Self::ReplicationEstablished => std::option::Option::Some(6),
+                Self::Migrated => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::RolledBack => std::option::Option::Some("ROLLED_BACK"),
+                Self::RollingBack => std::option::Option::Some("ROLLING_BACK"),
+                Self::ReplicationEstablished => {
+                    std::option::Option::Some("REPLICATION_ESTABLISHED")
+                }
+                Self::Migrated => std::option::Option::Some("MIGRATED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::RolledBack,
+                4 => Self::Migrated,
+                5 => Self::RollingBack,
+                6 => Self::ReplicationEstablished,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ROLLED_BACK" => Self::RolledBack,
+                "ROLLING_BACK" => Self::RollingBack,
+                "REPLICATION_ESTABLISHED" => Self::ReplicationEstablished,
+                "MIGRATED" => Self::Migrated,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::RolledBack => serializer.serialize_i32(1),
+                Self::RollingBack => serializer.serialize_i32(5),
+                Self::ReplicationEstablished => serializer.serialize_i32(6),
+                Self::Migrated => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.memorystore.v1.MigrationConfig.State",
+            ))
+        }
+    }
+
+    /// Details about the migration source.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Source {
+        /// Output only. Configuration for migrating from a self-managed Valkey/Redis
+        /// instance
+        SelfManagedSource(std::boxed::Box<crate::model::SelfManagedSource>),
     }
 }
 
@@ -4647,6 +5249,477 @@ pub mod cross_instance_replication_config {
     }
 }
 
+/// Token based auth user for the instance.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct TokenAuthUser {
+    /// Identifier. Token based auth user name.
+    pub name: std::string::String,
+
+    /// Output only. The state of the token based auth user.
+    pub state: crate::model::token_auth_user::State,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl TokenAuthUser {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::TokenAuthUser::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::TokenAuthUser;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let token_auth_user_id = "token_auth_user_id";
+    /// let x = TokenAuthUser::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/tokenAuthUsers/{token_auth_user_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::TokenAuthUser::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::TokenAuthUser;
+    /// use google_cloud_memorystore_v1::model::token_auth_user::State;
+    /// let x0 = TokenAuthUser::new().set_state(State::Active);
+    /// let x1 = TokenAuthUser::new().set_state(State::Creating);
+    /// let x2 = TokenAuthUser::new().set_state(State::Updating);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::token_auth_user::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for TokenAuthUser {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.TokenAuthUser"
+    }
+}
+
+/// Defines additional types related to [TokenAuthUser].
+pub mod token_auth_user {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Represents the different states of a token based auth user.
+    /// New values may be added in the future.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Not set.
+        Unspecified,
+        /// The auth user is active.
+        Active,
+        /// The auth user is being created.
+        Creating,
+        /// The auth user is being updated.
+        Updating,
+        /// The auth user is being deleted.
+        Deleting,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(1),
+                Self::Creating => std::option::Option::Some(2),
+                Self::Updating => std::option::Option::Some(3),
+                Self::Deleting => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Updating => std::option::Option::Some("UPDATING"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Active,
+                2 => Self::Creating,
+                3 => Self::Updating,
+                4 => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ACTIVE" => Self::Active,
+                "CREATING" => Self::Creating,
+                "UPDATING" => Self::Updating,
+                "DELETING" => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(1),
+                Self::Creating => serializer.serialize_i32(2),
+                Self::Updating => serializer.serialize_i32(3),
+                Self::Deleting => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.memorystore.v1.TokenAuthUser.State",
+            ))
+        }
+    }
+}
+
+/// Auth token for the instance.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AuthToken {
+    /// Identifier. Name of the auth token.
+    pub name: std::string::String,
+
+    /// Output only. The auth token.
+    pub token: std::string::String,
+
+    /// Output only. Create time of the auth token.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The state of the auth token.
+    pub state: crate::model::auth_token::State,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AuthToken {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::AuthToken::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AuthToken;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let token_auth_user_id = "token_auth_user_id";
+    /// # let auth_token_id = "auth_token_id";
+    /// let x = AuthToken::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/tokenAuthUsers/{token_auth_user_id}/authTokens/{auth_token_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [token][crate::model::AuthToken::token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AuthToken;
+    /// let x = AuthToken::new().set_token("example");
+    /// ```
+    pub fn set_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.token = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::AuthToken::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AuthToken;
+    /// use wkt::Timestamp;
+    /// let x = AuthToken::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::AuthToken::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AuthToken;
+    /// use wkt::Timestamp;
+    /// let x = AuthToken::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AuthToken::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [state][crate::model::AuthToken::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AuthToken;
+    /// use google_cloud_memorystore_v1::model::auth_token::State;
+    /// let x0 = AuthToken::new().set_state(State::Active);
+    /// let x1 = AuthToken::new().set_state(State::Creating);
+    /// let x2 = AuthToken::new().set_state(State::Deleting);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::auth_token::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AuthToken {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.AuthToken"
+    }
+}
+
+/// Defines additional types related to [AuthToken].
+pub mod auth_token {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Represents the different states of an auth token.
+    /// New values may be added in the future.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Not set.
+        Unspecified,
+        /// The auth token is active.
+        Active,
+        /// The auth token is being created.
+        Creating,
+        /// The auth token is being deleted.
+        Deleting,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(1),
+                Self::Creating => std::option::Option::Some(2),
+                Self::Deleting => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Active,
+                2 => Self::Creating,
+                3 => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ACTIVE" => Self::Active,
+                "CREATING" => Self::Creating,
+                "DELETING" => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(1),
+                Self::Creating => serializer.serialize_i32(2),
+                Self::Deleting => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.memorystore.v1.AuthToken.State",
+            ))
+        }
+    }
+}
+
 /// Maintenance policy per instance.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -5020,7 +6093,7 @@ pub struct PscAutoConnection {
     pub project_id: std::string::String,
 
     /// Required. The network where the PSC endpoints are created, in the form of
-    /// projects/{project_id}/global/networks/{network_id}.
+    /// projects/{project_id}/global/networks/{network_name}.
     pub network: std::string::String,
 
     /// Output only. The service attachment which is the target of the PSC
@@ -5255,7 +6328,7 @@ pub struct PscConnection {
     pub project_id: std::string::String,
 
     /// Required. The consumer network where the IP address resides, in the form of
-    /// projects/{project_id}/global/networks/{network_id}.
+    /// projects/{project_id}/global/networks/{network_name}.
     pub network: std::string::String,
 
     /// Required. The service attachment which is the target of the PSC connection,
@@ -5479,7 +6552,7 @@ pub struct DiscoveryEndpoint {
 
     /// Output only. The network where the IP address of the discovery endpoint
     /// will be reserved, in the form of
-    /// projects/{network_project}/global/networks/{network_id}.
+    /// projects/{network_project}/global/networks/{network_name}.
     pub network: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -6793,7 +7866,7 @@ impl wkt::message::Message for ListInstancesRequest {
     }
 }
 
-/// Response message for [ListInstances][].
+/// Response message for `ListInstances`.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesResponse {
@@ -7240,7 +8313,7 @@ impl wkt::message::Message for DeleteInstanceRequest {
     }
 }
 
-/// Request for [ListBackupCollections]
+/// Request for `ListBackupCollections`.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupCollectionsRequest {
@@ -7255,14 +8328,12 @@ pub struct ListBackupCollectionsRequest {
     /// If not specified, a default value of 1000 will be used by the service.
     /// Regardless of the page_size value, the response may include a partial list
     /// and a caller should only rely on response's
-    /// [`next_page_token`][google.cloud.memorystore.v1.ListBackupCollectionsResponse.next_page_token]
+    /// `next_page_token`
     /// to determine if there are more clusters left to be queried.
-    ///
-    /// [google.cloud.memorystore.v1.ListBackupCollectionsResponse.next_page_token]: crate::model::ListBackupCollectionsResponse::next_page_token
     pub page_size: i32,
 
     /// Optional. The `next_page_token` value returned from a previous
-    /// [ListBackupCollections] request, if any.
+    /// `ListBackupCollections` request, if any.
     pub page_token: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -7319,7 +8390,7 @@ impl wkt::message::Message for ListBackupCollectionsRequest {
     }
 }
 
-/// Response for [ListBackupCollections].
+/// Response for `ListBackupCollections`.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupCollectionsResponse {
@@ -7423,7 +8494,7 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListBackupColle
     }
 }
 
-/// Request for [GetBackupCollection].
+/// Request for `GetBackupCollection`.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBackupCollectionRequest {
@@ -7463,7 +8534,7 @@ impl wkt::message::Message for GetBackupCollectionRequest {
     }
 }
 
-/// Request for [ListBackups].
+/// Request for `ListBackups`.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupsRequest {
@@ -7476,14 +8547,12 @@ pub struct ListBackupsRequest {
     /// If not specified, a default value of 1000 will be used by the service.
     /// Regardless of the page_size value, the response may include a partial list
     /// and a caller should only rely on response's
-    /// [`next_page_token`][google.cloud.memorystore.v1.ListBackupsResponse.next_page_token]
+    /// `next_page_token`
     /// to determine if there are more clusters left to be queried.
-    ///
-    /// [google.cloud.memorystore.v1.ListBackupsResponse.next_page_token]: crate::model::ListBackupsResponse::next_page_token
     pub page_size: i32,
 
     /// Optional. The `next_page_token` value returned from a previous
-    /// [ListBackupCollections] request, if any.
+    /// `ListBackupCollections` request, if any.
     pub page_token: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -7541,7 +8610,7 @@ impl wkt::message::Message for ListBackupsRequest {
     }
 }
 
-/// Response for [ListBackups].
+/// Response for `ListBackups`.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupsResponse {
@@ -7636,7 +8705,7 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListBackupsResp
     }
 }
 
-/// Request for [GetBackup].
+/// Request for `GetBackup`.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBackupRequest {
@@ -7676,7 +8745,7 @@ impl wkt::message::Message for GetBackupRequest {
     }
 }
 
-/// Request for [DeleteBackup].
+/// Request for `DeleteBackup`.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteBackupRequest {
@@ -7731,7 +8800,7 @@ impl wkt::message::Message for DeleteBackupRequest {
     }
 }
 
-/// Request for [ExportBackup].
+/// Request for `ExportBackup`.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportBackupRequest {
@@ -7841,7 +8910,7 @@ pub mod export_backup_request {
     }
 }
 
-/// Request for [BackupInstance].
+/// Request for `BackupInstance`.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BackupInstanceRequest {
@@ -7953,7 +9022,7 @@ impl wkt::message::Message for BackupInstanceRequest {
     }
 }
 
-/// Request message for [GetCertificateAuthority][].
+/// Request message for `GetCertificateAuthority`.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCertificateAuthorityRequest {
@@ -7990,6 +9059,750 @@ impl GetCertificateAuthorityRequest {
 impl wkt::message::Message for GetCertificateAuthorityRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.memorystore.v1.GetCertificateAuthorityRequest"
+    }
+}
+
+/// Request message for `ListTokenAuthUsers`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListTokenAuthUsersRequest {
+    /// Required. The parent to list token auth users from.
+    /// Format: projects/{project}/locations/{location}/instances/{instance}
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of items to return. The maximum value is 1000;
+    /// values above 1000 will be coerced to 1000. If not specified, a default
+    /// value of 1000 will be used by the service. Regardless of the page_size
+    /// value, the response may include a partial list and a caller should only
+    /// rely on response's `next_page_token` to determine if there are more token
+    /// auth users left to be queried.
+    pub page_size: i32,
+
+    /// Optional. The `next_page_token` value returned from a previous
+    /// `ListTokenAuthUsers` request, if any.
+    pub page_token: std::string::String,
+
+    /// Optional. Expression for filtering results.
+    pub filter: std::string::String,
+
+    /// Optional. Sort results by a defined order.
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListTokenAuthUsersRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListTokenAuthUsersRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListTokenAuthUsersRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ListTokenAuthUsersRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListTokenAuthUsersRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListTokenAuthUsersRequest;
+    /// let x = ListTokenAuthUsersRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListTokenAuthUsersRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListTokenAuthUsersRequest;
+    /// let x = ListTokenAuthUsersRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListTokenAuthUsersRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListTokenAuthUsersRequest;
+    /// let x = ListTokenAuthUsersRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListTokenAuthUsersRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListTokenAuthUsersRequest;
+    /// let x = ListTokenAuthUsersRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListTokenAuthUsersRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.ListTokenAuthUsersRequest"
+    }
+}
+
+/// Response message for `ListTokenAuthUsers`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListTokenAuthUsersResponse {
+    /// A list of token auth users in the project.
+    pub token_auth_users: std::vec::Vec<crate::model::TokenAuthUser>,
+
+    /// Token to retrieve the next page of results, or empty if there are no more
+    /// results in the list.
+    pub next_page_token: std::string::String,
+
+    /// Unordered list. Token auth users that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListTokenAuthUsersResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [token_auth_users][crate::model::ListTokenAuthUsersResponse::token_auth_users].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListTokenAuthUsersResponse;
+    /// use google_cloud_memorystore_v1::model::TokenAuthUser;
+    /// let x = ListTokenAuthUsersResponse::new()
+    ///     .set_token_auth_users([
+    ///         TokenAuthUser::default()/* use setters */,
+    ///         TokenAuthUser::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_token_auth_users<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::TokenAuthUser>,
+    {
+        use std::iter::Iterator;
+        self.token_auth_users = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListTokenAuthUsersResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListTokenAuthUsersResponse;
+    /// let x = ListTokenAuthUsersResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListTokenAuthUsersResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListTokenAuthUsersResponse;
+    /// let x = ListTokenAuthUsersResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListTokenAuthUsersResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.ListTokenAuthUsersResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListTokenAuthUsersResponse {
+    type PageItem = crate::model::TokenAuthUser;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.token_auth_users
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for `GetTokenAuthUser`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetTokenAuthUserRequest {
+    /// Required. The name of token auth user for a basic auth enabled instance.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/tokenAuthUsers/{token_auth_user}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetTokenAuthUserRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetTokenAuthUserRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::GetTokenAuthUserRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let token_auth_user_id = "token_auth_user_id";
+    /// let x = GetTokenAuthUserRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/tokenAuthUsers/{token_auth_user_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetTokenAuthUserRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.GetTokenAuthUserRequest"
+    }
+}
+
+/// Request message for `ListAuthTokens`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListAuthTokensRequest {
+    /// Required. The parent to list auth tokens from.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/tokenAuthUsers/{token_auth_user}
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of items to return. The maximum value is 1000;
+    /// values above 1000 will be coerced to 1000.
+    ///
+    /// If not specified, a default value of 1000 will be used by the service.
+    /// Regardless of the page_size value, the response may include a partial list
+    /// and a caller should only rely on response's
+    /// `next_page_token`
+    /// to determine if there are more auth tokens left to be queried.
+    pub page_size: i32,
+
+    /// Optional. The `next_page_token` value returned from a previous
+    /// `ListAuthTokens` request, if any.
+    pub page_token: std::string::String,
+
+    /// Optional. Expression for filtering results.
+    pub filter: std::string::String,
+
+    /// Optional. Sort results by a defined order.
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListAuthTokensRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListAuthTokensRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListAuthTokensRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let token_auth_user_id = "token_auth_user_id";
+    /// let x = ListAuthTokensRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/tokenAuthUsers/{token_auth_user_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListAuthTokensRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListAuthTokensRequest;
+    /// let x = ListAuthTokensRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListAuthTokensRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListAuthTokensRequest;
+    /// let x = ListAuthTokensRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListAuthTokensRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListAuthTokensRequest;
+    /// let x = ListAuthTokensRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListAuthTokensRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListAuthTokensRequest;
+    /// let x = ListAuthTokensRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListAuthTokensRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.ListAuthTokensRequest"
+    }
+}
+
+/// Response message for `ListAuthTokens`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListAuthTokensResponse {
+    /// A list of auth tokens in the project.
+    pub auth_tokens: std::vec::Vec<crate::model::AuthToken>,
+
+    /// Token to retrieve the next page of results, or empty if there are no more
+    /// results in the list.
+    pub next_page_token: std::string::String,
+
+    /// Unordered list. Auth tokens that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListAuthTokensResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [auth_tokens][crate::model::ListAuthTokensResponse::auth_tokens].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListAuthTokensResponse;
+    /// use google_cloud_memorystore_v1::model::AuthToken;
+    /// let x = ListAuthTokensResponse::new()
+    ///     .set_auth_tokens([
+    ///         AuthToken::default()/* use setters */,
+    ///         AuthToken::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_auth_tokens<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AuthToken>,
+    {
+        use std::iter::Iterator;
+        self.auth_tokens = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAuthTokensResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListAuthTokensResponse;
+    /// let x = ListAuthTokensResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListAuthTokensResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListAuthTokensResponse;
+    /// let x = ListAuthTokensResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListAuthTokensResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.ListAuthTokensResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListAuthTokensResponse {
+    type PageItem = crate::model::AuthToken;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.auth_tokens
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for `GetAuthToken`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetAuthTokenRequest {
+    /// Required. The name of token auth user for a token auth enabled instance.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/tokenAuthUsers/{token_auth_user}/authTokens/{auth_token}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetAuthTokenRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetAuthTokenRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::GetAuthTokenRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let token_auth_user_id = "token_auth_user_id";
+    /// # let auth_token_id = "auth_token_id";
+    /// let x = GetAuthTokenRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/tokenAuthUsers/{token_auth_user_id}/authTokens/{auth_token_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetAuthTokenRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.GetAuthTokenRequest"
+    }
+}
+
+/// Request message for `AddTokenAuthUser`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AddTokenAuthUserRequest {
+    /// Required. The instance resource that this token auth user will be added
+    /// for. Format: projects/{project}/locations/{location}/instances/{instance}
+    pub instance: std::string::String,
+
+    /// Required. The name of the token auth user to add.
+    pub token_auth_user: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AddTokenAuthUserRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [instance][crate::model::AddTokenAuthUserRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AddTokenAuthUserRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = AddTokenAuthUserRequest::new().set_instance(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
+    /// ```
+    pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.instance = v.into();
+        self
+    }
+
+    /// Sets the value of [token_auth_user][crate::model::AddTokenAuthUserRequest::token_auth_user].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AddTokenAuthUserRequest;
+    /// let x = AddTokenAuthUserRequest::new().set_token_auth_user("example");
+    /// ```
+    pub fn set_token_auth_user<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.token_auth_user = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AddTokenAuthUserRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.AddTokenAuthUserRequest"
+    }
+}
+
+/// Request message for `DeleteTokenAuthUser`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteTokenAuthUserRequest {
+    /// Required. The name of the token auth user to delete.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/tokenAuthUsers/{token_auth_user}
+    pub name: std::string::String,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes after the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and the
+    /// request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    /// Optional. If set to true, any auth tokens from this user will also be
+    /// deleted. Otherwise, the request will only work if the user has no auth
+    /// tokens.
+    pub force: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteTokenAuthUserRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteTokenAuthUserRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::DeleteTokenAuthUserRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let token_auth_user_id = "token_auth_user_id";
+    /// let x = DeleteTokenAuthUserRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/tokenAuthUsers/{token_auth_user_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteTokenAuthUserRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::DeleteTokenAuthUserRequest;
+    /// let x = DeleteTokenAuthUserRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+
+    /// Sets the value of [force][crate::model::DeleteTokenAuthUserRequest::force].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::DeleteTokenAuthUserRequest;
+    /// let x = DeleteTokenAuthUserRequest::new().set_force(true);
+    /// ```
+    pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.force = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteTokenAuthUserRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.DeleteTokenAuthUserRequest"
+    }
+}
+
+/// Request message for `AddAuthToken`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AddAuthTokenRequest {
+    /// Required. The name of the token auth user resource that this token will be
+    /// added for.
+    pub token_auth_user: std::string::String,
+
+    /// Required. The auth token to add.
+    pub auth_token: std::option::Option<crate::model::AuthToken>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AddAuthTokenRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [token_auth_user][crate::model::AddAuthTokenRequest::token_auth_user].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AddAuthTokenRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let token_auth_user_id = "token_auth_user_id";
+    /// let x = AddAuthTokenRequest::new().set_token_auth_user(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/tokenAuthUsers/{token_auth_user_id}"));
+    /// ```
+    pub fn set_token_auth_user<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.token_auth_user = v.into();
+        self
+    }
+
+    /// Sets the value of [auth_token][crate::model::AddAuthTokenRequest::auth_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AddAuthTokenRequest;
+    /// use google_cloud_memorystore_v1::model::AuthToken;
+    /// let x = AddAuthTokenRequest::new().set_auth_token(AuthToken::default()/* use setters */);
+    /// ```
+    pub fn set_auth_token<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AuthToken>,
+    {
+        self.auth_token = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [auth_token][crate::model::AddAuthTokenRequest::auth_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AddAuthTokenRequest;
+    /// use google_cloud_memorystore_v1::model::AuthToken;
+    /// let x = AddAuthTokenRequest::new().set_or_clear_auth_token(Some(AuthToken::default()/* use setters */));
+    /// let x = AddAuthTokenRequest::new().set_or_clear_auth_token(None::<AuthToken>);
+    /// ```
+    pub fn set_or_clear_auth_token<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AuthToken>,
+    {
+        self.auth_token = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for AddAuthTokenRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.AddAuthTokenRequest"
+    }
+}
+
+/// Request message for `DeleteAuthToken`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteAuthTokenRequest {
+    /// Required. The name of the token auth user resource that this token will be
+    /// deleted from. Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/tokenAuthUsers/{token_auth_user}/authTokens/{name}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteAuthTokenRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteAuthTokenRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::DeleteAuthTokenRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let token_auth_user_id = "token_auth_user_id";
+    /// # let auth_token_id = "auth_token_id";
+    /// let x = DeleteAuthTokenRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/tokenAuthUsers/{token_auth_user_id}/authTokens/{auth_token_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteAuthTokenRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.DeleteAuthTokenRequest"
     }
 }
 
@@ -8422,10 +10235,7 @@ pub mod shared_regional_certificate_authority {
     }
 }
 
-/// Request for
-/// [GetSharedRegionalCertificateAuthority][google.cloud.memorystore.v1.Memorystore.GetSharedRegionalCertificateAuthority].
-///
-/// [google.cloud.memorystore.v1.Memorystore.GetSharedRegionalCertificateAuthority]: crate::client::Memorystore::get_shared_regional_certificate_authority
+/// Request for `GetSharedRegionalCertificateAuthority`.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSharedRegionalCertificateAuthorityRequest {

@@ -1,0 +1,15 @@
+{
+    "api_description": "Create and manage meetings in Google Meet.",
+    "api_id": "meet.googleapis.com",
+    "api_shortname": "meet",
+    "client_documentation": "https://docs.rs/google-apps-meet-v2/latest",
+    "distribution_name": "google-apps-meet-v2",
+    "issue_tracker": "https://issuetracker.google.com/issues/new?component=1216362\u0026template=1766418",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name": "meet",
+    "name_pretty": "Google Meet",
+    "product_documentation": "https://developers.google.com/meet/api/guides/overview",
+    "release_level": "stable",
+    "repo": "googleapis/google-cloud-rust"
+}

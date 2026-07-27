@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#![cfg(google_cloud_unstable_tracing)]
-
 use super::Anonymous;
 use google_cloud_gax::exponential_backoff::ExponentialBackoff;
 use google_cloud_gax::polling_error_policy::Aip194Strict;

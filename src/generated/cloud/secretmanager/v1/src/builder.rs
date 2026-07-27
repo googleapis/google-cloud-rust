@@ -1314,6 +1314,157 @@ pub mod secret_manager_service {
         }
     }
 
+    /// The request builder for [SecretManagerService::enable_managed_rotation][crate::client::SecretManagerService::enable_managed_rotation] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::builder::secret_manager_service::EnableManagedRotation;
+    /// # async fn sample() -> google_cloud_secretmanager_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> EnableManagedRotation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct EnableManagedRotation(RequestBuilder<crate::model::EnableManagedRotationRequest>);
+
+    impl EnableManagedRotation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::EnableManagedRotationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::SecretVersion> {
+            (*self.0.stub)
+                .enable_managed_rotation(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [parent][crate::model::EnableManagedRotationRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [credentials][crate::model::EnableManagedRotationRequest::credentials].
+        ///
+        /// Note that all the setters affecting `credentials` are
+        /// mutually exclusive.
+        pub fn set_credentials<
+            T: Into<Option<crate::model::enable_managed_rotation_request::Credentials>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.credentials = v.into();
+            self
+        }
+
+        /// Sets the value of [credentials][crate::model::EnableManagedRotationRequest::credentials]
+        /// to hold a `CloudSqlSingleUserCredentials`.
+        ///
+        /// Note that all the setters affecting `credentials` are
+        /// mutually exclusive.
+        pub fn set_cloud_sql_single_user_credentials<T: std::convert::Into<std::boxed::Box<crate::model::enable_managed_rotation_request::CloudSQLSingleUserCredentials>>>(mut self, v: T) -> Self{
+            self.0.request = self.0.request.set_cloud_sql_single_user_credentials(v);
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for EnableManagedRotation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SecretManagerService::rotate_secret][crate::client::SecretManagerService::rotate_secret] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::builder::secret_manager_service::RotateSecret;
+    /// # async fn sample() -> google_cloud_secretmanager_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> RotateSecret {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct RotateSecret(RequestBuilder<crate::model::RotateSecretRequest>);
+
+    impl RotateSecret {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::RotateSecretRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::SecretVersion> {
+            (*self.0.stub)
+                .rotate_secret(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [parent][crate::model::RotateSecretRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for RotateSecret {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [SecretManagerService::list_locations][crate::client::SecretManagerService::list_locations] calls.
     ///
     /// # Example

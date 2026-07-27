@@ -59,7 +59,7 @@ pub async fn wait_for_trace(
     // Because we are limited by quota, start with a backoff.
     // Traces can take several minutes to propagate after they have been written.
     // Implement a generous retry loop to account for this.
-    let backoff_delays = [10, 60, 120, 120, 120];
+    let backoff_delays = [10, 30, 60, 120, 120, 120, 120, 120];
     let mut trace = None;
 
     for delay in backoff_delays {

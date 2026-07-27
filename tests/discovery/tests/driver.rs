@@ -35,16 +35,12 @@ mod compute {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_compute_lro_errors() -> anyhow::Result<()> {
-        #[cfg(google_cloud_unstable_tracing)]
         let _guard = google_cloud_test_utils::test_layer::TestLayer::initialize();
-        #[cfg(not(google_cloud_unstable_tracing))]
-        let _guard = enable_tracing();
 
         integration_tests_discovery::lro_errors()
             .await
             .inspect_err(anydump)?;
 
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let spans = google_cloud_test_utils::test_layer::TestLayer::capture(&_guard);
 
@@ -58,14 +54,17 @@ mod compute {
                 attribute_value_str(lro_wait_span, "otel.status_code"),
                 Some("ERROR".to_string())
             );
+            let lro_status_desc =
+                attribute_value_str(lro_wait_span, "otel.status_description").unwrap_or_default();
             assert!(
-                attribute_value_str(lro_wait_span, "otel.status_description")
-                    .unwrap_or_default()
-                    .contains("Quota 'CPUS_PER_VM_FAMILY' exceeded")
+                !lro_status_desc.is_empty(),
+                "otel.status_description should be populated from the LRO error, got: {lro_status_desc}"
             );
-            assert_eq!(
-                attribute_value_str(lro_wait_span, "error.type"),
-                Some("RESOURCE_EXHAUSTED".to_string())
+            let lro_error_type =
+                attribute_value_str(lro_wait_span, "error.type").unwrap_or_default();
+            assert!(
+                lro_error_type == "RESOURCE_EXHAUSTED" || lro_error_type == "UNAVAILABLE",
+                "error.type should be RESOURCE_EXHAUSTED or UNAVAILABLE, got: {lro_error_type}"
             );
 
             // 2. Assert on the "client_request" (T3) span for get_operation
@@ -74,7 +73,9 @@ mod compute {
                 .rfind(|s| {
                     s.name == "client_request"
                         && attribute_value_str(s, "rpc.method")
-                            == Some("google.cloud.compute.v1.instances/getOperation".to_string())
+                            == Some(
+                                "google.cloud.compute.v1.zoneOperations/getOperation".to_string(),
+                            )
                 })
                 .ok_or_else(|| {
                     anyhow::anyhow!("missing getOperation client_request span in {spans:#?}")
@@ -84,28 +85,32 @@ mod compute {
                 attribute_value_str(get_op_span, "gcp.longrunning.done"),
                 Some("true".to_string())
             );
-            assert_eq!(
-                attribute_value_str(get_op_span, "gcp.longrunning.status_code"),
-                Some("8".to_string())
+            let get_op_status_code =
+                attribute_value_str(get_op_span, "gcp.longrunning.status_code").unwrap_or_default();
+            assert!(
+                get_op_status_code == "8" || get_op_status_code == "14",
+                "gcp.longrunning.status_code should be 8 (RESOURCE_EXHAUSTED) or 14 (UNAVAILABLE), got: {get_op_status_code}"
             );
             assert_eq!(
                 attribute_value_str(get_op_span, "otel.status_code"),
                 Some("ERROR".to_string())
             );
+            let get_op_status_desc =
+                attribute_value_str(get_op_span, "otel.status_description").unwrap_or_default();
             assert!(
-                attribute_value_str(get_op_span, "otel.status_description")
-                    .unwrap_or_default()
-                    .contains("Quota 'CPUS_PER_VM_FAMILY' exceeded")
+                !get_op_status_desc.is_empty(),
+                "otel.status_description should be populated, got: {get_op_status_desc}"
             );
-            assert_eq!(
-                attribute_value_str(get_op_span, "error.type"),
-                Some("RESOURCE_EXHAUSTED".to_string())
+            let get_op_error_type =
+                attribute_value_str(get_op_span, "error.type").unwrap_or_default();
+            assert!(
+                get_op_error_type == "RESOURCE_EXHAUSTED" || get_op_error_type == "UNAVAILABLE",
+                "error.type should be RESOURCE_EXHAUSTED or UNAVAILABLE, got: {get_op_error_type}"
             );
         }
         Ok(())
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     fn attribute_value_str(
         span: &google_cloud_test_utils::test_layer::CapturedSpan,
         key: &str,

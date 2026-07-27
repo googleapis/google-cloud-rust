@@ -107,6 +107,41 @@ pub trait BinauthzManagementServiceV1: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
+
+    /// Implements [super::client::BinauthzManagementServiceV1::set_iam_policy].
+    fn set_iam_policy(
+        &self,
+        _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BinauthzManagementServiceV1::get_iam_policy].
+    fn get_iam_policy(
+        &self,
+        _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BinauthzManagementServiceV1::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
 }
 
 /// Defines the trait used to implement [super::client::SystemPolicyV1].
@@ -128,6 +163,41 @@ pub trait SystemPolicyV1: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Policy>>> + Send
     {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SystemPolicyV1::set_iam_policy].
+    fn set_iam_policy(
+        &self,
+        _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SystemPolicyV1::get_iam_policy].
+    fn get_iam_policy(
+        &self,
+        _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SystemPolicyV1::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+        >,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
@@ -152,6 +222,41 @@ pub trait ValidationHelperV1: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<
             crate::Response<crate::model::ValidateAttestationOccurrenceResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ValidationHelperV1::set_iam_policy].
+    fn set_iam_policy(
+        &self,
+        _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ValidationHelperV1::get_iam_policy].
+    fn get_iam_policy(
+        &self,
+        _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ValidationHelperV1::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()

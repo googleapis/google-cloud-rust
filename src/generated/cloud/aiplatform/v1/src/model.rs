@@ -10825,7 +10825,9 @@ pub mod grounding_chunk {
         }
     }
 
-    /// Chunk from Google Maps.
+    /// A `Maps` chunk is a piece of evidence that comes from Google Maps,
+    /// containing information about places or routes. This is used to provide
+    /// the user with rich, location-based information.
     #[cfg(any(feature = "prediction-service", feature = "session-service",))]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
@@ -10848,6 +10850,9 @@ pub mod grounding_chunk {
         /// answer, as well as uris to flag content.
         pub place_answer_sources:
             std::option::Option<crate::model::grounding_chunk::maps::PlaceAnswerSources>,
+
+        /// Output only. Route information.
+        pub route: std::option::Option<crate::model::grounding_chunk::maps::Route>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -11015,6 +11020,39 @@ pub mod grounding_chunk {
             self.place_answer_sources = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [route][crate::model::grounding_chunk::Maps::route].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_aiplatform_v1::model::grounding_chunk::Maps;
+        /// use google_cloud_aiplatform_v1::model::grounding_chunk::maps::Route;
+        /// let x = Maps::new().set_route(Route::default()/* use setters */);
+        /// ```
+        pub fn set_route<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::grounding_chunk::maps::Route>,
+        {
+            self.route = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [route][crate::model::grounding_chunk::Maps::route].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_aiplatform_v1::model::grounding_chunk::Maps;
+        /// use google_cloud_aiplatform_v1::model::grounding_chunk::maps::Route;
+        /// let x = Maps::new().set_or_clear_route(Some(Route::default()/* use setters */));
+        /// let x = Maps::new().set_or_clear_route(None::<Route>);
+        /// ```
+        pub fn set_or_clear_route<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::grounding_chunk::maps::Route>,
+        {
+            self.route = v.map(|x| x.into());
+            self
+        }
     }
 
     #[cfg(any(feature = "prediction-service", feature = "session-service",))]
@@ -11165,6 +11203,99 @@ pub mod grounding_chunk {
                 }
             }
         }
+
+        /// Route information from Google Maps.
+        #[cfg(any(feature = "prediction-service", feature = "session-service",))]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct Route {
+            /// The total distance of the route, in meters.
+            pub distance_meters: i32,
+
+            /// The total duration of the route.
+            pub duration: std::option::Option<wkt::Duration>,
+
+            /// An encoded polyline of the route. See
+            /// <https://developers.google.com/maps/documentation/utilities/polylinealgorithm>
+            pub encoded_polyline: std::string::String,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(any(feature = "prediction-service", feature = "session-service",))]
+        impl Route {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [distance_meters][crate::model::grounding_chunk::maps::Route::distance_meters].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_aiplatform_v1::model::grounding_chunk::maps::Route;
+            /// let x = Route::new().set_distance_meters(42);
+            /// ```
+            pub fn set_distance_meters<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                self.distance_meters = v.into();
+                self
+            }
+
+            /// Sets the value of [duration][crate::model::grounding_chunk::maps::Route::duration].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_aiplatform_v1::model::grounding_chunk::maps::Route;
+            /// use wkt::Duration;
+            /// let x = Route::new().set_duration(Duration::default()/* use setters */);
+            /// ```
+            pub fn set_duration<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<wkt::Duration>,
+            {
+                self.duration = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [duration][crate::model::grounding_chunk::maps::Route::duration].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_aiplatform_v1::model::grounding_chunk::maps::Route;
+            /// use wkt::Duration;
+            /// let x = Route::new().set_or_clear_duration(Some(Duration::default()/* use setters */));
+            /// let x = Route::new().set_or_clear_duration(None::<Duration>);
+            /// ```
+            pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<wkt::Duration>,
+            {
+                self.duration = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [encoded_polyline][crate::model::grounding_chunk::maps::Route::encoded_polyline].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_aiplatform_v1::model::grounding_chunk::maps::Route;
+            /// let x = Route::new().set_encoded_polyline("example");
+            /// ```
+            pub fn set_encoded_polyline<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.encoded_polyline = v.into();
+                self
+            }
+        }
+
+        #[cfg(any(feature = "prediction-service", feature = "session-service",))]
+        impl wkt::message::Message for Route {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.aiplatform.v1.GroundingChunk.Maps.Route"
+            }
+        }
     }
 
     /// Chunk type.
@@ -11296,6 +11427,11 @@ pub struct GroundingMetadata {
     /// Optional. Google search entry for the following-up web searches.
     pub search_entry_point: std::option::Option<crate::model::SearchEntryPoint>,
 
+    /// Optional. The queries that were executed by the retrieval tools.
+    /// This field is populated only when the grounding source is a retrieval tool,
+    /// such as Vertex AI Search.
+    pub retrieval_queries: std::vec::Vec<std::string::String>,
+
     /// List of supporting references retrieved from specified grounding source.
     pub grounding_chunks: std::vec::Vec<crate::model::GroundingChunk>,
 
@@ -11371,6 +11507,23 @@ impl GroundingMetadata {
         T: std::convert::Into<crate::model::SearchEntryPoint>,
     {
         self.search_entry_point = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [retrieval_queries][crate::model::GroundingMetadata::retrieval_queries].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1::model::GroundingMetadata;
+    /// let x = GroundingMetadata::new().set_retrieval_queries(["a", "b", "c"]);
+    /// ```
+    pub fn set_retrieval_queries<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.retrieval_queries = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -122468,6 +122621,12 @@ pub struct ReasoningEngineSpec {
     /// "llama-index", "custom".
     pub agent_framework: std::string::String,
 
+    /// Optional. The identity type to use for the Reasoning Engine. If not
+    /// specified, the `service_account` field will be used if set, otherwise the
+    /// default Vertex AI Reasoning Engine Service Agent in the project will be
+    /// used.
+    pub identity_type: crate::model::reasoning_engine_spec::IdentityType,
+
     /// Defines the source for the deployment.
     /// The `package_spec` field should not be set if `deployment_source` is
     /// specified.
@@ -122612,6 +122771,25 @@ impl ReasoningEngineSpec {
     /// ```
     pub fn set_agent_framework<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.agent_framework = v.into();
+        self
+    }
+
+    /// Sets the value of [identity_type][crate::model::ReasoningEngineSpec::identity_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1::model::ReasoningEngineSpec;
+    /// use google_cloud_aiplatform_v1::model::reasoning_engine_spec::IdentityType;
+    /// let x0 = ReasoningEngineSpec::new().set_identity_type(IdentityType::ServiceAccount);
+    /// let x1 = ReasoningEngineSpec::new().set_identity_type(IdentityType::AgentIdentity);
+    /// ```
+    pub fn set_identity_type<
+        T: std::convert::Into<crate::model::reasoning_engine_spec::IdentityType>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.identity_type = v.into();
         self
     }
 
@@ -123774,6 +123952,151 @@ pub mod reasoning_engine_spec {
     impl wkt::message::Message for ContainerSpec {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.aiplatform.v1.ReasoningEngineSpec.ContainerSpec"
+        }
+    }
+
+    /// The identity type to use for the Reasoning Engine.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[cfg(feature = "reasoning-engine-service")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum IdentityType {
+        /// Default value. Use a custom service account if the `service_account`
+        /// field is set, otherwise use the default Vertex AI Reasoning Engine
+        /// Service Agent in the project. Same behavior as SERVICE_ACCOUNT.
+        Unspecified,
+        /// Use a custom service account if the `service_account` field is set,
+        /// otherwise use the default Vertex AI Reasoning Engine Service Agent in the
+        /// project.
+        ServiceAccount,
+        /// Use Agent Identity. The `service_account` field must not be set.
+        AgentIdentity,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [IdentityType::value] or
+        /// [IdentityType::name].
+        UnknownValue(identity_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(feature = "reasoning-engine-service")]
+    pub mod identity_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(feature = "reasoning-engine-service")]
+    impl IdentityType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::ServiceAccount => std::option::Option::Some(2),
+                Self::AgentIdentity => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("IDENTITY_TYPE_UNSPECIFIED"),
+                Self::ServiceAccount => std::option::Option::Some("SERVICE_ACCOUNT"),
+                Self::AgentIdentity => std::option::Option::Some("AGENT_IDENTITY"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(feature = "reasoning-engine-service")]
+    impl std::default::Default for IdentityType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(feature = "reasoning-engine-service")]
+    impl std::fmt::Display for IdentityType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(feature = "reasoning-engine-service")]
+    impl std::convert::From<i32> for IdentityType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                2 => Self::ServiceAccount,
+                3 => Self::AgentIdentity,
+                _ => Self::UnknownValue(identity_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "reasoning-engine-service")]
+    impl std::convert::From<&str> for IdentityType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "IDENTITY_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "SERVICE_ACCOUNT" => Self::ServiceAccount,
+                "AGENT_IDENTITY" => Self::AgentIdentity,
+                _ => Self::UnknownValue(identity_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "reasoning-engine-service")]
+    impl serde::ser::Serialize for IdentityType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::ServiceAccount => serializer.serialize_i32(2),
+                Self::AgentIdentity => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(feature = "reasoning-engine-service")]
+    impl<'de> serde::de::Deserialize<'de> for IdentityType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<IdentityType>::new(
+                ".google.cloud.aiplatform.v1.ReasoningEngineSpec.IdentityType",
+            ))
         }
     }
 

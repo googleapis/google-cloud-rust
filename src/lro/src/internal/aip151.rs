@@ -27,7 +27,6 @@ use google_cloud_wkt::Empty;
 use google_cloud_wkt::message::Message;
 use std::sync::Arc;
 
-#[cfg(google_cloud_unstable_tracing)]
 use super::LroRecorder;
 
 pub type Operation<R, M> = crate::details::Operation<R, M>;
@@ -281,7 +280,6 @@ where
     async fn poll(&mut self) -> Option<PollingResult<ResponseType, MetadataType>> {
         if let Some(start) = self.start.take() {
             let result = start().await;
-            #[cfg(google_cloud_unstable_tracing)]
             if let Ok(ref op) = result {
                 let name = op.name();
                 if let Some(recorder) = LroRecorder::current() {
@@ -297,7 +295,6 @@ where
             let result = (self.query)(name.clone()).await;
             let (op, poll) =
                 crate::details::handle_poll(self.error_policy.clone(), &self.state, name, result);
-            #[cfg(google_cloud_unstable_tracing)]
             if let (Some(next_name), Some(recorder)) = (&op, LroRecorder::current()) {
                 recorder.record_destination_id(next_name);
             }
@@ -342,28 +339,8 @@ mod tests {
     use google_cloud_wkt::{Any, Duration, Timestamp};
     use std::time::Duration as StdDuration;
 
-    #[cfg(not(google_cloud_unstable_tracing))]
-    pub(crate) struct DummySpan;
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    fn test_span() -> DummySpan {
-        DummySpan
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    pub(crate) trait Instrument: Sized {
-        fn instrument(self, _span: DummySpan) -> Self {
-            self
-        }
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    impl<T> Instrument for T {}
-
-    #[cfg(google_cloud_unstable_tracing)]
     use tracing::Instrument;
 
-    #[cfg(google_cloud_unstable_tracing)]
     fn test_span() -> tracing::Span {
         tracing::info_span!(
             "test_span",
@@ -1063,7 +1040,6 @@ mod tests {
         Error::io("something failed")
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[tokio::test]
     async fn test_poller_tracing() {
         let guard = google_cloud_test_utils::test_layer::TestLayer::initialize();
@@ -1154,7 +1130,6 @@ mod tests {
         }
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[tokio::test]
     async fn test_poller_tracing_immediate_done() {
         let guard = google_cloud_test_utils::test_layer::TestLayer::initialize();

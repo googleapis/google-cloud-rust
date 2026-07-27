@@ -14314,6 +14314,2124 @@ impl wkt::message::Message for InstallFeaturedContentNativeDashboardResponse {
     }
 }
 
+/// Represents a set of logic conditions used to refine various types of
+/// findings such as curated rule detections.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FindingsRefinement {
+    /// Full resource name for the findings refinement.
+    /// Format:
+    /// projects/{project}/locations/{region}/instances/{instance}/findingsRefinements/{findings_refinement}
+    pub name: std::string::String,
+
+    /// Display name of the findings refinement.
+    pub display_name: std::string::String,
+
+    /// The type of findings refinement.
+    pub r#type: crate::model::FindingsRefinementType,
+
+    /// Output only. The timestamp of when the findings refinement was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The timestamp of when the findings refinement was last
+    /// updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// The query for the findings refinement. Works in conjunction with the type
+    /// field to determine the findings refinement behavior. The syntax of this
+    /// query is the same as a UDM search string. See the following for more
+    /// information:
+    /// <https://cloud.google.com/chronicle/docs/investigation/udm-search>
+    pub query: std::string::String,
+
+    /// Optional. The outcome filters for the findings refinement. These allow you
+    /// to specify filters that are applied to the outcome variables in the
+    /// detection. All filters must be true for a detection to match the findings
+    /// refinement.
+    pub outcome_filters: std::vec::Vec<crate::model::OutcomeFilter>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FindingsRefinement {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::FindingsRefinement::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FindingsRefinement;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let findings_refinement_id = "findings_refinement_id";
+    /// let x = FindingsRefinement::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/findingsRefinements/{findings_refinement_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::FindingsRefinement::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FindingsRefinement;
+    /// let x = FindingsRefinement::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [r#type][crate::model::FindingsRefinement::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FindingsRefinement;
+    /// use google_cloud_chronicle_v1::model::FindingsRefinementType;
+    /// let x0 = FindingsRefinement::new().set_type(FindingsRefinementType::DetectionExclusion);
+    /// ```
+    pub fn set_type<T: std::convert::Into<crate::model::FindingsRefinementType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::FindingsRefinement::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FindingsRefinement;
+    /// use wkt::Timestamp;
+    /// let x = FindingsRefinement::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::FindingsRefinement::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FindingsRefinement;
+    /// use wkt::Timestamp;
+    /// let x = FindingsRefinement::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = FindingsRefinement::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::FindingsRefinement::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FindingsRefinement;
+    /// use wkt::Timestamp;
+    /// let x = FindingsRefinement::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::FindingsRefinement::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FindingsRefinement;
+    /// use wkt::Timestamp;
+    /// let x = FindingsRefinement::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = FindingsRefinement::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [query][crate::model::FindingsRefinement::query].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FindingsRefinement;
+    /// let x = FindingsRefinement::new().set_query("example");
+    /// ```
+    pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.query = v.into();
+        self
+    }
+
+    /// Sets the value of [outcome_filters][crate::model::FindingsRefinement::outcome_filters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FindingsRefinement;
+    /// use google_cloud_chronicle_v1::model::OutcomeFilter;
+    /// let x = FindingsRefinement::new()
+    ///     .set_outcome_filters([
+    ///         OutcomeFilter::default()/* use setters */,
+    ///         OutcomeFilter::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_outcome_filters<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::OutcomeFilter>,
+    {
+        use std::iter::Iterator;
+        self.outcome_filters = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for FindingsRefinement {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.FindingsRefinement"
+    }
+}
+
+/// The FindingsRefinementDeployment resource represents the deployment state of
+/// a findings refinement.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FindingsRefinementDeployment {
+    /// Required. The resource name of the findings refinement deployment.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/findingsRefinements/{findings_refinement}/deployment
+    pub name: std::string::String,
+
+    /// Whether the findings refinement is currently deployed continuously against
+    /// incoming findings.
+    pub enabled: bool,
+
+    /// The archive state of the findings refinement deployment.
+    /// Cannot be set to true unless enabled is set to false.
+    /// If currently set to true, enabled cannot be updated to true.
+    pub archived: bool,
+
+    /// Output only. The timestamp when the findings refinement deployment was last
+    /// updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// The resources which the findings refinement is applied to. Corresponds to
+    /// the type of the findings refinement.
+    pub findings_refinement_application: std::option::Option<
+        crate::model::findings_refinement_deployment::FindingsRefinementApplication,
+    >,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FindingsRefinementDeployment {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::FindingsRefinementDeployment::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FindingsRefinementDeployment;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let findings_refinement_id = "findings_refinement_id";
+    /// let x = FindingsRefinementDeployment::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/findingsRefinements/{findings_refinement_id}/deployment"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [enabled][crate::model::FindingsRefinementDeployment::enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FindingsRefinementDeployment;
+    /// let x = FindingsRefinementDeployment::new().set_enabled(true);
+    /// ```
+    pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enabled = v.into();
+        self
+    }
+
+    /// Sets the value of [archived][crate::model::FindingsRefinementDeployment::archived].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FindingsRefinementDeployment;
+    /// let x = FindingsRefinementDeployment::new().set_archived(true);
+    /// ```
+    pub fn set_archived<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.archived = v.into();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::FindingsRefinementDeployment::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FindingsRefinementDeployment;
+    /// use wkt::Timestamp;
+    /// let x = FindingsRefinementDeployment::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::FindingsRefinementDeployment::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FindingsRefinementDeployment;
+    /// use wkt::Timestamp;
+    /// let x = FindingsRefinementDeployment::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = FindingsRefinementDeployment::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [findings_refinement_application][crate::model::FindingsRefinementDeployment::findings_refinement_application].
+    ///
+    /// Note that all the setters affecting `findings_refinement_application` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FindingsRefinementDeployment;
+    /// use google_cloud_chronicle_v1::model::DetectionExclusionApplication;
+    /// let x = FindingsRefinementDeployment::new().set_findings_refinement_application(Some(
+    ///     google_cloud_chronicle_v1::model::findings_refinement_deployment::FindingsRefinementApplication::DetectionExclusionApplication(DetectionExclusionApplication::default().into())));
+    /// ```
+    pub fn set_findings_refinement_application<
+        T: std::convert::Into<
+                std::option::Option<
+                    crate::model::findings_refinement_deployment::FindingsRefinementApplication,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.findings_refinement_application = v.into();
+        self
+    }
+
+    /// The value of [findings_refinement_application][crate::model::FindingsRefinementDeployment::findings_refinement_application]
+    /// if it holds a `DetectionExclusionApplication`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn detection_exclusion_application(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DetectionExclusionApplication>> {
+        #[allow(unreachable_patterns)]
+        self.findings_refinement_application.as_ref().and_then(|v| match v {
+            crate::model::findings_refinement_deployment::FindingsRefinementApplication::DetectionExclusionApplication(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [findings_refinement_application][crate::model::FindingsRefinementDeployment::findings_refinement_application]
+    /// to hold a `DetectionExclusionApplication`.
+    ///
+    /// Note that all the setters affecting `findings_refinement_application` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FindingsRefinementDeployment;
+    /// use google_cloud_chronicle_v1::model::DetectionExclusionApplication;
+    /// let x = FindingsRefinementDeployment::new().set_detection_exclusion_application(DetectionExclusionApplication::default()/* use setters */);
+    /// assert!(x.detection_exclusion_application().is_some());
+    /// ```
+    pub fn set_detection_exclusion_application<
+        T: std::convert::Into<std::boxed::Box<crate::model::DetectionExclusionApplication>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.findings_refinement_application = std::option::Option::Some(
+            crate::model::findings_refinement_deployment::FindingsRefinementApplication::DetectionExclusionApplication(
+                v.into()
+            )
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for FindingsRefinementDeployment {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.FindingsRefinementDeployment"
+    }
+}
+
+/// Defines additional types related to [FindingsRefinementDeployment].
+pub mod findings_refinement_deployment {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The resources which the findings refinement is applied to. Corresponds to
+    /// the type of the findings refinement.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum FindingsRefinementApplication {
+        /// The resources which the detection exclusion is applied to.
+        DetectionExclusionApplication(std::boxed::Box<crate::model::DetectionExclusionApplication>),
+    }
+}
+
+/// Describes the detectors a detection exclusion is applied to.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DetectionExclusionApplication {
+    /// The CuratedRuleSets this detection exclusion applies to.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/curatedRuleSetCategories/{category}/curatedRuleSets/{rule_set}
+    pub curated_rule_sets: std::vec::Vec<std::string::String>,
+
+    /// The CuratedRules this detection exclusion applies to.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/curatedRules/{rule}
+    pub curated_rules: std::vec::Vec<std::string::String>,
+
+    /// Optional. The Rules this detection exclusion applies to.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/rules/{rule}
+    pub rules: std::vec::Vec<std::string::String>,
+
+    /// Output only. The deleted CuratedRuleSets this detection exclusion applies
+    /// to. Indicates to the customer that the detection exclusion no longer
+    /// applies to the rule sets, so the detection exclusion should be updated.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/curatedRuleSetCategories/{category}/curatedRuleSets/{rule_set}
+    pub deleted_curated_rule_sets: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DetectionExclusionApplication {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [curated_rule_sets][crate::model::DetectionExclusionApplication::curated_rule_sets].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DetectionExclusionApplication;
+    /// let x = DetectionExclusionApplication::new().set_curated_rule_sets(["a", "b", "c"]);
+    /// ```
+    pub fn set_curated_rule_sets<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.curated_rule_sets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [curated_rules][crate::model::DetectionExclusionApplication::curated_rules].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DetectionExclusionApplication;
+    /// let x = DetectionExclusionApplication::new().set_curated_rules(["a", "b", "c"]);
+    /// ```
+    pub fn set_curated_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.curated_rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [rules][crate::model::DetectionExclusionApplication::rules].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DetectionExclusionApplication;
+    /// let x = DetectionExclusionApplication::new().set_rules(["a", "b", "c"]);
+    /// ```
+    pub fn set_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [deleted_curated_rule_sets][crate::model::DetectionExclusionApplication::deleted_curated_rule_sets].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DetectionExclusionApplication;
+    /// let x = DetectionExclusionApplication::new().set_deleted_curated_rule_sets(["a", "b", "c"]);
+    /// ```
+    pub fn set_deleted_curated_rule_sets<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.deleted_curated_rule_sets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for DetectionExclusionApplication {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.DetectionExclusionApplication"
+    }
+}
+
+/// The activity for a specific findings refinement.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FindingsRefinementActivity {
+    /// Required. Full resource name for the findings refinement this activity
+    /// corresponds to. Format:
+    /// projects/{project}/locations/{region}/instances/{instance}/findingsRefinements/{findings_refinement}
+    pub findings_refinement: std::string::String,
+
+    /// The activity for the findings refinement.
+    pub activity: std::option::Option<crate::model::findings_refinement_activity::Activity>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FindingsRefinementActivity {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [findings_refinement][crate::model::FindingsRefinementActivity::findings_refinement].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FindingsRefinementActivity;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let findings_refinement_id = "findings_refinement_id";
+    /// let x = FindingsRefinementActivity::new().set_findings_refinement(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/findingsRefinements/{findings_refinement_id}"));
+    /// ```
+    pub fn set_findings_refinement<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.findings_refinement = v.into();
+        self
+    }
+
+    /// Sets the value of [activity][crate::model::FindingsRefinementActivity::activity].
+    ///
+    /// Note that all the setters affecting `activity` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FindingsRefinementActivity;
+    /// use google_cloud_chronicle_v1::model::DetectionExclusionActivity;
+    /// let x = FindingsRefinementActivity::new().set_activity(Some(
+    ///     google_cloud_chronicle_v1::model::findings_refinement_activity::Activity::DetectionExclusionActivity(DetectionExclusionActivity::default().into())));
+    /// ```
+    pub fn set_activity<
+        T: std::convert::Into<
+                std::option::Option<crate::model::findings_refinement_activity::Activity>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.activity = v.into();
+        self
+    }
+
+    /// The value of [activity][crate::model::FindingsRefinementActivity::activity]
+    /// if it holds a `DetectionExclusionActivity`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn detection_exclusion_activity(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DetectionExclusionActivity>> {
+        #[allow(unreachable_patterns)]
+        self.activity.as_ref().and_then(|v| match v {
+            crate::model::findings_refinement_activity::Activity::DetectionExclusionActivity(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [activity][crate::model::FindingsRefinementActivity::activity]
+    /// to hold a `DetectionExclusionActivity`.
+    ///
+    /// Note that all the setters affecting `activity` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::FindingsRefinementActivity;
+    /// use google_cloud_chronicle_v1::model::DetectionExclusionActivity;
+    /// let x = FindingsRefinementActivity::new().set_detection_exclusion_activity(DetectionExclusionActivity::default()/* use setters */);
+    /// assert!(x.detection_exclusion_activity().is_some());
+    /// ```
+    pub fn set_detection_exclusion_activity<
+        T: std::convert::Into<std::boxed::Box<crate::model::DetectionExclusionActivity>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.activity = std::option::Option::Some(
+            crate::model::findings_refinement_activity::Activity::DetectionExclusionActivity(
+                v.into(),
+            ),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for FindingsRefinementActivity {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.FindingsRefinementActivity"
+    }
+}
+
+/// Defines additional types related to [FindingsRefinementActivity].
+pub mod findings_refinement_activity {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The activity for the findings refinement.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Activity {
+        /// The activity for the detection exclusion.
+        DetectionExclusionActivity(std::boxed::Box<crate::model::DetectionExclusionActivity>),
+    }
+}
+
+/// The activity for a findings refinement that is a detection exclusion. The
+/// activity is broken down per detector.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DetectionExclusionActivity {
+    /// The activity for the detection exclusion broken down by detector.
+    pub detection_exclusion_detector_activities: std::vec::Vec<
+        crate::model::detection_exclusion_activity::DetectionExclusionDetectorActivity,
+    >,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DetectionExclusionActivity {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [detection_exclusion_detector_activities][crate::model::DetectionExclusionActivity::detection_exclusion_detector_activities].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DetectionExclusionActivity;
+    /// use google_cloud_chronicle_v1::model::detection_exclusion_activity::DetectionExclusionDetectorActivity;
+    /// let x = DetectionExclusionActivity::new()
+    ///     .set_detection_exclusion_detector_activities([
+    ///         DetectionExclusionDetectorActivity::default()/* use setters */,
+    ///         DetectionExclusionDetectorActivity::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_detection_exclusion_detector_activities<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<
+                crate::model::detection_exclusion_activity::DetectionExclusionDetectorActivity,
+            >,
+    {
+        use std::iter::Iterator;
+        self.detection_exclusion_detector_activities = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for DetectionExclusionActivity {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.DetectionExclusionActivity"
+    }
+}
+
+/// Defines additional types related to [DetectionExclusionActivity].
+pub mod detection_exclusion_activity {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The activity for a findings refinement that is a detection exclusion broken
+    /// down for one specific detector.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct DetectionExclusionDetectorActivity {
+
+        /// The number of detections for the detector that were excluded by the
+        /// detection exclusion.
+        pub excluded_detection_count: i64,
+
+        /// The total number of detections found by the detector. This includes both
+        /// excluded detections and non-excluded detections.
+        pub total_detection_count: i64,
+
+        #[allow(missing_docs)]
+        pub detector_name: std::option::Option<crate::model::detection_exclusion_activity::detection_exclusion_detector_activity::DetectorName>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl DetectionExclusionDetectorActivity {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [excluded_detection_count][crate::model::detection_exclusion_activity::DetectionExclusionDetectorActivity::excluded_detection_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::detection_exclusion_activity::DetectionExclusionDetectorActivity;
+        /// let x = DetectionExclusionDetectorActivity::new().set_excluded_detection_count(42);
+        /// ```
+        pub fn set_excluded_detection_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.excluded_detection_count = v.into();
+            self
+        }
+
+        /// Sets the value of [total_detection_count][crate::model::detection_exclusion_activity::DetectionExclusionDetectorActivity::total_detection_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::detection_exclusion_activity::DetectionExclusionDetectorActivity;
+        /// let x = DetectionExclusionDetectorActivity::new().set_total_detection_count(42);
+        /// ```
+        pub fn set_total_detection_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.total_detection_count = v.into();
+            self
+        }
+
+        /// Sets the value of [detector_name][crate::model::detection_exclusion_activity::DetectionExclusionDetectorActivity::detector_name].
+        ///
+        /// Note that all the setters affecting `detector_name` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::detection_exclusion_activity::DetectionExclusionDetectorActivity;
+        /// use google_cloud_chronicle_v1::model::detection_exclusion_activity::detection_exclusion_detector_activity::DetectorName;
+        /// let x = DetectionExclusionDetectorActivity::new().set_detector_name(Some(DetectorName::CuratedRule("example".to_string())));
+        /// ```
+        pub fn set_detector_name<T: std::convert::Into<std::option::Option<crate::model::detection_exclusion_activity::detection_exclusion_detector_activity::DetectorName>>>(mut self, v: T) -> Self
+        {
+            self.detector_name = v.into();
+            self
+        }
+
+        /// The value of [detector_name][crate::model::detection_exclusion_activity::DetectionExclusionDetectorActivity::detector_name]
+        /// if it holds a `CuratedRule`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn curated_rule(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.detector_name.as_ref().and_then(|v| match v {
+                crate::model::detection_exclusion_activity::detection_exclusion_detector_activity::DetectorName::CuratedRule(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [detector_name][crate::model::detection_exclusion_activity::DetectionExclusionDetectorActivity::detector_name]
+        /// to hold a `CuratedRule`.
+        ///
+        /// Note that all the setters affecting `detector_name` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::detection_exclusion_activity::DetectionExclusionDetectorActivity;
+        /// let x = DetectionExclusionDetectorActivity::new().set_curated_rule("example");
+        /// assert!(x.curated_rule().is_some());
+        /// assert!(x.curated_rule_set().is_none());
+        /// assert!(x.rule().is_none());
+        /// assert!(x.deleted_curated_rule_set().is_none());
+        /// ```
+        pub fn set_curated_rule<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.detector_name = std::option::Option::Some(
+                crate::model::detection_exclusion_activity::detection_exclusion_detector_activity::DetectorName::CuratedRule(
+                    v.into()
+                )
+            );
+            self
+        }
+
+        /// The value of [detector_name][crate::model::detection_exclusion_activity::DetectionExclusionDetectorActivity::detector_name]
+        /// if it holds a `CuratedRuleSet`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn curated_rule_set(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.detector_name.as_ref().and_then(|v| match v {
+                crate::model::detection_exclusion_activity::detection_exclusion_detector_activity::DetectorName::CuratedRuleSet(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [detector_name][crate::model::detection_exclusion_activity::DetectionExclusionDetectorActivity::detector_name]
+        /// to hold a `CuratedRuleSet`.
+        ///
+        /// Note that all the setters affecting `detector_name` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::detection_exclusion_activity::DetectionExclusionDetectorActivity;
+        /// let x = DetectionExclusionDetectorActivity::new().set_curated_rule_set("example");
+        /// assert!(x.curated_rule_set().is_some());
+        /// assert!(x.curated_rule().is_none());
+        /// assert!(x.rule().is_none());
+        /// assert!(x.deleted_curated_rule_set().is_none());
+        /// ```
+        pub fn set_curated_rule_set<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.detector_name = std::option::Option::Some(
+                crate::model::detection_exclusion_activity::detection_exclusion_detector_activity::DetectorName::CuratedRuleSet(
+                    v.into()
+                )
+            );
+            self
+        }
+
+        /// The value of [detector_name][crate::model::detection_exclusion_activity::DetectionExclusionDetectorActivity::detector_name]
+        /// if it holds a `Rule`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn rule(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.detector_name.as_ref().and_then(|v| match v {
+                crate::model::detection_exclusion_activity::detection_exclusion_detector_activity::DetectorName::Rule(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [detector_name][crate::model::detection_exclusion_activity::DetectionExclusionDetectorActivity::detector_name]
+        /// to hold a `Rule`.
+        ///
+        /// Note that all the setters affecting `detector_name` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::detection_exclusion_activity::DetectionExclusionDetectorActivity;
+        /// # let project_id = "project_id";
+        /// # let location_id = "location_id";
+        /// # let instance_id = "instance_id";
+        /// # let rule_id = "rule_id";
+        /// let x = DetectionExclusionDetectorActivity::new().set_rule(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/rules/{rule_id}"));
+        /// assert!(x.rule().is_some());
+        /// assert!(x.curated_rule().is_none());
+        /// assert!(x.curated_rule_set().is_none());
+        /// assert!(x.deleted_curated_rule_set().is_none());
+        /// ```
+        pub fn set_rule<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.detector_name = std::option::Option::Some(
+                crate::model::detection_exclusion_activity::detection_exclusion_detector_activity::DetectorName::Rule(
+                    v.into()
+                )
+            );
+            self
+        }
+
+        /// The value of [detector_name][crate::model::detection_exclusion_activity::DetectionExclusionDetectorActivity::detector_name]
+        /// if it holds a `DeletedCuratedRuleSet`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn deleted_curated_rule_set(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.detector_name.as_ref().and_then(|v| match v {
+                crate::model::detection_exclusion_activity::detection_exclusion_detector_activity::DetectorName::DeletedCuratedRuleSet(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [detector_name][crate::model::detection_exclusion_activity::DetectionExclusionDetectorActivity::detector_name]
+        /// to hold a `DeletedCuratedRuleSet`.
+        ///
+        /// Note that all the setters affecting `detector_name` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::detection_exclusion_activity::DetectionExclusionDetectorActivity;
+        /// let x = DetectionExclusionDetectorActivity::new().set_deleted_curated_rule_set("example");
+        /// assert!(x.deleted_curated_rule_set().is_some());
+        /// assert!(x.curated_rule().is_none());
+        /// assert!(x.curated_rule_set().is_none());
+        /// assert!(x.rule().is_none());
+        /// ```
+        pub fn set_deleted_curated_rule_set<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.detector_name = std::option::Option::Some(
+                crate::model::detection_exclusion_activity::detection_exclusion_detector_activity::DetectorName::DeletedCuratedRuleSet(
+                    v.into()
+                )
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for DetectionExclusionDetectorActivity {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.chronicle.v1.DetectionExclusionActivity.DetectionExclusionDetectorActivity"
+        }
+    }
+
+    /// Defines additional types related to [DetectionExclusionDetectorActivity].
+    pub mod detection_exclusion_detector_activity {
+        #[allow(unused_imports)]
+        use super::*;
+
+        #[allow(missing_docs)]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum DetectorName {
+            /// Full resource name for the curated rule this activity corresponds to.
+            /// Format:
+            /// projects/{project}/locations/{location}/instances/{instance}/curatedRules/{rule}
+            CuratedRule(std::string::String),
+            /// Full resource name for the curated rule set this activity corresponds
+            /// to. This field will only be set if the customer has access to the
+            /// curated rule set the exclusion is applied to.
+            /// Format:
+            /// projects/{project}/locations/{location}/instances/{instance}/curatedRuleSetCategories/{curated_rule_set_category}/curatedRuleSets/{curated_rule_set}
+            CuratedRuleSet(std::string::String),
+            /// Full resource name for the rule this activity corresponds to.
+            /// Format:
+            /// projects/{project}/locations/{location}/instances/{instance}/rules/{rule}
+            Rule(std::string::String),
+            /// Full resource name for the deleted curated rule set this activity
+            /// corresponds to. This field will only be set if the customer does
+            /// not have access to the curated rule set the exclusion is applied to.
+            /// Format:
+            /// projects/{project}/locations/{location}/instances/{instance}/curatedRuleSetCategories/{curated_rule_set_category}/curatedRuleSets/{curated_rule_set}
+            DeletedCuratedRuleSet(std::string::String),
+        }
+    }
+}
+
+/// Request message for GetFindingsRefinement method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetFindingsRefinementRequest {
+    /// Required. The name of the findings refinement to retrieve.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/findingsRefinements/{findings_refinement}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetFindingsRefinementRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetFindingsRefinementRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::GetFindingsRefinementRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let findings_refinement_id = "findings_refinement_id";
+    /// let x = GetFindingsRefinementRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/findingsRefinements/{findings_refinement_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetFindingsRefinementRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.GetFindingsRefinementRequest"
+    }
+}
+
+/// Request message for ListFindingsRefinements method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListFindingsRefinementsRequest {
+    /// Required. The parent, which owns this collection of findings refinements.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}
+    pub parent: std::string::String,
+
+    /// The maximum number of findings refinements to return. The service may
+    /// return fewer than this value. If unspecified, at most 100 rules will be
+    /// returned. The maximum value is 1000; values above 1000 will be coerced to
+    /// 1000.
+    pub page_size: i32,
+
+    /// A page token, received from a previous `ListFindingsRefinements` call.
+    /// Provide this to retrieve the subsequent page.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListFindingsRefinementsRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListFindingsRefinementsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListFindingsRefinementsRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ListFindingsRefinementsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListFindingsRefinementsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListFindingsRefinementsRequest;
+    /// let x = ListFindingsRefinementsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListFindingsRefinementsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListFindingsRefinementsRequest;
+    /// let x = ListFindingsRefinementsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListFindingsRefinementsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.ListFindingsRefinementsRequest"
+    }
+}
+
+/// Response message for ListFindingsRefinements method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListFindingsRefinementsResponse {
+    /// List of findings refinements.
+    pub findings_refinements: std::vec::Vec<crate::model::FindingsRefinement>,
+
+    /// A token, which can be sent as `page_token` to retrieve the next page. If
+    /// this field is omitted, there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListFindingsRefinementsResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [findings_refinements][crate::model::ListFindingsRefinementsResponse::findings_refinements].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListFindingsRefinementsResponse;
+    /// use google_cloud_chronicle_v1::model::FindingsRefinement;
+    /// let x = ListFindingsRefinementsResponse::new()
+    ///     .set_findings_refinements([
+    ///         FindingsRefinement::default()/* use setters */,
+    ///         FindingsRefinement::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_findings_refinements<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::FindingsRefinement>,
+    {
+        use std::iter::Iterator;
+        self.findings_refinements = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListFindingsRefinementsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListFindingsRefinementsResponse;
+    /// let x = ListFindingsRefinementsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListFindingsRefinementsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.ListFindingsRefinementsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListFindingsRefinementsResponse {
+    type PageItem = crate::model::FindingsRefinement;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.findings_refinements
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for CreateFindingsRefinement method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateFindingsRefinementRequest {
+    /// Required. The parent resource where this findings refinement will be
+    /// created. Format:
+    /// projects/{project}/locations/{location}/instances/{instance}
+    pub parent: std::string::String,
+
+    /// Required. The findings refinement to create.
+    pub findings_refinement: std::option::Option<crate::model::FindingsRefinement>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateFindingsRefinementRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateFindingsRefinementRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::CreateFindingsRefinementRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = CreateFindingsRefinementRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [findings_refinement][crate::model::CreateFindingsRefinementRequest::findings_refinement].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::CreateFindingsRefinementRequest;
+    /// use google_cloud_chronicle_v1::model::FindingsRefinement;
+    /// let x = CreateFindingsRefinementRequest::new().set_findings_refinement(FindingsRefinement::default()/* use setters */);
+    /// ```
+    pub fn set_findings_refinement<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::FindingsRefinement>,
+    {
+        self.findings_refinement = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [findings_refinement][crate::model::CreateFindingsRefinementRequest::findings_refinement].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::CreateFindingsRefinementRequest;
+    /// use google_cloud_chronicle_v1::model::FindingsRefinement;
+    /// let x = CreateFindingsRefinementRequest::new().set_or_clear_findings_refinement(Some(FindingsRefinement::default()/* use setters */));
+    /// let x = CreateFindingsRefinementRequest::new().set_or_clear_findings_refinement(None::<FindingsRefinement>);
+    /// ```
+    pub fn set_or_clear_findings_refinement<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::FindingsRefinement>,
+    {
+        self.findings_refinement = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateFindingsRefinementRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.CreateFindingsRefinementRequest"
+    }
+}
+
+/// Request message for UpdateFindingsRefinement method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateFindingsRefinementRequest {
+    /// Required. The findings refinement to update.
+    ///
+    /// The findings refinement's `name` field is used to identify the findings
+    /// refinement to update.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/findingsRefinements/{findings_refinement}
+    pub findings_refinement: std::option::Option<crate::model::FindingsRefinement>,
+
+    /// Optional. The list of fields to update. If `*` is provided, all fields will
+    /// be updated.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateFindingsRefinementRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [findings_refinement][crate::model::UpdateFindingsRefinementRequest::findings_refinement].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::UpdateFindingsRefinementRequest;
+    /// use google_cloud_chronicle_v1::model::FindingsRefinement;
+    /// let x = UpdateFindingsRefinementRequest::new().set_findings_refinement(FindingsRefinement::default()/* use setters */);
+    /// ```
+    pub fn set_findings_refinement<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::FindingsRefinement>,
+    {
+        self.findings_refinement = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [findings_refinement][crate::model::UpdateFindingsRefinementRequest::findings_refinement].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::UpdateFindingsRefinementRequest;
+    /// use google_cloud_chronicle_v1::model::FindingsRefinement;
+    /// let x = UpdateFindingsRefinementRequest::new().set_or_clear_findings_refinement(Some(FindingsRefinement::default()/* use setters */));
+    /// let x = UpdateFindingsRefinementRequest::new().set_or_clear_findings_refinement(None::<FindingsRefinement>);
+    /// ```
+    pub fn set_or_clear_findings_refinement<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::FindingsRefinement>,
+    {
+        self.findings_refinement = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateFindingsRefinementRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::UpdateFindingsRefinementRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateFindingsRefinementRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateFindingsRefinementRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::UpdateFindingsRefinementRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateFindingsRefinementRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateFindingsRefinementRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateFindingsRefinementRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.UpdateFindingsRefinementRequest"
+    }
+}
+
+/// Request message for GetFindingsRefinementDeployment method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetFindingsRefinementDeploymentRequest {
+    /// Required. The name of the findings refinement to retrieve.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/findingsRefinements/{findings_refinement}/deployment
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetFindingsRefinementDeploymentRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetFindingsRefinementDeploymentRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::GetFindingsRefinementDeploymentRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let findings_refinement_id = "findings_refinement_id";
+    /// let x = GetFindingsRefinementDeploymentRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/findingsRefinements/{findings_refinement_id}/deployment"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetFindingsRefinementDeploymentRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.GetFindingsRefinementDeploymentRequest"
+    }
+}
+
+/// Request message for UpdateFindingsRefinementDeployment method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateFindingsRefinementDeploymentRequest {
+    /// Required. The findings refinement deployment to update.
+    ///
+    /// The findings refinement deployment's `name` field is used to identify the
+    /// findings refinement deployment to update.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/findingsRefinements/{findings_refinement}/deployment
+    pub findings_refinement_deployment:
+        std::option::Option<crate::model::FindingsRefinementDeployment>,
+
+    /// Required. The list of fields to update. If `*` is provided, all fields will
+    /// be updated.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateFindingsRefinementDeploymentRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [findings_refinement_deployment][crate::model::UpdateFindingsRefinementDeploymentRequest::findings_refinement_deployment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::UpdateFindingsRefinementDeploymentRequest;
+    /// use google_cloud_chronicle_v1::model::FindingsRefinementDeployment;
+    /// let x = UpdateFindingsRefinementDeploymentRequest::new().set_findings_refinement_deployment(FindingsRefinementDeployment::default()/* use setters */);
+    /// ```
+    pub fn set_findings_refinement_deployment<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::FindingsRefinementDeployment>,
+    {
+        self.findings_refinement_deployment = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [findings_refinement_deployment][crate::model::UpdateFindingsRefinementDeploymentRequest::findings_refinement_deployment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::UpdateFindingsRefinementDeploymentRequest;
+    /// use google_cloud_chronicle_v1::model::FindingsRefinementDeployment;
+    /// let x = UpdateFindingsRefinementDeploymentRequest::new().set_or_clear_findings_refinement_deployment(Some(FindingsRefinementDeployment::default()/* use setters */));
+    /// let x = UpdateFindingsRefinementDeploymentRequest::new().set_or_clear_findings_refinement_deployment(None::<FindingsRefinementDeployment>);
+    /// ```
+    pub fn set_or_clear_findings_refinement_deployment<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::FindingsRefinementDeployment>,
+    {
+        self.findings_refinement_deployment = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateFindingsRefinementDeploymentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::UpdateFindingsRefinementDeploymentRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateFindingsRefinementDeploymentRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateFindingsRefinementDeploymentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::UpdateFindingsRefinementDeploymentRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateFindingsRefinementDeploymentRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateFindingsRefinementDeploymentRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateFindingsRefinementDeploymentRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.UpdateFindingsRefinementDeploymentRequest"
+    }
+}
+
+/// Request message for ListAllFindingsRefinementDeployments method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListAllFindingsRefinementDeploymentsRequest {
+    /// Required. The name of the parent resource, which is the SecOps instance to
+    /// list all findings refinement deployments over. Format:
+    /// projects/{project}/locations/{location}/instances/{instance}
+    pub instance: std::string::String,
+
+    /// The maximum number of findings refinement deployments to return. The
+    /// service may return fewer than this value. If unspecified, at most 100 rule
+    /// deployments will be returned. The maximum value is 1000; values above 1000
+    /// will be coerced to 1000.
+    pub page_size: i32,
+
+    /// A page token, received from a previous
+    /// `ListAllFindingsRefinementDeployments` call. Provide this to retrieve the
+    /// subsequent page.
+    ///
+    /// When paginating, all other parameters provided to
+    /// `ListAllFindingsRefinementDeployments` must match the call that provided
+    /// the page token.
+    pub page_token: std::string::String,
+
+    /// A filter that can be used to retrieve specific findings refinement
+    /// deployments.
+    /// Only the following filters are allowed:
+    /// detection_exclusion_application.curated_rule_sets:"<curated_rule_set_name>"",
+    /// detection_exclusion_application.curated_rules:"<curated_rule_name>"
+    pub filter: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListAllFindingsRefinementDeploymentsRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [instance][crate::model::ListAllFindingsRefinementDeploymentsRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListAllFindingsRefinementDeploymentsRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ListAllFindingsRefinementDeploymentsRequest::new().set_instance(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
+    /// ```
+    pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.instance = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListAllFindingsRefinementDeploymentsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListAllFindingsRefinementDeploymentsRequest;
+    /// let x = ListAllFindingsRefinementDeploymentsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListAllFindingsRefinementDeploymentsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListAllFindingsRefinementDeploymentsRequest;
+    /// let x = ListAllFindingsRefinementDeploymentsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListAllFindingsRefinementDeploymentsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListAllFindingsRefinementDeploymentsRequest;
+    /// let x = ListAllFindingsRefinementDeploymentsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListAllFindingsRefinementDeploymentsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.ListAllFindingsRefinementDeploymentsRequest"
+    }
+}
+
+/// Response message for ListAllFindingsRefinementDeployments method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListAllFindingsRefinementDeploymentsResponse {
+    /// List of all findings refinement deployments.
+    pub all_findings_refinement_deployments:
+        std::vec::Vec<crate::model::FindingsRefinementDeployment>,
+
+    /// A token, which can be sent as `page_token` to retrieve the next page. If
+    /// this field is omitted, there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListAllFindingsRefinementDeploymentsResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [all_findings_refinement_deployments][crate::model::ListAllFindingsRefinementDeploymentsResponse::all_findings_refinement_deployments].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListAllFindingsRefinementDeploymentsResponse;
+    /// use google_cloud_chronicle_v1::model::FindingsRefinementDeployment;
+    /// let x = ListAllFindingsRefinementDeploymentsResponse::new()
+    ///     .set_all_findings_refinement_deployments([
+    ///         FindingsRefinementDeployment::default()/* use setters */,
+    ///         FindingsRefinementDeployment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_all_findings_refinement_deployments<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::FindingsRefinementDeployment>,
+    {
+        use std::iter::Iterator;
+        self.all_findings_refinement_deployments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAllFindingsRefinementDeploymentsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListAllFindingsRefinementDeploymentsResponse;
+    /// let x = ListAllFindingsRefinementDeploymentsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListAllFindingsRefinementDeploymentsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.ListAllFindingsRefinementDeploymentsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListAllFindingsRefinementDeploymentsResponse
+{
+    type PageItem = crate::model::FindingsRefinementDeployment;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.all_findings_refinement_deployments
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Outcome filter for the findings refinement. This is used to filter the
+/// findings refinement based on the outcome variable values.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct OutcomeFilter {
+    /// Required. The outcome variable name.
+    pub outcome_variable: std::string::String,
+
+    /// Required. The value of the outcome variable to match.
+    pub outcome_value: std::string::String,
+
+    /// Required. The operator to be applied to the outcome variable.
+    pub outcome_filter_operator: crate::model::outcome_filter::Operator,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl OutcomeFilter {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [outcome_variable][crate::model::OutcomeFilter::outcome_variable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::OutcomeFilter;
+    /// let x = OutcomeFilter::new().set_outcome_variable("example");
+    /// ```
+    pub fn set_outcome_variable<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.outcome_variable = v.into();
+        self
+    }
+
+    /// Sets the value of [outcome_value][crate::model::OutcomeFilter::outcome_value].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::OutcomeFilter;
+    /// let x = OutcomeFilter::new().set_outcome_value("example");
+    /// ```
+    pub fn set_outcome_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.outcome_value = v.into();
+        self
+    }
+
+    /// Sets the value of [outcome_filter_operator][crate::model::OutcomeFilter::outcome_filter_operator].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::OutcomeFilter;
+    /// use google_cloud_chronicle_v1::model::outcome_filter::Operator;
+    /// let x0 = OutcomeFilter::new().set_outcome_filter_operator(Operator::Equal);
+    /// let x1 = OutcomeFilter::new().set_outcome_filter_operator(Operator::Contains);
+    /// let x2 = OutcomeFilter::new().set_outcome_filter_operator(Operator::MatchesRegex);
+    /// ```
+    pub fn set_outcome_filter_operator<
+        T: std::convert::Into<crate::model::outcome_filter::Operator>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.outcome_filter_operator = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for OutcomeFilter {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.OutcomeFilter"
+    }
+}
+
+/// Defines additional types related to [OutcomeFilter].
+pub mod outcome_filter {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The operator to compare the outcome variable value with the outcome value
+    /// in the outcome filter.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Operator {
+        /// The operator is unspecified.
+        Unspecified,
+        /// The outcome variable value must be equal to the outcome value in the
+        /// outcome filter.
+        Equal,
+        /// The outcome variable value must contain the outcome value in the
+        /// outcome filter.
+        Contains,
+        /// The outcome variable value must match the outcome value regex in the
+        /// outcome filter.
+        MatchesRegex,
+        /// The outcome variable value must be a valid IP address in the outcome
+        /// filter value CIDR range.
+        MatchesCidr,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Operator::value] or
+        /// [Operator::name].
+        UnknownValue(operator::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod operator {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Operator {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Equal => std::option::Option::Some(1),
+                Self::Contains => std::option::Option::Some(2),
+                Self::MatchesRegex => std::option::Option::Some(3),
+                Self::MatchesCidr => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("OPERATOR_UNSPECIFIED"),
+                Self::Equal => std::option::Option::Some("EQUAL"),
+                Self::Contains => std::option::Option::Some("CONTAINS"),
+                Self::MatchesRegex => std::option::Option::Some("MATCHES_REGEX"),
+                Self::MatchesCidr => std::option::Option::Some("MATCHES_CIDR"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Operator {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Operator {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Operator {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Equal,
+                2 => Self::Contains,
+                3 => Self::MatchesRegex,
+                4 => Self::MatchesCidr,
+                _ => Self::UnknownValue(operator::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Operator {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "OPERATOR_UNSPECIFIED" => Self::Unspecified,
+                "EQUAL" => Self::Equal,
+                "CONTAINS" => Self::Contains,
+                "MATCHES_REGEX" => Self::MatchesRegex,
+                "MATCHES_CIDR" => Self::MatchesCidr,
+                _ => Self::UnknownValue(operator::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Operator {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Equal => serializer.serialize_i32(1),
+                Self::Contains => serializer.serialize_i32(2),
+                Self::MatchesRegex => serializer.serialize_i32(3),
+                Self::MatchesCidr => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Operator {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Operator>::new(
+                ".google.cloud.chronicle.v1.OutcomeFilter.Operator",
+            ))
+        }
+    }
+}
+
+/// Request message for ComputeFindingsRefinementActivity method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ComputeFindingsRefinementActivityRequest {
+    /// Required. Full resource name for the findings refinement to fetch the
+    /// activity for. Format:
+    /// projects/{project}/locations/{region}/instances/{instance}/findingsRefinements/{findings_refinement}
+    pub name: std::string::String,
+
+    /// The time interval the activity is measured over.
+    pub interval: std::option::Option<google_cloud_type::model::Interval>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ComputeFindingsRefinementActivityRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ComputeFindingsRefinementActivityRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ComputeFindingsRefinementActivityRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let findings_refinement_id = "findings_refinement_id";
+    /// let x = ComputeFindingsRefinementActivityRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/findingsRefinements/{findings_refinement_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [interval][crate::model::ComputeFindingsRefinementActivityRequest::interval].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ComputeFindingsRefinementActivityRequest;
+    /// use google_cloud_type::model::Interval;
+    /// let x = ComputeFindingsRefinementActivityRequest::new().set_interval(Interval::default()/* use setters */);
+    /// ```
+    pub fn set_interval<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_cloud_type::model::Interval>,
+    {
+        self.interval = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [interval][crate::model::ComputeFindingsRefinementActivityRequest::interval].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ComputeFindingsRefinementActivityRequest;
+    /// use google_cloud_type::model::Interval;
+    /// let x = ComputeFindingsRefinementActivityRequest::new().set_or_clear_interval(Some(Interval::default()/* use setters */));
+    /// let x = ComputeFindingsRefinementActivityRequest::new().set_or_clear_interval(None::<Interval>);
+    /// ```
+    pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_cloud_type::model::Interval>,
+    {
+        self.interval = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for ComputeFindingsRefinementActivityRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.ComputeFindingsRefinementActivityRequest"
+    }
+}
+
+/// Response message for ComputeFindingsRefinementActivity method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ComputeFindingsRefinementActivityResponse {
+    /// The activity for the findings refinement.
+    pub activity: std::option::Option<crate::model::FindingsRefinementActivity>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ComputeFindingsRefinementActivityResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [activity][crate::model::ComputeFindingsRefinementActivityResponse::activity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ComputeFindingsRefinementActivityResponse;
+    /// use google_cloud_chronicle_v1::model::FindingsRefinementActivity;
+    /// let x = ComputeFindingsRefinementActivityResponse::new().set_activity(FindingsRefinementActivity::default()/* use setters */);
+    /// ```
+    pub fn set_activity<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::FindingsRefinementActivity>,
+    {
+        self.activity = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [activity][crate::model::ComputeFindingsRefinementActivityResponse::activity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ComputeFindingsRefinementActivityResponse;
+    /// use google_cloud_chronicle_v1::model::FindingsRefinementActivity;
+    /// let x = ComputeFindingsRefinementActivityResponse::new().set_or_clear_activity(Some(FindingsRefinementActivity::default()/* use setters */));
+    /// let x = ComputeFindingsRefinementActivityResponse::new().set_or_clear_activity(None::<FindingsRefinementActivity>);
+    /// ```
+    pub fn set_or_clear_activity<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::FindingsRefinementActivity>,
+    {
+        self.activity = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for ComputeFindingsRefinementActivityResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.ComputeFindingsRefinementActivityResponse"
+    }
+}
+
+/// Request message for ComputeAllFindingsRefinementActivities method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ComputeAllFindingsRefinementActivitiesRequest {
+    /// Required. The ID of the Instance to retrieve counts for.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}
+    pub instance: std::string::String,
+
+    /// The time interval the activity is measured over.
+    pub interval: std::option::Option<google_cloud_type::model::Interval>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ComputeAllFindingsRefinementActivitiesRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [instance][crate::model::ComputeAllFindingsRefinementActivitiesRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ComputeAllFindingsRefinementActivitiesRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ComputeAllFindingsRefinementActivitiesRequest::new().set_instance(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
+    /// ```
+    pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.instance = v.into();
+        self
+    }
+
+    /// Sets the value of [interval][crate::model::ComputeAllFindingsRefinementActivitiesRequest::interval].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ComputeAllFindingsRefinementActivitiesRequest;
+    /// use google_cloud_type::model::Interval;
+    /// let x = ComputeAllFindingsRefinementActivitiesRequest::new().set_interval(Interval::default()/* use setters */);
+    /// ```
+    pub fn set_interval<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_cloud_type::model::Interval>,
+    {
+        self.interval = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [interval][crate::model::ComputeAllFindingsRefinementActivitiesRequest::interval].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ComputeAllFindingsRefinementActivitiesRequest;
+    /// use google_cloud_type::model::Interval;
+    /// let x = ComputeAllFindingsRefinementActivitiesRequest::new().set_or_clear_interval(Some(Interval::default()/* use setters */));
+    /// let x = ComputeAllFindingsRefinementActivitiesRequest::new().set_or_clear_interval(None::<Interval>);
+    /// ```
+    pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_cloud_type::model::Interval>,
+    {
+        self.interval = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for ComputeAllFindingsRefinementActivitiesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.ComputeAllFindingsRefinementActivitiesRequest"
+    }
+}
+
+/// Response message for ComputeAllFindingsRefinementActivities method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ComputeAllFindingsRefinementActivitiesResponse {
+    /// The activities of all findings refinements.
+    pub activities: std::vec::Vec<crate::model::FindingsRefinementActivity>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ComputeAllFindingsRefinementActivitiesResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [activities][crate::model::ComputeAllFindingsRefinementActivitiesResponse::activities].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ComputeAllFindingsRefinementActivitiesResponse;
+    /// use google_cloud_chronicle_v1::model::FindingsRefinementActivity;
+    /// let x = ComputeAllFindingsRefinementActivitiesResponse::new()
+    ///     .set_activities([
+    ///         FindingsRefinementActivity::default()/* use setters */,
+    ///         FindingsRefinementActivity::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_activities<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::FindingsRefinementActivity>,
+    {
+        use std::iter::Iterator;
+        self.activities = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ComputeAllFindingsRefinementActivitiesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.ComputeAllFindingsRefinementActivitiesResponse"
+    }
+}
+
 /// A Instance represents an instantiation of the Instance product.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -24790,6 +26908,133 @@ impl<'de> serde::de::Deserialize<'de> for DataTableUpdateSource {
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<DataTableUpdateSource>::new(
             ".google.cloud.chronicle.v1.DataTableUpdateSource",
+        ))
+    }
+}
+
+/// The type of findings refinement, which determines what the findings
+/// refinement runs over and the mechanism by which it runs.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum FindingsRefinementType {
+    /// The findings refinement type is unspecified.
+    Unspecified,
+    /// Indicates that the findings refinement is a detection exclusion and
+    /// should exclude matching detections.
+    DetectionExclusion,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [FindingsRefinementType::value] or
+    /// [FindingsRefinementType::name].
+    UnknownValue(findings_refinement_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod findings_refinement_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl FindingsRefinementType {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::DetectionExclusion => std::option::Option::Some(1),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("FINDINGS_REFINEMENT_TYPE_UNSPECIFIED"),
+            Self::DetectionExclusion => std::option::Option::Some("DETECTION_EXCLUSION"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for FindingsRefinementType {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for FindingsRefinementType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for FindingsRefinementType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::DetectionExclusion,
+            _ => Self::UnknownValue(findings_refinement_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for FindingsRefinementType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "FINDINGS_REFINEMENT_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "DETECTION_EXCLUSION" => Self::DetectionExclusion,
+            _ => Self::UnknownValue(findings_refinement_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for FindingsRefinementType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::DetectionExclusion => serializer.serialize_i32(1),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for FindingsRefinementType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<FindingsRefinementType>::new(
+            ".google.cloud.chronicle.v1.FindingsRefinementType",
         ))
     }
 }

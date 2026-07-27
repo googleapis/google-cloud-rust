@@ -1549,16 +1549,11 @@ pub struct SearchCasesRequest {
     /// Expressions use the following fields separated by `AND` and specified with
     /// `=`:
     ///
-    /// - `organization`: An organization name in the form
-    ///   `organizations/<organization_id>`.
-    /// - `project`: A project name in the form `projects/<project_id>`.
     /// - `state`: Can be `OPEN` or `CLOSED`.
     /// - `priority`: Can be `P0`, `P1`, `P2`, `P3`, or `P4`. You
     ///   can specify multiple values for priority using the `OR` operator. For
     ///   example, `priority=P1 OR priority=P2`.
     /// - `creator.email`: The email address of the case creator.
-    ///
-    /// You must specify either `organization` or `project`.
     ///
     /// To search across `displayName`, `description`, and comments, use a global
     /// restriction with no keyword or operator. For example, `"my search"`.
@@ -1568,7 +1563,28 @@ pub struct SearchCasesRequest {
     /// format. For example, `update_time>"2020-01-01T00:00:00-05:00"`.
     /// `update_time` only supports the greater than operator (`>`).
     ///
+    /// If you are using the `v2` version of the API, you must specify the case
+    /// parent in the `parent` field. If you provide an empty `query`, all cases
+    /// under the parent resource will be returned.
+    ///
+    /// If you are using the `v2beta` version of the API, you must specify the case
+    /// parent in the `query` field using one of the two fields below, which are
+    /// only available for `v2beta`. The `parent` field will be ignored.
+    ///
+    /// - `organization`: An organization name in the form
+    ///   `organizations/<organization_id>`.
+    /// - `project`: A project name in the form `projects/<project_id>`.
+    ///
     /// Examples:
+    ///
+    /// For `v2`:
+    ///
+    /// - `state=CLOSED`
+    /// - `state=OPEN AND creator.email="tester@example.com"`
+    /// - `state=OPEN AND (priority=P0 OR priority=P1)`
+    /// - `update_time>"2020-01-01T00:00:00-05:00"`
+    ///
+    /// For `v2beta`:
     ///
     /// - `organization="organizations/123456789"`
     /// - `project="projects/my-project-id"`
@@ -2688,5 +2704,1011 @@ pub mod escalation {
                 ".google.cloud.support.v2.Escalation.Reason",
             ))
         }
+    }
+}
+
+/// A support event subscription.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SupportEventSubscription {
+    /// Identifier. The resource name of the support event subscription.
+    pub name: std::string::String,
+
+    /// Required. The name of the Pub/Sub topic to publish notifications to.
+    /// Format: projects/{project}/topics/{topic}
+    pub pub_sub_topic: std::string::String,
+
+    /// Output only. The state of the subscription.
+    pub state: crate::model::support_event_subscription::State,
+
+    /// Output only. Reason why subscription is failing. State of subscription
+    /// must be FAILING in order for this to have a value.
+    pub failure_reason: crate::model::support_event_subscription::FailureReason,
+
+    /// Output only. The time at which the subscription was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The time at which the subscription was last updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The time at which the subscription was deleted.
+    pub delete_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The time at which the subscription will be purged.
+    pub purge_time: std::option::Option<wkt::Timestamp>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SupportEventSubscription {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::SupportEventSubscription::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_support_v2::model::SupportEventSubscription;
+    /// # let organization_id = "organization_id";
+    /// # let support_event_subscription_id = "support_event_subscription_id";
+    /// let x = SupportEventSubscription::new().set_name(format!("organizations/{organization_id}/supportEventSubscriptions/{support_event_subscription_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [pub_sub_topic][crate::model::SupportEventSubscription::pub_sub_topic].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_support_v2::model::SupportEventSubscription;
+    /// let x = SupportEventSubscription::new().set_pub_sub_topic("example");
+    /// ```
+    pub fn set_pub_sub_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.pub_sub_topic = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::SupportEventSubscription::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_support_v2::model::SupportEventSubscription;
+    /// use google_cloud_support_v2::model::support_event_subscription::State;
+    /// let x0 = SupportEventSubscription::new().set_state(State::Working);
+    /// let x1 = SupportEventSubscription::new().set_state(State::Failing);
+    /// let x2 = SupportEventSubscription::new().set_state(State::Deleted);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::support_event_subscription::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [failure_reason][crate::model::SupportEventSubscription::failure_reason].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_support_v2::model::SupportEventSubscription;
+    /// use google_cloud_support_v2::model::support_event_subscription::FailureReason;
+    /// let x0 = SupportEventSubscription::new().set_failure_reason(FailureReason::PermissionDenied);
+    /// let x1 = SupportEventSubscription::new().set_failure_reason(FailureReason::TopicNotFound);
+    /// let x2 = SupportEventSubscription::new().set_failure_reason(FailureReason::Other);
+    /// ```
+    pub fn set_failure_reason<
+        T: std::convert::Into<crate::model::support_event_subscription::FailureReason>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.failure_reason = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::SupportEventSubscription::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_support_v2::model::SupportEventSubscription;
+    /// use wkt::Timestamp;
+    /// let x = SupportEventSubscription::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::SupportEventSubscription::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_support_v2::model::SupportEventSubscription;
+    /// use wkt::Timestamp;
+    /// let x = SupportEventSubscription::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SupportEventSubscription::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::SupportEventSubscription::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_support_v2::model::SupportEventSubscription;
+    /// use wkt::Timestamp;
+    /// let x = SupportEventSubscription::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::SupportEventSubscription::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_support_v2::model::SupportEventSubscription;
+    /// use wkt::Timestamp;
+    /// let x = SupportEventSubscription::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SupportEventSubscription::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [delete_time][crate::model::SupportEventSubscription::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_support_v2::model::SupportEventSubscription;
+    /// use wkt::Timestamp;
+    /// let x = SupportEventSubscription::new().set_delete_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_delete_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [delete_time][crate::model::SupportEventSubscription::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_support_v2::model::SupportEventSubscription;
+    /// use wkt::Timestamp;
+    /// let x = SupportEventSubscription::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SupportEventSubscription::new().set_or_clear_delete_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [purge_time][crate::model::SupportEventSubscription::purge_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_support_v2::model::SupportEventSubscription;
+    /// use wkt::Timestamp;
+    /// let x = SupportEventSubscription::new().set_purge_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_purge_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.purge_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [purge_time][crate::model::SupportEventSubscription::purge_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_support_v2::model::SupportEventSubscription;
+    /// use wkt::Timestamp;
+    /// let x = SupportEventSubscription::new().set_or_clear_purge_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SupportEventSubscription::new().set_or_clear_purge_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_purge_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.purge_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for SupportEventSubscription {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.support.v2.SupportEventSubscription"
+    }
+}
+
+/// Defines additional types related to [SupportEventSubscription].
+pub mod support_event_subscription {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The state of the subscription.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Unspecified state.
+        Unspecified,
+        /// Subscription is active and working.
+        Working,
+        /// Subscription is failing. Notifications cannot be published for some
+        /// reason.
+        Failing,
+        /// Subscription has been deleted and is pending purge. Notifications are not
+        /// sent for deleted subscriptions. Deleted subscriptions are purged after
+        /// their `purge_time` has passed.
+        Deleted,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Working => std::option::Option::Some(1),
+                Self::Failing => std::option::Option::Some(2),
+                Self::Deleted => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Working => std::option::Option::Some("WORKING"),
+                Self::Failing => std::option::Option::Some("FAILING"),
+                Self::Deleted => std::option::Option::Some("DELETED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Working,
+                2 => Self::Failing,
+                3 => Self::Deleted,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "WORKING" => Self::Working,
+                "FAILING" => Self::Failing,
+                "DELETED" => Self::Deleted,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Working => serializer.serialize_i32(1),
+                Self::Failing => serializer.serialize_i32(2),
+                Self::Deleted => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.support.v2.SupportEventSubscription.State",
+            ))
+        }
+    }
+
+    /// The reason why the subscription is failing.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum FailureReason {
+        /// Unspecified failure reason.
+        Unspecified,
+        /// The service account (i.e.
+        /// cloud-support-apievents@system.gserviceaccount.com) lacks the permission
+        /// to publish to the customer's Pub/Sub topic.
+        PermissionDenied,
+        /// The specified Pub/Sub topic does not exist.
+        TopicNotFound,
+        /// Message failed to publish due to a system-side error.
+        Other,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [FailureReason::value] or
+        /// [FailureReason::name].
+        UnknownValue(failure_reason::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod failure_reason {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl FailureReason {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::PermissionDenied => std::option::Option::Some(1),
+                Self::TopicNotFound => std::option::Option::Some(2),
+                Self::Other => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("FAILURE_REASON_UNSPECIFIED"),
+                Self::PermissionDenied => std::option::Option::Some("PERMISSION_DENIED"),
+                Self::TopicNotFound => std::option::Option::Some("TOPIC_NOT_FOUND"),
+                Self::Other => std::option::Option::Some("OTHER"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for FailureReason {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for FailureReason {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for FailureReason {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::PermissionDenied,
+                2 => Self::TopicNotFound,
+                3 => Self::Other,
+                _ => Self::UnknownValue(failure_reason::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for FailureReason {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "FAILURE_REASON_UNSPECIFIED" => Self::Unspecified,
+                "PERMISSION_DENIED" => Self::PermissionDenied,
+                "TOPIC_NOT_FOUND" => Self::TopicNotFound,
+                "OTHER" => Self::Other,
+                _ => Self::UnknownValue(failure_reason::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for FailureReason {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::PermissionDenied => serializer.serialize_i32(1),
+                Self::TopicNotFound => serializer.serialize_i32(2),
+                Self::Other => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for FailureReason {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<FailureReason>::new(
+                ".google.cloud.support.v2.SupportEventSubscription.FailureReason",
+            ))
+        }
+    }
+}
+
+/// Request message for CreateSupportEventSubscription.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateSupportEventSubscriptionRequest {
+    /// Required. The parent resource name where the support event subscription
+    /// will be created. Format: organizations/{organization_id}
+    pub parent: std::string::String,
+
+    /// Required. The Pub/Sub configuration to create.
+    pub support_event_subscription: std::option::Option<crate::model::SupportEventSubscription>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateSupportEventSubscriptionRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateSupportEventSubscriptionRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_support_v2::model::CreateSupportEventSubscriptionRequest;
+    /// # let organization_id = "organization_id";
+    /// let x = CreateSupportEventSubscriptionRequest::new().set_parent(format!("organizations/{organization_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [support_event_subscription][crate::model::CreateSupportEventSubscriptionRequest::support_event_subscription].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_support_v2::model::CreateSupportEventSubscriptionRequest;
+    /// use google_cloud_support_v2::model::SupportEventSubscription;
+    /// let x = CreateSupportEventSubscriptionRequest::new().set_support_event_subscription(SupportEventSubscription::default()/* use setters */);
+    /// ```
+    pub fn set_support_event_subscription<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SupportEventSubscription>,
+    {
+        self.support_event_subscription = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [support_event_subscription][crate::model::CreateSupportEventSubscriptionRequest::support_event_subscription].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_support_v2::model::CreateSupportEventSubscriptionRequest;
+    /// use google_cloud_support_v2::model::SupportEventSubscription;
+    /// let x = CreateSupportEventSubscriptionRequest::new().set_or_clear_support_event_subscription(Some(SupportEventSubscription::default()/* use setters */));
+    /// let x = CreateSupportEventSubscriptionRequest::new().set_or_clear_support_event_subscription(None::<SupportEventSubscription>);
+    /// ```
+    pub fn set_or_clear_support_event_subscription<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SupportEventSubscription>,
+    {
+        self.support_event_subscription = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateSupportEventSubscriptionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.support.v2.CreateSupportEventSubscriptionRequest"
+    }
+}
+
+/// Request message for GetSupportEventSubscription.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetSupportEventSubscriptionRequest {
+    /// Required. The name of the support event subscription to retrieve.
+    /// Format:
+    /// organizations/{organization_id}/supportEventSubscriptions/{subscription_id}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetSupportEventSubscriptionRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetSupportEventSubscriptionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_support_v2::model::GetSupportEventSubscriptionRequest;
+    /// # let organization_id = "organization_id";
+    /// # let support_event_subscription_id = "support_event_subscription_id";
+    /// let x = GetSupportEventSubscriptionRequest::new().set_name(format!("organizations/{organization_id}/supportEventSubscriptions/{support_event_subscription_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetSupportEventSubscriptionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.support.v2.GetSupportEventSubscriptionRequest"
+    }
+}
+
+/// Request message for ListSupportEventSubscriptions.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListSupportEventSubscriptionsRequest {
+    /// Required. The fully qualified name of the Cloud resource to list support
+    /// event subscriptions under. Format: organizations/{organization_id}
+    pub parent: std::string::String,
+
+    /// Optional. Filter expression based on AIP-160.
+    /// Supported fields:
+    ///
+    /// - pub_sub_topic
+    /// - state
+    ///
+    /// Examples:
+    ///
+    /// - `pub_sub_topic="projects/example-project/topics/example-topic"`
+    /// - `state=WORKING`
+    /// - `pub_sub_topic="projects/example-project/topics/example-topic" AND
+    ///   state=WORKING`
+    pub filter: std::string::String,
+
+    /// Optional. Whether to show deleted subscriptions. By default, deleted
+    /// subscriptions are not returned.
+    pub show_deleted: bool,
+
+    /// Optional. The maximum number of support event subscriptions to return.
+    pub page_size: i32,
+
+    /// Optional. A token identifying the page of results to return. If
+    /// unspecified, the first page is retrieved.
+    ///
+    /// When paginating, all other parameters provided to
+    /// `ListSupportEventSubscriptions` must match the call that provided the page
+    /// token.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListSupportEventSubscriptionsRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListSupportEventSubscriptionsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_support_v2::model::ListSupportEventSubscriptionsRequest;
+    /// # let organization_id = "organization_id";
+    /// let x = ListSupportEventSubscriptionsRequest::new().set_parent(format!("organizations/{organization_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListSupportEventSubscriptionsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_support_v2::model::ListSupportEventSubscriptionsRequest;
+    /// let x = ListSupportEventSubscriptionsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [show_deleted][crate::model::ListSupportEventSubscriptionsRequest::show_deleted].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_support_v2::model::ListSupportEventSubscriptionsRequest;
+    /// let x = ListSupportEventSubscriptionsRequest::new().set_show_deleted(true);
+    /// ```
+    pub fn set_show_deleted<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.show_deleted = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListSupportEventSubscriptionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_support_v2::model::ListSupportEventSubscriptionsRequest;
+    /// let x = ListSupportEventSubscriptionsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListSupportEventSubscriptionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_support_v2::model::ListSupportEventSubscriptionsRequest;
+    /// let x = ListSupportEventSubscriptionsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListSupportEventSubscriptionsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.support.v2.ListSupportEventSubscriptionsRequest"
+    }
+}
+
+/// Response message for ListSupportEventSubscriptions.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListSupportEventSubscriptionsResponse {
+    /// The support event subscriptions.
+    pub support_event_subscriptions: std::vec::Vec<crate::model::SupportEventSubscription>,
+
+    /// A token, which can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListSupportEventSubscriptionsResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [support_event_subscriptions][crate::model::ListSupportEventSubscriptionsResponse::support_event_subscriptions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_support_v2::model::ListSupportEventSubscriptionsResponse;
+    /// use google_cloud_support_v2::model::SupportEventSubscription;
+    /// let x = ListSupportEventSubscriptionsResponse::new()
+    ///     .set_support_event_subscriptions([
+    ///         SupportEventSubscription::default()/* use setters */,
+    ///         SupportEventSubscription::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_support_event_subscriptions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SupportEventSubscription>,
+    {
+        use std::iter::Iterator;
+        self.support_event_subscriptions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListSupportEventSubscriptionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_support_v2::model::ListSupportEventSubscriptionsResponse;
+    /// let x = ListSupportEventSubscriptionsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListSupportEventSubscriptionsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.support.v2.ListSupportEventSubscriptionsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListSupportEventSubscriptionsResponse
+{
+    type PageItem = crate::model::SupportEventSubscription;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.support_event_subscriptions
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for UpdateSupportEventSubscription.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateSupportEventSubscriptionRequest {
+    /// Required. The support event subscription to update.
+    /// The `name` field is used to identify the configuration to update.
+    pub support_event_subscription: std::option::Option<crate::model::SupportEventSubscription>,
+
+    /// Optional. The list of fields to update. The only supported value is
+    /// pub_sub_topic.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateSupportEventSubscriptionRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [support_event_subscription][crate::model::UpdateSupportEventSubscriptionRequest::support_event_subscription].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_support_v2::model::UpdateSupportEventSubscriptionRequest;
+    /// use google_cloud_support_v2::model::SupportEventSubscription;
+    /// let x = UpdateSupportEventSubscriptionRequest::new().set_support_event_subscription(SupportEventSubscription::default()/* use setters */);
+    /// ```
+    pub fn set_support_event_subscription<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SupportEventSubscription>,
+    {
+        self.support_event_subscription = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [support_event_subscription][crate::model::UpdateSupportEventSubscriptionRequest::support_event_subscription].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_support_v2::model::UpdateSupportEventSubscriptionRequest;
+    /// use google_cloud_support_v2::model::SupportEventSubscription;
+    /// let x = UpdateSupportEventSubscriptionRequest::new().set_or_clear_support_event_subscription(Some(SupportEventSubscription::default()/* use setters */));
+    /// let x = UpdateSupportEventSubscriptionRequest::new().set_or_clear_support_event_subscription(None::<SupportEventSubscription>);
+    /// ```
+    pub fn set_or_clear_support_event_subscription<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SupportEventSubscription>,
+    {
+        self.support_event_subscription = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateSupportEventSubscriptionRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_support_v2::model::UpdateSupportEventSubscriptionRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateSupportEventSubscriptionRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateSupportEventSubscriptionRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_support_v2::model::UpdateSupportEventSubscriptionRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateSupportEventSubscriptionRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateSupportEventSubscriptionRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateSupportEventSubscriptionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.support.v2.UpdateSupportEventSubscriptionRequest"
+    }
+}
+
+/// Request message for DeleteSupportEventSubscription.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteSupportEventSubscriptionRequest {
+    /// Required. The name of the support event subscription to delete.
+    /// Format:
+    /// organizations/{organization_id}/supportEventSubscriptions/{subscription_id}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteSupportEventSubscriptionRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteSupportEventSubscriptionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_support_v2::model::DeleteSupportEventSubscriptionRequest;
+    /// # let organization_id = "organization_id";
+    /// # let support_event_subscription_id = "support_event_subscription_id";
+    /// let x = DeleteSupportEventSubscriptionRequest::new().set_name(format!("organizations/{organization_id}/supportEventSubscriptions/{support_event_subscription_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteSupportEventSubscriptionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.support.v2.DeleteSupportEventSubscriptionRequest"
+    }
+}
+
+/// Request message for UndeleteSupportEventSubscription.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UndeleteSupportEventSubscriptionRequest {
+    /// Required. The name of the support event subscription to undelete.
+    /// Format:
+    /// organizations/{organization_id}/supportEventSubscriptions/{subscription_id}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UndeleteSupportEventSubscriptionRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::UndeleteSupportEventSubscriptionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_support_v2::model::UndeleteSupportEventSubscriptionRequest;
+    /// # let organization_id = "organization_id";
+    /// # let support_event_subscription_id = "support_event_subscription_id";
+    /// let x = UndeleteSupportEventSubscriptionRequest::new().set_name(format!("organizations/{organization_id}/supportEventSubscriptions/{support_event_subscription_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UndeleteSupportEventSubscriptionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.support.v2.UndeleteSupportEventSubscriptionRequest"
     }
 }

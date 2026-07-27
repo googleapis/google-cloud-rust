@@ -6985,6 +6985,12 @@ pub mod instance_flexibility_policy {
         /// priority have the same preference.
         pub rank: i32,
 
+        /// Optional. Disk configuration to apply to the instances in this instance
+        /// selection. If specified on any entry in instanceSelectionList, then it
+        /// must be specified on every entry in instanceSelectionList and the
+        /// instanceGroupConfig must not specify any diskConfig.
+        pub disk_config: std::option::Option<crate::model::DiskConfig>,
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -7020,6 +7026,39 @@ pub mod instance_flexibility_policy {
         /// ```
         pub fn set_rank<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.rank = v.into();
+            self
+        }
+
+        /// Sets the value of [disk_config][crate::model::instance_flexibility_policy::InstanceSelection::disk_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataproc_v1::model::instance_flexibility_policy::InstanceSelection;
+        /// use google_cloud_dataproc_v1::model::DiskConfig;
+        /// let x = InstanceSelection::new().set_disk_config(DiskConfig::default()/* use setters */);
+        /// ```
+        pub fn set_disk_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DiskConfig>,
+        {
+            self.disk_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [disk_config][crate::model::instance_flexibility_policy::InstanceSelection::disk_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataproc_v1::model::instance_flexibility_policy::InstanceSelection;
+        /// use google_cloud_dataproc_v1::model::DiskConfig;
+        /// let x = InstanceSelection::new().set_or_clear_disk_config(Some(DiskConfig::default()/* use setters */));
+        /// let x = InstanceSelection::new().set_or_clear_disk_config(None::<DiskConfig>);
+        /// ```
+        pub fn set_or_clear_disk_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DiskConfig>,
+        {
+            self.disk_config = v.map(|x| x.into());
             self
         }
     }
@@ -7190,14 +7229,15 @@ impl wkt::message::Message for AcceleratorConfig {
     }
 }
 
-/// Specifies the config of disk options for a group of VM instances.
+/// Specifies the config of boot disk and attached disk options for a group of VM
+/// instances.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiskConfig {
-    /// Optional. Type of the boot disk (default is "pd-standard").
-    /// Valid values: "pd-balanced" (Persistent Disk Balanced Solid State Drive),
-    /// "pd-ssd" (Persistent Disk Solid State Drive),
-    /// or "pd-standard" (Persistent Disk Hard Disk Drive).
+    /// Optional. Type of the boot disk (default is `pd-standard`).
+    /// Valid values: `pd-balanced` (Persistent Disk Balanced Solid State Drive),
+    /// `pd-ssd` (Persistent Disk Solid State Drive),
+    /// or `pd-standard` (Persistent Disk Hard Disk Drive).
     /// See [Disk types](https://cloud.google.com/compute/docs/disks#disk-types).
     pub boot_disk_type: std::string::String,
 
@@ -7215,23 +7255,33 @@ pub struct DiskConfig {
     /// selected.
     pub num_local_ssds: i32,
 
-    /// Optional. Interface type of local SSDs (default is "scsi").
-    /// Valid values: "scsi" (Small Computer System Interface),
-    /// "nvme" (Non-Volatile Memory Express).
+    /// Optional. Interface type of local SSDs (default is `scsi`).
+    /// Valid values: `scsi` (Small Computer System Interface),
+    /// `nvme` (Non-Volatile Memory Express).
     /// See [local SSD
     /// performance](https://cloud.google.com/compute/docs/disks/local-ssd#performance).
     pub local_ssd_interface: std::string::String,
 
     /// Optional. Indicates how many IOPS to provision for the disk. This sets the
-    /// number of I/O operations per second that the disk can handle. Note: This
-    /// field is only supported if boot_disk_type is hyperdisk-balanced.
+    /// number of I/O operations per second that the disk can handle.
+    /// **This field is supported only if
+    /// [boot_disk_type][google.cloud.dataproc.v1.DiskConfig.boot_disk_type] is
+    /// `hyperdisk-balanced`.**
+    ///
+    /// [google.cloud.dataproc.v1.DiskConfig.boot_disk_type]: crate::model::DiskConfig::boot_disk_type
     pub boot_disk_provisioned_iops: std::option::Option<i64>,
 
     /// Optional. Indicates how much throughput to provision for the disk. This
     /// sets the number of throughput mb per second that the disk can handle.
-    /// Values must be greater than or equal to 1. Note: This field is only
-    /// supported if boot_disk_type is hyperdisk-balanced.
+    /// Values must be greater than or equal to 1. **This field is supported only
+    /// if [boot_disk_type][google.cloud.dataproc.v1.DiskConfig.boot_disk_type] is
+    /// `hyperdisk-balanced`.**
+    ///
+    /// [google.cloud.dataproc.v1.DiskConfig.boot_disk_type]: crate::model::DiskConfig::boot_disk_type
     pub boot_disk_provisioned_throughput: std::option::Option<i64>,
+
+    /// Optional. A list of attached disk configs for a group of VM instances.
+    pub attached_disk_configs: std::vec::Vec<crate::model::AttachedDiskConfig>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -7357,11 +7407,314 @@ impl DiskConfig {
         self.boot_disk_provisioned_throughput = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [attached_disk_configs][crate::model::DiskConfig::attached_disk_configs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::DiskConfig;
+    /// use google_cloud_dataproc_v1::model::AttachedDiskConfig;
+    /// let x = DiskConfig::new()
+    ///     .set_attached_disk_configs([
+    ///         AttachedDiskConfig::default()/* use setters */,
+    ///         AttachedDiskConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_attached_disk_configs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AttachedDiskConfig>,
+    {
+        use std::iter::Iterator;
+        self.attached_disk_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for DiskConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dataproc.v1.DiskConfig"
+    }
+}
+
+/// Specifies the config of attached disk options for single VM instance.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AttachedDiskConfig {
+    /// Optional. Disk type.
+    pub disk_type: crate::model::attached_disk_config::DiskType,
+
+    /// Optional. Disk size in GB.
+    pub disk_size_gb: i32,
+
+    /// Optional. Indicates how many IOPS to provision for the attached disk. This
+    /// sets the number of I/O operations per second that the disk can handle. See
+    /// <https://cloud.google.com/compute/docs/disks/hyperdisks#hyperdisk-features>
+    pub provisioned_iops: std::option::Option<i64>,
+
+    /// Optional. Indicates how much throughput to provision for the attached
+    /// disk. This sets the number of throughput mb per second that the disk can
+    /// handle. See
+    /// <https://cloud.google.com/compute/docs/disks/hyperdisks#hyperdisk-features>
+    pub provisioned_throughput: std::option::Option<i64>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AttachedDiskConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [disk_type][crate::model::AttachedDiskConfig::disk_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::AttachedDiskConfig;
+    /// use google_cloud_dataproc_v1::model::attached_disk_config::DiskType;
+    /// let x0 = AttachedDiskConfig::new().set_disk_type(DiskType::HyperdiskBalanced);
+    /// let x1 = AttachedDiskConfig::new().set_disk_type(DiskType::HyperdiskExtreme);
+    /// let x2 = AttachedDiskConfig::new().set_disk_type(DiskType::HyperdiskMl);
+    /// ```
+    pub fn set_disk_type<T: std::convert::Into<crate::model::attached_disk_config::DiskType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.disk_type = v.into();
+        self
+    }
+
+    /// Sets the value of [disk_size_gb][crate::model::AttachedDiskConfig::disk_size_gb].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::AttachedDiskConfig;
+    /// let x = AttachedDiskConfig::new().set_disk_size_gb(42);
+    /// ```
+    pub fn set_disk_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.disk_size_gb = v.into();
+        self
+    }
+
+    /// Sets the value of [provisioned_iops][crate::model::AttachedDiskConfig::provisioned_iops].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::AttachedDiskConfig;
+    /// let x = AttachedDiskConfig::new().set_provisioned_iops(42);
+    /// ```
+    pub fn set_provisioned_iops<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.provisioned_iops = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [provisioned_iops][crate::model::AttachedDiskConfig::provisioned_iops].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::AttachedDiskConfig;
+    /// let x = AttachedDiskConfig::new().set_or_clear_provisioned_iops(Some(42));
+    /// let x = AttachedDiskConfig::new().set_or_clear_provisioned_iops(None::<i32>);
+    /// ```
+    pub fn set_or_clear_provisioned_iops<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.provisioned_iops = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [provisioned_throughput][crate::model::AttachedDiskConfig::provisioned_throughput].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::AttachedDiskConfig;
+    /// let x = AttachedDiskConfig::new().set_provisioned_throughput(42);
+    /// ```
+    pub fn set_provisioned_throughput<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.provisioned_throughput = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [provisioned_throughput][crate::model::AttachedDiskConfig::provisioned_throughput].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::AttachedDiskConfig;
+    /// let x = AttachedDiskConfig::new().set_or_clear_provisioned_throughput(Some(42));
+    /// let x = AttachedDiskConfig::new().set_or_clear_provisioned_throughput(None::<i32>);
+    /// ```
+    pub fn set_or_clear_provisioned_throughput<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.provisioned_throughput = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for AttachedDiskConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataproc.v1.AttachedDiskConfig"
+    }
+}
+
+/// Defines additional types related to [AttachedDiskConfig].
+pub mod attached_disk_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Enum for [DiskType].
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum DiskType {
+        /// Required unspecified disk type.
+        Unspecified,
+        /// Hyperdisk Balanced disk type.
+        HyperdiskBalanced,
+        /// Hyperdisk Extreme disk type.
+        HyperdiskExtreme,
+        /// Hyperdisk ML disk type.
+        HyperdiskMl,
+        /// Hyperdisk Throughput disk type.
+        HyperdiskThroughput,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [DiskType::value] or
+        /// [DiskType::name].
+        UnknownValue(disk_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod disk_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl DiskType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::HyperdiskBalanced => std::option::Option::Some(1),
+                Self::HyperdiskExtreme => std::option::Option::Some(2),
+                Self::HyperdiskMl => std::option::Option::Some(3),
+                Self::HyperdiskThroughput => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("DISK_TYPE_UNSPECIFIED"),
+                Self::HyperdiskBalanced => std::option::Option::Some("HYPERDISK_BALANCED"),
+                Self::HyperdiskExtreme => std::option::Option::Some("HYPERDISK_EXTREME"),
+                Self::HyperdiskMl => std::option::Option::Some("HYPERDISK_ML"),
+                Self::HyperdiskThroughput => std::option::Option::Some("HYPERDISK_THROUGHPUT"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for DiskType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for DiskType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for DiskType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::HyperdiskBalanced,
+                2 => Self::HyperdiskExtreme,
+                3 => Self::HyperdiskMl,
+                4 => Self::HyperdiskThroughput,
+                _ => Self::UnknownValue(disk_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for DiskType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "DISK_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "HYPERDISK_BALANCED" => Self::HyperdiskBalanced,
+                "HYPERDISK_EXTREME" => Self::HyperdiskExtreme,
+                "HYPERDISK_ML" => Self::HyperdiskMl,
+                "HYPERDISK_THROUGHPUT" => Self::HyperdiskThroughput,
+                _ => Self::UnknownValue(disk_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for DiskType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::HyperdiskBalanced => serializer.serialize_i32(1),
+                Self::HyperdiskExtreme => serializer.serialize_i32(2),
+                Self::HyperdiskMl => serializer.serialize_i32(3),
+                Self::HyperdiskThroughput => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for DiskType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<DiskType>::new(
+                ".google.cloud.dataproc.v1.AttachedDiskConfig.DiskType",
+            ))
+        }
     }
 }
 

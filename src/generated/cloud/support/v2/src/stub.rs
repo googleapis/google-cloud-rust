@@ -199,3 +199,84 @@ pub trait CommentService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
+
+/// Defines the trait used to implement [super::client::SupportEventSubscriptionService].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::SupportEventSubscriptionService`.  In other use-cases, application developers only
+/// use `client::SupportEventSubscriptionService` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+pub trait SupportEventSubscriptionService: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::SupportEventSubscriptionService::create_support_event_subscription].
+    fn create_support_event_subscription(
+        &self,
+        _req: crate::model::CreateSupportEventSubscriptionRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::SupportEventSubscription>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SupportEventSubscriptionService::get_support_event_subscription].
+    fn get_support_event_subscription(
+        &self,
+        _req: crate::model::GetSupportEventSubscriptionRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::SupportEventSubscription>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SupportEventSubscriptionService::list_support_event_subscriptions].
+    fn list_support_event_subscriptions(
+        &self,
+        _req: crate::model::ListSupportEventSubscriptionsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<crate::model::ListSupportEventSubscriptionsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SupportEventSubscriptionService::update_support_event_subscription].
+    fn update_support_event_subscription(
+        &self,
+        _req: crate::model::UpdateSupportEventSubscriptionRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::SupportEventSubscription>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SupportEventSubscriptionService::delete_support_event_subscription].
+    fn delete_support_event_subscription(
+        &self,
+        _req: crate::model::DeleteSupportEventSubscriptionRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::SupportEventSubscription>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SupportEventSubscriptionService::undelete_support_event_subscription].
+    fn undelete_support_event_subscription(
+        &self,
+        _req: crate::model::UndeleteSupportEventSubscriptionRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::SupportEventSubscription>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+}

@@ -283,6 +283,10 @@ pub mod template {
         pub multi_language_detection:
             std::option::Option<crate::model::template::template_metadata::MultiLanguageDetection>,
 
+        /// Optional. Specifies the modalities to scan.
+        /// If empty, only text modality will be scanned.
+        pub modalities: std::vec::Vec<crate::model::Modality>,
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -448,6 +452,27 @@ pub mod template {
                 >,
         {
             self.multi_language_detection = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [modalities][crate::model::template::TemplateMetadata::modalities].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_modelarmor_v1::model::template::TemplateMetadata;
+        /// use google_cloud_modelarmor_v1::model::Modality;
+        /// let x = TemplateMetadata::new().set_modalities([
+        ///     Modality::Text,
+        ///     Modality::Image,
+        /// ]);
+        /// ```
+        pub fn set_modalities<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::Modality>,
+        {
+            use std::iter::Iterator;
+            self.modalities = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -2242,7 +2267,7 @@ pub mod pi_and_jailbreak_filter_settings {
         Unspecified,
         /// Enabled
         Enabled,
-        /// Enabled
+        /// Disabled
         Disabled,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -4169,7 +4194,8 @@ pub struct RaiFilterResult {
     pub match_state: crate::model::FilterMatchState,
 
     /// The map of RAI filter results where key is RAI filter type - either of
-    /// "sexually_explicit", "hate_speech", "harassment", "dangerous".
+    /// "sexually_explicit", "hate_speech", "harassment", "dangerous", "violence",
+    /// "sexually_suggestive".
     pub rai_filter_type_results: std::collections::HashMap<
         std::string::String,
         crate::model::rai_filter_result::RaiFilterTypeResult,
@@ -4425,6 +4451,7 @@ impl SdpFilterResult {
     /// let x = SdpFilterResult::new().set_inspect_result(SdpInspectResult::default()/* use setters */);
     /// assert!(x.inspect_result().is_some());
     /// assert!(x.deidentify_result().is_none());
+    /// assert!(x.redact_result().is_none());
     /// ```
     pub fn set_inspect_result<
         T: std::convert::Into<std::boxed::Box<crate::model::SdpInspectResult>>,
@@ -4466,6 +4493,7 @@ impl SdpFilterResult {
     /// let x = SdpFilterResult::new().set_deidentify_result(SdpDeidentifyResult::default()/* use setters */);
     /// assert!(x.deidentify_result().is_some());
     /// assert!(x.inspect_result().is_none());
+    /// assert!(x.redact_result().is_none());
     /// ```
     pub fn set_deidentify_result<
         T: std::convert::Into<std::boxed::Box<crate::model::SdpDeidentifyResult>>,
@@ -4475,6 +4503,48 @@ impl SdpFilterResult {
     ) -> Self {
         self.result = std::option::Option::Some(
             crate::model::sdp_filter_result::Result::DeidentifyResult(v.into()),
+        );
+        self
+    }
+
+    /// The value of [result][crate::model::SdpFilterResult::result]
+    /// if it holds a `RedactResult`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn redact_result(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SdpRedactResult>> {
+        #[allow(unreachable_patterns)]
+        self.result.as_ref().and_then(|v| match v {
+            crate::model::sdp_filter_result::Result::RedactResult(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [result][crate::model::SdpFilterResult::result]
+    /// to hold a `RedactResult`.
+    ///
+    /// Note that all the setters affecting `result` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::SdpFilterResult;
+    /// use google_cloud_modelarmor_v1::model::SdpRedactResult;
+    /// let x = SdpFilterResult::new().set_redact_result(SdpRedactResult::default()/* use setters */);
+    /// assert!(x.redact_result().is_some());
+    /// assert!(x.inspect_result().is_none());
+    /// assert!(x.deidentify_result().is_none());
+    /// ```
+    pub fn set_redact_result<
+        T: std::convert::Into<std::boxed::Box<crate::model::SdpRedactResult>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.result = std::option::Option::Some(
+            crate::model::sdp_filter_result::Result::RedactResult(v.into()),
         );
         self
     }
@@ -4500,6 +4570,9 @@ pub mod sdp_filter_result {
         /// Sensitive Data Protection Deidentification result if deidentification is
         /// performed.
         DeidentifyResult(std::boxed::Box<crate::model::SdpDeidentifyResult>),
+        /// Sensitive Data Protection Redaction result if redaction is performed.
+        /// This is primarily used for image redaction.
+        RedactResult(std::boxed::Box<crate::model::SdpRedactResult>),
     }
 }
 
@@ -4531,6 +4604,9 @@ pub struct SdpInspectResult {
     /// the server reached the maximum amount of resources allowed for a single API
     /// call.
     pub findings_truncated: bool,
+
+    /// Contains text extracted from the image, if applicable.
+    pub extracted_image_text: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4628,6 +4704,21 @@ impl SdpInspectResult {
     /// ```
     pub fn set_findings_truncated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.findings_truncated = v.into();
+        self
+    }
+
+    /// Sets the value of [extracted_image_text][crate::model::SdpInspectResult::extracted_image_text].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::SdpInspectResult;
+    /// let x = SdpInspectResult::new().set_extracted_image_text("example");
+    /// ```
+    pub fn set_extracted_image_text<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.extracted_image_text = v.into();
         self
     }
 }
@@ -4857,6 +4948,8 @@ pub mod byte_data_item {
         Txt,
         /// CSV
         Csv,
+        /// IMAGE
+        Image,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [ByteItemType::value] or
@@ -4887,6 +4980,7 @@ pub mod byte_data_item {
                 Self::PowerpointDocument => std::option::Option::Some(5),
                 Self::Txt => std::option::Option::Some(6),
                 Self::Csv => std::option::Option::Some(7),
+                Self::Image => std::option::Option::Some(8),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -4905,6 +4999,7 @@ pub mod byte_data_item {
                 Self::PowerpointDocument => std::option::Option::Some("POWERPOINT_DOCUMENT"),
                 Self::Txt => std::option::Option::Some("TXT"),
                 Self::Csv => std::option::Option::Some("CSV"),
+                Self::Image => std::option::Option::Some("IMAGE"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -4934,6 +5029,7 @@ pub mod byte_data_item {
                 5 => Self::PowerpointDocument,
                 6 => Self::Txt,
                 7 => Self::Csv,
+                8 => Self::Image,
                 _ => Self::UnknownValue(byte_item_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -4953,6 +5049,7 @@ pub mod byte_data_item {
                 "POWERPOINT_DOCUMENT" => Self::PowerpointDocument,
                 "TXT" => Self::Txt,
                 "CSV" => Self::Csv,
+                "IMAGE" => Self::Image,
                 _ => Self::UnknownValue(byte_item_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -4974,6 +5071,7 @@ pub mod byte_data_item {
                 Self::PowerpointDocument => serializer.serialize_i32(5),
                 Self::Txt => serializer.serialize_i32(6),
                 Self::Csv => serializer.serialize_i32(7),
+                Self::Image => serializer.serialize_i32(8),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -5152,6 +5250,260 @@ impl wkt::message::Message for SdpDeidentifyResult {
     }
 }
 
+/// Location of the finding within an image.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SdpImageFindingLocation {
+    /// Bounding boxes locating the pixels within the image containing the finding.
+    pub bounding_boxes: std::vec::Vec<crate::model::sdp_image_finding_location::SdpBoundingBox>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SdpImageFindingLocation {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [bounding_boxes][crate::model::SdpImageFindingLocation::bounding_boxes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::SdpImageFindingLocation;
+    /// use google_cloud_modelarmor_v1::model::sdp_image_finding_location::SdpBoundingBox;
+    /// let x = SdpImageFindingLocation::new()
+    ///     .set_bounding_boxes([
+    ///         SdpBoundingBox::default()/* use setters */,
+    ///         SdpBoundingBox::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_bounding_boxes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::sdp_image_finding_location::SdpBoundingBox>,
+    {
+        use std::iter::Iterator;
+        self.bounding_boxes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for SdpImageFindingLocation {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.modelarmor.v1.SdpImageFindingLocation"
+    }
+}
+
+/// Defines additional types related to [SdpImageFindingLocation].
+pub mod sdp_image_finding_location {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Bounding box encompassing a finding within an image.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SdpBoundingBox {
+        /// Top coordinate of the bounding box. (0,0) is upper left.
+        pub top: i32,
+
+        /// Left coordinate of the bounding box. (0,0) is upper left.
+        pub left: i32,
+
+        /// Width of the bounding box in pixels.
+        pub width: i32,
+
+        /// Height of the bounding box in pixels.
+        pub height: i32,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl SdpBoundingBox {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [top][crate::model::sdp_image_finding_location::SdpBoundingBox::top].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_modelarmor_v1::model::sdp_image_finding_location::SdpBoundingBox;
+        /// let x = SdpBoundingBox::new().set_top(42);
+        /// ```
+        pub fn set_top<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.top = v.into();
+            self
+        }
+
+        /// Sets the value of [left][crate::model::sdp_image_finding_location::SdpBoundingBox::left].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_modelarmor_v1::model::sdp_image_finding_location::SdpBoundingBox;
+        /// let x = SdpBoundingBox::new().set_left(42);
+        /// ```
+        pub fn set_left<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.left = v.into();
+            self
+        }
+
+        /// Sets the value of [width][crate::model::sdp_image_finding_location::SdpBoundingBox::width].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_modelarmor_v1::model::sdp_image_finding_location::SdpBoundingBox;
+        /// let x = SdpBoundingBox::new().set_width(42);
+        /// ```
+        pub fn set_width<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.width = v.into();
+            self
+        }
+
+        /// Sets the value of [height][crate::model::sdp_image_finding_location::SdpBoundingBox::height].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_modelarmor_v1::model::sdp_image_finding_location::SdpBoundingBox;
+        /// let x = SdpBoundingBox::new().set_height(42);
+        /// ```
+        pub fn set_height<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.height = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for SdpBoundingBox {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.modelarmor.v1.SdpImageFindingLocation.SdpBoundingBox"
+        }
+    }
+}
+
+/// Precise location of the finding within a document, record, image, or
+/// metadata container.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SdpContentLocation {
+    /// Name of the container where the finding is located.
+    /// The top level name is the source file name or table name.
+    ///
+    /// Nested names could be absent if the embedded object has no string
+    /// identifier (for example, an image contained within a document).
+    pub container_name: std::string::String,
+
+    /// Type of the container within the file with location of the finding. This
+    /// may be extended to include other container types like audio, video, etc in
+    /// future.
+    pub location: std::option::Option<crate::model::sdp_content_location::Location>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SdpContentLocation {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [container_name][crate::model::SdpContentLocation::container_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::SdpContentLocation;
+    /// let x = SdpContentLocation::new().set_container_name("example");
+    /// ```
+    pub fn set_container_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.container_name = v.into();
+        self
+    }
+
+    /// Sets the value of [location][crate::model::SdpContentLocation::location].
+    ///
+    /// Note that all the setters affecting `location` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::SdpContentLocation;
+    /// use google_cloud_modelarmor_v1::model::SdpImageFindingLocation;
+    /// let x = SdpContentLocation::new().set_location(Some(
+    ///     google_cloud_modelarmor_v1::model::sdp_content_location::Location::ImageFindingLocation(SdpImageFindingLocation::default().into())));
+    /// ```
+    pub fn set_location<
+        T: std::convert::Into<std::option::Option<crate::model::sdp_content_location::Location>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.location = v.into();
+        self
+    }
+
+    /// The value of [location][crate::model::SdpContentLocation::location]
+    /// if it holds a `ImageFindingLocation`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn image_finding_location(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SdpImageFindingLocation>> {
+        #[allow(unreachable_patterns)]
+        self.location.as_ref().and_then(|v| match v {
+            crate::model::sdp_content_location::Location::ImageFindingLocation(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [location][crate::model::SdpContentLocation::location]
+    /// to hold a `ImageFindingLocation`.
+    ///
+    /// Note that all the setters affecting `location` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::SdpContentLocation;
+    /// use google_cloud_modelarmor_v1::model::SdpImageFindingLocation;
+    /// let x = SdpContentLocation::new().set_image_finding_location(SdpImageFindingLocation::default()/* use setters */);
+    /// assert!(x.image_finding_location().is_some());
+    /// ```
+    pub fn set_image_finding_location<
+        T: std::convert::Into<std::boxed::Box<crate::model::SdpImageFindingLocation>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.location = std::option::Option::Some(
+            crate::model::sdp_content_location::Location::ImageFindingLocation(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for SdpContentLocation {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.modelarmor.v1.SdpContentLocation"
+    }
+}
+
+/// Defines additional types related to [SdpContentLocation].
+pub mod sdp_content_location {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Type of the container within the file with location of the finding. This
+    /// may be extended to include other container types like audio, video, etc in
+    /// future.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Location {
+        /// Location within an image's pixels.
+        ImageFindingLocation(std::boxed::Box<crate::model::SdpImageFindingLocation>),
+    }
+}
+
 /// Finding corresponding to Sensitive Data Protection filter.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -5257,12 +5609,24 @@ pub mod sdp_finding {
         /// These are relative to the finding's containing element.
         /// Note that when the content is not textual, this references
         /// the UTF-8 encoded textual representation of the content.
+        /// Note: Omitted if content is an image.
         pub byte_range: std::option::Option<crate::model::RangeInfo>,
 
         /// Unicode character offsets delimiting the finding.
         /// These are relative to the finding's containing element.
         /// Provided when the content is text.
+        /// Note: Omitted if content is an image.
         pub codepoint_range: std::option::Option<crate::model::RangeInfo>,
+
+        /// List of nested objects pointing to the precise location of the finding
+        /// within an image, file or record.
+        ///
+        /// For example, a single finding might be detected in two
+        /// separate bounding boxes within an image (e.g., if it wraps across
+        /// a line or is partially obscured). In such cases, content_locations
+        /// would contain two SdpContentLocation entries, each with an
+        /// image_finding_location pointing to a different bounding box.
+        pub content_locations: std::vec::Vec<crate::model::SdpContentLocation>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -5338,12 +5702,184 @@ pub mod sdp_finding {
             self.codepoint_range = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [content_locations][crate::model::sdp_finding::SdpFindingLocation::content_locations].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_modelarmor_v1::model::sdp_finding::SdpFindingLocation;
+        /// use google_cloud_modelarmor_v1::model::SdpContentLocation;
+        /// let x = SdpFindingLocation::new()
+        ///     .set_content_locations([
+        ///         SdpContentLocation::default()/* use setters */,
+        ///         SdpContentLocation::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_content_locations<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::SdpContentLocation>,
+        {
+            use std::iter::Iterator;
+            self.content_locations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
     }
 
     impl wkt::message::Message for SdpFindingLocation {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.modelarmor.v1.SdpFinding.SdpFindingLocation"
         }
+    }
+}
+
+/// Sensitive Data Protection Redaction Result.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SdpRedactResult {
+    /// Output only. Reports whether Sensitive Data Protection redaction was
+    /// successfully executed or not.
+    pub execution_state: crate::model::FilterExecutionState,
+
+    /// Output only. Optional messages corresponding to the result.
+    /// A message can provide warnings or error details.
+    /// For example, if execution state is skipped then this field provides
+    /// related reason/explanation.
+    pub message_items: std::vec::Vec<crate::model::MessageItem>,
+
+    /// Output only. Match state for Sensitive Data Protection Redaction.
+    /// Value is MATCH_FOUND if content is redacted.
+    pub match_state: crate::model::FilterMatchState,
+
+    /// Output only. The redacted image. The type will be the same as the original
+    /// image.
+    pub redacted_image: ::bytes::Bytes,
+
+    /// Output only. The findings. This field is populated in the response only
+    /// when include_findings in the SDP template is set to true.
+    pub findings: std::vec::Vec<crate::model::SdpFinding>,
+
+    /// The extracted text from the image.
+    pub extracted_image_text: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SdpRedactResult {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [execution_state][crate::model::SdpRedactResult::execution_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::SdpRedactResult;
+    /// use google_cloud_modelarmor_v1::model::FilterExecutionState;
+    /// let x0 = SdpRedactResult::new().set_execution_state(FilterExecutionState::ExecutionSuccess);
+    /// let x1 = SdpRedactResult::new().set_execution_state(FilterExecutionState::ExecutionSkipped);
+    /// ```
+    pub fn set_execution_state<T: std::convert::Into<crate::model::FilterExecutionState>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.execution_state = v.into();
+        self
+    }
+
+    /// Sets the value of [message_items][crate::model::SdpRedactResult::message_items].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::SdpRedactResult;
+    /// use google_cloud_modelarmor_v1::model::MessageItem;
+    /// let x = SdpRedactResult::new()
+    ///     .set_message_items([
+    ///         MessageItem::default()/* use setters */,
+    ///         MessageItem::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_message_items<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::MessageItem>,
+    {
+        use std::iter::Iterator;
+        self.message_items = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [match_state][crate::model::SdpRedactResult::match_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::SdpRedactResult;
+    /// use google_cloud_modelarmor_v1::model::FilterMatchState;
+    /// let x0 = SdpRedactResult::new().set_match_state(FilterMatchState::NoMatchFound);
+    /// let x1 = SdpRedactResult::new().set_match_state(FilterMatchState::MatchFound);
+    /// ```
+    pub fn set_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.match_state = v.into();
+        self
+    }
+
+    /// Sets the value of [redacted_image][crate::model::SdpRedactResult::redacted_image].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::SdpRedactResult;
+    /// let x = SdpRedactResult::new().set_redacted_image(bytes::Bytes::from_static(b"example"));
+    /// ```
+    pub fn set_redacted_image<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.redacted_image = v.into();
+        self
+    }
+
+    /// Sets the value of [findings][crate::model::SdpRedactResult::findings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::SdpRedactResult;
+    /// use google_cloud_modelarmor_v1::model::SdpFinding;
+    /// let x = SdpRedactResult::new()
+    ///     .set_findings([
+    ///         SdpFinding::default()/* use setters */,
+    ///         SdpFinding::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_findings<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SdpFinding>,
+    {
+        use std::iter::Iterator;
+        self.findings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [extracted_image_text][crate::model::SdpRedactResult::extracted_image_text].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_modelarmor_v1::model::SdpRedactResult;
+    /// let x = SdpRedactResult::new().set_extracted_image_text("example");
+    /// ```
+    pub fn set_extracted_image_text<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.extracted_image_text = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SdpRedactResult {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.modelarmor.v1.SdpRedactResult"
     }
 }
 
@@ -7555,6 +8091,143 @@ impl<'de> serde::de::Deserialize<'de> for StreamingMode {
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<StreamingMode>::new(
             ".google.cloud.modelarmor.v1.StreamingMode",
+        ))
+    }
+}
+
+/// This enum is used in the TemplateMetadata message to indicate the modality
+/// supported for sanitize API calls.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum Modality {
+    /// Unspecified modality. If specified, all modalities will be sanitized.
+    Unspecified,
+    /// Represents text modality. If specified, it will sanitize text fields, and
+    /// text extracted from rich text files (like PDFs, DOCs) and plain text files
+    /// (like TXT).
+    Text,
+    /// Represents image modality. If specified, it will sanitize image files. The
+    /// visual content and the text content in the image will be sanitized
+    /// depending on the filter configuration.
+    Image,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [Modality::value] or
+    /// [Modality::name].
+    UnknownValue(modality::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod modality {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl Modality {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Text => std::option::Option::Some(1),
+            Self::Image => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("MODALITY_UNSPECIFIED"),
+            Self::Text => std::option::Option::Some("MODALITY_TEXT"),
+            Self::Image => std::option::Option::Some("MODALITY_IMAGE"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for Modality {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for Modality {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for Modality {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Text,
+            2 => Self::Image,
+            _ => Self::UnknownValue(modality::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for Modality {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "MODALITY_UNSPECIFIED" => Self::Unspecified,
+            "MODALITY_TEXT" => Self::Text,
+            "MODALITY_IMAGE" => Self::Image,
+            _ => Self::UnknownValue(modality::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for Modality {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Text => serializer.serialize_i32(1),
+            Self::Image => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for Modality {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<Modality>::new(
+            ".google.cloud.modelarmor.v1.Modality",
         ))
     }
 }

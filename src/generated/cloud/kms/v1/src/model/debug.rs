@@ -497,6 +497,18 @@ impl std::fmt::Debug
     }
 }
 
+impl std::fmt::Debug for super::single_tenant_hsm_instance_proposal::UpgradeKeyTrust {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpgradeKeyTrust");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("two_factor_public_key_pem", &self.two_factor_public_key_pem);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::Challenge {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Challenge");
@@ -860,6 +872,8 @@ impl std::fmt::Debug for super::CryptoKeyVersion {
             &self.external_protection_level_options,
         );
         debug_struct.field("reimport_eligible", &self.reimport_eligible);
+        debug_struct.field("trusted_wrapping_enabled", &self.trusted_wrapping_enabled);
+        debug_struct.field("hsm_trusted", &self.hsm_trusted);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -908,6 +922,7 @@ impl std::fmt::Debug for super::ImportJob {
         debug_struct.field("expire_event_time", &self.expire_event_time);
         debug_struct.field("state", &self.state);
         debug_struct.field("public_key", &self.public_key);
+        debug_struct.field("public_key_format", &self.public_key_format);
         debug_struct.field("attestation", &self.attestation);
         debug_struct.field("crypto_key_backend", &self.crypto_key_backend);
         if !self._unknown_fields.is_empty() {
@@ -921,6 +936,7 @@ impl std::fmt::Debug for super::import_job::WrappingPublicKey {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("WrappingPublicKey");
         debug_struct.field("pem", &self.pem);
+        debug_struct.field("data", &self.data);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1154,6 +1170,7 @@ impl std::fmt::Debug for super::GetImportJobRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetImportJobRequest");
         debug_struct.field("name", &self.name);
+        debug_struct.field("public_key_format", &self.public_key_format);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1195,6 +1212,7 @@ impl std::fmt::Debug for super::CreateCryptoKeyRequest {
             "skip_initial_version_creation",
             &self.skip_initial_version_creation,
         );
+        debug_struct.field("trusted_wrapping_enabled", &self.trusted_wrapping_enabled);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1244,7 +1262,47 @@ impl std::fmt::Debug for super::ImportCryptoKeyVersionRequest {
         debug_struct.field("algorithm", &self.algorithm);
         debug_struct.field("import_job", &self.import_job);
         debug_struct.field("wrapped_key", &self.wrapped_key);
+        debug_struct.field("trusted_wrapping_enabled", &self.trusted_wrapping_enabled);
         debug_struct.field("wrapped_key_material", &self.wrapped_key_material);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ImportTrustedKeyWrappedCryptoKeyVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportTrustedKeyWrappedCryptoKeyVersionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("importing_key", &self.importing_key);
+        debug_struct.field("crypto_key_version", &self.crypto_key_version);
+        debug_struct.field("wrapped_key", &self.wrapped_key);
+        debug_struct.field("algorithm", &self.algorithm);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ExportTrustedKeyWrappedCryptoKeyVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportTrustedKeyWrappedCryptoKeyVersionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("wrapping_key", &self.wrapping_key);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ExportTrustedKeyWrappedCryptoKeyVersionResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportTrustedKeyWrappedCryptoKeyVersionResponse");
+        debug_struct.field("wrapped_key", &self.wrapped_key);
+        debug_struct.field("wrapped_key_crc32c", &self.wrapped_key_crc32c);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

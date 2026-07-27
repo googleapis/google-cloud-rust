@@ -543,7 +543,308 @@ impl Memorystore {
         super::builder::memorystore::BackupInstance::new(self.inner.clone())
     }
 
+    /// Initiates the migration of a source instance to the target Memorystore
+    /// instance.
+    ///
+    /// After the successful completion of this operation, the target instance
+    /// will:
+    ///
+    /// 1. Set up replication with the source instance and replicate any writes to
+    ///    the source instance.
+    /// 1. Only allow reads.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memorystore_v1::client::Memorystore;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_memorystore_v1::Result;
+    /// async fn sample(
+    ///    client: &Memorystore
+    /// ) -> Result<()> {
+    ///     let response = client.start_migration()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn start_migration(&self) -> super::builder::memorystore::StartMigration {
+        super::builder::memorystore::StartMigration::new(self.inner.clone())
+    }
+
+    /// Finalizes the migration process.
+    ///
+    /// After the successful completion of this operation, the target instance
+    /// will:
+    ///
+    /// 1. Stop replicating from the source instance.
+    /// 1. Allow both reads and writes.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memorystore_v1::client::Memorystore;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_memorystore_v1::Result;
+    /// async fn sample(
+    ///    client: &Memorystore
+    /// ) -> Result<()> {
+    ///     let response = client.finish_migration()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn finish_migration(&self) -> super::builder::memorystore::FinishMigration {
+        super::builder::memorystore::FinishMigration::new(self.inner.clone())
+    }
+
+    /// Lists all the token auth users for a token based auth enabled instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memorystore_v1::client::Memorystore;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_memorystore_v1::Result;
+    /// async fn sample(
+    ///    client: &Memorystore, project_id: &str, location_id: &str, instance_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_token_auth_users()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_token_auth_users(&self) -> super::builder::memorystore::ListTokenAuthUsers {
+        super::builder::memorystore::ListTokenAuthUsers::new(self.inner.clone())
+    }
+
+    /// Gets a specific token auth user for a token based auth enabled instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memorystore_v1::client::Memorystore;
+    /// use google_cloud_memorystore_v1::Result;
+    /// async fn sample(
+    ///    client: &Memorystore, project_id: &str, location_id: &str, instance_id: &str, token_auth_user_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_token_auth_user()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/tokenAuthUsers/{token_auth_user_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_token_auth_user(&self) -> super::builder::memorystore::GetTokenAuthUser {
+        super::builder::memorystore::GetTokenAuthUser::new(self.inner.clone())
+    }
+
+    /// Lists all the auth tokens for a specific token auth user.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memorystore_v1::client::Memorystore;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_memorystore_v1::Result;
+    /// async fn sample(
+    ///    client: &Memorystore, project_id: &str, location_id: &str, instance_id: &str, token_auth_user_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_auth_tokens()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/tokenAuthUsers/{token_auth_user_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_auth_tokens(&self) -> super::builder::memorystore::ListAuthTokens {
+        super::builder::memorystore::ListAuthTokens::new(self.inner.clone())
+    }
+
+    /// Gets a token based auth enabled instance's auth token for a given user.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memorystore_v1::client::Memorystore;
+    /// use google_cloud_memorystore_v1::Result;
+    /// async fn sample(
+    ///    client: &Memorystore, project_id: &str, location_id: &str, instance_id: &str, token_auth_user_id: &str, auth_token_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_auth_token()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/tokenAuthUsers/{token_auth_user_id}/authTokens/{auth_token_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_auth_token(&self) -> super::builder::memorystore::GetAuthToken {
+        super::builder::memorystore::GetAuthToken::new(self.inner.clone())
+    }
+
+    /// Adds a token auth user for a token based auth enabled instance.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memorystore_v1::client::Memorystore;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_memorystore_v1::Result;
+    /// async fn sample(
+    ///    client: &Memorystore
+    /// ) -> Result<()> {
+    ///     let response = client.add_token_auth_user()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn add_token_auth_user(&self) -> super::builder::memorystore::AddTokenAuthUser {
+        super::builder::memorystore::AddTokenAuthUser::new(self.inner.clone())
+    }
+
+    /// Deletes a token auth user for a token based auth enabled instance.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memorystore_v1::client::Memorystore;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_memorystore_v1::Result;
+    /// async fn sample(
+    ///    client: &Memorystore, project_id: &str, location_id: &str, instance_id: &str, token_auth_user_id: &str
+    /// ) -> Result<()> {
+    ///     client.delete_token_auth_user()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/tokenAuthUsers/{token_auth_user_id}"))
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_token_auth_user(&self) -> super::builder::memorystore::DeleteTokenAuthUser {
+        super::builder::memorystore::DeleteTokenAuthUser::new(self.inner.clone())
+    }
+
+    /// Adds a token for a user of a token based auth enabled instance.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memorystore_v1::client::Memorystore;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_memorystore_v1::Result;
+    /// async fn sample(
+    ///    client: &Memorystore
+    /// ) -> Result<()> {
+    ///     let response = client.add_auth_token()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn add_auth_token(&self) -> super::builder::memorystore::AddAuthToken {
+        super::builder::memorystore::AddAuthToken::new(self.inner.clone())
+    }
+
+    /// Deletes a token for a user of a token based auth enabled instance.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memorystore_v1::client::Memorystore;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_memorystore_v1::Result;
+    /// async fn sample(
+    ///    client: &Memorystore, project_id: &str, location_id: &str, instance_id: &str, token_auth_user_id: &str, auth_token_id: &str
+    /// ) -> Result<()> {
+    ///     client.delete_auth_token()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/tokenAuthUsers/{token_auth_user_id}/authTokens/{auth_token_id}"))
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_auth_token(&self) -> super::builder::memorystore::DeleteAuthToken {
+        super::builder::memorystore::DeleteAuthToken::new(self.inner.clone())
+    }
+
     /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```

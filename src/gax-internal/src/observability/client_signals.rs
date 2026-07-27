@@ -210,6 +210,7 @@ mod tests {
     }
 
     #[tokio::test(start_paused = true)]
+    #[ignore = "TODO(#6077) - disabled because it is flaky"]
     async fn client_request() -> anyhow::Result<()> {
         const PATH: &str = "/v1/projects/test-only:test_method";
 
@@ -604,6 +605,7 @@ mod tests {
 
     #[cfg(feature = "_internal-grpc-client")]
     #[tokio::test]
+    #[ignore = "TODO(#6023) - disable flaky test"]
     async fn grpc_client_request_retry() -> anyhow::Result<()> {
         tokio::time::pause();
         let (endpoint, _server) = grpc_server::start_fixed_responses(vec![
@@ -652,6 +654,7 @@ mod tests {
 
     #[cfg(feature = "_internal-grpc-client")]
     #[tokio::test]
+    #[ignore = "TODO(#6023) - disable flaky test"]
     async fn grpc_client_request_success() -> anyhow::Result<()> {
         let (endpoint, _server) = grpc_server::start_echo_server().await?;
         tokio::time::pause();

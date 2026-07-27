@@ -130,9 +130,7 @@ pub mod autokey {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name =
                     "google_cloud_kms_v1::client::Autokey::create_key_handle::until_done";
@@ -159,21 +157,7 @@ pub mod autokey {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_poller(
                     polling_error_policy,
@@ -182,6 +166,7 @@ pub mod autokey {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [parent][crate::model::CreateKeyHandleRequest::parent].
@@ -3187,9 +3172,7 @@ pub mod hsm_management {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_kms_v1::client::HsmManagement::create_single_tenant_hsm_instance::until_done";
             }
@@ -3215,21 +3198,7 @@ pub mod hsm_management {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_poller(
                     polling_error_policy,
@@ -3238,6 +3207,7 @@ pub mod hsm_management {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [parent][crate::model::CreateSingleTenantHsmInstanceRequest::parent].
@@ -3360,9 +3330,7 @@ pub mod hsm_management {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_kms_v1::client::HsmManagement::create_single_tenant_hsm_instance_proposal::until_done";
             }
@@ -3388,21 +3356,7 @@ pub mod hsm_management {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_poller(
                     polling_error_policy,
@@ -3411,6 +3365,7 @@ pub mod hsm_management {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [parent][crate::model::CreateSingleTenantHsmInstanceProposalRequest::parent].
@@ -3636,9 +3591,7 @@ pub mod hsm_management {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_kms_v1::client::HsmManagement::execute_single_tenant_hsm_instance_proposal::until_done";
             }
@@ -3664,21 +3617,7 @@ pub mod hsm_management {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_poller(
                     polling_error_policy,
@@ -3687,6 +3626,7 @@ pub mod hsm_management {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [name][crate::model::ExecuteSingleTenantHsmInstanceProposalRequest::name].
@@ -5448,6 +5388,15 @@ pub mod key_management_service {
             self.0.request.name = v.into();
             self
         }
+
+        /// Sets the value of [public_key_format][crate::model::GetImportJobRequest::public_key_format].
+        pub fn set_public_key_format<T: Into<crate::model::public_key::PublicKeyFormat>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.public_key_format = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -5703,6 +5652,12 @@ pub mod key_management_service {
             self.0.request.skip_initial_version_creation = v.into();
             self
         }
+
+        /// Sets the value of [trusted_wrapping_enabled][crate::model::CreateCryptoKeyRequest::trusted_wrapping_enabled].
+        pub fn set_trusted_wrapping_enabled<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.trusted_wrapping_enabled = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -5861,9 +5816,7 @@ pub mod key_management_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_kms_v1::client::KeyManagementService::delete_crypto_key::until_done";
             }
@@ -5889,21 +5842,7 @@ pub mod key_management_service {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_unit_response_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_unit_response_poller(
                     polling_error_policy,
@@ -5912,6 +5851,7 @@ pub mod key_management_service {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [name][crate::model::DeleteCryptoKeyRequest::name].
@@ -5996,9 +5936,7 @@ pub mod key_management_service {
             >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
-            #[cfg(google_cloud_unstable_tracing)]
             if let Some(ref mut details) = poller_options.tracing {
                 details.method_name = "google_cloud_kms_v1::client::KeyManagementService::delete_crypto_key_version::until_done";
             }
@@ -6024,21 +5962,7 @@ pub mod key_management_service {
                 Ok(Operation::new(op))
             };
 
-            #[cfg(google_cloud_unstable_tracing)]
-            {
-                use google_cloud_lro::internal::PollerExt;
-                {
-                    google_cloud_lro::internal::new_unit_response_poller(
-                        polling_error_policy,
-                        polling_backoff_policy,
-                        start,
-                        query,
-                    )
-                }
-                .with_options(poller_options)
-            }
-
-            #[cfg(not(google_cloud_unstable_tracing))]
+            use google_cloud_lro::internal::PollerExt;
             {
                 google_cloud_lro::internal::new_unit_response_poller(
                     polling_error_policy,
@@ -6047,6 +5971,7 @@ pub mod key_management_service {
                     query,
                 )
             }
+            .with_options(poller_options)
         }
 
         /// Sets the value of [name][crate::model::DeleteCryptoKeyVersionRequest::name].
@@ -6155,6 +6080,12 @@ pub mod key_management_service {
             self
         }
 
+        /// Sets the value of [trusted_wrapping_enabled][crate::model::ImportCryptoKeyVersionRequest::trusted_wrapping_enabled].
+        pub fn set_trusted_wrapping_enabled<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.trusted_wrapping_enabled = v.into();
+            self
+        }
+
         /// Sets the value of [wrapped_key_material][crate::model::ImportCryptoKeyVersionRequest::wrapped_key_material].
         ///
         /// Note that all the setters affecting `wrapped_key_material` are
@@ -6185,6 +6116,189 @@ pub mod key_management_service {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for ImportCryptoKeyVersion {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [KeyManagementService::import_trusted_key_wrapped_crypto_key_version][crate::client::KeyManagementService::import_trusted_key_wrapped_crypto_key_version] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::ImportTrustedKeyWrappedCryptoKeyVersion;
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ImportTrustedKeyWrappedCryptoKeyVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ImportTrustedKeyWrappedCryptoKeyVersion(
+        RequestBuilder<crate::model::ImportTrustedKeyWrappedCryptoKeyVersionRequest>,
+    );
+
+    impl ImportTrustedKeyWrappedCryptoKeyVersion {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::ImportTrustedKeyWrappedCryptoKeyVersionRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::CryptoKeyVersion> {
+            (*self.0.stub)
+                .import_trusted_key_wrapped_crypto_key_version(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [parent][crate::model::ImportTrustedKeyWrappedCryptoKeyVersionRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [importing_key][crate::model::ImportTrustedKeyWrappedCryptoKeyVersionRequest::importing_key].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_importing_key<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.importing_key = v.into();
+            self
+        }
+
+        /// Sets the value of [crypto_key_version][crate::model::ImportTrustedKeyWrappedCryptoKeyVersionRequest::crypto_key_version].
+        pub fn set_crypto_key_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.crypto_key_version = v.into();
+            self
+        }
+
+        /// Sets the value of [wrapped_key][crate::model::ImportTrustedKeyWrappedCryptoKeyVersionRequest::wrapped_key].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_wrapped_key<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+            self.0.request.wrapped_key = v.into();
+            self
+        }
+
+        /// Sets the value of [algorithm][crate::model::ImportTrustedKeyWrappedCryptoKeyVersionRequest::algorithm].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_algorithm<
+            T: Into<crate::model::crypto_key_version::CryptoKeyVersionAlgorithm>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.algorithm = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ImportTrustedKeyWrappedCryptoKeyVersion {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [KeyManagementService::export_trusted_key_wrapped_crypto_key_version][crate::client::KeyManagementService::export_trusted_key_wrapped_crypto_key_version] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::ExportTrustedKeyWrappedCryptoKeyVersion;
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ExportTrustedKeyWrappedCryptoKeyVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ExportTrustedKeyWrappedCryptoKeyVersion(
+        RequestBuilder<crate::model::ExportTrustedKeyWrappedCryptoKeyVersionRequest>,
+    );
+
+    impl ExportTrustedKeyWrappedCryptoKeyVersion {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::ExportTrustedKeyWrappedCryptoKeyVersionRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(
+            self,
+        ) -> Result<crate::model::ExportTrustedKeyWrappedCryptoKeyVersionResponse> {
+            (*self.0.stub)
+                .export_trusted_key_wrapped_crypto_key_version(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::ExportTrustedKeyWrappedCryptoKeyVersionRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [wrapping_key][crate::model::ExportTrustedKeyWrappedCryptoKeyVersionRequest::wrapping_key].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_wrapping_key<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.wrapping_key = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ExportTrustedKeyWrappedCryptoKeyVersion {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
