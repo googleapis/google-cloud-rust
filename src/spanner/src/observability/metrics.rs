@@ -12,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(feature = "experimental-builtin-metrics")]
+#[cfg(feature = "_experimental-builtin-metrics")]
 use std::time::Duration;
-#[cfg(feature = "experimental-builtin-metrics")]
+#[cfg(feature = "_experimental-builtin-metrics")]
 use std::time::Instant;
 
-#[cfg(feature = "experimental-builtin-metrics")]
+#[cfg(feature = "_experimental-builtin-metrics")]
 use {
     crate::observability::exporter::GcpMonitoringExporter,
     gaxi::options::ClientConfig,
@@ -26,10 +26,10 @@ use {
     opentelemetry_sdk::metrics::{PeriodicReader, SdkMeterProvider},
 };
 
-#[cfg(not(feature = "experimental-builtin-metrics"))]
+#[cfg(not(feature = "_experimental-builtin-metrics"))]
 use gaxi::options::ClientConfig;
 
-#[cfg(feature = "experimental-builtin-metrics")]
+#[cfg(feature = "_experimental-builtin-metrics")]
 #[allow(dead_code)]
 #[derive(Debug)]
 pub(crate) struct SpannerMetrics {
@@ -41,7 +41,7 @@ pub(crate) struct SpannerMetrics {
     pub(crate) attempt_count: Counter<u64>,
 }
 
-#[cfg(feature = "experimental-builtin-metrics")]
+#[cfg(feature = "_experimental-builtin-metrics")]
 impl SpannerMetrics {
     pub(crate) fn new(meter: Meter) -> Self {
         Self {
@@ -71,14 +71,14 @@ impl SpannerMetrics {
     }
 }
 
-#[cfg(feature = "experimental-builtin-metrics")]
+#[cfg(feature = "_experimental-builtin-metrics")]
 #[derive(Debug)]
 pub(crate) struct Observability {
     pub(crate) metrics: Option<SpannerMetrics>,
     _meter_provider: Option<SdkMeterProvider>,
 }
 
-#[cfg(feature = "experimental-builtin-metrics")]
+#[cfg(feature = "_experimental-builtin-metrics")]
 impl Observability {
     pub(crate) fn disabled() -> Self {
         Self {
@@ -225,7 +225,7 @@ impl Observability {
     }
 }
 
-#[cfg(feature = "experimental-builtin-metrics")]
+#[cfg(feature = "_experimental-builtin-metrics")]
 fn result_to_status_str<T>(result: &crate::Result<T>) -> &'static str {
     match result {
         Ok(_) => "OK",
@@ -239,14 +239,14 @@ fn result_to_status_str<T>(result: &crate::Result<T>) -> &'static str {
     }
 }
 
-#[cfg(feature = "experimental-builtin-metrics")]
+#[cfg(feature = "_experimental-builtin-metrics")]
 #[derive(Debug, Default, PartialEq)]
 pub(crate) struct ServerTimings {
     pub(crate) gfe_latency: Option<f64>,
     pub(crate) afe_latency: Option<f64>,
 }
 
-#[cfg(feature = "experimental-builtin-metrics")]
+#[cfg(feature = "_experimental-builtin-metrics")]
 #[allow(dead_code)]
 pub(crate) fn parse_server_timing(header_val: &str) -> ServerTimings {
     let mut timings = ServerTimings::default();
@@ -272,11 +272,11 @@ pub(crate) fn parse_server_timing(header_val: &str) -> ServerTimings {
     timings
 }
 
-#[cfg(not(feature = "experimental-builtin-metrics"))]
+#[cfg(not(feature = "_experimental-builtin-metrics"))]
 #[derive(Debug)]
 pub(crate) struct Observability;
 
-#[cfg(not(feature = "experimental-builtin-metrics"))]
+#[cfg(not(feature = "_experimental-builtin-metrics"))]
 impl Observability {
     #[allow(dead_code)]
     pub(crate) fn disabled() -> Self {
@@ -300,7 +300,7 @@ impl Observability {
     }
 }
 
-#[cfg(all(test, feature = "experimental-builtin-metrics"))]
+#[cfg(all(test, feature = "_experimental-builtin-metrics"))]
 mod tests {
     use super::*;
 
