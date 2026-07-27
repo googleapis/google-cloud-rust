@@ -94,121 +94,137 @@ async fn write_internal(
         .set("Id")
         .to(&id1)
         .set("ColBool")
-        .to(&true)
+        .to(true)
         .set("ColInt64")
-        .to(&100_i64)
+        .to(100_i64)
         .set("ColFloat32")
-        .to(&1.0_f32)
+        .to(1.0_f32)
         .set("ColFloat64")
-        .to(&1.0_f64)
+        .to(1.0_f64)
         .set("ColNumeric")
-        .to(&"1.0".to_string())
+        .to("1.0".to_string())
         .set("ColString")
-        .to(&"hello".to_string())
+        .to("hello".to_string())
         .set("ColBytes")
-        .to(&vec![1_u8, 2_u8, 3_u8])
+        .to(vec![1_u8, 2_u8, 3_u8])
         .set("ColDate")
-        .to(&"2026-03-09".to_string())
+        .to("2026-03-09".to_string())
         .set("ColTimestamp")
-        .to(&"2026-03-09T16:20:00Z".to_string())
+        .to("2026-03-09T16:20:00Z".to_string())
         .set("ColJson")
-        .to(&"{\"value\": 1}".to_string())
+        .to("{\"value\": 1}".to_string())
         .set("ColArrayBool")
-        .to(&array_val(vec![
+        .to(array_val(vec![
             bool_val(true),
             bool_val(false),
             null_val(),
         ]))
         .set("ColArrayInt64")
-        .to(&array_val(vec![
+        .to(array_val(vec![
             string_val("1"),
             string_val("2"),
             null_val(),
         ]))
         .set("ColArrayFloat32")
-        .to(&array_val(vec![
+        .to(array_val(vec![
             number_val(1.0),
             number_val(2.0),
             null_val(),
         ]))
         .set("ColArrayFloat64")
-        .to(&array_val(vec![
+        .to(array_val(vec![
             number_val(1.0),
             number_val(2.0),
             null_val(),
         ]))
         .set("ColArrayNumeric")
-        .to(&array_val(vec![
+        .to(array_val(vec![
             string_val("1.0"),
             string_val("2.0"),
             null_val(),
         ]))
         .set("ColArrayString")
-        .to(&array_val(vec![
+        .to(array_val(vec![
             string_val("hello"),
             string_val("world"),
             null_val(),
         ]))
         .set("ColArrayBytes")
-        .to(&array_val(vec![
+        .to(array_val(vec![
             string_val(&BASE64_STANDARD.encode([1_u8, 2_u8])),
             string_val(&BASE64_STANDARD.encode([3_u8])),
             null_val(),
         ]))
         .set("ColArrayDate")
-        .to(&array_val(vec![string_val("2026-03-09"), null_val()]))
+        .to(array_val(vec![string_val("2026-03-09"), null_val()]))
         .set("ColArrayTimestamp")
-        .to(&array_val(vec![
+        .to(array_val(vec![
             string_val("2026-03-09T16:20:00Z"),
             null_val(),
         ]))
         .set("ColArrayJson")
-        .to(&array_val(vec![string_val("{\"value\": 1}"), null_val()]))
+        .to(array_val(vec![string_val("{\"value\": 1}"), null_val()]))
         .build();
 
     let m2 = Mutation::new_insert_or_update_builder("AllTypes")
         .set("Id")
         .to(&id2)
         .set("ColBool")
-        .to::<Option<bool>>(&None)
+        .to::<Option<bool>>(None)
         .set("ColInt64")
-        .to::<Option<i64>>(&None)
+        .to::<Option<i64>>(None)
         .set("ColFloat32")
-        .to::<Option<f32>>(&None)
+        .to::<Option<f32>>(None)
         .set("ColFloat64")
-        .to::<Option<f64>>(&None)
+        .to::<Option<f64>>(None)
         .set("ColNumeric")
-        .to::<Option<String>>(&None)
+        .to::<Option<String>>(None)
         .set("ColString")
-        .to::<Option<String>>(&None)
+        .to::<Option<String>>(None)
         .set("ColBytes")
-        .to::<Option<Vec<u8>>>(&None)
+        .to::<Option<Vec<u8>>>(None)
         .set("ColDate")
-        .to::<Option<String>>(&None)
+        .to::<Option<String>>(None)
         .set("ColTimestamp")
-        .to::<Option<String>>(&None)
+        .to::<Option<String>>(None)
         .set("ColJson")
-        .to::<Option<String>>(&None)
+        .to::<Option<String>>(None)
         .set("ColArrayBool")
-        .to::<Option<ProtoValue>>(&None)
+        .to::<Option<ProtoValue>>(None)
         .set("ColArrayInt64")
-        .to::<Option<ProtoValue>>(&None)
+        .to::<Option<ProtoValue>>(None)
         .set("ColArrayFloat32")
-        .to::<Option<ProtoValue>>(&None)
+        .to::<Option<ProtoValue>>(None)
         .set("ColArrayFloat64")
-        .to::<Option<ProtoValue>>(&None)
+        .to::<Option<ProtoValue>>(None)
         .set("ColArrayNumeric")
-        .to::<Option<ProtoValue>>(&None)
+        .to::<Option<ProtoValue>>(None)
         .set("ColArrayString")
-        .to::<Option<ProtoValue>>(&None)
+        .to::<Option<ProtoValue>>(None)
         .set("ColArrayBytes")
-        .to::<Option<ProtoValue>>(&None)
+        .to::<Option<ProtoValue>>(None)
         .set("ColArrayDate")
-        .to::<Option<ProtoValue>>(&None)
+        .to::<Option<ProtoValue>>(None)
         .set("ColArrayTimestamp")
-        .to::<Option<ProtoValue>>(&None)
+        .to::<Option<ProtoValue>>(None)
         .set("ColArrayJson")
-        .to::<Option<ProtoValue>>(&None)
+        .to::<Option<ProtoValue>>(None)
+        .build();
+
+    let id3 = format!(
+        "write3-{}-{}",
+        offset,
+        google_cloud_test_utils::resource_names::LowercaseAlphanumeric.random_string(10)
+    );
+    let m3 = Mutation::new_insert_or_update_builder("AllTypes")
+        .set("Id")
+        .to(&id3)
+        .set("ColBool")
+        .to(Value::null())
+        .set("ColInt64")
+        .to(None::<()>)
+        .set("ColFloat32")
+        .to(None::<Value>)
         .build();
 
     let write_tx = db_client
@@ -216,8 +232,8 @@ async fn write_internal(
         .set_transaction_tag("write-only-tag")
         .build();
     let commit_ts = match method {
-        WriteMethod::WriteAtLeastOnce => write_tx.write_at_least_once(vec![m1, m2]).await?,
-        WriteMethod::Write => write_tx.write(vec![m1, m2]).await?,
+        WriteMethod::WriteAtLeastOnce => write_tx.write_at_least_once(vec![m1, m2, m3]).await?,
+        WriteMethod::Write => write_tx.write(vec![m1, m2, m3]).await?,
     };
     assert!(
         commit_ts
@@ -581,23 +597,23 @@ pub async fn all_data_types_roundtrip(db_client: &DatabaseClient) -> anyhow::Res
         .set("Id")
         .to(&id)
         .set("ColBool")
-        .to(&val_bool)
+        .to(val_bool)
         .set("ColInt64")
-        .to(&val_int64)
+        .to(val_int64)
         .set("ColFloat32")
-        .to(&val_float32)
+        .to(val_float32)
         .set("ColFloat64")
-        .to(&val_float64)
+        .to(val_float64)
         .set("ColNumeric")
-        .to(&val_numeric)
+        .to(val_numeric)
         .set("ColString")
         .to(&val_string)
         .set("ColBytes")
         .to(&val_bytes)
         .set("ColDate")
-        .to(&val_date)
+        .to(val_date)
         .set("ColTimestamp")
-        .to(&val_timestamp)
+        .to(val_timestamp)
         .set("ColJson")
         .to(&val_json)
         .set("ColUuid")
@@ -632,54 +648,66 @@ pub async fn all_data_types_roundtrip(db_client: &DatabaseClient) -> anyhow::Res
         .set("Id")
         .to(&id_null)
         .set("ColBool")
-        .to::<Option<bool>>(&None)
+        .to::<Option<bool>>(None)
         .set("ColInt64")
-        .to::<Option<i64>>(&None)
+        .to::<Option<i64>>(None)
         .set("ColFloat32")
-        .to::<Option<f32>>(&None)
+        .to::<Option<f32>>(None)
         .set("ColFloat64")
-        .to::<Option<f64>>(&None)
+        .to::<Option<f64>>(None)
         .set("ColNumeric")
-        .to::<Option<Decimal>>(&None)
+        .to::<Option<Decimal>>(None)
         .set("ColString")
-        .to::<Option<String>>(&None)
+        .to::<Option<String>>(None)
         .set("ColBytes")
-        .to::<Option<Vec<u8>>>(&None)
+        .to::<Option<Vec<u8>>>(None)
         .set("ColDate")
-        .to::<Option<time::Date>>(&None)
+        .to::<Option<time::Date>>(None)
         .set("ColTimestamp")
-        .to::<Option<time::OffsetDateTime>>(&None)
+        .to::<Option<time::OffsetDateTime>>(None)
         .set("ColJson")
-        .to::<Option<String>>(&None)
+        .to::<Option<String>>(None)
         .set("ColUuid")
-        .to::<Option<String>>(&None)
+        .to::<Option<String>>(None)
         .set("ColArrayBool")
-        .to::<Option<Vec<Option<bool>>>>(&None)
+        .to::<Option<Vec<Option<bool>>>>(None)
         .set("ColArrayInt64")
-        .to::<Option<Vec<Option<i64>>>>(&None)
+        .to::<Option<Vec<Option<i64>>>>(None)
         .set("ColArrayFloat32")
-        .to::<Option<Vec<Option<f32>>>>(&None)
+        .to::<Option<Vec<Option<f32>>>>(None)
         .set("ColArrayFloat64")
-        .to::<Option<Vec<Option<f64>>>>(&None)
+        .to::<Option<Vec<Option<f64>>>>(None)
         .set("ColArrayNumeric")
-        .to::<Option<Vec<Option<Decimal>>>>(&None)
+        .to::<Option<Vec<Option<Decimal>>>>(None)
         .set("ColArrayString")
-        .to::<Option<Vec<Option<String>>>>(&None)
+        .to::<Option<Vec<Option<String>>>>(None)
         .set("ColArrayBytes")
-        .to::<Option<Vec<Option<Vec<u8>>>>>(&None)
+        .to::<Option<Vec<Option<Vec<u8>>>>>(None)
         .set("ColArrayDate")
-        .to::<Option<Vec<Option<time::Date>>>>(&None)
+        .to::<Option<Vec<Option<time::Date>>>>(None)
         .set("ColArrayTimestamp")
-        .to::<Option<Vec<Option<time::OffsetDateTime>>>>(&None)
+        .to::<Option<Vec<Option<time::OffsetDateTime>>>>(None)
         .set("ColArrayJson")
-        .to::<Option<Vec<Option<String>>>>(&None)
+        .to::<Option<Vec<Option<String>>>>(None)
         .set("ColArrayUuid")
-        .to::<Option<Vec<Option<String>>>>(&None)
+        .to::<Option<Vec<Option<String>>>>(None)
+        .build();
+
+    let id_untyped_null = format!("all-types-untyped-null-{}", run_id);
+    let mutation3 = Mutation::new_insert_or_update_builder("AllTypes")
+        .set("Id")
+        .to(&id_untyped_null)
+        .set("ColBool")
+        .to(Value::null())
+        .set("ColInt64")
+        .to(None::<()>)
+        .set("ColFloat32")
+        .to(None::<Value>)
         .build();
 
     let write_tx = db_client.write_only_transaction().build();
     write_tx
-        .write_at_least_once(vec![mutation1, mutation2])
+        .write_at_least_once(vec![mutation1, mutation2, mutation3])
         .await?;
 
     // 3. Read back Row 1 natively and assert
@@ -1071,23 +1099,23 @@ pub async fn all_data_types_parameter_binding(db_client: &DatabaseClient) -> any
         .set("Id")
         .to(&id)
         .set("ColBool")
-        .to(&val_bool)
+        .to(val_bool)
         .set("ColInt64")
-        .to(&val_int64)
+        .to(val_int64)
         .set("ColFloat32")
-        .to(&val_float32)
+        .to(val_float32)
         .set("ColFloat64")
-        .to(&val_float64)
+        .to(val_float64)
         .set("ColNumeric")
-        .to(&val_numeric)
+        .to(val_numeric)
         .set("ColString")
         .to(&val_string)
         .set("ColBytes")
         .to(&val_bytes)
         .set("ColDate")
-        .to(&val_date)
+        .to(val_date)
         .set("ColTimestamp")
-        .to(&val_timestamp)
+        .to(val_timestamp)
         .set("ColJson")
         .to(&val_json)
         .set("ColUuid")
@@ -1139,15 +1167,15 @@ pub async fn all_data_types_parameter_binding(db_client: &DatabaseClient) -> any
         ColBytes = @bytes AND ColDate = @date AND ColTimestamp = @timestamp AND ColUuid = @uuid",
     )
     .add_param("id", &id)
-    .add_param("bool", &val_bool)
-    .add_param("int64", &val_int64)
-    .add_param("float32", &val_float32)
-    .add_param("float64", &val_float64)
-    .add_param("numeric", &val_numeric)
+    .add_param("bool", val_bool)
+    .add_param("int64", val_int64)
+    .add_param("float32", val_float32)
+    .add_param("float64", val_float64)
+    .add_param("numeric", val_numeric)
     .add_param("string", &val_string)
     .add_param("bytes", &val_bytes)
-    .add_param("date", &val_date)
-    .add_param("timestamp", &val_timestamp)
+    .add_param("date", val_date)
+    .add_param("timestamp", val_timestamp)
     .add_param("uuid", &val_uuid)
     .add_param("array_bool", &val_array_bool)
     .add_param("array_int64", &val_array_int64)
