@@ -1090,7 +1090,8 @@ mod tests {
 
         writer.append(Bytes::from_static(b"hello")).await?;
         writer.flush().await?;
-        writer.finalize().await?;
+        let obj = writer.finalize().await?;
+        assert_eq!(obj.size, 105);
 
         let captured = TestLayer::capture(&guard);
         let _span = captured
