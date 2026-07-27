@@ -1,4 +1,4 @@
-// Copyright 2025 Google LLC
+// Copyright 2026 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -42,7 +42,7 @@ fn transient_job_failure() -> Job {
 }
 
 #[tokio::test]
-async fn job_poller_until_done_with_mock_stub() -> Result<(), Box<dyn std::error::Error>> {
+async fn success() -> anyhow::Result<()> {
     let mut mock = MockTestJobService::new();
     mock.expect_insert_job().return_once(|_, _| {
         Ok(Response::from(
@@ -59,8 +59,7 @@ async fn job_poller_until_done_with_mock_stub() -> Result<(), Box<dyn std::error
 }
 
 #[tokio::test]
-async fn job_poller_retries_transient_error_and_succeeds() -> Result<(), Box<dyn std::error::Error>>
-{
+async fn job_poller_retries_transient_error_and_succeeds() -> anyhow::Result<()> {
     let failed_job = Job::new()
         .set_job_reference(JobReference::new().set_project_id("p1").set_job_id("job-1"))
         .set_status(
@@ -79,16 +78,7 @@ async fn job_poller_retries_transient_error_and_succeeds() -> Result<(), Box<dyn
         .times(1)
         .in_sequence(&mut seq)
         .return_once(move |req, _| {
-            assert_eq!(
-                req.job
-                    .as_ref()
-                    .unwrap()
-                    .job_reference
-                    .as_ref()
-                    .unwrap()
-                    .job_id,
-                "job-1"
-            );
+            assert_eq!(req.job.unwrap().job_reference.unwrap().job_id, "job-1");
             Ok(Response::from(failed_job))
         });
 
@@ -96,9 +86,9 @@ async fn job_poller_retries_transient_error_and_succeeds() -> Result<(), Box<dyn
         .times(1)
         .in_sequence(&mut seq)
         .return_once(move |req, _| {
-            let retried_job = req.job.as_ref().unwrap();
+            let retried_job = req.job.unwrap();
             assert!(retried_job.status.is_none());
-            assert_ne!(retried_job.job_reference.as_ref().unwrap().job_id, "job-1");
+            assert_ne!(retried_job.job_reference.unwrap().job_id, "job-1");
             Ok(Response::from(success_job))
         });
 
@@ -124,7 +114,7 @@ async fn job_poller_retries_transient_error_and_succeeds() -> Result<(), Box<dyn
 }
 
 #[tokio::test]
-async fn job_poller_does_not_retry_non_retryable_error() -> Result<(), Box<dyn std::error::Error>> {
+async fn job_poller_does_not_retry_non_retryable_error() -> anyhow::Result<()> {
     let failed_job = Job::new()
         .set_job_reference(JobReference::new().set_project_id("p1").set_job_id("job-1"))
         .set_status(
@@ -151,13 +141,12 @@ async fn job_poller_does_not_retry_non_retryable_error() -> Result<(), Box<dyn s
 }
 
 #[tokio::test]
-async fn retry_exhausted() -> Result<(), Box<dyn std::error::Error>> {
+async fn retry_exhausted() -> anyhow::Result<()> {
     let mut mock = MockTestJobService::new();
 
-    mock.expect_insert_job().times(3).returning(move |_, _| {
-        let job = transient_job_failure();
-        Ok(Response::from(job))
-    });
+    mock.expect_insert_job()
+        .times(3)
+        .returning(move |_, _| Ok(Response::from(transient_job_failure())));
 
     let client = JobService::from_stub(mock);
     let poller = client
