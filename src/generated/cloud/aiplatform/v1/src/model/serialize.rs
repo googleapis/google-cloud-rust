@@ -2065,6 +2065,9 @@ impl serde::ser::Serialize for super::grounding_chunk::Maps {
         if self.place_answer_sources.is_some() {
             state.serialize_entry("placeAnswerSources", &self.place_answer_sources)?;
         }
+        if self.route.is_some() {
+            state.serialize_entry("route", &self.route)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2116,6 +2119,44 @@ impl serde::ser::Serialize for super::grounding_chunk::maps::place_answer_source
         }
         if !self.title.is_empty() {
             state.serialize_entry("title", &self.title)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "prediction-service", feature = "session-service",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::grounding_chunk::maps::Route {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.distance_meters) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("distanceMeters", &__With(&self.distance_meters))?;
+        }
+        if self.duration.is_some() {
+            state.serialize_entry("duration", &self.duration)?;
+        }
+        if !self.encoded_polyline.is_empty() {
+            state.serialize_entry("encodedPolyline", &self.encoded_polyline)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

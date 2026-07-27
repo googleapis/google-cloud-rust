@@ -28,6 +28,7 @@
 //! # Available Clients
 //!
 //! * [CloudQuotas](client/struct.CloudQuotas.html)
+//! * [QuotaAdjusterSettingsManager](client/struct.QuotaAdjusterSettingsManager.html)
 //!
 //! # Features
 //!

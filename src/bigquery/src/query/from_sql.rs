@@ -12,6 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use base64::Engine;
+use base64::prelude::BASE64_STANDARD;
+
 use crate::error::ConvertError;
 
 pub(crate) const BIGQUERY_DATE_FORMAT: &[time::format_description::FormatItem<'static>] =
@@ -51,6 +54,25 @@ impl FromSql for String {
     }
 }
 
+impl FromSql for i32 {
+    fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
+        match value {
+            wkt::Value::Number(n) => n
+                .as_i64()
+                .and_then(|v| i32::try_from(v).ok())
+                .ok_or_else(|| ConvertError::Convert("number is not a valid i32".into())),
+            wkt::Value::String(s) => s
+                .parse::<i32>()
+                .map_err(|e| ConvertError::Convert(Box::new(e))),
+            wkt::Value::Null => Err(ConvertError::NotNull),
+            other => Err(ConvertError::TypeMismatch {
+                expected: "number or string",
+                got: other,
+            }),
+        }
+    }
+}
+
 impl FromSql for i64 {
     fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
         match value {
@@ -69,12 +91,31 @@ impl FromSql for i64 {
     }
 }
 
+impl FromSql for f32 {
+    fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
+        match value {
+            wkt::Value::Number(n) => n
+                .as_f64()
+                .map(|v| v as f32)
+                .ok_or_else(|| ConvertError::Convert("number is not a valid f32".into())),
+            wkt::Value::String(s) => s
+                .parse::<f32>()
+                .map_err(|e| ConvertError::Convert(Box::new(e))),
+            wkt::Value::Null => Err(ConvertError::NotNull),
+            other => Err(ConvertError::TypeMismatch {
+                expected: "number or string",
+                got: other,
+            }),
+        }
+    }
+}
+
 impl FromSql for f64 {
     fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
         match value {
             wkt::Value::Number(n) => n
                 .as_f64()
-                .ok_or_else(|| ConvertError::Convert("invalid f64 number".into())),
+                .ok_or_else(|| ConvertError::Convert("number is not a valid f64".into())),
             wkt::Value::String(s) => s
                 .parse::<f64>()
                 .map_err(|e| ConvertError::Convert(Box::new(e))),
@@ -245,12 +286,140 @@ impl FromSql for google_cloud_type::model::DateTime {
     }
 }
 
-// TODO(#5592): implement for more Rust
-// types: f32, i32, Decimal, etc.
+impl FromSql for google_cloud_type::model::Decimal {
+    fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
+        match value {
+            wkt::Value::String(s) => Ok(google_cloud_type::model::Decimal::new().set_value(s)),
+            wkt::Value::Number(n) => {
+                Ok(google_cloud_type::model::Decimal::new().set_value(n.to_string()))
+            }
+            wkt::Value::Null => Err(ConvertError::NotNull),
+            other => Err(ConvertError::TypeMismatch {
+                expected: "string or number",
+                got: other,
+            }),
+        }
+    }
+}
+
+impl FromSql for rust_decimal::Decimal {
+    fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
+        match value {
+            wkt::Value::String(s) => s
+                .trim()
+                .parse::<rust_decimal::Decimal>()
+                .map_err(|e| ConvertError::Convert(Box::new(e))),
+            wkt::Value::Number(n) => {
+                if let Some(i) = n.as_i64() {
+                    Ok(rust_decimal::Decimal::from(i))
+                } else if let Some(u) = n.as_u64() {
+                    Ok(rust_decimal::Decimal::from(u))
+                } else if let Some(f) = n.as_f64() {
+                    rust_decimal::Decimal::try_from(f)
+                        .map_err(|e| ConvertError::Convert(Box::new(e)))
+                } else {
+                    Err(ConvertError::Convert("invalid number".into()))
+                }
+            }
+            wkt::Value::Null => Err(ConvertError::NotNull),
+            other => Err(ConvertError::TypeMismatch {
+                expected: "string or number",
+                got: other,
+            }),
+        }
+    }
+}
+
+/// Represents a BigQuery RANGE value.
+#[derive(Clone, Debug, PartialEq)]
+pub struct Range<T> {
+    /// The inclusive start of the range (or None if unbounded).
+    pub start: Option<T>,
+    /// The exclusive end of the range (or None if unbounded).
+    pub end: Option<T>,
+}
+
+impl<T: FromSql> FromSql for Range<T> {
+    fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
+        match value {
+            wkt::Value::String(s) => {
+                let trimmed = s.trim();
+                // Strip leading [ and trailing )
+                let content = trimmed
+                    .strip_prefix('[')
+                    .and_then(|c| c.strip_suffix(')'))
+                    .ok_or_else(|| {
+                        ConvertError::Convert(
+                            "invalid range format: missing enclosing brackets".into(),
+                        )
+                    })?;
+
+                // Split on the comma
+                let parts: Vec<&str> = content.split(',').collect();
+                if parts.len() != 2 {
+                    return Err(ConvertError::Convert(
+                        format!(
+                            "invalid range format: expected 2 parts, got {}",
+                            parts.len()
+                        )
+                        .into(),
+                    ));
+                }
+
+                let start_str = parts[0].trim();
+                let end_str = parts[1].trim();
+
+                let start = if start_str.is_empty() || start_str == "UNBOUNDED" {
+                    None
+                } else {
+                    Some(T::from_sql(wkt::Value::String(start_str.to_string()))?)
+                };
+
+                let end = if end_str.is_empty() || end_str == "UNBOUNDED" {
+                    None
+                } else {
+                    Some(T::from_sql(wkt::Value::String(end_str.to_string()))?)
+                };
+
+                Ok(Range { start, end })
+            }
+            wkt::Value::Null => Err(ConvertError::NotNull),
+            other => Err(ConvertError::TypeMismatch {
+                expected: "string",
+                got: other,
+            }),
+        }
+    }
+}
+
+impl FromSql for Vec<u8> {
+    fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
+        match value {
+            wkt::Value::String(s) => BASE64_STANDARD
+                .decode(s)
+                .map_err(|e| ConvertError::Convert(Box::new(e))),
+            wkt::Value::Null => Err(ConvertError::NotNull),
+            other => Err(ConvertError::TypeMismatch {
+                expected: "string (base64 encoded)",
+                got: other,
+            }),
+        }
+    }
+}
+
+impl FromSql for bytes::Bytes {
+    fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
+        Vec::<u8>::from_sql(value).map(bytes::Bytes::from)
+    }
+}
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate as google_cloud_bigquery;
+    use crate::FromSql;
+    use google_cloud_type::model::Decimal;
+    use rust_decimal::Decimal as RustDecimal;
     use test_case::test_case;
 
     // Test-only representation of `ConvertError` that implements `PartialEq`.
@@ -261,6 +430,7 @@ mod tests {
         NotNull,
         TypeMismatch(&'static str),
         Convert(String),
+        MissingField(String),
     }
 
     impl From<ConvertError> for TestConvertError {
@@ -269,6 +439,7 @@ mod tests {
                 ConvertError::NotNull => Self::NotNull,
                 ConvertError::TypeMismatch { expected, .. } => Self::TypeMismatch(expected),
                 ConvertError::Convert(e) => Self::Convert(e.to_string()),
+                ConvertError::MissingField(f) => Self::MissingField(f),
             }
         }
     }
@@ -374,6 +545,102 @@ mod tests {
     fn test_from_sql_datetime(
         value: wkt::Value,
     ) -> Result<google_cloud_type::model::DateTime, TestConvertError> {
+        FromSql::from_sql(value).map_err(TestConvertError::from)
+    }
+
+    #[test_case(wkt::Value::Number(123.into()) => Ok(123) ; "i32 from number")]
+    #[test_case(wkt::Value::String("123".to_string()) => Ok(123) ; "i32 from string")]
+    #[test_case(wkt::Value::Number(3_000_000_000i64.into()) => Err(TestConvertError::Convert("number is not a valid i32".to_string())) ; "i32 overflow from number")]
+    #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null i32")]
+    #[test_case(wkt::Value::Bool(true) => Err(TestConvertError::TypeMismatch("number or string")) ; "try bool as i32")]
+    #[test_case(wkt::Value::String("hello".to_string()) => Err(TestConvertError::Convert("invalid digit found in string".to_string())) ; "invalid string as i32")]
+    fn test_from_sql_i32(value: wkt::Value) -> Result<i32, TestConvertError> {
+        FromSql::from_sql(value).map_err(TestConvertError::from)
+    }
+
+    #[test_case(wkt::Value::Number(serde_json::Number::from_f64(123.45).unwrap()) => Ok(123.45) ; "f32 from number")]
+    #[test_case(wkt::Value::String("123.45".to_string()) => Ok(123.45) ; "f32 from string")]
+    #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null f32")]
+    #[test_case(wkt::Value::Bool(true) => Err(TestConvertError::TypeMismatch("number or string")) ; "try bool as f32")]
+    #[test_case(wkt::Value::String("hello".to_string()) => Err(TestConvertError::Convert("invalid float literal".to_string())) ; "invalid string as f32")]
+    fn test_from_sql_f32(value: wkt::Value) -> Result<f32, TestConvertError> {
+        FromSql::from_sql(value).map_err(TestConvertError::from)
+    }
+
+    #[test_case(wkt::Value::String("123.456".to_string()) => Ok(Decimal::new().set_value("123.456")) ; "decimal from string")]
+    #[test_case(wkt::Value::Number(serde_json::Number::from_f64(123.456).unwrap()) => Ok(Decimal::new().set_value("123.456")) ; "decimal from number")]
+    #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null decimal")]
+    #[test_case(wkt::Value::Bool(true) => Err(TestConvertError::TypeMismatch("string or number")) ; "try bool as decimal")]
+    fn test_from_sql_decimal(value: wkt::Value) -> Result<Decimal, TestConvertError> {
+        FromSql::from_sql(value).map_err(TestConvertError::from)
+    }
+
+    #[test_case(wkt::Value::String("123.456".to_string()) => Ok(RustDecimal::from_str_exact("123.456").unwrap()) ; "rust_decimal from string")]
+    #[test_case(wkt::Value::Number(serde_json::Number::from_f64(123.456).unwrap()) => Ok(RustDecimal::from_str_exact("123.456").unwrap()) ; "rust_decimal from number")]
+    #[test_case(wkt::Value::String("99999999999999999999999999999999.123".to_string()) => Err(TestConvertError::Convert("Invalid decimal: overflow from too many digits".to_string())) ; "rust_decimal overflow")]
+    #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null rust_decimal")]
+    #[test_case(wkt::Value::Bool(true) => Err(TestConvertError::TypeMismatch("string or number")) ; "try bool as rust_decimal")]
+    fn test_from_sql_rust_decimal(value: wkt::Value) -> Result<RustDecimal, TestConvertError> {
+        FromSql::from_sql(value).map_err(TestConvertError::from)
+    }
+
+    #[test_case(wkt::Value::String("[2026-05-28, 2026-05-29)".to_string()) => Ok(Range { start: Some(google_cloud_type::model::Date::new().set_year(2026).set_month(5).set_day(28)), end: Some(google_cloud_type::model::Date::new().set_year(2026).set_month(5).set_day(29)) }) ; "date range bounded")]
+    #[test_case(wkt::Value::String("[2026-05-28, UNBOUNDED)".to_string()) => Ok(Range { start: Some(google_cloud_type::model::Date::new().set_year(2026).set_month(5).set_day(28)), end: None }) ; "date range unbounded end")]
+    #[test_case(wkt::Value::String("[UNBOUNDED, 2026-05-29)".to_string()) => Ok(Range { start: None, end: Some(google_cloud_type::model::Date::new().set_year(2026).set_month(5).set_day(29)) }) ; "date range unbounded start")]
+    #[test_case(wkt::Value::String("[UNBOUNDED, UNBOUNDED)".to_string()) => Ok(Range { start: None, end: None }) ; "date range unbounded both")]
+    #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null range")]
+    #[test_case(wkt::Value::Number(123.into()) => Err(TestConvertError::TypeMismatch("string")) ; "range type mismatch")]
+    #[test_case(wkt::Value::String("[2026-05-28)".to_string()) => Err(TestConvertError::Convert("invalid range format: expected 2 parts, got 1".to_string())) ; "range invalid format one part")]
+    #[test_case(wkt::Value::String("[2026-05-28, 2026-05-29, 2026-05-30)".to_string()) => Err(TestConvertError::Convert("invalid range format: expected 2 parts, got 3".to_string())) ; "range invalid format three parts")]
+    #[test_case(wkt::Value::String("[".to_string()) => Err(TestConvertError::Convert("invalid range format: missing enclosing brackets".to_string())) ; "range too short")]
+    #[test_case(wkt::Value::String("2026-05-28, 2026-05-29".to_string()) => Err(TestConvertError::Convert("invalid range format: missing enclosing brackets".to_string())) ; "range missing brackets")]
+    #[test_case(wkt::Value::String("(2026-05-28, 2026-05-29)".to_string()) => Err(TestConvertError::Convert("invalid range format: missing enclosing brackets".to_string())) ; "range invalid leading parenthesis")]
+    #[test_case(wkt::Value::String("[2026-05-28, 2026-05-29]".to_string()) => Err(TestConvertError::Convert("invalid range format: missing enclosing brackets".to_string())) ; "range invalid trailing square bracket")]
+    fn test_from_sql_range(
+        value: wkt::Value,
+    ) -> Result<Range<google_cloud_type::model::Date>, TestConvertError> {
+        FromSql::from_sql(value).map_err(TestConvertError::from)
+    }
+
+    #[test_case(wkt::Value::String("AQIDBA==".to_string()) => Ok(vec![1, 2, 3, 4]) ; "vec u8 from base64")]
+    #[test_case(wkt::Value::String("".to_string()) => Ok(vec![]) ; "vec u8 from empty base64")]
+    #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null vec u8")]
+    #[test_case(wkt::Value::Bool(true) => Err(TestConvertError::TypeMismatch("string (base64 encoded)")) ; "try bool as vec u8")]
+    fn test_from_sql_vec_u8(value: wkt::Value) -> Result<Vec<u8>, TestConvertError> {
+        FromSql::from_sql(value).map_err(TestConvertError::from)
+    }
+
+    #[test_case(wkt::Value::String("AQIDBA==".to_string()) => Ok(bytes::Bytes::from_static(&[1, 2, 3, 4])) ; "bytes from base64")]
+    #[test_case(wkt::Value::String("".to_string()) => Ok(bytes::Bytes::from_static(&[])) ; "bytes from empty base64")]
+    #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null bytes")]
+    #[test_case(wkt::Value::Bool(true) => Err(TestConvertError::TypeMismatch("string (base64 encoded)")) ; "try bool as bytes")]
+    fn test_from_sql_bytes(value: wkt::Value) -> Result<bytes::Bytes, TestConvertError> {
+        FromSql::from_sql(value).map_err(TestConvertError::from)
+    }
+
+    #[test_case("AQIDBA" ; "missing padding")]
+    #[test_case("Not a base64 string" ; "words with spaces")]
+    fn test_from_sql_bytes_invalid_base64(input: &str) {
+        let err = bytes::Bytes::from_sql(wkt::Value::String(input.to_string())).unwrap_err();
+        assert!(matches!(err, ConvertError::Convert(_)));
+
+        let err = Vec::<u8>::from_sql(wkt::Value::String(input.to_string())).unwrap_err();
+        assert!(matches!(err, ConvertError::Convert(_)));
+    }
+
+    #[derive(FromSql, Debug, PartialEq)]
+    struct TestSqlStruct {
+        name: String,
+        #[bigquery(rename = "custom_int")]
+        some_int: i64,
+        some_bool: bool,
+    }
+
+    #[test_case(wkt::Value::Array(vec![wkt::Value::String("James".to_string()), wkt::Value::Number(272793.into()), wkt::Value::Bool(true)]) => Ok(TestSqlStruct { name: "James".to_string(), some_int: 272793, some_bool: true }) ; "array success")]
+    #[test_case(wkt::Value::Object(wkt::Struct::from_iter([("name".to_string(), wkt::Value::String("James".to_string())), ("custom_int".to_string(), wkt::Value::Number(272793.into())), ("some_bool".to_string(), wkt::Value::Bool(true))])) => Ok(TestSqlStruct { name: "James".to_string(), some_int: 272793, some_bool: true }) ; "object success")]
+    #[test_case(wkt::Value::Object(wkt::Struct::from_iter([("name".to_string(), wkt::Value::String("James".to_string())), ("some_bool".to_string(), wkt::Value::Bool(true))])) => Err(TestConvertError::MissingField("custom_int".to_string())) ; "missing field")]
+    #[test_case(wkt::Value::String("invalid".to_string()) => Err(TestConvertError::TypeMismatch("array or object")) ; "type mismatch")]
+    fn test_derive_from_sql(value: wkt::Value) -> Result<TestSqlStruct, TestConvertError> {
         FromSql::from_sql(value).map_err(TestConvertError::from)
     }
 }

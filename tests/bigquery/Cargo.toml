@@ -28,6 +28,7 @@ log-integration-tests = []
 
 [dependencies]
 anyhow.workspace         = true
+bytes.workspace          = true
 futures.workspace        = true
 google-cloud-bigquery    = { path = "../../src/bigquery" }
 google-cloud-bigquery-v2 = { workspace = true, features = ["default"] }
@@ -35,5 +36,6 @@ google-cloud-gax         = { workspace = true, features = ["unstable-stream"] }
 google-cloud-test-utils  = { workspace = true }
 google-cloud-type        = { workspace = true }
 rand.workspace           = true
+rust_decimal             = { workspace = true }
 tokio.workspace          = true
 wkt.workspace            = true

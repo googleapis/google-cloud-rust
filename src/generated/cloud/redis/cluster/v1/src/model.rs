@@ -1398,6 +1398,12 @@ pub struct Cluster {
     /// Output only. Encryption information of the data at rest of the cluster.
     pub encryption_info: std::option::Option<crate::model::EncryptionInfo>,
 
+    /// Optional. If true, cluster endpoints that are created and registered by
+    /// customers can be deleted asynchronously. That is, such a cluster endpoint
+    /// can be de-registered before the forwarding rules in the cluster endpoint
+    /// are deleted.
+    pub async_cluster_endpoints_deletion_enabled: std::option::Option<bool>,
+
     /// Optional. Server CA mode for the cluster.
     pub server_ca_mode: std::option::Option<crate::model::ServerCaMode>,
 
@@ -2165,6 +2171,40 @@ impl Cluster {
         T: std::convert::Into<crate::model::EncryptionInfo>,
     {
         self.encryption_info = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [async_cluster_endpoints_deletion_enabled][crate::model::Cluster::async_cluster_endpoints_deletion_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::Cluster;
+    /// let x = Cluster::new().set_async_cluster_endpoints_deletion_enabled(true);
+    /// ```
+    pub fn set_async_cluster_endpoints_deletion_enabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.async_cluster_endpoints_deletion_enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [async_cluster_endpoints_deletion_enabled][crate::model::Cluster::async_cluster_endpoints_deletion_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::Cluster;
+    /// let x = Cluster::new().set_or_clear_async_cluster_endpoints_deletion_enabled(Some(false));
+    /// let x = Cluster::new().set_or_clear_async_cluster_endpoints_deletion_enabled(None::<bool>);
+    /// ```
+    pub fn set_or_clear_async_cluster_endpoints_deletion_enabled<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.async_cluster_endpoints_deletion_enabled = v.map(|x| x.into());
         self
     }
 

@@ -58,7 +58,7 @@ use futures::Stream;
 #[derive(Debug)]
 pub struct ResultSet {
     stream: Option<PartialResultSetStream>,
-    buffered_values: Vec<prost_types::Value>,
+    buffered_values: VecDeque<prost_types::Value>,
     chunked: bool,
     seen_last: bool,
     ready_rows: VecDeque<Row>,
@@ -131,7 +131,7 @@ impl ResultSet {
 
         Self {
             stream: Some(stream),
-            buffered_values: Vec::new(),
+            buffered_values: VecDeque::new(),
             chunked: false,
             seen_last: false,
             ready_rows: VecDeque::new(),
@@ -589,7 +589,7 @@ impl ResultSet {
 
         let mut values_iter = values.into_iter();
         if self.chunked
-            && let Some(last_val) = self.buffered_values.last_mut()
+            && let Some(last_val) = self.buffered_values.back_mut()
             && let Some(first_new) = values_iter.next()
         {
             merge_values(last_val, first_new)?;
@@ -598,8 +598,10 @@ impl ResultSet {
         self.buffered_values.extend(values_iter);
         self.chunked = chunked_value;
 
-        while self.buffered_values.len() >= metadata.column_types.len() {
-            let column_count = metadata.column_types.len();
+        let column_count = metadata.column_types.len();
+        self.ready_rows
+            .reserve(self.buffered_values.len() / column_count);
+        while self.buffered_values.len() >= column_count {
             if self.buffered_values.len() == column_count && self.chunked {
                 break;
             }

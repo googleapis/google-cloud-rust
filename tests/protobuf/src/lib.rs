@@ -148,7 +148,7 @@ pub async fn run(builder: ClientBuilder) -> Result<()> {
     assert!(
         list.iter().any(|name| name == &get.name),
         "missing secret {} in {list:?}",
-        &get.name
+        get.name
     );
 
     run_secret_versions(&client, &create.name).await?;
@@ -289,7 +289,7 @@ async fn run_secret_versions(client: &SecretManagerService, secret_name: &str) -
             .iter()
             .any(|name| name == &get_secret_version.name),
         "missing secret version {} in {secret_versions_list:?}",
-        &get_secret_version.name
+        get_secret_version.name
     );
 
     println!("\nTesting access_secret_version()");

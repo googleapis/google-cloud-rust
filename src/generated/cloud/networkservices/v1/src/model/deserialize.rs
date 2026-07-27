@@ -351,6 +351,7 @@ impl<'de> serde::de::Deserialize<'de> for super::agent_gateway::SelfManaged {
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __resource_uri,
+            __resource_uris,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -373,6 +374,8 @@ impl<'de> serde::de::Deserialize<'de> for super::agent_gateway::SelfManaged {
                         match value {
                             "resourceUri" => Ok(__FieldTag::__resource_uri),
                             "resource_uri" => Ok(__FieldTag::__resource_uri),
+                            "resourceUris" => Ok(__FieldTag::__resource_uris),
+                            "resource_uris" => Ok(__FieldTag::__resource_uris),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -407,6 +410,14 @@ impl<'de> serde::de::Deserialize<'de> for super::agent_gateway::SelfManaged {
                             result.resource_uri = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__resource_uris => {
+                            if !fields.insert(__FieldTag::__resource_uris) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for resource_uris",
+                                ));
+                            }
+                            result.resource_uris = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

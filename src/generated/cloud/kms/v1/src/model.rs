@@ -2708,7 +2708,7 @@ pub struct SingleTenantHsmInstance {
     /// Optional. Immutable. Indicates whether key portability is enabled for the
     /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance].
     /// This can only be set at creation time. Key portability features are
-    /// disabled by default and not yet available in GA.
+    /// disabled by default.
     ///
     /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
     pub key_portability_enabled: bool,
@@ -3751,6 +3751,7 @@ impl SingleTenantHsmInstanceProposal {
     /// assert!(x.add_quorum_member().is_none());
     /// assert!(x.remove_quorum_member().is_none());
     /// assert!(x.refresh_single_tenant_hsm_instance().is_none());
+    /// assert!(x.upgrade_key_trust().is_none());
     /// ```
     pub fn set_register_two_factor_auth_keys<
         T: std::convert::Into<
@@ -3805,6 +3806,7 @@ impl SingleTenantHsmInstanceProposal {
     /// assert!(x.add_quorum_member().is_none());
     /// assert!(x.remove_quorum_member().is_none());
     /// assert!(x.refresh_single_tenant_hsm_instance().is_none());
+    /// assert!(x.upgrade_key_trust().is_none());
     /// ```
     pub fn set_disable_single_tenant_hsm_instance<T: std::convert::Into<std::boxed::Box<crate::model::single_tenant_hsm_instance_proposal::DisableSingleTenantHsmInstance>>>(mut self, v: T) -> Self{
         self.operation = std::option::Option::Some(
@@ -3850,6 +3852,7 @@ impl SingleTenantHsmInstanceProposal {
     /// assert!(x.add_quorum_member().is_none());
     /// assert!(x.remove_quorum_member().is_none());
     /// assert!(x.refresh_single_tenant_hsm_instance().is_none());
+    /// assert!(x.upgrade_key_trust().is_none());
     /// ```
     pub fn set_enable_single_tenant_hsm_instance<T: std::convert::Into<std::boxed::Box<crate::model::single_tenant_hsm_instance_proposal::EnableSingleTenantHsmInstance>>>(mut self, v: T) -> Self{
         self.operation = std::option::Option::Some(
@@ -3895,6 +3898,7 @@ impl SingleTenantHsmInstanceProposal {
     /// assert!(x.add_quorum_member().is_none());
     /// assert!(x.remove_quorum_member().is_none());
     /// assert!(x.refresh_single_tenant_hsm_instance().is_none());
+    /// assert!(x.upgrade_key_trust().is_none());
     /// ```
     pub fn set_delete_single_tenant_hsm_instance<T: std::convert::Into<std::boxed::Box<crate::model::single_tenant_hsm_instance_proposal::DeleteSingleTenantHsmInstance>>>(mut self, v: T) -> Self{
         self.operation = std::option::Option::Some(
@@ -3940,6 +3944,7 @@ impl SingleTenantHsmInstanceProposal {
     /// assert!(x.delete_single_tenant_hsm_instance().is_none());
     /// assert!(x.remove_quorum_member().is_none());
     /// assert!(x.refresh_single_tenant_hsm_instance().is_none());
+    /// assert!(x.upgrade_key_trust().is_none());
     /// ```
     pub fn set_add_quorum_member<
         T: std::convert::Into<
@@ -3990,6 +3995,7 @@ impl SingleTenantHsmInstanceProposal {
     /// assert!(x.delete_single_tenant_hsm_instance().is_none());
     /// assert!(x.add_quorum_member().is_none());
     /// assert!(x.refresh_single_tenant_hsm_instance().is_none());
+    /// assert!(x.upgrade_key_trust().is_none());
     /// ```
     pub fn set_remove_quorum_member<
         T: std::convert::Into<
@@ -4044,12 +4050,64 @@ impl SingleTenantHsmInstanceProposal {
     /// assert!(x.delete_single_tenant_hsm_instance().is_none());
     /// assert!(x.add_quorum_member().is_none());
     /// assert!(x.remove_quorum_member().is_none());
+    /// assert!(x.upgrade_key_trust().is_none());
     /// ```
     pub fn set_refresh_single_tenant_hsm_instance<T: std::convert::Into<std::boxed::Box<crate::model::single_tenant_hsm_instance_proposal::RefreshSingleTenantHsmInstance>>>(mut self, v: T) -> Self{
         self.operation = std::option::Option::Some(
             crate::model::single_tenant_hsm_instance_proposal::Operation::RefreshSingleTenantHsmInstance(
                 v.into()
             )
+        );
+        self
+    }
+
+    /// The value of [operation][crate::model::SingleTenantHsmInstanceProposal::operation]
+    /// if it holds a `UpgradeKeyTrust`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn upgrade_key_trust(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::single_tenant_hsm_instance_proposal::UpgradeKeyTrust>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.operation.as_ref().and_then(|v| match v {
+            crate::model::single_tenant_hsm_instance_proposal::Operation::UpgradeKeyTrust(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [operation][crate::model::SingleTenantHsmInstanceProposal::operation]
+    /// to hold a `UpgradeKeyTrust`.
+    ///
+    /// Note that all the setters affecting `operation` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstanceProposal;
+    /// use google_cloud_kms_v1::model::single_tenant_hsm_instance_proposal::UpgradeKeyTrust;
+    /// let x = SingleTenantHsmInstanceProposal::new().set_upgrade_key_trust(UpgradeKeyTrust::default()/* use setters */);
+    /// assert!(x.upgrade_key_trust().is_some());
+    /// assert!(x.register_two_factor_auth_keys().is_none());
+    /// assert!(x.disable_single_tenant_hsm_instance().is_none());
+    /// assert!(x.enable_single_tenant_hsm_instance().is_none());
+    /// assert!(x.delete_single_tenant_hsm_instance().is_none());
+    /// assert!(x.add_quorum_member().is_none());
+    /// assert!(x.remove_quorum_member().is_none());
+    /// assert!(x.refresh_single_tenant_hsm_instance().is_none());
+    /// ```
+    pub fn set_upgrade_key_trust<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::single_tenant_hsm_instance_proposal::UpgradeKeyTrust>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.operation = std::option::Option::Some(
+            crate::model::single_tenant_hsm_instance_proposal::Operation::UpgradeKeyTrust(v.into()),
         );
         self
     }
@@ -4573,6 +4631,67 @@ pub mod single_tenant_hsm_instance_proposal {
         }
     }
 
+    /// Promotes a key with the AES_WRAPPING purpose to a trusted wrapping key.
+    /// The key must be in the
+    /// [ACTIVE][CryptoKeyVersion.CryptoKeyVersionState.ACTIVE] state to perform
+    /// this operation.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct UpgradeKeyTrust {
+        /// Required. The [name][google.cloud.kms.v1.CryptoKeyVersion.name] of the
+        /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] to promote.
+        ///
+        /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
+        /// [google.cloud.kms.v1.CryptoKeyVersion.name]: crate::model::CryptoKeyVersion::name
+        pub name: std::string::String,
+
+        /// Required. The public key associated with the 2FA key that will sign the
+        /// login nonce for this operation.
+        pub two_factor_public_key_pem: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl UpgradeKeyTrust {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [name][crate::model::single_tenant_hsm_instance_proposal::UpgradeKeyTrust::name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_kms_v1::model::single_tenant_hsm_instance_proposal::UpgradeKeyTrust;
+        /// let x = UpgradeKeyTrust::new().set_name("example");
+        /// ```
+        pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.name = v.into();
+            self
+        }
+
+        /// Sets the value of [two_factor_public_key_pem][crate::model::single_tenant_hsm_instance_proposal::UpgradeKeyTrust::two_factor_public_key_pem].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_kms_v1::model::single_tenant_hsm_instance_proposal::UpgradeKeyTrust;
+        /// let x = UpgradeKeyTrust::new().set_two_factor_public_key_pem("example");
+        /// ```
+        pub fn set_two_factor_public_key_pem<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.two_factor_public_key_pem = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for UpgradeKeyTrust {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.kms.v1.SingleTenantHsmInstanceProposal.UpgradeKeyTrust"
+        }
+    }
+
     /// The set of states of a
     /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal].
     ///
@@ -4948,6 +5067,13 @@ pub mod single_tenant_hsm_instance_proposal {
             std::boxed::Box<
                 crate::model::single_tenant_hsm_instance_proposal::RefreshSingleTenantHsmInstance,
             >,
+        ),
+        /// Promotes a key with the AES_WRAPPING purpose to a trusted wrapping key.
+        /// The key must be in the
+        /// [ACTIVE][CryptoKeyVersion.CryptoKeyVersionState.ACTIVE] state to perform
+        /// this operation.
+        UpgradeKeyTrust(
+            std::boxed::Box<crate::model::single_tenant_hsm_instance_proposal::UpgradeKeyTrust>,
         ),
     }
 }
@@ -7080,6 +7206,11 @@ pub mod crypto_key {
         /// [google.cloud.kms.v1.KeyManagementService.Decapsulate]: crate::client::KeyManagementService::decapsulate
         /// [google.cloud.kms.v1.KeyManagementService.GetPublicKey]: crate::client::KeyManagementService::get_public_key
         KeyEncapsulation,
+        /// [CryptoKeys][google.cloud.kms.v1.CryptoKey] with this purpose may be used
+        /// for AES key
+        ///
+        /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
+        AesWrapping,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [CryptoKeyPurpose::value] or
@@ -7109,6 +7240,7 @@ pub mod crypto_key {
                 Self::RawEncryptDecrypt => std::option::Option::Some(7),
                 Self::Mac => std::option::Option::Some(9),
                 Self::KeyEncapsulation => std::option::Option::Some(10),
+                Self::AesWrapping => std::option::Option::Some(11),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -7126,6 +7258,7 @@ pub mod crypto_key {
                 Self::RawEncryptDecrypt => std::option::Option::Some("RAW_ENCRYPT_DECRYPT"),
                 Self::Mac => std::option::Option::Some("MAC"),
                 Self::KeyEncapsulation => std::option::Option::Some("KEY_ENCAPSULATION"),
+                Self::AesWrapping => std::option::Option::Some("AES_WRAPPING"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -7154,6 +7287,7 @@ pub mod crypto_key {
                 7 => Self::RawEncryptDecrypt,
                 9 => Self::Mac,
                 10 => Self::KeyEncapsulation,
+                11 => Self::AesWrapping,
                 _ => Self::UnknownValue(crypto_key_purpose::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -7172,6 +7306,7 @@ pub mod crypto_key {
                 "RAW_ENCRYPT_DECRYPT" => Self::RawEncryptDecrypt,
                 "MAC" => Self::Mac,
                 "KEY_ENCAPSULATION" => Self::KeyEncapsulation,
+                "AES_WRAPPING" => Self::AesWrapping,
                 _ => Self::UnknownValue(crypto_key_purpose::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -7192,6 +7327,7 @@ pub mod crypto_key {
                 Self::RawEncryptDecrypt => serializer.serialize_i32(7),
                 Self::Mac => serializer.serialize_i32(9),
                 Self::KeyEncapsulation => serializer.serialize_i32(10),
+                Self::AesWrapping => serializer.serialize_i32(11),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -7800,6 +7936,31 @@ pub struct CryptoKeyVersion {
     /// [google.cloud.kms.v1.ImportCryptoKeyVersionRequest.crypto_key_version]: crate::model::ImportCryptoKeyVersionRequest::crypto_key_version
     pub reimport_eligible: bool,
 
+    /// Immutable. Field indicating that the key may be wrapped by a trusted key.
+    /// This field can be set for all key purposes except
+    /// [ENCRYPT_DECRYPT][google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT],
+    /// and is only valid for keys with protection level
+    /// [HSM_SINGLE_TENANT][google.cloud.kms.v1.ProtectionLevel.HSM_SINGLE_TENANT].
+    /// This field can only be set at creation or import time via
+    /// [CreateCryptoKeyVersion][google.cloud.kms.v1.KeyManagementService.CreateCryptoKeyVersion],
+    /// or
+    /// [ImportCryptoKeyVersion][google.cloud.kms.v1.KeyManagementService.ImportCryptoKeyVersion].
+    ///
+    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT]: crate::model::crypto_key::CryptoKeyPurpose::EncryptDecrypt
+    /// [google.cloud.kms.v1.KeyManagementService.CreateCryptoKeyVersion]: crate::client::KeyManagementService::create_crypto_key_version
+    /// [google.cloud.kms.v1.KeyManagementService.ImportCryptoKeyVersion]: crate::client::KeyManagementService::import_crypto_key_version
+    /// [google.cloud.kms.v1.ProtectionLevel.HSM_SINGLE_TENANT]: crate::model::ProtectionLevel::HsmSingleTenant
+    pub trusted_wrapping_enabled: bool,
+
+    /// Output only. Field indicating that the key wrapping key is trusted.
+    /// This field is only valid for key purpose
+    /// [AES_256_WRAPPING][CryptoKey.CryptoKeyPurpose.AES_256_WRAPPING], and
+    /// protection level
+    /// [HSM_SINGLE_TENANT][google.cloud.kms.v1.ProtectionLevel.HSM_SINGLE_TENANT].
+    ///
+    /// [google.cloud.kms.v1.ProtectionLevel.HSM_SINGLE_TENANT]: crate::model::ProtectionLevel::HsmSingleTenant
+    pub hsm_trusted: bool,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -8186,6 +8347,30 @@ impl CryptoKeyVersion {
         self.reimport_eligible = v.into();
         self
     }
+
+    /// Sets the value of [trusted_wrapping_enabled][crate::model::CryptoKeyVersion::trusted_wrapping_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKeyVersion;
+    /// let x = CryptoKeyVersion::new().set_trusted_wrapping_enabled(true);
+    /// ```
+    pub fn set_trusted_wrapping_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.trusted_wrapping_enabled = v.into();
+        self
+    }
+
+    /// Sets the value of [hsm_trusted][crate::model::CryptoKeyVersion::hsm_trusted].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKeyVersion;
+    /// let x = CryptoKeyVersion::new().set_hsm_trusted(true);
+    /// ```
+    pub fn set_hsm_trusted<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.hsm_trusted = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for CryptoKeyVersion {
@@ -8385,6 +8570,9 @@ pub mod crypto_key_version {
         /// security level 5. Randomized version supporting externally-computed
         /// message representatives.
         PqSignMlDsa87ExternalMu,
+        /// AES key wrap with zero padding algorithm (RFC 5649). Can only be used
+        /// by keys with purpose AES_WRAPPING.
+        Aes256Kwp,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [CryptoKeyVersionAlgorithm::value] or
@@ -8454,6 +8642,7 @@ pub mod crypto_key_version {
                 Self::PqSignMlDsa44ExternalMu => std::option::Option::Some(70),
                 Self::PqSignMlDsa65ExternalMu => std::option::Option::Some(67),
                 Self::PqSignMlDsa87ExternalMu => std::option::Option::Some(71),
+                Self::Aes256Kwp => std::option::Option::Some(73),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -8551,6 +8740,7 @@ pub mod crypto_key_version {
                 Self::PqSignMlDsa87ExternalMu => {
                     std::option::Option::Some("PQ_SIGN_ML_DSA_87_EXTERNAL_MU")
                 }
+                Self::Aes256Kwp => std::option::Option::Some("AES_256_KWP"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -8619,6 +8809,7 @@ pub mod crypto_key_version {
                 69 => Self::PqSignMlDsa87,
                 70 => Self::PqSignMlDsa44ExternalMu,
                 71 => Self::PqSignMlDsa87ExternalMu,
+                73 => Self::Aes256Kwp,
                 _ => Self::UnknownValue(crypto_key_version_algorithm::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -8677,6 +8868,7 @@ pub mod crypto_key_version {
                 "PQ_SIGN_ML_DSA_44_EXTERNAL_MU" => Self::PqSignMlDsa44ExternalMu,
                 "PQ_SIGN_ML_DSA_65_EXTERNAL_MU" => Self::PqSignMlDsa65ExternalMu,
                 "PQ_SIGN_ML_DSA_87_EXTERNAL_MU" => Self::PqSignMlDsa87ExternalMu,
+                "AES_256_KWP" => Self::Aes256Kwp,
                 _ => Self::UnknownValue(crypto_key_version_algorithm::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -8737,6 +8929,7 @@ pub mod crypto_key_version {
                 Self::PqSignMlDsa44ExternalMu => serializer.serialize_i32(70),
                 Self::PqSignMlDsa65ExternalMu => serializer.serialize_i32(67),
                 Self::PqSignMlDsa87ExternalMu => serializer.serialize_i32(71),
+                Self::Aes256Kwp => serializer.serialize_i32(73),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -12479,6 +12672,24 @@ pub struct CreateCryptoKeyRequest {
     /// [google.cloud.kms.v1.KeyManagementService.ImportCryptoKeyVersion]: crate::client::KeyManagementService::import_crypto_key_version
     pub skip_initial_version_creation: bool,
 
+    /// Optional. Whether trusted wrapping will be enabled on the first
+    /// [CryptoKeyVersions][google.cloud.kms.v1.CryptoKeyVersion] created for this
+    /// [CryptoKey][google.cloud.kms.v1.CryptoKey]. This field is only supported
+    /// for keys with
+    /// [CryptoKeyVersionTemplate.protection_level][google.cloud.kms.v1.CryptoKeyVersionTemplate.protection_level]
+    /// [HSM_SINGLE_TENANT][google.cloud.kms.v1.ProtectionLevel.HSM_SINGLE_TENANT].
+    /// This field is supported for all
+    /// [CryptoKeyPurposes][google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose] except
+    /// [ENCRYPT_DECRYPT][google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT].
+    ///
+    /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
+    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose]: crate::model::crypto_key::CryptoKeyPurpose
+    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT]: crate::model::crypto_key::CryptoKeyPurpose::EncryptDecrypt
+    /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
+    /// [google.cloud.kms.v1.CryptoKeyVersionTemplate.protection_level]: crate::model::CryptoKeyVersionTemplate::protection_level
+    /// [google.cloud.kms.v1.ProtectionLevel.HSM_SINGLE_TENANT]: crate::model::ProtectionLevel::HsmSingleTenant
+    pub trusted_wrapping_enabled: bool,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -12557,6 +12768,18 @@ impl CreateCryptoKeyRequest {
     /// ```
     pub fn set_skip_initial_version_creation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.skip_initial_version_creation = v.into();
+        self
+    }
+
+    /// Sets the value of [trusted_wrapping_enabled][crate::model::CreateCryptoKeyRequest::trusted_wrapping_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CreateCryptoKeyRequest;
+    /// let x = CreateCryptoKeyRequest::new().set_trusted_wrapping_enabled(true);
+    /// ```
+    pub fn set_trusted_wrapping_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.trusted_wrapping_enabled = v.into();
         self
     }
 }
@@ -12854,6 +13077,20 @@ pub struct ImportCryptoKeyVersionRequest {
     /// [google.cloud.kms.v1.ImportJob.public_key]: crate::model::ImportJob::public_key
     pub wrapped_key: ::bytes::Bytes,
 
+    /// Optional. Whether trusted wrapping will be enabled on the imported
+    /// [CryptoKeyVersion]. This field is only supported for keys with
+    /// [CryptoKeyVersionTemplate.protection_level][google.cloud.kms.v1.CryptoKeyVersionTemplate.protection_level]
+    /// [HSM_SINGLE_TENANT][google.cloud.kms.v1.ProtectionLevel.HSM_SINGLE_TENANT].
+    /// This field is supported for all
+    /// [CryptoKeyPurposes][google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose] besides
+    /// [ENCRYPT_DECRYPT][google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT].
+    ///
+    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose]: crate::model::crypto_key::CryptoKeyPurpose
+    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT]: crate::model::crypto_key::CryptoKeyPurpose::EncryptDecrypt
+    /// [google.cloud.kms.v1.CryptoKeyVersionTemplate.protection_level]: crate::model::CryptoKeyVersionTemplate::protection_level
+    /// [google.cloud.kms.v1.ProtectionLevel.HSM_SINGLE_TENANT]: crate::model::ProtectionLevel::HsmSingleTenant
+    pub trusted_wrapping_enabled: bool,
+
     /// This field is legacy. Use the field
     /// [wrapped_key][google.cloud.kms.v1.ImportCryptoKeyVersionRequest.wrapped_key]
     /// instead.
@@ -12951,6 +13188,18 @@ impl ImportCryptoKeyVersionRequest {
         self
     }
 
+    /// Sets the value of [trusted_wrapping_enabled][crate::model::ImportCryptoKeyVersionRequest::trusted_wrapping_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ImportCryptoKeyVersionRequest;
+    /// let x = ImportCryptoKeyVersionRequest::new().set_trusted_wrapping_enabled(true);
+    /// ```
+    pub fn set_trusted_wrapping_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.trusted_wrapping_enabled = v.into();
+        self
+    }
+
     /// Sets the value of [wrapped_key_material][crate::model::ImportCryptoKeyVersionRequest::wrapped_key_material].
     ///
     /// Note that all the setters affecting `wrapped_key_material` are mutually
@@ -13035,6 +13284,324 @@ pub mod import_crypto_key_version_request {
         ///
         /// [google.cloud.kms.v1.ImportCryptoKeyVersionRequest.wrapped_key]: crate::model::ImportCryptoKeyVersionRequest::wrapped_key
         RsaAesWrappedKey(::bytes::Bytes),
+    }
+}
+
+/// Request message for
+/// [KeyManagementService.ImportTrustedKeyWrappedCryptoKeyVersion][google.cloud.kms.v1.KeyManagementService.ImportTrustedKeyWrappedCryptoKeyVersion].
+///
+/// [google.cloud.kms.v1.KeyManagementService.ImportTrustedKeyWrappedCryptoKeyVersion]: crate::client::KeyManagementService::import_trusted_key_wrapped_crypto_key_version
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ImportTrustedKeyWrappedCryptoKeyVersionRequest {
+    /// Required. The [name][google.cloud.kms.v1.CryptoKey.name] of the
+    /// [CryptoKey][google.cloud.kms.v1.CryptoKey] to be imported into.
+    ///
+    /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
+    /// [google.cloud.kms.v1.CryptoKey.name]: crate::model::CryptoKey::name
+    pub parent: std::string::String,
+
+    /// Required. Required - the CKV of the trusted key used to import.
+    /// This can be the name of a CryptoKeyVersion or a CryptoKey.
+    pub importing_key: std::string::String,
+
+    /// Optional. The optional [name][google.cloud.kms.v1.CryptoKeyVersion.name] of
+    /// an existing [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] to
+    /// target for an import operation. If this field is not present, a new
+    /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] containing the
+    /// supplied key material is created.
+    ///
+    /// If this field is present, the supplied key material is imported into
+    /// the existing [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion]. To
+    /// import into an existing
+    /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion], the
+    /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] must be a child of
+    /// [ImportTrustedKeyWrappedCryptoKeyVersionRequest.parent][google.cloud.kms.v1.ImportTrustedKeyWrappedCryptoKeyVersionRequest.parent],
+    /// have been previously created via
+    /// [ImportTrustedKeyWrappedCryptoKeyVersion][google.cloud.kms.v1.KeyManagementService.ImportTrustedKeyWrappedCryptoKeyVersion],
+    /// and be in
+    /// [DESTROYED][google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DESTROYED]
+    /// or
+    /// [IMPORT_FAILED][google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.IMPORT_FAILED]
+    /// state. The key material and algorithm must match the previous
+    /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] exactly if the
+    /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] has ever contained
+    /// key material
+    ///
+    /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
+    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DESTROYED]: crate::model::crypto_key_version::CryptoKeyVersionState::Destroyed
+    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.IMPORT_FAILED]: crate::model::crypto_key_version::CryptoKeyVersionState::ImportFailed
+    /// [google.cloud.kms.v1.CryptoKeyVersion.name]: crate::model::CryptoKeyVersion::name
+    /// [google.cloud.kms.v1.ImportTrustedKeyWrappedCryptoKeyVersionRequest.parent]: crate::model::ImportTrustedKeyWrappedCryptoKeyVersionRequest::parent
+    /// [google.cloud.kms.v1.KeyManagementService.ImportTrustedKeyWrappedCryptoKeyVersion]: crate::client::KeyManagementService::import_trusted_key_wrapped_crypto_key_version
+    pub crypto_key_version: std::string::String,
+
+    /// Required. The target key pre-wrapped on premises.
+    pub wrapped_key: ::bytes::Bytes,
+
+    /// Required. Required - The
+    /// [algorithm][google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionAlgorithm]
+    /// of the key being imported. This does not need to match the
+    /// [version_template][google.cloud.kms.v1.CryptoKey.version_template] of the
+    /// [CryptoKey][google.cloud.kms.v1.CryptoKey] this version imports into.
+    ///
+    /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
+    /// [google.cloud.kms.v1.CryptoKey.version_template]: crate::model::CryptoKey::version_template
+    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionAlgorithm]: crate::model::crypto_key_version::CryptoKeyVersionAlgorithm
+    pub algorithm: crate::model::crypto_key_version::CryptoKeyVersionAlgorithm,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ImportTrustedKeyWrappedCryptoKeyVersionRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ImportTrustedKeyWrappedCryptoKeyVersionRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ImportTrustedKeyWrappedCryptoKeyVersionRequest;
+    /// let x = ImportTrustedKeyWrappedCryptoKeyVersionRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [importing_key][crate::model::ImportTrustedKeyWrappedCryptoKeyVersionRequest::importing_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ImportTrustedKeyWrappedCryptoKeyVersionRequest;
+    /// let x = ImportTrustedKeyWrappedCryptoKeyVersionRequest::new().set_importing_key("example");
+    /// ```
+    pub fn set_importing_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.importing_key = v.into();
+        self
+    }
+
+    /// Sets the value of [crypto_key_version][crate::model::ImportTrustedKeyWrappedCryptoKeyVersionRequest::crypto_key_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ImportTrustedKeyWrappedCryptoKeyVersionRequest;
+    /// let x = ImportTrustedKeyWrappedCryptoKeyVersionRequest::new().set_crypto_key_version("example");
+    /// ```
+    pub fn set_crypto_key_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.crypto_key_version = v.into();
+        self
+    }
+
+    /// Sets the value of [wrapped_key][crate::model::ImportTrustedKeyWrappedCryptoKeyVersionRequest::wrapped_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ImportTrustedKeyWrappedCryptoKeyVersionRequest;
+    /// let x = ImportTrustedKeyWrappedCryptoKeyVersionRequest::new().set_wrapped_key(bytes::Bytes::from_static(b"example"));
+    /// ```
+    pub fn set_wrapped_key<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.wrapped_key = v.into();
+        self
+    }
+
+    /// Sets the value of [algorithm][crate::model::ImportTrustedKeyWrappedCryptoKeyVersionRequest::algorithm].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ImportTrustedKeyWrappedCryptoKeyVersionRequest;
+    /// use google_cloud_kms_v1::model::crypto_key_version::CryptoKeyVersionAlgorithm;
+    /// let x0 = ImportTrustedKeyWrappedCryptoKeyVersionRequest::new().set_algorithm(CryptoKeyVersionAlgorithm::GoogleSymmetricEncryption);
+    /// let x1 = ImportTrustedKeyWrappedCryptoKeyVersionRequest::new().set_algorithm(CryptoKeyVersionAlgorithm::Aes128Gcm);
+    /// let x2 = ImportTrustedKeyWrappedCryptoKeyVersionRequest::new().set_algorithm(CryptoKeyVersionAlgorithm::Aes256Gcm);
+    /// ```
+    pub fn set_algorithm<
+        T: std::convert::Into<crate::model::crypto_key_version::CryptoKeyVersionAlgorithm>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.algorithm = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ImportTrustedKeyWrappedCryptoKeyVersionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.ImportTrustedKeyWrappedCryptoKeyVersionRequest"
+    }
+}
+
+/// Request message for
+/// [KeyManagementService.ExportTrustedKeyWrappedCryptoKeyVersion][google.cloud.kms.v1.KeyManagementService.ExportTrustedKeyWrappedCryptoKeyVersion].
+///
+/// [google.cloud.kms.v1.KeyManagementService.ExportTrustedKeyWrappedCryptoKeyVersion]: crate::client::KeyManagementService::export_trusted_key_wrapped_crypto_key_version
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExportTrustedKeyWrappedCryptoKeyVersionRequest {
+    /// Required. The [name][google.cloud.kms.v1.CryptoKeyVersion.name] of the
+    /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] to export. The
+    /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] must have
+    /// [trusted_wrapping_enabled][google.cloud.kms.v1.CryptoKeyVersion.trusted_wrapping_enabled]
+    /// set to true.
+    ///
+    /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
+    /// [google.cloud.kms.v1.CryptoKeyVersion.name]: crate::model::CryptoKeyVersion::name
+    /// [google.cloud.kms.v1.CryptoKeyVersion.trusted_wrapping_enabled]: crate::model::CryptoKeyVersion::trusted_wrapping_enabled
+    pub name: std::string::String,
+
+    /// Required. The [name][google.cloud.kms.v1.CryptoKeyVersion.name] of the
+    /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] to use as a
+    /// wrapping key. The [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion]
+    /// must have [hsm_trusted][google.cloud.kms.v1.CryptoKeyVersion.hsm_trusted]
+    /// set to true.
+    ///
+    /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
+    /// [google.cloud.kms.v1.CryptoKeyVersion.hsm_trusted]: crate::model::CryptoKeyVersion::hsm_trusted
+    /// [google.cloud.kms.v1.CryptoKeyVersion.name]: crate::model::CryptoKeyVersion::name
+    pub wrapping_key: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExportTrustedKeyWrappedCryptoKeyVersionRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ExportTrustedKeyWrappedCryptoKeyVersionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ExportTrustedKeyWrappedCryptoKeyVersionRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_ring_id = "key_ring_id";
+    /// # let crypto_key_id = "crypto_key_id";
+    /// # let crypto_key_version_id = "crypto_key_version_id";
+    /// let x = ExportTrustedKeyWrappedCryptoKeyVersionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}/cryptoKeys/{crypto_key_id}/cryptoKeyVersions/{crypto_key_version_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [wrapping_key][crate::model::ExportTrustedKeyWrappedCryptoKeyVersionRequest::wrapping_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ExportTrustedKeyWrappedCryptoKeyVersionRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let key_ring_id = "key_ring_id";
+    /// # let crypto_key_id = "crypto_key_id";
+    /// # let crypto_key_version_id = "crypto_key_version_id";
+    /// let x = ExportTrustedKeyWrappedCryptoKeyVersionRequest::new().set_wrapping_key(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}/cryptoKeys/{crypto_key_id}/cryptoKeyVersions/{crypto_key_version_id}"));
+    /// ```
+    pub fn set_wrapping_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.wrapping_key = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ExportTrustedKeyWrappedCryptoKeyVersionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.ExportTrustedKeyWrappedCryptoKeyVersionRequest"
+    }
+}
+
+/// Response message for
+/// [KeyManagementService.ExportTrustedKeyWrappedCryptoKeyVersion][google.cloud.kms.v1.KeyManagementService.ExportTrustedKeyWrappedCryptoKeyVersion].
+///
+/// [google.cloud.kms.v1.KeyManagementService.ExportTrustedKeyWrappedCryptoKeyVersion]: crate::client::KeyManagementService::export_trusted_key_wrapped_crypto_key_version
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExportTrustedKeyWrappedCryptoKeyVersionResponse {
+    /// The wrapped key material.
+    pub wrapped_key: ::bytes::Bytes,
+
+    /// Integrity verification field. A CRC32C checksum of the returned
+    /// [ExportTrustedKeyWrappedCryptoKeyVersionResponse.wrapped_key][google.cloud.kms.v1.ExportTrustedKeyWrappedCryptoKeyVersionResponse.wrapped_key].
+    /// An integrity check of
+    /// [ExportTrustedKeyWrappedCryptoKeyVersionResponse.wrapped_key][google.cloud.kms.v1.ExportTrustedKeyWrappedCryptoKeyVersionResponse.wrapped_key]
+    /// can be performed by computing the CRC32C checksum of
+    /// [ExportTrustedKeyWrappedCryptoKeyVersionResponse.wrapped_key][google.cloud.kms.v1.ExportTrustedKeyWrappedCryptoKeyVersionResponse.wrapped_key]
+    /// and comparing your results to this field. Discard the response in case of
+    /// non-matching checksum values, and perform a limited number of retries. A
+    /// persistent mismatch may indicate an issue in your computation of the CRC32C
+    /// checksum.
+    /// Note: This field is defined as int64 for reasons of compatibility across
+    /// different languages. However, it is a non-negative integer, which will
+    /// never exceed 2^32-1, and can be safely downconverted to uint32 in languages
+    /// that support this type.
+    ///
+    /// [google.cloud.kms.v1.ExportTrustedKeyWrappedCryptoKeyVersionResponse.wrapped_key]: crate::model::ExportTrustedKeyWrappedCryptoKeyVersionResponse::wrapped_key
+    pub wrapped_key_crc32c: std::option::Option<wkt::Int64Value>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExportTrustedKeyWrappedCryptoKeyVersionResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [wrapped_key][crate::model::ExportTrustedKeyWrappedCryptoKeyVersionResponse::wrapped_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ExportTrustedKeyWrappedCryptoKeyVersionResponse;
+    /// let x = ExportTrustedKeyWrappedCryptoKeyVersionResponse::new().set_wrapped_key(bytes::Bytes::from_static(b"example"));
+    /// ```
+    pub fn set_wrapped_key<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.wrapped_key = v.into();
+        self
+    }
+
+    /// Sets the value of [wrapped_key_crc32c][crate::model::ExportTrustedKeyWrappedCryptoKeyVersionResponse::wrapped_key_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ExportTrustedKeyWrappedCryptoKeyVersionResponse;
+    /// use wkt::Int64Value;
+    /// let x = ExportTrustedKeyWrappedCryptoKeyVersionResponse::new().set_wrapped_key_crc32c(Int64Value::default()/* use setters */);
+    /// ```
+    pub fn set_wrapped_key_crc32c<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.wrapped_key_crc32c = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [wrapped_key_crc32c][crate::model::ExportTrustedKeyWrappedCryptoKeyVersionResponse::wrapped_key_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ExportTrustedKeyWrappedCryptoKeyVersionResponse;
+    /// use wkt::Int64Value;
+    /// let x = ExportTrustedKeyWrappedCryptoKeyVersionResponse::new().set_or_clear_wrapped_key_crc32c(Some(Int64Value::default()/* use setters */));
+    /// let x = ExportTrustedKeyWrappedCryptoKeyVersionResponse::new().set_or_clear_wrapped_key_crc32c(None::<Int64Value>);
+    /// ```
+    pub fn set_or_clear_wrapped_key_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.wrapped_key_crc32c = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for ExportTrustedKeyWrappedCryptoKeyVersionResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.ExportTrustedKeyWrappedCryptoKeyVersionResponse"
     }
 }
 

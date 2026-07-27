@@ -23,12 +23,15 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gaxi;
 extern crate google_cloud_gax;
+extern crate google_cloud_lro;
 extern crate google_cloud_type;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
 extern crate std;
+extern crate tokio;
 extern crate tracing;
+extern crate uuid;
 extern crate wkt;
 
 mod debug;

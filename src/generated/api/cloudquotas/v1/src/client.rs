@@ -272,3 +272,172 @@ impl CloudQuotas {
         super::builder::cloud_quotas::UpdateQuotaPreference::new(self.inner.clone())
     }
 }
+
+/// Implements a client for the Cloud Quotas API.
+///
+/// # Example
+/// ```
+/// # use google_cloud_api_cloudquotas_v1::client::QuotaAdjusterSettingsManager;
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
+///     let client = QuotaAdjusterSettingsManager::builder().build().await?;
+///     let response = client.get_quota_adjuster_settings()
+///         .set_name(format!("projects/{project_id}/locations/{location_id}/quotaAdjusterSettings"))
+///         .send().await?;
+///     println!("response {:?}", response);
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// The Quotas Adjuster Settings API is an infrastructure service for Google
+/// Cloud that lets service consumers view and update their quota adjuster
+/// settings.
+///
+/// - Update quota adjuster settings.
+/// - Get the name of the configurations.
+///
+/// # Configuration
+///
+/// To configure `QuotaAdjusterSettingsManager` use the `with_*` methods in the type returned
+/// by [builder()][QuotaAdjusterSettingsManager::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://cloudquotas.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::quota_adjuster_settings_manager::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::quota_adjuster_settings_manager::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `QuotaAdjusterSettingsManager` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `QuotaAdjusterSettingsManager` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct QuotaAdjusterSettingsManager {
+    inner: std::sync::Arc<dyn super::stub::dynamic::QuotaAdjusterSettingsManager>,
+}
+
+impl QuotaAdjusterSettingsManager {
+    /// Returns a builder for [QuotaAdjusterSettingsManager].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_api_cloudquotas_v1::client::QuotaAdjusterSettingsManager;
+    /// let client = QuotaAdjusterSettingsManager::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::quota_adjuster_settings_manager::ClientBuilder {
+        crate::new_client_builder(super::builder::quota_adjuster_settings_manager::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::QuotaAdjusterSettingsManager + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<
+        std::sync::Arc<dyn super::stub::dynamic::QuotaAdjusterSettingsManager>,
+    > {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::QuotaAdjusterSettingsManager> {
+        super::transport::QuotaAdjusterSettingsManager::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::QuotaAdjusterSettingsManager> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::QuotaAdjusterSettingsManager::new)
+    }
+
+    /// Updates the QuotaAdjusterSettings for the specified resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_cloudquotas_v1::client::QuotaAdjusterSettingsManager;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_api_cloudquotas_v1::model::QuotaAdjusterSettings;
+    /// use google_cloud_api_cloudquotas_v1::Result;
+    /// async fn sample(
+    ///    client: &QuotaAdjusterSettingsManager, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_quota_adjuster_settings()
+    ///         .set_quota_adjuster_settings(
+    ///             QuotaAdjusterSettings::new().set_name(format!("projects/{project_id}/locations/{location_id}/quotaAdjusterSettings"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_quota_adjuster_settings(
+        &self,
+    ) -> super::builder::quota_adjuster_settings_manager::UpdateQuotaAdjusterSettings {
+        super::builder::quota_adjuster_settings_manager::UpdateQuotaAdjusterSettings::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Gets the QuotaAdjusterSettings for the specified resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_cloudquotas_v1::client::QuotaAdjusterSettingsManager;
+    /// use google_cloud_api_cloudquotas_v1::Result;
+    /// async fn sample(
+    ///    client: &QuotaAdjusterSettingsManager, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_quota_adjuster_settings()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/quotaAdjusterSettings"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_quota_adjuster_settings(
+        &self,
+    ) -> super::builder::quota_adjuster_settings_manager::GetQuotaAdjusterSettings {
+        super::builder::quota_adjuster_settings_manager::GetQuotaAdjusterSettings::new(
+            self.inner.clone(),
+        )
+    }
+}

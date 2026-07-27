@@ -126,6 +126,61 @@ where
     }
 }
 
+/// Implements a [QuotaAdjusterSettingsManager](super::stub::QuotaAdjusterSettingsManager) decorator for logging and tracing.
+#[derive(Clone, Debug)]
+pub struct QuotaAdjusterSettingsManager<T>
+where
+    T: super::stub::QuotaAdjusterSettingsManager + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+    duration: gaxi::observability::DurationMetric,
+}
+
+impl<T> QuotaAdjusterSettingsManager<T>
+where
+    T: super::stub::QuotaAdjusterSettingsManager + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self {
+            inner,
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
+    }
+}
+
+impl<T> super::stub::QuotaAdjusterSettingsManager for QuotaAdjusterSettingsManager<T>
+where
+    T: super::stub::QuotaAdjusterSettingsManager + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_quota_adjuster_settings(
+        &self,
+        req: crate::model::UpdateQuotaAdjusterSettingsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::QuotaAdjusterSettings>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::QuotaAdjusterSettingsManager::update_quota_adjuster_settings",
+            self.inner.update_quota_adjuster_settings(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_quota_adjuster_settings(
+        &self,
+        req: crate::model::GetQuotaAdjusterSettingsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::QuotaAdjusterSettings>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::QuotaAdjusterSettingsManager::get_quota_adjuster_settings",
+            self.inner.get_quota_adjuster_settings(req, options));
+        pending.await
+    }
+}
+
 pub(crate) mod info {
     const NAME: &str = env!("CARGO_PKG_NAME");
     const VERSION: &str = env!("CARGO_PKG_VERSION");

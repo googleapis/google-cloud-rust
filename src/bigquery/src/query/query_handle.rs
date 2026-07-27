@@ -125,10 +125,8 @@ impl CompleteQuery {
     ) -> Self {
         let cached_rows = VecDeque::from(std::mem::take(&mut res.rows));
         let metadata = QueryMetadata::from(res);
-        let schema = metadata
-            .schema
-            .clone()
-            .expect("complete query should have schema");
+        // DDL/DML queries have no schema.
+        let schema = metadata.schema.clone().unwrap_or_default();
         let schema = Arc::new(Schema::new(schema));
         let page_token = if metadata.page_token.is_empty() {
             None
@@ -152,10 +150,8 @@ impl CompleteQuery {
     ) -> Self {
         let cached_rows = VecDeque::from(std::mem::take(&mut res.rows));
         let metadata = QueryMetadata::from(res);
-        let schema = metadata
-            .schema
-            .clone()
-            .expect("complete query should have schema");
+        // DDL/DML queries have no schema.
+        let schema = metadata.schema.clone().unwrap_or_default();
         let schema = Arc::new(Schema::new(schema));
         let page_token = if metadata.page_token.is_empty() {
             None

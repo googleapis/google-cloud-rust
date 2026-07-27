@@ -19,6 +19,7 @@ default-members = [
   "guide/samples",
   "src/auth",
   "src/bigquery",
+  "src/bigquery-derive",
   "src/bigquery-write",
   "src/bigquery/examples",
   "src/bigtable",
@@ -67,6 +68,7 @@ members = [
   "guide/samples",
   "src/auth",
   "src/bigquery",
+  "src/bigquery-derive",
   "src/bigquery-write",
   "src/bigquery-write/grpc-mock",
   "src/bigquery/examples",
@@ -99,6 +101,7 @@ members = [
   "src/generated/chat/v1",
   "src/generated/cloud/accessapproval/v1",
   "src/generated/cloud/advisorynotifications/v1",
+  "src/generated/cloud/agentidentity/v1",
   "src/generated/cloud/agentregistry/v1",
   "src/generated/cloud/aiplatform/schema/predict/instance",
   "src/generated/cloud/aiplatform/schema/predict/params",
@@ -133,6 +136,7 @@ members = [
   "src/generated/cloud/bigquery/v2",
   "src/generated/cloud/billing/v1",
   "src/generated/cloud/binaryauthorization/v1",
+  "src/generated/cloud/blockchainnodeengine/v1",
   "src/generated/cloud/certificatemanager/v1",
   "src/generated/cloud/ces/v1",
   "src/generated/cloud/chronicle/v1",
@@ -279,6 +283,7 @@ members = [
   "src/generated/devtools/cloudtrace/v2",
   "src/generated/devtools/containeranalysis/v1",
   "src/generated/firestore/admin/v1",
+  "src/generated/geo/gtype",
   "src/generated/grafeas/v1",
   "src/generated/iam/admin/v1",
   "src/generated/iam/credentials/v1",
@@ -290,6 +295,8 @@ members = [
   "src/generated/logging/type",
   "src/generated/logging/v2",
   "src/generated/longrunning",
+  "src/generated/maps/fleetengine/delivery/v1",
+  "src/generated/maps/fleetengine/v1",
   "src/generated/monitoring/dashboard/v1",
   "src/generated/monitoring/metricsscope/v1",
   "src/generated/monitoring/v3",
@@ -298,6 +305,7 @@ members = [
   "src/generated/privacy/dlp/v2",
   "src/generated/rpc/context",
   "src/generated/rpc/types",
+  "src/generated/shopping/gtype",
   "src/generated/showcase",
   "src/generated/spanner/admin/database/v1",
   "src/generated/spanner/admin/instance/v1",
@@ -395,7 +403,7 @@ futures               = { default-features = false, version = "0.3" }
 h2                    = { default-features = false, version = "0.4.14" }
 hex                   = { default-features = false, version = "0.4.3" }
 http                  = { default-features = false, version = "1.1", features = ["std"] }
-http-body             = { default-features = false, version = "1" }
+http-body             = { default-features = false, version = "1.1" }
 humantime             = { default-features = false, version = "2" }
 hyper                 = { default-features = false, version = "1.10" }
 jsonwebtoken          = { default-features = false, version = "10.2" }
@@ -527,6 +535,8 @@ google-cloud-recommender-v1                     = { default-features = false, ve
 google-cloud-rpc-context                        = { default-features = false, version = "1.6.0", path = "src/generated/rpc/context" }
 google-cloud-spanner-admin-database-v1          = { default-features = false, version = "1.13.0", path = "src/generated/spanner/admin/database/v1" }
 google-cloud-spanner-admin-instance-v1          = { default-features = false, version = "1.13.0", path = "src/generated/spanner/admin/instance/v1" }
+google-geo-type                                 = { default-features = false, version = "1.0.0", path = "src/generated/geo/gtype" }
+google-shopping-type                            = { default-features = false, version = "1.0.0", path = "src/generated/shopping/gtype" }
 # Used in integration tests, these are leaf nodes in the dependency graph. Should not get a `version`.
 google-cloud-speech-v2               = { default-features = false, path = "src/generated/cloud/speech/v2" }
 google-cloud-secretmanager-v1        = { default-features = false, path = "src/generated/cloud/secretmanager/v1" }
@@ -536,6 +546,7 @@ google-cloud-storage                 = { default-features = false, path = "src/s
 google-cloud-pubsub                  = { default-features = false, path = "src/pubsub" }
 google-cloud-spanner                 = { default-features = false, path = "src/spanner" }
 google-cloud-bigquery                = { default-features = false, path = "src/bigquery" }
+google-cloud-bigquery-derive         = { default-features = false, path = "src/bigquery-derive" }
 google-cloud-bigquery-v2             = { default-features = false, path = "src/generated/cloud/bigquery/v2" }
 google-cloud-iam-credentials-v1      = { default-features = false, path = "src/generated/iam/credentials/v1" }
 google-cloud-language-v2             = { default-features = false, path = "src/generated/cloud/language/v2" }

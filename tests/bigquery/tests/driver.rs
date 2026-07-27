@@ -50,6 +50,14 @@ mod bigquery {
     }
 
     #[tokio::test]
+    async fn run_query_client_numeric_limits() -> anyhow::Result<()> {
+        let _guard = enable_tracing();
+        integration_tests_bigquery::query_client_numeric_limits()
+            .await
+            .inspect_err(anydump)
+    }
+
+    #[tokio::test]
     async fn run_query_client_multi_page() -> anyhow::Result<()> {
         let _guard = enable_tracing();
         integration_tests_bigquery::query_client_multi_page()
@@ -61,6 +69,14 @@ mod bigquery {
     async fn run_query_client_job() -> anyhow::Result<()> {
         let _guard = enable_tracing();
         integration_tests_bigquery::query_client_job()
+            .await
+            .inspect_err(anydump)
+    }
+
+    #[tokio::test]
+    async fn run_query_client_nested_types() -> anyhow::Result<()> {
+        let _guard = enable_tracing();
+        integration_tests_bigquery::query_client_nested_types()
             .await
             .inspect_err(anydump)
     }
