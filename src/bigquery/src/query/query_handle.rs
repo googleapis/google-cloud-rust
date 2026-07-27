@@ -34,6 +34,7 @@ pub struct Query {
     pub(crate) completed: bool,
     pub(crate) initial_job: Option<Job>,
     pub(crate) initial_response: Option<QueryResponse>,
+    pub(crate) max_results: Option<u32>,
 }
 
 impl Query {
@@ -67,6 +68,7 @@ impl Query {
             completed,
             initial_job: _,
             initial_response,
+            max_results,
         } = self;
 
         if let (true, Some(initial_response)) = (completed, initial_response) {
@@ -74,6 +76,7 @@ impl Query {
                 job_service,
                 job_ref,
                 initial_response,
+                max_results,
             ));
         }
 
@@ -91,6 +94,7 @@ impl Query {
             job_service,
             job_ref,
             res,
+            max_results,
         ))
     }
 }
@@ -104,6 +108,7 @@ pub struct CompleteQuery {
     pub(crate) schema: Arc<Schema>,
     pub(crate) page_token: Option<String>,
     pub(crate) metadata: QueryMetadata,
+    pub(crate) max_results: Option<u32>,
 }
 
 impl std::fmt::Debug for CompleteQuery {
@@ -122,6 +127,7 @@ impl CompleteQuery {
         job_service: Arc<JobService>,
         job_ref: &JobReference,
         mut res: GetQueryResultsResponse,
+        max_results: Option<u32>,
     ) -> Self {
         let cached_rows = VecDeque::from(std::mem::take(&mut res.rows));
         let metadata = QueryMetadata::from(res);
@@ -140,6 +146,7 @@ impl CompleteQuery {
             page_token,
             schema,
             metadata,
+            max_results,
         }
     }
 
@@ -147,6 +154,7 @@ impl CompleteQuery {
         job_service: Arc<JobService>,
         job_ref: Option<JobReference>,
         mut res: QueryResponse,
+        max_results: Option<u32>,
     ) -> Self {
         let cached_rows = VecDeque::from(std::mem::take(&mut res.rows));
         let metadata = QueryMetadata::from(res);
@@ -165,6 +173,7 @@ impl CompleteQuery {
             page_token,
             schema,
             metadata,
+            max_results,
         }
     }
 
@@ -255,6 +264,7 @@ mod tests {
             completed: false,
             initial_job: None,
             initial_response,
+            max_results: None,
         };
 
         let result = query.query_reference();
@@ -281,6 +291,7 @@ mod tests {
             completed: true,
             initial_job: None,
             initial_response: Some(query_res),
+            max_results: None,
         };
 
         let completed = query.until_done().await?;
@@ -292,6 +303,32 @@ mod tests {
         assert_eq!(metadata.cache_hit, Some(true));
         assert_eq!(metadata.job_complete, Some(true));
         assert_eq!(metadata.page_token, "some_page_token".to_string());
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_query_until_done_preserves_max_results() -> TestResult {
+        let job_service = create_job_service(MockJobService::new());
+        let job_ref = JobReference::new()
+            .set_project_id("some_project")
+            .set_job_id("some_job_id");
+        let query_res = QueryResponse::new()
+            .set_job_complete(true)
+            .set_job_reference(job_ref.clone())
+            .set_schema(TableSchema::new());
+
+        let query = Query {
+            job_service,
+            job_ref: Some(job_ref),
+            completed: true,
+            initial_job: None,
+            initial_response: Some(query_res),
+            max_results: Some(42),
+        };
+
+        let completed = query.until_done().await?;
+        assert_eq!(completed.max_results, Some(42));
 
         Ok(())
     }
@@ -327,6 +364,7 @@ mod tests {
             completed: false,
             initial_job: None,
             initial_response: None,
+            max_results: None,
         };
 
         let completed = query.until_done().await?;
@@ -407,6 +445,7 @@ mod tests {
             completed: false,
             initial_job: None,
             initial_response: None,
+            max_results: None,
         };
 
         let err = query.until_done().await.unwrap_err();
@@ -447,6 +486,7 @@ mod tests {
             completed: false,
             initial_job: None,
             initial_response: None,
+            max_results: None,
         };
 
         let err = query.until_done().await.unwrap_err();
@@ -480,7 +520,7 @@ mod tests {
             .set_rows(vec![row]);
 
         let complete_query =
-            CompleteQuery::from_query_response(job_service, Some(job_ref), query_res);
+            CompleteQuery::from_query_response(job_service, Some(job_ref), query_res, None);
 
         let mut iter = complete_query.read();
         let row = iter.next().await.expect("should return first row")?;
