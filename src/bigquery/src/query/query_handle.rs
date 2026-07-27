@@ -572,7 +572,7 @@ mod tests {
         let query_res = QueryResponse::new().set_schema(TableSchema::new());
 
         let complete_query =
-            CompleteQuery::from_query_response(job_service, Some(job_ref), query_res);
+            CompleteQuery::from_query_response(job_service, Some(job_ref), query_res, None);
         let job = complete_query.job_metadata().await?;
         assert_eq!(job.user_email, "test@example.com");
         Ok(())
@@ -582,7 +582,7 @@ mod tests {
     async fn test_complete_query_job_metadata_stateless() -> TestResult {
         let job_service = create_job_service(MockJobService::new());
         let query_res = QueryResponse::new().set_schema(TableSchema::new());
-        let complete_query = CompleteQuery::from_query_response(job_service, None, query_res);
+        let complete_query = CompleteQuery::from_query_response(job_service, None, query_res, None);
         let err = complete_query.job_metadata().await.unwrap_err();
         assert!(matches!(err, QueryError::StatelessQuery));
         Ok(())
@@ -606,7 +606,7 @@ mod tests {
         let query_res = QueryResponse::new().set_schema(TableSchema::new());
 
         let complete_query =
-            CompleteQuery::from_query_response(job_service, Some(job_ref), query_res);
+            CompleteQuery::from_query_response(job_service, Some(job_ref), query_res, None);
         let err = complete_query.job_metadata().await.unwrap_err();
         let source = match err {
             QueryError::Rpc { source } => source,
