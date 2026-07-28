@@ -42,13 +42,6 @@ impl QueryReference {
     pub(crate) fn from_query_id(query_id: String) -> Self {
         Self::Stateless { query_id }
     }
-
-    pub(crate) fn to_job_ref(&self) -> Option<google_cloud_bigquery_v2::model::JobReference> {
-        match self {
-            Self::Job(job_ref) => Some(job_ref.clone()),
-            Self::Stateless { .. } => None,
-        }
-    }
 }
 
 #[cfg(test)]
@@ -64,7 +57,6 @@ mod tests {
             .set_location("US");
         let job_ref = QueryReference::from(proto.clone());
         assert_eq!(job_ref, QueryReference::Job(proto.clone()));
-        assert_eq!(job_ref.to_job_ref(), Some(proto));
 
         // Without location
         let proto = google_cloud_bigquery_v2::model::JobReference::new()
@@ -72,7 +64,6 @@ mod tests {
             .set_job_id("a-job-id");
         let job_ref = QueryReference::from(proto.clone());
         assert_eq!(job_ref, QueryReference::Job(proto.clone()));
-        assert_eq!(job_ref.to_job_ref(), Some(proto));
     }
 
     #[test]
@@ -84,6 +75,5 @@ mod tests {
                 query_id: "a-query-id".to_string(),
             }
         );
-        assert_eq!(query_ref.to_job_ref(), None);
     }
 }

@@ -19,7 +19,7 @@ use crate::query::{Query, Result};
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::query_request::JobCreationMode;
 use google_cloud_bigquery_v2::model::{
-    InsertJobRequest, Job, JobConfiguration, JobConfigurationQuery, PostQueryRequest, QueryRequest,
+    InsertJobRequest, Job, JobConfiguration, PostQueryRequest, QueryRequest,
 };
 use std::sync::Arc;
 
@@ -102,11 +102,9 @@ mod tests {
     use crate::query::tests::{MockJobService, create_job_service};
     use google_cloud_bigquery_v2::model::query_request::JobCreationMode;
     use google_cloud_bigquery_v2::model::{
-        Job, JobConfiguration, JobConfigurationQuery, JobReference, JobStatus, QueryRequest,
-        QueryResponse,
+        Job, JobConfiguration, JobReference, JobStatus, QueryRequest, QueryResponse,
     };
     use google_cloud_gax::response::Response;
-    use std::sync::Arc;
 
     type TestResult = anyhow::Result<()>;
 
