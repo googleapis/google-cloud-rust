@@ -43,7 +43,7 @@ mod client_builder;
 pub mod model {
     //! Re-exports for the Google Cloud BigQuery v2 API types.
     pub use crate::generated::{QueryMetadata, RunQueryRequest};
-    pub use crate::query::{QueryReference, RunQuery};
+    pub use crate::query::{CompleteQuery, Query, QueryReference, RowIterator, RunQuery};
     pub use google_cloud_bigquery_v2::model::*;
 }
 
