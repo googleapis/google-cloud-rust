@@ -1403,6 +1403,10 @@ libraries:
       - showcase
       - googleapis
     skip_release: true
+    rust:
+      include_bidi_streaming_methods: true
+      skipped_ids:
+        - .google.showcase.v1beta1.Echo.Chat
   - name: google-cloud-spanner
     version: 0.34.3-preview
     copyright_year: "2026"
@@ -1867,3 +1871,12 @@ libraries:
     copyright_year: "2025"
     output: src/storage/benchmarks/w1r3
     skip_release: true
+  - name: google-cloud-pubsub-bidi-test
+    version: 1.0.0
+    apis:
+      - path: google/pubsub/v1
+    copyright_year: "2026"
+    output: src/generated/pubsub-bidi-test
+    skip_release: true
+    rust:
+      include_bidi_streaming_methods: true

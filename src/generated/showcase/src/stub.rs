@@ -773,6 +773,23 @@ pub trait Messaging: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::Messaging::connect].
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    fn connect(
+        &self,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = (
+            google_cloud_gax::streaming::RequestSender<crate::model::ConnectRequest>,
+            google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>,
+        ),
+    > + Send {
+        async {
+            let _ = gaxi::unimplemented::unimplemented_stub::<()>().await;
+            unreachable!() // satisfies the type checker; the stub above always panics.
+        }
+    }
+
     /// Implements [super::client::Messaging::list_locations].
     fn list_locations(
         &self,

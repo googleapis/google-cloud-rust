@@ -1848,6 +1848,21 @@ impl Messaging {
         super::builder::messaging::SearchBlurbs::new(self.inner.clone())
     }
 
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    /// This method starts a bidirectional stream that receives all blurbs that
+    /// are being created after the stream has started and sends requests to create
+    /// blurbs. If an invalid blurb is requested to be created, the stream will
+    /// close with an error.
+    pub async fn connect(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::ConnectRequest>,
+        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>,
+    ) {
+        self.inner.connect(options).await
+    }
+
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
     /// [google.cloud.location.Locations]: google-cloud-location::client::Locations
