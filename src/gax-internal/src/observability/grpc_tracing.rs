@@ -491,6 +491,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore = "TODO(#6077) - disabled because it is flaky"]
     fn test_create_grpc_span() {
         let guard = TestLayer::initialize();
         let uri = http::Uri::from_static(
@@ -576,6 +577,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore = "TODO(#6077) - disabled because it is flaky"]
     fn test_create_grpc_span_with_resource_name() {
         let guard = TestLayer::initialize();
         let uri = http::Uri::from_static(

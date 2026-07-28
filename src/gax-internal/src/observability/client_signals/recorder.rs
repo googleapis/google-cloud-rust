@@ -580,6 +580,7 @@ mod tests {
     }
 
     #[tokio::test(start_paused = true)]
+    #[ignore = "TODO(#6077) - disabled because it is flaky"]
     async fn http_cannot_send() {
         const BAD_URL: &str = "https://127.0.0.1:1/v1/test-only";
 

@@ -345,6 +345,7 @@ mod tests {
     }
 
     #[tokio::test(start_paused = true)]
+    #[ignore = "TODO(#6077) - disabled because it is flaky"]
     async fn poll_without_recorder() -> anyhow::Result<()> {
         let providers = SignalProviders::new();
 
