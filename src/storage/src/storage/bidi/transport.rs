@@ -107,7 +107,10 @@ impl ObjectDescriptorTransport {
         // Note: We do not skip checksums for gzip-encoded objects (decompressive transcoding)
         // because gRPC automatic object decompression is not supported by the server.
         // The client receives the raw compressed bytes which match the stored checksum.
-        let checksum = if matches!(range, RequestedRange::Offset(0)) {
+        let proto = range.as_proto(0);
+        let is_full = proto.read_offset == 0 && proto.read_length == 0;
+
+        let checksum = if is_full {
             checksum
         } else {
             crate::storage::checksum::details::Checksum::default()
