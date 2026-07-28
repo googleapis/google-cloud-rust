@@ -8530,6 +8530,7 @@ dependencies = [
  "anyhow",
  "bytes",
  "clap",
+ "crc32c",
  "google-cloud-auth",
  "google-cloud-storage",
  "rand 0.10.2",
