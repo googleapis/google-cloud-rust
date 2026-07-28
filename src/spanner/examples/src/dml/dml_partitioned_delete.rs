@@ -12,11 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub mod dml_insert;
-pub mod dml_partitioned_delete;
-pub mod dml_partitioned_update;
-pub mod dml_update;
-pub mod pg_dml_insert;
-pub mod pg_dml_partitioned_delete;
-pub mod pg_dml_partitioned_update;
-pub mod pg_dml_update;
+// [START spanner_dml_partitioned_delete]
+use google_cloud_spanner::client::DatabaseClient;
+use google_cloud_spanner::statement::Statement;
+
+pub async fn sample(client: &DatabaseClient) -> anyhow::Result<()> {
+    let transaction = client.partitioned_dml_transaction().build().await?;
+    let statement = Statement::builder("DELETE FROM Singers WHERE SingerId > 10").build();
+
+    let row_count = transaction.execute_update(statement).await?;
+    println!("{row_count} records deleted.");
+    Ok(())
+}
+// [END spanner_dml_partitioned_delete]
