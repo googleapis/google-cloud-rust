@@ -15,8 +15,8 @@
 use crate::builder::job_service::InsertJob;
 use crate::model::Job;
 use google_cloud_gax::backoff_policy::BackoffPolicy;
-use google_cloud_gax::error::rpc::{Code, Status};
 use google_cloud_gax::error::Error as GaxError;
+use google_cloud_gax::error::rpc::{Code, Status};
 use google_cloud_gax::exponential_backoff::ExponentialBackoff;
 use google_cloud_gax::retry_state::RetryState;
 use google_cloud_lro::Poller;
@@ -179,7 +179,7 @@ impl JobPoller {
 
                     let retry_state = RetryState::new(true)
                         .set_start(start_time)
-                        .set_attempt_count(attempts as u32);
+                        .set_attempt_count(attempts);
                     let delay = backoff.on_failure(&retry_state);
                     tokio::time::sleep(delay).await;
                     continue;

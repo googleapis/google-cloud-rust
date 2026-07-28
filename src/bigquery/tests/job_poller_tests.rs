@@ -150,10 +150,7 @@ async fn retry_exhausted() -> anyhow::Result<()> {
         .returning(move |_, _| Ok(Response::from(transient_job_failure("job-unknown"))));
 
     let client = JobService::from_stub(mock);
-    let poller = client
-        .insert_job()
-        .into_job_poller()
-        .with_attempt_limit(3);
+    let poller = client.insert_job().into_job_poller().with_attempt_limit(3);
 
     let result = poller.until_done().await;
 
@@ -181,7 +178,11 @@ async fn polling_success() -> anyhow::Result<()> {
         .return_once(move |_, _| {
             Ok(Response::from(
                 Job::new()
-                    .set_job_reference(JobReference::new().set_project_id("p1").set_job_id("job-running"))
+                    .set_job_reference(
+                        JobReference::new()
+                            .set_project_id("p1")
+                            .set_job_id("job-running"),
+                    )
                     .set_status(JobStatus::new().set_state("RUNNING")),
             ))
         });
@@ -193,7 +194,11 @@ async fn polling_success() -> anyhow::Result<()> {
             assert_eq!(req.job_id, "job-running");
             Ok(Response::from(
                 Job::new()
-                    .set_job_reference(JobReference::new().set_project_id("p1").set_job_id("job-running"))
+                    .set_job_reference(
+                        JobReference::new()
+                            .set_project_id("p1")
+                            .set_job_id("job-running"),
+                    )
                     .set_status(JobStatus::new().set_state("DONE")),
             ))
         });
