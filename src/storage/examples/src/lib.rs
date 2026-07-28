@@ -666,7 +666,7 @@ async fn create_bucket_kms_key(
 pub async fn create_test_bucket() -> anyhow::Result<(StorageControl, Bucket)> {
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
     let client = client_for_create_bucket().await?;
-    cleanup_stale_buckets(&client, &project_id).await?;
+    cleanup_stale_buckets(&client, &project_id).await;
 
     let bucket_id = crate::random_bucket_id();
 
@@ -691,7 +691,7 @@ pub async fn create_test_bucket() -> anyhow::Result<(StorageControl, Bucket)> {
 pub async fn create_test_hns_bucket() -> anyhow::Result<(StorageControl, Bucket)> {
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
     let client = client_for_create_bucket().await?;
-    cleanup_stale_buckets(&client, &project_id).await?;
+    cleanup_stale_buckets(&client, &project_id).await;
 
     let bucket_id = crate::random_bucket_id();
 
@@ -719,7 +719,7 @@ pub async fn create_test_hns_bucket() -> anyhow::Result<(StorageControl, Bucket)
 pub async fn create_test_rapid_bucket() -> anyhow::Result<(StorageControl, Bucket)> {
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
     let client = client_for_create_bucket().await?;
-    cleanup_stale_buckets(&client, &project_id).await?;
+    cleanup_stale_buckets(&client, &project_id).await;
 
     let bucket_id = crate::random_bucket_id();
 
@@ -768,10 +768,7 @@ async fn client_for_create_bucket() -> anyhow::Result<StorageControl> {
     Ok(client)
 }
 
-pub async fn cleanup_stale_buckets(
-    client: &StorageControl,
-    project_id: &str,
-) -> anyhow::Result<()> {
+pub async fn cleanup_stale_buckets(client: &StorageControl, project_id: &str) {
     run_stale_bucket_cleanup(
         STALE_BUCKET_CLEANUP_TIMEOUT,
         cleanup_stale_buckets_inner(client, project_id),
@@ -779,22 +776,20 @@ pub async fn cleanup_stale_buckets(
     .await
 }
 
-async fn run_stale_bucket_cleanup<F>(timeout: Duration, cleanup: F) -> anyhow::Result<()>
+async fn run_stale_bucket_cleanup<F>(timeout: Duration, cleanup: F)
 where
     F: std::future::Future<Output = anyhow::Result<()>>,
 {
     match tokio::time::timeout(timeout, cleanup).await {
-        Ok(Ok(())) => Ok(()),
+        Ok(Ok(())) => {}
         Ok(Err(e)) => {
             tracing::warn!("stale bucket cleanup failed; continuing: {e:?}");
-            Ok(())
         }
         Err(_) => {
             tracing::warn!(
                 "stale bucket cleanup timed out after {:.1}s; continuing",
                 timeout.as_secs_f64()
             );
-            Ok(())
         }
     }
 }
@@ -1090,24 +1085,24 @@ mod tests {
         assert_eq!(clean_project_id("1234567890"), "1234567890");
     }
 
+    // Verifies that when the inner cleanup future returns an error,
+    // run_stale_bucket_cleanup handles it cleanly without panicking.
     #[tokio::test]
     async fn stale_bucket_cleanup_ignores_errors() {
-        let result = run_stale_bucket_cleanup(Duration::from_secs(1), async {
+        run_stale_bucket_cleanup(Duration::from_secs(1), async {
             anyhow::bail!("test-only cleanup error")
         })
         .await;
-
-        assert!(result.is_ok(), "{result:?}");
     }
 
+    // Verifies that when the inner cleanup future hangs,
+    // run_stale_bucket_cleanup enforces the timeout and completes cleanly instead of blocking.
     #[tokio::test]
     async fn stale_bucket_cleanup_stops_at_timeout() {
-        let result = run_stale_bucket_cleanup(
+        run_stale_bucket_cleanup(
             Duration::from_millis(1),
             std::future::pending::<anyhow::Result<()>>(),
         )
         .await;
-
-        assert!(result.is_ok(), "{result:?}");
     }
 }
