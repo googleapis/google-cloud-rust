@@ -45,6 +45,14 @@ impl RangeReader {
         tx: Sender<ActiveRead>,
         checksum: crate::storage::checksum::details::Checksum,
     ) -> Self {
+        // If the server didn't return any checksums in the metadata (e.g. for composite objects),
+        // we disable local checksum computation to save CPU cycles.
+        let checksum = if object.checksums.is_none() {
+            crate::storage::checksum::details::Checksum::default()
+        } else {
+            checksum
+        };
+
         Self {
             inner,
             object,
