@@ -126,7 +126,8 @@ impl<S> OpenObject<S> {
 
     /// Enables computation of MD5 checksums.
     ///
-    /// By default, MD5 checksums are disabled, as they are not supported by the GCS gRPC API.
+    /// By default, MD5 checksum validation is disabled. The SDK enables CRC32C validation by default
+    /// instead.
     ///
     /// # Example
     /// ```
