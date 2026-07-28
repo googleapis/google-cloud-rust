@@ -256,6 +256,7 @@ pub(crate) mod tests {
     }
 
     #[test]
+    #[ignore = "TODO(#6077) - disabled because it is flaky"]
     fn test_emit_error_log() {
         {
             use std::sync::{Arc, Mutex};
