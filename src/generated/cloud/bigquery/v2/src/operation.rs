@@ -105,7 +105,7 @@ impl JobPoller {
     }
 
     /// Sets the maximum number of job-level attempts.
-    pub fn with_job_attempt_limit(mut self, limit: usize) -> Self {
+    pub fn set_job_level_attempt_limit(mut self, limit: usize) -> Self {
         self.policy.job_level_attempt_limit = limit;
         self
     }
