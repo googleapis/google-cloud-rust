@@ -322,6 +322,7 @@ macro_rules! execute_with_retry {
                 $request.clone(),
                 $gax_options.clone(),
                 $self.context.channel_hint,
+                &$self.context.client.o11y,
             )
             .await;
 
@@ -653,7 +654,12 @@ impl ReadWriteTransaction {
             .context
             .client
             .spanner
-            .commit(request, gax_options, self.context.channel_hint)
+            .commit(
+                request,
+                gax_options,
+                self.context.channel_hint,
+                &self.context.client.o11y,
+            )
             .await?;
 
         let response =
@@ -670,7 +676,12 @@ impl ReadWriteTransaction {
                 self.context
                     .client
                     .spanner
-                    .commit(retry_commit_req, gax_options, self.context.channel_hint)
+                    .commit(
+                        retry_commit_req,
+                        gax_options,
+                        self.context.channel_hint,
+                        &self.context.client.o11y,
+                    )
                     .await?
             } else {
                 response
@@ -695,7 +706,12 @@ impl ReadWriteTransaction {
         self.context
             .client
             .spanner
-            .rollback(request, gax_options, self.context.channel_hint)
+            .rollback(
+                request,
+                gax_options,
+                self.context.channel_hint,
+                &self.context.client.o11y,
+            )
             .await?;
 
         Ok(())

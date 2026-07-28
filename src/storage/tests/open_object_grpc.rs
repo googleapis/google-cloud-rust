@@ -16,6 +16,7 @@ use anyhow::Context as _;
 use gaxi::grpc::tonic::{Response as TonicResponse, Result as TonicResult, Status as TonicStatus};
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 use google_cloud_storage::client::Storage;
+use google_cloud_storage::model::Object;
 use google_cloud_storage::model_ext::ReadRange;
 use google_cloud_storage::read_object::ReadObjectResponse;
 use pretty_assertions::assert_eq;
@@ -33,6 +34,95 @@ const OBJECT_CONTENT: &[u8] = b"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKL
 
 const ERR_STREAM_CLOSED_PREMATURELY: &str = "gRPC stream closed before the request was received";
 const ERR_RECV_ERROR: &str = "error while reading the request";
+
+#[tokio::test]
+async fn send_and_read_single_response_success() -> anyhow::Result<()> {
+    // Arrange
+    const USER_AGENT: &str = "open_object_grpc/1.0";
+    const QUOTA_PROJECT: &str = "open-object-quota-project";
+    const RESPONSE_HEADER_KEY: &str = "x-test-response";
+    const RESPONSE_HEADER_VALUE: &str = "response-value";
+    const READ_ID: i64 = 0;
+
+    let (observed_tx, observed_rx) = tokio::sync::oneshot::channel::<BidiReadObjectRequest>();
+
+    let mut mock = MockStorage::new();
+    mock.expect_bidi_read_object().return_once(move |request| {
+        assert_request_metadata(request.metadata(), USER_AGENT, QUOTA_PROJECT);
+        let (_, _, mut requests) = request.into_parts();
+        tokio::spawn(async move {
+            let first = requests
+                .recv()
+                .await
+                .expect(ERR_STREAM_CLOSED_PREMATURELY)
+                .expect(ERR_RECV_ERROR);
+            observed_tx
+                .send(first)
+                .expect("failed to send recorded request");
+        });
+
+        let (tx, rx) = tokio::sync::mpsc::channel(1);
+        tx.try_send(Ok(initial_response_with_data(
+            ProtoRange {
+                read_id: READ_ID,
+                ..ProtoRange::default()
+            },
+            OBJECT_CONTENT.to_vec(),
+            true,
+        )))
+        .expect("failed to send response");
+
+        let mut response = TonicResponse::from(rx);
+        response.metadata_mut().insert(
+            RESPONSE_HEADER_KEY,
+            RESPONSE_HEADER_VALUE.parse().expect("valid header value"),
+        );
+        Ok(response)
+    });
+    let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
+    let client = make_client(endpoint).await?;
+
+    // Act
+    let (descriptor, reader) = client
+        .open_object(BUCKET_NAME, OBJECT_NAME)
+        .with_user_agent(USER_AGENT)
+        .with_quota_project(QUOTA_PROJECT)
+        .send_and_read(ReadRange::all())
+        .await?;
+
+    // Assert
+    // Verify requested details sent to the server
+    let first_request = observed_rx.await?;
+    let spec = first_request
+        .read_object_spec
+        .expect("first request should contain read_object_spec");
+    assert_eq!(spec.bucket, BUCKET_NAME);
+    assert_eq!(spec.object, OBJECT_NAME);
+    assert_eq!(
+        first_request.read_ranges,
+        [ProtoRange {
+            read_id: READ_ID,
+            ..ProtoRange::default()
+        }]
+    );
+
+    // Verify object metadata and response headers
+    let want_object = Object::new()
+        .set_bucket(BUCKET_NAME)
+        .set_name(OBJECT_NAME)
+        .set_generation(OBJECT_GENERATION);
+    assert_eq!(descriptor.object(), want_object, "{descriptor:?}");
+    assert_eq!(
+        descriptor.headers()[RESPONSE_HEADER_KEY],
+        RESPONSE_HEADER_VALUE
+    );
+
+    // Verify payload
+    let got_payload = read_all_bytes(reader).await?;
+    assert_eq!(got_payload, OBJECT_CONTENT);
+
+    Ok(())
+}
 
 #[tokio::test]
 async fn send_and_read_reads_range_split_across_multiple_responses() -> anyhow::Result<()> {
@@ -331,6 +421,42 @@ async fn read_all_bytes(mut stream: ReadObjectResponse) -> anyhow::Result<Vec<u8
         payload.extend_from_slice(&chunk.context("range read failed")?);
     }
     Ok(payload)
+}
+
+fn assert_request_metadata(
+    metadata: &gaxi::grpc::tonic::MetadataMap,
+    expected_user_agent: &str,
+    expected_quota_project: &str,
+) {
+    let user_agent = metadata
+        .get(http::header::USER_AGENT.as_str())
+        .and_then(|value| value.to_str().ok())
+        .expect("user-agent should be set");
+    assert!(
+        user_agent
+            .split(' ')
+            .any(|value| value == expected_user_agent),
+        "{user_agent}"
+    );
+    assert_eq!(
+        metadata
+            .get("x-goog-user-project")
+            .and_then(|value| value.to_str().ok()),
+        Some(expected_quota_project)
+    );
+    assert!(
+        metadata
+            .get("x-goog-api-client")
+            .and_then(|value| value.to_str().ok())
+            .is_some_and(|value| value.contains("gccl/")),
+        "{metadata:?}"
+    );
+    assert_eq!(
+        metadata
+            .get("x-goog-request-params")
+            .and_then(|value| value.to_str().ok()),
+        Some(format!("bucket={BUCKET_NAME}").as_str())
+    );
 }
 
 fn test_metadata() -> Option<ProtoObject> {
