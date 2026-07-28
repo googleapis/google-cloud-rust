@@ -138,7 +138,7 @@ impl ClientBuilder {
         self
     }
 
-    /// Creates a new client.
+    /// Creates a new [`BigQuery`] client.
     ///
     /// # Example
     /// ```
