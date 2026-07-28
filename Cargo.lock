@@ -4900,6 +4900,7 @@ dependencies = [
  "base64",
  "bytes",
  "futures",
+ "google-cloud-api",
  "google-cloud-auth",
  "google-cloud-gax",
  "google-cloud-gax-internal",
