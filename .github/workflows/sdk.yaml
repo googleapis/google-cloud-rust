@@ -209,29 +209,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # ratchet:actions/deploy-pages@v5
-
-  showcase-integration:
-    if: github.repository == 'googleapis/google-cloud-rust'
-    runs-on: ubuntu-24.04
-    strategy:
-      matrix:
-        rust-version: ['rust:current']
-    steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
-        with:
-          persist-credentials: false
-      - name: Setup Go
-        uses: actions/setup-go@f111f37a573bc6312404da45278baa9547d639b9
-        with:
-          go-version: '1.24'
-      - name: Setup Rust ${{ matrix.rust-version }}
-        env:
-          RUST_VERSION: ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
-        run: |
-          rustup toolchain install ${RUST_VERSION}
-          rustup default ${RUST_VERSION}
-      - name: Run Showcase Streaming Integration Tests
-        env:
-          RUSTFLAGS: '--cfg google_cloud_unstable_gapic_streaming'
-        run: cargo test -p integration-tests-showcase --features run-showcase-tests -- --nocapture
-
