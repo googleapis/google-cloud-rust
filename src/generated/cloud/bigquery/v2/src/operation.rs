@@ -14,9 +14,9 @@
 
 use crate::builder::job_service::InsertJob;
 use crate::model::Job;
-use google_cloud_gax::Result as GaxResult;
 use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::error::rpc::{Code, Status};
+use google_cloud_gax::error::Error as GaxError;
 use google_cloud_gax::exponential_backoff::ExponentialBackoff;
 use google_cloud_gax::retry_state::RetryState;
 use google_cloud_lro::Poller;
@@ -75,7 +75,7 @@ pub(crate) fn prepare_job_for_retry(mut job: Job) -> Job {
 #[derive(Debug)]
 pub(crate) struct JobRetryPolicy {
     /// Maximum number of general job-level attempts for retryable job errors.
-    pub job_level_attempt_limit: usize,
+    pub job_level_attempt_limit: u32,
     /// Backoff strategy between retry attempts.
     pub backoff: ExponentialBackoff,
 }
@@ -86,6 +86,45 @@ impl Default for JobRetryPolicy {
             job_level_attempt_limit: 3,
             backoff: ExponentialBackoff::default(),
         }
+    }
+}
+
+/// Errors returned by the JobPoller.
+#[derive(Debug)]
+pub enum JobPollerError {
+    /// An error occurred during the RPC or LRO polling.
+    Gax(GaxError),
+    /// The job completed, but the BigQuery service reported an error in `status.error_result`.
+    Job(Box<Job>),
+}
+
+impl std::fmt::Display for JobPollerError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Gax(e) => write!(f, "{}", e),
+            Self::Job(job) => {
+                if let Some(err) = job.status.as_ref().and_then(|s| s.error_result.as_ref()) {
+                    write!(f, "BigQuery job failed ({}): {}", err.reason, err.message)
+                } else {
+                    write!(f, "BigQuery job failed: unknown error")
+                }
+            }
+        }
+    }
+}
+
+impl std::error::Error for JobPollerError {
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+        match self {
+            Self::Gax(e) => Some(e),
+            Self::Job(_) => None,
+        }
+    }
+}
+
+impl From<GaxError> for JobPollerError {
+    fn from(e: GaxError) -> Self {
+        Self::Gax(e)
     }
 }
 
@@ -105,7 +144,7 @@ impl JobPoller {
     }
 
     /// Sets the maximum number of job-level attempts.
-    pub fn set_job_level_attempt_limit(mut self, limit: usize) -> Self {
+    pub fn with_attempt_limit(mut self, limit: u32) -> Self {
         self.policy.job_level_attempt_limit = limit;
         self
     }
@@ -117,31 +156,35 @@ impl JobPoller {
     }
 
     /// Polls the job until it is done, returning the final Job status.
-    pub async fn until_done(self) -> GaxResult<Job> {
-        let mut attempts = 0;
+    pub async fn until_done(self) -> Result<Job, JobPollerError> {
+        let mut attempts = 0_u32;
         let mut builder = self.builder;
         let backoff = self.policy.backoff;
         let start_time = std::time::Instant::now();
 
         loop {
-            attempts += 1;
-
+            // NOTE: the client library intercepts errors and retries internally
+            // according to the policies set on `builder`.
             let job_result = builder.clone().poller().until_done().await?;
+            attempts += 1;
 
             if let Some(status) = &job_result.status
                 && let Some(err) = &status.error_result
-                && is_retryable_job_error(&err.reason)
-                && attempts < self.policy.job_level_attempt_limit
             {
-                let retry_job = prepare_job_for_retry(job_result);
-                builder = builder.set_job(retry_job);
+                if is_retryable_job_error(&err.reason)
+                    && attempts < self.policy.job_level_attempt_limit
+                {
+                    let retry_job = prepare_job_for_retry(job_result);
+                    builder = builder.set_job(retry_job);
 
-                let retry_state = RetryState::new(true)
-                    .set_start(start_time)
-                    .set_attempt_count(attempts as u32);
-                let delay = backoff.on_failure(&retry_state);
-                tokio::time::sleep(delay).await;
-                continue;
+                    let retry_state = RetryState::new(true)
+                        .set_start(start_time)
+                        .set_attempt_count(attempts as u32);
+                    let delay = backoff.on_failure(&retry_state);
+                    tokio::time::sleep(delay).await;
+                    continue;
+                }
+                return Err(JobPollerError::Job(Box::new(job_result)));
             }
             return Ok(job_result);
         }
@@ -154,6 +197,9 @@ impl InsertJob {
     /// If the job fails with an internal error, the `JobPoller` will retry the
     /// `InsertJob` operation. Note that the client library will supply a
     /// synthetic job ID for any retries.
+    ///
+    /// WARNING: Unlike `poller()`, the `JobPoller` will return an error if the
+    /// final job completes with an `error_result` in its status.
     ///
     /// ```no_run
     /// # async fn example(builder: google_cloud_bigquery_v2::builder::job_service::InsertJob) -> Result<(), Box<dyn std::error::Error>> {
