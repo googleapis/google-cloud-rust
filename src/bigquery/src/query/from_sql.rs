@@ -335,7 +335,9 @@ impl FromSql for rust_decimal::Decimal {
     }
 }
 
-/// Represents a BigQuery TIME INTERVAL value.
+/// Represents a BigQuery time [INTERVAL] value.
+///
+/// [INTERVAL]: https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/data-types#interval_type
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct Interval {
     /// Years component.
@@ -367,10 +369,8 @@ impl FromSql for Interval {
                 let (ym_str, days_str, time_str) = match (ym_str, days_str, time_str, extra) {
                     (Some(ym), Some(d), Some(t), None) => (ym, d, t),
                     _ => {
-                        let count = s.split_whitespace().count();
                         return Err(ConvertError::Convert(
-                            format!("invalid interval format: expected 3 parts, got {count}")
-                                .into(),
+                            format!("invalid interval format: expected 3 parts, got `{s}`").into(),
                         ));
                     }
                 };
@@ -435,7 +435,9 @@ impl FromSql for Interval {
     }
 }
 
-/// Represents a BigQuery RANGE value.
+/// Represents a BigQuery [RANGE] value.
+///
+/// [RANGE]: https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/data-types#range_type
 #[derive(Clone, Debug, PartialEq)]
 pub struct Range<T> {
     /// The inclusive start of the range (or None if unbounded).
@@ -700,8 +702,8 @@ mod tests {
     #[test_case(wkt::Value::String("0-0 0 0:00:00.1234567899".to_string()) => Ok(Interval { years: 0, months: 0, days: 0, hours: 0, minutes: 0, seconds: 0, nanos: 123_456_789 }) ; "truncated nanos")]
     #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null interval")]
     #[test_case(wkt::Value::Number(123.into()) => Err(TestConvertError::TypeMismatch("string")) ; "type mismatch interval")]
-    #[test_case(wkt::Value::String("".to_string()) => Err(TestConvertError::Convert("invalid interval format: expected 3 parts, got 0".to_string())) ; "empty interval string")]
-    #[test_case(wkt::Value::String("1-2 3".to_string()) => Err(TestConvertError::Convert("invalid interval format: expected 3 parts, got 2".to_string())) ; "invalid interval parts count")]
+    #[test_case(wkt::Value::String("".to_string()) => Err(TestConvertError::Convert("invalid interval format: expected 3 parts, got ``".to_string())) ; "empty interval string")]
+    #[test_case(wkt::Value::String("1-2 3".to_string()) => Err(TestConvertError::Convert("invalid interval format: expected 3 parts, got `1-2 3`".to_string())) ; "invalid interval parts count")]
     #[test_case(wkt::Value::String("1 3 4:05:06".to_string()) => Err(TestConvertError::Convert("invalid interval year-month format".to_string())) ; "invalid year-month format")]
     #[test_case(wkt::Value::String("1-2 3 4:05".to_string()) => Err(TestConvertError::Convert("a character literal was not valid".to_string())) ; "invalid time format")]
     fn test_from_sql_interval(value: wkt::Value) -> Result<Interval, TestConvertError> {
