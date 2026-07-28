@@ -74,21 +74,34 @@ impl ReadObjectResponse for RangeReader {
         }
     }
 
+    /// Fetches the next chunk of data from the underlying stream.
+    ///
+    /// This function reads from the gRPC stream channel, updating the running
+    /// checksum as chunks are successfully received. If the stream reaches its
+    /// end (`None`), this function will finalize and validate the running checksum
+    /// against the object's expected checksum.
     async fn next(&mut self) -> Option<crate::Result<bytes::Bytes>> {
         if self.exhausted {
             return None;
         }
         let msg = self.inner.recv().await;
         match msg {
+            // A valid chunk was received from the stream.
+            // Update the running checksum and advance our offset tracker.
             Some(Ok(b)) => {
                 self.checksum.update(self.offset, &b);
                 self.offset += b.len() as u64;
                 Some(Ok(b))
             }
+            // A stream error occurred during the RPC.
+            // We mark the stream as exhausted and propagate the error.
             Some(Err(e)) => {
                 self.exhausted = true;
                 Some(Err(Error::io(e)))
             }
+            // The stream has successfully completed.
+            // Before returning `None` to indicate EOF, we validate the running
+            // checksum against the expected checksum returned in the object metadata.
             None => {
                 self.exhausted = true;
                 if let Some(expected) = &self.object.checksums {
