@@ -19,32 +19,81 @@ use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::{
     GetQueryResultsRequest, GetQueryResultsResponse, Job, JobReference, QueryResponse,
 };
-use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
 use google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy;
 use google_cloud_gax::polling_state::PollingState;
 use std::collections::VecDeque;
 use std::sync::Arc;
 
-/// A handle representing a running query.
+/// A handle representing a running or completed SQL query execution.
+///
+/// An instance of `Query` is returned by [`RunQuery::run()`](crate::query::RunQuery::run).
+/// Depending on how the query was routed and executed, this handle may represent an asynchronous
+/// background job currently executing on BigQuery, or a fast-path query that has already completed.
+///
+/// To obtain the final result set, call [`until_done()`](Query::until_done), which will check the
+/// execution status and automatically poll the service if the job is still running in the background.
+///
+/// # Example
+///
+/// ```
+/// # async fn sample() -> anyhow::Result<()> {
+/// use google_cloud_bigquery::client::BigQuery;
+///
+/// let client = BigQuery::builder().build().await?;
+/// let query_handle = client
+///     .query("SELECT 42 AS answer")
+///     .with_project_id("my-project-id")
+///     .run()
+///     .await?;
+///
+/// // Poll until execution completes.
+/// let completed = query_handle.until_done().await?;
+/// # Ok(())
+/// # }
+/// ```
 #[derive(Clone, Debug)]
 pub struct Query {
     pub(crate) job_service: Arc<JobService>,
     pub(crate) job_ref: Option<JobReference>,
     pub(crate) completed: bool,
+    #[allow(dead_code)]
     pub(crate) initial_job: Option<Job>,
     pub(crate) initial_response: Option<QueryResponse>,
     pub(crate) max_results: Option<u32>,
 }
 
 impl Query {
-    /// Returns the [`QueryReference`] for this query.
+    /// Returns the [`QueryReference`](crate::model::QueryReference) identifying this query execution.
     ///
-    /// The reference will be [`QueryReference::Job`] with a query [job reference],
-    /// or [`QueryReference::Stateless`] with an opaque query ID if job creation
-    /// was skipped.
+    /// The reference will be [`QueryReference::Job`](crate::model::QueryReference::Job) containing a BigQuery [job reference]
+    /// if a stateful query job was created, or [`QueryReference::Stateless`](crate::model::QueryReference::Stateless) with an opaque
+    /// query ID if the execution ran statelessly via the fast path.
     ///
     /// [job reference]: https://docs.cloud.google.com/bigquery/docs/reference/rest/v2/JobReference
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// use google_cloud_bigquery::client::BigQuery;
+    /// use google_cloud_bigquery::model::QueryReference;
+    ///
+    /// let client = BigQuery::builder().build().await?;
+    /// let query_handle = client
+    ///     .query("SELECT 'hello' AS msg")
+    ///     .with_project_id("my-project-id")
+    ///     .run()
+    ///     .await?;
+    ///
+    /// match query_handle.query_reference() {
+    ///     QueryReference::Job(job_ref) => println!("Running job ID: {}", job_ref.job_id),
+    ///     QueryReference::Stateless { query_id } => println!("Stateless query ID: {query_id}"),
+    ///     _ => println!("Other query reference"),
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
     pub fn query_reference(&self) -> QueryReference {
         let from_query_id = self
             .initial_response
@@ -59,8 +108,34 @@ impl Query {
             .expect("query must have either a job reference or query id")
     }
 
-    /// Periodically checks the status of the background job until it finishes.
-    /// Returns an error if a remote service or connection failure happens during polling.
+    /// Periodically polls the background job status until query execution finishes.
+    ///
+    /// If the query was executed via the fast path and already completed during the initial request,
+    /// this method immediately returns a [`CompleteQuery`](crate::query::CompleteQuery) without making additional network calls.
+    /// Otherwise, it implements an automated exponential backoff loop querying the job status until it succeeds or fails.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if a remote service or network failure happens during polling, or if the BigQuery job
+    /// fails due to runtime execution errors (such as division by zero or resource limits).
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// use google_cloud_bigquery::client::BigQuery;
+    ///
+    /// let client = BigQuery::builder().build().await?;
+    /// let complete = client
+    ///     .query("SELECT 1 + 1 AS result")
+    ///     .with_project_id("my-project-id")
+    ///     .run()
+    ///     .await?
+    ///     .until_done()
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
     pub async fn until_done(self) -> Result<CompleteQuery> {
         let Query {
             job_service,
@@ -99,7 +174,32 @@ impl Query {
     }
 }
 
-/// A handle representing a successfully completed query ready for reading.
+/// A handle representing a successfully completed query ready for reading results.
+///
+/// An instance of `CompleteQuery` is returned by [`Query::until_done()`](crate::query::Query::until_done).
+///
+/// This handle provides access to cached execution metadata, schema definitions, and a streaming
+/// row iterator via [`read()`](CompleteQuery::read).
+///
+/// # Example
+///
+/// ```
+/// # async fn sample() -> anyhow::Result<()> {
+/// use google_cloud_bigquery::client::BigQuery;
+///
+/// let client = BigQuery::builder().build().await?;
+/// let complete = client
+///     .query("SELECT 'done' AS status")
+///     .with_project_id("my-project-id")
+///     .run()
+///     .await?
+///     .until_done()
+///     .await?;
+///
+/// println!("Cache hit: {:?}", complete.metadata().cache_hit);
+/// # Ok(())
+/// # }
+/// ```
 #[derive(Clone)]
 pub struct CompleteQuery {
     pub(crate) job_service: Arc<JobService>,
@@ -177,19 +277,97 @@ impl CompleteQuery {
         }
     }
 
-    /// Returns a row iterator for the query result.
+    /// Returns a streaming row iterator for reading the query result set.
+    ///
+    /// Consumes the `CompleteQuery` handle and initializes a [`RowIterator`](crate::query::RowIterator) that
+    /// iterates over initial cached rows in memory before automatically fetching subsequent pages from the API.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// use google_cloud_bigquery::client::BigQuery;
+    ///
+    /// let client = BigQuery::builder().build().await?;
+    /// let mut rows = client
+    ///     .query("SELECT 100 AS score")
+    ///     .with_project_id("my-project-id")
+    ///     .run()
+    ///     .await?
+    ///     .until_done()
+    ///     .await?
+    ///     .read();
+    ///
+    /// while let Some(row) = rows.next().await.transpose()? {
+    ///     let score: i64 = row.get("score");
+    ///     println!("Score: {score}");
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
     pub fn read(self) -> RowIterator {
         RowIterator::new(self)
     }
 
-    /// Returns the cached metadata for this query.
+    /// Returns a reference to the cached summary metadata for this query.
+    ///
+    /// The returned [`QueryMetadata`](crate::model::QueryMetadata) contains useful summary statistics such as
+    /// total rows, schema details, cache hit indicators, and estimated bytes processed without making additional RPC calls.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// use google_cloud_bigquery::client::BigQuery;
+    ///
+    /// let client = BigQuery::builder().build().await?;
+    /// let completed = client
+    ///     .query("SELECT 'metadata_check'")
+    ///     .with_project_id("my-project-id")
+    ///     .run()
+    ///     .await?
+    ///     .until_done()
+    ///     .await?;
+    ///
+    /// let meta = completed.metadata();
+    /// println!("Total rows: {:?}", meta.total_rows);
+    /// # Ok(())
+    /// # }
+    /// ```
     pub fn metadata(&self) -> &QueryMetadata {
         &self.metadata
     }
 
-    /// Fetches the full `Job` information for the given query.
+    /// Fetches full job execution metadata from the service for this query.
     ///
-    /// Stateless queries will return `QueryError::StatelessQuery`.
+    /// Unlike [`metadata()`](CompleteQuery::metadata), this method executes an RPC request (`jobs.get`) to
+    /// retrieve complete runtime job details, including user email, execution timelines, billing tier estimates, and detailed error summaries.
+    ///
+    /// > [!IMPORTANT]
+    /// > Queries executed via the stateless fast-path do not create persistent job resources on the service.
+    /// > Calling this method on a stateless query will return [`QueryError::StatelessQuery`](crate::error::QueryError::StatelessQuery).
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// use google_cloud_bigquery::client::BigQuery;
+    ///
+    /// let client = BigQuery::builder().build().await?;
+    /// let completed = client
+    ///     .query("SELECT 1")
+    ///     .with_project_id("my-project-id")
+    ///     .set_allow_large_results(true) // Forces stateful job creation
+    ///     .run()
+    ///     .await?
+    ///     .until_done()
+    ///     .await?;
+    ///
+    /// let job_info = completed.job_metadata().await?;
+    /// println!("Executed by user: {}", job_info.user_email);
+    /// # Ok(())
+    /// # }
+    /// ```
     pub async fn job_metadata(&self) -> Result<Job> {
         let job_ref = self.job_ref.as_ref().ok_or(QueryError::StatelessQuery)?;
 
@@ -253,9 +431,7 @@ pub(crate) async fn poll_query_results(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::query::tests::{
-        MockBackoffPolicy, MockJobService, create_job_service, create_test_backoff_policy,
-    };
+    use crate::query::tests::{MockJobService, create_job_service, create_test_backoff_policy};
     use google_cloud_bigquery_v2::model::{
         ErrorProto, GetQueryResultsResponse, Job, JobReference, QueryResponse, TableFieldSchema,
         TableSchema,

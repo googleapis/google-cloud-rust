@@ -19,13 +19,63 @@ use crate::query::{Query, Result};
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::query_request::JobCreationMode;
 use google_cloud_bigquery_v2::model::{
-    InsertJobRequest, Job, JobConfiguration, JobConfigurationQuery, PostQueryRequest, QueryRequest,
+    InsertJobRequest, Job, JobConfiguration, PostQueryRequest, QueryRequest,
 };
 use std::sync::Arc;
 
-/// A unified request builder for configuring and running a SQL query.
-/// It automatically routes to either `jobs.query` (fast path) or `jobs.insert` (job path)
-/// depending on the configured fields.
+/// A unified request builder for configuring and executing a SQL query.
+///
+/// Instances of this struct are returned by [`BigQuery::query()`](crate::client::BigQuery::query).
+///
+/// This builder allows you to chain configuration methods to define query parameters, set dataset defaults,
+/// specify locations, and configure result limitations before initiating execution with [`run()`](RunQuery::run).
+///
+/// # Automatic Path Routing
+///
+/// The builder automatically decides whether to execute via [`jobs.query`](https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query)
+/// (the low-latency fast path) or [`jobs.insert`](https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/insert)
+/// (the asynchronous background job creation path) depending on which configuration options are enabled:
+///
+/// - **Fast path (`jobs.query`)**: Taken by default when executing queries with standard parameters and limits.
+/// - **Job path (`jobs.insert`)**: Automatically chosen if options exclusive to job creation are configured (such as setting a destination table, enabling large result allowances, or customizing job labels).
+///
+/// # Common Configuration Methods
+///
+/// In addition to setting the target GCP project via [`with_project_id()`](RunQuery::with_project_id),
+/// this builder inherits generated configuration setter methods including:
+/// - `set_location("US")`: Sets the geographic routing location where the job should run.
+/// - `set_max_results(100)`: Limits the number of rows buffered per result page from the API.
+/// - `set_use_cache(true)`: Enables or disables query result caching (enabled by default).
+/// - `set_dry_run(true)`: Validates the SQL syntax and calculates bytes processed without executing the query or incurring billing.
+/// - `set_parameter_mode("NAMED")` and `set_query_parameters(...)`: Configures parameterized queries to prevent SQL injection and reuse execution plans.
+///
+/// # Example
+///
+/// ```
+/// # async fn sample() -> anyhow::Result<()> {
+/// use google_cloud_bigquery::client::BigQuery;
+///
+/// let client = BigQuery::builder().build().await?;
+///
+/// // Configure and run a simple query with a custom geographic location and result limit.
+/// let mut rows = client
+///     .query("SELECT name FROM `bigquery-public-data.usa_names.usa_1910_2013` WHERE state = 'TX' LIMIT 100")
+///     .with_project_id("my-project-id")
+///     .set_location("US")
+///     .set_max_results(50_u32)
+///     .run()
+///     .await?
+///     .until_done()
+///     .await?
+///     .read();
+///
+/// while let Some(row) = rows.next().await.transpose()? {
+///     let name: String = row.get("name");
+///     println!("Name: {name}");
+/// }
+/// # Ok(())
+/// # }
+/// ```
 #[derive(Clone)]
 pub struct RunQuery {
     pub(crate) job_service: Arc<JobService>,
@@ -46,21 +96,67 @@ impl RunQuery {
         }
     }
 
-    /// Sets the project ID to override the default client project ID.
+    /// Sets the target Google Cloud Project ID for query execution and billing.
+    ///
+    /// This parameter is required before initiating execution with [`run()`](RunQuery::run).
+    /// If omitted, calling `run()` will return [`QueryError::MissingProjectId`](crate::error::QueryError::MissingProjectId).
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// use google_cloud_bigquery::client::BigQuery;
+    ///
+    /// let client = BigQuery::builder().build().await?;
+    /// let query_handle = client
+    ///     .query("SELECT 1 AS count")
+    ///     .with_project_id("my-project-id")
+    ///     .run()
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
     pub fn with_project_id<S: Into<String>>(mut self, project_id: S) -> Self {
         self.project_id = Some(project_id.into());
         self
     }
 
-    /// Executes the SQL query
+    /// Submits the configured SQL query for execution.
     ///
-    /// The implementation routes internally to [jobs.query] (fast path)
-    /// or [jobs.insert] (job path) depending on configured fields.
-    /// If the fast path is available, the client library takes it.
-    /// If not, it falls back to creating a job, which is typically slower.
+    /// This is the terminal method of the [`RunQuery`] builder. Upon success, it returns a [`Query`](crate::query::Query)
+    /// handle representing either a running background job or a fast-path execution that has already finished.
+    /// You can call [`until_done()`](crate::query::Query::until_done) on the returned handle to wait for the final results.
     ///
-    /// [jobs.query]: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query
-    /// [jobs.insert]: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/insert
+    /// # Errors
+    ///
+    /// Returns [`QueryError::MissingProjectId`](crate::error::QueryError::MissingProjectId) if [`with_project_id()`](RunQuery::with_project_id)
+    /// was not called prior to running. Returns an RPC error if the initial service communication fails or if syntax errors occur during immediate fast-path validation.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// use google_cloud_bigquery::client::BigQuery;
+    ///
+    /// let client = BigQuery::builder().build().await?;
+    ///
+    /// // Execute the query and poll until complete.
+    /// let completed_query = client
+    ///     .query("SELECT CURRENT_TIMESTAMP() AS now")
+    ///     .with_project_id("my-project-id")
+    ///     .run()
+    ///     .await?
+    ///     .until_done()
+    ///     .await?;
+    ///
+    /// let mut rows = completed_query.read();
+    /// if let Some(row) = rows.next().await.transpose()? {
+    ///     let now: String = row.get("now");
+    ///     println!("Current time: {now}");
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
     pub async fn run(self) -> Result<Query> {
         let project_id = self.project_id.ok_or(QueryError::MissingProjectId)?;
         let max_results = self.request.max_results;
@@ -102,11 +198,9 @@ mod tests {
     use crate::query::tests::{MockJobService, create_job_service};
     use google_cloud_bigquery_v2::model::query_request::JobCreationMode;
     use google_cloud_bigquery_v2::model::{
-        Job, JobConfiguration, JobConfigurationQuery, JobReference, JobStatus, QueryRequest,
-        QueryResponse,
+        Job, JobConfiguration, JobReference, JobStatus, QueryRequest, QueryResponse,
     };
     use google_cloud_gax::response::Response;
-    use std::sync::Arc;
 
     type TestResult = anyhow::Result<()>;
 
