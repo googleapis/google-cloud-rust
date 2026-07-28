@@ -842,9 +842,15 @@ mod tests {
             match res {
                 Ok(chunk) => got_payload.extend_from_slice(&chunk),
                 Err(e) => {
+                    use std::error::Error as _;
                     got_err = true;
-                    let fmt = format!("{e:?}");
-                    assert!(fmt.contains("ChecksumMismatch"), "{fmt}");
+                    let source = e
+                        .source()
+                        .and_then(|err| err.downcast_ref::<crate::error::ReadError>());
+                    assert!(
+                        matches!(source, Some(crate::error::ReadError::ChecksumMismatch(_))),
+                        "Expected ChecksumMismatch, got: {source:?}"
+                    );
                 }
             }
         }
