@@ -88,6 +88,7 @@ where
         if let Some(message) = self.pending_response.take() {
             return Ok(Some(message));
         }
+        // If the response stream is absent, signal end-of-stream.
         let Some(responses) = self.responses.as_mut() else {
             return Ok(None);
         };
@@ -95,6 +96,11 @@ where
         // Check for inbound responses or the status of the outbound send.
         loop {
             tokio::select! {
+                // Prioritize the response arm: a send failure may result
+                // from the server closing after sending its final response,
+                // and we want to inspect that response to know what the
+                // error is.
+                biased;
                 // Get the next response from the background receive task.
                 response = responses.recv() => match response {
                     // Successfully received a response.
@@ -121,6 +127,9 @@ where
                 // Monitor the background send task. If sending failed, fail early and terminate the stream.
                 status = self.send_task.join(), if self.send_task.is_joinable() => {
                     if let Err(status) = status {
+                        // TODO(#5991): Consider waiting until the receive
+                        // side terminates, so server responses that haven't
+                        // arrived are not lost.
                         self.terminate();
                         return Err(status);
                     }
