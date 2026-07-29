@@ -16,6 +16,7 @@ use crate::batch_read_only_transaction::BatchReadOnlyTransactionBuilder;
 use crate::batch_write_transaction::BatchWriteTransactionBuilder;
 use crate::client::Spanner;
 use crate::observability::Observability;
+use crate::omni::{InstanceType, format_database_name};
 use crate::partitioned_dml_transaction::PartitionedDmlTransactionBuilder;
 use crate::read_only_transaction::{
     MultiUseReadOnlyTransactionBuilder, SingleUseReadOnlyTransactionBuilder,
@@ -364,11 +365,24 @@ impl DatabaseClientBuilder {
     pub async fn build(self) -> crate::Result<DatabaseClient> {
         let spanner_clone = self.spanner.clone();
 
-        let project_id = parse_project_id(&self.database_name);
-        let o11y = Arc::new(Observability::init(&self.spanner.config, project_id).await);
+        let database_name = if self.spanner.instance_type() == InstanceType::Omni {
+            format_database_name(&self.database_name)
+        } else {
+            self.database_name
+        };
+
+        let project_id = parse_project_id(&database_name);
+        let o11y = Arc::new(
+            Observability::init(
+                &self.spanner.config,
+                self.spanner.instance_type(),
+                project_id,
+            )
+            .await,
+        );
         let session_maintainer = ManagedSessionMaintainer::create_and_start_maintenance(
             self.spanner,
-            self.database_name,
+            database_name,
             self.database_role.unwrap_or_default(),
             self.options.unwrap_or_default(),
             o11y.clone(),
