@@ -22,7 +22,7 @@ use std::sync::Arc;
 ///
 /// # Configuration
 ///
-/// To configure a `BigQuery` client, use the `with_*` methods on the [`ClientBuilder`][crate::builder::bigquery::ClientBuilder] returned
+/// To configure a `BigQuery` client, use the `with_*` methods on the [`ClientBuilder`] returned
 /// by [`BigQuery::builder()`]. The default configuration uses Application Default Credentials (ADC)
 /// and connects to the global default endpoint, which works for most applications.
 ///
