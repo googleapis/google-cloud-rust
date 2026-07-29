@@ -32,6 +32,8 @@ google-cloud-auth.workspace = true
 google-cloud-storage        = { workspace = true, features = ["default-rustls-provider", "unstable-stream"] }
 rand.workspace              = true
 tokio                       = { workspace = true, features = ["macros"] }
+tracing-subscriber          = { workspace = true, features = ["env-filter", "fmt", "std"] }
+uuid.workspace              = true
 
 [lints]
 workspace = true

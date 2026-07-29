@@ -8535,6 +8535,8 @@ dependencies = [
  "google-cloud-storage",
  "rand 0.10.2",
  "tokio",
+ "tracing-subscriber",
+ "uuid",
 ]
 
 [[package]]
