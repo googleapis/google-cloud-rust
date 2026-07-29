@@ -57,6 +57,7 @@ pub struct Query {
     pub(crate) job_service: Arc<JobService>,
     pub(crate) job_ref: Option<JobReference>,
     pub(crate) completed: bool,
+    // TODO(#5592): add QueryCreationMetadata to expose initial job and response data.
     #[allow(dead_code)]
     pub(crate) initial_job: Option<Job>,
     pub(crate) initial_response: Option<QueryResponse>,
