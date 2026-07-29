@@ -38,7 +38,7 @@ google-cloud-test-utils       = { workspace = true }
 http.workspace                = true
 rand.workspace                = true
 tempfile.workspace            = true
-tokio                         = { workspace = true, features = ["macros"] }
+tokio                         = { workspace = true, features = ["macros", "rt", "time"] }
 tracing-subscriber            = { workspace = true, features = ["fmt", "std"] }
 tracing.workspace             = true
 
