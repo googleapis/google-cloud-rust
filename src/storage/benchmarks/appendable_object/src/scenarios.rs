@@ -26,10 +26,12 @@ pub async fn scenario_1_basic_steady_state(
     object_size: usize,
     chunk_size: usize,
 ) -> anyhow::Result<std::time::Duration> {
+    // Arrange.
     if chunk_size == 0 {
         anyhow::bail!("chunk_size cannot be 0");
     }
 
+    // Prepare data source and payload chunks.
     let mut source = StatelessSource::new();
 
     let chunk = source.next_chunk(chunk_size);
@@ -40,10 +42,12 @@ pub async fn scenario_1_basic_steady_state(
         None
     };
 
+    // Calculate chunk count and expected checksums.
     let num_full_chunks = object_size / chunk_size;
     let chunk_crc = crc32c::crc32c(&chunk);
     let remainder_crc = remainder_chunk.as_ref().map(|rc| crc32c::crc32c(rc));
 
+    // Act.
     let mut writer = client
         .open_appendable_object(bucket_name, object_name)
         .send()
@@ -60,6 +64,7 @@ pub async fn scenario_1_basic_steady_state(
     let object: Object = writer.finalize().await?;
     let elapsed = start_time.elapsed();
 
+    // Assert.
     if object.size as usize != object_size {
         anyhow::bail!(
             "persisted size mismatch: expected {}, got {}",
@@ -68,6 +73,7 @@ pub async fn scenario_1_basic_steady_state(
         );
     }
 
+    // Verify object-level checksum.
     if let Some(server_crc) = object.checksums.as_ref().and_then(|c| c.crc32c) {
         let mut expected_crc = 0u32;
         for _ in 0..num_full_chunks {
