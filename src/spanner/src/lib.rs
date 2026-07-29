@@ -26,6 +26,8 @@
 pub mod key;
 /// Write mutations and transaction commit binders.
 pub mod mutation;
+/// Spanner Omni options and configuration.
+pub mod omni;
 /// Configurable read requests and builders.
 pub mod read;
 /// Spanner execution result streams and rows.

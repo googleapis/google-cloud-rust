@@ -18,6 +18,7 @@ use crate::model::{
     ExecuteBatchDmlRequest, ExecuteBatchDmlResponse, ExecuteSqlRequest, PartitionQueryRequest,
     PartitionReadRequest, PartitionResponse, RollbackRequest, Session, Transaction,
 };
+use crate::omni::{InstanceType, parse_endpoint};
 use crate::server_streaming::builder;
 use gaxi::options::{ClientConfig, Credentials};
 use google_cloud_auth::credentials::anonymous;
@@ -52,6 +53,7 @@ pub struct Spanner {
     pub(crate) counter: std::sync::Arc<AtomicUsize>,
     pub(crate) config: ClientConfig,
     pub(crate) is_emulator: bool,
+    pub(crate) instance_type: InstanceType,
 }
 
 /// A factory for constructing `Spanner` clients.
@@ -76,6 +78,13 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
             }
         }
 
+        if let Some(ref ep) = config.endpoint {
+            let (_, is_plaintext) = parse_endpoint(ep);
+            if is_plaintext && config.cred.is_none() {
+                config.cred = Some(anonymous::Builder::new().build());
+            }
+        }
+
         let num_channels = std::env::var("SPANNER_NUM_CHANNELS")
             .ok()
             .and_then(|s| s.parse::<usize>().ok())
@@ -91,6 +100,7 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
             counter: std::sync::Arc::new(AtomicUsize::new(0)),
             config,
             is_emulator,
+            instance_type: InstanceType::Cloud,
         })
     }
 }
@@ -203,6 +213,28 @@ impl Spanner {
         new_builder(Factory)
     }
 
+    /// Sets the target instance deployment type (`Cloud` or `Omni`).
+    ///
+    /// # Warning
+    ///
+    /// **Experimental:** This method is experimental and may be updated or replaced in a future release.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::omni::InstanceType;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = Spanner::builder()
+    ///     .build()
+    ///     .await?
+    ///     .with_instance_type(InstanceType::Omni);
+    /// # Ok(()) }
+    /// ```
+    pub fn with_instance_type(mut self, instance_type: InstanceType) -> Self {
+        self.instance_type = instance_type;
+        self
+    }
+
     /// Returns a builder for the [DatabaseAdmin] client.
     ///
     /// This builder is automatically pre-configured with the same endpoints, credentials,
@@ -286,11 +318,16 @@ impl Spanner {
             counter: std::sync::Arc::new(AtomicUsize::new(0)),
             config: ClientConfig::default(),
             is_emulator: false,
+            instance_type: InstanceType::Cloud,
         }
     }
 
     pub(crate) fn is_emulator(&self) -> bool {
         self.is_emulator
+    }
+
+    pub(crate) fn instance_type(&self) -> InstanceType {
+        self.instance_type
     }
 
     pub(crate) fn get_channel(&self, hint: usize) -> &Channel {
