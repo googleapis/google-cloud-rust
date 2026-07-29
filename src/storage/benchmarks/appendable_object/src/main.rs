@@ -34,9 +34,12 @@ mod app {
         if args.measured_iterations == 0 {
             anyhow::bail!("Measured iterations must be greater than 0");
         }
-        if args.measured_iterations < 100 {
+        // At least 100 measured iterations are recommended so that percentile calculations
+        // (specifically P99) correspond to at least 1 discrete sample.
+        const RECOMMENDED_MIN_MEASURED_ITERATIONS: usize = 100;
+        if args.measured_iterations < RECOMMENDED_MIN_MEASURED_ITERATIONS {
             eprintln!(
-                "WARNING: Running with fewer than 100 measured iterations ({}); percentiles (P50/P90/P99) may lack statistical significance.",
+                "WARNING: Running with fewer than {RECOMMENDED_MIN_MEASURED_ITERATIONS} measured iterations ({}); percentiles (P50/P90/P99) may lack statistical significance.",
                 args.measured_iterations
             );
         }
@@ -79,6 +82,8 @@ mod app {
             {
                 Ok(elapsed) => {
                     if i < args.warmup_iterations {
+                        // TODO(#5716): Record and report warmup iteration latencies to evaluate
+                        // whether warmup iterations significantly impact performance.
                         println!("Warmup {:>2}: {:?}", i + 1, elapsed);
                     } else {
                         println!(

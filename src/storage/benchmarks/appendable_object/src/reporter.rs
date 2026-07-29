@@ -33,6 +33,8 @@ pub struct BenchmarkReport<'a> {
     /// Number of measured iterations.
     pub measured_iterations: usize,
     /// Number of error occurrences recorded.
+    // TODO(#5716): Record detailed error messages/types alongside the error count for
+    // diagnostic reporting.
     pub errors: usize,
     /// Calculated latency metrics (if any iterations succeeded).
     pub metrics: Option<Metrics>,
@@ -49,10 +51,10 @@ impl BenchmarkReport<'_> {
         println!("Measured Iterations: {}", self.measured_iterations);
         println!("Errors Recorded:     {}", self.errors);
         if let Some(m) = &self.metrics {
-            println!("Mean Latency:        {:?}", m.mean);
+            println!("Mean Latency:         {:?}", m.mean);
             println!("P50 (Median) Latency: {:?}", m.p50);
-            println!("P90 Latency:         {:?}", m.p90);
-            println!("P99 Latency:         {:?}", m.p99);
+            println!("P90 Latency:          {:?}", m.p90);
+            println!("P99 Latency:          {:?}", m.p99);
         } else {
             println!("No metrics to report");
         }
