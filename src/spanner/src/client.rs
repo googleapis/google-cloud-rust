@@ -18,7 +18,7 @@ use crate::model::{
     ExecuteBatchDmlRequest, ExecuteBatchDmlResponse, ExecuteSqlRequest, PartitionQueryRequest,
     PartitionReadRequest, PartitionResponse, RollbackRequest, Session, Transaction,
 };
-use crate::omni::{InstanceType, parse_endpoint};
+use crate::omni::{InstanceType, is_plaintext_endpoint};
 use crate::server_streaming::builder;
 use gaxi::options::{ClientConfig, Credentials};
 use google_cloud_auth::credentials::anonymous;
@@ -78,11 +78,13 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
             }
         }
 
-        if let Some(ref ep) = config.endpoint {
-            let (_, is_plaintext) = parse_endpoint(ep);
-            if is_plaintext && config.cred.is_none() {
-                config.cred = Some(anonymous::Builder::new().build());
-            }
+        if config
+            .endpoint
+            .as_ref()
+            .is_some_and(|ep| is_plaintext_endpoint(ep))
+            && config.cred.is_none()
+        {
+            config.cred = Some(anonymous::Builder::new().build());
         }
 
         let num_channels = std::env::var("SPANNER_NUM_CHANNELS")

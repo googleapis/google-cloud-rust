@@ -25,26 +25,13 @@ pub enum InstanceType {
     Omni,
 }
 
-/// Helper function to parse an endpoint string, stripping any `http://` or `https://` schemes.
-///
-/// Returns `(cleaned_endpoint, is_plaintext)` where `is_plaintext` is true if `http://` was specified.
-pub(crate) fn parse_endpoint(endpoint: &str) -> (String, bool) {
+/// Helper function to check if an endpoint string uses plaintext (`http://`).
+pub(crate) fn is_plaintext_endpoint(endpoint: &str) -> bool {
     let trimmed = endpoint.trim();
     if let Ok(parsed_url) = url::Url::parse(trimmed) {
-        let is_plaintext = parsed_url.scheme() == "http";
-        let host = parsed_url.host_str().unwrap_or("");
-        let authority = if let Some(port) = parsed_url.port() {
-            format!("{}:{}", host, port)
-        } else {
-            host.to_string()
-        };
-        (authority, is_plaintext)
-    } else if let Some(stripped) = trimmed.strip_prefix("http://") {
-        (stripped.to_string(), true)
-    } else if let Some(stripped) = trimmed.strip_prefix("https://") {
-        (stripped.to_string(), false)
+        parsed_url.scheme() == "http"
     } else {
-        (trimmed.to_string(), false)
+        trimmed.starts_with("http://")
     }
 }
 
@@ -109,18 +96,11 @@ mod tests {
     }
 
     #[test]
-    fn test_parse_endpoint_schemes() {
-        let (ep1, is_pt1) = parse_endpoint("http://localhost:15000");
-        assert_eq!(ep1, "localhost:15000", "http scheme should be stripped");
-        assert!(is_pt1, "http scheme should trigger plaintext mode");
-
-        let (ep2, is_pt2) = parse_endpoint("https://spanner.internal:15000");
-        assert_eq!(ep2, "spanner.internal:15000", "https scheme stripped");
-        assert!(!is_pt2, "https scheme should not trigger plaintext mode");
-
-        let (ep3, is_pt3) = parse_endpoint("127.0.0.1:15000");
-        assert_eq!(ep3, "127.0.0.1:15000", "raw host:port preserved");
-        assert!(!is_pt3, "raw host:port defaults to TLS mode");
+    fn test_is_plaintext_endpoint() {
+        assert!(is_plaintext_endpoint("http://localhost:15000"));
+        assert!(!is_plaintext_endpoint("https://spanner.internal:15000"));
+        assert!(!is_plaintext_endpoint("127.0.0.1:15000"));
+        assert!(is_plaintext_endpoint("http://not a valid url:1234"));
     }
 
     #[tokio::test]
