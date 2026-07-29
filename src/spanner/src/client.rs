@@ -114,15 +114,15 @@ macro_rules! define_idempotent_rpc {
             channel_hint: usize,
             o11y: &crate::observability::Observability,
         ) -> crate::Result<$response_type> {
-            o11y.trace_operation($canonical_name, || async move {
+            o11y.trace_operation(
+                $canonical_name,
                 self.get_channel(channel_hint)
                     .inner
                     .$method()
                     .with_request(request)
                     .with_options(apply_request_defaults(options))
-                    .send()
-                    .await
-            })
+                    .send(),
+            )
             .await
         }
     };

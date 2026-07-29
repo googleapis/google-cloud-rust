@@ -406,6 +406,7 @@ impl Partition {
             operation: StreamOperation::Query(req.clone()),
             channel_hint,
             gax_options,
+            method_name: "ExecuteStreamingSql",
         })
         .await
     }
@@ -437,6 +438,7 @@ impl Partition {
             operation: StreamOperation::Read(req.clone()),
             channel_hint,
             gax_options,
+            method_name: "StreamingRead",
         })
         .await
     }
