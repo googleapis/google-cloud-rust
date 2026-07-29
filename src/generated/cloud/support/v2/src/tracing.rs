@@ -387,6 +387,20 @@ where
             self.inner.undelete_support_event_subscription(req, options));
         pending.await
     }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn expunge_support_event_subscription(
+        &self,
+        req: crate::model::ExpungeSupportEventSubscriptionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SupportEventSubscriptionService::expunge_support_event_subscription",
+            self.inner.expunge_support_event_subscription(req, options));
+        pending.await
+    }
 }
 
 pub(crate) mod info {

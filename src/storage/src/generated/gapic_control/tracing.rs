@@ -196,6 +196,20 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_managed_folder(
+        &self,
+        req: crate::model::UpdateManagedFolderRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ManagedFolder>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::StorageControl::update_managed_folder",
+            self.inner.update_managed_folder(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_anywhere_cache(
         &self,
         req: crate::model::CreateAnywhereCacheRequest,
@@ -290,6 +304,62 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::StorageControl::list_anywhere_caches",
             self.inner.list_anywhere_caches(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn create_rapid_cache(
+        &self,
+        req: crate::model::CreateRapidCacheRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::StorageControl::create_rapid_cache",
+            self.inner.create_rapid_cache(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_rapid_cache(
+        &self,
+        req: crate::model::UpdateRapidCacheRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::StorageControl::update_rapid_cache",
+            self.inner.update_rapid_cache(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_rapid_cache(
+        &self,
+        req: crate::model::GetRapidCacheRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RapidCache>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::StorageControl::get_rapid_cache",
+            self.inner.get_rapid_cache(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_rapid_caches(
+        &self,
+        req: crate::model::ListRapidCachesRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListRapidCachesResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::StorageControl::list_rapid_caches",
+            self.inner.list_rapid_caches(req, options));
         pending.await
     }
 

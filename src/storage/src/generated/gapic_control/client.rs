@@ -326,6 +326,27 @@ impl StorageControl {
         super::builder::storage_control::ListManagedFolders::new(self.inner.clone())
     }
 
+    /// Updates a managed folder. Currently, this RPC only supports updating the
+    /// `rapid_cache_config` field.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::StorageControl;
+    /// use google_cloud_storage::Result;
+    /// async fn sample(
+    ///    client: &StorageControl
+    /// ) -> Result<()> {
+    ///     let response = client.update_managed_folder()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_managed_folder(&self) -> super::builder::storage_control::UpdateManagedFolder {
+        super::builder::storage_control::UpdateManagedFolder::new(self.inner.clone())
+    }
+
     /// Creates an Anywhere Cache instance.
     ///
     /// # Long running operations
@@ -493,6 +514,111 @@ impl StorageControl {
     /// ```
     pub fn list_anywhere_caches(&self) -> super::builder::storage_control::ListAnywhereCaches {
         super::builder::storage_control::ListAnywhereCaches::new(self.inner.clone())
+    }
+
+    /// Creates a Rapid Cache instance.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::StorageControl;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_storage::Result;
+    /// async fn sample(
+    ///    client: &StorageControl
+    /// ) -> Result<()> {
+    ///     let response = client.create_rapid_cache()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_rapid_cache(&self) -> super::builder::storage_control::CreateRapidCache {
+        super::builder::storage_control::CreateRapidCache::new(self.inner.clone())
+    }
+
+    /// Updates a Rapid Cache instance.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::StorageControl;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_storage::Result;
+    /// async fn sample(
+    ///    client: &StorageControl
+    /// ) -> Result<()> {
+    ///     let response = client.update_rapid_cache()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_rapid_cache(&self) -> super::builder::storage_control::UpdateRapidCache {
+        super::builder::storage_control::UpdateRapidCache::new(self.inner.clone())
+    }
+
+    /// Gets a Rapid Cache instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::StorageControl;
+    /// use google_cloud_storage::Result;
+    /// async fn sample(
+    ///    client: &StorageControl, project_id: &str, bucket_id: &str, rapid_cache_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_rapid_cache()
+    ///         .set_name(format!("projects/{project_id}/buckets/{bucket_id}/rapidCaches/{rapid_cache_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_rapid_cache(&self) -> super::builder::storage_control::GetRapidCache {
+        super::builder::storage_control::GetRapidCache::new(self.inner.clone())
+    }
+
+    /// Lists Rapid Cache instances for a given bucket.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::StorageControl;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_storage::Result;
+    /// async fn sample(
+    ///    client: &StorageControl, project_id: &str, bucket_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_rapid_caches()
+    ///         .set_parent(format!("projects/{project_id}/buckets/{bucket_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_rapid_caches(&self) -> super::builder::storage_control::ListRapidCaches {
+        super::builder::storage_control::ListRapidCaches::new(self.inner.clone())
     }
 
     /// Returns the Project scoped singleton IntelligenceConfig resource.
@@ -725,7 +851,7 @@ impl StorageControl {
         super::builder::storage_control::GetIntelligenceFinding::new(self.inner.clone())
     }
 
-    /// Lists the `IntelligenceFinding` resources for the specified project.
+    /// Lists the `IntelligenceFinding` resources for the specified the project.
     ///
     /// # Example
     /// ```
@@ -750,8 +876,8 @@ impl StorageControl {
         super::builder::storage_control::ListIntelligenceFindings::new(self.inner.clone())
     }
 
-    /// Summarize the intelligence findings for the specified scope(org, folder or
-    /// project).
+    /// Summarizes the intelligence findings for the specified scope (organization,
+    /// folder or project).
     ///
     /// # Example
     /// ```

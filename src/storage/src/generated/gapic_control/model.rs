@@ -1774,6 +1774,9 @@ pub struct ManagedFolder {
     /// Output only. The modification time of the managed folder.
     pub update_time: std::option::Option<wkt::Timestamp>,
 
+    /// Rapid Cache configuration for a managed prefix.
+    pub rapid_cache_config: std::option::Option<crate::model::managed_folder::RapidCacheConfig>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1875,11 +1878,305 @@ impl ManagedFolder {
         self.update_time = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [rapid_cache_config][crate::model::ManagedFolder::rapid_cache_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::ManagedFolder;
+    /// use google_cloud_storage::model::managed_folder::RapidCacheConfig;
+    /// let x = ManagedFolder::new().set_rapid_cache_config(RapidCacheConfig::default()/* use setters */);
+    /// ```
+    pub fn set_rapid_cache_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::managed_folder::RapidCacheConfig>,
+    {
+        self.rapid_cache_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [rapid_cache_config][crate::model::ManagedFolder::rapid_cache_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::ManagedFolder;
+    /// use google_cloud_storage::model::managed_folder::RapidCacheConfig;
+    /// let x = ManagedFolder::new().set_or_clear_rapid_cache_config(Some(RapidCacheConfig::default()/* use setters */));
+    /// let x = ManagedFolder::new().set_or_clear_rapid_cache_config(None::<RapidCacheConfig>);
+    /// ```
+    pub fn set_or_clear_rapid_cache_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::managed_folder::RapidCacheConfig>,
+    {
+        self.rapid_cache_config = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for ManagedFolder {
     fn typename() -> &'static str {
         "type.googleapis.com/google.storage.control.v2.ManagedFolder"
+    }
+}
+
+/// Defines additional types related to [ManagedFolder].
+pub mod managed_folder {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Rapid Cache configuration for a managed prefix. This configuration is used
+    /// to determine how the rapid cache behaves for objects under the managed
+    /// folder.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct RapidCacheConfig {
+        /// Optional. A map of rapid_cache_id to RapidCachePolicy for this prefix.
+        /// Currently, the key rapid_cache_id is the zone. However, the
+        /// field is generalized as rapid_cache_id to align the policy lifetime
+        /// with the cache instance lifetime. This allows for a future transition
+        /// from zone to a cache id if required.
+        pub policies: std::collections::HashMap<
+            std::string::String,
+            crate::model::managed_folder::rapid_cache_config::RapidCachePolicy,
+        >,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl RapidCacheConfig {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [policies][crate::model::managed_folder::RapidCacheConfig::policies].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_storage::model::managed_folder::RapidCacheConfig;
+        /// use google_cloud_storage::model::managed_folder::rapid_cache_config::RapidCachePolicy;
+        /// let x = RapidCacheConfig::new().set_policies([
+        ///     ("key0", RapidCachePolicy::default()/* use setters */),
+        ///     ("key1", RapidCachePolicy::default()/* use (different) setters */),
+        /// ]);
+        /// ```
+        pub fn set_policies<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<
+                    crate::model::managed_folder::rapid_cache_config::RapidCachePolicy,
+                >,
+        {
+            use std::iter::Iterator;
+            self.policies = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for RapidCacheConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.storage.control.v2.ManagedFolder.RapidCacheConfig"
+        }
+    }
+
+    /// Defines additional types related to [RapidCacheConfig].
+    pub mod rapid_cache_config {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Rapid Cache policy for a managed folder.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct RapidCachePolicy {
+            /// Required. The identifier for the rapid cache.
+            pub rapid_cache_id: std::string::String,
+
+            /// Required. If enabled, objects in the Managed Folder will be ingested
+            /// into the cache when they are written.
+            pub ingest_on_write:
+                crate::model::managed_folder::rapid_cache_config::rapid_cache_policy::IngestOnWrite,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl RapidCachePolicy {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [rapid_cache_id][crate::model::managed_folder::rapid_cache_config::RapidCachePolicy::rapid_cache_id].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_storage::model::managed_folder::rapid_cache_config::RapidCachePolicy;
+            /// let x = RapidCachePolicy::new().set_rapid_cache_id("example");
+            /// ```
+            pub fn set_rapid_cache_id<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.rapid_cache_id = v.into();
+                self
+            }
+
+            /// Sets the value of [ingest_on_write][crate::model::managed_folder::rapid_cache_config::RapidCachePolicy::ingest_on_write].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_storage::model::managed_folder::rapid_cache_config::RapidCachePolicy;
+            /// use google_cloud_storage::model::managed_folder::rapid_cache_config::rapid_cache_policy::IngestOnWrite;
+            /// let x0 = RapidCachePolicy::new().set_ingest_on_write(IngestOnWrite::Enabled);
+            /// ```
+            pub fn set_ingest_on_write<T: std::convert::Into<crate::model::managed_folder::rapid_cache_config::rapid_cache_policy::IngestOnWrite>>(mut self, v: T) -> Self{
+                self.ingest_on_write = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for RapidCachePolicy {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.storage.control.v2.ManagedFolder.RapidCacheConfig.RapidCachePolicy"
+            }
+        }
+
+        /// Defines additional types related to [RapidCachePolicy].
+        pub mod rapid_cache_policy {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// The behavior of the rapid cache when an object is written.
+            ///
+            /// # Working with unknown values
+            ///
+            /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+            /// additional enum variants at any time. Adding new variants is not considered
+            /// a breaking change. Applications should write their code in anticipation of:
+            ///
+            /// - New values appearing in future releases of the client library, **and**
+            /// - New values received dynamically, without application changes.
+            ///
+            /// Please consult the [Working with enums] section in the user guide for some
+            /// guidelines.
+            ///
+            /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum IngestOnWrite {
+                /// The behavior is not specified at this resource level.
+                /// It should be inherited from the parent resource's configuration.
+                /// This is the default value.
+                Unspecified,
+                /// Ingestion on write is explicitly enabled for this resource.
+                Enabled,
+                /// If set, the enum was initialized with an unknown value.
+                ///
+                /// Applications can examine the value using [IngestOnWrite::value] or
+                /// [IngestOnWrite::name].
+                UnknownValue(ingest_on_write::UnknownValue),
+            }
+
+            #[doc(hidden)]
+            pub mod ingest_on_write {
+                #[allow(unused_imports)]
+                use super::*;
+                #[derive(Clone, Debug, PartialEq)]
+                pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+            }
+
+            impl IngestOnWrite {
+                /// Gets the enum value.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the string representation of enums.
+                pub fn value(&self) -> std::option::Option<i32> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some(0),
+                        Self::Enabled => std::option::Option::Some(1),
+                        Self::UnknownValue(u) => u.0.value(),
+                    }
+                }
+
+                /// Gets the enum value as a string.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the integer representation of enums.
+                pub fn name(&self) -> std::option::Option<&str> {
+                    match self {
+                        Self::Unspecified => {
+                            std::option::Option::Some("INGEST_ON_WRITE_UNSPECIFIED")
+                        }
+                        Self::Enabled => std::option::Option::Some("INGEST_ON_WRITE_ENABLED"),
+                        Self::UnknownValue(u) => u.0.name(),
+                    }
+                }
+            }
+
+            impl std::default::Default for IngestOnWrite {
+                fn default() -> Self {
+                    use std::convert::From;
+                    Self::from(0)
+                }
+            }
+
+            impl std::fmt::Display for IngestOnWrite {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
+                    wkt::internal::display_enum(f, self.name(), self.value())
+                }
+            }
+
+            impl std::convert::From<i32> for IngestOnWrite {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => Self::Unspecified,
+                        1 => Self::Enabled,
+                        _ => Self::UnknownValue(ingest_on_write::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
+                    }
+                }
+            }
+
+            impl std::convert::From<&str> for IngestOnWrite {
+                fn from(value: &str) -> Self {
+                    use std::string::ToString;
+                    match value {
+                        "INGEST_ON_WRITE_UNSPECIFIED" => Self::Unspecified,
+                        "INGEST_ON_WRITE_ENABLED" => Self::Enabled,
+                        _ => Self::UnknownValue(ingest_on_write::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
+                    }
+                }
+            }
+
+            impl serde::ser::Serialize for IngestOnWrite {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    match self {
+                        Self::Unspecified => serializer.serialize_i32(0),
+                        Self::Enabled => serializer.serialize_i32(1),
+                        Self::UnknownValue(u) => u.0.serialize(serializer),
+                    }
+                }
+            }
+
+            impl<'de> serde::de::Deserialize<'de> for IngestOnWrite {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    deserializer.deserialize_any(wkt::internal::EnumVisitor::<IngestOnWrite>::new(
+                        ".google.storage.control.v2.ManagedFolder.RapidCacheConfig.RapidCachePolicy.IngestOnWrite"))
+                }
+            }
+        }
     }
 }
 
@@ -2440,6 +2737,193 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListManagedFold
     }
 }
 
+/// Request message for UpdateManagedFolder.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateManagedFolderRequest {
+    /// Required. Properties of the managed folder being updated. Currently, this
+    /// RPC only supports updating the `rapid_cache_config` field in
+    /// `managed_folder`.
+    pub managed_folder: std::option::Option<crate::model::ManagedFolder>,
+
+    /// Optional. Update mask for managed_folder.
+    /// Currently, this RPC only supports updating the `rapid_cache_config`
+    /// field in `managed_folder`. This field also supports update mask for the
+    /// subfields in the map of `rapid_cache_config`. The user can specify the
+    /// update mask for `rapid_cache_config.policies` and
+    /// `rapid_cache_config.policies.<key>`, but patching is not supported for
+    /// a field within `RapidCachePolicy.policies.<key>`, like
+    /// rapid_cache_config.policies.[key].ingest_on_write.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Optional. The operation succeeds conditional on the managed folder's
+    /// current metageneration matching the value here specified.
+    pub if_metageneration_match: std::option::Option<i64>,
+
+    /// Optional. The operation succeeds conditional on the managed folder's
+    /// current metageneration NOT matching the value here specified.
+    pub if_metageneration_not_match: std::option::Option<i64>,
+
+    /// Optional. A unique identifier for this request. UUID is the recommended
+    /// format, but other formats are still accepted.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateManagedFolderRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [managed_folder][crate::model::UpdateManagedFolderRequest::managed_folder].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::UpdateManagedFolderRequest;
+    /// use google_cloud_storage::model::ManagedFolder;
+    /// let x = UpdateManagedFolderRequest::new().set_managed_folder(ManagedFolder::default()/* use setters */);
+    /// ```
+    pub fn set_managed_folder<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ManagedFolder>,
+    {
+        self.managed_folder = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [managed_folder][crate::model::UpdateManagedFolderRequest::managed_folder].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::UpdateManagedFolderRequest;
+    /// use google_cloud_storage::model::ManagedFolder;
+    /// let x = UpdateManagedFolderRequest::new().set_or_clear_managed_folder(Some(ManagedFolder::default()/* use setters */));
+    /// let x = UpdateManagedFolderRequest::new().set_or_clear_managed_folder(None::<ManagedFolder>);
+    /// ```
+    pub fn set_or_clear_managed_folder<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ManagedFolder>,
+    {
+        self.managed_folder = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateManagedFolderRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::UpdateManagedFolderRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateManagedFolderRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateManagedFolderRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::UpdateManagedFolderRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateManagedFolderRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateManagedFolderRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [if_metageneration_match][crate::model::UpdateManagedFolderRequest::if_metageneration_match].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::UpdateManagedFolderRequest;
+    /// let x = UpdateManagedFolderRequest::new().set_if_metageneration_match(42);
+    /// ```
+    pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.if_metageneration_match = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [if_metageneration_match][crate::model::UpdateManagedFolderRequest::if_metageneration_match].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::UpdateManagedFolderRequest;
+    /// let x = UpdateManagedFolderRequest::new().set_or_clear_if_metageneration_match(Some(42));
+    /// let x = UpdateManagedFolderRequest::new().set_or_clear_if_metageneration_match(None::<i32>);
+    /// ```
+    pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.if_metageneration_match = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [if_metageneration_not_match][crate::model::UpdateManagedFolderRequest::if_metageneration_not_match].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::UpdateManagedFolderRequest;
+    /// let x = UpdateManagedFolderRequest::new().set_if_metageneration_not_match(42);
+    /// ```
+    pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.if_metageneration_not_match = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [if_metageneration_not_match][crate::model::UpdateManagedFolderRequest::if_metageneration_not_match].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::UpdateManagedFolderRequest;
+    /// let x = UpdateManagedFolderRequest::new().set_or_clear_if_metageneration_not_match(Some(42));
+    /// let x = UpdateManagedFolderRequest::new().set_or_clear_if_metageneration_not_match(None::<i32>);
+    /// ```
+    pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.if_metageneration_not_match = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateManagedFolderRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::UpdateManagedFolderRequest;
+    /// let x = UpdateManagedFolderRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateManagedFolderRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.UpdateManagedFolderRequest"
+    }
+}
+
 /// Message returned in the metadata field of the Operation resource for
 /// CreateAnywhereCache operations.
 #[derive(Clone, Default, PartialEq)]
@@ -2464,6 +2948,10 @@ pub struct CreateAnywhereCacheMetadata {
     /// "admit-on-first-miss"). Default admission policy (admit-on-first-miss) is
     /// applied if not specified in the create request.
     pub admission_policy: std::option::Option<std::string::String>,
+
+    /// Optional. Specifies whether objects are ingested into the cache upon write.
+    /// Defaults to false.
+    pub ingest_on_write: std::option::Option<bool>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2632,11 +3120,311 @@ impl CreateAnywhereCacheMetadata {
         self.admission_policy = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [ingest_on_write][crate::model::CreateAnywhereCacheMetadata::ingest_on_write].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::CreateAnywhereCacheMetadata;
+    /// let x = CreateAnywhereCacheMetadata::new().set_ingest_on_write(true);
+    /// ```
+    pub fn set_ingest_on_write<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.ingest_on_write = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ingest_on_write][crate::model::CreateAnywhereCacheMetadata::ingest_on_write].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::CreateAnywhereCacheMetadata;
+    /// let x = CreateAnywhereCacheMetadata::new().set_or_clear_ingest_on_write(Some(false));
+    /// let x = CreateAnywhereCacheMetadata::new().set_or_clear_ingest_on_write(None::<bool>);
+    /// ```
+    pub fn set_or_clear_ingest_on_write<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.ingest_on_write = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for CreateAnywhereCacheMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.storage.control.v2.CreateAnywhereCacheMetadata"
+    }
+}
+
+/// Message returned in the metadata field of the Operation resource for
+/// CreateRapidCache operations.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateRapidCacheMetadata {
+    /// Generic metadata for the long running operation.
+    pub common_metadata: std::option::Option<crate::model::CommonLongRunningOperationMetadata>,
+
+    /// Rapid Cache ID.
+    pub rapid_cache_id: std::option::Option<std::string::String>,
+
+    /// The zone in which the cache instance is running. For example,
+    /// us-central1-a.
+    pub zone: std::option::Option<std::string::String>,
+
+    /// Rapid Cache entry's TTL. A cache-level config that is applied to all new
+    /// cache entries on admission. Default ttl value (24hrs) is applied if not
+    /// specified in the create request.
+    pub ttl: std::option::Option<wkt::Duration>,
+
+    /// Anywhere Cache entry Admission Policy in kebab-case (e.g.,
+    /// "admit-on-first-miss"). Default admission policy (admit-on-first-miss) is
+    /// applied if not specified in the create request.
+    pub admission_policy: std::option::Option<std::string::String>,
+
+    /// Optional. Specifies whether objects are ingested into the cache upon write.
+    /// Defaults to false.
+    pub ingest_on_write: std::option::Option<bool>,
+
+    /// Optional. The type of cache. Either rapid cache or rapid cache ultra.
+    pub cache_type: std::option::Option<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateRapidCacheMetadata {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [common_metadata][crate::model::CreateRapidCacheMetadata::common_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::CreateRapidCacheMetadata;
+    /// use google_cloud_storage::model::CommonLongRunningOperationMetadata;
+    /// let x = CreateRapidCacheMetadata::new().set_common_metadata(CommonLongRunningOperationMetadata::default()/* use setters */);
+    /// ```
+    pub fn set_common_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonLongRunningOperationMetadata>,
+    {
+        self.common_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [common_metadata][crate::model::CreateRapidCacheMetadata::common_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::CreateRapidCacheMetadata;
+    /// use google_cloud_storage::model::CommonLongRunningOperationMetadata;
+    /// let x = CreateRapidCacheMetadata::new().set_or_clear_common_metadata(Some(CommonLongRunningOperationMetadata::default()/* use setters */));
+    /// let x = CreateRapidCacheMetadata::new().set_or_clear_common_metadata(None::<CommonLongRunningOperationMetadata>);
+    /// ```
+    pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonLongRunningOperationMetadata>,
+    {
+        self.common_metadata = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [rapid_cache_id][crate::model::CreateRapidCacheMetadata::rapid_cache_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::CreateRapidCacheMetadata;
+    /// let x = CreateRapidCacheMetadata::new().set_rapid_cache_id("example");
+    /// ```
+    pub fn set_rapid_cache_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.rapid_cache_id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [rapid_cache_id][crate::model::CreateRapidCacheMetadata::rapid_cache_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::CreateRapidCacheMetadata;
+    /// let x = CreateRapidCacheMetadata::new().set_or_clear_rapid_cache_id(Some("example"));
+    /// let x = CreateRapidCacheMetadata::new().set_or_clear_rapid_cache_id(None::<String>);
+    /// ```
+    pub fn set_or_clear_rapid_cache_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.rapid_cache_id = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [zone][crate::model::CreateRapidCacheMetadata::zone].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::CreateRapidCacheMetadata;
+    /// let x = CreateRapidCacheMetadata::new().set_zone("example");
+    /// ```
+    pub fn set_zone<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.zone = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [zone][crate::model::CreateRapidCacheMetadata::zone].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::CreateRapidCacheMetadata;
+    /// let x = CreateRapidCacheMetadata::new().set_or_clear_zone(Some("example"));
+    /// let x = CreateRapidCacheMetadata::new().set_or_clear_zone(None::<String>);
+    /// ```
+    pub fn set_or_clear_zone<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.zone = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [ttl][crate::model::CreateRapidCacheMetadata::ttl].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::CreateRapidCacheMetadata;
+    /// use wkt::Duration;
+    /// let x = CreateRapidCacheMetadata::new().set_ttl(Duration::default()/* use setters */);
+    /// ```
+    pub fn set_ttl<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.ttl = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ttl][crate::model::CreateRapidCacheMetadata::ttl].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::CreateRapidCacheMetadata;
+    /// use wkt::Duration;
+    /// let x = CreateRapidCacheMetadata::new().set_or_clear_ttl(Some(Duration::default()/* use setters */));
+    /// let x = CreateRapidCacheMetadata::new().set_or_clear_ttl(None::<Duration>);
+    /// ```
+    pub fn set_or_clear_ttl<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.ttl = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [admission_policy][crate::model::CreateRapidCacheMetadata::admission_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::CreateRapidCacheMetadata;
+    /// let x = CreateRapidCacheMetadata::new().set_admission_policy("example");
+    /// ```
+    pub fn set_admission_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.admission_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [admission_policy][crate::model::CreateRapidCacheMetadata::admission_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::CreateRapidCacheMetadata;
+    /// let x = CreateRapidCacheMetadata::new().set_or_clear_admission_policy(Some("example"));
+    /// let x = CreateRapidCacheMetadata::new().set_or_clear_admission_policy(None::<String>);
+    /// ```
+    pub fn set_or_clear_admission_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.admission_policy = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [ingest_on_write][crate::model::CreateRapidCacheMetadata::ingest_on_write].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::CreateRapidCacheMetadata;
+    /// let x = CreateRapidCacheMetadata::new().set_ingest_on_write(true);
+    /// ```
+    pub fn set_ingest_on_write<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.ingest_on_write = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ingest_on_write][crate::model::CreateRapidCacheMetadata::ingest_on_write].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::CreateRapidCacheMetadata;
+    /// let x = CreateRapidCacheMetadata::new().set_or_clear_ingest_on_write(Some(false));
+    /// let x = CreateRapidCacheMetadata::new().set_or_clear_ingest_on_write(None::<bool>);
+    /// ```
+    pub fn set_or_clear_ingest_on_write<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.ingest_on_write = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [cache_type][crate::model::CreateRapidCacheMetadata::cache_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::CreateRapidCacheMetadata;
+    /// let x = CreateRapidCacheMetadata::new().set_cache_type("example");
+    /// ```
+    pub fn set_cache_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.cache_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cache_type][crate::model::CreateRapidCacheMetadata::cache_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::CreateRapidCacheMetadata;
+    /// let x = CreateRapidCacheMetadata::new().set_or_clear_cache_type(Some("example"));
+    /// let x = CreateRapidCacheMetadata::new().set_or_clear_cache_type(None::<String>);
+    /// ```
+    pub fn set_or_clear_cache_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.cache_type = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateRapidCacheMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.CreateRapidCacheMetadata"
     }
 }
 
@@ -2660,10 +3448,14 @@ pub struct UpdateAnywhereCacheMetadata {
     /// update, this field equals to the new value specified in the Update request.
     pub ttl: std::option::Option<wkt::Duration>,
 
-    /// L4 Cache entry Admission Policy in kebab-case (e.g.,
+    /// Optional. Anywhere Cache entry Admission Policy in kebab-case (e.g.,
     /// "admit-on-first-miss"). If `admission_policy` is pending
     /// update, this field equals to the new value specified in the Update request.
     pub admission_policy: std::option::Option<std::string::String>,
+
+    /// Specifies whether objects are ingested into the cache upon write. If not
+    /// set, it defaults to false.
+    pub ingest_on_write: std::option::Option<bool>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2832,11 +3624,311 @@ impl UpdateAnywhereCacheMetadata {
         self.admission_policy = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [ingest_on_write][crate::model::UpdateAnywhereCacheMetadata::ingest_on_write].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::UpdateAnywhereCacheMetadata;
+    /// let x = UpdateAnywhereCacheMetadata::new().set_ingest_on_write(true);
+    /// ```
+    pub fn set_ingest_on_write<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.ingest_on_write = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ingest_on_write][crate::model::UpdateAnywhereCacheMetadata::ingest_on_write].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::UpdateAnywhereCacheMetadata;
+    /// let x = UpdateAnywhereCacheMetadata::new().set_or_clear_ingest_on_write(Some(false));
+    /// let x = UpdateAnywhereCacheMetadata::new().set_or_clear_ingest_on_write(None::<bool>);
+    /// ```
+    pub fn set_or_clear_ingest_on_write<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.ingest_on_write = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for UpdateAnywhereCacheMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.storage.control.v2.UpdateAnywhereCacheMetadata"
+    }
+}
+
+/// Message returned in the metadata field of the Operation resource for
+/// UpdateRapidCache operation.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateRapidCacheMetadata {
+    /// Generic metadata for the long running operation.
+    pub common_metadata: std::option::Option<crate::model::CommonLongRunningOperationMetadata>,
+
+    /// Rapid Cache ID.
+    pub rapid_cache_id: std::option::Option<std::string::String>,
+
+    /// The zone in which the cache instance is running. For example,
+    /// us-central1-a.
+    pub zone: std::option::Option<std::string::String>,
+
+    /// Rapid Cache entry's TTL between 1h and 7days. A cache-level config that
+    /// is applied to all new cache entries on admission. If `ttl` is pending
+    /// update, this field equals to the new value specified in the Update request.
+    pub ttl: std::option::Option<wkt::Duration>,
+
+    /// Optional. Rapid Cache entry Admission Policy in kebab-case (e.g.,
+    /// "admit-on-first-miss"). If `admission_policy` is pending
+    /// update, this field equals to the new value specified in the Update request.
+    pub admission_policy: std::option::Option<std::string::String>,
+
+    /// Specifies whether objects are ingested into the cache upon write. If not
+    /// set, it defaults to false.
+    pub ingest_on_write: std::option::Option<bool>,
+
+    /// Optional. The type of cache. Either rapid cache or rapid cache ultra.
+    pub cache_type: std::option::Option<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateRapidCacheMetadata {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [common_metadata][crate::model::UpdateRapidCacheMetadata::common_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::UpdateRapidCacheMetadata;
+    /// use google_cloud_storage::model::CommonLongRunningOperationMetadata;
+    /// let x = UpdateRapidCacheMetadata::new().set_common_metadata(CommonLongRunningOperationMetadata::default()/* use setters */);
+    /// ```
+    pub fn set_common_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonLongRunningOperationMetadata>,
+    {
+        self.common_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [common_metadata][crate::model::UpdateRapidCacheMetadata::common_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::UpdateRapidCacheMetadata;
+    /// use google_cloud_storage::model::CommonLongRunningOperationMetadata;
+    /// let x = UpdateRapidCacheMetadata::new().set_or_clear_common_metadata(Some(CommonLongRunningOperationMetadata::default()/* use setters */));
+    /// let x = UpdateRapidCacheMetadata::new().set_or_clear_common_metadata(None::<CommonLongRunningOperationMetadata>);
+    /// ```
+    pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonLongRunningOperationMetadata>,
+    {
+        self.common_metadata = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [rapid_cache_id][crate::model::UpdateRapidCacheMetadata::rapid_cache_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::UpdateRapidCacheMetadata;
+    /// let x = UpdateRapidCacheMetadata::new().set_rapid_cache_id("example");
+    /// ```
+    pub fn set_rapid_cache_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.rapid_cache_id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [rapid_cache_id][crate::model::UpdateRapidCacheMetadata::rapid_cache_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::UpdateRapidCacheMetadata;
+    /// let x = UpdateRapidCacheMetadata::new().set_or_clear_rapid_cache_id(Some("example"));
+    /// let x = UpdateRapidCacheMetadata::new().set_or_clear_rapid_cache_id(None::<String>);
+    /// ```
+    pub fn set_or_clear_rapid_cache_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.rapid_cache_id = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [zone][crate::model::UpdateRapidCacheMetadata::zone].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::UpdateRapidCacheMetadata;
+    /// let x = UpdateRapidCacheMetadata::new().set_zone("example");
+    /// ```
+    pub fn set_zone<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.zone = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [zone][crate::model::UpdateRapidCacheMetadata::zone].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::UpdateRapidCacheMetadata;
+    /// let x = UpdateRapidCacheMetadata::new().set_or_clear_zone(Some("example"));
+    /// let x = UpdateRapidCacheMetadata::new().set_or_clear_zone(None::<String>);
+    /// ```
+    pub fn set_or_clear_zone<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.zone = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [ttl][crate::model::UpdateRapidCacheMetadata::ttl].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::UpdateRapidCacheMetadata;
+    /// use wkt::Duration;
+    /// let x = UpdateRapidCacheMetadata::new().set_ttl(Duration::default()/* use setters */);
+    /// ```
+    pub fn set_ttl<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.ttl = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ttl][crate::model::UpdateRapidCacheMetadata::ttl].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::UpdateRapidCacheMetadata;
+    /// use wkt::Duration;
+    /// let x = UpdateRapidCacheMetadata::new().set_or_clear_ttl(Some(Duration::default()/* use setters */));
+    /// let x = UpdateRapidCacheMetadata::new().set_or_clear_ttl(None::<Duration>);
+    /// ```
+    pub fn set_or_clear_ttl<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.ttl = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [admission_policy][crate::model::UpdateRapidCacheMetadata::admission_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::UpdateRapidCacheMetadata;
+    /// let x = UpdateRapidCacheMetadata::new().set_admission_policy("example");
+    /// ```
+    pub fn set_admission_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.admission_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [admission_policy][crate::model::UpdateRapidCacheMetadata::admission_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::UpdateRapidCacheMetadata;
+    /// let x = UpdateRapidCacheMetadata::new().set_or_clear_admission_policy(Some("example"));
+    /// let x = UpdateRapidCacheMetadata::new().set_or_clear_admission_policy(None::<String>);
+    /// ```
+    pub fn set_or_clear_admission_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.admission_policy = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [ingest_on_write][crate::model::UpdateRapidCacheMetadata::ingest_on_write].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::UpdateRapidCacheMetadata;
+    /// let x = UpdateRapidCacheMetadata::new().set_ingest_on_write(true);
+    /// ```
+    pub fn set_ingest_on_write<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.ingest_on_write = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ingest_on_write][crate::model::UpdateRapidCacheMetadata::ingest_on_write].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::UpdateRapidCacheMetadata;
+    /// let x = UpdateRapidCacheMetadata::new().set_or_clear_ingest_on_write(Some(false));
+    /// let x = UpdateRapidCacheMetadata::new().set_or_clear_ingest_on_write(None::<bool>);
+    /// ```
+    pub fn set_or_clear_ingest_on_write<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.ingest_on_write = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [cache_type][crate::model::UpdateRapidCacheMetadata::cache_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::UpdateRapidCacheMetadata;
+    /// let x = UpdateRapidCacheMetadata::new().set_cache_type("example");
+    /// ```
+    pub fn set_cache_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.cache_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cache_type][crate::model::UpdateRapidCacheMetadata::cache_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::UpdateRapidCacheMetadata;
+    /// let x = UpdateRapidCacheMetadata::new().set_or_clear_cache_type(Some("example"));
+    /// let x = UpdateRapidCacheMetadata::new().set_or_clear_cache_type(None::<String>);
+    /// ```
+    pub fn set_or_clear_cache_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.cache_type = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateRapidCacheMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.UpdateRapidCacheMetadata"
     }
 }
 
@@ -2865,7 +3957,8 @@ pub struct AnywhereCache {
     /// create request.
     pub admission_policy: std::string::String,
 
-    /// Output only. Cache state including RUNNING, CREATING, DISABLED and PAUSED.
+    /// Output only. Cache state including `running`, `creating`, `disabled` and
+    /// `paused`.
     pub state: std::string::String,
 
     /// Output only. Time when Anywhere cache instance is allocated.
@@ -2879,6 +3972,10 @@ pub struct AnywhereCache {
     /// instance. Subsequential update requests will be rejected if this field is
     /// true. Output only.
     pub pending_update: bool,
+
+    /// Optional. Specifies whether objects are ingested into the cache upon write.
+    /// Defaults to false.
+    pub ingest_on_write: std::option::Option<bool>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3051,6 +4148,37 @@ impl AnywhereCache {
     /// ```
     pub fn set_pending_update<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.pending_update = v.into();
+        self
+    }
+
+    /// Sets the value of [ingest_on_write][crate::model::AnywhereCache::ingest_on_write].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::AnywhereCache;
+    /// let x = AnywhereCache::new().set_ingest_on_write(true);
+    /// ```
+    pub fn set_ingest_on_write<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.ingest_on_write = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ingest_on_write][crate::model::AnywhereCache::ingest_on_write].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::AnywhereCache;
+    /// let x = AnywhereCache::new().set_or_clear_ingest_on_write(Some(false));
+    /// let x = AnywhereCache::new().set_or_clear_ingest_on_write(None::<bool>);
+    /// ```
+    pub fn set_or_clear_ingest_on_write<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.ingest_on_write = v.map(|x| x.into());
         self
     }
 }
@@ -3647,6 +4775,667 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListAnywhereCac
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
         self.anywhere_caches
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// A Rapid Cache Instance.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RapidCache {
+    /// Immutable. The resource name of this RapidCache.
+    /// Format:
+    /// projects/{project}/buckets/{bucket}/rapidCaches/{rapid_cache}
+    pub name: std::string::String,
+
+    /// Immutable. The zone in which the cache instance is running. For example,
+    /// us-central1-a.
+    pub zone: std::string::String,
+
+    /// Immutable. The type of Rapid Cache this represents. Valid values include:
+    /// 'rapid-cache' and 'rapid-cache-ultra'.
+    pub cache_type: std::string::String,
+
+    /// Cache entry TTL (ranges between 1h to 7d). This is a cache-level config
+    /// that defines how long a cache entry can live. Default ttl value (24hrs)
+    /// is applied if not specified in the create request. TTL must be in whole
+    /// seconds.
+    pub ttl: std::option::Option<wkt::Duration>,
+
+    /// Cache admission policy. Valid policies includes:
+    /// no_read_admission, admit-on-first-miss and admit-on-second-miss. Defaults
+    /// to admit-on-first-miss for both AC and RCU. Default value is applied if not
+    /// specified in the create request.
+    pub admission_policy: std::string::String,
+
+    /// Output only. Cache state including running, creating, and disabled.
+    pub state: std::string::String,
+
+    /// Output only. Time when Rapid cache instance is allocated.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Time when Rapid cache instance is last updated, including
+    /// creation.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. True if there is an active update operation against this cache
+    /// instance. Subsequential update requests will be rejected if this field is
+    /// true. Output only.
+    pub pending_update: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RapidCache {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::RapidCache::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::RapidCache;
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// # let rapid_cache_id = "rapid_cache_id";
+    /// let x = RapidCache::new().set_name(format!("projects/{project_id}/buckets/{bucket_id}/rapidCaches/{rapid_cache_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [zone][crate::model::RapidCache::zone].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::RapidCache;
+    /// let x = RapidCache::new().set_zone("example");
+    /// ```
+    pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.zone = v.into();
+        self
+    }
+
+    /// Sets the value of [cache_type][crate::model::RapidCache::cache_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::RapidCache;
+    /// let x = RapidCache::new().set_cache_type("example");
+    /// ```
+    pub fn set_cache_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.cache_type = v.into();
+        self
+    }
+
+    /// Sets the value of [ttl][crate::model::RapidCache::ttl].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::RapidCache;
+    /// use wkt::Duration;
+    /// let x = RapidCache::new().set_ttl(Duration::default()/* use setters */);
+    /// ```
+    pub fn set_ttl<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.ttl = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ttl][crate::model::RapidCache::ttl].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::RapidCache;
+    /// use wkt::Duration;
+    /// let x = RapidCache::new().set_or_clear_ttl(Some(Duration::default()/* use setters */));
+    /// let x = RapidCache::new().set_or_clear_ttl(None::<Duration>);
+    /// ```
+    pub fn set_or_clear_ttl<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.ttl = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [admission_policy][crate::model::RapidCache::admission_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::RapidCache;
+    /// let x = RapidCache::new().set_admission_policy("example");
+    /// ```
+    pub fn set_admission_policy<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.admission_policy = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::RapidCache::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::RapidCache;
+    /// let x = RapidCache::new().set_state("example");
+    /// ```
+    pub fn set_state<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::RapidCache::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::RapidCache;
+    /// use wkt::Timestamp;
+    /// let x = RapidCache::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::RapidCache::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::RapidCache;
+    /// use wkt::Timestamp;
+    /// let x = RapidCache::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = RapidCache::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::RapidCache::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::RapidCache;
+    /// use wkt::Timestamp;
+    /// let x = RapidCache::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::RapidCache::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::RapidCache;
+    /// use wkt::Timestamp;
+    /// let x = RapidCache::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = RapidCache::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [pending_update][crate::model::RapidCache::pending_update].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::RapidCache;
+    /// let x = RapidCache::new().set_pending_update(true);
+    /// ```
+    pub fn set_pending_update<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.pending_update = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RapidCache {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.RapidCache"
+    }
+}
+
+/// Request message for CreateRapidCache.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateRapidCacheRequest {
+    /// Required. The bucket to which this cache belongs.
+    /// Format: `projects/{project}/buckets/{bucket}`
+    pub parent: std::string::String,
+
+    /// Required. The RapidCache to create. Default values for ingest_on_write, ttl
+    /// and admission_policy will be applied if not specified in the request.
+    pub rapid_cache: std::option::Option<crate::model::RapidCache>,
+
+    /// Optional. A unique identifier for this request. UUID is the recommended
+    /// format, but other formats are still accepted. This request is only
+    /// idempotent if a `request_id` is provided.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateRapidCacheRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateRapidCacheRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::CreateRapidCacheRequest;
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// let x = CreateRapidCacheRequest::new().set_parent(format!("projects/{project_id}/buckets/{bucket_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [rapid_cache][crate::model::CreateRapidCacheRequest::rapid_cache].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::CreateRapidCacheRequest;
+    /// use google_cloud_storage::model::RapidCache;
+    /// let x = CreateRapidCacheRequest::new().set_rapid_cache(RapidCache::default()/* use setters */);
+    /// ```
+    pub fn set_rapid_cache<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RapidCache>,
+    {
+        self.rapid_cache = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [rapid_cache][crate::model::CreateRapidCacheRequest::rapid_cache].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::CreateRapidCacheRequest;
+    /// use google_cloud_storage::model::RapidCache;
+    /// let x = CreateRapidCacheRequest::new().set_or_clear_rapid_cache(Some(RapidCache::default()/* use setters */));
+    /// let x = CreateRapidCacheRequest::new().set_or_clear_rapid_cache(None::<RapidCache>);
+    /// ```
+    pub fn set_or_clear_rapid_cache<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RapidCache>,
+    {
+        self.rapid_cache = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateRapidCacheRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::CreateRapidCacheRequest;
+    /// let x = CreateRapidCacheRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateRapidCacheRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.CreateRapidCacheRequest"
+    }
+}
+
+/// Request message for UpdateRapidCache.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateRapidCacheRequest {
+    /// Required. The RapidCache to update.
+    pub rapid_cache: std::option::Option<crate::model::RapidCache>,
+
+    /// Required. List of fields to be updated. Mutable fields of RapidCache
+    /// include `ttl`, `admission_policy` and `ingest_on_write`.
+    ///
+    /// To specify ALL fields, specify a single field with the value `*`. Note: We
+    /// recommend against doing this. If a new field is introduced at a later time,
+    /// an older client updating with the `*` may accidentally reset the new
+    /// field's value.
+    ///
+    /// Not specifying any fields is an error.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Optional. A unique identifier for this request. UUID is the recommended
+    /// format, but other formats are still accepted. This request is only
+    /// idempotent if a `request_id` is provided.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateRapidCacheRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [rapid_cache][crate::model::UpdateRapidCacheRequest::rapid_cache].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::UpdateRapidCacheRequest;
+    /// use google_cloud_storage::model::RapidCache;
+    /// let x = UpdateRapidCacheRequest::new().set_rapid_cache(RapidCache::default()/* use setters */);
+    /// ```
+    pub fn set_rapid_cache<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RapidCache>,
+    {
+        self.rapid_cache = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [rapid_cache][crate::model::UpdateRapidCacheRequest::rapid_cache].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::UpdateRapidCacheRequest;
+    /// use google_cloud_storage::model::RapidCache;
+    /// let x = UpdateRapidCacheRequest::new().set_or_clear_rapid_cache(Some(RapidCache::default()/* use setters */));
+    /// let x = UpdateRapidCacheRequest::new().set_or_clear_rapid_cache(None::<RapidCache>);
+    /// ```
+    pub fn set_or_clear_rapid_cache<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RapidCache>,
+    {
+        self.rapid_cache = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateRapidCacheRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::UpdateRapidCacheRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateRapidCacheRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateRapidCacheRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::UpdateRapidCacheRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateRapidCacheRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateRapidCacheRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateRapidCacheRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::UpdateRapidCacheRequest;
+    /// let x = UpdateRapidCacheRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateRapidCacheRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.UpdateRapidCacheRequest"
+    }
+}
+
+/// Request message for GetRapidCache.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetRapidCacheRequest {
+    /// Required. The name field in the request should be:
+    /// `projects/{project}/buckets/{bucket}/rapidCaches/{rapid_cache}`
+    pub name: std::string::String,
+
+    /// Optional. A unique identifier for this request. UUID is the recommended
+    /// format, but other formats are still accepted.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetRapidCacheRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetRapidCacheRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::GetRapidCacheRequest;
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// # let rapid_cache_id = "rapid_cache_id";
+    /// let x = GetRapidCacheRequest::new().set_name(format!("projects/{project_id}/buckets/{bucket_id}/rapidCaches/{rapid_cache_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::GetRapidCacheRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::GetRapidCacheRequest;
+    /// let x = GetRapidCacheRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetRapidCacheRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.GetRapidCacheRequest"
+    }
+}
+
+/// Request message for ListRapidCaches.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListRapidCachesRequest {
+    /// Required. The bucket to which this cache belongs.
+    pub parent: std::string::String,
+
+    /// Maximum number of caches to return in a single response.
+    /// The service will use this parameter or 1,000 items, whichever is smaller.
+    pub page_size: i32,
+
+    /// A previously-returned page token representing part of the larger set of
+    /// results to view.
+    pub page_token: std::string::String,
+
+    /// Optional. A unique identifier for this request. UUID is the recommended
+    /// format, but other formats are still accepted.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListRapidCachesRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListRapidCachesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::ListRapidCachesRequest;
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// let x = ListRapidCachesRequest::new().set_parent(format!("projects/{project_id}/buckets/{bucket_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListRapidCachesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::ListRapidCachesRequest;
+    /// let x = ListRapidCachesRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListRapidCachesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::ListRapidCachesRequest;
+    /// let x = ListRapidCachesRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::ListRapidCachesRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::ListRapidCachesRequest;
+    /// let x = ListRapidCachesRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListRapidCachesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.ListRapidCachesRequest"
+    }
+}
+
+/// Response message for ListRapidCaches.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListRapidCachesResponse {
+    /// The list of rapid caches.
+    pub rapid_caches: std::vec::Vec<crate::model::RapidCache>,
+
+    /// A token, which can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListRapidCachesResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [rapid_caches][crate::model::ListRapidCachesResponse::rapid_caches].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::ListRapidCachesResponse;
+    /// use google_cloud_storage::model::RapidCache;
+    /// let x = ListRapidCachesResponse::new()
+    ///     .set_rapid_caches([
+    ///         RapidCache::default()/* use setters */,
+    ///         RapidCache::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_rapid_caches<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::RapidCache>,
+    {
+        use std::iter::Iterator;
+        self.rapid_caches = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRapidCachesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::ListRapidCachesResponse;
+    /// let x = ListRapidCachesResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListRapidCachesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.ListRapidCachesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListRapidCachesResponse {
+    type PageItem = crate::model::RapidCache;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.rapid_caches
     }
 
     fn next_page_token(&self) -> std::string::String {
@@ -4572,7 +6361,7 @@ pub mod intelligence_config {
     /// signifies the edition used for configuring the `IntelligenceConfig`
     /// resource and can only take the following values:
     /// `EDITION_CONFIG_UNSPECIFIED`, `INHERIT`, `DISABLED`, `STANDARD` and
-    /// `TRIAL`.
+    /// `EVALUATE`.
     ///
     /// # Working with unknown values
     ///
@@ -4606,6 +6395,8 @@ pub mod intelligence_config {
         /// using filters. At the end of the trial period, the `IntelligenceConfig`
         /// resource is upgraded to `STANDARD` edition.
         Trial,
+        /// The `IntelligenceConfig` resource is of ESSENTIALS edition.
+        Essentials,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [EditionConfig::value] or
@@ -4633,6 +6424,7 @@ pub mod intelligence_config {
                 Self::Disabled => std::option::Option::Some(2),
                 Self::Standard => std::option::Option::Some(3),
                 Self::Trial => std::option::Option::Some(5),
+                Self::Essentials => std::option::Option::Some(6),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -4648,6 +6440,7 @@ pub mod intelligence_config {
                 Self::Disabled => std::option::Option::Some("DISABLED"),
                 Self::Standard => std::option::Option::Some("STANDARD"),
                 Self::Trial => std::option::Option::Some("TRIAL"),
+                Self::Essentials => std::option::Option::Some("ESSENTIALS"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -4674,6 +6467,7 @@ pub mod intelligence_config {
                 2 => Self::Disabled,
                 3 => Self::Standard,
                 5 => Self::Trial,
+                6 => Self::Essentials,
                 _ => Self::UnknownValue(edition_config::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -4690,6 +6484,7 @@ pub mod intelligence_config {
                 "DISABLED" => Self::Disabled,
                 "STANDARD" => Self::Standard,
                 "TRIAL" => Self::Trial,
+                "ESSENTIALS" => Self::Essentials,
                 _ => Self::UnknownValue(edition_config::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -4708,6 +6503,7 @@ pub mod intelligence_config {
                 Self::Disabled => serializer.serialize_i32(2),
                 Self::Standard => serializer.serialize_i32(3),
                 Self::Trial => serializer.serialize_i32(5),
+                Self::Essentials => serializer.serialize_i32(6),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -4727,12 +6523,6 @@ pub mod intelligence_config {
 
 /// Request message to update the `IntelligenceConfig` resource associated with
 /// your organization.
-///
-/// **IAM Permissions**:
-///
-/// Requires `storage.intelligenceConfigs.update`
-/// [IAM](https://cloud.google.com/iam/docs/overview#permissions) permission on
-/// the organization.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateOrganizationIntelligenceConfigRequest {
@@ -4844,12 +6634,6 @@ impl wkt::message::Message for UpdateOrganizationIntelligenceConfigRequest {
 
 /// Request message to update the `IntelligenceConfig` resource associated with
 /// your folder.
-///
-/// **IAM Permissions**:
-///
-/// Requires `storage.intelligenceConfigs.update`
-/// [IAM](https://cloud.google.com/iam/docs/overview#permissions) permission on
-/// the folder.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateFolderIntelligenceConfigRequest {
@@ -4961,12 +6745,6 @@ impl wkt::message::Message for UpdateFolderIntelligenceConfigRequest {
 
 /// Request message to update the `IntelligenceConfig` resource associated with
 /// your project.
-///
-/// **IAM Permissions**:
-///
-/// Requires `storage.intelligenceConfigs.update`
-/// [IAM](https://cloud.google.com/iam/docs/overview#permissions) permission on
-/// the folder.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateProjectIntelligenceConfigRequest {
@@ -5078,12 +6856,6 @@ impl wkt::message::Message for UpdateProjectIntelligenceConfigRequest {
 
 /// Request message to get the `IntelligenceConfig` resource associated with your
 /// organization.
-///
-/// **IAM Permissions**
-///
-/// Requires `storage.intelligenceConfigs.get`
-/// [IAM](https://cloud.google.com/iam/docs/overview#permissions) permission on
-/// the organization.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetOrganizationIntelligenceConfigRequest {
@@ -5125,12 +6897,6 @@ impl wkt::message::Message for GetOrganizationIntelligenceConfigRequest {
 
 /// Request message to get the `IntelligenceConfig` resource associated with your
 /// folder.
-///
-/// **IAM Permissions**
-///
-/// Requires `storage.intelligenceConfigs.get`
-/// [IAM](https://cloud.google.com/iam/docs/overview#permissions) permission on
-/// the folder.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetFolderIntelligenceConfigRequest {
@@ -5172,12 +6938,6 @@ impl wkt::message::Message for GetFolderIntelligenceConfigRequest {
 
 /// Request message to get the `IntelligenceConfig` resource associated with your
 /// project.
-///
-/// **IAM Permissions**:
-///
-/// Requires `storage.intelligenceConfigs.get`
-/// [IAM](https://cloud.google.com/iam/docs/overview#permissions) permission
-/// on the project.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetProjectIntelligenceConfigRequest {
@@ -7272,7 +9032,7 @@ pub mod intelligence_finding {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IntelligenceFindingRevision {
-    /// Identifier. The resource name of `IntelligenceFindingRevision`.
+    /// Output only. The resource name of `IntelligenceFindingRevision`.
     /// Format:
     /// `projects/{project}/locations/{location}/intelligenceFindings/{intelligence_finding}/revisions/{revision}`
     pub name: std::string::String,
@@ -7596,7 +9356,7 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListIntelligenc
 }
 
 /// Request message to summarize the intelligence findings for the specified
-/// scope(org, folder or project).
+/// scope (organization, folder or project).
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SummarizeIntelligenceFindingsRequest {
@@ -7862,7 +9622,7 @@ pub mod summarize_intelligence_findings_request {
 }
 
 /// Response message to summarize the intelligence findings for a specified
-/// scope(org, folder or project).
+/// scope (organization, folder or project).
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SummarizeIntelligenceFindingsResponse {

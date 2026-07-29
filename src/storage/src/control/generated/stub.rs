@@ -282,6 +282,17 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [crate::client::StorageControl::update_managed_folder].
+    fn update_managed_folder(
+        &self,
+        _req: crate::model::UpdateManagedFolderRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ManagedFolder>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [crate::client::StorageControl::create_anywhere_cache].
     fn create_anywhere_cache(
         &self,
@@ -355,6 +366,49 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::ListAnywhereCachesResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [crate::client::StorageControl::create_rapid_cache].
+    fn create_rapid_cache(
+        &self,
+        _req: crate::model::CreateRapidCacheRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [crate::client::StorageControl::update_rapid_cache].
+    fn update_rapid_cache(
+        &self,
+        _req: crate::model::UpdateRapidCacheRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [crate::client::StorageControl::get_rapid_cache].
+    fn get_rapid_cache(
+        &self,
+        _req: crate::model::GetRapidCacheRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::RapidCache>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [crate::client::StorageControl::list_rapid_caches].
+    fn list_rapid_caches(
+        &self,
+        _req: crate::model::ListRapidCachesRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListRapidCachesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -771,6 +825,16 @@ where
         T::list_managed_folders(self, req, options)
     }
 
+    fn update_managed_folder(
+        &self,
+        req: crate::model::UpdateManagedFolderRequest,
+        options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ManagedFolder>>,
+    > + Send {
+        T::update_managed_folder(self, req, options)
+    }
+
     fn create_anywhere_cache(
         &self,
         req: crate::model::CreateAnywhereCacheRequest,
@@ -839,6 +903,45 @@ where
         Output = crate::Result<crate::Response<crate::model::ListAnywhereCachesResponse>>,
     > + Send {
         T::list_anywhere_caches(self, req, options)
+    }
+
+    fn create_rapid_cache(
+        &self,
+        req: crate::model::CreateRapidCacheRequest,
+        options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        T::create_rapid_cache(self, req, options)
+    }
+
+    fn update_rapid_cache(
+        &self,
+        req: crate::model::UpdateRapidCacheRequest,
+        options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        T::update_rapid_cache(self, req, options)
+    }
+
+    fn get_rapid_cache(
+        &self,
+        req: crate::model::GetRapidCacheRequest,
+        options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::RapidCache>>> + Send
+    {
+        T::get_rapid_cache(self, req, options)
+    }
+
+    fn list_rapid_caches(
+        &self,
+        req: crate::model::ListRapidCachesRequest,
+        options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListRapidCachesResponse>>,
+    > + Send {
+        T::list_rapid_caches(self, req, options)
     }
 
     fn get_project_intelligence_config(

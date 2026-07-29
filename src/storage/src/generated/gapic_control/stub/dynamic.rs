@@ -83,6 +83,12 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ListManagedFoldersResponse>>;
 
+    async fn update_managed_folder(
+        &self,
+        req: crate::model::UpdateManagedFolderRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ManagedFolder>>;
+
     async fn create_anywhere_cache(
         &self,
         req: crate::model::CreateAnywhereCacheRequest,
@@ -124,6 +130,30 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         req: crate::model::ListAnywhereCachesRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ListAnywhereCachesResponse>>;
+
+    async fn create_rapid_cache(
+        &self,
+        req: crate::model::CreateRapidCacheRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn update_rapid_cache(
+        &self,
+        req: crate::model::UpdateRapidCacheRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn get_rapid_cache(
+        &self,
+        req: crate::model::GetRapidCacheRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RapidCache>>;
+
+    async fn list_rapid_caches(
+        &self,
+        req: crate::model::ListRapidCachesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRapidCachesResponse>>;
 
     async fn get_project_intelligence_config(
         &self,
@@ -334,6 +364,15 @@ impl<T: super::StorageControl> StorageControl for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn update_managed_folder(
+        &self,
+        req: crate::model::UpdateManagedFolderRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ManagedFolder>> {
+        T::update_managed_folder(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn create_anywhere_cache(
         &self,
         req: crate::model::CreateAnywhereCacheRequest,
@@ -394,6 +433,42 @@ impl<T: super::StorageControl> StorageControl for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ListAnywhereCachesResponse>> {
         T::list_anywhere_caches(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_rapid_cache(
+        &self,
+        req: crate::model::CreateRapidCacheRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::create_rapid_cache(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_rapid_cache(
+        &self,
+        req: crate::model::UpdateRapidCacheRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::update_rapid_cache(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_rapid_cache(
+        &self,
+        req: crate::model::GetRapidCacheRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RapidCache>> {
+        T::get_rapid_cache(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_rapid_caches(
+        &self,
+        req: crate::model::ListRapidCachesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRapidCachesResponse>> {
+        T::list_rapid_caches(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

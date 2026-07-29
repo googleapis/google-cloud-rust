@@ -153,6 +153,17 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::StorageControl::update_managed_folder].
+    fn update_managed_folder(
+        &self,
+        _req: crate::model::UpdateManagedFolderRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ManagedFolder>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::StorageControl::create_anywhere_cache].
     fn create_anywhere_cache(
         &self,
@@ -226,6 +237,49 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::ListAnywhereCachesResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::StorageControl::create_rapid_cache].
+    fn create_rapid_cache(
+        &self,
+        _req: crate::model::CreateRapidCacheRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::StorageControl::update_rapid_cache].
+    fn update_rapid_cache(
+        &self,
+        _req: crate::model::UpdateRapidCacheRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::StorageControl::get_rapid_cache].
+    fn get_rapid_cache(
+        &self,
+        _req: crate::model::GetRapidCacheRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::RapidCache>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::StorageControl::list_rapid_caches].
+    fn list_rapid_caches(
+        &self,
+        _req: crate::model::ListRapidCachesRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListRapidCachesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

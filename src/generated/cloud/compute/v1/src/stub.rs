@@ -2899,6 +2899,96 @@ pub trait HealthChecks: std::fmt::Debug + Send + Sync {
     }
 }
 
+/// Defines the trait used to implement [super::client::Hosts].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::Hosts`.  In other use-cases, application developers only
+/// use `client::Hosts` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+#[cfg(feature = "hosts")]
+#[cfg_attr(docsrs, doc(cfg(feature = "hosts")))]
+pub trait Hosts: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::Hosts::get].
+    fn get(
+        &self,
+        _req: crate::model::hosts::GetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Host>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Hosts::get_version].
+    fn get_version(
+        &self,
+        _req: crate::model::hosts::GetVersionRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Hosts::list].
+    fn list(
+        &self,
+        _req: crate::model::hosts::ListRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::HostsListResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Hosts::get_operation].
+    fn get_operation(
+        &self,
+        _req: crate::model::zone_operations::GetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Returns the polling error policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_error_policy(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
+    }
+
+    /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_backoff_policy(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
+    }
+
+    #[doc(hidden)]
+    /// Returns the poller options.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_poller_options(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        google_cloud_lro::PollerOptions::default()
+    }
+}
+
 /// Defines the trait used to implement [super::client::HttpHealthChecks].
 ///
 /// Application developers may need to implement this trait to mock
@@ -12559,6 +12649,43 @@ pub trait Regions: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::RegionList>>> + Send
     {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+}
+
+/// Defines the trait used to implement [super::client::ReliabilityRisks].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::ReliabilityRisks`.  In other use-cases, application developers only
+/// use `client::ReliabilityRisks` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+#[cfg(feature = "reliability-risks")]
+#[cfg_attr(docsrs, doc(cfg(feature = "reliability-risks")))]
+pub trait ReliabilityRisks: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::ReliabilityRisks::get].
+    fn get(
+        &self,
+        _req: crate::model::reliability_risks::GetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ReliabilityRisk>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ReliabilityRisks::list].
+    fn list(
+        &self,
+        _req: crate::model::reliability_risks::ListRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ReliabilityRisksListResponse>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }

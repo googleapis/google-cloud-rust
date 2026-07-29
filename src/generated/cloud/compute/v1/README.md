@@ -4,7 +4,7 @@
 
 Compute Engine is an infrastructure as a service (IaaS) product that offers self-managed virtual machine (VM) instances and bare metal instances.
 
-This client library was generated from the "20260709" revision of the API.
+This client library was generated from the "20260722" revision of the API.
 
 The client library types and functions are stable and not expected to change.
 Please note that Google Cloud services do change from time to time. The client
@@ -38,6 +38,7 @@ The main types to work with this crate are the clients:
 - [GlobalPublicDelegatedPrefixes]: enabled by the `global-public-delegated-prefixes` feature.
 - [GlobalVmExtensionPolicies]: enabled by the `global-vm-extension-policies` feature.
 - [HealthChecks]: enabled by the `health-checks` feature.
+- [Hosts]: enabled by the `hosts` feature.
 - [HttpHealthChecks]: enabled by the `http-health-checks` feature.
 - [HttpsHealthChecks]: enabled by the `https-health-checks` feature.
 - [ImageFamilyViews]: enabled by the `image-family-views` feature.
@@ -108,6 +109,7 @@ The main types to work with this crate are the clients:
 - [RegionUrlMaps]: enabled by the `region-url-maps` feature.
 - [RegionZones]: enabled by the `region-zones` feature.
 - [Regions]: enabled by the `regions` feature.
+- [ReliabilityRisks]: enabled by the `reliability-risks` feature.
 - [ReservationBlocks]: enabled by the `reservation-blocks` feature.
 - [ReservationSlots]: enabled by the `reservation-slots` feature.
 - [ReservationSubBlocks]: enabled by the `reservation-sub-blocks` feature.
@@ -180,6 +182,7 @@ The main types to work with this crate are the clients:
 [GlobalPublicDelegatedPrefixes]: https://docs.rs/google-cloud-compute-v1/3.3.0/google_cloud_compute_v1/client/struct.GlobalPublicDelegatedPrefixes.html
 [GlobalVmExtensionPolicies]: https://docs.rs/google-cloud-compute-v1/3.3.0/google_cloud_compute_v1/client/struct.GlobalVmExtensionPolicies.html
 [HealthChecks]: https://docs.rs/google-cloud-compute-v1/3.3.0/google_cloud_compute_v1/client/struct.HealthChecks.html
+[Hosts]: https://docs.rs/google-cloud-compute-v1/3.3.0/google_cloud_compute_v1/client/struct.Hosts.html
 [HttpHealthChecks]: https://docs.rs/google-cloud-compute-v1/3.3.0/google_cloud_compute_v1/client/struct.HttpHealthChecks.html
 [HttpsHealthChecks]: https://docs.rs/google-cloud-compute-v1/3.3.0/google_cloud_compute_v1/client/struct.HttpsHealthChecks.html
 [ImageFamilyViews]: https://docs.rs/google-cloud-compute-v1/3.3.0/google_cloud_compute_v1/client/struct.ImageFamilyViews.html
@@ -250,6 +253,7 @@ The main types to work with this crate are the clients:
 [RegionUrlMaps]: https://docs.rs/google-cloud-compute-v1/3.3.0/google_cloud_compute_v1/client/struct.RegionUrlMaps.html
 [RegionZones]: https://docs.rs/google-cloud-compute-v1/3.3.0/google_cloud_compute_v1/client/struct.RegionZones.html
 [Regions]: https://docs.rs/google-cloud-compute-v1/3.3.0/google_cloud_compute_v1/client/struct.Regions.html
+[ReliabilityRisks]: https://docs.rs/google-cloud-compute-v1/3.3.0/google_cloud_compute_v1/client/struct.ReliabilityRisks.html
 [ReservationBlocks]: https://docs.rs/google-cloud-compute-v1/3.3.0/google_cloud_compute_v1/client/struct.ReservationBlocks.html
 [ReservationSlots]: https://docs.rs/google-cloud-compute-v1/3.3.0/google_cloud_compute_v1/client/struct.ReservationSlots.html
 [ReservationSubBlocks]: https://docs.rs/google-cloud-compute-v1/3.3.0/google_cloud_compute_v1/client/struct.ReservationSubBlocks.html

@@ -123,6 +123,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.control.v2.StorageControl/CreateFolder");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -207,6 +218,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.control.v2.StorageControl/DeleteFolder");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -291,6 +313,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.control.v2.StorageControl/GetFolder");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -315,7 +348,7 @@ impl super::stub::StorageControl for StorageControl {
             grpc::tonic::{Extensions, GrpcMethod},
             prost::ToProto,
         };
-        let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
             e.insert(GrpcMethod::new(
@@ -364,6 +397,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.control.v2.StorageControl/ListFolders");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -448,6 +492,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.control.v2.StorageControl/RenameFolder");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -532,6 +587,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.control.v2.StorageControl/DeleteFolderRecursive");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -616,6 +682,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.control.v2.StorageControl/GetStorageLayout");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -943,6 +1020,96 @@ impl super::stub::StorageControl for StorageControl {
             )
             .await
             .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::ListManagedFoldersResponse>)
+    }
+
+    async fn update_managed_folder(
+        &self,
+        req: crate::model::UpdateManagedFolderRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ManagedFolder>> {
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
+        let extensions = {
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
+                "google.storage.control.v2.StorageControl",
+                "UpdateManagedFolder",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.storage.control.v2.StorageControl/UpdateManagedFolder",
+        );
+        let x_goog_request_params = {
+            use gaxi::routing_parameter::Segment;
+            gaxi::routing_parameter::format(&[None
+                .or_else(|| {
+                    gaxi::routing_parameter::value(
+                        Some(&req)
+                            .and_then(|m| m.managed_folder.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[],
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/buckets/"),
+                            Segment::SingleWildcard,
+                        ],
+                        &[Segment::MultiWildcard],
+                    )
+                })
+                .map(|v| ("bucket", v))])
+        };
+        if x_goog_request_params.is_empty() {
+            use gaxi::path_parameter::PathMismatchBuilder;
+            use gaxi::routing_parameter::Segment;
+            use google_cloud_gax::error::binding::BindingError;
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req)
+                        .and_then(|m| m.managed_folder.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::MultiWildcard,
+                    ],
+                    "managed_folder.name",
+                    "projects/*/buckets/*/**",
+                );
+                paths.push(builder.build());
+            }
+            return Err(google_cloud_gax::error::Error::binding(BindingError {
+                paths,
+            }));
+        }
+
+        type TR = crate::google::storage::control::v2::ManagedFolder;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.storage.control.v2.StorageControl/UpdateManagedFolder");
+            recorder.on_client_request(attributes);
+        }
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::deser)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::ManagedFolder>)
     }
 
     async fn create_anywhere_cache(
@@ -1515,6 +1682,326 @@ impl super::stub::StorageControl for StorageControl {
             )
             .await
             .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::ListAnywhereCachesResponse>)
+    }
+
+    async fn create_rapid_cache(
+        &self,
+        req: crate::model::CreateRapidCacheRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
+        let extensions = {
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
+                "google.storage.control.v2.StorageControl",
+                "CreateRapidCache",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.storage.control.v2.StorageControl/CreateRapidCache",
+        );
+        let x_goog_request_params = {
+            use gaxi::routing_parameter::Segment;
+            gaxi::routing_parameter::format(&[None
+                .or_else(|| {
+                    gaxi::routing_parameter::value(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[],
+                        &[Segment::MultiWildcard],
+                        &[],
+                    )
+                })
+                .map(|v| ("bucket", v))])
+        };
+        if x_goog_request_params.is_empty() {
+            use gaxi::path_parameter::PathMismatchBuilder;
+            use gaxi::routing_parameter::Segment;
+            use google_cloud_gax::error::binding::BindingError;
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::MultiWildcard],
+                    "parent",
+                    "**",
+                );
+                paths.push(builder.build());
+            }
+            return Err(google_cloud_gax::error::Error::binding(BindingError {
+                paths,
+            }));
+        }
+
+        type TR = crate::google::longrunning::Operation;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.storage.control.v2.StorageControl/CreateRapidCache");
+            recorder.on_client_request(attributes);
+        }
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::deser)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .and_then(gaxi::grpc::to_gax_response::<TR, google_cloud_longrunning::model::Operation>)
+    }
+
+    async fn update_rapid_cache(
+        &self,
+        req: crate::model::UpdateRapidCacheRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
+        let extensions = {
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
+                "google.storage.control.v2.StorageControl",
+                "UpdateRapidCache",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.storage.control.v2.StorageControl/UpdateRapidCache",
+        );
+        let x_goog_request_params = {
+            use gaxi::routing_parameter::Segment;
+            gaxi::routing_parameter::format(&[None
+                .or_else(|| {
+                    gaxi::routing_parameter::value(
+                        Some(&req)
+                            .and_then(|m| m.rapid_cache.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[],
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/buckets/"),
+                            Segment::SingleWildcard,
+                        ],
+                        &[Segment::MultiWildcard],
+                    )
+                })
+                .map(|v| ("bucket", v))])
+        };
+        if x_goog_request_params.is_empty() {
+            use gaxi::path_parameter::PathMismatchBuilder;
+            use gaxi::routing_parameter::Segment;
+            use google_cloud_gax::error::binding::BindingError;
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req)
+                        .and_then(|m| m.rapid_cache.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::MultiWildcard,
+                    ],
+                    "rapid_cache.name",
+                    "projects/*/buckets/*/**",
+                );
+                paths.push(builder.build());
+            }
+            return Err(google_cloud_gax::error::Error::binding(BindingError {
+                paths,
+            }));
+        }
+
+        type TR = crate::google::longrunning::Operation;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.storage.control.v2.StorageControl/UpdateRapidCache");
+            recorder.on_client_request(attributes);
+        }
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::deser)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .and_then(gaxi::grpc::to_gax_response::<TR, google_cloud_longrunning::model::Operation>)
+    }
+
+    async fn get_rapid_cache(
+        &self,
+        req: crate::model::GetRapidCacheRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RapidCache>> {
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
+        let extensions = {
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
+                "google.storage.control.v2.StorageControl",
+                "GetRapidCache",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.storage.control.v2.StorageControl/GetRapidCache",
+        );
+        let x_goog_request_params = {
+            use gaxi::routing_parameter::Segment;
+            gaxi::routing_parameter::format(&[None
+                .or_else(|| {
+                    gaxi::routing_parameter::value(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[],
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/buckets/"),
+                            Segment::SingleWildcard,
+                        ],
+                        &[Segment::MultiWildcard],
+                    )
+                })
+                .map(|v| ("bucket", v))])
+        };
+        if x_goog_request_params.is_empty() {
+            use gaxi::path_parameter::PathMismatchBuilder;
+            use gaxi::routing_parameter::Segment;
+            use google_cloud_gax::error::binding::BindingError;
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::MultiWildcard,
+                    ],
+                    "name",
+                    "projects/*/buckets/*/**",
+                );
+                paths.push(builder.build());
+            }
+            return Err(google_cloud_gax::error::Error::binding(BindingError {
+                paths,
+            }));
+        }
+
+        type TR = crate::google::storage::control::v2::RapidCache;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.storage.control.v2.StorageControl/GetRapidCache");
+            recorder.on_client_request(attributes);
+        }
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::deser)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::RapidCache>)
+    }
+
+    async fn list_rapid_caches(
+        &self,
+        req: crate::model::ListRapidCachesRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListRapidCachesResponse>> {
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
+        let extensions = {
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
+                "google.storage.control.v2.StorageControl",
+                "ListRapidCaches",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.storage.control.v2.StorageControl/ListRapidCaches",
+        );
+        let x_goog_request_params = {
+            use gaxi::routing_parameter::Segment;
+            gaxi::routing_parameter::format(&[None
+                .or_else(|| {
+                    gaxi::routing_parameter::value(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[],
+                        &[Segment::MultiWildcard],
+                        &[],
+                    )
+                })
+                .map(|v| ("bucket", v))])
+        };
+        if x_goog_request_params.is_empty() {
+            use gaxi::path_parameter::PathMismatchBuilder;
+            use gaxi::routing_parameter::Segment;
+            use google_cloud_gax::error::binding::BindingError;
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::MultiWildcard],
+                    "parent",
+                    "**",
+                );
+                paths.push(builder.build());
+            }
+            return Err(google_cloud_gax::error::Error::binding(BindingError {
+                paths,
+            }));
+        }
+
+        type TR = crate::google::storage::control::v2::ListRapidCachesResponse;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.storage.control.v2.StorageControl/ListRapidCaches");
+            recorder.on_client_request(attributes);
+        }
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::deser)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::ListRapidCachesResponse>)
     }
 
     async fn get_project_intelligence_config(
@@ -2687,6 +3174,27 @@ pub(crate) fn lro_any_to_prost(
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
+        "type.googleapis.com/google.storage.control.v2.CreateRapidCacheMetadata" => value
+            .to_msg::<crate::model::CreateRapidCacheMetadata>()
+            .map_err(ConvertError::other)?
+            .to_proto()
+            .and_then(|prost_msg| {
+                prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
+            }),
+        "type.googleapis.com/google.storage.control.v2.RapidCache" => value
+            .to_msg::<crate::model::RapidCache>()
+            .map_err(ConvertError::other)?
+            .to_proto()
+            .and_then(|prost_msg| {
+                prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
+            }),
+        "type.googleapis.com/google.storage.control.v2.UpdateRapidCacheMetadata" => value
+            .to_msg::<crate::model::UpdateRapidCacheMetadata>()
+            .map_err(ConvertError::other)?
+            .to_proto()
+            .and_then(|prost_msg| {
+                prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
+            }),
         type_url => Err(ConvertError::UnexpectedTypeUrl(type_url.to_string())),
     }
 }
@@ -2732,6 +3240,21 @@ pub(crate) fn lro_any_from_prost(
             .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
         "type.googleapis.com/google.storage.control.v2.UpdateAnywhereCacheMetadata" => value
             .to_msg::<crate::google::storage::control::v2::UpdateAnywhereCacheMetadata>()
+            .map_err(ConvertError::other)?
+            .cnv()
+            .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
+        "type.googleapis.com/google.storage.control.v2.CreateRapidCacheMetadata" => value
+            .to_msg::<crate::google::storage::control::v2::CreateRapidCacheMetadata>()
+            .map_err(ConvertError::other)?
+            .cnv()
+            .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
+        "type.googleapis.com/google.storage.control.v2.RapidCache" => value
+            .to_msg::<crate::google::storage::control::v2::RapidCache>()
+            .map_err(ConvertError::other)?
+            .cnv()
+            .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
+        "type.googleapis.com/google.storage.control.v2.UpdateRapidCacheMetadata" => value
+            .to_msg::<crate::google::storage::control::v2::UpdateRapidCacheMetadata>()
             .map_err(ConvertError::other)?
             .cnv()
             .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),

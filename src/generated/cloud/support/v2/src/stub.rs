@@ -279,4 +279,13 @@ pub trait SupportEventSubscriptionService: std::fmt::Debug + Send + Sync {
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
+
+    /// Implements [super::client::SupportEventSubscriptionService::expunge_support_event_subscription].
+    fn expunge_support_event_subscription(
+        &self,
+        _req: crate::model::ExpungeSupportEventSubscriptionRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
 }

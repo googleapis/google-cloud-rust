@@ -80,6 +80,8 @@ global-public-delegated-prefixes = []
 global-vm-extension-policies = []
 # Enables `client::HealthChecks` and all the types it depends on.
 health-checks = []
+# Enables `client::Hosts` and all the types it depends on.
+hosts = []
 # Enables `client::HttpHealthChecks` and all the types it depends on.
 http-health-checks = []
 # Enables `client::HttpsHealthChecks` and all the types it depends on.
@@ -220,6 +222,8 @@ region-url-maps = []
 region-zones = []
 # Enables `client::Regions` and all the types it depends on.
 regions = []
+# Enables `client::ReliabilityRisks` and all the types it depends on.
+reliability-risks = []
 # Enables `client::ReservationBlocks` and all the types it depends on.
 reservation-blocks = []
 # Enables `client::ReservationSlots` and all the types it depends on.
