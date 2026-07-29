@@ -75,6 +75,13 @@ impl SendTask {
         self.handle.is_some()
     }
 
+    /// Aborts the background request task if it is still running.
+    pub(super) fn abort(&mut self) {
+        if let Some(handle) = self.handle.take() {
+            handle.abort();
+        }
+    }
+
     /// Awaits the background request task and checks for send failures.
     pub(super) async fn join(&mut self) -> tonic::Result<()> {
         // Await the background task to finish before taking it so that if `join()` is cancelled
@@ -254,6 +261,44 @@ mod tests {
         );
         assert!(task.handle.is_none(), "handle should be cleared after join");
         drop(task); // Shouldn't panic
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn send_task_abort_cancels_task_and_clears_handle() -> anyhow::Result<()> {
+        // Arrange
+        let stream = tokio_stream::pending::<TestMessage>();
+        let mut task = SendTask::start(TestPendingSendStream, stream);
+        assert!(task.is_joinable());
+
+        // Act
+        task.abort();
+
+        // Assert
+        assert!(
+            !task.is_joinable(),
+            "task should no longer be joinable after abort"
+        );
+        assert!(
+            task.handle.is_none(),
+            "handle should be cleared after abort"
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn send_task_abort_is_idempotent_when_handle_is_none() -> anyhow::Result<()> {
+        // Arrange
+        let stream = tokio_stream::pending::<TestMessage>();
+        let mut task = SendTask::start(TestPendingSendStream, stream);
+
+        // Act
+        task.abort();
+        assert!(task.handle.is_none());
+
+        // Act & Assert
+        task.abort();
+        assert!(task.handle.is_none());
         Ok(())
     }
 }
