@@ -90,42 +90,14 @@ impl Default for JobRetryPolicy {
 }
 
 /// Errors returned by the JobPoller.
-#[derive(Debug)]
+#[derive(Debug, thiserror::Error)]
 pub enum JobPollerError {
     /// An error occurred during the RPC or LRO polling.
-    Gax(GaxError),
+    #[error(transparent)]
+    Rpc(#[from] GaxError),
     /// The job completed, but the BigQuery service reported an error in `status.error_result`.
-    Job(Box<Job>),
-}
-
-impl std::fmt::Display for JobPollerError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            Self::Gax(e) => write!(f, "{}", e),
-            Self::Job(job) => {
-                if let Some(err) = job.status.as_ref().and_then(|s| s.error_result.as_ref()) {
-                    write!(f, "BigQuery job failed ({}): {}", err.reason, err.message)
-                } else {
-                    write!(f, "BigQuery job failed: unknown error")
-                }
-            }
-        }
-    }
-}
-
-impl std::error::Error for JobPollerError {
-    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
-        match self {
-            Self::Gax(e) => Some(e),
-            Self::Job(_) => None,
-        }
-    }
-}
-
-impl From<GaxError> for JobPollerError {
-    fn from(e: GaxError) -> Self {
-        Self::Gax(e)
-    }
+    #[error("BigQuery job failed ({}): {}", .0.reason, .0.message)]
+    Job(crate::model::ErrorProto),
 }
 
 /// A poller that monitors the status of an inserted BigQuery job and handles retries.
@@ -184,7 +156,7 @@ impl JobPoller {
                     tokio::time::sleep(delay).await;
                     continue;
                 }
-                return Err(JobPollerError::Job(Box::new(job_result)));
+                return Err(JobPollerError::Job(err.clone()));
             }
             return Ok(job_result);
         }
@@ -197,9 +169,6 @@ impl InsertJob {
     /// If the job fails with an internal error, the `JobPoller` will retry the
     /// `InsertJob` operation. Note that the client library will supply a
     /// synthetic job ID for any retries.
-    ///
-    /// WARNING: Unlike `poller()`, the `JobPoller` will return an error if the
-    /// final job completes with an `error_result` in its status.
     ///
     /// ```no_run
     /// # async fn example(builder: google_cloud_bigquery_v2::builder::job_service::InsertJob) -> Result<(), Box<dyn std::error::Error>> {
