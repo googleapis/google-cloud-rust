@@ -16,7 +16,7 @@
 
 //! Google Cloud Client Libraries for Rust - Google Compute Engine API
 //!
-//! This client library was generated from the "20260709" revision of the API.
+//! This client library was generated from the "20260722" revision of the API.
 //!
 //! This crate contains traits, types, and functions to interact with Google Compute Engine API
 //! Most applications will use the structs defined in the [client] module.
@@ -51,6 +51,7 @@
 //! * [GlobalPublicDelegatedPrefixes](client/struct.GlobalPublicDelegatedPrefixes.html)
 //! * [GlobalVmExtensionPolicies](client/struct.GlobalVmExtensionPolicies.html)
 //! * [HealthChecks](client/struct.HealthChecks.html)
+//! * [Hosts](client/struct.Hosts.html)
 //! * [HttpHealthChecks](client/struct.HttpHealthChecks.html)
 //! * [HttpsHealthChecks](client/struct.HttpsHealthChecks.html)
 //! * [ImageFamilyViews](client/struct.ImageFamilyViews.html)
@@ -121,6 +122,7 @@
 //! * [RegionUrlMaps](client/struct.RegionUrlMaps.html)
 //! * [RegionZones](client/struct.RegionZones.html)
 //! * [Regions](client/struct.Regions.html)
+//! * [ReliabilityRisks](client/struct.ReliabilityRisks.html)
 //! * [ReservationBlocks](client/struct.ReservationBlocks.html)
 //! * [ReservationSlots](client/struct.ReservationSlots.html)
 //! * [ReservationSubBlocks](client/struct.ReservationSubBlocks.html)
@@ -229,6 +231,7 @@ pub(crate) mod transport;
     feature = "global-public-delegated-prefixes",
     feature = "global-vm-extension-policies",
     feature = "health-checks",
+    feature = "hosts",
     feature = "http-health-checks",
     feature = "https-health-checks",
     feature = "image-family-views",
@@ -299,6 +302,7 @@ pub(crate) mod transport;
     feature = "region-url-maps",
     feature = "region-zones",
     feature = "regions",
+    feature = "reliability-risks",
     feature = "reservation-blocks",
     feature = "reservation-slots",
     feature = "reservation-sub-blocks",
@@ -358,6 +362,7 @@ const DEFAULT_HOST: &str = "https://compute.googleapis.com/";
     feature = "global-public-delegated-prefixes",
     feature = "global-vm-extension-policies",
     feature = "health-checks",
+    feature = "hosts",
     feature = "http-health-checks",
     feature = "https-health-checks",
     feature = "image-family-views",
@@ -428,6 +433,7 @@ const DEFAULT_HOST: &str = "https://compute.googleapis.com/";
     feature = "region-url-maps",
     feature = "region-zones",
     feature = "regions",
+    feature = "reliability-risks",
     feature = "reservation-blocks",
     feature = "reservation-slots",
     feature = "reservation-sub-blocks",

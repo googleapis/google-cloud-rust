@@ -4880,6 +4880,7 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
                     var_project, var_operation,
                 );
                 let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -4947,6 +4948,7 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
                 let builder = builder.query(&[("instance", &req.instance)]);
                 let builder = builder.query(&[("maxResults", &req.max_results)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -5015,6 +5017,7 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
                     var_project, var_operation,
                 );
                 let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
@@ -5878,6 +5881,16 @@ impl super::stub::SqlUsersService for SqlUsersService {
                     .iter()
                     .fold(builder, |builder, p| {
                         builder.query(&[("revokeExistingRoles", p)])
+                    });
+                let builder = req
+                    .server_roles
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("serverRoles", p)]));
+                let builder = req
+                    .revoke_existing_server_roles
+                    .iter()
+                    .fold(builder, |builder, p| {
+                        builder.query(&[("revokeExistingServerRoles", p)])
                     });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PUT, path_template, resource_name)))

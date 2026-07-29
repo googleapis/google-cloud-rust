@@ -3699,6 +3699,112 @@ impl<T: super::HealthChecks> HealthChecks for T {
     }
 }
 
+/// A dyn-compatible, crate-private version of [super::Hosts].
+#[cfg(feature = "hosts")]
+#[async_trait::async_trait]
+pub trait Hosts: std::fmt::Debug + Send + Sync {
+    async fn get(
+        &self,
+        req: crate::model::hosts::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Host>>;
+
+    async fn get_version(
+        &self,
+        req: crate::model::hosts::GetVersionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn list(
+        &self,
+        req: crate::model::hosts::ListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::HostsListResponse>>;
+
+    async fn get_operation(
+        &self,
+        req: crate::model::zone_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
+
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions;
+}
+
+/// All implementations of [super::Hosts] also implement [Hosts].
+#[cfg(feature = "hosts")]
+#[async_trait::async_trait]
+impl<T: super::Hosts> Hosts for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get(
+        &self,
+        req: crate::model::hosts::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Host>> {
+        T::get(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_version(
+        &self,
+        req: crate::model::hosts::GetVersionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::get_version(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list(
+        &self,
+        req: crate::model::hosts::ListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::HostsListResponse>> {
+        T::list(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: crate::model::zone_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        T::get_polling_backoff_policy(self, options)
+    }
+
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        T::get_poller_options(self, options)
+    }
+}
+
 /// A dyn-compatible, crate-private version of [super::HttpHealthChecks].
 #[cfg(feature = "http-health-checks")]
 #[async_trait::async_trait]
@@ -16102,6 +16208,46 @@ impl<T: super::Regions> Regions for T {
         req: crate::model::regions::ListRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::RegionList>> {
+        T::list(self, req, options).await
+    }
+}
+
+/// A dyn-compatible, crate-private version of [super::ReliabilityRisks].
+#[cfg(feature = "reliability-risks")]
+#[async_trait::async_trait]
+pub trait ReliabilityRisks: std::fmt::Debug + Send + Sync {
+    async fn get(
+        &self,
+        req: crate::model::reliability_risks::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ReliabilityRisk>>;
+
+    async fn list(
+        &self,
+        req: crate::model::reliability_risks::ListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ReliabilityRisksListResponse>>;
+}
+
+/// All implementations of [super::ReliabilityRisks] also implement [ReliabilityRisks].
+#[cfg(feature = "reliability-risks")]
+#[async_trait::async_trait]
+impl<T: super::ReliabilityRisks> ReliabilityRisks for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get(
+        &self,
+        req: crate::model::reliability_risks::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ReliabilityRisk>> {
+        T::get(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list(
+        &self,
+        req: crate::model::reliability_risks::ListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ReliabilityRisksListResponse>> {
         T::list(self, req, options).await
     }
 }

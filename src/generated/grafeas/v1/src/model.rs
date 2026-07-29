@@ -2807,34 +2807,56 @@ pub struct Cvss {
     #[allow(missing_docs)]
     pub impact_score: f32,
 
-    /// Base Metrics
-    /// Represents the intrinsic characteristics of a vulnerability that are
-    /// constant over time and across user environments.
+    /// Attack Vector (AV). Defined in CVSS v2, v3, v4.
     pub attack_vector: crate::model::cvss::AttackVector,
 
-    #[allow(missing_docs)]
+    /// Attack Complexity (AC). Defined in CVSS v2, v3, v4.
     pub attack_complexity: crate::model::cvss::AttackComplexity,
 
-    #[allow(missing_docs)]
+    /// Authentication (Au). Defined in CVSS v2.
     pub authentication: crate::model::cvss::Authentication,
 
-    #[allow(missing_docs)]
+    /// Privileges Required (PR). Defined in CVSS v3, v4.
     pub privileges_required: crate::model::cvss::PrivilegesRequired,
 
-    #[allow(missing_docs)]
+    /// User Interaction (UI). Defined in CVSS v3, v4.
     pub user_interaction: crate::model::cvss::UserInteraction,
 
-    #[allow(missing_docs)]
+    /// Scope (S). Defined in CVSS v3.
     pub scope: crate::model::cvss::Scope,
 
-    #[allow(missing_docs)]
+    /// Confidentiality Impact (C). Defined in CVSS v2, v3.
     pub confidentiality_impact: crate::model::cvss::Impact,
 
-    #[allow(missing_docs)]
+    /// Integrity Impact (I). Defined in CVSS v2, v3.
     pub integrity_impact: crate::model::cvss::Impact,
 
-    #[allow(missing_docs)]
+    /// Availability Impact (A). Defined in CVSS v2, v3.
     pub availability_impact: crate::model::cvss::Impact,
+
+    /// Attack Requirements (AT). Defined in CVSS v4.
+    pub attack_requirements: crate::model::cvss::AttackRequirements,
+
+    /// Vulnerable System Confidentiality Impact (VC). Defined in CVSS v4.
+    pub vulnerable_system_confidentiality_impact: crate::model::cvss::Impact,
+
+    /// Vulnerable System Integrity Impact (VI). Defined in CVSS v4.
+    pub vulnerable_system_integrity_impact: crate::model::cvss::Impact,
+
+    /// Vulnerable System Availability Impact (VA). Defined in CVSS v4.
+    pub vulnerable_system_availability_impact: crate::model::cvss::Impact,
+
+    /// Subsequent System Confidentiality Impact (SC). Defined in CVSS v4.
+    pub subsequent_system_confidentiality_impact: crate::model::cvss::Impact,
+
+    /// Subsequent System Integrity Impact (SI). Defined in CVSS v4.
+    pub subsequent_system_integrity_impact: crate::model::cvss::Impact,
+
+    /// Subsequent System Availability Impact (SA). Defined in CVSS v4.
+    pub subsequent_system_availability_impact: crate::model::cvss::Impact,
+
+    /// Exploit Maturity (E). Defined in CVSS v4.
+    pub exploit_maturity: crate::model::cvss::ExploitMaturity,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2963,6 +2985,7 @@ impl Cvss {
     /// use google_cloud_grafeas_v1::model::cvss::UserInteraction;
     /// let x0 = Cvss::new().set_user_interaction(UserInteraction::None);
     /// let x1 = Cvss::new().set_user_interaction(UserInteraction::Required);
+    /// let x2 = Cvss::new().set_user_interaction(UserInteraction::Passive);
     /// ```
     pub fn set_user_interaction<T: std::convert::Into<crate::model::cvss::UserInteraction>>(
         mut self,
@@ -3039,6 +3062,163 @@ impl Cvss {
         self.availability_impact = v.into();
         self
     }
+
+    /// Sets the value of [attack_requirements][crate::model::Cvss::attack_requirements].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_grafeas_v1::model::Cvss;
+    /// use google_cloud_grafeas_v1::model::cvss::AttackRequirements;
+    /// let x0 = Cvss::new().set_attack_requirements(AttackRequirements::None);
+    /// let x1 = Cvss::new().set_attack_requirements(AttackRequirements::Present);
+    /// ```
+    pub fn set_attack_requirements<
+        T: std::convert::Into<crate::model::cvss::AttackRequirements>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.attack_requirements = v.into();
+        self
+    }
+
+    /// Sets the value of [vulnerable_system_confidentiality_impact][crate::model::Cvss::vulnerable_system_confidentiality_impact].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_grafeas_v1::model::Cvss;
+    /// use google_cloud_grafeas_v1::model::cvss::Impact;
+    /// let x0 = Cvss::new().set_vulnerable_system_confidentiality_impact(Impact::High);
+    /// let x1 = Cvss::new().set_vulnerable_system_confidentiality_impact(Impact::Low);
+    /// let x2 = Cvss::new().set_vulnerable_system_confidentiality_impact(Impact::None);
+    /// ```
+    pub fn set_vulnerable_system_confidentiality_impact<
+        T: std::convert::Into<crate::model::cvss::Impact>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.vulnerable_system_confidentiality_impact = v.into();
+        self
+    }
+
+    /// Sets the value of [vulnerable_system_integrity_impact][crate::model::Cvss::vulnerable_system_integrity_impact].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_grafeas_v1::model::Cvss;
+    /// use google_cloud_grafeas_v1::model::cvss::Impact;
+    /// let x0 = Cvss::new().set_vulnerable_system_integrity_impact(Impact::High);
+    /// let x1 = Cvss::new().set_vulnerable_system_integrity_impact(Impact::Low);
+    /// let x2 = Cvss::new().set_vulnerable_system_integrity_impact(Impact::None);
+    /// ```
+    pub fn set_vulnerable_system_integrity_impact<
+        T: std::convert::Into<crate::model::cvss::Impact>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.vulnerable_system_integrity_impact = v.into();
+        self
+    }
+
+    /// Sets the value of [vulnerable_system_availability_impact][crate::model::Cvss::vulnerable_system_availability_impact].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_grafeas_v1::model::Cvss;
+    /// use google_cloud_grafeas_v1::model::cvss::Impact;
+    /// let x0 = Cvss::new().set_vulnerable_system_availability_impact(Impact::High);
+    /// let x1 = Cvss::new().set_vulnerable_system_availability_impact(Impact::Low);
+    /// let x2 = Cvss::new().set_vulnerable_system_availability_impact(Impact::None);
+    /// ```
+    pub fn set_vulnerable_system_availability_impact<
+        T: std::convert::Into<crate::model::cvss::Impact>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.vulnerable_system_availability_impact = v.into();
+        self
+    }
+
+    /// Sets the value of [subsequent_system_confidentiality_impact][crate::model::Cvss::subsequent_system_confidentiality_impact].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_grafeas_v1::model::Cvss;
+    /// use google_cloud_grafeas_v1::model::cvss::Impact;
+    /// let x0 = Cvss::new().set_subsequent_system_confidentiality_impact(Impact::High);
+    /// let x1 = Cvss::new().set_subsequent_system_confidentiality_impact(Impact::Low);
+    /// let x2 = Cvss::new().set_subsequent_system_confidentiality_impact(Impact::None);
+    /// ```
+    pub fn set_subsequent_system_confidentiality_impact<
+        T: std::convert::Into<crate::model::cvss::Impact>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.subsequent_system_confidentiality_impact = v.into();
+        self
+    }
+
+    /// Sets the value of [subsequent_system_integrity_impact][crate::model::Cvss::subsequent_system_integrity_impact].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_grafeas_v1::model::Cvss;
+    /// use google_cloud_grafeas_v1::model::cvss::Impact;
+    /// let x0 = Cvss::new().set_subsequent_system_integrity_impact(Impact::High);
+    /// let x1 = Cvss::new().set_subsequent_system_integrity_impact(Impact::Low);
+    /// let x2 = Cvss::new().set_subsequent_system_integrity_impact(Impact::None);
+    /// ```
+    pub fn set_subsequent_system_integrity_impact<
+        T: std::convert::Into<crate::model::cvss::Impact>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.subsequent_system_integrity_impact = v.into();
+        self
+    }
+
+    /// Sets the value of [subsequent_system_availability_impact][crate::model::Cvss::subsequent_system_availability_impact].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_grafeas_v1::model::Cvss;
+    /// use google_cloud_grafeas_v1::model::cvss::Impact;
+    /// let x0 = Cvss::new().set_subsequent_system_availability_impact(Impact::High);
+    /// let x1 = Cvss::new().set_subsequent_system_availability_impact(Impact::Low);
+    /// let x2 = Cvss::new().set_subsequent_system_availability_impact(Impact::None);
+    /// ```
+    pub fn set_subsequent_system_availability_impact<
+        T: std::convert::Into<crate::model::cvss::Impact>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.subsequent_system_availability_impact = v.into();
+        self
+    }
+
+    /// Sets the value of [exploit_maturity][crate::model::Cvss::exploit_maturity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_grafeas_v1::model::Cvss;
+    /// use google_cloud_grafeas_v1::model::cvss::ExploitMaturity;
+    /// let x0 = Cvss::new().set_exploit_maturity(ExploitMaturity::NotDefined);
+    /// let x1 = Cvss::new().set_exploit_maturity(ExploitMaturity::Attacked);
+    /// let x2 = Cvss::new().set_exploit_maturity(ExploitMaturity::Poc);
+    /// ```
+    pub fn set_exploit_maturity<T: std::convert::Into<crate::model::cvss::ExploitMaturity>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.exploit_maturity = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for Cvss {
@@ -3052,7 +3232,7 @@ pub mod cvss {
     #[allow(unused_imports)]
     use super::*;
 
-    /// Enum for [AttackVector].
+    /// Attack Vector.
     ///
     /// # Working with unknown values
     ///
@@ -3070,15 +3250,15 @@ pub mod cvss {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum AttackVector {
-        #[allow(missing_docs)]
+        /// Unspecified.
         Unspecified,
-        #[allow(missing_docs)]
+        /// Attack Vector: Network (AV:N). Defined in CVSS v2, v3, v4.
         Network,
-        #[allow(missing_docs)]
+        /// Attack Vector: Adjacent (AV:A). Defined in CVSS v2, v3, v4.
         Adjacent,
-        #[allow(missing_docs)]
+        /// Attack Vector: Local (AV:L). Defined in CVSS v2, v3, v4.
         Local,
-        #[allow(missing_docs)]
+        /// Attack Vector: Physical (AV:P). Defined in CVSS v3, v4.
         Physical,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -3198,7 +3378,7 @@ pub mod cvss {
         }
     }
 
-    /// Enum for [AttackComplexity].
+    /// Attack Complexity.
     ///
     /// # Working with unknown values
     ///
@@ -3216,13 +3396,13 @@ pub mod cvss {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum AttackComplexity {
-        #[allow(missing_docs)]
+        /// Unspecified.
         Unspecified,
-        #[allow(missing_docs)]
+        /// Low attack complexity (AC:L). Defined in CVSS v2, v3, v4.
         Low,
-        #[allow(missing_docs)]
+        /// High attack complexity (AC:H). Defined in CVSS v2, v3, v4.
         High,
-        #[allow(missing_docs)]
+        /// Medium attack complexity (AC:M). Defined in CVSS v2.
         Medium,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -3337,7 +3517,7 @@ pub mod cvss {
         }
     }
 
-    /// Enum for [Authentication].
+    /// Authentication.
     ///
     /// # Working with unknown values
     ///
@@ -3355,13 +3535,13 @@ pub mod cvss {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Authentication {
-        #[allow(missing_docs)]
+        /// Unspecified.
         Unspecified,
-        #[allow(missing_docs)]
+        /// Multiple authentication required (Au:M). Defined in CVSS v2.
         Multiple,
-        #[allow(missing_docs)]
+        /// Single authentication required (Au:S). Defined in CVSS v2.
         Single,
-        #[allow(missing_docs)]
+        /// No authentication required (Au:N). Defined in CVSS v2.
         None,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -3476,7 +3656,7 @@ pub mod cvss {
         }
     }
 
-    /// Enum for [PrivilegesRequired].
+    /// Privileges Required.
     ///
     /// # Working with unknown values
     ///
@@ -3494,13 +3674,13 @@ pub mod cvss {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum PrivilegesRequired {
-        #[allow(missing_docs)]
+        /// Unspecified.
         Unspecified,
-        #[allow(missing_docs)]
+        /// No privileges required (PR:N). Defined in CVSS v3, v4.
         None,
-        #[allow(missing_docs)]
+        /// Low privileges required (PR:L). Defined in CVSS v3, v4.
         Low,
-        #[allow(missing_docs)]
+        /// High privileges required (PR:H). Defined in CVSS v3, v4.
         High,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -3615,7 +3795,7 @@ pub mod cvss {
         }
     }
 
-    /// Enum for [UserInteraction].
+    /// User Interaction.
     ///
     /// # Working with unknown values
     ///
@@ -3633,12 +3813,16 @@ pub mod cvss {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum UserInteraction {
-        #[allow(missing_docs)]
+        /// Unspecified.
         Unspecified,
-        #[allow(missing_docs)]
+        /// No user interaction required (UI:N). Defined in CVSS v3, v4.
         None,
-        #[allow(missing_docs)]
+        /// User interaction required (UI:R). Defined in CVSS v3.
         Required,
+        /// Passive user interaction required (UI:P). Defined in CVSS v4.
+        Passive,
+        /// Active user interaction required (UI:A). Defined in CVSS v4.
+        Active,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [UserInteraction::value] or
@@ -3664,6 +3848,8 @@ pub mod cvss {
                 Self::Unspecified => std::option::Option::Some(0),
                 Self::None => std::option::Option::Some(1),
                 Self::Required => std::option::Option::Some(2),
+                Self::Passive => std::option::Option::Some(3),
+                Self::Active => std::option::Option::Some(4),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -3677,6 +3863,8 @@ pub mod cvss {
                 Self::Unspecified => std::option::Option::Some("USER_INTERACTION_UNSPECIFIED"),
                 Self::None => std::option::Option::Some("USER_INTERACTION_NONE"),
                 Self::Required => std::option::Option::Some("USER_INTERACTION_REQUIRED"),
+                Self::Passive => std::option::Option::Some("USER_INTERACTION_PASSIVE"),
+                Self::Active => std::option::Option::Some("USER_INTERACTION_ACTIVE"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -3701,6 +3889,8 @@ pub mod cvss {
                 0 => Self::Unspecified,
                 1 => Self::None,
                 2 => Self::Required,
+                3 => Self::Passive,
+                4 => Self::Active,
                 _ => Self::UnknownValue(user_interaction::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -3715,6 +3905,8 @@ pub mod cvss {
                 "USER_INTERACTION_UNSPECIFIED" => Self::Unspecified,
                 "USER_INTERACTION_NONE" => Self::None,
                 "USER_INTERACTION_REQUIRED" => Self::Required,
+                "USER_INTERACTION_PASSIVE" => Self::Passive,
+                "USER_INTERACTION_ACTIVE" => Self::Active,
                 _ => Self::UnknownValue(user_interaction::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -3731,6 +3923,8 @@ pub mod cvss {
                 Self::Unspecified => serializer.serialize_i32(0),
                 Self::None => serializer.serialize_i32(1),
                 Self::Required => serializer.serialize_i32(2),
+                Self::Passive => serializer.serialize_i32(3),
+                Self::Active => serializer.serialize_i32(4),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -3747,7 +3941,7 @@ pub mod cvss {
         }
     }
 
-    /// Enum for [Scope].
+    /// Scope.
     ///
     /// # Working with unknown values
     ///
@@ -3765,11 +3959,11 @@ pub mod cvss {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Scope {
-        #[allow(missing_docs)]
+        /// Unspecified.
         Unspecified,
-        #[allow(missing_docs)]
+        /// Scope: Unchanged (S:U). Defined in CVSS v3.
         Unchanged,
-        #[allow(missing_docs)]
+        /// Scope: Changed (S:C). Defined in CVSS v3.
         Changed,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -3879,7 +4073,7 @@ pub mod cvss {
         }
     }
 
-    /// Enum for [Impact].
+    /// Impact.
     ///
     /// # Working with unknown values
     ///
@@ -3897,17 +4091,17 @@ pub mod cvss {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Impact {
-        #[allow(missing_docs)]
+        /// Unspecified.
         Unspecified,
-        #[allow(missing_docs)]
+        /// High impact (H). Defined in CVSS v3, v4.
         High,
-        #[allow(missing_docs)]
+        /// Low impact (L). Defined in CVSS v3, v4.
         Low,
-        #[allow(missing_docs)]
+        /// No impact (N). Defined in CVSS v2, v3, v4.
         None,
-        #[allow(missing_docs)]
+        /// Partial impact (P). Defined in CVSS v2.
         Partial,
-        #[allow(missing_docs)]
+        /// Complete impact (C). Defined in CVSS v2.
         Complete,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -4028,6 +4222,284 @@ pub mod cvss {
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Impact>::new(
                 ".grafeas.v1.CVSS.Impact",
+            ))
+        }
+    }
+
+    /// Attack Requirements.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum AttackRequirements {
+        /// Unspecified.
+        Unspecified,
+        /// No attack requirements (AT:N). Defined in CVSS v4.
+        None,
+        /// Attack requirements: Present (AT:P). Defined in CVSS v4.
+        Present,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [AttackRequirements::value] or
+        /// [AttackRequirements::name].
+        UnknownValue(attack_requirements::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod attack_requirements {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl AttackRequirements {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::None => std::option::Option::Some(1),
+                Self::Present => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("ATTACK_REQUIREMENTS_UNSPECIFIED"),
+                Self::None => std::option::Option::Some("ATTACK_REQUIREMENTS_NONE"),
+                Self::Present => std::option::Option::Some("ATTACK_REQUIREMENTS_PRESENT"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for AttackRequirements {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for AttackRequirements {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for AttackRequirements {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::None,
+                2 => Self::Present,
+                _ => Self::UnknownValue(attack_requirements::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for AttackRequirements {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ATTACK_REQUIREMENTS_UNSPECIFIED" => Self::Unspecified,
+                "ATTACK_REQUIREMENTS_NONE" => Self::None,
+                "ATTACK_REQUIREMENTS_PRESENT" => Self::Present,
+                _ => Self::UnknownValue(attack_requirements::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for AttackRequirements {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::None => serializer.serialize_i32(1),
+                Self::Present => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for AttackRequirements {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<AttackRequirements>::new(
+                ".grafeas.v1.CVSS.AttackRequirements",
+            ))
+        }
+    }
+
+    /// Exploit Maturity (E). Defined in CVSS v4.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ExploitMaturity {
+        /// Unspecified.
+        Unspecified,
+        /// Exploit maturity: Not defined (E:X). Defined in CVSS v4.
+        NotDefined,
+        /// Exploit maturity: Attacked (E:A). Defined in CVSS v4.
+        Attacked,
+        /// Exploit maturity: Proof-of-concept (E:P). Defined in CVSS v4.
+        Poc,
+        /// Exploit maturity: Unreported (E:U). Defined in CVSS v4.
+        Unreported,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ExploitMaturity::value] or
+        /// [ExploitMaturity::name].
+        UnknownValue(exploit_maturity::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod exploit_maturity {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl ExploitMaturity {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::NotDefined => std::option::Option::Some(1),
+                Self::Attacked => std::option::Option::Some(2),
+                Self::Poc => std::option::Option::Some(3),
+                Self::Unreported => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("EXPLOIT_MATURITY_UNSPECIFIED"),
+                Self::NotDefined => std::option::Option::Some("EXPLOIT_MATURITY_NOT_DEFINED"),
+                Self::Attacked => std::option::Option::Some("EXPLOIT_MATURITY_ATTACKED"),
+                Self::Poc => std::option::Option::Some("EXPLOIT_MATURITY_POC"),
+                Self::Unreported => std::option::Option::Some("EXPLOIT_MATURITY_UNREPORTED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for ExploitMaturity {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ExploitMaturity {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ExploitMaturity {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::NotDefined,
+                2 => Self::Attacked,
+                3 => Self::Poc,
+                4 => Self::Unreported,
+                _ => Self::UnknownValue(exploit_maturity::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ExploitMaturity {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "EXPLOIT_MATURITY_UNSPECIFIED" => Self::Unspecified,
+                "EXPLOIT_MATURITY_NOT_DEFINED" => Self::NotDefined,
+                "EXPLOIT_MATURITY_ATTACKED" => Self::Attacked,
+                "EXPLOIT_MATURITY_POC" => Self::Poc,
+                "EXPLOIT_MATURITY_UNREPORTED" => Self::Unreported,
+                _ => Self::UnknownValue(exploit_maturity::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ExploitMaturity {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::NotDefined => serializer.serialize_i32(1),
+                Self::Attacked => serializer.serialize_i32(2),
+                Self::Poc => serializer.serialize_i32(3),
+                Self::Unreported => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ExploitMaturity {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ExploitMaturity>::new(
+                ".grafeas.v1.CVSS.ExploitMaturity",
             ))
         }
     }
@@ -18116,6 +18588,9 @@ pub struct VulnerabilityNote {
     /// The time this advisory was published by the source.
     pub advisory_publish_time: std::option::Option<wkt::Timestamp>,
 
+    /// The full description of the v4 CVSS for this vulnerability.
+    pub cvss_v4: std::option::Option<crate::model::Cvss>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -18270,6 +18745,7 @@ impl VulnerabilityNote {
     /// use google_cloud_grafeas_v1::model::CVSSVersion;
     /// let x0 = VulnerabilityNote::new().set_cvss_version(CVSSVersion::CvssVersion2);
     /// let x1 = VulnerabilityNote::new().set_cvss_version(CVSSVersion::CvssVersion3);
+    /// let x2 = VulnerabilityNote::new().set_cvss_version(CVSSVersion::CvssVersion4);
     /// ```
     pub fn set_cvss_version<T: std::convert::Into<crate::model::CVSSVersion>>(
         mut self,
@@ -18342,6 +18818,39 @@ impl VulnerabilityNote {
         T: std::convert::Into<wkt::Timestamp>,
     {
         self.advisory_publish_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [cvss_v4][crate::model::VulnerabilityNote::cvss_v4].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityNote;
+    /// use google_cloud_grafeas_v1::model::Cvss;
+    /// let x = VulnerabilityNote::new().set_cvss_v4(Cvss::default()/* use setters */);
+    /// ```
+    pub fn set_cvss_v4<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Cvss>,
+    {
+        self.cvss_v4 = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cvss_v4][crate::model::VulnerabilityNote::cvss_v4].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityNote;
+    /// use google_cloud_grafeas_v1::model::Cvss;
+    /// let x = VulnerabilityNote::new().set_or_clear_cvss_v4(Some(Cvss::default()/* use setters */));
+    /// let x = VulnerabilityNote::new().set_or_clear_cvss_v4(None::<Cvss>);
+    /// ```
+    pub fn set_or_clear_cvss_v4<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Cvss>,
+    {
+        self.cvss_v4 = v.map(|x| x.into());
         self
     }
 }
@@ -18929,6 +19438,9 @@ pub struct VulnerabilityOccurrence {
     /// Risk information about the vulnerability, such as CISA, EPSS, etc.
     pub risk: std::option::Option<crate::model::Risk>,
 
+    /// The cvss v4 score for the vulnerability.
+    pub cvss_v4: std::option::Option<crate::model::Cvss>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -19122,6 +19634,7 @@ impl VulnerabilityOccurrence {
     /// use google_cloud_grafeas_v1::model::CVSSVersion;
     /// let x0 = VulnerabilityOccurrence::new().set_cvss_version(CVSSVersion::CvssVersion2);
     /// let x1 = VulnerabilityOccurrence::new().set_cvss_version(CVSSVersion::CvssVersion3);
+    /// let x2 = VulnerabilityOccurrence::new().set_cvss_version(CVSSVersion::CvssVersion4);
     /// ```
     pub fn set_cvss_version<T: std::convert::Into<crate::model::CVSSVersion>>(
         mut self,
@@ -19239,6 +19752,39 @@ impl VulnerabilityOccurrence {
         T: std::convert::Into<crate::model::Risk>,
     {
         self.risk = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [cvss_v4][crate::model::VulnerabilityOccurrence::cvss_v4].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityOccurrence;
+    /// use google_cloud_grafeas_v1::model::Cvss;
+    /// let x = VulnerabilityOccurrence::new().set_cvss_v4(Cvss::default()/* use setters */);
+    /// ```
+    pub fn set_cvss_v4<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Cvss>,
+    {
+        self.cvss_v4 = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cvss_v4][crate::model::VulnerabilityOccurrence::cvss_v4].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityOccurrence;
+    /// use google_cloud_grafeas_v1::model::Cvss;
+    /// let x = VulnerabilityOccurrence::new().set_or_clear_cvss_v4(Some(Cvss::default()/* use setters */));
+    /// let x = VulnerabilityOccurrence::new().set_or_clear_cvss_v4(None::<Cvss>);
+    /// ```
+    pub fn set_or_clear_cvss_v4<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Cvss>,
+    {
+        self.cvss_v4 = v.map(|x| x.into());
         self
     }
 }
@@ -19953,12 +20499,14 @@ impl<'de> serde::de::Deserialize<'de> for NoteKind {
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum CVSSVersion {
-    #[allow(missing_docs)]
+    /// Unspecified.
     Unspecified,
-    #[allow(missing_docs)]
+    /// CVSS v2.
     CvssVersion2,
-    #[allow(missing_docs)]
+    /// CVSS v3.
     CvssVersion3,
+    /// CVSS v4.
+    CvssVersion4,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [CVSSVersion::value] or
@@ -19984,6 +20532,7 @@ impl CVSSVersion {
             Self::Unspecified => std::option::Option::Some(0),
             Self::CvssVersion2 => std::option::Option::Some(1),
             Self::CvssVersion3 => std::option::Option::Some(2),
+            Self::CvssVersion4 => std::option::Option::Some(3),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -19997,6 +20546,7 @@ impl CVSSVersion {
             Self::Unspecified => std::option::Option::Some("CVSS_VERSION_UNSPECIFIED"),
             Self::CvssVersion2 => std::option::Option::Some("CVSS_VERSION_2"),
             Self::CvssVersion3 => std::option::Option::Some("CVSS_VERSION_3"),
+            Self::CvssVersion4 => std::option::Option::Some("CVSS_VERSION_4"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -20021,6 +20571,7 @@ impl std::convert::From<i32> for CVSSVersion {
             0 => Self::Unspecified,
             1 => Self::CvssVersion2,
             2 => Self::CvssVersion3,
+            3 => Self::CvssVersion4,
             _ => Self::UnknownValue(cvss_version::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -20035,6 +20586,7 @@ impl std::convert::From<&str> for CVSSVersion {
             "CVSS_VERSION_UNSPECIFIED" => Self::Unspecified,
             "CVSS_VERSION_2" => Self::CvssVersion2,
             "CVSS_VERSION_3" => Self::CvssVersion3,
+            "CVSS_VERSION_4" => Self::CvssVersion4,
             _ => Self::UnknownValue(cvss_version::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -20051,6 +20603,7 @@ impl serde::ser::Serialize for CVSSVersion {
             Self::Unspecified => serializer.serialize_i32(0),
             Self::CvssVersion2 => serializer.serialize_i32(1),
             Self::CvssVersion3 => serializer.serialize_i32(2),
+            Self::CvssVersion4 => serializer.serialize_i32(3),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }

@@ -807,6 +807,48 @@ impl serde::ser::Serialize for super::Cvss {
         if !wkt::internal::is_default(&self.availability_impact) {
             state.serialize_entry("availabilityImpact", &self.availability_impact)?;
         }
+        if !wkt::internal::is_default(&self.attack_requirements) {
+            state.serialize_entry("attackRequirements", &self.attack_requirements)?;
+        }
+        if !wkt::internal::is_default(&self.vulnerable_system_confidentiality_impact) {
+            state.serialize_entry(
+                "vulnerableSystemConfidentialityImpact",
+                &self.vulnerable_system_confidentiality_impact,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.vulnerable_system_integrity_impact) {
+            state.serialize_entry(
+                "vulnerableSystemIntegrityImpact",
+                &self.vulnerable_system_integrity_impact,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.vulnerable_system_availability_impact) {
+            state.serialize_entry(
+                "vulnerableSystemAvailabilityImpact",
+                &self.vulnerable_system_availability_impact,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.subsequent_system_confidentiality_impact) {
+            state.serialize_entry(
+                "subsequentSystemConfidentialityImpact",
+                &self.subsequent_system_confidentiality_impact,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.subsequent_system_integrity_impact) {
+            state.serialize_entry(
+                "subsequentSystemIntegrityImpact",
+                &self.subsequent_system_integrity_impact,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.subsequent_system_availability_impact) {
+            state.serialize_entry(
+                "subsequentSystemAvailabilityImpact",
+                &self.subsequent_system_availability_impact,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.exploit_maturity) {
+            state.serialize_entry("exploitMaturity", &self.exploit_maturity)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -4104,6 +4146,9 @@ impl serde::ser::Serialize for super::VulnerabilityNote {
         if self.advisory_publish_time.is_some() {
             state.serialize_entry("advisoryPublishTime", &self.advisory_publish_time)?;
         }
+        if self.cvss_v4.is_some() {
+            state.serialize_entry("cvssV4", &self.cvss_v4)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -4293,6 +4338,9 @@ impl serde::ser::Serialize for super::VulnerabilityOccurrence {
         }
         if self.risk.is_some() {
             state.serialize_entry("risk", &self.risk)?;
+        }
+        if self.cvss_v4.is_some() {
+            state.serialize_entry("cvssV4", &self.cvss_v4)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
