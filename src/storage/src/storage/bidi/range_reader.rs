@@ -285,7 +285,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn object_with_default_checksum_skips_validation() -> anyhow::Result<()> {
+    async fn object_with_default_checksum_skips_all_validation() -> anyhow::Result<()> {
         let data = bytes::Bytes::from_static(b"the quick brown fox jumps over the lazy dog");
         let wrong_crc32c = crc32c::crc32c(&data) + 1; // Incorrect checksum for the whole object
 
@@ -316,7 +316,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn object_with_checksum_disabled() -> anyhow::Result<()> {
+    async fn object_with_md5_disabled_skips_md5_validation() -> anyhow::Result<()> {
         use crate::storage::checksum::details::{Checksum, Crc32c};
         let data = bytes::Bytes::from_static(b"the quick brown fox jumps over the lazy dog");
         let wrong_md5 = bytes::Bytes::from_static(b"wrongmd5hashhere");
