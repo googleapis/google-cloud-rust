@@ -995,8 +995,8 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
-    async fn checksum_toggles() -> Result<()> {
+    #[test]
+    fn checksum_toggles() -> Result<()> {
         let options = RequestOptions::new();
 
         // By default, crc32c is enabled and md5 is disabled.
