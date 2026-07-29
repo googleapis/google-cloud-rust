@@ -489,6 +489,7 @@ libraries:
         - output: src/bigquery/src/generated
           api_path: google/cloud/bigquery/v2
           template: bigquery
+    skip_release: true
   - name: google-cloud-bigquery-analyticshub-v1
     version: 1.13.0
     copyright_year: "2025"
@@ -508,6 +509,7 @@ libraries:
     version: 0.1.0-preview
     copyright_year: "2026"
     output: src/bigquery-derive
+    skip_release: true
   - name: google-cloud-bigquery-migration-v2
     version: 1.11.0
     copyright_year: "2025"
@@ -527,7 +529,7 @@ libraries:
         - name: uuid
           package: uuid
           force_used: true
-      package_name_override: google-cloud-bigquery-v2
+    skip_release: true
   - name: google-cloud-bigquery-write
     copyright_year: "2026"
     output: src/bigquery-write
