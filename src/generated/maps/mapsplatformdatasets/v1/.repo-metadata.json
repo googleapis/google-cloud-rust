@@ -1,0 +1,15 @@
+{
+    "api_description": "mapsplatformdatasets.googleapis.com API.",
+    "api_id": "mapsplatformdatasets.googleapis.com",
+    "api_shortname": "mapsplatformdatasets",
+    "client_documentation": "https://docs.rs/google-maps-mapsplatformdatasets-v1/latest",
+    "distribution_name": "google-maps-mapsplatformdatasets-v1",
+    "issue_tracker": "https://issuetracker.google.com/issues/new?component=1356770",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name": "mapsplatformdatasets",
+    "name_pretty": "Maps Platform Datasets",
+    "product_documentation": "https://developers.google.com/maps/documentation/datasets",
+    "release_level": "stable",
+    "repo": "googleapis/google-cloud-rust"
+}
