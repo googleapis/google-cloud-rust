@@ -39,6 +39,8 @@ mod receive;
 #[allow(dead_code)]
 mod send;
 
+pub use bidi::GrpcRustStreaming;
+
 /// A gRPC client backed by the [grpc-rust][grpc] crate.
 #[derive(Clone)]
 pub struct GrpcRustClient {
@@ -216,21 +218,6 @@ impl std::fmt::Debug for GrpcRustClient {
             .field("endpoint", &self.inner.endpoint)
             .field("tracing_attributes", &self.inner.tracing_attributes)
             .finish()
-    }
-}
-
-#[derive(Debug)]
-pub struct GrpcRustStreaming<Response> {
-    // TODO(#5991): not implemented yet
-    _phantom: std::marker::PhantomData<Response>,
-}
-
-impl<Response> GrpcRustStreaming<Response>
-where
-    Response: prost::Message + Default,
-{
-    pub async fn message(&mut self) -> TonicResult<Option<Response>> {
-        unimplemented!("not implemented yet")
     }
 }
 
