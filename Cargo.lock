@@ -5924,6 +5924,41 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-maps-solar-v1"
+version = "1.0.0"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "bytes",
+ "google-cloud-api",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-type",
+ "google-cloud-wkt",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tracing",
+]
+
+[[package]]
+name = "google-maps-weather-v1"
+version = "1.0.0"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-type",
+ "google-cloud-wkt",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tracing",
+]
+
+[[package]]
 name = "google-shopping-type"
 version = "1.0.0"
 dependencies = [

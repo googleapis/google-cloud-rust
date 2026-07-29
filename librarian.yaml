@@ -312,7 +312,6 @@ libraries:
           replace: |+
             - `folders/<folder-number>`
             - `organizations/<organization-number>`
-
   - name: google-cloud-api-servicemanagement-v1
     version: 1.13.0
     apis:
@@ -1777,6 +1776,12 @@ libraries:
     version: 1.0.0
     copyright_year: "2026"
   - name: google-maps-routing-v2
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-maps-solar-v1
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-maps-weather-v1
     version: 1.0.0
     copyright_year: "2026"
   - name: google-shopping-type

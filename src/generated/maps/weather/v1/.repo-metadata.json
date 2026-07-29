@@ -1,0 +1,15 @@
+{
+    "api_description": "weather.googleapis.com API.",
+    "api_id": "weather.googleapis.com",
+    "api_shortname": "weather",
+    "client_documentation": "https://docs.rs/google-maps-weather-v1/latest",
+    "distribution_name": "google-maps-weather-v1",
+    "issue_tracker": "https://issuetracker.google.com/issues/new?component=1507513",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name": "weather",
+    "name_pretty": "Weather",
+    "product_documentation": "https://developers.devsite.corp.google.com/maps/documentation/weather",
+    "release_level": "stable",
+    "repo": "googleapis/google-cloud-rust"
+}
