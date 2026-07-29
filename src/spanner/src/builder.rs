@@ -18,6 +18,7 @@ pub use crate::batch_dml::BatchDmlBuilder;
 pub use crate::batch_read_only_transaction::BatchReadOnlyTransactionBuilder;
 pub use crate::batch_write_transaction::BatchWriteTransactionBuilder;
 pub use crate::client::ClientBuilder as SpannerBuilder;
+pub use crate::client::SpannerBuilderExt;
 pub use crate::database_client::DatabaseClientBuilder;
 pub use crate::key::KeySetBuilder;
 pub use crate::mutation::WriteBuilder;
