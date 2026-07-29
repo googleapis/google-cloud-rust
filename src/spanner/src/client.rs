@@ -87,12 +87,6 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
             config.cred = Some(anonymous::Builder::new().build());
         }
 
-        let instance_type = config
-            .extensions
-            .get::<InstanceType>()
-            .copied()
-            .unwrap_or_default();
-
         let num_channels = std::env::var("SPANNER_NUM_CHANNELS")
             .ok()
             .and_then(|s| s.parse::<usize>().ok())
@@ -108,37 +102,13 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
             counter: std::sync::Arc::new(AtomicUsize::new(0)),
             config,
             is_emulator,
-            instance_type,
+            instance_type: InstanceType::Cloud,
         })
     }
 }
 
 /// A builder for the Spanner client.
-pub type ClientBuilder = GaxClientBuilder<Factory, Credentials>;
-
-/// Extension trait for [ClientBuilder] to configure Spanner-specific options.
-pub trait SpannerBuilderExt {
-    /// Sets the target instance deployment type (`Cloud` or `Omni`).
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner::client::{ClientBuilder, Spanner, SpannerBuilderExt};
-    /// # use google_cloud_spanner::omni::InstanceType;
-    /// # async fn sample() -> anyhow::Result<()> {
-    /// let client = Spanner::builder()
-    ///     .with_instance_type(InstanceType::Omni)
-    ///     .build()
-    ///     .await?;
-    /// # Ok(()) }
-    /// ```
-    fn with_instance_type(self, instance_type: InstanceType) -> Self;
-}
-
-impl SpannerBuilderExt for ClientBuilder {
-    fn with_instance_type(self, instance_type: InstanceType) -> Self {
-        self.with_extension(instance_type)
-    }
-}
+pub type ClientBuilder = google_cloud_gax::client_builder::ClientBuilder<Factory, Credentials>;
 
 fn parse_emulator_endpoint(endpoint: &str) -> String {
     match url::Url::parse(endpoint) {
@@ -243,6 +213,28 @@ impl Spanner {
     /// environment variable is set.
     pub fn builder() -> ClientBuilder {
         new_builder(Factory)
+    }
+
+    /// Sets the target instance deployment type (`Cloud` or `Omni`).
+    ///
+    /// # Warning
+    ///
+    /// **Experimental:** This method is experimental and may be updated or replaced in a future release.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::omni::InstanceType;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = Spanner::builder()
+    ///     .build()
+    ///     .await?
+    ///     .with_instance_type(InstanceType::Omni);
+    /// # Ok(()) }
+    /// ```
+    pub fn with_instance_type(mut self, instance_type: InstanceType) -> Self {
+        self.instance_type = instance_type;
+        self
     }
 
     /// Returns a builder for the [DatabaseAdmin] client.
@@ -1818,18 +1810,5 @@ mod tests {
             super::parse_emulator_endpoint("http_localhost:9010"),
             "http://http_localhost:9010"
         );
-    }
-
-    #[tokio::test]
-    async fn test_custom_client_builder_with_instance_type() {
-        use super::SpannerBuilderExt;
-
-        let builder = Spanner::builder()
-            .with_endpoint("http://localhost:15000")
-            .with_instance_type(InstanceType::Omni);
-
-        let client = builder.build().await.expect("build client");
-
-        assert_eq!(client.instance_type(), InstanceType::Omni);
     }
 }

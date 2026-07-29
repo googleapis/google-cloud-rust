@@ -105,27 +105,23 @@ mod tests {
 
     #[tokio::test]
     async fn test_spanner_with_instance_type() {
-        use crate::builder::SpannerBuilderExt;
-
         let spanner = Spanner::builder()
-            .with_instance_type(InstanceType::Omni)
             .build()
             .await
-            .expect("build client");
+            .expect("build client")
+            .with_instance_type(InstanceType::Omni);
         assert_eq!(spanner.instance_type(), InstanceType::Omni);
     }
 
     #[tokio::test]
     #[ignore = "requires live Omni instance at localhost:15000"]
     async fn test_query_local_omni_instance() {
-        use crate::builder::SpannerBuilderExt;
-
         let spanner = Spanner::builder()
             .with_endpoint("http://localhost:15000")
-            .with_instance_type(InstanceType::Omni)
             .build()
             .await
-            .expect("build client");
+            .expect("build client")
+            .with_instance_type(InstanceType::Omni);
 
         let db_client = spanner
             .database_client("retail-sample")

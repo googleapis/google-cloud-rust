@@ -957,4 +957,19 @@ mod tests {
         let cloned = config.clone();
         assert_eq!(cloned.extensions.get::<i32>(), Some(&42));
     }
+
+    #[test]
+    fn auto_traits() {
+        use static_assertions::{assert_impl_all, assert_not_impl_any};
+        use std::panic::{RefUnwindSafe, UnwindSafe};
+
+        assert_impl_all!(ClientBuilder<(), ()>: Send, Sync, Clone, std::fmt::Debug, Unpin);
+        assert_not_impl_any!(ClientBuilder<(), ()>: RefUnwindSafe, UnwindSafe);
+
+        assert_impl_all!(internal::ClientConfig<()>: Send, Sync, Clone, std::fmt::Debug, Default, Unpin);
+        assert_not_impl_any!(internal::ClientConfig<()>: RefUnwindSafe, UnwindSafe);
+
+        assert_impl_all!(internal::Extensions: Send, Sync, Clone, std::fmt::Debug, Default, Unpin);
+        assert_not_impl_any!(internal::Extensions: RefUnwindSafe, UnwindSafe);
+    }
 }
