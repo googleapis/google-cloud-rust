@@ -22,7 +22,7 @@ mod tests {
 
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_gax_internal::grpc::GrpcRustClient;
-    use google_cloud_gax_internal::grpc::grpc_rust::bidi::{GrpcRustSend, ReceiveTask};
+    use google_cloud_gax_internal::grpc::grpc_rust::bidi::{GrpcRustSend, ReceiveTask, RecvItem};
     use google_cloud_gax_internal::options::ClientConfig;
     use grpc::client::{CallOptions, Invoke, SendOptions, SendStream};
     use grpc::core::RequestHeaders;
@@ -38,6 +38,16 @@ mod tests {
         // Arrange
         let (_client, mut send_stream, mut rx, _pump_task, _server_task) =
             start_client_stream().await?;
+
+        // Consume and assert initial headers emitted upon RPC start
+        let first_item = rx
+            .recv()
+            .await
+            .expect("response pump should yield at least one item")?;
+        assert!(
+            matches!(first_item, Some(RecvItem::Headers(_))),
+            "expected initial headers"
+        );
 
         // Act
         send_echo_request(&mut send_stream, MSG1).await?;
@@ -61,7 +71,10 @@ mod tests {
             .recv()
             .await
             .expect("response pump should yield stream termination")?;
-        assert_eq!(end_res, None);
+        assert!(
+            end_res.is_none(),
+            "response pump should yield stream termination"
+        );
 
         Ok(())
     }
@@ -72,9 +85,10 @@ mod tests {
         // Arrange
         let (_client, mut send_stream, mut rx, _pump_task, _server_task) =
             start_client_stream().await?;
+        consume_initial_headers(&mut rx).await?;
 
         // Act
-        // Attempt to receive with a short timeout before any message is
+        // Attempt to receive the next item with a short timeout before any message is
         // sent, thereby cancelling rx.recv()
         let recv_result =
             tokio::time::timeout(std::time::Duration::from_millis(50), rx.recv()).await;
@@ -102,6 +116,7 @@ mod tests {
         // Arrange
         let (_client, mut send_stream, mut rx, pump_task, _server_task) =
             start_client_stream().await?;
+        consume_initial_headers(&mut rx).await?;
 
         // Act
         send_echo_request(&mut send_stream, MSG1).await?;
@@ -127,7 +142,7 @@ mod tests {
     async fn start_client_stream() -> anyhow::Result<(
         GrpcRustClient,
         impl SendStream,
-        tokio::sync::mpsc::Receiver<tonic::Result<Option<EchoResponse>>>,
+        tokio::sync::mpsc::Receiver<tonic::Result<Option<RecvItem<EchoResponse>>>>,
         ReceiveTask,
         tokio::task::JoinHandle<()>,
     )> {
@@ -163,15 +178,31 @@ mod tests {
             .map_err(|_| anyhow::anyhow!("failed to send message '{msg}'"))
     }
 
-    /// Receives a response item from the response pump
-    async fn recv_echo_response(
-        rx: &mut tokio::sync::mpsc::Receiver<tonic::Result<Option<EchoResponse>>>,
-    ) -> anyhow::Result<EchoResponse> {
-        let res = rx
+    /// Consumes initial headers emitted by the response pump upon RPC start.
+    async fn consume_initial_headers(
+        rx: &mut tokio::sync::mpsc::Receiver<tonic::Result<Option<RecvItem<EchoResponse>>>>,
+    ) -> anyhow::Result<()> {
+        let _ = rx
             .recv()
             .await
-            .expect("response pump should yield a response item")?
-            .expect("expected a response message");
-        Ok(res)
+            .expect("response pump should yield initial headers")?;
+        Ok(())
+    }
+
+    /// Receives a response message from the response pump. Ignores headers.
+    async fn recv_echo_response(
+        rx: &mut tokio::sync::mpsc::Receiver<tonic::Result<Option<RecvItem<EchoResponse>>>>,
+    ) -> anyhow::Result<EchoResponse> {
+        loop {
+            let res = rx
+                .recv()
+                .await
+                .expect("response pump should yield a response item")?
+                .expect("expected a response item");
+            match res {
+                RecvItem::Headers(_) => continue,
+                RecvItem::Message(msg) => return Ok(msg),
+            }
+        }
     }
 }
