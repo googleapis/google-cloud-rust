@@ -38,7 +38,7 @@ use google_cloud_test_utils::resource_names::random_bucket_id;
 use google_cloud_wkt::FieldMask;
 use std::time::Duration;
 
-const STALE_BUCKET_CLEANUP_TIMEOUT: Duration = Duration::from_secs(30);
+const STALE_BUCKET_CLEANUP_TIMEOUT: Duration = Duration::from_secs(5 * 60);
 
 pub async fn run_anywhere_cache_examples(buckets: &mut Vec<String>) -> anyhow::Result<()> {
     let _guard = enable_info_tracing();
@@ -1085,20 +1085,18 @@ mod tests {
         assert_eq!(clean_project_id("1234567890"), "1234567890");
     }
 
-    // Verifies that when the inner cleanup future returns an error,
-    // run_stale_bucket_cleanup handles it cleanly without panicking.
     #[tokio::test]
     async fn stale_bucket_cleanup_ignores_errors() {
+        // Should not panic
         run_stale_bucket_cleanup(Duration::from_secs(1), async {
             anyhow::bail!("test-only cleanup error")
         })
         .await;
     }
 
-    // Verifies that when the inner cleanup future hangs,
-    // run_stale_bucket_cleanup enforces the timeout and completes cleanly instead of blocking.
     #[tokio::test]
     async fn stale_bucket_cleanup_stops_at_timeout() {
+        // Should not block
         run_stale_bucket_cleanup(
             Duration::from_millis(1),
             std::future::pending::<anyhow::Result<()>>(),
