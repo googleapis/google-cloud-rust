@@ -285,7 +285,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn object_with_checksum_bypassed_due_to_ranged_read() -> anyhow::Result<()> {
+    async fn object_with_default_checksum_skips_validation() -> anyhow::Result<()> {
         let data = bytes::Bytes::from_static(b"the quick brown fox jumps over the lazy dog");
         let wrong_crc32c = crc32c::crc32c(&data) + 1; // Incorrect checksum for the whole object
 
@@ -295,7 +295,7 @@ mod tests {
         let (tx, inner) = tokio::sync::mpsc::channel(1);
         let (pending_tx, _pending_rx) = tokio::sync::mpsc::channel(100);
 
-        // Using Checksum::default() simulates passing disabled checksum (bypassed by ranged read)
+        // Using Checksum::default() disables local validation
         let mut reader = RangeReader::new(
             inner,
             object.clone(),
