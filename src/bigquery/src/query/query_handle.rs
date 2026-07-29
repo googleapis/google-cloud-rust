@@ -66,11 +66,12 @@ pub struct Query {
 impl Query {
     /// Returns the [`QueryReference`](crate::model::QueryReference) identifying this query execution.
     ///
-    /// The reference will be [`QueryReference::Job`](crate::model::QueryReference::Job) containing a BigQuery [job reference]
-    /// if a stateful query job was created, or [`QueryReference::Stateless`](crate::model::QueryReference::Stateless) with an opaque
-    /// query ID if the execution ran statelessly via the fast path.
+    /// The reference will be [`QueryReference::Job`](crate::model::QueryReference::Job) containing a BigQuery Query [job reference]
+    /// if a job was created, or [`QueryReference::Stateless`](crate::model::QueryReference::Stateless) with an opaque
+    /// query ID if the execution ran statelessly via [jobs.query].
     ///
     /// [job reference]: https://docs.cloud.google.com/bigquery/docs/reference/rest/v2/JobReference
+    /// [jobs.query]: https://docs.cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query
     ///
     /// # Example
     ///
@@ -112,12 +113,12 @@ impl Query {
     ///
     /// If the query was executed via the fast path and already completed during the initial request,
     /// this method immediately returns a [`CompleteQuery`](crate::query::CompleteQuery) without making additional network calls.
-    /// Otherwise, it implements an automated exponential backoff loop querying the job status until it succeeds or fails.
+    /// Otherwise, it implements a backoff loop querying the job status until it succeeds or fails.
     ///
     /// # Errors
     ///
     /// Returns an error if a remote service or network failure happens during polling, or if the BigQuery job
-    /// fails due to runtime execution errors (such as division by zero or resource limits).
+    /// fails due to runtime execution errors.
     ///
     /// # Example
     ///
@@ -178,7 +179,7 @@ impl Query {
 ///
 /// An instance of `CompleteQuery` is returned by [`Query::until_done()`](crate::query::Query::until_done).
 ///
-/// This handle provides access to cached execution metadata, schema definitions, and a streaming
+/// This handle provides access to cached execution metadata, schema definitions, and a
 /// row iterator via [`read()`](CompleteQuery::read).
 ///
 /// # Example
@@ -277,7 +278,7 @@ impl CompleteQuery {
         }
     }
 
-    /// Returns a streaming row iterator for reading the query result set.
+    /// Returns a row iterator for reading the query result set.
     ///
     /// Consumes the `CompleteQuery` handle and initializes a [`RowIterator`](crate::query::RowIterator) that
     /// iterates over initial cached rows in memory before automatically fetching subsequent pages from the API.
@@ -338,26 +339,28 @@ impl CompleteQuery {
         &self.metadata
     }
 
-    /// Fetches full job execution metadata from the service for this query.
+    /// Fetches full [Job] execution metadata from the service for this query.
     ///
     /// Unlike [`metadata()`](CompleteQuery::metadata), this method executes an RPC request (`jobs.get`) to
-    /// retrieve complete runtime job details, including user email, execution timelines, billing tier estimates, and detailed error summaries.
+    /// retrieve complete job details, including user email, execution timelines, billing tier estimates, and detailed error summaries.
     ///
     /// > [!IMPORTANT]
-    /// > Queries executed via the stateless fast-path do not create persistent job resources on the service.
     /// > Calling this method on a stateless query will return [`QueryError::StatelessQuery`](crate::error::QueryError::StatelessQuery).
+    ///
+    /// [Job]: https://docs.cloud.google.com/bigquery/docs/reference/rest/v2/Job
     ///
     /// # Example
     ///
     /// ```
     /// # async fn sample() -> anyhow::Result<()> {
     /// use google_cloud_bigquery::client::BigQuery;
+    /// use google_cloud_bigquery::model::query_request::JobCreationMode;
     ///
     /// let client = BigQuery::builder().build().await?;
     /// let completed = client
     ///     .query("SELECT 1")
     ///     .with_project_id("my-project-id")
-    ///     .set_allow_large_results(true) // Forces stateful job creation
+    ///     .set_job_creation_mode(JobCreationMode::JobCreationRequired) // Forces a job to be created
     ///     .run()
     ///     .await?
     ///     .until_done()

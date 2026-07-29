@@ -34,15 +34,16 @@ use std::sync::Arc;
 ///
 /// The builder automatically decides whether to execute via [`jobs.query`](https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query)
 /// (the low-latency fast path) or [`jobs.insert`](https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/insert)
-/// (the asynchronous background job creation path) depending on which configuration options are enabled:
+/// (the async job creation path) depending on which configuration options are enabled:
 ///
 /// - **Fast path (`jobs.query`)**: Taken by default when executing queries with standard parameters and limits.
-/// - **Job path (`jobs.insert`)**: Automatically chosen if options exclusive to job creation are configured (such as setting a destination table, enabling large result allowances, or customizing job labels).
+/// - **Job path (`jobs.insert`)**: Chosen if options require job creation (such as setting a destination table, enabling large result allowances, or customizing job labels).
 ///
 /// # Common Configuration Methods
 ///
 /// In addition to setting the target GCP project via [`with_project_id()`](RunQuery::with_project_id),
 /// this builder inherits generated configuration setter methods including:
+/// - `set_job_creation_mode(JobCreationMode::JobCreationRequired)`: Explicitly forces job creation. By default, the SDK sets this as JobCreationOptional.
 /// - `set_location("US")`: Sets the geographic routing location where the job should run.
 /// - `set_max_results(100)`: Limits the number of rows buffered per result page from the API.
 /// - `set_use_cache(true)`: Enables or disables query result caching (enabled by default).
