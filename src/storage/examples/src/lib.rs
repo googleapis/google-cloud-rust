@@ -758,11 +758,7 @@ async fn client_for_create_bucket() -> anyhow::Result<StorageControl> {
                 .build()
                 .unwrap(),
         )
-        .with_retry_policy(
-            RetryableErrors
-                .with_attempt_limit(16)
-                .with_time_limit(Duration::from_secs(32)),
-        )
+        .with_retry_policy(RetryableErrors.with_attempt_limit(5))
         .build()
         .await?;
     Ok(client)
