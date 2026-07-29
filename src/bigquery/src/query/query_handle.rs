@@ -19,7 +19,6 @@ use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::{
     GetQueryResultsRequest, GetQueryResultsResponse, Job, JobReference, QueryResponse,
 };
-use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
 use google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy;
 use google_cloud_gax::polling_state::PollingState;
@@ -32,6 +31,8 @@ pub struct Query {
     pub(crate) job_service: Arc<JobService>,
     pub(crate) job_ref: Option<JobReference>,
     pub(crate) completed: bool,
+    // TODO(#5592): add QueryCreationMetadata to expose initial job and response data.
+    #[allow(dead_code)]
     pub(crate) initial_job: Option<Job>,
     pub(crate) initial_response: Option<QueryResponse>,
     pub(crate) max_results: Option<u32>,
@@ -253,9 +254,7 @@ pub(crate) async fn poll_query_results(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::query::tests::{
-        MockBackoffPolicy, MockJobService, create_job_service, create_test_backoff_policy,
-    };
+    use crate::query::tests::{MockJobService, create_job_service, create_test_backoff_policy};
     use google_cloud_bigquery_v2::model::{
         ErrorProto, GetQueryResultsResponse, Job, JobReference, QueryResponse, TableFieldSchema,
         TableSchema,

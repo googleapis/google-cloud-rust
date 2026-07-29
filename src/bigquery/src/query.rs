@@ -12,9 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// TODO(#5592): remove after marking query structs public.
-#![allow(dead_code, unused_imports)]
-
 pub(crate) mod execution;
 mod from_sql;
 mod iterator;
@@ -24,11 +21,11 @@ mod row;
 mod run_query;
 mod schema;
 
-pub(crate) use iterator::RowIterator;
-pub(crate) use query_handle::{CompleteQuery, Query};
+pub use iterator::RowIterator;
+pub use query_handle::{CompleteQuery, Query};
 pub(crate) use schema::Schema;
 
-pub use from_sql::{FromSql, Range};
+pub use from_sql::{FromSql, Interval, Range};
 pub use query_reference::QueryReference;
 pub use row::Row;
 pub use run_query::RunQuery;

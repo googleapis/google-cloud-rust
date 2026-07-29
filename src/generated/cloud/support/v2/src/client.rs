@@ -891,7 +891,7 @@ impl SupportEventSubscriptionService {
         )
     }
 
-    /// Lists support event subscriptions.
+    /// Lists support event subscriptions for an organization.
     ///
     /// # Example
     /// ```
@@ -992,6 +992,59 @@ impl SupportEventSubscriptionService {
         &self,
     ) -> super::builder::support_event_subscription_service::UndeleteSupportEventSubscription {
         super::builder::support_event_subscription_service::UndeleteSupportEventSubscription::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Expunges a support event subscription.
+    ///
+    /// EXAMPLES:
+    ///
+    /// cURL:
+    ///
+    /// ```norust
+    /// support_event_subscription="organizations/123456789/supportEventSubscriptions/abcdef123456"
+    /// curl \
+    ///   --request POST \
+    ///   --header "Authorization: Bearer $(gcloud auth print-access-token)" \
+    ///   "https://cloudsupport.googleapis.com/v2/$support_event_subscription:expunge"
+    /// ```
+    ///
+    /// Python:
+    ///
+    /// ```norust
+    /// import googleapiclient.discovery
+    ///
+    /// api_version = "v2"
+    /// supportApiService = googleapiclient.discovery.build(
+    ///     serviceName="cloudsupport",
+    ///     version=api_version,
+    ///     discoveryServiceUrl=f"https://cloudsupport.googleapis.com/$discovery/rest?version={api_version}",
+    /// )
+    ///
+    /// request = supportApiService.supportEventSubscriptions().expunge(
+    ///     name="organizations/123456789/supportEventSubscriptions/abcdef123456"
+    /// )
+    /// print(request.execute())
+    /// ```
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_support_v2::client::SupportEventSubscriptionService;
+    /// use google_cloud_support_v2::Result;
+    /// async fn sample(
+    ///    client: &SupportEventSubscriptionService
+    /// ) -> Result<()> {
+    ///     client.expunge_support_event_subscription()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn expunge_support_event_subscription(
+        &self,
+    ) -> super::builder::support_event_subscription_service::ExpungeSupportEventSubscription {
+        super::builder::support_event_subscription_service::ExpungeSupportEventSubscription::new(
             self.inner.clone(),
         )
     }

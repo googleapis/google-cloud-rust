@@ -1396,6 +1396,10 @@ impl std::fmt::Debug for super::DatabaseInstance {
         debug_struct.field("node_count", &self.node_count);
         debug_struct.field("nodes", &self.nodes);
         debug_struct.field("dns_names", &self.dns_names);
+        debug_struct.field(
+            "database_center_integration_enabled",
+            &self.database_center_integration_enabled,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1678,6 +1682,7 @@ impl std::fmt::Debug for super::OnPremisesConfiguration {
         debug_struct.field("source_instance", &self.source_instance);
         debug_struct.field("selected_objects", &self.selected_objects);
         debug_struct.field("ssl_option", &self.ssl_option);
+        debug_struct.field("dms_managed", &self.dms_managed);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1886,6 +1891,7 @@ impl std::fmt::Debug for super::SqlOperationsGetRequest {
         let mut debug_struct = f.debug_struct("SqlOperationsGetRequest");
         debug_struct.field("operation", &self.operation);
         debug_struct.field("project", &self.project);
+        debug_struct.field("location", &self.location);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1900,6 +1906,7 @@ impl std::fmt::Debug for super::SqlOperationsListRequest {
         debug_struct.field("max_results", &self.max_results);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
+        debug_struct.field("location", &self.location);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1925,6 +1932,7 @@ impl std::fmt::Debug for super::SqlOperationsCancelRequest {
         let mut debug_struct = f.debug_struct("SqlOperationsCancelRequest");
         debug_struct.field("operation", &self.operation);
         debug_struct.field("project", &self.project);
+        debug_struct.field("location", &self.location);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3195,6 +3203,11 @@ impl std::fmt::Debug for super::SqlUsersUpdateRequest {
         debug_struct.field("project", &self.project);
         debug_struct.field("database_roles", &self.database_roles);
         debug_struct.field("revoke_existing_roles", &self.revoke_existing_roles);
+        debug_struct.field("server_roles", &self.server_roles);
+        debug_struct.field(
+            "revoke_existing_server_roles",
+            &self.revoke_existing_server_roles,
+        );
         debug_struct.field("body", &self.body);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -3255,6 +3268,7 @@ impl std::fmt::Debug for super::User {
         debug_struct.field("dual_password_type", &self.dual_password_type);
         debug_struct.field("iam_status", &self.iam_status);
         debug_struct.field("database_roles", &self.database_roles);
+        debug_struct.field("server_roles", &self.server_roles);
         debug_struct.field("user_details", &self.user_details);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
