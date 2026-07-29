@@ -484,12 +484,12 @@ libraries:
     version: 0.16.0-preview
     copyright_year: "2026"
     output: src/bigquery
+    skip_release: true
     rust:
       modules:
         - output: src/bigquery/src/generated
           api_path: google/cloud/bigquery/v2
           template: bigquery
-    skip_release: true
   - name: google-cloud-bigquery-analyticshub-v1
     version: 1.13.0
     copyright_year: "2025"
@@ -521,6 +521,7 @@ libraries:
     copyright_year: "2025"
     keep:
       - src/operation.rs
+    skip_release: true
     rust:
       package_dependencies:
         - name: tokio
@@ -529,7 +530,6 @@ libraries:
         - name: uuid
           package: uuid
           force_used: true
-    skip_release: true
   - name: google-cloud-bigquery-write
     copyright_year: "2026"
     output: src/bigquery-write
