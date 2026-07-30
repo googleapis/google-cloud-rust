@@ -299,7 +299,7 @@ libraries:
       - path: google/api/servicecontrol/v1
     copyright_year: "2025"
   - name: google-cloud-api-servicecontrol-v2
-    version: 1.11.0
+    version: 1.12.0
     apis:
       - path: google/api/servicecontrol/v2
     copyright_year: "2025"
