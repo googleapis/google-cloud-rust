@@ -104,14 +104,14 @@ pub enum JobPollerError {
 #[derive(Debug)]
 pub struct JobPoller {
     policy: JobRetryPolicy,
-    builder: InsertJob,
+    builder: Box<InsertJob>,
 }
 
 impl JobPoller {
     pub(crate) fn new(builder: InsertJob) -> Self {
         Self {
             policy: JobRetryPolicy::default(),
-            builder,
+            builder: Box::new(builder),
         }
     }
 
@@ -128,38 +128,43 @@ impl JobPoller {
     }
 
     /// Polls the job until it is done, returning the final Job status.
-    pub async fn until_done(self) -> Result<Job, JobPollerError> {
-        let mut attempts = 0_u32;
-        let mut builder = self.builder;
-        let backoff = self.policy.backoff;
-        let start_time = std::time::Instant::now();
+    pub fn until_done(
+        self,
+    ) -> std::pin::Pin<Box<dyn std::future::Future<Output = Result<Job, JobPollerError>> + Send>>
+    {
+        Box::pin(async move {
+            let mut attempts = 0_u32;
+            let mut builder = self.builder;
+            let backoff = self.policy.backoff;
+            let start_time = std::time::Instant::now();
 
-        loop {
-            // NOTE: the client library intercepts errors and retries internally
-            // according to the policies set on `builder`.
-            let job_result = builder.clone().poller().until_done().await?;
-            attempts += 1;
+            loop {
+                // NOTE: the client library intercepts errors and retries internally
+                // according to the policies set on `builder`.
+                let job_result = Box::pin(builder.clone().poller().until_done()).await?;
+                attempts += 1;
 
-            if let Some(status) = &job_result.status
-                && let Some(err) = &status.error_result
-            {
-                if is_retryable_job_error(&err.reason)
-                    && attempts < self.policy.job_level_attempt_limit
+                if let Some(status) = &job_result.status
+                    && let Some(err) = &status.error_result
                 {
-                    let retry_job = prepare_job_for_retry(job_result);
-                    builder = builder.set_job(retry_job);
+                    if is_retryable_job_error(&err.reason)
+                        && attempts < self.policy.job_level_attempt_limit
+                    {
+                        let retry_job = prepare_job_for_retry(job_result);
+                        *builder = builder.set_job(retry_job);
 
-                    let retry_state = RetryState::new(true)
-                        .set_start(start_time)
-                        .set_attempt_count(attempts);
-                    let delay = backoff.on_failure(&retry_state);
-                    tokio::time::sleep(delay).await;
-                    continue;
+                        let retry_state = RetryState::new(true)
+                            .set_start(start_time)
+                            .set_attempt_count(attempts);
+                        let delay = backoff.on_failure(&retry_state);
+                        tokio::time::sleep(delay).await;
+                        continue;
+                    }
+                    return Err(JobPollerError::ErrorProto(err.clone()));
                 }
-                return Err(JobPollerError::ErrorProto(err.clone()));
+                return Ok(job_result);
             }
-            return Ok(job_result);
-        }
+        })
     }
 }
 
