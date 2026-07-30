@@ -398,7 +398,7 @@ macro_rules! mutation {
     // Internal helper for write operations
     (@build_write $builder:ident, $table:tt, { $($col:tt : $val:expr),* $(,)? }) => {
         $crate::mutation::Mutation::$builder($table)
-            $(.set($crate::mutation!(@col $col)).to(&$val))*
+            $(.set($crate::mutation!(@col $col)).to($val))*
             .build()
     };
 
@@ -846,11 +846,11 @@ mod tests {
 
         let builder_mutation = Mutation::new_insert_builder("Singers")
             .set("SingerId")
-            .to(&1_i64)
+            .to(1_i64)
             .set("FirstName")
-            .to(&"Marc")
+            .to("Marc")
             .set("LastName")
-            .to(&"Richards")
+            .to("Richards")
             .build();
 
         assert_eq!(macro_mutation, builder_mutation);
@@ -866,11 +866,11 @@ mod tests {
 
         let builder_mutation = Mutation::new_update_builder("Albums")
             .set("SingerId")
-            .to(&1_i64)
+            .to(1_i64)
             .set("AlbumTitle")
-            .to(&"New Title")
+            .to("New Title")
             .set("MarketingBudget")
-            .to(&100_000_i64)
+            .to(100_000_i64)
             .build();
 
         assert_eq!(macro_mutation, builder_mutation);
@@ -885,9 +885,9 @@ mod tests {
 
         let builder_mutation = Mutation::new_insert_or_update_builder("Singers")
             .set("SingerId")
-            .to(&2_i64)
+            .to(2_i64)
             .set("FirstName")
-            .to(&"Alice")
+            .to("Alice")
             .build();
 
         assert_eq!(macro_mutation, builder_mutation);
@@ -902,9 +902,9 @@ mod tests {
 
         let builder_mutation = Mutation::new_replace_builder("Singers")
             .set("SingerId")
-            .to(&3_i64)
+            .to(3_i64)
             .set("FirstName")
-            .to(&"Bob")
+            .to("Bob")
             .build();
 
         assert_eq!(macro_mutation, builder_mutation);
@@ -937,7 +937,7 @@ mod tests {
 
         let expected_insert = Mutation::new_insert_builder("Singers")
             .set("SingerId")
-            .to(&1_i64)
+            .to(1_i64)
             .build();
         let expected_delete = Mutation::delete("Singers", KeySet::all());
 
