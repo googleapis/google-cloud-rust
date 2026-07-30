@@ -58,8 +58,8 @@ mod status;
 /// The messages and enums that are part of this client library
 pub mod model {
     pub use crate::append_response::AppendResponse;
-    pub use crate::generated::gapic_storage::model::TableSchema;
-    pub(crate) use crate::generated::gapic_storage::model::*;
+    // TODO(#6224) - restrict exports
+    pub use crate::generated::gapic_storage::model::*;
 }
 
 #[allow(dead_code)]
