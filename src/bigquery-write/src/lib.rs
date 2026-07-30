@@ -44,6 +44,7 @@ pub mod builder {
     }
     // TODO(#6152) - add admin client
 }
+mod append_response;
 mod client_builder;
 mod error;
 mod proto_schema;
@@ -54,8 +55,11 @@ mod transport;
 
 // TODO(#4832) - remove handwritten code.
 mod status;
-pub(crate) mod model {
-    pub use crate::generated::gapic_storage::model::*;
+/// The messages and enums that are part of this client library
+pub mod model {
+    pub use crate::append_response::AppendResponse;
+    pub use crate::generated::gapic_storage::model::TableSchema;
+    pub(crate) use crate::generated::gapic_storage::model::*;
 }
 
 #[allow(dead_code)]
