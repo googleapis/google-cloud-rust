@@ -346,6 +346,88 @@ impl<'a> IntoIterator for &'a MutationGroup {
     }
 }
 
+/// Constructs a [`Mutation`] using declarative syntax.
+///
+/// # Examples
+///
+/// ```
+/// use google_cloud_spanner::key::KeySet;
+/// use google_cloud_spanner::mutation;
+///
+/// // Insert operation
+/// let insert_mut = mutation!(insert "Singers" {
+///     SingerId: 1_i64,
+///     FirstName: "Marc",
+///     LastName: "Richards",
+/// });
+///
+/// // Update operation
+/// let update_mut = mutation!(update "Albums" {
+///     SingerId: 1_i64,
+///     AlbumId: 1_i64,
+///     MarketingBudget: 100_000_i64,
+/// });
+///
+/// // Insert or Update operation
+/// let upsert_mut = mutation!(insert_or_update "Singers" {
+///     SingerId: 1_i64,
+///     FirstName: "Marc",
+///     LastName: "Richards",
+/// });
+///
+/// // Replace operation
+/// let replace_mut = mutation!(replace "Singers" {
+///     SingerId: 1_i64,
+///     FirstName: "Marc",
+///     LastName: "Richards",
+/// });
+///
+/// // Delete operation
+/// let delete_mut = mutation!(delete "Singers", KeySet::all());
+/// ```
+#[macro_export]
+macro_rules! mutation {
+    // Internal helper matcher for column names (ident vs string expr)
+    (@col $id:ident) => {
+        stringify!($id)
+    };
+    (@col $lit:expr) => {
+        $lit
+    };
+
+    // Internal helper for write operations
+    (@build_write $builder:ident, $table:tt, { $($col:tt : $val:expr),* $(,)? }) => {
+        $crate::mutation::Mutation::$builder($table)
+            $(.set($crate::mutation!(@col $col)).to(&$val))*
+            .build()
+    };
+
+    // Delete operation
+    (delete $table:expr, $key_set:expr) => {
+        $crate::mutation::Mutation::delete($table, $key_set)
+    };
+
+    // Insert operation
+    (insert $table:tt { $($rest:tt)* }) => {
+        $crate::mutation!(@build_write new_insert_builder, $table, { $($rest)* })
+    };
+
+    // Update operation
+    (update $table:tt { $($rest:tt)* }) => {
+        $crate::mutation!(@build_write new_update_builder, $table, { $($rest)* })
+    };
+
+    // Insert or update operation
+    (insert_or_update $table:tt { $($rest:tt)* }) => {
+        $crate::mutation!(@build_write new_insert_or_update_builder, $table, { $($rest)* })
+    };
+
+    // Replace operation
+    (replace $table:tt { $($rest:tt)* }) => {
+        $crate::mutation!(@build_write new_replace_builder, $table, { $($rest)* })
+    };
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -752,5 +834,115 @@ mod tests {
         let mutations = vec![m1.clone(), m2.clone()];
         let key = Mutation::select_mutation_key(&mutations);
         assert_eq!(key, Some(m1));
+    }
+
+    #[test]
+    fn test_mutation_macro_insert() {
+        let macro_mutation = mutation!(insert "Singers" {
+            SingerId: 1_i64,
+            FirstName: "Marc",
+            LastName: "Richards",
+        });
+
+        let builder_mutation = Mutation::new_insert_builder("Singers")
+            .set("SingerId")
+            .to(&1_i64)
+            .set("FirstName")
+            .to(&"Marc")
+            .set("LastName")
+            .to(&"Richards")
+            .build();
+
+        assert_eq!(macro_mutation, builder_mutation);
+    }
+
+    #[test]
+    fn test_mutation_macro_update_with_string_literal() {
+        let macro_mutation = mutation!(update "Albums" {
+            SingerId: 1_i64,
+            "AlbumTitle": "New Title",
+            MarketingBudget: 100_000_i64,
+        });
+
+        let builder_mutation = Mutation::new_update_builder("Albums")
+            .set("SingerId")
+            .to(&1_i64)
+            .set("AlbumTitle")
+            .to(&"New Title")
+            .set("MarketingBudget")
+            .to(&100_000_i64)
+            .build();
+
+        assert_eq!(macro_mutation, builder_mutation);
+    }
+
+    #[test]
+    fn test_mutation_macro_insert_or_update() {
+        let macro_mutation = mutation!(insert_or_update "Singers" {
+            SingerId: 2_i64,
+            FirstName: "Alice",
+        });
+
+        let builder_mutation = Mutation::new_insert_or_update_builder("Singers")
+            .set("SingerId")
+            .to(&2_i64)
+            .set("FirstName")
+            .to(&"Alice")
+            .build();
+
+        assert_eq!(macro_mutation, builder_mutation);
+    }
+
+    #[test]
+    fn test_mutation_macro_replace() {
+        let macro_mutation = mutation!(replace "Singers" {
+            SingerId: 3_i64,
+            FirstName: "Bob",
+        });
+
+        let builder_mutation = Mutation::new_replace_builder("Singers")
+            .set("SingerId")
+            .to(&3_i64)
+            .set("FirstName")
+            .to(&"Bob")
+            .build();
+
+        assert_eq!(macro_mutation, builder_mutation);
+    }
+
+    #[test]
+    fn test_mutation_macro_delete() {
+        let macro_mutation = mutation!(delete "Singers", KeySet::all());
+        let direct_mutation = Mutation::delete("Singers", KeySet::all());
+
+        assert_eq!(macro_mutation, direct_mutation);
+    }
+
+    #[test]
+    fn test_mutation_macro_complex_table_expressions() {
+        fn get_table() -> &'static str {
+            "Singers"
+        }
+        mod constants {
+            pub const TABLE: &str = "Singers";
+        }
+
+        let macro_mutation1 = mutation!(insert (get_table()) {
+            SingerId: 1_i64,
+        });
+        let macro_mutation2 = mutation!(insert (constants::TABLE) {
+            SingerId: 1_i64,
+        });
+        let delete_mutation = mutation!(delete constants::TABLE, KeySet::all());
+
+        let expected_insert = Mutation::new_insert_builder("Singers")
+            .set("SingerId")
+            .to(&1_i64)
+            .build();
+        let expected_delete = Mutation::delete("Singers", KeySet::all());
+
+        assert_eq!(macro_mutation1, expected_insert);
+        assert_eq!(macro_mutation2, expected_insert);
+        assert_eq!(delete_mutation, expected_delete);
     }
 }
