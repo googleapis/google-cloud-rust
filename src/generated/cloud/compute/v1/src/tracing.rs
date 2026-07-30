@@ -36,6 +36,7 @@
     feature = "global-public-delegated-prefixes",
     feature = "global-vm-extension-policies",
     feature = "health-checks",
+    feature = "hosts",
     feature = "http-health-checks",
     feature = "https-health-checks",
     feature = "image-family-views",
@@ -106,6 +107,7 @@
     feature = "region-url-maps",
     feature = "region-zones",
     feature = "regions",
+    feature = "reliability-risks",
     feature = "reservation-blocks",
     feature = "reservation-slots",
     feature = "reservation-sub-blocks",
@@ -4113,6 +4115,133 @@ where
             metric: self.duration.clone(),
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::HealthChecks::get_operation",
+            self.inner.get_operation(req, options));
+        google_cloud_lro::record_polling_attributes!(&_span);
+        let result = pending.await;
+        {
+            if google_cloud_lro::LroRecorder::current().is_some() {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        google_cloud_lro::record_discovery_polling_result!(&_span, op);
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
+    }
+}
+
+/// Implements a [Hosts](super::stub::Hosts) decorator for logging and tracing.
+#[cfg(feature = "hosts")]
+#[derive(Clone, Debug)]
+pub struct Hosts<T>
+where
+    T: super::stub::Hosts + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+    duration: gaxi::observability::DurationMetric,
+}
+
+#[cfg(feature = "hosts")]
+impl<T> Hosts<T>
+where
+    T: super::stub::Hosts + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self {
+            inner,
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
+    }
+}
+
+#[cfg(feature = "hosts")]
+impl<T> super::stub::Hosts for Hosts<T>
+where
+    T: super::stub::Hosts + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get(
+        &self,
+        req: crate::model::hosts::GetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Host>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Hosts::get",
+            self.inner.get(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_version(
+        &self,
+        req: crate::model::hosts::GetVersionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Hosts::get_version",
+            self.inner.get_version(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list(
+        &self,
+        req: crate::model::hosts::ListRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::HostsListResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Hosts::list",
+            self.inner.list(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_operation(
+        &self,
+        req: crate::model::zone_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Hosts::get_operation",
             self.inner.get_operation(req, options));
         google_cloud_lro::record_polling_attributes!(&_span);
         let result = pending.await;
@@ -17590,6 +17719,64 @@ where
             metric: self.duration.clone(),
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::Regions::list",
+            self.inner.list(req, options));
+        pending.await
+    }
+}
+
+/// Implements a [ReliabilityRisks](super::stub::ReliabilityRisks) decorator for logging and tracing.
+#[cfg(feature = "reliability-risks")]
+#[derive(Clone, Debug)]
+pub struct ReliabilityRisks<T>
+where
+    T: super::stub::ReliabilityRisks + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+    duration: gaxi::observability::DurationMetric,
+}
+
+#[cfg(feature = "reliability-risks")]
+impl<T> ReliabilityRisks<T>
+where
+    T: super::stub::ReliabilityRisks + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self {
+            inner,
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
+    }
+}
+
+#[cfg(feature = "reliability-risks")]
+impl<T> super::stub::ReliabilityRisks for ReliabilityRisks<T>
+where
+    T: super::stub::ReliabilityRisks + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get(
+        &self,
+        req: crate::model::reliability_risks::GetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ReliabilityRisk>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ReliabilityRisks::get",
+            self.inner.get(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list(
+        &self,
+        req: crate::model::reliability_risks::ListRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ReliabilityRisksListResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ReliabilityRisks::list",
             self.inner.list(req, options));
         pending.await
     }

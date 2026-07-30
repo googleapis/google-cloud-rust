@@ -2322,6 +2322,7 @@ impl std::fmt::Debug for super::BulkInsertInstanceResourcePerInstanceProperties 
     feature = "global-public-delegated-prefixes",
     feature = "global-vm-extension-policies",
     feature = "health-checks",
+    feature = "hosts",
     feature = "http-health-checks",
     feature = "https-health-checks",
     feature = "images",
@@ -3879,6 +3880,7 @@ impl std::fmt::Debug for super::Duration {
     feature = "global-public-delegated-prefixes",
     feature = "global-vm-extension-policies",
     feature = "health-checks",
+    feature = "hosts",
     feature = "http-health-checks",
     feature = "https-health-checks",
     feature = "images",
@@ -5391,6 +5393,7 @@ impl std::fmt::Debug for super::GRPCTLSHealthCheck {
     feature = "global-public-delegated-prefixes",
     feature = "global-vm-extension-policies",
     feature = "health-checks",
+    feature = "hosts",
     feature = "http-health-checks",
     feature = "https-health-checks",
     feature = "images",
@@ -5514,6 +5517,7 @@ impl std::fmt::Debug for super::GetVersionOperationMetadata {
     feature = "global-public-delegated-prefixes",
     feature = "global-vm-extension-policies",
     feature = "health-checks",
+    feature = "hosts",
     feature = "http-health-checks",
     feature = "https-health-checks",
     feature = "images",
@@ -6838,6 +6842,7 @@ impl std::fmt::Debug for super::HealthStatusForNetworkEndpoint {
     feature = "global-public-delegated-prefixes",
     feature = "global-vm-extension-policies",
     feature = "health-checks",
+    feature = "hosts",
     feature = "http-health-checks",
     feature = "https-health-checks",
     feature = "images",
@@ -6961,6 +6966,7 @@ impl std::fmt::Debug for super::Help {
     feature = "global-public-delegated-prefixes",
     feature = "global-vm-extension-policies",
     feature = "health-checks",
+    feature = "hosts",
     feature = "http-health-checks",
     feature = "https-health-checks",
     feature = "images",
@@ -7065,6 +7071,43 @@ impl std::fmt::Debug for super::HelpLink {
     }
 }
 
+#[cfg(feature = "hosts")]
+impl std::fmt::Debug for super::Host {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Host");
+        debug_struct.field("alias_links", &self.alias_links);
+        debug_struct.field("creation_timestamp", &self.creation_timestamp);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("self_link_with_id", &self.self_link_with_id);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("status", &self.status);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "hosts")]
+impl std::fmt::Debug for super::HostPhysicalTopology {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HostPhysicalTopology");
+        debug_struct.field("block", &self.block);
+        debug_struct.field("cluster", &self.cluster);
+        debug_struct.field("host", &self.host);
+        debug_struct.field("sub_block", &self.sub_block);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 #[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
 impl std::fmt::Debug for super::HostRule {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -7072,6 +7115,77 @@ impl std::fmt::Debug for super::HostRule {
         debug_struct.field("description", &self.description);
         debug_struct.field("hosts", &self.hosts);
         debug_struct.field("path_matcher", &self.path_matcher);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "hosts")]
+impl std::fmt::Debug for super::HostStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HostStatus");
+        debug_struct.field("physical_topology", &self.physical_topology);
+        debug_struct.field("running_instances", &self.running_instances);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "hosts")]
+impl std::fmt::Debug for super::HostsGetVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HostsGetVersionRequest");
+        debug_struct.field("sbom_selections", &self.sbom_selections);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "hosts")]
+impl std::fmt::Debug for super::HostsListResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HostsListResponse");
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("items", &self.items);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("unreachables", &self.unreachables);
+        debug_struct.field("warning", &self.warning);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "hosts")]
+impl std::fmt::Debug for super::hosts_list_response::Warning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Warning");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "hosts")]
+impl std::fmt::Debug for super::hosts_list_response::warning::Data {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Data");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -9616,6 +9730,7 @@ impl std::fmt::Debug for super::InstancesAddResourcePoliciesRequest {
     feature = "global-public-delegated-prefixes",
     feature = "global-vm-extension-policies",
     feature = "health-checks",
+    feature = "hosts",
     feature = "http-health-checks",
     feature = "https-health-checks",
     feature = "images",
@@ -11965,6 +12080,7 @@ impl std::fmt::Debug for super::LocalDisk {
     feature = "global-public-delegated-prefixes",
     feature = "global-vm-extension-policies",
     feature = "health-checks",
+    feature = "hosts",
     feature = "http-health-checks",
     feature = "https-health-checks",
     feature = "images",
@@ -14789,6 +14905,7 @@ impl std::fmt::Debug for super::notification_endpoints_scoped_list::warning::Dat
     feature = "global-public-delegated-prefixes",
     feature = "global-vm-extension-policies",
     feature = "health-checks",
+    feature = "hosts",
     feature = "http-health-checks",
     feature = "https-health-checks",
     feature = "images",
@@ -14947,6 +15064,7 @@ impl std::fmt::Debug for super::Operation {
     feature = "global-public-delegated-prefixes",
     feature = "global-vm-extension-policies",
     feature = "health-checks",
+    feature = "hosts",
     feature = "http-health-checks",
     feature = "https-health-checks",
     feature = "images",
@@ -15070,6 +15188,7 @@ impl std::fmt::Debug for super::operation::Error {
     feature = "global-public-delegated-prefixes",
     feature = "global-vm-extension-policies",
     feature = "health-checks",
+    feature = "hosts",
     feature = "http-health-checks",
     feature = "https-health-checks",
     feature = "images",
@@ -15196,6 +15315,7 @@ impl std::fmt::Debug for super::operation::error::Errors {
     feature = "global-public-delegated-prefixes",
     feature = "global-vm-extension-policies",
     feature = "health-checks",
+    feature = "hosts",
     feature = "http-health-checks",
     feature = "https-health-checks",
     feature = "images",
@@ -15322,6 +15442,7 @@ impl std::fmt::Debug for super::operation::error::errors::ErrorDetails {
     feature = "global-public-delegated-prefixes",
     feature = "global-vm-extension-policies",
     feature = "health-checks",
+    feature = "hosts",
     feature = "http-health-checks",
     feature = "https-health-checks",
     feature = "images",
@@ -15447,6 +15568,7 @@ impl std::fmt::Debug for super::operation::Warnings {
     feature = "global-public-delegated-prefixes",
     feature = "global-vm-extension-policies",
     feature = "health-checks",
+    feature = "hosts",
     feature = "http-health-checks",
     feature = "https-health-checks",
     feature = "images",
@@ -16755,6 +16877,7 @@ impl std::fmt::Debug for super::Quota {
     feature = "global-public-delegated-prefixes",
     feature = "global-vm-extension-policies",
     feature = "health-checks",
+    feature = "hosts",
     feature = "http-health-checks",
     feature = "https-health-checks",
     feature = "images",
@@ -17731,6 +17854,71 @@ impl std::fmt::Debug for super::RegionUrlMapsValidateRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RegionUrlMapsValidateRequest");
         debug_struct.field("resource", &self.resource);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "reliability-risks")]
+impl std::fmt::Debug for super::ReliabilityRisk {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReliabilityRisk");
+        debug_struct.field("creation_timestamp", &self.creation_timestamp);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("details", &self.details);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("recommendation", &self.recommendation);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("self_link_with_id", &self.self_link_with_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "reliability-risks")]
+impl std::fmt::Debug for super::ReliabilityRisksListResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReliabilityRisksListResponse");
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("items", &self.items);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("unreachables", &self.unreachables);
+        debug_struct.field("warning", &self.warning);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "reliability-risks")]
+impl std::fmt::Debug for super::reliability_risks_list_response::Warning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Warning");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "reliability-risks")]
+impl std::fmt::Debug for super::reliability_risks_list_response::warning::Data {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Data");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -18843,6 +19031,7 @@ impl std::fmt::Debug for super::ResourceStatus {
             &self.reservation_consumption_info,
         );
         debug_struct.field("scheduling", &self.scheduling);
+        debug_struct.field("shutdown_details", &self.shutdown_details);
         debug_struct.field("upcoming_maintenance", &self.upcoming_maintenance);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -18932,6 +19121,14 @@ impl std::fmt::Debug for super::ResourceStatusReservationConsumptionInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ResourceStatusReservationConsumptionInfo");
         debug_struct.field("consumed_reservation", &self.consumed_reservation);
+        debug_struct.field(
+            "consumed_reservation_block",
+            &self.consumed_reservation_block,
+        );
+        debug_struct.field(
+            "consumed_reservation_sub_block",
+            &self.consumed_reservation_sub_block,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -18944,6 +19141,73 @@ impl std::fmt::Debug for super::ResourceStatusScheduling {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ResourceStatusScheduling");
         debug_struct.field("availability_domain", &self.availability_domain);
+        debug_struct.field(
+            "graceful_shutdown_timestamp",
+            &self.graceful_shutdown_timestamp,
+        );
+        debug_struct.field("termination_timestamp", &self.termination_timestamp);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::ResourceStatusShutdownDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResourceStatusShutdownDetails");
+        debug_struct.field("max_duration", &self.max_duration);
+        debug_struct.field("request_timestamp", &self.request_timestamp);
+        debug_struct.field("stop_state", &self.stop_state);
+        debug_struct.field("target_state", &self.target_state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "reliability-risks")]
+impl std::fmt::Debug for super::RiskDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RiskDetails");
+        debug_struct.field("duration", &self.duration);
+        debug_struct.field("global_dns_insight", &self.global_dns_insight);
+        debug_struct.field("last_update_timestamp", &self.last_update_timestamp);
+        debug_struct.field("severity", &self.severity);
+        debug_struct.field("r#type", &self.r#type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "reliability-risks")]
+impl std::fmt::Debug for super::RiskDetailsGlobalDnsInsight {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RiskDetailsGlobalDnsInsight");
+        debug_struct.field(
+            "project_default_is_global_dns",
+            &self.project_default_is_global_dns,
+        );
+        debug_struct.field("query_observation_window", &self.query_observation_window);
+        debug_struct.field("risky_query_count", &self.risky_query_count);
+        debug_struct.field("total_query_count", &self.total_query_count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "reliability-risks")]
+impl std::fmt::Debug for super::RiskRecommendation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RiskRecommendation");
+        debug_struct.field("content", &self.content);
+        debug_struct.field("reference_url", &self.reference_url);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -20267,6 +20531,7 @@ impl std::fmt::Debug for super::Scheduling {
         let mut debug_struct = f.debug_struct("Scheduling");
         debug_struct.field("automatic_restart", &self.automatic_restart);
         debug_struct.field("availability_domain", &self.availability_domain);
+        debug_struct.field("graceful_shutdown", &self.graceful_shutdown);
         debug_struct.field(
             "host_error_timeout_seconds",
             &self.host_error_timeout_seconds,
@@ -20286,9 +20551,32 @@ impl std::fmt::Debug for super::Scheduling {
         debug_struct.field("on_host_maintenance", &self.on_host_maintenance);
         debug_struct.field("on_instance_stop_action", &self.on_instance_stop_action);
         debug_struct.field("preemptible", &self.preemptible);
+        debug_struct.field(
+            "preemption_notice_duration",
+            &self.preemption_notice_duration,
+        );
         debug_struct.field("provisioning_model", &self.provisioning_model);
         debug_struct.field("skip_guest_os_shutdown", &self.skip_guest_os_shutdown);
         debug_struct.field("termination_time", &self.termination_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-templates",
+    feature = "instances",
+    feature = "machine-images",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+))]
+impl std::fmt::Debug for super::SchedulingGracefulShutdown {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SchedulingGracefulShutdown");
+        debug_struct.field("enabled", &self.enabled);
+        debug_struct.field("max_duration", &self.max_duration);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -21390,6 +21678,7 @@ impl std::fmt::Debug for super::service_attachments_scoped_list::warning::Data {
     feature = "global-public-delegated-prefixes",
     feature = "global-vm-extension-policies",
     feature = "health-checks",
+    feature = "hosts",
     feature = "http-health-checks",
     feature = "https-health-checks",
     feature = "images",
@@ -21514,6 +21803,7 @@ impl std::fmt::Debug for super::SetCommonInstanceMetadataOperationMetadata {
     feature = "global-public-delegated-prefixes",
     feature = "global-vm-extension-policies",
     feature = "health-checks",
+    feature = "hosts",
     feature = "http-health-checks",
     feature = "https-health-checks",
     feature = "images",
@@ -22489,6 +22779,7 @@ impl std::fmt::Debug for super::StatefulPolicyPreservedStateNetworkIp {
     feature = "global-public-delegated-prefixes",
     feature = "global-vm-extension-policies",
     feature = "health-checks",
+    feature = "hosts",
     feature = "http-health-checks",
     feature = "https-health-checks",
     feature = "images",
@@ -22630,6 +22921,7 @@ impl std::fmt::Debug for super::StoragePool {
         debug_struct.field("resource_status", &self.resource_status);
         debug_struct.field("self_link", &self.self_link);
         debug_struct.field("self_link_with_id", &self.self_link_with_id);
+        debug_struct.field("share_settings", &self.share_settings);
         debug_struct.field("state", &self.state);
         debug_struct.field("status", &self.status);
         debug_struct.field("storage_pool_type", &self.storage_pool_type);
@@ -22863,6 +23155,30 @@ impl std::fmt::Debug for super::StoragePoolResourceStatus {
             "total_provisioned_disk_throughput",
             &self.total_provisioned_disk_throughput,
         );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "storage-pools")]
+impl std::fmt::Debug for super::StoragePoolShareSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StoragePoolShareSettings");
+        debug_struct.field("project_map", &self.project_map);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "storage-pools")]
+impl std::fmt::Debug for super::StoragePoolShareSettingsProjectConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StoragePoolShareSettingsProjectConfig");
+        debug_struct.field("project_id", &self.project_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -29179,6 +29495,57 @@ impl std::fmt::Debug for super::health_checks::UpdateRequest {
     }
 }
 
+#[cfg(feature = "hosts")]
+impl std::fmt::Debug for super::hosts::GetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRequest");
+        debug_struct.field("association", &self.association);
+        debug_struct.field("host", &self.host);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "hosts")]
+impl std::fmt::Debug for super::hosts::GetVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetVersionRequest");
+        debug_struct.field("association", &self.association);
+        debug_struct.field("host", &self.host);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "hosts")]
+impl std::fmt::Debug for super::hosts::ListRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRequest");
+        debug_struct.field("association", &self.association);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 #[cfg(feature = "http-health-checks")]
 impl std::fmt::Debug for super::http_health_checks::DeleteRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -30456,6 +30823,7 @@ impl std::fmt::Debug for super::instances::DeleteRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteRequest");
         debug_struct.field("instance", &self.instance);
+        debug_struct.field("no_graceful_shutdown", &self.no_graceful_shutdown);
         debug_struct.field("project", &self.project);
         debug_struct.field("request_id", &self.request_id);
         debug_struct.field("zone", &self.zone);
@@ -31047,6 +31415,7 @@ impl std::fmt::Debug for super::instances::StopRequest {
         let mut debug_struct = f.debug_struct("StopRequest");
         debug_struct.field("discard_local_ssd", &self.discard_local_ssd);
         debug_struct.field("instance", &self.instance);
+        debug_struct.field("no_graceful_shutdown", &self.no_graceful_shutdown);
         debug_struct.field("project", &self.project);
         debug_struct.field("request_id", &self.request_id);
         debug_struct.field("zone", &self.zone);
@@ -38301,6 +38670,36 @@ impl std::fmt::Debug for super::regions::ListRequest {
     }
 }
 
+#[cfg(feature = "reliability-risks")]
+impl std::fmt::Debug for super::reliability_risks::GetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("reliability_risk", &self.reliability_risk);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "reliability-risks")]
+impl std::fmt::Debug for super::reliability_risks::ListRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRequest");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 #[cfg(feature = "reservation-blocks")]
 impl std::fmt::Debug for super::reservation_blocks::GetRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -42127,6 +42526,7 @@ impl std::fmt::Debug for super::zone_operations::DeleteRequest {
     feature = "autoscalers",
     feature = "disks",
     feature = "future-reservations",
+    feature = "hosts",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
     feature = "instance-groups",

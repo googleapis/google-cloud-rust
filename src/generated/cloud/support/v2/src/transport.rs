@@ -1342,11 +1342,7 @@ impl super::stub::SupportEventSubscriptionService for SupportEventSubscriptionSe
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                    &[
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
+                    &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/supportEventSubscriptions", var_parent,);
                 let path_template = "/v2/{parent}/supportEventSubscriptions";
@@ -1362,13 +1358,9 @@ impl super::stub::SupportEventSubscriptionService for SupportEventSubscriptionSe
                     let builder = PathMismatchBuilder::default();
                     let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "parent",
-                        "*/*",
+                        "organizations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -1409,8 +1401,7 @@ impl super::stub::SupportEventSubscriptionService for SupportEventSubscriptionSe
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
+                        Segment::Literal("organizations/"),
                         Segment::SingleWildcard,
                         Segment::Literal("/supportEventSubscriptions/"),
                         Segment::SingleWildcard,
@@ -1431,14 +1422,13 @@ impl super::stub::SupportEventSubscriptionService for SupportEventSubscriptionSe
                     let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                         &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/supportEventSubscriptions/"),
                             Segment::SingleWildcard,
                         ],
                         "name",
-                        "*/*/supportEventSubscriptions/*",
+                        "organizations/*/supportEventSubscriptions/*",
                     );
                     paths.push(builder.build());
                 }
@@ -1478,11 +1468,7 @@ impl super::stub::SupportEventSubscriptionService for SupportEventSubscriptionSe
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                    &[
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
-                        Segment::SingleWildcard,
-                    ],
+                    &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/supportEventSubscriptions", var_parent,);
                 let path_template = "/v2/{parent}/supportEventSubscriptions";
@@ -1502,13 +1488,9 @@ impl super::stub::SupportEventSubscriptionService for SupportEventSubscriptionSe
                     let builder = PathMismatchBuilder::default();
                     let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                        ],
+                        &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "parent",
-                        "*/*",
+                        "organizations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -1552,8 +1534,7 @@ impl super::stub::SupportEventSubscriptionService for SupportEventSubscriptionSe
                         .map(|m| &m.name)
                         .map(|s| s.as_str()),
                     &[
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
+                        Segment::Literal("organizations/"),
                         Segment::SingleWildcard,
                         Segment::Literal("/supportEventSubscriptions/"),
                         Segment::SingleWildcard,
@@ -1588,14 +1569,13 @@ impl super::stub::SupportEventSubscriptionService for SupportEventSubscriptionSe
                             .map(|m| &m.name)
                             .map(|s| s.as_str()),
                         &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/supportEventSubscriptions/"),
                             Segment::SingleWildcard,
                         ],
                         "support_event_subscription.name",
-                        "*/*/supportEventSubscriptions/*",
+                        "organizations/*/supportEventSubscriptions/*",
                     );
                     paths.push(builder.build());
                 }
@@ -1635,8 +1615,7 @@ impl super::stub::SupportEventSubscriptionService for SupportEventSubscriptionSe
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
+                        Segment::Literal("organizations/"),
                         Segment::SingleWildcard,
                         Segment::Literal("/supportEventSubscriptions/"),
                         Segment::SingleWildcard,
@@ -1657,14 +1636,13 @@ impl super::stub::SupportEventSubscriptionService for SupportEventSubscriptionSe
                     let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                         &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/supportEventSubscriptions/"),
                             Segment::SingleWildcard,
                         ],
                         "name",
-                        "*/*/supportEventSubscriptions/*",
+                        "organizations/*/supportEventSubscriptions/*",
                     );
                     paths.push(builder.build());
                 }
@@ -1705,8 +1683,7 @@ impl super::stub::SupportEventSubscriptionService for SupportEventSubscriptionSe
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[
-                        Segment::SingleWildcard,
-                        Segment::Literal("/"),
+                        Segment::Literal("organizations/"),
                         Segment::SingleWildcard,
                         Segment::Literal("/supportEventSubscriptions/"),
                         Segment::SingleWildcard,
@@ -1727,14 +1704,13 @@ impl super::stub::SupportEventSubscriptionService for SupportEventSubscriptionSe
                     let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                         &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
+                            Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/supportEventSubscriptions/"),
                             Segment::SingleWildcard,
                         ],
                         "name",
-                        "*/*/supportEventSubscriptions/*",
+                        "organizations/*/supportEventSubscriptions/*",
                     );
                     paths.push(builder.build());
                 }
@@ -1758,5 +1734,79 @@ impl super::stub::SupportEventSubscriptionService for SupportEventSubscriptionSe
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
+    }
+
+    async fn expunge_support_event_subscription(
+        &self,
+        req: crate::model::ExpungeSupportEventSubscriptionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/supportEventSubscriptions/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:expunge", var_name,);
+                let path_template = "/v2/{name}:expunge";
+
+                let resource_name = format!("//cloudsupport.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/supportEventSubscriptions/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/supportEventSubscriptions/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.support.v2.SupportEventSubscriptionService/ExpungeSupportEventSubscription")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner
+            .execute(builder, body, options)
+            .await
+            .map(|r: crate::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                crate::Response::from_parts(parts, ())
+            })
     }
 }

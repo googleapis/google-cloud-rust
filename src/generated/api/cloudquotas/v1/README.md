@@ -29,9 +29,9 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-api-cloudquotas-v1/1.11.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-api-cloudquotas-v1/1.12.0)
 
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
-[CloudQuotas]: https://docs.rs/google-cloud-api-cloudquotas-v1/1.11.0/google_cloud_api_cloudquotas_v1/client/struct.CloudQuotas.html
-[QuotaAdjusterSettingsManager]: https://docs.rs/google-cloud-api-cloudquotas-v1/1.11.0/google_cloud_api_cloudquotas_v1/client/struct.QuotaAdjusterSettingsManager.html
+[CloudQuotas]: https://docs.rs/google-cloud-api-cloudquotas-v1/1.12.0/google_cloud_api_cloudquotas_v1/client/struct.CloudQuotas.html
+[QuotaAdjusterSettingsManager]: https://docs.rs/google-cloud-api-cloudquotas-v1/1.12.0/google_cloud_api_cloudquotas_v1/client/struct.QuotaAdjusterSettingsManager.html

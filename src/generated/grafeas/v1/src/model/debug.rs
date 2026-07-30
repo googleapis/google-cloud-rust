@@ -312,6 +312,32 @@ impl std::fmt::Debug for super::Cvss {
         debug_struct.field("confidentiality_impact", &self.confidentiality_impact);
         debug_struct.field("integrity_impact", &self.integrity_impact);
         debug_struct.field("availability_impact", &self.availability_impact);
+        debug_struct.field("attack_requirements", &self.attack_requirements);
+        debug_struct.field(
+            "vulnerable_system_confidentiality_impact",
+            &self.vulnerable_system_confidentiality_impact,
+        );
+        debug_struct.field(
+            "vulnerable_system_integrity_impact",
+            &self.vulnerable_system_integrity_impact,
+        );
+        debug_struct.field(
+            "vulnerable_system_availability_impact",
+            &self.vulnerable_system_availability_impact,
+        );
+        debug_struct.field(
+            "subsequent_system_confidentiality_impact",
+            &self.subsequent_system_confidentiality_impact,
+        );
+        debug_struct.field(
+            "subsequent_system_integrity_impact",
+            &self.subsequent_system_integrity_impact,
+        );
+        debug_struct.field(
+            "subsequent_system_availability_impact",
+            &self.subsequent_system_availability_impact,
+        );
+        debug_struct.field("exploit_maturity", &self.exploit_maturity);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1733,6 +1759,7 @@ impl std::fmt::Debug for super::VulnerabilityNote {
         debug_struct.field("cvss_version", &self.cvss_version);
         debug_struct.field("cvss_v2", &self.cvss_v2);
         debug_struct.field("advisory_publish_time", &self.advisory_publish_time);
+        debug_struct.field("cvss_v4", &self.cvss_v4);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1808,6 +1835,7 @@ impl std::fmt::Debug for super::VulnerabilityOccurrence {
         debug_struct.field("vex_assessment", &self.vex_assessment);
         debug_struct.field("extra_details", &self.extra_details);
         debug_struct.field("risk", &self.risk);
+        debug_struct.field("cvss_v4", &self.cvss_v4);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

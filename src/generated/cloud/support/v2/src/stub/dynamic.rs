@@ -271,6 +271,12 @@ pub trait SupportEventSubscriptionService: std::fmt::Debug + Send + Sync {
         req: crate::model::UndeleteSupportEventSubscriptionRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::SupportEventSubscription>>;
+
+    async fn expunge_support_event_subscription(
+        &self,
+        req: crate::model::ExpungeSupportEventSubscriptionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 }
 
 /// All implementations of [super::SupportEventSubscriptionService] also implement [SupportEventSubscriptionService].
@@ -328,5 +334,14 @@ impl<T: super::SupportEventSubscriptionService> SupportEventSubscriptionService 
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::SupportEventSubscription>> {
         T::undelete_support_event_subscription(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn expunge_support_event_subscription(
+        &self,
+        req: crate::model::ExpungeSupportEventSubscriptionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
+        T::expunge_support_event_subscription(self, req, options).await
     }
 }

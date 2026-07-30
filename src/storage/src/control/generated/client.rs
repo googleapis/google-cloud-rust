@@ -366,6 +366,12 @@ impl StorageControl {
         self.control.list_managed_folders()
     }
 
+    /// Updates a managed folder. Currently, this RPC only supports updating the
+    /// `rapid_cache_config` field.
+    pub fn update_managed_folder(&self) -> crate::builder::storage_control::UpdateManagedFolder {
+        self.control.update_managed_folder()
+    }
+
     /// Creates an Anywhere Cache instance.
     ///
     /// # Long running operations
@@ -423,6 +429,46 @@ impl StorageControl {
     /// Lists Anywhere Cache instances for a given bucket.
     pub fn list_anywhere_caches(&self) -> crate::builder::storage_control::ListAnywhereCaches {
         self.control.list_anywhere_caches()
+    }
+
+    /// Creates a Rapid Cache instance.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_rapid_cache(&self) -> crate::builder::storage_control::CreateRapidCache {
+        self.control.create_rapid_cache()
+    }
+
+    /// Updates a Rapid Cache instance.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_rapid_cache(&self) -> crate::builder::storage_control::UpdateRapidCache {
+        self.control.update_rapid_cache()
+    }
+
+    /// Gets a Rapid Cache instance.
+    pub fn get_rapid_cache(&self) -> crate::builder::storage_control::GetRapidCache {
+        self.control.get_rapid_cache()
+    }
+
+    /// Lists Rapid Cache instances for a given bucket.
+    pub fn list_rapid_caches(&self) -> crate::builder::storage_control::ListRapidCaches {
+        self.control.list_rapid_caches()
     }
 
     /// Returns the Project scoped singleton IntelligenceConfig resource.
@@ -503,15 +549,15 @@ impl StorageControl {
         self.control.get_intelligence_finding()
     }
 
-    /// Lists the `IntelligenceFinding` resources for the specified project.
+    /// Lists the `IntelligenceFinding` resources for the specified the project.
     pub fn list_intelligence_findings(
         &self,
     ) -> crate::builder::storage_control::ListIntelligenceFindings {
         self.control.list_intelligence_findings()
     }
 
-    /// Summarize the intelligence findings for the specified scope(org, folder or
-    /// project).
+    /// Summarizes the intelligence findings for the specified scope (organization,
+    /// folder or project).
     pub fn summarize_intelligence_findings(
         &self,
     ) -> crate::builder::storage_control::SummarizeIntelligenceFindings {

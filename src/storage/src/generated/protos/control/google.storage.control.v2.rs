@@ -337,7 +337,7 @@ impl ::prost::Name for GetStorageLayoutRequest {
         "type.googleapis.com/google.storage.control.v2.GetStorageLayoutRequest".into()
     }
 }
-#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ManagedFolder {
     #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
@@ -347,6 +347,91 @@ pub struct ManagedFolder {
     pub create_time: ::core::option::Option<::prost_types::Timestamp>,
     #[prost(message, optional, tag = "5")]
     pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    #[prost(message, optional, tag = "6")]
+    pub rapid_cache_config: ::core::option::Option<managed_folder::RapidCacheConfig>,
+}
+/// Nested message and enum types in `ManagedFolder`.
+pub mod managed_folder {
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct RapidCacheConfig {
+        #[prost(map = "string, message", tag = "1")]
+        pub policies: ::std::collections::HashMap<
+            ::prost::alloc::string::String,
+            rapid_cache_config::RapidCachePolicy,
+        >,
+    }
+    /// Nested message and enum types in `RapidCacheConfig`.
+    pub mod rapid_cache_config {
+        #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+        pub struct RapidCachePolicy {
+            #[prost(string, tag = "1")]
+            pub rapid_cache_id: ::prost::alloc::string::String,
+            #[prost(enumeration = "rapid_cache_policy::IngestOnWrite", tag = "2")]
+            pub ingest_on_write: i32,
+        }
+        /// Nested message and enum types in `RapidCachePolicy`.
+        pub mod rapid_cache_policy {
+            #[derive(
+                Clone,
+                Copy,
+                Debug,
+                PartialEq,
+                Eq,
+                Hash,
+                PartialOrd,
+                Ord,
+                ::prost::Enumeration
+            )]
+            #[repr(i32)]
+            pub enum IngestOnWrite {
+                Unspecified = 0,
+                Enabled = 1,
+            }
+            impl IngestOnWrite {
+                /// String value of the enum field names used in the ProtoBuf definition.
+                ///
+                /// The values are not transformed in any way and thus are considered stable
+                /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+                pub fn as_str_name(&self) -> &'static str {
+                    match self {
+                        Self::Unspecified => "INGEST_ON_WRITE_UNSPECIFIED",
+                        Self::Enabled => "INGEST_ON_WRITE_ENABLED",
+                    }
+                }
+                /// Creates an enum from field names used in the ProtoBuf definition.
+                pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+                    match value {
+                        "INGEST_ON_WRITE_UNSPECIFIED" => Some(Self::Unspecified),
+                        "INGEST_ON_WRITE_ENABLED" => Some(Self::Enabled),
+                        _ => None,
+                    }
+                }
+            }
+        }
+        impl ::prost::Name for RapidCachePolicy {
+            const NAME: &'static str = "RapidCachePolicy";
+            const PACKAGE: &'static str = "google.storage.control.v2";
+            fn full_name() -> ::prost::alloc::string::String {
+                "google.storage.control.v2.ManagedFolder.RapidCacheConfig.RapidCachePolicy"
+                    .into()
+            }
+            fn type_url() -> ::prost::alloc::string::String {
+                "type.googleapis.com/google.storage.control.v2.ManagedFolder.RapidCacheConfig.RapidCachePolicy"
+                    .into()
+            }
+        }
+    }
+    impl ::prost::Name for RapidCacheConfig {
+        const NAME: &'static str = "RapidCacheConfig";
+        const PACKAGE: &'static str = "google.storage.control.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.storage.control.v2.ManagedFolder.RapidCacheConfig".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.storage.control.v2.ManagedFolder.RapidCacheConfig"
+                .into()
+        }
+    }
 }
 impl ::prost::Name for ManagedFolder {
     const NAME: &'static str = "ManagedFolder";
@@ -379,7 +464,7 @@ impl ::prost::Name for GetManagedFolderRequest {
         "type.googleapis.com/google.storage.control.v2.GetManagedFolderRequest".into()
     }
 }
-#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateManagedFolderRequest {
     #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
@@ -463,6 +548,29 @@ impl ::prost::Name for ListManagedFoldersResponse {
         "type.googleapis.com/google.storage.control.v2.ListManagedFoldersResponse".into()
     }
 }
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateManagedFolderRequest {
+    #[prost(message, optional, tag = "1")]
+    pub managed_folder: ::core::option::Option<ManagedFolder>,
+    #[prost(message, optional, tag = "2")]
+    pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
+    #[prost(int64, optional, tag = "3")]
+    pub if_metageneration_match: ::core::option::Option<i64>,
+    #[prost(int64, optional, tag = "4")]
+    pub if_metageneration_not_match: ::core::option::Option<i64>,
+    #[prost(string, tag = "5")]
+    pub request_id: ::prost::alloc::string::String,
+}
+impl ::prost::Name for UpdateManagedFolderRequest {
+    const NAME: &'static str = "UpdateManagedFolderRequest";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.UpdateManagedFolderRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.UpdateManagedFolderRequest".into()
+    }
+}
 #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct CreateAnywhereCacheMetadata {
     #[prost(message, optional, tag = "1")]
@@ -475,6 +583,8 @@ pub struct CreateAnywhereCacheMetadata {
     pub ttl: ::core::option::Option<::prost_types::Duration>,
     #[prost(string, optional, tag = "5")]
     pub admission_policy: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(bool, optional, tag = "7")]
+    pub ingest_on_write: ::core::option::Option<bool>,
 }
 impl ::prost::Name for CreateAnywhereCacheMetadata {
     const NAME: &'static str = "CreateAnywhereCacheMetadata";
@@ -485,6 +595,33 @@ impl ::prost::Name for CreateAnywhereCacheMetadata {
     fn type_url() -> ::prost::alloc::string::String {
         "type.googleapis.com/google.storage.control.v2.CreateAnywhereCacheMetadata"
             .into()
+    }
+}
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct CreateRapidCacheMetadata {
+    #[prost(message, optional, tag = "1")]
+    pub common_metadata: ::core::option::Option<CommonLongRunningOperationMetadata>,
+    #[prost(string, optional, tag = "2")]
+    pub rapid_cache_id: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag = "3")]
+    pub zone: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(message, optional, tag = "4")]
+    pub ttl: ::core::option::Option<::prost_types::Duration>,
+    #[prost(string, optional, tag = "5")]
+    pub admission_policy: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(bool, optional, tag = "6")]
+    pub ingest_on_write: ::core::option::Option<bool>,
+    #[prost(string, optional, tag = "7")]
+    pub cache_type: ::core::option::Option<::prost::alloc::string::String>,
+}
+impl ::prost::Name for CreateRapidCacheMetadata {
+    const NAME: &'static str = "CreateRapidCacheMetadata";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.CreateRapidCacheMetadata".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.CreateRapidCacheMetadata".into()
     }
 }
 #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
@@ -499,6 +636,8 @@ pub struct UpdateAnywhereCacheMetadata {
     pub ttl: ::core::option::Option<::prost_types::Duration>,
     #[prost(string, optional, tag = "4")]
     pub admission_policy: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(bool, optional, tag = "6")]
+    pub ingest_on_write: ::core::option::Option<bool>,
 }
 impl ::prost::Name for UpdateAnywhereCacheMetadata {
     const NAME: &'static str = "UpdateAnywhereCacheMetadata";
@@ -509,6 +648,33 @@ impl ::prost::Name for UpdateAnywhereCacheMetadata {
     fn type_url() -> ::prost::alloc::string::String {
         "type.googleapis.com/google.storage.control.v2.UpdateAnywhereCacheMetadata"
             .into()
+    }
+}
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct UpdateRapidCacheMetadata {
+    #[prost(message, optional, tag = "1")]
+    pub common_metadata: ::core::option::Option<CommonLongRunningOperationMetadata>,
+    #[prost(string, optional, tag = "2")]
+    pub rapid_cache_id: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag = "3")]
+    pub zone: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(message, optional, tag = "4")]
+    pub ttl: ::core::option::Option<::prost_types::Duration>,
+    #[prost(string, optional, tag = "5")]
+    pub admission_policy: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(bool, optional, tag = "6")]
+    pub ingest_on_write: ::core::option::Option<bool>,
+    #[prost(string, optional, tag = "7")]
+    pub cache_type: ::core::option::Option<::prost::alloc::string::String>,
+}
+impl ::prost::Name for UpdateRapidCacheMetadata {
+    const NAME: &'static str = "UpdateRapidCacheMetadata";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.UpdateRapidCacheMetadata".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.UpdateRapidCacheMetadata".into()
     }
 }
 #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
@@ -529,6 +695,8 @@ pub struct AnywhereCache {
     pub update_time: ::core::option::Option<::prost_types::Timestamp>,
     #[prost(bool, tag = "8")]
     pub pending_update: bool,
+    #[prost(bool, optional, tag = "11")]
+    pub ingest_on_write: ::core::option::Option<bool>,
 }
 impl ::prost::Name for AnywhereCache {
     const NAME: &'static str = "AnywhereCache";
@@ -683,6 +851,130 @@ impl ::prost::Name for ListAnywhereCachesResponse {
     }
     fn type_url() -> ::prost::alloc::string::String {
         "type.googleapis.com/google.storage.control.v2.ListAnywhereCachesResponse".into()
+    }
+}
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct RapidCache {
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub zone: ::prost::alloc::string::String,
+    #[prost(string, tag = "3")]
+    pub cache_type: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "4")]
+    pub ttl: ::core::option::Option<::prost_types::Duration>,
+    #[prost(string, tag = "5")]
+    pub admission_policy: ::prost::alloc::string::String,
+    #[prost(string, tag = "6")]
+    pub state: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "7")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    #[prost(message, optional, tag = "8")]
+    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    #[prost(bool, tag = "9")]
+    pub pending_update: bool,
+}
+impl ::prost::Name for RapidCache {
+    const NAME: &'static str = "RapidCache";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.RapidCache".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.RapidCache".into()
+    }
+}
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct CreateRapidCacheRequest {
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "2")]
+    pub rapid_cache: ::core::option::Option<RapidCache>,
+    #[prost(string, tag = "3")]
+    pub request_id: ::prost::alloc::string::String,
+}
+impl ::prost::Name for CreateRapidCacheRequest {
+    const NAME: &'static str = "CreateRapidCacheRequest";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.CreateRapidCacheRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.CreateRapidCacheRequest".into()
+    }
+}
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct UpdateRapidCacheRequest {
+    #[prost(message, optional, tag = "1")]
+    pub rapid_cache: ::core::option::Option<RapidCache>,
+    #[prost(message, optional, tag = "2")]
+    pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
+    #[prost(string, tag = "3")]
+    pub request_id: ::prost::alloc::string::String,
+}
+impl ::prost::Name for UpdateRapidCacheRequest {
+    const NAME: &'static str = "UpdateRapidCacheRequest";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.UpdateRapidCacheRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.UpdateRapidCacheRequest".into()
+    }
+}
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct GetRapidCacheRequest {
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub request_id: ::prost::alloc::string::String,
+}
+impl ::prost::Name for GetRapidCacheRequest {
+    const NAME: &'static str = "GetRapidCacheRequest";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.GetRapidCacheRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.GetRapidCacheRequest".into()
+    }
+}
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct ListRapidCachesRequest {
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    #[prost(int32, tag = "2")]
+    pub page_size: i32,
+    #[prost(string, tag = "3")]
+    pub page_token: ::prost::alloc::string::String,
+    #[prost(string, tag = "4")]
+    pub request_id: ::prost::alloc::string::String,
+}
+impl ::prost::Name for ListRapidCachesRequest {
+    const NAME: &'static str = "ListRapidCachesRequest";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.ListRapidCachesRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.ListRapidCachesRequest".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListRapidCachesResponse {
+    #[prost(message, repeated, tag = "1")]
+    pub rapid_caches: ::prost::alloc::vec::Vec<RapidCache>,
+    #[prost(string, tag = "2")]
+    pub next_page_token: ::prost::alloc::string::String,
+}
+impl ::prost::Name for ListRapidCachesResponse {
+    const NAME: &'static str = "ListRapidCachesResponse";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.ListRapidCachesResponse".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.ListRapidCachesResponse".into()
     }
 }
 #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
@@ -877,6 +1169,7 @@ pub mod intelligence_config {
         Disabled = 2,
         Standard = 3,
         Trial = 5,
+        Essentials = 6,
     }
     impl EditionConfig {
         /// String value of the enum field names used in the ProtoBuf definition.
@@ -890,6 +1183,7 @@ pub mod intelligence_config {
                 Self::Disabled => "DISABLED",
                 Self::Standard => "STANDARD",
                 Self::Trial => "TRIAL",
+                Self::Essentials => "ESSENTIALS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -900,6 +1194,7 @@ pub mod intelligence_config {
                 "DISABLED" => Some(Self::Disabled),
                 "STANDARD" => Some(Self::Standard),
                 "TRIAL" => Some(Self::Trial),
+                "ESSENTIALS" => Some(Self::Essentials),
                 _ => None,
             }
         }
