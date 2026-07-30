@@ -40,10 +40,12 @@ pub mod client;
 pub mod builder {
     /// Request and client builders for the [Write][crate::client::Write] client
     pub mod write {
+        pub use crate::append_builder::Append;
         pub use crate::client_builder::ClientBuilder;
     }
     // TODO(#6152) - add admin client
 }
+mod append_builder;
 mod append_response;
 mod client_builder;
 mod error;

@@ -34,6 +34,12 @@ pub enum AppendError {
         "the service reports an error for the following rows. No rows in the batch were appended. You can remove the bad rows and retry the request. Rows: {0:?}"
     )]
     RowErrors(Vec<RowError>),
+
+    /// The `AppendRows` stream closed unexpectedly.
+    #[error(
+        "the `AppendRows` stream closed unexpectedly and the client library could not recover."
+    )]
+    UnexpectedEndOfStream,
 }
 
 pub(crate) type AppendResult<T> = std::result::Result<T, AppendError>;
