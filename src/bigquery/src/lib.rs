@@ -29,7 +29,7 @@ pub use google_cloud_gax::Result;
 pub use google_cloud_gax::error::Error;
 pub mod error;
 pub use crate::error::{ConvertError, QueryError, RowError};
-pub use crate::query::{FromSql, Range, Row};
+pub use crate::query::{FromSql, Interval, Range, Row};
 pub use google_cloud_bigquery_derive::{FromRow, FromSql};
 
 pub(crate) mod generated;
@@ -43,7 +43,7 @@ mod client_builder;
 pub mod model {
     //! Re-exports for the Google Cloud BigQuery v2 API types.
     pub use crate::generated::{QueryMetadata, RunQueryRequest};
-    pub use crate::query::{QueryReference, RunQuery};
+    pub use crate::query::{CompleteQuery, Query, QueryReference, RowIterator, RunQuery};
     pub use google_cloud_bigquery_v2::model::*;
 }
 

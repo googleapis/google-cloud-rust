@@ -1887,4 +1887,71 @@ pub mod support_event_subscription_service {
             &mut self.0.options
         }
     }
+
+    /// The request builder for [SupportEventSubscriptionService::expunge_support_event_subscription][crate::client::SupportEventSubscriptionService::expunge_support_event_subscription] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_support_v2::builder::support_event_subscription_service::ExpungeSupportEventSubscription;
+    /// # async fn sample() -> google_cloud_support_v2::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ExpungeSupportEventSubscription {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ExpungeSupportEventSubscription(
+        RequestBuilder<crate::model::ExpungeSupportEventSubscriptionRequest>,
+    );
+
+    impl ExpungeSupportEventSubscription {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SupportEventSubscriptionService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ExpungeSupportEventSubscriptionRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<()> {
+            (*self.0.stub)
+                .expunge_support_event_subscription(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::ExpungeSupportEventSubscriptionRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ExpungeSupportEventSubscription {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
 }

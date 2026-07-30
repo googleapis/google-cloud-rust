@@ -307,7 +307,7 @@ pub async fn buckets() -> Result<()> {
     let project_id = project_id()?;
 
     let control = StorageControl::builder().build().await?;
-    cleanup_stale_buckets(&control, &project_id).await?;
+    cleanup_stale_buckets(&control, &project_id).await;
 
     let bucket_id = random_bucket_id();
     let bucket_name = format!("projects/_/buckets/{bucket_id}");

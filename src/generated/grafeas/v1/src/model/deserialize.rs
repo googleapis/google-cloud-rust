@@ -2444,6 +2444,14 @@ impl<'de> serde::de::Deserialize<'de> for super::Cvss {
             __confidentiality_impact,
             __integrity_impact,
             __availability_impact,
+            __attack_requirements,
+            __vulnerable_system_confidentiality_impact,
+            __vulnerable_system_integrity_impact,
+            __vulnerable_system_availability_impact,
+            __subsequent_system_confidentiality_impact,
+            __subsequent_system_integrity_impact,
+            __subsequent_system_availability_impact,
+            __exploit_maturity,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -2486,6 +2494,46 @@ impl<'de> serde::de::Deserialize<'de> for super::Cvss {
                             "integrity_impact" => Ok(__FieldTag::__integrity_impact),
                             "availabilityImpact" => Ok(__FieldTag::__availability_impact),
                             "availability_impact" => Ok(__FieldTag::__availability_impact),
+                            "attackRequirements" => Ok(__FieldTag::__attack_requirements),
+                            "attack_requirements" => Ok(__FieldTag::__attack_requirements),
+                            "vulnerableSystemConfidentialityImpact" => {
+                                Ok(__FieldTag::__vulnerable_system_confidentiality_impact)
+                            }
+                            "vulnerable_system_confidentiality_impact" => {
+                                Ok(__FieldTag::__vulnerable_system_confidentiality_impact)
+                            }
+                            "vulnerableSystemIntegrityImpact" => {
+                                Ok(__FieldTag::__vulnerable_system_integrity_impact)
+                            }
+                            "vulnerable_system_integrity_impact" => {
+                                Ok(__FieldTag::__vulnerable_system_integrity_impact)
+                            }
+                            "vulnerableSystemAvailabilityImpact" => {
+                                Ok(__FieldTag::__vulnerable_system_availability_impact)
+                            }
+                            "vulnerable_system_availability_impact" => {
+                                Ok(__FieldTag::__vulnerable_system_availability_impact)
+                            }
+                            "subsequentSystemConfidentialityImpact" => {
+                                Ok(__FieldTag::__subsequent_system_confidentiality_impact)
+                            }
+                            "subsequent_system_confidentiality_impact" => {
+                                Ok(__FieldTag::__subsequent_system_confidentiality_impact)
+                            }
+                            "subsequentSystemIntegrityImpact" => {
+                                Ok(__FieldTag::__subsequent_system_integrity_impact)
+                            }
+                            "subsequent_system_integrity_impact" => {
+                                Ok(__FieldTag::__subsequent_system_integrity_impact)
+                            }
+                            "subsequentSystemAvailabilityImpact" => {
+                                Ok(__FieldTag::__subsequent_system_availability_impact)
+                            }
+                            "subsequent_system_availability_impact" => {
+                                Ok(__FieldTag::__subsequent_system_availability_impact)
+                            }
+                            "exploitMaturity" => Ok(__FieldTag::__exploit_maturity),
+                            "exploit_maturity" => Ok(__FieldTag::__exploit_maturity),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -2648,6 +2696,86 @@ impl<'de> serde::de::Deserialize<'de> for super::Cvss {
                             result.availability_impact = map
                                 .next_value::<std::option::Option<crate::model::cvss::Impact>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__attack_requirements => {
+                            if !fields.insert(__FieldTag::__attack_requirements) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for attack_requirements",
+                                ));
+                            }
+                            result.attack_requirements = map.next_value::<std::option::Option<crate::model::cvss::AttackRequirements>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__vulnerable_system_confidentiality_impact => {
+                            if !fields
+                                .insert(__FieldTag::__vulnerable_system_confidentiality_impact)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for vulnerable_system_confidentiality_impact",
+                                ));
+                            }
+                            result.vulnerable_system_confidentiality_impact = map
+                                .next_value::<std::option::Option<crate::model::cvss::Impact>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__vulnerable_system_integrity_impact => {
+                            if !fields.insert(__FieldTag::__vulnerable_system_integrity_impact) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for vulnerable_system_integrity_impact",
+                                ));
+                            }
+                            result.vulnerable_system_integrity_impact = map
+                                .next_value::<std::option::Option<crate::model::cvss::Impact>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__vulnerable_system_availability_impact => {
+                            if !fields.insert(__FieldTag::__vulnerable_system_availability_impact) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for vulnerable_system_availability_impact",
+                                ));
+                            }
+                            result.vulnerable_system_availability_impact = map
+                                .next_value::<std::option::Option<crate::model::cvss::Impact>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__subsequent_system_confidentiality_impact => {
+                            if !fields
+                                .insert(__FieldTag::__subsequent_system_confidentiality_impact)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for subsequent_system_confidentiality_impact",
+                                ));
+                            }
+                            result.subsequent_system_confidentiality_impact = map
+                                .next_value::<std::option::Option<crate::model::cvss::Impact>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__subsequent_system_integrity_impact => {
+                            if !fields.insert(__FieldTag::__subsequent_system_integrity_impact) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for subsequent_system_integrity_impact",
+                                ));
+                            }
+                            result.subsequent_system_integrity_impact = map
+                                .next_value::<std::option::Option<crate::model::cvss::Impact>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__subsequent_system_availability_impact => {
+                            if !fields.insert(__FieldTag::__subsequent_system_availability_impact) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for subsequent_system_availability_impact",
+                                ));
+                            }
+                            result.subsequent_system_availability_impact = map
+                                .next_value::<std::option::Option<crate::model::cvss::Impact>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__exploit_maturity => {
+                            if !fields.insert(__FieldTag::__exploit_maturity) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for exploit_maturity",
+                                ));
+                            }
+                            result.exploit_maturity = map.next_value::<std::option::Option<crate::model::cvss::ExploitMaturity>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -14948,6 +15076,7 @@ impl<'de> serde::de::Deserialize<'de> for super::VulnerabilityNote {
             __cvss_version,
             __cvss_v2,
             __advisory_publish_time,
+            __cvss_v4,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -14984,6 +15113,8 @@ impl<'de> serde::de::Deserialize<'de> for super::VulnerabilityNote {
                             "cvss_v2" => Ok(__FieldTag::__cvss_v2),
                             "advisoryPublishTime" => Ok(__FieldTag::__advisory_publish_time),
                             "advisory_publish_time" => Ok(__FieldTag::__advisory_publish_time),
+                            "cvssV4" => Ok(__FieldTag::__cvss_v4),
+                            "cvss_v4" => Ok(__FieldTag::__cvss_v4),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -15107,6 +15238,15 @@ impl<'de> serde::de::Deserialize<'de> for super::VulnerabilityNote {
                             }
                             result.advisory_publish_time =
                                 map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__cvss_v4 => {
+                            if !fields.insert(__FieldTag::__cvss_v4) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cvss_v4",
+                                ));
+                            }
+                            result.cvss_v4 =
+                                map.next_value::<std::option::Option<crate::model::Cvss>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -15597,6 +15737,7 @@ impl<'de> serde::de::Deserialize<'de> for super::VulnerabilityOccurrence {
             __vex_assessment,
             __extra_details,
             __risk,
+            __cvss_v4,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -15643,6 +15784,8 @@ impl<'de> serde::de::Deserialize<'de> for super::VulnerabilityOccurrence {
                             "extraDetails" => Ok(__FieldTag::__extra_details),
                             "extra_details" => Ok(__FieldTag::__extra_details),
                             "risk" => Ok(__FieldTag::__risk),
+                            "cvssV4" => Ok(__FieldTag::__cvss_v4),
+                            "cvss_v4" => Ok(__FieldTag::__cvss_v4),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -15825,6 +15968,15 @@ impl<'de> serde::de::Deserialize<'de> for super::VulnerabilityOccurrence {
                             }
                             result.risk =
                                 map.next_value::<std::option::Option<crate::model::Risk>>()?;
+                        }
+                        __FieldTag::__cvss_v4 => {
+                            if !fields.insert(__FieldTag::__cvss_v4) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cvss_v4",
+                                ));
+                            }
+                            result.cvss_v4 =
+                                map.next_value::<std::option::Option<crate::model::Cvss>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

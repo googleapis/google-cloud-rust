@@ -26,6 +26,8 @@ extend-exclude = [
   "src/spanner/grpc-mock/**",
   # This file contains fixes for typos and therefore has the original typo in it.
   "librarian.yaml",
+  # Contains Spanner-specific metrics abbreviations (like 'afe' for Access Front End)
+  "src/spanner/src/observability/metrics.rs",
 ]
 
 [type.mustache]

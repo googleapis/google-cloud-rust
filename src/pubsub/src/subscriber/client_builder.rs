@@ -74,6 +74,26 @@ impl ClientBuilder {
         self
     }
 
+    /// Configure the universe domain.
+    ///
+    /// The universe domain is the default service domain for a given cloud universe.
+    /// The default value is "googleapis.com".
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::Subscriber;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = Subscriber::builder()
+    ///     .with_universe_domain("googleapis.com")
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_universe_domain<V: Into<String>>(mut self, v: V) -> Self {
+        self.config.universe_domain = Some(v.into());
+        self
+    }
+
     /// Configures the authentication credentials.
     ///
     /// More information about valid credentials types can be found in the
@@ -138,6 +158,11 @@ mod tests {
         assert!(builder.config.endpoint.is_none(), "{:?}", builder.config);
         assert!(builder.config.cred.is_none(), "{:?}", builder.config);
         assert!(
+            builder.config.universe_domain.is_none(),
+            "{:?}",
+            builder.config
+        );
+        assert!(
             builder.config.grpc_subchannel_count.is_none(),
             "{:?}",
             builder.config
@@ -152,11 +177,16 @@ mod tests {
     fn setters() {
         let builder = ClientBuilder::new()
             .with_endpoint("test-endpoint.com")
+            .with_universe_domain("test-ud.com")
             .with_credentials(Anonymous::new().build())
             .with_grpc_subchannel_count(16);
         assert_eq!(
             builder.config.endpoint,
             Some("test-endpoint.com".to_string())
+        );
+        assert_eq!(
+            builder.config.universe_domain,
+            Some("test-ud.com".to_string())
         );
         assert!(builder.config.cred.is_some(), "{:?}", builder.config);
         assert_eq!(builder.config.grpc_subchannel_count, Some(16));

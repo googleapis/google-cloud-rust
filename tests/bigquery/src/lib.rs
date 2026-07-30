@@ -272,6 +272,7 @@ struct UserData {
     raw_bytes: Vec<u8>,
     payload_bytes: bytes::Bytes,
     nullable_bytes: Option<Vec<u8>>,
+    interval_val: google_cloud_bigquery::Interval,
 }
 
 pub async fn query_client_datatypes() -> Result<()> {
@@ -296,7 +297,8 @@ pub async fn query_client_datatypes() -> Result<()> {
                  CAST(NULL AS INT64) AS nullable_age, \
                  B'hello world' AS raw_bytes, \
                  B'payload in bytes' AS payload_bytes, \
-                 CAST(NULL AS BYTES) AS nullable_bytes",
+                 CAST(NULL AS BYTES) AS nullable_bytes, \
+                 INTERVAL '1 2:30:45.123456' DAY TO SECOND AS interval_val",
         )
         .with_project_id(project_id)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
@@ -356,6 +358,15 @@ pub async fn query_client_datatypes() -> Result<()> {
         raw_bytes: b"hello world".to_vec(),
         payload_bytes: bytes::Bytes::from_static(b"payload in bytes"),
         nullable_bytes: None,
+        interval_val: google_cloud_bigquery::Interval {
+            years: 0,
+            months: 0,
+            days: 1,
+            hours: 2,
+            minutes: 30,
+            seconds: 45,
+            nanos: 123_456_000,
+        },
     };
 
     assert_eq!(row.get::<String, _>("name"), expected.name);
@@ -403,6 +414,10 @@ pub async fn query_client_datatypes() -> Result<()> {
     assert_eq!(
         row.get::<Option<Vec<u8>>, _>("nullable_bytes"),
         expected.nullable_bytes
+    );
+    assert_eq!(
+        row.get::<google_cloud_bigquery::Interval, _>("interval_val"),
+        expected.interval_val
     );
 
     let data: UserData = row.try_into()?;
@@ -482,7 +497,7 @@ pub async fn query_client_multi_page() -> Result<()> {
 
     assert_eq!(complete_query.metadata().total_rows, Some(10000));
 
-    let mut iter = complete_query.read().set_max_rows_buffered(1000);
+    let mut iter = complete_query.read();
     let mut count = 0;
     while let Some(_row) = iter.next().await.transpose()? {
         count += 1;
@@ -499,7 +514,7 @@ pub async fn query_client_job() -> Result<()> {
     let query = bq
         .query("SELECT 2 as two")
         .set_priority("INTERACTIVE") // force job path
-        .with_project_id(project_id)
+        .with_project_id(project_id.clone())
         .set_labels(vec![(INSTANCE_LABEL, "true")])
         .run()
         .await?;
@@ -508,6 +523,26 @@ pub async fn query_client_job() -> Result<()> {
 
     assert_eq!(complete_query.metadata().total_rows, Some(1));
 
+    // fetch full job metadata
+    let job = complete_query.job_metadata().await?;
+
+    let job_ref = job
+        .job_reference
+        .as_ref()
+        .expect("job should have job_reference");
+    assert_eq!(job_ref.project_id, project_id);
+    assert!(!job_ref.job_id.is_empty(), "{job_ref:?}");
+    assert!(job.status.is_some(), "{job:?}");
+    assert!(job.statistics.is_some(), "{job:?}");
+    let config_query = job
+        .configuration
+        .as_ref()
+        .and_then(|c| c.query.as_ref())
+        .map(|q| q.query.as_str())
+        .expect("job should have configuration.query");
+    assert_eq!(config_query, "SELECT 2 as two");
+
+    // read the results
     let mut iter = complete_query.read();
     let row = iter.next().await.expect("should return first row")?;
     assert_eq!(row.get::<i64, _>("two"), 2);

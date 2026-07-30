@@ -168,6 +168,7 @@ impl BatchReadOnlyTransaction {
                 request,
                 crate::RequestOptions::default(),
                 self.inner.context.channel_hint,
+                &self.inner.context.client.o11y,
             )
             .await?;
 
@@ -232,6 +233,7 @@ impl BatchReadOnlyTransaction {
                 request,
                 crate::RequestOptions::default(),
                 self.inner.context.channel_hint,
+                &self.inner.context.client.o11y,
             )
             .await?;
 
