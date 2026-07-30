@@ -13,10 +13,11 @@
 // limitations under the License.
 
 pub use super::receive::ReceiveTask;
+pub use super::receive::RecvItem;
 pub use super::send::GrpcRustSend;
 use super::send::SendTask;
-use grpc::client::RecvStream;
 use prost::Message;
+use tokio::sync::mpsc::Receiver;
 
 /// A `tonic` adapter for `grpc-rust` RPCs.
 ///
@@ -31,7 +32,7 @@ use prost::Message;
 /// dedicated background tasks ensures that cancelling [`GrpcRustStreaming::message`] or dropping
 /// [`GrpcRustStreaming`] is safe and prevents stream corruption.
 pub struct GrpcRustStreaming<Response> {
-    responses: Option<tokio::sync::mpsc::Receiver<tonic::Result<Option<Response>>>>,
+    responses: Option<Receiver<tonic::Result<Option<RecvItem<Response>>>>>,
     receive_task: Option<ReceiveTask>,
     send_task: SendTask,
     /// Holds a pre-decoded initial response message (e.g. from stream setup or handshake)
@@ -43,13 +44,12 @@ impl<Response> GrpcRustStreaming<Response>
 where
     Response: Message + Default + Send + 'static,
 {
-    /// Creates a new [`GrpcRustStreaming`] instance by spawning a background [`ReceiveTask`]
-    /// for `recv` and storing the outbound [`SendTask`].
-    pub(super) fn new<R>(recv: R, send_task: SendTask) -> Self
-    where
-        R: RecvStream + 'static,
-    {
-        let (responses, receive_task) = ReceiveTask::start(recv);
+    /// Creates a new [`GrpcRustStreaming`] instance with an active response channel and [`ReceiveTask`].
+    pub(super) fn new(
+        responses: Receiver<tonic::Result<Option<RecvItem<Response>>>>,
+        receive_task: ReceiveTask,
+        send_task: SendTask,
+    ) -> Self {
         Self {
             responses: Some(responses),
             receive_task: Some(receive_task),
@@ -62,11 +62,13 @@ where
     ///
     /// The first call to [`GrpcRustStreaming::message`] will yield `pending` before returning
     /// subsequent items from the response channel.
-    pub(super) fn new_with_pending<R>(recv: R, send_task: SendTask, pending: Response) -> Self
-    where
-        R: RecvStream + 'static,
-    {
-        let mut stream = Self::new(recv, send_task);
+    pub(super) fn new_with_pending(
+        responses: Receiver<tonic::Result<Option<RecvItem<Response>>>>,
+        receive_task: ReceiveTask,
+        send_task: SendTask,
+        pending: Response,
+    ) -> Self {
+        let mut stream = Self::new(responses, receive_task, send_task);
         stream.pending_response = Some(pending);
         stream
     }
@@ -103,12 +105,20 @@ where
                 biased;
                 // Get the next response from the background receive task.
                 response = responses.recv() => match response {
-                    // Successfully received a response.
-                    Some(Ok(Some(message))) => return Ok(Some(message)),
-                    // Stream reached terminal state. Could be clean termination (`Ok(None)`) or an error (`Err(status)`).
-                    Some(terminal) => {
+                    // Successfully received a response message.
+                    Some(Ok(Some(RecvItem::Message(message)))) => return Ok(Some(message)),
+                    // Ignore additional headers received mid-stream.
+                    // TODO(#5991): Consider logging (e.g. tracing::debug!) for unexpected mid-stream headers.
+                    Some(Ok(Some(RecvItem::Headers(_)))) => continue,
+                    // Terminal with clean termination.
+                    Some(Ok(None)) => {
                         self.terminate();
-                        return terminal;
+                        return Ok(None);
+                    }
+                    // Terminal with error.
+                    Some(Err(status)) => {
+                        self.terminate();
+                        return Err(status);
                     }
                     // Response channel closed unexpectedly without sending a terminal item.
                     // Join the background receive task to extract the final exit status/error.

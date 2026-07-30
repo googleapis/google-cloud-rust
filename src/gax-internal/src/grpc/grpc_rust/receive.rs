@@ -56,6 +56,13 @@ where
     }
 }
 
+/// A response item emitted by [`ReceiveTask`].
+#[derive(Debug)]
+pub enum RecvItem<Response> {
+    Headers(tonic::metadata::MetadataMap),
+    Message(Response),
+}
+
 /// A handle for the background task pulling responses from a `grpc-rust` [`RecvStream`].
 ///
 /// This background pump is required because [`RecvStream::recv`](grpc::client::RecvStream::recv) is not cancellation-safe.
@@ -86,7 +93,7 @@ impl ReceiveTask {
     pub fn start<Response, R>(
         recv: R,
     ) -> (
-        tokio::sync::mpsc::Receiver<tonic::Result<Option<Response>>>,
+        tokio::sync::mpsc::Receiver<tonic::Result<Option<RecvItem<Response>>>>,
         Self,
     )
     where
@@ -147,7 +154,7 @@ impl Drop for ReceiveTask {
 /// Drives the response pump loop
 async fn receive_responses<Response, R>(
     mut recv: R,
-    tx: tokio::sync::mpsc::Sender<tonic::Result<Option<Response>>>,
+    tx: tokio::sync::mpsc::Sender<tonic::Result<Option<RecvItem<Response>>>>,
 ) where
     Response: Message + Default + Send + 'static,
     R: RecvStream + 'static,
@@ -160,10 +167,12 @@ async fn receive_responses<Response, R>(
             return;
         };
         let (response, is_terminal) = match recv.recv(&mut slot).await {
-            // TODO(#5991): Headers will be processed separately in a later PR.
-            ResponseStreamItem::Headers(_) => continue,
+            ResponseStreamItem::Headers(headers) => (
+                Ok(Some(RecvItem::Headers(headers.metadata().clone().into()))),
+                false,
+            ),
             ResponseStreamItem::Message => match slot.take() {
-                Ok(message) => (Ok(Some(message)), false),
+                Ok(message) => (Ok(Some(RecvItem::Message(message))), false),
                 // A missing/undecodable message breaks the stream sequence
                 // and renders it unrecoverable.
                 Err(status) => (Err(status), true),
@@ -231,6 +240,7 @@ fn grpc_rust_error_to_tonic_code(code: StatusCodeError) -> tonic::Code {
 mod tests {
     use super::*;
     use grpc::StatusError;
+    use grpc::core::ResponseHeaders;
     use grpc::metadata::MetadataValue;
     use pretty_assertions::assert_eq;
     use test_case::test_case;
@@ -460,6 +470,109 @@ mod tests {
             task.handle.is_none(),
             "handle should remain cleared after second join"
         );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn receive_task_yields_headers_and_messages() -> anyhow::Result<()> {
+        // Arrange
+        const HEADER_KEY: &str = "x-test-header";
+        const HEADER_VALUE: &str = "test-value";
+        const MESSAGE_VALUE: &str = "hello";
+        const ERROR_MESSAGE_CHANNEL_YIELD: &str = "channel should yield item";
+        const ERROR_MESSAGE_NON_TERMINAL: &str = "expected non-terminal item";
+
+        #[derive(Default)]
+        enum StreamState {
+            #[default]
+            Initial,
+            HeadersSent,
+            MessageSent,
+            Done,
+        }
+
+        struct TestHeadersStream {
+            state: StreamState,
+        }
+
+        impl RecvStream for TestHeadersStream {
+            async fn recv(&mut self, message: &mut dyn RecvMessage) -> ResponseStreamItem {
+                match self.state {
+                    StreamState::Initial => {
+                        self.state = StreamState::HeadersSent;
+                        let mut metadata = grpc::metadata::MetadataMap::new();
+                        metadata.insert(HEADER_KEY, MetadataValue::from_static(HEADER_VALUE));
+                        ResponseStreamItem::Headers(ResponseHeaders::new().with_metadata(metadata))
+                    }
+                    StreamState::HeadersSent => {
+                        self.state = StreamState::MessageSent;
+                        let response = TestMessage {
+                            value: MESSAGE_VALUE.to_string(),
+                        };
+                        let mut encoded = bytes::Bytes::from(response.encode_to_vec());
+                        message
+                            .decode(&mut encoded)
+                            .expect("decode response message");
+                        ResponseStreamItem::Message
+                    }
+                    StreamState::MessageSent => {
+                        self.state = StreamState::Done;
+                        ResponseStreamItem::Trailers(Trailers::new(Ok(())))
+                    }
+                    StreamState::Done => ResponseStreamItem::StreamClosed,
+                }
+            }
+        }
+
+        let (mut rx, _task) = ReceiveTask::start::<TestMessage, _>(TestHeadersStream {
+            state: StreamState::default(),
+        });
+
+        // Act
+        let first_item = rx
+            .recv()
+            .await
+            .expect(ERROR_MESSAGE_CHANNEL_YIELD)?
+            .expect(ERROR_MESSAGE_NON_TERMINAL);
+
+        // Assert
+        let metadata = match first_item {
+            RecvItem::Headers(m) => m,
+            RecvItem::Message(_) => panic!("expected headers item"),
+        };
+        assert_eq!(
+            metadata.get(HEADER_KEY).and_then(|val| val.to_str().ok()),
+            Some(HEADER_VALUE)
+        );
+
+        // Act
+        let second_item = rx
+            .recv()
+            .await
+            .expect(ERROR_MESSAGE_CHANNEL_YIELD)?
+            .expect(ERROR_MESSAGE_NON_TERMINAL);
+
+        // Assert
+        let msg = match second_item {
+            RecvItem::Headers(_) => panic!("expected message item"),
+            RecvItem::Message(m) => m,
+        };
+        assert_eq!(
+            msg,
+            TestMessage {
+                value: MESSAGE_VALUE.to_string()
+            }
+        );
+
+        // Act
+        let terminal_item = rx
+            .recv()
+            .await
+            .expect("channel should yield terminal item")?;
+
+        // Assert
+        // `Ok(None)` signals clean stream completion.
+        assert!(terminal_item.is_none(), "expected clean stream completion");
         Ok(())
     }
 }
