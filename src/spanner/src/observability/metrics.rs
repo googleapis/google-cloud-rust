@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::omni::InstanceType;
 #[cfg(feature = "_experimental-builtin-metrics")]
 use std::sync::Arc;
 #[cfg(feature = "_experimental-builtin-metrics")]
@@ -89,11 +90,15 @@ impl Observability {
         }
     }
 
-    pub(crate) async fn init(config: &ClientConfig, project_id: Option<&str>) -> Self {
+    pub(crate) async fn init(
+        config: &ClientConfig,
+        instance_type: InstanceType,
+        project_id: Option<&str>,
+    ) -> Self {
         let disable_builtin_metrics = std::env::var("SPANNER_DISABLE_BUILTIN_METRICS")
             .map(|s| s.eq_ignore_ascii_case("true"))
             .unwrap_or(false);
-        if disable_builtin_metrics {
+        if disable_builtin_metrics || instance_type == InstanceType::Omni {
             return Self::disabled();
         }
 
@@ -287,7 +292,11 @@ impl Observability {
         Self
     }
 
-    pub(crate) async fn init(_config: &ClientConfig, _project_id: Option<&str>) -> Self {
+    pub(crate) async fn init(
+        _config: &ClientConfig,
+        _instance_type: InstanceType,
+        _project_id: Option<&str>,
+    ) -> Self {
         Self
     }
 

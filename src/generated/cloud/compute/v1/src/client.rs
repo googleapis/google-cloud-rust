@@ -3546,6 +3546,132 @@ impl HealthChecks {
 ///
 /// # Example
 /// ```
+/// # use google_cloud_compute_v1::client::Hosts;
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
+///     let client = Hosts::builder().build().await?;
+///     // use `client` to make requests to the Google Compute Engine API.
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `hosts` resource.
+///
+/// # Configuration
+///
+/// To configure `Hosts` use the `with_*` methods in the type returned
+/// by [builder()][Hosts::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::hosts::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::hosts::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `Hosts` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `Hosts` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "hosts")]
+#[cfg_attr(docsrs, doc(cfg(feature = "hosts")))]
+#[derive(Clone, Debug)]
+pub struct Hosts {
+    inner: std::sync::Arc<dyn super::stub::dynamic::Hosts>,
+}
+
+#[cfg(feature = "hosts")]
+impl Hosts {
+    /// Returns a builder for [Hosts].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_compute_v1::client::Hosts;
+    /// let client = Hosts::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::hosts::ClientBuilder {
+        crate::new_client_builder(super::builder::hosts::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::Hosts + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::Hosts>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::Hosts> {
+        super::transport::Hosts::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::Hosts> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::Hosts::new)
+    }
+
+    /// Retrieves information about the specified host.
+    pub fn get(&self) -> super::builder::hosts::Get {
+        super::builder::hosts::Get::new(self.inner.clone())
+    }
+
+    /// Allows customers to get SBOM versions of a host.
+    pub fn get_version(&self) -> super::builder::hosts::GetVersion {
+        super::builder::hosts::GetVersion::new(self.inner.clone())
+    }
+
+    /// Retrieves a list of hosts.
+    pub fn list(&self) -> super::builder::hosts::List {
+        super::builder::hosts::List::new(self.inner.clone())
+    }
+
+    /// Retrieves the specified zone-specific Operations resource.
+    pub fn get_operation(&self) -> super::builder::hosts::GetOperation {
+        super::builder::hosts::GetOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Google Compute Engine API.
+///
+/// # Example
+/// ```
 /// # use google_cloud_compute_v1::client::HttpHealthChecks;
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
@@ -15526,6 +15652,123 @@ impl Regions {
     /// behaviour for this method.
     pub fn list(&self) -> super::builder::regions::List {
         super::builder::regions::List::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Google Compute Engine API.
+///
+/// # Example
+/// ```
+/// # use google_cloud_compute_v1::client::ReliabilityRisks;
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
+///     let client = ReliabilityRisks::builder().build().await?;
+///     // use `client` to make requests to the Google Compute Engine API.
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `reliabilityRisks` resource.
+///
+/// # Configuration
+///
+/// To configure `ReliabilityRisks` use the `with_*` methods in the type returned
+/// by [builder()][ReliabilityRisks::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::reliability_risks::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::reliability_risks::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `ReliabilityRisks` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `ReliabilityRisks` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "reliability-risks")]
+#[cfg_attr(docsrs, doc(cfg(feature = "reliability-risks")))]
+#[derive(Clone, Debug)]
+pub struct ReliabilityRisks {
+    inner: std::sync::Arc<dyn super::stub::dynamic::ReliabilityRisks>,
+}
+
+#[cfg(feature = "reliability-risks")]
+impl ReliabilityRisks {
+    /// Returns a builder for [ReliabilityRisks].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_compute_v1::client::ReliabilityRisks;
+    /// let client = ReliabilityRisks::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::reliability_risks::ClientBuilder {
+        crate::new_client_builder(super::builder::reliability_risks::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::ReliabilityRisks + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::ReliabilityRisks>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::ReliabilityRisks> {
+        super::transport::ReliabilityRisks::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::ReliabilityRisks> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::ReliabilityRisks::new)
+    }
+
+    /// Returns the specified ReliabilityRisk resource.
+    pub fn get(&self) -> super::builder::reliability_risks::Get {
+        super::builder::reliability_risks::Get::new(self.inner.clone())
+    }
+
+    /// Retrieves the list of reliabilityRisks available in the specified project.
+    pub fn list(&self) -> super::builder::reliability_risks::List {
+        super::builder::reliability_risks::List::new(self.inner.clone())
     }
 }
 
