@@ -12,14 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// [START spanner_postgresql_add_column]
+// [START spanner_postgresql_create_storing_index]
 use google_cloud_lro::Poller;
 use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
 
 pub async fn sample(admin_client: &DatabaseAdmin, database_name: &str) -> anyhow::Result<()> {
-    let statements = vec!["ALTER TABLE Albums ADD COLUMN MarketingBudget bigint"];
+    let statements =
+        vec!["CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) INCLUDE (MarketingBudget)"];
 
-    println!("Adding MarketingBudget column to Albums...");
+    println!("Creating AlbumsByAlbumTitle2 storing index...");
     admin_client
         .update_database_ddl()
         .set_database(database_name)
@@ -28,7 +29,7 @@ pub async fn sample(admin_client: &DatabaseAdmin, database_name: &str) -> anyhow
         .until_done()
         .await?;
 
-    println!("Added MarketingBudget column");
+    println!("Added AlbumsByAlbumTitle2 index");
     Ok(())
 }
-// [END spanner_postgresql_add_column]
+// [END spanner_postgresql_create_storing_index]

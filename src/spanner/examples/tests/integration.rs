@@ -111,6 +111,16 @@ mod tests {
                 .await
                 .inspect_err(anydump)?;
 
+            // 7b. Test spanner_create_storing_index sample
+            database::create_storing_index::sample(&ctx.admin_client, &ctx.database_name)
+                .await
+                .inspect_err(anydump)?;
+
+            // 7c. Test spanner_read_data_with_storing_index sample
+            query::read_data_with_storing_index::sample(client)
+                .await
+                .inspect_err(anydump)?;
+
             // 8. Test spanner_read_only_transaction sample
             query::read_only_transaction::sample(client)
                 .await
@@ -162,6 +172,16 @@ mod tests {
 
             // 5. Test spanner_postgresql_query_data_with_new_column sample
             query::pg_query_new_column::sample(client)
+                .await
+                .inspect_err(anydump)?;
+
+            // 5b. Test spanner_postgresql_create_storing_index sample
+            database::pg_create_storing_index::sample(&ctx.admin_client, &ctx.database_name)
+                .await
+                .inspect_err(anydump)?;
+
+            // 5c. Test spanner_postgresql_read_data_with_storing_index sample
+            query::pg_read_data_with_storing_index::sample(client)
                 .await
                 .inspect_err(anydump)?;
 
