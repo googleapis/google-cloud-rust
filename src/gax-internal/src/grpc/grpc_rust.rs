@@ -19,10 +19,12 @@ use crate::universe_domain::DEFAULT_UNIVERSE_DOMAIN;
 use google_cloud_auth::credentials::Credentials;
 use google_cloud_gax::Result as GaxResult;
 use google_cloud_gax::client_builder::{Error as BuilderError, Result as ClientBuilderResult};
+use google_cloud_gax::error::Error;
 use google_cloud_gax::options::RequestOptions;
 use google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy;
 use google_cloud_gax::polling_error_policy::PollingErrorPolicy;
 use grpc::client::{Channel, ChannelOptions};
+use grpc::core::RequestHeaders;
 use grpc::credentials::LocalChannelCredentials;
 // TODO(#5991): remove once grpc-rust corrects the typo.
 use grpc::credentials::rustls::client::{
@@ -30,13 +32,10 @@ use grpc::credentials::rustls::client::{
 };
 use http::Uri;
 use std::sync::Arc;
+use tonic::metadata::MetadataMap;
 
-// TODO(#5991): Will be used by bidi streaming in an upcoming commit.
-#[allow(dead_code)]
 pub mod bidi;
-#[allow(dead_code)]
 mod receive;
-#[allow(dead_code)]
 mod send;
 
 pub use bidi::GrpcRustStreaming;
@@ -47,8 +46,8 @@ pub struct GrpcRustClient {
     inner: Arc<GrpcRustClientInner>,
 }
 
-// TODO(#5991): Will be used by `bidi_stream_with_status` in an upcoming commit.
-#[allow(dead_code)]
+// TODO(#5991): `transport_metric`, `tracing_attributes`, and `endpoint` will be used when
+// unary RPC execution (`execute`) and gRPC-Rust observability instrumentation are implemented.
 struct GrpcRustClientInner {
     credentials: Credentials,
     transport_metric: crate::observability::TransportMetric,
@@ -103,34 +102,65 @@ impl GrpcRustClient {
 
     pub async fn bidi_stream<Request, Response>(
         &self,
-        _extensions: Extensions,
-        _path: http::uri::PathAndQuery,
-        _request: impl tokio_stream::Stream<Item = Request> + Send + 'static,
-        _options: RequestOptions,
-        _api_client_header: &'static str,
-        _request_params: &str,
+        extensions: Extensions,
+        path: http::uri::PathAndQuery,
+        request: impl tokio_stream::Stream<Item = Request> + Send + 'static,
+        options: RequestOptions,
+        api_client_header: &'static str,
+        request_params: &str,
     ) -> GaxResult<TonicResponse<GrpcRustStreaming<Response>>>
     where
         Request: prost::Message + 'static,
-        Response: prost::Message + Default + 'static,
+        Response: prost::Message + Default + Send + 'static,
     {
-        unimplemented!("not implemented yet")
+        self.bidi_stream_with_status(
+            extensions,
+            path,
+            request,
+            options,
+            api_client_header,
+            request_params,
+        )
+        .await?
+        .map_err(super::from_status::to_gax_error)
     }
 
     pub async fn bidi_stream_with_status<Request, Response>(
         &self,
-        _extensions: Extensions,
-        _path: http::uri::PathAndQuery,
-        _request: impl tokio_stream::Stream<Item = Request> + Send + 'static,
-        _options: RequestOptions,
-        _api_client_header: &'static str,
-        _request_params: &str,
+        extensions: Extensions,
+        path: http::uri::PathAndQuery,
+        request: impl tokio_stream::Stream<Item = Request> + Send + 'static,
+        options: RequestOptions,
+        api_client_header: &'static str,
+        request_params: &str,
     ) -> GaxResult<TonicResult<TonicResponse<GrpcRustStreaming<Response>>>>
     where
         Request: prost::Message + 'static,
-        Response: prost::Message + Default + 'static,
+        Response: prost::Message + Default + Send + 'static,
     {
-        unimplemented!("not implemented yet")
+        Self::note_ignored_extensions(&extensions);
+        let headers = grpc_helpers::make_headers(api_client_header, request_params, &options)?;
+        let headers = grpc_helpers::add_auth_headers(headers, &self.inner.credentials).await?;
+        let metadata = MetadataMap::from_headers(headers)
+            .try_into()
+            .map_err(Error::ser)?;
+        let request_headers = RequestHeaders::new()
+            .with_method_name(path.as_str())
+            .with_metadata(metadata);
+
+        if let Some(recorder) = crate::observability::RequestRecorder::current() {
+            recorder.on_grpc_request(&path);
+        }
+        match bidi::invoke_bidi(&self.inner.invoker, request_headers, request).await {
+            Ok(response) => {
+                Self::record_grpc_response();
+                Ok(Ok(response))
+            }
+            Err(status) => {
+                Self::record_grpc_error(&status);
+                Ok(Err(status))
+            }
+        }
     }
 
     pub fn get_polling_error_policy(
@@ -208,6 +238,27 @@ impl GrpcRustClient {
             config.grpc_max_header_list_size.is_none(),
             "grpc_max_header_list_size is not supported by grpc-rust"
         );
+    }
+
+    fn record_grpc_response() {
+        if let Some(recorder) = crate::observability::RequestRecorder::current() {
+            recorder.on_grpc_response();
+        }
+    }
+
+    fn record_grpc_error(status: &tonic::Status) {
+        if let Some(recorder) = crate::observability::RequestRecorder::current() {
+            recorder.on_grpc_error(&super::from_status::to_gax_error(status.clone()));
+        }
+    }
+
+    fn note_ignored_extensions(extensions: &Extensions) {
+        if !extensions.is_empty() {
+            tracing::debug!(
+                extension_count = extensions.len(),
+                "grpc-rust request extensions are not propagated"
+            );
+        }
     }
 }
 
@@ -360,6 +411,7 @@ fn make_tls_credentials() -> ClientBuilderResult<Arc<RustlsChannelCredentials>> 
         })
 }
 
+// TODO(#5991): Add integration tests for `GrpcRustClient::bidi_stream` and `GrpcRustClient::bidi_stream_with_status` (covering happy paths and request stream failures).
 #[cfg(test)]
 mod tests {
     use super::*;
