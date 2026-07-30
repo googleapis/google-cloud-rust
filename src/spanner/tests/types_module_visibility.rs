@@ -28,9 +28,9 @@ use google_cloud_spanner::types;
 #[test]
 fn external_uses_typed_param_constructors() {
     let stmt = Statement::builder("SELECT @ts, @s, @n")
-        .add_typed_param("ts", &time::OffsetDateTime::now_utc(), types::timestamp())
-        .add_typed_param("s", &"hello".to_string(), types::string())
-        .add_typed_param("n", &42i64, types::int64())
+        .add_typed_param("ts", time::OffsetDateTime::now_utc(), types::timestamp())
+        .add_typed_param("s", "hello".to_string(), types::string())
+        .add_typed_param("n", 42i64, types::int64())
         .build();
 
     assert!(stmt.sql().contains("SELECT @ts, @s, @n"));

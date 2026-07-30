@@ -29,19 +29,19 @@ pub async fn partitioned_dml_update(db_client: &DatabaseClient) -> anyhow::Resul
             .set("Id")
             .to(&id1)
             .set("ColBool")
-            .to(&true)
+            .to(true)
             .build(),
         Mutation::new_insert_or_update_builder("AllTypes")
             .set("Id")
             .to(&id2)
             .set("ColBool")
-            .to(&false)
+            .to(false)
             .build(),
         Mutation::new_insert_or_update_builder("AllTypes")
             .set("Id")
             .to(&id3)
             .set("ColBool")
-            .to(&false)
+            .to(false)
             .build(),
     ];
     write_tx.write(mutations).await?;

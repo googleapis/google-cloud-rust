@@ -37,7 +37,7 @@ where
         .set("Id")
         .to(&id)
         .set("ColInt64")
-        .to(&val)
+        .to(val)
         .build();
 
     let result = execute_write(db_client, vec![mutation]).await?;
