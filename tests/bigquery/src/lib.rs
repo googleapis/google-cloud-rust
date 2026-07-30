@@ -223,6 +223,88 @@ pub async fn job_service() -> Result<()> {
     Ok(())
 }
 
+pub async fn job_service_poller() -> Result<()> {
+    let project_id = project_id()?;
+    let client = JobService::builder().with_tracing().build().await?;
+    cleanup_stale_jobs(&client, &project_id).await?;
+
+    let job_id = random_job_id();
+    println!("CREATING JOB (WITH POLLER) ID: {job_id}");
+
+    let query = "SELECT 1 as one";
+
+    // Use the job poller extension to insert and poll the job until completion.
+    let job = client
+        .insert_job()
+        .set_project_id(&project_id)
+        .set_job(
+            Job::new()
+                .set_job_reference(JobReference::new().set_job_id(&job_id))
+                .set_configuration(
+                    JobConfiguration::new()
+                        .set_labels([(INSTANCE_LABEL, "true")])
+                        .set_query(JobConfigurationQuery::new().set_query(query)),
+                ),
+        )
+        .into_job_poller()
+        .until_done()
+        .await?;
+
+    println!("CREATE JOB (POLLED) = {job:?}");
+
+    assert!(job.job_reference.is_some(), "{job:?}");
+    let status = job.status.as_ref().expect("job should have status");
+    assert_eq!(status.state.as_str(), "DONE", "job state should be DONE");
+    assert!(
+        status.error_result.is_none(),
+        "job completed with unexpected error_result: {:?}",
+        status.error_result
+    );
+
+    Ok(())
+}
+
+pub async fn job_service_poller_error() -> Result<()> {
+    let project_id = project_id()?;
+    let client = JobService::builder().with_tracing().build().await?;
+
+    let job_id = random_job_id();
+    let query = "SELECT * FROM `non_existent_dataset_12345.non_existent_table_67890`";
+
+    let result = client
+        .insert_job()
+        .set_project_id(&project_id)
+        .set_job(
+            Job::new()
+                .set_job_reference(JobReference::new().set_job_id(&job_id))
+                .set_configuration(
+                    JobConfiguration::new()
+                        .set_labels([(INSTANCE_LABEL, "true")])
+                        .set_query(JobConfigurationQuery::new().set_query(query)),
+                ),
+        )
+        .into_job_poller()
+        .until_done()
+        .await;
+
+    let err = result.expect_err("expected job polling to return error");
+    match err {
+        google_cloud_bigquery_v2::operation::JobPollerError::ErrorProto(proto) => {
+            assert!(
+                !proto.reason.is_empty(),
+                "expected non-empty error reason in ErrorProto"
+            );
+        }
+        google_cloud_bigquery_v2::operation::JobPollerError::Rpc(rpc_err) => {
+            panic!(
+                "expected JobPollerError::ErrorProto from BigQuery job, got RPC error: {rpc_err:?}"
+            );
+        }
+    }
+
+    Ok(())
+}
+
 pub async fn query_client() -> Result<()> {
     let project_id = project_id()?;
     let bq = BigQuery::builder().build().await?;
