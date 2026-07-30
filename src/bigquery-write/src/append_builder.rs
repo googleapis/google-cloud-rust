@@ -24,11 +24,10 @@ use tokio::sync::{mpsc, oneshot};
 #[derive(Clone, Debug)]
 pub struct Append {
     req_tx: mpsc::Sender<WriteRequest>,
-    req: AppendRowsRequest,
+    pub(crate) req: AppendRowsRequest,
 }
 
 impl Append {
-    #[cfg_attr(not(test), expect(dead_code))]
     pub(crate) fn new(req_tx: mpsc::Sender<WriteRequest>, req: AppendRowsRequest) -> Self {
         Self { req_tx, req }
     }
