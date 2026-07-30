@@ -258,6 +258,7 @@ mod tests {
         struct TestInvoker {
             observed_headers: Arc<Mutex<Option<RequestHeaders>>>,
             observed_messages: Arc<Mutex<Vec<TestMessage>>>,
+            notify: Arc<tokio::sync::Notify>,
         }
 
         impl Invoke for TestInvoker {
@@ -271,16 +272,23 @@ mod tests {
             ) -> (Self::SendStream, Self::RecvStream) {
                 *self.observed_headers.lock().expect("lock observed headers") = Some(headers);
                 (
-                    TestSendStream(self.observed_messages.clone()),
+                    TestSendStream {
+                        observed_messages: self.observed_messages.clone(),
+                        notify: self.notify.clone(),
+                    },
                     TestRecvStream {
                         observed_messages: self.observed_messages.clone(),
+                        notify: self.notify.clone(),
                         state: StreamState::default(),
                     },
                 )
             }
         }
 
-        struct TestSendStream(Arc<Mutex<Vec<TestMessage>>>);
+        struct TestSendStream {
+            observed_messages: Arc<Mutex<Vec<TestMessage>>>,
+            notify: Arc<tokio::sync::Notify>,
+        }
 
         impl SendStream for TestSendStream {
             async fn send(
@@ -290,7 +298,11 @@ mod tests {
             ) -> Result<(), ()> {
                 let mut encoded = message.encode().map_err(|_| ())?;
                 let decoded = TestMessage::decode(&mut encoded).map_err(|_| ())?;
-                self.0.lock().expect("lock observed messages").push(decoded);
+                self.observed_messages
+                    .lock()
+                    .expect("lock observed messages")
+                    .push(decoded);
+                self.notify.notify_one();
                 Ok(())
             }
         }
@@ -312,6 +324,7 @@ mod tests {
         /// 3. Returns stream trailers followed by stream closure.
         struct TestRecvStream {
             observed_messages: Arc<Mutex<Vec<TestMessage>>>,
+            notify: Arc<tokio::sync::Notify>,
             state: StreamState,
         }
 
@@ -327,7 +340,7 @@ mod tests {
                             .expect("lock messages")
                             .is_empty()
                         {
-                            tokio::task::yield_now().await;
+                            self.notify.notified().await;
                         }
                         let mut metadata = grpc::metadata::MetadataMap::new();
                         metadata.insert(HEADER_KEY, MetadataValue::from_static(HEADER_VALUE));
@@ -356,9 +369,11 @@ mod tests {
 
         let observed_headers = Arc::new(Mutex::new(None));
         let observed_messages = Arc::new(Mutex::new(Vec::new()));
+        let notify = Arc::new(tokio::sync::Notify::new());
         let invoker = TestInvoker {
             observed_headers: observed_headers.clone(),
             observed_messages: observed_messages.clone(),
+            notify,
         };
         let headers = RequestHeaders::new().with_method_name(METHOD_NAME);
         let request = TestMessage {
