@@ -141,7 +141,8 @@ impl JobPoller {
             loop {
                 // NOTE: the client library intercepts errors and retries internally
                 // according to the policies set on `builder`.
-                let job_result = Box::pin(builder.clone().poller().until_done()).await?;
+                let poller = Box::new(builder.clone().poller());
+                let job_result = poller.until_done().await?;
                 attempts += 1;
 
                 if let Some(status) = &job_result.status
