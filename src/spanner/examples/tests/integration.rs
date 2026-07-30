@@ -106,6 +106,11 @@ mod tests {
                 .await
                 .inspect_err(anydump)?;
 
+            // 6c. Test spanner_dml_partitioned_update sample
+            dml::dml_partitioned_update::sample(client)
+                .await
+                .inspect_err(anydump)?;
+
             // 7. Test spanner_query_data_with_new_column sample
             query::query_new_column::sample(client)
                 .await
@@ -123,6 +128,11 @@ mod tests {
 
             // 8. Test spanner_read_only_transaction sample
             query::read_only_transaction::sample(client)
+                .await
+                .inspect_err(anydump)?;
+
+            // 9. Test spanner_dml_partitioned_delete sample
+            dml::dml_partitioned_delete::sample(client)
                 .await
                 .inspect_err(anydump)?;
 
@@ -170,6 +180,11 @@ mod tests {
                 .await
                 .inspect_err(anydump)?;
 
+            // 4c. Test spanner_postgresql_dml_partitioned_update sample
+            dml::pg_dml_partitioned_update::sample(client)
+                .await
+                .inspect_err(anydump)?;
+
             // 5. Test spanner_postgresql_query_data_with_new_column sample
             query::pg_query_new_column::sample(client)
                 .await
@@ -187,6 +202,11 @@ mod tests {
 
             // 6. Test spanner_postgresql_read_only_transaction sample
             query::pg_read_only_transaction::sample(client)
+                .await
+                .inspect_err(anydump)?;
+
+            // 7. Test spanner_postgresql_dml_partitioned_delete sample
+            dml::pg_dml_partitioned_delete::sample(client)
                 .await
                 .inspect_err(anydump)?;
 
