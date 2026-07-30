@@ -192,8 +192,9 @@ pub struct ResourceInfo {
     ///
     /// - `folders/<folder-number>`
     /// - `organizations/<organization-number>`
-    ///   Required for the policy enforcement on the container level (e.g. VPCSC,
-    ///   Location Policy check, Org Policy check).
+    ///
+    /// Required for the policy enforcement on the container level (e.g. VPCSC,
+    /// Location Policy check, Org Policy check).
     pub container: std::string::String,
 
     /// Optional. The location of the resource, it must be a valid zone, region or
