@@ -36,7 +36,6 @@ pub struct AppendResponse {
     pub updated_schema: Option<TableSchema>,
 }
 
-#[cfg_attr(not(test), expect(dead_code))]
 pub(crate) fn to_result(resp: AppendRowsResponse) -> AppendResult<AppendResponse> {
     if !resp.row_errors.is_empty() {
         return Err(AppendError::RowErrors(resp.row_errors));
