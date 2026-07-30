@@ -73,6 +73,7 @@ impl RetryPolicy for RetryableErrors {
 
 #[allow(dead_code)]
 pub(crate) fn default_retry_policy() -> Arc<dyn RetryPolicy> {
+    // TODO(#6218): Define better attempt limits.
     Arc::new(RetryableErrors.with_attempt_limit(3))
 }
 
