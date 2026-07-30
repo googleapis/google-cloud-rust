@@ -47,5 +47,4 @@ tracing.workspace             = true
 
 [features]
 run-integration-tests     = []
-unstable-stream           = ["google-cloud-storage/unstable-stream"]
 skipped-integration-tests = []

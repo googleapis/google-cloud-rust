@@ -521,8 +521,9 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     objects::object_csek_to_cmek::sample(&control, &id, "csek_file.txt", new_csek_key, &kms_key)
         .await?;
 
-    #[cfg(all(feature = "unstable-stream", google_cloud_unstable_storage_bidi))]
+    #[cfg(google_cloud_unstable_storage_bidi)]
     {
+        use google_cloud_test_utils::runtime_config::{region_id, zone_id};
         tracing::info!("create rapid bucket for appendable examples");
         let rapid_bucket_id = random_bucket_id();
         buckets.push(rapid_bucket_id.clone());
@@ -533,10 +534,9 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
             .set_bucket(
                 Bucket::new()
                     .set_project(format!("projects/{project_id}"))
-                    .set_location("us-central1")
+                    .set_location(region_id())
                     .set_custom_placement_config(
-                        CustomPlacementConfig::new()
-                            .set_data_locations(["us-central1-a".to_string()]),
+                        CustomPlacementConfig::new().set_data_locations([zone_id()]),
                     )
                     .set_storage_class("RAPID")
                     .set_hierarchical_namespace(HierarchicalNamespace::new().set_enabled(true))
