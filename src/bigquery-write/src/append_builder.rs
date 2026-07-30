@@ -21,6 +21,7 @@ use gaxi::prost::{FromProto, ToProto};
 use tokio::sync::{mpsc, oneshot};
 
 /// A request builder for appending rows on the default stream.
+#[derive(Clone, Debug)]
 pub struct Append {
     req_tx: mpsc::Sender<WriteRequest>,
     req: AppendRowsRequest,
