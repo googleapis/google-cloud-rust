@@ -182,27 +182,29 @@ mod tests {
     async fn consume_initial_headers(
         rx: &mut tokio::sync::mpsc::Receiver<tonic::Result<Option<RecvItem<EchoResponse>>>>,
     ) -> anyhow::Result<()> {
-        let _ = rx
+        let item = rx
             .recv()
             .await
             .expect("response pump should yield initial headers")?;
+        assert!(
+            matches!(item, Some(RecvItem::Headers(_))),
+            "expected initial headers, got {item:?}"
+        );
         Ok(())
     }
 
-    /// Receives a response message from the response pump. Ignores headers.
+    /// Receives a response message from the response pump. Fails if headers are received.
     async fn recv_echo_response(
         rx: &mut tokio::sync::mpsc::Receiver<tonic::Result<Option<RecvItem<EchoResponse>>>>,
     ) -> anyhow::Result<EchoResponse> {
-        loop {
-            let res = rx
-                .recv()
-                .await
-                .expect("response pump should yield a response item")?
-                .expect("expected a response item");
-            match res {
-                RecvItem::Headers(_) => continue,
-                RecvItem::Message(msg) => return Ok(msg),
-            }
-        }
+        let res = rx
+            .recv()
+            .await
+            .expect("response pump should yield a response item")?
+            .expect("expected a response item");
+        let RecvItem::Message(msg) = res else {
+            panic!("expected response message, got {res:?}");
+        };
+        Ok(msg)
     }
 }

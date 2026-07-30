@@ -17,6 +17,7 @@ pub use super::receive::RecvItem;
 pub use super::send::GrpcRustSend;
 use super::send::SendTask;
 use prost::Message;
+use tokio::sync::mpsc::Receiver;
 
 /// A `tonic` adapter for `grpc-rust` RPCs.
 ///
@@ -31,7 +32,7 @@ use prost::Message;
 /// dedicated background tasks ensures that cancelling [`GrpcRustStreaming::message`] or dropping
 /// [`GrpcRustStreaming`] is safe and prevents stream corruption.
 pub struct GrpcRustStreaming<Response> {
-    responses: Option<tokio::sync::mpsc::Receiver<tonic::Result<Option<RecvItem<Response>>>>>,
+    responses: Option<Receiver<tonic::Result<Option<RecvItem<Response>>>>>,
     receive_task: Option<ReceiveTask>,
     send_task: SendTask,
     /// Holds a pre-decoded initial response message (e.g. from stream setup or handshake)
@@ -45,7 +46,7 @@ where
 {
     /// Creates a new [`GrpcRustStreaming`] instance with an active response channel and [`ReceiveTask`].
     pub(super) fn new(
-        responses: tokio::sync::mpsc::Receiver<tonic::Result<Option<RecvItem<Response>>>>,
+        responses: Receiver<tonic::Result<Option<RecvItem<Response>>>>,
         receive_task: ReceiveTask,
         send_task: SendTask,
     ) -> Self {
@@ -62,7 +63,7 @@ where
     /// The first call to [`GrpcRustStreaming::message`] will yield `pending` before returning
     /// subsequent items from the response channel.
     pub(super) fn new_with_pending(
-        responses: tokio::sync::mpsc::Receiver<tonic::Result<Option<RecvItem<Response>>>>,
+        responses: Receiver<tonic::Result<Option<RecvItem<Response>>>>,
         receive_task: ReceiveTask,
         send_task: SendTask,
         pending: Response,
@@ -106,18 +107,18 @@ where
                 response = responses.recv() => match response {
                     // Successfully received a response message.
                     Some(Ok(Some(RecvItem::Message(message)))) => return Ok(Some(message)),
-                    // TODO(#5991): Consider logging (e.g. tracing::debug!) for unexpected mid-stream headers.
                     // Ignore additional headers received mid-stream.
+                    // TODO(#5991): Consider logging (e.g. tracing::debug!) for unexpected mid-stream headers.
                     Some(Ok(Some(RecvItem::Headers(_)))) => continue,
-                    // Stream reached terminal state. Could be clean termination (`Ok(None)`) or an error (`Err(status)`).
-                    Some(terminal) => {
-                        let res = match terminal {
-                            Ok(None) => Ok(None),
-                            Err(status) => Err(status),
-                            Ok(Some(_)) => unreachable!(),
-                        };
+                    // Terminal with clean termination.
+                    Some(Ok(None)) => {
                         self.terminate();
-                        return res;
+                        return Ok(None);
+                    }
+                    // Terminal with error.
+                    Some(Err(status)) => {
+                        self.terminate();
+                        return Err(status);
                     }
                     // Response channel closed unexpectedly without sending a terminal item.
                     // Join the background receive task to extract the final exit status/error.
