@@ -29,6 +29,7 @@ extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
 extern crate std;
+extern crate thiserror;
 extern crate tokio;
 extern crate tracing;
 extern crate uuid;

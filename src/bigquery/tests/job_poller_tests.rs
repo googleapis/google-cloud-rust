@@ -132,12 +132,11 @@ async fn non_retryable_error() -> anyhow::Result<()> {
     let result = poller.until_done().await;
 
     // Should return immediately after 1st attempt
-    let JobPollerError::Job(failed_job) = result.unwrap_err() else {
-        panic!("expected JobPollerError::Job");
+    let JobPollerError::ErrorProto(err) = result.unwrap_err() else {
+        panic!("expected JobPollerError::ErrorProto");
     };
 
-    let status = failed_job.status.unwrap();
-    assert_eq!(status.error_result.unwrap().reason.as_str(), "invalidQuery");
+    assert_eq!(err.reason.as_str(), "invalidQuery");
     Ok(())
 }
 
@@ -155,15 +154,11 @@ async fn retry_exhausted() -> anyhow::Result<()> {
     let result = poller.until_done().await;
 
     // Should stop retrying after limit of 3
-    let JobPollerError::Job(failed_job) = result.unwrap_err() else {
-        panic!("expected JobPollerError::Job");
+    let JobPollerError::ErrorProto(err) = result.unwrap_err() else {
+        panic!("expected JobPollerError::ErrorProto");
     };
 
-    let status = failed_job.status.unwrap();
-    assert_eq!(
-        status.error_result.unwrap().reason.as_str(),
-        "jobBackendError"
-    );
+    assert_eq!(err.reason.as_str(), "jobBackendError");
     Ok(())
 }
 

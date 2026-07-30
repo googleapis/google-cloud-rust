@@ -95,9 +95,9 @@ pub enum JobPollerError {
     /// An error occurred during the RPC or LRO polling.
     #[error(transparent)]
     Rpc(#[from] GaxError),
-    /// The job completed, but the BigQuery service reported an error in `status.error_result`.
+    /// The job completed, but the BigQuery service reported an internal error.
     #[error("BigQuery job failed ({}): {}", .0.reason, .0.message)]
-    Job(crate::model::ErrorProto),
+    ErrorProto(crate::model::ErrorProto),
 }
 
 /// A poller that monitors the status of an inserted BigQuery job and handles retries.
@@ -156,7 +156,7 @@ impl JobPoller {
                     tokio::time::sleep(delay).await;
                     continue;
                 }
-                return Err(JobPollerError::Job(err.clone()));
+                return Err(JobPollerError::ErrorProto(err.clone()));
             }
             return Ok(job_result);
         }
