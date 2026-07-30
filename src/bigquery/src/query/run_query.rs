@@ -56,19 +56,6 @@ impl RunQuery {
         self
     }
 
-    fn generate_job_reference(&self, project_id: &str) -> JobReference {
-        let job_id = generate_prefixed_id(JOB_ID_PREFIX);
-        let mut job_ref = JobReference::new()
-            .set_project_id(project_id.to_string())
-            .set_job_id(job_id);
-
-        if !self.request.location.is_empty() {
-            job_ref = job_ref.set_location(self.request.location.clone());
-        }
-
-        job_ref
-    }
-
     /// Executes the SQL query
     ///
     /// The implementation routes internally to [jobs.query] (fast path)
@@ -79,15 +66,12 @@ impl RunQuery {
     /// [jobs.query]: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query
     /// [jobs.insert]: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/insert
     pub async fn run(self) -> Result<Query> {
-        let project_id = self
-            .project_id
-            .clone()
-            .ok_or(QueryError::MissingProjectId)?;
+        let project_id = self.project_id.ok_or(QueryError::MissingProjectId)?;
         let max_results = self.request.max_results;
 
         if self.request.force_job_path() {
             // Route to jobs.insert
-            let job_ref = self.generate_job_reference(&project_id);
+            let job_ref = generate_job_reference(&project_id, &self.request.location);
             let job_config: JobConfiguration = self.request.into();
             let job = Job::new()
                 .set_configuration(job_config)
@@ -118,6 +102,19 @@ impl RunQuery {
                 .await
         }
     }
+}
+
+fn generate_job_reference(project_id: &str, location: &str) -> JobReference {
+    let job_id = generate_prefixed_id(JOB_ID_PREFIX);
+    let mut job_ref = JobReference::new()
+        .set_project_id(project_id.to_string())
+        .set_job_id(job_id);
+
+    if !location.is_empty() {
+        job_ref = job_ref.set_location(location.to_string());
+    }
+
+    job_ref
 }
 
 fn generate_prefixed_id(prefix: &str) -> String {
@@ -192,12 +189,10 @@ mod tests {
 
     #[test]
     fn test_generate_job_reference() {
-        let job_service = create_job_service(MockJobService::new());
-        let run_query = RunQuery::new(job_service.clone(), "SELECT 1".to_string());
-
-        let job_ref = run_query.generate_job_reference("my-project");
+        let job_ref = generate_job_reference("my-project", "us-central1");
         assert_eq!(job_ref.project_id, "my-project");
         assert!(job_ref.job_id.starts_with(JOB_ID_PREFIX), "{job_ref:?}");
+        assert_eq!(job_ref.location.as_deref(), Some("us-central1"));
     }
 
     #[tokio::test]
