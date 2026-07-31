@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::Result;
 use crate::arrow::DefaultWriter;
 use crate::model::ArrowSchema;
 use crate::transport::Transport;
@@ -34,10 +35,11 @@ impl WriterBuilder {
     /// Create a writer for the [default stream] for the given table.
     ///
     /// [default stream]: https://docs.cloud.google.com/bigquery/docs/write-api#default_stream
-    pub fn default<T: Into<String>>(self, table: T) -> DefaultWriter {
+    pub fn default<T: Into<String>>(self, table: T) -> Result<DefaultWriter> {
+        // TODO(#6249) - validate table resource format
         let mut write_stream = table.into();
         write_stream.push_str("/streams/_default");
-        DefaultWriter::new(self.inner, write_stream, self.schema)
+        Ok(DefaultWriter::new(self.inner, write_stream, self.schema))
     }
 }
 
@@ -51,7 +53,7 @@ mod tests {
         let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
         let schema = ArrowSchema::new().set_serialized_schema("test");
         let builder = WriterBuilder::new(transport, schema.clone());
-        let writer = builder.default("projects/p/tables/t");
+        let writer = builder.default("projects/p/tables/t")?;
         assert_eq!(writer.write_stream, "projects/p/tables/t/streams/_default");
         assert_eq!(writer.schema, schema);
         Ok(())
