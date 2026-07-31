@@ -67,7 +67,7 @@ impl RequestIdCreator {
         self.client_id
     }
 
-    /// Returns a base Request ID string for a new RPC, excluding the attempt suffix:
+    /// Returns a Request ID prefix string for a new RPC, excluding the attempt suffix:
     /// `"1.<RAND_PROCESS_ID>.<client_id>.<channel_id>.<request_id>."`
     ///
     /// The returned string ends with a dot (`'.'`), ready for the attempt interceptor
@@ -75,7 +75,7 @@ impl RequestIdCreator {
     ///
     /// # Arguments
     /// * `channel_id` - The 1-based channel identifier (`1, 2, ...`), or `0` for an unknown channel.
-    pub(crate) fn next_base_id(&self, channel_id: usize) -> String {
+    pub(crate) fn next_id_prefix(&self, channel_id: usize) -> String {
         let request_id = self.next_request_id.fetch_add(1, Ordering::Relaxed);
         let mut result = String::with_capacity(self.client_prefix.len() + 48);
         result.push_str(&self.client_prefix);
@@ -89,7 +89,7 @@ impl RequestIdCreator {
     /// # Arguments
     /// * `channel_id` - The 1-based channel identifier (`1, 2, ...`), or `0` for an unknown channel.
     /// * `attempt` - The 1-based attempt number (`1` for initial attempt, `2` for first retry).
-    pub(crate) fn next_id(&self, channel_id: usize, attempt: u32) -> String {
+    pub(crate) fn next_id_with_attempt(&self, channel_id: usize, attempt: u32) -> String {
         let request_id = self.next_request_id.fetch_add(1, Ordering::Relaxed);
         let mut result = String::with_capacity(self.client_prefix.len() + 48);
         result.push_str(&self.client_prefix);
@@ -129,14 +129,14 @@ mod tests {
         let creator = RequestIdCreator::new();
         let client_id = creator.client_id();
 
-        let base_id1 = creator.next_base_id(1);
+        let base_id1 = creator.next_id_prefix(1);
         let expected_prefix = format!("{VERSION}.{}.{}.", *RAND_PROCESS_ID, client_id);
         assert_eq!(base_id1, format!("{expected_prefix}1.1."));
 
-        let base_id2 = creator.next_base_id(1);
+        let base_id2 = creator.next_id_prefix(1);
         assert_eq!(base_id2, format!("{expected_prefix}1.2."));
 
-        let base_id3 = creator.next_base_id(2);
+        let base_id3 = creator.next_id_prefix(2);
         assert_eq!(base_id3, format!("{expected_prefix}2.3."));
     }
 
@@ -153,10 +153,10 @@ mod tests {
         let client_id = creator.client_id();
         let expected_prefix = format!("{VERSION}.{}.{}.", *RAND_PROCESS_ID, client_id);
 
-        let id1 = creator.next_id(1, 1);
+        let id1 = creator.next_id_with_attempt(1, 1);
         assert_eq!(id1, format!("{expected_prefix}1.1.1"));
 
-        let id2 = creator.next_id(5, 42);
+        let id2 = creator.next_id_with_attempt(5, 42);
         assert_eq!(id2, format!("{expected_prefix}5.2.42"));
     }
 
@@ -166,11 +166,11 @@ mod tests {
         let client_id = creator.client_id();
         let expected_prefix = format!("{VERSION}.{}.{}.", *RAND_PROCESS_ID, client_id);
 
-        let _ = creator.next_base_id(1);
-        let _ = creator.next_base_id(1);
+        let _ = creator.next_id_prefix(1);
+        let _ = creator.next_id_prefix(1);
         creator.reset();
 
-        let base_id_after_reset = creator.next_base_id(1);
+        let base_id_after_reset = creator.next_id_prefix(1);
         assert_eq!(base_id_after_reset, format!("{expected_prefix}1.1."));
     }
 }
