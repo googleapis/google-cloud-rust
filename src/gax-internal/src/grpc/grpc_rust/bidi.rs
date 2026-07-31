@@ -246,6 +246,7 @@ mod tests {
         value: String,
     }
 
+    // TODO(#5991): Add tests for failure paths.
     #[tokio::test]
     async fn bidi_call_yields_response_messages() -> anyhow::Result<()> {
         // Arrange
