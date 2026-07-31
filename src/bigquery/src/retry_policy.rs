@@ -14,36 +14,22 @@
 
 //! Defines a retry policy for BigQuery.
 
+use crate::error::QueryError;
 use google_cloud_bigquery_v2::model::ErrorProto;
 use google_cloud_gax::backoff_policy::BackoffPolicy;
+use google_cloud_gax::backoff_policy::BackoffPolicyArg;
 use google_cloud_gax::error::Error as GaxError;
-use google_cloud_gax::error::rpc::{Code, Status};
+use google_cloud_gax::error::rpc::Code;
 use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
-use google_cloud_gax::retry_policy::{RetryPolicy, RetryPolicyExt};
+use google_cloud_gax::retry_policy::RetryPolicy;
 use google_cloud_gax::retry_result::RetryResult;
 use google_cloud_gax::retry_state::RetryState;
 use std::sync::Arc;
+use std::time::Duration;
 
-/// Follows the retry strategy recommended by the BigQuery guides on error handling.
-///
-/// ```ignore
-/// # async fn sample() -> anyhow::Result<()> {
-/// # use google_cloud_gax::retry_policy::RetryPolicyExt;
-/// # use google_cloud_bigquery::client::BigQuery;
-/// # use google_cloud_bigquery::retry_policy::RetryableErrors;
-/// let policy = RetryableErrors.with_time_limit(std::time::Duration::from_secs(60));
-/// let client = BigQuery::builder()
-///     .build()
-///     .await?;
-/// let query = client.query("SELECT 1")
-///     .with_retry_policy(policy);
-/// # Ok(())
-/// # }
-/// ```
-///
-/// This policy must be decorated to limit the duration or attempts of the retry loop.
+/// Follows the RPC retry strategy recommended by the BigQuery guides on error handling.
 #[derive(Clone, Debug)]
-pub struct RetryableErrors;
+pub(crate) struct RetryableErrors;
 
 impl RetryPolicy for RetryableErrors {
     fn on_error(&self, _state: &RetryState, error: GaxError) -> RetryResult {
@@ -71,41 +57,98 @@ impl RetryPolicy for RetryableErrors {
     }
 }
 
-#[allow(dead_code)]
 pub(crate) fn default_retry_policy() -> Arc<dyn RetryPolicy> {
-    // TODO(#6218): Define better attempt limits.
-    Arc::new(RetryableErrors.with_attempt_limit(3))
+    Arc::new(RetryableErrors)
 }
 
-#[allow(dead_code)]
 pub(crate) fn default_backoff_policy() -> Arc<dyn BackoffPolicy> {
     Arc::new(
         ExponentialBackoffBuilder::default()
-            .with_initial_delay(std::time::Duration::from_secs(1))
-            .with_maximum_delay(std::time::Duration::from_secs(32))
+            .with_initial_delay(Duration::from_secs(1))
+            .with_maximum_delay(Duration::from_secs(32))
             .with_scaling(2.0)
             .build()
             .expect("valid backoff configuration"),
     )
 }
 
-/// Maps BigQuery job error reasons (`backendError`, `rateLimitExceeded`, etc.) to
-/// canonical gRPC status codes (`Code`).
-///
-/// See the official [error messages] BigQuery documentation:
-///
-/// [error messages]: https://cloud.google.com/bigquery/docs/error-messages
-#[allow(dead_code)]
-pub(crate) fn error_reason_to_code(reason: &str) -> Code {
-    match reason {
-        "backendError" | "jobBackendError" => Code::Unavailable,
-        "internalError" => Code::Internal,
-        "rateLimitExceeded" | "jobRateLimitExceeded" => Code::ResourceExhausted,
-        _ => Code::InvalidArgument,
+/// The result of evaluating a BigQuery job error against a [`JobRetryPolicy`].
+#[derive(Debug)]
+pub(crate) enum JobRetryResult {
+    Continue(Duration, QueryError),
+    Exhausted(QueryError),
+    Permanent(QueryError),
+}
+
+#[cfg(test)]
+impl JobRetryResult {
+    pub(crate) fn is_continue(&self) -> bool {
+        matches!(self, Self::Continue(_, _))
+    }
+    pub(crate) fn is_exhausted(&self) -> bool {
+        matches!(self, Self::Exhausted(_))
+    }
+    pub(crate) fn is_permanent(&self) -> bool {
+        matches!(self, Self::Permanent(_))
     }
 }
 
-#[allow(dead_code)]
+/// A policy trait for handling BigQuery job execution retries.
+///
+/// Note: This trait is kept crate-internal for now. It is a copy/adaptation of GAX's
+/// `RetryPolicy` trait specifically tailored for BigQuery job-level re-issuance.
+/// In the future, we plan to refine this trait and discuss how to make it public
+/// so customers can provide their own custom job retry policies.
+pub(crate) trait JobRetryPolicy<S = RetryState>: Send + Sync + std::fmt::Debug {
+    fn on_error(&self, state: &S, error: crate::error::QueryError) -> JobRetryResult;
+}
+
+#[derive(Clone, Debug)]
+pub(crate) struct RetryableJobErrors {
+    attempt_limit: u32,
+    backoff: Arc<dyn BackoffPolicy>,
+}
+
+impl Default for RetryableJobErrors {
+    fn default() -> Self {
+        Self {
+            attempt_limit: 5,
+            backoff: default_backoff_policy(),
+        }
+    }
+}
+
+impl RetryableJobErrors {
+    #[allow(dead_code)]
+    pub fn with_attempt_limit(mut self, attempt_limit: u32) -> Self {
+        self.attempt_limit = attempt_limit;
+        self
+    }
+
+    #[allow(dead_code)]
+    pub fn with_backoff_policy<V: Into<BackoffPolicyArg>>(mut self, v: V) -> Self {
+        self.backoff = v.into().into();
+        self
+    }
+}
+
+impl JobRetryPolicy for RetryableJobErrors {
+    fn on_error(&self, state: &RetryState, error: crate::error::QueryError) -> JobRetryResult {
+        if !is_query_error_retryable(&error) {
+            return JobRetryResult::Permanent(error);
+        }
+        if state.attempt_count >= self.attempt_limit {
+            return JobRetryResult::Exhausted(error);
+        }
+        let delay = self.backoff.on_failure(state);
+        JobRetryResult::Continue(delay, error)
+    }
+}
+
+pub(crate) fn default_job_retry_policy() -> Arc<dyn JobRetryPolicy> {
+    Arc::new(RetryableJobErrors::default())
+}
+
 pub(crate) fn is_query_error_retryable(err: &crate::error::QueryError) -> bool {
     match err {
         crate::error::QueryError::JobFailed { errors } => is_retryable_errors(errors),
@@ -113,24 +156,6 @@ pub(crate) fn is_query_error_retryable(err: &crate::error::QueryError) -> bool {
     }
 }
 
-#[allow(dead_code)]
-pub(crate) fn query_job_failed_to_gax_error(err: &crate::error::QueryError) -> Option<GaxError> {
-    let crate::error::QueryError::JobFailed { errors } = err else {
-        return None;
-    };
-    let code = errors
-        .iter()
-        .find_map(|e| is_retryable_error_reason(&e.reason).then(|| error_reason_to_code(&e.reason)))
-        .unwrap_or(Code::Unavailable);
-
-    Some(GaxError::service(
-        Status::default()
-            .set_code(code)
-            .set_message("JobFailed: retryable server error"),
-    ))
-}
-
-#[allow(dead_code)]
 pub(crate) fn is_retryable_error_reason(reason: &str) -> bool {
     matches!(
         reason,
@@ -142,7 +167,6 @@ pub(crate) fn is_retryable_error_reason(reason: &str) -> bool {
     )
 }
 
-#[allow(dead_code)]
 pub(crate) fn is_retryable_errors(errors: &[ErrorProto]) -> bool {
     !errors.is_empty() && errors.iter().any(|e| is_retryable_error_reason(&e.reason))
 }
@@ -150,6 +174,7 @@ pub(crate) fn is_retryable_errors(errors: &[ErrorProto]) -> bool {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::query::tests::create_test_backoff_policy;
     use google_cloud_bigquery_v2::model::ErrorProto;
     use google_cloud_gax::error::rpc::{Code, Status};
     use google_cloud_gax::retry_state::RetryState;
@@ -239,9 +264,27 @@ mod tests {
     }
 
     #[test]
-    fn test_attempt_limit() {
-        let policy = default_retry_policy();
-        let retryable_err = || GaxError::service(Status::default().set_code(Code::Unavailable));
+    fn test_job_retryable_errors() {
+        let policy = RetryableJobErrors::default();
+        let state = RetryState::default();
+
+        let retryable_err = crate::error::QueryError::JobFailed {
+            errors: vec![ErrorProto::new().set_reason("backendError")],
+        };
+        assert!(policy.on_error(&state, retryable_err).is_continue());
+
+        let permanent_err = crate::error::QueryError::JobFailed {
+            errors: vec![ErrorProto::new().set_reason("invalidQuery")],
+        };
+        assert!(policy.on_error(&state, permanent_err).is_permanent());
+    }
+
+    #[test]
+    fn test_job_attempt_limit() {
+        let policy = default_job_retry_policy();
+        let retryable_err = || crate::error::QueryError::JobFailed {
+            errors: vec![ErrorProto::new().set_reason("backendError")],
+        };
 
         let mut state = RetryState::default();
         assert!(policy.on_error(&state, retryable_err()).is_continue());
@@ -254,12 +297,25 @@ mod tests {
 
         state.attempt_count = 3;
         assert!(policy.on_error(&state, retryable_err()).is_exhausted());
+    }
 
-        state.attempt_count = 4;
-        assert!(policy.on_error(&state, retryable_err()).is_exhausted());
+    #[test]
+    fn test_job_backoff_policy() {
+        let mut backoff = create_test_backoff_policy();
+        backoff
+            .expect_on_failure()
+            .return_const(Duration::from_secs(5));
 
-        state.attempt_count = 0;
-        let perm_err = GaxError::service(Status::default().set_code(Code::InvalidArgument));
-        assert!(policy.on_error(&state, perm_err).is_permanent());
+        let policy = RetryableJobErrors::default().with_backoff_policy(backoff);
+        let retryable_err = crate::error::QueryError::JobFailed {
+            errors: vec![ErrorProto::new().set_reason("backendError")],
+        };
+
+        let state = RetryState::default();
+        if let JobRetryResult::Continue(delay, _) = policy.on_error(&state, retryable_err) {
+            assert_eq!(delay, Duration::from_secs(5));
+        } else {
+            panic!("expected Continue with 5s delay");
+        }
     }
 }
