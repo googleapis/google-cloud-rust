@@ -2033,7 +2033,7 @@ mod tests {
                 let count = tx.execute_update("UPDATE Users SET active = true").await?;
                 let mutation = Mutation::new_insert_builder("Audits")
                     .set("AuditId")
-                    .to(&1)
+                    .to(1)
                     .build();
                 tx.buffer([mutation])?;
                 Ok(count)
@@ -2179,7 +2179,7 @@ mod tests {
                 let mutation_value = if attempt == 1 { 100 } else { 200 };
                 let mutation = Mutation::new_insert_builder("Users")
                     .set("UserId")
-                    .to(&mutation_value)
+                    .to(mutation_value)
                     .build();
                 tx.buffer([mutation])?;
                 Ok(count)
@@ -2228,11 +2228,11 @@ mod tests {
             .run(async |tx| {
                 let m1 = Mutation::new_insert_builder("Orders")
                     .set("OrderId")
-                    .to(&1)
+                    .to(1)
                     .build();
                 let m2 = Mutation::new_insert_builder("Orders")
                     .set("OrderId")
-                    .to(&2)
+                    .to(2)
                     .build();
                 tx.buffer([m1, m2])?;
                 Ok(())

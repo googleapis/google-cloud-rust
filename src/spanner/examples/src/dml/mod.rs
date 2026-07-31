@@ -13,6 +13,10 @@
 // limitations under the License.
 
 pub mod dml_insert;
+pub mod dml_partitioned_delete;
+pub mod dml_partitioned_update;
 pub mod dml_update;
 pub mod pg_dml_insert;
+pub mod pg_dml_partitioned_delete;
+pub mod pg_dml_partitioned_update;
 pub mod pg_dml_update;

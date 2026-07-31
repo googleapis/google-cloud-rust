@@ -306,7 +306,7 @@ mod tests {
 
         let mutation = Mutation::new_insert_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build();
         let group = MutationGroup::new(vec![mutation]);
 
@@ -363,7 +363,7 @@ mod tests {
 
         let mutation = Mutation::new_insert_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build();
         let group = MutationGroup::new(vec![mutation]);
 
@@ -426,7 +426,7 @@ mod tests {
 
         let mutation = Mutation::new_insert_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build();
         let group = MutationGroup::new(vec![mutation]);
 

@@ -53,6 +53,13 @@ pub enum Kind {
 pub struct Value(pub(crate) ProtoValue);
 
 impl Value {
+    /// Creates a null [Value].
+    pub fn null() -> Self {
+        Value(ProtoValue {
+            kind: Some(prost_types::value::Kind::NullValue(0)),
+        })
+    }
+
     /// Safely reinterprets a reference to the inner protobuf value as a reference to Value.
     /// Logical safety is guaranteed by #[repr(transparent)].
     pub(crate) fn from_ref(v: &ProtoValue) -> &Self {

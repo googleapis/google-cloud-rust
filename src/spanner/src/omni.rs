@@ -14,6 +14,8 @@
 
 //! Spanner Omni instance types and configuration utilities.
 
+pub use crate::client::SpannerBuilderExt;
+
 /// Specifies the type of Spanner instance to connect to (`Cloud` or `Omni`).
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 #[non_exhaustive]
@@ -106,10 +108,10 @@ mod tests {
     #[tokio::test]
     async fn test_spanner_with_instance_type() {
         let spanner = Spanner::builder()
+            .with_instance_type(InstanceType::Omni)
             .build()
             .await
-            .expect("build client")
-            .with_instance_type(InstanceType::Omni);
+            .expect("build client");
         assert_eq!(spanner.instance_type(), InstanceType::Omni);
     }
 
@@ -118,10 +120,10 @@ mod tests {
     async fn test_query_local_omni_instance() {
         let spanner = Spanner::builder()
             .with_endpoint("http://localhost:15000")
+            .with_instance_type(InstanceType::Omni)
             .build()
             .await
-            .expect("build client")
-            .with_instance_type(InstanceType::Omni);
+            .expect("build client");
 
         let db_client = spanner
             .database_client("retail-sample")

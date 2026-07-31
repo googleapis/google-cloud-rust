@@ -30,6 +30,9 @@ pub struct RangeReader {
     // Unused, holding to a copy prevents the worker task from terminating
     // early.
     _tx: Sender<ActiveRead>,
+    checksum: crate::storage::checksum::details::Checksum,
+    offset: u64,
+    exhausted: bool,
 }
 
 impl RangeReader {
@@ -40,11 +43,23 @@ impl RangeReader {
         inner: Receiver<Result<bytes::Bytes, ReadError>>,
         object: Arc<Object>,
         tx: Sender<ActiveRead>,
+        checksum: crate::storage::checksum::details::Checksum,
     ) -> Self {
+        // If the server didn't return any checksums in the metadata (e.g. for composite objects),
+        // we disable local checksum computation to save CPU cycles.
+        let checksum = if object.checksums.is_none() {
+            crate::storage::checksum::details::Checksum::default()
+        } else {
+            checksum
+        };
+
         Self {
             inner,
             object,
             _tx: tx,
+            checksum,
+            offset: 0,
+            exhausted: false,
         }
     }
 }
@@ -67,9 +82,47 @@ impl ReadObjectResponse for RangeReader {
         }
     }
 
+    /// Fetches the next chunk of data from the underlying stream.
+    ///
+    /// This function reads from the gRPC stream channel, updating the running
+    /// checksum as chunks are successfully received. If the stream reaches its
+    /// end (`None`), this function will finalize and validate the running checksum
+    /// against the object's expected checksum.
     async fn next(&mut self) -> Option<crate::Result<bytes::Bytes>> {
-        let msg = self.inner.recv().await?;
-        Some(msg.map_err(Error::io))
+        if self.exhausted {
+            return None;
+        }
+        let msg = self.inner.recv().await;
+        match msg {
+            // A valid chunk was received from the stream.
+            // Update the running checksum and advance our offset tracker.
+            Some(Ok(b)) => {
+                self.checksum.update(self.offset, &b);
+                self.offset += b.len() as u64;
+                Some(Ok(b))
+            }
+            // A stream error occurred during the RPC.
+            // We mark the stream as exhausted and propagate the error.
+            Some(Err(e)) => {
+                self.exhausted = true;
+                Some(Err(Error::io(e)))
+            }
+            // The stream has successfully completed.
+            // Before returning `None` to indicate EOF, we validate the running
+            // checksum against the expected checksum returned in the object metadata.
+            None => {
+                self.exhausted = true;
+                if let Some(expected) = &self.object.checksums {
+                    let computed = self.checksum.finalize();
+                    let res =
+                        crate::storage::checksum::details::validate(expected, &Some(computed));
+                    if let Err(e) = res {
+                        return Some(Err(Error::deser(ReadError::ChecksumMismatch(e))));
+                    }
+                }
+                None
+            }
+        }
     }
 }
 
@@ -98,7 +151,12 @@ mod tests {
         let (tx, inner) = tokio::sync::mpsc::channel(1);
         let (pending_tx, mut pending_rx) = tokio::sync::mpsc::channel(100);
 
-        let mut reader = RangeReader::new(inner, object.clone(), pending_tx);
+        let mut reader = RangeReader::new(
+            inner,
+            object.clone(),
+            pending_tx,
+            crate::storage::checksum::details::Checksum::default(),
+        );
         let got = reader.object();
         let want = ObjectHighlights {
             generation: 123456,
@@ -140,6 +198,154 @@ mod tests {
         drop(reader);
         let done = pending_rx.recv().await;
         assert!(done.is_none(), "{done:?}");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn object_with_checksum_success() -> anyhow::Result<()> {
+        use crate::storage::checksum::details::{Checksum, Crc32c, Md5};
+        let data = bytes::Bytes::from_static(b"the quick brown fox jumps over the lazy dog");
+        let crc32c = crc32c::crc32c(&data);
+        let md5 = bytes::Bytes::from_owner(Vec::from_iter(md5::compute(&data).0));
+
+        let object = Object::new()
+            .set_checksums(ObjectChecksums::new().set_crc32c(crc32c).set_md5_hash(md5));
+        let object = Arc::new(object);
+
+        let (tx, inner) = tokio::sync::mpsc::channel(1);
+        let (pending_tx, _pending_rx) = tokio::sync::mpsc::channel(100);
+
+        let mut reader = RangeReader::new(
+            inner,
+            object.clone(),
+            pending_tx,
+            Checksum {
+                crc32c: Some(Crc32c::default()),
+                md5_hash: Some(Md5::default()),
+            },
+        );
+
+        tx.send(Ok(data.clone())).await?;
+        let got = reader.next().await;
+        assert!(matches!(got, Some(Ok(ref d)) if *d == data), "{got:?}");
+
+        drop(tx);
+
+        let got = reader.next().await;
+        assert!(got.is_none(), "{got:?}"); // Successfully matched checksums
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn object_with_checksum_mismatch() -> anyhow::Result<()> {
+        use crate::storage::checksum::details::{Checksum, Crc32c};
+        let data = bytes::Bytes::from_static(b"the quick brown fox jumps over the lazy dog");
+        let wrong_crc32c = crc32c::crc32c(&data) + 1; // Incorrect checksum
+
+        let object = Object::new().set_checksums(ObjectChecksums::new().set_crc32c(wrong_crc32c));
+        let object = Arc::new(object);
+
+        let (tx, inner) = tokio::sync::mpsc::channel(1);
+        let (pending_tx, _pending_rx) = tokio::sync::mpsc::channel(100);
+
+        let mut reader = RangeReader::new(
+            inner,
+            object.clone(),
+            pending_tx,
+            Checksum {
+                crc32c: Some(Crc32c::default()),
+                md5_hash: None,
+            },
+        );
+
+        tx.send(Ok(data.clone())).await?;
+        let got = reader.next().await;
+        assert!(matches!(got, Some(Ok(ref d)) if *d == data), "{got:?}");
+
+        drop(tx);
+
+        let got = reader.next().await;
+        // Should yield a ChecksumMismatch error
+        assert!(matches!(got, Some(Err(_))), "{got:?}");
+        let err = got.unwrap().unwrap_err();
+
+        let source = err.source().and_then(|e| e.downcast_ref::<ReadError>());
+        assert!(
+            matches!(source, Some(ReadError::ChecksumMismatch(_))),
+            "{source:?}"
+        );
+
+        // Subsequent calls should yield None
+        let got_none = reader.next().await;
+        assert!(got_none.is_none(), "{got_none:?}");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn object_with_default_checksum_skips_all_validation() -> anyhow::Result<()> {
+        let data = bytes::Bytes::from_static(b"the quick brown fox jumps over the lazy dog");
+        let wrong_crc32c = crc32c::crc32c(&data) + 1; // Incorrect checksum for the whole object
+
+        let object = Object::new().set_checksums(ObjectChecksums::new().set_crc32c(wrong_crc32c));
+        let object = Arc::new(object);
+
+        let (tx, inner) = tokio::sync::mpsc::channel(1);
+        let (pending_tx, _pending_rx) = tokio::sync::mpsc::channel(100);
+
+        // Using Checksum::default() disables local validation
+        let mut reader = RangeReader::new(
+            inner,
+            object.clone(),
+            pending_tx,
+            crate::storage::checksum::details::Checksum::default(),
+        );
+
+        tx.send(Ok(data.clone())).await?;
+        let got = reader.next().await;
+        assert!(matches!(got, Some(Ok(ref d)) if *d == data), "{got:?}");
+
+        drop(tx);
+
+        let got = reader.next().await;
+        assert!(got.is_none(), "{got:?}"); // Successfully bypassed checksums, no error returned
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn object_with_md5_disabled_skips_md5_validation() -> anyhow::Result<()> {
+        use crate::storage::checksum::details::{Checksum, Crc32c};
+        let data = bytes::Bytes::from_static(b"the quick brown fox jumps over the lazy dog");
+        let wrong_md5 = bytes::Bytes::from_static(b"wrongmd5hashhere");
+
+        let object = Object::new().set_checksums(ObjectChecksums::new().set_md5_hash(wrong_md5));
+        let object = Arc::new(object);
+
+        let (tx, inner) = tokio::sync::mpsc::channel(1);
+        let (pending_tx, _pending_rx) = tokio::sync::mpsc::channel(100);
+
+        // Using Checksum with md5_hash=None simulates compute_md5 not called
+        let mut reader = RangeReader::new(
+            inner,
+            object.clone(),
+            pending_tx,
+            Checksum {
+                crc32c: Some(Crc32c::default()),
+                md5_hash: None,
+            },
+        );
+
+        tx.send(Ok(data.clone())).await?;
+        let got = reader.next().await;
+        assert!(matches!(got, Some(Ok(ref d)) if *d == data), "{got:?}");
+
+        drop(tx);
+
+        let got = reader.next().await;
+        assert!(got.is_none(), "{got:?}"); // Successfully bypassed md5 checksums, no error returned
 
         Ok(())
     }
