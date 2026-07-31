@@ -416,11 +416,36 @@ impl ReqwestClient {
             builder = builder.timeout(timeout);
         }
 
-        let mut headers = match self.cred.headers(Extensions::new()).await {
+        let cred_headers = match self.cred.headers(Extensions::new()).await {
             Err(e) => return Err(Error::authentication(e)),
             Ok(CacheableResource::New { data, .. }) => data,
             Ok(CacheableResource::NotModified) => unreachable!("headers are not cached"),
         };
+
+        let mut headers = http::HeaderMap::new();
+        {
+            use google_cloud_gax::options::internal::RequestOptionsExt;
+            if let Some(custom_headers) = options.get_extension::<http::HeaderMap>() {
+                for (k, v) in custom_headers.iter() {
+                    headers.insert(k.clone(), v.clone());
+                }
+            }
+        }
+
+        // Sanitize user custom headers by stripping away any keys conflicting with system headers.
+        for key in [
+            http::header::USER_AGENT,
+            http::header::HeaderName::from_static(X_GOOG_USER_PROJECT),
+        ] {
+            headers.remove(key);
+        }
+
+        // System headers overwrite custom headers.
+        for (k, v) in cred_headers.into_iter() {
+            if let Some(k) = k {
+                headers.insert(k, v);
+            }
+        }
 
         if let Some(user_agent) = options.user_agent() {
             headers.insert(

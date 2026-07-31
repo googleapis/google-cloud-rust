@@ -221,6 +221,28 @@ pub trait RequestOptionsBuilder: internal::RequestBuilder {
     {
         unimplemented!();
     }
+
+    /// Injects a custom HTTP header into this specific request.
+    fn with_custom_header<K, V>(mut self, name: K, value: V) -> Self
+    where
+        Self: Sized,
+        K: TryInto<http::header::HeaderName>,
+        V: TryInto<http::header::HeaderValue>,
+    {
+        if let (Ok(name), Ok(value)) = (name.try_into(), value.try_into()) {
+            use internal::RequestOptionsExt;
+            let mut headers = self
+                .request_options()
+                .get_extension::<http::HeaderMap>()
+                .cloned()
+                .unwrap_or_default();
+            headers.insert(name, value);
+            let mut options = std::mem::take(self.request_options());
+            options = options.insert_extension(headers);
+            *self.request_options() = options;
+        }
+        self
+    }
 }
 
 #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
