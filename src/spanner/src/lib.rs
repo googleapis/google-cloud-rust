@@ -86,6 +86,7 @@ pub(crate) mod partitioned_dml_transaction;
 pub(crate) mod precommit;
 pub(crate) mod read_only_transaction;
 pub(crate) mod read_write_transaction;
+pub(crate) mod request_id;
 pub(crate) mod result_set;
 pub(crate) mod result_set_metadata;
 pub(crate) mod row;
