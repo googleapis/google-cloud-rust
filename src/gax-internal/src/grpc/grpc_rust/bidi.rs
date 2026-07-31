@@ -16,6 +16,8 @@ pub use super::receive::ReceiveTask;
 pub use super::receive::RecvItem;
 pub use super::send::GrpcRustSend;
 use super::send::SendTask;
+use grpc::client::{CallOptions, Invoke};
+use grpc::core::RequestHeaders;
 use prost::Message;
 use tokio::sync::mpsc::Receiver;
 
@@ -165,4 +167,257 @@ impl<Response> std::fmt::Debug for GrpcRustStreaming<Response> {
     }
 }
 
+/// Invokes a bidirectional streaming gRPC call on `invoker`.
+///
+/// Returns a [`tonic::Response`] wrapping a [`GrpcRustStreaming`] on success.
+pub async fn invoke_bidi<Request, Response, T>(
+    invoker: &T,
+    request_headers: RequestHeaders,
+    request: impl tokio_stream::Stream<Item = Request> + Send + 'static,
+) -> tonic::Result<tonic::Response<GrpcRustStreaming<Response>>>
+where
+    Request: Message + 'static,
+    Response: Message + Default + Send + 'static,
+    T: Invoke,
+{
+    let (send, recv) = invoker
+        .invoke(request_headers, CallOptions::default())
+        .await;
+    let mut send_task = SendTask::start(send, request);
+    let (mut responses, mut receive_task) = ReceiveTask::start(recv);
+
+    loop {
+        tokio::select! {
+            biased;
+            item = responses.recv() => match item {
+                Some(Ok(Some(RecvItem::Headers(metadata)))) => {
+                    return Ok(tonic::Response::from_parts(
+                        metadata,
+                        GrpcRustStreaming::new(responses, receive_task, send_task),
+                        tonic::Extensions::new(),
+                    ));
+                }
+                Some(Ok(Some(RecvItem::Message(pending)))) => {
+                    return Ok(tonic::Response::from_parts(
+                        tonic::metadata::MetadataMap::new(),
+                        GrpcRustStreaming::new_with_pending(responses, receive_task, send_task, pending),
+                        tonic::Extensions::new(),
+                    ));
+                }
+                Some(Ok(None)) => {
+                    return Ok(tonic::Response::from_parts(
+                        tonic::metadata::MetadataMap::new(),
+                        GrpcRustStreaming::new_terminal(send_task),
+                        tonic::Extensions::new(),
+                    ));
+                }
+                Some(Err(status)) => return Err(status),
+                None => {
+                    send_task.abort();
+                    let status = receive_task.join().await;
+                    return Err(status);
+                }
+            },
+            // TODO(#5991): Consider waiting until the receive
+            // side terminates, so server responses that haven't
+            // arrived are not lost. Perhaps we can removed biased;
+            // once that's in place.
+            status = send_task.join(), if send_task.is_joinable() => {
+                status?;
+            }
+        }
+    }
+}
+
 // TODO(#5991): Add tests for GrpcRustStreaming in an upcoming PR.
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use bytes::Bytes;
+    use grpc::client::{RecvStream, ResponseStreamItem, SendOptions, SendStream};
+    use grpc::core::{RecvMessage, ResponseHeaders, SendMessage, Trailers};
+    use grpc::metadata::MetadataValue;
+    use pretty_assertions::assert_eq;
+    use std::sync::{Arc, Mutex};
+
+    #[derive(Clone, PartialEq, Message)]
+    struct TestMessage {
+        #[prost(string, tag = "1")]
+        value: String,
+    }
+
+    // TODO(#5991): Add tests for failure paths.
+    #[tokio::test]
+    async fn bidi_call_yields_response_messages() -> anyhow::Result<()> {
+        // Arrange
+        const METHOD_NAME: &str = "/google.test.v1.Test/Bidi";
+        const HEADER_KEY: &str = "x-response-header";
+        const HEADER_VALUE: &str = "response-value";
+        const REQUEST_VALUE: &str = "request";
+        const RESPONSE_VALUE: &str = "response";
+
+        struct TestInvoker {
+            observed_headers: Arc<Mutex<Option<RequestHeaders>>>,
+            observed_messages: Arc<Mutex<Vec<TestMessage>>>,
+            notify: Arc<tokio::sync::Notify>,
+        }
+
+        impl Invoke for TestInvoker {
+            type SendStream = TestSendStream;
+            type RecvStream = TestRecvStream;
+
+            async fn invoke(
+                &self,
+                headers: RequestHeaders,
+                _options: CallOptions,
+            ) -> (Self::SendStream, Self::RecvStream) {
+                *self.observed_headers.lock().expect("lock observed headers") = Some(headers);
+                (
+                    TestSendStream {
+                        observed_messages: self.observed_messages.clone(),
+                        notify: self.notify.clone(),
+                    },
+                    TestRecvStream {
+                        observed_messages: self.observed_messages.clone(),
+                        notify: self.notify.clone(),
+                        state: StreamState::default(),
+                    },
+                )
+            }
+        }
+
+        struct TestSendStream {
+            observed_messages: Arc<Mutex<Vec<TestMessage>>>,
+            notify: Arc<tokio::sync::Notify>,
+        }
+
+        impl SendStream for TestSendStream {
+            async fn send(
+                &mut self,
+                message: &dyn SendMessage,
+                _options: SendOptions,
+            ) -> Result<(), ()> {
+                let mut encoded = message.encode().map_err(|_| ())?;
+                let decoded = TestMessage::decode(&mut encoded).map_err(|_| ())?;
+                self.observed_messages
+                    .lock()
+                    .expect("lock observed messages")
+                    .push(decoded);
+                self.notify.notify_one();
+                Ok(())
+            }
+        }
+
+        // TODO(#5991): Refactor common stream state test mocks across grpc_rust tests.
+        #[derive(Default)]
+        enum StreamState {
+            #[default]
+            Initial,
+            HeadersSent,
+            MessageSent,
+            Done,
+        }
+
+        /// A mock [`RecvStream`] that simulates a gRPC response stream sequence:
+        ///
+        /// 1. Waits until at least one request message is sent by the client, then returns response headers.
+        /// 2. Returns a response message.
+        /// 3. Returns stream trailers followed by stream closure.
+        struct TestRecvStream {
+            observed_messages: Arc<Mutex<Vec<TestMessage>>>,
+            notify: Arc<tokio::sync::Notify>,
+            state: StreamState,
+        }
+
+        impl RecvStream for TestRecvStream {
+            async fn recv(&mut self, message: &mut dyn RecvMessage) -> ResponseStreamItem {
+                match self.state {
+                    StreamState::Initial => {
+                        self.state = StreamState::HeadersSent;
+                        // Wait for the client request message to be sent before yielding initial headers.
+                        while self
+                            .observed_messages
+                            .lock()
+                            .expect("lock messages")
+                            .is_empty()
+                        {
+                            self.notify.notified().await;
+                        }
+                        let mut metadata = grpc::metadata::MetadataMap::new();
+                        metadata.insert(HEADER_KEY, MetadataValue::from_static(HEADER_VALUE));
+                        ResponseStreamItem::Headers(ResponseHeaders::new().with_metadata(metadata))
+                    }
+                    StreamState::HeadersSent => {
+                        self.state = StreamState::MessageSent;
+                        // Emit a mock response message.
+                        let response = TestMessage {
+                            value: RESPONSE_VALUE.to_string(),
+                        };
+                        let mut encoded = Bytes::from(response.encode_to_vec());
+                        message
+                            .decode(&mut encoded)
+                            .expect("decode response message");
+                        ResponseStreamItem::Message
+                    }
+                    StreamState::MessageSent => {
+                        self.state = StreamState::Done;
+                        ResponseStreamItem::Trailers(Trailers::new(Ok(())))
+                    }
+                    StreamState::Done => ResponseStreamItem::StreamClosed,
+                }
+            }
+        }
+
+        let observed_headers = Arc::new(Mutex::new(None));
+        let observed_messages = Arc::new(Mutex::new(Vec::new()));
+        let notify = Arc::new(tokio::sync::Notify::new());
+        let invoker = TestInvoker {
+            observed_headers: observed_headers.clone(),
+            observed_messages: observed_messages.clone(),
+            notify,
+        };
+        let headers = RequestHeaders::new().with_method_name(METHOD_NAME);
+        let request = TestMessage {
+            value: REQUEST_VALUE.to_string(),
+        };
+
+        // Act
+        let response = invoke_bidi::<TestMessage, TestMessage, _>(
+            &invoker,
+            headers,
+            tokio_stream::iter([request.clone()]),
+        )
+        .await?;
+
+        // Assert
+        assert_eq!(
+            response
+                .metadata()
+                .get(HEADER_KEY)
+                .and_then(|value| value.to_str().ok()),
+            Some(HEADER_VALUE)
+        );
+        let mut stream = response.into_inner();
+        assert_eq!(
+            stream.message().await?,
+            Some(TestMessage {
+                value: RESPONSE_VALUE.to_string()
+            })
+        );
+        assert_eq!(stream.message().await?, None);
+        assert_eq!(
+            observed_headers
+                .lock()
+                .expect("lock observed headers")
+                .as_ref()
+                .expect("observed headers should be set")
+                .method_name(),
+            METHOD_NAME
+        );
+        assert_eq!(
+            *observed_messages.lock().expect("lock observed messages"),
+            [request]
+        );
+        Ok(())
+    }
+}
