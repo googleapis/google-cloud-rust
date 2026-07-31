@@ -47,36 +47,27 @@ impl WriterBuilder {
 }
 
 fn validate_table(table: &str) -> Result<()> {
-    try_match(
-        Some(table),
-        &[
-            Segment::Literal("projects/"),
-            Segment::SingleWildcard,
-            Segment::Literal("/datasets/"),
-            Segment::SingleWildcard,
-            Segment::Literal("/tables/"),
-            Segment::SingleWildcard,
-        ],
-    )
-    .ok_or_else(|| {
-        let builder = PathMismatchBuilder::default().maybe_add(
-            Some(table),
-            &[
-                Segment::Literal("projects/"),
-                Segment::SingleWildcard,
-                Segment::Literal("/datasets/"),
-                Segment::SingleWildcard,
-                Segment::Literal("/tables/"),
-                Segment::SingleWildcard,
-            ],
-            "table",
-            "projects/*/datasets/*/tables/*",
-        );
-        Error::binding(BindingError {
-            paths: vec![builder.build()],
+    let segments = &[
+        Segment::Literal("projects/"),
+        Segment::SingleWildcard,
+        Segment::Literal("/datasets/"),
+        Segment::SingleWildcard,
+        Segment::Literal("/tables/"),
+        Segment::SingleWildcard,
+    ];
+    try_match(Some(table), segments)
+        .ok_or_else(|| {
+            let builder = PathMismatchBuilder::default().maybe_add(
+                Some(table),
+                segments,
+                "table",
+                "projects/*/datasets/*/tables/*",
+            );
+            Error::binding(BindingError {
+                paths: vec![builder.build()],
+            })
         })
-    })
-    .map(|_| ())
+        .map(|_| ())
 }
 
 #[cfg(test)]
