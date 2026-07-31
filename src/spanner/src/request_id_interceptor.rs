@@ -19,7 +19,6 @@ use http::HeaderMap;
 use http::header::{HeaderName, HeaderValue};
 use std::io::Write as _;
 
-#[allow(dead_code)]
 pub(crate) static REQUEST_ID_HEADER: HeaderName =
     HeaderName::from_static("x-goog-spanner-request-id");
 
@@ -28,7 +27,6 @@ pub(crate) static REQUEST_ID_HEADER: HeaderName =
 ///
 /// This implementation uses stack-allocated formatting and ASCII byte slices to eliminate heap
 /// allocations on the hot path.
-#[allow(dead_code)]
 #[derive(Debug, Clone, Default)]
 pub(crate) struct SpannerRequestIdInterceptor;
 
@@ -45,6 +43,17 @@ impl AttemptInterceptor for SpannerRequestIdInterceptor {
             return;
         };
         let base_prefix = &bytes[..=dot_index];
+        let existing_attempt = std::str::from_utf8(&bytes[dot_index + 1..])
+            .ok()
+            .and_then(|s| s.parse::<u32>().ok())
+            .unwrap_or(0);
+        // We use `existing_attempt.max(attempt)` to handle both unary and streaming RPC retries:
+        // 1. For initial RPC calls or unary retries, `existing_attempt` is 0 (or smaller than `attempt`
+        //    passed by the gaxi retry loop), so we use the passed-in `attempt` number (1, 2, ...).
+        // 2. For streaming retries, `ResultSet` manually bumps the attempt number on the existing
+        //    Request ID header in `RequestOptions`. When `gaxi` calls this interceptor with `attempt = 1`
+        //    for the retried stream, taking the maximum preserves the higher attempt number set by `ResultSet`.
+        let effective_attempt = existing_attempt.max(attempt);
 
         // We use a fixed-size 128-byte stack-allocated array as a scratch buffer to format
         // the updated header value without heap allocation.
@@ -69,7 +78,7 @@ impl AttemptInterceptor for SpannerRequestIdInterceptor {
         // Additionally, `write!` updates the slice cursor (`tail`) in place to point to the unwritten
         // remainder, so `max_len - tail.len()` gives the exact total bytes written.
         let mut tail = &mut buffer[base_prefix.len()..];
-        if write!(tail, "{attempt}").is_err() {
+        if write!(tail, "{effective_attempt}").is_err() {
             return;
         }
         let total_len = max_len - tail.len();
@@ -89,6 +98,18 @@ impl AttemptInterceptor for SpannerRequestIdInterceptor {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn traits() {
+        static_assertions::assert_impl_all!(
+            SpannerRequestIdInterceptor: AttemptInterceptor,
+            Send,
+            Sync,
+            std::fmt::Debug,
+            Clone,
+            Default
+        );
+    }
 
     #[test]
     fn initial_attempt_append() {
@@ -120,6 +141,24 @@ mod tests {
 
         interceptor.intercept(&mut headers, 2);
 
+        let value = headers
+            .get(&REQUEST_ID_HEADER)
+            .expect("header should be present")
+            .to_str()
+            .expect("header should be valid ASCII");
+        assert_eq!(value, "1.a1b2c3d4e5f60718.1.1.42.2");
+    }
+
+    #[test]
+    fn existing_higher_attempt_preserved() {
+        let interceptor = SpannerRequestIdInterceptor;
+        let mut headers = HeaderMap::new();
+        headers.insert(
+            REQUEST_ID_HEADER.clone(),
+            HeaderValue::from_static("1.a1b2c3d4e5f60718.1.1.42.2"),
+        );
+
+        interceptor.intercept(&mut headers, 1);
         let value = headers
             .get(&REQUEST_ID_HEADER)
             .expect("header should be present")
