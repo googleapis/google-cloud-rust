@@ -482,6 +482,7 @@ mod tests {
         const ERROR_MESSAGE_CHANNEL_YIELD: &str = "channel should yield item";
         const ERROR_MESSAGE_NON_TERMINAL: &str = "expected non-terminal item";
 
+        // TODO(#5991): Refactor common stream state test mocks across grpc_rust tests.
         #[derive(Default)]
         enum StreamState {
             #[default]
