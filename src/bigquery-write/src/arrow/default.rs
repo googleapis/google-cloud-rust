@@ -118,7 +118,7 @@ mod tests {
     }
 
     fn write_stream() -> String {
-        "projects/p/tables/t/streams/_default".to_string()
+        "projects/p/datasets/d/tables/t/streams/_default".to_string()
     }
 
     fn schema() -> ArrowSchema {
