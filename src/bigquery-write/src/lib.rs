@@ -45,6 +45,11 @@ pub mod builder {
     }
     // TODO(#6152) - add admin client
 }
+/// Types to write data in [Arrow] format
+///
+/// [arrow]: https://arrow.apache.org/
+pub mod arrow;
+
 mod append_builder;
 mod append_response;
 mod client_builder;
