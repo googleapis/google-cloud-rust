@@ -52,8 +52,7 @@ impl Write {
     ///
     /// use google_cloud_bigquery_write::model::ArrowSchema;
     /// fn schema() -> ArrowSchema {
-    ///   // Define your table's schema...
-    /// # panic!()
+    ///   todo!("Define your table's schema...")
     /// }
     /// ```
     ///
