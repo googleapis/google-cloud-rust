@@ -26,7 +26,6 @@ pub struct WriterBuilder {
 }
 
 impl WriterBuilder {
-    #[cfg_attr(not(test), expect(dead_code))]
     pub(crate) fn new(inner: Arc<Transport>, schema: ArrowSchema) -> Self {
         Self { inner, schema }
     }
