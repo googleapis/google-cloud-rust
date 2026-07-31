@@ -48,17 +48,17 @@ pub(crate) struct WriteRequest {
 #[derive(Debug)]
 pub(crate) struct Runner {
     pub(crate) req_tx: mpsc::Sender<WriteRequest>,
-    pub(crate) handle: JoinHandle<()>,
+    pub(crate) _handle: JoinHandle<()>,
 }
 
 impl Runner {
     pub(crate) fn new(inner: Arc<Transport>) -> Self {
         // TODO(#6122) - configure flow control settings
         let (req_tx, req_rx) = mpsc::channel(100);
-        let handle = tokio::spawn(async move {
+        let _handle = tokio::spawn(async move {
             run_stream_task(inner, req_rx).await;
         });
-        Runner { req_tx, handle }
+        Runner { req_tx, _handle }
     }
 }
 
@@ -159,11 +159,11 @@ pub(crate) mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
 
-        let Runner { req_tx, handle } = Runner::new(transport);
+        let Runner { req_tx, _handle } = Runner::new(transport);
 
         // Drop the request sender before making any requests.
         drop(req_tx);
-        handle.await?;
+        _handle.await?;
 
         Ok(())
     }
@@ -177,7 +177,7 @@ pub(crate) mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
 
-        let Runner { req_tx, handle } = Runner::new(transport);
+        let Runner { req_tx, _handle } = Runner::new(transport);
 
         // write 1
         let (resp_tx1, resp_rx1) = oneshot::channel();
@@ -220,7 +220,7 @@ pub(crate) mod tests {
 
         drop(req_tx);
         drop(response_tx);
-        handle.await?;
+        _handle.await?;
 
         Ok(())
     }
@@ -233,7 +233,7 @@ pub(crate) mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
 
-        let Runner { req_tx, handle } = Runner::new(transport);
+        let Runner { req_tx, _handle } = Runner::new(transport);
 
         let (resp_tx, resp_rx) = oneshot::channel();
         let write = WriteRequest {
@@ -253,7 +253,7 @@ pub(crate) mod tests {
         assert_eq!(status.message, "fail");
 
         drop(req_tx);
-        handle.await?;
+        _handle.await?;
 
         Ok(())
     }
@@ -267,7 +267,7 @@ pub(crate) mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
 
-        let Runner { req_tx, handle } = Runner::new(transport);
+        let Runner { req_tx, _handle } = Runner::new(transport);
 
         // write 1
         let (resp_tx1, resp_rx1) = oneshot::channel();
@@ -317,7 +317,7 @@ pub(crate) mod tests {
 
         drop(req_tx);
         drop(response_tx);
-        handle.await?;
+        _handle.await?;
 
         Ok(())
     }
@@ -331,7 +331,7 @@ pub(crate) mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
 
-        let Runner { req_tx, handle } = Runner::new(transport);
+        let Runner { req_tx, _handle } = Runner::new(transport);
 
         // write 1
         let (resp_tx1, resp_rx1) = oneshot::channel();
@@ -376,7 +376,7 @@ pub(crate) mod tests {
         assert_eq!(resp3, test_response(3));
 
         drop(response_tx);
-        handle.await?;
+        _handle.await?;
 
         Ok(())
     }
@@ -392,7 +392,7 @@ pub(crate) mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
 
-        let Runner { req_tx, handle } = Runner::new(transport);
+        let Runner { req_tx, _handle } = Runner::new(transport);
 
         // write 1
         let (resp_tx1, resp_rx1) = oneshot::channel();
@@ -431,7 +431,7 @@ pub(crate) mod tests {
 
         // resp 3 - channel closed error
         let _resp3 = resp_rx3.await.expect_err("channel should be closed");
-        handle.await?;
+        _handle.await?;
 
         Ok(())
     }
