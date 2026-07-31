@@ -29,6 +29,7 @@ use std::time::Duration;
 
 /// Follows the RPC retry strategy recommended by the BigQuery guides on error handling.
 #[derive(Clone, Debug)]
+#[allow(dead_code)]
 pub(crate) struct RetryableErrors;
 
 impl RetryPolicy for RetryableErrors {
@@ -57,10 +58,12 @@ impl RetryPolicy for RetryableErrors {
     }
 }
 
+#[allow(dead_code)]
 pub(crate) fn default_retry_policy() -> Arc<dyn RetryPolicy> {
     Arc::new(RetryableErrors)
 }
 
+#[allow(dead_code)]
 pub(crate) fn default_backoff_policy() -> Arc<dyn BackoffPolicy> {
     Arc::new(
         ExponentialBackoffBuilder::default()
@@ -74,6 +77,7 @@ pub(crate) fn default_backoff_policy() -> Arc<dyn BackoffPolicy> {
 
 /// The result of evaluating a BigQuery job error against a [`JobRetryPolicy`].
 #[derive(Debug)]
+#[allow(dead_code)]
 pub(crate) enum JobRetryResult {
     Continue(Duration, QueryError),
     Exhausted(QueryError),
@@ -99,11 +103,13 @@ impl JobRetryResult {
 /// `RetryPolicy` trait specifically tailored for BigQuery job-level re-issuance.
 /// In the future, we plan to refine this trait and discuss how to make it public
 /// so customers can provide their own custom job retry policies.
+#[allow(dead_code)]
 pub(crate) trait JobRetryPolicy<S = RetryState>: Send + Sync + std::fmt::Debug {
     fn on_error(&self, state: &S, error: crate::error::QueryError) -> JobRetryResult;
 }
 
 #[derive(Clone, Debug)]
+#[allow(dead_code)]
 pub(crate) struct RetryableJobErrors {
     attempt_limit: u32,
     backoff: Arc<dyn BackoffPolicy>,
@@ -112,7 +118,7 @@ pub(crate) struct RetryableJobErrors {
 impl Default for RetryableJobErrors {
     fn default() -> Self {
         Self {
-            attempt_limit: 5,
+            attempt_limit: 3,
             backoff: default_backoff_policy(),
         }
     }
@@ -145,10 +151,12 @@ impl JobRetryPolicy for RetryableJobErrors {
     }
 }
 
+#[allow(dead_code)]
 pub(crate) fn default_job_retry_policy() -> Arc<dyn JobRetryPolicy> {
     Arc::new(RetryableJobErrors::default())
 }
 
+#[allow(dead_code)]
 pub(crate) fn is_query_error_retryable(err: &crate::error::QueryError) -> bool {
     match err {
         crate::error::QueryError::JobFailed { errors } => is_retryable_errors(errors),
@@ -156,6 +164,12 @@ pub(crate) fn is_query_error_retryable(err: &crate::error::QueryError) -> bool {
     }
 }
 
+#[allow(dead_code)]
+pub(crate) fn is_retryable_errors(errors: &[ErrorProto]) -> bool {
+    !errors.is_empty() && errors.iter().any(|e| is_retryable_error_reason(&e.reason))
+}
+
+#[allow(dead_code)]
 pub(crate) fn is_retryable_error_reason(reason: &str) -> bool {
     matches!(
         reason,
@@ -166,11 +180,6 @@ pub(crate) fn is_retryable_error_reason(reason: &str) -> bool {
             | "internalError"
     )
 }
-
-pub(crate) fn is_retryable_errors(errors: &[ErrorProto]) -> bool {
-    !errors.is_empty() && errors.iter().any(|e| is_retryable_error_reason(&e.reason))
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;

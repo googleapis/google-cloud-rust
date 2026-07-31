@@ -32,7 +32,6 @@ pub mod retry_policy;
 pub use crate::error::{ConvertError, QueryError, RowError};
 pub use crate::query::{FromSql, Interval, Range, Row};
 pub use google_cloud_bigquery_derive::{FromRow, FromSql};
-pub use retry_policy::RetryableErrors;
 
 pub(crate) mod generated;
 pub(crate) mod query;
