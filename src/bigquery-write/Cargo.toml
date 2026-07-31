@@ -55,6 +55,7 @@ gaxi                        = { workspace = true, features = ["_internal-common"
 
 [dev-dependencies]
 anyhow.workspace            = true
+test-case.workspace         = true
 bigquery-write-grpc-mock    = { path = "grpc-mock" }
 google-cloud-auth.workspace = true
 google-cloud-bigquery-write = { path = ".", features = ["default-rustls-provider"] }

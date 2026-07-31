@@ -2197,6 +2197,7 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_with",
+ "test-case",
  "thiserror",
  "tokio",
  "tokio-stream",
