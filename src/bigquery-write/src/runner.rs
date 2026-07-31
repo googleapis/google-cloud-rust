@@ -45,6 +45,7 @@ pub(crate) struct WriteRequest {
 /// If the stream terminates for any reason, the background task exits. Any
 /// unsatisfied requests are dropped, which surfaces to the client as a
 /// `oneshot::error::RecvError` on their response channel.
+#[derive(Debug)]
 pub(crate) struct Runner {
     pub(crate) req_tx: mpsc::Sender<WriteRequest>,
     pub(crate) handle: JoinHandle<()>,

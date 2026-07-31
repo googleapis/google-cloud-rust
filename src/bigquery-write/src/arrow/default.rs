@@ -22,6 +22,7 @@ use std::sync::Arc;
 /// A writer for the [default stream]
 ///
 /// [default stream]: https://docs.cloud.google.com/bigquery/docs/write-api#default_stream
+#[derive(Debug)]
 pub struct DefaultWriter {
     // TODO(#5744) - support multiplexed connections
     runner: Runner,
