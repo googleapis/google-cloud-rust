@@ -13,5 +13,7 @@
 // limitations under the License.
 
 mod default;
+mod writer_builder;
 
 pub use default::DefaultWriter;
+pub use writer_builder::WriterBuilder;

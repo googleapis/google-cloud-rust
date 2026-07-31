@@ -19,16 +19,18 @@ use crate::runner::Runner;
 use crate::transport::Transport;
 use std::sync::Arc;
 
-/// A writer for the default stream
+/// A writer for the [default stream]
+///
+/// [default stream]: https://docs.cloud.google.com/bigquery/docs/write-api#default_stream
+#[derive(Debug)]
 pub struct DefaultWriter {
     // TODO(#5744) - support multiplexed connections
     runner: Runner,
-    write_stream: String,
-    schema: ArrowSchema,
+    pub(crate) write_stream: String,
+    pub(crate) schema: ArrowSchema,
 }
 
 impl DefaultWriter {
-    #[cfg_attr(not(test), expect(dead_code))]
     pub(crate) fn new(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
         let runner = Runner::new(inner);
         Self {
