@@ -166,7 +166,7 @@ pub(crate) fn is_query_error_retryable(err: &crate::error::QueryError) -> bool {
 
 #[allow(dead_code)]
 pub(crate) fn is_retryable_errors(errors: &[ErrorProto]) -> bool {
-    !errors.is_empty() && errors.iter().any(|e| is_retryable_error_reason(&e.reason))
+    !errors.is_empty() && errors.iter().all(|e| is_retryable_error_reason(&e.reason))
 }
 
 #[allow(dead_code)]
@@ -208,8 +208,14 @@ mod tests {
         let non_retryable = vec![ErrorProto::new().set_reason("invalidQuery")];
         assert!(!is_retryable_errors(&non_retryable));
 
-        let retryable = vec![
+        let mixed = vec![
             ErrorProto::new().set_reason("invalidQuery"),
+            ErrorProto::new().set_reason("backendError"),
+        ];
+        assert!(!is_retryable_errors(&mixed));
+
+        let retryable = vec![
+            ErrorProto::new().set_reason("rateLimitExceeded"),
             ErrorProto::new().set_reason("backendError"),
         ];
         assert!(is_retryable_errors(&retryable));
