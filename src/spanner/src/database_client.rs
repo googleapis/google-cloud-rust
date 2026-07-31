@@ -376,6 +376,7 @@ impl DatabaseClientBuilder {
             Observability::init(
                 &self.spanner.config,
                 self.spanner.instance_type(),
+                self.spanner.is_emulator(),
                 project_id,
             )
             .await,
