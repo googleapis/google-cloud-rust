@@ -265,6 +265,16 @@ pub mod internal {
         where
             T: Send + Sync + 'static;
 
+        /// Gets a mutable reference to an extension value.
+        fn get_extension_mut<T>(&mut self) -> Option<&mut T>
+        where
+            T: Send + Sync + 'static;
+
+        /// Gets a mutable reference to an extension value, inserting the default if it does not exist.
+        fn get_extension_or_default_mut<T>(&mut self) -> &mut T
+        where
+            T: Default + Clone + Send + Sync + 'static;
+
         /// Sets an extension value.
         fn insert_extension<T>(self, value: T) -> Self
         where
@@ -278,6 +288,25 @@ pub mod internal {
             T: Send + Sync + 'static,
         {
             self.extensions.get::<T>()
+        }
+
+        fn get_extension_mut<T>(&mut self) -> Option<&mut T>
+        where
+            T: Send + Sync + 'static,
+        {
+            self.extensions.get_mut::<T>()
+        }
+
+        fn get_extension_or_default_mut<T>(&mut self) -> &mut T
+        where
+            T: Default + Clone + Send + Sync + 'static,
+        {
+            if self.extensions.get::<T>().is_none() {
+                let _ = self.extensions.insert(T::default());
+            }
+            self.extensions
+                .get_mut::<T>()
+                .expect("value was just inserted if missing")
         }
 
         fn insert_extension<T>(mut self, value: T) -> Self
@@ -464,6 +493,36 @@ mod tests {
             .insert_extension(TestB(42));
         assert_eq!(opts.get_extension::<TestA>(), Some(&TestA("2")), "{opts:?}");
         assert_eq!(opts.get_extension::<TestB>(), Some(&TestB(42)), "{opts:?}");
+    }
+
+    #[test]
+    fn request_options_ext_mut() {
+        #[derive(Debug, Clone, Default, PartialEq)]
+        struct TestCounter(u32);
+
+        let mut opts = RequestOptions::default();
+
+        // 1. get_extension_mut returns None when not present.
+        assert!(opts.get_extension_mut::<TestCounter>().is_none());
+
+        // 2. get_extension_or_default_mut inserts default TestCounter(0) and returns mutable reference.
+        let counter = opts.get_extension_or_default_mut::<TestCounter>();
+        assert_eq!(counter, &mut TestCounter(0));
+        counter.0 += 10;
+
+        // 3. get_extension_mut returns Some(&mut TestCounter(10)) when present.
+        let counter = opts
+            .get_extension_mut::<TestCounter>()
+            .expect("counter extension should be present after insertion");
+        assert_eq!(counter, &mut TestCounter(10));
+        counter.0 += 10;
+
+        // 4. Second call to get_extension_or_default_mut returns existing reference without resetting.
+        let counter2 = opts.get_extension_or_default_mut::<TestCounter>();
+        assert_eq!(counter2, &mut TestCounter(20));
+        counter2.0 += 5;
+
+        assert_eq!(opts.get_extension::<TestCounter>(), Some(&TestCounter(25)));
     }
 
     #[test]
