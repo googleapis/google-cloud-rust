@@ -1,0 +1,12 @@
+{
+    "api_id": "gshoe.googleapis.com",
+    "api_shortname": "gshoe",
+    "client_documentation": "https://docs.rs/google-cloud-gshoe-v1/latest",
+    "distribution_name": "google-cloud-gshoe-v1",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name": "gshoe",
+    "name_pretty": "GShoe",
+    "release_level": "stable",
+    "repo": "googleapis/google-cloud-rust"
+}

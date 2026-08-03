@@ -22,8 +22,8 @@ sources:
     commit: 0b5eedd3dd989e77c18e161a1ff41ce1ef224732
     sha256: 9ae2e477905346c9224ef05df2799c6682da28fc8963848ec9bdfed3b5a106ab
   googleapis:
-    commit: b8486a2f44f15dc578a9dc1e17b144253079d5c1
-    sha256: 12411ca5cb6c70d7c873d7058c5182a8d23fa88af8d984b0e73b1c3ad1d83766
+    commit: f3ff3a1dc91aa7719f98437416fd686fad0296cd
+    sha256: d9944c4720b991e098145e5a7ddcd460aae82041001a533370870de5c5a748f8
   protobuf:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
@@ -959,6 +959,9 @@ libraries:
     apis:
       - path: grafeas/v1
     copyright_year: "2025"
+  - name: google-cloud-gshoe-v1
+    version: 1.0.0
+    copyright_year: "2026"
   - name: google-cloud-gsuiteaddons-v1
     version: 1.11.0
     copyright_year: "2025"
