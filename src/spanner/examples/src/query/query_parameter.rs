@@ -22,7 +22,7 @@ pub async fn sample(client: &DatabaseClient) -> anyhow::Result<()> {
          FROM Singers \
          WHERE LastName = @lastName",
     )
-    .add_param("lastName", &"Garcia")
+    .add_param("lastName", "Garcia")
     .build();
 
     let transaction = client.single_use().build();

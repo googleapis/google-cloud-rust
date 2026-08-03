@@ -106,13 +106,33 @@ mod tests {
                 .await
                 .inspect_err(anydump)?;
 
+            // 6c. Test spanner_dml_partitioned_update sample
+            dml::dml_partitioned_update::sample(client)
+                .await
+                .inspect_err(anydump)?;
+
             // 7. Test spanner_query_data_with_new_column sample
             query::query_new_column::sample(client)
                 .await
                 .inspect_err(anydump)?;
 
+            // 7b. Test spanner_create_storing_index sample
+            database::create_storing_index::sample(&ctx.admin_client, &ctx.database_name)
+                .await
+                .inspect_err(anydump)?;
+
+            // 7c. Test spanner_read_data_with_storing_index sample
+            query::read_data_with_storing_index::sample(client)
+                .await
+                .inspect_err(anydump)?;
+
             // 8. Test spanner_read_only_transaction sample
             query::read_only_transaction::sample(client)
+                .await
+                .inspect_err(anydump)?;
+
+            // 9. Test spanner_dml_partitioned_delete sample
+            dml::dml_partitioned_delete::sample(client)
                 .await
                 .inspect_err(anydump)?;
 
@@ -130,17 +150,22 @@ mod tests {
                 .await
                 .inspect_err(anydump)?;
 
-            // 2. Test spanner_postgresql_query_with_parameter sample
+            // 2. Test spanner_postgresql_query_data sample
+            query::pg_query_data::sample(client)
+                .await
+                .inspect_err(anydump)?;
+
+            // 2b. Test spanner_postgresql_query_with_parameter sample
             query::pg_query_parameter::sample(client)
                 .await
                 .inspect_err(anydump)?;
 
-            // 2b. Test spanner_postgresql_create_index sample
+            // 2c. Test spanner_postgresql_create_index sample
             database::pg_create_index::sample(&ctx.admin_client, &ctx.database_name)
                 .await
                 .inspect_err(anydump)?;
 
-            // 2c. Test spanner_postgresql_read_data_with_index sample
+            // 2d. Test spanner_postgresql_read_data_with_index sample
             query::pg_read_data_with_index::sample(client)
                 .await
                 .inspect_err(anydump)?;
@@ -160,13 +185,33 @@ mod tests {
                 .await
                 .inspect_err(anydump)?;
 
+            // 4c. Test spanner_postgresql_dml_partitioned_update sample
+            dml::pg_dml_partitioned_update::sample(client)
+                .await
+                .inspect_err(anydump)?;
+
             // 5. Test spanner_postgresql_query_data_with_new_column sample
             query::pg_query_new_column::sample(client)
                 .await
                 .inspect_err(anydump)?;
 
+            // 5b. Test spanner_postgresql_create_storing_index sample
+            database::pg_create_storing_index::sample(&ctx.admin_client, &ctx.database_name)
+                .await
+                .inspect_err(anydump)?;
+
+            // 5c. Test spanner_postgresql_read_data_with_storing_index sample
+            query::pg_read_data_with_storing_index::sample(client)
+                .await
+                .inspect_err(anydump)?;
+
             // 6. Test spanner_postgresql_read_only_transaction sample
             query::pg_read_only_transaction::sample(client)
+                .await
+                .inspect_err(anydump)?;
+
+            // 7. Test spanner_postgresql_dml_partitioned_delete sample
+            dml::pg_dml_partitioned_delete::sample(client)
                 .await
                 .inspect_err(anydump)?;
 
@@ -202,14 +247,14 @@ mod tests {
                 Statement::builder(
                     "SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' AND table_name = $1",
                 )
-                .add_param("p1", &table_name)
+                .add_param("p1", table_name)
                 .build()
             }
             _ => {
                 Statement::builder(
                     "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '' AND TABLE_NAME = @table_name",
                 )
-                .add_param("table_name", &table_name)
+                .add_param("table_name", table_name)
                 .build()
             }
         };

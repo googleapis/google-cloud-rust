@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Routing and location-aware endpoint management for Cloud Spanner.
+//! Location-aware routing internal modules.
 
 pub(crate) mod endpoint_cooldown;
+pub(crate) mod key_range_cache;
+pub(crate) mod ssformat;

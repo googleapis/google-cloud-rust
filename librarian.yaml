@@ -524,6 +524,9 @@ libraries:
     skip_release: true
     rust:
       package_dependencies:
+        - name: thiserror
+          package: thiserror
+          force_used: true
         - name: tokio
           package: tokio
           force_used: true
