@@ -376,6 +376,7 @@ impl DatabaseClientBuilder {
                 &self.spanner.config,
                 self.spanner.instance_type(),
                 &database_name,
+                self.spanner.is_emulator(),
             )
             .await,
         );

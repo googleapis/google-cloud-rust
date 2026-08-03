@@ -24,11 +24,10 @@ use tokio::sync::{mpsc, oneshot};
 #[derive(Clone, Debug)]
 pub struct Append {
     req_tx: mpsc::Sender<WriteRequest>,
-    req: AppendRowsRequest,
+    pub(crate) req: AppendRowsRequest,
 }
 
 impl Append {
-    #[cfg_attr(not(test), expect(dead_code))]
     pub(crate) fn new(req_tx: mpsc::Sender<WriteRequest>, req: AppendRowsRequest) -> Self {
         Self { req_tx, req }
     }
@@ -59,22 +58,19 @@ mod tests {
     #[tokio::test]
     async fn success() -> anyhow::Result<()> {
         let (req_tx, mut req_rx) = mpsc::channel(10);
-        let req = AppendRowsRequest::new().set_write_stream("projects/p/tables/t/streams/_default");
+        let req = AppendRowsRequest::new().set_write_stream(write_stream());
 
         let builder = Append::new(req_tx, req);
         let handle = tokio::spawn(async move { builder.send().await });
 
         // Receive and verify the request
         let write = req_rx.recv().await.expect("should receive request");
-        assert_eq!(
-            write.req.write_stream,
-            "projects/p/tables/t/streams/_default"
-        );
+        assert_eq!(write.req.write_stream, write_stream());
 
         // Provide a successful response
         let resp = v1::AppendRowsResponse {
             response: Some(Response::AppendResult(AppendResult::default())),
-            write_stream: "projects/p/tables/t/streams/_default".to_string(),
+            write_stream: write_stream(),
             updated_schema: Some(v1::TableSchema::default()),
             ..Default::default()
         };
@@ -92,7 +88,7 @@ mod tests {
     #[tokio::test]
     async fn stream_closed() -> anyhow::Result<()> {
         let (req_tx, req_rx) = mpsc::channel(10);
-        let req = AppendRowsRequest::new().set_write_stream("projects/p/tables/t/streams/_default");
+        let req = AppendRowsRequest::new().set_write_stream(write_stream());
 
         let builder = Append::new(req_tx, req);
         let handle = tokio::spawn(async move { builder.send().await });
@@ -108,7 +104,7 @@ mod tests {
     #[tokio::test]
     async fn rpc_error() -> anyhow::Result<()> {
         let (req_tx, mut req_rx) = mpsc::channel(10);
-        let req = AppendRowsRequest::new().set_write_stream("projects/p/tables/t/streams/_default");
+        let req = AppendRowsRequest::new().set_write_stream(write_stream());
 
         let builder = Append::new(req_tx, req);
         let handle = tokio::spawn(async move { builder.send().await });
@@ -129,7 +125,7 @@ mod tests {
     #[tokio::test]
     async fn row_errors() -> anyhow::Result<()> {
         let (req_tx, mut req_rx) = mpsc::channel(10);
-        let req = AppendRowsRequest::new().set_write_stream("projects/p/tables/t/streams/_default");
+        let req = AppendRowsRequest::new().set_write_stream(write_stream());
 
         let builder = Append::new(req_tx, req);
         let handle = tokio::spawn(async move { builder.send().await });
@@ -143,7 +139,7 @@ mod tests {
         };
         let resp = v1::AppendRowsResponse {
             row_errors: vec![row_error],
-            write_stream: "projects/p/tables/t/streams/_default".to_string(),
+            write_stream: write_stream(),
             ..Default::default()
         };
         write
@@ -154,5 +150,9 @@ mod tests {
         let err = handle.await?.expect_err("should return an error");
         assert!(matches!(err, AppendError::RowErrors(_)));
         Ok(())
+    }
+
+    fn write_stream() -> String {
+        "projects/p/datasets/d/tables/t/streams/_default".to_string()
     }
 }
