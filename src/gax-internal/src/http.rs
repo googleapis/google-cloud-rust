@@ -422,15 +422,11 @@ impl ReqwestClient {
             Ok(CacheableResource::NotModified) => unreachable!("headers are not cached"),
         };
 
-        let mut headers = http::HeaderMap::new();
-        {
-            use google_cloud_gax::options::internal::RequestOptionsExt;
-            if let Some(custom_headers) = options.get_extension::<http::HeaderMap>() {
-                for (k, v) in custom_headers.iter() {
-                    headers.insert(k.clone(), v.clone());
-                }
-            }
-        }
+        use google_cloud_gax::options::internal::RequestOptionsExt;
+        let mut headers = options
+            .get_extension::<http::HeaderMap>()
+            .cloned()
+            .unwrap_or_default();
 
         // Sanitize user custom headers by stripping away any keys conflicting with system headers.
         for key in [
