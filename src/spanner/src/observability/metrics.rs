@@ -571,57 +571,57 @@ mod tests {
             ServerTimings::default()
         );
         assert_eq!(
-            parse_server_timing("gfet4t7;dur=\"12.5\",afe;dur=\"5.0\""),
+            super::parse_server_timing("gfet4t7;dur=\"12.5\",afe;dur=\"5.0\""),
             ServerTimings {
                 gfe_latency: Some(12.5),
                 afe_latency: Some(5.0),
             }
         );
         assert_eq!(
-            parse_server_timing("GFET4T7; dur=12.5, Afe; dur=5.0"),
+            super::parse_server_timing("GFET4T7; dur=12.5, Afe; dur=5.0"),
             ServerTimings {
                 gfe_latency: Some(12.5),
                 afe_latency: Some(5.0),
             }
         );
         assert_eq!(
-            parse_server_timing("gfet4t7;dur=-5.0,afe;dur=NaN"),
+            super::parse_server_timing("gfet4t7;dur=-5.0,afe;dur=NaN"),
             ServerTimings::default()
         );
         assert_eq!(
-            parse_server_timing(",,,gfet4t7;dur=10.0,,,"),
+            super::parse_server_timing(",,,gfet4t7;dur=10.0,,,"),
             ServerTimings {
                 gfe_latency: Some(10.0),
                 afe_latency: None,
             }
         );
         assert_eq!(
-            parse_server_timing("gfet4t7;dur=inf,afe;dur=Infinity"),
+            super::parse_server_timing("gfet4t7;dur=inf,afe;dur=Infinity"),
             ServerTimings::default()
         );
         assert_eq!(
-            parse_server_timing("gfet4t7;dur=foo;dur=12.5"),
+            super::parse_server_timing("gfet4t7;dur=foo;dur=12.5"),
             ServerTimings {
                 gfe_latency: Some(12.5),
                 afe_latency: None,
             }
         );
         assert_eq!(
-            parse_server_timing("gfet4t7; dur = 12.5 , afe; dur = \"5.0\" "),
+            super::parse_server_timing("gfet4t7; dur = 12.5 , afe; dur = \"5.0\" "),
             ServerTimings {
                 gfe_latency: Some(12.5),
                 afe_latency: Some(5.0),
             }
         );
         assert_eq!(
-            parse_server_timing("gfet4t7;dur=10.0, gfet4t7;dur=20.0"),
+            super::parse_server_timing("gfet4t7;dur=10.0, gfet4t7;dur=20.0"),
             ServerTimings {
                 gfe_latency: Some(20.0),
                 afe_latency: None,
             }
         );
         assert_eq!(
-            parse_server_timing("foo;dur=1.0,gfet4t7;dur=12.5,bar;dur=2.0,afe;dur=5.0"),
+            super::parse_server_timing("foo;dur=1.0,gfet4t7;dur=12.5,bar;dur=2.0,afe;dur=5.0"),
             ServerTimings {
                 gfe_latency: Some(12.5),
                 afe_latency: Some(5.0),
@@ -655,15 +655,25 @@ mod tests {
         );
 
         let config = ClientConfig::default();
-        let o11y_emulator =
-            Observability::init(&config, InstanceType::Cloud, true, Some("my-project")).await;
+        let o11y_emulator = Observability::init(
+            &config,
+            InstanceType::Cloud,
+            "projects/proj/instances/inst/databases/db",
+            true,
+        )
+        .await;
         assert!(
             o11y_emulator.metrics.is_none(),
             "emulator client should have disabled metrics"
         );
 
-        let o11y_omni =
-            Observability::init(&config, InstanceType::Omni, false, Some("my-project")).await;
+        let o11y_omni = Observability::init(
+            &config,
+            InstanceType::Omni,
+            "projects/proj/instances/inst/databases/db",
+            false,
+        )
+        .await;
         assert!(
             o11y_omni.metrics.is_none(),
             "omni client should have disabled metrics"
@@ -750,7 +760,12 @@ mod tests {
 
         let o11y = Observability {
             metrics: Some(metrics),
-            _meter_provider: Some(provider),
+            common_attributes: [
+                opentelemetry::KeyValue::new("client_uid", ""),
+                opentelemetry::KeyValue::new("client_name", ""),
+                opentelemetry::KeyValue::new("database", ""),
+            ],
+            meter_provider: Some(provider),
         };
 
         o11y.record_operation("test_op", Duration::from_millis(15), &Ok(()));
@@ -762,7 +777,7 @@ mod tests {
             Some(2.0),
         );
 
-        if let Some(ref provider) = o11y._meter_provider {
+        if let Some(ref provider) = o11y.meter_provider {
             provider.force_flush().expect("force_flush should succeed");
         }
 
@@ -789,6 +804,11 @@ mod tests {
         let meter_provider = SdkMeterProvider::builder().build();
         let o11y = Observability {
             metrics: None,
+            common_attributes: [
+                opentelemetry::KeyValue::new("client_uid", ""),
+                opentelemetry::KeyValue::new("client_name", ""),
+                opentelemetry::KeyValue::new("database", ""),
+            ],
             meter_provider: Some(meter_provider),
         };
         // Calling shutdown twice should cleanly handle AlreadyShutdown on the second call.
