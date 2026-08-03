@@ -144,11 +144,10 @@ fn check_path_only_workspace_dependencies(
 
             // Check if dependency refers to a local workspace package
             let target_pkg_name = dep.name.as_str();
-            let is_workspace_dep = ws_packages.contains_key(target_pkg_name)
-                || dep
-                    .path
-                    .as_ref()
-                    .is_some_and(|p| p.starts_with(workspace_root));
+            let is_workspace_dep = dep
+                .path
+                .as_ref()
+                .is_some_and(|p| p.starts_with(workspace_root));
 
             if !is_workspace_dep {
                 continue;
