@@ -522,6 +522,19 @@ impl Channel {
 }
 
 #[cfg(test)]
+impl Channel {
+    pub(crate) fn new_for_test<T>(stub: T) -> Self
+    where
+        T: crate::generated::gapic_dataplane::stub::Spanner + 'static,
+    {
+        Self {
+            inner: GapicSpanner::from_stub(stub),
+            grpc_client: None,
+        }
+    }
+}
+
+#[cfg(test)]
 mod tests {
     use super::*;
     use crate::model::CreateSessionRequest;

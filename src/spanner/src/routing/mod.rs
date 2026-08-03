@@ -14,5 +14,8 @@
 
 //! Location-aware routing internal modules.
 
+pub(crate) mod connection_cache;
+pub(crate) mod endpoint_cooldown;
 pub(crate) mod key_range_cache;
+pub(crate) mod server_connection;
 pub(crate) mod ssformat;
