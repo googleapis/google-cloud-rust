@@ -38,7 +38,7 @@ impl ObjectDescriptorTransport {
     ) -> Result<(Self, Vec<ReadObjectResponse>)>
     where
         T: super::Client + Clone + Sync,
-        <T as super::Client>::Stream: super::TonicStreaming + Send + Sync,
+        <T as super::Client>::Stream: super::TonicStreaming,
     {
         use gaxi::prost::FromProto;
 
