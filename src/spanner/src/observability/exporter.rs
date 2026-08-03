@@ -160,11 +160,10 @@ async fn send_time_series_batches(
         }
     }
 
-    if let Some(e) = last_error {
-        Err(e)
-    } else {
-        Ok(())
+    if let Some(error) = last_error {
+        return Err(error);
     }
+    Ok(())
 }
 
 fn is_permission_denied(err: &crate::Error) -> bool {
