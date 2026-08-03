@@ -394,57 +394,57 @@ mod tests {
             ServerTimings::default()
         );
         assert_eq!(
-            parse_server_timing("gfet4t7;dur=\"12.5\",afe;dur=\"5.0\""),
+            super::parse_server_timing("gfet4t7;dur=\"12.5\",afe;dur=\"5.0\""),
             ServerTimings {
                 gfe_latency: Some(12.5),
                 afe_latency: Some(5.0),
             }
         );
         assert_eq!(
-            parse_server_timing("GFET4T7; dur=12.5, Afe; dur=5.0"),
+            super::parse_server_timing("GFET4T7; dur=12.5, Afe; dur=5.0"),
             ServerTimings {
                 gfe_latency: Some(12.5),
                 afe_latency: Some(5.0),
             }
         );
         assert_eq!(
-            parse_server_timing("gfet4t7;dur=-5.0,afe;dur=NaN"),
+            super::parse_server_timing("gfet4t7;dur=-5.0,afe;dur=NaN"),
             ServerTimings::default()
         );
         assert_eq!(
-            parse_server_timing(",,,gfet4t7;dur=10.0,,,"),
+            super::parse_server_timing(",,,gfet4t7;dur=10.0,,,"),
             ServerTimings {
                 gfe_latency: Some(10.0),
                 afe_latency: None,
             }
         );
         assert_eq!(
-            parse_server_timing("gfet4t7;dur=inf,afe;dur=Infinity"),
+            super::parse_server_timing("gfet4t7;dur=inf,afe;dur=Infinity"),
             ServerTimings::default()
         );
         assert_eq!(
-            parse_server_timing("gfet4t7;dur=foo;dur=12.5"),
+            super::parse_server_timing("gfet4t7;dur=foo;dur=12.5"),
             ServerTimings {
                 gfe_latency: Some(12.5),
                 afe_latency: None,
             }
         );
         assert_eq!(
-            parse_server_timing("gfet4t7; dur = 12.5 , afe; dur = \"5.0\" "),
+            super::parse_server_timing("gfet4t7; dur = 12.5 , afe; dur = \"5.0\" "),
             ServerTimings {
                 gfe_latency: Some(12.5),
                 afe_latency: Some(5.0),
             }
         );
         assert_eq!(
-            parse_server_timing("gfet4t7;dur=10.0, gfet4t7;dur=20.0"),
+            super::parse_server_timing("gfet4t7;dur=10.0, gfet4t7;dur=20.0"),
             ServerTimings {
                 gfe_latency: Some(20.0),
                 afe_latency: None,
             }
         );
         assert_eq!(
-            parse_server_timing("foo;dur=1.0,gfet4t7;dur=12.5,bar;dur=2.0,afe;dur=5.0"),
+            super::parse_server_timing("foo;dur=1.0,gfet4t7;dur=12.5,bar;dur=2.0,afe;dur=5.0"),
             ServerTimings {
                 gfe_latency: Some(12.5),
                 afe_latency: Some(5.0),
@@ -573,7 +573,7 @@ mod tests {
 
         let o11y = Observability {
             metrics: Some(metrics),
-            _meter_provider: Some(provider),
+            meter_provider: Some(provider),
         };
 
         o11y.record_operation("test_op", Duration::from_millis(15), &Ok(()));
@@ -585,7 +585,7 @@ mod tests {
             Some(2.0),
         );
 
-        if let Some(ref provider) = o11y._meter_provider {
+        if let Some(ref provider) = o11y.meter_provider {
             provider.force_flush().expect("force_flush should succeed");
         }
 
