@@ -101,6 +101,7 @@ pub(crate) struct ResultSetParams {
     pub operation: StreamOperation,
     pub channel_hint: usize,
     pub gax_options: GaxRequestOptions,
+    pub method_name: &'static str,
 }
 
 // The maximum number of PartialResultSets to buffer without a resume token.
@@ -114,8 +115,11 @@ const DEFAULT_ATTEMPT_LIMIT: u32 = 10;
 impl ResultSet {
     /// Creates a new result set asynchronously, waiting for the first chunk to arrive.
     pub(crate) async fn create(params: ResultSetParams) -> crate::Result<Self> {
+        let method_name = params.method_name;
         let mut result_set = Self::new(params);
-        result_set.init_stream().await?;
+        let o11y = result_set.client.o11y.clone();
+        let fut = Box::pin(result_set.init_stream());
+        o11y.trace_operation(method_name, fut).await?;
         Ok(result_set)
     }
 
@@ -131,6 +135,7 @@ impl ResultSet {
             operation,
             channel_hint,
             gax_options,
+            method_name: _,
         } = params;
 
         let gax_options = Self::apply_defaults(gax_options);
@@ -1897,6 +1902,7 @@ pub(crate) mod tests {
             operation: StreamOperation::Query(req),
             channel_hint: 0,
             gax_options: GaxRequestOptions::default(),
+            method_name: "ExecuteStreamingSql",
         })
         .await?;
 
