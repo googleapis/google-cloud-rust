@@ -424,6 +424,7 @@ dependencies = [
  "cargo_metadata",
  "serde",
  "serde_yaml",
+ "tempfile",
  "toml_edit",
 ]
 
