@@ -1,0 +1,13 @@
+{
+    "api_description": "Fetch Google roads using a viewport, road ID, or latitude/longitude\ncoordinates.",
+    "api_id": "roads.googleapis.com",
+    "api_shortname": "roads",
+    "client_documentation": "https://docs.rs/google-maps-roads-v1op/latest",
+    "distribution_name": "google-maps-roads-v1op",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name": "roads",
+    "name_pretty": "Roads",
+    "release_level": "stable",
+    "repo": "googleapis/google-cloud-rust"
+}

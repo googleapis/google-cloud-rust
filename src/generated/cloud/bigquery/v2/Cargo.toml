@@ -25,6 +25,7 @@ repository.workspace   = true
 keywords.workspace     = true
 categories.workspace   = true
 rust-version.workspace = true
+publish                = false
 
 [lints]
 workspace = true
@@ -50,6 +51,7 @@ google-cloud-type.workspace = true
 serde.workspace             = true
 serde_json.workspace        = true
 serde_with.workspace        = true
+thiserror.workspace         = true
 tokio.workspace             = true
 tracing.workspace           = true
 uuid.workspace              = true

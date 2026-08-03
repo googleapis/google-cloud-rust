@@ -697,7 +697,7 @@ mod tests {
 
         let mutation = Mutation::new_insert_or_update_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build();
 
         let res = db_client
@@ -785,7 +785,7 @@ mod tests {
 
         let mutation = Mutation::new_insert_or_update_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build();
 
         let res = db_client
@@ -833,7 +833,7 @@ mod tests {
 
         let mutation = Mutation::new_insert_or_update_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build();
 
         let res = db_client
@@ -883,7 +883,7 @@ mod tests {
 
         let mutation = Mutation::new_insert_or_update_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build();
 
         let res = db_client
@@ -934,7 +934,7 @@ mod tests {
 
         let mutation = Mutation::new_insert_or_update_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build();
 
         let res = db_client
@@ -988,7 +988,7 @@ mod tests {
 
         let mutation = Mutation::new_insert_or_update_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build();
 
         let res = db_client
@@ -1068,7 +1068,7 @@ mod tests {
 
         let mutation = Mutation::new_insert_or_update_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build();
 
         let res = db_client
@@ -1166,7 +1166,7 @@ mod tests {
 
         let mutation = Mutation::new_insert_or_update_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build();
 
         let res = db_client
@@ -1258,7 +1258,7 @@ mod tests {
 
         let mutation = Mutation::new_insert_or_update_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build();
 
         let res = db_client
@@ -1315,7 +1315,7 @@ mod tests {
 
         let mutation = Mutation::new_insert_or_update_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build();
 
         let res = db_client
@@ -1359,7 +1359,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let mutation = Mutation::new_insert_or_update_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build();
         let res = db_client
             .write_only_transaction()
@@ -1478,7 +1478,7 @@ mod tests {
 
         let mutation = Mutation::new_insert_or_update_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build();
 
         let res = db_client
@@ -1532,7 +1532,7 @@ mod tests {
 
         let mutation = Mutation::new_insert_or_update_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build();
 
         let res = db_client
