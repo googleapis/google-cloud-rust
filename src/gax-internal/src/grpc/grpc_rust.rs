@@ -14,6 +14,7 @@
 
 use super::grpc_helpers;
 use crate::grpc::tonic::{Extensions, Response as TonicResponse, Result as TonicResult};
+use crate::observability::RequestRecorder;
 use crate::options::{ClientConfig, InstrumentationClientInfo};
 use crate::universe_domain::DEFAULT_UNIVERSE_DOMAIN;
 use google_cloud_auth::credentials::Credentials;
@@ -148,9 +149,7 @@ impl GrpcRustClient {
             .with_method_name(path.as_str())
             .with_metadata(metadata);
 
-        if let Some(recorder) = crate::observability::RequestRecorder::current() {
-            recorder.on_grpc_request(&path);
-        }
+        Self::record_grpc_request(&path);
         match bidi::invoke_bidi(&self.inner.invoker, request_headers, request).await {
             Ok(response) => {
                 Self::record_grpc_response();
@@ -240,14 +239,20 @@ impl GrpcRustClient {
         );
     }
 
+    fn record_grpc_request(path: &http::uri::PathAndQuery) {
+        if let Some(recorder) = RequestRecorder::current() {
+            recorder.on_grpc_request(path);
+        }
+    }
+
     fn record_grpc_response() {
-        if let Some(recorder) = crate::observability::RequestRecorder::current() {
+        if let Some(recorder) = RequestRecorder::current() {
             recorder.on_grpc_response();
         }
     }
 
     fn record_grpc_error(status: &tonic::Status) {
-        if let Some(recorder) = crate::observability::RequestRecorder::current() {
+        if let Some(recorder) = RequestRecorder::current() {
             recorder.on_grpc_error(&super::from_status::to_gax_error(status.clone()));
         }
     }
