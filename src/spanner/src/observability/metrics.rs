@@ -14,6 +14,8 @@
 
 use crate::omni::InstanceType;
 #[cfg(feature = "_experimental-builtin-metrics")]
+use std::sync::Arc;
+#[cfg(feature = "_experimental-builtin-metrics")]
 use std::time::Duration;
 #[cfg(feature = "_experimental-builtin-metrics")]
 use std::time::Instant;
@@ -152,11 +154,11 @@ pub(crate) fn client_name() -> &'static str {
 }
 
 #[cfg(feature = "_experimental-builtin-metrics")]
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub(crate) struct Observability {
-    pub(crate) metrics: Option<SpannerMetrics>,
+    pub(crate) metrics: Option<Arc<SpannerMetrics>>,
     common_attributes: [opentelemetry::KeyValue; 3],
-    meter_provider: Option<SdkMeterProvider>,
+    meter_provider: Option<Arc<SdkMeterProvider>>,
 }
 
 #[cfg(feature = "_experimental-builtin-metrics")]
@@ -248,23 +250,25 @@ impl Observability {
         ];
 
         Self {
-            metrics: Some(metrics),
+            metrics: Some(Arc::new(metrics)),
             common_attributes,
-            meter_provider: Some(meter_provider),
+            meter_provider: Some(Arc::new(meter_provider)),
         }
     }
 
-    pub(crate) async fn trace_operation<F, Fut, T>(
+    pub(crate) async fn trace_operation<Fut, T>(
         &self,
         method: &'static str,
-        f: F,
+        fut: Fut,
     ) -> crate::Result<T>
     where
-        F: FnOnce() -> Fut,
         Fut: std::future::Future<Output = crate::Result<T>>,
     {
+        if self.metrics.is_none() {
+            return fut.await;
+        }
         let start_time = Instant::now();
-        let result = f().await;
+        let result = fut.await;
         let elapsed = start_time.elapsed();
         self.record_operation(method, elapsed, &result);
         result
@@ -423,7 +427,7 @@ fn parse_duration_param(param: &str) -> Option<f64> {
 }
 
 #[cfg(not(feature = "_experimental-builtin-metrics"))]
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub(crate) struct Observability;
 
 #[cfg(not(feature = "_experimental-builtin-metrics"))]
@@ -442,16 +446,16 @@ impl Observability {
         Self
     }
 
-    pub(crate) async fn trace_operation<F, Fut, T>(
+    #[inline(always)]
+    pub(crate) async fn trace_operation<Fut, T>(
         &self,
         _method: &'static str,
-        f: F,
+        fut: Fut,
     ) -> crate::Result<T>
     where
-        F: FnOnce() -> Fut,
         Fut: std::future::Future<Output = crate::Result<T>>,
     {
-        f().await
+        fut.await
     }
 
     #[allow(dead_code)]
@@ -462,6 +466,66 @@ impl Observability {
 mod tests {
     use super::*;
     use opentelemetry_sdk::metrics::InMemoryMetricExporter;
+    #[test]
+    fn test_observability_disabled() {
+        let o11y = Observability::disabled();
+        assert!(o11y.metrics.is_none());
+    }
+
+    #[test]
+    fn test_result_to_status_str() {
+        let ok_res: crate::Result<()> = Ok(());
+        assert_eq!(result_to_status_str(&ok_res), "OK");
+
+        let status_pd = google_cloud_gax::error::rpc::Status::default()
+            .set_code(google_cloud_gax::error::rpc::Code::PermissionDenied);
+        let err_pd: crate::Result<()> = Err(crate::Error::service(status_pd));
+        assert_eq!(result_to_status_str(&err_pd), "PERMISSION_DENIED");
+    }
+
+    #[test]
+    fn test_spanner_metrics_record_operation_and_attempt() {
+        let exporter = InMemoryMetricExporter::default();
+        let reader = opentelemetry_sdk::metrics::PeriodicReader::builder(exporter.clone()).build();
+        let provider = SdkMeterProvider::builder().with_reader(reader).build();
+        let meter = provider.meter("cloud.google.com/rust");
+        let metrics = SpannerMetrics::new(meter);
+        let o11y = Observability {
+            metrics: Some(Arc::new(metrics)),
+            common_attributes: [
+                opentelemetry::KeyValue::new("client_uid", ""),
+                opentelemetry::KeyValue::new("client_name", ""),
+                opentelemetry::KeyValue::new("database", ""),
+            ],
+            meter_provider: Some(Arc::new(provider.clone())),
+        };
+
+        let ok_res: crate::Result<()> = Ok(());
+        o11y.record_operation("ExecuteSql", Duration::from_millis(50), &ok_res);
+        o11y.record_attempt(
+            "ExecuteSql",
+            Duration::from_millis(40),
+            &ok_res,
+            Some(12.5),
+            Some(5.0),
+        );
+
+        provider.force_flush().expect("force_flush failed");
+
+        let finished = exporter
+            .get_finished_metrics()
+            .expect("get_finished_metrics");
+        assert!(!finished.is_empty());
+    }
+
+    #[tokio::test]
+    async fn test_trace_operation_success() {
+        let o11y = Observability::disabled();
+        let result = o11y
+            .trace_operation("ExecuteSql", async { Ok::<i32, crate::Error>(42) })
+            .await;
+        assert_eq!(result.expect("trace_operation result"), 42);
+    }
 
     #[test]
     fn parse_database_name_valid() {
@@ -759,13 +823,13 @@ mod tests {
         let metrics = SpannerMetrics::new(meter);
 
         let o11y = Observability {
-            metrics: Some(metrics),
+            metrics: Some(Arc::new(metrics)),
             common_attributes: [
                 opentelemetry::KeyValue::new("client_uid", ""),
                 opentelemetry::KeyValue::new("client_name", ""),
                 opentelemetry::KeyValue::new("database", ""),
             ],
-            meter_provider: Some(provider),
+            meter_provider: Some(Arc::new(provider.clone())),
         };
 
         o11y.record_operation("test_op", Duration::from_millis(15), &Ok(()));
@@ -809,7 +873,7 @@ mod tests {
                 opentelemetry::KeyValue::new("client_name", ""),
                 opentelemetry::KeyValue::new("database", ""),
             ],
-            meter_provider: Some(meter_provider),
+            meter_provider: Some(Arc::new(meter_provider)),
         };
         // Calling shutdown twice should cleanly handle AlreadyShutdown on the second call.
         o11y.shutdown();
