@@ -24,7 +24,10 @@ use {
     gaxi::options::ClientConfig,
     google_cloud_monitoring_v3::client::MetricService,
     opentelemetry::metrics::{Counter, Histogram, Meter, MeterProvider},
-    opentelemetry_sdk::metrics::{PeriodicReader, SdkMeterProvider},
+    opentelemetry_sdk::{
+        error::OTelSdkError,
+        metrics::{PeriodicReader, SdkMeterProvider},
+    },
 };
 
 #[cfg(not(feature = "_experimental-builtin-metrics"))]
@@ -91,7 +94,7 @@ impl SpannerMetrics {
 #[derive(Debug)]
 pub(crate) struct Observability {
     pub(crate) metrics: Option<SpannerMetrics>,
-    _meter_provider: Option<SdkMeterProvider>,
+    meter_provider: Option<SdkMeterProvider>,
 }
 
 #[cfg(feature = "_experimental-builtin-metrics")]
@@ -99,7 +102,7 @@ impl Observability {
     pub(crate) fn disabled() -> Self {
         Self {
             metrics: None,
-            _meter_provider: None,
+            meter_provider: None,
         }
     }
 
@@ -156,7 +159,7 @@ impl Observability {
 
         Self {
             metrics: Some(metrics),
-            _meter_provider: Some(meter_provider),
+            meter_provider: Some(meter_provider),
         }
     }
 
@@ -246,6 +249,25 @@ impl Observability {
             .record(duration.as_secs_f64() * 1000.0, &attributes);
         metrics.operation_count.add(1, &attributes);
     }
+
+    pub(crate) fn shutdown(&self) {
+        if let Some(ref provider) = self.meter_provider
+            && let Err(err) = provider.shutdown()
+            && !matches!(err, OTelSdkError::AlreadyShutdown)
+        {
+            tracing::warn!(
+                "Error shutting down OpenTelemetry SdkMeterProvider: {:?}",
+                err
+            );
+        }
+    }
+}
+
+#[cfg(feature = "_experimental-builtin-metrics")]
+impl Drop for Observability {
+    fn drop(&mut self) {
+        self.shutdown();
+    }
 }
 
 #[cfg(feature = "_experimental-builtin-metrics")]
@@ -334,6 +356,9 @@ impl Observability {
     {
         f().await
     }
+
+    #[allow(dead_code)]
+    pub(crate) fn shutdown(&self) {}
 }
 
 #[cfg(all(test, feature = "_experimental-builtin-metrics"))]
@@ -342,30 +367,30 @@ mod tests {
     use opentelemetry_sdk::metrics::InMemoryMetricExporter;
 
     #[test]
-    fn test_parse_server_timing() {
+    fn parse_server_timing() {
         assert_eq!(
-            parse_server_timing("gfet4t7;dur=12.5"),
+            super::parse_server_timing("gfet4t7;dur=12.5"),
             ServerTimings {
                 gfe_latency: Some(12.5),
                 afe_latency: None,
             }
         );
         assert_eq!(
-            parse_server_timing("gfet4t7;desc=\"test\";dur=12.5,afe;dur=5;desc=\"other\""),
+            super::parse_server_timing("gfet4t7;desc=\"test\";dur=12.5,afe;dur=5;desc=\"other\""),
             ServerTimings {
                 gfe_latency: Some(12.5),
                 afe_latency: Some(5.0),
             }
         );
         assert_eq!(
-            parse_server_timing("afe;dur=3,some-other;dur=10"),
+            super::parse_server_timing("afe;dur=3,some-other;dur=10"),
             ServerTimings {
                 gfe_latency: None,
                 afe_latency: Some(3.0),
             }
         );
         assert_eq!(
-            parse_server_timing("invalid_format"),
+            super::parse_server_timing("invalid_format"),
             ServerTimings::default()
         );
         assert_eq!(
@@ -571,5 +596,27 @@ mod tests {
             !finished.is_empty(),
             "exported metrics should not be empty after recording methods"
         );
+    }
+
+    #[test]
+    fn observability_disabled_shutdown_and_drop() {
+        let o11y = Observability::disabled();
+        o11y.shutdown();
+        o11y.shutdown();
+        // Dropping o11y should invoke Drop and shutdown without panic.
+    }
+
+    #[cfg(feature = "_experimental-builtin-metrics")]
+    #[test]
+    fn observability_double_shutdown_ignores_already_shutdown() {
+        let meter_provider = SdkMeterProvider::builder().build();
+        let o11y = Observability {
+            metrics: None,
+            meter_provider: Some(meter_provider),
+        };
+        // Calling shutdown twice should cleanly handle AlreadyShutdown on the second call.
+        o11y.shutdown();
+        o11y.shutdown();
+        // Dropping o11y invokes Drop and calls shutdown a third time without panic or warning.
     }
 }
