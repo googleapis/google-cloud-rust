@@ -371,13 +371,12 @@ impl DatabaseClientBuilder {
             self.database_name
         };
 
-        let project_id = parse_project_id(&database_name);
         let o11y = Arc::new(
             Observability::init(
                 &self.spanner.config,
                 self.spanner.instance_type(),
+                &database_name,
                 self.spanner.is_emulator(),
-                project_id,
             )
             .await,
         );
@@ -397,14 +396,6 @@ impl DatabaseClientBuilder {
             o11y,
         })
     }
-}
-
-fn parse_project_id(database_name: &str) -> Option<&str> {
-    let mut parts = database_name.split('/');
-    if parts.next() != Some("projects") {
-        return None;
-    }
-    parts.next()
 }
 
 #[cfg(test)]

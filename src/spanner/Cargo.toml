@@ -38,6 +38,7 @@ _experimental-builtin-metrics = [
   "dep:google-cloud-monitoring-v3",
   "dep:opentelemetry",
   "dep:opentelemetry_sdk",
+  "dep:uuid",
 ]
 
 [dependencies]
@@ -71,6 +72,7 @@ google-cloud-api           = { workspace = true, optional = true }
 google-cloud-monitoring-v3 = { workspace = true, optional = true }
 opentelemetry              = { workspace = true, optional = true, features = ["metrics"] }
 opentelemetry_sdk          = { workspace = true, optional = true, features = ["metrics", "rt-tokio"] }
+uuid                       = { workspace = true, optional = true }
 
 [dev-dependencies]
 anyhow.workspace                   = true
