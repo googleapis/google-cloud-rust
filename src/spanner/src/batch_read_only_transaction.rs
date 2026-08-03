@@ -385,6 +385,7 @@ impl Partition {
         gax_options: GaxRequestOptions,
     ) -> crate::Result<ResultSet> {
         let channel_hint = client.spanner.next_channel_hint();
+        let gax_options = client.spanner.attach_request_id(gax_options, channel_hint);
         let stream = client
             .spanner
             .execute_streaming_sql(req.clone(), gax_options.clone(), channel_hint)
@@ -417,6 +418,7 @@ impl Partition {
         gax_options: GaxRequestOptions,
     ) -> crate::Result<ResultSet> {
         let channel_hint = client.spanner.next_channel_hint();
+        let gax_options = client.spanner.attach_request_id(gax_options, channel_hint);
         let stream = client
             .spanner
             .streaming_read(req.clone(), gax_options.clone(), channel_hint)

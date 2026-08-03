@@ -14,6 +14,7 @@
 
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::{ErrorProto, InsertJobRequest, Job, JobReference, JobStatus};
+use google_cloud_bigquery_v2::operation::JobPollerError;
 use google_cloud_bigquery_v2::stub::JobService as JobServiceStub;
 use google_cloud_gax::Result as GaxResult;
 use google_cloud_gax::options::RequestOptions;
@@ -28,6 +29,12 @@ mock! {
         async fn insert_job(
             &self,
             req: InsertJobRequest,
+            options: RequestOptions,
+        ) -> GaxResult<Response<Job>>;
+
+        async fn get_job(
+            &self,
+            req: google_cloud_bigquery_v2::model::GetJobRequest,
             options: RequestOptions,
         ) -> GaxResult<Response<Job>>;
     }
@@ -122,13 +129,14 @@ async fn non_retryable_error() -> anyhow::Result<()> {
 
     let client = JobService::from_stub(mock);
     let poller = client.insert_job().into_job_poller();
-    let result = poller.until_done().await?;
+    let result = poller.until_done().await;
 
     // Should return immediately after 1st attempt
-    assert_eq!(
-        result.status.unwrap().error_result.unwrap().reason.as_str(),
-        "invalidQuery"
-    );
+    let JobPollerError::ErrorProto(err) = result.unwrap_err() else {
+        panic!("expected JobPollerError::ErrorProto");
+    };
+
+    assert_eq!(err.reason.as_str(), "invalidQuery");
     Ok(())
 }
 
@@ -141,17 +149,61 @@ async fn retry_exhausted() -> anyhow::Result<()> {
         .returning(move |_, _| Ok(Response::from(transient_job_failure("job-unknown"))));
 
     let client = JobService::from_stub(mock);
-    let poller = client
-        .insert_job()
-        .into_job_poller()
-        .set_job_level_attempt_limit(3);
+    let poller = client.insert_job().into_job_poller().with_attempt_limit(3);
+
+    let result = poller.until_done().await;
+
+    // Should stop retrying after limit of 3
+    let JobPollerError::ErrorProto(err) = result.unwrap_err() else {
+        panic!("expected JobPollerError::ErrorProto");
+    };
+
+    assert_eq!(err.reason.as_str(), "jobBackendError");
+    Ok(())
+}
+
+#[tokio::test]
+async fn polling_success() -> anyhow::Result<()> {
+    let mut mock = MockTestJobService::new();
+    let mut seq = Sequence::new();
+
+    mock.expect_insert_job()
+        .times(1)
+        .in_sequence(&mut seq)
+        .return_once(move |_, _| {
+            Ok(Response::from(
+                Job::new()
+                    .set_job_reference(
+                        JobReference::new()
+                            .set_project_id("p1")
+                            .set_job_id("job-running"),
+                    )
+                    .set_status(JobStatus::new().set_state("RUNNING")),
+            ))
+        });
+
+    mock.expect_get_job()
+        .times(1)
+        .in_sequence(&mut seq)
+        .return_once(move |req, _| {
+            assert_eq!(req.job_id, "job-running");
+            Ok(Response::from(
+                Job::new()
+                    .set_job_reference(
+                        JobReference::new()
+                            .set_project_id("p1")
+                            .set_job_id("job-running"),
+                    )
+                    .set_status(JobStatus::new().set_state("DONE")),
+            ))
+        });
+
+    let client = JobService::from_stub(mock);
+    let poller = client.insert_job().into_job_poller();
 
     let result = poller.until_done().await?;
 
-    // Should stop retrying after limit of 3
-    assert_eq!(
-        result.status.unwrap().error_result.unwrap().reason.as_str(),
-        "jobBackendError"
-    );
+    let status = result.status.unwrap();
+    assert_eq!(status.state.as_str(), "DONE");
     Ok(())
 }

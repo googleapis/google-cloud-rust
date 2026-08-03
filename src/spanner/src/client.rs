@@ -19,6 +19,8 @@ use crate::model::{
     PartitionReadRequest, PartitionResponse, RollbackRequest, Session, Transaction,
 };
 use crate::omni::{InstanceType, is_plaintext_endpoint};
+use crate::request_id::RequestIdCreator;
+use crate::request_id_interceptor::{REQUEST_ID_HEADER, SpannerRequestIdInterceptor};
 use crate::server_streaming::builder;
 use gaxi::options::{ClientConfig, Credentials};
 use google_cloud_auth::credentials::anonymous;
@@ -34,7 +36,7 @@ use http::{
     header::{HeaderName, HeaderValue},
 };
 use std::sync::{
-    LazyLock,
+    Arc, LazyLock,
     atomic::{AtomicUsize, Ordering},
 };
 
@@ -54,6 +56,7 @@ pub struct Spanner {
     pub(crate) config: ClientConfig,
     pub(crate) is_emulator: bool,
     pub(crate) instance_type: InstanceType,
+    pub(crate) request_id_creator: Arc<RequestIdCreator>,
 }
 
 /// A factory for constructing `Spanner` clients.
@@ -97,18 +100,49 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
             channels.push(Channel::create(&config).await?);
         }
 
+        let instance_type = config
+            .extensions
+            .get::<InstanceType>()
+            .copied()
+            .unwrap_or_default();
+
         Ok(Spanner {
             channels,
             counter: std::sync::Arc::new(AtomicUsize::new(0)),
             config,
             is_emulator,
-            instance_type: InstanceType::Cloud,
+            instance_type,
+            request_id_creator: Arc::new(RequestIdCreator::new()),
         })
     }
 }
 
 /// A builder for the Spanner client.
 pub type ClientBuilder = google_cloud_gax::client_builder::ClientBuilder<Factory, Credentials>;
+
+/// Extension trait for [`ClientBuilder`] (also exported as `SpannerBuilder`) to configure Spanner-specific options.
+pub trait SpannerBuilderExt {
+    /// Sets the target [`InstanceType`] (`Cloud` vs `Omni`) for the Spanner client.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::{Spanner, SpannerBuilderExt};
+    /// # use google_cloud_spanner::omni::InstanceType;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = Spanner::builder()
+    ///     .with_instance_type(InstanceType::Omni)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    fn with_instance_type(self, instance_type: InstanceType) -> Self;
+}
+
+impl SpannerBuilderExt for ClientBuilder {
+    fn with_instance_type(self, instance_type: InstanceType) -> Self {
+        self.with_extension(instance_type)
+    }
+}
 
 fn parse_emulator_endpoint(endpoint: &str) -> String {
     match url::Url::parse(endpoint) {
@@ -126,6 +160,7 @@ macro_rules! define_idempotent_rpc {
             channel_hint: usize,
             o11y: &crate::observability::Observability,
         ) -> crate::Result<$response_type> {
+            let options = self.attach_request_id(options, channel_hint);
             o11y.trace_operation(
                 $canonical_name,
                 self.get_channel(channel_hint)
@@ -215,28 +250,6 @@ impl Spanner {
         new_builder(Factory)
     }
 
-    /// Sets the target instance deployment type (`Cloud` or `Omni`).
-    ///
-    /// # Warning
-    ///
-    /// **Experimental:** This method is experimental and may be updated or replaced in a future release.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner::client::Spanner;
-    /// # use google_cloud_spanner::omni::InstanceType;
-    /// # async fn sample() -> anyhow::Result<()> {
-    /// let client = Spanner::builder()
-    ///     .build()
-    ///     .await?
-    ///     .with_instance_type(InstanceType::Omni);
-    /// # Ok(()) }
-    /// ```
-    pub fn with_instance_type(mut self, instance_type: InstanceType) -> Self {
-        self.instance_type = instance_type;
-        self
-    }
-
     /// Returns a builder for the [DatabaseAdmin] client.
     ///
     /// This builder is automatically pre-configured with the same endpoints, credentials,
@@ -321,6 +334,7 @@ impl Spanner {
             config: ClientConfig::default(),
             is_emulator: false,
             instance_type: InstanceType::Cloud,
+            request_id_creator: Arc::new(RequestIdCreator::new()),
         }
     }
 
@@ -339,6 +353,37 @@ impl Spanner {
 
     pub(crate) fn next_channel_hint(&self) -> usize {
         self.counter.fetch_add(1, Ordering::Relaxed)
+    }
+
+    pub(crate) fn attach_request_id(
+        &self,
+        options: crate::RequestOptions,
+        channel_hint: usize,
+    ) -> crate::RequestOptions {
+        if options
+            .get_extension::<HeaderMap>()
+            .is_some_and(|headers| headers.contains_key(&REQUEST_ID_HEADER))
+        {
+            return options;
+        }
+
+        // Spanner Request ID channel IDs are 1-based (1..=N), where 0 is reserved for unknown.
+        // We wrap `channel_hint` by the channel pool size so the advertised channel ID always
+        // matches the actual channel index used by `get_channel`.
+        let channel_id = channel_hint
+            .checked_rem(self.channels.len())
+            .map_or(0, |rem| rem + 1);
+        let header_val_str = self.request_id_creator.next_id_prefix(channel_id);
+        let Ok(val) = HeaderValue::from_str(&header_val_str) else {
+            return options;
+        };
+
+        let mut headers = options
+            .get_extension::<HeaderMap>()
+            .cloned()
+            .unwrap_or_default();
+        headers.insert(REQUEST_ID_HEADER.clone(), val);
+        options.insert_extension(headers)
     }
 
     define_idempotent_rpc!(
@@ -407,7 +452,7 @@ impl Spanner {
             .expect("Streaming RPCs are not supported when using a stub client");
         builder::ExecuteStreamingSql::new(grpc.clone())
             .with_request(request)
-            .with_options(options)
+            .with_options(self.attach_request_id(options, channel_hint))
     }
 
     /// Reads rows from the database, returning a stream of results.
@@ -427,7 +472,7 @@ impl Spanner {
             .expect("Streaming RPCs are not supported when using a stub client");
         builder::StreamingRead::new(grpc.clone())
             .with_request(request)
-            .with_options(options)
+            .with_options(self.attach_request_id(options, channel_hint))
     }
 
     pub(crate) fn batch_write(
@@ -443,7 +488,7 @@ impl Spanner {
             .expect("Streaming RPCs are not supported when using a stub client");
         builder::BatchWrite::new(grpc.clone())
             .with_request(request)
-            .with_options(options)
+            .with_options(self.attach_request_id(options, channel_hint))
     }
 }
 
@@ -455,8 +500,11 @@ pub(crate) struct Channel {
 
 impl Channel {
     pub(crate) async fn create(config: &ClientConfig) -> crate::ClientBuilderResult<Self> {
-        let transport =
+        let mut transport =
             crate::generated::gapic_dataplane::transport::Spanner::new(config.clone()).await?;
+        transport
+            .inner
+            .set_attempt_interceptor(Arc::new(SpannerRequestIdInterceptor));
         let grpc_client = transport.inner.clone();
 
         let inner = if gaxi::options::tracing_enabled(config) {
@@ -1809,6 +1857,78 @@ mod tests {
         assert_eq!(
             super::parse_emulator_endpoint("http_localhost:9010"),
             "http://http_localhost:9010"
+        );
+    }
+
+    #[test]
+    fn attach_request_id_adds_header() {
+        let spanner = Spanner {
+            channels: vec![],
+            counter: std::sync::Arc::new(std::sync::atomic::AtomicUsize::new(0)),
+            config: ClientConfig::default(),
+            is_emulator: false,
+            instance_type: InstanceType::Cloud,
+            request_id_creator: Arc::new(RequestIdCreator::new()),
+        };
+        let options = crate::RequestOptions::default();
+        let options = spanner.attach_request_id(options, 0);
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap should be present");
+        let val = headers
+            .get(&REQUEST_ID_HEADER)
+            .expect("x-goog-spanner-request-id should be present")
+            .to_str()
+            .expect("should be valid ASCII");
+        assert!(
+            val.starts_with("1."),
+            "Request ID prefix should start with protocol version 1, got {val}"
+        );
+        assert!(
+            val.ends_with('.'),
+            "Request ID prefix should end with a dot ready for AttemptInterceptor, got {val}"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn attach_request_id_channel_id_in_range() {
+        let mock = MockSpanner::new();
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        assert_eq!(
+            client.channels.len(),
+            4,
+            "default pool size should be 4 channels"
+        );
+
+        // Test with a channel_hint that is larger than the pool size (e.g., hint = 7).
+        // Without our fix, this would have advertised channel ID 8 (7 + 1) instead of
+        // wrapping around to range 1..=4.
+        let options = crate::RequestOptions::default();
+        let options = client.attach_request_id(options, 7);
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap should be present");
+        let val = headers
+            .get(&REQUEST_ID_HEADER)
+            .expect("x-goog-spanner-request-id should be present")
+            .to_str()
+            .expect("should be valid ASCII");
+
+        // With 4 channels and hint = 7: (7 % 4) + 1 = 3 + 1 = 4.
+        // So the prefix should contain ".4." for channel ID 4.
+        assert!(
+            val.contains(".4."),
+            "Request ID should contain channel ID 4 for hint 7 with pool size 4, got {val}"
         );
     }
 }

@@ -45,6 +45,7 @@ pub(crate) struct WriteRequest {
 /// If the stream terminates for any reason, the background task exits. Any
 /// unsatisfied requests are dropped, which surfaces to the client as a
 /// `oneshot::error::RecvError` on their response channel.
+#[derive(Debug)]
 pub(crate) struct Runner {
     pub(crate) req_tx: mpsc::Sender<WriteRequest>,
     pub(crate) handle: JoinHandle<()>,
@@ -139,7 +140,7 @@ fn process_gax_response(
 }
 
 #[cfg(test)]
-mod tests {
+pub(crate) mod tests {
     use super::*;
     use crate::google::cloud::bigquery::storage::v1::append_rows_response::{
         AppendResult, Response,
@@ -435,7 +436,7 @@ mod tests {
         Ok(())
     }
 
-    fn test_request(index: i64) -> AppendRowsRequest {
+    pub(crate) fn test_request(index: i64) -> AppendRowsRequest {
         AppendRowsRequest {
             write_stream: "projects/p/datasets/d/tables/t/streams/s".to_string(),
             offset: Some(index),
@@ -443,10 +444,10 @@ mod tests {
         }
     }
 
-    fn test_response(index: i64) -> AppendRowsResponse {
+    pub(crate) fn test_response(index: i64) -> AppendRowsResponse {
         AppendRowsResponse {
             response: Some(Response::AppendResult(AppendResult {
-                offset: Some(index + 1),
+                offset: Some(index),
             })),
             write_stream: "projects/p/datasets/d/tables/t/streams/s".to_string(),
             ..Default::default()

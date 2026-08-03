@@ -1146,7 +1146,10 @@ impl ReadContext {
         seqno: Option<i64>,
     ) -> crate::Result<ResultSet> {
         let statement = statement.into();
-        let gax_options = statement.gax_options().clone();
+        let gax_options = self
+            .client
+            .spanner
+            .attach_request_id(statement.gax_options().clone(), self.channel_hint);
         let mut request = statement
             .into_request()
             .set_session(self.session_name.clone())
@@ -1169,7 +1172,10 @@ impl ReadContext {
         read: T,
     ) -> crate::Result<ResultSet> {
         let read = read.into();
-        let gax_options = read.gax_options.clone();
+        let gax_options = self
+            .client
+            .spanner
+            .attach_request_id(read.gax_options.clone(), self.channel_hint);
         let mut request = read
             .into_request()
             .set_session(self.session_name.clone())
