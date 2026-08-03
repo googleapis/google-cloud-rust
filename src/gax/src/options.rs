@@ -556,4 +556,27 @@ mod tests {
 
         Ok(())
     }
+
+    #[test]
+    fn request_options_builder_custom_headers() {
+        let mut builder = TestBuilder::default()
+            .with_custom_header("x-custom-1", "value1")
+            .with_custom_header("x-custom-2", "value2")
+            .with_custom_header("invalid header name", "val");
+
+        let headers = builder
+            .request_options()
+            .get_extension::<http::HeaderMap>()
+            .expect("headers extension should be present");
+
+        assert_eq!(
+            headers.get("x-custom-1").and_then(|v| v.to_str().ok()),
+            Some("value1")
+        );
+        assert_eq!(
+            headers.get("x-custom-2").and_then(|v| v.to_str().ok()),
+            Some("value2")
+        );
+        assert!(headers.get("invalid header name").is_none());
+    }
 }
