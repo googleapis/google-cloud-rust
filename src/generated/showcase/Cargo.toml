@@ -42,7 +42,6 @@ default-rustls-provider = ["gaxi/_default-rustls-provider"]
 all-features = true
 
 [dependencies]
-# TODO(#6838): Make prost and prost-types optional dependencies gated by the streaming feature flag.
 prost.workspace                    = true
 prost-types.workspace              = true
 futures.workspace                  = true
