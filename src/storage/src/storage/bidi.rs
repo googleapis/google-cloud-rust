@@ -27,11 +27,18 @@ mod worker;
 
 use crate::google::storage::v2::{BidiReadObjectRequest, BidiReadObjectResponse};
 use crate::request_options::RequestOptions;
-use gaxi::grpc::tonic::{Extensions, Response as TonicResponse, Result as TonicResult, Streaming};
+use gaxi::grpc::tonic::{Extensions, Response as TonicResponse, Result as TonicResult};
 use tokio::sync::mpsc::Receiver;
 
+#[cfg(google_cloud_unstable_grpc_rust)]
+pub(crate) type GrpcClient = gaxi::grpc::GrpcRustClient;
+#[cfg(google_cloud_unstable_grpc_rust)]
+pub(crate) type GrpcStream = gaxi::grpc::GrpcRustStreaming<BidiReadObjectResponse>;
+
+#[cfg(not(google_cloud_unstable_grpc_rust))]
 pub(crate) type GrpcClient = gaxi::grpc::Client;
-pub(crate) type GrpcStream = Streaming<BidiReadObjectResponse>;
+#[cfg(not(google_cloud_unstable_grpc_rust))]
+pub(crate) type GrpcStream = gaxi::grpc::tonic::Streaming<BidiReadObjectResponse>;
 
 pub use super::open_object::OpenObject;
 
@@ -45,7 +52,7 @@ pub trait TonicStreaming: std::fmt::Debug + Send + 'static {
 }
 
 /// Implement [TonicStreaming] for the one `Streaming<T>` we use.
-impl TonicStreaming for Streaming<BidiReadObjectResponse> {
+impl TonicStreaming for GrpcStream {
     async fn next_message(&mut self) -> TonicResult<Option<BidiReadObjectResponse>> {
         self.message().await
     }
