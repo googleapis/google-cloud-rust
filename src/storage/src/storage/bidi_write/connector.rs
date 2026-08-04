@@ -15,7 +15,7 @@
 use super::redirect::is_redirect;
 use super::retry_redirect::RetryRedirect;
 use super::state::AppendObjectSpecState;
-use super::{Client, TonicStreaming, persisted_size};
+use super::{Client, GrpcClient, GrpcStream, TonicStreaming, persisted_size};
 use crate::google::storage::v2::{
     AppendObjectSpec, BidiWriteObjectRequest, BidiWriteObjectResponse, CommonObjectRequestParams,
     Object, WriteObjectSpec, bidi_write_object_request::FirstMessage,
@@ -23,8 +23,7 @@ use crate::google::storage::v2::{
 use crate::request_options::RequestOptions;
 use crate::storage::info::X_GOOG_API_CLIENT_HEADER;
 use crate::{Error, Result};
-use gaxi::grpc::Client as GrpcClient;
-use gaxi::grpc::tonic::{Extensions, GrpcMethod, Streaming};
+use gaxi::grpc::tonic::{Extensions, GrpcMethod};
 use gaxi::prost::ToProto;
 use google_cloud_gax::error::binding::{
     BindingError, PathMismatch, SubstitutionFail, SubstitutionMismatch,
@@ -43,7 +42,7 @@ const MAX_QUEUED_REQUESTS: usize = 100;
 /// Represents a bidirectional streaming connection.
 /// Contains the transmission channel for requests and the receiving stream for responses.
 #[derive(Debug)]
-pub struct Connection<S = Streaming<BidiWriteObjectResponse>> {
+pub struct Connection<S = GrpcStream> {
     pub tx: Sender<BidiWriteObjectRequest>,
     pub rx: S,
 }
@@ -462,7 +461,6 @@ mod tests {
 
     use crate::model_ext::OpenAppendableObjectRequest;
     use anyhow::Result;
-    use gaxi::grpc::Client as GrpcClient;
     use google_cloud_auth::credentials::{Credentials, anonymous::Builder as Anonymous};
     use google_cloud_gax::retry_policy::NeverRetry;
     use static_assertions::assert_impl_all;
@@ -521,8 +519,13 @@ mod tests {
 
         let err = start.await.unwrap_err();
         assert!(err.is_connect(), "{err:?}");
-        let source = err.source().unwrap().to_string();
-        assert!(source.contains("127.0.0.1:1"), "{source}");
+        // TODO(#5991): Re-enable when `grpc-rust` preserves `.source()` and endpoint URIs.
+        // See `to_gax_error` in `gax-internal/src/grpc/from_status.rs` for more background.
+        #[cfg(not(google_cloud_unstable_grpc_rust))]
+        {
+            let source = err.source().unwrap().to_string();
+            assert!(source.contains("127.0.0.1:1"), "{source}");
+        }
 
         Ok(())
     }
