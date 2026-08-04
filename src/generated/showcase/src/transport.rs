@@ -1840,15 +1840,14 @@ impl super::stub::Echo for Echo {
                     while let Some(res) = response_stream.next().await {
                         let item = res
                             .map_err(gaxi::grpc::from_status::to_gax_error)
-                            .and_then(|m| m.cnv().map_err(google_cloud_gax::error::Error::deser))
-                            .map_err(Into::into);
+                            .and_then(|m| m.cnv().map_err(google_cloud_gax::error::Error::deser));
                         if resp_tx.send(item).await.is_err() {
                             break;
                         }
                     }
                 }
                 Err(err) => {
-                    let _ = resp_tx.send(Err(err.into())).await;
+                    let _ = resp_tx.send(Err(err)).await;
                 }
             }
         });
@@ -5095,15 +5094,14 @@ impl super::stub::Messaging for Messaging {
                     while let Some(res) = response_stream.next().await {
                         let item = res
                             .map_err(gaxi::grpc::from_status::to_gax_error)
-                            .and_then(|m| m.cnv().map_err(google_cloud_gax::error::Error::deser))
-                            .map_err(Into::into);
+                            .and_then(|m| m.cnv().map_err(google_cloud_gax::error::Error::deser));
                         if resp_tx.send(item).await.is_err() {
                             break;
                         }
                     }
                 }
                 Err(err) => {
-                    let _ = resp_tx.send(Err(err.into())).await;
+                    let _ = resp_tx.send(Err(err)).await;
                 }
             }
         });

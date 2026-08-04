@@ -205,9 +205,11 @@ async fn chat(client: &Echo) -> Result<()> {
     let req = EchoRequest::new().set_content("hello from bidi echo");
     sender.send(req).await?;
 
-    if let Some(res) = receiver.recv().await {
-        let response = res?;
-        assert_eq!(response.content, "hello from bidi echo");
-    }
+    let res = receiver
+        .recv()
+        .await
+        .expect("expected response from bidi stream");
+    let response = res?;
+    assert_eq!(response.content, "hello from bidi echo");
     Ok(())
 }
