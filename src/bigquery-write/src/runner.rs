@@ -48,6 +48,7 @@ pub(crate) struct WriteRequest {
 #[derive(Debug)]
 pub(crate) struct Runner {
     pub(crate) req_tx: mpsc::Sender<WriteRequest>,
+    #[allow(dead_code)]
     pub(crate) handle: JoinHandle<()>,
 }
 

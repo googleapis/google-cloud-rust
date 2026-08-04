@@ -92,10 +92,72 @@ impl SpannerMetrics {
     }
 }
 
+/// Parses `projects/{project}/instances/{instance}/databases/{database}` into its
+/// `(project_id, instance_id, database_id)` components.
+#[cfg(feature = "_experimental-builtin-metrics")]
+#[allow(dead_code)]
+pub(crate) fn parse_database_name(database_name: &str) -> Option<(&str, &str, &str)> {
+    let mut parts = database_name.split('/');
+    if parts.next() != Some("projects") {
+        return None;
+    }
+    let project = parts.next()?;
+    if parts.next() != Some("instances") {
+        return None;
+    }
+    let instance = parts.next()?;
+    if parts.next() != Some("databases") {
+        return None;
+    }
+    let database = parts.next()?;
+    if parts.next().is_some() || project.is_empty() || instance.is_empty() || database.is_empty() {
+        return None;
+    }
+    Some((project, instance, database))
+}
+
+/// Generates a unique identifier for the `client_uid` metric attribute in the format
+/// `UUID@PID@hostname`.
+#[cfg(feature = "_experimental-builtin-metrics")]
+#[allow(dead_code)]
+pub(crate) fn generate_client_uid() -> String {
+    let uuid = uuid::Uuid::new_v4().to_string();
+    let pid = std::process::id();
+    let hostname = std::env::var("HOSTNAME")
+        .or_else(|_| std::env::var("COMPUTERNAME"))
+        .unwrap_or_else(|_| "localhost".to_string());
+    format!("{uuid}@{pid}@{hostname}")
+}
+
+/// Generates a 6-character zero-padded lowercase hexadecimal hash for the `client_hash`
+/// resource label using the 24 least significant bits of an FNV-1a 64-bit hash of `client_uid`.
+#[cfg(feature = "_experimental-builtin-metrics")]
+#[allow(dead_code)]
+pub(crate) fn generate_client_hash(client_uid: &str) -> String {
+    if client_uid.is_empty() {
+        return "000000".to_string();
+    }
+    let mut hash: u64 = 0xcbf29ce484222325;
+    for &byte in client_uid.as_bytes() {
+        hash ^= byte as u64;
+        hash = hash.wrapping_mul(0x100000001b3);
+    }
+    let hash_24 = hash & 0xff_ffff;
+    format!("{hash_24:06x}")
+}
+
+/// Returns the library client identification string (`"spanner-rust/<VERSION>"`).
+#[cfg(feature = "_experimental-builtin-metrics")]
+#[allow(dead_code)]
+pub(crate) fn client_name() -> &'static str {
+    concat!("spanner-rust/", env!("CARGO_PKG_VERSION"))
+}
+
 #[cfg(feature = "_experimental-builtin-metrics")]
 #[derive(Clone, Debug)]
 pub(crate) struct Observability {
     pub(crate) metrics: Option<Arc<SpannerMetrics>>,
+    common_attributes: [opentelemetry::KeyValue; 3],
     meter_provider: Option<Arc<SdkMeterProvider>>,
 }
 
@@ -104,6 +166,11 @@ impl Observability {
     pub(crate) fn disabled() -> Self {
         Self {
             metrics: None,
+            common_attributes: [
+                opentelemetry::KeyValue::new("client_uid", ""),
+                opentelemetry::KeyValue::new("client_name", ""),
+                opentelemetry::KeyValue::new("database", ""),
+            ],
             meter_provider: None,
         }
     }
@@ -111,8 +178,8 @@ impl Observability {
     pub(crate) async fn init(
         config: &ClientConfig,
         instance_type: InstanceType,
+        database_name: &str,
         is_emulator: bool,
-        project_id: Option<&str>,
     ) -> Self {
         let disable_builtin_metrics = std::env::var("SPANNER_DISABLE_BUILTIN_METRICS")
             .map(|s| s.eq_ignore_ascii_case("true") || s == "1")
@@ -121,9 +188,9 @@ impl Observability {
             return Self::disabled();
         }
 
-        let project_id = match project_id {
-            Some(id) if !id.is_empty() => id,
-            _ => return Self::disabled(),
+        let (project_id, instance_id, database_id) = match parse_database_name(database_name) {
+            Some(parts) => parts,
+            None => return Self::disabled(),
         };
 
         // Create the Google Cloud Monitoring client using the same config
@@ -149,18 +216,42 @@ impl Observability {
 
         let exporter = GcpMonitoringExporter::new(monitoring_client, project_id);
 
+        let client_uid = generate_client_uid();
+        let client_hash = generate_client_hash(&client_uid);
+        let client_name = client_name();
+
+        let resource = opentelemetry_sdk::Resource::builder()
+            .with_attributes([
+                opentelemetry::KeyValue::new("project_id", project_id.to_string()),
+                opentelemetry::KeyValue::new("instance_id", instance_id.to_string()),
+                opentelemetry::KeyValue::new("location", "global"),
+                opentelemetry::KeyValue::new("instance_config", "unknown"),
+                opentelemetry::KeyValue::new("client_hash", client_hash),
+            ])
+            .build();
+
         // Set up PeriodicReader with a 60-second export interval.
         let reader = PeriodicReader::builder(exporter)
             .with_interval(DEFAULT_EXPORT_INTERVAL)
             .build();
 
-        let meter_provider = SdkMeterProvider::builder().with_reader(reader).build();
+        let meter_provider = SdkMeterProvider::builder()
+            .with_reader(reader)
+            .with_resource(resource)
+            .build();
 
         let meter = meter_provider.meter("cloud.google.com/rust");
         let metrics = SpannerMetrics::new(meter);
 
+        let common_attributes = [
+            opentelemetry::KeyValue::new("client_uid", client_uid),
+            opentelemetry::KeyValue::new("client_name", client_name),
+            opentelemetry::KeyValue::new("database", database_id.to_string()),
+        ];
+
         Self {
             metrics: Some(Arc::new(metrics)),
+            common_attributes,
             meter_provider: Some(Arc::new(meter_provider)),
         }
     }
@@ -217,6 +308,9 @@ impl Observability {
         let attributes = [
             opentelemetry::KeyValue::new("method", method),
             opentelemetry::KeyValue::new("status", status),
+            self.common_attributes[0].clone(),
+            self.common_attributes[1].clone(),
+            self.common_attributes[2].clone(),
         ];
 
         metrics
@@ -246,6 +340,9 @@ impl Observability {
         let attributes = [
             opentelemetry::KeyValue::new("method", method),
             opentelemetry::KeyValue::new("status", status),
+            self.common_attributes[0].clone(),
+            self.common_attributes[1].clone(),
+            self.common_attributes[2].clone(),
         ];
 
         metrics
@@ -343,8 +440,8 @@ impl Observability {
     pub(crate) async fn init(
         _config: &ClientConfig,
         _instance_type: InstanceType,
+        _database_name: &str,
         _is_emulator: bool,
-        _project_id: Option<&str>,
     ) -> Self {
         Self
     }
@@ -395,6 +492,11 @@ mod tests {
         let metrics = SpannerMetrics::new(meter);
         let o11y = Observability {
             metrics: Some(Arc::new(metrics)),
+            common_attributes: [
+                opentelemetry::KeyValue::new("client_uid", ""),
+                opentelemetry::KeyValue::new("client_name", ""),
+                opentelemetry::KeyValue::new("database", ""),
+            ],
             meter_provider: Some(Arc::new(provider.clone())),
         };
 
@@ -423,6 +525,86 @@ mod tests {
             .trace_operation("ExecuteSql", async { Ok::<i32, crate::Error>(42) })
             .await;
         assert_eq!(result.expect("trace_operation result"), 42);
+    }
+
+    #[test]
+    fn parse_database_name_valid() {
+        let parsed = parse_database_name("projects/proj-123/instances/inst-456/databases/db-789");
+        assert_eq!(parsed, Some(("proj-123", "inst-456", "db-789")));
+    }
+
+    #[test]
+    fn parse_database_name_invalid() {
+        assert_eq!(parse_database_name("projects/proj/instances/inst"), None);
+        assert_eq!(
+            parse_database_name("projects/proj/instances/inst/databases"),
+            None
+        );
+        assert_eq!(
+            parse_database_name("projects/proj/instances/inst/databases/db/extra"),
+            None
+        );
+        assert_eq!(
+            parse_database_name("projects//instances/inst/databases/db"),
+            None
+        );
+        assert_eq!(
+            parse_database_name("projects/proj/instances//databases/db"),
+            None
+        );
+        assert_eq!(
+            parse_database_name("projects/proj/instances/inst/databases/"),
+            None
+        );
+        assert_eq!(parse_database_name("invalid/string"), None);
+    }
+
+    #[test]
+    fn generate_client_hash_known_values() {
+        assert_eq!(generate_client_hash(""), "000000");
+
+        let hash1 = generate_client_hash("test-client-uid");
+        assert_eq!(hash1, "416874");
+        assert_eq!(hash1.len(), 6);
+        assert!(
+            hash1
+                .chars()
+                .all(|c| c.is_ascii_digit() || ('a'..='f').contains(&c)),
+            "hash must be 6 lowercase hex characters, got {hash1}"
+        );
+
+        let hash2 = generate_client_hash("test-client-uid");
+        assert_eq!(hash1, hash2, "client hash must be deterministic");
+
+        assert_eq!(generate_client_hash("spanner"), "727a8e");
+    }
+
+    #[test]
+    fn generate_client_uid_format() {
+        let uid1 = generate_client_uid();
+        let parts: Vec<&str> = uid1.split('@').collect();
+        assert_eq!(
+            parts.len(),
+            3,
+            "expected UUID@PID@hostname format, got {uid1}"
+        );
+        assert_eq!(parts[0].len(), 36, "expected 36-char UUID prefix");
+
+        let uid2 = generate_client_uid();
+        assert_ne!(
+            uid1, uid2,
+            "each generated client_uid must have a unique UUID"
+        );
+    }
+
+    #[test]
+    fn client_name_format() {
+        let name = client_name();
+        assert!(
+            name.starts_with("spanner-rust/"),
+            "expected prefix 'spanner-rust/', got {name}"
+        );
+        assert!(name.len() > "spanner-rust/".len());
     }
 
     #[test]
@@ -537,15 +719,25 @@ mod tests {
         );
 
         let config = ClientConfig::default();
-        let o11y_emulator =
-            Observability::init(&config, InstanceType::Cloud, true, Some("my-project")).await;
+        let o11y_emulator = Observability::init(
+            &config,
+            InstanceType::Cloud,
+            "projects/proj/instances/inst/databases/db",
+            true,
+        )
+        .await;
         assert!(
             o11y_emulator.metrics.is_none(),
             "emulator client should have disabled metrics"
         );
 
-        let o11y_omni =
-            Observability::init(&config, InstanceType::Omni, false, Some("my-project")).await;
+        let o11y_omni = Observability::init(
+            &config,
+            InstanceType::Omni,
+            "projects/proj/instances/inst/databases/db",
+            false,
+        )
+        .await;
         assert!(
             o11y_omni.metrics.is_none(),
             "omni client should have disabled metrics"
@@ -632,6 +824,11 @@ mod tests {
 
         let o11y = Observability {
             metrics: Some(Arc::new(metrics)),
+            common_attributes: [
+                opentelemetry::KeyValue::new("client_uid", ""),
+                opentelemetry::KeyValue::new("client_name", ""),
+                opentelemetry::KeyValue::new("database", ""),
+            ],
             meter_provider: Some(Arc::new(provider.clone())),
         };
 
@@ -671,6 +868,11 @@ mod tests {
         let meter_provider = SdkMeterProvider::builder().build();
         let o11y = Observability {
             metrics: None,
+            common_attributes: [
+                opentelemetry::KeyValue::new("client_uid", ""),
+                opentelemetry::KeyValue::new("client_name", ""),
+                opentelemetry::KeyValue::new("database", ""),
+            ],
             meter_provider: Some(Arc::new(meter_provider)),
         };
         // Calling shutdown twice should cleanly handle AlreadyShutdown on the second call.

@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.31.0
+version: v0.31.2-0.20260803194200-96709e948366
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
@@ -1788,6 +1788,21 @@ libraries:
     version: 1.0.0
     copyright_year: "2026"
   - name: google-maps-weather-v1
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-shopping-merchant-conversions-v1
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-shopping-merchant-inventories-v1
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-shopping-merchant-issueresolution-v1
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-shopping-merchant-lfp-v1
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-shopping-merchant-notifications-v1
     version: 1.0.0
     copyright_year: "2026"
   - name: google-shopping-type
