@@ -115,8 +115,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::precondition::Condit
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::precondition::ConditionType, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::precondition::ConditionType as T;
         match self {
-            Self::Exists(v) => Ok(T::from_exists(v.cnv()?)),
-            Self::UpdateTime(v) => Ok(T::from_update_time(v.cnv()?)),
+            Self::Exists(v) => Ok(T::Exists(v.cnv()?)),
+            Self::UpdateTime(v) => Ok(T::UpdateTime(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -172,7 +172,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::transaction_options:
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::transaction_options::read_only::ConsistencySelector, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::transaction_options::read_only::ConsistencySelector as T;
         match self {
-            Self::ReadTime(v) => Ok(T::from_read_time(v.cnv()?)),
+            Self::ReadTime(v) => Ok(T::ReadTime(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -216,8 +216,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::transaction_options:
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::transaction_options::Mode, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::transaction_options::Mode as T;
         match self {
-            Self::ReadOnly(v) => Ok(T::from_read_only(v.cnv()?)),
-            Self::ReadWrite(v) => Ok(T::from_read_write(v.cnv()?)),
+            Self::ReadOnly(v) => Ok(T::ReadOnly(std::boxed::Box::new(v.cnv()?))),
+            Self::ReadWrite(v) => Ok(T::ReadWrite(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -298,21 +298,21 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::value::ValueType> fo
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::value::ValueType, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::value::ValueType as T;
         match self {
-            Self::NullValue(v) => Ok(T::from_null_value(v)),
-            Self::BooleanValue(v) => Ok(T::from_boolean_value(v.cnv()?)),
-            Self::IntegerValue(v) => Ok(T::from_integer_value(v.cnv()?)),
-            Self::DoubleValue(v) => Ok(T::from_double_value(v.cnv()?)),
-            Self::TimestampValue(v) => Ok(T::from_timestamp_value(v.cnv()?)),
-            Self::StringValue(v) => Ok(T::from_string_value(v.cnv()?)),
-            Self::BytesValue(v) => Ok(T::from_bytes_value(v.cnv()?)),
-            Self::ReferenceValue(v) => Ok(T::from_reference_value(v.cnv()?)),
-            Self::GeoPointValue(v) => Ok(T::from_geo_point_value(v.cnv()?)),
-            Self::ArrayValue(v) => Ok(T::from_array_value(v.cnv()?)),
-            Self::MapValue(v) => Ok(T::from_map_value(v.cnv()?)),
-            Self::FieldReferenceValue(v) => Ok(T::from_field_reference_value(v.cnv()?)),
-            Self::VariableReferenceValue(v) => Ok(T::from_variable_reference_value(v.cnv()?)),
-            Self::FunctionValue(v) => Ok(T::from_function_value(v.cnv()?)),
-            Self::PipelineValue(v) => Ok(T::from_pipeline_value(v.cnv()?)),
+            Self::NullValue(v) => Ok(T::NullValue(v.into())),
+            Self::BooleanValue(v) => Ok(T::BooleanValue(v.cnv()?)),
+            Self::IntegerValue(v) => Ok(T::IntegerValue(v.cnv()?)),
+            Self::DoubleValue(v) => Ok(T::DoubleValue(v.cnv()?)),
+            Self::TimestampValue(v) => Ok(T::TimestampValue(std::boxed::Box::new(v.cnv()?))),
+            Self::StringValue(v) => Ok(T::StringValue(v.cnv()?)),
+            Self::BytesValue(v) => Ok(T::BytesValue(v.cnv()?)),
+            Self::ReferenceValue(v) => Ok(T::ReferenceValue(v.cnv()?)),
+            Self::GeoPointValue(v) => Ok(T::GeoPointValue(std::boxed::Box::new(v.cnv()?))),
+            Self::ArrayValue(v) => Ok(T::ArrayValue(std::boxed::Box::new(v.cnv()?))),
+            Self::MapValue(v) => Ok(T::MapValue(std::boxed::Box::new(v.cnv()?))),
+            Self::FieldReferenceValue(v) => Ok(T::FieldReferenceValue(v.cnv()?)),
+            Self::VariableReferenceValue(v) => Ok(T::VariableReferenceValue(v.cnv()?)),
+            Self::FunctionValue(v) => Ok(T::FunctionValue(std::boxed::Box::new(v.cnv()?))),
+            Self::PipelineValue(v) => Ok(T::PipelineValue(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -484,8 +484,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::get_document_request
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::get_document_request::ConsistencySelector, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::get_document_request::ConsistencySelector as T;
         match self {
-            Self::Transaction(v) => Ok(T::from_transaction(v.cnv()?)),
-            Self::ReadTime(v) => Ok(T::from_read_time(v.cnv()?)),
+            Self::Transaction(v) => Ok(T::Transaction(v.cnv()?)),
+            Self::ReadTime(v) => Ok(T::ReadTime(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -526,8 +526,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::list_documents_reque
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::list_documents_request::ConsistencySelector, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::list_documents_request::ConsistencySelector as T;
         match self {
-            Self::Transaction(v) => Ok(T::from_transaction(v.cnv()?)),
-            Self::ReadTime(v) => Ok(T::from_read_time(v.cnv()?)),
+            Self::Transaction(v) => Ok(T::Transaction(v.cnv()?)),
+            Self::ReadTime(v) => Ok(T::ReadTime(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -673,9 +673,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::batch_get_documents_
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::batch_get_documents_request::ConsistencySelector, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::batch_get_documents_request::ConsistencySelector as T;
         match self {
-            Self::Transaction(v) => Ok(T::from_transaction(v.cnv()?)),
-            Self::NewTransaction(v) => Ok(T::from_new_transaction(v.cnv()?)),
-            Self::ReadTime(v) => Ok(T::from_read_time(v.cnv()?)),
+            Self::Transaction(v) => Ok(T::Transaction(v.cnv()?)),
+            Self::NewTransaction(v) => Ok(T::NewTransaction(std::boxed::Box::new(v.cnv()?))),
+            Self::ReadTime(v) => Ok(T::ReadTime(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -722,8 +722,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::batch_get_documents_
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::batch_get_documents_response::Result, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::batch_get_documents_response::Result as T;
         match self {
-            Self::Found(v) => Ok(T::from_found(v.cnv()?)),
-            Self::Missing(v) => Ok(T::from_missing(v.cnv()?)),
+            Self::Found(v) => Ok(T::Found(std::boxed::Box::new(v.cnv()?))),
+            Self::Missing(v) => Ok(T::Missing(v.cnv()?)),
         }
     }
 }
@@ -871,7 +871,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::run_query_request::Q
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::run_query_request::QueryType, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::run_query_request::QueryType as T;
         match self {
-            Self::StructuredQuery(v) => Ok(T::from_structured_query(v.cnv()?)),
+            Self::StructuredQuery(v) => Ok(T::StructuredQuery(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -891,9 +891,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::run_query_request::C
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::run_query_request::ConsistencySelector, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::run_query_request::ConsistencySelector as T;
         match self {
-            Self::Transaction(v) => Ok(T::from_transaction(v.cnv()?)),
-            Self::NewTransaction(v) => Ok(T::from_new_transaction(v.cnv()?)),
-            Self::ReadTime(v) => Ok(T::from_read_time(v.cnv()?)),
+            Self::Transaction(v) => Ok(T::Transaction(v.cnv()?)),
+            Self::NewTransaction(v) => Ok(T::NewTransaction(std::boxed::Box::new(v.cnv()?))),
+            Self::ReadTime(v) => Ok(T::ReadTime(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -935,7 +935,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::run_query_response::
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::run_query_response::ContinuationSelector, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::run_query_response::ContinuationSelector as T;
         match self {
-            Self::Done(v) => Ok(T::from_done(v.cnv()?)),
+            Self::Done(v) => Ok(T::Done(v.cnv()?)),
         }
     }
 }
@@ -981,7 +981,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::run_aggregation_quer
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::run_aggregation_query_request::QueryType, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::run_aggregation_query_request::QueryType as T;
         match self {
-            Self::StructuredAggregationQuery(v) => Ok(T::from_structured_aggregation_query(v.cnv()?)),
+            Self::StructuredAggregationQuery(v) => Ok(T::StructuredAggregationQuery(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -1001,9 +1001,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::run_aggregation_quer
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::run_aggregation_query_request::ConsistencySelector, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::run_aggregation_query_request::ConsistencySelector as T;
         match self {
-            Self::Transaction(v) => Ok(T::from_transaction(v.cnv()?)),
-            Self::NewTransaction(v) => Ok(T::from_new_transaction(v.cnv()?)),
-            Self::ReadTime(v) => Ok(T::from_read_time(v.cnv()?)),
+            Self::Transaction(v) => Ok(T::Transaction(v.cnv()?)),
+            Self::NewTransaction(v) => Ok(T::NewTransaction(std::boxed::Box::new(v.cnv()?))),
+            Self::ReadTime(v) => Ok(T::ReadTime(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -1069,7 +1069,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::partition_query_requ
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::partition_query_request::QueryType, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::partition_query_request::QueryType as T;
         match self {
-            Self::StructuredQuery(v) => Ok(T::from_structured_query(v.cnv()?)),
+            Self::StructuredQuery(v) => Ok(T::StructuredQuery(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -1087,7 +1087,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::partition_query_requ
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::partition_query_request::ConsistencySelector, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::partition_query_request::ConsistencySelector as T;
         match self {
-            Self::ReadTime(v) => Ok(T::from_read_time(v.cnv()?)),
+            Self::ReadTime(v) => Ok(T::ReadTime(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -1223,8 +1223,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::listen_request::Targ
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::listen_request::TargetChange, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::listen_request::TargetChange as T;
         match self {
-            Self::AddTarget(v) => Ok(T::from_add_target(v.cnv()?)),
-            Self::RemoveTarget(v) => Ok(T::from_remove_target(v.cnv()?)),
+            Self::AddTarget(v) => Ok(T::AddTarget(std::boxed::Box::new(v.cnv()?))),
+            Self::RemoveTarget(v) => Ok(T::RemoveTarget(v.cnv()?)),
         }
     }
 }
@@ -1275,11 +1275,11 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::listen_response::Res
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::listen_response::ResponseType, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::listen_response::ResponseType as T;
         match self {
-            Self::TargetChange(v) => Ok(T::from_target_change(v.cnv()?)),
-            Self::DocumentChange(v) => Ok(T::from_document_change(v.cnv()?)),
-            Self::DocumentDelete(v) => Ok(T::from_document_delete(v.cnv()?)),
-            Self::DocumentRemove(v) => Ok(T::from_document_remove(v.cnv()?)),
-            Self::Filter(v) => Ok(T::from_filter(v.cnv()?)),
+            Self::TargetChange(v) => Ok(T::TargetChange(std::boxed::Box::new(v.cnv()?))),
+            Self::DocumentChange(v) => Ok(T::DocumentChange(std::boxed::Box::new(v.cnv()?))),
+            Self::DocumentDelete(v) => Ok(T::DocumentDelete(std::boxed::Box::new(v.cnv()?))),
+            Self::DocumentRemove(v) => Ok(T::DocumentRemove(std::boxed::Box::new(v.cnv()?))),
+            Self::Filter(v) => Ok(T::Filter(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -1337,7 +1337,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::target::query_target
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::target::query_target::QueryType, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::target::query_target::QueryType as T;
         match self {
-            Self::StructuredQuery(v) => Ok(T::from_structured_query(v.cnv()?)),
+            Self::StructuredQuery(v) => Ok(T::StructuredQuery(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -1376,8 +1376,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::target::TargetType> 
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::target::TargetType, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::target::TargetType as T;
         match self {
-            Self::Query(v) => Ok(T::from_query(v.cnv()?)),
-            Self::Documents(v) => Ok(T::from_documents(v.cnv()?)),
+            Self::Query(v) => Ok(T::Query(std::boxed::Box::new(v.cnv()?))),
+            Self::Documents(v) => Ok(T::Documents(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -1396,8 +1396,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::target::ResumeType> 
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::target::ResumeType, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::target::ResumeType as T;
         match self {
-            Self::ResumeToken(v) => Ok(T::from_resume_token(v.cnv()?)),
-            Self::ReadTime(v) => Ok(T::from_read_time(v.cnv()?)),
+            Self::ResumeToken(v) => Ok(T::ResumeToken(v.cnv()?)),
+            Self::ReadTime(v) => Ok(T::ReadTime(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -1478,7 +1478,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::list_collection_ids_
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::list_collection_ids_request::ConsistencySelector, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::list_collection_ids_request::ConsistencySelector as T;
         match self {
-            Self::ReadTime(v) => Ok(T::from_read_time(v.cnv()?)),
+            Self::ReadTime(v) => Ok(T::ReadTime(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -1654,9 +1654,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::structured_query::fi
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::structured_query::filter::FilterType, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::structured_query::filter::FilterType as T;
         match self {
-            Self::CompositeFilter(v) => Ok(T::from_composite_filter(v.cnv()?)),
-            Self::FieldFilter(v) => Ok(T::from_field_filter(v.cnv()?)),
-            Self::UnaryFilter(v) => Ok(T::from_unary_filter(v.cnv()?)),
+            Self::CompositeFilter(v) => Ok(T::CompositeFilter(std::boxed::Box::new(v.cnv()?))),
+            Self::FieldFilter(v) => Ok(T::FieldFilter(std::boxed::Box::new(v.cnv()?))),
+            Self::UnaryFilter(v) => Ok(T::UnaryFilter(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -1759,7 +1759,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::structured_query::un
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::structured_query::unary_filter::OperandType, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::structured_query::unary_filter::OperandType as T;
         match self {
-            Self::Field(v) => Ok(T::from_field(v.cnv()?)),
+            Self::Field(v) => Ok(T::Field(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -1997,9 +1997,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::structured_aggregati
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::structured_aggregation_query::aggregation::Operator, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::structured_aggregation_query::aggregation::Operator as T;
         match self {
-            Self::Count(v) => Ok(T::from_count(v.cnv()?)),
-            Self::Sum(v) => Ok(T::from_sum(v.cnv()?)),
-            Self::Avg(v) => Ok(T::from_avg(v.cnv()?)),
+            Self::Count(v) => Ok(T::Count(std::boxed::Box::new(v.cnv()?))),
+            Self::Sum(v) => Ok(T::Sum(std::boxed::Box::new(v.cnv()?))),
+            Self::Avg(v) => Ok(T::Avg(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -2037,7 +2037,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::structured_aggregati
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::structured_aggregation_query::QueryType, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::structured_aggregation_query::QueryType as T;
         match self {
-            Self::StructuredQuery(v) => Ok(T::from_structured_query(v.cnv()?)),
+            Self::StructuredQuery(v) => Ok(T::StructuredQuery(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -2189,9 +2189,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::write::Operation> fo
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::write::Operation, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::write::Operation as T;
         match self {
-            Self::Update(v) => Ok(T::from_update(v.cnv()?)),
-            Self::Delete(v) => Ok(T::from_delete(v.cnv()?)),
-            Self::Transform(v) => Ok(T::from_transform(v.cnv()?)),
+            Self::Update(v) => Ok(T::Update(std::boxed::Box::new(v.cnv()?))),
+            Self::Delete(v) => Ok(T::Delete(v.cnv()?)),
+            Self::Transform(v) => Ok(T::Transform(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -2249,12 +2249,12 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::document_transform::
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::document_transform::field_transform::TransformType, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::document_transform::field_transform::TransformType as T;
         match self {
-            Self::SetToServerValue(v) => Ok(T::from_set_to_server_value(v)),
-            Self::Increment(v) => Ok(T::from_increment(v.cnv()?)),
-            Self::Maximum(v) => Ok(T::from_maximum(v.cnv()?)),
-            Self::Minimum(v) => Ok(T::from_minimum(v.cnv()?)),
-            Self::AppendMissingElements(v) => Ok(T::from_append_missing_elements(v.cnv()?)),
-            Self::RemoveAllFromArray(v) => Ok(T::from_remove_all_from_array(v.cnv()?)),
+            Self::SetToServerValue(v) => Ok(T::SetToServerValue(v.into())),
+            Self::Increment(v) => Ok(T::Increment(std::boxed::Box::new(v.cnv()?))),
+            Self::Maximum(v) => Ok(T::Maximum(std::boxed::Box::new(v.cnv()?))),
+            Self::Minimum(v) => Ok(T::Minimum(std::boxed::Box::new(v.cnv()?))),
+            Self::AppendMissingElements(v) => Ok(T::AppendMissingElements(std::boxed::Box::new(v.cnv()?))),
+            Self::RemoveAllFromArray(v) => Ok(T::RemoveAllFromArray(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }

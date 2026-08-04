@@ -323,11 +323,11 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::change_str
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::change_stream_record::Record, gaxi::prost::ConvertError> {
         use crate::generated::gapic_dataplane::model::change_stream_record::Record as T;
         match self {
-            Self::DataChangeRecord(v) => Ok(T::from_data_change_record(v.cnv()?)),
-            Self::HeartbeatRecord(v) => Ok(T::from_heartbeat_record(v.cnv()?)),
-            Self::PartitionStartRecord(v) => Ok(T::from_partition_start_record(v.cnv()?)),
-            Self::PartitionEndRecord(v) => Ok(T::from_partition_end_record(v.cnv()?)),
-            Self::PartitionEventRecord(v) => Ok(T::from_partition_event_record(v.cnv()?)),
+            Self::DataChangeRecord(v) => Ok(T::DataChangeRecord(std::boxed::Box::new(v.cnv()?))),
+            Self::HeartbeatRecord(v) => Ok(T::HeartbeatRecord(std::boxed::Box::new(v.cnv()?))),
+            Self::PartitionStartRecord(v) => Ok(T::PartitionStartRecord(std::boxed::Box::new(v.cnv()?))),
+            Self::PartitionEndRecord(v) => Ok(T::PartitionEndRecord(std::boxed::Box::new(v.cnv()?))),
+            Self::PartitionEventRecord(v) => Ok(T::PartitionEventRecord(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -381,7 +381,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::commit_res
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::commit_response::MultiplexedSessionRetry, gaxi::prost::ConvertError> {
         use crate::generated::gapic_dataplane::model::commit_response::MultiplexedSessionRetry as T;
         match self {
-            Self::PrecommitToken(v) => Ok(T::from_precommit_token(v.cnv()?)),
+            Self::PrecommitToken(v) => Ok(T::PrecommitToken(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -430,8 +430,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::key_range:
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::key_range::StartKeyType, gaxi::prost::ConvertError> {
         use crate::generated::gapic_dataplane::model::key_range::StartKeyType as T;
         match self {
-            Self::StartClosed(v) => Ok(T::from_start_closed(v.cnv()?)),
-            Self::StartOpen(v) => Ok(T::from_start_open(v.cnv()?)),
+            Self::StartClosed(v) => Ok(T::StartClosed(std::boxed::Box::new(v.cnv()?))),
+            Self::StartOpen(v) => Ok(T::StartOpen(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -450,8 +450,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::key_range:
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::key_range::EndKeyType, gaxi::prost::ConvertError> {
         use crate::generated::gapic_dataplane::model::key_range::EndKeyType as T;
         match self {
-            Self::EndClosed(v) => Ok(T::from_end_closed(v.cnv()?)),
-            Self::EndOpen(v) => Ok(T::from_end_open(v.cnv()?)),
+            Self::EndClosed(v) => Ok(T::EndClosed(std::boxed::Box::new(v.cnv()?))),
+            Self::EndOpen(v) => Ok(T::EndOpen(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -626,9 +626,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::key_recipe
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::key_recipe::part::ValueType, gaxi::prost::ConvertError> {
         use crate::generated::gapic_dataplane::model::key_recipe::part::ValueType as T;
         match self {
-            Self::Identifier(v) => Ok(T::from_identifier(v.cnv()?)),
-            Self::Value(v) => Ok(T::from_value(v.cnv()?)),
-            Self::Random(v) => Ok(T::from_random(v.cnv()?)),
+            Self::Identifier(v) => Ok(T::Identifier(v.cnv()?)),
+            Self::Value(v) => Ok(T::Value(std::boxed::Box::new(v.cnv()?))),
+            Self::Random(v) => Ok(T::Random(v.cnv()?)),
         }
     }
 }
@@ -680,9 +680,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::key_recipe
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::key_recipe::Target, gaxi::prost::ConvertError> {
         use crate::generated::gapic_dataplane::model::key_recipe::Target as T;
         match self {
-            Self::TableName(v) => Ok(T::from_table_name(v.cnv()?)),
-            Self::IndexName(v) => Ok(T::from_index_name(v.cnv()?)),
-            Self::OperationUid(v) => Ok(T::from_operation_uid(v.cnv()?)),
+            Self::TableName(v) => Ok(T::TableName(v.cnv()?)),
+            Self::IndexName(v) => Ok(T::IndexName(v.cnv()?)),
+            Self::OperationUid(v) => Ok(T::OperationUid(v.cnv()?)),
         }
     }
 }
@@ -942,13 +942,13 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::mutation::
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::mutation::Operation, gaxi::prost::ConvertError> {
         use crate::generated::gapic_dataplane::model::mutation::Operation as T;
         match self {
-            Self::Insert(v) => Ok(T::from_insert(v.cnv()?)),
-            Self::Update(v) => Ok(T::from_update(v.cnv()?)),
-            Self::InsertOrUpdate(v) => Ok(T::from_insert_or_update(v.cnv()?)),
-            Self::Replace(v) => Ok(T::from_replace(v.cnv()?)),
-            Self::Delete(v) => Ok(T::from_delete(v.cnv()?)),
-            Self::Send(v) => Ok(T::from_send(v.cnv()?)),
-            Self::Ack(v) => Ok(T::from_ack(v.cnv()?)),
+            Self::Insert(v) => Ok(T::Insert(std::boxed::Box::new(v.cnv()?))),
+            Self::Update(v) => Ok(T::Update(std::boxed::Box::new(v.cnv()?))),
+            Self::InsertOrUpdate(v) => Ok(T::InsertOrUpdate(std::boxed::Box::new(v.cnv()?))),
+            Self::Replace(v) => Ok(T::Replace(std::boxed::Box::new(v.cnv()?))),
+            Self::Delete(v) => Ok(T::Delete(std::boxed::Box::new(v.cnv()?))),
+            Self::Send(v) => Ok(T::Send(std::boxed::Box::new(v.cnv()?))),
+            Self::Ack(v) => Ok(T::Ack(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -1233,8 +1233,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::result_set
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::result_set_stats::RowCount, gaxi::prost::ConvertError> {
         use crate::generated::gapic_dataplane::model::result_set_stats::RowCount as T;
         match self {
-            Self::RowCountExact(v) => Ok(T::from_row_count_exact(v.cnv()?)),
-            Self::RowCountLowerBound(v) => Ok(T::from_row_count_lower_bound(v.cnv()?)),
+            Self::RowCountExact(v) => Ok(T::RowCountExact(v.cnv()?)),
+            Self::RowCountLowerBound(v) => Ok(T::RowCountLowerBound(v.cnv()?)),
         }
     }
 }
@@ -1587,8 +1587,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::directed_r
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::directed_read_options::Replicas, gaxi::prost::ConvertError> {
         use crate::generated::gapic_dataplane::model::directed_read_options::Replicas as T;
         match self {
-            Self::IncludeReplicas(v) => Ok(T::from_include_replicas(v.cnv()?)),
-            Self::ExcludeReplicas(v) => Ok(T::from_exclude_replicas(v.cnv()?)),
+            Self::IncludeReplicas(v) => Ok(T::IncludeReplicas(std::boxed::Box::new(v.cnv()?))),
+            Self::ExcludeReplicas(v) => Ok(T::ExcludeReplicas(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -2013,8 +2013,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::commit_req
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::commit_request::Transaction, gaxi::prost::ConvertError> {
         use crate::generated::gapic_dataplane::model::commit_request::Transaction as T;
         match self {
-            Self::TransactionId(v) => Ok(T::from_transaction_id(v.cnv()?)),
-            Self::SingleUseTransaction(v) => Ok(T::from_single_use_transaction(v.cnv()?)),
+            Self::TransactionId(v) => Ok(T::TransactionId(v.cnv()?)),
+            Self::SingleUseTransaction(v) => Ok(T::SingleUseTransaction(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -2233,11 +2233,11 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::transactio
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::transaction_options::read_only::TimestampBound, gaxi::prost::ConvertError> {
         use crate::generated::gapic_dataplane::model::transaction_options::read_only::TimestampBound as T;
         match self {
-            Self::Strong(v) => Ok(T::from_strong(v.cnv()?)),
-            Self::MinReadTimestamp(v) => Ok(T::from_min_read_timestamp(v.cnv()?)),
-            Self::MaxStaleness(v) => Ok(T::from_max_staleness(v.cnv()?)),
-            Self::ReadTimestamp(v) => Ok(T::from_read_timestamp(v.cnv()?)),
-            Self::ExactStaleness(v) => Ok(T::from_exact_staleness(v.cnv()?)),
+            Self::Strong(v) => Ok(T::Strong(v.cnv()?)),
+            Self::MinReadTimestamp(v) => Ok(T::MinReadTimestamp(std::boxed::Box::new(v.cnv()?))),
+            Self::MaxStaleness(v) => Ok(T::MaxStaleness(std::boxed::Box::new(v.cnv()?))),
+            Self::ReadTimestamp(v) => Ok(T::ReadTimestamp(std::boxed::Box::new(v.cnv()?))),
+            Self::ExactStaleness(v) => Ok(T::ExactStaleness(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -2284,9 +2284,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::transactio
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::transaction_options::Mode, gaxi::prost::ConvertError> {
         use crate::generated::gapic_dataplane::model::transaction_options::Mode as T;
         match self {
-            Self::ReadWrite(v) => Ok(T::from_read_write(v.cnv()?)),
-            Self::PartitionedDml(v) => Ok(T::from_partitioned_dml(v.cnv()?)),
-            Self::ReadOnly(v) => Ok(T::from_read_only(v.cnv()?)),
+            Self::ReadWrite(v) => Ok(T::ReadWrite(std::boxed::Box::new(v.cnv()?))),
+            Self::PartitionedDml(v) => Ok(T::PartitionedDml(std::boxed::Box::new(v.cnv()?))),
+            Self::ReadOnly(v) => Ok(T::ReadOnly(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -2352,9 +2352,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::transactio
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::transaction_selector::Selector, gaxi::prost::ConvertError> {
         use crate::generated::gapic_dataplane::model::transaction_selector::Selector as T;
         match self {
-            Self::SingleUse(v) => Ok(T::from_single_use(v.cnv()?)),
-            Self::Id(v) => Ok(T::from_id(v.cnv()?)),
-            Self::Begin(v) => Ok(T::from_begin(v.cnv()?)),
+            Self::SingleUse(v) => Ok(T::SingleUse(std::boxed::Box::new(v.cnv()?))),
+            Self::Id(v) => Ok(T::Id(v.cnv()?)),
+            Self::Begin(v) => Ok(T::Begin(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
