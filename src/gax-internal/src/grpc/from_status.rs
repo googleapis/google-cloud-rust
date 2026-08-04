@@ -35,6 +35,31 @@ pub fn to_gax_error(status: tonic::Status) -> Error {
         return Error::connect(status);
     }
     let headers = status.metadata().clone().into_headers();
+    // TODO(#5991): Treat `Unavailable` with empty metadata as a
+    // connect error so retry policies correctly recognize pre-request
+    // connection failures as safe to retry (`err.is_connect() == true`).
+    //
+    // `grpc-rust` discards the `.source()` error chain (`tonic::ConnectError`)
+    // when converting transport errors to `grpc::StatusError`, so when that
+    // `StatusError` is converted back to a `tonic::Status` in
+    // `trailers_to_tonic_status`, we can't recover the source of the error. We
+    // fallback on `grpc-rust`'s behaviour of returning `tonic::Code::Unavailable`
+    // with empty metadata to detect when a TCP connection cannot be established.
+    //
+    // Checking only `Code::Unavailable` with empty metadata is too broad because a
+    // server can return `Unavailable` without trailing metadata on an active stream.
+    // We use a message substring heuristic to distinguish actual TCP connect
+    // failures from server stream errors.
+    //
+    // Going forward, check with `grpc-rust` whether `.source()` and other error
+    // information can be preserved.
+    #[cfg(google_cloud_unstable_grpc_rust)]
+    if status.code() == tonic::Code::Unavailable && headers.is_empty() {
+        let msg = status.message().to_lowercase();
+        if msg.contains("connection refused") || msg.contains("connect error") {
+            return Error::connect(status);
+        }
+    }
     if status.source().is_some() {
         return Error::transport(headers, status);
     }
@@ -218,5 +243,16 @@ mod tests {
             )]
         );
         Ok(())
+    }
+
+    #[cfg(google_cloud_unstable_grpc_rust)]
+    #[test]
+    fn gax_error_unavailable_with_empty_metadata_maps_to_connect_error() {
+        let status = tonic::Status::new(
+            tonic::Code::Unavailable,
+            "Connection refused (os error 111)",
+        );
+        let got = to_gax_error(status);
+        assert!(got.is_connect(), "{got:?}");
     }
 }
