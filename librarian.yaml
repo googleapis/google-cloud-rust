@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.31.2-0.20260803194200-96709e948366
+version: v0.31.2-0.20260804190831-b07a8a79b63a
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
@@ -490,6 +490,21 @@ libraries:
         - output: src/bigquery/src/generated
           api_path: google/cloud/bigquery/v2
           template: bigquery
+          skipped_ids:
+            # skip non job type fields
+            - .google.cloud.bigquery.v2.JobConfiguration.copy
+            - .google.cloud.bigquery.v2.JobConfiguration.load
+            - .google.cloud.bigquery.v2.JobConfiguration.extract
+            # we want to control format options on veneer
+            - .google.cloud.bigquery.v2.QueryRequest.format_options
+            - .google.cloud.bigquery.v2.GetQueryResultsRequest.format_options
+            # output only but not properly marked on protos
+            - .google.cloud.bigquery.v2.QueryRequest.kind
+            - .google.cloud.bigquery.v2.JobConfiguration.kind
+            - .google.cloud.bigquery.v2.JobConfiguration.job_type
+            # skip rows since it takes a lot of memory
+            - .google.cloud.bigquery.v2.GetQueryResultsResponse.rows
+            - .google.cloud.bigquery.v2.QueryResponse.rows
   - name: google-cloud-bigquery-analyticshub-v1
     version: 1.13.0
     copyright_year: "2025"
