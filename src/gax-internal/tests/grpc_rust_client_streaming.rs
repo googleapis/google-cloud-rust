@@ -21,11 +21,10 @@ mod tests {
     // TODO(#5991): Consider refactoring some tests to run against both `grpc::Client` and `grpc::GrpcRustClient`.
 
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+    use google_cloud_gax::options::RequestOptions;
     use google_cloud_gax_internal::grpc::GrpcRustClient;
-    use google_cloud_gax_internal::grpc::grpc_rust::bidi::{GrpcRustSend, ReceiveTask, RecvItem};
+    use google_cloud_gax_internal::grpc::grpc_rust::GrpcRustStreaming;
     use google_cloud_gax_internal::options::ClientConfig;
-    use grpc::client::{CallOptions, Invoke, SendOptions, SendStream};
-    use grpc::core::RequestHeaders;
     use grpc_server::google::test::v1::{EchoRequest, EchoResponse};
     use grpc_server::start_echo_server;
     use pretty_assertions::assert_eq;
@@ -34,177 +33,331 @@ mod tests {
     const MSG2: &str = "msg2";
 
     #[tokio::test]
-    async fn test_grpc_rust_client_streaming_response_pump() -> anyhow::Result<()> {
+    async fn test_bidi_stream() -> anyhow::Result<()> {
         // Arrange
-        let (_client, mut send_stream, mut rx, _pump_task, _server_task) =
-            start_client_stream().await?;
-
-        // Consume and assert initial headers emitted upon RPC start
-        let first_item = rx
-            .recv()
-            .await
-            .expect("response pump should yield at least one item")?;
+        let TestBidiSession {
+            tx,
+            mut stream,
+            metadata,
+            ..
+        } = start_bidi_stream().await?;
         assert!(
-            matches!(first_item, Some(RecvItem::Headers(_))),
-            "expected initial headers"
+            !metadata.is_empty(),
+            "expected initial metadata headers from response"
         );
 
         // Act
-        send_echo_request(&mut send_stream, MSG1).await?;
+        send_echo_request(&tx, MSG1).await?;
 
         // Assert
-        let res1 = recv_echo_response(&mut rx).await?;
+        let res1 = recv_echo_response(&mut stream).await?;
         assert_eq!(res1.message, MSG1);
 
         // Act
-        send_echo_request(&mut send_stream, MSG2).await?;
+        send_echo_request(&tx, MSG2).await?;
 
         // Assert
-        let res2 = recv_echo_response(&mut rx).await?;
+        let res2 = recv_echo_response(&mut stream).await?;
         assert_eq!(res2.message, MSG2);
 
         // Act
-        drop(send_stream);
+        drop(tx);
 
         // Assert
-        let end_res = rx
-            .recv()
-            .await
-            .expect("response pump should yield stream termination")?;
-        assert!(
-            end_res.is_none(),
-            "response pump should yield stream termination"
-        );
+        let end_res = stream.message().await?;
+        assert_eq!(end_res, None, "stream should yield None upon completion");
 
         Ok(())
     }
 
     #[tokio::test]
-    async fn test_grpc_rust_client_streaming_stream_remains_usable_even_after_cancellation()
-    -> anyhow::Result<()> {
+    async fn test_bidi_stream_remains_usable_even_after_cancellation() -> anyhow::Result<()> {
         // Arrange
-        let (_client, mut send_stream, mut rx, _pump_task, _server_task) =
-            start_client_stream().await?;
-        consume_initial_headers(&mut rx).await?;
+        let TestBidiSession { tx, mut stream, .. } = start_bidi_stream().await?;
 
         // Act
         // Attempt to receive the next item with a short timeout before any message is
-        // sent, thereby cancelling rx.recv()
-        let recv_result =
-            tokio::time::timeout(std::time::Duration::from_millis(50), rx.recv()).await;
+        // sent, thereby cancelling recv_echo_response
+        let cancelled_read = tokio::time::timeout(
+            std::time::Duration::from_millis(50),
+            recv_echo_response(&mut stream),
+        )
+        .await;
 
         // Assert
         assert!(
-            recv_result.is_err(),
-            "recv should time out when no message is sent"
+            cancelled_read.is_err(),
+            "cancelled_read should time out when no request is sent"
         );
 
         // Act
-        // Send request message after read cancellation
-        send_echo_request(&mut send_stream, MSG1).await?;
+        send_echo_request(&tx, MSG1).await?;
 
         // Assert
-        // Receiver should still successfully yield the sent message
-        let res = recv_echo_response(&mut rx).await?;
+        let res = recv_echo_response(&mut stream).await?;
         assert_eq!(res.message, MSG1);
 
         Ok(())
     }
 
     #[tokio::test]
-    async fn test_grpc_rust_client_streaming_cancel_pump_task() -> anyhow::Result<()> {
+    async fn test_bidi_stream_drop_closes_channel() -> anyhow::Result<()> {
         // Arrange
-        let (_client, mut send_stream, mut rx, pump_task, _server_task) =
-            start_client_stream().await?;
-        consume_initial_headers(&mut rx).await?;
+        let TestBidiSession { tx, mut stream, .. } = start_bidi_stream().await?;
 
         // Act
-        send_echo_request(&mut send_stream, MSG1).await?;
+        send_echo_request(&tx, MSG1).await?;
 
         // Assert
-        let res1 = recv_echo_response(&mut rx).await?;
+        let res = recv_echo_response(&mut stream).await?;
+        assert_eq!(res.message, MSG1);
+
+        // Act
+        drop(stream);
+
+        // Assert
+        tokio::time::timeout(std::time::Duration::from_secs(5), tx.closed())
+            .await
+            .expect("dropping the stream should close the request channel");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_bidi_stream_server_error_mid_stream() -> anyhow::Result<()> {
+        // Arrange
+        let TestBidiSession { tx, mut stream, .. } = start_bidi_stream().await?;
+
+        // Act
+        send_echo_request(&tx, MSG1).await?;
+
+        // Assert
+        let res1 = recv_echo_response(&mut stream).await?;
         assert_eq!(res1.message, MSG1);
 
         // Act
-        drop(pump_task);
+        // Sending an empty message causes our test echo server to return InvalidArgument and close the stream
+        send_echo_request(&tx, "").await?;
 
         // Assert
-        let end_res = rx.recv().await;
+        let err = stream
+            .message()
+            .await
+            .expect_err("stream should return status error when server fails mid-stream");
+        assert_eq!(err.code(), tonic::Code::InvalidArgument);
         assert!(
-            end_res.is_none(),
-            "channel should return None after pump_task is dropped"
+            err.message().contains("empty message"),
+            "expected 'empty message' in error message, got '{}'",
+            err.message()
+        );
+
+        // Assert
+        let subsequent = stream.message().await?;
+        assert_eq!(
+            subsequent, None,
+            "subsequent calls after stream termination should yield None"
         );
 
         Ok(())
     }
 
-    /// Starts an echo server and initializes a streaming RPC for testing.
-    async fn start_client_stream() -> anyhow::Result<(
-        GrpcRustClient,
-        impl SendStream,
-        tokio::sync::mpsc::Receiver<tonic::Result<Option<RecvItem<EchoResponse>>>>,
-        ReceiveTask,
-        tokio::task::JoinHandle<()>,
-    )> {
+    #[tokio::test]
+    async fn test_bidi_stream_initial_error() -> anyhow::Result<()> {
+        // Act
+        let res = start_bidi_stream_with_params("resource=error").await;
+
+        // Assert
+        let err = res
+            .expect_err("bidi_stream should fail when server returns an initial error")
+            .downcast::<google_cloud_gax::error::Error>()
+            .expect("expected a google_cloud_gax::error::Error");
+
+        let status = err.status().expect("expected status");
+        assert_eq!(status.code, google_cloud_gax::error::rpc::Code::Aborted);
+        assert_eq!(status.message, "test with initial error");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_bidi_stream_with_status() -> anyhow::Result<()> {
+        // Arrange
+        let TestBidiSession {
+            tx,
+            mut stream,
+            metadata,
+            ..
+        } = start_bidi_stream_with_status()
+            .await?
+            .expect("should succeed");
+        assert!(
+            !metadata.is_empty(),
+            "expected initial metadata headers from response"
+        );
+
+        // Act
+        send_echo_request(&tx, MSG1).await?;
+
+        // Assert
+        let res1 = recv_echo_response(&mut stream).await?;
+        assert_eq!(res1.message, MSG1);
+
+        // Act
+        send_echo_request(&tx, MSG2).await?;
+
+        // Assert
+        let res2 = recv_echo_response(&mut stream).await?;
+        assert_eq!(res2.message, MSG2);
+
+        // Act
+        drop(tx);
+
+        // Assert
+        let end_res = stream.message().await?;
+        assert_eq!(end_res, None, "stream should yield None upon completion");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_bidi_stream_with_status_initial_error() -> anyhow::Result<()> {
+        // Act
+        let result = start_bidi_stream_with_status_params("resource=error").await?;
+
+        // Assert
+        let err = result.expect_err("should return Err(status) on initial error");
+        assert_eq!(err.code(), tonic::Code::Aborted);
+        assert!(
+            err.message().contains("test with initial error"),
+            "expected 'test with initial error' in error message, got '{}'",
+            err.message()
+        );
+
+        Ok(())
+    }
+
+    struct TestBidiSession {
+        /// For sending outbound request messages.
+        tx: tokio::sync::mpsc::Sender<EchoRequest>,
+        /// For reading inbound response messages.
+        stream: GrpcRustStreaming<EchoResponse>,
+        /// Initial server response metadata.
+        metadata: tonic::metadata::MetadataMap,
+        _client: GrpcRustClient,
+        /// Task handle for the echo server.
+        _server_task: tokio::task::JoinHandle<()>,
+    }
+
+    impl std::fmt::Debug for TestBidiSession {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            f.debug_struct("TestBidiSession")
+                .field("tx", &self.tx)
+                .field("metadata", &self.metadata)
+                .finish_non_exhaustive()
+        }
+    }
+
+    /// Starts an echo server and initializes a bidirectional streaming RPC using `bidi_stream`.
+    async fn start_bidi_stream() -> anyhow::Result<TestBidiSession> {
+        start_bidi_stream_with_params("").await
+    }
+
+    /// Starts an echo server and initializes a bidirectional streaming RPC using `bidi_stream` with custom request parameters.
+    async fn start_bidi_stream_with_params(
+        request_params: &str,
+    ) -> anyhow::Result<TestBidiSession> {
         let (endpoint, server_task) = start_echo_server().await?;
         let mut config = ClientConfig::default();
         config.cred = Some(Anonymous::new().build());
         let client = GrpcRustClient::new(config, &endpoint).await?;
 
-        // Start the RPC
-        let headers = RequestHeaders::new().with_method_name("/google.test.v1.EchoService/Chat");
-        let (send_stream, recv_stream) = client
-            .invoker()
-            .invoke(headers, CallOptions::default())
-            .await;
+        let (tx, rx) = tokio::sync::mpsc::channel::<EchoRequest>(10);
+        let request_stream = tokio_stream::wrappers::ReceiverStream::new(rx);
 
-        // Start the response pump
-        let (rx, pump_task) = ReceiveTask::start::<EchoResponse, _>(recv_stream);
-
-        Ok((client, send_stream, rx, pump_task, server_task))
-    }
-
-    /// Sends the given message to the echo server
-    async fn send_echo_request(send_stream: &mut impl SendStream, msg: &str) -> anyhow::Result<()> {
-        send_stream
-            .send(
-                &GrpcRustSend(EchoRequest {
-                    message: msg.to_string(),
-                    ..Default::default()
-                }),
-                SendOptions::default(),
+        let response = client
+            .bidi_stream::<EchoRequest, EchoResponse>(
+                tonic::Extensions::new(),
+                http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Chat"),
+                request_stream,
+                RequestOptions::default(),
+                "test-only-api-client/1.0",
+                request_params,
             )
-            .await
-            .map_err(|_| anyhow::anyhow!("failed to send message '{msg}'"))
+            .await?;
+
+        let (metadata, stream, _) = response.into_parts();
+        Ok(TestBidiSession {
+            tx,
+            stream,
+            metadata,
+            _client: client,
+            _server_task: server_task,
+        })
     }
 
-    /// Consumes initial headers emitted by the response pump upon RPC start.
-    async fn consume_initial_headers(
-        rx: &mut tokio::sync::mpsc::Receiver<tonic::Result<Option<RecvItem<EchoResponse>>>>,
+    /// Starts an echo server and initializes a bidirectional streaming RPC using `bidi_stream_with_status`.
+    async fn start_bidi_stream_with_status() -> anyhow::Result<tonic::Result<TestBidiSession>> {
+        start_bidi_stream_with_status_params("").await
+    }
+
+    /// Starts an echo server and initializes a bidirectional streaming RPC using `bidi_stream_with_status` with custom request parameters.
+    async fn start_bidi_stream_with_status_params(
+        request_params: &str,
+    ) -> anyhow::Result<tonic::Result<TestBidiSession>> {
+        let (endpoint, server_task) = start_echo_server().await?;
+        let mut config = ClientConfig::default();
+        config.cred = Some(Anonymous::new().build());
+        let client = GrpcRustClient::new(config, &endpoint).await?;
+
+        let (tx, rx) = tokio::sync::mpsc::channel::<EchoRequest>(10);
+        let request_stream = tokio_stream::wrappers::ReceiverStream::new(rx);
+
+        let result = client
+            .bidi_stream_with_status::<EchoRequest, EchoResponse>(
+                tonic::Extensions::new(),
+                http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Chat"),
+                request_stream,
+                RequestOptions::default(),
+                "test-only-api-client/1.0",
+                request_params,
+            )
+            .await?;
+
+        match result {
+            Ok(response) => {
+                let (metadata, stream, _) = response.into_parts();
+                Ok(Ok(TestBidiSession {
+                    tx,
+                    stream,
+                    metadata,
+                    _client: client,
+                    _server_task: server_task,
+                }))
+            }
+            Err(status) => Ok(Err(status)),
+        }
+    }
+
+    /// Sends an echo request with the given message string.
+    async fn send_echo_request(
+        tx: &tokio::sync::mpsc::Sender<EchoRequest>,
+        msg: &str,
     ) -> anyhow::Result<()> {
-        let item = rx
-            .recv()
-            .await
-            .expect("response pump should yield initial headers")?;
-        assert!(
-            matches!(item, Some(RecvItem::Headers(_))),
-            "expected initial headers, got {item:?}"
-        );
-        Ok(())
+        tx.send(EchoRequest {
+            message: msg.to_string(),
+            ..Default::default()
+        })
+        .await
+        .map_err(|_| anyhow::anyhow!("failed to send message '{msg}'"))
     }
 
-    /// Receives a response message from the response pump. Fails if headers are received.
+    /// Receives the next echo response from the stream.
     async fn recv_echo_response(
-        rx: &mut tokio::sync::mpsc::Receiver<tonic::Result<Option<RecvItem<EchoResponse>>>>,
+        stream: &mut GrpcRustStreaming<EchoResponse>,
     ) -> anyhow::Result<EchoResponse> {
-        let res = rx
-            .recv()
-            .await
-            .expect("response pump should yield a response item")?
-            .expect("expected a response item");
-        let RecvItem::Message(msg) = res else {
-            panic!("expected response message, got {res:?}");
-        };
-        Ok(msg)
+        stream
+            .message()
+            .await?
+            .ok_or_else(|| anyhow::anyhow!("expected response message, got end of stream"))
     }
 }

@@ -229,7 +229,6 @@ where
     }
 }
 
-// TODO(#5991): Add tests for GrpcRustStreaming in an upcoming PR.
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -237,6 +236,7 @@ mod tests {
     use grpc::client::{RecvStream, ResponseStreamItem, SendOptions, SendStream};
     use grpc::core::{RecvMessage, ResponseHeaders, SendMessage, Trailers};
     use grpc::metadata::MetadataValue;
+    use grpc::{StatusCodeError, StatusError};
     use pretty_assertions::assert_eq;
     use std::sync::{Arc, Mutex};
 
@@ -246,7 +246,38 @@ mod tests {
         value: String,
     }
 
-    // TODO(#5991): Add tests for failure paths.
+    struct TestSendStream {
+        observed_messages: Arc<Mutex<Vec<TestMessage>>>,
+        notify: Arc<tokio::sync::Notify>,
+    }
+
+    impl SendStream for TestSendStream {
+        async fn send(
+            &mut self,
+            message: &dyn SendMessage,
+            _options: SendOptions,
+        ) -> Result<(), ()> {
+            let mut encoded = message.encode().map_err(|_| ())?;
+            let decoded = TestMessage::decode(&mut encoded).map_err(|_| ())?;
+            self.observed_messages
+                .lock()
+                .expect("lock observed messages")
+                .push(decoded);
+            self.notify.notify_one();
+            Ok(())
+        }
+    }
+
+    // TODO(#5991): Refactor common stream state test mocks across grpc_rust tests.
+    #[derive(Default)]
+    enum StreamState {
+        #[default]
+        Initial,
+        HeadersSent,
+        MessageSent,
+        Done,
+    }
+
     #[tokio::test]
     async fn bidi_call_yields_response_messages() -> anyhow::Result<()> {
         // Arrange
@@ -284,38 +315,6 @@ mod tests {
                     },
                 )
             }
-        }
-
-        struct TestSendStream {
-            observed_messages: Arc<Mutex<Vec<TestMessage>>>,
-            notify: Arc<tokio::sync::Notify>,
-        }
-
-        impl SendStream for TestSendStream {
-            async fn send(
-                &mut self,
-                message: &dyn SendMessage,
-                _options: SendOptions,
-            ) -> Result<(), ()> {
-                let mut encoded = message.encode().map_err(|_| ())?;
-                let decoded = TestMessage::decode(&mut encoded).map_err(|_| ())?;
-                self.observed_messages
-                    .lock()
-                    .expect("lock observed messages")
-                    .push(decoded);
-                self.notify.notify_one();
-                Ok(())
-            }
-        }
-
-        // TODO(#5991): Refactor common stream state test mocks across grpc_rust tests.
-        #[derive(Default)]
-        enum StreamState {
-            #[default]
-            Initial,
-            HeadersSent,
-            MessageSent,
-            Done,
         }
 
         /// A mock [`RecvStream`] that simulates a gRPC response stream sequence:
@@ -418,6 +417,76 @@ mod tests {
             *observed_messages.lock().expect("lock observed messages"),
             [request]
         );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn bidi_call_yields_error_on_server_error_status() -> anyhow::Result<()> {
+        // Arrange
+        const METHOD_NAME: &str = "/google.test.v1.Test/Bidi";
+        const ERROR_MESSAGE: &str = "stream aborted";
+
+        struct TestErrorInvoker;
+
+        impl Invoke for TestErrorInvoker {
+            type SendStream = TestSendStream;
+            type RecvStream = TestErrorRecvStream;
+
+            async fn invoke(
+                &self,
+                _headers: RequestHeaders,
+                _options: CallOptions,
+            ) -> (Self::SendStream, Self::RecvStream) {
+                (
+                    TestSendStream {
+                        observed_messages: Arc::new(Mutex::new(Vec::new())),
+                        notify: Arc::new(tokio::sync::Notify::new()),
+                    },
+                    TestErrorRecvStream {
+                        state: StreamState::default(),
+                    },
+                )
+            }
+        }
+
+        struct TestErrorRecvStream {
+            state: StreamState,
+        }
+
+        impl RecvStream for TestErrorRecvStream {
+            async fn recv(&mut self, _message: &mut dyn RecvMessage) -> ResponseStreamItem {
+                match self.state {
+                    StreamState::Initial => {
+                        self.state = StreamState::HeadersSent;
+                        ResponseStreamItem::Headers(ResponseHeaders::new())
+                    }
+                    _ => {
+                        self.state = StreamState::Done;
+                        let err = StatusError::new(StatusCodeError::Aborted, ERROR_MESSAGE);
+                        ResponseStreamItem::Trailers(Trailers::new(Err(err)))
+                    }
+                }
+            }
+        }
+
+        let invoker = TestErrorInvoker;
+        let headers = RequestHeaders::new().with_method_name(METHOD_NAME);
+
+        // Act
+        let response =
+            invoke_bidi::<TestMessage, TestMessage, _>(&invoker, headers, tokio_stream::empty())
+                .await?;
+
+        // Assert
+        let mut stream = response.into_inner();
+        let err = stream
+            .message()
+            .await
+            .expect_err("should return status error from trailers");
+        assert_eq!(err.code(), tonic::Code::Aborted);
+        assert_eq!(err.message(), ERROR_MESSAGE);
+        assert_eq!(stream.message().await?, None);
+
         Ok(())
     }
 }
