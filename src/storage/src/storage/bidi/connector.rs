@@ -807,7 +807,7 @@ mod tests {
         let mut options = test_options();
         options.set_read_resume_policy(Arc::new(AlwaysResume.with_attempt_limit(1)));
         let mut connector = Connector::new(spec, options, client);
-        let status = Status::unavailable("try-again");
+        let status = Status::resource_exhausted("try-again");
         let err = connector.reconnect(status, Vec::new()).await.unwrap_err();
         assert!(err.status().is_some(), "{err:?}");
 
