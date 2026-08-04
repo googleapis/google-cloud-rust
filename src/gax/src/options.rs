@@ -229,17 +229,20 @@ pub trait RequestOptionsBuilder: internal::RequestBuilder {
         K: TryInto<http::header::HeaderName>,
         V: TryInto<http::header::HeaderValue>,
     {
-        if let (Ok(name), Ok(value)) = (name.try_into(), value.try_into()) {
-            use internal::RequestOptionsExt;
-            let mut headers = self
-                .request_options()
-                .get_extension::<http::HeaderMap>()
-                .cloned()
-                .unwrap_or_default();
-            headers.insert(name, value);
-            let mut options = std::mem::take(self.request_options());
-            options = options.insert_extension(headers);
-            *self.request_options() = options;
+        match (name.try_into(), value.try_into()) {
+            (Ok(name), Ok(value)) => {
+                use internal::RequestOptionsExt;
+                let mut headers = self
+                    .request_options()
+                    .get_extension::<http::HeaderMap>()
+                    .cloned()
+                    .unwrap_or_default();
+                headers.insert(name, value);
+                let mut options = std::mem::take(self.request_options());
+                options = options.insert_extension(headers);
+                *self.request_options() = options;
+            }
+            _ => panic!("invalid header name or value"),
         }
         self
     }
@@ -561,8 +564,7 @@ mod tests {
     fn request_options_builder_custom_headers() {
         let mut builder = TestBuilder::default()
             .with_custom_header("x-custom-1", "value1")
-            .with_custom_header("x-custom-2", "value2")
-            .with_custom_header("invalid header name", "val");
+            .with_custom_header("x-custom-2", "value2");
 
         let headers = builder
             .request_options()
@@ -577,6 +579,17 @@ mod tests {
             headers.get("x-custom-2").and_then(|v| v.to_str().ok()),
             Some("value2")
         );
-        assert!(headers.get("invalid header name").is_none());
+    }
+
+    #[test]
+    #[should_panic(expected = "invalid header name or value")]
+    fn request_options_builder_custom_headers_invalid_name() {
+        let _ = TestBuilder::default().with_custom_header("invalid header name", "val");
+    }
+
+    #[test]
+    #[should_panic(expected = "invalid header name or value")]
+    fn request_options_builder_custom_headers_invalid_value() {
+        let _ = TestBuilder::default().with_custom_header("x-custom-1", "val\0ue");
     }
 }
