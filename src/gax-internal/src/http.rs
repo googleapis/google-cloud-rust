@@ -56,7 +56,8 @@ use std::sync::Arc;
 use std::time::Duration;
 use tracing::Instrument;
 
-const X_GOOG_USER_PROJECT: &str = "x-goog-user-project";
+const X_GOOG_USER_PROJECT: http::header::HeaderName =
+    http::header::HeaderName::from_static("x-goog-user-project");
 
 #[derive(Clone, Debug)]
 pub struct ReqwestClient {
@@ -428,20 +429,14 @@ impl ReqwestClient {
             .cloned()
             .unwrap_or_default();
 
-        // Sanitize user custom headers by stripping away any keys conflicting with system headers.
-        for key in [
-            http::header::USER_AGENT,
-            http::header::HeaderName::from_static(X_GOOG_USER_PROJECT),
-        ] {
+        // Strip any custom headers that collide with system headers or credential headers.
+        for key in cred_headers
+            .keys()
+            .chain([&http::header::USER_AGENT, &X_GOOG_USER_PROJECT])
+        {
             headers.remove(key);
         }
-
-        // System headers overwrite custom headers.
-        for (k, v) in cred_headers.into_iter() {
-            if let Some(k) = k {
-                headers.insert(k, v);
-            }
-        }
+        headers.extend(cred_headers);
 
         if let Some(user_agent) = options.user_agent() {
             headers.insert(
@@ -452,7 +447,7 @@ impl ReqwestClient {
 
         if let Some(quota_project) = options.quota_project() {
             headers.insert(
-                http::header::HeaderName::from_static(X_GOOG_USER_PROJECT),
+                X_GOOG_USER_PROJECT,
                 http::header::HeaderValue::from_str(quota_project).map_err(Error::ser)?,
             );
         }
