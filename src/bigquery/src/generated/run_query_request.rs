@@ -42,6 +42,9 @@ pub struct RunQueryRequest {
     /// general usage.
     pub continuous: std::option::Option<wkt::BoolValue>,
 
+    /// [Pick one] Copies a table.
+    pub copy: std::option::Option<crate::model::JobConfigurationTableCopy>,
+
     /// Optional. Specifies whether the job is allowed to create new tables.
     /// The following values are supported:
     ///
@@ -94,6 +97,9 @@ pub struct RunQueryRequest {
     pub external_table_definitions:
         std::collections::HashMap<std::string::String, crate::model::ExternalDataConfiguration>,
 
+    /// [Pick one] Configures an extract job.
+    pub extract: std::option::Option<crate::model::JobConfigurationExtract>,
+
     /// Optional. If true and query uses legacy SQL dialect, flattens all nested
     /// and repeated fields in the query results.
     /// allowLargeResults must be true if this is set to false.
@@ -101,27 +107,40 @@ pub struct RunQueryRequest {
     /// flattened.
     pub flatten_results: std::option::Option<wkt::BoolValue>,
 
+    /// Optional. Output format adjustments.
+    pub format_options: std::option::Option<crate::model::DataFormatOptions>,
+
     /// Optional. If not set, jobs are always required.
     ///
     /// If set, the query request will follow the behavior described
     /// JobCreationMode.
     pub job_creation_mode: crate::model::query_request::JobCreationMode,
 
-    /// Optional. Job timeout in milliseconds. If this time limit is exceeded,
-    /// BigQuery will attempt to stop a longer job, but may not always succeed in
-    /// canceling it before the job completes. For example, a job that takes more
-    /// than 60 seconds to complete has a better chance of being stopped than a job
-    /// that takes 10 seconds to complete. This timeout applies to the query even
-    /// if a job does not need to be created.
-    pub job_timeout_ms: std::option::Option<i64>,
+    /// Optional. Job timeout in milliseconds relative to the job creation time. If
+    /// this time limit is exceeded, BigQuery attempts to stop the job, but might
+    /// not always succeed in canceling it before the job completes. For example, a
+    /// job that takes more than 60 seconds to complete has a better chance of
+    /// being stopped than a job that takes 10 seconds to complete.
+    pub job_timeout_ms: std::option::Option<wkt::Int64Value>,
 
-    /// Optional. The labels associated with this query.
-    /// Labels can be used to organize and group query jobs.
+    /// Output only. The type of the job. Can be QUERY, LOAD, EXTRACT, COPY or
+    /// UNKNOWN.
+    pub job_type: std::string::String,
+
+    /// The resource type of the request.
+    pub kind: std::string::String,
+
+    /// The labels associated with this job. You can use these to organize and
+    /// group your jobs.
     /// Label keys and values can be no longer than 63 characters, can only contain
     /// lowercase letters, numeric characters, underscores and dashes.
-    /// International characters are allowed. Label keys must start with a letter
-    /// and each label in the list must have a different key.
+    /// International characters are allowed. Label values are optional.  Label
+    /// keys must start with a letter and each label in the list must have a
+    /// different key.
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// [Pick one] Configures a load job.
+    pub load: std::option::Option<crate::model::JobConfigurationLoad>,
 
     /// The geographic location where the job should run.
     /// For more information, see how to
@@ -202,8 +221,10 @@ pub struct RunQueryRequest {
     ///
     pub request_id: std::string::String,
 
-    /// Optional. The reservation that jobs.query request would use. User can
-    /// specify a reservation to execute the job.query. The expected format is
+    /// Optional. The reservation that job would use. User can specify a
+    /// reservation to execute the job. If reservation is not set, reservation is
+    /// determined based on the rules defined by the reservation assignments. The
+    /// expected format is
     /// `projects/{project}/locations/{location}/reservations/{reservation}`.
     pub reservation: std::option::Option<std::string::String>,
 
@@ -244,11 +265,9 @@ pub struct RunQueryRequest {
     /// getQueryResults response is true.
     pub timeout_ms: std::option::Option<wkt::UInt32Value>,
 
-    /// Optional. Specifies whether to use BigQuery's legacy SQL dialect for this
-    /// query. The default value is true. If set to false, the query uses
-    /// BigQuery's
+    /// Specifies whether to use BigQuery's legacy SQL dialect for this query. The
+    /// default value is true. If set to false, the query uses BigQuery's
     /// [GoogleSQL](https://docs.cloud.google.com/bigquery/docs/introduction-sql).
-    ///
     /// When useLegacySql is set to false, the value of flattenResults is ignored;
     /// query will be run as if flattenResults is false.
     pub use_legacy_sql: std::option::Option<wkt::BoolValue>,
@@ -358,6 +377,24 @@ impl RunQueryRequest {
         self
     }
 
+    /// Sets the value of [copy][crate::model::RunQueryRequest::copy].
+    pub fn set_copy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::JobConfigurationTableCopy>,
+    {
+        self.copy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [copy][crate::model::RunQueryRequest::copy].
+    pub fn set_or_clear_copy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::JobConfigurationTableCopy>,
+    {
+        self.copy = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [create_disposition][crate::model::RunQueryRequest::create_disposition].
     pub fn set_create_disposition<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -461,6 +498,24 @@ impl RunQueryRequest {
         self
     }
 
+    /// Sets the value of [extract][crate::model::RunQueryRequest::extract].
+    pub fn set_extract<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::JobConfigurationExtract>,
+    {
+        self.extract = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [extract][crate::model::RunQueryRequest::extract].
+    pub fn set_or_clear_extract<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::JobConfigurationExtract>,
+    {
+        self.extract = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [flatten_results][crate::model::RunQueryRequest::flatten_results].
     pub fn set_flatten_results<T>(mut self, v: T) -> Self
     where
@@ -479,6 +534,24 @@ impl RunQueryRequest {
         self
     }
 
+    /// Sets the value of [format_options][crate::model::RunQueryRequest::format_options].
+    pub fn set_format_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DataFormatOptions>,
+    {
+        self.format_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [format_options][crate::model::RunQueryRequest::format_options].
+    pub fn set_or_clear_format_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DataFormatOptions>,
+    {
+        self.format_options = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [job_creation_mode][crate::model::RunQueryRequest::job_creation_mode].
     pub fn set_job_creation_mode<
         T: std::convert::Into<crate::model::query_request::JobCreationMode>,
@@ -493,7 +566,7 @@ impl RunQueryRequest {
     /// Sets the value of [job_timeout_ms][crate::model::RunQueryRequest::job_timeout_ms].
     pub fn set_job_timeout_ms<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<i64>,
+        T: std::convert::Into<wkt::Int64Value>,
     {
         self.job_timeout_ms = std::option::Option::Some(v.into());
         self
@@ -502,9 +575,21 @@ impl RunQueryRequest {
     /// Sets or clears the value of [job_timeout_ms][crate::model::RunQueryRequest::job_timeout_ms].
     pub fn set_or_clear_job_timeout_ms<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<i64>,
+        T: std::convert::Into<wkt::Int64Value>,
     {
         self.job_timeout_ms = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [job_type][crate::model::RunQueryRequest::job_type].
+    pub fn set_job_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.job_type = v.into();
+        self
+    }
+
+    /// Sets the value of [kind][crate::model::RunQueryRequest::kind].
+    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.kind = v.into();
         self
     }
 
@@ -517,6 +602,24 @@ impl RunQueryRequest {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [load][crate::model::RunQueryRequest::load].
+    pub fn set_load<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::JobConfigurationLoad>,
+    {
+        self.load = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [load][crate::model::RunQueryRequest::load].
+    pub fn set_or_clear_load<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::JobConfigurationLoad>,
+    {
+        self.load = v.map(|x| x.into());
         self
     }
 
@@ -786,10 +889,14 @@ impl RunQueryRequest {
             || !wkt::internal::is_default(&self.allow_large_results)
             || !wkt::internal::is_default(&self.clustering)
             || !wkt::internal::is_default(&self.continuous)
+            || !wkt::internal::is_default(&self.copy)
             || !wkt::internal::is_default(&self.create_disposition)
             || !wkt::internal::is_default(&self.destination_table)
             || !wkt::internal::is_default(&self.external_table_definitions)
+            || !wkt::internal::is_default(&self.extract)
             || !wkt::internal::is_default(&self.flatten_results)
+            || !wkt::internal::is_default(&self.job_type)
+            || !wkt::internal::is_default(&self.load)
             || !wkt::internal::is_default(&self.priority)
             || !wkt::internal::is_default(&self.range_partitioning)
             || !wkt::internal::is_default(&self.schema_update_options)
@@ -808,8 +915,10 @@ impl std::convert::From<RunQueryRequest> for google_cloud_bigquery_v2::model::Qu
         out.default_dataset = req.default_dataset;
         out.destination_encryption_configuration = req.destination_encryption_configuration;
         out.dry_run = req.dry_run;
+        out.format_options = req.format_options;
         out.job_creation_mode = req.job_creation_mode;
         out.job_timeout_ms = req.job_timeout_ms;
+        out.kind = req.kind;
         out.labels = req.labels;
         out.location = req.location;
         out.max_results = req.max_results;
@@ -893,9 +1002,13 @@ impl std::convert::From<RunQueryRequest> for google_cloud_bigquery_v2::model::Jo
         query.write_incremental_results = req.write_incremental_results;
         let mut out = Self::default();
         out.query = Some(query);
+        out.copy = req.copy.into();
         out.dry_run = req.dry_run.into();
+        out.extract = req.extract.into();
         out.job_timeout_ms = req.job_timeout_ms.into();
+        out.job_type = req.job_type.into();
         out.labels = req.labels.into();
+        out.load = req.load.into();
         out.max_slots = req.max_slots.into();
         out.reservation = req.reservation.into();
         out

@@ -79,6 +79,22 @@ impl RunQuery {
         self
     }
 
+    /// Sets the value of [request.copy][crate::model::RunQueryRequest::copy].
+    pub fn set_copy<T>(mut self, v: T) -> Self
+    where T: std::convert::Into<crate::model::JobConfigurationTableCopy>
+    {
+        self.request.copy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [request.copy][crate::model::RunQueryRequest::copy].
+    pub fn set_or_clear_copy<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::JobConfigurationTableCopy>
+    {
+        self.request.copy = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [request.create_disposition][crate::model::RunQueryRequest::create_disposition].
     pub fn set_create_disposition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request.create_disposition = v.into();
@@ -167,6 +183,22 @@ impl RunQuery {
         self
     }
 
+    /// Sets the value of [request.extract][crate::model::RunQueryRequest::extract].
+    pub fn set_extract<T>(mut self, v: T) -> Self
+    where T: std::convert::Into<crate::model::JobConfigurationExtract>
+    {
+        self.request.extract = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [request.extract][crate::model::RunQueryRequest::extract].
+    pub fn set_or_clear_extract<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::JobConfigurationExtract>
+    {
+        self.request.extract = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [request.flatten_results][crate::model::RunQueryRequest::flatten_results].
     pub fn set_flatten_results<T>(mut self, v: T) -> Self
     where T: std::convert::Into<wkt::BoolValue>
@@ -183,6 +215,22 @@ impl RunQuery {
         self
     }
 
+    /// Sets the value of [request.format_options][crate::model::RunQueryRequest::format_options].
+    pub fn set_format_options<T>(mut self, v: T) -> Self
+    where T: std::convert::Into<crate::model::DataFormatOptions>
+    {
+        self.request.format_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [request.format_options][crate::model::RunQueryRequest::format_options].
+    pub fn set_or_clear_format_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::DataFormatOptions>
+    {
+        self.request.format_options = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [request.job_creation_mode][crate::model::RunQueryRequest::job_creation_mode].
     pub fn set_job_creation_mode<T: std::convert::Into<crate::model::query_request::JobCreationMode>>(mut self, v: T) -> Self {
         self.request.job_creation_mode = v.into();
@@ -191,7 +239,7 @@ impl RunQuery {
 
     /// Sets the value of [request.job_timeout_ms][crate::model::RunQueryRequest::job_timeout_ms].
     pub fn set_job_timeout_ms<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<i64>
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.request.job_timeout_ms = std::option::Option::Some(v.into());
         self
@@ -199,9 +247,21 @@ impl RunQuery {
 
     /// Sets or clears the value of [request.job_timeout_ms][crate::model::RunQueryRequest::job_timeout_ms].
     pub fn set_or_clear_job_timeout_ms<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<i64>
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.request.job_timeout_ms = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request.job_type][crate::model::RunQueryRequest::job_type].
+    pub fn set_job_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request.job_type = v.into();
+        self
+    }
+
+    /// Sets the value of [request.kind][crate::model::RunQueryRequest::kind].
+    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request.kind = v.into();
         self
     }
 
@@ -214,6 +274,22 @@ impl RunQuery {
     {
         use std::iter::Iterator;
         self.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [request.load][crate::model::RunQueryRequest::load].
+    pub fn set_load<T>(mut self, v: T) -> Self
+    where T: std::convert::Into<crate::model::JobConfigurationLoad>
+    {
+        self.request.load = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [request.load][crate::model::RunQueryRequest::load].
+    pub fn set_or_clear_load<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::JobConfigurationLoad>
+    {
+        self.request.load = v.map(|x| x.into());
         self
     }
 

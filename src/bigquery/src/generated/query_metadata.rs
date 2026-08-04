@@ -38,8 +38,8 @@ pub struct QueryMetadata {
     /// field will be present whenever a query job is in the DONE state.
     pub end_time: std::option::Option<i64>,
 
-    /// Output only. The first errors or warnings encountered during the running of
-    /// the job. The final message includes the number of errors that caused the
+    /// Output only. The first errors or warnings encountered during the running
+    /// of the job. The final message includes the number of errors that caused the
     /// process to stop. Errors here do not necessarily mean that the job has
     /// completed or was unsuccessful. For more information about error messages,
     /// see [Error
@@ -60,17 +60,14 @@ pub struct QueryMetadata {
     /// If job_reference is not present it will always be unset.
     pub job_creation_reason: std::option::Option<crate::model::JobCreationReason>,
 
-    /// Reference to the Job that was created to run the query. This field will be
-    /// present even if the original request timed out, in which case
+    /// Reference to the BigQuery Job that was created to run the query. This field
+    /// will be present even if the original request timed out, in which case
     /// GetQueryResults can be used to read the results once the query has
     /// completed. Since this API only returns the first page of results,
     /// subsequent pages can be fetched via the same mechanism (GetQueryResults).
-    ///
-    /// If job_creation_mode was set to `JOB_CREATION_OPTIONAL` and the query
-    /// completes without creating a job, this field will be empty.
     pub job_reference: std::option::Option<crate::model::JobReference>,
 
-    /// The resource type of the response.
+    /// The resource type.
     pub kind: std::string::String,
 
     /// Output only. The geographic location of the query.
@@ -83,12 +80,21 @@ pub struct QueryMetadata {
     /// for DML statements INSERT, UPDATE or DELETE.
     pub num_dml_affected_rows: std::option::Option<wkt::Int64Value>,
 
-    /// A token used for paging results.  When this token is non-empty, it
-    /// indicates additional results are available.
+    /// A token used for paging results. A non-empty token indicates that
+    /// additional results are available. To see additional results,
+    /// query the
+    /// [`jobs.getQueryResults`](https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/getQueryResults)
+    /// method. For more information, see [Paging through table
+    /// data](https://cloud.google.com/bigquery/docs/paging-results).
     pub page_token: std::string::String,
 
     /// Auto-generated ID for the query.
     pub query_id: std::string::String,
+
+    /// An object with as many results as can be contained within the maximum
+    /// permitted reply size. To get any additional rows, you can call
+    /// GetQueryResults and specify the jobReference returned above.
+    pub rows: std::vec::Vec<wkt::Struct>,
 
     /// The schema of the results. Present only when the query completes
     /// successfully.
@@ -108,7 +114,9 @@ pub struct QueryMetadata {
     /// not billed for bytes and this field is informational only.
     pub total_bytes_billed: std::option::Option<i64>,
 
-    /// The total number of bytes processed for this query.
+    /// The total number of bytes processed for this query. If this query was a dry
+    /// run, this is the number of bytes that would be processed if the query were
+    /// run.
     pub total_bytes_processed: std::option::Option<wkt::Int64Value>,
 
     /// The total number of rows in the complete query result set, which can be
@@ -313,6 +321,17 @@ impl QueryMetadata {
         self
     }
 
+    /// Sets the value of [rows][crate::model::QueryMetadata::rows].
+    pub fn set_rows<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::Struct>,
+    {
+        use std::iter::Iterator;
+        self.rows = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [schema][crate::model::QueryMetadata::schema].
     pub fn set_schema<T>(mut self, v: T) -> Self
     where
@@ -453,6 +472,7 @@ impl std::convert::From<google_cloud_bigquery_v2::model::GetQueryResultsResponse
             kind: resp.kind,
             num_dml_affected_rows: resp.num_dml_affected_rows,
             page_token: resp.page_token,
+            rows: resp.rows,
             schema: resp.schema,
             total_bytes_processed: resp.total_bytes_processed,
             total_rows: resp.total_rows,
@@ -477,6 +497,7 @@ impl std::convert::From<google_cloud_bigquery_v2::model::QueryResponse> for Quer
             num_dml_affected_rows: resp.num_dml_affected_rows,
             page_token: resp.page_token,
             query_id: resp.query_id,
+            rows: resp.rows,
             schema: resp.schema,
             session_info: resp.session_info,
             start_time: resp.start_time,
