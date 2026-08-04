@@ -1413,7 +1413,7 @@ libraries:
     version: 1.0.0
     apis:
       - path: schema/google/showcase/v1beta1
-    copyright_year: "2025"
+    copyright_year: "2026"
     output: src/generated/showcase
     roots:
       - showcase
