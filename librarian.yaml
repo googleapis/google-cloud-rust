@@ -1821,6 +1821,21 @@ libraries:
   - name: google-shopping-merchant-notifications-v1
     version: 1.0.0
     copyright_year: "2026"
+  - name: google-shopping-merchant-ordertracking-v1
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-shopping-merchant-products-v1
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-shopping-merchant-promotions-v1
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-shopping-merchant-quota-v1
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-shopping-merchant-reports-v1
+    version: 1.0.0
+    copyright_year: "2026"
   - name: google-shopping-type
     version: 1.0.0
     copyright_year: "2026"
