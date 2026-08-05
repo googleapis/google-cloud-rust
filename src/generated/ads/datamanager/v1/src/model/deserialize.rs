@@ -653,6 +653,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AudienceMember {
             __user_id_data,
             __ppid_data,
             __composite_data,
+            __google_user_id_data,
+            __partner_provided_id_data,
             __consent,
             Unknown(std::string::String),
         }
@@ -688,6 +690,12 @@ impl<'de> serde::de::Deserialize<'de> for super::AudienceMember {
                             "ppid_data" => Ok(__FieldTag::__ppid_data),
                             "compositeData" => Ok(__FieldTag::__composite_data),
                             "composite_data" => Ok(__FieldTag::__composite_data),
+                            "googleUserIdData" => Ok(__FieldTag::__google_user_id_data),
+                            "google_user_id_data" => Ok(__FieldTag::__google_user_id_data),
+                            "partnerProvidedIdData" => Ok(__FieldTag::__partner_provided_id_data),
+                            "partner_provided_id_data" => {
+                                Ok(__FieldTag::__partner_provided_id_data)
+                            }
                             "consent" => Ok(__FieldTag::__consent),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
@@ -837,6 +845,46 @@ impl<'de> serde::de::Deserialize<'de> for super::AudienceMember {
                                 crate::model::audience_member::Data::CompositeData(
                                     map.next_value::<std::option::Option<
                                         std::boxed::Box<crate::model::CompositeData>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__google_user_id_data => {
+                            if !fields.insert(__FieldTag::__google_user_id_data) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for google_user_id_data",
+                                ));
+                            }
+                            if result.data.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `data`, a oneof with full ID .google.ads.datamanager.v1.AudienceMember.google_user_id_data, latest field was googleUserIdData",
+                                ));
+                            }
+                            result.data = std::option::Option::Some(
+                                crate::model::audience_member::Data::GoogleUserIdData(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::GoogleUserIdData>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__partner_provided_id_data => {
+                            if !fields.insert(__FieldTag::__partner_provided_id_data) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for partner_provided_id_data",
+                                ));
+                            }
+                            if result.data.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `data`, a oneof with full ID .google.ads.datamanager.v1.AudienceMember.partner_provided_id_data, latest field was partnerProvidedIdData",
+                                ));
+                            }
+                            result.data = std::option::Option::Some(
+                                crate::model::audience_member::Data::PartnerProvidedIdData(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::PartnerProvidedIdData>,
                                     >>()?
                                     .unwrap_or_default(),
                                 ),
@@ -1363,6 +1411,164 @@ impl<'de> serde::de::Deserialize<'de> for super::IpData {
                             }
                             result.observe_end_time =
                                 map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GoogleUserIdData {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __google_user_ids,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GoogleUserIdData")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "googleUserIds" => Ok(__FieldTag::__google_user_ids),
+                            "google_user_ids" => Ok(__FieldTag::__google_user_ids),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GoogleUserIdData;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GoogleUserIdData")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__google_user_ids => {
+                            if !fields.insert(__FieldTag::__google_user_ids) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for google_user_ids",
+                                ));
+                            }
+                            result.google_user_ids = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::PartnerProvidedIdData {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __partner_provided_ids,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for PartnerProvidedIdData")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "partnerProvidedIds" => Ok(__FieldTag::__partner_provided_ids),
+                            "partner_provided_ids" => Ok(__FieldTag::__partner_provided_ids),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::PartnerProvidedIdData;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct PartnerProvidedIdData")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__partner_provided_ids => {
+                            if !fields.insert(__FieldTag::__partner_provided_ids) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for partner_provided_ids",
+                                ));
+                            }
+                            result.partner_provided_ids = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -4210,6 +4416,7 @@ impl<'de> serde::de::Deserialize<'de> for super::IngestAudienceMembersResponse {
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __request_id,
+            __field_warnings,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -4232,6 +4439,8 @@ impl<'de> serde::de::Deserialize<'de> for super::IngestAudienceMembersResponse {
                         match value {
                             "requestId" => Ok(__FieldTag::__request_id),
                             "request_id" => Ok(__FieldTag::__request_id),
+                            "fieldWarnings" => Ok(__FieldTag::__field_warnings),
+                            "field_warnings" => Ok(__FieldTag::__field_warnings),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -4266,6 +4475,14 @@ impl<'de> serde::de::Deserialize<'de> for super::IngestAudienceMembersResponse {
                             result.request_id = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__field_warnings => {
+                            if !fields.insert(__FieldTag::__field_warnings) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for field_warnings",
+                                ));
+                            }
+                            result.field_warnings = map.next_value::<std::option::Option<std::vec::Vec<crate::model::FieldWarning>>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -4493,6 +4710,190 @@ impl<'de> serde::de::Deserialize<'de> for super::RemoveAudienceMembersResponse {
 }
 
 #[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::RemoveAllAudienceMembersRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __destinations,
+            __remove_as_of_time,
+            __validate_only,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for RemoveAllAudienceMembersRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "destinations" => Ok(__FieldTag::__destinations),
+                            "removeAsOfTime" => Ok(__FieldTag::__remove_as_of_time),
+                            "remove_as_of_time" => Ok(__FieldTag::__remove_as_of_time),
+                            "validateOnly" => Ok(__FieldTag::__validate_only),
+                            "validate_only" => Ok(__FieldTag::__validate_only),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::RemoveAllAudienceMembersRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct RemoveAllAudienceMembersRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__destinations => {
+                            if !fields.insert(__FieldTag::__destinations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for destinations",
+                                ));
+                            }
+                            result.destinations = map.next_value::<std::option::Option<std::vec::Vec<crate::model::Destination>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__remove_as_of_time => {
+                            if !fields.insert(__FieldTag::__remove_as_of_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for remove_as_of_time",
+                                ));
+                            }
+                            result.remove_as_of_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__validate_only => {
+                            if !fields.insert(__FieldTag::__validate_only) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for validate_only",
+                                ));
+                            }
+                            result.validate_only = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::RemoveAllAudienceMembersResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __request_id,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for RemoveAllAudienceMembersResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "requestId" => Ok(__FieldTag::__request_id),
+                            "request_id" => Ok(__FieldTag::__request_id),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::RemoveAllAudienceMembersResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct RemoveAllAudienceMembersResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__request_id => {
+                            if !fields.insert(__FieldTag::__request_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_id",
+                                ));
+                            }
+                            result.request_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::IngestEventsRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -4640,6 +5041,7 @@ impl<'de> serde::de::Deserialize<'de> for super::IngestEventsResponse {
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __request_id,
+            __field_warnings,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -4662,6 +5064,8 @@ impl<'de> serde::de::Deserialize<'de> for super::IngestEventsResponse {
                         match value {
                             "requestId" => Ok(__FieldTag::__request_id),
                             "request_id" => Ok(__FieldTag::__request_id),
+                            "fieldWarnings" => Ok(__FieldTag::__field_warnings),
+                            "field_warnings" => Ok(__FieldTag::__field_warnings),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -4696,6 +5100,14 @@ impl<'de> serde::de::Deserialize<'de> for super::IngestEventsResponse {
                             result.request_id = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__field_warnings => {
+                            if !fields.insert(__FieldTag::__field_warnings) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for field_warnings",
+                                ));
+                            }
+                            result.field_warnings = map.next_value::<std::option::Option<std::vec::Vec<crate::model::FieldWarning>>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -6841,6 +7253,110 @@ impl<'de> serde::de::Deserialize<'de> for super::WarningCount {
 }
 
 #[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::FieldWarning {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __reason,
+            __description,
+            __field,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for FieldWarning")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "reason" => Ok(__FieldTag::__reason),
+                            "description" => Ok(__FieldTag::__description),
+                            "field" => Ok(__FieldTag::__field),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::FieldWarning;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct FieldWarning")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__reason => {
+                            if !fields.insert(__FieldTag::__reason) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for reason",
+                                ));
+                            }
+                            result.reason = map
+                                .next_value::<std::option::Option<crate::model::WarningReason>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__description => {
+                            if !fields.insert(__FieldTag::__description) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for description",
+                                ));
+                            }
+                            result.description = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__field => {
+                            if !fields.insert(__FieldTag::__field) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for field",
+                                ));
+                            }
+                            result.field = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::RequestStatusPerDestination {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -6857,6 +7373,7 @@ impl<'de> serde::de::Deserialize<'de> for super::RequestStatusPerDestination {
             __audience_members_ingestion_status,
             __events_ingestion_status,
             __audience_members_removal_status,
+            __remove_all_audience_members_status,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -6897,6 +7414,12 @@ impl<'de> serde::de::Deserialize<'de> for super::RequestStatusPerDestination {
                             }
                             "audience_members_removal_status" => {
                                 Ok(__FieldTag::__audience_members_removal_status)
+                            }
+                            "removeAllAudienceMembersStatus" => {
+                                Ok(__FieldTag::__remove_all_audience_members_status)
+                            }
+                            "remove_all_audience_members_status" => {
+                                Ok(__FieldTag::__remove_all_audience_members_status)
                             }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
@@ -7013,6 +7536,23 @@ impl<'de> serde::de::Deserialize<'de> for super::RequestStatusPerDestination {
                                 ),
                             );
                         }
+                        __FieldTag::__remove_all_audience_members_status => {
+                            if !fields.insert(__FieldTag::__remove_all_audience_members_status) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for remove_all_audience_members_status",
+                                ));
+                            }
+                            if result.status.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `status`, a oneof with full ID .google.ads.datamanager.v1.RequestStatusPerDestination.remove_all_audience_members_status, latest field was removeAllAudienceMembersStatus",
+                                ));
+                            }
+                            result.status = std::option::Option::Some(
+                                crate::model::request_status_per_destination::Status::RemoveAllAudienceMembersStatus(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::request_status_per_destination::RemoveAllAudienceMembersStatus>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -7044,6 +7584,8 @@ impl<'de> serde::de::Deserialize<'de>
             __user_id_data_ingestion_status,
             __ppid_data_ingestion_status,
             __composite_data_ingestion_status,
+            __google_user_id_data_ingestion_status,
+            __partner_provided_id_data_ingestion_status,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -7099,6 +7641,18 @@ impl<'de> serde::de::Deserialize<'de>
                             }
                             "composite_data_ingestion_status" => {
                                 Ok(__FieldTag::__composite_data_ingestion_status)
+                            }
+                            "googleUserIdDataIngestionStatus" => {
+                                Ok(__FieldTag::__google_user_id_data_ingestion_status)
+                            }
+                            "google_user_id_data_ingestion_status" => {
+                                Ok(__FieldTag::__google_user_id_data_ingestion_status)
+                            }
+                            "partnerProvidedIdDataIngestionStatus" => {
+                                Ok(__FieldTag::__partner_provided_id_data_ingestion_status)
+                            }
+                            "partner_provided_id_data_ingestion_status" => {
+                                Ok(__FieldTag::__partner_provided_id_data_ingestion_status)
                             }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
@@ -7227,6 +7781,42 @@ impl<'de> serde::de::Deserialize<'de>
                                 ),
                             );
                         }
+                        __FieldTag::__google_user_id_data_ingestion_status => {
+                            if !fields.insert(__FieldTag::__google_user_id_data_ingestion_status) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for google_user_id_data_ingestion_status",
+                                ));
+                            }
+                            if result.status.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `status`, a oneof with full ID .google.ads.datamanager.v1.RequestStatusPerDestination.IngestAudienceMembersStatus.google_user_id_data_ingestion_status, latest field was googleUserIdDataIngestionStatus",
+                                ));
+                            }
+                            result.status = std::option::Option::Some(
+                                crate::model::request_status_per_destination::ingest_audience_members_status::Status::GoogleUserIdDataIngestionStatus(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::request_status_per_destination::IngestGoogleUserIdDataStatus>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__partner_provided_id_data_ingestion_status => {
+                            if !fields
+                                .insert(__FieldTag::__partner_provided_id_data_ingestion_status)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for partner_provided_id_data_ingestion_status",
+                                ));
+                            }
+                            if result.status.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `status`, a oneof with full ID .google.ads.datamanager.v1.RequestStatusPerDestination.IngestAudienceMembersStatus.partner_provided_id_data_ingestion_status, latest field was partnerProvidedIdDataIngestionStatus",
+                                ));
+                            }
+                            result.status = std::option::Option::Some(
+                                crate::model::request_status_per_destination::ingest_audience_members_status::Status::PartnerProvidedIdDataIngestionStatus(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::request_status_per_destination::IngestPartnerProvidedIdDataStatus>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -7258,6 +7848,8 @@ impl<'de> serde::de::Deserialize<'de>
             __user_id_data_removal_status,
             __ppid_data_removal_status,
             __composite_data_removal_status,
+            __google_user_id_data_removal_status,
+            __partner_provided_id_data_removal_status,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -7307,6 +7899,18 @@ impl<'de> serde::de::Deserialize<'de>
                             }
                             "composite_data_removal_status" => {
                                 Ok(__FieldTag::__composite_data_removal_status)
+                            }
+                            "googleUserIdDataRemovalStatus" => {
+                                Ok(__FieldTag::__google_user_id_data_removal_status)
+                            }
+                            "google_user_id_data_removal_status" => {
+                                Ok(__FieldTag::__google_user_id_data_removal_status)
+                            }
+                            "partnerProvidedIdDataRemovalStatus" => {
+                                Ok(__FieldTag::__partner_provided_id_data_removal_status)
+                            }
+                            "partner_provided_id_data_removal_status" => {
+                                Ok(__FieldTag::__partner_provided_id_data_removal_status)
                             }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
@@ -7435,6 +8039,108 @@ impl<'de> serde::de::Deserialize<'de>
                                 ),
                             );
                         }
+                        __FieldTag::__google_user_id_data_removal_status => {
+                            if !fields.insert(__FieldTag::__google_user_id_data_removal_status) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for google_user_id_data_removal_status",
+                                ));
+                            }
+                            if result.status.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `status`, a oneof with full ID .google.ads.datamanager.v1.RequestStatusPerDestination.RemoveAudienceMembersStatus.google_user_id_data_removal_status, latest field was googleUserIdDataRemovalStatus",
+                                ));
+                            }
+                            result.status = std::option::Option::Some(
+                                crate::model::request_status_per_destination::remove_audience_members_status::Status::GoogleUserIdDataRemovalStatus(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::request_status_per_destination::RemoveGoogleUserIdDataStatus>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__partner_provided_id_data_removal_status => {
+                            if !fields.insert(__FieldTag::__partner_provided_id_data_removal_status)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for partner_provided_id_data_removal_status",
+                                ));
+                            }
+                            if result.status.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `status`, a oneof with full ID .google.ads.datamanager.v1.RequestStatusPerDestination.RemoveAudienceMembersStatus.partner_provided_id_data_removal_status, latest field was partnerProvidedIdDataRemovalStatus",
+                                ));
+                            }
+                            result.status = std::option::Option::Some(
+                                crate::model::request_status_per_destination::remove_audience_members_status::Status::PartnerProvidedIdDataRemovalStatus(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::request_status_per_destination::RemovePartnerProvidedIdDataStatus>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de>
+    for super::request_status_per_destination::RemoveAllAudienceMembersStatus
+{
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for RemoveAllAudienceMembersStatus")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        Ok(__FieldTag::Unknown(value.to_string()))
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::request_status_per_destination::RemoveAllAudienceMembersStatus;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct RemoveAllAudienceMembersStatus")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -8933,6 +9639,470 @@ impl<'de> serde::de::Deserialize<'de>
 }
 
 #[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de>
+    for super::request_status_per_destination::IngestGoogleUserIdDataStatus
+{
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __record_count,
+            __google_user_id_count,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for IngestGoogleUserIdDataStatus")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "recordCount" => Ok(__FieldTag::__record_count),
+                            "record_count" => Ok(__FieldTag::__record_count),
+                            "googleUserIdCount" => Ok(__FieldTag::__google_user_id_count),
+                            "google_user_id_count" => Ok(__FieldTag::__google_user_id_count),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::request_status_per_destination::IngestGoogleUserIdDataStatus;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct IngestGoogleUserIdDataStatus")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__record_count => {
+                            if !fields.insert(__FieldTag::__record_count) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for record_count",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.record_count = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__google_user_id_count => {
+                            if !fields.insert(__FieldTag::__google_user_id_count) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for google_user_id_count",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.google_user_id_count =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de>
+    for super::request_status_per_destination::RemoveGoogleUserIdDataStatus
+{
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __record_count,
+            __google_user_id_count,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for RemoveGoogleUserIdDataStatus")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "recordCount" => Ok(__FieldTag::__record_count),
+                            "record_count" => Ok(__FieldTag::__record_count),
+                            "googleUserIdCount" => Ok(__FieldTag::__google_user_id_count),
+                            "google_user_id_count" => Ok(__FieldTag::__google_user_id_count),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::request_status_per_destination::RemoveGoogleUserIdDataStatus;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct RemoveGoogleUserIdDataStatus")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__record_count => {
+                            if !fields.insert(__FieldTag::__record_count) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for record_count",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.record_count = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__google_user_id_count => {
+                            if !fields.insert(__FieldTag::__google_user_id_count) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for google_user_id_count",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.google_user_id_count =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de>
+    for super::request_status_per_destination::IngestPartnerProvidedIdDataStatus
+{
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __record_count,
+            __partner_provided_id_count,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for IngestPartnerProvidedIdDataStatus")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "recordCount" => Ok(__FieldTag::__record_count),
+                            "record_count" => Ok(__FieldTag::__record_count),
+                            "partnerProvidedIdCount" => Ok(__FieldTag::__partner_provided_id_count),
+                            "partner_provided_id_count" => {
+                                Ok(__FieldTag::__partner_provided_id_count)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::request_status_per_destination::IngestPartnerProvidedIdDataStatus;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct IngestPartnerProvidedIdDataStatus")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__record_count => {
+                            if !fields.insert(__FieldTag::__record_count) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for record_count",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.record_count = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__partner_provided_id_count => {
+                            if !fields.insert(__FieldTag::__partner_provided_id_count) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for partner_provided_id_count",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.partner_provided_id_count =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de>
+    for super::request_status_per_destination::RemovePartnerProvidedIdDataStatus
+{
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __record_count,
+            __partner_provided_id_count,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for RemovePartnerProvidedIdDataStatus")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "recordCount" => Ok(__FieldTag::__record_count),
+                            "record_count" => Ok(__FieldTag::__record_count),
+                            "partnerProvidedIdCount" => Ok(__FieldTag::__partner_provided_id_count),
+                            "partner_provided_id_count" => {
+                                Ok(__FieldTag::__partner_provided_id_count)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::request_status_per_destination::RemovePartnerProvidedIdDataStatus;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct RemovePartnerProvidedIdDataStatus")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__record_count => {
+                            if !fields.insert(__FieldTag::__record_count) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for record_count",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.record_count = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__partner_provided_id_count => {
+                            if !fields.insert(__FieldTag::__partner_provided_id_count) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for partner_provided_id_count",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.partner_provided_id_count =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::request_status_per_destination::DataTypeCount {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -9348,6 +10518,9 @@ impl<'de> serde::de::Deserialize<'de> for super::AddressInfo {
             __family_name,
             __region_code,
             __postal_code,
+            __address_line,
+            __city,
+            __administrative_area,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -9376,6 +10549,11 @@ impl<'de> serde::de::Deserialize<'de> for super::AddressInfo {
                             "region_code" => Ok(__FieldTag::__region_code),
                             "postalCode" => Ok(__FieldTag::__postal_code),
                             "postal_code" => Ok(__FieldTag::__postal_code),
+                            "addressLine" => Ok(__FieldTag::__address_line),
+                            "address_line" => Ok(__FieldTag::__address_line),
+                            "city" => Ok(__FieldTag::__city),
+                            "administrativeArea" => Ok(__FieldTag::__administrative_area),
+                            "administrative_area" => Ok(__FieldTag::__administrative_area),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -9438,6 +10616,36 @@ impl<'de> serde::de::Deserialize<'de> for super::AddressInfo {
                                 ));
                             }
                             result.postal_code = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__address_line => {
+                            if !fields.insert(__FieldTag::__address_line) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for address_line",
+                                ));
+                            }
+                            result.address_line = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__city => {
+                            if !fields.insert(__FieldTag::__city) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for city",
+                                ));
+                            }
+                            result.city = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__administrative_area => {
+                            if !fields.insert(__FieldTag::__administrative_area) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for administrative_area",
+                                ));
+                            }
+                            result.administrative_area = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }

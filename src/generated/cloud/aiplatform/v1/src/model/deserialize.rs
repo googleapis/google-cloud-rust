@@ -123233,6 +123233,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Tool {
             __google_maps,
             __enterprise_web_search,
             __parallel_ai_search,
+            __exa_ai_search,
             __code_execution,
             __url_context,
             __computer_use,
@@ -123269,6 +123270,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Tool {
                             "enterprise_web_search" => Ok(__FieldTag::__enterprise_web_search),
                             "parallelAiSearch" => Ok(__FieldTag::__parallel_ai_search),
                             "parallel_ai_search" => Ok(__FieldTag::__parallel_ai_search),
+                            "exaAiSearch" => Ok(__FieldTag::__exa_ai_search),
+                            "exa_ai_search" => Ok(__FieldTag::__exa_ai_search),
                             "codeExecution" => Ok(__FieldTag::__code_execution),
                             "code_execution" => Ok(__FieldTag::__code_execution),
                             "urlContext" => Ok(__FieldTag::__url_context),
@@ -123365,6 +123368,16 @@ impl<'de> serde::de::Deserialize<'de> for super::Tool {
                             }
                             result.parallel_ai_search = map.next_value::<std::option::Option<crate::model::tool::ParallelAiSearch>>()?
                                 ;
+                        }
+                        __FieldTag::__exa_ai_search => {
+                            if !fields.insert(__FieldTag::__exa_ai_search) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for exa_ai_search",
+                                ));
+                            }
+                            result.exa_ai_search = map
+                                .next_value::<std::option::Option<crate::model::tool::ExaAiSearch>>(
+                                )?;
                         }
                         __FieldTag::__code_execution => {
                             if !fields.insert(__FieldTag::__code_execution) {
@@ -123558,6 +123571,105 @@ impl<'de> serde::de::Deserialize<'de> for super::tool::ParallelAiSearch {
             type Value = super::tool::ParallelAiSearch;
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("struct ParallelAiSearch")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__api_key => {
+                            if !fields.insert(__FieldTag::__api_key) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for api_key",
+                                ));
+                            }
+                            result.api_key = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__custom_configs => {
+                            if !fields.insert(__FieldTag::__custom_configs) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for custom_configs",
+                                ));
+                            }
+                            result.custom_configs =
+                                map.next_value::<std::option::Option<wkt::Struct>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[cfg(any(
+    feature = "gen-ai-cache-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+    feature = "vertex-rag-service",
+))]
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::tool::ExaAiSearch {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __api_key,
+            __custom_configs,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ExaAiSearch")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "apiKey" => Ok(__FieldTag::__api_key),
+                            "api_key" => Ok(__FieldTag::__api_key),
+                            "customConfigs" => Ok(__FieldTag::__custom_configs),
+                            "custom_configs" => Ok(__FieldTag::__custom_configs),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::tool::ExaAiSearch;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ExaAiSearch")
             }
             fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
             where

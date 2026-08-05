@@ -18,6 +18,1309 @@
 use super::*;
 
 #[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::CreateAccessPolicyRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __access_policy_id,
+            __access_policy,
+            __validate_only,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CreateAccessPolicyRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "accessPolicyId" => Ok(__FieldTag::__access_policy_id),
+                            "access_policy_id" => Ok(__FieldTag::__access_policy_id),
+                            "accessPolicy" => Ok(__FieldTag::__access_policy),
+                            "access_policy" => Ok(__FieldTag::__access_policy),
+                            "validateOnly" => Ok(__FieldTag::__validate_only),
+                            "validate_only" => Ok(__FieldTag::__validate_only),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::CreateAccessPolicyRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CreateAccessPolicyRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__access_policy_id => {
+                            if !fields.insert(__FieldTag::__access_policy_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for access_policy_id",
+                                ));
+                            }
+                            result.access_policy_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__access_policy => {
+                            if !fields.insert(__FieldTag::__access_policy) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for access_policy",
+                                ));
+                            }
+                            result.access_policy = map
+                                .next_value::<std::option::Option<crate::model::AccessPolicy>>()?;
+                        }
+                        __FieldTag::__validate_only => {
+                            if !fields.insert(__FieldTag::__validate_only) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for validate_only",
+                                ));
+                            }
+                            result.validate_only = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GetAccessPolicyRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GetAccessPolicyRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GetAccessPolicyRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GetAccessPolicyRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::UpdateAccessPolicyRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __access_policy,
+            __validate_only,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for UpdateAccessPolicyRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "accessPolicy" => Ok(__FieldTag::__access_policy),
+                            "access_policy" => Ok(__FieldTag::__access_policy),
+                            "validateOnly" => Ok(__FieldTag::__validate_only),
+                            "validate_only" => Ok(__FieldTag::__validate_only),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::UpdateAccessPolicyRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct UpdateAccessPolicyRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__access_policy => {
+                            if !fields.insert(__FieldTag::__access_policy) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for access_policy",
+                                ));
+                            }
+                            result.access_policy = map
+                                .next_value::<std::option::Option<crate::model::AccessPolicy>>()?;
+                        }
+                        __FieldTag::__validate_only => {
+                            if !fields.insert(__FieldTag::__validate_only) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for validate_only",
+                                ));
+                            }
+                            result.validate_only = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::DeleteAccessPolicyRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __etag,
+            __validate_only,
+            __force,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DeleteAccessPolicyRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "etag" => Ok(__FieldTag::__etag),
+                            "validateOnly" => Ok(__FieldTag::__validate_only),
+                            "validate_only" => Ok(__FieldTag::__validate_only),
+                            "force" => Ok(__FieldTag::__force),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::DeleteAccessPolicyRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DeleteAccessPolicyRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__etag => {
+                            if !fields.insert(__FieldTag::__etag) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for etag",
+                                ));
+                            }
+                            result.etag = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__validate_only => {
+                            if !fields.insert(__FieldTag::__validate_only) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for validate_only",
+                                ));
+                            }
+                            result.validate_only = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__force => {
+                            if !fields.insert(__FieldTag::__force) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for force",
+                                ));
+                            }
+                            result.force = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ListAccessPoliciesRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __page_size,
+            __page_token,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListAccessPoliciesRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "pageSize" => Ok(__FieldTag::__page_size),
+                            "page_size" => Ok(__FieldTag::__page_size),
+                            "pageToken" => Ok(__FieldTag::__page_token),
+                            "page_token" => Ok(__FieldTag::__page_token),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ListAccessPoliciesRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListAccessPoliciesRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__page_size => {
+                            if !fields.insert(__FieldTag::__page_size) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_size",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__page_token => {
+                            if !fields.insert(__FieldTag::__page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_token",
+                                ));
+                            }
+                            result.page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ListAccessPoliciesResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __access_policies,
+            __next_page_token,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListAccessPoliciesResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "accessPolicies" => Ok(__FieldTag::__access_policies),
+                            "access_policies" => Ok(__FieldTag::__access_policies),
+                            "nextPageToken" => Ok(__FieldTag::__next_page_token),
+                            "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ListAccessPoliciesResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListAccessPoliciesResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__access_policies => {
+                            if !fields.insert(__FieldTag::__access_policies) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for access_policies",
+                                ));
+                            }
+                            result.access_policies = map.next_value::<std::option::Option<std::vec::Vec<crate::model::AccessPolicy>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__next_page_token => {
+                            if !fields.insert(__FieldTag::__next_page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for next_page_token",
+                                ));
+                            }
+                            result.next_page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::SearchAccessPolicyBindingsRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __page_size,
+            __page_token,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SearchAccessPolicyBindingsRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "pageSize" => Ok(__FieldTag::__page_size),
+                            "page_size" => Ok(__FieldTag::__page_size),
+                            "pageToken" => Ok(__FieldTag::__page_token),
+                            "page_token" => Ok(__FieldTag::__page_token),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::SearchAccessPolicyBindingsRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SearchAccessPolicyBindingsRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__page_size => {
+                            if !fields.insert(__FieldTag::__page_size) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_size",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__page_token => {
+                            if !fields.insert(__FieldTag::__page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_token",
+                                ));
+                            }
+                            result.page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::SearchAccessPolicyBindingsResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __policy_bindings,
+            __next_page_token,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SearchAccessPolicyBindingsResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "policyBindings" => Ok(__FieldTag::__policy_bindings),
+                            "policy_bindings" => Ok(__FieldTag::__policy_bindings),
+                            "nextPageToken" => Ok(__FieldTag::__next_page_token),
+                            "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::SearchAccessPolicyBindingsResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SearchAccessPolicyBindingsResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__policy_bindings => {
+                            if !fields.insert(__FieldTag::__policy_bindings) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for policy_bindings",
+                                ));
+                            }
+                            result.policy_bindings = map.next_value::<std::option::Option<std::vec::Vec<crate::model::PolicyBinding>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__next_page_token => {
+                            if !fields.insert(__FieldTag::__next_page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for next_page_token",
+                                ));
+                            }
+                            result.next_page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::AccessPolicy {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __uid,
+            __etag,
+            __display_name,
+            __annotations,
+            __create_time,
+            __update_time,
+            __details,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for AccessPolicy")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "uid" => Ok(__FieldTag::__uid),
+                            "etag" => Ok(__FieldTag::__etag),
+                            "displayName" => Ok(__FieldTag::__display_name),
+                            "display_name" => Ok(__FieldTag::__display_name),
+                            "annotations" => Ok(__FieldTag::__annotations),
+                            "createTime" => Ok(__FieldTag::__create_time),
+                            "create_time" => Ok(__FieldTag::__create_time),
+                            "updateTime" => Ok(__FieldTag::__update_time),
+                            "update_time" => Ok(__FieldTag::__update_time),
+                            "details" => Ok(__FieldTag::__details),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::AccessPolicy;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct AccessPolicy")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__uid => {
+                            if !fields.insert(__FieldTag::__uid) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for uid",
+                                ));
+                            }
+                            result.uid = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__etag => {
+                            if !fields.insert(__FieldTag::__etag) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for etag",
+                                ));
+                            }
+                            result.etag = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__display_name => {
+                            if !fields.insert(__FieldTag::__display_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for display_name",
+                                ));
+                            }
+                            result.display_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__annotations => {
+                            if !fields.insert(__FieldTag::__annotations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for annotations",
+                                ));
+                            }
+                            result.annotations = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__create_time => {
+                            if !fields.insert(__FieldTag::__create_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for create_time",
+                                ));
+                            }
+                            result.create_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__update_time => {
+                            if !fields.insert(__FieldTag::__update_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_time",
+                                ));
+                            }
+                            result.update_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__details => {
+                            if !fields.insert(__FieldTag::__details) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for details",
+                                ));
+                            }
+                            result.details = map.next_value::<std::option::Option<crate::model::AccessPolicyDetails>>()?
+                                ;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::AccessPolicyDetails {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __rules,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for AccessPolicyDetails")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "rules" => Ok(__FieldTag::__rules),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::AccessPolicyDetails;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct AccessPolicyDetails")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__rules => {
+                            if !fields.insert(__FieldTag::__rules) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for rules",
+                                ));
+                            }
+                            result.rules =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::AccessPolicyRule>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::AccessPolicyRule {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __description,
+            __effect,
+            __principals,
+            __excluded_principals,
+            __operation,
+            __conditions,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for AccessPolicyRule")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "description" => Ok(__FieldTag::__description),
+                            "effect" => Ok(__FieldTag::__effect),
+                            "principals" => Ok(__FieldTag::__principals),
+                            "excludedPrincipals" => Ok(__FieldTag::__excluded_principals),
+                            "excluded_principals" => Ok(__FieldTag::__excluded_principals),
+                            "operation" => Ok(__FieldTag::__operation),
+                            "conditions" => Ok(__FieldTag::__conditions),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::AccessPolicyRule;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct AccessPolicyRule")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__description => {
+                            if !fields.insert(__FieldTag::__description) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for description",
+                                ));
+                            }
+                            result.description =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__effect => {
+                            if !fields.insert(__FieldTag::__effect) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for effect",
+                                ));
+                            }
+                            result.effect = map.next_value::<std::option::Option<crate::model::access_policy_rule::Effect>>()?
+                                ;
+                        }
+                        __FieldTag::__principals => {
+                            if !fields.insert(__FieldTag::__principals) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for principals",
+                                ));
+                            }
+                            result.principals = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__excluded_principals => {
+                            if !fields.insert(__FieldTag::__excluded_principals) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for excluded_principals",
+                                ));
+                            }
+                            result.excluded_principals = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__operation => {
+                            if !fields.insert(__FieldTag::__operation) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for operation",
+                                ));
+                            }
+                            result.operation =
+                                map.next_value::<std::option::Option<
+                                    crate::model::access_policy_rule::Operation,
+                                >>()?;
+                        }
+                        __FieldTag::__conditions => {
+                            if !fields.insert(__FieldTag::__conditions) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for conditions",
+                                ));
+                            }
+                            result.conditions = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        google_cloud_type::model::Expr,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::access_policy_rule::Operation {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __permissions,
+            __excluded_permissions,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Operation")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "permissions" => Ok(__FieldTag::__permissions),
+                            "excludedPermissions" => Ok(__FieldTag::__excluded_permissions),
+                            "excluded_permissions" => Ok(__FieldTag::__excluded_permissions),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::access_policy_rule::Operation;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Operation")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__permissions => {
+                            if !fields.insert(__FieldTag::__permissions) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for permissions",
+                                ));
+                            }
+                            result.permissions = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__excluded_permissions => {
+                            if !fields.insert(__FieldTag::__excluded_permissions) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for excluded_permissions",
+                                ));
+                            }
+                            result.excluded_permissions = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::OperationMetadata {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -400,6 +1703,7 @@ impl<'de> serde::de::Deserialize<'de> for super::policy_binding::Target {
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __principal_set,
+            __resource,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -422,6 +1726,7 @@ impl<'de> serde::de::Deserialize<'de> for super::policy_binding::Target {
                         match value {
                             "principalSet" => Ok(__FieldTag::__principal_set),
                             "principal_set" => Ok(__FieldTag::__principal_set),
+                            "resource" => Ok(__FieldTag::__resource),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -460,6 +1765,24 @@ impl<'de> serde::de::Deserialize<'de> for super::policy_binding::Target {
                             }
                             result.target = std::option::Option::Some(
                                 crate::model::policy_binding::target::Target::PrincipalSet(
+                                    map.next_value::<std::option::Option<std::string::String>>()?
+                                        .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__resource => {
+                            if !fields.insert(__FieldTag::__resource) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for resource",
+                                ));
+                            }
+                            if result.target.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `target`, a oneof with full ID .google.iam.v3.PolicyBinding.Target.resource, latest field was resource",
+                                ));
+                            }
+                            result.target = std::option::Option::Some(
+                                crate::model::policy_binding::target::Target::Resource(
                                     map.next_value::<std::option::Option<std::string::String>>()?
                                         .unwrap_or_default(),
                                 ),
@@ -1119,6 +2442,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SearchTargetPolicyBindingsReque
             __page_size,
             __page_token,
             __parent,
+            __filter,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1145,6 +2469,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SearchTargetPolicyBindingsReque
                             "pageToken" => Ok(__FieldTag::__page_token),
                             "page_token" => Ok(__FieldTag::__page_token),
                             "parent" => Ok(__FieldTag::__parent),
+                            "filter" => Ok(__FieldTag::__filter),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1216,6 +2541,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SearchTargetPolicyBindingsReque
                                 ));
                             }
                             result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__filter => {
+                            if !fields.insert(__FieldTag::__filter) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for filter",
+                                ));
+                            }
+                            result.filter = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }

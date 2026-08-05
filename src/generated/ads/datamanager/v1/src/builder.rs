@@ -333,6 +333,102 @@ pub mod ingestion_service {
         }
     }
 
+    /// The request builder for [IngestionService::remove_all_audience_members][crate::client::IngestionService::remove_all_audience_members] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_ads_datamanager_v1::builder::ingestion_service::RemoveAllAudienceMembers;
+    /// # async fn sample() -> google_ads_datamanager_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> RemoveAllAudienceMembers {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct RemoveAllAudienceMembers(
+        RequestBuilder<crate::model::RemoveAllAudienceMembersRequest>,
+    );
+
+    impl RemoveAllAudienceMembers {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IngestionService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::RemoveAllAudienceMembersRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::RemoveAllAudienceMembersResponse> {
+            (*self.0.stub)
+                .remove_all_audience_members(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [destinations][crate::model::RemoveAllAudienceMembersRequest::destinations].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_destinations<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::Destination>,
+        {
+            use std::iter::Iterator;
+            self.0.request.destinations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [remove_as_of_time][crate::model::RemoveAllAudienceMembersRequest::remove_as_of_time].
+        pub fn set_remove_as_of_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.remove_as_of_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [remove_as_of_time][crate::model::RemoveAllAudienceMembersRequest::remove_as_of_time].
+        pub fn set_or_clear_remove_as_of_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.remove_as_of_time = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [validate_only][crate::model::RemoveAllAudienceMembersRequest::validate_only].
+        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.validate_only = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for RemoveAllAudienceMembers {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [IngestionService::ingest_events][crate::client::IngestionService::ingest_events] calls.
     ///
     /// # Example
@@ -521,6 +617,8 @@ pub mod ingestion_service {
         }
 
         /// Sets the value of [encryption_info][crate::model::IngestAdEventsRequest::encryption_info].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_encryption_info<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::EncryptionInfo>,
@@ -530,6 +628,8 @@ pub mod ingestion_service {
         }
 
         /// Sets or clears the value of [encryption_info][crate::model::IngestAdEventsRequest::encryption_info].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_or_clear_encryption_info<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::EncryptionInfo>,
@@ -539,6 +639,7 @@ pub mod ingestion_service {
         }
 
         /// Sets the value of [validate_only][crate::model::IngestAdEventsRequest::validate_only].
+        #[deprecated]
         pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.validate_only = v.into();
             self

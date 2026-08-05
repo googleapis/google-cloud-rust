@@ -360,6 +360,21 @@ impl ::prost::Name for TransactionOptions {
     }
 }
 #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct RequestOptions {
+    #[prost(string, repeated, tag = "1")]
+    pub request_tags: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+impl ::prost::Name for RequestOptions {
+    const NAME: &'static str = "RequestOptions";
+    const PACKAGE: &'static str = "google.firestore.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.firestore.v1.RequestOptions".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.firestore.v1.RequestOptions".into()
+    }
+}
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct ExplainStats {
     #[prost(message, optional, tag = "1")]
     pub data: ::core::option::Option<::prost_types::Any>,
@@ -1260,6 +1275,8 @@ pub struct GetDocumentRequest {
     pub name: ::prost::alloc::string::String,
     #[prost(message, optional, tag = "2")]
     pub mask: ::core::option::Option<DocumentMask>,
+    #[prost(message, optional, tag = "10")]
+    pub request_options: ::core::option::Option<RequestOptions>,
     #[prost(oneof = "get_document_request::ConsistencySelector", tags = "3, 5")]
     pub consistency_selector: ::core::option::Option<
         get_document_request::ConsistencySelector,
@@ -1301,6 +1318,8 @@ pub struct ListDocumentsRequest {
     pub mask: ::core::option::Option<DocumentMask>,
     #[prost(bool, tag = "12")]
     pub show_missing: bool,
+    #[prost(message, optional, tag = "13")]
+    pub request_options: ::core::option::Option<RequestOptions>,
     #[prost(oneof = "list_documents_request::ConsistencySelector", tags = "8, 10")]
     pub consistency_selector: ::core::option::Option<
         list_documents_request::ConsistencySelector,
@@ -1355,6 +1374,8 @@ pub struct CreateDocumentRequest {
     pub document: ::core::option::Option<Document>,
     #[prost(message, optional, tag = "5")]
     pub mask: ::core::option::Option<DocumentMask>,
+    #[prost(message, optional, tag = "6")]
+    pub request_options: ::core::option::Option<RequestOptions>,
 }
 impl ::prost::Name for CreateDocumentRequest {
     const NAME: &'static str = "CreateDocumentRequest";
@@ -1376,6 +1397,8 @@ pub struct UpdateDocumentRequest {
     pub mask: ::core::option::Option<DocumentMask>,
     #[prost(message, optional, tag = "4")]
     pub current_document: ::core::option::Option<Precondition>,
+    #[prost(message, optional, tag = "5")]
+    pub request_options: ::core::option::Option<RequestOptions>,
 }
 impl ::prost::Name for UpdateDocumentRequest {
     const NAME: &'static str = "UpdateDocumentRequest";
@@ -1393,6 +1416,8 @@ pub struct DeleteDocumentRequest {
     pub name: ::prost::alloc::string::String,
     #[prost(message, optional, tag = "2")]
     pub current_document: ::core::option::Option<Precondition>,
+    #[prost(message, optional, tag = "3")]
+    pub request_options: ::core::option::Option<RequestOptions>,
 }
 impl ::prost::Name for DeleteDocumentRequest {
     const NAME: &'static str = "DeleteDocumentRequest";
@@ -1412,6 +1437,8 @@ pub struct BatchGetDocumentsRequest {
     pub documents: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     #[prost(message, optional, tag = "3")]
     pub mask: ::core::option::Option<DocumentMask>,
+    #[prost(message, optional, tag = "8")]
+    pub request_options: ::core::option::Option<RequestOptions>,
     #[prost(
         oneof = "batch_get_documents_request::ConsistencySelector",
         tags = "4, 5, 7"
@@ -1477,6 +1504,8 @@ pub struct BeginTransactionRequest {
     pub database: ::prost::alloc::string::String,
     #[prost(message, optional, tag = "2")]
     pub options: ::core::option::Option<TransactionOptions>,
+    #[prost(message, optional, tag = "3")]
+    pub request_options: ::core::option::Option<RequestOptions>,
 }
 impl ::prost::Name for BeginTransactionRequest {
     const NAME: &'static str = "BeginTransactionRequest";
@@ -1511,6 +1540,8 @@ pub struct CommitRequest {
     pub writes: ::prost::alloc::vec::Vec<Write>,
     #[prost(bytes = "bytes", tag = "3")]
     pub transaction: ::prost::bytes::Bytes,
+    #[prost(message, optional, tag = "4")]
+    pub request_options: ::core::option::Option<RequestOptions>,
 }
 impl ::prost::Name for CommitRequest {
     const NAME: &'static str = "CommitRequest";
@@ -1545,6 +1576,8 @@ pub struct RollbackRequest {
     pub database: ::prost::alloc::string::String,
     #[prost(bytes = "bytes", tag = "2")]
     pub transaction: ::prost::bytes::Bytes,
+    #[prost(message, optional, tag = "3")]
+    pub request_options: ::core::option::Option<RequestOptions>,
 }
 impl ::prost::Name for RollbackRequest {
     const NAME: &'static str = "RollbackRequest";
@@ -1562,6 +1595,8 @@ pub struct RunQueryRequest {
     pub parent: ::prost::alloc::string::String,
     #[prost(message, optional, tag = "10")]
     pub explain_options: ::core::option::Option<ExplainOptions>,
+    #[prost(message, optional, tag = "11")]
+    pub request_options: ::core::option::Option<RequestOptions>,
     #[prost(oneof = "run_query_request::QueryType", tags = "2")]
     pub query_type: ::core::option::Option<run_query_request::QueryType>,
     #[prost(oneof = "run_query_request::ConsistencySelector", tags = "5, 6, 7")]
@@ -1637,6 +1672,8 @@ pub struct ExecutePipelineRequest {
     pub database: ::prost::alloc::string::String,
     #[prost(bool, tag = "9")]
     pub auto_commit_transaction: bool,
+    #[prost(message, optional, tag = "10")]
+    pub request_options: ::core::option::Option<RequestOptions>,
     #[prost(oneof = "execute_pipeline_request::PipelineType", tags = "2")]
     pub pipeline_type: ::core::option::Option<execute_pipeline_request::PipelineType>,
     #[prost(oneof = "execute_pipeline_request::ConsistencySelector", tags = "5, 6, 7")]
@@ -1698,6 +1735,8 @@ pub struct RunAggregationQueryRequest {
     pub parent: ::prost::alloc::string::String,
     #[prost(message, optional, tag = "8")]
     pub explain_options: ::core::option::Option<ExplainOptions>,
+    #[prost(message, optional, tag = "9")]
+    pub request_options: ::core::option::Option<RequestOptions>,
     #[prost(oneof = "run_aggregation_query_request::QueryType", tags = "2")]
     pub query_type: ::core::option::Option<run_aggregation_query_request::QueryType>,
     #[prost(
@@ -1766,6 +1805,8 @@ pub struct PartitionQueryRequest {
     pub page_token: ::prost::alloc::string::String,
     #[prost(int32, tag = "5")]
     pub page_size: i32,
+    #[prost(message, optional, tag = "7")]
+    pub request_options: ::core::option::Option<RequestOptions>,
     #[prost(oneof = "partition_query_request::QueryType", tags = "2")]
     pub query_type: ::core::option::Option<partition_query_request::QueryType>,
     #[prost(oneof = "partition_query_request::ConsistencySelector", tags = "6")]
@@ -1828,6 +1869,8 @@ pub struct WriteRequest {
         ::prost::alloc::string::String,
         ::prost::alloc::string::String,
     >,
+    #[prost(message, optional, tag = "6")]
+    pub request_options: ::core::option::Option<RequestOptions>,
 }
 impl ::prost::Name for WriteRequest {
     const NAME: &'static str = "WriteRequest";
@@ -1869,6 +1912,8 @@ pub struct ListenRequest {
         ::prost::alloc::string::String,
         ::prost::alloc::string::String,
     >,
+    #[prost(message, optional, tag = "5")]
+    pub request_options: ::core::option::Option<RequestOptions>,
     #[prost(oneof = "listen_request::TargetChange", tags = "2, 3")]
     pub target_change: ::core::option::Option<listen_request::TargetChange>,
 }
@@ -2082,6 +2127,8 @@ pub struct ListCollectionIdsRequest {
     pub page_size: i32,
     #[prost(string, tag = "3")]
     pub page_token: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "5")]
+    pub request_options: ::core::option::Option<RequestOptions>,
     #[prost(oneof = "list_collection_ids_request::ConsistencySelector", tags = "4")]
     pub consistency_selector: ::core::option::Option<
         list_collection_ids_request::ConsistencySelector,
@@ -2133,6 +2180,8 @@ pub struct BatchWriteRequest {
         ::prost::alloc::string::String,
         ::prost::alloc::string::String,
     >,
+    #[prost(message, optional, tag = "4")]
+    pub request_options: ::core::option::Option<RequestOptions>,
 }
 impl ::prost::Name for BatchWriteRequest {
     const NAME: &'static str = "BatchWriteRequest";

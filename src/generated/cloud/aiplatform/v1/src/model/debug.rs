@@ -15977,6 +15977,7 @@ impl std::fmt::Debug for super::Tool {
         debug_struct.field("google_maps", &self.google_maps);
         debug_struct.field("enterprise_web_search", &self.enterprise_web_search);
         debug_struct.field("parallel_ai_search", &self.parallel_ai_search);
+        debug_struct.field("exa_ai_search", &self.exa_ai_search);
         debug_struct.field("code_execution", &self.code_execution);
         debug_struct.field("url_context", &self.url_context);
         debug_struct.field("computer_use", &self.computer_use);
@@ -16014,6 +16015,24 @@ impl std::fmt::Debug for super::tool::GoogleSearch {
 impl std::fmt::Debug for super::tool::ParallelAiSearch {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ParallelAiSearch");
+        debug_struct.field("api_key", &self.api_key);
+        debug_struct.field("custom_configs", &self.custom_configs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "gen-ai-cache-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+    feature = "vertex-rag-service",
+))]
+impl std::fmt::Debug for super::tool::ExaAiSearch {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExaAiSearch");
         debug_struct.field("api_key", &self.api_key);
         debug_struct.field("custom_configs", &self.custom_configs);
         if !self._unknown_fields.is_empty() {

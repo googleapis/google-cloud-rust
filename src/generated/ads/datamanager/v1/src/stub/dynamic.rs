@@ -29,6 +29,12 @@ pub trait IngestionService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::RemoveAudienceMembersResponse>>;
 
+    async fn remove_all_audience_members(
+        &self,
+        req: crate::model::RemoveAllAudienceMembersRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RemoveAllAudienceMembersResponse>>;
+
     async fn ingest_events(
         &self,
         req: crate::model::IngestEventsRequest,
@@ -67,6 +73,15 @@ impl<T: super::IngestionService> IngestionService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::RemoveAudienceMembersResponse>> {
         T::remove_audience_members(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn remove_all_audience_members(
+        &self,
+        req: crate::model::RemoveAllAudienceMembersRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RemoveAllAudienceMembersResponse>> {
+        T::remove_all_audience_members(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
