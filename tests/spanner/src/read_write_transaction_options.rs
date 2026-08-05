@@ -62,7 +62,7 @@ pub async fn runner_commit_configurations(db_client: &DatabaseClient) -> anyhow:
                 .set("Id")
                 .to(&id)
                 .set("ColInt64")
-                .to(&99_i64)
+                .to(99_i64)
                 .build();
             transaction.buffer(vec![mutation])?;
             Ok(())

@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.31.0
+version: v0.31.2-0.20260804190831-b07a8a79b63a
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
@@ -184,7 +184,7 @@ libraries:
       - path: backstory
     copyright_year: "2026"
   - name: google-chat-v1
-    version: 1.0.0
+    version: 1.1.0
     copyright_year: "2026"
     rust:
       name_overrides: .google.chat.v1.PositionSectionRequest.position=PositionOneof
@@ -201,7 +201,7 @@ libraries:
     version: 1.0.0
     copyright_year: "2026"
   - name: google-cloud-aiplatform-v1
-    version: 1.14.0
+    version: 1.15.0
     copyright_year: "2025"
     rust:
       per_service_features: true
@@ -289,12 +289,12 @@ libraries:
                   - name: EXTENDED_TILE_CACHE_PERIOD
                     type: INT64
   - name: google-cloud-api-cloudquotas-v1
-    version: 1.11.0
+    version: 1.12.0
     apis:
       - path: google/api/cloudquotas/v1
     copyright_year: "2025"
   - name: google-cloud-api-servicecontrol-v1
-    version: 1.11.0
+    version: 1.12.0
     apis:
       - path: google/api/servicecontrol/v1
     copyright_year: "2025"
@@ -453,11 +453,11 @@ libraries:
     version: 1.4.0
     copyright_year: "2026"
   - name: google-cloud-auth
-    version: 1.14.0
+    version: 1.15.0
     copyright_year: "2025"
     output: src/auth
   - name: google-cloud-backupdr-v1
-    version: 1.13.0
+    version: 1.14.0
     copyright_year: "2025"
   - name: google-cloud-baremetalsolution-v2
     version: 1.12.0
@@ -478,7 +478,7 @@ libraries:
     version: 1.13.0
     copyright_year: "2025"
   - name: google-cloud-biglake-v1
-    version: 2.0.0
+    version: 2.1.0
     copyright_year: "2025"
   - name: google-cloud-bigquery
     version: 0.16.0-preview
@@ -488,6 +488,17 @@ libraries:
     rust:
       modules:
         - output: src/bigquery/src/generated
+          skipped_ids:
+            - .google.cloud.bigquery.v2.JobConfiguration.copy
+            - .google.cloud.bigquery.v2.JobConfiguration.load
+            - .google.cloud.bigquery.v2.JobConfiguration.extract
+            - .google.cloud.bigquery.v2.QueryRequest.format_options
+            - .google.cloud.bigquery.v2.GetQueryResultsRequest.format_options
+            - .google.cloud.bigquery.v2.QueryRequest.kind
+            - .google.cloud.bigquery.v2.JobConfiguration.kind
+            - .google.cloud.bigquery.v2.JobConfiguration.job_type
+            - .google.cloud.bigquery.v2.GetQueryResultsResponse.rows
+            - .google.cloud.bigquery.v2.QueryResponse.rows
           api_path: google/cloud/bigquery/v2
           template: bigquery
   - name: google-cloud-bigquery-analyticshub-v1
@@ -524,6 +535,9 @@ libraries:
     skip_release: true
     rust:
       package_dependencies:
+        - name: thiserror
+          package: thiserror
+          force_used: true
         - name: tokio
           package: tokio
           force_used: true
@@ -614,7 +628,7 @@ libraries:
     version: 1.7.0
     copyright_year: "2025"
   - name: google-cloud-compute-v1
-    version: 3.3.0
+    version: 3.4.0
     copyright_year: "2025"
     keep:
       - src/errors.rs
@@ -773,7 +787,7 @@ libraries:
         - tools
         - versions
   - name: google-cloud-discoveryengine-v1
-    version: 2.13.0
+    version: 2.14.0
     copyright_year: "2025"
     rust:
       per_service_features: true
@@ -800,7 +814,7 @@ libraries:
         - user-event-service
         - user-license-service
   - name: google-cloud-dns-v1
-    version: 1.6.0
+    version: 1.7.0
     copyright_year: "2026"
     keep:
       - src/operation.rs
@@ -886,7 +900,7 @@ libraries:
     version: 1.13.0
     copyright_year: "2025"
   - name: google-cloud-gax
-    version: 1.12.0
+    version: 1.13.0
     copyright_year: "2025"
     output: src/gax
   - name: google-cloud-gax-internal
@@ -952,7 +966,7 @@ libraries:
     version: 1.11.0
     copyright_year: "2025"
   - name: google-cloud-grafeas-v1
-    version: 1.11.0
+    version: 1.12.0
     apis:
       - path: grafeas/v1
     copyright_year: "2025"
@@ -1042,7 +1056,7 @@ libraries:
           package: google-cloud-kms-v1
           source: google.cloud.kms.v1
   - name: google-cloud-kms-v1
-    version: 1.12.0
+    version: 1.13.0
     copyright_year: "2025"
   - name: google-cloud-language-v2
     version: 1.11.0
@@ -1108,7 +1122,7 @@ libraries:
     version: 1.13.0
     copyright_year: "2025"
   - name: google-cloud-memorystore-v1
-    version: 1.13.0
+    version: 1.14.0
     copyright_year: "2025"
   - name: google-cloud-metastore-v1
     version: 1.13.0
@@ -1147,7 +1161,7 @@ libraries:
     version: 1.13.0
     copyright_year: "2025"
   - name: google-cloud-networkservices-v1
-    version: 1.13.0
+    version: 1.14.0
     copyright_year: "2025"
   - name: google-cloud-notebooks-v2
     version: 1.13.0
@@ -1235,7 +1249,7 @@ libraries:
     rust:
       package_name_override: google-cloud-profiler-v2
   - name: google-cloud-pubsub
-    version: 1.2.0
+    version: 1.3.0
     copyright_year: "2025"
     output: src/pubsub
     rust:
@@ -1328,7 +1342,7 @@ libraries:
     version: 1.11.0
     copyright_year: "2025"
   - name: google-cloud-redis-cluster-v1
-    version: 1.13.0
+    version: 1.14.0
     copyright_year: "2025"
   - name: google-cloud-redis-v1
     version: 1.13.0
@@ -1366,7 +1380,7 @@ libraries:
     version: 1.11.0
     copyright_year: "2025"
   - name: google-cloud-secretmanager-v1
-    version: 1.11.0
+    version: 1.12.0
     copyright_year: "2024"
   - name: google-cloud-securesourcemanager-v1
     version: 1.13.0
@@ -1378,7 +1392,7 @@ libraries:
     version: 1.11.0
     copyright_year: "2025"
   - name: google-cloud-securitycenter-v2
-    version: 1.13.0
+    version: 1.14.0
     copyright_year: "2025"
   - name: google-cloud-securitycentermanagement-v1
     version: 1.3.0
@@ -1406,7 +1420,7 @@ libraries:
       - googleapis
     skip_release: true
   - name: google-cloud-spanner
-    version: 0.34.3-preview
+    version: 0.34.4-preview
     copyright_year: "2026"
     output: src/spanner
     rust:
@@ -1473,7 +1487,7 @@ libraries:
     version: 1.13.0
     copyright_year: "2025"
   - name: google-cloud-sql-v1
-    version: 2.8.0
+    version: 2.9.0
     copyright_year: "2025"
     rust:
       resource_name_heuristic: true
@@ -1620,7 +1634,7 @@ libraries:
       - path: google/storagetransfer/v1
     copyright_year: "2025"
   - name: google-cloud-support-v2
-    version: 1.11.0
+    version: 1.12.0
     copyright_year: "2025"
   - name: google-cloud-talent-v4
     version: 1.12.0
@@ -1707,7 +1721,7 @@ libraries:
     version: 1.11.0
     copyright_year: "2025"
   - name: google-cloud-wkt
-    version: 1.6.0
+    version: 1.7.0
     copyright_year: "2025"
     output: src/wkt
     roots:
@@ -1733,7 +1747,7 @@ libraries:
     version: 1.13.0
     copyright_year: "2025"
   - name: google-developers-knowledge-v1
-    version: 1.0.0
+    version: 1.1.0
     copyright_year: "2026"
   - name: google-devicesandservices-health-v4
     version: 1.0.0
@@ -1779,6 +1793,27 @@ libraries:
     version: 1.0.0
     copyright_year: "2026"
   - name: google-maps-routing-v2
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-maps-solar-v1
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-maps-weather-v1
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-shopping-merchant-conversions-v1
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-shopping-merchant-inventories-v1
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-shopping-merchant-issueresolution-v1
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-shopping-merchant-lfp-v1
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-shopping-merchant-notifications-v1
     version: 1.0.0
     copyright_year: "2026"
   - name: google-shopping-type

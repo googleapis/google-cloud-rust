@@ -88,10 +88,10 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::conformance_request:
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::conformance_request::Payload, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::conformance_request::Payload as T;
         match self {
-            Self::ProtobufPayload(v) => Ok(T::from_protobuf_payload(v.cnv()?)),
-            Self::JsonPayload(v) => Ok(T::from_json_payload(v.cnv()?)),
-            Self::JspbPayload(v) => Ok(T::from_jspb_payload(v.cnv()?)),
-            Self::TextPayload(v) => Ok(T::from_text_payload(v.cnv()?)),
+            Self::ProtobufPayload(v) => Ok(T::ProtobufPayload(v.cnv()?)),
+            Self::JsonPayload(v) => Ok(T::JsonPayload(v.cnv()?)),
+            Self::JspbPayload(v) => Ok(T::JspbPayload(v.cnv()?)),
+            Self::TextPayload(v) => Ok(T::TextPayload(v.cnv()?)),
         }
     }
 }
@@ -145,15 +145,15 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::conformance_response
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::conformance_response::Result, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::conformance_response::Result as T;
         match self {
-            Self::ParseError(v) => Ok(T::from_parse_error(v.cnv()?)),
-            Self::SerializeError(v) => Ok(T::from_serialize_error(v.cnv()?)),
-            Self::TimeoutError(v) => Ok(T::from_timeout_error(v.cnv()?)),
-            Self::RuntimeError(v) => Ok(T::from_runtime_error(v.cnv()?)),
-            Self::ProtobufPayload(v) => Ok(T::from_protobuf_payload(v.cnv()?)),
-            Self::JsonPayload(v) => Ok(T::from_json_payload(v.cnv()?)),
-            Self::Skipped(v) => Ok(T::from_skipped(v.cnv()?)),
-            Self::JspbPayload(v) => Ok(T::from_jspb_payload(v.cnv()?)),
-            Self::TextPayload(v) => Ok(T::from_text_payload(v.cnv()?)),
+            Self::ParseError(v) => Ok(T::ParseError(v.cnv()?)),
+            Self::SerializeError(v) => Ok(T::SerializeError(v.cnv()?)),
+            Self::TimeoutError(v) => Ok(T::TimeoutError(v.cnv()?)),
+            Self::RuntimeError(v) => Ok(T::RuntimeError(v.cnv()?)),
+            Self::ProtobufPayload(v) => Ok(T::ProtobufPayload(v.cnv()?)),
+            Self::JsonPayload(v) => Ok(T::JsonPayload(v.cnv()?)),
+            Self::Skipped(v) => Ok(T::Skipped(v.cnv()?)),
+            Self::JspbPayload(v) => Ok(T::JspbPayload(v.cnv()?)),
+            Self::TextPayload(v) => Ok(T::TextPayload(v.cnv()?)),
         }
     }
 }

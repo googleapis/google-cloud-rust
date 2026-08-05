@@ -48,7 +48,7 @@ impl AppendableObjectWriterTransport {
     ) -> Result<Self>
     where
         T: Client + Clone + Sync + Send + 'static,
-        <T as Client>::Stream: TonicStreaming + Send + Sync,
+        <T as Client>::Stream: TonicStreaming,
     {
         let (initial, connection) = connector.connect_open(req).await?;
         Self::start_worker(connector, initial, connection, 0)
@@ -60,7 +60,7 @@ impl AppendableObjectWriterTransport {
     ) -> Result<Self>
     where
         T: Client + Clone + Sync + Send + 'static,
-        <T as Client>::Stream: TonicStreaming + Send + Sync,
+        <T as Client>::Stream: TonicStreaming,
     {
         let generation = req.generation;
         let (initial, connection) = connector.connect_reopen(req).await?;
@@ -75,7 +75,7 @@ impl AppendableObjectWriterTransport {
     ) -> Result<Self>
     where
         T: Client + Clone + Sync + Send + 'static,
-        <T as Client>::Stream: TonicStreaming + Send + Sync,
+        <T as Client>::Stream: TonicStreaming,
     {
         let mut persisted_size = 0;
         let mut generation = generation;
