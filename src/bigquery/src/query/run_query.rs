@@ -125,6 +125,9 @@ fn generate_job_reference(project_id: &str, location: &str) -> JobReference {
 // BigQuery does not strictly define a format for request and job IDs, just a limit in size.
 // However, request IDs are more restrictive and have a limit of 36 characters.
 // UUID v4 simple format is used to reduce length.
+//
+// See https://docs.cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query#QueryRequest for request ID
+// and https://docs.cloud.google.com/bigquery/docs/reference/rest/v2/JobReference for job ID.
 fn generate_prefixed_id(prefix: &str) -> String {
     format!("{prefix}{}", Uuid::new_v4().simple())
 }
