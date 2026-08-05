@@ -70,6 +70,20 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn remove_all_audience_members(
+        &self,
+        req: crate::model::RemoveAllAudienceMembersRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RemoveAllAudienceMembersResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::IngestionService::remove_all_audience_members",
+            self.inner.remove_all_audience_members(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn ingest_events(
         &self,
         req: crate::model::IngestEventsRequest,

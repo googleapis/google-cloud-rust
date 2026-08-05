@@ -59,6 +59,12 @@ pub trait ChatService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>>;
 
+    async fn search_messages(
+        &self,
+        req: crate::model::SearchMessagesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SearchMessagesResponse>>;
+
     async fn get_attachment(
         &self,
         req: crate::model::GetAttachmentRequest,
@@ -370,6 +376,15 @@ impl<T: super::ChatService> ChatService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>> {
         T::delete_message(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn search_messages(
+        &self,
+        req: crate::model::SearchMessagesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SearchMessagesResponse>> {
+        T::search_messages(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
