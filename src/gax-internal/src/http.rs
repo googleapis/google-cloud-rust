@@ -58,6 +58,8 @@ use tracing::Instrument;
 
 const X_GOOG_USER_PROJECT: http::header::HeaderName =
     http::header::HeaderName::from_static("x-goog-user-project");
+const X_GOOG_API_KEY: http::header::HeaderName =
+    http::header::HeaderName::from_static("x-goog-api-key");
 
 #[derive(Clone, Debug)]
 pub struct ReqwestClient {
@@ -417,25 +419,27 @@ impl ReqwestClient {
             builder = builder.timeout(timeout);
         }
 
-        let cred_headers = match self.cred.headers(Extensions::new()).await {
-            Err(e) => return Err(Error::authentication(e)),
-            Ok(CacheableResource::New { data, .. }) => data,
-            Ok(CacheableResource::NotModified) => unreachable!("headers are not cached"),
-        };
-
         use google_cloud_gax::options::internal::RequestOptionsExt;
         let mut headers = options
             .get_extension::<http::HeaderMap>()
             .cloned()
             .unwrap_or_default();
 
-        // Strip any custom headers that collide with system headers or credential headers.
-        for key in cred_headers
-            .keys()
-            .chain([&http::header::USER_AGENT, &X_GOOG_USER_PROJECT])
-        {
+        // Sanitize user custom headers by stripping away any keys conflicting with system headers or authentication headers.
+        for key in [
+            http::header::USER_AGENT,
+            http::header::AUTHORIZATION,
+            X_GOOG_API_KEY,
+            X_GOOG_USER_PROJECT,
+        ] {
             headers.remove(key);
         }
+
+        let cred_headers = match self.cred.headers(Extensions::new()).await {
+            Err(e) => return Err(Error::authentication(e)),
+            Ok(CacheableResource::New { data, .. }) => data,
+            Ok(CacheableResource::NotModified) => unreachable!("headers are not cached"),
+        };
         headers.extend(cred_headers);
 
         if let Some(user_agent) = options.user_agent() {

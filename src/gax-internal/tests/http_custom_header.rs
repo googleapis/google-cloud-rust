@@ -98,6 +98,7 @@ mod tests {
         let builder = client.builder(reqwest::Method::GET, "/echo".into());
         let mut options = RequestOptions::default();
         options = with_custom_header(options, "authorization", "Bearer fake-token");
+        options = with_custom_header(options, "x-goog-api-key", "fake-api-key");
         options = with_custom_header(options, "user-agent", "fake-agent");
         options = with_custom_header(options, X_GOOG_USER_PROJECT, "fake-project");
 
@@ -112,6 +113,10 @@ mod tests {
         assert_eq!(
             get_header_value(&response, "authorization").as_deref(),
             Some("Bearer valid-token"),
+            "{response:?}"
+        );
+        assert!(
+            get_header_value(&response, "x-goog-api-key").is_none(),
             "{response:?}"
         );
         assert_eq!(
@@ -139,6 +144,8 @@ mod tests {
         let mut options = RequestOptions::default();
         options = with_custom_header(options, "user-agent", "fake-agent");
         options = with_custom_header(options, X_GOOG_USER_PROJECT, "fake-project");
+        options = with_custom_header(options, "authorization", "Bearer fake-token");
+        options = with_custom_header(options, "x-goog-api-key", "fake-api-key");
 
         let response: serde_json::Value = client
             .execute(builder, Some(json!({})), options)
@@ -152,6 +159,14 @@ mod tests {
         assert!(
             get_header_value(&response, X_GOOG_USER_PROJECT).is_none(),
             "x-goog-user-project should be stripped when unset on options: {response:?}"
+        );
+        assert!(
+            get_header_value(&response, "authorization").is_none(),
+            "authorization should be stripped when unset on options: {response:?}"
+        );
+        assert!(
+            get_header_value(&response, "x-goog-api-key").is_none(),
+            "x-goog-api-key should be stripped when unset on options: {response:?}"
         );
         Ok(())
     }
