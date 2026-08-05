@@ -138,10 +138,8 @@ locals {
       script = "test"
     }
     test-msrv = {
-      config       = "complex.yaml"
-      flags        = local.unstable_flags
-      script       = "test"
-      rust_version = "1.88"
+      config = "msrv.yaml"
+      flags  = local.unstable_flags
     }
     test-unstable-cfg = {
       config = "complex.yaml"
