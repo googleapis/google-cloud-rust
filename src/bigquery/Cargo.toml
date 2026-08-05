@@ -41,6 +41,7 @@ wkt.workspace                = true
 gaxi                         = { workspace = true, features = ["_internal-common", "_internal-grpc-client", "_internal-http-client"] }
 tokio                        = { workspace = true, features = ["time"] }
 rust_decimal.workspace       = true
+uuid.workspace               = true
 
 [dev-dependencies]
 anyhow.workspace    = true
