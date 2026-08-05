@@ -318,6 +318,7 @@ members = [
   "src/generated/privacy/dlp/v2",
   "src/generated/rpc/context",
   "src/generated/rpc/types",
+  "src/generated/shopping/css/v1",
   "src/generated/shopping/gtype",
   "src/generated/shopping/merchant/conversions/v1",
   "src/generated/shopping/merchant/inventories/v1",
