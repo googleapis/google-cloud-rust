@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.32.0
+version: v0.33.0
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
@@ -1413,12 +1413,14 @@ libraries:
     version: 1.0.0
     apis:
       - path: schema/google/showcase/v1beta1
-    copyright_year: "2025"
+    copyright_year: "2026"
     output: src/generated/showcase
     roots:
       - showcase
       - googleapis
     skip_release: true
+    rust:
+      include_bidi_streaming_methods: true
   - name: google-cloud-spanner
     version: 0.34.4-preview
     copyright_year: "2026"

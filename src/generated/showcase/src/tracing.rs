@@ -1,4 +1,4 @@
-// Copyright 2025 Google LLC
+// Copyright 2026 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -414,6 +414,17 @@ where
             method: "client::Echo::fail_echo_with_details",
             self.inner.fail_echo_with_details(req, options));
         pending.await
+    }
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    async fn chat(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::EchoRequest>,
+        google_cloud_gax::streaming::ResponseReceiver<crate::model::EchoResponse>,
+    ) {
+        self.inner.chat(options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1119,6 +1130,17 @@ where
             method: "client::Messaging::search_blurbs",
             self.inner.search_blurbs(req, options));
         pending.await
+    }
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    async fn connect(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::ConnectRequest>,
+        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>,
+    ) {
+        self.inner.connect(options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
