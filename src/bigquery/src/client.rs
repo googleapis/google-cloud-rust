@@ -62,6 +62,7 @@ use std::sync::Arc;
 #[derive(Clone, Debug)]
 pub struct BigQuery {
     job_service: Arc<JobService>,
+    project_id: Option<String>,
 }
 
 impl BigQuery {
@@ -105,7 +106,10 @@ impl BigQuery {
             job_service_builder.with_retry_throttler(builder.config.retry_throttler);
         let job_service = Arc::new(job_service_builder.build().await?);
 
-        Ok(BigQuery { job_service })
+        Ok(BigQuery {
+            job_service,
+            project_id: builder.project_id,
+        })
     }
 
     /// Creates a request builder to configure and execute a SQL query.
@@ -150,7 +154,11 @@ impl BigQuery {
     /// # }
     /// ```
     pub fn query<S: Into<String>>(&self, sql: S) -> RunQuery {
-        RunQuery::new(self.job_service.clone(), sql.into())
+        let mut run_query = RunQuery::new(self.job_service.clone(), sql.into());
+        if let Some(project_id) = self.project_id.as_deref() {
+            run_query = run_query.with_project_id(project_id);
+        }
+        run_query
     }
 }
 
@@ -161,10 +169,45 @@ mod tests {
 
     #[tokio::test]
     async fn test_bigquery_builder() -> anyhow::Result<()> {
-        let _client = BigQuery::builder()
+        let client = BigQuery::builder()
             .with_credentials(Anonymous::new().build())
             .build()
             .await?;
+        assert!(client.project_id.is_none());
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_bigquery_builder_with_project_id() -> anyhow::Result<()> {
+        let client = BigQuery::builder()
+            .with_project_id("test-proj")
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        assert_eq!(client.project_id.as_deref(), Some("test-proj"));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_bigquery_query_inherits_project_id() -> anyhow::Result<()> {
+        let client = BigQuery::builder()
+            .with_project_id("test-proj")
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let run_query = client.query("SELECT 1");
+        assert_eq!(run_query.project_id.as_deref(), Some("test-proj"));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_bigquery_query_without_project_id() -> anyhow::Result<()> {
+        let client = BigQuery::builder()
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let run_query = client.query("SELECT 1");
+        assert!(run_query.project_id.is_none());
         Ok(())
     }
 }

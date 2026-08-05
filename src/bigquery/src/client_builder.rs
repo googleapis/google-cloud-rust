@@ -33,6 +33,7 @@ use google_cloud_gax::client_builder::Result;
 #[derive(Clone, Debug)]
 pub struct ClientBuilder {
     pub(crate) config: ClientConfig,
+    pub(crate) project_id: Option<String>,
 }
 
 impl Default for ClientBuilder {
@@ -46,7 +47,14 @@ impl ClientBuilder {
     pub fn new() -> Self {
         Self {
             config: ClientConfig::default(),
+            project_id: None,
         }
+    }
+
+    /// Sets the default Google Cloud project ID for the client.
+    pub fn with_project_id<V: Into<String>>(mut self, project_id: V) -> Self {
+        self.project_id = Some(project_id.into());
+        self
     }
 
     /// Sets the [BigQuery v2] API endpoint.
@@ -164,6 +172,7 @@ mod tests {
         assert!(builder.config.universe_domain.is_none(), "{builder:?}");
         assert!(builder.config.cred.is_none(), "{builder:?}");
         assert!(!builder.config.tracing);
+        assert!(builder.project_id.is_none(), "{builder:?}");
 
         Ok(())
     }
@@ -171,11 +180,13 @@ mod tests {
     #[tokio::test]
     async fn setters() -> anyhow::Result<()> {
         let builder = ClientBuilder::new()
+            .with_project_id("test-project")
             .with_endpoint("test-endpoint.com")
             .with_universe_domain("test-universe.com")
             .with_credentials(Anonymous::new().build())
             .with_tracing();
 
+        assert_eq!(builder.project_id, Some("test-project".to_string()));
         assert_eq!(
             builder.config.endpoint,
             Some("test-endpoint.com".to_string())
