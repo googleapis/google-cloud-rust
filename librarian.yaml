@@ -1803,6 +1803,9 @@ libraries:
   - name: google-maps-weather-v1
     version: 1.0.0
     copyright_year: "2026"
+  - name: google-shopping-css-v1
+    version: 1.0.0
+    copyright_year: "2026"
   - name: google-shopping-merchant-conversions-v1
     version: 1.0.0
     copyright_year: "2026"
