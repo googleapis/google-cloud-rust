@@ -102,7 +102,7 @@ impl InsertJobExecutor {
             .insert_job()
             .with_request(self.request)
             // jobs.insert is idempotent because every request
-            // carries a generated UUID job_id.
+            // carries a generated job_id.
             .with_idempotency(true)
             .send()
             .await?;

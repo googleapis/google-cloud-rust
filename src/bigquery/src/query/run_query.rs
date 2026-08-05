@@ -104,6 +104,10 @@ impl RunQuery {
     }
 }
 
+// Create a job reference with a generated job ID.
+//
+// BigQuery does not strictly define a format for job IDs, just a limit in size.
+// See https://docs.cloud.google.com/bigquery/docs/reference/rest/v2/JobReference
 fn generate_job_reference(project_id: &str, location: &str) -> JobReference {
     let job_id = generate_prefixed_id(JOB_ID_PREFIX);
     let mut job_ref = JobReference::new()
@@ -113,10 +117,14 @@ fn generate_job_reference(project_id: &str, location: &str) -> JobReference {
     if !location.is_empty() {
         job_ref = job_ref.set_location(location.to_string());
     }
-
     job_ref
 }
 
+// Create a random ID with the given prefix and a UUID.
+//
+// BigQuery does not strictly define a format for request and job IDs, just a limit in size.
+// However, request IDs are more restrictive and have a limit of 36 characters.
+// UUID v4 simple format is used to reduce length.
 fn generate_prefixed_id(prefix: &str) -> String {
     format!("{prefix}{}", Uuid::new_v4().simple())
 }
@@ -132,7 +140,9 @@ mod tests {
         Job, JobConfiguration, JobReference, JobStatus, QueryRequest, QueryResponse,
     };
     use google_cloud_gax::response::Response;
-    use uuid::Uuid;
+
+    // bigquery limits request id to 36 characters
+    const BIGQUERY_REQ_ID_LIMIT: usize = 36;
 
     type TestResult = anyhow::Result<()>;
 
@@ -180,7 +190,7 @@ mod tests {
 
         let req_id = generate_prefixed_id(QUERY_REQUEST_ID_PREFIX);
         assert!(req_id.starts_with(QUERY_REQUEST_ID_PREFIX), "{req_id:?}");
-        assert!(req_id.len() <= 36, "{req_id:?}"); // bigquery limits request id to 36 characters
+        assert!(req_id.len() <= BIGQUERY_REQ_ID_LIMIT, "{req_id:?}");
         assert!(
             Uuid::parse_str(&req_id[QUERY_REQUEST_ID_PREFIX.len()..]).is_ok(),
             "{req_id:?}"
@@ -226,7 +236,7 @@ mod tests {
         mock.expect_query().returning(move |req, _| {
             let req_id = &req.query_request.as_ref().unwrap().request_id;
             assert!(req_id.starts_with(QUERY_REQUEST_ID_PREFIX), "{req_id:?}");
-            assert!(req_id.len() <= 36, "{req_id:?}"); // bigquery limits request id to 36 characters
+            assert!(req_id.len() <= BIGQUERY_REQ_ID_LIMIT, "{req_id:?}");
             Ok(Response::from(QueryResponse::new()))
         });
         let job_service = create_job_service(mock);
