@@ -14,8 +14,10 @@
 
 use crate::ClientBuilderResult as BuilderResult;
 use crate::client_builder::ClientBuilder;
-use crate::query::RunQuery;
+use crate::error::QueryError;
+use crate::query::{Query, Result as QueryResult, RunQuery};
 use google_cloud_bigquery_v2::client::JobService;
+use google_cloud_bigquery_v2::model::JobReference;
 use std::sync::Arc;
 
 /// A high-level BigQuery client for executing queries and managing jobs.
@@ -163,12 +165,62 @@ impl BigQuery {
                 builder.with_project_id(project_id)
             })
     }
+
+    /// Binds an existing out-of-process query job reference to a high-level `Query` handle.
+    ///
+    /// This method does not submit a new SQL query or perform network I/O.
+    /// If `job_ref.project_id` is empty, it defaults to the client's billing project ID.
+    ///
+    /// # Arguments
+    /// * `job_ref` - A [`JobReference`] identifying the job to attach to.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery::client::BigQuery;
+    /// # use google_cloud_bigquery_v2::model::JobReference;
+    /// # async fn sample(client: &BigQuery) -> anyhow::Result<()> {
+    /// let job_ref = JobReference::new()
+    ///     .set_project_id("my-project")
+    ///     .set_job_id("my_job_id")
+    ///     .set_location("us-central1");
+    /// let query = client.attach_job(job_ref)?;
+    /// let mut results = query.until_done().await?.read();
+    /// while let Some(row) = results.next().await {
+    ///     let row = row?;
+    ///     // process row
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn attach_job(&self, mut job_ref: JobReference) -> QueryResult<Query> {
+        if job_ref.job_id.is_empty() {
+            return Err(QueryError::InvalidJobReference(
+                "job_id cannot be empty".to_string(),
+            ));
+        }
+        if job_ref.project_id.is_empty() {
+            let Some(proj) = &self.project_id else {
+                return Err(QueryError::MissingProjectId);
+            };
+            job_ref.project_id = proj.clone();
+        }
+
+        Ok(Query {
+            job_service: self.job_service.clone(),
+            job_ref: Some(job_ref),
+            completed: false,
+            initial_job: None,
+            initial_response: None,
+            max_results: None,
+        })
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use super::BigQuery;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+    use google_cloud_bigquery_v2::model::JobReference;
 
     #[tokio::test]
     async fn test_bigquery_builder() -> anyhow::Result<()> {
@@ -211,6 +263,65 @@ mod tests {
             .await?;
         let run_query = client.query("SELECT 1");
         assert!(run_query.project_id.is_none());
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_bigquery_attach_job() -> anyhow::Result<()> {
+        let client = BigQuery::builder()
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let job_ref = JobReference::new()
+            .set_project_id("test-proj")
+            .set_job_id("job_123");
+        let query = client.attach_job(job_ref)?;
+        let job_ref = query.job_ref.as_ref().expect("job_ref should be set");
+        assert_eq!(job_ref.project_id, "test-proj");
+        assert_eq!(job_ref.job_id, "job_123");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_bigquery_attach_job_inherits_project_id() -> anyhow::Result<()> {
+        let client = BigQuery::builder()
+            .with_project_id("client-proj")
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let job_ref = JobReference::new().set_job_id("job_456");
+        let query = client.attach_job(job_ref)?;
+        let job_ref = query.job_ref.as_ref().expect("job_ref should be set");
+        assert_eq!(job_ref.project_id, "client-proj");
+        assert_eq!(job_ref.job_id, "job_456");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_bigquery_attach_job_missing_project_id() -> anyhow::Result<()> {
+        let client = BigQuery::builder()
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let job_ref = JobReference::new().set_job_id("job_789");
+        let err = client.attach_job(job_ref).unwrap_err();
+        assert!(matches!(err, crate::error::QueryError::MissingProjectId));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_bigquery_attach_job_empty_job_id() -> anyhow::Result<()> {
+        let client = BigQuery::builder()
+            .with_project_id("client-proj")
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let job_ref = JobReference::new();
+        let err = client.attach_job(job_ref).unwrap_err();
+        assert!(matches!(
+            err,
+            crate::error::QueryError::InvalidJobReference(_)
+        ));
         Ok(())
     }
 }
