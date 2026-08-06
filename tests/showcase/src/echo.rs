@@ -198,10 +198,9 @@ async fn request_id_custom(client: &Echo) -> Result<()> {
 
 #[cfg(google_cloud_unstable_gapic_streaming)]
 async fn chat(client: &Echo) -> Result<()> {
-    use google_cloud_gax::options::RequestOptions;
     use google_cloud_showcase_v1beta1::model::EchoRequest;
 
-    let (sender, mut receiver) = client.chat(RequestOptions::default()).await;
+    let (sender, mut receiver) = client.chat().build().await;
     let req = EchoRequest::new().set_content("hello from bidi echo");
     sender.send(req).await?;
 
