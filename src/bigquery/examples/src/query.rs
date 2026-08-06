@@ -38,6 +38,7 @@ mod partitioned_table;
 mod query;
 mod query_append;
 mod script;
+mod simple_app;
 mod total_rows;
 
 use google_cloud_bigquery_v2::client::DatasetService;
@@ -81,6 +82,7 @@ pub async fn run_samples() -> anyhow::Result<()> {
         Box::pin(total_rows::sample(&project_id)),
         Box::pin(label_job::sample(&project_id)),
         Box::pin(script::sample(&project_id)),
+        Box::pin(simple_app::sample(&project_id)),
     ];
     let _ = futures::future::join_all(pending)
         .await
