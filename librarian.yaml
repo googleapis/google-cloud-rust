@@ -1791,6 +1791,26 @@ libraries:
   - name: google-maps-roads-v1op
     version: 1.0.0
     copyright_year: "2026"
+  - name: google-maps-routeoptimization-v1
+    version: 1.0.0
+    copyright_year: "2026"
+    rust:
+      documentation_overrides:
+        - id: .google.maps.routeoptimization.v1.VehicleFullness.active_span
+          match: |-
+            The ratio (vehicle_end_time - vehicle_start_time) /
+            (latest_vehicle_end_time - earliest_vehicle_start_time) for a given
+            vehicle. If the denominator is not present, it uses
+            ([ShipmentModel.global_end_time][google.maps.routeoptimization.v1.ShipmentModel.global_end_time]
+            -
+            [ShipmentModel.global_start_time][google.maps.routeoptimization.v1.ShipmentModel.global_start_time])
+            instead.
+          replace: |-
+            The ratio `(vehicle_end_time - vehicle_start_time) /
+            (latest_vehicle_end_time - earliest_vehicle_start_time)` for a
+            given vehicle. If the denominator is not present, it uses
+            `([ShipmentModel.global_end_time] - [ShipmentModel.global_start_time])`
+            instead.
   - name: google-maps-routes-v1
     version: 1.0.0
     copyright_year: "2026"
