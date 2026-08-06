@@ -28,6 +28,7 @@ use std::sync::Arc;
 ///
 /// Common configuration customizations include:
 ///
+/// - [`with_project_id()`][crate::builder::bigquery::ClientBuilder::with_project_id]: Sets the default Google Cloud project ID for the client.
 /// - [`with_endpoint()`][crate::builder::bigquery::ClientBuilder::with_endpoint]: Overrides the default API endpoint (`https://bigquery.googleapis.com`). Useful when testing against mock servers or running in restricted network environments (for example, with VPC Service Controls).
 /// - [`with_credentials()`][crate::builder::bigquery::ClientBuilder::with_credentials]: Overrides the default Application Default Credentials with explicit or custom authentication credentials.
 ///
@@ -154,11 +155,13 @@ impl BigQuery {
     /// # }
     /// ```
     pub fn query<S: Into<String>>(&self, sql: S) -> RunQuery {
-        let mut run_query = RunQuery::new(self.job_service.clone(), sql.into());
-        if let Some(project_id) = self.project_id.as_deref() {
-            run_query = run_query.with_project_id(project_id);
-        }
-        run_query
+        let builder = RunQuery::new(self.job_service.clone(), sql.into());
+        self.project_id
+            .as_deref()
+            .into_iter()
+            .fold(builder, |builder, project_id| {
+                builder.with_project_id(project_id)
+            })
     }
 }
 
