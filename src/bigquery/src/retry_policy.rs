@@ -84,14 +84,18 @@ pub(crate) enum JobRetryResult {
     Permanent(QueryError),
 }
 
-#[cfg(test)]
 impl JobRetryResult {
+    #[allow(dead_code)]
     pub(crate) fn is_continue(&self) -> bool {
         matches!(self, Self::Continue(_, _))
     }
+
+    #[allow(dead_code)]
     pub(crate) fn is_exhausted(&self) -> bool {
         matches!(self, Self::Exhausted(_))
     }
+
+    #[allow(dead_code)]
     pub(crate) fn is_permanent(&self) -> bool {
         matches!(self, Self::Permanent(_))
     }
@@ -105,7 +109,7 @@ impl JobRetryResult {
 /// so customers can provide their own custom job retry policies.
 #[allow(dead_code)]
 pub(crate) trait JobRetryPolicy<S = RetryState>: Send + Sync + std::fmt::Debug {
-    fn on_error(&self, state: &S, error: crate::error::QueryError) -> JobRetryResult;
+    fn on_error(&self, state: &S, error: QueryError) -> JobRetryResult;
 }
 
 #[derive(Clone, Debug)]
@@ -139,7 +143,7 @@ impl RetryableJobErrors {
 }
 
 impl JobRetryPolicy for RetryableJobErrors {
-    fn on_error(&self, state: &RetryState, error: crate::error::QueryError) -> JobRetryResult {
+    fn on_error(&self, state: &RetryState, error: QueryError) -> JobRetryResult {
         if !is_query_error_retryable(&error) {
             return JobRetryResult::Permanent(error);
         }
@@ -157,9 +161,9 @@ pub(crate) fn default_job_retry_policy() -> Arc<dyn JobRetryPolicy> {
 }
 
 #[allow(dead_code)]
-pub(crate) fn is_query_error_retryable(err: &crate::error::QueryError) -> bool {
+pub(crate) fn is_query_error_retryable(err: &QueryError) -> bool {
     match err {
-        crate::error::QueryError::JobFailed { errors } => is_retryable_errors(errors),
+        QueryError::JobFailed { errors } => is_retryable_errors(errors),
         _ => false,
     }
 }
@@ -283,12 +287,12 @@ mod tests {
         let policy = RetryableJobErrors::default();
         let state = RetryState::default();
 
-        let retryable_err = crate::error::QueryError::JobFailed {
+        let retryable_err = QueryError::JobFailed {
             errors: vec![ErrorProto::new().set_reason("backendError")],
         };
         assert!(policy.on_error(&state, retryable_err).is_continue());
 
-        let permanent_err = crate::error::QueryError::JobFailed {
+        let permanent_err = QueryError::JobFailed {
             errors: vec![ErrorProto::new().set_reason("invalidQuery")],
         };
         assert!(policy.on_error(&state, permanent_err).is_permanent());
@@ -297,7 +301,7 @@ mod tests {
     #[test]
     fn test_job_attempt_limit() {
         let policy = default_job_retry_policy();
-        let retryable_err = || crate::error::QueryError::JobFailed {
+        let retryable_err = || QueryError::JobFailed {
             errors: vec![ErrorProto::new().set_reason("backendError")],
         };
 
@@ -322,7 +326,7 @@ mod tests {
             .return_const(Duration::from_secs(5));
 
         let policy = RetryableJobErrors::default().with_backoff_policy(backoff);
-        let retryable_err = crate::error::QueryError::JobFailed {
+        let retryable_err = QueryError::JobFailed {
             errors: vec![ErrorProto::new().set_reason("backendError")],
         };
 
