@@ -14,6 +14,7 @@
 
 // [START bigquery_simple_app_all]
 // [START bigquery_simple_app_deps]
+use google_cloud_bigquery::FromRow;
 use google_cloud_bigquery::client::BigQuery;
 // [END bigquery_simple_app_deps]
 
@@ -23,13 +24,15 @@ pub async fn sample(project_id: &str) -> anyhow::Result<()> {
     // [END bigquery_simple_app_client]
 
     // [START bigquery_simple_app_query]
-    let query = "SELECT \
-        CONCAT('https://stackoverflow.com/questions/', CAST(id as STRING)) as url, \
-        view_count \
-        FROM `bigquery-public-data.stackoverflow.posts_questions` \
-        WHERE tags like '%google-bigquery%' \
-        ORDER BY view_count DESC \
-        LIMIT 10;";
+    let query = r#"
+SELECT
+    CONCAT('https://stackoverflow.com/questions/', CAST(id as STRING)) as url,
+    view_count
+FROM `bigquery-public-data.stackoverflow.posts_questions`
+WHERE tags like '%google-bigquery%'
+ORDER BY view_count DESC
+LIMIT 10;
+"#;
     let mut rows = client
         .query(query)
         .with_project_id(project_id)
@@ -41,10 +44,15 @@ pub async fn sample(project_id: &str) -> anyhow::Result<()> {
     // [END bigquery_simple_app_query]
 
     // [START bigquery_simple_app_print]
+    #[derive(FromRow, Debug)]
+    struct StackOverflowRow {
+        url: String,
+        view_count: i64,
+    }
+
     while let Some(row) = rows.next().await.transpose()? {
-        let url: String = row.get("url");
-        let view_count: i64 = row.get("view_count");
-        println!("url: {url} views: {view_count}");
+        let row: StackOverflowRow = row.try_into()?;
+        println!("url: {} views: {}", row.url, row.view_count);
     }
     // [END bigquery_simple_app_print]
 
