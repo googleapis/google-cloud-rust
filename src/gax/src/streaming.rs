@@ -136,21 +136,22 @@ mod tests {
     use super::*;
 
     #[tokio::test]
-    async fn test_request_sender_and_response_receiver() {
+    async fn test_request_sender_and_response_receiver() -> Result<(), Box<dyn std::error::Error>> {
         let (req_tx, mut req_rx) = mpsc::channel::<String>(16);
         let (resp_tx, resp_rx) = mpsc::channel::<crate::Result<String>>(16);
 
         let sender = RequestSender::new(req_tx);
         let mut receiver = ResponseReceiver::new(resp_rx);
 
-        sender.send("hello".to_string()).await.unwrap();
-        assert_eq!(req_rx.recv().await.unwrap(), "hello");
+        sender.send("hello".to_string()).await?;
+        assert_eq!(req_rx.recv().await.as_deref(), Some("hello"));
 
-        resp_tx.send(Ok("world".to_string())).await.unwrap();
-        assert_eq!(receiver.recv().await.unwrap().unwrap(), "world");
+        resp_tx.send(Ok("world".to_string())).await?;
+        assert_eq!(receiver.recv().await.transpose()?.as_deref(), Some("world"));
 
         drop(resp_tx);
         assert!(receiver.recv().await.is_none());
+        Ok(())
     }
 
     #[tokio::test]
@@ -161,16 +162,19 @@ mod tests {
         let sender = RequestSender::new(req_tx);
 
         drop(req_rx);
-        let err = sender.send("hello".to_string()).await.unwrap_err();
+        let err = sender
+            .send("hello".to_string())
+            .await
+            .expect_err("send should fail when receiver is dropped");
         assert!(err.is_io());
         assert_eq!(
-            err.source().unwrap().to_string(),
-            "cannot send request: stream is closed"
+            err.source().map(|e| e.to_string()).as_deref(),
+            Some("cannot send request: stream is closed")
         );
     }
 
     #[tokio::test]
-    async fn test_request_sender_from_fn() {
+    async fn test_request_sender_from_fn() -> Result<(), Box<dyn std::error::Error>> {
         let sender = RequestSender::from_fn(|item: i32| async move {
             if item < 0 {
                 Err(crate::error::Error::ser("negative number"))
@@ -179,14 +183,18 @@ mod tests {
             }
         });
 
-        assert!(sender.send(42).await.is_ok());
-        let err = sender.send(-1).await.unwrap_err();
+        sender.send(42).await?;
+        let err = sender
+            .send(-1)
+            .await
+            .expect_err("negative number should trigger serialization error");
         assert!(err.is_serialization());
         assert_eq!(format!("{sender:?}"), "RequestSender");
+        Ok(())
     }
 
     #[tokio::test]
-    async fn test_response_receiver_from_stream() {
+    async fn test_response_receiver_from_stream() -> Result<(), Box<dyn std::error::Error>> {
         let stream = futures::stream::iter(vec![
             Ok("first".to_string()),
             Err(crate::error::Error::deser("bad data")),
@@ -194,22 +202,36 @@ mod tests {
         ]);
         let mut receiver = ResponseReceiver::from_stream(stream);
 
-        assert_eq!(receiver.recv().await.unwrap().unwrap(), "first");
-        assert!(
+        assert_eq!(
             receiver
                 .recv()
                 .await
-                .unwrap()
-                .unwrap_err()
-                .is_deserialization()
+                .expect("expected first response")?
+                .as_str(),
+            "first"
         );
-        assert_eq!(receiver.recv().await.unwrap().unwrap(), "second");
+        let err = receiver
+            .recv()
+            .await
+            .expect("expected error item")
+            .expect_err("item should be Err");
+        assert!(err.is_deserialization());
+        assert_eq!(
+            receiver
+                .recv()
+                .await
+                .expect("expected second response")?
+                .as_str(),
+            "second"
+        );
         assert!(receiver.recv().await.is_none());
         assert_eq!(format!("{receiver:?}"), "ResponseReceiver");
+        Ok(())
     }
 
     #[tokio::test]
-    async fn test_response_receiver_generator_mapping_pipeline() {
+    async fn test_response_receiver_generator_mapping_pipeline(
+    ) -> Result<(), Box<dyn std::error::Error>> {
         use futures::StreamExt as _;
 
         #[derive(Debug, PartialEq)]
@@ -259,7 +281,7 @@ mod tests {
         let mut receiver = ResponseReceiver::from_stream(response_stream);
 
         // 1. Success
-        let item1 = receiver.recv().await.unwrap().unwrap();
+        let item1 = receiver.recv().await.expect("expected item 1")?;
         assert_eq!(
             item1,
             DomainModel {
@@ -268,18 +290,26 @@ mod tests {
         );
 
         // 2. Stream transport error
-        let err2 = receiver.recv().await.unwrap().unwrap_err();
+        let err2 = receiver
+            .recv()
+            .await
+            .expect("expected item 2")
+            .expect_err("item 2 should be Err");
         assert_eq!(
             err2.status().map(|s| s.code),
             Some(crate::error::rpc::Code::Unavailable)
         );
 
         // 3. Deserialization error
-        let err3 = receiver.recv().await.unwrap().unwrap_err();
+        let err3 = receiver
+            .recv()
+            .await
+            .expect("expected item 3")
+            .expect_err("item 3 should be Err");
         assert!(err3.is_deserialization());
 
         // 4. Success after recoverable error
-        let item4 = receiver.recv().await.unwrap().unwrap();
+        let item4 = receiver.recv().await.expect("expected item 4")?;
         assert_eq!(
             item4,
             DomainModel {
@@ -289,5 +319,6 @@ mod tests {
 
         // 5. Stream finished
         assert!(receiver.recv().await.is_none());
+        Ok(())
     }
 }
