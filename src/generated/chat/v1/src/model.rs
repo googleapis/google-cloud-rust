@@ -7027,8 +7027,8 @@ pub struct Message {
     ///
     /// * [Markup
     ///   syntax](https://developers.google.com/workspace/chat/format-messages)
-    ///   for bold, italic, strikethrough, monospace, monospace block, and bulleted
-    ///   list.
+    ///   for bold, italic, strikethrough, monospace, monospace block, bulleted
+    ///   list, and block quote.
     ///
     /// * [User
     ///   mentions](https://developers.google.com/workspace/chat/format-messages#messages-@mention)
@@ -7106,8 +7106,8 @@ pub struct Message {
     /// Optional. User-uploaded attachment.
     pub attachment: std::vec::Vec<crate::model::Attachment>,
 
-    /// Output only. A URL in `spaces.messages.text` that matches a link preview
-    /// pattern. For more information, see [Preview
+    /// Output only. A URL in the Chat message `text` field that matches a link
+    /// preview pattern. For more information, see [Preview
     /// links](https://developers.google.com/workspace/chat/preview-links).
     pub matched_url: std::option::Option<crate::model::MatchedUrl>,
 
@@ -9722,9 +9722,9 @@ pub mod create_message_notification_options {
         /// Requires [app authentication]
         /// (<https://developers.google.com/workspace/chat/authenticate-authorize-chat-app>).
         ForceNotify,
-        /// Silence the notification as if the recipients have [Chat Do Not
-        /// Disturb](https://support.google.com/chat/answer/9093489) enabled or
-        /// have muted the space.
+        /// Do not notify recipients, and do not mark the message as unread.
+        /// This behaves similarly to the user muting the conversation or enabling
+        /// [Chat Do Not Disturb](https://support.google.com/chat/answer/9093489).
         ///
         /// Requires [app authentication]
         /// (<https://developers.google.com/workspace/chat/authenticate-authorize-chat-app>).
@@ -10355,6 +10355,619 @@ impl CardWithId {
 impl wkt::message::Message for CardWithId {
     fn typename() -> &'static str {
         "type.googleapis.com/google.chat.v1.CardWithId"
+    }
+}
+
+/// Request message for searching messages.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SearchMessagesRequest {
+    /// Required. The resource name of the space to search within.
+    ///
+    /// To search across all spaces the user has access to, set this field to
+    /// `spaces/-`. Using any other value for `parent` results in an
+    /// `INVALID_ARGUMENT` error.
+    ///
+    /// To limit the search to one or more spaces, use `space.name` or
+    /// `space.display_name` in the `filter`.
+    pub parent: std::string::String,
+
+    /// Required. A search query.
+    ///
+    /// The query can specify one or more search keywords, which are used to filter
+    /// the results,
+    ///
+    /// You can also filter the results using the following message fields:
+    ///
+    /// - `create_time`: Accepts a timestamp in
+    ///   [RFC-3339](https://www.rfc-editor.org/rfc/rfc3339) format and the
+    ///   supported comparison operators are: `<` and `>=`.
+    /// - `sender.name`: The resource name of the sender (`users/{user}`). Only
+    ///   supports `=`. You can use the e-mail as an alias for `{user}`. For
+    ///   example, `users/example@gmail.com`, where `example@gmail.com` is the
+    ///   e-mail of the Google Chat user.
+    /// - `space.name`: The resource name of the space where the message is posted.
+    ///   (`spaces/{space}`). Only supports `=`. If this filter is not set, the
+    ///   search is performed across all direct messages and spaces the user has
+    ///   access to as a space member.
+    /// - `space.display_name`: Supports the operator `:` (has) and filters spaces
+    ///   based on a partial match of their display name. Results are limited to
+    ///   the top five space matches. For example, `space.display_name:Project`
+    ///   searches for messages in the top five spaces that contain the word
+    ///   "Project" in their display names.
+    /// - `attachment`: Supports the operator `:*` (has any) to check for the
+    ///   presence of attachments. If `attachment:*` is specified, only messages
+    ///   that have at least one attachment are returned.
+    /// - `annotations.user_mentions.user.name`: The resource name of the mentioned
+    ///   user (`users/{user}`). Only supports `:` (has). For example:
+    ///   `annotations.user_mentions.user.name:"users/1234567890"` returns only
+    ///   messages that contain a mention to the specified user. Alternatively, the
+    ///   alias `me` can be used to filter for messages that mention the caller
+    ///   user, for example: `annotations.user_mentions.user.name:users/me`. You
+    ///   can also use the e-mail as an alias for `{user}`, for example,
+    ///   `users/example@gmail.com`.
+    ///
+    /// For advanced filtering, the following functions are also available:
+    ///
+    /// - `has_link()`: Returns only messages that have at least one hyperlink in
+    ///   the message text.
+    /// - `is_unread()`: Filters out messages that have been read by the calling
+    ///   user.
+    ///
+    /// Using the `space.display_name` filter requires that the calling credentials
+    /// include one of the following [authorization
+    /// scopes](https://developers.google.com/workspace/chat/authenticate-authorize#chat-api-scopes):
+    ///
+    /// - `<https://www.googleapis.com/auth/chat.spaces.readonly>`
+    /// - `<https://www.googleapis.com/auth/chat.spaces>`
+    ///
+    /// Using the `is_unread()` filter requires that the calling credentials
+    /// include one of the following [authorization
+    /// scopes](https://developers.google.com/workspace/chat/authenticate-authorize#chat-api-scopes):
+    ///
+    /// - `<https://www.googleapis.com/auth/chat.users.readstate.readonly>`
+    /// - `<https://www.googleapis.com/auth/chat.users.readstate>`
+    ///
+    /// Across different fields, only `AND` operators are supported. A valid
+    /// example is `sender.name = "users/1234567890" AND is_unread()`. The word
+    /// `AND` is optional and is implied if omitted. For example, `sender.name =
+    /// "users/1234567890" is_unread()` is valid and is equivalent to the previous
+    /// example. An invalid example is `sender.name = "users/1234567890" OR
+    /// is_unread()` because `OR` is not supported between different fields.
+    ///
+    /// Among the same field:
+    ///
+    /// - `create_time` supports only `AND`, and can only be used to represent
+    ///   an interval, such as `create_time >= "2022-01-01T00:00:00+00:00" AND
+    ///   create_time < "2023-01-01T00:00:00+00:00"`.
+    /// - `sender.name` supports only the `OR` operator, for example:
+    ///   `sender.name = "users/1234567890" OR sender.name = "users/0987654321"`.
+    /// - `space.name` supports only the `OR` operator, for example:
+    ///   `space.name = "spaces/ABCDEFGH" OR space.name = "spaces/QWERTYUI"`.
+    /// - `space.display_name` supports the operators `AND` and `OR`, but not a
+    ///   mix of both. For example:
+    ///   `space.display_name:Project AND space.display_name:Tasks` returns
+    ///   messages that are in spaces with display names containing both `Project`
+    ///   and `Tasks`, whereas
+    ///   `space.display_name:Project OR space.display_name:Tasks` returns messages
+    ///   that are in spaces with display names containing either `Project` or
+    ///   `Tasks` or both.
+    /// - `annotations.user_mentions.user.name` supports the operators `AND` and
+    ///   `OR`, but not a mix of both. For example:
+    ///   `annotations.user_mentions.user.name:"users/1234567890" AND
+    ///   annotations.user_mentions.user.name:"users/0987654321"` returns only
+    ///   messages that mentions both users, whereas
+    ///   `annotations.user_mentions.user.name:"users/1234567890" OR
+    ///   annotations.user_mentions.user.name:"users/0987654321"` returns messages
+    ///   that mention either user or both.
+    ///
+    /// Parentheses are required to disambiguate operator precedence when combining
+    /// `AND` and `OR` operators in the same query. For example:
+    /// `(sender.name="users/me" OR sender.name="users/123456") AND is_unread()`.
+    /// Otherwise, parentheses are optional.
+    ///
+    /// The following example queries are valid:
+    ///
+    /// ```norust
+    /// "Pending reports" AND create_time >= "2023-01-01T00:00:00Z"
+    ///
+    /// sender.name = "users/example@gmail.com"
+    ///
+    /// annotations.user_mentions.user.name:"users/0987654321"
+    ///
+    /// attachment:* AND space.name = "spaces/ABCDEFGH"
+    ///
+    /// tasks AND is_unread() AND sender.name = "users/1234567890"
+    ///
+    /// "things to do" "urgent"
+    ///
+    /// (sender.name = "users/1234567890")
+    /// AND (create_time < "2023-05-01T00:00:00Z")
+    ///
+    /// tasks AND space.name = "spaces/ABCDEFGH" AND has_link()
+    ///
+    /// "project one" is_unread()
+    ///
+    /// space.display_name:Project tasks
+    /// ```
+    ///
+    /// The maximum query length is 1,000 characters.
+    ///
+    /// Invalid queries are rejected by the server with an `INVALID_ARGUMENT`
+    /// error.
+    pub filter: std::string::String,
+
+    /// Optional. The maximum number of results to return. The service may return
+    /// fewer than this value.
+    ///
+    /// If unspecified, at most 25 are returned.
+    ///
+    /// The maximum value is 100. If you use a value more than 100, it's
+    /// automatically changed to 100.
+    pub page_size: i32,
+
+    /// Optional. A token, received from the previous search messages call. Provide
+    /// this parameter to retrieve the subsequent page.
+    ///
+    /// When paginating, all other parameters provided should match the call that
+    /// provided the page token. Passing different values to the other parameters
+    /// might lead to unexpected results.
+    pub page_token: std::string::String,
+
+    /// Optional. How the results list is ordered.
+    ///
+    /// Supported attributes to order by are:
+    ///
+    /// - `create_time`: Sorts the results by the time of the message creation.
+    ///   Default value.
+    /// - `relevance`: Sorts the results by relevance.
+    ///   [Developer Preview](https://developers.google.com/workspace/preview).
+    ///
+    /// The default ordering is `create_time desc`. Only a single order per query
+    /// (`create_time` or `relevance`) is supported. Only descending order (`desc`)
+    /// is supported, and it must be specified after the order attribute.
+    pub order_by: std::string::String,
+
+    /// Optional. Specifies what kind of search results view to return. The default
+    /// is `SEARCH_MESSAGES_VIEW_BASIC`.
+    pub view: crate::model::search_messages_request::SearchMessagesView,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SearchMessagesRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::SearchMessagesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::SearchMessagesRequest;
+    /// # let space_id = "space_id";
+    /// let x = SearchMessagesRequest::new().set_parent(format!("spaces/{space_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::SearchMessagesRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::SearchMessagesRequest;
+    /// let x = SearchMessagesRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::SearchMessagesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::SearchMessagesRequest;
+    /// let x = SearchMessagesRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::SearchMessagesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::SearchMessagesRequest;
+    /// let x = SearchMessagesRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::SearchMessagesRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::SearchMessagesRequest;
+    /// let x = SearchMessagesRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+
+    /// Sets the value of [view][crate::model::SearchMessagesRequest::view].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::SearchMessagesRequest;
+    /// use google_chat_v1::model::search_messages_request::SearchMessagesView;
+    /// let x0 = SearchMessagesRequest::new().set_view(SearchMessagesView::Basic);
+    /// let x1 = SearchMessagesRequest::new().set_view(SearchMessagesView::Full);
+    /// ```
+    pub fn set_view<
+        T: std::convert::Into<crate::model::search_messages_request::SearchMessagesView>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.view = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SearchMessagesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.chat.v1.SearchMessagesRequest"
+    }
+}
+
+/// Defines additional types related to [SearchMessagesRequest].
+pub mod search_messages_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The kinds of view that are supported for partial search results.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum SearchMessagesView {
+        /// The default / unset value.
+        /// The API will default to the BASIC view.
+        Unspecified,
+        /// Includes only the matched messages in the results, but no additional
+        /// metadata. This is the default value.
+        Basic,
+        /// Includes everything in the results: the matched messages and additional
+        /// metadata.
+        Full,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [SearchMessagesView::value] or
+        /// [SearchMessagesView::name].
+        UnknownValue(search_messages_view::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod search_messages_view {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl SearchMessagesView {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Basic => std::option::Option::Some(1),
+                Self::Full => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SEARCH_MESSAGES_VIEW_UNSPECIFIED"),
+                Self::Basic => std::option::Option::Some("SEARCH_MESSAGES_VIEW_BASIC"),
+                Self::Full => std::option::Option::Some("SEARCH_MESSAGES_VIEW_FULL"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for SearchMessagesView {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for SearchMessagesView {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for SearchMessagesView {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Basic,
+                2 => Self::Full,
+                _ => Self::UnknownValue(search_messages_view::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for SearchMessagesView {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SEARCH_MESSAGES_VIEW_UNSPECIFIED" => Self::Unspecified,
+                "SEARCH_MESSAGES_VIEW_BASIC" => Self::Basic,
+                "SEARCH_MESSAGES_VIEW_FULL" => Self::Full,
+                _ => Self::UnknownValue(search_messages_view::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for SearchMessagesView {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Basic => serializer.serialize_i32(1),
+                Self::Full => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SearchMessagesView {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<SearchMessagesView>::new(
+                ".google.chat.v1.SearchMessagesRequest.SearchMessagesView",
+            ))
+        }
+    }
+}
+
+/// Response message for searching messages.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SearchMessagesResponse {
+    /// The list of search results that matched the query.
+    pub results: std::vec::Vec<crate::model::SearchMessageResult>,
+
+    /// A token that can be used to retrieve the next page. If this field is empty,
+    /// there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SearchMessagesResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [results][crate::model::SearchMessagesResponse::results].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::SearchMessagesResponse;
+    /// use google_chat_v1::model::SearchMessageResult;
+    /// let x = SearchMessagesResponse::new()
+    ///     .set_results([
+    ///         SearchMessageResult::default()/* use setters */,
+    ///         SearchMessageResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_results<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SearchMessageResult>,
+    {
+        use std::iter::Iterator;
+        self.results = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::SearchMessagesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::SearchMessagesResponse;
+    /// let x = SearchMessagesResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SearchMessagesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.chat.v1.SearchMessagesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for SearchMessagesResponse {
+    type PageItem = crate::model::SearchMessageResult;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.results
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// A single result item from a message search.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SearchMessageResult {
+    /// The matched message.
+    pub message: std::option::Option<crate::model::Message>,
+
+    /// Indicates if the matched message is read by the calling user.
+    ///
+    /// Only returned if the request view is `SEARCH_MESSAGES_VIEW_FULL` and the
+    /// calling credentials include one of the following [authorization
+    /// scopes](https://developers.google.com/workspace/chat/authenticate-authorize#chat-api-scopes):
+    ///
+    /// - `<https://www.googleapis.com/auth/chat.users.readstate.readonly>`
+    /// - `<https://www.googleapis.com/auth/chat.users.readstate>`
+    pub read: std::option::Option<bool>,
+
+    /// The mute setting of the calling user for the space where the message is
+    /// posted. The caller app can use this information to decide how to process
+    /// the message depending on whether the space is muted for the user or not.
+    ///
+    /// Only returned if the request view is `SEARCH_MESSAGES_VIEW_FULL` and the
+    /// calling credentials include the following [authorization
+    /// scope](https://developers.google.com/workspace/chat/authenticate-authorize#chat-api-scopes):
+    ///
+    /// - `<https://www.googleapis.com/auth/chat.users.spacesettings>`
+    pub space_mute_setting: crate::model::space_notification_setting::MuteSetting,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SearchMessageResult {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [message][crate::model::SearchMessageResult::message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::SearchMessageResult;
+    /// use google_chat_v1::model::Message;
+    /// let x = SearchMessageResult::new().set_message(Message::default()/* use setters */);
+    /// ```
+    pub fn set_message<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Message>,
+    {
+        self.message = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [message][crate::model::SearchMessageResult::message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::SearchMessageResult;
+    /// use google_chat_v1::model::Message;
+    /// let x = SearchMessageResult::new().set_or_clear_message(Some(Message::default()/* use setters */));
+    /// let x = SearchMessageResult::new().set_or_clear_message(None::<Message>);
+    /// ```
+    pub fn set_or_clear_message<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Message>,
+    {
+        self.message = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [read][crate::model::SearchMessageResult::read].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::SearchMessageResult;
+    /// let x = SearchMessageResult::new().set_read(true);
+    /// ```
+    pub fn set_read<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.read = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [read][crate::model::SearchMessageResult::read].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::SearchMessageResult;
+    /// let x = SearchMessageResult::new().set_or_clear_read(Some(false));
+    /// let x = SearchMessageResult::new().set_or_clear_read(None::<bool>);
+    /// ```
+    pub fn set_or_clear_read<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.read = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [space_mute_setting][crate::model::SearchMessageResult::space_mute_setting].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::SearchMessageResult;
+    /// use google_chat_v1::model::space_notification_setting::MuteSetting;
+    /// let x0 = SearchMessageResult::new().set_space_mute_setting(MuteSetting::Unmuted);
+    /// let x1 = SearchMessageResult::new().set_space_mute_setting(MuteSetting::Muted);
+    /// ```
+    pub fn set_space_mute_setting<
+        T: std::convert::Into<crate::model::space_notification_setting::MuteSetting>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.space_mute_setting = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SearchMessageResult {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.chat.v1.SearchMessageResult"
     }
 }
 
@@ -14948,15 +15561,18 @@ pub mod space {
     pub enum SpaceThreadingState {
         /// Reserved.
         Unspecified,
-        /// Named spaces that support message threads. When users respond to a
-        /// message, they can reply in-thread, which keeps their response in the
-        /// context of the original message.
+        /// Spaces that support message threads. When users respond to a message,
+        /// they can reply in-thread, which keeps their response in the context of
+        /// the original message.
         ThreadedMessages,
         /// Named spaces where the conversation is organized by topic. Topics and
         /// their replies are grouped together.
         GroupedMessages,
-        /// Direct messages (DMs) between two people and group conversations between
-        /// 3 or more people.
+        /// Spaces that don't support message threading. This space threading state
+        /// is only used for special cases including:
+        ///
+        /// * Continuous meeting chat where threading is intentionally turned off.
+        /// * Legacy group conversations that were created prior to 2022.
         UnthreadedMessages,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -16031,9 +16647,6 @@ pub struct SearchSpacesRequest {
     /// Requires either the `chat.admin.spaces.readonly` or `chat.admin.spaces`
     /// [OAuth 2.0
     /// scope](https://developers.google.com/workspace/chat/authenticate-authorize#chat-api-scopes).
-    ///
-    /// This method currently only supports admin access, thus only `true` is
-    /// accepted for this field.
     pub use_admin_access: bool,
 
     /// The maximum number of spaces to return. The service may return fewer than
@@ -16055,7 +16668,8 @@ pub struct SearchSpacesRequest {
 
     /// Required. A search query.
     ///
-    /// You can search by using the following parameters:
+    /// You can search by using the following parameters when `useAdminAccess`
+    /// is set to `true`:
     ///
     /// - `create_time`
     /// - `customer`
@@ -16065,18 +16679,27 @@ pub struct SearchSpacesRequest {
     /// - `space_history_state`
     /// - `space_type`
     ///
+    /// When `useAdminAccess` is set to `false`:
+    ///
+    /// - `display_name`
+    /// - `external_user_allowed`
+    /// - `space_type`
+    ///
     /// `create_time` and `last_active_time` accept a timestamp in
     /// [RFC-3339](https://www.rfc-editor.org/rfc/rfc3339) format and the supported
     /// comparison operators are: `=`, `<`, `>`, `<=`, `>=`.
     ///
-    /// `customer` is required and is used to indicate which customer
-    /// to fetch spaces from. `customers/my_customer` is the only supported value.
+    /// `customer` is required when `useAdminAccess` is set to `true`, and is
+    /// used to indicate which customer to fetch spaces from.
+    /// `customers/my_customer` is the only supported value.
     ///
     /// `display_name` only accepts the `HAS` (`:`) operator. The text to
     /// match is first tokenized into tokens and each token is prefix-matched
     /// case-insensitively and independently as a substring anywhere in the space's
     /// `display_name`. For example, `Fun Eve` matches `Fun event` or `The
-    /// evening was fun`, but not `notFun event` or `even`.
+    /// evening was fun`, but not `notFun event` or `even`. When `useAdminAccess`
+    /// is set to `false`, `display_name` is required to retrieve meaningful
+    /// results. Otherwise, the default behavior is to return an empty response.
     ///
     /// `external_user_allowed` accepts either `true` or `false`.
     ///
@@ -16099,7 +16722,8 @@ pub struct SearchSpacesRequest {
     /// < "2022-01-01T00:00:00+00:00" AND last_active_time >
     /// "2023-01-01T00:00:00+00:00"`.
     ///
-    /// The following example queries are valid:
+    /// The following example queries are valid when `useAdminAccess` is set to
+    /// `true`:
     ///
     /// ```norust
     /// customer = "customers/my_customer" AND space_type = "SPACE"
@@ -16121,6 +16745,21 @@ pub struct SearchSpacesRequest {
     /// "2020-01-01T00:00:00+00:00") AND (external_user_allowed = "true") AND
     /// (space_history_state = "HISTORY_ON" OR space_history_state = "HISTORY_OFF")
     /// ```
+    ///
+    /// The following example queries are valid when `useAdminAccess` is set to
+    /// `false`:
+    ///
+    /// ```norust
+    /// display_name:"Hello World" AND space_type = "SPACE"
+    ///
+    /// (display_name:"Hello" OR display_name:"Fun") AND space_type = "SPACE"
+    ///
+    /// (external_user_allowed = "true" AND space_type = "SPACE") // Returns an
+    /// empty response.
+    ///
+    /// (external_user_allowed = "true" AND display_name:"Hello" AND space_type =
+    /// "SPACE")
+    /// ```
     pub query: std::string::String,
 
     /// Optional. How the list of spaces is ordered.
@@ -16133,6 +16772,10 @@ pub struct SearchSpacesRequest {
     ///   any topic of this space.
     /// - `create_time` — Denotes the time of the space creation.
     ///
+    /// When `useAdminAccess` is `false`, only `create_time` and `relevance` are
+    /// supported for ordering. Only `DESC` is supported for these fields in
+    /// non-admin searches.
+    ///
     /// Valid ordering operation values are:
     ///
     /// - `ASC` for ascending. Default value.
@@ -16140,7 +16783,7 @@ pub struct SearchSpacesRequest {
     /// - `DESC` for descending.
     ///
     ///
-    /// The supported syntax are:
+    /// The supported syntax are when `useAdminAccess` is set to `true`:
     ///
     /// - `membership_count.joined_direct_human_user_count DESC`
     /// - `membership_count.joined_direct_human_user_count ASC`
@@ -16148,6 +16791,11 @@ pub struct SearchSpacesRequest {
     /// - `last_active_time ASC`
     /// - `create_time DESC`
     /// - `create_time ASC`
+    ///
+    /// When `useAdminAccess` is set to `false`:
+    ///
+    /// - `create_time DESC`
+    /// - `relevance DESC`
     pub order_by: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -16230,7 +16878,11 @@ impl wkt::message::Message for SearchSpacesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchSpacesResponse {
-    /// A page of the requested spaces.
+    /// Deprecated: Please use the new `results` field instead.
+    /// A page of the requested spaces. This field will be populated only when
+    /// `useAdminAccess` is set to `true` and deprecated in favor of the new
+    /// `results` field.
+    #[deprecated]
     pub spaces: std::vec::Vec<crate::model::Space>,
 
     /// A token that can be used to retrieve the next page. If this field is empty,
@@ -16240,6 +16892,9 @@ pub struct SearchSpacesResponse {
     /// The total number of spaces that match the query, across all pages. If the
     /// result is over 10,000 spaces, this value is an estimate.
     pub total_size: i32,
+
+    /// Output only. The list of search results that matched the query.
+    pub results: std::vec::Vec<crate::model::search_spaces_response::SearchSpaceResult>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -16262,6 +16917,7 @@ impl SearchSpacesResponse {
     ///         Space::default()/* use (different) setters */,
     ///     ]);
     /// ```
+    #[deprecated]
     pub fn set_spaces<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16295,6 +16951,28 @@ impl SearchSpacesResponse {
         self.total_size = v.into();
         self
     }
+
+    /// Sets the value of [results][crate::model::SearchSpacesResponse::results].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::SearchSpacesResponse;
+    /// use google_chat_v1::model::search_spaces_response::SearchSpaceResult;
+    /// let x = SearchSpacesResponse::new()
+    ///     .set_results([
+    ///         SearchSpaceResult::default()/* use setters */,
+    ///         SearchSpaceResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_results<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::search_spaces_response::SearchSpaceResult>,
+    {
+        use std::iter::Iterator;
+        self.results = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for SearchSpacesResponse {
@@ -16314,6 +16992,68 @@ impl google_cloud_gax::paginator::internal::PageableResponse for SearchSpacesRes
     fn next_page_token(&self) -> std::string::String {
         use std::clone::Clone;
         self.next_page_token.clone()
+    }
+}
+
+/// Defines additional types related to [SearchSpacesResponse].
+pub mod search_spaces_response {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// A single result item from a space search.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SearchSpaceResult {
+        /// Output only. The matched space.
+        pub space: std::option::Option<crate::model::Space>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl SearchSpaceResult {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [space][crate::model::search_spaces_response::SearchSpaceResult::space].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_chat_v1::model::search_spaces_response::SearchSpaceResult;
+        /// use google_chat_v1::model::Space;
+        /// let x = SearchSpaceResult::new().set_space(Space::default()/* use setters */);
+        /// ```
+        pub fn set_space<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Space>,
+        {
+            self.space = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [space][crate::model::search_spaces_response::SearchSpaceResult::space].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_chat_v1::model::search_spaces_response::SearchSpaceResult;
+        /// use google_chat_v1::model::Space;
+        /// let x = SearchSpaceResult::new().set_or_clear_space(Some(Space::default()/* use setters */));
+        /// let x = SearchSpaceResult::new().set_or_clear_space(None::<Space>);
+        /// ```
+        pub fn set_or_clear_space<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Space>,
+        {
+            self.space = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for SearchSpaceResult {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.chat.v1.SearchSpacesResponse.SearchSpaceResult"
+        }
     }
 }
 

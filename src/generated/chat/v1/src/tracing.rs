@@ -140,6 +140,20 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn search_messages(
+        &self,
+        req: crate::model::SearchMessagesRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SearchMessagesResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ChatService::search_messages",
+            self.inner.search_messages(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_attachment(
         &self,
         req: crate::model::GetAttachmentRequest,
