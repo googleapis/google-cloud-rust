@@ -13,19 +13,21 @@
 // limitations under the License.
 
 use crate::database_client::DatabaseClient;
-use crate::model::PartitionOptions;
+use crate::model::{ExecuteSqlRequest, PartitionOptions, ReadRequest};
 use crate::precommit::PrecommitTokenTracker;
 use crate::read_only_transaction::{
     BeginTransactionOption, MultiUseReadOnlyTransaction, MultiUseReadOnlyTransactionBuilder,
     ReadContextTransactionSelector,
 };
 use crate::result_set::{ResultSet, ResultSetParams, StreamOperation};
+use crate::server_streaming::stream::PartialResultSetStream;
 use crate::statement::Statement;
 use crate::timestamp_bound::TimestampBound;
 use google_cloud_gax::backoff_policy::BackoffPolicyArg;
 use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
 use google_cloud_gax::retry_policy::RetryPolicyArg;
 use serde::{Deserialize, Serialize};
+use std::future::Future;
 use std::time::{Duration, Instant};
 
 /// A builder for [BatchReadOnlyTransaction].
@@ -379,18 +381,43 @@ impl Partition {
         }
     }
 
+    async fn execute_partition_stream<F, Fut>(
+        client: &DatabaseClient,
+        method_name: &'static str,
+        rpc_call: F,
+    ) -> crate::Result<(PartialResultSetStream, Instant)>
+    where
+        F: FnOnce() -> Fut,
+        Fut: Future<Output = crate::Result<PartialResultSetStream>>,
+    {
+        let attempt_start_time = Instant::now();
+        match rpc_call().await {
+            Ok(stream) => Ok((stream, attempt_start_time)),
+            Err(e) => {
+                let elapsed = attempt_start_time.elapsed();
+                client
+                    .o11y
+                    .record_attempt(method_name, elapsed, Some(&e), None);
+                client.o11y.record_operation(method_name, elapsed, Some(&e));
+                Err(e)
+            }
+        }
+    }
+
     async fn execute_query(
         client: &DatabaseClient,
-        req: &crate::model::ExecuteSqlRequest,
+        req: &ExecuteSqlRequest,
         gax_options: GaxRequestOptions,
     ) -> crate::Result<ResultSet> {
         let channel_hint = client.spanner.next_channel_hint();
         let gax_options = client.spanner.attach_request_id(gax_options, channel_hint);
-        let attempt_start_time = Instant::now();
-        let stream = client
-            .spanner
-            .execute_streaming_sql(req.clone(), gax_options.clone(), channel_hint)
-            .send()
+        let (stream, attempt_start_time) =
+            Self::execute_partition_stream(client, "ExecuteStreamingSql", || {
+                client
+                    .spanner
+                    .execute_streaming_sql(req.clone(), gax_options.clone(), channel_hint)
+                    .send()
+            })
             .await?;
 
         ResultSet::create(ResultSetParams {
@@ -410,22 +437,25 @@ impl Partition {
             gax_options,
             method_name: "ExecuteStreamingSql",
             attempt_start_time: Some(attempt_start_time),
+            operation_start_time: Some(attempt_start_time),
         })
         .await
     }
 
     async fn execute_read(
         client: &DatabaseClient,
-        req: &crate::model::ReadRequest,
+        req: &ReadRequest,
         gax_options: GaxRequestOptions,
     ) -> crate::Result<ResultSet> {
         let channel_hint = client.spanner.next_channel_hint();
         let gax_options = client.spanner.attach_request_id(gax_options, channel_hint);
-        let attempt_start_time = Instant::now();
-        let stream = client
-            .spanner
-            .streaming_read(req.clone(), gax_options.clone(), channel_hint)
-            .send()
+        let (stream, attempt_start_time) =
+            Self::execute_partition_stream(client, "StreamingRead", || {
+                client
+                    .spanner
+                    .streaming_read(req.clone(), gax_options.clone(), channel_hint)
+                    .send()
+            })
             .await?;
 
         ResultSet::create(ResultSetParams {
@@ -445,6 +475,7 @@ impl Partition {
             gax_options,
             method_name: "StreamingRead",
             attempt_start_time: Some(attempt_start_time),
+            operation_start_time: Some(attempt_start_time),
         })
         .await
     }
