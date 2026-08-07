@@ -497,8 +497,7 @@ libraries:
             - .google.cloud.bigquery.v2.QueryRequest.kind
             - .google.cloud.bigquery.v2.JobConfiguration.kind
             - .google.cloud.bigquery.v2.JobConfiguration.job_type
-            - .google.cloud.bigquery.v2.GetQueryResultsResponse.rows
-            - .google.cloud.bigquery.v2.QueryResponse.rows
+            - rows
           api_path: google/cloud/bigquery/v2
           template: bigquery
   - name: google-cloud-bigquery-analyticshub-v1
