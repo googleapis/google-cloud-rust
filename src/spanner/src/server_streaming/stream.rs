@@ -80,7 +80,7 @@ mod tests {
 
     #[test]
     fn auto_traits() {
-        static_assertions::assert_impl_all!(PartialResultSetStream: Send, Debug);
-        static_assertions::assert_impl_all!(BatchWriteStream: Send, Debug);
+        static_assertions::assert_impl_all!(PartialResultSetStream: Send, Sync, Debug);
+        static_assertions::assert_impl_all!(BatchWriteStream: Send, Sync, Debug);
     }
 }

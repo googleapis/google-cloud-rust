@@ -124,6 +124,7 @@ impl ResultSet {
     pub(crate) async fn create(params: ResultSetParams) -> crate::Result<Self> {
         let mut result_set = Self::new(params);
         if let Err(e) = result_set.init_stream().await {
+            result_set.record_current_attempt(Some(&e));
             result_set.record_operation_complete(Some(&e));
             return Err(e);
         }
@@ -740,6 +741,7 @@ impl ResultSet {
 
         self.attempt_start_time = Instant::now();
         self.attempt_recorded = false;
+        self.headers.clear();
 
         let stream_result = match &mut self.operation {
             StreamOperation::Query(req) => {
@@ -3646,6 +3648,217 @@ pub(crate) mod tests {
                 "spanner.googleapis.com/internal/client/operation_latencies",
                 "spanner.googleapis.com/internal/client/operation_count",
             ],
+        );
+
+        Ok(())
+    }
+
+    #[cfg(feature = "_experimental-builtin-metrics")]
+    #[tokio_test_no_panics]
+    async fn init_stream_failure_records_failed_attempt_status() -> anyhow::Result<()> {
+        use crate::observability::metrics::{Observability, SpannerMetrics};
+        use opentelemetry::KeyValue;
+        use opentelemetry::metrics::MeterProvider;
+        use opentelemetry_sdk::metrics::data::{AggregatedMetrics, MetricData};
+        use opentelemetry_sdk::metrics::{
+            InMemoryMetricExporter, PeriodicReader, SdkMeterProvider,
+        };
+
+        let mut mock = MockSpanner::new();
+        mock.expect_execute_streaming_sql().returning(|_| {
+            let rx = adapt(vec![Err(Status::new(
+                GrpcCode::InvalidArgument,
+                "bad request",
+            ))]);
+            Ok(Response::from(rx))
+        });
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+        let client: Spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let mut db_client = client.database_client("db").build().await?;
+
+        let exporter = InMemoryMetricExporter::default();
+        let reader = PeriodicReader::builder(exporter.clone()).build();
+        let provider = SdkMeterProvider::builder().with_reader(reader).build();
+        let meter = provider.meter("cloud.google.com/rust");
+        let metrics = SpannerMetrics::new(meter);
+        let o11y = Observability {
+            metrics: Some(Arc::new(metrics)),
+            common_attributes: [
+                KeyValue::new("client_hash", "mock_client"),
+                KeyValue::new("database", "db"),
+                KeyValue::new("instance_id", "test-instance"),
+            ],
+            meter_provider: Some(Arc::new(provider.clone())),
+        };
+        db_client.o11y = Arc::new(o11y);
+
+        let tx = db_client.single_use().build();
+        let result = tx.execute_query("SELECT 1").await;
+        assert!(
+            result.is_err(),
+            "Expected execute_query to fail on INVALID_ARGUMENT"
+        );
+
+        provider.force_flush().expect("force_flush should succeed");
+
+        let finished = exporter.get_finished_metrics()?;
+        let mut attempt_statuses = Vec::new();
+
+        for resource_metrics in &finished {
+            for scope_metrics in resource_metrics.scope_metrics() {
+                for metric in scope_metrics.metrics() {
+                    if metric.name() == "spanner.googleapis.com/internal/client/attempt_count"
+                        && let AggregatedMetrics::U64(MetricData::Sum(sum)) = metric.data()
+                    {
+                        for data_point in sum.data_points() {
+                            for key_value in data_point.attributes() {
+                                if key_value.key.as_str() == "status" {
+                                    attempt_statuses.push(key_value.value.as_str().to_string());
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        assert!(
+            attempt_statuses.contains(&"INVALID_ARGUMENT".to_string()),
+            "Expected INVALID_ARGUMENT attempt status, got: {attempt_statuses:?}"
+        );
+        assert!(
+            !attempt_statuses.contains(&"OK".to_string()),
+            "Did not expect OK attempt status on init_stream failure, got: {attempt_statuses:?}"
+        );
+
+        Ok(())
+    }
+
+    #[cfg(feature = "_experimental-builtin-metrics")]
+    #[tokio_test_no_panics]
+    async fn restart_stream_clears_previous_attempt_headers() -> anyhow::Result<()> {
+        use crate::observability::metrics::{Observability, SpannerMetrics};
+        use opentelemetry::KeyValue;
+        use opentelemetry::metrics::MeterProvider;
+        use opentelemetry_sdk::metrics::data::{AggregatedMetrics, MetricData};
+        use opentelemetry_sdk::metrics::{
+            InMemoryMetricExporter, PeriodicReader, SdkMeterProvider,
+        };
+        use std::sync::atomic::{AtomicUsize, Ordering};
+
+        let mut mock = MockSpanner::new();
+        let attempts = Arc::new(AtomicUsize::new(0));
+        let attempts_clone = attempts.clone();
+
+        mock.expect_execute_streaming_sql()
+            .returning(move |_request| {
+                let current_attempt = attempts_clone.fetch_add(1, Ordering::SeqCst);
+                if current_attempt == 0 {
+                    // Attempt 1: chunk 1 arrives with resume token and server-timing header, followed by error
+                    let rx = adapt(vec![
+                        Ok(PartialResultSet {
+                            metadata: metadata(1),
+                            values: vec![string_val("1")],
+                            resume_token: b"tok-1".to_vec(),
+                            ..Default::default()
+                        }),
+                        Err(Status::new(GrpcCode::Unavailable, "transient error")),
+                    ]);
+                    let mut response = Response::from(rx);
+                    response.metadata_mut().insert(
+                        "server-timing",
+                        "gfet4t7;dur=25.0".parse().expect("valid header"),
+                    );
+                    Ok(response)
+                } else {
+                    // Attempt 2: returns permanent error with NO headers
+                    Err(Status::new(GrpcCode::PermissionDenied, "denied on restart"))
+                }
+            });
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+        let client: Spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let mut db_client = client.database_client("db").build().await?;
+
+        let exporter = InMemoryMetricExporter::default();
+        let reader = PeriodicReader::builder(exporter.clone()).build();
+        let provider = SdkMeterProvider::builder().with_reader(reader).build();
+        let meter = provider.meter("cloud.google.com/rust");
+        let metrics = SpannerMetrics::new(meter);
+        let o11y = Observability {
+            metrics: Some(Arc::new(metrics)),
+            common_attributes: [
+                KeyValue::new("client_hash", "mock_client"),
+                KeyValue::new("database", "db"),
+                KeyValue::new("instance_id", "test-instance"),
+            ],
+            meter_provider: Some(Arc::new(provider.clone())),
+        };
+        db_client.o11y = Arc::new(o11y);
+
+        let tx = db_client.single_use().build();
+        let mut rs = tx.execute_query("SELECT 1").await?;
+        let first_row = rs.next().await;
+        assert!(
+            first_row.is_some(),
+            "First row from attempt 1 should succeed"
+        );
+        let second_row = rs.next().await;
+        assert!(
+            second_row.expect("second row should return error").is_err(),
+            "Second row attempt should fail"
+        );
+
+        provider.force_flush().expect("force_flush should succeed");
+
+        let finished = exporter.get_finished_metrics()?;
+        let mut gfe_data_points_count = 0;
+
+        for resource_metrics in &finished {
+            for scope_metrics in resource_metrics.scope_metrics() {
+                for metric in scope_metrics.metrics() {
+                    if metric.name() == "spanner.googleapis.com/internal/client/gfe_latencies"
+                        && let AggregatedMetrics::F64(MetricData::Histogram(hist)) = metric.data()
+                    {
+                        for dp in hist.data_points() {
+                            gfe_data_points_count += dp.count();
+                        }
+                    }
+                }
+            }
+        }
+
+        // GFE latency should only be recorded once (for attempt 1), NOT leaked into attempt 2!
+        assert_eq!(
+            gfe_data_points_count, 1,
+            "GFE latency should only be recorded for attempt 1 (got count {gfe_data_points_count})"
         );
 
         Ok(())
