@@ -33,6 +33,10 @@ pub enum QueryError {
     #[error("cannot perform this operation on a stateless query")]
     StatelessQuery,
 
+    /// An invalid job reference was provided.
+    #[error("invalid job reference: {0}")]
+    InvalidJobReference(String),
+
     /// The query job failed on the BigQuery service side.
     /// Includes the list of error protocols returned by the service.
     #[error("query job failed: {errors:?}")]
@@ -166,6 +170,15 @@ mod tests {
         assert_eq!(
             err.to_string(),
             "cannot perform this operation on a stateless query"
+        );
+    }
+
+    #[test]
+    fn test_invalid_job_reference_display() {
+        let err = QueryError::InvalidJobReference("job_id must not be empty".to_string());
+        assert_eq!(
+            err.to_string(),
+            "invalid job reference: job_id must not be empty"
         );
     }
 
