@@ -230,8 +230,8 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_response_receiver_generator_mapping_pipeline(
-    ) -> Result<(), Box<dyn std::error::Error>> {
+    async fn test_response_receiver_generator_mapping_pipeline()
+    -> Result<(), Box<dyn std::error::Error>> {
         use futures::StreamExt as _;
 
         #[derive(Debug, PartialEq)]
