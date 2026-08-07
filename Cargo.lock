@@ -2021,6 +2021,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-type",
  "google-cloud-wkt",
+ "http",
  "mockall",
  "rust_decimal",
  "serde_json",
