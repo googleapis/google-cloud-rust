@@ -306,6 +306,7 @@ members = [
   "src/generated/maps/navconnect/v1",
   "src/generated/maps/places/v1",
   "src/generated/maps/roads/v1op",
+  "src/generated/maps/routeoptimization/v1",
   "src/generated/maps/routes/v1",
   "src/generated/maps/routing/v2",
   "src/generated/maps/solar/v1",
