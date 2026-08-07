@@ -63,7 +63,7 @@ impl<Req> RequestSender<Req> {
         (self.inner)(item).await
     }
 
-    #[doc(hidden)]
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn from_fn<F, Fut>(f: F) -> Self
     where
         F: Fn(Req) -> Fut + Send + Sync + 'static,
@@ -75,21 +75,53 @@ impl<Req> RequestSender<Req> {
     }
 }
 
+/// A type-erased stream of incoming responses from a gRPC stream.
+///
+/// This wraps an underlying `futures::Stream` in a boxed pinned trait object,
+/// enabling [`ResponseReceiver`] to perform asynchronous transformations (such
+/// as Protobuf deserialization) without exposing `futures::Stream` in the public API.
+type ResponseStream<Resp> = Pin<Box<dyn futures::Stream<Item = crate::Result<Resp>> + Send>>;
+
 /// A handle for receiving inbound response items from a gRPC stream.
-#[derive(Debug)]
 pub struct ResponseReceiver<Resp> {
-    rx: mpsc::Receiver<crate::Result<Resp>>,
+    inner: ResponseStream<Resp>,
+}
+
+impl<Resp> std::fmt::Debug for ResponseReceiver<Resp> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("ResponseReceiver").finish()
+    }
 }
 
 impl<Resp> ResponseReceiver<Resp> {
     /// Creates a new [`ResponseReceiver`].
-    pub fn new(rx: mpsc::Receiver<crate::Result<Resp>>) -> Self {
-        Self { rx }
+    pub fn new(rx: mpsc::Receiver<crate::Result<Resp>>) -> Self
+    where
+        Resp: Send + 'static,
+    {
+        Self::from_stream(tokio_stream::wrappers::ReceiverStream::new(rx))
     }
 
     /// Receives the next response item from the stream.
     pub async fn recv(&mut self) -> Option<crate::Result<Resp>> {
-        self.rx.recv().await
+        use futures::StreamExt as _;
+        self.inner.next().await
+    }
+
+    /// Creates a [`ResponseReceiver`] from an asynchronous stream.
+    ///
+    /// This constructor is `doc(hidden)` (except when `_internal-semver` is enabled)
+    /// so that generated client transports can construct [`ResponseReceiver`] instances
+    /// directly from gRPC response streams without exposing `futures::Stream` in the
+    /// public API documentation.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn from_stream<S>(stream: S) -> Self
+    where
+        S: futures::Stream<Item = crate::Result<Resp>> + Send + 'static,
+    {
+        Self {
+            inner: Box::pin(stream),
+        }
     }
 }
 
@@ -145,5 +177,104 @@ mod tests {
         let err = sender.send(-1).await.unwrap_err();
         assert!(err.is_serialization());
         assert_eq!(format!("{sender:?}"), "RequestSender");
+    }
+
+    #[tokio::test]
+    async fn test_response_receiver_from_stream() {
+        let stream = futures::stream::iter(vec![
+            Ok("first".to_string()),
+            Err(crate::error::Error::deser("bad data")),
+            Ok("second".to_string()),
+        ]);
+        let mut receiver = ResponseReceiver::from_stream(stream);
+
+        assert_eq!(receiver.recv().await.unwrap().unwrap(), "first");
+        assert!(
+            receiver
+                .recv()
+                .await
+                .unwrap()
+                .unwrap_err()
+                .is_deserialization()
+        );
+        assert_eq!(receiver.recv().await.unwrap().unwrap(), "second");
+        assert!(receiver.recv().await.is_none());
+        assert_eq!(format!("{receiver:?}"), "ResponseReceiver");
+    }
+
+    #[tokio::test]
+    async fn test_response_receiver_generator_mapping_pipeline() {
+        use futures::StreamExt as _;
+
+        #[derive(Debug, PartialEq)]
+        struct RawProto {
+            text: String,
+            valid: bool,
+        }
+
+        #[derive(Debug, PartialEq)]
+        struct DomainModel {
+            text: String,
+        }
+
+        fn from_proto(raw: RawProto) -> Result<DomainModel, &'static str> {
+            if raw.valid {
+                Ok(DomainModel { text: raw.text })
+            } else {
+                Err("invalid proto payload")
+            }
+        }
+
+        // Simulates a tonic gRPC response stream yielding Result<RawProto, StatusError>
+        let raw_stream = futures::stream::iter(vec![
+            Ok(RawProto {
+                text: "hello".to_string(),
+                valid: true,
+            }),
+            Err(crate::error::Error::service("transport unavailable")),
+            Ok(RawProto {
+                text: "corrupted".to_string(),
+                valid: false,
+            }),
+            Ok(RawProto {
+                text: "world".to_string(),
+                valid: true,
+            }),
+        ]);
+
+        // Exact mapping pattern used by the generated transport:
+        let response_stream = raw_stream
+            .map(|res| res.and_then(|raw| from_proto(raw).map_err(crate::error::Error::deser)));
+
+        let mut receiver = ResponseReceiver::from_stream(response_stream);
+
+        // 1. Success
+        let item1 = receiver.recv().await.unwrap().unwrap();
+        assert_eq!(
+            item1,
+            DomainModel {
+                text: "hello".to_string()
+            }
+        );
+
+        // 2. Stream transport error
+        let err2 = receiver.recv().await.unwrap().unwrap_err();
+        assert!(err2.is_service());
+
+        // 3. Deserialization error
+        let err3 = receiver.recv().await.unwrap().unwrap_err();
+        assert!(err3.is_deserialization());
+
+        // 4. Success after recoverable error
+        let item4 = receiver.recv().await.unwrap().unwrap();
+        assert_eq!(
+            item4,
+            DomainModel {
+                text: "world".to_string()
+            }
+        );
+
+        // 5. Stream finished
+        assert!(receiver.recv().await.is_none());
     }
 }
