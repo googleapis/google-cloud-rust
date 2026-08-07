@@ -17,6 +17,7 @@
 pub(crate) mod connection_cache;
 pub(crate) mod endpoint_cooldown;
 pub(crate) mod key_range_cache;
+pub(crate) mod key_recipe_cache;
 pub(crate) mod location_router;
 pub(crate) mod server_connection;
 pub(crate) mod ssformat;
