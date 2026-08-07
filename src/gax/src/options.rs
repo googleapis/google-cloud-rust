@@ -221,6 +221,37 @@ pub trait RequestOptionsBuilder: internal::RequestBuilder {
     {
         unimplemented!();
     }
+
+    /// Injects a custom HTTP header (or gRPC metadata) into this specific request.
+    ///
+    /// This method is dedicated to adding custom headers. Callers cannot use this
+    /// function to inject system or authentication headers (such as `user-agent`,
+    /// `authorization`, `x-goog-api-key`, `x-goog-api-client`, `x-goog-user-project`,
+    /// or `x-goog-request-params`); any attempt to do so will be silently ignored.
+    ///
+    /// Callers who want to configure respective system headers should use the
+    /// dedicated builder methods instead, such as [`with_quota_project`](Self::with_quota_project)
+    /// and [`with_user_agent`](Self::with_user_agent).
+    fn with_custom_header(
+        mut self,
+        name: http::header::HeaderName,
+        value: http::header::HeaderValue,
+    ) -> Self
+    where
+        Self: Sized,
+    {
+        use internal::RequestOptionsExt;
+        let mut headers = self
+            .request_options()
+            .get_extension::<http::HeaderMap>()
+            .cloned()
+            .unwrap_or_default();
+        headers.insert(name, value);
+        let mut options = std::mem::take(self.request_options());
+        options = options.insert_extension(headers);
+        *self.request_options() = options;
+        self
+    }
 }
 
 #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
@@ -533,5 +564,32 @@ mod tests {
         );
 
         Ok(())
+    }
+
+    #[test]
+    fn request_options_builder_custom_headers() {
+        let mut builder = TestBuilder::default()
+            .with_custom_header(
+                http::header::HeaderName::from_static("x-custom-1"),
+                http::header::HeaderValue::from_static("value1"),
+            )
+            .with_custom_header(
+                http::header::HeaderName::from_static("x-custom-2"),
+                http::header::HeaderValue::from_static("value2"),
+            );
+
+        let headers = builder
+            .request_options()
+            .get_extension::<http::HeaderMap>()
+            .expect("headers extension should be present");
+
+        assert_eq!(
+            headers.get("x-custom-1").and_then(|v| v.to_str().ok()),
+            Some("value1")
+        );
+        assert_eq!(
+            headers.get("x-custom-2").and_then(|v| v.to_str().ok()),
+            Some("value2")
+        );
     }
 }
