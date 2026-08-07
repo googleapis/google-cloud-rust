@@ -178,6 +178,28 @@ impl IngestionService {
         super::builder::ingestion_service::RemoveAudienceMembers::new(self.inner.clone())
     }
 
+    /// Removes all audience members from the provided destinations.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_ads_datamanager_v1::client::IngestionService;
+    /// use google_ads_datamanager_v1::Result;
+    /// async fn sample(
+    ///    client: &IngestionService
+    /// ) -> Result<()> {
+    ///     let response = client.remove_all_audience_members()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn remove_all_audience_members(
+        &self,
+    ) -> super::builder::ingestion_service::RemoveAllAudienceMembers {
+        super::builder::ingestion_service::RemoveAllAudienceMembers::new(self.inner.clone())
+    }
+
     /// Uploads a list of
     /// [Event][google.ads.datamanager.v1.Event] resources from
     /// the provided [Destination][google.ads.datamanager.v1.Destination].

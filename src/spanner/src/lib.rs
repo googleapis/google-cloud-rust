@@ -90,6 +90,7 @@ pub(crate) mod request_id;
 pub(crate) mod request_id_interceptor;
 pub(crate) mod result_set;
 pub(crate) mod result_set_metadata;
+pub(crate) mod routing;
 pub(crate) mod row;
 pub(crate) mod server_streaming;
 pub(crate) mod session_maintainer;

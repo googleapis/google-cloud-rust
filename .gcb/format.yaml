@@ -81,7 +81,7 @@ steps:
       set -euv
       cargo build --release --package check-copyright
       git ls-files -z -- '*.yaml' '*.yml' '*.toml' '*.go' '*.rs' \
-        ':!:testdata/**' ':!:**.md' ':!:**.mustache' ':!:**/generated/protos/**' | \
+        ':!:testdata/**' ':!:**.md' ':!:**.mustache' ':!:**/generated/protos/**' ':!:**/generated/**/prost/**' | \
         xargs -0 -r -P "$(nproc)" -n 50 target/release/check-copyright
   - name: 'rust:${_RUST_VERSION}-bookworm'
     volumes:

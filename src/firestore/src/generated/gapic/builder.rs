@@ -143,6 +143,24 @@ pub mod firestore {
             self
         }
 
+        /// Sets the value of [request_options][crate::model::GetDocumentRequest::request_options].
+        pub fn set_request_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestOptions>,
+        {
+            self.0.request.request_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_options][crate::model::GetDocumentRequest::request_options].
+        pub fn set_or_clear_request_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestOptions>,
+        {
+            self.0.request.request_options = v.map(|x| x.into());
+            self
+        }
+
         /// Sets the value of [consistency_selector][crate::model::GetDocumentRequest::consistency_selector].
         ///
         /// Note that all the setters affecting `consistency_selector` are
@@ -320,6 +338,24 @@ pub mod firestore {
             self
         }
 
+        /// Sets the value of [request_options][crate::model::ListDocumentsRequest::request_options].
+        pub fn set_request_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestOptions>,
+        {
+            self.0.request.request_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_options][crate::model::ListDocumentsRequest::request_options].
+        pub fn set_or_clear_request_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestOptions>,
+        {
+            self.0.request.request_options = v.map(|x| x.into());
+            self
+        }
+
         /// Sets the value of [consistency_selector][crate::model::ListDocumentsRequest::consistency_selector].
         ///
         /// Note that all the setters affecting `consistency_selector` are
@@ -486,6 +522,24 @@ pub mod firestore {
             self.0.request.current_document = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [request_options][crate::model::UpdateDocumentRequest::request_options].
+        pub fn set_request_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestOptions>,
+        {
+            self.0.request.request_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_options][crate::model::UpdateDocumentRequest::request_options].
+        pub fn set_or_clear_request_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestOptions>,
+        {
+            self.0.request.request_options = v.map(|x| x.into());
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -564,6 +618,24 @@ pub mod firestore {
             T: std::convert::Into<crate::model::Precondition>,
         {
             self.0.request.current_document = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_options][crate::model::DeleteDocumentRequest::request_options].
+        pub fn set_request_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestOptions>,
+        {
+            self.0.request.request_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_options][crate::model::DeleteDocumentRequest::request_options].
+        pub fn set_or_clear_request_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestOptions>,
+        {
+            self.0.request.request_options = v.map(|x| x.into());
             self
         }
     }
@@ -649,6 +721,24 @@ pub mod firestore {
             self.0.request.options = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [request_options][crate::model::BeginTransactionRequest::request_options].
+        pub fn set_request_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestOptions>,
+        {
+            self.0.request.request_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_options][crate::model::BeginTransactionRequest::request_options].
+        pub fn set_or_clear_request_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestOptions>,
+        {
+            self.0.request.request_options = v.map(|x| x.into());
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -728,6 +818,24 @@ pub mod firestore {
             self.0.request.transaction = v.into();
             self
         }
+
+        /// Sets the value of [request_options][crate::model::CommitRequest::request_options].
+        pub fn set_request_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestOptions>,
+        {
+            self.0.request.request_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_options][crate::model::CommitRequest::request_options].
+        pub fn set_or_clear_request_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestOptions>,
+        {
+            self.0.request.request_options = v.map(|x| x.into());
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -796,6 +904,24 @@ pub mod firestore {
         /// This is a **required** field for requests.
         pub fn set_transaction<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.transaction = v.into();
+            self
+        }
+
+        /// Sets the value of [request_options][crate::model::RollbackRequest::request_options].
+        pub fn set_request_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestOptions>,
+        {
+            self.0.request.request_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_options][crate::model::RollbackRequest::request_options].
+        pub fn set_or_clear_request_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestOptions>,
+        {
+            self.0.request.request_options = v.map(|x| x.into());
             self
         }
     }
@@ -908,6 +1034,24 @@ pub mod firestore {
         /// Sets the value of [page_size][crate::model::PartitionQueryRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [request_options][crate::model::PartitionQueryRequest::request_options].
+        pub fn set_request_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestOptions>,
+        {
+            self.0.request.request_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_options][crate::model::PartitionQueryRequest::request_options].
+        pub fn set_or_clear_request_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestOptions>,
+        {
+            self.0.request.request_options = v.map(|x| x.into());
             self
         }
 
@@ -1042,6 +1186,24 @@ pub mod firestore {
             self
         }
 
+        /// Sets the value of [request_options][crate::model::ListCollectionIdsRequest::request_options].
+        pub fn set_request_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestOptions>,
+        {
+            self.0.request.request_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_options][crate::model::ListCollectionIdsRequest::request_options].
+        pub fn set_or_clear_request_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestOptions>,
+        {
+            self.0.request.request_options = v.map(|x| x.into());
+            self
+        }
+
         /// Sets the value of [consistency_selector][crate::model::ListCollectionIdsRequest::consistency_selector].
         ///
         /// Note that all the setters affecting `consistency_selector` are
@@ -1150,6 +1312,24 @@ pub mod firestore {
             V: std::convert::Into<std::string::String>,
         {
             self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [request_options][crate::model::BatchWriteRequest::request_options].
+        pub fn set_request_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestOptions>,
+        {
+            self.0.request.request_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_options][crate::model::BatchWriteRequest::request_options].
+        pub fn set_or_clear_request_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestOptions>,
+        {
+            self.0.request.request_options = v.map(|x| x.into());
             self
         }
     }
@@ -1266,6 +1446,24 @@ pub mod firestore {
             T: std::convert::Into<crate::model::DocumentMask>,
         {
             self.0.request.mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_options][crate::model::CreateDocumentRequest::request_options].
+        pub fn set_request_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestOptions>,
+        {
+            self.0.request.request_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_options][crate::model::CreateDocumentRequest::request_options].
+        pub fn set_or_clear_request_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestOptions>,
+        {
+            self.0.request.request_options = v.map(|x| x.into());
             self
         }
     }

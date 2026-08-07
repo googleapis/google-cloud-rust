@@ -109,6 +109,17 @@ pub trait ChatService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::ChatService::search_messages].
+    fn search_messages(
+        &self,
+        _req: crate::model::SearchMessagesRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::SearchMessagesResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::ChatService::get_attachment].
     fn get_attachment(
         &self,

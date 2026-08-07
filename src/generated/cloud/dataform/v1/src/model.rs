@@ -5875,6 +5875,10 @@ pub struct InstallNpmPackagesRequest {
     /// Required. The workspace's name.
     pub workspace: std::string::String,
 
+    /// Optional. The pipeline options which defines the pipeline type and path
+    /// within the Git repository.
+    pub pipeline_config: std::option::Option<crate::model::PipelineConfig>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -5897,6 +5901,39 @@ impl InstallNpmPackagesRequest {
     /// ```
     pub fn set_workspace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workspace = v.into();
+        self
+    }
+
+    /// Sets the value of [pipeline_config][crate::model::InstallNpmPackagesRequest::pipeline_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::InstallNpmPackagesRequest;
+    /// use google_cloud_dataform_v1::model::PipelineConfig;
+    /// let x = InstallNpmPackagesRequest::new().set_pipeline_config(PipelineConfig::default()/* use setters */);
+    /// ```
+    pub fn set_pipeline_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PipelineConfig>,
+    {
+        self.pipeline_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [pipeline_config][crate::model::InstallNpmPackagesRequest::pipeline_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::InstallNpmPackagesRequest;
+    /// use google_cloud_dataform_v1::model::PipelineConfig;
+    /// let x = InstallNpmPackagesRequest::new().set_or_clear_pipeline_config(Some(PipelineConfig::default()/* use setters */));
+    /// let x = InstallNpmPackagesRequest::new().set_or_clear_pipeline_config(None::<PipelineConfig>);
+    /// ```
+    pub fn set_or_clear_pipeline_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PipelineConfig>,
+    {
+        self.pipeline_config = v.map(|x| x.into());
         self
     }
 }
@@ -5951,9 +5988,9 @@ pub struct ReleaseConfig {
     pub cron_schedule: std::string::String,
 
     /// Optional. Specifies the time zone to be used when interpreting
-    /// cron_schedule. Must be a time zone name from the time zone database
-    /// (<https://en.wikipedia.org/wiki/List_of_tz_database_time_zones>). If left
-    /// unspecified, the default is UTC.
+    /// cron_schedule. Must be a time zone name from the [time zone
+    /// database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). If
+    /// left unspecified, the default is `UTC`.
     pub time_zone: std::string::String,
 
     /// Output only. Records of the 10 most recent scheduled release attempts,
@@ -6831,6 +6868,11 @@ pub struct CompilationResult {
     /// from a workspace.
     pub private_resource_metadata: std::option::Option<crate::model::PrivateResourceMetadata>,
 
+    /// Output only. Metadata about the repository snapshot used by scheduled
+    /// notebooks.
+    pub gcs_repository_snapshot_metadata:
+        std::option::Option<crate::model::GcsRepositorySnapshotMetadata>,
+
     /// The source of the compilation result.
     pub source: std::option::Option<crate::model::compilation_result::Source>,
 
@@ -7071,6 +7113,42 @@ impl CompilationResult {
         T: std::convert::Into<crate::model::PrivateResourceMetadata>,
     {
         self.private_resource_metadata = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [gcs_repository_snapshot_metadata][crate::model::CompilationResult::gcs_repository_snapshot_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::CompilationResult;
+    /// use google_cloud_dataform_v1::model::GcsRepositorySnapshotMetadata;
+    /// let x = CompilationResult::new().set_gcs_repository_snapshot_metadata(GcsRepositorySnapshotMetadata::default()/* use setters */);
+    /// ```
+    pub fn set_gcs_repository_snapshot_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GcsRepositorySnapshotMetadata>,
+    {
+        self.gcs_repository_snapshot_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gcs_repository_snapshot_metadata][crate::model::CompilationResult::gcs_repository_snapshot_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::CompilationResult;
+    /// use google_cloud_dataform_v1::model::GcsRepositorySnapshotMetadata;
+    /// let x = CompilationResult::new().set_or_clear_gcs_repository_snapshot_metadata(Some(GcsRepositorySnapshotMetadata::default()/* use setters */));
+    /// let x = CompilationResult::new().set_or_clear_gcs_repository_snapshot_metadata(None::<GcsRepositorySnapshotMetadata>);
+    /// ```
+    pub fn set_or_clear_gcs_repository_snapshot_metadata<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::GcsRepositorySnapshotMetadata>,
+    {
+        self.gcs_repository_snapshot_metadata = v.map(|x| x.into());
         self
     }
 
@@ -7377,6 +7455,10 @@ pub struct CodeCompilationConfig {
     /// Optional. The default notebook runtime options.
     pub default_notebook_runtime_options: std::option::Option<crate::model::NotebookRuntimeOptions>,
 
+    /// Optional. The pipeline options which defines the pipeline type and path
+    /// within the Git repository.
+    pub pipeline_config: std::option::Option<crate::model::PipelineConfig>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -7550,11 +7632,153 @@ impl CodeCompilationConfig {
         self.default_notebook_runtime_options = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [pipeline_config][crate::model::CodeCompilationConfig::pipeline_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::CodeCompilationConfig;
+    /// use google_cloud_dataform_v1::model::PipelineConfig;
+    /// let x = CodeCompilationConfig::new().set_pipeline_config(PipelineConfig::default()/* use setters */);
+    /// ```
+    pub fn set_pipeline_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PipelineConfig>,
+    {
+        self.pipeline_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [pipeline_config][crate::model::CodeCompilationConfig::pipeline_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::CodeCompilationConfig;
+    /// use google_cloud_dataform_v1::model::PipelineConfig;
+    /// let x = CodeCompilationConfig::new().set_or_clear_pipeline_config(Some(PipelineConfig::default()/* use setters */));
+    /// let x = CodeCompilationConfig::new().set_or_clear_pipeline_config(None::<PipelineConfig>);
+    /// ```
+    pub fn set_or_clear_pipeline_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PipelineConfig>,
+    {
+        self.pipeline_config = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for CodeCompilationConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dataform.v1.CodeCompilationConfig"
+    }
+}
+
+/// Metadata about a repository snapshot stored in Google Cloud Storage.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GcsRepositorySnapshotMetadata {
+    /// Output only. The Google Cloud Storage URI of the repository snapshot.
+    pub repository_snapshot_uri: std::string::String,
+
+    /// Output only. The crc32c checksum of the repository snapshot, big-endian
+    /// base64 encoded.
+    pub crc32c_checksum: std::string::String,
+
+    /// Output only. The generation number of the Cloud Storage object. See
+    /// <https://cloud.google.com/storage/docs/metadata#generation-number>.
+    pub generation: i64,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GcsRepositorySnapshotMetadata {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [repository_snapshot_uri][crate::model::GcsRepositorySnapshotMetadata::repository_snapshot_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::GcsRepositorySnapshotMetadata;
+    /// let x = GcsRepositorySnapshotMetadata::new().set_repository_snapshot_uri("example");
+    /// ```
+    pub fn set_repository_snapshot_uri<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.repository_snapshot_uri = v.into();
+        self
+    }
+
+    /// Sets the value of [crc32c_checksum][crate::model::GcsRepositorySnapshotMetadata::crc32c_checksum].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::GcsRepositorySnapshotMetadata;
+    /// let x = GcsRepositorySnapshotMetadata::new().set_crc32c_checksum("example");
+    /// ```
+    pub fn set_crc32c_checksum<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.crc32c_checksum = v.into();
+        self
+    }
+
+    /// Sets the value of [generation][crate::model::GcsRepositorySnapshotMetadata::generation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::GcsRepositorySnapshotMetadata;
+    /// let x = GcsRepositorySnapshotMetadata::new().set_generation(42);
+    /// ```
+    pub fn set_generation<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.generation = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GcsRepositorySnapshotMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataform.v1.GcsRepositorySnapshotMetadata"
+    }
+}
+
+/// Configures the destination for a repository snapshot.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GcsRepositorySnapshotDestination {
+    /// Optional. The Google Cloud Storage destination to upload the repository
+    /// snapshot to. Format: `gs://bucket-name/path/`.
+    pub repository_snapshot_uri: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GcsRepositorySnapshotDestination {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [repository_snapshot_uri][crate::model::GcsRepositorySnapshotDestination::repository_snapshot_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::GcsRepositorySnapshotDestination;
+    /// let x = GcsRepositorySnapshotDestination::new().set_repository_snapshot_uri("example");
+    /// ```
+    pub fn set_repository_snapshot_uri<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.repository_snapshot_uri = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GcsRepositorySnapshotDestination {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataform.v1.GcsRepositorySnapshotDestination"
     }
 }
 
@@ -7570,6 +7794,11 @@ pub struct NotebookRuntimeOptions {
 
     /// The location to store the notebook execution result.
     pub execution_sink: std::option::Option<crate::model::notebook_runtime_options::ExecutionSink>,
+
+    /// The destination of the snapshot of repository files to be available for
+    /// read-only access inside a notebook runtime
+    pub repository_snapshot_storage:
+        std::option::Option<crate::model::notebook_runtime_options::RepositorySnapshotStorage>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -7652,6 +7881,72 @@ impl NotebookRuntimeOptions {
         );
         self
     }
+
+    /// Sets the value of [repository_snapshot_storage][crate::model::NotebookRuntimeOptions::repository_snapshot_storage].
+    ///
+    /// Note that all the setters affecting `repository_snapshot_storage` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::NotebookRuntimeOptions;
+    /// use google_cloud_dataform_v1::model::GcsRepositorySnapshotDestination;
+    /// let x = NotebookRuntimeOptions::new().set_repository_snapshot_storage(Some(
+    ///     google_cloud_dataform_v1::model::notebook_runtime_options::RepositorySnapshotStorage::GcsRepositorySnapshotDestination(GcsRepositorySnapshotDestination::default().into())));
+    /// ```
+    pub fn set_repository_snapshot_storage<
+        T: std::convert::Into<
+                std::option::Option<
+                    crate::model::notebook_runtime_options::RepositorySnapshotStorage,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.repository_snapshot_storage = v.into();
+        self
+    }
+
+    /// The value of [repository_snapshot_storage][crate::model::NotebookRuntimeOptions::repository_snapshot_storage]
+    /// if it holds a `GcsRepositorySnapshotDestination`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn gcs_repository_snapshot_destination(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::GcsRepositorySnapshotDestination>> {
+        #[allow(unreachable_patterns)]
+        self.repository_snapshot_storage.as_ref().and_then(|v| match v {
+            crate::model::notebook_runtime_options::RepositorySnapshotStorage::GcsRepositorySnapshotDestination(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [repository_snapshot_storage][crate::model::NotebookRuntimeOptions::repository_snapshot_storage]
+    /// to hold a `GcsRepositorySnapshotDestination`.
+    ///
+    /// Note that all the setters affecting `repository_snapshot_storage` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::NotebookRuntimeOptions;
+    /// use google_cloud_dataform_v1::model::GcsRepositorySnapshotDestination;
+    /// let x = NotebookRuntimeOptions::new().set_gcs_repository_snapshot_destination(GcsRepositorySnapshotDestination::default()/* use setters */);
+    /// assert!(x.gcs_repository_snapshot_destination().is_some());
+    /// ```
+    pub fn set_gcs_repository_snapshot_destination<
+        T: std::convert::Into<std::boxed::Box<crate::model::GcsRepositorySnapshotDestination>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.repository_snapshot_storage = std::option::Option::Some(
+            crate::model::notebook_runtime_options::RepositorySnapshotStorage::GcsRepositorySnapshotDestination(
+                v.into()
+            )
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for NotebookRuntimeOptions {
@@ -7672,6 +7967,223 @@ pub mod notebook_runtime_options {
         /// Optional. The Google Cloud Storage location to upload the result to.
         /// Format: `gs://bucket-name`.
         GcsOutputBucket(std::string::String),
+    }
+
+    /// The destination of the snapshot of repository files to be available for
+    /// read-only access inside a notebook runtime
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum RepositorySnapshotStorage {
+        /// Optional. The Google Cloud Storage destination to upload the snapshot to.
+        /// For empty URI it defaults to the provided gcs_output_bucket.
+        /// Format: `gs://bucket-name/path/`.
+        GcsRepositorySnapshotDestination(
+            std::boxed::Box<crate::model::GcsRepositorySnapshotDestination>,
+        ),
+    }
+}
+
+/// Defines the pipeline type and path within the Git repository.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PipelineConfig {
+    /// Required. The type of the pipeline.
+    pub pipeline_type: crate::model::pipeline_config::PipelineType,
+
+    /// Required. The relative path within the Git repository where the pipeline is
+    /// defined. For example, for a Dataform pipeline, it is a path to the folder
+    /// where `workflow_settings.yaml` or `dataform.json` is located.
+    pub path: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PipelineConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [pipeline_type][crate::model::PipelineConfig::pipeline_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::PipelineConfig;
+    /// use google_cloud_dataform_v1::model::pipeline_config::PipelineType;
+    /// let x0 = PipelineConfig::new().set_pipeline_type(PipelineType::Dataform);
+    /// let x1 = PipelineConfig::new().set_pipeline_type(PipelineType::Sql);
+    /// let x2 = PipelineConfig::new().set_pipeline_type(PipelineType::Notebook);
+    /// ```
+    pub fn set_pipeline_type<T: std::convert::Into<crate::model::pipeline_config::PipelineType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.pipeline_type = v.into();
+        self
+    }
+
+    /// Sets the value of [path][crate::model::PipelineConfig::path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::PipelineConfig;
+    /// let x = PipelineConfig::new().set_path("example");
+    /// ```
+    pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.path = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for PipelineConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataform.v1.PipelineConfig"
+    }
+}
+
+/// Defines additional types related to [PipelineConfig].
+pub mod pipeline_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The type of the pipeline. This may be extended in the future.
+    /// In case of UNSPECIFIED, the error will be thrown.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum PipelineType {
+        /// Default value. This value is unused.
+        Unspecified,
+        /// Regular Dataform pipeline.
+        Dataform,
+        /// SQL single file asset.
+        Sql,
+        /// Notebook single file asset.
+        Notebook,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [PipelineType::value] or
+        /// [PipelineType::name].
+        UnknownValue(pipeline_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod pipeline_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl PipelineType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Dataform => std::option::Option::Some(1),
+                Self::Sql => std::option::Option::Some(3),
+                Self::Notebook => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("PIPELINE_TYPE_UNSPECIFIED"),
+                Self::Dataform => std::option::Option::Some("DATAFORM"),
+                Self::Sql => std::option::Option::Some("SQL"),
+                Self::Notebook => std::option::Option::Some("NOTEBOOK"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for PipelineType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for PipelineType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for PipelineType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Dataform,
+                3 => Self::Sql,
+                4 => Self::Notebook,
+                _ => Self::UnknownValue(pipeline_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for PipelineType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PIPELINE_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "DATAFORM" => Self::Dataform,
+                "SQL" => Self::Sql,
+                "NOTEBOOK" => Self::Notebook,
+                _ => Self::UnknownValue(pipeline_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for PipelineType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Dataform => serializer.serialize_i32(1),
+                Self::Sql => serializer.serialize_i32(3),
+                Self::Notebook => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for PipelineType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<PipelineType>::new(
+                ".google.cloud.dataform.v1.PipelineConfig.PipelineType",
+            ))
+        }
     }
 }
 
@@ -11049,9 +11561,9 @@ pub struct WorkflowConfig {
     pub cron_schedule: std::string::String,
 
     /// Optional. Specifies the time zone to be used when interpreting
-    /// cron_schedule. Must be a time zone name from the time zone database
-    /// (<https://en.wikipedia.org/wiki/List_of_tz_database_time_zones>). If left
-    /// unspecified, the default is UTC.
+    /// cron_schedule. Must be a time zone name from the [time zone
+    /// database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). If
+    /// left unspecified, the default is `UTC`.
     pub time_zone: std::string::String,
 
     /// Output only. Records of the 10 most recent scheduled execution attempts,
@@ -12291,6 +12803,10 @@ pub struct WorkflowInvocation {
     /// from a compilation result and the compilation result is user-scoped.
     pub private_resource_metadata: std::option::Option<crate::model::PrivateResourceMetadata>,
 
+    /// Output only. The pipeline options which defines the pipeline type and path
+    /// within the Git repository.
+    pub pipeline_config: std::option::Option<crate::model::PipelineConfig>,
+
     /// The source of the compilation result to use for this invocation.
     pub compilation_source:
         std::option::Option<crate::model::workflow_invocation::CompilationSource>,
@@ -12517,6 +13033,39 @@ impl WorkflowInvocation {
         T: std::convert::Into<crate::model::PrivateResourceMetadata>,
     {
         self.private_resource_metadata = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [pipeline_config][crate::model::WorkflowInvocation::pipeline_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::WorkflowInvocation;
+    /// use google_cloud_dataform_v1::model::PipelineConfig;
+    /// let x = WorkflowInvocation::new().set_pipeline_config(PipelineConfig::default()/* use setters */);
+    /// ```
+    pub fn set_pipeline_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PipelineConfig>,
+    {
+        self.pipeline_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [pipeline_config][crate::model::WorkflowInvocation::pipeline_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::WorkflowInvocation;
+    /// use google_cloud_dataform_v1::model::PipelineConfig;
+    /// let x = WorkflowInvocation::new().set_or_clear_pipeline_config(Some(PipelineConfig::default()/* use setters */));
+    /// let x = WorkflowInvocation::new().set_or_clear_pipeline_config(None::<PipelineConfig>);
+    /// ```
+    pub fn set_or_clear_pipeline_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PipelineConfig>,
+    {
+        self.pipeline_config = v.map(|x| x.into());
         self
     }
 
@@ -13654,6 +14203,9 @@ pub mod workflow_invocation_action {
         /// started to run.
         pub job_id: std::string::String,
 
+        /// Output only. The path to the notebook file in the repository.
+        pub file_path: std::string::String,
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -13684,6 +14236,18 @@ pub mod workflow_invocation_action {
         /// ```
         pub fn set_job_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.job_id = v.into();
+            self
+        }
+
+        /// Sets the value of [file_path][crate::model::workflow_invocation_action::NotebookAction::file_path].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataform_v1::model::workflow_invocation_action::NotebookAction;
+        /// let x = NotebookAction::new().set_file_path("example");
+        /// ```
+        pub fn set_file_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.file_path = v.into();
             self
         }
     }

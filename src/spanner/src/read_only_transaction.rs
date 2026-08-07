@@ -1072,7 +1072,7 @@ fn merge_request_options(
 
 /// Helper macro to execute a streaming SQL or streaming read RPC with retry logic.
 macro_rules! execute_stream_with_retry {
-    ($self:expr, $request:ident, $gax_options:ident, $rpc_method:ident, $operation_variant:path) => {{
+    ($self:expr, $request:ident, $gax_options:ident, $rpc_method:ident, $operation_variant:path, $method_name:expr) => {{
         let stream = match $self
             .client
             .spanner
@@ -1123,7 +1123,7 @@ macro_rules! execute_stream_with_retry {
             }
         };
 
-        ResultSet::create(ResultSetParams {
+        Box::pin(ResultSet::create(ResultSetParams {
             stream,
             transaction_selector: Some($self.transaction_selector.clone()),
             precommit_token_tracker: $self.precommit_token_tracker.clone(),
@@ -1133,7 +1133,8 @@ macro_rules! execute_stream_with_retry {
             operation: $operation_variant($request),
             channel_hint: $self.channel_hint,
             gax_options: $gax_options,
-        })
+            method_name: $method_name,
+        }))
         .await
     }};
 }
@@ -1145,7 +1146,10 @@ impl ReadContext {
         seqno: Option<i64>,
     ) -> crate::Result<ResultSet> {
         let statement = statement.into();
-        let gax_options = statement.gax_options().clone();
+        let gax_options = self
+            .client
+            .spanner
+            .attach_request_id(statement.gax_options().clone(), self.channel_hint);
         let mut request = statement
             .into_request()
             .set_session(self.session_name.clone())
@@ -1158,7 +1162,8 @@ impl ReadContext {
             request,
             gax_options,
             execute_streaming_sql,
-            StreamOperation::Query
+            StreamOperation::Query,
+            "ExecuteStreamingSql"
         )
     }
 
@@ -1167,7 +1172,10 @@ impl ReadContext {
         read: T,
     ) -> crate::Result<ResultSet> {
         let read = read.into();
-        let gax_options = read.gax_options.clone();
+        let gax_options = self
+            .client
+            .spanner
+            .attach_request_id(read.gax_options.clone(), self.channel_hint);
         let mut request = read
             .into_request()
             .set_session(self.session_name.clone())
@@ -1179,7 +1187,8 @@ impl ReadContext {
             request,
             gax_options,
             streaming_read,
-            StreamOperation::Read
+            StreamOperation::Read,
+            "StreamingRead"
         )
     }
 }
@@ -3493,7 +3502,8 @@ pub(crate) mod tests {
                 request,
                 gax_options,
                 execute_streaming_sql,
-                StreamOperation::Query
+                StreamOperation::Query,
+                "ExecuteStreamingSql"
             )
         }
 

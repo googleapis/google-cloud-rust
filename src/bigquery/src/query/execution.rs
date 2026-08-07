@@ -16,6 +16,7 @@ use crate::error::QueryError;
 use crate::query::{Query, Result};
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::{InsertJobRequest, PostQueryRequest};
+use google_cloud_gax::options::RequestOptionsBuilder as _;
 use std::sync::Arc;
 
 pub(crate) struct PostQueryExecutor {
@@ -40,6 +41,9 @@ impl PostQueryExecutor {
         let res = self
             .job_service
             .query()
+            // requests to jobs.query are idempotent because every request
+            // carries a generated request_id.
+            .with_idempotency(true)
             .with_request(self.request)
             .send()
             .await?;
@@ -97,6 +101,9 @@ impl InsertJobExecutor {
             .job_service
             .insert_job()
             .with_request(self.request)
+            // jobs.insert is idempotent because every request
+            // carries a generated job_id.
+            .with_idempotency(true)
             .send()
             .await?;
 
