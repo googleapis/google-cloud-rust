@@ -80,4 +80,20 @@ mod bigquery {
             .await
             .inspect_err(anydump)
     }
+
+    #[tokio::test]
+    async fn run_job_service_poller() -> anyhow::Result<()> {
+        let _guard = enable_tracing();
+        integration_tests_bigquery::job_service_poller()
+            .await
+            .inspect_err(anydump)
+    }
+
+    #[tokio::test]
+    async fn run_job_service_poller_error() -> anyhow::Result<()> {
+        let _guard = enable_tracing();
+        integration_tests_bigquery::job_service_poller_error()
+            .await
+            .inspect_err(anydump)
+    }
 }
