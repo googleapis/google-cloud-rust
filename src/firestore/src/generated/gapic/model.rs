@@ -895,6 +895,46 @@ pub mod transaction_options {
     }
 }
 
+/// Options for a server request.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RequestOptions {
+    /// The request tags for the request.
+    pub request_tags: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RequestOptions {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [request_tags][crate::model::RequestOptions::request_tags].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RequestOptions;
+    /// let x = RequestOptions::new().set_request_tags(["a", "b", "c"]);
+    /// ```
+    pub fn set_request_tags<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.request_tags = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for RequestOptions {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.firestore.v1.RequestOptions"
+    }
+}
+
 /// A Firestore document.
 ///
 /// Must not exceed 1 MiB - 4 bytes.
@@ -2314,6 +2354,9 @@ pub struct GetDocumentRequest {
     /// will not be returned in the response.
     pub mask: std::option::Option<crate::model::DocumentMask>,
 
+    /// Optional. Any additional options for the request.
+    pub request_options: std::option::Option<crate::model::RequestOptions>,
+
     /// The consistency mode for this transaction.
     /// If not set, defaults to strong consistency.
     pub consistency_selector:
@@ -2370,6 +2413,39 @@ impl GetDocumentRequest {
         T: std::convert::Into<crate::model::DocumentMask>,
     {
         self.mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_options][crate::model::GetDocumentRequest::request_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::GetDocumentRequest;
+    /// use google_cloud_firestore::model::RequestOptions;
+    /// let x = GetDocumentRequest::new().set_request_options(RequestOptions::default()/* use setters */);
+    /// ```
+    pub fn set_request_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RequestOptions>,
+    {
+        self.request_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [request_options][crate::model::GetDocumentRequest::request_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::GetDocumentRequest;
+    /// use google_cloud_firestore::model::RequestOptions;
+    /// let x = GetDocumentRequest::new().set_or_clear_request_options(Some(RequestOptions::default()/* use setters */));
+    /// let x = GetDocumentRequest::new().set_or_clear_request_options(None::<RequestOptions>);
+    /// ```
+    pub fn set_or_clear_request_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RequestOptions>,
+    {
+        self.request_options = v.map(|x| x.into());
         self
     }
 
@@ -2574,6 +2650,9 @@ pub struct ListDocumentsRequest {
     /// [google.firestore.v1.Document.update_time]: crate::model::Document::update_time
     pub show_missing: bool,
 
+    /// Optional. Any additional options for the request.
+    pub request_options: std::option::Option<crate::model::RequestOptions>,
+
     /// The consistency mode for this transaction.
     /// If not set, defaults to strong consistency.
     pub consistency_selector:
@@ -2690,6 +2769,39 @@ impl ListDocumentsRequest {
     /// ```
     pub fn set_show_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.show_missing = v.into();
+        self
+    }
+
+    /// Sets the value of [request_options][crate::model::ListDocumentsRequest::request_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListDocumentsRequest;
+    /// use google_cloud_firestore::model::RequestOptions;
+    /// let x = ListDocumentsRequest::new().set_request_options(RequestOptions::default()/* use setters */);
+    /// ```
+    pub fn set_request_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RequestOptions>,
+    {
+        self.request_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [request_options][crate::model::ListDocumentsRequest::request_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListDocumentsRequest;
+    /// use google_cloud_firestore::model::RequestOptions;
+    /// let x = ListDocumentsRequest::new().set_or_clear_request_options(Some(RequestOptions::default()/* use setters */));
+    /// let x = ListDocumentsRequest::new().set_or_clear_request_options(None::<RequestOptions>);
+    /// ```
+    pub fn set_or_clear_request_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RequestOptions>,
+    {
+        self.request_options = v.map(|x| x.into());
         self
     }
 
@@ -2936,6 +3048,9 @@ pub struct CreateDocumentRequest {
     /// will not be returned in the response.
     pub mask: std::option::Option<crate::model::DocumentMask>,
 
+    /// Optional. Any additional options for the request.
+    pub request_options: std::option::Option<crate::model::RequestOptions>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3046,6 +3161,39 @@ impl CreateDocumentRequest {
         self.mask = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [request_options][crate::model::CreateDocumentRequest::request_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::CreateDocumentRequest;
+    /// use google_cloud_firestore::model::RequestOptions;
+    /// let x = CreateDocumentRequest::new().set_request_options(RequestOptions::default()/* use setters */);
+    /// ```
+    pub fn set_request_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RequestOptions>,
+    {
+        self.request_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [request_options][crate::model::CreateDocumentRequest::request_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::CreateDocumentRequest;
+    /// use google_cloud_firestore::model::RequestOptions;
+    /// let x = CreateDocumentRequest::new().set_or_clear_request_options(Some(RequestOptions::default()/* use setters */));
+    /// let x = CreateDocumentRequest::new().set_or_clear_request_options(None::<RequestOptions>);
+    /// ```
+    pub fn set_or_clear_request_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RequestOptions>,
+    {
+        self.request_options = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for CreateDocumentRequest {
@@ -3083,6 +3231,9 @@ pub struct UpdateDocumentRequest {
     /// An optional precondition on the document.
     /// The request will fail if this is set and not met by the target document.
     pub current_document: std::option::Option<crate::model::Precondition>,
+
+    /// Optional. Any additional options for the request.
+    pub request_options: std::option::Option<crate::model::RequestOptions>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3224,6 +3375,39 @@ impl UpdateDocumentRequest {
         self.current_document = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [request_options][crate::model::UpdateDocumentRequest::request_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::UpdateDocumentRequest;
+    /// use google_cloud_firestore::model::RequestOptions;
+    /// let x = UpdateDocumentRequest::new().set_request_options(RequestOptions::default()/* use setters */);
+    /// ```
+    pub fn set_request_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RequestOptions>,
+    {
+        self.request_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [request_options][crate::model::UpdateDocumentRequest::request_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::UpdateDocumentRequest;
+    /// use google_cloud_firestore::model::RequestOptions;
+    /// let x = UpdateDocumentRequest::new().set_or_clear_request_options(Some(RequestOptions::default()/* use setters */));
+    /// let x = UpdateDocumentRequest::new().set_or_clear_request_options(None::<RequestOptions>);
+    /// ```
+    pub fn set_or_clear_request_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RequestOptions>,
+    {
+        self.request_options = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for UpdateDocumentRequest {
@@ -3246,6 +3430,9 @@ pub struct DeleteDocumentRequest {
     /// An optional precondition on the document.
     /// The request will fail if this is set and not met by the target document.
     pub current_document: std::option::Option<crate::model::Precondition>,
+
+    /// Optional. Any additional options for the request.
+    pub request_options: std::option::Option<crate::model::RequestOptions>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3300,6 +3487,39 @@ impl DeleteDocumentRequest {
         self.current_document = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [request_options][crate::model::DeleteDocumentRequest::request_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::DeleteDocumentRequest;
+    /// use google_cloud_firestore::model::RequestOptions;
+    /// let x = DeleteDocumentRequest::new().set_request_options(RequestOptions::default()/* use setters */);
+    /// ```
+    pub fn set_request_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RequestOptions>,
+    {
+        self.request_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [request_options][crate::model::DeleteDocumentRequest::request_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::DeleteDocumentRequest;
+    /// use google_cloud_firestore::model::RequestOptions;
+    /// let x = DeleteDocumentRequest::new().set_or_clear_request_options(Some(RequestOptions::default()/* use setters */));
+    /// let x = DeleteDocumentRequest::new().set_or_clear_request_options(None::<RequestOptions>);
+    /// ```
+    pub fn set_or_clear_request_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RequestOptions>,
+    {
+        self.request_options = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for DeleteDocumentRequest {
@@ -3328,6 +3548,9 @@ pub struct BatchGetDocumentsRequest {
     /// If a document has a field that is not present in this mask, that field will
     /// not be returned in the response.
     pub mask: std::option::Option<crate::model::DocumentMask>,
+
+    /// Optional. Any additional options for the request.
+    pub request_options: std::option::Option<crate::model::RequestOptions>,
 
     /// The consistency mode for this transaction.
     /// If not set, defaults to strong consistency.
@@ -3402,6 +3625,39 @@ impl BatchGetDocumentsRequest {
         T: std::convert::Into<crate::model::DocumentMask>,
     {
         self.mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_options][crate::model::BatchGetDocumentsRequest::request_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::BatchGetDocumentsRequest;
+    /// use google_cloud_firestore::model::RequestOptions;
+    /// let x = BatchGetDocumentsRequest::new().set_request_options(RequestOptions::default()/* use setters */);
+    /// ```
+    pub fn set_request_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RequestOptions>,
+    {
+        self.request_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [request_options][crate::model::BatchGetDocumentsRequest::request_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::BatchGetDocumentsRequest;
+    /// use google_cloud_firestore::model::RequestOptions;
+    /// let x = BatchGetDocumentsRequest::new().set_or_clear_request_options(Some(RequestOptions::default()/* use setters */));
+    /// let x = BatchGetDocumentsRequest::new().set_or_clear_request_options(None::<RequestOptions>);
+    /// ```
+    pub fn set_or_clear_request_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RequestOptions>,
+    {
+        self.request_options = v.map(|x| x.into());
         self
     }
 
@@ -3817,6 +4073,9 @@ pub struct BeginTransactionRequest {
     /// Defaults to a read-write transaction.
     pub options: std::option::Option<crate::model::TransactionOptions>,
 
+    /// Optional. Any additional options for the request.
+    pub request_options: std::option::Option<crate::model::RequestOptions>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3868,6 +4127,39 @@ impl BeginTransactionRequest {
         T: std::convert::Into<crate::model::TransactionOptions>,
     {
         self.options = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_options][crate::model::BeginTransactionRequest::request_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::BeginTransactionRequest;
+    /// use google_cloud_firestore::model::RequestOptions;
+    /// let x = BeginTransactionRequest::new().set_request_options(RequestOptions::default()/* use setters */);
+    /// ```
+    pub fn set_request_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RequestOptions>,
+    {
+        self.request_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [request_options][crate::model::BeginTransactionRequest::request_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::BeginTransactionRequest;
+    /// use google_cloud_firestore::model::RequestOptions;
+    /// let x = BeginTransactionRequest::new().set_or_clear_request_options(Some(RequestOptions::default()/* use setters */));
+    /// let x = BeginTransactionRequest::new().set_or_clear_request_options(None::<RequestOptions>);
+    /// ```
+    pub fn set_or_clear_request_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RequestOptions>,
+    {
+        self.request_options = v.map(|x| x.into());
         self
     }
 }
@@ -3934,6 +4226,9 @@ pub struct CommitRequest {
     /// If set, applies all writes in this transaction, and commits it.
     pub transaction: ::bytes::Bytes,
 
+    /// Optional. Any additional options for the request.
+    pub request_options: std::option::Option<crate::model::RequestOptions>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3986,6 +4281,39 @@ impl CommitRequest {
     /// ```
     pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.transaction = v.into();
+        self
+    }
+
+    /// Sets the value of [request_options][crate::model::CommitRequest::request_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::CommitRequest;
+    /// use google_cloud_firestore::model::RequestOptions;
+    /// let x = CommitRequest::new().set_request_options(RequestOptions::default()/* use setters */);
+    /// ```
+    pub fn set_request_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RequestOptions>,
+    {
+        self.request_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [request_options][crate::model::CommitRequest::request_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::CommitRequest;
+    /// use google_cloud_firestore::model::RequestOptions;
+    /// let x = CommitRequest::new().set_or_clear_request_options(Some(RequestOptions::default()/* use setters */));
+    /// let x = CommitRequest::new().set_or_clear_request_options(None::<RequestOptions>);
+    /// ```
+    pub fn set_or_clear_request_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RequestOptions>,
+    {
+        self.request_options = v.map(|x| x.into());
         self
     }
 }
@@ -4096,6 +4424,9 @@ pub struct RollbackRequest {
     /// Required. The transaction to roll back.
     pub transaction: ::bytes::Bytes,
 
+    /// Optional. Any additional options for the request.
+    pub request_options: std::option::Option<crate::model::RequestOptions>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4128,6 +4459,39 @@ impl RollbackRequest {
         self.transaction = v.into();
         self
     }
+
+    /// Sets the value of [request_options][crate::model::RollbackRequest::request_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RollbackRequest;
+    /// use google_cloud_firestore::model::RequestOptions;
+    /// let x = RollbackRequest::new().set_request_options(RequestOptions::default()/* use setters */);
+    /// ```
+    pub fn set_request_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RequestOptions>,
+    {
+        self.request_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [request_options][crate::model::RollbackRequest::request_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RollbackRequest;
+    /// use google_cloud_firestore::model::RequestOptions;
+    /// let x = RollbackRequest::new().set_or_clear_request_options(Some(RequestOptions::default()/* use setters */));
+    /// let x = RollbackRequest::new().set_or_clear_request_options(None::<RequestOptions>);
+    /// ```
+    pub fn set_or_clear_request_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RequestOptions>,
+    {
+        self.request_options = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for RollbackRequest {
@@ -4151,6 +4515,9 @@ pub struct RunQueryRequest {
     /// Optional. Explain options for the query. If set, additional query
     /// statistics will be returned. If not, only query results will be returned.
     pub explain_options: std::option::Option<crate::model::ExplainOptions>,
+
+    /// Optional. Any additional options for the request.
+    pub request_options: std::option::Option<crate::model::RequestOptions>,
 
     /// The query to run.
     pub query_type: std::option::Option<crate::model::run_query_request::QueryType>,
@@ -4211,6 +4578,39 @@ impl RunQueryRequest {
         T: std::convert::Into<crate::model::ExplainOptions>,
     {
         self.explain_options = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_options][crate::model::RunQueryRequest::request_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunQueryRequest;
+    /// use google_cloud_firestore::model::RequestOptions;
+    /// let x = RunQueryRequest::new().set_request_options(RequestOptions::default()/* use setters */);
+    /// ```
+    pub fn set_request_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RequestOptions>,
+    {
+        self.request_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [request_options][crate::model::RunQueryRequest::request_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunQueryRequest;
+    /// use google_cloud_firestore::model::RequestOptions;
+    /// let x = RunQueryRequest::new().set_or_clear_request_options(Some(RequestOptions::default()/* use setters */));
+    /// let x = RunQueryRequest::new().set_or_clear_request_options(None::<RequestOptions>);
+    /// ```
+    pub fn set_or_clear_request_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RequestOptions>,
+    {
+        self.request_options = v.map(|x| x.into());
         self
     }
 
@@ -4762,6 +5162,9 @@ pub struct RunAggregationQueryRequest {
     /// statistics will be returned. If not, only query results will be returned.
     pub explain_options: std::option::Option<crate::model::ExplainOptions>,
 
+    /// Optional. Any additional options for the request.
+    pub request_options: std::option::Option<crate::model::RequestOptions>,
+
     /// The query to run.
     pub query_type: std::option::Option<crate::model::run_aggregation_query_request::QueryType>,
 
@@ -4820,6 +5223,39 @@ impl RunAggregationQueryRequest {
         T: std::convert::Into<crate::model::ExplainOptions>,
     {
         self.explain_options = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_options][crate::model::RunAggregationQueryRequest::request_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunAggregationQueryRequest;
+    /// use google_cloud_firestore::model::RequestOptions;
+    /// let x = RunAggregationQueryRequest::new().set_request_options(RequestOptions::default()/* use setters */);
+    /// ```
+    pub fn set_request_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RequestOptions>,
+    {
+        self.request_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [request_options][crate::model::RunAggregationQueryRequest::request_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunAggregationQueryRequest;
+    /// use google_cloud_firestore::model::RequestOptions;
+    /// let x = RunAggregationQueryRequest::new().set_or_clear_request_options(Some(RequestOptions::default()/* use setters */));
+    /// let x = RunAggregationQueryRequest::new().set_or_clear_request_options(None::<RequestOptions>);
+    /// ```
+    pub fn set_or_clear_request_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RequestOptions>,
+    {
+        self.request_options = v.map(|x| x.into());
         self
     }
 
@@ -5307,6 +5743,9 @@ pub struct PartitionQueryRequest {
     /// 2 partitions, to complete the total of 10 specified in `partition_count`.
     pub page_size: i32,
 
+    /// Optional. Any additional options for the request.
+    pub request_options: std::option::Option<crate::model::RequestOptions>,
+
     /// The query to partition.
     pub query_type: std::option::Option<crate::model::partition_query_request::QueryType>,
 
@@ -5369,6 +5808,39 @@ impl PartitionQueryRequest {
     /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [request_options][crate::model::PartitionQueryRequest::request_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::PartitionQueryRequest;
+    /// use google_cloud_firestore::model::RequestOptions;
+    /// let x = PartitionQueryRequest::new().set_request_options(RequestOptions::default()/* use setters */);
+    /// ```
+    pub fn set_request_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RequestOptions>,
+    {
+        self.request_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [request_options][crate::model::PartitionQueryRequest::request_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::PartitionQueryRequest;
+    /// use google_cloud_firestore::model::RequestOptions;
+    /// let x = PartitionQueryRequest::new().set_or_clear_request_options(Some(RequestOptions::default()/* use setters */));
+    /// let x = PartitionQueryRequest::new().set_or_clear_request_options(None::<RequestOptions>);
+    /// ```
+    pub fn set_or_clear_request_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RequestOptions>,
+    {
+        self.request_options = v.map(|x| x.into());
         self
     }
 
@@ -5696,6 +6168,9 @@ pub struct WriteRequest {
     /// Labels associated with this write request.
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
+    /// Optional. Any additional options for the request.
+    pub request_options: std::option::Option<crate::model::RequestOptions>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -5781,6 +6256,39 @@ impl WriteRequest {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [request_options][crate::model::WriteRequest::request_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::WriteRequest;
+    /// use google_cloud_firestore::model::RequestOptions;
+    /// let x = WriteRequest::new().set_request_options(RequestOptions::default()/* use setters */);
+    /// ```
+    pub fn set_request_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RequestOptions>,
+    {
+        self.request_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [request_options][crate::model::WriteRequest::request_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::WriteRequest;
+    /// use google_cloud_firestore::model::RequestOptions;
+    /// let x = WriteRequest::new().set_or_clear_request_options(Some(RequestOptions::default()/* use setters */));
+    /// let x = WriteRequest::new().set_or_clear_request_options(None::<RequestOptions>);
+    /// ```
+    pub fn set_or_clear_request_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RequestOptions>,
+    {
+        self.request_options = v.map(|x| x.into());
         self
     }
 }
@@ -5921,6 +6429,9 @@ pub struct ListenRequest {
     /// Labels associated with this target change.
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
+    /// Optional. Any additional options for the request.
+    pub request_options: std::option::Option<crate::model::RequestOptions>,
+
     /// The supported target changes.
     pub target_change: std::option::Option<crate::model::listen_request::TargetChange>,
 
@@ -5963,6 +6474,39 @@ impl ListenRequest {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [request_options][crate::model::ListenRequest::request_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListenRequest;
+    /// use google_cloud_firestore::model::RequestOptions;
+    /// let x = ListenRequest::new().set_request_options(RequestOptions::default()/* use setters */);
+    /// ```
+    pub fn set_request_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RequestOptions>,
+    {
+        self.request_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [request_options][crate::model::ListenRequest::request_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListenRequest;
+    /// use google_cloud_firestore::model::RequestOptions;
+    /// let x = ListenRequest::new().set_or_clear_request_options(Some(RequestOptions::default()/* use setters */));
+    /// let x = ListenRequest::new().set_or_clear_request_options(None::<RequestOptions>);
+    /// ```
+    pub fn set_or_clear_request_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RequestOptions>,
+    {
+        self.request_options = v.map(|x| x.into());
         self
     }
 
@@ -7304,6 +7848,9 @@ pub struct ListCollectionIdsRequest {
     /// [google.firestore.v1.ListCollectionIdsResponse]: crate::model::ListCollectionIdsResponse
     pub page_token: std::string::String,
 
+    /// Optional. Any additional options for the request.
+    pub request_options: std::option::Option<crate::model::RequestOptions>,
+
     /// The consistency mode for this request.
     /// If not set, defaults to strong consistency.
     pub consistency_selector:
@@ -7351,6 +7898,39 @@ impl ListCollectionIdsRequest {
     /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [request_options][crate::model::ListCollectionIdsRequest::request_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListCollectionIdsRequest;
+    /// use google_cloud_firestore::model::RequestOptions;
+    /// let x = ListCollectionIdsRequest::new().set_request_options(RequestOptions::default()/* use setters */);
+    /// ```
+    pub fn set_request_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RequestOptions>,
+    {
+        self.request_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [request_options][crate::model::ListCollectionIdsRequest::request_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListCollectionIdsRequest;
+    /// use google_cloud_firestore::model::RequestOptions;
+    /// let x = ListCollectionIdsRequest::new().set_or_clear_request_options(Some(RequestOptions::default()/* use setters */));
+    /// let x = ListCollectionIdsRequest::new().set_or_clear_request_options(None::<RequestOptions>);
+    /// ```
+    pub fn set_or_clear_request_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RequestOptions>,
+    {
+        self.request_options = v.map(|x| x.into());
         self
     }
 
@@ -7528,6 +8108,9 @@ pub struct BatchWriteRequest {
     /// Labels associated with this batch write.
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
+    /// Optional. Any additional options for the request.
+    pub request_options: std::option::Option<crate::model::RequestOptions>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -7589,6 +8172,39 @@ impl BatchWriteRequest {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [request_options][crate::model::BatchWriteRequest::request_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::BatchWriteRequest;
+    /// use google_cloud_firestore::model::RequestOptions;
+    /// let x = BatchWriteRequest::new().set_request_options(RequestOptions::default()/* use setters */);
+    /// ```
+    pub fn set_request_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RequestOptions>,
+    {
+        self.request_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [request_options][crate::model::BatchWriteRequest::request_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::BatchWriteRequest;
+    /// use google_cloud_firestore::model::RequestOptions;
+    /// let x = BatchWriteRequest::new().set_or_clear_request_options(Some(RequestOptions::default()/* use setters */));
+    /// let x = BatchWriteRequest::new().set_or_clear_request_options(None::<RequestOptions>);
+    /// ```
+    pub fn set_or_clear_request_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RequestOptions>,
+    {
+        self.request_options = v.map(|x| x.into());
         self
     }
 }

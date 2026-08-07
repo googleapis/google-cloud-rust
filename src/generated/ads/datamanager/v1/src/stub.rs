@@ -60,6 +60,17 @@ pub trait IngestionService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::IngestionService::remove_all_audience_members].
+    fn remove_all_audience_members(
+        &self,
+        _req: crate::model::RemoveAllAudienceMembersRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::RemoveAllAudienceMembersResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::IngestionService::ingest_events].
     fn ingest_events(
         &self,

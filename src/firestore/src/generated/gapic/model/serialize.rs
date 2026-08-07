@@ -245,6 +245,28 @@ impl serde::ser::Serialize for super::transaction_options::ReadOnly {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::RequestOptions {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.request_tags.is_empty() {
+            state.serialize_entry("requestTags", &self.request_tags)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::Document {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -519,6 +541,9 @@ impl serde::ser::Serialize for super::GetDocumentRequest {
         if let Some(value) = self.read_time() {
             state.serialize_entry("readTime", value)?;
         }
+        if self.request_options.is_some() {
+            state.serialize_entry("requestOptions", &self.request_options)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -583,6 +608,9 @@ impl serde::ser::Serialize for super::ListDocumentsRequest {
         if !wkt::internal::is_default(&self.show_missing) {
             state.serialize_entry("showMissing", &self.show_missing)?;
         }
+        if self.request_options.is_some() {
+            state.serialize_entry("requestOptions", &self.request_options)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -642,6 +670,9 @@ impl serde::ser::Serialize for super::CreateDocumentRequest {
         if self.mask.is_some() {
             state.serialize_entry("mask", &self.mask)?;
         }
+        if self.request_options.is_some() {
+            state.serialize_entry("requestOptions", &self.request_options)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -673,6 +704,9 @@ impl serde::ser::Serialize for super::UpdateDocumentRequest {
         if self.current_document.is_some() {
             state.serialize_entry("currentDocument", &self.current_document)?;
         }
+        if self.request_options.is_some() {
+            state.serialize_entry("requestOptions", &self.request_options)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -697,6 +731,9 @@ impl serde::ser::Serialize for super::DeleteDocumentRequest {
         }
         if self.current_document.is_some() {
             state.serialize_entry("currentDocument", &self.current_document)?;
+        }
+        if self.request_options.is_some() {
+            state.serialize_entry("requestOptions", &self.request_options)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -743,6 +780,9 @@ impl serde::ser::Serialize for super::BatchGetDocumentsRequest {
         }
         if let Some(value) = self.read_time() {
             state.serialize_entry("readTime", value)?;
+        }
+        if self.request_options.is_some() {
+            state.serialize_entry("requestOptions", &self.request_options)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -808,6 +848,9 @@ impl serde::ser::Serialize for super::BeginTransactionRequest {
         }
         if self.options.is_some() {
             state.serialize_entry("options", &self.options)?;
+        }
+        if self.request_options.is_some() {
+            state.serialize_entry("requestOptions", &self.request_options)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -877,6 +920,9 @@ impl serde::ser::Serialize for super::CommitRequest {
             }
             state.serialize_entry("transaction", &__With(&self.transaction))?;
         }
+        if self.request_options.is_some() {
+            state.serialize_entry("requestOptions", &self.request_options)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -936,6 +982,9 @@ impl serde::ser::Serialize for super::RollbackRequest {
             }
             state.serialize_entry("transaction", &__With(&self.transaction))?;
         }
+        if self.request_options.is_some() {
+            state.serialize_entry("requestOptions", &self.request_options)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -981,6 +1030,9 @@ impl serde::ser::Serialize for super::RunQueryRequest {
         }
         if self.explain_options.is_some() {
             state.serialize_entry("explainOptions", &self.explain_options)?;
+        }
+        if self.request_options.is_some() {
+            state.serialize_entry("requestOptions", &self.request_options)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1083,6 +1135,9 @@ impl serde::ser::Serialize for super::RunAggregationQueryRequest {
         if self.explain_options.is_some() {
             state.serialize_entry("explainOptions", &self.explain_options)?;
         }
+        if self.request_options.is_some() {
+            state.serialize_entry("requestOptions", &self.request_options)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1178,6 +1233,9 @@ impl serde::ser::Serialize for super::PartitionQueryRequest {
         if let Some(value) = self.read_time() {
             state.serialize_entry("readTime", value)?;
         }
+        if self.request_options.is_some() {
+            state.serialize_entry("requestOptions", &self.request_options)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1245,6 +1303,9 @@ impl serde::ser::Serialize for super::WriteRequest {
         }
         if !self.labels.is_empty() {
             state.serialize_entry("labels", &self.labels)?;
+        }
+        if self.request_options.is_some() {
+            state.serialize_entry("requestOptions", &self.request_options)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1325,6 +1386,9 @@ impl serde::ser::Serialize for super::ListenRequest {
         }
         if !self.labels.is_empty() {
             state.serialize_entry("labels", &self.labels)?;
+        }
+        if self.request_options.is_some() {
+            state.serialize_entry("requestOptions", &self.request_options)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1570,6 +1634,9 @@ impl serde::ser::Serialize for super::ListCollectionIdsRequest {
         if let Some(value) = self.read_time() {
             state.serialize_entry("readTime", value)?;
         }
+        if self.request_options.is_some() {
+            state.serialize_entry("requestOptions", &self.request_options)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1622,6 +1689,9 @@ impl serde::ser::Serialize for super::BatchWriteRequest {
         }
         if !self.labels.is_empty() {
             state.serialize_entry("labels", &self.labels)?;
+        }
+        if self.request_options.is_some() {
+            state.serialize_entry("requestOptions", &self.request_options)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

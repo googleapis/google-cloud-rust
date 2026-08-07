@@ -2087,6 +2087,9 @@ impl serde::ser::Serialize for super::InstallNpmPackagesRequest {
         if !self.workspace.is_empty() {
             state.serialize_entry("workspace", &self.workspace)?;
         }
+        if self.pipeline_config.is_some() {
+            state.serialize_entry("pipelineConfig", &self.pipeline_config)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2400,6 +2403,12 @@ impl serde::ser::Serialize for super::CompilationResult {
         if self.private_resource_metadata.is_some() {
             state.serialize_entry("privateResourceMetadata", &self.private_resource_metadata)?;
         }
+        if self.gcs_repository_snapshot_metadata.is_some() {
+            state.serialize_entry(
+                "gcsRepositorySnapshotMetadata",
+                &self.gcs_repository_snapshot_metadata,
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2486,6 +2495,68 @@ impl serde::ser::Serialize for super::CodeCompilationConfig {
                 &self.default_notebook_runtime_options,
             )?;
         }
+        if self.pipeline_config.is_some() {
+            state.serialize_entry("pipelineConfig", &self.pipeline_config)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GcsRepositorySnapshotMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.repository_snapshot_uri.is_empty() {
+            state.serialize_entry("repositorySnapshotUri", &self.repository_snapshot_uri)?;
+        }
+        if !self.crc32c_checksum.is_empty() {
+            state.serialize_entry("crc32cChecksum", &self.crc32c_checksum)?;
+        }
+        if !wkt::internal::is_default(&self.generation) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("generation", &__With(&self.generation))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GcsRepositorySnapshotDestination {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.repository_snapshot_uri.is_empty() {
+            state.serialize_entry("repositorySnapshotUri", &self.repository_snapshot_uri)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2508,11 +2579,39 @@ impl serde::ser::Serialize for super::NotebookRuntimeOptions {
         if let Some(value) = self.gcs_output_bucket() {
             state.serialize_entry("gcsOutputBucket", value)?;
         }
+        if let Some(value) = self.gcs_repository_snapshot_destination() {
+            state.serialize_entry("gcsRepositorySnapshotDestination", value)?;
+        }
         if !self.ai_platform_notebook_runtime_template.is_empty() {
             state.serialize_entry(
                 "aiPlatformNotebookRuntimeTemplate",
                 &self.ai_platform_notebook_runtime_template,
             )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::PipelineConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.pipeline_type) {
+            state.serialize_entry("pipelineType", &self.pipeline_type)?;
+        }
+        if !self.path.is_empty() {
+            state.serialize_entry("path", &self.path)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -3593,6 +3692,9 @@ impl serde::ser::Serialize for super::WorkflowInvocation {
         if self.private_resource_metadata.is_some() {
             state.serialize_entry("privateResourceMetadata", &self.private_resource_metadata)?;
         }
+        if self.pipeline_config.is_some() {
+            state.serialize_entry("pipelineConfig", &self.pipeline_config)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -3869,6 +3971,9 @@ impl serde::ser::Serialize for super::workflow_invocation_action::NotebookAction
         }
         if !self.job_id.is_empty() {
             state.serialize_entry("jobId", &self.job_id)?;
+        }
+        if !self.file_path.is_empty() {
+            state.serialize_entry("filePath", &self.file_path)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
