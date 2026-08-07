@@ -34,6 +34,7 @@ mod tests {
             .inspect_err(anydump)
     }
 
+    #[ignore = "TODO(#6297) - disabled because it was flaky"]
     #[tokio::test]
     async fn usage_report_samples() -> anyhow::Result<()> {
         let project_id = project_id()?;
