@@ -172,7 +172,7 @@ where
         None
     }
     async fn until_done(self) -> Result<O> {
-        crate::until_done(self).await
+        Box::pin(crate::until_done(self)).await
     }
 
     #[cfg(feature = "unstable-stream")]
