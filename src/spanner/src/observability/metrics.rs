@@ -13,9 +13,9 @@
 // limitations under the License.
 
 use crate::omni::InstanceType;
+use http::HeaderMap;
 #[cfg(feature = "_experimental-builtin-metrics")]
 use std::sync::Arc;
-#[cfg(feature = "_experimental-builtin-metrics")]
 use std::time::Duration;
 #[cfg(feature = "_experimental-builtin-metrics")]
 use std::time::Instant;
@@ -25,8 +25,10 @@ use {
     crate::observability::exporter::GcpMonitoringExporter,
     gaxi::options::ClientConfig,
     google_cloud_monitoring_v3::client::MetricService,
+    opentelemetry::KeyValue,
     opentelemetry::metrics::{Counter, Histogram, Meter, MeterProvider},
     opentelemetry_sdk::{
+        Resource,
         error::OTelSdkError,
         metrics::{PeriodicReader, SdkMeterProvider},
     },
@@ -157,8 +159,8 @@ pub(crate) fn client_name() -> &'static str {
 #[derive(Clone, Debug)]
 pub(crate) struct Observability {
     pub(crate) metrics: Option<Arc<SpannerMetrics>>,
-    common_attributes: [opentelemetry::KeyValue; 3],
-    meter_provider: Option<Arc<SdkMeterProvider>>,
+    pub(crate) common_attributes: [KeyValue; 3],
+    pub(crate) meter_provider: Option<Arc<SdkMeterProvider>>,
 }
 
 #[cfg(feature = "_experimental-builtin-metrics")]
@@ -167,9 +169,9 @@ impl Observability {
         Self {
             metrics: None,
             common_attributes: [
-                opentelemetry::KeyValue::new("client_uid", ""),
-                opentelemetry::KeyValue::new("client_name", ""),
-                opentelemetry::KeyValue::new("database", ""),
+                KeyValue::new("client_uid", ""),
+                KeyValue::new("client_name", ""),
+                KeyValue::new("database", ""),
             ],
             meter_provider: None,
         }
@@ -220,13 +222,13 @@ impl Observability {
         let client_hash = generate_client_hash(&client_uid);
         let client_name = client_name();
 
-        let resource = opentelemetry_sdk::Resource::builder()
+        let resource = Resource::builder()
             .with_attributes([
-                opentelemetry::KeyValue::new("project_id", project_id.to_string()),
-                opentelemetry::KeyValue::new("instance_id", instance_id.to_string()),
-                opentelemetry::KeyValue::new("location", "global"),
-                opentelemetry::KeyValue::new("instance_config", "unknown"),
-                opentelemetry::KeyValue::new("client_hash", client_hash),
+                KeyValue::new("project_id", project_id.to_string()),
+                KeyValue::new("instance_id", instance_id.to_string()),
+                KeyValue::new("location", "global"),
+                KeyValue::new("instance_config", "unknown"),
+                KeyValue::new("client_hash", client_hash),
             ])
             .build();
 
@@ -244,9 +246,9 @@ impl Observability {
         let metrics = SpannerMetrics::new(meter);
 
         let common_attributes = [
-            opentelemetry::KeyValue::new("client_uid", client_uid),
-            opentelemetry::KeyValue::new("client_name", client_name),
-            opentelemetry::KeyValue::new("database", database_id.to_string()),
+            KeyValue::new("client_uid", client_uid),
+            KeyValue::new("client_name", client_name),
+            KeyValue::new("database", database_id.to_string()),
         ];
 
         Self {
@@ -300,14 +302,33 @@ impl Observability {
         gfe_latency: Option<f64>,
         afe_latency: Option<f64>,
     ) {
+        self.record_attempt_with_status(
+            method,
+            duration,
+            result.as_ref().err(),
+            gfe_latency,
+            afe_latency,
+        );
+    }
+
+    #[allow(dead_code)]
+    pub(crate) fn record_attempt_with_status(
+        &self,
+        method: &'static str,
+        duration: Duration,
+        error: Option<&crate::Error>,
+        gfe_latency: Option<f64>,
+        afe_latency: Option<f64>,
+    ) {
         let Some(ref metrics) = self.metrics else {
             return;
         };
 
-        let status = result_to_status_str(result);
+        let status = error_to_status_str(error);
+        let normalized_method = normalize_method_name(method);
         let attributes = [
-            opentelemetry::KeyValue::new("method", method),
-            opentelemetry::KeyValue::new("status", status),
+            KeyValue::new("method", normalized_method),
+            KeyValue::new("status", status),
             self.common_attributes[0].clone(),
             self.common_attributes[1].clone(),
             self.common_attributes[2].clone(),
@@ -326,20 +347,49 @@ impl Observability {
         }
     }
 
+    #[allow(dead_code)]
+    pub(crate) fn record_attempt_with_headers(
+        &self,
+        method: &'static str,
+        duration: Duration,
+        error: Option<&crate::Error>,
+        headers: Option<&HeaderMap>,
+    ) {
+        let timings = headers.map_or_else(ServerTimings::default, parse_server_timing_from_headers);
+        self.record_attempt_with_status(
+            method,
+            duration,
+            error,
+            timings.gfe_latency,
+            timings.afe_latency,
+        );
+    }
+
+    #[allow(dead_code)]
     pub(crate) fn record_operation<T>(
         &self,
         method: &'static str,
         duration: Duration,
         result: &crate::Result<T>,
     ) {
+        self.record_operation_with_status(method, duration, result.as_ref().err());
+    }
+
+    pub(crate) fn record_operation_with_status(
+        &self,
+        method: &'static str,
+        duration: Duration,
+        error: Option<&crate::Error>,
+    ) {
         let Some(ref metrics) = self.metrics else {
             return;
         };
 
-        let status = result_to_status_str(result);
+        let status = error_to_status_str(error);
+        let normalized_method = normalize_method_name(method);
         let attributes = [
-            opentelemetry::KeyValue::new("method", method),
-            opentelemetry::KeyValue::new("status", status),
+            KeyValue::new("method", normalized_method),
+            KeyValue::new("status", status),
             self.common_attributes[0].clone(),
             self.common_attributes[1].clone(),
             self.common_attributes[2].clone(),
@@ -371,12 +421,31 @@ impl Drop for Observability {
     }
 }
 
+/// Normalizes gRPC method paths or method names to the standardized `"Spanner.<Method>"` format.
+/// Matches the built-in metrics convention (e.g. `"Spanner.ExecuteSql"`, `"Spanner.ExecuteStreamingSql"`).
 #[cfg(feature = "_experimental-builtin-metrics")]
-fn result_to_status_str<T>(result: &crate::Result<T>) -> &'static str {
-    match result {
-        Ok(_) => "OK",
-        Err(e) => e.status().map_or("UNKNOWN", |status| status.code.name()),
+pub(crate) fn normalize_method_name(method: &str) -> String {
+    let method = method.trim_start_matches('/');
+    if let Some(suffix) = method.strip_prefix("google.spanner.v1.") {
+        return suffix.replace('/', ".");
     }
+    if method.starts_with("Spanner.") {
+        return method.to_string();
+    }
+    format!("Spanner.{method}")
+}
+
+#[cfg(feature = "_experimental-builtin-metrics")]
+fn error_to_status_str(error: Option<&crate::Error>) -> &'static str {
+    error.map_or("OK", |e| {
+        e.status().map_or("UNKNOWN", |status| status.code.name())
+    })
+}
+
+#[cfg(feature = "_experimental-builtin-metrics")]
+#[allow(dead_code)]
+fn result_to_status_str<T>(result: &crate::Result<T>) -> &'static str {
+    error_to_status_str(result.as_ref().err())
 }
 
 #[cfg(feature = "_experimental-builtin-metrics")]
@@ -403,11 +472,25 @@ pub(crate) fn parse_server_timing(header_val: &str) -> ServerTimings {
         if let Some(duration) = subparts.find_map(parse_duration_param) {
             if is_gfe {
                 timings.gfe_latency = Some(duration);
-            }
-            if is_afe {
+            } else if is_afe {
                 timings.afe_latency = Some(duration);
             }
         }
+    }
+    timings
+}
+
+#[cfg(feature = "_experimental-builtin-metrics")]
+#[allow(dead_code)]
+pub(crate) fn parse_server_timing_from_headers(headers: &HeaderMap) -> ServerTimings {
+    let mut timings = ServerTimings::default();
+    for val in headers.get_all("server-timing") {
+        let Ok(header_str) = val.to_str() else {
+            continue;
+        };
+        let parsed = parse_server_timing(header_str);
+        timings.gfe_latency = timings.gfe_latency.or(parsed.gfe_latency);
+        timings.afe_latency = timings.afe_latency.or(parsed.afe_latency);
     }
     timings
 }
@@ -459,43 +542,96 @@ impl Observability {
     }
 
     #[allow(dead_code)]
+    pub(crate) fn record_attempt<T>(
+        &self,
+        _method: &'static str,
+        _duration: Duration,
+        _result: &crate::Result<T>,
+        _gfe_latency: Option<f64>,
+        _afe_latency: Option<f64>,
+    ) {
+    }
+
+    #[allow(dead_code)]
+    pub(crate) fn record_attempt_with_status(
+        &self,
+        _method: &'static str,
+        _duration: Duration,
+        _error: Option<&crate::Error>,
+        _gfe_latency: Option<f64>,
+        _afe_latency: Option<f64>,
+    ) {
+    }
+
+    #[allow(dead_code)]
+    pub(crate) fn record_attempt_with_headers(
+        &self,
+        _method: &'static str,
+        _duration: Duration,
+        _error: Option<&crate::Error>,
+        _headers: Option<&HeaderMap>,
+    ) {
+    }
+
+    #[allow(dead_code)]
+    pub(crate) fn record_operation<T>(
+        &self,
+        _method: &'static str,
+        _duration: Duration,
+        _result: &crate::Result<T>,
+    ) {
+    }
+
+    #[allow(dead_code)]
+    pub(crate) fn record_operation_with_status(
+        &self,
+        _method: &'static str,
+        _duration: Duration,
+        _error: Option<&crate::Error>,
+    ) {
+    }
+
+    #[allow(dead_code)]
     pub(crate) fn shutdown(&self) {}
 }
 
 #[cfg(all(test, feature = "_experimental-builtin-metrics"))]
 mod tests {
     use super::*;
+    use opentelemetry::KeyValue;
     use opentelemetry_sdk::metrics::InMemoryMetricExporter;
+    use opentelemetry_sdk::metrics::PeriodicReader;
+
     #[test]
-    fn test_observability_disabled() {
+    fn observability_disabled() {
         let o11y = Observability::disabled();
         assert!(o11y.metrics.is_none());
     }
 
     #[test]
-    fn test_result_to_status_str() {
+    fn result_to_status_str() {
         let ok_res: crate::Result<()> = Ok(());
-        assert_eq!(result_to_status_str(&ok_res), "OK");
+        assert_eq!(super::result_to_status_str(&ok_res), "OK");
 
         let status_pd = google_cloud_gax::error::rpc::Status::default()
             .set_code(google_cloud_gax::error::rpc::Code::PermissionDenied);
         let err_pd: crate::Result<()> = Err(crate::Error::service(status_pd));
-        assert_eq!(result_to_status_str(&err_pd), "PERMISSION_DENIED");
+        assert_eq!(super::result_to_status_str(&err_pd), "PERMISSION_DENIED");
     }
 
     #[test]
-    fn test_spanner_metrics_record_operation_and_attempt() {
+    fn spanner_metrics_record_operation_and_attempt() {
         let exporter = InMemoryMetricExporter::default();
-        let reader = opentelemetry_sdk::metrics::PeriodicReader::builder(exporter.clone()).build();
+        let reader = PeriodicReader::builder(exporter.clone()).build();
         let provider = SdkMeterProvider::builder().with_reader(reader).build();
         let meter = provider.meter("cloud.google.com/rust");
         let metrics = SpannerMetrics::new(meter);
         let o11y = Observability {
             metrics: Some(Arc::new(metrics)),
             common_attributes: [
-                opentelemetry::KeyValue::new("client_uid", ""),
-                opentelemetry::KeyValue::new("client_name", ""),
-                opentelemetry::KeyValue::new("database", ""),
+                KeyValue::new("client_uid", ""),
+                KeyValue::new("client_name", ""),
+                KeyValue::new("database", ""),
             ],
             meter_provider: Some(Arc::new(provider.clone())),
         };
@@ -519,12 +655,40 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_trace_operation_success() {
+    async fn trace_operation_success() {
         let o11y = Observability::disabled();
         let result = o11y
             .trace_operation("ExecuteSql", async { Ok::<i32, crate::Error>(42) })
             .await;
         assert_eq!(result.expect("trace_operation result"), 42);
+    }
+
+    #[test]
+    fn normalize_method_name() {
+        assert_eq!(
+            super::normalize_method_name("google.spanner.v1.Spanner/ExecuteSql"),
+            "Spanner.ExecuteSql"
+        );
+        assert_eq!(
+            super::normalize_method_name("/google.spanner.v1.Spanner/ExecuteStreamingSql"),
+            "Spanner.ExecuteStreamingSql"
+        );
+        assert_eq!(
+            super::normalize_method_name("Spanner.ExecuteStreamingSql"),
+            "Spanner.ExecuteStreamingSql"
+        );
+        assert_eq!(
+            super::normalize_method_name("ExecuteStreamingSql"),
+            "Spanner.ExecuteStreamingSql"
+        );
+        assert_eq!(
+            super::normalize_method_name("StreamingRead"),
+            "Spanner.StreamingRead"
+        );
+        assert_eq!(
+            super::normalize_method_name("BatchWrite"),
+            "Spanner.BatchWrite"
+        );
     }
 
     #[test]
@@ -694,12 +858,52 @@ mod tests {
     }
 
     #[test]
-    fn test_default_export_interval() {
+    fn parse_server_timing_from_headers() {
+        use http::HeaderValue;
+        let mut headers = HeaderMap::new();
+        assert_eq!(
+            super::parse_server_timing_from_headers(&headers),
+            ServerTimings::default()
+        );
+
+        headers.insert(
+            "server-timing",
+            HeaderValue::from_static("gfet4t7;dur=12.5,afe;dur=5.0"),
+        );
+        assert_eq!(
+            super::parse_server_timing_from_headers(&headers),
+            ServerTimings {
+                gfe_latency: Some(12.5),
+                afe_latency: Some(5.0),
+            }
+        );
+    }
+
+    #[test]
+    fn parse_server_timing_from_headers_multiple() {
+        use http::HeaderValue;
+        let mut headers = HeaderMap::new();
+        headers.append(
+            "server-timing",
+            HeaderValue::from_static("gfet4t7;dur=22.5"),
+        );
+        headers.append("server-timing", HeaderValue::from_static("afe;dur=15.0"));
+        assert_eq!(
+            super::parse_server_timing_from_headers(&headers),
+            ServerTimings {
+                gfe_latency: Some(22.5),
+                afe_latency: Some(15.0),
+            }
+        );
+    }
+
+    #[test]
+    fn default_export_interval() {
         assert_eq!(DEFAULT_EXPORT_INTERVAL, Duration::from_secs(60));
     }
 
     #[test]
-    fn test_bucket_boundaries_len_and_values() {
+    fn bucket_boundaries_len_and_values() {
         assert_eq!(BUCKET_BOUNDARIES.len(), 50);
         assert_eq!(BUCKET_BOUNDARIES[0], 0.0);
         assert_eq!(
@@ -711,7 +915,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_observability_disabled_paths() {
+    async fn observability_disabled_paths() {
         let o11y = Observability::disabled();
         assert!(
             o11y.metrics.is_none(),
@@ -745,7 +949,7 @@ mod tests {
     }
 
     #[test]
-    fn test_spanner_metrics_initialization_and_recording() {
+    fn spanner_metrics_initialization_and_recording() {
         let exporter = InMemoryMetricExporter::default();
         let reader = PeriodicReader::builder(exporter.clone())
             .with_interval(DEFAULT_EXPORT_INTERVAL)
@@ -755,8 +959,8 @@ mod tests {
         let metrics = SpannerMetrics::new(meter);
 
         let attributes = [
-            opentelemetry::KeyValue::new("method", "ExecuteSql"),
-            opentelemetry::KeyValue::new("status", "OK"),
+            KeyValue::new("method", "ExecuteSql"),
+            KeyValue::new("status", "OK"),
         ];
 
         metrics.operation_latencies.record(12.5, &attributes);
@@ -813,7 +1017,7 @@ mod tests {
     }
 
     #[test]
-    fn test_observability_recording_methods() {
+    fn observability_recording_methods() {
         let exporter = InMemoryMetricExporter::default();
         let reader = PeriodicReader::builder(exporter.clone())
             .with_interval(DEFAULT_EXPORT_INTERVAL)
@@ -825,9 +1029,9 @@ mod tests {
         let o11y = Observability {
             metrics: Some(Arc::new(metrics)),
             common_attributes: [
-                opentelemetry::KeyValue::new("client_uid", ""),
-                opentelemetry::KeyValue::new("client_name", ""),
-                opentelemetry::KeyValue::new("database", ""),
+                KeyValue::new("client_uid", ""),
+                KeyValue::new("client_name", ""),
+                KeyValue::new("database", ""),
             ],
             meter_provider: Some(Arc::new(provider.clone())),
         };
@@ -869,9 +1073,9 @@ mod tests {
         let o11y = Observability {
             metrics: None,
             common_attributes: [
-                opentelemetry::KeyValue::new("client_uid", ""),
-                opentelemetry::KeyValue::new("client_name", ""),
-                opentelemetry::KeyValue::new("database", ""),
+                KeyValue::new("client_uid", ""),
+                KeyValue::new("client_name", ""),
+                KeyValue::new("database", ""),
             ],
             meter_provider: Some(Arc::new(meter_provider)),
         };
