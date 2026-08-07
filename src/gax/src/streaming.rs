@@ -63,6 +63,12 @@ impl<Req> RequestSender<Req> {
         (self.inner)(item).await
     }
 
+    /// Creates a [`RequestSender`] from an asynchronous send function.
+    ///
+    /// This constructor is `doc(hidden)` (except when `_internal-semver` is enabled)
+    /// so that generated client transports can construct [`RequestSender`] instances
+    /// that perform pre-send transformations without exposing the closure types or
+    /// wire models in the public API documentation.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn from_fn<F, Fut>(f: F) -> Self
     where
@@ -225,13 +231,17 @@ mod tests {
             }
         }
 
+        let status = crate::error::rpc::Status::default()
+            .set_code(crate::error::rpc::Code::Unavailable)
+            .set_message("transport unavailable");
+
         // Simulates a tonic gRPC response stream yielding Result<RawProto, StatusError>
         let raw_stream = futures::stream::iter(vec![
             Ok(RawProto {
                 text: "hello".to_string(),
                 valid: true,
             }),
-            Err(crate::error::Error::service("transport unavailable")),
+            Err(crate::error::Error::service(status)),
             Ok(RawProto {
                 text: "corrupted".to_string(),
                 valid: false,
@@ -259,7 +269,10 @@ mod tests {
 
         // 2. Stream transport error
         let err2 = receiver.recv().await.unwrap().unwrap_err();
-        assert!(err2.is_service());
+        assert_eq!(
+            err2.status().map(|s| s.code),
+            Some(crate::error::rpc::Code::Unavailable)
+        );
 
         // 3. Deserialization error
         let err3 = receiver.recv().await.unwrap().unwrap_err();
