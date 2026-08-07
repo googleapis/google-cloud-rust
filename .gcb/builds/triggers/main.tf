@@ -138,8 +138,9 @@ locals {
       script = "test"
     }
     test-msrv = {
-      config       = "msrv.yaml"
-      flags        = local.unstable_flags
+      config = "msrv.yaml"
+      flags  = local.unstable_flags
+      script = "test"
     }
     test-unstable-cfg = {
       config = "complex.yaml"
