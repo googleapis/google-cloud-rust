@@ -34,6 +34,7 @@ pub use google_cloud_bigquery_derive::{FromRow, FromSql};
 
 pub(crate) mod generated;
 pub(crate) mod query;
+pub(crate) mod retry_policy;
 pub(crate) use google_cloud_gax::client_builder::Result as ClientBuilderResult;
 
 /// High-level BigQuery client and execution entrypoints.
