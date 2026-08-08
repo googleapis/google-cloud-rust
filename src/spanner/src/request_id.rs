@@ -233,7 +233,7 @@ mod tests {
                 request.clone(),
                 crate::RequestOptions::default(),
                 0,
-                &crate::observability::Observability::disabled(),
+                &crate::observability::Observability::disabled_arc(),
             )
             .await
             .expect("first create_session should succeed after retry");
@@ -244,7 +244,7 @@ mod tests {
                 request,
                 crate::RequestOptions::default(),
                 0,
-                &crate::observability::Observability::disabled(),
+                &crate::observability::Observability::disabled_arc(),
             )
             .await
             .expect("second create_session should succeed");

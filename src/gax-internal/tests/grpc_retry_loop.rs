@@ -16,6 +16,7 @@
 mod tests {
     use google_cloud_auth::credentials::{Credentials, anonymous::Builder as Anonymous};
     use google_cloud_gax::backoff_policy::BackoffPolicy;
+    use google_cloud_gax::error::Error;
     use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
     use google_cloud_gax::options::RequestOptions;
     use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
@@ -26,6 +27,7 @@ mod tests {
     use grpc_server::{builder, google, start_fixed_responses};
     use http::HeaderMap;
     use std::sync::{Arc, Mutex};
+    use std::time::Instant;
 
     fn test_credentials() -> Credentials {
         Anonymous::new().build()
@@ -127,6 +129,62 @@ mod tests {
 
         let attempts = tracker.attempts.lock().unwrap().clone();
         assert_eq!(attempts, vec![1, 2, 3]);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn interceptor_on_attempt_complete() -> anyhow::Result<()> {
+        #[derive(Debug, Default)]
+        struct AttemptCompletionTracker {
+            completed_attempts: Mutex<Vec<(String, u32, bool)>>,
+        }
+        impl AttemptInterceptor for AttemptCompletionTracker {
+            fn intercept(&self, _headers: &mut HeaderMap, _attempt: u32) {}
+
+            fn on_attempt_complete(
+                &self,
+                method: &str,
+                attempt: u32,
+                _start_time: Instant,
+                _response_headers: Option<&HeaderMap>,
+                error: Option<&Error>,
+                _options: &RequestOptions,
+            ) {
+                self.completed_attempts.lock().expect("lock failed").push((
+                    method.to_string(),
+                    attempt,
+                    error.is_none(),
+                ));
+            }
+        }
+
+        let tracker = Arc::new(AttemptCompletionTracker::default());
+        let (endpoint, _server) =
+            start_fixed_responses(vec![transient(), transient(), success()]).await?;
+
+        let mut config = ClientConfig::default();
+        config.cred = Some(test_credentials());
+        config.endpoint = Some(endpoint);
+        config.backoff_policy = Some(Arc::new(test_backoff()));
+
+        let mut client = grpc::Client::new(config, "https://test-only.googleapis.com").await?;
+        client.set_attempt_interceptor(tracker.clone());
+        let _response = send_request(client, "interceptor_on_attempt_complete").await?;
+
+        let completed = tracker
+            .completed_attempts
+            .lock()
+            .expect("lock failed")
+            .clone();
+        assert_eq!(
+            completed,
+            vec![
+                ("/google.test.v1.EchoService/Echo".to_string(), 1, false),
+                ("/google.test.v1.EchoService/Echo".to_string(), 2, false),
+                ("/google.test.v1.EchoService/Echo".to_string(), 3, true),
+            ]
+        );
 
         Ok(())
     }

@@ -398,14 +398,14 @@ mod tests {
     use std::time::SystemTime;
 
     #[test]
-    fn test_system_time_to_timestamp() {
+    fn system_time_to_timestamp() {
         let now = SystemTime::now();
-        let ts = system_time_to_timestamp(now);
+        let ts = super::system_time_to_timestamp(now);
         assert!(ts.seconds() > 0, "Timestamp seconds should be positive");
     }
 
     #[test]
-    fn test_key_values_to_metric_labels() {
+    fn key_values_to_metric_labels() {
         let attrs = [
             opentelemetry::KeyValue::new("method", "ExecuteSql"),
             opentelemetry::KeyValue::new("status.code", "OK"),
@@ -413,7 +413,7 @@ mod tests {
             opentelemetry::KeyValue::new("is_retry", true),
             opentelemetry::KeyValue::new("instance_id", "my-instance"),
         ];
-        let labels = key_values_to_metric_labels(attrs.iter());
+        let labels = super::key_values_to_metric_labels(attrs.iter());
         assert_eq!(labels.get("method").map(|s| s.as_str()), Some("ExecuteSql"));
         assert_eq!(labels.get("status_code").map(|s| s.as_str()), Some("OK"));
         assert_eq!(labels.get("retry_count").map(|s| s.as_str()), Some("3"));
@@ -422,7 +422,7 @@ mod tests {
     }
 
     #[test]
-    fn test_resource_to_monitored_resource_filtering() {
+    fn resource_to_monitored_resource_filtering() {
         let resource = Resource::builder()
             .with_attributes([
                 opentelemetry::KeyValue::new("project_id", "my-project"),
@@ -435,7 +435,7 @@ mod tests {
             ])
             .build();
 
-        let monitored_res = resource_to_monitored_resource(&resource);
+        let monitored_res = super::resource_to_monitored_resource(&resource);
 
         assert_eq!(monitored_res.r#type, "spanner_instance_client");
         assert_eq!(
@@ -467,15 +467,15 @@ mod tests {
     }
 
     #[test]
-    fn test_create_time_series() {
+    fn create_time_series() {
         let now = SystemTime::now();
         let attrs = [opentelemetry::KeyValue::new("method", "Commit")];
         let typed_val = TypedValue::new().set_value(Value::Int64Value(42));
         let resource = Resource::builder()
             .with_attributes([opentelemetry::KeyValue::new("instance_id", "test-instance")])
             .build();
-        let monitored_resource = resource_to_monitored_resource(&resource);
-        let ts = create_time_series(
+        let monitored_resource = super::resource_to_monitored_resource(&resource);
+        let ts = super::create_time_series(
             "spanner.googleapis.com/internal/client/operation_count",
             &monitored_resource,
             attrs.iter(),
@@ -510,7 +510,7 @@ mod tests {
     }
 
     #[test]
-    fn test_convert_metric_to_time_series_histogram_and_sums() {
+    fn convert_metric_to_time_series_histogram_and_sums() {
         let exporter = InMemoryMetricExporter::default();
         let reader = opentelemetry_sdk::metrics::PeriodicReader::builder(exporter.clone()).build();
         let provider = opentelemetry_sdk::metrics::SdkMeterProvider::builder()
@@ -542,7 +542,7 @@ mod tests {
 
         let mut time_series_list = Vec::new();
         for resource_metrics in &resource_metrics_list {
-            let monitored_res = resource_to_monitored_resource(resource_metrics.resource());
+            let monitored_res = super::resource_to_monitored_resource(resource_metrics.resource());
             for scope_metrics in resource_metrics.scope_metrics() {
                 for m in scope_metrics.metrics() {
                     convert_metric_to_time_series(m, &monitored_res, &mut time_series_list);
@@ -592,7 +592,7 @@ mod tests {
     }
 
     #[test]
-    fn test_resource_metrics_scope_filtering() {
+    fn resource_metrics_scope_filtering() {
         let exporter = InMemoryMetricExporter::default();
         let reader = opentelemetry_sdk::metrics::PeriodicReader::builder(exporter.clone()).build();
 
@@ -612,7 +612,7 @@ mod tests {
 
         let mut time_series_list = Vec::new();
         for resource_metrics in &resource_metrics_list {
-            let monitored_res = resource_to_monitored_resource(resource_metrics.resource());
+            let monitored_res = super::resource_to_monitored_resource(resource_metrics.resource());
             for scope_metrics in resource_metrics.scope_metrics() {
                 let scope_name = scope_metrics.scope().name();
                 if scope_name != SPANNER_METER_NAME
@@ -636,20 +636,20 @@ mod tests {
     }
 
     #[test]
-    fn test_is_permission_denied() {
+    fn is_permission_denied() {
         let status_pd = google_cloud_gax::error::rpc::Status::default()
             .set_code(google_cloud_gax::error::rpc::Code::PermissionDenied);
         let err_pd = crate::Error::service(status_pd);
-        assert!(is_permission_denied(&err_pd));
+        assert!(super::is_permission_denied(&err_pd));
 
         let status_nf = google_cloud_gax::error::rpc::Status::default()
             .set_code(google_cloud_gax::error::rpc::Code::NotFound);
         let err_nf = crate::Error::service(status_nf);
-        assert!(!is_permission_denied(&err_nf));
+        assert!(!super::is_permission_denied(&err_nf));
     }
 
     #[test]
-    fn test_value_to_string_all_variants() {
+    fn value_to_string_all_variants() {
         assert_eq!(
             value_to_string(&opentelemetry::Value::from("hello")),
             "hello"
