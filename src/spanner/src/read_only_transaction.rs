@@ -27,7 +27,7 @@ use google_cloud_gax::options::internal::RequestOptionsExt as _;
 use google_cloud_gax::retry_policy::RetryPolicyArg;
 use std::mem::replace;
 use std::sync::{Arc, Mutex};
-use std::time::Duration;
+use std::time::{Duration, Instant};
 use tokio::sync::Notify;
 
 /// A builder for [SingleUseReadOnlyTransaction].
@@ -1073,6 +1073,7 @@ fn merge_request_options(
 /// Helper macro to execute a streaming SQL or streaming read RPC with retry logic.
 macro_rules! execute_stream_with_retry {
     ($self:expr, $request:ident, $gax_options:ident, $rpc_method:ident, $operation_variant:path, $method_name:expr) => {{
+        let attempt_start_time = Instant::now();
         let stream = match $self
             .client
             .spanner
@@ -1134,6 +1135,7 @@ macro_rules! execute_stream_with_retry {
             channel_hint: $self.channel_hint,
             gax_options: $gax_options,
             method_name: $method_name,
+            attempt_start_time: Some(attempt_start_time),
         }))
         .await
     }};

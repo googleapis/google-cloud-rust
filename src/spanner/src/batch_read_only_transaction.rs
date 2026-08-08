@@ -26,7 +26,7 @@ use google_cloud_gax::backoff_policy::BackoffPolicyArg;
 use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
 use google_cloud_gax::retry_policy::RetryPolicyArg;
 use serde::{Deserialize, Serialize};
-use std::time::Duration;
+use std::time::{Duration, Instant};
 
 /// A builder for [BatchReadOnlyTransaction].
 ///
@@ -386,6 +386,7 @@ impl Partition {
     ) -> crate::Result<ResultSet> {
         let channel_hint = client.spanner.next_channel_hint();
         let gax_options = client.spanner.attach_request_id(gax_options, channel_hint);
+        let attempt_start_time = Instant::now();
         let stream = client
             .spanner
             .execute_streaming_sql(req.clone(), gax_options.clone(), channel_hint)
@@ -408,6 +409,7 @@ impl Partition {
             channel_hint,
             gax_options,
             method_name: "ExecuteStreamingSql",
+            attempt_start_time: Some(attempt_start_time),
         })
         .await
     }
@@ -419,6 +421,7 @@ impl Partition {
     ) -> crate::Result<ResultSet> {
         let channel_hint = client.spanner.next_channel_hint();
         let gax_options = client.spanner.attach_request_id(gax_options, channel_hint);
+        let attempt_start_time = Instant::now();
         let stream = client
             .spanner
             .streaming_read(req.clone(), gax_options.clone(), channel_hint)
@@ -441,6 +444,7 @@ impl Partition {
             channel_hint,
             gax_options,
             method_name: "StreamingRead",
+            attempt_start_time: Some(attempt_start_time),
         })
         .await
     }
