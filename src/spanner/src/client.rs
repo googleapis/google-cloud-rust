@@ -18,10 +18,14 @@ use crate::model::{
     ExecuteBatchDmlRequest, ExecuteBatchDmlResponse, ExecuteSqlRequest, PartitionQueryRequest,
     PartitionReadRequest, PartitionResponse, RollbackRequest, Session, Transaction,
 };
+use crate::observability::Observability;
+#[cfg(feature = "_experimental-builtin-metrics")]
+use crate::observability::metrics::SpannerMetricsInterceptor;
 use crate::omni::{InstanceType, is_plaintext_endpoint};
 use crate::request_id::RequestIdCreator;
 use crate::request_id_interceptor::{REQUEST_ID_HEADER, SpannerRequestIdInterceptor};
 use crate::server_streaming::builder;
+use gaxi::attempt_interceptor::AttemptInterceptor;
 use gaxi::options::{ClientConfig, Credentials};
 use google_cloud_auth::credentials::anonymous;
 use google_cloud_gax::client_builder::ClientBuilder as GaxClientBuilder;
@@ -158,9 +162,11 @@ macro_rules! define_idempotent_rpc {
             request: $request_type,
             options: crate::RequestOptions,
             channel_hint: usize,
-            o11y: &crate::observability::Observability,
+            o11y: &Arc<Observability>,
         ) -> crate::Result<$response_type> {
             let options = self.attach_request_id(options, channel_hint);
+            #[cfg(feature = "_experimental-builtin-metrics")]
+            let options = options.insert_extension(o11y.clone());
             o11y.trace_operation(
                 $canonical_name,
                 self.get_channel(channel_hint)
@@ -502,9 +508,19 @@ impl Channel {
     pub(crate) async fn create(config: &ClientConfig) -> crate::ClientBuilderResult<Self> {
         let mut transport =
             crate::generated::gapic_dataplane::transport::Spanner::new(config.clone()).await?;
-        transport
-            .inner
-            .set_attempt_interceptor(Arc::new(SpannerRequestIdInterceptor));
+        let request_id_interceptor: Arc<dyn AttemptInterceptor> =
+            Arc::new(SpannerRequestIdInterceptor);
+
+        #[cfg(feature = "_experimental-builtin-metrics")]
+        let interceptor: Arc<dyn AttemptInterceptor> = Arc::new(vec![
+            request_id_interceptor,
+            Arc::new(SpannerMetricsInterceptor),
+        ]);
+
+        #[cfg(not(feature = "_experimental-builtin-metrics"))]
+        let interceptor: Arc<dyn AttemptInterceptor> = request_id_interceptor;
+
+        transport.inner.set_attempt_interceptor(interceptor);
         let grpc_client = transport.inner.clone();
 
         let inner = if gaxi::options::tracing_enabled(config) {
@@ -682,7 +698,7 @@ mod tests {
                 req,
                 crate::RequestOptions::default(),
                 client.next_channel_hint(),
-                &crate::observability::Observability::disabled(),
+                &crate::observability::Observability::disabled_arc(),
             )
             .await
             .expect("Failed to call create_session");
@@ -802,7 +818,7 @@ mod tests {
                 req,
                 crate::RequestOptions::default(),
                 client.next_channel_hint(),
-                &crate::observability::Observability::disabled(),
+                &crate::observability::Observability::disabled_arc(),
             )
             .await
             .expect("Failed to call create_session after transport error retry");
@@ -852,7 +868,7 @@ mod tests {
                 req,
                 crate::RequestOptions::default(),
                 client.next_channel_hint(),
-                &crate::observability::Observability::disabled(),
+                &crate::observability::Observability::disabled_arc(),
             )
             .await
             .expect("Failed to call execute_sql");
@@ -896,7 +912,7 @@ mod tests {
                 req,
                 crate::RequestOptions::default(),
                 client.next_channel_hint(),
-                &crate::observability::Observability::disabled(),
+                &crate::observability::Observability::disabled_arc(),
             )
             .await
             .expect("Failed to call execute_batch_dml");
@@ -935,7 +951,7 @@ mod tests {
                 req,
                 crate::RequestOptions::default(),
                 client.next_channel_hint(),
-                &crate::observability::Observability::disabled(),
+                &crate::observability::Observability::disabled_arc(),
             )
             .await
             .expect("Failed to call begin_transaction");
@@ -978,7 +994,7 @@ mod tests {
                 req,
                 crate::RequestOptions::default(),
                 client.next_channel_hint(),
-                &crate::observability::Observability::disabled(),
+                &crate::observability::Observability::disabled_arc(),
             )
             .await
             .expect("Failed to call commit");
@@ -1012,7 +1028,7 @@ mod tests {
                 req,
                 crate::RequestOptions::default(),
                 client.next_channel_hint(),
-                &crate::observability::Observability::disabled(),
+                &crate::observability::Observability::disabled_arc(),
             )
             .await
             .expect("Failed to call rollback");
@@ -1245,7 +1261,7 @@ mod tests {
                 req,
                 crate::RequestOptions::default(),
                 client.next_channel_hint(),
-                &crate::observability::Observability::disabled(),
+                &crate::observability::Observability::disabled_arc(),
             )
             .await
             .expect("Failed to call create_session");
@@ -1292,7 +1308,7 @@ mod tests {
                 req,
                 options,
                 client.next_channel_hint(),
-                &crate::observability::Observability::disabled(),
+                &crate::observability::Observability::disabled_arc(),
             )
             .await;
 
