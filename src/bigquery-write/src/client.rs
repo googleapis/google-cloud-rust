@@ -13,7 +13,9 @@
 // limitations under the License.
 
 use crate::ClientBuilderResult as BuilderResult;
+use crate::arrow::WriterBuilder as ArrowWriterBuilder;
 use crate::client_builder::ClientBuilder;
+use crate::model::ArrowSchema;
 use crate::transport::Transport;
 use std::sync::Arc;
 
@@ -36,19 +38,60 @@ impl Write {
             inner: Arc::new(transport),
         })
     }
+
+    /// Create a writer using [Arrow] as the data format.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_write::client::Write;
+    /// # async fn sample(client: Write) -> anyhow::Result<()> {
+    /// let writer = client
+    ///   .arrow(schema())
+    ///   .default("projects/p/datasets/d/tables/t")?;
+    /// # Ok(()) }
+    ///
+    /// use google_cloud_bigquery_write::model::ArrowSchema;
+    /// fn schema() -> ArrowSchema {
+    ///   todo!("Define your table's schema...")
+    /// }
+    /// ```
+    ///
+    /// [arrow]: https://arrow.apache.org/
+    pub fn arrow(&self, schema: ArrowSchema) -> ArrowWriterBuilder {
+        ArrowWriterBuilder::new(self.inner.clone(), schema)
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::error::AppendError;
+    use crate::model::{ArrowRecordBatch, ArrowSchema};
+    use bigquery_write_grpc_mock::{MockBigQueryWrite, start};
+    use gaxi::grpc::tonic::Status as TonicStatus;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 
     #[tokio::test]
-    async fn test_client_builder() -> anyhow::Result<()> {
-        let _ = Write::builder()
+    async fn arrow() -> anyhow::Result<()> {
+        let mut mock = MockBigQueryWrite::new();
+        mock.expect_append_rows()
+            .return_once(|_| Err(TonicStatus::failed_precondition("fail")));
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = Write::builder()
+            .with_endpoint(endpoint)
             .with_credentials(Anonymous::new().build())
             .build()
             .await?;
+        let writer = client
+            .arrow(ArrowSchema::new())
+            .default("projects/p/datasets/d/tables/t")?;
+        let err = writer
+            .append(ArrowRecordBatch::new())
+            .send()
+            .await
+            .expect_err("write should fail");
+        assert!(matches!(err, AppendError::Rpc { source: _ }));
+
         Ok(())
     }
 }
