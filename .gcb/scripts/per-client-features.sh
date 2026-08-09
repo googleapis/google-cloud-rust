@@ -31,6 +31,11 @@ for feature in "${features[@]}"; do
   cargo check --profile=ci -p google-cloud-aiplatform-v1 --no-default-features --features "${feature}"
 done
 
+echo "==== google-cloud-compute-v1 ===="
+cargo build -p google-cloud-compute-v1 --no-default-features
+# (Optional) We could test all features of compute-v1 here, but there are ~110 of them.
+# The main issue #6220 is that --no-default-features fails to build.
+
 echo "==== DONE ===="
 
 /workspace/.bin/sccache --show-stats
