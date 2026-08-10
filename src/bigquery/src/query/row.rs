@@ -21,7 +21,7 @@ pub type Result<T> = std::result::Result<T, RowError>;
 
 /// A container for a single row within a query result set.
 ///
-/// Instances of `Row` are yielded by [`RowIterator::next()`](crate::query::RowIterator::next).
+/// Instances of `Row` are yielded by [`RowIterator::next()`](crate::RowIterator::next).
 ///
 /// Each `Row` stores parsed cell values alongside a reference to the table schema returned by BigQuery.
 ///

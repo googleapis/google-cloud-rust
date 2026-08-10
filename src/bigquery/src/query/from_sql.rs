@@ -14,6 +14,8 @@
 
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
+#[allow(unused_imports)]
+use wkt::{Struct, Timestamp, Value};
 
 use crate::error::ConvertError;
 
@@ -39,12 +41,12 @@ pub(crate) const BIGQUERY_DATETIME_SUBSEC_FORMAT: &[time::format_description::Fo
 /// # Supported Mappings
 ///
 /// Standard implementations are provided for common Rust and domain types:
-/// - **Integers / Numbers**: `i32`, `i64`, `f32`, `f64`, `google_cloud_type::model::Decimal`, `rust_decimal::Decimal`
-/// - **Strings / Bytes**: `String`, `Vec<u8>` (decoded from standard base64), `bytes::Bytes`
-/// - **Timestamps & Dates**: `wkt::Timestamp`, `google_cloud_type::model::Date`, `google_cloud_type::model::TimeOfDay`, `google_cloud_type::model::DateTime`
+/// - **Integers / Numbers**: `i32`, `i64`, `f32`, `f64`, [`Decimal`](rust_decimal::Decimal)
+/// - **Strings / Bytes**: `String`, `Vec<u8>` (decoded from standard base64), [`Bytes`](bytes::Bytes)
+/// - **Timestamps & Dates**: [`Timestamp`](wkt::Timestamp), [`Date`](google_cloud_type::model::Date), [`TimeOfDay`](google_cloud_type::model::TimeOfDay), [`DateTime`](google_cloud_type::model::DateTime)
 /// - **Intervals**: [`Interval`](crate::Interval)
 /// - **Collections**: `Option<T>` (for NULL handling), `Vec<T>` (for repeated arrays), [`Range<T>`](crate::Range) (for BQ `RANGE` types)
-/// - **Raw values**: `wkt::Value`, `wkt::Struct`
+/// - **Raw values**: [`Value`](wkt::Value), [`Struct`](wkt::Struct)
 ///
 /// # Example
 ///
@@ -376,12 +378,7 @@ impl FromSql for rust_decimal::Decimal {
     }
 }
 
-/// Represents a BigQuery SQL `INTERVAL` duration value.
-///
-/// A BigQuery `INTERVAL` represents a span of time consisting of three independent parts:
-/// - Year-month (years and months)
-/// - Day (days)
-/// - Time (hours, minutes, seconds, and subsecond nanoseconds)
+/// Represents a BigQuery time [INTERVAL] value.
 ///
 /// [INTERVAL]: https://cloud.google.com/bigquery/docs/reference/standard-sql/data-types#interval_type
 ///

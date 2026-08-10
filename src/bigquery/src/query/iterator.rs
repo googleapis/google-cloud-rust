@@ -22,7 +22,7 @@ use std::sync::Arc;
 pub type Result<T> = std::result::Result<T, RowError>;
 /// An iterator over rows returned by a query.
 ///
-/// Instances of this struct are produced by calling [`CompleteQuery::read()`](crate::query::CompleteQuery::read).
+/// Instances of this struct are produced by calling [`CompleteQuery::read()`](crate::CompleteQuery::read).
 ///
 /// `RowIterator` initially yields rows from the in-memory buffer fetched during early query completion. When the local buffer
 /// is exhausted, it automatically requests subsequent pages from the BigQuery service using stored pagination tokens until
@@ -106,7 +106,7 @@ impl RowIterator {
         self
     }
 
-    /// Fetches and yields the next [`Row`](crate::query::Row) from the result set.
+    /// Fetches and yields the next [`Row`](crate::Row) from the result set.
     ///
     /// Returns `Some(Ok(Row))` when the next row is available, `Some(Err(RowError))` if an error occurs during schema parsing or network retrieval,
     /// or `None` when the result set is exhausted and no further pages exist.
