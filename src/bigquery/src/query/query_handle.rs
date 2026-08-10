@@ -127,7 +127,7 @@ impl Query {
                 metadata,
                 cached_rows,
                 max_results,
-                retry_context: _,
+                mut retry_context,
             } = self;
 
             if let (true, Some(cached_rows)) = (completed, cached_rows) {
@@ -161,7 +161,7 @@ impl Query {
                     ));
                 }
                 Err(err) => {
-                    let Some(mut retry_ctx) = self.retry_context.take() else {
+                    let Some(retry_ctx) = retry_context.take() else {
                         return Err(err);
                     };
                     match retry_ctx.on_error(err) {

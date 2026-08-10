@@ -123,10 +123,10 @@ impl RetryContext {
         self.template.job_retry_policy.on_error(&self.state, error)
     }
 
-    pub(crate) async fn reissue(&mut self, delay: Duration) -> Result<Query> {
+    pub(crate) async fn reissue(mut self, delay: Duration) -> Result<Query> {
         tokio::time::sleep(delay).await;
         self.state.attempt_count += 1;
-        self.clone().execute().await
+        self.execute().await
     }
 
     pub(crate) async fn execute(mut self) -> Result<Query> {
