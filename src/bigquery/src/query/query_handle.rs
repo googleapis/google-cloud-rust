@@ -16,7 +16,6 @@ use crate::error::QueryError;
 use crate::generated::QueryCreationMetadata;
 use crate::model::QueryMetadata;
 use crate::query::execution::RetryContext;
-use crate::query::{QueryReference, Result, RowIterator, Schema};
 use crate::query::{Result, RowIterator, Schema};
 use crate::retry_policy::JobRetryResult;
 use google_cloud_bigquery_v2::client::JobService;
