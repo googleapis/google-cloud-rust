@@ -31,17 +31,19 @@ pub(crate) const QUERY_REQUEST_ID_PREFIX: &str = "req_";
 ///
 /// Instances of this struct are returned by [`BigQuery::query()`](crate::client::BigQuery::query).
 ///
-/// This builder allows you to chain configuration methods to define query parameters, set dataset defaults,
-/// specify locations, and configure result limitations before initiating execution with [`run()`](RunQuery::run).
+/// This builder allows you to chain configuration methods to define query parameters, specify destination tables,
+/// configure job timeouts and labels, enable dry-run validation, or tune result pagination
+/// before initiating execution with [`run()`](RunQuery::run).
 ///
 /// # Automatic Path Routing
 ///
-/// The builder automatically decides whether to execute via [`jobs.query`](https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query)
-/// (the low-latency fast path) or [`jobs.insert`](https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/insert)
-/// (the async job creation path) depending on which configuration options are enabled:
+/// The implementation routes internally to [jobs.query] (fast path)
+/// or [jobs.insert] (job path) depending on configured fields.
+/// If the fast path is available, the client library takes it.
+/// If not, it falls back to creating a job, which is typically slower.
 ///
-/// - **Fast path (`jobs.query`)**: Taken by default when executing queries with standard parameters and limits.
-/// - **Job path (`jobs.insert`)**: Chosen if options require job creation (such as setting a destination table, enabling large result allowances, or customizing job labels).
+/// [jobs.query]: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query
+/// [jobs.insert]: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/insert
 ///
 /// # Common Configuration Methods
 ///
@@ -57,6 +59,10 @@ pub(crate) const QUERY_REQUEST_ID_PREFIX: &str = "req_";
 /// - `set_use_cache(true)`: Enables or disables query result caching (enabled by default).
 /// - `set_dry_run(true)`: Validates the SQL syntax and calculates bytes processed without executing the query or incurring billing.
 /// - `set_parameter_mode("NAMED")` and `set_query_parameters(...)`: Configures parameterized queries to prevent SQL injection and reuse execution plans.
+/// - `set_default_dataset(...)`: Sets the default dataset to assume for unqualified table names in the SQL query.
+/// - `set_destination_table(...)`: Directs query results to be stored in a permanent destination table.
+/// - `set_job_timeout_ms(60_000)`: Sets a maximum runtime duration in milliseconds before BigQuery attempts to cancel the job.
+/// - `set_labels(...)`: Attaches key-value metadata labels for organizing, tracking, and auditing query jobs.
 ///
 /// # Example
 ///
@@ -108,7 +114,7 @@ impl RunQuery {
         }
     }
 
-    /// Sets or overrides the target Google Cloud Project ID for query execution and billing.
+    /// Sets the project ID to override the default client project ID for query execution and billing.
     ///
     /// If a default project ID was configured on the [`BigQuery`][crate::client::BigQuery] client via
     /// [`ClientBuilder::with_project_id`][crate::client_builder::ClientBuilder::with_project_id], it is
@@ -123,7 +129,10 @@ impl RunQuery {
     /// # async fn sample() -> anyhow::Result<()> {
     /// use google_cloud_bigquery::client::BigQuery;
     ///
+    /// // Client initialized without a default project ID
     /// let client = BigQuery::builder().build().await?;
+    ///
+    /// // Explicitly specify the project ID for this query
     /// let query_handle = client
     ///     .query("SELECT 1 AS count")
     ///     .with_project_id("my-project-id")
@@ -137,17 +146,25 @@ impl RunQuery {
         self
     }
 
-    /// Submits the configured SQL query for execution.
+    /// Executes the SQL query.
     ///
     /// This is the terminal method of the [`RunQuery`] builder. Upon success, it returns a [`Query`](crate::query::Query)
-    /// handle representing either a running background job or a fast-path execution that has already finished.
+    /// handle representing an asynchronous background job currently executing on BigQuery, or an already completed query
+    /// if it ran fast enough using the fast query path ([jobs.query]).
+    ///
     /// You can call [`until_done()`](crate::query::Query::until_done) on the returned handle to wait for the final results.
+    ///
+    /// A target project ID must be configured either on the [`BigQuery`][crate::client::BigQuery] client via
+    /// [`ClientBuilder::with_project_id`][crate::client_builder::ClientBuilder::with_project_id] or on this
+    /// builder via [`with_project_id()`](RunQuery::with_project_id).
+    ///
+    /// [jobs.query]: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query
     ///
     /// # Errors
     ///
     /// Returns [`QueryError::MissingProjectId`](crate::error::QueryError::MissingProjectId) if no project ID was configured
     /// on either the [`ClientBuilder`][crate::client_builder::ClientBuilder::with_project_id] or via
-    /// [`with_project_id()`](RunQuery::with_project_id). Returns an RPC error if the initial service communication fails or if syntax errors occur during immediate fast-path validation.
+    /// [`with_project_id()`](RunQuery::with_project_id). Returns an RPC error if the service call fails with non-retryable error.
     ///
     /// # Example
     ///
@@ -155,12 +172,15 @@ impl RunQuery {
     /// # async fn sample() -> anyhow::Result<()> {
     /// use google_cloud_bigquery::client::BigQuery;
     ///
-    /// let client = BigQuery::builder().build().await?;
+    /// // Configure the client with a default project ID.
+    /// let client = BigQuery::builder()
+    ///     .with_project_id("my-project-id")
+    ///     .build()
+    ///     .await?;
     ///
     /// // Execute the query and poll until complete.
     /// let completed_query = client
     ///     .query("SELECT CURRENT_TIMESTAMP() AS now")
-    ///     .with_project_id("my-project-id")
     ///     .run()
     ///     .await?
     ///     .until_done()

@@ -30,10 +30,13 @@ use std::sync::Arc;
 ///
 /// An instance of `Query` is returned by [`RunQuery::run()`](crate::query::RunQuery::run).
 /// Depending on how the query was routed and executed, this handle may represent an asynchronous
-/// background job currently executing on BigQuery, or a fast-path query that has already completed.
+/// background job currently executing on BigQuery, or may contain an already completed query if
+/// it ran fast enough using the fast query path ([jobs.query]).
 ///
 /// To obtain the final result set, call [`until_done()`](Query::until_done), which will check the
 /// execution status and automatically poll the service if the job is still running in the background.
+///
+/// [jobs.query]: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query
 ///
 /// # Example
 ///
@@ -134,9 +137,11 @@ impl Query {
 
     /// Periodically polls the background job status until query execution finishes.
     ///
-    /// If the query was executed via the fast path and already completed during the initial request,
+    /// If the query was executed via the fast query path ([jobs.query]) and already completed during the initial request,
     /// this method immediately returns a [`CompleteQuery`](crate::query::CompleteQuery) without making additional network calls.
     /// Otherwise, it implements a backoff loop querying the job status until it succeeds or fails.
+    ///
+    /// [jobs.query]: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query
     ///
     /// # Errors
     ///
@@ -149,10 +154,12 @@ impl Query {
     /// # async fn sample() -> anyhow::Result<()> {
     /// use google_cloud_bigquery::client::BigQuery;
     ///
-    /// let client = BigQuery::builder().build().await?;
+    /// let client = BigQuery::builder()
+    ///     .with_project_id("my-project-id")
+    ///     .build()
+    ///     .await?;
     /// let complete = client
     ///     .query("SELECT 1 + 1 AS result")
-    ///     .with_project_id("my-project-id")
     ///     .run()
     ///     .await?
     ///     .until_done()
@@ -314,10 +321,12 @@ impl CompleteQuery {
     /// # async fn sample() -> anyhow::Result<()> {
     /// use google_cloud_bigquery::client::BigQuery;
     ///
-    /// let client = BigQuery::builder().build().await?;
+    /// let client = BigQuery::builder()
+    ///     .with_project_id("my-project-id")
+    ///     .build()
+    ///     .await?;
     /// let mut rows = client
     ///     .query("SELECT 100 AS score")
-    ///     .with_project_id("my-project-id")
     ///     .run()
     ///     .await?
     ///     .until_done()
@@ -346,10 +355,12 @@ impl CompleteQuery {
     /// # async fn sample() -> anyhow::Result<()> {
     /// use google_cloud_bigquery::client::BigQuery;
     ///
-    /// let client = BigQuery::builder().build().await?;
+    /// let client = BigQuery::builder()
+    ///     .with_project_id("my-project-id")
+    ///     .build()
+    ///     .await?;
     /// let completed = client
     ///     .query("SELECT 'metadata_check'")
-    ///     .with_project_id("my-project-id")
     ///     .run()
     ///     .await?
     ///     .until_done()
@@ -380,10 +391,12 @@ impl CompleteQuery {
     /// use google_cloud_bigquery::client::BigQuery;
     /// use google_cloud_bigquery::model::query_request::JobCreationMode;
     ///
-    /// let client = BigQuery::builder().build().await?;
+    /// let client = BigQuery::builder()
+    ///     .with_project_id("my-project-id")
+    ///     .build()
+    ///     .await?;
     /// let completed = client
     ///     .query("SELECT 1")
-    ///     .with_project_id("my-project-id")
     ///     .set_job_creation_mode(JobCreationMode::JobCreationRequired) // Forces a job to be created
     ///     .run()
     ///     .await?
