@@ -66,7 +66,9 @@ impl RunQuery {
     /// [jobs.query]: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query
     /// [jobs.insert]: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/insert
     pub async fn run(self) -> Result<Query> {
-        let project_id = self.project_id.ok_or(QueryError::MissingProjectId)?;
+        let project_id = self
+            .project_id
+            .ok_or_else(|| QueryError::InvalidArgument("no project ID was provided".to_string()))?;
         let max_results = self.request.max_results;
 
         if self.request.force_job_path() {
@@ -179,7 +181,7 @@ mod tests {
         let job_service = create_job_service(MockJobService::new());
         let run_query = RunQuery::new(job_service, "SELECT 1".to_string());
         let res = run_query.run().await;
-        assert!(matches!(res, Err(QueryError::MissingProjectId)));
+        assert!(matches!(res, Err(QueryError::InvalidArgument(_))));
     }
 
     #[test]

@@ -194,13 +194,15 @@ impl BigQuery {
     /// ```
     pub fn attach_job(&self, mut job_ref: JobReference) -> QueryResult<Query> {
         if job_ref.job_id.is_empty() {
-            return Err(QueryError::InvalidJobReference(
+            return Err(QueryError::InvalidArgument(
                 "job_id cannot be empty".to_string(),
             ));
         }
         if job_ref.project_id.is_empty() {
             let Some(proj) = &self.project_id else {
-                return Err(QueryError::MissingProjectId);
+                return Err(QueryError::InvalidArgument(
+                    "no project ID was provided".to_string(),
+                ));
             };
             job_ref.project_id = proj.clone();
         }
@@ -304,8 +306,16 @@ mod tests {
             .build()
             .await?;
         let job_ref = JobReference::new().set_job_id("job_789");
-        let err = client.attach_job(job_ref).unwrap_err();
-        assert!(matches!(err, crate::error::QueryError::MissingProjectId));
+        let err = client
+            .attach_job(job_ref)
+            .expect_err("should return an error when project_id is missing");
+        assert!(
+            matches!(
+                &err,
+                crate::error::QueryError::InvalidArgument(msg) if msg == "no project ID was provided"
+            ),
+            "expected InvalidArgument for missing project ID, got {err:?}"
+        );
         Ok(())
     }
 
@@ -317,11 +327,16 @@ mod tests {
             .build()
             .await?;
         let job_ref = JobReference::new();
-        let err = client.attach_job(job_ref).unwrap_err();
-        assert!(matches!(
-            err,
-            crate::error::QueryError::InvalidJobReference(_)
-        ));
+        let err = client
+            .attach_job(job_ref)
+            .expect_err("should return an error when job_id is empty");
+        assert!(
+            matches!(
+                &err,
+                crate::error::QueryError::InvalidArgument(msg) if msg == "job_id cannot be empty"
+            ),
+            "expected InvalidArgument for empty job ID, got {err:?}"
+        );
         Ok(())
     }
 }
