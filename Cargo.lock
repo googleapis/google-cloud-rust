@@ -5906,6 +5906,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-maps-routeoptimization-v1"
+version = "1.0.0"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-longrunning",
+ "google-cloud-lro",
+ "google-cloud-type",
+ "google-cloud-wkt",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tracing",
+]
+
+[[package]]
 name = "google-maps-routes-v1"
 version = "1.0.0"
 dependencies = [
