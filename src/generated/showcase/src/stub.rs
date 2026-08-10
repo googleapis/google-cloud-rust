@@ -299,12 +299,13 @@ pub trait Echo: std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_gapic_streaming)]
     fn chat(
         &self,
+        _req: crate::model::EchoRequest,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = (
+        Output = crate::Result<(
             google_cloud_gax::streaming::RequestSender<crate::model::EchoRequest>,
             google_cloud_gax::streaming::ResponseReceiver<crate::model::EchoResponse>,
-        ),
+        )>,
     > + Send {
         async {
             let _ = gaxi::unimplemented::unimplemented_stub::<()>().await;
@@ -794,12 +795,13 @@ pub trait Messaging: std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_gapic_streaming)]
     fn connect(
         &self,
+        _req: crate::model::ConnectRequest,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = (
+        Output = crate::Result<(
             google_cloud_gax::streaming::RequestSender<crate::model::ConnectRequest>,
             google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>,
-        ),
+        )>,
     > + Send {
         async {
             let _ = gaxi::unimplemented::unimplemented_stub::<()>().await;
