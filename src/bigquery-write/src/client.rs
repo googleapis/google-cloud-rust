@@ -47,7 +47,7 @@ impl Write {
     /// # async fn sample(client: Write) -> anyhow::Result<()> {
     /// let writer = client
     ///   .arrow(schema())
-    ///   .default("projects/p/datasets/d/tables/t")?;
+    ///   .default("projects/my-project/datasets/my-dataset/tables/my-table")?;
     /// # Ok(()) }
     ///
     /// use google_cloud_bigquery_write::model::ArrowSchema;
