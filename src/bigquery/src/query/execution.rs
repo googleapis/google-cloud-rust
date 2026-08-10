@@ -107,14 +107,14 @@ impl InsertJobExecutor {
 /// Context for running queries and handling job-level retries / re-issuances.
 #[derive(Clone)]
 pub(crate) struct RetryContext {
-    pub(crate) template: RunQuery,
+    pub(crate) template: Arc<RunQuery>,
     pub(crate) state: RetryState,
 }
 
 impl RetryContext {
     pub(crate) fn new(template: RunQuery) -> Self {
         Self {
-            template,
+            template: Arc::new(template),
             state: RetryState::default(),
         }
     }
@@ -167,9 +167,7 @@ impl RetryContext {
                 .set_job(job)
                 .set_project_id(project_id);
 
-            let job = InsertJobExecutor::new(job_service.clone(), req)
-                .execute()
-                .await?;
+            let job = Box::pin(InsertJobExecutor::new(job_service.clone(), req).execute()).await?;
 
             Ok(Query::from_job(
                 job_service,
@@ -178,8 +176,8 @@ impl RetryContext {
                 max_results,
             ))
         } else {
+            // Route to jobs.query
             let query_request_id = generate_prefixed_id(QUERY_REQUEST_ID_PREFIX);
-            // Route to jobs.quer
             let query_request: QueryRequest = self.template.request.clone().into();
             let query_request = query_request
                 .set_format_options(
@@ -191,9 +189,7 @@ impl RetryContext {
                 .set_project_id(project_id)
                 .set_query_request(query_request);
 
-            let res = PostQueryExecutor::new(job_service.clone(), req)
-                .execute()
-                .await?;
+            let res = Box::pin(PostQueryExecutor::new(job_service.clone(), req).execute()).await?;
 
             Ok(Query::from_query_response(
                 job_service,
