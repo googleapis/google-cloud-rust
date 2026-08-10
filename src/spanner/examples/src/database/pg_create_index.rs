@@ -19,7 +19,6 @@ use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
 pub async fn sample(admin_client: &DatabaseAdmin, database_name: &str) -> anyhow::Result<()> {
     let statements = vec!["CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)"];
 
-    println!("Creating AlbumsByAlbumTitle index...");
     admin_client
         .update_database_ddl()
         .set_database(database_name)

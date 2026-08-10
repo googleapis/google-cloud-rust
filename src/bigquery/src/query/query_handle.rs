@@ -17,6 +17,7 @@ use crate::generated::QueryCreationMetadata;
 use crate::model::QueryMetadata;
 use crate::query::execution::RetryContext;
 use crate::query::{QueryReference, Result, RowIterator, Schema};
+use crate::query::{Result, RowIterator, Schema};
 use crate::retry_policy::JobRetryResult;
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::{
@@ -91,30 +92,24 @@ impl Query {
         }
     }
 
-    /// Returns the [`QueryReference`] for this query.
+    /// Returns the initial metadata from query creation.
     ///
-    /// The reference will be [`QueryReference::Job`] with a query [job reference],
-    /// or [`QueryReference::Stateless`] with an opaque query ID if job creation
-    /// was skipped.
+    /// This provides access to the [`QueryCreationMetadata`] returned by the initial
+    /// query execution request (either [`jobs.query`] or [`jobs.insert`]).
     ///
-    /// [job reference]: https://docs.cloud.google.com/bigquery/docs/reference/rest/v2/JobReference
-    pub fn query_reference(&self) -> QueryReference {
-        let from_query_id = if !self.metadata.query_id.is_empty() {
-            Some(QueryReference::from_query_id(
-                self.metadata.query_id.clone(),
-            ))
-        } else {
-            None
-        };
-        let from_job_ref = self
-            .metadata
-            .job_reference
-            .clone()
-            .map(QueryReference::from);
-
-        from_job_ref
-            .or(from_query_id)
-            .expect("query must have either a job reference or query id")
+    /// Depending on how the query was executed, the metadata contains:
+    /// - [`job_reference`][QueryCreationMetadata::job_reference]: The reference to the BigQuery job, if one was created.
+    /// - [`query_id`][QueryCreationMetadata::query_id]: The unique ID of the query if executed statelessly.
+    /// - [`job_creation_reason`][QueryCreationMetadata::job_creation_reason]: Why a job was created or skipped.
+    /// - [`job_complete`][QueryCreationMetadata::job_complete]: Whether the query completed immediately without requiring polling.
+    ///
+    /// To wait for the query to finish and retrieve full results and final metadata, call
+    /// [`until_done`][Self::until_done].
+    ///
+    /// [`jobs.query`]: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query
+    /// [`jobs.insert`]: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/insert
+    pub fn metadata(&self) -> &QueryCreationMetadata {
+        &self.metadata
     }
 
     /// Periodically checks the status of the background job until it finishes.
@@ -343,7 +338,6 @@ mod tests {
     use google_cloud_gax::error::rpc::{Code, Status};
     use google_cloud_gax::response::Response;
     use std::time::Duration;
-    use test_case::test_case;
 
     type TestResult = anyhow::Result<()>;
 
@@ -357,30 +351,6 @@ mod tests {
             let metadata = QueryCreationMetadata::from(query_res);
             Self::from_query_creation_metadata(job_service, metadata, cached_rows, max_results)
         }
-    }
-
-    #[test_case(Some("query_123"), None, QueryReference::Stateless{ query_id: "query_123".to_string()}; "with query id")]
-    #[test_case(Some(""), Some(JobReference::new()), QueryReference::Job(JobReference::new()); "empty query id")]
-    #[test_case(None, Some(JobReference::new()), QueryReference::Job(JobReference::new()); "with job refearence")]
-    #[test_case(Some("query_123"), Some(JobReference::new()), QueryReference::Job(JobReference::new()); "with both job reference and query id")]
-    fn test_query_query_reference(
-        query_id: Option<&str>,
-        job_ref: Option<JobReference>,
-        expected: QueryReference,
-    ) {
-        let job_service = create_job_service(MockJobService::new());
-        let res = QueryResponse::new();
-        let res = query_id
-            .into_iter()
-            .fold(res, |res, id| res.set_query_id(id));
-        let res = job_ref
-            .into_iter()
-            .fold(res, |res, j| res.set_job_reference(j));
-
-        let query = Query::from_query_response(job_service, res, None, None);
-
-        let result = query.query_reference();
-        assert_eq!(result, expected);
     }
 
     #[tokio::test]
