@@ -2021,6 +2021,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-type",
  "google-cloud-wkt",
+ "http",
  "mockall",
  "rust_decimal",
  "serde_json",
@@ -3179,11 +3180,12 @@ dependencies = [
  "test-case",
  "thiserror",
  "tokio",
+ "tokio-stream",
 ]
 
 [[package]]
 name = "google-cloud-gax-internal"
-version = "0.7.16"
+version = "0.7.17"
 dependencies = [
  "anyhow",
  "bytes",
@@ -9350,6 +9352,7 @@ dependencies = [
  "futures-core",
  "pin-project-lite",
  "tokio",
+ "tokio-util",
 ]
 
 [[package]]

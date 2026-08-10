@@ -45,6 +45,7 @@ pub(crate) mod tests {
     use google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy;
     use google_cloud_gax::polling_state::PollingState;
     use google_cloud_gax::response::Response;
+    use google_cloud_gax::retry_state::RetryState;
     use std::sync::Arc;
 
     mockall::mock! {
@@ -79,6 +80,9 @@ pub(crate) mod tests {
         pub BackoffPolicy {}
         impl PollingBackoffPolicy for BackoffPolicy {
             fn wait_period(&self, _state: &PollingState) -> std::time::Duration;
+        }
+        impl google_cloud_gax::backoff_policy::BackoffPolicy for BackoffPolicy {
+            fn on_failure(&self, state: &RetryState) -> std::time::Duration;
         }
     }
 
