@@ -159,7 +159,7 @@ impl RetryContext {
         if self.template.request.force_job_path() {
             // Route to jobs.insert
             let job_config: JobConfiguration = self.template.request.clone().into();
-            let job_ref = generate_job_reference(&project_id, &self.template.request.location);
+            let job_ref = generate_job_reference(project_id, &self.template.request.location);
             let job = Job::new()
                 .set_configuration(job_config)
                 .set_job_reference(job_ref);
@@ -188,7 +188,7 @@ impl RetryContext {
                 )
                 .set_request_id(query_request_id);
             let req = PostQueryRequest::new()
-                .set_project_id(project_id.to_string())
+                .set_project_id(project_id)
                 .set_query_request(query_request);
 
             let res = PostQueryExecutor::new(job_service.clone(), req)
