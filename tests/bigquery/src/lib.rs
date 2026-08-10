@@ -15,7 +15,6 @@
 use anyhow::Result;
 use futures::stream::StreamExt;
 use google_cloud_bigquery::client::BigQuery;
-use google_cloud_bigquery::model::QueryReference;
 use google_cloud_bigquery_v2::client::{DatasetService, JobService};
 use google_cloud_bigquery_v2::model::{
     Dataset, DatasetReference, Job, JobConfiguration, JobConfigurationQuery, JobReference,
@@ -235,12 +234,9 @@ pub async fn query_client() -> Result<()> {
         .await?;
 
     // BigQuery client sets JobCreationMode::JobCreationOptional by default
-    let query_ref = query.query_reference();
-    let QueryReference::Stateless { ref query_id } = query_ref else {
-        anyhow::bail!("expected a stateless query reference, got {query_ref:?}");
-    };
-
-    assert!(!query_id.is_empty(), "{query_ref:?}");
+    let metadata = query.metadata();
+    let query_id = &metadata.query_id;
+    assert!(!query_id.is_empty(), "expected non-empty query_id");
 
     let complete_query = query.until_done().await?;
 
