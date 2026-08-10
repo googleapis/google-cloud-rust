@@ -52,7 +52,8 @@ use crate::polling_backoff_policy::{PollingBackoffPolicy, PollingBackoffPolicyAr
 use crate::polling_error_policy::{PollingErrorPolicy, PollingErrorPolicyArg};
 use crate::retry_policy::{RetryPolicy, RetryPolicyArg};
 use crate::retry_throttler::{RetryThrottlerArg, SharedRetryThrottler};
-use std::sync::Arc;
+
+pub use internal::Extensions;
 
 /// The result type for this module.
 pub type Result<T> = std::result::Result<T, Error>;
@@ -479,11 +480,41 @@ impl<F, Cr> ClientBuilder<F, Cr> {
         self.config.polling_backoff_policy = Some(v.into().0);
         self
     }
+
+    /// Adds a custom extension to the client configuration.
+    ///
+    /// ```
+    /// # use google_cloud_gax::client_builder::examples;
+    /// # use google_cloud_gax::client_builder::Result;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// use examples::Client; // Placeholder for examples
+    ///
+    /// struct CustomSetting(String);
+    ///
+    /// let client = Client::builder()
+    ///     .with_extension(CustomSetting("value".to_string()))
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// Extensions allow storing custom configuration settings in [internal::ClientConfig]
+    /// keyed by type. Downstream client libraries or custom factory implementations
+    /// can inspect stored extensions to customize client behavior.
+    pub fn with_extension<T: Send + Sync + 'static>(mut self, extension: T) -> Self {
+        self.config.extensions.insert(extension);
+        self
+    }
 }
 
 #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
 #[allow(missing_docs)]
 pub mod internal {
+    use std::any::{Any, TypeId};
+    use std::collections::HashMap;
+    use std::fmt::{Debug, Formatter, Result as FmtResult};
+    use std::sync::Arc;
+
     use super::*;
 
     pub trait ClientFactory {
@@ -530,12 +561,13 @@ pub mod internal {
         pub grpc_subchannel_count: Option<usize>,
         pub grpc_request_buffer_capacity: Option<usize>,
         pub grpc_max_header_list_size: Option<u32>,
+        pub extensions: Extensions,
     }
 
     impl<Cr> std::default::Default for ClientConfig<Cr> {
         fn default() -> Self {
             use crate::retry_throttler::AdaptiveThrottler;
-            use std::sync::{Arc, Mutex};
+            use std::sync::Mutex;
             Self {
                 endpoint: None,
                 universe_domain: None,
@@ -552,7 +584,38 @@ pub mod internal {
                 grpc_subchannel_count: None,
                 grpc_request_buffer_capacity: None,
                 grpc_max_header_list_size: None,
+                extensions: Extensions::new(),
             }
+        }
+    }
+
+    /// A type-erased map of configuration extensions.
+    #[derive(Clone, Default)]
+    pub struct Extensions {
+        map: HashMap<TypeId, Arc<dyn Any + Send + Sync>>,
+    }
+
+    impl Extensions {
+        pub fn new() -> Self {
+            Self::default()
+        }
+
+        pub fn insert<T: Send + Sync + 'static>(&mut self, val: T) {
+            self.map.insert(TypeId::of::<T>(), Arc::new(val));
+        }
+
+        pub fn get<T: 'static>(&self) -> Option<&T> {
+            self.map
+                .get(&TypeId::of::<T>())
+                .and_then(|boxed| boxed.as_ref().downcast_ref::<T>())
+        }
+    }
+
+    impl Debug for Extensions {
+        fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
+            f.debug_struct("Extensions")
+                .field("len", &self.map.len())
+                .finish()
         }
     }
 
@@ -885,5 +948,28 @@ mod tests {
         assert!(fmt.contains("googleapis.com"), "{fmt}");
         let got = error.source();
         assert!(got.is_none(), "{got:?}");
+    }
+
+    #[test]
+    fn client_config_clone_with_extensions() {
+        let mut config = internal::ClientConfig::<()>::default();
+        config.extensions.insert(42i32);
+        let cloned = config.clone();
+        assert_eq!(cloned.extensions.get::<i32>(), Some(&42));
+    }
+
+    #[test]
+    fn auto_traits() {
+        use static_assertions::{assert_impl_all, assert_not_impl_any};
+        use std::panic::{RefUnwindSafe, UnwindSafe};
+
+        assert_impl_all!(ClientBuilder<(), ()>: Send, Sync, Clone, std::fmt::Debug, Unpin);
+        assert_not_impl_any!(ClientBuilder<(), ()>: RefUnwindSafe, UnwindSafe);
+
+        assert_impl_all!(internal::ClientConfig<()>: Send, Sync, Clone, std::fmt::Debug, Default, Unpin);
+        assert_not_impl_any!(internal::ClientConfig<()>: RefUnwindSafe, UnwindSafe);
+
+        assert_impl_all!(internal::Extensions: Send, Sync, Clone, std::fmt::Debug, Default, Unpin);
+        assert_not_impl_any!(internal::Extensions: RefUnwindSafe, UnwindSafe);
     }
 }

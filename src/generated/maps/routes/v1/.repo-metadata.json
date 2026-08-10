@@ -1,0 +1,12 @@
+{
+    "api_id": "routespreferred.googleapis.com",
+    "api_shortname": "routespreferred",
+    "client_documentation": "https://docs.rs/google-maps-routes-v1/latest",
+    "distribution_name": "google-maps-routes-v1",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name": "routespreferred",
+    "name_pretty": "Routes Preferred",
+    "release_level": "stable",
+    "repo": "googleapis/google-cloud-rust"
+}

@@ -10796,6 +10796,7 @@ impl<'de> serde::de::Deserialize<'de> for super::DatabaseInstance {
             __node_count,
             __nodes,
             __dns_names,
+            __database_center_integration_enabled,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -10947,6 +10948,12 @@ impl<'de> serde::de::Deserialize<'de> for super::DatabaseInstance {
                             "nodes" => Ok(__FieldTag::__nodes),
                             "dnsNames" => Ok(__FieldTag::__dns_names),
                             "dns_names" => Ok(__FieldTag::__dns_names),
+                            "databaseCenterIntegrationEnabled" => {
+                                Ok(__FieldTag::__database_center_integration_enabled)
+                            }
+                            "database_center_integration_enabled" => {
+                                Ok(__FieldTag::__database_center_integration_enabled)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -11503,6 +11510,15 @@ impl<'de> serde::de::Deserialize<'de> for super::DatabaseInstance {
                                     std::vec::Vec<crate::model::DnsNameMapping>,
                                 >>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__database_center_integration_enabled => {
+                            if !fields.insert(__FieldTag::__database_center_integration_enabled) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for database_center_integration_enabled",
+                                ));
+                            }
+                            result.database_center_integration_enabled =
+                                map.next_value::<std::option::Option<wkt::BoolValue>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -13572,6 +13588,7 @@ impl<'de> serde::de::Deserialize<'de> for super::OnPremisesConfiguration {
             __source_instance,
             __selected_objects,
             __ssl_option,
+            __dms_managed,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -13611,6 +13628,8 @@ impl<'de> serde::de::Deserialize<'de> for super::OnPremisesConfiguration {
                             "selected_objects" => Ok(__FieldTag::__selected_objects),
                             "sslOption" => Ok(__FieldTag::__ssl_option),
                             "ssl_option" => Ok(__FieldTag::__ssl_option),
+                            "dmsManaged" => Ok(__FieldTag::__dms_managed),
+                            "dms_managed" => Ok(__FieldTag::__dms_managed),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -13748,6 +13767,16 @@ impl<'de> serde::de::Deserialize<'de> for super::OnPremisesConfiguration {
                                 .next_value::<std::option::Option<
                                     crate::model::on_premises_configuration::SslOption,
                                 >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__dms_managed => {
+                            if !fields.insert(__FieldTag::__dms_managed) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for dms_managed",
+                                ));
+                            }
+                            result.dms_managed = map
+                                .next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
@@ -14000,6 +14029,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ExecuteSqlPayload {
             __user,
             __sql_statement,
             __database,
+            __password_secret_version,
             __auto_iam_authn,
             __row_limit,
             __partial_result_mode,
@@ -14028,6 +14058,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ExecuteSqlPayload {
                             "sqlStatement" => Ok(__FieldTag::__sql_statement),
                             "sql_statement" => Ok(__FieldTag::__sql_statement),
                             "database" => Ok(__FieldTag::__database),
+                            "passwordSecretVersion" => Ok(__FieldTag::__password_secret_version),
+                            "password_secret_version" => Ok(__FieldTag::__password_secret_version),
                             "autoIamAuthn" => Ok(__FieldTag::__auto_iam_authn),
                             "auto_iam_authn" => Ok(__FieldTag::__auto_iam_authn),
                             "rowLimit" => Ok(__FieldTag::__row_limit),
@@ -14089,6 +14121,23 @@ impl<'de> serde::de::Deserialize<'de> for super::ExecuteSqlPayload {
                             result.database = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__password_secret_version => {
+                            if !fields.insert(__FieldTag::__password_secret_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for password_secret_version",
+                                ));
+                            }
+                            if result.user_password.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `user_password`, a oneof with full ID .google.cloud.sql.v1.ExecuteSqlPayload.password_secret_version, latest field was passwordSecretVersion",
+                                ));
+                            }
+                            result.user_password = std::option::Option::Some(
+                                crate::model::execute_sql_payload::UserPassword::PasswordSecretVersion(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
                         }
                         __FieldTag::__auto_iam_authn => {
                             if !fields.insert(__FieldTag::__auto_iam_authn) {
@@ -15303,6 +15352,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlOperationsGetRequest {
         enum __FieldTag {
             __operation,
             __project,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -15325,6 +15375,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlOperationsGetRequest {
                         match value {
                             "operation" => Ok(__FieldTag::__operation),
                             "project" => Ok(__FieldTag::__project),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -15370,6 +15421,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlOperationsGetRequest {
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -15397,6 +15458,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlOperationsListRequest {
             __max_results,
             __page_token,
             __project,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -15423,6 +15485,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlOperationsListRequest {
                             "pageToken" => Ok(__FieldTag::__page_token),
                             "page_token" => Ok(__FieldTag::__page_token),
                             "project" => Ok(__FieldTag::__project),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -15494,6 +15557,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlOperationsListRequest {
                                 ));
                             }
                             result.project = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
@@ -15625,6 +15698,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlOperationsCancelRequest {
         enum __FieldTag {
             __operation,
             __project,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -15647,6 +15721,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlOperationsCancelRequest {
                         match value {
                             "operation" => Ok(__FieldTag::__operation),
                             "project" => Ok(__FieldTag::__project),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -15689,6 +15764,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlOperationsCancelRequest {
                                 ));
                             }
                             result.project = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
@@ -26120,6 +26205,8 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlUsersUpdateRequest {
             __project,
             __database_roles,
             __revoke_existing_roles,
+            __server_roles,
+            __revoke_existing_server_roles,
             __body,
             Unknown(std::string::String),
         }
@@ -26149,6 +26236,14 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlUsersUpdateRequest {
                             "database_roles" => Ok(__FieldTag::__database_roles),
                             "revokeExistingRoles" => Ok(__FieldTag::__revoke_existing_roles),
                             "revoke_existing_roles" => Ok(__FieldTag::__revoke_existing_roles),
+                            "serverRoles" => Ok(__FieldTag::__server_roles),
+                            "server_roles" => Ok(__FieldTag::__server_roles),
+                            "revokeExistingServerRoles" => {
+                                Ok(__FieldTag::__revoke_existing_server_roles)
+                            }
+                            "revoke_existing_server_roles" => {
+                                Ok(__FieldTag::__revoke_existing_server_roles)
+                            }
                             "body" => Ok(__FieldTag::__body),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
@@ -26230,6 +26325,23 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlUsersUpdateRequest {
                                 ));
                             }
                             result.revoke_existing_roles =
+                                map.next_value::<std::option::Option<bool>>()?;
+                        }
+                        __FieldTag::__server_roles => {
+                            if !fields.insert(__FieldTag::__server_roles) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for server_roles",
+                                ));
+                            }
+                            result.server_roles = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__revoke_existing_server_roles => {
+                            if !fields.insert(__FieldTag::__revoke_existing_server_roles) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for revoke_existing_server_roles",
+                                ));
+                            }
+                            result.revoke_existing_server_roles =
                                 map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__body => {
@@ -26525,6 +26637,7 @@ impl<'de> serde::de::Deserialize<'de> for super::User {
             __dual_password_type,
             __iam_status,
             __database_roles,
+            __server_roles,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -26565,6 +26678,8 @@ impl<'de> serde::de::Deserialize<'de> for super::User {
                             "iam_status" => Ok(__FieldTag::__iam_status),
                             "databaseRoles" => Ok(__FieldTag::__database_roles),
                             "database_roles" => Ok(__FieldTag::__database_roles),
+                            "serverRoles" => Ok(__FieldTag::__server_roles),
+                            "server_roles" => Ok(__FieldTag::__server_roles),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -26736,6 +26851,14 @@ impl<'de> serde::de::Deserialize<'de> for super::User {
                                 ));
                             }
                             result.database_roles = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__server_roles => {
+                            if !fields.insert(__FieldTag::__server_roles) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for server_roles",
+                                ));
+                            }
+                            result.server_roles = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

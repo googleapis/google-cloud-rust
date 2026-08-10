@@ -38,6 +38,8 @@ use google_cloud_test_utils::resource_names::random_bucket_id;
 use google_cloud_wkt::FieldMask;
 use std::time::Duration;
 
+const STALE_BUCKET_CLEANUP_TIMEOUT: Duration = Duration::from_secs(5 * 60);
+
 pub async fn run_anywhere_cache_examples(buckets: &mut Vec<String>) -> anyhow::Result<()> {
     let _guard = enable_info_tracing();
 
@@ -519,6 +521,77 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     objects::object_csek_to_cmek::sample(&control, &id, "csek_file.txt", new_csek_key, &kms_key)
         .await?;
 
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    {
+        use google_cloud_test_utils::runtime_config::{region_id, zone_id};
+        tracing::info!("create rapid bucket for appendable examples");
+        let rapid_bucket_id = random_bucket_id();
+        buckets.push(rapid_bucket_id.clone());
+        let _ = control
+            .create_bucket()
+            .set_parent("projects/_")
+            .set_bucket_id(rapid_bucket_id.clone())
+            .set_bucket(
+                Bucket::new()
+                    .set_project(format!("projects/{project_id}"))
+                    .set_location(region_id())
+                    .set_custom_placement_config(
+                        CustomPlacementConfig::new().set_data_locations([zone_id()]),
+                    )
+                    .set_storage_class("RAPID")
+                    .set_hierarchical_namespace(HierarchicalNamespace::new().set_enabled(true))
+                    .set_iam_config(IamConfig::new().set_uniform_bucket_level_access(
+                        UniformBucketLevelAccess::new().set_enabled(true),
+                    )),
+            )
+            .send()
+            .await?;
+
+        tracing::info!("running open_appendable_object_write example");
+        objects::open_appendable_object_write::sample(
+            &client,
+            &rapid_bucket_id,
+            "appendable-write",
+        )
+        .await?;
+
+        tracing::info!("running open_appendable_object_pause_resume example");
+        objects::open_appendable_object_pause_resume::sample(
+            &client,
+            &rapid_bucket_id,
+            "appendable-pause-resume",
+        )
+        .await?;
+
+        let mut writer = client
+            .open_appendable_object(
+                format!("projects/_/buckets/{rapid_bucket_id}"),
+                "appendable-finalize",
+            )
+            .send()
+            .await?;
+        writer.append(bytes::Bytes::from("hello ")).await?;
+        let generation = writer.generation();
+        writer.close().await?;
+
+        tracing::info!("running open_appendable_object_finalize example");
+        objects::open_appendable_object_finalize::sample(
+            &client,
+            &rapid_bucket_id,
+            "appendable-finalize",
+            generation,
+        )
+        .await?;
+
+        tracing::info!("running open_appendable_object_read_tail example");
+        objects::open_appendable_object_read_tail::sample(
+            &client,
+            &rapid_bucket_id,
+            "appendable-write",
+        )
+        .await?;
+    }
+
     tracing::info!("create bucket for object ACL, retention examples");
     let id = random_bucket_id();
     buckets.push(id.clone());
@@ -546,6 +619,7 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     objects::remove_file_owner::sample(&control, &id, &service_account).await?;
     tracing::info!("running set_object_retention_policy example");
     objects::set_object_retention_policy::sample(&control, &id).await?;
+
     Ok(())
 }
 
@@ -664,7 +738,7 @@ async fn create_bucket_kms_key(
 pub async fn create_test_bucket() -> anyhow::Result<(StorageControl, Bucket)> {
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
     let client = client_for_create_bucket().await?;
-    cleanup_stale_buckets(&client, &project_id).await?;
+    cleanup_stale_buckets(&client, &project_id).await;
 
     let bucket_id = crate::random_bucket_id();
 
@@ -689,7 +763,7 @@ pub async fn create_test_bucket() -> anyhow::Result<(StorageControl, Bucket)> {
 pub async fn create_test_hns_bucket() -> anyhow::Result<(StorageControl, Bucket)> {
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
     let client = client_for_create_bucket().await?;
-    cleanup_stale_buckets(&client, &project_id).await?;
+    cleanup_stale_buckets(&client, &project_id).await;
 
     let bucket_id = crate::random_bucket_id();
 
@@ -717,7 +791,7 @@ pub async fn create_test_hns_bucket() -> anyhow::Result<(StorageControl, Bucket)
 pub async fn create_test_rapid_bucket() -> anyhow::Result<(StorageControl, Bucket)> {
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
     let client = client_for_create_bucket().await?;
-    cleanup_stale_buckets(&client, &project_id).await?;
+    cleanup_stale_buckets(&client, &project_id).await;
 
     let bucket_id = crate::random_bucket_id();
 
@@ -756,21 +830,43 @@ async fn client_for_create_bucket() -> anyhow::Result<StorageControl> {
                 .build()
                 .unwrap(),
         )
-        .with_retry_policy(
-            google_cloud_gax::retry_policy::AlwaysRetry
-                .with_attempt_limit(16)
-                .with_time_limit(Duration::from_secs(32)),
-        )
+        .with_retry_policy(RetryableErrors.with_attempt_limit(5))
         .build()
         .await?;
     Ok(client)
 }
 
-pub async fn cleanup_stale_buckets(
+pub async fn cleanup_stale_buckets(client: &StorageControl, project_id: &str) {
+    run_stale_bucket_cleanup(
+        STALE_BUCKET_CLEANUP_TIMEOUT,
+        cleanup_stale_buckets_inner(client, project_id),
+    )
+    .await
+}
+
+async fn run_stale_bucket_cleanup<F>(timeout: Duration, cleanup: F)
+where
+    F: std::future::Future<Output = anyhow::Result<()>>,
+{
+    match tokio::time::timeout(timeout, cleanup).await {
+        Ok(Ok(())) => {}
+        Ok(Err(e)) => {
+            tracing::warn!("stale bucket cleanup failed; continuing: {e:?}");
+        }
+        Err(_) => {
+            tracing::warn!(
+                "stale bucket cleanup timed out after {:.1}s; continuing",
+                timeout.as_secs_f64()
+            );
+        }
+    }
+}
+
+async fn cleanup_stale_buckets_inner(
     client: &StorageControl,
     project_id: &str,
 ) -> anyhow::Result<()> {
-    use std::time::{Duration, SystemTime, UNIX_EPOCH};
+    use std::time::{SystemTime, UNIX_EPOCH};
     let stale_deadline = SystemTime::now().duration_since(UNIX_EPOCH)?;
     let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
     let stale_deadline = google_cloud_wkt::Timestamp::clamp(stale_deadline.as_secs() as i64, 0);
@@ -1055,5 +1151,24 @@ mod tests {
         assert_eq!(clean_project_id("projects/my-project-id"), "my-project-id");
         assert_eq!(clean_project_id("my-project-id"), "my-project-id");
         assert_eq!(clean_project_id("1234567890"), "1234567890");
+    }
+
+    #[tokio::test]
+    async fn stale_bucket_cleanup_ignores_errors() {
+        // Should not panic
+        run_stale_bucket_cleanup(Duration::from_secs(1), async {
+            anyhow::bail!("test-only cleanup error")
+        })
+        .await;
+    }
+
+    #[tokio::test]
+    async fn stale_bucket_cleanup_stops_at_timeout() {
+        // Should not block
+        run_stale_bucket_cleanup(
+            Duration::from_millis(1),
+            std::future::pending::<anyhow::Result<()>>(),
+        )
+        .await;
     }
 }

@@ -19,9 +19,13 @@ use crate::query::{Query, Result};
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::query_request::JobCreationMode;
 use google_cloud_bigquery_v2::model::{
-    InsertJobRequest, Job, JobConfiguration, PostQueryRequest, QueryRequest,
+    InsertJobRequest, Job, JobConfiguration, JobReference, PostQueryRequest, QueryRequest,
 };
 use std::sync::Arc;
+use uuid::Uuid;
+
+pub(crate) const JOB_ID_PREFIX: &str = "job_";
+pub(crate) const QUERY_REQUEST_ID_PREFIX: &str = "req_";
 
 /// A unified request builder for configuring and executing a SQL query.
 ///
@@ -164,8 +168,11 @@ impl RunQuery {
 
         if self.request.force_job_path() {
             // Route to jobs.insert
+            let job_ref = generate_job_reference(&project_id, &self.request.location);
             let job_config: JobConfiguration = self.request.into();
-            let job = Job::new().set_configuration(job_config);
+            let job = Job::new()
+                .set_configuration(job_config)
+                .set_job_reference(job_ref);
             let req = InsertJobRequest::new()
                 .set_job(job)
                 .set_project_id(project_id);
@@ -174,12 +181,15 @@ impl RunQuery {
                 .execute()
                 .await
         } else {
+            let query_request_id = generate_prefixed_id(QUERY_REQUEST_ID_PREFIX);
             // Route to jobs.query
             let query_request: QueryRequest = self.request.into();
-            let query_request = query_request.set_format_options(
-                google_cloud_bigquery_v2::model::DataFormatOptions::new()
-                    .set_use_int64_timestamp(true),
-            );
+            let query_request = query_request
+                .set_format_options(
+                    google_cloud_bigquery_v2::model::DataFormatOptions::new()
+                        .set_use_int64_timestamp(true),
+                )
+                .set_request_id(query_request_id);
             let req = PostQueryRequest::new()
                 .set_project_id(project_id)
                 .set_query_request(query_request);
@@ -189,6 +199,34 @@ impl RunQuery {
                 .await
         }
     }
+}
+
+// Create a job reference with a generated job ID.
+//
+// BigQuery does not strictly define a format for job IDs, just a limit in size.
+// See https://docs.cloud.google.com/bigquery/docs/reference/rest/v2/JobReference
+fn generate_job_reference(project_id: &str, location: &str) -> JobReference {
+    let job_id = generate_prefixed_id(JOB_ID_PREFIX);
+    let mut job_ref = JobReference::new()
+        .set_project_id(project_id.to_string())
+        .set_job_id(job_id);
+
+    if !location.is_empty() {
+        job_ref = job_ref.set_location(location.to_string());
+    }
+    job_ref
+}
+
+// Create a random ID with the given prefix and a UUID.
+//
+// BigQuery does not strictly define a format for request and job IDs, just a limit in size.
+// However, request IDs are more restrictive and have a limit of 36 characters.
+// UUID v4 simple format is used to reduce length.
+//
+// See https://docs.cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query#QueryRequest for request ID
+// and https://docs.cloud.google.com/bigquery/docs/reference/rest/v2/JobReference for job ID.
+fn generate_prefixed_id(prefix: &str) -> String {
+    format!("{prefix}{}", Uuid::new_v4().simple())
 }
 
 include!("../generated/run_query_builder.rs");
@@ -202,6 +240,9 @@ mod tests {
         Job, JobConfiguration, JobReference, JobStatus, QueryRequest, QueryResponse,
     };
     use google_cloud_gax::response::Response;
+
+    // bigquery limits request id to 36 characters
+    const BIGQUERY_REQ_ID_LIMIT: usize = 36;
 
     type TestResult = anyhow::Result<()>;
 
@@ -238,10 +279,38 @@ mod tests {
         assert!(matches!(res, Err(QueryError::MissingProjectId)));
     }
 
+    #[test]
+    fn test_generate_prefixed_id() {
+        let job_id = generate_prefixed_id(JOB_ID_PREFIX);
+        assert!(job_id.starts_with(JOB_ID_PREFIX), "{job_id:?}");
+        assert!(
+            Uuid::parse_str(&job_id[JOB_ID_PREFIX.len()..]).is_ok(),
+            "{job_id:?}"
+        );
+
+        let req_id = generate_prefixed_id(QUERY_REQUEST_ID_PREFIX);
+        assert!(req_id.starts_with(QUERY_REQUEST_ID_PREFIX), "{req_id:?}");
+        assert!(req_id.len() <= BIGQUERY_REQ_ID_LIMIT, "{req_id:?}");
+        assert!(
+            Uuid::parse_str(&req_id[QUERY_REQUEST_ID_PREFIX.len()..]).is_ok(),
+            "{req_id:?}"
+        );
+    }
+
+    #[test]
+    fn test_generate_job_reference() {
+        let job_ref = generate_job_reference("my-project", "us-central1");
+        assert_eq!(job_ref.project_id, "my-project");
+        assert!(job_ref.job_id.starts_with(JOB_ID_PREFIX), "{job_ref:?}");
+        assert_eq!(job_ref.location.as_deref(), Some("us-central1"));
+    }
+
     #[tokio::test]
     async fn test_run_jobs_insert() -> TestResult {
         let mut mock = MockJobService::new();
-        mock.expect_insert_job().returning(|_, _| {
+        mock.expect_insert_job().returning(|req, _| {
+            let job_ref = req.job.as_ref().unwrap().job_reference.as_ref().unwrap();
+            assert!(job_ref.job_id.starts_with(JOB_ID_PREFIX), "{job_ref:?}");
             let job_ref = JobReference::new()
                 .set_job_id("test-job")
                 .set_project_id("my-project");
@@ -264,14 +333,20 @@ mod tests {
     #[tokio::test]
     async fn test_run_jobs_query() -> TestResult {
         let mut mock = MockJobService::new();
-        mock.expect_query()
-            .returning(move |_, _| Ok(Response::from(QueryResponse::new())));
+        mock.expect_query().returning(move |req, _| {
+            let req_id = &req.query_request.as_ref().unwrap().request_id;
+            assert!(req_id.starts_with(QUERY_REQUEST_ID_PREFIX), "{req_id:?}");
+            assert!(req_id.len() <= BIGQUERY_REQ_ID_LIMIT, "{req_id:?}");
+            Ok(Response::from(
+                QueryResponse::new().set_query_id("some_query_id"),
+            ))
+        });
         let job_service = create_job_service(mock);
         let run_query =
             RunQuery::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
         let query = run_query.run().await?;
         assert!(!query.completed, "{query:?}");
-        assert!(query.initial_response.is_some(), "{query:?}");
+        assert_eq!(query.metadata.query_id, "some_query_id");
 
         Ok(())
     }

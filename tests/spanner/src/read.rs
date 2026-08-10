@@ -25,7 +25,7 @@ pub async fn read_single_key(db_client: &DatabaseClient) -> anyhow::Result<()> {
         .set("Id")
         .to(&id1)
         .set("ColString")
-        .to(&"single")
+        .to("single")
         .build();
     let write_tx = db_client.write_only_transaction().build();
     write_tx
@@ -65,13 +65,13 @@ pub async fn read_all_keys(db_client: &DatabaseClient) -> anyhow::Result<()> {
         .set("Id")
         .to(&id1)
         .set("ColString")
-        .to(&"first")
+        .to("first")
         .build();
     let mutation_2 = Mutation::new_insert_or_update_builder("AllTypes")
         .set("Id")
         .to(&id2)
         .set("ColString")
-        .to(&"second")
+        .to("second")
         .build();
     let write_tx = db_client.write_only_transaction().build();
     write_tx
@@ -118,19 +118,19 @@ pub async fn read_key_range(db_client: &DatabaseClient) -> anyhow::Result<()> {
         .set("Id")
         .to(&id1)
         .set("ColString")
-        .to(&"first")
+        .to("first")
         .build();
     let mutation_2 = Mutation::new_insert_or_update_builder("AllTypes")
         .set("Id")
         .to(&id2)
         .set("ColString")
-        .to(&"second")
+        .to("second")
         .build();
     let mutation_3 = Mutation::new_insert_or_update_builder("AllTypes")
         .set("Id")
         .to(&id3)
         .set("ColString")
-        .to(&"third")
+        .to("third")
         .build();
 
     let write_tx = db_client.write_only_transaction().build();
@@ -183,19 +183,19 @@ pub async fn read_with_limit(db_client: &DatabaseClient) -> anyhow::Result<()> {
         .set("Id")
         .to(&id1)
         .set("ColString")
-        .to(&"first")
+        .to("first")
         .build();
     let mutation_2 = Mutation::new_insert_or_update_builder("AllTypes")
         .set("Id")
         .to(&id2)
         .set("ColString")
-        .to(&"second")
+        .to("second")
         .build();
     let mutation_3 = Mutation::new_insert_or_update_builder("AllTypes")
         .set("Id")
         .to(&id3)
         .set("ColString")
-        .to(&"third")
+        .to("third")
         .build();
 
     let write_tx = db_client.write_only_transaction().build();
@@ -293,13 +293,13 @@ pub async fn read_as_stream(db_client: &DatabaseClient) -> anyhow::Result<()> {
         .set("Id")
         .to(&id1)
         .set("ColString")
-        .to(&"first")
+        .to("first")
         .build();
     let mutation_2 = Mutation::new_insert_or_update_builder("AllTypes")
         .set("Id")
         .to(&id2)
         .set("ColString")
-        .to(&"second")
+        .to("second")
         .build();
     let write_tx = db_client.write_only_transaction().build();
     write_tx

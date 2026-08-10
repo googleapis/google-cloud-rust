@@ -18,7 +18,7 @@
 #![allow(rustdoc::invalid_html_tags)]
 #![allow(rustdoc::redundant_explicit_links)]
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -26,7 +26,7 @@
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = AcceleratorTypes::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -144,7 +144,7 @@ impl AcceleratorTypes {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -152,7 +152,7 @@ impl AcceleratorTypes {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = Addresses::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -301,7 +301,7 @@ impl Addresses {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -309,7 +309,7 @@ impl Addresses {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = Advice::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -415,7 +415,7 @@ impl Advice {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -423,7 +423,7 @@ impl Advice {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = Autoscalers::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -575,7 +575,7 @@ impl Autoscalers {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -583,7 +583,7 @@ impl Autoscalers {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = BackendBuckets::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -772,7 +772,7 @@ impl BackendBuckets {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -780,7 +780,7 @@ impl BackendBuckets {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = BackendServices::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -1001,7 +1001,7 @@ impl BackendServices {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -1009,7 +1009,7 @@ impl BackendServices {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = CrossSiteNetworks::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -1142,7 +1142,7 @@ impl CrossSiteNetworks {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -1150,7 +1150,7 @@ impl CrossSiteNetworks {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = DiskTypes::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -1267,7 +1267,7 @@ impl DiskTypes {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -1275,7 +1275,7 @@ impl DiskTypes {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = Disks::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -1506,7 +1506,7 @@ impl Disks {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -1514,7 +1514,7 @@ impl Disks {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = ExternalVpnGateways::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -1655,7 +1655,7 @@ impl ExternalVpnGateways {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -1663,7 +1663,7 @@ impl ExternalVpnGateways {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = FirewallPolicies::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -1862,7 +1862,7 @@ impl FirewallPolicies {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -1870,7 +1870,7 @@ impl FirewallPolicies {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = Firewalls::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -2016,7 +2016,7 @@ impl Firewalls {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -2024,7 +2024,7 @@ impl Firewalls {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = ForwardingRules::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -2179,7 +2179,7 @@ impl ForwardingRules {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -2187,7 +2187,7 @@ impl ForwardingRules {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = FutureReservations::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -2330,7 +2330,7 @@ impl FutureReservations {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -2338,7 +2338,7 @@ impl FutureReservations {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = GlobalAddresses::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -2478,7 +2478,7 @@ impl GlobalAddresses {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -2486,7 +2486,7 @@ impl GlobalAddresses {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = GlobalForwardingRules::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -2635,7 +2635,7 @@ impl GlobalForwardingRules {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -2643,7 +2643,7 @@ impl GlobalForwardingRules {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = GlobalNetworkEndpointGroups::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -2809,7 +2809,7 @@ impl GlobalNetworkEndpointGroups {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -2817,7 +2817,7 @@ impl GlobalNetworkEndpointGroups {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = GlobalOperations::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -2962,7 +2962,7 @@ impl GlobalOperations {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -2970,7 +2970,7 @@ impl GlobalOperations {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = GlobalOrganizationOperations::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -3087,7 +3087,7 @@ impl GlobalOrganizationOperations {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -3095,7 +3095,7 @@ impl GlobalOrganizationOperations {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = GlobalPublicDelegatedPrefixes::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -3229,7 +3229,7 @@ impl GlobalPublicDelegatedPrefixes {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -3237,7 +3237,7 @@ impl GlobalPublicDelegatedPrefixes {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = GlobalVmExtensionPolicies::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -3381,7 +3381,7 @@ impl GlobalVmExtensionPolicies {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -3389,7 +3389,7 @@ impl GlobalVmExtensionPolicies {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = HealthChecks::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -3542,7 +3542,133 @@ impl HealthChecks {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
+///
+/// # Example
+/// ```
+/// # use google_cloud_compute_v1::client::Hosts;
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
+///     let client = Hosts::builder().build().await?;
+///     // use `client` to make requests to the Compute Engine API.
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `hosts` resource.
+///
+/// # Configuration
+///
+/// To configure `Hosts` use the `with_*` methods in the type returned
+/// by [builder()][Hosts::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::hosts::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::hosts::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `Hosts` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `Hosts` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "hosts")]
+#[cfg_attr(docsrs, doc(cfg(feature = "hosts")))]
+#[derive(Clone, Debug)]
+pub struct Hosts {
+    inner: std::sync::Arc<dyn super::stub::dynamic::Hosts>,
+}
+
+#[cfg(feature = "hosts")]
+impl Hosts {
+    /// Returns a builder for [Hosts].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_compute_v1::client::Hosts;
+    /// let client = Hosts::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::hosts::ClientBuilder {
+        crate::new_client_builder(super::builder::hosts::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::Hosts + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::Hosts>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::Hosts> {
+        super::transport::Hosts::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::Hosts> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::Hosts::new)
+    }
+
+    /// Retrieves information about the specified host.
+    pub fn get(&self) -> super::builder::hosts::Get {
+        super::builder::hosts::Get::new(self.inner.clone())
+    }
+
+    /// Allows customers to get SBOM versions of a host.
+    pub fn get_version(&self) -> super::builder::hosts::GetVersion {
+        super::builder::hosts::GetVersion::new(self.inner.clone())
+    }
+
+    /// Retrieves a list of hosts.
+    pub fn list(&self) -> super::builder::hosts::List {
+        super::builder::hosts::List::new(self.inner.clone())
+    }
+
+    /// Retrieves the specified zone-specific Operations resource.
+    pub fn get_operation(&self) -> super::builder::hosts::GetOperation {
+        super::builder::hosts::GetOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -3550,7 +3676,7 @@ impl HealthChecks {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = HttpHealthChecks::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -3695,7 +3821,7 @@ impl HttpHealthChecks {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -3703,7 +3829,7 @@ impl HttpHealthChecks {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = HttpsHealthChecks::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -3848,7 +3974,7 @@ impl HttpsHealthChecks {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -3856,7 +3982,7 @@ impl HttpsHealthChecks {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = ImageFamilyViews::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -3961,7 +4087,7 @@ impl ImageFamilyViews {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -3969,7 +4095,7 @@ impl ImageFamilyViews {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = Images::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -4143,7 +4269,7 @@ impl Images {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -4151,7 +4277,7 @@ impl Images {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = InstanceGroupManagerResizeRequests::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -4294,7 +4420,7 @@ impl InstanceGroupManagerResizeRequests {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -4302,7 +4428,7 @@ impl InstanceGroupManagerResizeRequests {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = InstanceGroupManagers::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -4738,7 +4864,7 @@ impl InstanceGroupManagers {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -4746,7 +4872,7 @@ impl InstanceGroupManagers {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = InstanceGroups::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -4928,7 +5054,7 @@ impl InstanceGroups {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -4936,7 +5062,7 @@ impl InstanceGroups {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = InstanceSettings::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -5050,7 +5176,7 @@ impl InstanceSettings {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -5058,7 +5184,7 @@ impl InstanceSettings {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = InstanceTemplates::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -5215,7 +5341,7 @@ impl InstanceTemplates {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -5223,7 +5349,7 @@ impl InstanceTemplates {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = Instances::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -5673,7 +5799,7 @@ impl Instances {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -5681,7 +5807,7 @@ impl Instances {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = InstantSnapshotGroups::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -5825,7 +5951,7 @@ impl InstantSnapshotGroups {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -5833,7 +5959,7 @@ impl InstantSnapshotGroups {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = InstantSnapshots::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -5997,7 +6123,7 @@ impl InstantSnapshots {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -6005,7 +6131,7 @@ impl InstantSnapshots {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = InterconnectAttachmentGroups::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -6169,7 +6295,7 @@ impl InterconnectAttachmentGroups {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -6177,7 +6303,7 @@ impl InterconnectAttachmentGroups {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = InterconnectAttachments::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -6326,7 +6452,7 @@ impl InterconnectAttachments {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -6334,7 +6460,7 @@ impl InterconnectAttachments {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = InterconnectGroups::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -6498,7 +6624,7 @@ impl InterconnectGroups {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -6506,7 +6632,7 @@ impl InterconnectGroups {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = InterconnectLocations::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -6617,7 +6743,7 @@ impl InterconnectLocations {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -6625,7 +6751,7 @@ impl InterconnectLocations {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = InterconnectRemoteLocations::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -6737,7 +6863,7 @@ impl InterconnectRemoteLocations {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -6745,7 +6871,7 @@ impl InterconnectRemoteLocations {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = Interconnects::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -6905,7 +7031,7 @@ impl Interconnects {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -6913,7 +7039,7 @@ impl Interconnects {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = LicenseCodes::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -7046,7 +7172,7 @@ impl LicenseCodes {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -7054,7 +7180,7 @@ impl LicenseCodes {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = Licenses::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -7228,7 +7354,7 @@ impl Licenses {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -7236,7 +7362,7 @@ impl Licenses {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = MachineImages::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -7388,7 +7514,7 @@ impl MachineImages {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -7396,7 +7522,7 @@ impl MachineImages {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = MachineTypes::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -7513,7 +7639,7 @@ impl MachineTypes {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -7521,7 +7647,7 @@ impl MachineTypes {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = NetworkAttachments::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -7680,7 +7806,7 @@ impl NetworkAttachments {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -7688,7 +7814,7 @@ impl NetworkAttachments {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = NetworkEdgeSecurityServices::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -7825,7 +7951,7 @@ impl NetworkEdgeSecurityServices {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -7833,7 +7959,7 @@ impl NetworkEdgeSecurityServices {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = NetworkEndpointGroups::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -8010,7 +8136,7 @@ impl NetworkEndpointGroups {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -8018,7 +8144,7 @@ impl NetworkEndpointGroups {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = NetworkFirewallPolicies::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -8249,7 +8375,7 @@ impl NetworkFirewallPolicies {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -8257,7 +8383,7 @@ impl NetworkFirewallPolicies {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = NetworkProfiles::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -8366,7 +8492,7 @@ impl NetworkProfiles {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -8374,7 +8500,7 @@ impl NetworkProfiles {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = Networks::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -8551,7 +8677,7 @@ impl Networks {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -8559,7 +8685,7 @@ impl Networks {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = NodeGroups::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -8750,7 +8876,7 @@ impl NodeGroups {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -8758,7 +8884,7 @@ impl NodeGroups {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = NodeTemplates::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -8908,7 +9034,7 @@ impl NodeTemplates {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -8916,7 +9042,7 @@ impl NodeTemplates {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = NodeTypes::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -9033,7 +9159,7 @@ impl NodeTypes {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -9041,7 +9167,7 @@ impl NodeTypes {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = OrganizationSecurityPolicies::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -9313,7 +9439,7 @@ impl OrganizationSecurityPolicies {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -9321,7 +9447,7 @@ impl OrganizationSecurityPolicies {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = PacketMirrorings::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -9468,7 +9594,7 @@ impl PacketMirrorings {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -9476,7 +9602,7 @@ impl PacketMirrorings {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = PreviewFeatures::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -9595,7 +9721,7 @@ impl PreviewFeatures {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -9603,7 +9729,7 @@ impl PreviewFeatures {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = Projects::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -9820,7 +9946,7 @@ impl Projects {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -9828,7 +9954,7 @@ impl Projects {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = PublicAdvertisedPrefixes::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -9972,7 +10098,7 @@ impl PublicAdvertisedPrefixes {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -9980,7 +10106,7 @@ impl PublicAdvertisedPrefixes {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = PublicDelegatedPrefixes::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -10132,7 +10258,7 @@ impl PublicDelegatedPrefixes {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -10140,7 +10266,7 @@ impl PublicDelegatedPrefixes {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = RegionAutoscalers::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -10285,7 +10411,7 @@ impl RegionAutoscalers {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -10293,7 +10419,7 @@ impl RegionAutoscalers {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = RegionBackendBuckets::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -10452,7 +10578,7 @@ impl RegionBackendBuckets {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -10460,7 +10586,7 @@ impl RegionBackendBuckets {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = RegionBackendServices::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -10646,7 +10772,7 @@ impl RegionBackendServices {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -10654,7 +10780,7 @@ impl RegionBackendServices {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = RegionCommitments::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -10790,7 +10916,7 @@ impl RegionCommitments {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -10798,7 +10924,7 @@ impl RegionCommitments {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = RegionCompositeHealthChecks::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -10956,7 +11082,7 @@ impl RegionCompositeHealthChecks {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -10964,7 +11090,7 @@ impl RegionCompositeHealthChecks {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = RegionDiskTypes::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -11072,7 +11198,7 @@ impl RegionDiskTypes {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -11080,7 +11206,7 @@ impl RegionDiskTypes {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = RegionDisks::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -11293,7 +11419,7 @@ impl RegionDisks {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -11301,7 +11427,7 @@ impl RegionDisks {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = RegionHealthAggregationPolicies::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -11459,7 +11585,7 @@ impl RegionHealthAggregationPolicies {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -11467,7 +11593,7 @@ impl RegionHealthAggregationPolicies {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = RegionHealthCheckServices::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -11618,7 +11744,7 @@ impl RegionHealthCheckServices {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -11626,7 +11752,7 @@ impl RegionHealthCheckServices {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = RegionHealthChecks::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -11771,7 +11897,7 @@ impl RegionHealthChecks {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -11779,7 +11905,7 @@ impl RegionHealthChecks {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = RegionHealthSources::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -11934,7 +12060,7 @@ impl RegionHealthSources {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -11942,7 +12068,7 @@ impl RegionHealthSources {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = RegionInstanceGroupManagerResizeRequests::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -12097,7 +12223,7 @@ impl RegionInstanceGroupManagerResizeRequests {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -12105,7 +12231,7 @@ impl RegionInstanceGroupManagerResizeRequests {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = RegionInstanceGroupManagers::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -12540,7 +12666,7 @@ impl RegionInstanceGroupManagers {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -12548,7 +12674,7 @@ impl RegionInstanceGroupManagers {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = RegionInstanceGroups::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -12683,7 +12809,7 @@ impl RegionInstanceGroups {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -12691,7 +12817,7 @@ impl RegionInstanceGroups {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = RegionInstanceTemplates::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -12818,7 +12944,7 @@ impl RegionInstanceTemplates {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -12826,7 +12952,7 @@ impl RegionInstanceTemplates {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = RegionInstances::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -12935,7 +13061,7 @@ impl RegionInstances {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -12943,7 +13069,7 @@ impl RegionInstances {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = RegionInstantSnapshotGroups::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -13089,7 +13215,7 @@ impl RegionInstantSnapshotGroups {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -13097,7 +13223,7 @@ impl RegionInstantSnapshotGroups {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = RegionInstantSnapshots::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -13255,7 +13381,7 @@ impl RegionInstantSnapshots {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -13263,7 +13389,7 @@ impl RegionInstantSnapshots {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = RegionNetworkEndpointGroups::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -13429,7 +13555,7 @@ impl RegionNetworkEndpointGroups {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -13437,7 +13563,7 @@ impl RegionNetworkEndpointGroups {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = RegionNetworkFirewallPolicies::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -13644,7 +13770,7 @@ impl RegionNetworkFirewallPolicies {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -13652,7 +13778,7 @@ impl RegionNetworkFirewallPolicies {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = RegionNotificationEndpoints::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -13791,7 +13917,7 @@ impl RegionNotificationEndpoints {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -13799,7 +13925,7 @@ impl RegionNotificationEndpoints {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = RegionOperations::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -13936,7 +14062,7 @@ impl RegionOperations {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -13944,7 +14070,7 @@ impl RegionOperations {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = RegionSecurityPolicies::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -14107,7 +14233,7 @@ impl RegionSecurityPolicies {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -14115,7 +14241,7 @@ impl RegionSecurityPolicies {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = RegionSnapshotSettings::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -14229,7 +14355,7 @@ impl RegionSnapshotSettings {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -14237,7 +14363,7 @@ impl RegionSnapshotSettings {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = RegionSnapshots::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -14399,7 +14525,7 @@ impl RegionSnapshots {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -14407,7 +14533,7 @@ impl RegionSnapshots {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = RegionSslCertificates::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -14535,7 +14661,7 @@ impl RegionSslCertificates {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -14543,7 +14669,7 @@ impl RegionSslCertificates {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = RegionSslPolicies::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -14684,7 +14810,7 @@ impl RegionSslPolicies {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -14692,7 +14818,7 @@ impl RegionSslPolicies {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = RegionTargetHttpProxies::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -14823,7 +14949,7 @@ impl RegionTargetHttpProxies {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -14831,7 +14957,7 @@ impl RegionTargetHttpProxies {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = RegionTargetHttpsProxies::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -14978,7 +15104,7 @@ impl RegionTargetHttpsProxies {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -14986,7 +15112,7 @@ impl RegionTargetHttpsProxies {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = RegionTargetTcpProxies::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -15112,7 +15238,7 @@ impl RegionTargetTcpProxies {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -15120,7 +15246,7 @@ impl RegionTargetTcpProxies {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = RegionUrlMaps::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -15266,7 +15392,7 @@ impl RegionUrlMaps {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -15274,7 +15400,7 @@ impl RegionUrlMaps {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = RegionZones::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -15378,7 +15504,7 @@ impl RegionZones {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -15386,7 +15512,7 @@ impl RegionZones {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = Regions::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -15529,7 +15655,124 @@ impl Regions {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
+///
+/// # Example
+/// ```
+/// # use google_cloud_compute_v1::client::ReliabilityRisks;
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
+///     let client = ReliabilityRisks::builder().build().await?;
+///     // use `client` to make requests to the Compute Engine API.
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `reliabilityRisks` resource.
+///
+/// # Configuration
+///
+/// To configure `ReliabilityRisks` use the `with_*` methods in the type returned
+/// by [builder()][ReliabilityRisks::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::reliability_risks::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::reliability_risks::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `ReliabilityRisks` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `ReliabilityRisks` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "reliability-risks")]
+#[cfg_attr(docsrs, doc(cfg(feature = "reliability-risks")))]
+#[derive(Clone, Debug)]
+pub struct ReliabilityRisks {
+    inner: std::sync::Arc<dyn super::stub::dynamic::ReliabilityRisks>,
+}
+
+#[cfg(feature = "reliability-risks")]
+impl ReliabilityRisks {
+    /// Returns a builder for [ReliabilityRisks].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_compute_v1::client::ReliabilityRisks;
+    /// let client = ReliabilityRisks::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::reliability_risks::ClientBuilder {
+        crate::new_client_builder(super::builder::reliability_risks::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::ReliabilityRisks + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::ReliabilityRisks>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::ReliabilityRisks> {
+        super::transport::ReliabilityRisks::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::ReliabilityRisks> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::ReliabilityRisks::new)
+    }
+
+    /// Returns the specified ReliabilityRisk resource.
+    pub fn get(&self) -> super::builder::reliability_risks::Get {
+        super::builder::reliability_risks::Get::new(self.inner.clone())
+    }
+
+    /// Retrieves the list of reliabilityRisks available in the specified project.
+    pub fn list(&self) -> super::builder::reliability_risks::List {
+        super::builder::reliability_risks::List::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -15537,7 +15780,7 @@ impl Regions {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = ReservationBlocks::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -15673,7 +15916,7 @@ impl ReservationBlocks {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -15681,7 +15924,7 @@ impl ReservationBlocks {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = ReservationSlots::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -15805,7 +16048,7 @@ impl ReservationSlots {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -15813,7 +16056,7 @@ impl ReservationSlots {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = ReservationSubBlocks::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -15963,7 +16206,7 @@ impl ReservationSubBlocks {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -15971,7 +16214,7 @@ impl ReservationSubBlocks {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = Reservations::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -16138,7 +16381,7 @@ impl Reservations {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -16146,7 +16389,7 @@ impl Reservations {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = ResourcePolicies::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -16301,7 +16544,7 @@ impl ResourcePolicies {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -16309,7 +16552,7 @@ impl ResourcePolicies {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = RolloutPlans::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -16432,7 +16675,7 @@ impl RolloutPlans {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -16440,7 +16683,7 @@ impl RolloutPlans {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = Rollouts::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -16578,7 +16821,7 @@ impl Rollouts {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -16586,7 +16829,7 @@ impl Rollouts {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = Routers::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -16812,7 +17055,7 @@ impl Routers {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -16820,7 +17063,7 @@ impl Routers {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = Routes::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -16949,7 +17192,7 @@ impl Routes {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -16957,7 +17200,7 @@ impl Routes {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = SecurityPolicies::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -17136,7 +17379,7 @@ impl SecurityPolicies {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -17144,7 +17387,7 @@ impl SecurityPolicies {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = ServiceAttachments::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -17303,7 +17546,7 @@ impl ServiceAttachments {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -17311,7 +17554,7 @@ impl ServiceAttachments {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = SnapshotSettings::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -17425,7 +17668,7 @@ impl SnapshotSettings {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -17433,7 +17676,7 @@ impl SnapshotSettings {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = Snapshots::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -17597,7 +17840,7 @@ impl Snapshots {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -17605,7 +17848,7 @@ impl Snapshots {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = SslCertificates::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -17739,7 +17982,7 @@ impl SslCertificates {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -17747,7 +17990,7 @@ impl SslCertificates {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = SslPolicies::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -17893,7 +18136,7 @@ impl SslPolicies {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -17901,7 +18144,7 @@ impl SslPolicies {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = StoragePoolTypes::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -18019,7 +18262,7 @@ impl StoragePoolTypes {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -18027,7 +18270,7 @@ impl StoragePoolTypes {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = StoragePools::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -18196,7 +18439,7 @@ impl StoragePools {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -18204,7 +18447,7 @@ impl StoragePools {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = Subnetworks::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -18381,7 +18624,7 @@ impl Subnetworks {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -18389,7 +18632,7 @@ impl Subnetworks {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = TargetGrpcProxies::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -18522,7 +18765,7 @@ impl TargetGrpcProxies {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -18530,7 +18773,7 @@ impl TargetGrpcProxies {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = TargetHttpProxies::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -18678,7 +18921,7 @@ impl TargetHttpProxies {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -18686,7 +18929,7 @@ impl TargetHttpProxies {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = TargetHttpsProxies::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -18857,7 +19100,7 @@ impl TargetHttpsProxies {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -18865,7 +19108,7 @@ impl TargetHttpsProxies {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = TargetInstances::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -19010,7 +19253,7 @@ impl TargetInstances {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -19018,7 +19261,7 @@ impl TargetInstances {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = TargetPools::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -19194,7 +19437,7 @@ impl TargetPools {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -19202,7 +19445,7 @@ impl TargetPools {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = TargetSslProxies::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -19361,7 +19604,7 @@ impl TargetSslProxies {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -19369,7 +19612,7 @@ impl TargetSslProxies {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = TargetTcpProxies::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -19519,7 +19762,7 @@ impl TargetTcpProxies {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -19527,7 +19770,7 @@ impl TargetTcpProxies {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = TargetVpnGateways::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -19667,7 +19910,7 @@ impl TargetVpnGateways {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -19675,7 +19918,7 @@ impl TargetVpnGateways {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = UrlMaps::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -19844,7 +20087,7 @@ impl UrlMaps {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -19852,7 +20095,7 @@ impl UrlMaps {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = VpnGateways::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -20001,7 +20244,7 @@ impl VpnGateways {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -20009,7 +20252,7 @@ impl VpnGateways {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = VpnTunnels::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -20148,7 +20391,7 @@ impl VpnTunnels {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -20156,7 +20399,7 @@ impl VpnTunnels {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = WireGroups::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -20288,7 +20531,7 @@ impl WireGroups {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -20296,7 +20539,7 @@ impl WireGroups {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = ZoneOperations::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -20431,7 +20674,7 @@ impl ZoneOperations {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -20439,7 +20682,7 @@ impl ZoneOperations {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = ZoneVmExtensionPolicies::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```
@@ -20568,7 +20811,7 @@ impl ZoneVmExtensionPolicies {
     }
 }
 
-/// Implements a client for the Google Compute Engine API.
+/// Implements a client for the Compute Engine API.
 ///
 /// # Example
 /// ```
@@ -20576,7 +20819,7 @@ impl ZoneVmExtensionPolicies {
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = Zones::builder().build().await?;
-///     // use `client` to make requests to the Google Compute Engine API.
+///     // use `client` to make requests to the Compute Engine API.
 ///     Ok(())
 /// }
 /// ```

@@ -417,6 +417,58 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::GetStorageLa
     }
 }
 
+impl gaxi::prost::ToProto<managed_folder::rapid_cache_config::rapid_cache_policy::IngestOnWrite> for crate::generated::gapic_control::model::managed_folder::rapid_cache_config::rapid_cache_policy::IngestOnWrite {
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::generated::gapic_control::model::managed_folder::rapid_cache_config::rapid_cache_policy::IngestOnWrite"))
+    }
+}
+
+impl gaxi::prost::ToProto<managed_folder::rapid_cache_config::RapidCachePolicy> for crate::generated::gapic_control::model::managed_folder::rapid_cache_config::RapidCachePolicy {
+    type Output = managed_folder::rapid_cache_config::RapidCachePolicy;
+    fn to_proto(self) -> std::result::Result<managed_folder::rapid_cache_config::RapidCachePolicy, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            rapid_cache_id: self.rapid_cache_id.to_proto()?,
+            ingest_on_write: self.ingest_on_write.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_control::model::managed_folder::rapid_cache_config::RapidCachePolicy> for managed_folder::rapid_cache_config::RapidCachePolicy {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::managed_folder::rapid_cache_config::RapidCachePolicy, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::managed_folder::rapid_cache_config::RapidCachePolicy::new()
+                .set_rapid_cache_id(self.rapid_cache_id)
+                .set_ingest_on_write(self.ingest_on_write)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<managed_folder::RapidCacheConfig> for crate::generated::gapic_control::model::managed_folder::RapidCacheConfig {
+    type Output = managed_folder::RapidCacheConfig;
+    fn to_proto(self) -> std::result::Result<managed_folder::RapidCacheConfig, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            policies: self.policies
+                .into_iter()
+                .map(|(k, v)| {
+                    gaxi::prost::pair_transpose(k.to_proto(), v.to_proto())
+                }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_control::model::managed_folder::RapidCacheConfig> for managed_folder::RapidCacheConfig {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::managed_folder::RapidCacheConfig, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::managed_folder::RapidCacheConfig::new()
+                .set_policies(self.policies.into_iter()
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(k.cnv(), v.cnv())
+                    }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
+        )
+    }
+}
+
 impl gaxi::prost::ToProto<ManagedFolder> for crate::generated::gapic_control::model::ManagedFolder {
     type Output = ManagedFolder;
     fn to_proto(self) -> std::result::Result<ManagedFolder, gaxi::prost::ConvertError> {
@@ -425,6 +477,7 @@ impl gaxi::prost::ToProto<ManagedFolder> for crate::generated::gapic_control::mo
             metageneration: self.metageneration.to_proto()?,
             create_time: self.create_time.map(|v| v.to_proto()).transpose()?,
             update_time: self.update_time.map(|v| v.to_proto()).transpose()?,
+            rapid_cache_config: self.rapid_cache_config.map(|v| v.to_proto()).transpose()?,
         })
     }
 }
@@ -437,6 +490,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::ManagedFolde
                 .set_metageneration(self.metageneration)
                 .set_or_clear_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_rapid_cache_config(self.rapid_cache_config.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -565,6 +619,32 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::ListManagedF
     }
 }
 
+impl gaxi::prost::ToProto<UpdateManagedFolderRequest> for crate::generated::gapic_control::model::UpdateManagedFolderRequest {
+    type Output = UpdateManagedFolderRequest;
+    fn to_proto(self) -> std::result::Result<UpdateManagedFolderRequest, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            managed_folder: self.managed_folder.map(|v| v.to_proto()).transpose()?,
+            update_mask: self.update_mask.map(|v| v.to_proto()).transpose()?,
+            if_metageneration_match: self.if_metageneration_match.map(|v| v.to_proto()).transpose()?,
+            if_metageneration_not_match: self.if_metageneration_not_match.map(|v| v.to_proto()).transpose()?,
+            request_id: self.request_id.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_control::model::UpdateManagedFolderRequest> for UpdateManagedFolderRequest {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::UpdateManagedFolderRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::UpdateManagedFolderRequest::new()
+                .set_or_clear_managed_folder(self.managed_folder.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_update_mask(self.update_mask.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
+                .set_request_id(self.request_id)
+        )
+    }
+}
+
 impl gaxi::prost::ToProto<CreateAnywhereCacheMetadata> for crate::generated::gapic_control::model::CreateAnywhereCacheMetadata {
     type Output = CreateAnywhereCacheMetadata;
     fn to_proto(self) -> std::result::Result<CreateAnywhereCacheMetadata, gaxi::prost::ConvertError> {
@@ -574,6 +654,7 @@ impl gaxi::prost::ToProto<CreateAnywhereCacheMetadata> for crate::generated::gap
             zone: self.zone.map(|v| v.to_proto()).transpose()?,
             ttl: self.ttl.map(|v| v.to_proto()).transpose()?,
             admission_policy: self.admission_policy.map(|v| v.to_proto()).transpose()?,
+            ingest_on_write: self.ingest_on_write.map(|v| v.to_proto()).transpose()?,
         })
     }
 }
@@ -587,6 +668,37 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::CreateAnywhe
                 .set_or_clear_zone(self.zone.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_ttl(self.ttl.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_admission_policy(self.admission_policy.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_ingest_on_write(self.ingest_on_write.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<CreateRapidCacheMetadata> for crate::generated::gapic_control::model::CreateRapidCacheMetadata {
+    type Output = CreateRapidCacheMetadata;
+    fn to_proto(self) -> std::result::Result<CreateRapidCacheMetadata, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            common_metadata: self.common_metadata.map(|v| v.to_proto()).transpose()?,
+            rapid_cache_id: self.rapid_cache_id.map(|v| v.to_proto()).transpose()?,
+            zone: self.zone.map(|v| v.to_proto()).transpose()?,
+            ttl: self.ttl.map(|v| v.to_proto()).transpose()?,
+            admission_policy: self.admission_policy.map(|v| v.to_proto()).transpose()?,
+            ingest_on_write: self.ingest_on_write.map(|v| v.to_proto()).transpose()?,
+            cache_type: self.cache_type.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_control::model::CreateRapidCacheMetadata> for CreateRapidCacheMetadata {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::CreateRapidCacheMetadata, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::CreateRapidCacheMetadata::new()
+                .set_or_clear_common_metadata(self.common_metadata.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_rapid_cache_id(self.rapid_cache_id.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_zone(self.zone.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_ttl(self.ttl.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_admission_policy(self.admission_policy.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_ingest_on_write(self.ingest_on_write.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_cache_type(self.cache_type.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -600,6 +712,7 @@ impl gaxi::prost::ToProto<UpdateAnywhereCacheMetadata> for crate::generated::gap
             zone: self.zone.map(|v| v.to_proto()).transpose()?,
             ttl: self.ttl.map(|v| v.to_proto()).transpose()?,
             admission_policy: self.admission_policy.map(|v| v.to_proto()).transpose()?,
+            ingest_on_write: self.ingest_on_write.map(|v| v.to_proto()).transpose()?,
         })
     }
 }
@@ -613,6 +726,37 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::UpdateAnywhe
                 .set_or_clear_zone(self.zone.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_ttl(self.ttl.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_admission_policy(self.admission_policy.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_ingest_on_write(self.ingest_on_write.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<UpdateRapidCacheMetadata> for crate::generated::gapic_control::model::UpdateRapidCacheMetadata {
+    type Output = UpdateRapidCacheMetadata;
+    fn to_proto(self) -> std::result::Result<UpdateRapidCacheMetadata, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            common_metadata: self.common_metadata.map(|v| v.to_proto()).transpose()?,
+            rapid_cache_id: self.rapid_cache_id.map(|v| v.to_proto()).transpose()?,
+            zone: self.zone.map(|v| v.to_proto()).transpose()?,
+            ttl: self.ttl.map(|v| v.to_proto()).transpose()?,
+            admission_policy: self.admission_policy.map(|v| v.to_proto()).transpose()?,
+            ingest_on_write: self.ingest_on_write.map(|v| v.to_proto()).transpose()?,
+            cache_type: self.cache_type.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_control::model::UpdateRapidCacheMetadata> for UpdateRapidCacheMetadata {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::UpdateRapidCacheMetadata, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::UpdateRapidCacheMetadata::new()
+                .set_or_clear_common_metadata(self.common_metadata.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_rapid_cache_id(self.rapid_cache_id.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_zone(self.zone.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_ttl(self.ttl.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_admission_policy(self.admission_policy.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_ingest_on_write(self.ingest_on_write.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_cache_type(self.cache_type.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -629,6 +773,7 @@ impl gaxi::prost::ToProto<AnywhereCache> for crate::generated::gapic_control::mo
             create_time: self.create_time.map(|v| v.to_proto()).transpose()?,
             update_time: self.update_time.map(|v| v.to_proto()).transpose()?,
             pending_update: self.pending_update.to_proto()?,
+            ingest_on_write: self.ingest_on_write.map(|v| v.to_proto()).transpose()?,
         })
     }
 }
@@ -645,6 +790,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::AnywhereCach
                 .set_or_clear_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
                 .set_pending_update(self.pending_update)
+                .set_or_clear_ingest_on_write(self.ingest_on_write.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -821,6 +967,152 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::ListAnywhere
     }
 }
 
+impl gaxi::prost::ToProto<RapidCache> for crate::generated::gapic_control::model::RapidCache {
+    type Output = RapidCache;
+    fn to_proto(self) -> std::result::Result<RapidCache, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            name: self.name.to_proto()?,
+            zone: self.zone.to_proto()?,
+            cache_type: self.cache_type.to_proto()?,
+            ttl: self.ttl.map(|v| v.to_proto()).transpose()?,
+            admission_policy: self.admission_policy.to_proto()?,
+            state: self.state.to_proto()?,
+            create_time: self.create_time.map(|v| v.to_proto()).transpose()?,
+            update_time: self.update_time.map(|v| v.to_proto()).transpose()?,
+            pending_update: self.pending_update.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_control::model::RapidCache> for RapidCache {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::RapidCache, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::RapidCache::new()
+                .set_name(self.name)
+                .set_zone(self.zone)
+                .set_cache_type(self.cache_type)
+                .set_or_clear_ttl(self.ttl.map(|v| v.cnv()).transpose()?)
+                .set_admission_policy(self.admission_policy)
+                .set_state(self.state)
+                .set_or_clear_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
+                .set_pending_update(self.pending_update)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<CreateRapidCacheRequest> for crate::generated::gapic_control::model::CreateRapidCacheRequest {
+    type Output = CreateRapidCacheRequest;
+    fn to_proto(self) -> std::result::Result<CreateRapidCacheRequest, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            parent: self.parent.to_proto()?,
+            rapid_cache: self.rapid_cache.map(|v| v.to_proto()).transpose()?,
+            request_id: self.request_id.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_control::model::CreateRapidCacheRequest> for CreateRapidCacheRequest {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::CreateRapidCacheRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::CreateRapidCacheRequest::new()
+                .set_parent(self.parent)
+                .set_or_clear_rapid_cache(self.rapid_cache.map(|v| v.cnv()).transpose()?)
+                .set_request_id(self.request_id)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<UpdateRapidCacheRequest> for crate::generated::gapic_control::model::UpdateRapidCacheRequest {
+    type Output = UpdateRapidCacheRequest;
+    fn to_proto(self) -> std::result::Result<UpdateRapidCacheRequest, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            rapid_cache: self.rapid_cache.map(|v| v.to_proto()).transpose()?,
+            update_mask: self.update_mask.map(|v| v.to_proto()).transpose()?,
+            request_id: self.request_id.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_control::model::UpdateRapidCacheRequest> for UpdateRapidCacheRequest {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::UpdateRapidCacheRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::UpdateRapidCacheRequest::new()
+                .set_or_clear_rapid_cache(self.rapid_cache.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_update_mask(self.update_mask.map(|v| v.cnv()).transpose()?)
+                .set_request_id(self.request_id)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<GetRapidCacheRequest> for crate::generated::gapic_control::model::GetRapidCacheRequest {
+    type Output = GetRapidCacheRequest;
+    fn to_proto(self) -> std::result::Result<GetRapidCacheRequest, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            name: self.name.to_proto()?,
+            request_id: self.request_id.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_control::model::GetRapidCacheRequest> for GetRapidCacheRequest {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::GetRapidCacheRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::GetRapidCacheRequest::new()
+                .set_name(self.name)
+                .set_request_id(self.request_id)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<ListRapidCachesRequest> for crate::generated::gapic_control::model::ListRapidCachesRequest {
+    type Output = ListRapidCachesRequest;
+    fn to_proto(self) -> std::result::Result<ListRapidCachesRequest, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            parent: self.parent.to_proto()?,
+            page_size: self.page_size.to_proto()?,
+            page_token: self.page_token.to_proto()?,
+            request_id: self.request_id.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_control::model::ListRapidCachesRequest> for ListRapidCachesRequest {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::ListRapidCachesRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::ListRapidCachesRequest::new()
+                .set_parent(self.parent)
+                .set_page_size(self.page_size)
+                .set_page_token(self.page_token)
+                .set_request_id(self.request_id)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<ListRapidCachesResponse> for crate::generated::gapic_control::model::ListRapidCachesResponse {
+    type Output = ListRapidCachesResponse;
+    fn to_proto(self) -> std::result::Result<ListRapidCachesResponse, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            rapid_caches: self.rapid_caches
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            next_page_token: self.next_page_token.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_control::model::ListRapidCachesResponse> for ListRapidCachesResponse {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::ListRapidCachesResponse, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::ListRapidCachesResponse::new()
+                .set_rapid_caches(self.rapid_caches.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_next_page_token(self.next_page_token)
+        )
+    }
+}
+
 impl gaxi::prost::ToProto<intelligence_config::filter::CloudStorageLocations> for crate::generated::gapic_control::model::intelligence_config::filter::CloudStorageLocations {
     type Output = intelligence_config::filter::CloudStorageLocations;
     fn to_proto(self) -> std::result::Result<intelligence_config::filter::CloudStorageLocations, gaxi::prost::ConvertError> {
@@ -879,8 +1171,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::intelligence
     fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::intelligence_config::filter::CloudStorageLocationsOneOf, gaxi::prost::ConvertError> {
         use crate::generated::gapic_control::model::intelligence_config::filter::CloudStorageLocationsOneOf as T;
         match self {
-            Self::IncludedCloudStorageLocations(v) => Ok(T::from_included_cloud_storage_locations(v.cnv()?)),
-            Self::ExcludedCloudStorageLocations(v) => Ok(T::from_excluded_cloud_storage_locations(v.cnv()?)),
+            Self::IncludedCloudStorageLocations(v) => Ok(T::IncludedCloudStorageLocations(std::boxed::Box::new(v.cnv()?))),
+            Self::ExcludedCloudStorageLocations(v) => Ok(T::ExcludedCloudStorageLocations(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -899,8 +1191,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::intelligence
     fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::intelligence_config::filter::CloudStorageBucketsOneOf, gaxi::prost::ConvertError> {
         use crate::generated::gapic_control::model::intelligence_config::filter::CloudStorageBucketsOneOf as T;
         match self {
-            Self::IncludedCloudStorageBuckets(v) => Ok(T::from_included_cloud_storage_buckets(v.cnv()?)),
-            Self::ExcludedCloudStorageBuckets(v) => Ok(T::from_excluded_cloud_storage_buckets(v.cnv()?)),
+            Self::IncludedCloudStorageBuckets(v) => Ok(T::IncludedCloudStorageBuckets(std::boxed::Box::new(v.cnv()?))),
+            Self::ExcludedCloudStorageBuckets(v) => Ok(T::ExcludedCloudStorageBuckets(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -1183,8 +1475,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::intelligence
     fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::Details, gaxi::prost::ConvertError> {
         use crate::generated::gapic_control::model::intelligence_finding::coldline_and_archival_storage_operations_spike::bucket_contribution::Details as T;
         match self {
-            Self::Contribution(v) => Ok(T::from_contribution(v.cnv()?)),
-            Self::Error(v) => Ok(T::from_error(v.cnv()?)),
+            Self::Contribution(v) => Ok(T::Contribution(std::boxed::Box::new(v.cnv()?))),
+            Self::Error(v) => Ok(T::Error(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -1297,8 +1589,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::intelligence
     fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::intelligence_finding::cross_region_egress_spike::bucket_contribution::Details, gaxi::prost::ConvertError> {
         use crate::generated::gapic_control::model::intelligence_finding::cross_region_egress_spike::bucket_contribution::Details as T;
         match self {
-            Self::Contribution(v) => Ok(T::from_contribution(v.cnv()?)),
-            Self::Error(v) => Ok(T::from_error(v.cnv()?)),
+            Self::Contribution(v) => Ok(T::Contribution(std::boxed::Box::new(v.cnv()?))),
+            Self::Error(v) => Ok(T::Error(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -1411,8 +1703,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::intelligence
     fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::intelligence_finding::throttled_request_spike::bucket_contribution::Details, gaxi::prost::ConvertError> {
         use crate::generated::gapic_control::model::intelligence_finding::throttled_request_spike::bucket_contribution::Details as T;
         match self {
-            Self::Contribution(v) => Ok(T::from_contribution(v.cnv()?)),
-            Self::Error(v) => Ok(T::from_error(v.cnv()?)),
+            Self::Contribution(v) => Ok(T::Contribution(std::boxed::Box::new(v.cnv()?))),
+            Self::Error(v) => Ok(T::Error(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -1480,7 +1772,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::intelligence
     fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::intelligence_finding::storage_growth_above_trend::bucket_contribution::Details, gaxi::prost::ConvertError> {
         use crate::generated::gapic_control::model::intelligence_finding::storage_growth_above_trend::bucket_contribution::Details as T;
         match self {
-            Self::Error(v) => Ok(T::from_error(v.cnv()?)),
+            Self::Error(v) => Ok(T::Error(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -1551,10 +1843,10 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::intelligence
     fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::intelligence_finding::IntelligenceFindingDetails, gaxi::prost::ConvertError> {
         use crate::generated::gapic_control::model::intelligence_finding::IntelligenceFindingDetails as T;
         match self {
-            Self::ColdlineAndArchivalStorageOperationsSpike(v) => Ok(T::from_coldline_and_archival_storage_operations_spike(v.cnv()?)),
-            Self::ThrottledRequestsSpike(v) => Ok(T::from_throttled_requests_spike(v.cnv()?)),
-            Self::CrossRegionEgressSpike(v) => Ok(T::from_cross_region_egress_spike(v.cnv()?)),
-            Self::StorageGrowthAboveTrend(v) => Ok(T::from_storage_growth_above_trend(v.cnv()?)),
+            Self::ColdlineAndArchivalStorageOperationsSpike(v) => Ok(T::ColdlineAndArchivalStorageOperationsSpike(std::boxed::Box::new(v.cnv()?))),
+            Self::ThrottledRequestsSpike(v) => Ok(T::ThrottledRequestsSpike(std::boxed::Box::new(v.cnv()?))),
+            Self::CrossRegionEgressSpike(v) => Ok(T::CrossRegionEgressSpike(std::boxed::Box::new(v.cnv()?))),
+            Self::StorageGrowthAboveTrend(v) => Ok(T::StorageGrowthAboveTrend(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -1831,8 +2123,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::finding_summ
     fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::finding_summary::summary_details::Magnitude, gaxi::prost::ConvertError> {
         use crate::generated::gapic_control::model::finding_summary::summary_details::Magnitude as T;
         match self {
-            Self::Count(v) => Ok(T::from_count(v.cnv()?)),
-            Self::Percentage(v) => Ok(T::from_percentage(v.cnv()?)),
+            Self::Count(v) => Ok(T::Count(v.cnv()?)),
+            Self::Percentage(v) => Ok(T::Percentage(v.cnv()?)),
         }
     }
 }

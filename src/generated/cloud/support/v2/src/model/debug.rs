@@ -443,3 +443,14 @@ impl std::fmt::Debug for super::UndeleteSupportEventSubscriptionRequest {
         debug_struct.finish()
     }
 }
+
+impl std::fmt::Debug for super::ExpungeSupportEventSubscriptionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExpungeSupportEventSubscriptionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}

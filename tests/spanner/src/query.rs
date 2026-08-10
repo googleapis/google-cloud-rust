@@ -141,7 +141,7 @@ pub async fn query_with_parameters(db_client: &DatabaseClient) -> anyhow::Result
     SELECT name FROM Data WHERE id = @id
     "#;
 
-    let stmt = Statement::builder(sql).add_param("id", &2).build();
+    let stmt = Statement::builder(sql).add_param("id", 2).build();
     let mut rs = rot
         .execute_query(stmt)
         .await

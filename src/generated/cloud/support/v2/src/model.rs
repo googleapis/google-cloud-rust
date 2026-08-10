@@ -3712,3 +3712,42 @@ impl wkt::message::Message for UndeleteSupportEventSubscriptionRequest {
         "type.googleapis.com/google.cloud.support.v2.UndeleteSupportEventSubscriptionRequest"
     }
 }
+
+/// Request message for ExpungeSupportEventSubscription.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExpungeSupportEventSubscriptionRequest {
+    /// Required. The name of the support event subscription to expunge.
+    /// Format:
+    /// organizations/{organization_id}/supportEventSubscriptions/{subscription_id}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExpungeSupportEventSubscriptionRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ExpungeSupportEventSubscriptionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_support_v2::model::ExpungeSupportEventSubscriptionRequest;
+    /// # let organization_id = "organization_id";
+    /// # let support_event_subscription_id = "support_event_subscription_id";
+    /// let x = ExpungeSupportEventSubscriptionRequest::new().set_name(format!("organizations/{organization_id}/supportEventSubscriptions/{support_event_subscription_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ExpungeSupportEventSubscriptionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.support.v2.ExpungeSupportEventSubscriptionRequest"
+    }
+}

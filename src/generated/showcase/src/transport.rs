@@ -1,4 +1,4 @@
-// Copyright 2025 Google LLC
+// Copyright 2026 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -1598,24 +1598,45 @@ impl super::stub::Compliance for Compliance {
 #[derive(Clone)]
 pub struct Echo {
     inner: gaxi::http::ReqwestClient,
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    grpc_inner: gaxi::grpc::Client,
 }
 
 impl std::fmt::Debug for Echo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        f.debug_struct("Echo").field("inner", &self.inner).finish()
+        let mut builder = f.debug_struct("Echo");
+        builder.field("inner", &self.inner);
+        #[cfg(google_cloud_unstable_gapic_streaming)]
+        builder.field("grpc_inner", &self.grpc_inner);
+        builder.finish()
     }
 }
 
 impl Echo {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
         let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
-        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config.clone(), crate::DEFAULT_HOST).await?;
         let inner = if tracing_is_enabled {
             inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
         } else {
             inner
         };
-        Ok(Self { inner })
+        #[cfg(google_cloud_unstable_gapic_streaming)]
+        let grpc_inner = if tracing_is_enabled {
+            gaxi::grpc::Client::new_with_instrumentation(
+                config,
+                crate::DEFAULT_HOST,
+                &super::tracing::info::INSTRUMENTATION_CLIENT_INFO,
+            )
+            .await?
+        } else {
+            gaxi::grpc::Client::new(config, crate::DEFAULT_HOST).await?
+        };
+        Ok(Self {
+            inner,
+            #[cfg(google_cloud_unstable_gapic_streaming)]
+            grpc_inner,
+        })
     }
 }
 
@@ -1760,6 +1781,75 @@ impl super::stub::Echo for Echo {
             );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
+    }
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    async fn chat(
+        &self,
+        req: crate::model::EchoRequest,
+        options: crate::RequestOptions,
+    ) -> Result<(
+        google_cloud_gax::streaming::RequestSender<crate::model::EchoRequest>,
+        google_cloud_gax::streaming::ResponseReceiver<crate::model::EchoResponse>,
+    )> {
+        use futures::stream::StreamExt as _;
+        use gaxi::prost::{FromProto, ToProto};
+
+        let first_req = req
+            .to_proto()
+            .map_err(google_cloud_gax::error::Error::ser)?;
+
+        let (req_tx, req_rx) = tokio::sync::mpsc::channel(16);
+
+        let req_stream = futures::stream::once(async move { first_req })
+            .chain(tokio_stream::wrappers::ReceiverStream::new(req_rx));
+
+        let extensions = {
+            let mut e = gaxi::grpc::tonic::Extensions::new();
+            e.insert(gaxi::grpc::tonic::GrpcMethod::new(
+                "google.showcase.v1beta1.Echo",
+                "Chat",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static("/google.showcase.v1beta1.Echo/Chat");
+        let x_goog_request_params = "";
+
+        let result = self.grpc_inner
+            .bidi_stream::<
+                crate::prost::google::showcase::v1beta1::EchoRequest,
+                crate::prost::google::showcase::v1beta1::EchoResponse,
+            >(
+                extensions,
+                path,
+                req_stream,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                x_goog_request_params,
+            )
+            .await?;
+
+        let request_sender = google_cloud_gax::streaming::RequestSender::from_fn(
+            move |item: crate::model::EchoRequest| {
+                let req_tx = req_tx.clone();
+                async move {
+                    let prost_item = item
+                        .to_proto()
+                        .map_err(google_cloud_gax::error::Error::ser)?;
+                    req_tx.send(prost_item).await.map_err(|_| {
+                        google_cloud_gax::error::Error::io("cannot send request: stream is closed")
+                    })
+                }
+            },
+        );
+        let response_receiver = google_cloud_gax::streaming::ResponseReceiver::from_stream(
+            result.into_inner().map(|res| {
+                res.map_err(gaxi::grpc::from_status::to_gax_error)
+                    .and_then(|m| m.cnv().map_err(google_cloud_gax::error::Error::deser))
+            }),
+        );
+
+        Ok((request_sender, response_receiver))
     }
 
     async fn paged_expand(
@@ -3995,26 +4085,45 @@ impl super::stub::Identity for Identity {
 #[derive(Clone)]
 pub struct Messaging {
     inner: gaxi::http::ReqwestClient,
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    grpc_inner: gaxi::grpc::Client,
 }
 
 impl std::fmt::Debug for Messaging {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        f.debug_struct("Messaging")
-            .field("inner", &self.inner)
-            .finish()
+        let mut builder = f.debug_struct("Messaging");
+        builder.field("inner", &self.inner);
+        #[cfg(google_cloud_unstable_gapic_streaming)]
+        builder.field("grpc_inner", &self.grpc_inner);
+        builder.finish()
     }
 }
 
 impl Messaging {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
         let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
-        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config.clone(), crate::DEFAULT_HOST).await?;
         let inner = if tracing_is_enabled {
             inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
         } else {
             inner
         };
-        Ok(Self { inner })
+        #[cfg(google_cloud_unstable_gapic_streaming)]
+        let grpc_inner = if tracing_is_enabled {
+            gaxi::grpc::Client::new_with_instrumentation(
+                config,
+                crate::DEFAULT_HOST,
+                &super::tracing::info::INSTRUMENTATION_CLIENT_INFO,
+            )
+            .await?
+        } else {
+            gaxi::grpc::Client::new(config, crate::DEFAULT_HOST).await?
+        };
+        Ok(Self {
+            inner,
+            #[cfg(google_cloud_unstable_gapic_streaming)]
+            grpc_inner,
+        })
     }
 }
 
@@ -4919,6 +5028,76 @@ impl super::stub::Messaging for Messaging {
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
+    }
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    async fn connect(
+        &self,
+        req: crate::model::ConnectRequest,
+        options: crate::RequestOptions,
+    ) -> Result<(
+        google_cloud_gax::streaming::RequestSender<crate::model::ConnectRequest>,
+        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>,
+    )> {
+        use futures::stream::StreamExt as _;
+        use gaxi::prost::{FromProto, ToProto};
+
+        let first_req = req
+            .to_proto()
+            .map_err(google_cloud_gax::error::Error::ser)?;
+
+        let (req_tx, req_rx) = tokio::sync::mpsc::channel(16);
+
+        let req_stream = futures::stream::once(async move { first_req })
+            .chain(tokio_stream::wrappers::ReceiverStream::new(req_rx));
+
+        let extensions = {
+            let mut e = gaxi::grpc::tonic::Extensions::new();
+            e.insert(gaxi::grpc::tonic::GrpcMethod::new(
+                "google.showcase.v1beta1.Messaging",
+                "Connect",
+            ));
+            e
+        };
+        let path =
+            http::uri::PathAndQuery::from_static("/google.showcase.v1beta1.Messaging/Connect");
+        let x_goog_request_params = "";
+
+        let result = self.grpc_inner
+            .bidi_stream::<
+                crate::prost::google::showcase::v1beta1::ConnectRequest,
+                crate::prost::google::showcase::v1beta1::StreamBlurbsResponse,
+            >(
+                extensions,
+                path,
+                req_stream,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                x_goog_request_params,
+            )
+            .await?;
+
+        let request_sender = google_cloud_gax::streaming::RequestSender::from_fn(
+            move |item: crate::model::ConnectRequest| {
+                let req_tx = req_tx.clone();
+                async move {
+                    let prost_item = item
+                        .to_proto()
+                        .map_err(google_cloud_gax::error::Error::ser)?;
+                    req_tx.send(prost_item).await.map_err(|_| {
+                        google_cloud_gax::error::Error::io("cannot send request: stream is closed")
+                    })
+                }
+            },
+        );
+        let response_receiver = google_cloud_gax::streaming::ResponseReceiver::from_stream(
+            result.into_inner().map(|res| {
+                res.map_err(gaxi::grpc::from_status::to_gax_error)
+                    .and_then(|m| m.cnv().map_err(google_cloud_gax::error::Error::deser))
+            }),
+        );
+
+        Ok((request_sender, response_receiver))
     }
 
     async fn list_locations(

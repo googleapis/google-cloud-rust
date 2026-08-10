@@ -15,7 +15,6 @@
 use crate::key::KeySet;
 use crate::model::batch_write_request::MutationGroup as ProtoMutationGroup;
 use crate::model::mutation::Operation;
-use crate::to_value::ToValue;
 use crate::value::Value;
 use rand::seq::IteratorRandom;
 use std::slice::Iter;
@@ -298,9 +297,9 @@ pub struct ValueBinder {
 
 impl ValueBinder {
     /// Sets the value for the column.
-    pub fn to<T: ToValue + ?Sized>(mut self, value: &T) -> WriteBuilder {
+    pub fn to<T: Into<Value>>(mut self, value: T) -> WriteBuilder {
         self.builder.columns.push(self.column);
-        self.builder.values.push(value.to_value());
+        self.builder.values.push(value.into());
         self.builder
     }
 }
@@ -347,9 +346,92 @@ impl<'a> IntoIterator for &'a MutationGroup {
     }
 }
 
+/// Constructs a [`Mutation`] using declarative syntax.
+///
+/// # Examples
+///
+/// ```
+/// use google_cloud_spanner::key::KeySet;
+/// use google_cloud_spanner::mutation;
+///
+/// // Insert operation
+/// let insert_mut = mutation!(insert "Singers" {
+///     SingerId: 1_i64,
+///     FirstName: "Marc",
+///     LastName: "Richards",
+/// });
+///
+/// // Update operation
+/// let update_mut = mutation!(update "Albums" {
+///     SingerId: 1_i64,
+///     AlbumId: 1_i64,
+///     MarketingBudget: 100_000_i64,
+/// });
+///
+/// // Insert or Update operation
+/// let upsert_mut = mutation!(insert_or_update "Singers" {
+///     SingerId: 1_i64,
+///     FirstName: "Marc",
+///     LastName: "Richards",
+/// });
+///
+/// // Replace operation
+/// let replace_mut = mutation!(replace "Singers" {
+///     SingerId: 1_i64,
+///     FirstName: "Marc",
+///     LastName: "Richards",
+/// });
+///
+/// // Delete operation
+/// let delete_mut = mutation!(delete "Singers", KeySet::all());
+/// ```
+#[macro_export]
+macro_rules! mutation {
+    // Internal helper matcher for column names (ident vs string expr)
+    (@col $id:ident) => {
+        stringify!($id)
+    };
+    (@col $lit:expr) => {
+        $lit
+    };
+
+    // Internal helper for write operations
+    (@build_write $builder:ident, $table:tt, { $($col:tt : $val:expr),* $(,)? }) => {
+        $crate::mutation::Mutation::$builder($table)
+            $(.set($crate::mutation!(@col $col)).to($val))*
+            .build()
+    };
+
+    // Delete operation
+    (delete $table:expr, $key_set:expr) => {
+        $crate::mutation::Mutation::delete($table, $key_set)
+    };
+
+    // Insert operation
+    (insert $table:tt { $($rest:tt)* }) => {
+        $crate::mutation!(@build_write new_insert_builder, $table, { $($rest)* })
+    };
+
+    // Update operation
+    (update $table:tt { $($rest:tt)* }) => {
+        $crate::mutation!(@build_write new_update_builder, $table, { $($rest)* })
+    };
+
+    // Insert or update operation
+    (insert_or_update $table:tt { $($rest:tt)* }) => {
+        $crate::mutation!(@build_write new_insert_or_update_builder, $table, { $($rest)* })
+    };
+
+    // Replace operation
+    (replace $table:tt { $($rest:tt)* }) => {
+        $crate::mutation!(@build_write new_replace_builder, $table, { $($rest)* })
+    };
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::to_value::ToValue;
 
     #[test]
     fn auto_traits() {
@@ -365,11 +447,11 @@ mod tests {
     fn mutation_group() {
         let mutation1 = Mutation::new_insert_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build();
         let mutation2 = Mutation::new_insert_builder("Users")
             .set("UserId")
-            .to(&2)
+            .to(2)
             .build();
         let group = MutationGroup::new(vec![mutation1.clone(), mutation2.clone()]);
         assert_eq!(group.mutations.len(), 2);
@@ -381,11 +463,11 @@ mod tests {
     fn mutation_group_into_iter() {
         let mutation1 = Mutation::new_insert_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build();
         let mutation2 = Mutation::new_insert_builder("Users")
             .set("UserId")
-            .to(&2)
+            .to(2)
             .build();
         let group = MutationGroup::new(vec![mutation1.clone(), mutation2.clone()]);
 
@@ -397,11 +479,11 @@ mod tests {
     fn mutation_group_iter_ref() {
         let mutation1 = Mutation::new_insert_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build();
         let mutation2 = Mutation::new_insert_builder("Users")
             .set("UserId")
-            .to(&2)
+            .to(2)
             .build();
         let group = MutationGroup::new(vec![mutation1.clone(), mutation2.clone()]);
 
@@ -410,12 +492,85 @@ mod tests {
     }
 
     #[test]
+    fn value_binder_to_owned_value() {
+        let by_ref = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(1)
+            .build();
+        let by_value = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(1.to_value())
+            .build();
+        assert_eq!(by_ref, by_value);
+    }
+
+    #[test]
+    #[allow(clippy::needless_borrows_for_generic_args)]
+    fn test_value_binder_borrowed_types() {
+        let id_string = String::from("user-123");
+        let age = 42i64;
+        let active = true;
+
+        let mutation = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(&id_string)
+            .set("Age")
+            .to(&age)
+            .set("Active")
+            .to(&active)
+            .set("Role")
+            .to(&"admin")
+            .build();
+
+        match mutation.inner {
+            InternalMutation::Insert(write) => {
+                assert_eq!(write.values[0].as_string(), "user-123");
+                assert_eq!(write.values[1].as_string(), "42");
+                assert!(write.values[2].as_bool());
+                assert_eq!(write.values[3].as_string(), "admin");
+            }
+            _ => panic!("Expected Insert mutation"),
+        }
+    }
+
+    #[test]
+    fn value_binder_to_turbofished_ref_none() {
+        let mut_ref_turbofished = Mutation::new_insert_builder("Users")
+            .set("Age")
+            .to::<&Option<i64>>(&None)
+            .build();
+        let mut_owned_none = Mutation::new_insert_builder("Users")
+            .set("Age")
+            .to::<Option<i64>>(None)
+            .build();
+        assert_eq!(mut_ref_turbofished, mut_owned_none);
+    }
+
+    #[test]
+    fn value_binder_to_untyped_null() {
+        let mut_null = Mutation::new_insert_builder("Users")
+            .set("Age")
+            .to(Value::null())
+            .build();
+        let mut_unit_none = Mutation::new_insert_builder("Users")
+            .set("Age")
+            .to(None::<()>)
+            .build();
+        let mut_value_none = Mutation::new_insert_builder("Users")
+            .set("Age")
+            .to(None::<Value>)
+            .build();
+        assert_eq!(mut_null, mut_unit_none);
+        assert_eq!(mut_null, mut_value_none);
+    }
+
+    #[test]
     fn insert_builder() {
         let mutation = Mutation::new_insert_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .set("UserName")
-            .to(&"Alice")
+            .to("Alice")
             .build();
 
         match mutation.inner {
@@ -434,7 +589,7 @@ mod tests {
     fn update_builder() {
         let mutation = Mutation::new_update_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build();
 
         match mutation.inner {
@@ -452,7 +607,7 @@ mod tests {
     fn insert_or_update_builder() {
         let mutation = Mutation::new_insert_or_update_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build();
 
         match mutation.inner {
@@ -470,7 +625,7 @@ mod tests {
     fn replace_builder() {
         let mutation = Mutation::new_replace_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build();
 
         match mutation.inner {
@@ -488,9 +643,9 @@ mod tests {
     fn build_proto_insert() {
         let mutation = Mutation::new_insert_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .set("UserName")
-            .to(&"Alice")
+            .to("Alice")
             .build();
         let proto = mutation.build_proto();
         match proto.operation {
@@ -510,7 +665,7 @@ mod tests {
     fn build_proto_update() {
         let mutation = Mutation::new_update_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build();
         let proto = mutation.build_proto();
         match proto.operation {
@@ -527,7 +682,7 @@ mod tests {
     fn build_proto_insert_or_update() {
         let mutation = Mutation::new_insert_or_update_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build();
         let proto = mutation.build_proto();
         match proto.operation {
@@ -547,7 +702,7 @@ mod tests {
     fn build_proto_replace() {
         let mutation = Mutation::new_replace_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build();
         let proto = mutation.build_proto();
         match proto.operation {
@@ -584,12 +739,12 @@ mod tests {
     fn test_select_mutation_key_prefers_insert_or_update_over_insert() {
         let m1 = Mutation::new_insert_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build()
             .build_proto();
         let m2 = Mutation::new_insert_or_update_builder("Users")
             .set("UserId")
-            .to(&2)
+            .to(2)
             .build()
             .build_proto();
         let mutations = vec![m1.clone(), m2.clone()];
@@ -601,7 +756,7 @@ mod tests {
     fn test_select_mutation_key_only_insert_prefers_largest() {
         let m1 = Mutation::new_insert_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build()
             .build_proto();
 
@@ -627,17 +782,17 @@ mod tests {
     fn test_select_mutation_key_mix() {
         let m1 = Mutation::new_insert_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build()
             .build_proto();
         let m2 = Mutation::new_update_builder("Users")
             .set("UserId")
-            .to(&2)
+            .to(2)
             .build()
             .build_proto();
         let m3 = Mutation::new_insert_or_update_builder("Users")
             .set("UserId")
-            .to(&3)
+            .to(3)
             .build()
             .build_proto();
         let mutations = vec![m1.clone(), m2.clone(), m3.clone()];
@@ -654,12 +809,12 @@ mod tests {
     fn test_select_mutation_key_only_non_insert() {
         let m1 = Mutation::new_update_builder("Users")
             .set("UserId")
-            .to(&1)
+            .to(1)
             .build()
             .build_proto();
         let m2 = Mutation::new_replace_builder("Users")
             .set("UserId")
-            .to(&2)
+            .to(2)
             .build()
             .build_proto();
         let mutations = vec![m1.clone(), m2.clone()];
@@ -679,5 +834,115 @@ mod tests {
         let mutations = vec![m1.clone(), m2.clone()];
         let key = Mutation::select_mutation_key(&mutations);
         assert_eq!(key, Some(m1));
+    }
+
+    #[test]
+    fn test_mutation_macro_insert() {
+        let macro_mutation = mutation!(insert "Singers" {
+            SingerId: 1_i64,
+            FirstName: "Marc",
+            LastName: "Richards",
+        });
+
+        let builder_mutation = Mutation::new_insert_builder("Singers")
+            .set("SingerId")
+            .to(1_i64)
+            .set("FirstName")
+            .to("Marc")
+            .set("LastName")
+            .to("Richards")
+            .build();
+
+        assert_eq!(macro_mutation, builder_mutation);
+    }
+
+    #[test]
+    fn test_mutation_macro_update_with_string_literal() {
+        let macro_mutation = mutation!(update "Albums" {
+            SingerId: 1_i64,
+            "AlbumTitle": "New Title",
+            MarketingBudget: 100_000_i64,
+        });
+
+        let builder_mutation = Mutation::new_update_builder("Albums")
+            .set("SingerId")
+            .to(1_i64)
+            .set("AlbumTitle")
+            .to("New Title")
+            .set("MarketingBudget")
+            .to(100_000_i64)
+            .build();
+
+        assert_eq!(macro_mutation, builder_mutation);
+    }
+
+    #[test]
+    fn test_mutation_macro_insert_or_update() {
+        let macro_mutation = mutation!(insert_or_update "Singers" {
+            SingerId: 2_i64,
+            FirstName: "Alice",
+        });
+
+        let builder_mutation = Mutation::new_insert_or_update_builder("Singers")
+            .set("SingerId")
+            .to(2_i64)
+            .set("FirstName")
+            .to("Alice")
+            .build();
+
+        assert_eq!(macro_mutation, builder_mutation);
+    }
+
+    #[test]
+    fn test_mutation_macro_replace() {
+        let macro_mutation = mutation!(replace "Singers" {
+            SingerId: 3_i64,
+            FirstName: "Bob",
+        });
+
+        let builder_mutation = Mutation::new_replace_builder("Singers")
+            .set("SingerId")
+            .to(3_i64)
+            .set("FirstName")
+            .to("Bob")
+            .build();
+
+        assert_eq!(macro_mutation, builder_mutation);
+    }
+
+    #[test]
+    fn test_mutation_macro_delete() {
+        let macro_mutation = mutation!(delete "Singers", KeySet::all());
+        let direct_mutation = Mutation::delete("Singers", KeySet::all());
+
+        assert_eq!(macro_mutation, direct_mutation);
+    }
+
+    #[test]
+    fn test_mutation_macro_complex_table_expressions() {
+        fn get_table() -> &'static str {
+            "Singers"
+        }
+        mod constants {
+            pub const TABLE: &str = "Singers";
+        }
+
+        let macro_mutation1 = mutation!(insert (get_table()) {
+            SingerId: 1_i64,
+        });
+        let macro_mutation2 = mutation!(insert (constants::TABLE) {
+            SingerId: 1_i64,
+        });
+        let delete_mutation = mutation!(delete constants::TABLE, KeySet::all());
+
+        let expected_insert = Mutation::new_insert_builder("Singers")
+            .set("SingerId")
+            .to(1_i64)
+            .build();
+        let expected_delete = Mutation::delete("Singers", KeySet::all());
+
+        assert_eq!(macro_mutation1, expected_insert);
+        assert_eq!(macro_mutation2, expected_insert);
+        assert_eq!(delete_mutation, expected_delete);
     }
 }

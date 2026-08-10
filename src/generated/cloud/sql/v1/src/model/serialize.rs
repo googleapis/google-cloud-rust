@@ -3222,6 +3222,12 @@ impl serde::ser::Serialize for super::DatabaseInstance {
         if !self.dns_names.is_empty() {
             state.serialize_entry("dnsNames", &self.dns_names)?;
         }
+        if self.database_center_integration_enabled.is_some() {
+            state.serialize_entry(
+                "databaseCenterIntegrationEnabled",
+                &self.database_center_integration_enabled,
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -3843,6 +3849,9 @@ impl serde::ser::Serialize for super::OnPremisesConfiguration {
         if !wkt::internal::is_default(&self.ssl_option) {
             state.serialize_entry("sslOption", &self.ssl_option)?;
         }
+        if !wkt::internal::is_default(&self.dms_managed) {
+            state.serialize_entry("dmsManaged", &self.dms_managed)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -3932,6 +3941,9 @@ impl serde::ser::Serialize for super::ExecuteSqlPayload {
         }
         if !self.database.is_empty() {
             state.serialize_entry("database", &self.database)?;
+        }
+        if let Some(value) = self.password_secret_version() {
+            state.serialize_entry("passwordSecretVersion", value)?;
         }
         if let Some(value) = self.auto_iam_authn() {
             state.serialize_entry("autoIamAuthn", value)?;
@@ -4288,6 +4300,9 @@ impl serde::ser::Serialize for super::SqlOperationsGetRequest {
         if !self.project.is_empty() {
             state.serialize_entry("project", &self.project)?;
         }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -4327,6 +4342,9 @@ impl serde::ser::Serialize for super::SqlOperationsListRequest {
         }
         if !self.project.is_empty() {
             state.serialize_entry("project", &self.project)?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -4380,6 +4398,9 @@ impl serde::ser::Serialize for super::SqlOperationsCancelRequest {
         }
         if !self.project.is_empty() {
             state.serialize_entry("project", &self.project)?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -7573,6 +7594,15 @@ impl serde::ser::Serialize for super::SqlUsersUpdateRequest {
         if self.revoke_existing_roles.is_some() {
             state.serialize_entry("revokeExistingRoles", &self.revoke_existing_roles)?;
         }
+        if !self.server_roles.is_empty() {
+            state.serialize_entry("serverRoles", &self.server_roles)?;
+        }
+        if self.revoke_existing_server_roles.is_some() {
+            state.serialize_entry(
+                "revokeExistingServerRoles",
+                &self.revoke_existing_server_roles,
+            )?;
+        }
         if self.body.is_some() {
             state.serialize_entry("body", &self.body)?;
         }
@@ -7716,6 +7746,9 @@ impl serde::ser::Serialize for super::User {
         }
         if !self.database_roles.is_empty() {
             state.serialize_entry("databaseRoles", &self.database_roles)?;
+        }
+        if !self.server_roles.is_empty() {
+            state.serialize_entry("serverRoles", &self.server_roles)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

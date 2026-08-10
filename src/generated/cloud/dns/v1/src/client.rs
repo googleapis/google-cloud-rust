@@ -123,7 +123,7 @@ impl Changes {
             .map(super::tracing::Changes::new)
     }
 
-    /// Atomically updates the ResourceRecordSet collection.
+    /// Atomically updates the ResourceRecordSet collection. Note: While `dns.changes.create` is the baseline permission required to invoke this method, additional permissions are checked depending on the specific additions or deletions contained in the payload.
     ///
     /// # Example
     /// ```
@@ -591,7 +591,7 @@ impl ManagedZones {
             .map(super::tracing::ManagedZones::new)
     }
 
-    /// Creates a new ManagedZone.
+    /// Creates a new ManagedZone. Note: While `dns.managedZones.create` is the baseline permission required to invoke this method, additional permissions are required if the managed zone configuration references other resources.
     ///
     /// # Example
     /// ```

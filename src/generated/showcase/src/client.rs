@@ -1,4 +1,4 @@
-// Copyright 2025 Google LLC
+// Copyright 2026 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -728,6 +728,14 @@ impl Echo {
     /// ```
     pub fn fail_echo_with_details(&self) -> super::builder::echo::FailEchoWithDetails {
         super::builder::echo::FailEchoWithDetails::new(self.inner.clone())
+    }
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    /// This method, upon receiving a request on the stream, will pass the same
+    /// content back on the stream. This method showcases bidirectional
+    /// streaming RPCs.
+    pub fn chat(&self) -> super::builder::echo::Chat {
+        super::builder::echo::Chat::new(self.inner.clone())
     }
 
     /// This is similar to the Expand method but instead of returning a stream of
@@ -1846,6 +1854,15 @@ impl Messaging {
     /// ```
     pub fn search_blurbs(&self) -> super::builder::messaging::SearchBlurbs {
         super::builder::messaging::SearchBlurbs::new(self.inner.clone())
+    }
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    /// This method starts a bidirectional stream that receives all blurbs that
+    /// are being created after the stream has started and sends requests to create
+    /// blurbs. If an invalid blurb is requested to be created, the stream will
+    /// close with an error.
+    pub fn connect(&self) -> super::builder::messaging::Connect {
+        super::builder::messaging::Connect::new(self.inner.clone())
     }
 
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.

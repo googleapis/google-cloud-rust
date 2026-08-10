@@ -16,9 +16,9 @@ use crate::model::DirectedReadOptions;
 use crate::model::execute_sql_request::QueryMode;
 use crate::model::execute_sql_request::QueryOptions;
 use crate::model::request_options::Priority;
-use crate::to_value::ToValue;
 use crate::types::Type;
 use crate::value::Value;
+
 use google_cloud_gax::backoff_policy::BackoffPolicyArg;
 use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
 use google_cloud_gax::retry_policy::RetryPolicyArg;
@@ -69,8 +69,8 @@ impl StatementBuilder {
     /// It is recommended to use untyped parameter values, unless you explicitly want Spanner to
     /// verify that the type of the parameter value is exactly the same as the type that would
     /// otherwise be inferred from the SQL string.
-    pub fn add_param<T: ToValue + ?Sized>(mut self, name: impl Into<String>, value: &T) -> Self {
-        self.params.insert(name.into(), value.to_value());
+    pub fn add_param<T: Into<Value>>(mut self, name: impl Into<String>, value: T) -> Self {
+        self.params.insert(name.into(), value.into());
         self
     }
 
@@ -78,14 +78,14 @@ impl StatementBuilder {
     ///
     /// The parameter value is sent with an explicit type code to Spanner. The type code must
     /// correspond with the expression in the SQL string that the query parameter is bound to.
-    pub fn add_typed_param<T: ToValue + ?Sized>(
+    pub fn add_typed_param<T: Into<Value>>(
         mut self,
         name: impl Into<String>,
-        value: &T,
+        value: T,
         param_type: Type,
     ) -> Self {
         let name = name.into();
-        self.params.insert(name.clone(), value.to_value());
+        self.params.insert(name.clone(), value.into());
         self.param_types.insert(name, param_type);
         self
     }
@@ -425,6 +425,7 @@ impl From<&str> for Statement {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::to_value::ToValue;
     use anyhow::Context;
 
     #[test]
@@ -436,7 +437,7 @@ mod tests {
     #[test]
     fn test_untyped_param() {
         let stmt = Statement::builder("SELECT * FROM users WHERE age > @age")
-            .add_param("age", &21)
+            .add_param("age", 21)
             .build();
 
         assert_eq!(stmt.sql, "SELECT * FROM users WHERE age > @age");
@@ -449,10 +450,127 @@ mod tests {
     }
 
     #[test]
+    fn test_param_direct_types() {
+        let id_str = "user-123";
+        let id_string = String::from("user-456");
+        let age_i64 = 42i64;
+        let active_bool = true;
+
+        let stmt = Statement::builder(
+            "SELECT * FROM users WHERE id = @id AND age = @age AND active = @active",
+        )
+        .add_param("id", id_str)
+        .add_param("id2", id_string)
+        .add_param("age", age_i64)
+        .add_param("active", active_bool)
+        .build();
+
+        assert_eq!(stmt.params.get("id").unwrap().as_string(), "user-123");
+        assert_eq!(stmt.params.get("id2").unwrap().as_string(), "user-456");
+        assert_eq!(stmt.params.get("age").unwrap().as_string(), "42");
+        assert!(stmt.params.get("active").unwrap().as_bool());
+    }
+
+    #[test]
+    #[allow(clippy::needless_borrows_for_generic_args)]
+    fn test_param_borrowed_types() {
+        use crate::types;
+        let id_str = "user-123";
+        let id_string = String::from("user-456");
+        let age_i64 = 42i64;
+        let active_bool = true;
+
+        let stmt = Statement::builder(
+            "SELECT * FROM users WHERE id = @id AND age = @age AND active = @active",
+        )
+        .add_param("id", &id_str)
+        .add_param("id2", &id_string)
+        .add_param("age", &age_i64)
+        .add_param("active", &active_bool)
+        .add_typed_param("role", &"admin", types::string())
+        .build();
+
+        assert_eq!(stmt.params.get("id").unwrap().as_string(), "user-123");
+        assert_eq!(stmt.params.get("id2").unwrap().as_string(), "user-456");
+        assert_eq!(stmt.params.get("age").unwrap().as_string(), "42");
+        assert!(stmt.params.get("active").unwrap().as_bool());
+        assert_eq!(stmt.params.get("role").unwrap().as_string(), "admin");
+    }
+
+    #[test]
+    fn test_param_owned_value() {
+        let value = 21i32.to_value();
+        let stmt = Statement::builder("SELECT * FROM users WHERE age > @age")
+            .add_param("age", value)
+            .build();
+
+        assert_eq!(stmt.param_types.len(), 0);
+        assert_eq!(stmt.params.len(), 1);
+        assert_eq!(
+            stmt.params
+                .get("age")
+                .expect("parameter 'age' should be present")
+                .as_string(),
+            "21"
+        );
+    }
+
+    #[test]
+    fn test_typed_param_owned_value() {
+        use crate::types;
+        let value = "user-123".to_value();
+        let stmt = Statement::builder("SELECT * FROM users WHERE id = @id")
+            .add_typed_param("id", value, types::string())
+            .build();
+
+        assert_eq!(stmt.param_types.len(), 1);
+        assert_eq!(
+            stmt.param_types
+                .get("id")
+                .expect("parameter type for 'id' should be present"),
+            &types::string()
+        );
+        assert_eq!(stmt.params.len(), 1);
+        assert_eq!(
+            stmt.params
+                .get("id")
+                .expect("parameter 'id' should be present")
+                .as_string(),
+            "user-123"
+        );
+    }
+
+    #[test]
+    fn test_param_turbofished_ref_none() {
+        let stmt_ref_turbofished = Statement::builder("SELECT * FROM users WHERE age > @age")
+            .add_param::<&Option<i64>>("age", &None)
+            .build();
+        let stmt_owned_none = Statement::builder("SELECT * FROM users WHERE age > @age")
+            .add_param::<Option<i64>>("age", None)
+            .build();
+        assert_eq!(stmt_ref_turbofished.params, stmt_owned_none.params);
+    }
+
+    #[test]
+    fn test_param_untyped_null() {
+        let stmt_null = Statement::builder("SELECT * FROM users WHERE age > @age")
+            .add_param("age", Value::null())
+            .build();
+        let stmt_unit_none = Statement::builder("SELECT * FROM users WHERE age > @age")
+            .add_param("age", None::<()>)
+            .build();
+        let stmt_value_none = Statement::builder("SELECT * FROM users WHERE age > @age")
+            .add_param("age", None::<Value>)
+            .build();
+        assert_eq!(stmt_null.params, stmt_unit_none.params);
+        assert_eq!(stmt_null.params, stmt_value_none.params);
+    }
+
+    #[test]
     fn test_typed_param() {
         use crate::types;
         let stmt = Statement::builder("SELECT * FROM users WHERE id = @id")
-            .add_typed_param("id", &"user-123", types::string())
+            .add_typed_param("id", "user-123", types::string())
             .build();
 
         assert_eq!(stmt.param_types.len(), 1);
@@ -467,8 +585,8 @@ mod tests {
     fn test_multiple_params() {
         use crate::types;
         let stmt = Statement::builder("SELECT * FROM users WHERE age > @age AND role = @role")
-            .add_param("age", &21)
-            .add_typed_param("role", &"admin", types::string())
+            .add_param("age", 21)
+            .add_typed_param("role", "admin", types::string())
             .build();
 
         assert_eq!(stmt.params.len(), 2);
@@ -493,8 +611,8 @@ mod tests {
     fn test_from_builder_conversion() {
         use crate::types;
         let builder = Statement::builder("SELECT * FROM users WHERE age > @age AND role = @role")
-            .add_param("age", &21)
-            .add_typed_param("role", &"admin", types::string());
+            .add_param("age", 21)
+            .add_typed_param("role", "admin", types::string());
 
         let stmt: Statement = builder.into();
         assert_eq!(
@@ -509,8 +627,8 @@ mod tests {
     fn test_into_request() {
         use crate::types;
         let stmt = Statement::builder("SELECT * FROM users WHERE age > @age AND role = @role")
-            .add_param("age", &21)
-            .add_typed_param("role", &"admin", types::string())
+            .add_param("age", 21)
+            .add_typed_param("role", "admin", types::string())
             .build();
 
         let req = stmt.into_request();

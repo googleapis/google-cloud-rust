@@ -27,13 +27,13 @@ pub async fn successful_batch_update(db_client: &DatabaseClient) -> anyhow::Resu
         .set("Id")
         .to(&id1)
         .set("ColInt64")
-        .to(&10_i64)
+        .to(10_i64)
         .build();
     let mutation2 = Mutation::new_insert_builder("AllTypes")
         .set("Id")
         .to(&id2)
         .set("ColInt64")
-        .to(&20_i64)
+        .to(20_i64)
         .build();
 
     db_client
@@ -119,7 +119,7 @@ pub async fn partial_batch_update_failure(db_client: &DatabaseClient) -> anyhow:
         .set("Id")
         .to(&id)
         .set("ColInt64")
-        .to(&50_i64)
+        .to(50_i64)
         .build();
 
     db_client
@@ -243,7 +243,7 @@ pub async fn unsupported_returning_clause(db_client: &DatabaseClient) -> anyhow:
         .set("Id")
         .to(&id)
         .set("ColInt64")
-        .to(&100_i64)
+        .to(100_i64)
         .build();
 
     db_client
@@ -398,7 +398,7 @@ pub async fn continue_after_invalid_second_statement_in_batch(
         .set("Id")
         .to(&id)
         .set("ColInt64")
-        .to(&50_i64)
+        .to(50_i64)
         .build();
     db_client
         .write_only_transaction()

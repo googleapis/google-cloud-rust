@@ -26,6 +26,8 @@
 pub mod key;
 /// Write mutations and transaction commit binders.
 pub mod mutation;
+/// Spanner Omni options and configuration.
+pub mod omni;
 /// Configurable read requests and builders.
 pub mod read;
 /// Spanner execution result streams and rows.
@@ -84,8 +86,11 @@ pub(crate) mod partitioned_dml_transaction;
 pub(crate) mod precommit;
 pub(crate) mod read_only_transaction;
 pub(crate) mod read_write_transaction;
+pub(crate) mod request_id;
+pub(crate) mod request_id_interceptor;
 pub(crate) mod result_set;
 pub(crate) mod result_set_metadata;
+pub(crate) mod routing;
 pub(crate) mod row;
 pub(crate) mod server_streaming;
 pub(crate) mod session_maintainer;

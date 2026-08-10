@@ -11132,6 +11132,10 @@ pub struct DatabaseInstance {
     /// Output only. The list of DNS names used by this instance.
     pub dns_names: std::vec::Vec<crate::model::DnsNameMapping>,
 
+    /// Optional. If true, instance metadata is sent to the Database Center. If
+    /// false, instance metadata is not sent to the Database Center.
+    pub database_center_integration_enabled: std::option::Option<wkt::BoolValue>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -12369,6 +12373,42 @@ impl DatabaseInstance {
     {
         use std::iter::Iterator;
         self.dns_names = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [database_center_integration_enabled][crate::model::DatabaseInstance::database_center_integration_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use wkt::BoolValue;
+    /// let x = DatabaseInstance::new().set_database_center_integration_enabled(BoolValue::default()/* use setters */);
+    /// ```
+    pub fn set_database_center_integration_enabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::BoolValue>,
+    {
+        self.database_center_integration_enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [database_center_integration_enabled][crate::model::DatabaseInstance::database_center_integration_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use wkt::BoolValue;
+    /// let x = DatabaseInstance::new().set_or_clear_database_center_integration_enabled(Some(BoolValue::default()/* use setters */));
+    /// let x = DatabaseInstance::new().set_or_clear_database_center_integration_enabled(None::<BoolValue>);
+    /// ```
+    pub fn set_or_clear_database_center_integration_enabled<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<wkt::BoolValue>,
+    {
+        self.database_center_integration_enabled = v.map(|x| x.into());
         self
     }
 }
@@ -15508,6 +15548,10 @@ pub struct OnPremisesConfiguration {
     /// Optional. SSL option for replica connection to the on-premises source.
     pub ssl_option: crate::model::on_premises_configuration::SslOption,
 
+    /// Output only. Indicates whether the resource is managed by Database
+    /// Migration Service.
+    pub dms_managed: bool,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -15688,6 +15732,18 @@ impl OnPremisesConfiguration {
         v: T,
     ) -> Self {
         self.ssl_option = v.into();
+        self
+    }
+
+    /// Sets the value of [dms_managed][crate::model::OnPremisesConfiguration::dms_managed].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::OnPremisesConfiguration;
+    /// let x = OnPremisesConfiguration::new().set_dms_managed(true);
+    /// ```
+    pub fn set_dms_managed<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.dms_managed = v.into();
         self
     }
 }
@@ -16213,7 +16269,7 @@ impl ExecuteSqlPayload {
     /// ```ignore,no_run
     /// # use google_cloud_sql_v1::model::ExecuteSqlPayload;
     /// use google_cloud_sql_v1::model::execute_sql_payload::UserPassword;
-    /// let x = ExecuteSqlPayload::new().set_user_password(Some(UserPassword::AutoIamAuthn(true)));
+    /// let x = ExecuteSqlPayload::new().set_user_password(Some(UserPassword::PasswordSecretVersion("example".to_string())));
     /// ```
     pub fn set_user_password<
         T: std::convert::Into<std::option::Option<crate::model::execute_sql_payload::UserPassword>>,
@@ -16222,6 +16278,42 @@ impl ExecuteSqlPayload {
         v: T,
     ) -> Self {
         self.user_password = v.into();
+        self
+    }
+
+    /// The value of [user_password][crate::model::ExecuteSqlPayload::user_password]
+    /// if it holds a `PasswordSecretVersion`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn password_secret_version(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.user_password.as_ref().and_then(|v| match v {
+            crate::model::execute_sql_payload::UserPassword::PasswordSecretVersion(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [user_password][crate::model::ExecuteSqlPayload::user_password]
+    /// to hold a `PasswordSecretVersion`.
+    ///
+    /// Note that all the setters affecting `user_password` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ExecuteSqlPayload;
+    /// let x = ExecuteSqlPayload::new().set_password_secret_version("example");
+    /// assert!(x.password_secret_version().is_some());
+    /// assert!(x.auto_iam_authn().is_none());
+    /// ```
+    pub fn set_password_secret_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.user_password = std::option::Option::Some(
+            crate::model::execute_sql_payload::UserPassword::PasswordSecretVersion(v.into()),
+        );
         self
     }
 
@@ -16249,6 +16341,7 @@ impl ExecuteSqlPayload {
     /// # use google_cloud_sql_v1::model::ExecuteSqlPayload;
     /// let x = ExecuteSqlPayload::new().set_auto_iam_authn(true);
     /// assert!(x.auto_iam_authn().is_some());
+    /// assert!(x.password_secret_version().is_none());
     /// ```
     pub fn set_auto_iam_authn<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.user_password = std::option::Option::Some(
@@ -16409,6 +16502,15 @@ pub mod execute_sql_payload {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum UserPassword {
+        /// Optional. The resource name of the Secret Manager secret holding the
+        /// password for the user to log into the database. The secret should be
+        /// created using the regional endpoint (for API) or from the Regional
+        /// Secrets page (for UI), and stored in the same region as the Cloud SQL
+        /// instance. The expected resource name format is
+        /// `projects/{project}/locations/{location}/secrets/{secret}/versions/{secret_version}`.
+        /// Used together with the `user` field.
+        /// The secret resource name will not be stored.
+        PasswordSecretVersion(std::string::String),
         /// Optional. When set to `true`, the API caller identity associated with the
         /// request is used for database authentication. The API caller must be an
         /// IAM user in the database.
@@ -17298,6 +17400,9 @@ pub struct SqlOperationsGetRequest {
     /// Required. Project ID of the project that contains the instance.
     pub project: std::string::String,
 
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -17330,6 +17435,18 @@ impl SqlOperationsGetRequest {
         self.project = v.into();
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlOperationsGetRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlOperationsGetRequest;
+    /// let x = SqlOperationsGetRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlOperationsGetRequest {
@@ -17354,6 +17471,9 @@ pub struct SqlOperationsListRequest {
 
     /// Project ID of the project that contains the instance.
     pub project: std::string::String,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -17409,6 +17529,18 @@ impl SqlOperationsListRequest {
     /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
+        self
+    }
+
+    /// Sets the value of [location][crate::model::SqlOperationsListRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlOperationsListRequest;
+    /// let x = SqlOperationsListRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
         self
     }
 }
@@ -17519,6 +17651,9 @@ pub struct SqlOperationsCancelRequest {
     /// Project ID of the project that contains the instance.
     pub project: std::string::String,
 
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -17549,6 +17684,18 @@ impl SqlOperationsCancelRequest {
     /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
+        self
+    }
+
+    /// Sets the value of [location][crate::model::SqlOperationsCancelRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlOperationsCancelRequest;
+    /// let x = SqlOperationsCancelRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
         self
     }
 }
@@ -32339,6 +32486,16 @@ pub struct SqlUsersUpdateRequest {
     /// specified in `database_roles` are added to the user's existing roles.
     pub revoke_existing_roles: std::option::Option<bool>,
 
+    /// Optional. The server roles to grant to the SQL Server login. Existing
+    /// server roles will not be revoked if revoke_existing_roles is false.
+    /// body.server_roles will be ignored for update request.
+    pub server_roles: std::vec::Vec<std::string::String>,
+
+    /// Optional. Specifies whether to revoke existing roles that are not present
+    /// in the `server_roles` field. If `false` or unset, the server roles
+    /// specified in `server_roles` are added to the user's existing server roles.
+    pub revoke_existing_server_roles: std::option::Option<bool>,
+
     #[allow(missing_docs)]
     pub body: std::option::Option<crate::model::User>,
 
@@ -32444,6 +32601,54 @@ impl SqlUsersUpdateRequest {
         T: std::convert::Into<bool>,
     {
         self.revoke_existing_roles = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [server_roles][crate::model::SqlUsersUpdateRequest::server_roles].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlUsersUpdateRequest;
+    /// let x = SqlUsersUpdateRequest::new().set_server_roles(["a", "b", "c"]);
+    /// ```
+    pub fn set_server_roles<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.server_roles = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [revoke_existing_server_roles][crate::model::SqlUsersUpdateRequest::revoke_existing_server_roles].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlUsersUpdateRequest;
+    /// let x = SqlUsersUpdateRequest::new().set_revoke_existing_server_roles(true);
+    /// ```
+    pub fn set_revoke_existing_server_roles<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.revoke_existing_server_roles = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [revoke_existing_server_roles][crate::model::SqlUsersUpdateRequest::revoke_existing_server_roles].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlUsersUpdateRequest;
+    /// let x = SqlUsersUpdateRequest::new().set_or_clear_revoke_existing_server_roles(Some(false));
+    /// let x = SqlUsersUpdateRequest::new().set_or_clear_revoke_existing_server_roles(None::<bool>);
+    /// ```
+    pub fn set_or_clear_revoke_existing_server_roles<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.revoke_existing_server_roles = v.map(|x| x.into());
         self
     }
 
@@ -32751,6 +32956,9 @@ pub struct User {
     /// Optional. Role memberships of the user
     pub database_roles: std::vec::Vec<std::string::String>,
 
+    /// Optional. The server roles for the SQL Server login.
+    pub server_roles: std::vec::Vec<std::string::String>,
+
     /// User details for specific database type
     pub user_details: std::option::Option<crate::model::user::UserDetails>,
 
@@ -32996,6 +33204,23 @@ impl User {
     {
         use std::iter::Iterator;
         self.database_roles = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [server_roles][crate::model::User::server_roles].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::User;
+    /// let x = User::new().set_server_roles(["a", "b", "c"]);
+    /// ```
+    pub fn set_server_roles<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.server_roles = v.into_iter().map(|i| i.into()).collect();
         self
     }
 

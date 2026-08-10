@@ -1,4 +1,4 @@
-// Copyright 2025 Google LLC
+// Copyright 2026 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -2688,6 +2688,142 @@ pub mod echo {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for FailEchoWithDetails {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    /// The request builder for [Echo::chat][crate::client::Echo::chat] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::builder::echo::Chat;
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let (sender, mut receiver) = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> Chat {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Chat(RequestBuilder<crate::model::EchoRequest>);
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    impl Chat {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::EchoRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the bidirectional stream.
+        pub async fn send(
+            self,
+        ) -> Result<(
+            google_cloud_gax::streaming::RequestSender<crate::model::EchoRequest>,
+            google_cloud_gax::streaming::ResponseReceiver<crate::model::EchoResponse>,
+        )> {
+            (*self.0.stub).chat(self.0.request, self.0.options).await
+        }
+
+        /// Sets the value of [severity][crate::model::EchoRequest::severity].
+        pub fn set_severity<T: Into<crate::model::Severity>>(mut self, v: T) -> Self {
+            self.0.request.severity = v.into();
+            self
+        }
+
+        /// Sets the value of [header][crate::model::EchoRequest::header].
+        pub fn set_header<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.header = v.into();
+            self
+        }
+
+        /// Sets the value of [other_header][crate::model::EchoRequest::other_header].
+        pub fn set_other_header<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.other_header = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::EchoRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+
+        /// Sets the value of [other_request_id][crate::model::EchoRequest::other_request_id].
+        pub fn set_other_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.other_request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [other_request_id][crate::model::EchoRequest::other_request_id].
+        pub fn set_or_clear_other_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.other_request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [response][crate::model::EchoRequest::response].
+        ///
+        /// Note that all the setters affecting `response` are
+        /// mutually exclusive.
+        pub fn set_response<T: Into<Option<crate::model::echo_request::Response>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.response = v.into();
+            self
+        }
+
+        /// Sets the value of [response][crate::model::EchoRequest::response]
+        /// to hold a `Content`.
+        ///
+        /// Note that all the setters affecting `response` are
+        /// mutually exclusive.
+        pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request = self.0.request.set_content(v);
+            self
+        }
+
+        /// Sets the value of [response][crate::model::EchoRequest::response]
+        /// to hold a `Error`.
+        ///
+        /// Note that all the setters affecting `response` are
+        /// mutually exclusive.
+        pub fn set_error<
+            T: std::convert::Into<std::boxed::Box<google_cloud_rpc::model::Status>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_error(v);
+            self
+        }
+    }
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    #[doc(hidden)]
+    impl crate::RequestBuilder for Chat {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
@@ -6172,6 +6308,105 @@ pub mod messaging {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for SearchBlurbs {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    /// The request builder for [Messaging::connect][crate::client::Messaging::connect] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::builder::messaging::Connect;
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let (sender, mut receiver) = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> Connect {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Connect(RequestBuilder<crate::model::ConnectRequest>);
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    impl Connect {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Messaging>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ConnectRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the bidirectional stream.
+        pub async fn send(
+            self,
+        ) -> Result<(
+            google_cloud_gax::streaming::RequestSender<crate::model::ConnectRequest>,
+            google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>,
+        )> {
+            (*self.0.stub).connect(self.0.request, self.0.options).await
+        }
+
+        /// Sets the value of [request][crate::model::ConnectRequest::request].
+        ///
+        /// Note that all the setters affecting `request` are
+        /// mutually exclusive.
+        pub fn set_request<T: Into<Option<crate::model::connect_request::Request>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.request = v.into();
+            self
+        }
+
+        /// Sets the value of [request][crate::model::ConnectRequest::request]
+        /// to hold a `Config`.
+        ///
+        /// Note that all the setters affecting `request` are
+        /// mutually exclusive.
+        pub fn set_config<
+            T: std::convert::Into<std::boxed::Box<crate::model::connect_request::ConnectConfig>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_config(v);
+            self
+        }
+
+        /// Sets the value of [request][crate::model::ConnectRequest::request]
+        /// to hold a `Blurb`.
+        ///
+        /// Note that all the setters affecting `request` are
+        /// mutually exclusive.
+        pub fn set_blurb<T: std::convert::Into<std::boxed::Box<crate::model::Blurb>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_blurb(v);
+            self
+        }
+    }
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    #[doc(hidden)]
+    impl crate::RequestBuilder for Connect {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }

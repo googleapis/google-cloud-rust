@@ -5906,6 +5906,12 @@ pub mod sql_operations_service {
             self.0.request.project = v.into();
             self
         }
+
+        /// Sets the value of [location][crate::model::SqlOperationsGetRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -6019,6 +6025,12 @@ pub mod sql_operations_service {
             self.0.request.project = v.into();
             self
         }
+
+        /// Sets the value of [location][crate::model::SqlOperationsListRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -6086,6 +6098,12 @@ pub mod sql_operations_service {
         /// Sets the value of [project][crate::model::SqlOperationsCancelRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::SqlOperationsCancelRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
             self
         }
     }
@@ -7033,6 +7051,38 @@ pub mod sql_users_service {
             T: std::convert::Into<bool>,
         {
             self.0.request.revoke_existing_roles = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [server_roles][crate::model::SqlUsersUpdateRequest::server_roles].
+        pub fn set_server_roles<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.server_roles = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [revoke_existing_server_roles][crate::model::SqlUsersUpdateRequest::revoke_existing_server_roles].
+        pub fn set_revoke_existing_server_roles<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.revoke_existing_server_roles = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [revoke_existing_server_roles][crate::model::SqlUsersUpdateRequest::revoke_existing_server_roles].
+        pub fn set_or_clear_revoke_existing_server_roles<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.revoke_existing_server_roles = v.map(|x| x.into());
             self
         }
 

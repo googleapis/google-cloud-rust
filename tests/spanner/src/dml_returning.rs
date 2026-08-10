@@ -28,7 +28,7 @@ pub async fn dml_then_return_execute_query(db_client: &DatabaseClient) -> Result
         .set("Id")
         .to(&id)
         .set("ColBool")
-        .to(&false)
+        .to(false)
         .build();
     write_tx.write_at_least_once(vec![mutation]).await?;
 
@@ -84,7 +84,7 @@ pub async fn dml_then_return_execute_update(db_client: &DatabaseClient) -> Resul
         .set("Id")
         .to(&id)
         .set("ColBool")
-        .to(&false)
+        .to(false)
         .build();
     write_tx.write_at_least_once(vec![mutation]).await?;
 
@@ -126,7 +126,7 @@ pub async fn dml_then_return_unconsumed_query(db_client: &DatabaseClient) -> Res
                 "INSERT INTO AllTypes (Id, ColBool) VALUES (@id, @bool) THEN RETURN Id",
             )
             .add_param("id", &id)
-            .add_param("bool", &true)
+            .add_param("bool", true)
             .build();
 
             // Execute but deliberately do not consume the rows
@@ -175,7 +175,7 @@ pub async fn dml_then_return_multiple_execute_queries(db_client: &DatabaseClient
                 "INSERT INTO AllTypes (Id, ColBool) VALUES (@id, @bool) THEN RETURN Id",
             )
             .add_param("id", &id1)
-            .add_param("bool", &true)
+            .add_param("bool", true)
             .build();
 
             let mut result_set1 = tx.execute_query(stmt1).await?;
@@ -191,7 +191,7 @@ pub async fn dml_then_return_multiple_execute_queries(db_client: &DatabaseClient
                 "INSERT INTO AllTypes (Id, ColBool) VALUES (@id, @bool) THEN RETURN Id",
             )
             .add_param("id", &id2)
-            .add_param("bool", &false)
+            .add_param("bool", false)
             .build();
 
             let mut result_set2 = tx.execute_query(stmt2).await?;
