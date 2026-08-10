@@ -45,8 +45,12 @@ pub(crate) const QUERY_REQUEST_ID_PREFIX: &str = "req_";
 ///
 /// # Common Configuration Methods
 ///
-/// In addition to setting the target GCP project via [`with_project_id()`](RunQuery::with_project_id),
-/// this builder inherits generated configuration setter methods including:
+/// If a default project ID was configured on the [`BigQuery`][crate::client::BigQuery] client via
+/// [`ClientBuilder::with_project_id`][crate::client_builder::ClientBuilder::with_project_id], it is
+/// automatically inherited by this builder. You can also override or specify the project ID per query using
+/// [`with_project_id()`](RunQuery::with_project_id).
+///
+/// In addition, this builder inherits generated configuration setter methods including:
 /// - `set_job_creation_mode(JobCreationMode::JobCreationRequired)`: Explicitly forces job creation. By default, the SDK sets this as JobCreationOptional.
 /// - `set_location("US")`: Sets the geographic routing location where the job should run.
 /// - `set_max_results(100)`: Limits the number of rows buffered per result page from the API.
@@ -60,12 +64,15 @@ pub(crate) const QUERY_REQUEST_ID_PREFIX: &str = "req_";
 /// # async fn sample() -> anyhow::Result<()> {
 /// use google_cloud_bigquery::client::BigQuery;
 ///
-/// let client = BigQuery::builder().build().await?;
+/// // Configure the client with a default project ID.
+/// let client = BigQuery::builder()
+///     .with_project_id("my-project-id")
+///     .build()
+///     .await?;
 ///
-/// // Configure and run a simple query with a custom geographic location and result limit.
+/// // The query automatically inherits "my-project-id" from the client.
 /// let mut rows = client
 ///     .query("SELECT name FROM `bigquery-public-data.usa_names.usa_1910_2013` WHERE state = 'TX' LIMIT 100")
-///     .with_project_id("my-project-id")
 ///     .set_location("US")
 ///     .set_max_results(50_u32)
 ///     .run()
@@ -101,10 +108,14 @@ impl RunQuery {
         }
     }
 
-    /// Sets the target Google Cloud Project ID for query execution and billing.
+    /// Sets or overrides the target Google Cloud Project ID for query execution and billing.
     ///
-    /// This parameter is required before initiating execution with [`run()`](RunQuery::run).
-    /// If omitted, calling `run()` will return [`QueryError::MissingProjectId`](crate::error::QueryError::MissingProjectId).
+    /// If a default project ID was configured on the [`BigQuery`][crate::client::BigQuery] client via
+    /// [`ClientBuilder::with_project_id`][crate::client_builder::ClientBuilder::with_project_id], it is
+    /// inherited automatically. Calling this method overrides the project ID for this specific query.
+    ///
+    /// A project ID must be specified either on the client or on the query builder before calling [`run()`](RunQuery::run);
+    /// otherwise, `run()` returns [`QueryError::MissingProjectId`](crate::error::QueryError::MissingProjectId).
     ///
     /// # Example
     ///
@@ -134,8 +145,9 @@ impl RunQuery {
     ///
     /// # Errors
     ///
-    /// Returns [`QueryError::MissingProjectId`](crate::error::QueryError::MissingProjectId) if [`with_project_id()`](RunQuery::with_project_id)
-    /// was not called prior to running. Returns an RPC error if the initial service communication fails or if syntax errors occur during immediate fast-path validation.
+    /// Returns [`QueryError::MissingProjectId`](crate::error::QueryError::MissingProjectId) if no project ID was configured
+    /// on either the [`ClientBuilder`][crate::client_builder::ClientBuilder::with_project_id] or via
+    /// [`with_project_id()`](RunQuery::with_project_id). Returns an RPC error if the initial service communication fails or if syntax errors occur during immediate fast-path validation.
     ///
     /// # Example
     ///

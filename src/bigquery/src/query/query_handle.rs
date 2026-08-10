@@ -41,10 +41,12 @@ use std::sync::Arc;
 /// # async fn sample() -> anyhow::Result<()> {
 /// use google_cloud_bigquery::client::BigQuery;
 ///
-/// let client = BigQuery::builder().build().await?;
+/// let client = BigQuery::builder()
+///     .with_project_id("my-project-id")
+///     .build()
+///     .await?;
 /// let query_handle = client
 ///     .query("SELECT 42 AS answer")
-///     .with_project_id("my-project-id")
 ///     .run()
 ///     .await?;
 ///
@@ -209,10 +211,12 @@ impl Query {
 /// # async fn sample() -> anyhow::Result<()> {
 /// use google_cloud_bigquery::client::BigQuery;
 ///
-/// let client = BigQuery::builder().build().await?;
+/// let client = BigQuery::builder()
+///     .with_project_id("my-project-id")
+///     .build()
+///     .await?;
 /// let complete = client
 ///     .query("SELECT 'done' AS status")
-///     .with_project_id("my-project-id")
 ///     .run()
 ///     .await?
 ///     .until_done()
@@ -365,8 +369,7 @@ impl CompleteQuery {
     /// Unlike [`metadata()`](CompleteQuery::metadata), this method executes an RPC request (`jobs.get`) to
     /// retrieve complete job details, including user email, execution timelines, billing tier estimates, and detailed error summaries.
     ///
-    /// > [!IMPORTANT]
-    /// > Calling this method on a stateless query will return [`QueryError::StatelessQuery`](crate::error::QueryError::StatelessQuery).
+    /// > **Important:** Calling this method on a stateless query will return [`QueryError::StatelessQuery`](crate::error::QueryError::StatelessQuery).
     ///
     /// [Job]: https://docs.cloud.google.com/bigquery/docs/reference/rest/v2/Job
     ///
