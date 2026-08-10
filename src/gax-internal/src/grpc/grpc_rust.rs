@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use super::grpc_helpers;
+use super::transport_policies::TransportPolicies;
 use crate::grpc::tonic::{Extensions, Response as TonicResponse, Result as TonicResult};
 use crate::observability::RequestRecorder;
 use crate::options::{ClientConfig, InstrumentationClientInfo};
@@ -55,6 +56,7 @@ struct GrpcRustClientInner {
     tracing_attributes: Option<super::TracingAttributes>,
     endpoint: ResolvedGrpcEndpoint,
     invoker: Channel,
+    transport_policies: TransportPolicies,
 }
 
 /// A gRPC endpoint resolved from the client configuration.
@@ -164,16 +166,20 @@ impl GrpcRustClient {
 
     pub fn get_polling_error_policy(
         &self,
-        _options: &RequestOptions,
+        options: &RequestOptions,
     ) -> Arc<dyn PollingErrorPolicy> {
-        unimplemented!("not implemented yet")
+        self.inner
+            .transport_policies
+            .get_polling_error_policy(options)
     }
 
     pub fn get_polling_backoff_policy(
         &self,
-        _options: &RequestOptions,
+        options: &RequestOptions,
     ) -> Arc<dyn PollingBackoffPolicy> {
-        unimplemented!("not implemented yet")
+        self.inner
+            .transport_policies
+            .get_polling_backoff_policy(options)
     }
 
     async fn build(
@@ -222,6 +228,7 @@ impl GrpcRustClient {
                 tracing_attributes,
                 endpoint,
                 invoker,
+                transport_policies: TransportPolicies::from_config(&config),
             }),
         })
     }
@@ -589,6 +596,33 @@ mod tests {
         assert_eq!(attributes.server_port, Some(8080));
         assert_eq!(attributes.url_domain, "example.com");
         assert_eq!(attributes.instrumentation, Some(&TEST_INFO));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn getting_polling_policies_forwards_to_transport_policies() -> anyhow::Result<()> {
+        // Arrange
+        let mut config = ClientConfig::default();
+        config.cred = Some(Anonymous::new().build());
+        let client = GrpcRustClient::new(config, "http://example.com:8080").await?;
+        let options = RequestOptions::default();
+
+        // Assert
+        assert!(Arc::ptr_eq(
+            &client.get_polling_error_policy(&options),
+            &client
+                .inner
+                .transport_policies
+                .get_polling_error_policy(&options)
+        ));
+        assert!(Arc::ptr_eq(
+            &client.get_polling_backoff_policy(&options),
+            &client
+                .inner
+                .transport_policies
+                .get_polling_backoff_policy(&options)
+        ));
+
         Ok(())
     }
 }
