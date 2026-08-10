@@ -1,4 +1,4 @@
-# Copyright 2025 Google LLC
+# Copyright 2026 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -42,9 +42,15 @@ default-rustls-provider = ["gaxi/_default-rustls-provider"]
 all-features = true
 
 [dependencies]
+prost.workspace                    = true
+prost-types.workspace              = true
+futures.workspace                  = true
+http.workspace                     = true
+tokio.workspace                    = true
+tokio-stream.workspace             = true
 async-trait.workspace              = true
 bytes.workspace                    = true
-gaxi                               = { workspace = true, features = ["_internal-http-client"] }
+gaxi                               = { workspace = true, features = ["_internal-grpc-client", "_internal-http-client"] }
 google-cloud-gax.workspace         = true
 google-cloud-iam-v1.workspace      = true
 google-cloud-location.workspace    = true

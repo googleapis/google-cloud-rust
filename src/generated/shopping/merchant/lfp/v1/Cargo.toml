@@ -17,7 +17,7 @@
 [package]
 name                   = "google-shopping-merchant-lfp-v1"
 version                = "1.0.0"
-description            = "Google Cloud Client Libraries for Rust - Merchant API"
+description            = "Google Cloud Client Libraries for Rust - Shopping Merchant LFP API"
 edition.workspace      = true
 authors.workspace      = true
 license.workspace      = true

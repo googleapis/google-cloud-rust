@@ -64,7 +64,7 @@ pub struct AdEvent {
     /// found.
     pub user_data: std::option::Option<crate::model::UserData>,
 
-    /// Optional. Information gathered about the device being used when the ad
+    /// Required. Information gathered about the device being used when the ad
     /// event happened.
     pub device_info: std::option::Option<crate::model::DeviceInfo>,
 
@@ -89,7 +89,7 @@ pub struct AdEvent {
     /// Optional. The width of the ad in pixels.
     pub ad_width: i32,
 
-    /// Required. The ISO 3166-2 country plus subdivision.
+    /// Optional. The ISO 3166-2 country plus subdivision.
     pub region_code: std::string::String,
 
     /// Required. The platform source of the ad, akin to the Google Analytics
@@ -1724,6 +1724,8 @@ impl AudienceMember {
     /// assert!(x.user_id_data().is_none());
     /// assert!(x.ppid_data().is_none());
     /// assert!(x.composite_data().is_none());
+    /// assert!(x.google_user_id_data().is_none());
+    /// assert!(x.partner_provided_id_data().is_none());
     /// ```
     pub fn set_user_data<T: std::convert::Into<std::boxed::Box<crate::model::UserData>>>(
         mut self,
@@ -1762,6 +1764,8 @@ impl AudienceMember {
     /// assert!(x.user_id_data().is_none());
     /// assert!(x.ppid_data().is_none());
     /// assert!(x.composite_data().is_none());
+    /// assert!(x.google_user_id_data().is_none());
+    /// assert!(x.partner_provided_id_data().is_none());
     /// ```
     pub fn set_pair_data<T: std::convert::Into<std::boxed::Box<crate::model::PairData>>>(
         mut self,
@@ -1800,6 +1804,8 @@ impl AudienceMember {
     /// assert!(x.user_id_data().is_none());
     /// assert!(x.ppid_data().is_none());
     /// assert!(x.composite_data().is_none());
+    /// assert!(x.google_user_id_data().is_none());
+    /// assert!(x.partner_provided_id_data().is_none());
     /// ```
     pub fn set_mobile_data<T: std::convert::Into<std::boxed::Box<crate::model::MobileData>>>(
         mut self,
@@ -1838,6 +1844,8 @@ impl AudienceMember {
     /// assert!(x.mobile_data().is_none());
     /// assert!(x.ppid_data().is_none());
     /// assert!(x.composite_data().is_none());
+    /// assert!(x.google_user_id_data().is_none());
+    /// assert!(x.partner_provided_id_data().is_none());
     /// ```
     pub fn set_user_id_data<T: std::convert::Into<std::boxed::Box<crate::model::UserIdData>>>(
         mut self,
@@ -1876,6 +1884,8 @@ impl AudienceMember {
     /// assert!(x.mobile_data().is_none());
     /// assert!(x.user_id_data().is_none());
     /// assert!(x.composite_data().is_none());
+    /// assert!(x.google_user_id_data().is_none());
+    /// assert!(x.partner_provided_id_data().is_none());
     /// ```
     pub fn set_ppid_data<T: std::convert::Into<std::boxed::Box<crate::model::PpidData>>>(
         mut self,
@@ -1916,6 +1926,8 @@ impl AudienceMember {
     /// assert!(x.mobile_data().is_none());
     /// assert!(x.user_id_data().is_none());
     /// assert!(x.ppid_data().is_none());
+    /// assert!(x.google_user_id_data().is_none());
+    /// assert!(x.partner_provided_id_data().is_none());
     /// ```
     pub fn set_composite_data<
         T: std::convert::Into<std::boxed::Box<crate::model::CompositeData>>,
@@ -1925,6 +1937,100 @@ impl AudienceMember {
     ) -> Self {
         self.data =
             std::option::Option::Some(crate::model::audience_member::Data::CompositeData(v.into()));
+        self
+    }
+
+    /// The value of [data][crate::model::AudienceMember::data]
+    /// if it holds a `GoogleUserIdData`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn google_user_id_data(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::GoogleUserIdData>> {
+        #[allow(unreachable_patterns)]
+        self.data.as_ref().and_then(|v| match v {
+            crate::model::audience_member::Data::GoogleUserIdData(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [data][crate::model::AudienceMember::data]
+    /// to hold a `GoogleUserIdData`.
+    ///
+    /// Note that all the setters affecting `data` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::AudienceMember;
+    /// use google_ads_datamanager_v1::model::GoogleUserIdData;
+    /// let x = AudienceMember::new().set_google_user_id_data(GoogleUserIdData::default()/* use setters */);
+    /// assert!(x.google_user_id_data().is_some());
+    /// assert!(x.user_data().is_none());
+    /// assert!(x.pair_data().is_none());
+    /// assert!(x.mobile_data().is_none());
+    /// assert!(x.user_id_data().is_none());
+    /// assert!(x.ppid_data().is_none());
+    /// assert!(x.composite_data().is_none());
+    /// assert!(x.partner_provided_id_data().is_none());
+    /// ```
+    pub fn set_google_user_id_data<
+        T: std::convert::Into<std::boxed::Box<crate::model::GoogleUserIdData>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.data = std::option::Option::Some(
+            crate::model::audience_member::Data::GoogleUserIdData(v.into()),
+        );
+        self
+    }
+
+    /// The value of [data][crate::model::AudienceMember::data]
+    /// if it holds a `PartnerProvidedIdData`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn partner_provided_id_data(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PartnerProvidedIdData>> {
+        #[allow(unreachable_patterns)]
+        self.data.as_ref().and_then(|v| match v {
+            crate::model::audience_member::Data::PartnerProvidedIdData(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [data][crate::model::AudienceMember::data]
+    /// to hold a `PartnerProvidedIdData`.
+    ///
+    /// Note that all the setters affecting `data` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::AudienceMember;
+    /// use google_ads_datamanager_v1::model::PartnerProvidedIdData;
+    /// let x = AudienceMember::new().set_partner_provided_id_data(PartnerProvidedIdData::default()/* use setters */);
+    /// assert!(x.partner_provided_id_data().is_some());
+    /// assert!(x.user_data().is_none());
+    /// assert!(x.pair_data().is_none());
+    /// assert!(x.mobile_data().is_none());
+    /// assert!(x.user_id_data().is_none());
+    /// assert!(x.ppid_data().is_none());
+    /// assert!(x.composite_data().is_none());
+    /// assert!(x.google_user_id_data().is_none());
+    /// ```
+    pub fn set_partner_provided_id_data<
+        T: std::convert::Into<std::boxed::Box<crate::model::PartnerProvidedIdData>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.data = std::option::Option::Some(
+            crate::model::audience_member::Data::PartnerProvidedIdData(v.into()),
+        );
         self
     }
 }
@@ -1962,6 +2068,10 @@ pub mod audience_member {
         PpidData(std::boxed::Box<crate::model::PpidData>),
         /// Group of multiple identifier types.
         CompositeData(std::boxed::Box<crate::model::CompositeData>),
+        /// Encrypted Google User IDs.
+        GoogleUserIdData(std::boxed::Box<crate::model::GoogleUserIdData>),
+        /// Partner-provided identifiers.
+        PartnerProvidedIdData(std::boxed::Box<crate::model::PartnerProvidedIdData>),
     }
 }
 
@@ -2018,8 +2128,10 @@ impl wkt::message::Message for PairData {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MobileData {
-    /// Required. The list of mobile device IDs (advertising ID/IDFA). At most 10
-    /// `mobileIds` can be provided in a single
+    /// Required. The list of mobile device IDs (Android advertising ID, iOS IDFA
+    /// for Customer Match user lists and Android advertising ID, iOS IDFA,
+    /// Xbox or Microsoft ID, Amazon Fire TV ID, Roku ID, Generic Device ID for
+    /// basic user lists). At most 10 `mobileIds` can be provided in a single
     /// [AudienceMember][google.ads.datamanager.v1.AudienceMember].
     ///
     /// [google.ads.datamanager.v1.AudienceMember]: crate::model::AudienceMember
@@ -2328,6 +2440,88 @@ impl IpData {
 impl wkt::message::Message for IpData {
     fn typename() -> &'static str {
         "type.googleapis.com/google.ads.datamanager.v1.IpData"
+    }
+}
+
+/// Google user id data holding encrypted google user IDs. At least one google
+/// user ID is required.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GoogleUserIdData {
+    /// Required. The list of encrypted google user IDs.
+    pub google_user_ids: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GoogleUserIdData {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [google_user_ids][crate::model::GoogleUserIdData::google_user_ids].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::GoogleUserIdData;
+    /// let x = GoogleUserIdData::new().set_google_user_ids(["a", "b", "c"]);
+    /// ```
+    pub fn set_google_user_ids<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.google_user_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for GoogleUserIdData {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.ads.datamanager.v1.GoogleUserIdData"
+    }
+}
+
+/// Partner-provided data holding the partner-provided identifiers. At least one
+/// partner-provided identifier is required.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PartnerProvidedIdData {
+    /// Required. The list of partner-provided identifiers.
+    pub partner_provided_ids: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PartnerProvidedIdData {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [partner_provided_ids][crate::model::PartnerProvidedIdData::partner_provided_ids].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::PartnerProvidedIdData;
+    /// let x = PartnerProvidedIdData::new().set_partner_provided_ids(["a", "b", "c"]);
+    /// ```
+    pub fn set_partner_provided_ids<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.partner_provided_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for PartnerProvidedIdData {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.ads.datamanager.v1.PartnerProvidedIdData"
     }
 }
 
@@ -3294,7 +3488,8 @@ pub struct DeviceInfo {
     /// Optional. The user-agent string of the device for the given context.
     pub user_agent: std::string::String,
 
-    /// Optional. The IP address of the device for the given context.
+    /// Optional. The IP address of the device for the given context. Required when
+    /// used in an [AdEvent][google.ads.datamanager.v1.AdEvent].
     ///
     /// **Note:** Google Ads does not support IP address matching for end users in
     /// the European Economic Area (EEA), United Kingdom (UK), or Switzerland (CH).
@@ -3305,6 +3500,8 @@ pub struct DeviceInfo {
     /// applicable Google policies. See the [About offline conversion
     /// imports](https://support.google.com/google-ads/answer/2998031) page for
     /// more details.
+    ///
+    /// [google.ads.datamanager.v1.AdEvent]: crate::model::AdEvent
     pub ip_address: std::string::String,
 
     /// Optional. The category of device. For example, “desktop”, “tablet”,
@@ -6018,6 +6215,9 @@ pub struct IngestAudienceMembersResponse {
     /// The auto-generated ID of the request.
     pub request_id: std::string::String,
 
+    /// Detailed row-level warnings with field paths.
+    pub field_warnings: std::vec::Vec<crate::model::FieldWarning>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -6036,6 +6236,28 @@ impl IngestAudienceMembersResponse {
     /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
+        self
+    }
+
+    /// Sets the value of [field_warnings][crate::model::IngestAudienceMembersResponse::field_warnings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::IngestAudienceMembersResponse;
+    /// use google_ads_datamanager_v1::model::FieldWarning;
+    /// let x = IngestAudienceMembersResponse::new()
+    ///     .set_field_warnings([
+    ///         FieldWarning::default()/* use setters */,
+    ///         FieldWarning::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_field_warnings<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::FieldWarning>,
+    {
+        use std::iter::Iterator;
+        self.field_warnings = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -6234,6 +6456,147 @@ impl RemoveAudienceMembersResponse {
 impl wkt::message::Message for RemoveAudienceMembersResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.ads.datamanager.v1.RemoveAudienceMembersResponse"
+    }
+}
+
+/// Request to remove all users from an audience in the provided destinations.
+/// Returns a
+/// [RemoveAllAudienceMembersResponse][google.ads.datamanager.v1.RemoveAllAudienceMembersResponse].
+///
+/// [google.ads.datamanager.v1.RemoveAllAudienceMembersResponse]: crate::model::RemoveAllAudienceMembersResponse
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RemoveAllAudienceMembersRequest {
+    /// Required. The list of destinations to remove the users from.
+    pub destinations: std::vec::Vec<crate::model::Destination>,
+
+    /// Optional. The remove as of time. If set, only audience members last added
+    /// before this time will be removed. If not set, it defaults to current time.
+    /// The remove as of time must not be in the future.
+    pub remove_as_of_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. For testing purposes. If `true`, the request is validated but not
+    /// executed. Only errors are returned, not results.
+    pub validate_only: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RemoveAllAudienceMembersRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [destinations][crate::model::RemoveAllAudienceMembersRequest::destinations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::RemoveAllAudienceMembersRequest;
+    /// use google_ads_datamanager_v1::model::Destination;
+    /// let x = RemoveAllAudienceMembersRequest::new()
+    ///     .set_destinations([
+    ///         Destination::default()/* use setters */,
+    ///         Destination::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_destinations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Destination>,
+    {
+        use std::iter::Iterator;
+        self.destinations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [remove_as_of_time][crate::model::RemoveAllAudienceMembersRequest::remove_as_of_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::RemoveAllAudienceMembersRequest;
+    /// use wkt::Timestamp;
+    /// let x = RemoveAllAudienceMembersRequest::new().set_remove_as_of_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_remove_as_of_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.remove_as_of_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [remove_as_of_time][crate::model::RemoveAllAudienceMembersRequest::remove_as_of_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::RemoveAllAudienceMembersRequest;
+    /// use wkt::Timestamp;
+    /// let x = RemoveAllAudienceMembersRequest::new().set_or_clear_remove_as_of_time(Some(Timestamp::default()/* use setters */));
+    /// let x = RemoveAllAudienceMembersRequest::new().set_or_clear_remove_as_of_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_remove_as_of_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.remove_as_of_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [validate_only][crate::model::RemoveAllAudienceMembersRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::RemoveAllAudienceMembersRequest;
+    /// let x = RemoveAllAudienceMembersRequest::new().set_validate_only(true);
+    /// ```
+    pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.validate_only = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RemoveAllAudienceMembersRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.ads.datamanager.v1.RemoveAllAudienceMembersRequest"
+    }
+}
+
+/// Response from the
+/// [RemoveAllAudienceMembersRequest][google.ads.datamanager.v1.RemoveAllAudienceMembersRequest].
+///
+/// [google.ads.datamanager.v1.RemoveAllAudienceMembersRequest]: crate::model::RemoveAllAudienceMembersRequest
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RemoveAllAudienceMembersResponse {
+    /// The auto-generated ID of the request.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RemoveAllAudienceMembersResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [request_id][crate::model::RemoveAllAudienceMembersResponse::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::RemoveAllAudienceMembersResponse;
+    /// let x = RemoveAllAudienceMembersResponse::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RemoveAllAudienceMembersResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.ads.datamanager.v1.RemoveAllAudienceMembersResponse"
     }
 }
 
@@ -6446,6 +6809,9 @@ pub struct IngestEventsResponse {
     /// The auto-generated ID of the request.
     pub request_id: std::string::String,
 
+    /// Detailed row-level warnings with field paths.
+    pub field_warnings: std::vec::Vec<crate::model::FieldWarning>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -6466,6 +6832,28 @@ impl IngestEventsResponse {
         self.request_id = v.into();
         self
     }
+
+    /// Sets the value of [field_warnings][crate::model::IngestEventsResponse::field_warnings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::IngestEventsResponse;
+    /// use google_ads_datamanager_v1::model::FieldWarning;
+    /// let x = IngestEventsResponse::new()
+    ///     .set_field_warnings([
+    ///         FieldWarning::default()/* use setters */,
+    ///         FieldWarning::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_field_warnings<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::FieldWarning>,
+    {
+        use std::iter::Iterator;
+        self.field_warnings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for IngestEventsResponse {
@@ -6481,11 +6869,12 @@ pub struct IngestAdEventsRequest {
     /// Required. Required (at least 1). A list of ad events.
     pub ad_events: std::vec::Vec<crate::model::AdEvent>,
 
-    /// Optional. Information about encryption keys which are used to encrypt the
+    /// Required. Information about encryption keys which are used to encrypt the
     /// data.
     pub encryption_info: std::option::Option<crate::model::EncryptionInfo>,
 
     /// Optional. If true, the request is validated, but not executed.
+    #[deprecated]
     pub validate_only: bool,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -6559,6 +6948,7 @@ impl IngestAdEventsRequest {
     /// # use google_ads_datamanager_v1::model::IngestAdEventsRequest;
     /// let x = IngestAdEventsRequest::new().set_validate_only(true);
     /// ```
+    #[deprecated]
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -7592,7 +7982,7 @@ pub struct SearchPartnerLinksRequest {
 
     /// The maximum number of partner links to return. The service may return
     /// fewer than this value.
-    /// If unspecified, at most 10 partner links will be returned.
+    /// If unspecified, at most 50 partner links will be returned.
     /// The maximum value is 100; values above 100 will be coerced to 100.
     pub page_size: i32,
 
@@ -7623,10 +8013,19 @@ pub struct SearchPartnerLinksRequest {
     /// - `owning_account.account_id`
     /// - `partner_account.account_type`
     /// - `partner_account.account_id`
+    /// - `feature_set`
+    ///
+    /// For partner links with the
+    /// [FEATURE_SET_AD_EVENT_MANAGEMENT][google.ads.datamanager.v1.FeatureSet.FEATURE_SET_AD_EVENT_MANAGEMENT]
+    /// feature set, the following fields are also supported:
+    ///
+    /// - `partner_customer_account.account_id`
     ///
     /// Example:
     /// `owning_account.account_type = "GOOGLE_ADS" AND partner_account.account_id
     /// = 987654321`
+    ///
+    /// [google.ads.datamanager.v1.FeatureSet.FEATURE_SET_AD_EVENT_MANAGEMENT]: crate::model::FeatureSet::AdEventManagement
     pub filter: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -8319,6 +8718,75 @@ impl wkt::message::Message for WarningCount {
     }
 }
 
+/// Detailed row-level warning with field paths.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FieldWarning {
+    /// The warning reason.
+    pub reason: crate::model::WarningReason,
+
+    /// The detailed warning message describing the issue.
+    pub description: std::string::String,
+
+    /// The field path that triggered the warning. Uses the same format as
+    /// [google.rpc.BadRequest.FieldViolation.field][google.rpc.BadRequest.FieldViolation.field].
+    pub field: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FieldWarning {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [reason][crate::model::FieldWarning::reason].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::FieldWarning;
+    /// use google_ads_datamanager_v1::model::WarningReason;
+    /// let x0 = FieldWarning::new().set_reason(WarningReason::CustomVariableNotEnabled);
+    /// let x1 = FieldWarning::new().set_reason(WarningReason::CustomVariableNotPredefined);
+    /// let x2 = FieldWarning::new().set_reason(WarningReason::CartDataNotSupportedWithGbraidOrWbraid);
+    /// ```
+    pub fn set_reason<T: std::convert::Into<crate::model::WarningReason>>(mut self, v: T) -> Self {
+        self.reason = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::FieldWarning::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::FieldWarning;
+    /// let x = FieldWarning::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [field][crate::model::FieldWarning::field].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::FieldWarning;
+    /// let x = FieldWarning::new().set_field("example");
+    /// ```
+    pub fn set_field<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.field = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for FieldWarning {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.ads.datamanager.v1.FieldWarning"
+    }
+}
+
 /// A request status per destination.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -8541,6 +9009,7 @@ impl RequestStatusPerDestination {
     /// assert!(x.audience_members_ingestion_status().is_some());
     /// assert!(x.events_ingestion_status().is_none());
     /// assert!(x.audience_members_removal_status().is_none());
+    /// assert!(x.remove_all_audience_members_status().is_none());
     /// ```
     pub fn set_audience_members_ingestion_status<
         T: std::convert::Into<
@@ -8591,6 +9060,7 @@ impl RequestStatusPerDestination {
     /// assert!(x.events_ingestion_status().is_some());
     /// assert!(x.audience_members_ingestion_status().is_none());
     /// assert!(x.audience_members_removal_status().is_none());
+    /// assert!(x.remove_all_audience_members_status().is_none());
     /// ```
     pub fn set_events_ingestion_status<
         T: std::convert::Into<
@@ -8637,6 +9107,7 @@ impl RequestStatusPerDestination {
     /// assert!(x.audience_members_removal_status().is_some());
     /// assert!(x.audience_members_ingestion_status().is_none());
     /// assert!(x.events_ingestion_status().is_none());
+    /// assert!(x.remove_all_audience_members_status().is_none());
     /// ```
     pub fn set_audience_members_removal_status<
         T: std::convert::Into<
@@ -8650,6 +9121,57 @@ impl RequestStatusPerDestination {
     ) -> Self {
         self.status = std::option::Option::Some(
             crate::model::request_status_per_destination::Status::AudienceMembersRemovalStatus(
+                v.into(),
+            ),
+        );
+        self
+    }
+
+    /// The value of [status][crate::model::RequestStatusPerDestination::status]
+    /// if it holds a `RemoveAllAudienceMembersStatus`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn remove_all_audience_members_status(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<
+            crate::model::request_status_per_destination::RemoveAllAudienceMembersStatus,
+        >,
+    > {
+        #[allow(unreachable_patterns)]
+        self.status.as_ref().and_then(|v| match v {
+            crate::model::request_status_per_destination::Status::RemoveAllAudienceMembersStatus(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [status][crate::model::RequestStatusPerDestination::status]
+    /// to hold a `RemoveAllAudienceMembersStatus`.
+    ///
+    /// Note that all the setters affecting `status` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::RequestStatusPerDestination;
+    /// use google_ads_datamanager_v1::model::request_status_per_destination::RemoveAllAudienceMembersStatus;
+    /// let x = RequestStatusPerDestination::new().set_remove_all_audience_members_status(RemoveAllAudienceMembersStatus::default()/* use setters */);
+    /// assert!(x.remove_all_audience_members_status().is_some());
+    /// assert!(x.audience_members_ingestion_status().is_none());
+    /// assert!(x.events_ingestion_status().is_none());
+    /// assert!(x.audience_members_removal_status().is_none());
+    /// ```
+    pub fn set_remove_all_audience_members_status<
+        T: std::convert::Into<
+                std::boxed::Box<
+                    crate::model::request_status_per_destination::RemoveAllAudienceMembersStatus,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.status = std::option::Option::Some(
+            crate::model::request_status_per_destination::Status::RemoveAllAudienceMembersStatus(
                 v.into(),
             ),
         );
@@ -8736,6 +9258,8 @@ pub mod request_status_per_destination {
         /// assert!(x.user_id_data_ingestion_status().is_none());
         /// assert!(x.ppid_data_ingestion_status().is_none());
         /// assert!(x.composite_data_ingestion_status().is_none());
+        /// assert!(x.google_user_id_data_ingestion_status().is_none());
+        /// assert!(x.partner_provided_id_data_ingestion_status().is_none());
         /// ```
         pub fn set_user_data_ingestion_status<
             T: std::convert::Into<
@@ -8787,6 +9311,8 @@ pub mod request_status_per_destination {
         /// assert!(x.user_id_data_ingestion_status().is_none());
         /// assert!(x.ppid_data_ingestion_status().is_none());
         /// assert!(x.composite_data_ingestion_status().is_none());
+        /// assert!(x.google_user_id_data_ingestion_status().is_none());
+        /// assert!(x.partner_provided_id_data_ingestion_status().is_none());
         /// ```
         pub fn set_mobile_data_ingestion_status<
             T: std::convert::Into<
@@ -8838,6 +9364,8 @@ pub mod request_status_per_destination {
         /// assert!(x.user_id_data_ingestion_status().is_none());
         /// assert!(x.ppid_data_ingestion_status().is_none());
         /// assert!(x.composite_data_ingestion_status().is_none());
+        /// assert!(x.google_user_id_data_ingestion_status().is_none());
+        /// assert!(x.partner_provided_id_data_ingestion_status().is_none());
         /// ```
         pub fn set_pair_data_ingestion_status<
             T: std::convert::Into<
@@ -8889,6 +9417,8 @@ pub mod request_status_per_destination {
         /// assert!(x.pair_data_ingestion_status().is_none());
         /// assert!(x.ppid_data_ingestion_status().is_none());
         /// assert!(x.composite_data_ingestion_status().is_none());
+        /// assert!(x.google_user_id_data_ingestion_status().is_none());
+        /// assert!(x.partner_provided_id_data_ingestion_status().is_none());
         /// ```
         pub fn set_user_id_data_ingestion_status<
             T: std::convert::Into<
@@ -8940,6 +9470,8 @@ pub mod request_status_per_destination {
         /// assert!(x.pair_data_ingestion_status().is_none());
         /// assert!(x.user_id_data_ingestion_status().is_none());
         /// assert!(x.composite_data_ingestion_status().is_none());
+        /// assert!(x.google_user_id_data_ingestion_status().is_none());
+        /// assert!(x.partner_provided_id_data_ingestion_status().is_none());
         /// ```
         pub fn set_ppid_data_ingestion_status<
             T: std::convert::Into<
@@ -8993,6 +9525,8 @@ pub mod request_status_per_destination {
         /// assert!(x.pair_data_ingestion_status().is_none());
         /// assert!(x.user_id_data_ingestion_status().is_none());
         /// assert!(x.ppid_data_ingestion_status().is_none());
+        /// assert!(x.google_user_id_data_ingestion_status().is_none());
+        /// assert!(x.partner_provided_id_data_ingestion_status().is_none());
         /// ```
         pub fn set_composite_data_ingestion_status<
             T: std::convert::Into<
@@ -9006,6 +9540,107 @@ pub mod request_status_per_destination {
         ) -> Self {
             self.status = std::option::Option::Some(
                 crate::model::request_status_per_destination::ingest_audience_members_status::Status::CompositeDataIngestionStatus(
+                    v.into()
+                )
+            );
+            self
+        }
+
+        /// The value of [status][crate::model::request_status_per_destination::IngestAudienceMembersStatus::status]
+        /// if it holds a `GoogleUserIdDataIngestionStatus`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn google_user_id_data_ingestion_status(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::request_status_per_destination::IngestGoogleUserIdDataStatus,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.status.as_ref().and_then(|v| match v {
+                crate::model::request_status_per_destination::ingest_audience_members_status::Status::GoogleUserIdDataIngestionStatus(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [status][crate::model::request_status_per_destination::IngestAudienceMembersStatus::status]
+        /// to hold a `GoogleUserIdDataIngestionStatus`.
+        ///
+        /// Note that all the setters affecting `status` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_ads_datamanager_v1::model::request_status_per_destination::IngestAudienceMembersStatus;
+        /// use google_ads_datamanager_v1::model::request_status_per_destination::IngestGoogleUserIdDataStatus;
+        /// let x = IngestAudienceMembersStatus::new().set_google_user_id_data_ingestion_status(IngestGoogleUserIdDataStatus::default()/* use setters */);
+        /// assert!(x.google_user_id_data_ingestion_status().is_some());
+        /// assert!(x.user_data_ingestion_status().is_none());
+        /// assert!(x.mobile_data_ingestion_status().is_none());
+        /// assert!(x.pair_data_ingestion_status().is_none());
+        /// assert!(x.user_id_data_ingestion_status().is_none());
+        /// assert!(x.ppid_data_ingestion_status().is_none());
+        /// assert!(x.composite_data_ingestion_status().is_none());
+        /// assert!(x.partner_provided_id_data_ingestion_status().is_none());
+        /// ```
+        pub fn set_google_user_id_data_ingestion_status<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::request_status_per_destination::IngestGoogleUserIdDataStatus,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.status = std::option::Option::Some(
+                crate::model::request_status_per_destination::ingest_audience_members_status::Status::GoogleUserIdDataIngestionStatus(
+                    v.into()
+                )
+            );
+            self
+        }
+
+        /// The value of [status][crate::model::request_status_per_destination::IngestAudienceMembersStatus::status]
+        /// if it holds a `PartnerProvidedIdDataIngestionStatus`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn partner_provided_id_data_ingestion_status(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::request_status_per_destination::IngestPartnerProvidedIdDataStatus,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.status.as_ref().and_then(|v| match v {
+                crate::model::request_status_per_destination::ingest_audience_members_status::Status::PartnerProvidedIdDataIngestionStatus(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [status][crate::model::request_status_per_destination::IngestAudienceMembersStatus::status]
+        /// to hold a `PartnerProvidedIdDataIngestionStatus`.
+        ///
+        /// Note that all the setters affecting `status` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_ads_datamanager_v1::model::request_status_per_destination::IngestAudienceMembersStatus;
+        /// use google_ads_datamanager_v1::model::request_status_per_destination::IngestPartnerProvidedIdDataStatus;
+        /// let x = IngestAudienceMembersStatus::new().set_partner_provided_id_data_ingestion_status(IngestPartnerProvidedIdDataStatus::default()/* use setters */);
+        /// assert!(x.partner_provided_id_data_ingestion_status().is_some());
+        /// assert!(x.user_data_ingestion_status().is_none());
+        /// assert!(x.mobile_data_ingestion_status().is_none());
+        /// assert!(x.pair_data_ingestion_status().is_none());
+        /// assert!(x.user_id_data_ingestion_status().is_none());
+        /// assert!(x.ppid_data_ingestion_status().is_none());
+        /// assert!(x.composite_data_ingestion_status().is_none());
+        /// assert!(x.google_user_id_data_ingestion_status().is_none());
+        /// ```
+        pub fn set_partner_provided_id_data_ingestion_status<T: std::convert::Into<std::boxed::Box<crate::model::request_status_per_destination::IngestPartnerProvidedIdDataStatus>>>(mut self, v: T) -> Self{
+            self.status = std::option::Option::Some(
+                crate::model::request_status_per_destination::ingest_audience_members_status::Status::PartnerProvidedIdDataIngestionStatus(
                     v.into()
                 )
             );
@@ -9056,6 +9691,19 @@ pub mod request_status_per_destination {
             CompositeDataIngestionStatus(
                 std::boxed::Box<
                     crate::model::request_status_per_destination::IngestCompositeDataStatus,
+                >,
+            ),
+            /// The status of the google user id data ingestion to the destination.
+            GoogleUserIdDataIngestionStatus(
+                std::boxed::Box<
+                    crate::model::request_status_per_destination::IngestGoogleUserIdDataStatus,
+                >,
+            ),
+            /// The status of the partner provided id data ingestion to the
+            /// destination.
+            PartnerProvidedIdDataIngestionStatus(
+                std::boxed::Box<
+                    crate::model::request_status_per_destination::IngestPartnerProvidedIdDataStatus,
                 >,
             ),
         }
@@ -9129,6 +9777,8 @@ pub mod request_status_per_destination {
         /// assert!(x.user_id_data_removal_status().is_none());
         /// assert!(x.ppid_data_removal_status().is_none());
         /// assert!(x.composite_data_removal_status().is_none());
+        /// assert!(x.google_user_id_data_removal_status().is_none());
+        /// assert!(x.partner_provided_id_data_removal_status().is_none());
         /// ```
         pub fn set_user_data_removal_status<
             T: std::convert::Into<
@@ -9180,6 +9830,8 @@ pub mod request_status_per_destination {
         /// assert!(x.user_id_data_removal_status().is_none());
         /// assert!(x.ppid_data_removal_status().is_none());
         /// assert!(x.composite_data_removal_status().is_none());
+        /// assert!(x.google_user_id_data_removal_status().is_none());
+        /// assert!(x.partner_provided_id_data_removal_status().is_none());
         /// ```
         pub fn set_mobile_data_removal_status<
             T: std::convert::Into<
@@ -9231,6 +9883,8 @@ pub mod request_status_per_destination {
         /// assert!(x.user_id_data_removal_status().is_none());
         /// assert!(x.ppid_data_removal_status().is_none());
         /// assert!(x.composite_data_removal_status().is_none());
+        /// assert!(x.google_user_id_data_removal_status().is_none());
+        /// assert!(x.partner_provided_id_data_removal_status().is_none());
         /// ```
         pub fn set_pair_data_removal_status<
             T: std::convert::Into<
@@ -9282,6 +9936,8 @@ pub mod request_status_per_destination {
         /// assert!(x.pair_data_removal_status().is_none());
         /// assert!(x.ppid_data_removal_status().is_none());
         /// assert!(x.composite_data_removal_status().is_none());
+        /// assert!(x.google_user_id_data_removal_status().is_none());
+        /// assert!(x.partner_provided_id_data_removal_status().is_none());
         /// ```
         pub fn set_user_id_data_removal_status<
             T: std::convert::Into<
@@ -9333,6 +9989,8 @@ pub mod request_status_per_destination {
         /// assert!(x.pair_data_removal_status().is_none());
         /// assert!(x.user_id_data_removal_status().is_none());
         /// assert!(x.composite_data_removal_status().is_none());
+        /// assert!(x.google_user_id_data_removal_status().is_none());
+        /// assert!(x.partner_provided_id_data_removal_status().is_none());
         /// ```
         pub fn set_ppid_data_removal_status<
             T: std::convert::Into<
@@ -9386,6 +10044,8 @@ pub mod request_status_per_destination {
         /// assert!(x.pair_data_removal_status().is_none());
         /// assert!(x.user_id_data_removal_status().is_none());
         /// assert!(x.ppid_data_removal_status().is_none());
+        /// assert!(x.google_user_id_data_removal_status().is_none());
+        /// assert!(x.partner_provided_id_data_removal_status().is_none());
         /// ```
         pub fn set_composite_data_removal_status<
             T: std::convert::Into<
@@ -9399,6 +10059,107 @@ pub mod request_status_per_destination {
         ) -> Self {
             self.status = std::option::Option::Some(
                 crate::model::request_status_per_destination::remove_audience_members_status::Status::CompositeDataRemovalStatus(
+                    v.into()
+                )
+            );
+            self
+        }
+
+        /// The value of [status][crate::model::request_status_per_destination::RemoveAudienceMembersStatus::status]
+        /// if it holds a `GoogleUserIdDataRemovalStatus`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn google_user_id_data_removal_status(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::request_status_per_destination::RemoveGoogleUserIdDataStatus,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.status.as_ref().and_then(|v| match v {
+                crate::model::request_status_per_destination::remove_audience_members_status::Status::GoogleUserIdDataRemovalStatus(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [status][crate::model::request_status_per_destination::RemoveAudienceMembersStatus::status]
+        /// to hold a `GoogleUserIdDataRemovalStatus`.
+        ///
+        /// Note that all the setters affecting `status` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_ads_datamanager_v1::model::request_status_per_destination::RemoveAudienceMembersStatus;
+        /// use google_ads_datamanager_v1::model::request_status_per_destination::RemoveGoogleUserIdDataStatus;
+        /// let x = RemoveAudienceMembersStatus::new().set_google_user_id_data_removal_status(RemoveGoogleUserIdDataStatus::default()/* use setters */);
+        /// assert!(x.google_user_id_data_removal_status().is_some());
+        /// assert!(x.user_data_removal_status().is_none());
+        /// assert!(x.mobile_data_removal_status().is_none());
+        /// assert!(x.pair_data_removal_status().is_none());
+        /// assert!(x.user_id_data_removal_status().is_none());
+        /// assert!(x.ppid_data_removal_status().is_none());
+        /// assert!(x.composite_data_removal_status().is_none());
+        /// assert!(x.partner_provided_id_data_removal_status().is_none());
+        /// ```
+        pub fn set_google_user_id_data_removal_status<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::request_status_per_destination::RemoveGoogleUserIdDataStatus,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.status = std::option::Option::Some(
+                crate::model::request_status_per_destination::remove_audience_members_status::Status::GoogleUserIdDataRemovalStatus(
+                    v.into()
+                )
+            );
+            self
+        }
+
+        /// The value of [status][crate::model::request_status_per_destination::RemoveAudienceMembersStatus::status]
+        /// if it holds a `PartnerProvidedIdDataRemovalStatus`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn partner_provided_id_data_removal_status(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::request_status_per_destination::RemovePartnerProvidedIdDataStatus,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.status.as_ref().and_then(|v| match v {
+                crate::model::request_status_per_destination::remove_audience_members_status::Status::PartnerProvidedIdDataRemovalStatus(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [status][crate::model::request_status_per_destination::RemoveAudienceMembersStatus::status]
+        /// to hold a `PartnerProvidedIdDataRemovalStatus`.
+        ///
+        /// Note that all the setters affecting `status` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_ads_datamanager_v1::model::request_status_per_destination::RemoveAudienceMembersStatus;
+        /// use google_ads_datamanager_v1::model::request_status_per_destination::RemovePartnerProvidedIdDataStatus;
+        /// let x = RemoveAudienceMembersStatus::new().set_partner_provided_id_data_removal_status(RemovePartnerProvidedIdDataStatus::default()/* use setters */);
+        /// assert!(x.partner_provided_id_data_removal_status().is_some());
+        /// assert!(x.user_data_removal_status().is_none());
+        /// assert!(x.mobile_data_removal_status().is_none());
+        /// assert!(x.pair_data_removal_status().is_none());
+        /// assert!(x.user_id_data_removal_status().is_none());
+        /// assert!(x.ppid_data_removal_status().is_none());
+        /// assert!(x.composite_data_removal_status().is_none());
+        /// assert!(x.google_user_id_data_removal_status().is_none());
+        /// ```
+        pub fn set_partner_provided_id_data_removal_status<T: std::convert::Into<std::boxed::Box<crate::model::request_status_per_destination::RemovePartnerProvidedIdDataStatus>>>(mut self, v: T) -> Self{
+            self.status = std::option::Option::Some(
+                crate::model::request_status_per_destination::remove_audience_members_status::Status::PartnerProvidedIdDataRemovalStatus(
                     v.into()
                 )
             );
@@ -9451,6 +10212,39 @@ pub mod request_status_per_destination {
                     crate::model::request_status_per_destination::RemoveCompositeDataStatus,
                 >,
             ),
+            /// The status of the google user id data removal from the destination.
+            GoogleUserIdDataRemovalStatus(
+                std::boxed::Box<
+                    crate::model::request_status_per_destination::RemoveGoogleUserIdDataStatus,
+                >,
+            ),
+            /// The status of the partner provided id data removal from the
+            /// destination.
+            PartnerProvidedIdDataRemovalStatus(
+                std::boxed::Box<
+                    crate::model::request_status_per_destination::RemovePartnerProvidedIdDataStatus,
+                >,
+            ),
+        }
+    }
+
+    /// The status of the remove all audience members request.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct RemoveAllAudienceMembersStatus {
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl RemoveAllAudienceMembersStatus {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
+
+    impl wkt::message::Message for RemoveAllAudienceMembersStatus {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.ads.datamanager.v1.RequestStatusPerDestination.RemoveAllAudienceMembersStatus"
         }
     }
 
@@ -10210,6 +11004,224 @@ pub mod request_status_per_destination {
         }
     }
 
+    /// The status of the google user id data ingestion to the destination
+    /// containing stats related to the ingestion.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct IngestGoogleUserIdDataStatus {
+        /// The total count of audience members sent in the upload request for the
+        /// destination. Includes all audience members in the request, regardless of
+        /// whether they were successfully ingested or not.
+        pub record_count: i64,
+
+        /// The total count of google user ids sent in the upload request for the
+        /// destination. Includes all google user ids in the request, regardless of
+        /// whether they were successfully ingested or not.
+        pub google_user_id_count: i64,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl IngestGoogleUserIdDataStatus {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [record_count][crate::model::request_status_per_destination::IngestGoogleUserIdDataStatus::record_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_ads_datamanager_v1::model::request_status_per_destination::IngestGoogleUserIdDataStatus;
+        /// let x = IngestGoogleUserIdDataStatus::new().set_record_count(42);
+        /// ```
+        pub fn set_record_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.record_count = v.into();
+            self
+        }
+
+        /// Sets the value of [google_user_id_count][crate::model::request_status_per_destination::IngestGoogleUserIdDataStatus::google_user_id_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_ads_datamanager_v1::model::request_status_per_destination::IngestGoogleUserIdDataStatus;
+        /// let x = IngestGoogleUserIdDataStatus::new().set_google_user_id_count(42);
+        /// ```
+        pub fn set_google_user_id_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.google_user_id_count = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for IngestGoogleUserIdDataStatus {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.ads.datamanager.v1.RequestStatusPerDestination.IngestGoogleUserIdDataStatus"
+        }
+    }
+
+    /// The status of the google user id data removal from the destination.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct RemoveGoogleUserIdDataStatus {
+        /// The total count of audience members sent in the removal request. Includes
+        /// all audience members in the request, regardless of whether they were
+        /// successfully removed or not.
+        pub record_count: i64,
+
+        /// The total count of google user ids sent in the removal request. Includes
+        /// all google user ids in the request, regardless of whether they were
+        /// successfully removed or not.
+        pub google_user_id_count: i64,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl RemoveGoogleUserIdDataStatus {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [record_count][crate::model::request_status_per_destination::RemoveGoogleUserIdDataStatus::record_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_ads_datamanager_v1::model::request_status_per_destination::RemoveGoogleUserIdDataStatus;
+        /// let x = RemoveGoogleUserIdDataStatus::new().set_record_count(42);
+        /// ```
+        pub fn set_record_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.record_count = v.into();
+            self
+        }
+
+        /// Sets the value of [google_user_id_count][crate::model::request_status_per_destination::RemoveGoogleUserIdDataStatus::google_user_id_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_ads_datamanager_v1::model::request_status_per_destination::RemoveGoogleUserIdDataStatus;
+        /// let x = RemoveGoogleUserIdDataStatus::new().set_google_user_id_count(42);
+        /// ```
+        pub fn set_google_user_id_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.google_user_id_count = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for RemoveGoogleUserIdDataStatus {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.ads.datamanager.v1.RequestStatusPerDestination.RemoveGoogleUserIdDataStatus"
+        }
+    }
+
+    /// The status of the partner provided id data ingestion to the destination
+    /// containing stats related to the ingestion.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct IngestPartnerProvidedIdDataStatus {
+        /// The total count of audience members sent in the upload request for the
+        /// destination. Includes all audience members in the request, regardless of
+        /// whether they were successfully ingested or not.
+        pub record_count: i64,
+
+        /// The total count of partner provided ids sent in the upload request for
+        /// the destination. Includes all partner provided ids in the request,
+        /// regardless of whether they were successfully ingested or not.
+        pub partner_provided_id_count: i64,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl IngestPartnerProvidedIdDataStatus {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [record_count][crate::model::request_status_per_destination::IngestPartnerProvidedIdDataStatus::record_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_ads_datamanager_v1::model::request_status_per_destination::IngestPartnerProvidedIdDataStatus;
+        /// let x = IngestPartnerProvidedIdDataStatus::new().set_record_count(42);
+        /// ```
+        pub fn set_record_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.record_count = v.into();
+            self
+        }
+
+        /// Sets the value of [partner_provided_id_count][crate::model::request_status_per_destination::IngestPartnerProvidedIdDataStatus::partner_provided_id_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_ads_datamanager_v1::model::request_status_per_destination::IngestPartnerProvidedIdDataStatus;
+        /// let x = IngestPartnerProvidedIdDataStatus::new().set_partner_provided_id_count(42);
+        /// ```
+        pub fn set_partner_provided_id_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.partner_provided_id_count = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for IngestPartnerProvidedIdDataStatus {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.ads.datamanager.v1.RequestStatusPerDestination.IngestPartnerProvidedIdDataStatus"
+        }
+    }
+
+    /// The status of the partner provided id data removal from the destination.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct RemovePartnerProvidedIdDataStatus {
+        /// The total count of audience members sent in the removal request. Includes
+        /// all audience members in the request, regardless of whether they were
+        /// successfully removed or not.
+        pub record_count: i64,
+
+        /// The total count of partner provided ids sent in the removal request.
+        /// Includes all partner provided ids in the request, regardless of whether
+        /// they were successfully removed or not.
+        pub partner_provided_id_count: i64,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl RemovePartnerProvidedIdDataStatus {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [record_count][crate::model::request_status_per_destination::RemovePartnerProvidedIdDataStatus::record_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_ads_datamanager_v1::model::request_status_per_destination::RemovePartnerProvidedIdDataStatus;
+        /// let x = RemovePartnerProvidedIdDataStatus::new().set_record_count(42);
+        /// ```
+        pub fn set_record_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.record_count = v.into();
+            self
+        }
+
+        /// Sets the value of [partner_provided_id_count][crate::model::request_status_per_destination::RemovePartnerProvidedIdDataStatus::partner_provided_id_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_ads_datamanager_v1::model::request_status_per_destination::RemovePartnerProvidedIdDataStatus;
+        /// let x = RemovePartnerProvidedIdDataStatus::new().set_partner_provided_id_count(42);
+        /// ```
+        pub fn set_partner_provided_id_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.partner_provided_id_count = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for RemovePartnerProvidedIdDataStatus {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.ads.datamanager.v1.RequestStatusPerDestination.RemovePartnerProvidedIdDataStatus"
+        }
+    }
+
     /// The count for a specific data type.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
@@ -10600,6 +11612,12 @@ pub mod request_status_per_destination {
                 crate::model::request_status_per_destination::RemoveAudienceMembersStatus,
             >,
         ),
+        /// The status of the remove all audience members request.
+        RemoveAllAudienceMembersStatus(
+            std::boxed::Box<
+                crate::model::request_status_per_destination::RemoveAllAudienceMembersStatus,
+            >,
+        ),
     }
 }
 
@@ -10892,6 +11910,35 @@ pub struct AddressInfo {
     /// Required. The postal code of the user's address.
     pub postal_code: std::string::String,
 
+    /// Optional. The street and number of the user's address. Used only for
+    /// Google Analytics. This field is hashed and possibly encrypted.
+    ///
+    /// Normalize the value before hashing:
+    ///
+    /// - Remove symbol characters
+    /// - Convert to lowercase
+    /// - Remove leading and trailing whitespace
+    pub address_line: std::string::String,
+
+    /// Optional. The city of the user's address. Used only for Google Analytics.
+    ///
+    /// The value should be normalized as such:
+    ///
+    /// - Remove symbol characters
+    /// - Convert to lowercase
+    /// - Remove leading and trailing whitespace
+    pub city: std::string::String,
+
+    /// Optional. The administrative area (state/province) of the user's address.
+    /// Used only for Google Analytics.
+    ///
+    /// The value should be normalized as such:
+    ///
+    /// - Remove symbol characters
+    /// - Convert to lowercase
+    /// - Remove leading and trailing whitespace
+    pub administrative_area: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -10946,6 +11993,45 @@ impl AddressInfo {
     /// ```
     pub fn set_postal_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.postal_code = v.into();
+        self
+    }
+
+    /// Sets the value of [address_line][crate::model::AddressInfo::address_line].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::AddressInfo;
+    /// let x = AddressInfo::new().set_address_line("example");
+    /// ```
+    pub fn set_address_line<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.address_line = v.into();
+        self
+    }
+
+    /// Sets the value of [city][crate::model::AddressInfo::city].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::AddressInfo;
+    /// let x = AddressInfo::new().set_city("example");
+    /// ```
+    pub fn set_city<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.city = v.into();
+        self
+    }
+
+    /// Sets the value of [administrative_area][crate::model::AddressInfo::administrative_area].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::AddressInfo;
+    /// let x = AddressInfo::new().set_administrative_area("example");
+    /// ```
+    pub fn set_administrative_area<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.administrative_area = v.into();
         self
     }
 }
@@ -12467,6 +13553,7 @@ pub mod ingested_user_list_info {
         /// - Roku ID
         /// - Amazon Fire TV ID
         /// - Xbox or Microsoft ID
+        /// - Generic Device ID
         PseudonymousId,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -14269,6 +15356,11 @@ pub struct ListUserListDirectLicensesRequest {
     /// - `<`
     /// - `<=`
     ///
+    /// **Supported Functions:**
+    ///
+    /// - `IN(field, value1, value2, ...)`: returns true if the field matches any
+    ///   of the values.  Example: `IN(user_list_id, 123, 456)`
+    ///
     /// **Unsupported Fields:**
     ///
     /// - `name` (use get method instead)
@@ -15235,6 +16327,11 @@ pub struct ListUserListGlobalLicensesRequest {
     /// - `<`
     /// - `<=`
     ///
+    /// **Supported Functions:**
+    ///
+    /// - `IN(field, value1, value2, ...)`: returns true if the field matches any
+    ///   of the values.  Example: `IN(user_list_id, 123, 456)`
+    ///
     /// **Unsupported Fields:**
     ///
     /// - `name` (use get method instead)
@@ -15436,6 +16533,11 @@ pub struct ListUserListGlobalLicenseCustomerInfosRequest {
     /// - `>=`
     /// - `<`
     /// - `<=`
+    ///
+    /// **Supported Functions:**
+    ///
+    /// - `IN(field, value1, value2, ...)`: returns true if the field matches any
+    ///   of the values.  Example: `IN(user_list_id, 123, 456)`
     ///
     /// **Unsupported Fields:**
     ///
@@ -16386,6 +17488,11 @@ pub struct ListUserListsRequest {
     /// - `<`
     /// - `<=`
     /// - `:` (has)
+    ///
+    /// **Supported Functions:**
+    ///
+    /// - `IN(field, value1, value2, ...)`: returns true if the field matches any
+    ///   of the values.  Example: `IN(display_name, "name1", "name2")`
     ///
     /// Supported fields:
     ///
@@ -19082,6 +20189,12 @@ pub enum ErrorReason {
     BaselineLocationAutoDetectionFailed,
     /// Insights missing for this dimension.
     InsightsMissingForDimension,
+    /// A required prerequisite link (such as a Google Ads link) must exist for
+    /// the Google Analytics property to perform this operation.
+    RequiredPrerequisiteLinkMissing,
+    /// The remove as of time must be in the past or present. Future timestamps are
+    /// not permitted for removing audience members.
+    InvalidRemoveAsOfTime,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [ErrorReason::value] or
@@ -19241,6 +20354,8 @@ impl ErrorReason {
             Self::CustomVariableNotFound => std::option::Option::Some(120),
             Self::BaselineLocationAutoDetectionFailed => std::option::Option::Some(122),
             Self::InsightsMissingForDimension => std::option::Option::Some(123),
+            Self::RequiredPrerequisiteLinkMissing => std::option::Option::Some(124),
+            Self::InvalidRemoveAsOfTime => std::option::Option::Some(125),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -19494,6 +20609,10 @@ impl ErrorReason {
             Self::InsightsMissingForDimension => {
                 std::option::Option::Some("INSIGHTS_MISSING_FOR_DIMENSION")
             }
+            Self::RequiredPrerequisiteLinkMissing => {
+                std::option::Option::Some("REQUIRED_PREREQUISITE_LINK_MISSING")
+            }
+            Self::InvalidRemoveAsOfTime => std::option::Option::Some("INVALID_REMOVE_AS_OF_TIME"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -19638,6 +20757,8 @@ impl std::convert::From<i32> for ErrorReason {
             120 => Self::CustomVariableNotFound,
             122 => Self::BaselineLocationAutoDetectionFailed,
             123 => Self::InsightsMissingForDimension,
+            124 => Self::RequiredPrerequisiteLinkMissing,
+            125 => Self::InvalidRemoveAsOfTime,
             _ => Self::UnknownValue(error_reason::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -19826,6 +20947,8 @@ impl std::convert::From<&str> for ErrorReason {
             "CUSTOM_VARIABLE_NOT_FOUND" => Self::CustomVariableNotFound,
             "BASELINE_LOCATION_AUTO_DETECTION_FAILED" => Self::BaselineLocationAutoDetectionFailed,
             "INSIGHTS_MISSING_FOR_DIMENSION" => Self::InsightsMissingForDimension,
+            "REQUIRED_PREREQUISITE_LINK_MISSING" => Self::RequiredPrerequisiteLinkMissing,
+            "INVALID_REMOVE_AS_OF_TIME" => Self::InvalidRemoveAsOfTime,
             _ => Self::UnknownValue(error_reason::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -19974,6 +21097,8 @@ impl serde::ser::Serialize for ErrorReason {
             Self::CustomVariableNotFound => serializer.serialize_i32(120),
             Self::BaselineLocationAutoDetectionFailed => serializer.serialize_i32(122),
             Self::InsightsMissingForDimension => serializer.serialize_i32(123),
+            Self::RequiredPrerequisiteLinkMissing => serializer.serialize_i32(124),
+            Self::InvalidRemoveAsOfTime => serializer.serialize_i32(125),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }
@@ -20870,6 +21995,9 @@ pub enum ProcessingErrorReason {
     InvalidOperatingAccountForClick,
     /// A corresponding click can't be found that matches the provided attributes.
     ClickNotFound,
+    /// External attribution data is missing. Sending events to a destination for
+    /// an external attribution conversion action isn't supported.
+    ExternalAttributionDataMissing,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [ProcessingErrorReason::value] or
@@ -20940,6 +22068,7 @@ impl ProcessingErrorReason {
             Self::InvalidClick => std::option::Option::Some(41),
             Self::InvalidOperatingAccountForClick => std::option::Option::Some(42),
             Self::ClickNotFound => std::option::Option::Some(43),
+            Self::ExternalAttributionDataMissing => std::option::Option::Some(44),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -21074,6 +22203,9 @@ impl ProcessingErrorReason {
             Self::ClickNotFound => {
                 std::option::Option::Some("PROCESSING_ERROR_REASON_CLICK_NOT_FOUND")
             }
+            Self::ExternalAttributionDataMissing => std::option::Option::Some(
+                "PROCESSING_ERROR_REASON_EXTERNAL_ATTRIBUTION_DATA_MISSING",
+            ),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -21139,6 +22271,7 @@ impl std::convert::From<i32> for ProcessingErrorReason {
             41 => Self::InvalidClick,
             42 => Self::InvalidOperatingAccountForClick,
             43 => Self::ClickNotFound,
+            44 => Self::ExternalAttributionDataMissing,
             _ => Self::UnknownValue(processing_error_reason::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -21212,6 +22345,9 @@ impl std::convert::From<&str> for ProcessingErrorReason {
                 Self::InvalidOperatingAccountForClick
             }
             "PROCESSING_ERROR_REASON_CLICK_NOT_FOUND" => Self::ClickNotFound,
+            "PROCESSING_ERROR_REASON_EXTERNAL_ATTRIBUTION_DATA_MISSING" => {
+                Self::ExternalAttributionDataMissing
+            }
             _ => Self::UnknownValue(processing_error_reason::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -21273,6 +22409,7 @@ impl serde::ser::Serialize for ProcessingErrorReason {
             Self::InvalidClick => serializer.serialize_i32(41),
             Self::InvalidOperatingAccountForClick => serializer.serialize_i32(42),
             Self::ClickNotFound => serializer.serialize_i32(43),
+            Self::ExternalAttributionDataMissing => serializer.serialize_i32(44),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }
@@ -21488,6 +22625,306 @@ impl<'de> serde::de::Deserialize<'de> for ProcessingWarningReason {
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<ProcessingWarningReason>::new(
             ".google.ads.datamanager.v1.ProcessingWarningReason",
+        ))
+    }
+}
+
+/// Reasons for non-blocking warnings returned during ingestion.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum WarningReason {
+    /// Unspecified warning reason.
+    Unspecified,
+    /// A custom variable in
+    /// [`custom_variables`][google.ads.datamanager.v1.Event.custom_variables] is
+    /// not enabled in the account.
+    ///
+    /// [google.ads.datamanager.v1.Event.custom_variables]: crate::model::Event::custom_variables
+    CustomVariableNotEnabled,
+    /// A custom variable value in
+    /// [`custom_variables`][google.ads.datamanager.v1.Event.custom_variables] is
+    /// not among the predefined allowed values configured for the custom variable
+    /// on the destination account.
+    ///
+    /// [google.ads.datamanager.v1.Event.custom_variables]: crate::model::Event::custom_variables
+    CustomVariableNotPredefined,
+    /// The [`cart_data`][google.ads.datamanager.v1.Event.cart_data] is not
+    /// supported with [`gbraid`][google.ads.datamanager.v1.AdIdentifiers.gbraid]
+    /// or [`wbraid`][google.ads.datamanager.v1.AdIdentifiers.wbraid].
+    ///
+    /// [google.ads.datamanager.v1.AdIdentifiers.gbraid]: crate::model::AdIdentifiers::gbraid
+    /// [google.ads.datamanager.v1.AdIdentifiers.wbraid]: crate::model::AdIdentifiers::wbraid
+    /// [google.ads.datamanager.v1.Event.cart_data]: crate::model::Event::cart_data
+    CartDataNotSupportedWithGbraidOrWbraid,
+    /// The
+    /// [`merchant_product_id`][google.ads.datamanager.v1.Item.merchant_product_id]
+    /// is missing in the cart item.
+    ///
+    /// [google.ads.datamanager.v1.Item.merchant_product_id]: crate::model::Item::merchant_product_id
+    CartDataItemMerchantProductIdMissing,
+    /// The [`unit_price`][google.ads.datamanager.v1.Item.unit_price] is missing in
+    /// the cart item.
+    ///
+    /// [google.ads.datamanager.v1.Item.unit_price]: crate::model::Item::unit_price
+    CartDataItemUnitPriceMissing,
+    /// Generic warning reason for issues that do not fit into other specific
+    /// categories.
+    Generic,
+    /// The [`client_id`][google.ads.datamanager.v1.Event.client_id] is invalid.
+    ///
+    /// [google.ads.datamanager.v1.Event.client_id]: crate::model::Event::client_id
+    InvalidClientId,
+    /// The
+    /// [`subdivision_code`][google.ads.datamanager.v1.EventLocation.subdivision_code]
+    /// is invalid.
+    ///
+    /// [google.ads.datamanager.v1.EventLocation.subdivision_code]: crate::model::EventLocation::subdivision_code
+    InvalidSubdivisionCode,
+    /// The [`region_code`][google.ads.datamanager.v1.EventLocation.region_code]
+    /// is invalid.
+    ///
+    /// [google.ads.datamanager.v1.EventLocation.region_code]: crate::model::EventLocation::region_code
+    InvalidRegionCode,
+    /// The
+    /// [`subcontinent_code`][google.ads.datamanager.v1.EventLocation.subcontinent_code]
+    /// is invalid.
+    ///
+    /// [google.ads.datamanager.v1.EventLocation.subcontinent_code]: crate::model::EventLocation::subcontinent_code
+    InvalidSubcontinentCode,
+    /// The
+    /// [`continent_code`][google.ads.datamanager.v1.EventLocation.continent_code]
+    /// is invalid.
+    ///
+    /// [google.ads.datamanager.v1.EventLocation.continent_code]: crate::model::EventLocation::continent_code
+    InvalidContinentCode,
+    /// The device [`category`][google.ads.datamanager.v1.DeviceInfo.category]
+    /// is invalid.
+    ///
+    /// [google.ads.datamanager.v1.DeviceInfo.category]: crate::model::DeviceInfo::category
+    InvalidDeviceCategory,
+    /// The device
+    /// [`screen_height`][google.ads.datamanager.v1.DeviceInfo.screen_height] or
+    /// [`screen_width`][google.ads.datamanager.v1.DeviceInfo.screen_width] is
+    /// invalid.
+    ///
+    /// [google.ads.datamanager.v1.DeviceInfo.screen_height]: crate::model::DeviceInfo::screen_height
+    /// [google.ads.datamanager.v1.DeviceInfo.screen_width]: crate::model::DeviceInfo::screen_width
+    InvalidDeviceScreenResolution,
+    /// The [`merchant_id`][google.ads.datamanager.v1.CartData.merchant_id] is
+    /// invalid.
+    ///
+    /// [google.ads.datamanager.v1.CartData.merchant_id]: crate::model::CartData::merchant_id
+    InvalidMerchantId,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [WarningReason::value] or
+    /// [WarningReason::name].
+    UnknownValue(warning_reason::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod warning_reason {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl WarningReason {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::CustomVariableNotEnabled => std::option::Option::Some(1),
+            Self::CustomVariableNotPredefined => std::option::Option::Some(2),
+            Self::CartDataNotSupportedWithGbraidOrWbraid => std::option::Option::Some(3),
+            Self::CartDataItemMerchantProductIdMissing => std::option::Option::Some(4),
+            Self::CartDataItemUnitPriceMissing => std::option::Option::Some(5),
+            Self::Generic => std::option::Option::Some(6),
+            Self::InvalidClientId => std::option::Option::Some(7),
+            Self::InvalidSubdivisionCode => std::option::Option::Some(8),
+            Self::InvalidRegionCode => std::option::Option::Some(9),
+            Self::InvalidSubcontinentCode => std::option::Option::Some(10),
+            Self::InvalidContinentCode => std::option::Option::Some(11),
+            Self::InvalidDeviceCategory => std::option::Option::Some(12),
+            Self::InvalidDeviceScreenResolution => std::option::Option::Some(13),
+            Self::InvalidMerchantId => std::option::Option::Some(14),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("WARNING_REASON_UNSPECIFIED"),
+            Self::CustomVariableNotEnabled => {
+                std::option::Option::Some("WARNING_REASON_CUSTOM_VARIABLE_NOT_ENABLED")
+            }
+            Self::CustomVariableNotPredefined => {
+                std::option::Option::Some("WARNING_REASON_CUSTOM_VARIABLE_NOT_PREDEFINED")
+            }
+            Self::CartDataNotSupportedWithGbraidOrWbraid => std::option::Option::Some(
+                "WARNING_REASON_CART_DATA_NOT_SUPPORTED_WITH_GBRAID_OR_WBRAID",
+            ),
+            Self::CartDataItemMerchantProductIdMissing => std::option::Option::Some(
+                "WARNING_REASON_CART_DATA_ITEM_MERCHANT_PRODUCT_ID_MISSING",
+            ),
+            Self::CartDataItemUnitPriceMissing => {
+                std::option::Option::Some("WARNING_REASON_CART_DATA_ITEM_UNIT_PRICE_MISSING")
+            }
+            Self::Generic => std::option::Option::Some("WARNING_REASON_GENERIC"),
+            Self::InvalidClientId => std::option::Option::Some("WARNING_REASON_INVALID_CLIENT_ID"),
+            Self::InvalidSubdivisionCode => {
+                std::option::Option::Some("WARNING_REASON_INVALID_SUBDIVISION_CODE")
+            }
+            Self::InvalidRegionCode => {
+                std::option::Option::Some("WARNING_REASON_INVALID_REGION_CODE")
+            }
+            Self::InvalidSubcontinentCode => {
+                std::option::Option::Some("WARNING_REASON_INVALID_SUBCONTINENT_CODE")
+            }
+            Self::InvalidContinentCode => {
+                std::option::Option::Some("WARNING_REASON_INVALID_CONTINENT_CODE")
+            }
+            Self::InvalidDeviceCategory => {
+                std::option::Option::Some("WARNING_REASON_INVALID_DEVICE_CATEGORY")
+            }
+            Self::InvalidDeviceScreenResolution => {
+                std::option::Option::Some("WARNING_REASON_INVALID_DEVICE_SCREEN_RESOLUTION")
+            }
+            Self::InvalidMerchantId => {
+                std::option::Option::Some("WARNING_REASON_INVALID_MERCHANT_ID")
+            }
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for WarningReason {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for WarningReason {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for WarningReason {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::CustomVariableNotEnabled,
+            2 => Self::CustomVariableNotPredefined,
+            3 => Self::CartDataNotSupportedWithGbraidOrWbraid,
+            4 => Self::CartDataItemMerchantProductIdMissing,
+            5 => Self::CartDataItemUnitPriceMissing,
+            6 => Self::Generic,
+            7 => Self::InvalidClientId,
+            8 => Self::InvalidSubdivisionCode,
+            9 => Self::InvalidRegionCode,
+            10 => Self::InvalidSubcontinentCode,
+            11 => Self::InvalidContinentCode,
+            12 => Self::InvalidDeviceCategory,
+            13 => Self::InvalidDeviceScreenResolution,
+            14 => Self::InvalidMerchantId,
+            _ => Self::UnknownValue(warning_reason::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for WarningReason {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "WARNING_REASON_UNSPECIFIED" => Self::Unspecified,
+            "WARNING_REASON_CUSTOM_VARIABLE_NOT_ENABLED" => Self::CustomVariableNotEnabled,
+            "WARNING_REASON_CUSTOM_VARIABLE_NOT_PREDEFINED" => Self::CustomVariableNotPredefined,
+            "WARNING_REASON_CART_DATA_NOT_SUPPORTED_WITH_GBRAID_OR_WBRAID" => {
+                Self::CartDataNotSupportedWithGbraidOrWbraid
+            }
+            "WARNING_REASON_CART_DATA_ITEM_MERCHANT_PRODUCT_ID_MISSING" => {
+                Self::CartDataItemMerchantProductIdMissing
+            }
+            "WARNING_REASON_CART_DATA_ITEM_UNIT_PRICE_MISSING" => {
+                Self::CartDataItemUnitPriceMissing
+            }
+            "WARNING_REASON_GENERIC" => Self::Generic,
+            "WARNING_REASON_INVALID_CLIENT_ID" => Self::InvalidClientId,
+            "WARNING_REASON_INVALID_SUBDIVISION_CODE" => Self::InvalidSubdivisionCode,
+            "WARNING_REASON_INVALID_REGION_CODE" => Self::InvalidRegionCode,
+            "WARNING_REASON_INVALID_SUBCONTINENT_CODE" => Self::InvalidSubcontinentCode,
+            "WARNING_REASON_INVALID_CONTINENT_CODE" => Self::InvalidContinentCode,
+            "WARNING_REASON_INVALID_DEVICE_CATEGORY" => Self::InvalidDeviceCategory,
+            "WARNING_REASON_INVALID_DEVICE_SCREEN_RESOLUTION" => {
+                Self::InvalidDeviceScreenResolution
+            }
+            "WARNING_REASON_INVALID_MERCHANT_ID" => Self::InvalidMerchantId,
+            _ => Self::UnknownValue(warning_reason::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for WarningReason {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::CustomVariableNotEnabled => serializer.serialize_i32(1),
+            Self::CustomVariableNotPredefined => serializer.serialize_i32(2),
+            Self::CartDataNotSupportedWithGbraidOrWbraid => serializer.serialize_i32(3),
+            Self::CartDataItemMerchantProductIdMissing => serializer.serialize_i32(4),
+            Self::CartDataItemUnitPriceMissing => serializer.serialize_i32(5),
+            Self::Generic => serializer.serialize_i32(6),
+            Self::InvalidClientId => serializer.serialize_i32(7),
+            Self::InvalidSubdivisionCode => serializer.serialize_i32(8),
+            Self::InvalidRegionCode => serializer.serialize_i32(9),
+            Self::InvalidSubcontinentCode => serializer.serialize_i32(10),
+            Self::InvalidContinentCode => serializer.serialize_i32(11),
+            Self::InvalidDeviceCategory => serializer.serialize_i32(12),
+            Self::InvalidDeviceScreenResolution => serializer.serialize_i32(13),
+            Self::InvalidMerchantId => serializer.serialize_i32(14),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for WarningReason {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<WarningReason>::new(
+            ".google.ads.datamanager.v1.WarningReason",
         ))
     }
 }
