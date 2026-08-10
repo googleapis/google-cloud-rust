@@ -138,7 +138,7 @@ mod tests {
             .set_mode("NULLABLE")])
     }
 
-    pub(crate) fn create_test_row(val: &str) -> wkt::Struct {
+    fn create_test_row(val: &str) -> wkt::Struct {
         Map::from_iter([("f".to_string(), json!([{ "v": val }]))])
     }
 
