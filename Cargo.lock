@@ -2021,6 +2021,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-type",
  "google-cloud-wkt",
+ "http",
  "mockall",
  "rust_decimal",
  "serde_json",
@@ -2028,6 +2029,7 @@ dependencies = [
  "thiserror",
  "time",
  "tokio",
+ "uuid",
 ]
 
 [[package]]
@@ -3178,6 +3180,7 @@ dependencies = [
  "test-case",
  "thiserror",
  "tokio",
+ "tokio-stream",
 ]
 
 [[package]]
@@ -4885,6 +4888,7 @@ dependencies = [
  "anyhow",
  "async-trait",
  "bytes",
+ "futures",
  "google-cloud-gax",
  "google-cloud-gax-internal",
  "google-cloud-iam-v1",
@@ -4893,9 +4897,14 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-rpc",
  "google-cloud-wkt",
+ "http",
+ "prost",
+ "prost-types",
  "serde",
  "serde_json",
  "serde_with",
+ "tokio",
+ "tokio-stream",
  "tracing",
  "uuid",
 ]
@@ -5970,6 +5979,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-shopping-css-v1"
+version = "1.0.0"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-wkt",
+ "google-shopping-type",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tracing",
+]
+
+[[package]]
 name = "google-shopping-merchant-conversions-v1"
 version = "1.0.0"
 dependencies = [
@@ -6047,6 +6073,94 @@ dependencies = [
  "google-cloud-gax",
  "google-cloud-gax-internal",
  "google-cloud-wkt",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tracing",
+]
+
+[[package]]
+name = "google-shopping-merchant-ordertracking-v1"
+version = "1.0.0"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-type",
+ "google-cloud-wkt",
+ "google-shopping-type",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tracing",
+]
+
+[[package]]
+name = "google-shopping-merchant-products-v1"
+version = "1.0.0"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-type",
+ "google-cloud-wkt",
+ "google-shopping-type",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tracing",
+]
+
+[[package]]
+name = "google-shopping-merchant-promotions-v1"
+version = "1.0.0"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-type",
+ "google-cloud-wkt",
+ "google-shopping-type",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tracing",
+]
+
+[[package]]
+name = "google-shopping-merchant-quota-v1"
+version = "1.0.0"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-wkt",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tracing",
+]
+
+[[package]]
+name = "google-shopping-merchant-reports-v1"
+version = "1.0.0"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-type",
+ "google-cloud-wkt",
+ "google-shopping-type",
  "serde",
  "serde_json",
  "serde_with",
@@ -8203,9 +8317,9 @@ dependencies = [
 
 [[package]]
 name = "rustls"
-version = "0.23.41"
+version = "0.23.43"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6b92b125634d9b795e7beca796cc790df15a7fb38323bf3196fda83292d06b1f"
+checksum = "0283386ce02abc0151e1761d08802dfe86c173b0b494af5cbc086574e453da06"
 dependencies = [
  "aws-lc-rs",
  "log",
@@ -9219,6 +9333,7 @@ dependencies = [
  "futures-core",
  "pin-project-lite",
  "tokio",
+ "tokio-util",
 ]
 
 [[package]]

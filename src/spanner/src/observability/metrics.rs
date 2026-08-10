@@ -13,17 +13,17 @@
 // limitations under the License.
 
 use crate::omni::InstanceType;
+use gaxi::options::ClientConfig;
+use std::time::Duration;
+
 #[cfg(feature = "_experimental-builtin-metrics")]
 use std::sync::Arc;
-#[cfg(feature = "_experimental-builtin-metrics")]
-use std::time::Duration;
 #[cfg(feature = "_experimental-builtin-metrics")]
 use std::time::Instant;
 
 #[cfg(feature = "_experimental-builtin-metrics")]
 use {
     crate::observability::exporter::GcpMonitoringExporter,
-    gaxi::options::ClientConfig,
     google_cloud_monitoring_v3::client::MetricService,
     opentelemetry::metrics::{Counter, Histogram, Meter, MeterProvider},
     opentelemetry_sdk::{
@@ -31,9 +31,6 @@ use {
         metrics::{PeriodicReader, SdkMeterProvider},
     },
 };
-
-#[cfg(not(feature = "_experimental-builtin-metrics"))]
-use gaxi::options::ClientConfig;
 
 #[cfg(feature = "_experimental-builtin-metrics")]
 pub(crate) const DEFAULT_EXPORT_INTERVAL: Duration = Duration::from_secs(60);
@@ -308,6 +305,8 @@ impl Observability {
         let attributes = [
             opentelemetry::KeyValue::new("method", method),
             opentelemetry::KeyValue::new("status", status),
+            opentelemetry::KeyValue::new("directpath_enabled", "false"),
+            opentelemetry::KeyValue::new("directpath_used", "false"),
             self.common_attributes[0].clone(),
             self.common_attributes[1].clone(),
             self.common_attributes[2].clone(),
@@ -340,6 +339,7 @@ impl Observability {
         let attributes = [
             opentelemetry::KeyValue::new("method", method),
             opentelemetry::KeyValue::new("status", status),
+            opentelemetry::KeyValue::new("directpath_enabled", "false"),
             self.common_attributes[0].clone(),
             self.common_attributes[1].clone(),
             self.common_attributes[2].clone(),
@@ -458,6 +458,51 @@ impl Observability {
         fut.await
     }
 
+    /// No-op stub implementation when the `_experimental-builtin-metrics` feature is disabled.
+    #[inline(always)]
+    #[allow(dead_code)]
+    pub(crate) async fn trace_attempt<F, Fut, T>(
+        &self,
+        _method: &'static str,
+        f: F,
+    ) -> crate::Result<T>
+    where
+        F: FnOnce() -> Fut,
+        Fut: std::future::Future<Output = crate::Result<T>>,
+    {
+        f().await
+    }
+
+    /// No-op stub implementation when the `_experimental-builtin-metrics` feature is disabled.
+    ///
+    /// This allows client operations to call `record_attempt` unconditionally without sprinkling
+    /// `#[cfg(feature = "_experimental-builtin-metrics")]` across call sites.
+    #[inline(always)]
+    #[allow(dead_code)]
+    pub(crate) fn record_attempt<T>(
+        &self,
+        _method: &'static str,
+        _duration: Duration,
+        _result: &crate::Result<T>,
+        _gfe_latency: Option<f64>,
+        _afe_latency: Option<f64>,
+    ) {
+    }
+
+    /// No-op stub implementation when the `_experimental-builtin-metrics` feature is disabled.
+    ///
+    /// This allows client operations to call `record_operation` unconditionally without sprinkling
+    /// `#[cfg(feature = "_experimental-builtin-metrics")]` across call sites.
+    #[inline(always)]
+    #[allow(dead_code)]
+    pub(crate) fn record_operation<T>(
+        &self,
+        _method: &'static str,
+        _duration: Duration,
+        _result: &crate::Result<T>,
+    ) {
+    }
+
     #[allow(dead_code)]
     pub(crate) fn shutdown(&self) {}
 }
@@ -466,14 +511,24 @@ impl Observability {
 mod tests {
     use super::*;
     use opentelemetry_sdk::metrics::InMemoryMetricExporter;
+    use opentelemetry_sdk::metrics::data::{AggregatedMetrics, MetricData, ResourceMetrics};
+    use std::collections::HashMap;
+    use std::fmt::Debug;
+
     #[test]
-    fn test_observability_disabled() {
+    fn traits() {
+        static_assertions::assert_impl_all!(Observability: Send, Sync, Debug, Clone);
+        static_assertions::assert_impl_all!(SpannerMetrics: Send, Sync, Debug);
+    }
+
+    #[test]
+    fn observability_disabled() {
         let o11y = Observability::disabled();
         assert!(o11y.metrics.is_none());
     }
 
     #[test]
-    fn test_result_to_status_str() {
+    fn result_to_status_str_conversions() {
         let ok_res: crate::Result<()> = Ok(());
         assert_eq!(result_to_status_str(&ok_res), "OK");
 
@@ -484,7 +539,7 @@ mod tests {
     }
 
     #[test]
-    fn test_spanner_metrics_record_operation_and_attempt() {
+    fn spanner_metrics_record_operation_and_attempt() {
         let exporter = InMemoryMetricExporter::default();
         let reader = opentelemetry_sdk::metrics::PeriodicReader::builder(exporter.clone()).build();
         let provider = SdkMeterProvider::builder().with_reader(reader).build();
@@ -519,7 +574,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_trace_operation_success() {
+    async fn trace_operation_success() {
         let o11y = Observability::disabled();
         let result = o11y
             .trace_operation("ExecuteSql", async { Ok::<i32, crate::Error>(42) })
@@ -694,12 +749,12 @@ mod tests {
     }
 
     #[test]
-    fn test_default_export_interval() {
+    fn default_export_interval() {
         assert_eq!(DEFAULT_EXPORT_INTERVAL, Duration::from_secs(60));
     }
 
     #[test]
-    fn test_bucket_boundaries_len_and_values() {
+    fn bucket_boundaries_len_and_values() {
         assert_eq!(BUCKET_BOUNDARIES.len(), 50);
         assert_eq!(BUCKET_BOUNDARIES[0], 0.0);
         assert_eq!(
@@ -711,7 +766,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_observability_disabled_paths() {
+    async fn observability_disabled_paths() {
         let o11y = Observability::disabled();
         assert!(
             o11y.metrics.is_none(),
@@ -745,7 +800,7 @@ mod tests {
     }
 
     #[test]
-    fn test_spanner_metrics_initialization_and_recording() {
+    fn spanner_metrics_initialization_and_recording() {
         let exporter = InMemoryMetricExporter::default();
         let reader = PeriodicReader::builder(exporter.clone())
             .with_interval(DEFAULT_EXPORT_INTERVAL)
@@ -812,8 +867,35 @@ mod tests {
         );
     }
 
+    fn extract_histogram_attributes(
+        finished: &[ResourceMetrics],
+        metric_name: &str,
+    ) -> Option<HashMap<String, String>> {
+        for resource_metrics in finished {
+            for scope_metrics in resource_metrics.scope_metrics() {
+                for metric in scope_metrics.metrics() {
+                    if metric.name() == metric_name
+                        && let AggregatedMetrics::F64(MetricData::Histogram(histogram)) =
+                            metric.data()
+                        && let Some(data_point) = histogram.data_points().next()
+                    {
+                        return Some(
+                            data_point
+                                .attributes()
+                                .map(|key_value| {
+                                    (key_value.key.to_string(), key_value.value.to_string())
+                                })
+                                .collect(),
+                        );
+                    }
+                }
+            }
+        }
+        None
+    }
+
     #[test]
-    fn test_observability_recording_methods() {
+    fn observability_recording_methods() {
         let exporter = InMemoryMetricExporter::default();
         let reader = PeriodicReader::builder(exporter.clone())
             .with_interval(DEFAULT_EXPORT_INTERVAL)
@@ -825,9 +907,9 @@ mod tests {
         let o11y = Observability {
             metrics: Some(Arc::new(metrics)),
             common_attributes: [
-                opentelemetry::KeyValue::new("client_uid", ""),
-                opentelemetry::KeyValue::new("client_name", ""),
-                opentelemetry::KeyValue::new("database", ""),
+                opentelemetry::KeyValue::new("client_uid", "test-uid"),
+                opentelemetry::KeyValue::new("client_name", "spanner-rust/1.0.0"),
+                opentelemetry::KeyValue::new("database", "test-db"),
             ],
             meter_provider: Some(Arc::new(provider.clone())),
         };
@@ -851,6 +933,90 @@ mod tests {
         assert!(
             !finished.is_empty(),
             "exported metrics should not be empty after recording methods"
+        );
+
+        let attempt_attrs = extract_histogram_attributes(
+            &finished,
+            "spanner.googleapis.com/internal/client/attempt_latencies",
+        )
+        .expect("attempt_latencies should be exported");
+        assert_eq!(
+            attempt_attrs.get("method").map(String::as_str),
+            Some("test_op")
+        );
+        assert_eq!(attempt_attrs.get("status").map(String::as_str), Some("OK"));
+        assert_eq!(
+            attempt_attrs.get("directpath_enabled").map(String::as_str),
+            Some("false")
+        );
+        assert_eq!(
+            attempt_attrs.get("directpath_used").map(String::as_str),
+            Some("false")
+        );
+        assert_eq!(
+            attempt_attrs.get("client_uid").map(String::as_str),
+            Some("test-uid")
+        );
+        assert_eq!(
+            attempt_attrs.get("client_name").map(String::as_str),
+            Some("spanner-rust/1.0.0")
+        );
+        assert_eq!(
+            attempt_attrs.get("database").map(String::as_str),
+            Some("test-db")
+        );
+
+        let gfe_attrs = extract_histogram_attributes(
+            &finished,
+            "spanner.googleapis.com/internal/client/gfe_latencies",
+        )
+        .expect("gfe_latencies should be exported");
+        assert_eq!(
+            gfe_attrs.get("directpath_enabled").map(String::as_str),
+            Some("false")
+        );
+        assert_eq!(
+            gfe_attrs.get("directpath_used").map(String::as_str),
+            Some("false")
+        );
+
+        let afe_attrs = extract_histogram_attributes(
+            &finished,
+            "spanner.googleapis.com/internal/client/afe_latencies",
+        )
+        .expect("afe_latencies should be exported");
+        assert_eq!(
+            afe_attrs.get("directpath_enabled").map(String::as_str),
+            Some("false")
+        );
+        assert_eq!(
+            afe_attrs.get("directpath_used").map(String::as_str),
+            Some("false")
+        );
+
+        let op_attrs = extract_histogram_attributes(
+            &finished,
+            "spanner.googleapis.com/internal/client/operation_latencies",
+        )
+        .expect("operation_latencies should be exported");
+        assert_eq!(op_attrs.get("method").map(String::as_str), Some("test_op"));
+        assert_eq!(op_attrs.get("status").map(String::as_str), Some("OK"));
+        assert_eq!(
+            op_attrs.get("directpath_enabled").map(String::as_str),
+            Some("false")
+        );
+        assert_eq!(op_attrs.get("directpath_used"), None);
+        assert_eq!(
+            op_attrs.get("client_uid").map(String::as_str),
+            Some("test-uid")
+        );
+        assert_eq!(
+            op_attrs.get("client_name").map(String::as_str),
+            Some("spanner-rust/1.0.0")
+        );
+        assert_eq!(
+            op_attrs.get("database").map(String::as_str),
+            Some("test-db")
         );
     }
 

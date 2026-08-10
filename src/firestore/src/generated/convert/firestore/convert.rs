@@ -240,6 +240,28 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::TransactionOptions> 
     }
 }
 
+impl gaxi::prost::ToProto<RequestOptions> for crate::generated::gapic::model::RequestOptions {
+    type Output = RequestOptions;
+    fn to_proto(self) -> std::result::Result<RequestOptions, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            request_tags: self.request_tags
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic::model::RequestOptions> for RequestOptions {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic::model::RequestOptions, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic::model::RequestOptions::new()
+                .set_request_tags(self.request_tags.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
+    }
+}
+
 impl gaxi::prost::ToProto<Document> for crate::generated::gapic::model::Document {
     type Output = Document;
     fn to_proto(self) -> std::result::Result<Document, gaxi::prost::ConvertError> {
@@ -496,6 +518,7 @@ impl gaxi::prost::ToProto<GetDocumentRequest> for crate::generated::gapic::model
         Ok(Self::Output {
             name: self.name.to_proto()?,
             mask: self.mask.map(|v| v.to_proto()).transpose()?,
+            request_options: self.request_options.map(|v| v.to_proto()).transpose()?,
             consistency_selector: self.consistency_selector.map(|v| v.to_proto()).transpose()?,
         })
     }
@@ -507,6 +530,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::GetDocumentRequest> 
             crate::generated::gapic::model::GetDocumentRequest::new()
                 .set_name(self.name)
                 .set_or_clear_mask(self.mask.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
                 .set_consistency_selector(self.consistency_selector.map(|v| v.cnv()).transpose()?)
         )
     }
@@ -543,6 +567,7 @@ impl gaxi::prost::ToProto<ListDocumentsRequest> for crate::generated::gapic::mod
             order_by: self.order_by.to_proto()?,
             mask: self.mask.map(|v| v.to_proto()).transpose()?,
             show_missing: self.show_missing.to_proto()?,
+            request_options: self.request_options.map(|v| v.to_proto()).transpose()?,
             consistency_selector: self.consistency_selector.map(|v| v.to_proto()).transpose()?,
         })
     }
@@ -559,6 +584,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::ListDocumentsRequest
                 .set_order_by(self.order_by)
                 .set_or_clear_mask(self.mask.map(|v| v.cnv()).transpose()?)
                 .set_show_missing(self.show_missing)
+                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
                 .set_consistency_selector(self.consistency_selector.map(|v| v.cnv()).transpose()?)
         )
     }
@@ -597,6 +623,7 @@ impl gaxi::prost::ToProto<CreateDocumentRequest> for crate::generated::gapic::mo
             document_id: self.document_id.to_proto()?,
             document: self.document.map(|v| v.to_proto()).transpose()?,
             mask: self.mask.map(|v| v.to_proto()).transpose()?,
+            request_options: self.request_options.map(|v| v.to_proto()).transpose()?,
         })
     }
 }
@@ -610,6 +637,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::CreateDocumentReques
                 .set_document_id(self.document_id)
                 .set_or_clear_document(self.document.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_mask(self.mask.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -622,6 +650,7 @@ impl gaxi::prost::ToProto<UpdateDocumentRequest> for crate::generated::gapic::mo
             update_mask: self.update_mask.map(|v| v.to_proto()).transpose()?,
             mask: self.mask.map(|v| v.to_proto()).transpose()?,
             current_document: self.current_document.map(|v| v.to_proto()).transpose()?,
+            request_options: self.request_options.map(|v| v.to_proto()).transpose()?,
         })
     }
 }
@@ -634,6 +663,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::UpdateDocumentReques
                 .set_or_clear_update_mask(self.update_mask.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_mask(self.mask.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_current_document(self.current_document.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -644,6 +674,7 @@ impl gaxi::prost::ToProto<DeleteDocumentRequest> for crate::generated::gapic::mo
         Ok(Self::Output {
             name: self.name.to_proto()?,
             current_document: self.current_document.map(|v| v.to_proto()).transpose()?,
+            request_options: self.request_options.map(|v| v.to_proto()).transpose()?,
         })
     }
 }
@@ -654,6 +685,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::DeleteDocumentReques
             crate::generated::gapic::model::DeleteDocumentRequest::new()
                 .set_name(self.name)
                 .set_or_clear_current_document(self.current_document.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -690,6 +722,7 @@ impl gaxi::prost::ToProto<BatchGetDocumentsRequest> for crate::generated::gapic:
                 .map(|v| v.to_proto())
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             mask: self.mask.map(|v| v.to_proto()).transpose()?,
+            request_options: self.request_options.map(|v| v.to_proto()).transpose()?,
             consistency_selector: self.consistency_selector.map(|v| v.to_proto()).transpose()?,
         })
     }
@@ -703,6 +736,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::BatchGetDocumentsReq
                 .set_documents(self.documents.into_iter().map(|v| v.cnv())
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_or_clear_mask(self.mask.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
                 .set_consistency_selector(self.consistency_selector.map(|v| v.cnv()).transpose()?)
         )
     }
@@ -756,6 +790,7 @@ impl gaxi::prost::ToProto<BeginTransactionRequest> for crate::generated::gapic::
         Ok(Self::Output {
             database: self.database.to_proto()?,
             options: self.options.map(|v| v.to_proto()).transpose()?,
+            request_options: self.request_options.map(|v| v.to_proto()).transpose()?,
         })
     }
 }
@@ -766,6 +801,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::BeginTransactionRequ
             crate::generated::gapic::model::BeginTransactionRequest::new()
                 .set_database(self.database)
                 .set_or_clear_options(self.options.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -798,6 +834,7 @@ impl gaxi::prost::ToProto<CommitRequest> for crate::generated::gapic::model::Com
                 .map(|v| v.to_proto())
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             transaction: self.transaction.to_proto()?,
+            request_options: self.request_options.map(|v| v.to_proto()).transpose()?,
         })
     }
 }
@@ -810,6 +847,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::CommitRequest> for C
                 .set_writes(self.writes.into_iter().map(|v| v.cnv())
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_transaction(self.transaction)
+                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -844,6 +882,7 @@ impl gaxi::prost::ToProto<RollbackRequest> for crate::generated::gapic::model::R
         Ok(Self::Output {
             database: self.database.to_proto()?,
             transaction: self.transaction.to_proto()?,
+            request_options: self.request_options.map(|v| v.to_proto()).transpose()?,
         })
     }
 }
@@ -854,6 +893,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::RollbackRequest> for
             crate::generated::gapic::model::RollbackRequest::new()
                 .set_database(self.database)
                 .set_transaction(self.transaction)
+                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -904,6 +944,7 @@ impl gaxi::prost::ToProto<RunQueryRequest> for crate::generated::gapic::model::R
         Ok(Self::Output {
             parent: self.parent.to_proto()?,
             explain_options: self.explain_options.map(|v| v.to_proto()).transpose()?,
+            request_options: self.request_options.map(|v| v.to_proto()).transpose()?,
             query_type: self.query_type.map(|v| v.to_proto()).transpose()?,
             consistency_selector: self.consistency_selector.map(|v| v.to_proto()).transpose()?,
         })
@@ -916,6 +957,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::RunQueryRequest> for
             crate::generated::gapic::model::RunQueryRequest::new()
                 .set_parent(self.parent)
                 .set_or_clear_explain_options(self.explain_options.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
                 .set_query_type(self.query_type.map(|v| v.cnv()).transpose()?)
                 .set_consistency_selector(self.consistency_selector.map(|v| v.cnv()).transpose()?)
         )
@@ -1014,6 +1056,7 @@ impl gaxi::prost::ToProto<RunAggregationQueryRequest> for crate::generated::gapi
         Ok(Self::Output {
             parent: self.parent.to_proto()?,
             explain_options: self.explain_options.map(|v| v.to_proto()).transpose()?,
+            request_options: self.request_options.map(|v| v.to_proto()).transpose()?,
             query_type: self.query_type.map(|v| v.to_proto()).transpose()?,
             consistency_selector: self.consistency_selector.map(|v| v.to_proto()).transpose()?,
         })
@@ -1026,6 +1069,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::RunAggregationQueryR
             crate::generated::gapic::model::RunAggregationQueryRequest::new()
                 .set_parent(self.parent)
                 .set_or_clear_explain_options(self.explain_options.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
                 .set_query_type(self.query_type.map(|v| v.cnv()).transpose()?)
                 .set_consistency_selector(self.consistency_selector.map(|v| v.cnv()).transpose()?)
         )
@@ -1100,6 +1144,7 @@ impl gaxi::prost::ToProto<PartitionQueryRequest> for crate::generated::gapic::mo
             partition_count: self.partition_count.to_proto()?,
             page_token: self.page_token.to_proto()?,
             page_size: self.page_size.to_proto()?,
+            request_options: self.request_options.map(|v| v.to_proto()).transpose()?,
             query_type: self.query_type.map(|v| v.to_proto()).transpose()?,
             consistency_selector: self.consistency_selector.map(|v| v.to_proto()).transpose()?,
         })
@@ -1114,6 +1159,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::PartitionQueryReques
                 .set_partition_count(self.partition_count)
                 .set_page_token(self.page_token)
                 .set_page_size(self.page_size)
+                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
                 .set_query_type(self.query_type.map(|v| v.cnv()).transpose()?)
                 .set_consistency_selector(self.consistency_selector.map(|v| v.cnv()).transpose()?)
         )
@@ -1160,6 +1206,7 @@ impl gaxi::prost::ToProto<WriteRequest> for crate::generated::gapic::model::Writ
                 .map(|(k, v)| {
                     gaxi::prost::pair_transpose(k.to_proto(), v.to_proto())
                 }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
+            request_options: self.request_options.map(|v| v.to_proto()).transpose()?,
         })
     }
 }
@@ -1177,6 +1224,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::WriteRequest> for Wr
                     .map(|(k, v)| {
                         gaxi::prost::pair_transpose(k.cnv(), v.cnv())
                     }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
+                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -1239,6 +1287,7 @@ impl gaxi::prost::ToProto<ListenRequest> for crate::generated::gapic::model::Lis
                 .map(|(k, v)| {
                     gaxi::prost::pair_transpose(k.to_proto(), v.to_proto())
                 }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
+            request_options: self.request_options.map(|v| v.to_proto()).transpose()?,
             target_change: self.target_change.map(|v| v.to_proto()).transpose()?,
         })
     }
@@ -1253,6 +1302,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::ListenRequest> for L
                     .map(|(k, v)| {
                         gaxi::prost::pair_transpose(k.cnv(), v.cnv())
                     }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
+                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
                 .set_target_change(self.target_change.map(|v| v.cnv()).transpose()?)
         )
     }
@@ -1490,6 +1540,7 @@ impl gaxi::prost::ToProto<ListCollectionIdsRequest> for crate::generated::gapic:
             parent: self.parent.to_proto()?,
             page_size: self.page_size.to_proto()?,
             page_token: self.page_token.to_proto()?,
+            request_options: self.request_options.map(|v| v.to_proto()).transpose()?,
             consistency_selector: self.consistency_selector.map(|v| v.to_proto()).transpose()?,
         })
     }
@@ -1502,6 +1553,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::ListCollectionIdsReq
                 .set_parent(self.parent)
                 .set_page_size(self.page_size)
                 .set_page_token(self.page_token)
+                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
                 .set_consistency_selector(self.consistency_selector.map(|v| v.cnv()).transpose()?)
         )
     }
@@ -1545,6 +1597,7 @@ impl gaxi::prost::ToProto<BatchWriteRequest> for crate::generated::gapic::model:
                 .map(|(k, v)| {
                     gaxi::prost::pair_transpose(k.to_proto(), v.to_proto())
                 }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
+            request_options: self.request_options.map(|v| v.to_proto()).transpose()?,
         })
     }
 }
@@ -1560,6 +1613,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::BatchWriteRequest> f
                     .map(|(k, v)| {
                         gaxi::prost::pair_transpose(k.cnv(), v.cnv())
                     }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
+                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
         )
     }
 }

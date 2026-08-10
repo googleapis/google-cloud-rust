@@ -135,6 +135,28 @@ impl std::fmt::Debug for super::IpData {
     }
 }
 
+impl std::fmt::Debug for super::GoogleUserIdData {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoogleUserIdData");
+        debug_struct.field("google_user_ids", &self.google_user_ids);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::PartnerProvidedIdData {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PartnerProvidedIdData");
+        debug_struct.field("partner_provided_ids", &self.partner_provided_ids);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::CartData {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CartData");
@@ -449,6 +471,7 @@ impl std::fmt::Debug for super::IngestAudienceMembersResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IngestAudienceMembersResponse");
         debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("field_warnings", &self.field_warnings);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -482,6 +505,30 @@ impl std::fmt::Debug for super::RemoveAudienceMembersResponse {
     }
 }
 
+impl std::fmt::Debug for super::RemoveAllAudienceMembersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RemoveAllAudienceMembersRequest");
+        debug_struct.field("destinations", &self.destinations);
+        debug_struct.field("remove_as_of_time", &self.remove_as_of_time);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::RemoveAllAudienceMembersResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RemoveAllAudienceMembersResponse");
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::IngestEventsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IngestEventsRequest");
@@ -502,6 +549,7 @@ impl std::fmt::Debug for super::IngestEventsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IngestEventsResponse");
         debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("field_warnings", &self.field_warnings);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -779,6 +827,19 @@ impl std::fmt::Debug for super::WarningCount {
     }
 }
 
+impl std::fmt::Debug for super::FieldWarning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FieldWarning");
+        debug_struct.field("reason", &self.reason);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("field", &self.field);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::RequestStatusPerDestination {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RequestStatusPerDestination");
@@ -809,6 +870,16 @@ impl std::fmt::Debug for super::request_status_per_destination::RemoveAudienceMe
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RemoveAudienceMembersStatus");
         debug_struct.field("status", &self.status);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::request_status_per_destination::RemoveAllAudienceMembersStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RemoveAllAudienceMembersStatus");
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -973,6 +1044,54 @@ impl std::fmt::Debug for super::request_status_per_destination::RemoveCompositeD
     }
 }
 
+impl std::fmt::Debug for super::request_status_per_destination::IngestGoogleUserIdDataStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IngestGoogleUserIdDataStatus");
+        debug_struct.field("record_count", &self.record_count);
+        debug_struct.field("google_user_id_count", &self.google_user_id_count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::request_status_per_destination::RemoveGoogleUserIdDataStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RemoveGoogleUserIdDataStatus");
+        debug_struct.field("record_count", &self.record_count);
+        debug_struct.field("google_user_id_count", &self.google_user_id_count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::request_status_per_destination::IngestPartnerProvidedIdDataStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IngestPartnerProvidedIdDataStatus");
+        debug_struct.field("record_count", &self.record_count);
+        debug_struct.field("partner_provided_id_count", &self.partner_provided_id_count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::request_status_per_destination::RemovePartnerProvidedIdDataStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RemovePartnerProvidedIdDataStatus");
+        debug_struct.field("record_count", &self.record_count);
+        debug_struct.field("partner_provided_id_count", &self.partner_provided_id_count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::request_status_per_destination::DataTypeCount {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DataTypeCount");
@@ -1028,6 +1147,9 @@ impl std::fmt::Debug for super::AddressInfo {
         debug_struct.field("family_name", &self.family_name);
         debug_struct.field("region_code", &self.region_code);
         debug_struct.field("postal_code", &self.postal_code);
+        debug_struct.field("address_line", &self.address_line);
+        debug_struct.field("city", &self.city);
+        debug_struct.field("administrative_area", &self.administrative_area);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

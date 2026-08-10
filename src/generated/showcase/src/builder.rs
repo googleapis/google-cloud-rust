@@ -1,4 +1,4 @@
-// Copyright 2025 Google LLC
+// Copyright 2026 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -2688,6 +2688,57 @@ pub mod echo {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for FailEchoWithDetails {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    /// The request builder for [Echo::chat][crate::client::Echo::chat] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::builder::echo::Chat;
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let (sender, mut receiver) = builder.build().await;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> Chat {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Chat(RequestBuilder<crate::model::EchoRequest>);
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    impl Chat {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Builds the stream.
+        pub async fn build(
+            self,
+        ) -> (
+            google_cloud_gax::streaming::RequestSender<crate::model::EchoRequest>,
+            google_cloud_gax::streaming::ResponseReceiver<crate::model::EchoResponse>,
+        ) {
+            (*self.0.stub).chat(self.0.options).await
+        }
+    }
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    #[doc(hidden)]
+    impl crate::RequestBuilder for Chat {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
@@ -6172,6 +6223,59 @@ pub mod messaging {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for SearchBlurbs {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    /// The request builder for [Messaging::connect][crate::client::Messaging::connect] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::builder::messaging::Connect;
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let (sender, mut receiver) = builder.build().await;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> Connect {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Connect(RequestBuilder<crate::model::ConnectRequest>);
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    impl Connect {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Messaging>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Builds the stream.
+        pub async fn build(
+            self,
+        ) -> (
+            google_cloud_gax::streaming::RequestSender<crate::model::ConnectRequest>,
+            google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>,
+        ) {
+            (*self.0.stub).connect(self.0.options).await
+        }
+    }
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    #[doc(hidden)]
+    impl crate::RequestBuilder for Connect {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }

@@ -22,6 +22,307 @@
 ///
 /// # Example
 /// ```
+/// # use google_cloud_iam_v3::client::AccessPolicies;
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// async fn sample(
+///    organization_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
+///     let client = AccessPolicies::builder().build().await?;
+///     let mut list = client.list_access_policies()
+///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// Manages Identity and Access Management (IAM) access policies.
+///
+/// # Configuration
+///
+/// To configure `AccessPolicies` use the `with_*` methods in the type returned
+/// by [builder()][AccessPolicies::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://iam.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::access_policies::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::access_policies::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `AccessPolicies` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `AccessPolicies` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct AccessPolicies {
+    inner: std::sync::Arc<dyn super::stub::dynamic::AccessPolicies>,
+}
+
+impl AccessPolicies {
+    /// Returns a builder for [AccessPolicies].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_iam_v3::client::AccessPolicies;
+    /// let client = AccessPolicies::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::access_policies::ClientBuilder {
+        crate::new_client_builder(super::builder::access_policies::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::AccessPolicies + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::AccessPolicies>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::AccessPolicies> {
+        super::transport::AccessPolicies::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::AccessPolicies> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::AccessPolicies::new)
+    }
+
+    /// Creates an access policy, and returns a long running operation.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v3::client::AccessPolicies;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_iam_v3::model::AccessPolicy;
+    /// use google_cloud_iam_v3::Result;
+    /// async fn sample(
+    ///    client: &AccessPolicies, organization_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_access_policy()
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
+    ///         .set_access_policy(
+    ///             AccessPolicy::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_access_policy(&self) -> super::builder::access_policies::CreateAccessPolicy {
+        super::builder::access_policies::CreateAccessPolicy::new(self.inner.clone())
+    }
+
+    /// Gets an access policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v3::client::AccessPolicies;
+    /// use google_cloud_iam_v3::Result;
+    /// async fn sample(
+    ///    client: &AccessPolicies, organization_id: &str, location_id: &str, access_policy_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_access_policy()
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/accessPolicies/{access_policy_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_access_policy(&self) -> super::builder::access_policies::GetAccessPolicy {
+        super::builder::access_policies::GetAccessPolicy::new(self.inner.clone())
+    }
+
+    /// Updates an access policy.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v3::client::AccessPolicies;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_iam_v3::model::AccessPolicy;
+    /// use google_cloud_iam_v3::Result;
+    /// async fn sample(
+    ///    client: &AccessPolicies, organization_id: &str, location_id: &str, access_policy_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_access_policy()
+    ///         .set_access_policy(
+    ///             AccessPolicy::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/accessPolicies/{access_policy_id}"))/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_access_policy(&self) -> super::builder::access_policies::UpdateAccessPolicy {
+        super::builder::access_policies::UpdateAccessPolicy::new(self.inner.clone())
+    }
+
+    /// Deletes an access policy.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v3::client::AccessPolicies;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_iam_v3::Result;
+    /// async fn sample(
+    ///    client: &AccessPolicies, organization_id: &str, location_id: &str, access_policy_id: &str
+    /// ) -> Result<()> {
+    ///     client.delete_access_policy()
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/accessPolicies/{access_policy_id}"))
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_access_policy(&self) -> super::builder::access_policies::DeleteAccessPolicy {
+        super::builder::access_policies::DeleteAccessPolicy::new(self.inner.clone())
+    }
+
+    /// Lists access policies.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v3::client::AccessPolicies;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_iam_v3::Result;
+    /// async fn sample(
+    ///    client: &AccessPolicies, organization_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_access_policies()
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_access_policies(&self) -> super::builder::access_policies::ListAccessPolicies {
+        super::builder::access_policies::ListAccessPolicies::new(self.inner.clone())
+    }
+
+    /// Returns all policy bindings that bind a specific policy if a user has
+    /// searchPolicyBindings permission on that policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v3::client::AccessPolicies;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_iam_v3::Result;
+    /// async fn sample(
+    ///    client: &AccessPolicies
+    /// ) -> Result<()> {
+    ///     let mut list = client.search_access_policy_bindings()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn search_access_policy_bindings(
+        &self,
+    ) -> super::builder::access_policies::SearchAccessPolicyBindings {
+        super::builder::access_policies::SearchAccessPolicyBindings::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v3::client::AccessPolicies;
+    /// use google_cloud_iam_v3::Result;
+    /// async fn sample(
+    ///    client: &AccessPolicies
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::access_policies::GetOperation {
+        super::builder::access_policies::GetOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Identity and Access Management (IAM) API.
+///
+/// # Example
+/// ```
 /// # use google_cloud_iam_v3::client::PolicyBindings;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
 /// async fn sample(
@@ -131,7 +432,7 @@ impl PolicyBindings {
 
     /// Creates a policy binding and returns a long-running operation.
     /// Callers will need the IAM permissions on both the policy and target.
-    /// Once the binding is created, the policy is applied to the target.
+    /// After the binding is created, the policy is applied to the target.
     ///
     /// # Long running operations
     ///
@@ -188,9 +489,7 @@ impl PolicyBindings {
 
     /// Updates a policy binding and returns a long-running operation.
     /// Callers will need the IAM permissions on the policy and target in the
-    /// binding to update, and the IAM permission to remove the existing policy
-    /// from the binding. Target is immutable and cannot be updated. Once the
-    /// binding is updated, the new policy is applied to the target.
+    /// binding to update. Target and policy are immutable and cannot be updated.
     ///
     /// # Long running operations
     ///
@@ -229,7 +528,7 @@ impl PolicyBindings {
 
     /// Deletes a policy binding and returns a long-running operation.
     /// Callers will need the IAM permissions on both the policy and target.
-    /// Once the binding is deleted, the policy no longer applies to the target.
+    /// After the binding is deleted, the policy no longer applies to the target.
     ///
     /// # Long running operations
     ///

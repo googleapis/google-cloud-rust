@@ -814,6 +814,85 @@ impl<'de> serde::de::Deserialize<'de> for super::transaction_options::ReadOnly {
 }
 
 #[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::RequestOptions {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __request_tags,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for RequestOptions")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "requestTags" => Ok(__FieldTag::__request_tags),
+                            "request_tags" => Ok(__FieldTag::__request_tags),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::RequestOptions;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct RequestOptions")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__request_tags => {
+                            if !fields.insert(__FieldTag::__request_tags) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_tags",
+                                ));
+                            }
+                            result.request_tags = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::Document {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -1831,6 +1910,7 @@ impl<'de> serde::de::Deserialize<'de> for super::GetDocumentRequest {
             __mask,
             __transaction,
             __read_time,
+            __request_options,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1856,6 +1936,8 @@ impl<'de> serde::de::Deserialize<'de> for super::GetDocumentRequest {
                             "transaction" => Ok(__FieldTag::__transaction),
                             "readTime" => Ok(__FieldTag::__read_time),
                             "read_time" => Ok(__FieldTag::__read_time),
+                            "requestOptions" => Ok(__FieldTag::__request_options),
+                            "request_options" => Ok(__FieldTag::__request_options),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1945,6 +2027,16 @@ impl<'de> serde::de::Deserialize<'de> for super::GetDocumentRequest {
                                 ),
                             );
                         }
+                        __FieldTag::__request_options => {
+                            if !fields.insert(__FieldTag::__request_options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_options",
+                                ));
+                            }
+                            result.request_options = map
+                                .next_value::<std::option::Option<crate::model::RequestOptions>>(
+                                )?;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -1977,6 +2069,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ListDocumentsRequest {
             __transaction,
             __read_time,
             __show_missing,
+            __request_options,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -2012,6 +2105,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ListDocumentsRequest {
                             "read_time" => Ok(__FieldTag::__read_time),
                             "showMissing" => Ok(__FieldTag::__show_missing),
                             "show_missing" => Ok(__FieldTag::__show_missing),
+                            "requestOptions" => Ok(__FieldTag::__request_options),
+                            "request_options" => Ok(__FieldTag::__request_options),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -2160,6 +2255,16 @@ impl<'de> serde::de::Deserialize<'de> for super::ListDocumentsRequest {
                                 .next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__request_options => {
+                            if !fields.insert(__FieldTag::__request_options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_options",
+                                ));
+                            }
+                            result.request_options = map
+                                .next_value::<std::option::Option<crate::model::RequestOptions>>(
+                                )?;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -2279,6 +2384,7 @@ impl<'de> serde::de::Deserialize<'de> for super::CreateDocumentRequest {
             __document_id,
             __document,
             __mask,
+            __request_options,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -2306,6 +2412,8 @@ impl<'de> serde::de::Deserialize<'de> for super::CreateDocumentRequest {
                             "document_id" => Ok(__FieldTag::__document_id),
                             "document" => Ok(__FieldTag::__document),
                             "mask" => Ok(__FieldTag::__mask),
+                            "requestOptions" => Ok(__FieldTag::__request_options),
+                            "request_options" => Ok(__FieldTag::__request_options),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -2379,6 +2487,16 @@ impl<'de> serde::de::Deserialize<'de> for super::CreateDocumentRequest {
                             result.mask = map
                                 .next_value::<std::option::Option<crate::model::DocumentMask>>()?;
                         }
+                        __FieldTag::__request_options => {
+                            if !fields.insert(__FieldTag::__request_options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_options",
+                                ));
+                            }
+                            result.request_options = map
+                                .next_value::<std::option::Option<crate::model::RequestOptions>>(
+                                )?;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -2406,6 +2524,7 @@ impl<'de> serde::de::Deserialize<'de> for super::UpdateDocumentRequest {
             __update_mask,
             __mask,
             __current_document,
+            __request_options,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -2432,6 +2551,8 @@ impl<'de> serde::de::Deserialize<'de> for super::UpdateDocumentRequest {
                             "mask" => Ok(__FieldTag::__mask),
                             "currentDocument" => Ok(__FieldTag::__current_document),
                             "current_document" => Ok(__FieldTag::__current_document),
+                            "requestOptions" => Ok(__FieldTag::__request_options),
+                            "request_options" => Ok(__FieldTag::__request_options),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -2493,6 +2614,16 @@ impl<'de> serde::de::Deserialize<'de> for super::UpdateDocumentRequest {
                             result.current_document = map
                                 .next_value::<std::option::Option<crate::model::Precondition>>()?;
                         }
+                        __FieldTag::__request_options => {
+                            if !fields.insert(__FieldTag::__request_options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_options",
+                                ));
+                            }
+                            result.request_options = map
+                                .next_value::<std::option::Option<crate::model::RequestOptions>>(
+                                )?;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -2518,6 +2649,7 @@ impl<'de> serde::de::Deserialize<'de> for super::DeleteDocumentRequest {
         enum __FieldTag {
             __name,
             __current_document,
+            __request_options,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -2541,6 +2673,8 @@ impl<'de> serde::de::Deserialize<'de> for super::DeleteDocumentRequest {
                             "name" => Ok(__FieldTag::__name),
                             "currentDocument" => Ok(__FieldTag::__current_document),
                             "current_document" => Ok(__FieldTag::__current_document),
+                            "requestOptions" => Ok(__FieldTag::__request_options),
+                            "request_options" => Ok(__FieldTag::__request_options),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -2585,6 +2719,16 @@ impl<'de> serde::de::Deserialize<'de> for super::DeleteDocumentRequest {
                             result.current_document = map
                                 .next_value::<std::option::Option<crate::model::Precondition>>()?;
                         }
+                        __FieldTag::__request_options => {
+                            if !fields.insert(__FieldTag::__request_options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_options",
+                                ));
+                            }
+                            result.request_options = map
+                                .next_value::<std::option::Option<crate::model::RequestOptions>>(
+                                )?;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -2614,6 +2758,7 @@ impl<'de> serde::de::Deserialize<'de> for super::BatchGetDocumentsRequest {
             __transaction,
             __new_transaction,
             __read_time,
+            __request_options,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -2642,6 +2787,8 @@ impl<'de> serde::de::Deserialize<'de> for super::BatchGetDocumentsRequest {
                             "new_transaction" => Ok(__FieldTag::__new_transaction),
                             "readTime" => Ok(__FieldTag::__read_time),
                             "read_time" => Ok(__FieldTag::__read_time),
+                            "requestOptions" => Ok(__FieldTag::__request_options),
+                            "request_options" => Ok(__FieldTag::__request_options),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -2755,6 +2902,16 @@ impl<'de> serde::de::Deserialize<'de> for super::BatchGetDocumentsRequest {
                                     map.next_value::<std::option::Option<std::boxed::Box<wkt::Timestamp>>>()?.unwrap_or_default()
                                 ),
                             );
+                        }
+                        __FieldTag::__request_options => {
+                            if !fields.insert(__FieldTag::__request_options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_options",
+                                ));
+                            }
+                            result.request_options = map
+                                .next_value::<std::option::Option<crate::model::RequestOptions>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -2924,6 +3081,7 @@ impl<'de> serde::de::Deserialize<'de> for super::BeginTransactionRequest {
         enum __FieldTag {
             __database,
             __options,
+            __request_options,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -2946,6 +3104,8 @@ impl<'de> serde::de::Deserialize<'de> for super::BeginTransactionRequest {
                         match value {
                             "database" => Ok(__FieldTag::__database),
                             "options" => Ok(__FieldTag::__options),
+                            "requestOptions" => Ok(__FieldTag::__request_options),
+                            "request_options" => Ok(__FieldTag::__request_options),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -2989,6 +3149,16 @@ impl<'de> serde::de::Deserialize<'de> for super::BeginTransactionRequest {
                             }
                             result.options = map.next_value::<std::option::Option<crate::model::TransactionOptions>>()?
                                 ;
+                        }
+                        __FieldTag::__request_options => {
+                            if !fields.insert(__FieldTag::__request_options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_options",
+                                ));
+                            }
+                            result.request_options = map
+                                .next_value::<std::option::Option<crate::model::RequestOptions>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -3105,6 +3275,7 @@ impl<'de> serde::de::Deserialize<'de> for super::CommitRequest {
             __database,
             __writes,
             __transaction,
+            __request_options,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -3128,6 +3299,8 @@ impl<'de> serde::de::Deserialize<'de> for super::CommitRequest {
                             "database" => Ok(__FieldTag::__database),
                             "writes" => Ok(__FieldTag::__writes),
                             "transaction" => Ok(__FieldTag::__transaction),
+                            "requestOptions" => Ok(__FieldTag::__request_options),
+                            "request_options" => Ok(__FieldTag::__request_options),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3189,6 +3362,16 @@ impl<'de> serde::de::Deserialize<'de> for super::CommitRequest {
                                 }
                             }
                             result.transaction = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__request_options => {
+                            if !fields.insert(__FieldTag::__request_options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_options",
+                                ));
+                            }
+                            result.request_options = map
+                                .next_value::<std::option::Option<crate::model::RequestOptions>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -3306,6 +3489,7 @@ impl<'de> serde::de::Deserialize<'de> for super::RollbackRequest {
         enum __FieldTag {
             __database,
             __transaction,
+            __request_options,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -3328,6 +3512,8 @@ impl<'de> serde::de::Deserialize<'de> for super::RollbackRequest {
                         match value {
                             "database" => Ok(__FieldTag::__database),
                             "transaction" => Ok(__FieldTag::__transaction),
+                            "requestOptions" => Ok(__FieldTag::__request_options),
+                            "request_options" => Ok(__FieldTag::__request_options),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3382,6 +3568,16 @@ impl<'de> serde::de::Deserialize<'de> for super::RollbackRequest {
                             }
                             result.transaction = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
+                        __FieldTag::__request_options => {
+                            if !fields.insert(__FieldTag::__request_options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_options",
+                                ));
+                            }
+                            result.request_options = map
+                                .next_value::<std::option::Option<crate::model::RequestOptions>>(
+                                )?;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -3411,6 +3607,7 @@ impl<'de> serde::de::Deserialize<'de> for super::RunQueryRequest {
             __new_transaction,
             __read_time,
             __explain_options,
+            __request_options,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -3441,6 +3638,8 @@ impl<'de> serde::de::Deserialize<'de> for super::RunQueryRequest {
                             "read_time" => Ok(__FieldTag::__read_time),
                             "explainOptions" => Ok(__FieldTag::__explain_options),
                             "explain_options" => Ok(__FieldTag::__explain_options),
+                            "requestOptions" => Ok(__FieldTag::__request_options),
+                            "request_options" => Ok(__FieldTag::__request_options),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3566,6 +3765,16 @@ impl<'de> serde::de::Deserialize<'de> for super::RunQueryRequest {
                             }
                             result.explain_options = map
                                 .next_value::<std::option::Option<crate::model::ExplainOptions>>(
+                                )?;
+                        }
+                        __FieldTag::__request_options => {
+                            if !fields.insert(__FieldTag::__request_options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_options",
+                                ));
+                            }
+                            result.request_options = map
+                                .next_value::<std::option::Option<crate::model::RequestOptions>>(
                                 )?;
                         }
                         __FieldTag::Unknown(key) => {
@@ -3765,6 +3974,7 @@ impl<'de> serde::de::Deserialize<'de> for super::RunAggregationQueryRequest {
             __new_transaction,
             __read_time,
             __explain_options,
+            __request_options,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -3799,6 +4009,8 @@ impl<'de> serde::de::Deserialize<'de> for super::RunAggregationQueryRequest {
                             "read_time" => Ok(__FieldTag::__read_time),
                             "explainOptions" => Ok(__FieldTag::__explain_options),
                             "explain_options" => Ok(__FieldTag::__explain_options),
+                            "requestOptions" => Ok(__FieldTag::__request_options),
+                            "request_options" => Ok(__FieldTag::__request_options),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3921,6 +4133,16 @@ impl<'de> serde::de::Deserialize<'de> for super::RunAggregationQueryRequest {
                             }
                             result.explain_options = map
                                 .next_value::<std::option::Option<crate::model::ExplainOptions>>(
+                                )?;
+                        }
+                        __FieldTag::__request_options => {
+                            if !fields.insert(__FieldTag::__request_options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_options",
+                                ));
+                            }
+                            result.request_options = map
+                                .next_value::<std::option::Option<crate::model::RequestOptions>>(
                                 )?;
                         }
                         __FieldTag::Unknown(key) => {
@@ -4078,6 +4300,7 @@ impl<'de> serde::de::Deserialize<'de> for super::PartitionQueryRequest {
             __page_token,
             __page_size,
             __read_time,
+            __request_options,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -4109,6 +4332,8 @@ impl<'de> serde::de::Deserialize<'de> for super::PartitionQueryRequest {
                             "page_size" => Ok(__FieldTag::__page_size),
                             "readTime" => Ok(__FieldTag::__read_time),
                             "read_time" => Ok(__FieldTag::__read_time),
+                            "requestOptions" => Ok(__FieldTag::__request_options),
+                            "request_options" => Ok(__FieldTag::__request_options),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -4230,6 +4455,16 @@ impl<'de> serde::de::Deserialize<'de> for super::PartitionQueryRequest {
                                 ),
                             );
                         }
+                        __FieldTag::__request_options => {
+                            if !fields.insert(__FieldTag::__request_options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_options",
+                                ));
+                            }
+                            result.request_options = map
+                                .next_value::<std::option::Option<crate::model::RequestOptions>>(
+                                )?;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -4349,6 +4584,7 @@ impl<'de> serde::de::Deserialize<'de> for super::WriteRequest {
             __writes,
             __stream_token,
             __labels,
+            __request_options,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -4376,6 +4612,8 @@ impl<'de> serde::de::Deserialize<'de> for super::WriteRequest {
                             "streamToken" => Ok(__FieldTag::__stream_token),
                             "stream_token" => Ok(__FieldTag::__stream_token),
                             "labels" => Ok(__FieldTag::__labels),
+                            "requestOptions" => Ok(__FieldTag::__request_options),
+                            "request_options" => Ok(__FieldTag::__request_options),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -4462,6 +4700,16 @@ impl<'de> serde::de::Deserialize<'de> for super::WriteRequest {
                                     >,
                                 >>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__request_options => {
+                            if !fields.insert(__FieldTag::__request_options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_options",
+                                ));
+                            }
+                            result.request_options = map
+                                .next_value::<std::option::Option<crate::model::RequestOptions>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -4616,6 +4864,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ListenRequest {
             __add_target,
             __remove_target,
             __labels,
+            __request_options,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -4642,6 +4891,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ListenRequest {
                             "removeTarget" => Ok(__FieldTag::__remove_target),
                             "remove_target" => Ok(__FieldTag::__remove_target),
                             "labels" => Ok(__FieldTag::__labels),
+                            "requestOptions" => Ok(__FieldTag::__request_options),
+                            "request_options" => Ok(__FieldTag::__request_options),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -4740,6 +4991,16 @@ impl<'de> serde::de::Deserialize<'de> for super::ListenRequest {
                                     >,
                                 >>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__request_options => {
+                            if !fields.insert(__FieldTag::__request_options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_options",
+                                ));
+                            }
+                            result.request_options = map
+                                .next_value::<std::option::Option<crate::model::RequestOptions>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -5503,6 +5764,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ListCollectionIdsRequest {
             __page_size,
             __page_token,
             __read_time,
+            __request_options,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -5530,6 +5792,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ListCollectionIdsRequest {
                             "page_token" => Ok(__FieldTag::__page_token),
                             "readTime" => Ok(__FieldTag::__read_time),
                             "read_time" => Ok(__FieldTag::__read_time),
+                            "requestOptions" => Ok(__FieldTag::__request_options),
+                            "request_options" => Ok(__FieldTag::__request_options),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -5610,6 +5874,16 @@ impl<'de> serde::de::Deserialize<'de> for super::ListCollectionIdsRequest {
                                     map.next_value::<std::option::Option<std::boxed::Box<wkt::Timestamp>>>()?.unwrap_or_default()
                                 ),
                             );
+                        }
+                        __FieldTag::__request_options => {
+                            if !fields.insert(__FieldTag::__request_options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_options",
+                                ));
+                            }
+                            result.request_options = map
+                                .next_value::<std::option::Option<crate::model::RequestOptions>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -5729,6 +6003,7 @@ impl<'de> serde::de::Deserialize<'de> for super::BatchWriteRequest {
             __database,
             __writes,
             __labels,
+            __request_options,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -5752,6 +6027,8 @@ impl<'de> serde::de::Deserialize<'de> for super::BatchWriteRequest {
                             "database" => Ok(__FieldTag::__database),
                             "writes" => Ok(__FieldTag::__writes),
                             "labels" => Ok(__FieldTag::__labels),
+                            "requestOptions" => Ok(__FieldTag::__request_options),
+                            "request_options" => Ok(__FieldTag::__request_options),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -5809,6 +6086,16 @@ impl<'de> serde::de::Deserialize<'de> for super::BatchWriteRequest {
                                     >,
                                 >>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__request_options => {
+                            if !fields.insert(__FieldTag::__request_options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_options",
+                                ));
+                            }
+                            result.request_options = map
+                                .next_value::<std::option::Option<crate::model::RequestOptions>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

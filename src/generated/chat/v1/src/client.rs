@@ -486,6 +486,57 @@ impl ChatService {
         super::builder::chat_service::DeleteMessage::new(self.inner.clone())
     }
 
+    /// Searches for messages in Google Chat that the calling user has access to.
+    /// Returns a list of messages matching the search criteria.
+    ///
+    /// To search across all spaces the user has access to, set `parent` to
+    /// `spaces/-`. Using any other value for `parent` results in an
+    /// `INVALID_ARGUMENT` error. The returned messages have their `name` field
+    /// populated with the full resource name, which includes the specific `space`
+    /// in which the message resides.
+    ///
+    /// This API doesn't return all message types. The types of messages listed
+    /// below aren't included in the response. Use
+    /// [ListMessages][google.chat.v1.ChatService.ListMessages] to list all
+    /// messages.
+    ///
+    /// - Private Messages that are visible to the authenticated user.
+    /// - Messages posted by Chat apps in spaces or group chats.
+    /// - Messages in a Chat app DM.
+    /// - Messages from blocked users.
+    /// - Messages in spaces that the caller has muted.
+    ///
+    /// Requires [user
+    /// authentication](https://developers.google.com/workspace/chat/authenticate-authorize-chat-user)
+    /// with one of the following [authorization
+    /// scopes](https://developers.google.com/workspace/chat/authenticate-authorize#chat-api-scopes):
+    ///
+    /// - `<https://www.googleapis.com/auth/chat.messages.readonly>`
+    /// - `<https://www.googleapis.com/auth/chat.messages>`
+    ///
+    /// [google.chat.v1.ChatService.ListMessages]: crate::client::ChatService::list_messages
+    ///
+    /// # Example
+    /// ```
+    /// # use google_chat_v1::client::ChatService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_chat_v1::Result;
+    /// async fn sample(
+    ///    client: &ChatService
+    /// ) -> Result<()> {
+    ///     let mut list = client.search_messages()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn search_messages(&self) -> super::builder::chat_service::SearchMessages {
+        super::builder::chat_service::SearchMessages::new(self.inner.clone())
+    }
+
     /// Gets the metadata of a message attachment. The attachment data is fetched
     /// using the [media
     /// API](https://developers.google.com/workspace/chat/api/reference/rest/v1/media/download).
@@ -598,19 +649,31 @@ impl ChatService {
         super::builder::chat_service::ListSpaces::new(self.inner.clone())
     }
 
-    /// Returns a list of spaces in a Google Workspace organization based on an
-    /// administrator's search. In the request, set `use_admin_access` to `true`.
-    /// For an example, see [Search for and manage
+    /// Returns a list of spaces in a Google Workspace organization. For an
+    /// example, see [Search for and manage
     /// spaces](https://developers.google.com/workspace/chat/search-manage-admin).
     ///
-    /// Requires [user
-    /// authentication with administrator
-    /// privileges](https://developers.google.com/workspace/chat/authenticate-authorize-chat-user#admin-privileges)
-    /// and one of the following [authorization
-    /// scopes](https://developers.google.com/workspace/chat/authenticate-authorize#chat-api-scopes):
+    /// When `use_admin_access` is set to `false`, the results are limited to
+    /// spaces where the calling user is a joined member. To search with
+    /// administrator privileges, set `use_admin_access` to `true`.
     ///
-    /// - `<https://www.googleapis.com/auth/chat.admin.spaces.readonly>`
-    /// - `<https://www.googleapis.com/auth/chat.admin.spaces>`
+    /// Supports the following types of
+    /// [authentication](https://developers.google.com/workspace/chat/authenticate-authorize):
+    ///
+    /// - [User
+    ///   authentication](https://developers.google.com/workspace/chat/authenticate-authorize-chat-user)
+    ///   with one of the following authorization scopes:
+    ///
+    ///   - `<https://www.googleapis.com/auth/chat.spaces.readonly>`
+    ///   - `<https://www.googleapis.com/auth/chat.spaces>`
+    /// - [User
+    ///   authentication with administrator
+    ///   privileges](https://developers.google.com/workspace/chat/authenticate-authorize-chat-user#admin-privileges)
+    ///   and one of the following [authorization
+    ///   scopes](https://developers.google.com/workspace/chat/authenticate-authorize#chat-api-scopes):
+    ///
+    ///   - `<https://www.googleapis.com/auth/chat.admin.spaces.readonly>`
+    ///   - `<https://www.googleapis.com/auth/chat.admin.spaces>`
     ///
     /// # Example
     /// ```

@@ -318,12 +318,18 @@ members = [
   "src/generated/privacy/dlp/v2",
   "src/generated/rpc/context",
   "src/generated/rpc/types",
+  "src/generated/shopping/css/v1",
   "src/generated/shopping/gtype",
   "src/generated/shopping/merchant/conversions/v1",
   "src/generated/shopping/merchant/inventories/v1",
   "src/generated/shopping/merchant/issueresolution/v1",
   "src/generated/shopping/merchant/lfp/v1",
   "src/generated/shopping/merchant/notifications/v1",
+  "src/generated/shopping/merchant/ordertracking/v1",
+  "src/generated/shopping/merchant/products/v1",
+  "src/generated/shopping/merchant/promotions/v1",
+  "src/generated/shopping/merchant/quota/v1",
+  "src/generated/shopping/merchant/reports/v1",
   "src/generated/showcase",
   "src/generated/spanner/admin/database/v1",
   "src/generated/spanner/admin/instance/v1",
@@ -398,7 +404,7 @@ license      = "Apache-2.0"
 repository   = "https://github.com/googleapis/google-cloud-rust/tree/main"
 keywords     = ["gcp", "google-cloud", "google-cloud-rust", "sdk"]
 categories   = ["network-programming"]
-rust-version = "1.88.0"
+rust-version = "1.90.0"
 
 # Define a custom profile for builds on GHA. The standard profiles exhaust the
 # available disk space on the free GHA runners. The GHA builds cannot take
