@@ -46,6 +46,7 @@ serde.workspace       = true
 serde_json.workspace  = true
 thiserror.workspace   = true
 tokio                 = { workspace = true, features = ["macros", "rt-multi-thread", "sync", "time"] }
+tokio-stream          = { workspace = true, features = ["sync"] }
 # Local crates
 google-cloud-rpc = { workspace = true }
 wkt.workspace    = true
