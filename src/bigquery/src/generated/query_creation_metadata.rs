@@ -23,7 +23,6 @@
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryCreationMetadata {
-
     /// Whether the query result was fetched from the query cache.
     pub cache_hit: std::option::Option<wkt::BoolValue>,
 
@@ -96,11 +95,6 @@ pub struct QueryCreationMetadata {
     /// Auto-generated ID for the query.
     pub query_id: std::string::String,
 
-    /// An object with as many results as can be contained within the maximum
-    /// permitted reply size. To get any additional rows, you can call
-    /// GetQueryResults and specify the jobReference returned above.
-    pub rows: std::vec::Vec<wkt::Struct>,
-
     /// The schema of the results. Present only when the query completes
     /// successfully.
     pub schema: std::option::Option<crate::model::TableSchema>,
@@ -156,7 +150,8 @@ impl QueryCreationMetadata {
 
     /// Sets the value of [cache_hit][crate::model::QueryCreationMetadata::cache_hit].
     pub fn set_cache_hit<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::BoolValue>
+    where
+        T: std::convert::Into<wkt::BoolValue>,
     {
         self.cache_hit = std::option::Option::Some(v.into());
         self
@@ -164,7 +159,8 @@ impl QueryCreationMetadata {
 
     /// Sets or clears the value of [cache_hit][crate::model::QueryCreationMetadata::cache_hit].
     pub fn set_or_clear_cache_hit<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::BoolValue>
+    where
+        T: std::convert::Into<wkt::BoolValue>,
     {
         self.cache_hit = v.map(|x| x.into());
         self
@@ -172,7 +168,8 @@ impl QueryCreationMetadata {
 
     /// Sets the value of [configuration][crate::model::QueryCreationMetadata::configuration].
     pub fn set_configuration<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::JobConfiguration>
+    where
+        T: std::convert::Into<crate::model::JobConfiguration>,
     {
         self.configuration = std::option::Option::Some(v.into());
         self
@@ -180,7 +177,8 @@ impl QueryCreationMetadata {
 
     /// Sets or clears the value of [configuration][crate::model::QueryCreationMetadata::configuration].
     pub fn set_or_clear_configuration<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::JobConfiguration>
+    where
+        T: std::convert::Into<crate::model::JobConfiguration>,
     {
         self.configuration = v.map(|x| x.into());
         self
@@ -188,7 +186,8 @@ impl QueryCreationMetadata {
 
     /// Sets the value of [creation_time][crate::model::QueryCreationMetadata::creation_time].
     pub fn set_creation_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.creation_time = std::option::Option::Some(v.into());
         self
@@ -196,7 +195,8 @@ impl QueryCreationMetadata {
 
     /// Sets or clears the value of [creation_time][crate::model::QueryCreationMetadata::creation_time].
     pub fn set_or_clear_creation_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.creation_time = v.map(|x| x.into());
         self
@@ -204,7 +204,8 @@ impl QueryCreationMetadata {
 
     /// Sets the value of [dml_stats][crate::model::QueryCreationMetadata::dml_stats].
     pub fn set_dml_stats<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::DmlStats>
+    where
+        T: std::convert::Into<crate::model::DmlStats>,
     {
         self.dml_stats = std::option::Option::Some(v.into());
         self
@@ -212,7 +213,8 @@ impl QueryCreationMetadata {
 
     /// Sets or clears the value of [dml_stats][crate::model::QueryCreationMetadata::dml_stats].
     pub fn set_or_clear_dml_stats<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::DmlStats>
+    where
+        T: std::convert::Into<crate::model::DmlStats>,
     {
         self.dml_stats = v.map(|x| x.into());
         self
@@ -220,7 +222,8 @@ impl QueryCreationMetadata {
 
     /// Sets the value of [end_time][crate::model::QueryCreationMetadata::end_time].
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -228,7 +231,8 @@ impl QueryCreationMetadata {
 
     /// Sets or clears the value of [end_time][crate::model::QueryCreationMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -238,7 +242,7 @@ impl QueryCreationMetadata {
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ErrorProto>
+        V: std::convert::Into<crate::model::ErrorProto>,
     {
         use std::iter::Iterator;
         self.errors = v.into_iter().map(|i| i.into()).collect();
@@ -259,7 +263,8 @@ impl QueryCreationMetadata {
 
     /// Sets the value of [job_complete][crate::model::QueryCreationMetadata::job_complete].
     pub fn set_job_complete<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::BoolValue>
+    where
+        T: std::convert::Into<wkt::BoolValue>,
     {
         self.job_complete = std::option::Option::Some(v.into());
         self
@@ -267,7 +272,8 @@ impl QueryCreationMetadata {
 
     /// Sets or clears the value of [job_complete][crate::model::QueryCreationMetadata::job_complete].
     pub fn set_or_clear_job_complete<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::BoolValue>
+    where
+        T: std::convert::Into<wkt::BoolValue>,
     {
         self.job_complete = v.map(|x| x.into());
         self
@@ -275,7 +281,8 @@ impl QueryCreationMetadata {
 
     /// Sets the value of [job_creation_reason][crate::model::QueryCreationMetadata::job_creation_reason].
     pub fn set_job_creation_reason<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::JobCreationReason>
+    where
+        T: std::convert::Into<crate::model::JobCreationReason>,
     {
         self.job_creation_reason = std::option::Option::Some(v.into());
         self
@@ -283,7 +290,8 @@ impl QueryCreationMetadata {
 
     /// Sets or clears the value of [job_creation_reason][crate::model::QueryCreationMetadata::job_creation_reason].
     pub fn set_or_clear_job_creation_reason<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::JobCreationReason>
+    where
+        T: std::convert::Into<crate::model::JobCreationReason>,
     {
         self.job_creation_reason = v.map(|x| x.into());
         self
@@ -291,7 +299,8 @@ impl QueryCreationMetadata {
 
     /// Sets the value of [job_reference][crate::model::QueryCreationMetadata::job_reference].
     pub fn set_job_reference<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::JobReference>
+    where
+        T: std::convert::Into<crate::model::JobReference>,
     {
         self.job_reference = std::option::Option::Some(v.into());
         self
@@ -299,7 +308,8 @@ impl QueryCreationMetadata {
 
     /// Sets or clears the value of [job_reference][crate::model::QueryCreationMetadata::job_reference].
     pub fn set_or_clear_job_reference<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::JobReference>
+    where
+        T: std::convert::Into<crate::model::JobReference>,
     {
         self.job_reference = v.map(|x| x.into());
         self
@@ -319,7 +329,8 @@ impl QueryCreationMetadata {
 
     /// Sets the value of [num_dml_affected_rows][crate::model::QueryCreationMetadata::num_dml_affected_rows].
     pub fn set_num_dml_affected_rows<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Int64Value>
+    where
+        T: std::convert::Into<wkt::Int64Value>,
     {
         self.num_dml_affected_rows = std::option::Option::Some(v.into());
         self
@@ -327,7 +338,8 @@ impl QueryCreationMetadata {
 
     /// Sets or clears the value of [num_dml_affected_rows][crate::model::QueryCreationMetadata::num_dml_affected_rows].
     pub fn set_or_clear_num_dml_affected_rows<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Int64Value>
+    where
+        T: std::convert::Into<wkt::Int64Value>,
     {
         self.num_dml_affected_rows = v.map(|x| x.into());
         self
@@ -340,7 +352,10 @@ impl QueryCreationMetadata {
     }
 
     /// Sets the value of [principal_subject][crate::model::QueryCreationMetadata::principal_subject].
-    pub fn set_principal_subject<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_principal_subject<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.principal_subject = v.into();
         self
     }
@@ -351,20 +366,10 @@ impl QueryCreationMetadata {
         self
     }
 
-    /// Sets the value of [rows][crate::model::QueryCreationMetadata::rows].
-    pub fn set_rows<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::Struct>
-    {
-        use std::iter::Iterator;
-        self.rows = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [schema][crate::model::QueryCreationMetadata::schema].
     pub fn set_schema<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::TableSchema>
+    where
+        T: std::convert::Into<crate::model::TableSchema>,
     {
         self.schema = std::option::Option::Some(v.into());
         self
@@ -372,7 +377,8 @@ impl QueryCreationMetadata {
 
     /// Sets or clears the value of [schema][crate::model::QueryCreationMetadata::schema].
     pub fn set_or_clear_schema<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::TableSchema>
+    where
+        T: std::convert::Into<crate::model::TableSchema>,
     {
         self.schema = v.map(|x| x.into());
         self
@@ -386,7 +392,8 @@ impl QueryCreationMetadata {
 
     /// Sets the value of [session_info][crate::model::QueryCreationMetadata::session_info].
     pub fn set_session_info<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::SessionInfo>
+    where
+        T: std::convert::Into<crate::model::SessionInfo>,
     {
         self.session_info = std::option::Option::Some(v.into());
         self
@@ -394,7 +401,8 @@ impl QueryCreationMetadata {
 
     /// Sets or clears the value of [session_info][crate::model::QueryCreationMetadata::session_info].
     pub fn set_or_clear_session_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::SessionInfo>
+    where
+        T: std::convert::Into<crate::model::SessionInfo>,
     {
         self.session_info = v.map(|x| x.into());
         self
@@ -402,7 +410,8 @@ impl QueryCreationMetadata {
 
     /// Sets the value of [start_time][crate::model::QueryCreationMetadata::start_time].
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -410,7 +419,8 @@ impl QueryCreationMetadata {
 
     /// Sets or clears the value of [start_time][crate::model::QueryCreationMetadata::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -418,7 +428,8 @@ impl QueryCreationMetadata {
 
     /// Sets the value of [statistics][crate::model::QueryCreationMetadata::statistics].
     pub fn set_statistics<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::JobStatistics>
+    where
+        T: std::convert::Into<crate::model::JobStatistics>,
     {
         self.statistics = std::option::Option::Some(v.into());
         self
@@ -426,7 +437,8 @@ impl QueryCreationMetadata {
 
     /// Sets or clears the value of [statistics][crate::model::QueryCreationMetadata::statistics].
     pub fn set_or_clear_statistics<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::JobStatistics>
+    where
+        T: std::convert::Into<crate::model::JobStatistics>,
     {
         self.statistics = v.map(|x| x.into());
         self
@@ -434,7 +446,8 @@ impl QueryCreationMetadata {
 
     /// Sets the value of [status][crate::model::QueryCreationMetadata::status].
     pub fn set_status<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::JobStatus>
+    where
+        T: std::convert::Into<crate::model::JobStatus>,
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -442,7 +455,8 @@ impl QueryCreationMetadata {
 
     /// Sets or clears the value of [status][crate::model::QueryCreationMetadata::status].
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::JobStatus>
+    where
+        T: std::convert::Into<crate::model::JobStatus>,
     {
         self.status = v.map(|x| x.into());
         self
@@ -450,7 +464,8 @@ impl QueryCreationMetadata {
 
     /// Sets the value of [total_bytes_billed][crate::model::QueryCreationMetadata::total_bytes_billed].
     pub fn set_total_bytes_billed<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.total_bytes_billed = std::option::Option::Some(v.into());
         self
@@ -458,7 +473,8 @@ impl QueryCreationMetadata {
 
     /// Sets or clears the value of [total_bytes_billed][crate::model::QueryCreationMetadata::total_bytes_billed].
     pub fn set_or_clear_total_bytes_billed<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.total_bytes_billed = v.map(|x| x.into());
         self
@@ -466,7 +482,8 @@ impl QueryCreationMetadata {
 
     /// Sets the value of [total_bytes_processed][crate::model::QueryCreationMetadata::total_bytes_processed].
     pub fn set_total_bytes_processed<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Int64Value>
+    where
+        T: std::convert::Into<wkt::Int64Value>,
     {
         self.total_bytes_processed = std::option::Option::Some(v.into());
         self
@@ -474,7 +491,8 @@ impl QueryCreationMetadata {
 
     /// Sets or clears the value of [total_bytes_processed][crate::model::QueryCreationMetadata::total_bytes_processed].
     pub fn set_or_clear_total_bytes_processed<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Int64Value>
+    where
+        T: std::convert::Into<wkt::Int64Value>,
     {
         self.total_bytes_processed = v.map(|x| x.into());
         self
@@ -482,7 +500,8 @@ impl QueryCreationMetadata {
 
     /// Sets the value of [total_rows][crate::model::QueryCreationMetadata::total_rows].
     pub fn set_total_rows<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::UInt64Value>
+    where
+        T: std::convert::Into<wkt::UInt64Value>,
     {
         self.total_rows = std::option::Option::Some(v.into());
         self
@@ -490,7 +509,8 @@ impl QueryCreationMetadata {
 
     /// Sets or clears the value of [total_rows][crate::model::QueryCreationMetadata::total_rows].
     pub fn set_or_clear_total_rows<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::UInt64Value>
+    where
+        T: std::convert::Into<wkt::UInt64Value>,
     {
         self.total_rows = v.map(|x| x.into());
         self
@@ -498,7 +518,8 @@ impl QueryCreationMetadata {
 
     /// Sets the value of [total_slot_ms][crate::model::QueryCreationMetadata::total_slot_ms].
     pub fn set_total_slot_ms<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.total_slot_ms = std::option::Option::Some(v.into());
         self
@@ -506,7 +527,8 @@ impl QueryCreationMetadata {
 
     /// Sets or clears the value of [total_slot_ms][crate::model::QueryCreationMetadata::total_slot_ms].
     pub fn set_or_clear_total_slot_ms<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<i64>
+    where
+        T: std::convert::Into<i64>,
     {
         self.total_slot_ms = v.map(|x| x.into());
         self
@@ -521,7 +543,7 @@ impl QueryCreationMetadata {
 
 impl std::convert::From<google_cloud_bigquery_v2::model::Job> for QueryCreationMetadata {
     fn from(resp: google_cloud_bigquery_v2::model::Job) -> Self {
-        Self{
+        Self {
             configuration: resp.configuration,
             etag: resp.etag,
             id: resp.id,
@@ -540,7 +562,7 @@ impl std::convert::From<google_cloud_bigquery_v2::model::Job> for QueryCreationM
 
 impl std::convert::From<google_cloud_bigquery_v2::model::QueryResponse> for QueryCreationMetadata {
     fn from(resp: google_cloud_bigquery_v2::model::QueryResponse) -> Self {
-        Self{
+        Self {
             cache_hit: resp.cache_hit,
             creation_time: resp.creation_time,
             dml_stats: resp.dml_stats,
@@ -554,7 +576,6 @@ impl std::convert::From<google_cloud_bigquery_v2::model::QueryResponse> for Quer
             num_dml_affected_rows: resp.num_dml_affected_rows,
             page_token: resp.page_token,
             query_id: resp.query_id,
-            rows: resp.rows,
             schema: resp.schema,
             session_info: resp.session_info,
             start_time: resp.start_time,
@@ -583,7 +604,6 @@ impl std::convert::From<QueryCreationMetadata> for crate::generated::QueryMetada
             num_dml_affected_rows: md.num_dml_affected_rows,
             page_token: md.page_token,
             query_id: md.query_id,
-            rows: md.rows,
             schema: md.schema,
             session_info: md.session_info,
             start_time: md.start_time,
