@@ -246,12 +246,29 @@ mod tests {
         value: String,
     }
 
-    struct TestSendStream {
+    #[derive(Clone, Default)]
+    struct MockSendStream {
         observed_messages: Arc<Mutex<Vec<TestMessage>>>,
-        notify: Arc<tokio::sync::Notify>,
+        notify: Option<Arc<tokio::sync::Notify>>,
     }
 
-    impl SendStream for TestSendStream {
+    impl MockSendStream {
+        fn capturing(
+            observed_messages: Arc<Mutex<Vec<TestMessage>>>,
+            notify: Arc<tokio::sync::Notify>,
+        ) -> Self {
+            Self {
+                observed_messages,
+                notify: Some(notify),
+            }
+        }
+
+        fn noop() -> Self {
+            Self::default()
+        }
+    }
+
+    impl SendStream for MockSendStream {
         async fn send(
             &mut self,
             message: &dyn SendMessage,
@@ -263,19 +280,137 @@ mod tests {
                 .lock()
                 .expect("lock observed messages")
                 .push(decoded);
-            self.notify.notify_one();
+            if let Some(notify) = &self.notify {
+                notify.notify_one();
+            }
             Ok(())
         }
     }
 
-    // TODO(#5991): Refactor common stream state test mocks across grpc_rust tests.
-    #[derive(Default)]
-    enum StreamState {
-        #[default]
-        Initial,
-        HeadersSent,
-        MessageSent,
-        Done,
+    enum MockRecvAction {
+        WaitForMessage {
+            observed_messages: Arc<Mutex<Vec<TestMessage>>>,
+            notify: Arc<tokio::sync::Notify>,
+        },
+        Headers(ResponseHeaders),
+        Message(TestMessage),
+        Trailers(Trailers),
+    }
+
+    struct MockRecvStream {
+        actions: std::collections::VecDeque<MockRecvAction>,
+    }
+
+    impl MockRecvStream {
+        fn new(actions: impl IntoIterator<Item = MockRecvAction>) -> Self {
+            Self {
+                actions: actions.into_iter().collect(),
+            }
+        }
+
+        fn immediate_trailers(trailers: Trailers) -> Self {
+            Self::new([MockRecvAction::Trailers(trailers)])
+        }
+
+        fn headers_and_trailers(headers: ResponseHeaders, trailers: Trailers) -> Self {
+            Self::new([
+                MockRecvAction::Headers(headers),
+                MockRecvAction::Trailers(trailers),
+            ])
+        }
+    }
+
+    impl RecvStream for MockRecvStream {
+        async fn recv(&mut self, message: &mut dyn RecvMessage) -> ResponseStreamItem {
+            while let Some(action) = self.actions.pop_front() {
+                match action {
+                    MockRecvAction::WaitForMessage {
+                        observed_messages,
+                        notify,
+                    } => {
+                        while observed_messages
+                            .lock()
+                            .expect("lock observed messages")
+                            .is_empty()
+                        {
+                            notify.notified().await;
+                        }
+                    }
+                    MockRecvAction::Headers(headers) => {
+                        return ResponseStreamItem::Headers(headers);
+                    }
+                    MockRecvAction::Message(response) => {
+                        let mut encoded = Bytes::from(response.encode_to_vec());
+                        message
+                            .decode(&mut encoded)
+                            .expect("decode response message");
+                        return ResponseStreamItem::Message;
+                    }
+                    MockRecvAction::Trailers(trailers) => {
+                        return ResponseStreamItem::Trailers(trailers);
+                    }
+                }
+            }
+            ResponseStreamItem::StreamClosed
+        }
+    }
+
+    // TODO(#5991): Refactor common stream test mocks into shared test_helpers across grpc_rust tests.
+    struct MockInvoker<S = MockSendStream, R = MockRecvStream> {
+        send_stream: Mutex<Option<S>>,
+        recv_stream: Mutex<Option<R>>,
+        observed_headers: Arc<Mutex<Option<RequestHeaders>>>,
+    }
+
+    impl<S, R> MockInvoker<S, R> {
+        fn new(send_stream: S, recv_stream: R) -> Self {
+            Self {
+                send_stream: Mutex::new(Some(send_stream)),
+                recv_stream: Mutex::new(Some(recv_stream)),
+                observed_headers: Arc::new(Mutex::new(None)),
+            }
+        }
+
+        fn with_observed_headers(
+            send_stream: S,
+            recv_stream: R,
+            observed_headers: Arc<Mutex<Option<RequestHeaders>>>,
+        ) -> Self {
+            Self {
+                send_stream: Mutex::new(Some(send_stream)),
+                recv_stream: Mutex::new(Some(recv_stream)),
+                observed_headers,
+            }
+        }
+    }
+
+    impl<S, R> Invoke for MockInvoker<S, R>
+    where
+        S: SendStream + Send + 'static,
+        R: RecvStream + Send + 'static,
+    {
+        type SendStream = S;
+        type RecvStream = R;
+
+        async fn invoke(
+            &self,
+            headers: RequestHeaders,
+            _options: CallOptions,
+        ) -> (Self::SendStream, Self::RecvStream) {
+            *self.observed_headers.lock().expect("lock observed headers") = Some(headers);
+            (
+                self.send_stream
+                    .lock()
+                    .expect("lock send stream")
+                    .take()
+                    .expect("send stream should only be invoked once"),
+                self.recv_stream
+                    .lock()
+                    .expect("lock recv stream")
+                    .take()
+                    .expect("recv stream should only be invoked once"),
+            )
+        }
     }
 
     #[tokio::test]
@@ -287,94 +422,28 @@ mod tests {
         const REQUEST_VALUE: &str = "request";
         const RESPONSE_VALUE: &str = "response";
 
-        struct TestInvoker {
-            observed_headers: Arc<Mutex<Option<RequestHeaders>>>,
-            observed_messages: Arc<Mutex<Vec<TestMessage>>>,
-            notify: Arc<tokio::sync::Notify>,
-        }
-
-        impl Invoke for TestInvoker {
-            type SendStream = TestSendStream;
-            type RecvStream = TestRecvStream;
-
-            async fn invoke(
-                &self,
-                headers: RequestHeaders,
-                _options: CallOptions,
-            ) -> (Self::SendStream, Self::RecvStream) {
-                *self.observed_headers.lock().expect("lock observed headers") = Some(headers);
-                (
-                    TestSendStream {
-                        observed_messages: self.observed_messages.clone(),
-                        notify: self.notify.clone(),
-                    },
-                    TestRecvStream {
-                        observed_messages: self.observed_messages.clone(),
-                        notify: self.notify.clone(),
-                        state: StreamState::default(),
-                    },
-                )
-            }
-        }
-
-        /// A mock [`RecvStream`] that simulates a gRPC response stream sequence:
-        ///
-        /// 1. Waits until at least one request message is sent by the client, then returns response headers.
-        /// 2. Returns a response message.
-        /// 3. Returns stream trailers followed by stream closure.
-        struct TestRecvStream {
-            observed_messages: Arc<Mutex<Vec<TestMessage>>>,
-            notify: Arc<tokio::sync::Notify>,
-            state: StreamState,
-        }
-
-        impl RecvStream for TestRecvStream {
-            async fn recv(&mut self, message: &mut dyn RecvMessage) -> ResponseStreamItem {
-                match self.state {
-                    StreamState::Initial => {
-                        self.state = StreamState::HeadersSent;
-                        // Wait for the client request message to be sent before yielding initial headers.
-                        while self
-                            .observed_messages
-                            .lock()
-                            .expect("lock messages")
-                            .is_empty()
-                        {
-                            self.notify.notified().await;
-                        }
-                        let mut metadata = grpc::metadata::MetadataMap::new();
-                        metadata.insert(HEADER_KEY, MetadataValue::from_static(HEADER_VALUE));
-                        ResponseStreamItem::Headers(ResponseHeaders::new().with_metadata(metadata))
-                    }
-                    StreamState::HeadersSent => {
-                        self.state = StreamState::MessageSent;
-                        // Emit a mock response message.
-                        let response = TestMessage {
-                            value: RESPONSE_VALUE.to_string(),
-                        };
-                        let mut encoded = Bytes::from(response.encode_to_vec());
-                        message
-                            .decode(&mut encoded)
-                            .expect("decode response message");
-                        ResponseStreamItem::Message
-                    }
-                    StreamState::MessageSent => {
-                        self.state = StreamState::Done;
-                        ResponseStreamItem::Trailers(Trailers::new(Ok(())))
-                    }
-                    StreamState::Done => ResponseStreamItem::StreamClosed,
-                }
-            }
-        }
-
         let observed_headers = Arc::new(Mutex::new(None));
         let observed_messages = Arc::new(Mutex::new(Vec::new()));
         let notify = Arc::new(tokio::sync::Notify::new());
-        let invoker = TestInvoker {
-            observed_headers: observed_headers.clone(),
-            observed_messages: observed_messages.clone(),
-            notify,
-        };
+
+        let mut metadata = grpc::metadata::MetadataMap::new();
+        metadata.insert(HEADER_KEY, MetadataValue::from_static(HEADER_VALUE));
+
+        let invoker = MockInvoker::with_observed_headers(
+            MockSendStream::capturing(observed_messages.clone(), notify.clone()),
+            MockRecvStream::new([
+                MockRecvAction::WaitForMessage {
+                    observed_messages: observed_messages.clone(),
+                    notify,
+                },
+                MockRecvAction::Headers(ResponseHeaders::new().with_metadata(metadata)),
+                MockRecvAction::Message(TestMessage {
+                    value: RESPONSE_VALUE.to_string(),
+                }),
+                MockRecvAction::Trailers(Trailers::new(Ok(()))),
+            ]),
+            observed_headers.clone(),
+        );
         let headers = RequestHeaders::new().with_method_name(METHOD_NAME);
         let request = TestMessage {
             value: REQUEST_VALUE.to_string(),
@@ -426,50 +495,11 @@ mod tests {
         const METHOD_NAME: &str = "/google.test.v1.Test/Bidi";
         const ERROR_MESSAGE: &str = "stream aborted";
 
-        struct TestErrorInvoker;
-
-        impl Invoke for TestErrorInvoker {
-            type SendStream = TestSendStream;
-            type RecvStream = TestErrorRecvStream;
-
-            async fn invoke(
-                &self,
-                _headers: RequestHeaders,
-                _options: CallOptions,
-            ) -> (Self::SendStream, Self::RecvStream) {
-                (
-                    TestSendStream {
-                        observed_messages: Arc::new(Mutex::new(Vec::new())),
-                        notify: Arc::new(tokio::sync::Notify::new()),
-                    },
-                    TestErrorRecvStream {
-                        state: StreamState::default(),
-                    },
-                )
-            }
-        }
-
-        struct TestErrorRecvStream {
-            state: StreamState,
-        }
-
-        impl RecvStream for TestErrorRecvStream {
-            async fn recv(&mut self, _message: &mut dyn RecvMessage) -> ResponseStreamItem {
-                match self.state {
-                    StreamState::Initial => {
-                        self.state = StreamState::HeadersSent;
-                        ResponseStreamItem::Headers(ResponseHeaders::new())
-                    }
-                    _ => {
-                        self.state = StreamState::Done;
-                        let err = StatusError::new(StatusCodeError::Aborted, ERROR_MESSAGE);
-                        ResponseStreamItem::Trailers(Trailers::new(Err(err)))
-                    }
-                }
-            }
-        }
-
-        let invoker = TestErrorInvoker;
+        let err = StatusError::new(StatusCodeError::Aborted, ERROR_MESSAGE);
+        let invoker = MockInvoker::new(
+            MockSendStream::noop(),
+            MockRecvStream::headers_and_trailers(ResponseHeaders::new(), Trailers::new(Err(err))),
+        );
         let headers = RequestHeaders::new().with_method_name(METHOD_NAME);
 
         // Act
@@ -486,6 +516,78 @@ mod tests {
         assert_eq!(err.code(), tonic::Code::Aborted);
         assert_eq!(err.message(), ERROR_MESSAGE);
         assert_eq!(stream.message().await?, None);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn bidi_call_returns_error_on_immediate_trailers_only_status() -> anyhow::Result<()> {
+        // Arrange
+        const METHOD_NAME: &str = "/google.test.v1.Test/Bidi";
+        const ERROR_MESSAGE: &str = "immediate failure";
+
+        let err = StatusError::new(StatusCodeError::Aborted, ERROR_MESSAGE);
+        let invoker = MockInvoker::new(
+            MockSendStream::noop(),
+            MockRecvStream::immediate_trailers(Trailers::new(Err(err))),
+        );
+        let headers = RequestHeaders::new().with_method_name(METHOD_NAME);
+
+        // Act
+        let err =
+            invoke_bidi::<TestMessage, TestMessage, _>(&invoker, headers, tokio_stream::empty())
+                .await
+                .expect_err("invoke_bidi should fail immediately on trailers-only error");
+
+        // Assert
+        assert_eq!(err.code(), tonic::Code::Aborted);
+        assert_eq!(err.message(), ERROR_MESSAGE);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn bidi_call_immediately_fails_if_initial_request_fails() -> anyhow::Result<()> {
+        // Arrange
+        const METHOD_NAME: &str = "/google.test.v1.Test/Bidi";
+        const ERROR_MESSAGE_STREAM_CLOSED: &str = "grpc-rust request stream closed";
+
+        struct FailingSendStream;
+        impl SendStream for FailingSendStream {
+            async fn send(
+                &mut self,
+                _message: &dyn SendMessage,
+                _options: SendOptions,
+            ) -> Result<(), ()> {
+                Err(())
+            }
+        }
+
+        struct PendingRecvStream;
+        impl RecvStream for PendingRecvStream {
+            async fn recv(&mut self, _message: &mut dyn RecvMessage) -> ResponseStreamItem {
+                std::future::pending().await
+            }
+        }
+
+        let invoker = MockInvoker::new(FailingSendStream, PendingRecvStream);
+        let headers = RequestHeaders::new().with_method_name(METHOD_NAME);
+        let request = TestMessage {
+            value: "msg".to_string(),
+        };
+
+        // Act
+        let err = invoke_bidi::<TestMessage, TestMessage, _>(
+            &invoker,
+            headers,
+            tokio_stream::iter([request]),
+        )
+        .await
+        .expect_err("invoke_bidi should fail immediately when initial outbound send fails");
+
+        // Assert
+        assert_eq!(err.code(), tonic::Code::Internal);
+        assert_eq!(err.message(), ERROR_MESSAGE_STREAM_CLOSED);
 
         Ok(())
     }

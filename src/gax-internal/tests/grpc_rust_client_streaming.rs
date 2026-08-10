@@ -35,36 +35,31 @@ mod tests {
     #[tokio::test]
     async fn test_bidi_stream() -> anyhow::Result<()> {
         // Arrange
-        let TestBidiSession {
-            tx,
-            mut stream,
-            metadata,
-            ..
-        } = start_bidi_stream().await?;
+        let mut session = start_bidi_stream().await?;
         assert!(
-            !metadata.is_empty(),
+            !session.metadata.is_empty(),
             "expected initial metadata headers from response"
         );
 
         // Act
-        send_echo_request(&tx, MSG1).await?;
+        send_echo_request(&session.tx, MSG1).await?;
 
         // Assert
-        let res1 = recv_echo_response(&mut stream).await?;
+        let res1 = recv_echo_response(&mut session.stream).await?;
         assert_eq!(res1.message, MSG1);
 
         // Act
-        send_echo_request(&tx, MSG2).await?;
+        send_echo_request(&session.tx, MSG2).await?;
 
         // Assert
-        let res2 = recv_echo_response(&mut stream).await?;
+        let res2 = recv_echo_response(&mut session.stream).await?;
         assert_eq!(res2.message, MSG2);
 
         // Act
-        drop(tx);
+        drop(session.tx);
 
         // Assert
-        let end_res = stream.message().await?;
+        let end_res = session.stream.message().await?;
         assert_eq!(end_res, None, "stream should yield None upon completion");
 
         Ok(())
@@ -73,14 +68,14 @@ mod tests {
     #[tokio::test]
     async fn test_bidi_stream_remains_usable_even_after_cancellation() -> anyhow::Result<()> {
         // Arrange
-        let TestBidiSession { tx, mut stream, .. } = start_bidi_stream().await?;
+        let mut session = start_bidi_stream().await?;
 
         // Act
         // Attempt to receive the next item with a short timeout before any message is
         // sent, thereby cancelling recv_echo_response
         let cancelled_read = tokio::time::timeout(
             std::time::Duration::from_millis(50),
-            recv_echo_response(&mut stream),
+            recv_echo_response(&mut session.stream),
         )
         .await;
 
@@ -91,10 +86,10 @@ mod tests {
         );
 
         // Act
-        send_echo_request(&tx, MSG1).await?;
+        send_echo_request(&session.tx, MSG1).await?;
 
         // Assert
-        let res = recv_echo_response(&mut stream).await?;
+        let res = recv_echo_response(&mut session.stream).await?;
         assert_eq!(res.message, MSG1);
 
         Ok(())
@@ -103,20 +98,20 @@ mod tests {
     #[tokio::test]
     async fn test_bidi_stream_drop_closes_channel() -> anyhow::Result<()> {
         // Arrange
-        let TestBidiSession { tx, mut stream, .. } = start_bidi_stream().await?;
+        let mut session = start_bidi_stream().await?;
 
         // Act
-        send_echo_request(&tx, MSG1).await?;
+        send_echo_request(&session.tx, MSG1).await?;
 
         // Assert
-        let res = recv_echo_response(&mut stream).await?;
+        let res = recv_echo_response(&mut session.stream).await?;
         assert_eq!(res.message, MSG1);
 
         // Act
-        drop(stream);
+        drop(session.stream);
 
         // Assert
-        tokio::time::timeout(std::time::Duration::from_secs(5), tx.closed())
+        tokio::time::timeout(std::time::Duration::from_secs(5), session.tx.closed())
             .await
             .expect("dropping the stream should close the request channel");
 
@@ -126,21 +121,22 @@ mod tests {
     #[tokio::test]
     async fn test_bidi_stream_server_error_mid_stream() -> anyhow::Result<()> {
         // Arrange
-        let TestBidiSession { tx, mut stream, .. } = start_bidi_stream().await?;
+        let mut session = start_bidi_stream().await?;
 
         // Act
-        send_echo_request(&tx, MSG1).await?;
+        send_echo_request(&session.tx, MSG1).await?;
 
         // Assert
-        let res1 = recv_echo_response(&mut stream).await?;
+        let res1 = recv_echo_response(&mut session.stream).await?;
         assert_eq!(res1.message, MSG1);
 
         // Act
         // Sending an empty message causes our test echo server to return InvalidArgument and close the stream
-        send_echo_request(&tx, "").await?;
+        send_echo_request(&session.tx, "").await?;
 
         // Assert
-        let err = stream
+        let err = session
+            .stream
             .message()
             .await
             .expect_err("stream should return status error when server fails mid-stream");
@@ -152,7 +148,7 @@ mod tests {
         );
 
         // Assert
-        let subsequent = stream.message().await?;
+        let subsequent = session.stream.message().await?;
         assert_eq!(
             subsequent, None,
             "subsequent calls after stream termination should yield None"
@@ -182,38 +178,33 @@ mod tests {
     #[tokio::test]
     async fn test_bidi_stream_with_status() -> anyhow::Result<()> {
         // Arrange
-        let TestBidiSession {
-            tx,
-            mut stream,
-            metadata,
-            ..
-        } = start_bidi_stream_with_status()
+        let mut session = start_bidi_stream_with_status()
             .await?
             .expect("should succeed");
         assert!(
-            !metadata.is_empty(),
+            !session.metadata.is_empty(),
             "expected initial metadata headers from response"
         );
 
         // Act
-        send_echo_request(&tx, MSG1).await?;
+        send_echo_request(&session.tx, MSG1).await?;
 
         // Assert
-        let res1 = recv_echo_response(&mut stream).await?;
+        let res1 = recv_echo_response(&mut session.stream).await?;
         assert_eq!(res1.message, MSG1);
 
         // Act
-        send_echo_request(&tx, MSG2).await?;
+        send_echo_request(&session.tx, MSG2).await?;
 
         // Assert
-        let res2 = recv_echo_response(&mut stream).await?;
+        let res2 = recv_echo_response(&mut session.stream).await?;
         assert_eq!(res2.message, MSG2);
 
         // Act
-        drop(tx);
+        drop(session.tx);
 
         // Assert
-        let end_res = stream.message().await?;
+        let end_res = session.stream.message().await?;
         assert_eq!(end_res, None, "stream should yield None upon completion");
 
         Ok(())
