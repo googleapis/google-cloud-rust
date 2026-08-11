@@ -82,11 +82,6 @@ impl GrpcRustClient {
         Self::build(config, default_endpoint, Some(instrumentation)).await
     }
 
-    // TODO(#5991): Temporary helper for testing. Remove once `bidi_stream` is implemented.
-    pub fn invoker(&self) -> &Channel {
-        &self.inner.invoker
-    }
-
     pub async fn execute<Request, Response>(
         &self,
         _extensions: Extensions,
@@ -423,7 +418,6 @@ fn make_tls_credentials() -> ClientBuilderResult<Arc<RustlsChannelCredentials>> 
         })
 }
 
-// TODO(#5991): Add integration tests for `GrpcRustClient::bidi_stream` and `GrpcRustClient::bidi_stream_with_status` (covering happy paths and request stream failures).
 #[cfg(test)]
 mod tests {
     use super::*;
