@@ -212,6 +212,20 @@ mod tests {
         }
     }
 
+    #[derive(Debug)]
+    struct DefaultInterceptor;
+    impl AttemptInterceptor for DefaultInterceptor {}
+
+    #[test]
+    fn default_trait_implementations() {
+        let interceptor = DefaultInterceptor;
+        let mut headers = HeaderMap::new();
+        let options = RequestOptions::default();
+        interceptor.intercept(&mut headers, 1);
+        let start = interceptor.on_attempt_start("test_method", 1, &mut headers, &options);
+        interceptor.on_attempt_complete("test_method", 1, start, Some(&headers), None, &options);
+    }
+
     #[test]
     fn default_on_attempt_start_calls_intercept() {
         let interceptor = MockInterceptor::default();

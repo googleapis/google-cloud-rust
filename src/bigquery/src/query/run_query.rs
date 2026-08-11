@@ -240,14 +240,16 @@ mod tests {
             let req_id = &req.query_request.as_ref().unwrap().request_id;
             assert!(req_id.starts_with(QUERY_REQUEST_ID_PREFIX), "{req_id:?}");
             assert!(req_id.len() <= BIGQUERY_REQ_ID_LIMIT, "{req_id:?}");
-            Ok(Response::from(QueryResponse::new()))
+            Ok(Response::from(
+                QueryResponse::new().set_query_id("some_query_id"),
+            ))
         });
         let job_service = create_job_service(mock);
         let run_query =
             RunQuery::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
         let query = run_query.run().await?;
         assert!(!query.completed, "{query:?}");
-        assert!(query.initial_response.is_some(), "{query:?}");
+        assert_eq!(query.metadata.query_id, "some_query_id");
 
         Ok(())
     }

@@ -30,6 +30,7 @@ use crate::universe_domain::DEFAULT_UNIVERSE_DOMAIN;
 use ::tonic::client::Grpc;
 use ::tonic::metadata::MetadataMap;
 use ::tonic::transport::Channel;
+use ::tonic::{Request as TonicRequest, Response as TonicResponse};
 use from_status::to_gax_error;
 use futures::TryFutureExt;
 use google_cloud_auth::credentials::Credentials;
@@ -195,9 +196,7 @@ impl Client {
         use ::tonic::IntoStreamingRequest;
         let headers = make_headers(api_client_header, request_params, &options)?;
         let mut headers = add_auth_headers(headers, &self.credentials).await?;
-        if let Some(ref interceptor) = self.attempt_interceptor {
-            interceptor.intercept(&mut headers, 1);
-        }
+        self.intercept(&mut headers, 1);
         let metadata = tonic::MetadataMap::from_headers(headers);
         let request = ::tonic::Request::from_parts(metadata, extensions, request);
         let codec = tonic_prost::ProstCodec::<Request, Response>::default();
@@ -263,9 +262,7 @@ impl Client {
         use ::tonic::IntoRequest;
         let headers = make_headers(api_client_header, request_params, &options)?;
         let mut headers = add_auth_headers(headers, &self.credentials).await?;
-        if let Some(ref interceptor) = self.attempt_interceptor {
-            interceptor.intercept(&mut headers, 1);
-        }
+        self.intercept(&mut headers, 1);
         let metadata = tonic::MetadataMap::from_headers(headers);
         let mut request = ::tonic::Request::from_parts(metadata, extensions, request);
         if let Some(timeout) = crate::options::resolve_effective_timeout(
@@ -403,42 +400,54 @@ impl Client {
         let attempt_number = prior_attempt_count as u32 + 1;
         let start_time = self.on_attempt_start(path.path(), attempt_number, &mut headers, options);
 
-        let metadata = tonic::MetadataMap::from_headers(headers);
-        let mut request = ::tonic::Request::from_parts(metadata, extensions, request);
+        let result = async {
+            let metadata = MetadataMap::from_headers(headers);
+            let mut request = TonicRequest::from_parts(metadata, extensions, request);
 
-        if let Some(timeout) = crate::options::resolve_effective_timeout(
-            options,
-            self.transport_policies.attempt_timeout(),
-            remaining_time,
-        ) {
-            request.set_timeout(timeout);
+            if let Some(timeout) = crate::options::resolve_effective_timeout(
+                options,
+                self.transport_policies.attempt_timeout(),
+                remaining_time,
+            ) {
+                request.set_timeout(timeout);
+            }
+            let codec = tonic_prost::ProstCodec::<Request, Response>::default();
+            let mut inner = self.inner.clone();
+            inner.ready().await.map_err(Error::io)?;
+
+            if let Some(recorder) = crate::observability::RequestRecorder::current() {
+                recorder.on_grpc_request(&path);
+            }
+
+            let pending = inner
+                .unary(request, path.clone(), codec)
+                .map_err(to_gax_error);
+
+            use crate::observability::{
+                WithTransportLogging, WithTransportMetric, WithTransportSpan,
+            };
+
+            let pending =
+                WithTransportMetric::new(self.metric.clone(), pending, prior_attempt_count as u32);
+            let pending = WithTransportLogging::new(pending);
+            let pending = WithTransportSpan::new(span, pending);
+
+            if let Some(recorder) = crate::observability::RequestRecorder::current() {
+                recorder.scope(pending).await
+            } else {
+                pending.await
+            }
         }
-        let codec = tonic_prost::ProstCodec::<Request, Response>::default();
-        let mut inner = self.inner.clone();
-        inner.ready().await.map_err(Error::io)?;
-
-        if let Some(recorder) = crate::observability::RequestRecorder::current() {
-            recorder.on_grpc_request(&path);
-        }
-
-        let pending = inner
-            .unary(request, path.clone(), codec)
-            .map_err(to_gax_error);
-
-        use crate::observability::{WithTransportLogging, WithTransportMetric, WithTransportSpan};
-
-        let pending =
-            WithTransportMetric::new(self.metric.clone(), pending, prior_attempt_count as u32);
-        let pending = WithTransportLogging::new(pending);
-        let pending = WithTransportSpan::new(span, pending);
-
-        let result = if let Some(recorder) = crate::observability::RequestRecorder::current() {
-            recorder.scope(pending).await
-        } else {
-            pending.await
-        };
+        .await;
 
         self.on_attempt_complete(path.path(), attempt_number, start_time, result, options)
+    }
+
+    #[inline]
+    fn intercept(&self, headers: &mut HeaderMap, attempt: u32) {
+        if let Some(interceptor) = &self.attempt_interceptor {
+            interceptor.intercept(headers, attempt);
+        }
     }
 
     #[inline]
@@ -460,40 +469,40 @@ impl Client {
         method: &str,
         attempt: u32,
         start_time: Option<Instant>,
-        result: Result<::tonic::Response<Response>>,
+        result: Result<TonicResponse<Response>>,
         options: &RequestOptions,
-    ) -> Result<::tonic::Response<Response>> {
-        if let (Some(interceptor), Some(start_time)) = (&self.attempt_interceptor, start_time) {
-            match result {
-                Ok(response) => {
-                    let (metadata, message, extensions) = response.into_parts();
-                    let headers = metadata.into_headers();
-                    interceptor.on_attempt_complete(
-                        method,
-                        attempt,
-                        start_time,
-                        Some(&headers),
-                        None,
-                        options,
-                    );
-                    let metadata = MetadataMap::from_headers(headers);
-                    let response = ::tonic::Response::from_parts(metadata, message, extensions);
-                    Ok(response)
-                }
-                Err(error) => {
-                    interceptor.on_attempt_complete(
-                        method,
-                        attempt,
-                        start_time,
-                        error.http_headers(),
-                        Some(&error),
-                        options,
-                    );
-                    Err(error)
-                }
+    ) -> Result<TonicResponse<Response>> {
+        let (Some(interceptor), Some(start_time)) = (&self.attempt_interceptor, start_time) else {
+            return result;
+        };
+
+        match result {
+            Ok(response) => {
+                let (metadata, message, extensions) = response.into_parts();
+                let headers = metadata.into_headers();
+                interceptor.on_attempt_complete(
+                    method,
+                    attempt,
+                    start_time,
+                    Some(&headers),
+                    None,
+                    options,
+                );
+                let metadata = MetadataMap::from_headers(headers);
+                let response = TonicResponse::from_parts(metadata, message, extensions);
+                Ok(response)
             }
-        } else {
-            result
+            Err(error) => {
+                interceptor.on_attempt_complete(
+                    method,
+                    attempt,
+                    start_time,
+                    error.http_headers(),
+                    Some(&error),
+                    options,
+                );
+                Err(error)
+            }
         }
     }
 
