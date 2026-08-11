@@ -39,6 +39,7 @@ use tonic::metadata::MetadataMap;
 pub mod bidi;
 mod receive;
 mod send;
+mod unary;
 
 pub use bidi::GrpcRustStreaming;
 
