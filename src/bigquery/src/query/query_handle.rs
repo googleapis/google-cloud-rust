@@ -67,6 +67,21 @@ impl Query {
         }
     }
 
+    pub(crate) fn from_job_reference(
+        job_service: Arc<JobService>,
+        job_ref: JobReference,
+        max_results: Option<u32>,
+    ) -> Self {
+        let metadata = QueryCreationMetadata::new().set_job_reference(job_ref);
+        Self {
+            job_service,
+            completed: false,
+            cached_rows: None,
+            metadata,
+            max_results,
+        }
+    }
+
     pub(crate) fn from_query_response(
         job_service: Arc<JobService>,
         mut query_response: QueryResponse,

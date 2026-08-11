@@ -21,9 +21,9 @@ use google_cloud_gax::error::Error;
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
 pub enum QueryError {
-    /// The project ID was not provided or could not be determined.
-    #[error("no project ID was provided")]
-    MissingProjectId,
+    /// An invalid argument was provided (e.g. missing job ID or project ID).
+    #[error("invalid argument: {0}")]
+    InvalidArgument(String),
 
     /// Only query jobs are supported by this client.
     #[error("only query jobs are supported")]
@@ -166,6 +166,15 @@ mod tests {
         assert_eq!(
             err.to_string(),
             "cannot perform this operation on a stateless query"
+        );
+    }
+
+    #[test]
+    fn test_invalid_argument_display() {
+        let err = QueryError::InvalidArgument("job_id must not be empty".to_string());
+        assert_eq!(
+            err.to_string(),
+            "invalid argument: job_id must not be empty"
         );
     }
 
