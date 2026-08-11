@@ -203,11 +203,6 @@ impl BigQuery {
     /// # }
     /// ```
     pub async fn attach_job(&self, mut job_ref: JobReference) -> QueryResult<Query> {
-        if job_ref.job_id.is_empty() {
-            return Err(QueryError::InvalidArgument(
-                "job_id cannot be empty".to_string(),
-            ));
-        }
         if job_ref.project_id.is_empty() {
             let Some(proj) = &self.project_id else {
                 return Err(QueryError::MissingProjectId);
@@ -393,11 +388,8 @@ mod tests {
             .await
             .expect_err("should return an error when job_id is empty");
         assert!(
-            matches!(
-                &err,
-                QueryError::InvalidArgument(msg) if msg == "job_id cannot be empty"
-            ),
-            "expected InvalidArgument for empty job ID, got {err:?}"
+            matches!(&err, QueryError::Rpc { source } if source.is_binding()),
+            "expected Binding error for empty job ID, got {err:?}"
         );
         Ok(())
     }

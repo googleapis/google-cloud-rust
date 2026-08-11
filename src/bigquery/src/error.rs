@@ -25,10 +25,6 @@ pub enum QueryError {
     #[error("no project ID was provided")]
     MissingProjectId,
 
-    /// An invalid argument was provided (e.g. missing job ID).
-    #[error("invalid argument: {0}")]
-    InvalidArgument(String),
-
     /// Only query jobs are supported by this client.
     #[error("only query jobs are supported")]
     UnsupportedJobType,
@@ -170,15 +166,6 @@ mod tests {
         assert_eq!(
             err.to_string(),
             "cannot perform this operation on a stateless query"
-        );
-    }
-
-    #[test]
-    fn test_invalid_argument_display() {
-        let err = QueryError::InvalidArgument("job_id must not be empty".to_string());
-        assert_eq!(
-            err.to_string(),
-            "invalid argument: job_id must not be empty"
         );
     }
 

@@ -137,6 +137,7 @@ include!("../generated/run_query_builder.rs");
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::error::QueryError;
     use crate::query::tests::{MockJobService, create_job_service};
     use google_cloud_bigquery_v2::model::query_request::JobCreationMode;
     use google_cloud_bigquery_v2::model::{
