@@ -28,9 +28,12 @@ pub async fn run_writes() -> Result<()> {
 
     let table_service = TableService::builder().with_tracing().build().await?;
     let table_id = random_table_id();
-    let _ = create_table(&table_service, &project_id, &dataset_id, &table_id).await?;
 
-    let result = arrow::basic(&project_id, &dataset_id, &table_id).await;
+    let result = async {
+        create_table(&table_service, &project_id, &dataset_id, &table_id).await?;
+        arrow::basic(&project_id, &dataset_id, &table_id).await
+    }
+    .await;
 
     let _ = delete_dataset(&dataset_service, &project_id, &dataset_id).await;
     result

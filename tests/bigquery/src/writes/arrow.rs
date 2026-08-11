@@ -90,5 +90,7 @@ fn serialize_batch(batch: &RecordBatch, schema_len: usize) -> Result<Vec<u8>> {
     let mut buf = Vec::new();
     let mut writer = StreamWriter::try_new(&mut buf, &batch.schema())?;
     writer.write(batch)?;
+    // Note that the schema is encoded in the front of the record batch. We need
+    // to strip it.
     Ok(buf[schema_len..].to_vec())
 }
