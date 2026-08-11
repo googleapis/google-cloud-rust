@@ -12,9 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+mod writes;
+
 use anyhow::Result;
 use futures::stream::StreamExt;
 use google_cloud_bigquery::client::BigQuery;
+use google_cloud_bigquery::{FromRow, FromSql};
 use google_cloud_bigquery_v2::client::{DatasetService, JobService};
 use google_cloud_bigquery_v2::model::{
     Dataset, DatasetReference, Job, JobConfiguration, JobConfigurationQuery, JobReference,
@@ -27,6 +30,8 @@ use rust_decimal::Decimal as RustDecimal;
 
 const INSTANCE_LABEL: &str = "rust-sdk-integration-test";
 
+pub use writes::run_writes;
+
 pub async fn dataset_admin() -> Result<()> {
     let project_id = project_id()?;
     let client = DatasetService::builder().with_tracing().build().await?;
@@ -34,20 +39,8 @@ pub async fn dataset_admin() -> Result<()> {
 
     let dataset_id = random_dataset_id();
 
-    println!("CREATING DATASET WITH ID: {dataset_id}");
-
-    let create = client
-        .insert_dataset()
-        .set_project_id(&project_id)
-        .set_dataset(
-            Dataset::new()
-                .set_dataset_reference(DatasetReference::new().set_dataset_id(&dataset_id))
-                .set_labels([(INSTANCE_LABEL, "true")]),
-        )
-        .send()
-        .await?;
+    let create = create_dataset(&client, &project_id, &dataset_id).await?;
     println!("CREATE DATASET = {create:?}");
-
     assert!(create.dataset_reference.is_some(), "{create:?}");
 
     let list = client
@@ -65,15 +58,39 @@ pub async fn dataset_admin() -> Result<()> {
             .any(|v| v.as_ref().unwrap().id.contains(&dataset_id))
     );
 
+    delete_dataset(&client, &project_id, &dataset_id).await?;
+    println!("DELETE DATASET");
+
+    Ok(())
+}
+
+async fn create_dataset(
+    client: &DatasetService,
+    project_id: &str,
+    dataset_id: &str,
+) -> Result<Dataset> {
+    println!("CREATING DATASET WITH ID: {dataset_id}");
+    let ds = client
+        .insert_dataset()
+        .set_project_id(project_id)
+        .set_dataset(
+            Dataset::new()
+                .set_dataset_reference(DatasetReference::new().set_dataset_id(dataset_id))
+                .set_labels([(INSTANCE_LABEL, "true")]),
+        )
+        .send()
+        .await?;
+    Ok(ds)
+}
+
+async fn delete_dataset(client: &DatasetService, project_id: &str, dataset_id: &str) -> Result<()> {
     client
         .delete_dataset()
-        .set_project_id(&project_id)
-        .set_dataset_id(&dataset_id)
+        .set_project_id(project_id)
+        .set_dataset_id(dataset_id)
         .set_delete_contents(true)
         .send()
         .await?;
-    println!("DELETE DATASET");
-
     Ok(())
 }
 
@@ -165,6 +182,11 @@ fn random_job_id() -> String {
     format!("rust_bq_test_job_{rand_suffix}")
 }
 
+fn random_table_id() -> String {
+    let rand_suffix = random_id_suffix();
+    format!("rust_bq_test_table_{rand_suffix}")
+}
+
 fn random_id_suffix() -> String {
     rand::rng()
         .sample_iter(&Alphanumeric)
@@ -250,7 +272,7 @@ pub async fn query_client() -> Result<()> {
     Ok(())
 }
 
-#[derive(google_cloud_bigquery::FromRow, Debug, PartialEq)]
+#[derive(FromRow, Debug, PartialEq)]
 struct UserData {
     name: String,
     age: i64,
@@ -547,20 +569,20 @@ pub async fn query_client_job() -> Result<()> {
     Ok(())
 }
 
-#[derive(google_cloud_bigquery::FromSql, Debug, PartialEq)]
+#[derive(FromRow, FromSql, Debug, PartialEq)]
 struct UserRecord {
     name: String,
     age: i64,
 }
 
-#[derive(google_cloud_bigquery::FromSql, Debug, PartialEq)]
+#[derive(FromSql, Debug, PartialEq)]
 struct UserProfile {
     name: String,
     age: i64,
     birth_date: google_cloud_type::model::Date,
 }
 
-#[derive(google_cloud_bigquery::FromRow, Debug, PartialEq)]
+#[derive(FromRow, Debug, PartialEq)]
 struct RowData {
     user: UserRecord,
     numbers: Vec<i64>,

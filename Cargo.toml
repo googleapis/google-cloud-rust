@@ -417,6 +417,7 @@ inherits    = "dev"
 incremental = false
 
 [workspace.dependencies]
+arrow                 = { default-features = false, version = "59.2" }
 async-trait           = { default-features = false, version = "0.1.85" }
 base64                = { default-features = false, version = "0.23", features = ["std"] }
 bytes                 = { default-features = false, version = "1.10", features = ["serde"] }
@@ -575,6 +576,7 @@ google-cloud-spanner                 = { default-features = false, path = "src/s
 google-cloud-bigquery                = { default-features = false, path = "src/bigquery" }
 google-cloud-bigquery-derive         = { default-features = false, path = "src/bigquery-derive" }
 google-cloud-bigquery-v2             = { default-features = false, path = "src/generated/cloud/bigquery/v2" }
+google-cloud-bigquery-write          = { default-features = false, path = "src/bigquery-write" }
 google-cloud-iam-credentials-v1      = { default-features = false, path = "src/generated/iam/credentials/v1" }
 google-cloud-language-v2             = { default-features = false, path = "src/generated/cloud/language/v2" }
 google-cloud-dns-v1                  = { default-features = false, path = "src/generated/cloud/dns/v1" }
