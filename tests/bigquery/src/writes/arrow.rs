@@ -58,7 +58,7 @@ pub async fn basic(project_id: &str, dataset_id: &str, table_id: &str) -> Result
     let _ = writer.append(rows).send().await?;
 
     // Verify the writes
-    let users = read_table(project_id, dataset_id, &table_id).await?;
+    let users = read_table(project_id, dataset_id, table_id).await?;
     assert_eq!(
         users,
         vec![
