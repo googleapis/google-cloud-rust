@@ -21,7 +21,11 @@ use google_cloud_gax::error::Error;
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
 pub enum QueryError {
-    /// An invalid argument was provided (e.g. missing job ID or project ID).
+    /// The project ID was not provided or could not be determined.
+    #[error("no project ID was provided")]
+    MissingProjectId,
+
+    /// An invalid argument was provided (e.g. missing job ID).
     #[error("invalid argument: {0}")]
     InvalidArgument(String),
 

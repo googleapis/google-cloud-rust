@@ -165,9 +165,20 @@ impl BigQuery {
                 builder.with_project_id(project_id)
             })
     }
+    #[cfg(test)]
+    pub(crate) fn from_job_service(
+        job_service: Arc<JobService>,
+        project_id: Option<String>,
+    ) -> Self {
+        Self {
+            job_service,
+            project_id,
+        }
+    }
+
     /// Binds an existing out-of-process query job reference to a high-level `Query` handle.
     ///
-    /// This method does not submit a new SQL query or perform network I/O.
+    /// Fetches the job metadata via [`JobService::get_job`] and initializes a [`Query`] handle.
     /// If `job_ref.project_id` is empty, it defaults to the client's billing project ID.
     ///
     /// # Arguments
@@ -182,7 +193,7 @@ impl BigQuery {
     ///     .set_project_id("my-project")
     ///     .set_job_id("my_job_id")
     ///     .set_location("us-central1");
-    /// let query = client.attach_job(job_ref)?;
+    /// let query = client.attach_job(job_ref).await?;
     /// let mut results = query.until_done().await?.read();
     /// while let Some(row) = results.next().await {
     ///     let row = row?;
@@ -191,7 +202,7 @@ impl BigQuery {
     /// # Ok(())
     /// # }
     /// ```
-    pub fn attach_job(&self, mut job_ref: JobReference) -> QueryResult<Query> {
+    pub async fn attach_job(&self, mut job_ref: JobReference) -> QueryResult<Query> {
         if job_ref.job_id.is_empty() {
             return Err(QueryError::InvalidArgument(
                 "job_id cannot be empty".to_string(),
@@ -199,26 +210,48 @@ impl BigQuery {
         }
         if job_ref.project_id.is_empty() {
             let Some(proj) = &self.project_id else {
-                return Err(QueryError::InvalidArgument(
-                    "no project ID was provided".to_string(),
-                ));
+                return Err(QueryError::MissingProjectId);
             };
             job_ref.project_id = proj.clone();
         }
 
-        Ok(Query::from_job_reference(
-            self.job_service.clone(),
-            job_ref,
-            None,
-        ))
+        let req = self
+            .job_service
+            .get_job()
+            .set_job_id(job_ref.job_id.clone())
+            .set_project_id(job_ref.project_id.clone());
+
+        let req = job_ref
+            .location
+            .clone()
+            .into_iter()
+            .fold(req, |req, location| req.set_location(location));
+
+        let job = req.send().await?;
+
+        let is_query = job
+            .configuration
+            .as_ref()
+            .and_then(|c| c.query.as_ref())
+            .is_some();
+        if !is_query {
+            return Err(QueryError::UnsupportedJobType);
+        }
+
+        Ok(Query::from_job(self.job_service.clone(), job, None))
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::BigQuery;
+    use crate::error::QueryError;
+    use crate::query::tests::{MockJobService, create_job_service};
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
-    use google_cloud_bigquery_v2::model::JobReference;
+    use google_cloud_bigquery_v2::model::{
+        Job, JobConfiguration, JobConfigurationQuery, JobReference,
+    };
+    use google_cloud_gax::response::Response;
 
     #[tokio::test]
     async fn test_bigquery_builder() -> anyhow::Result<()> {
@@ -266,14 +299,27 @@ mod tests {
 
     #[tokio::test]
     async fn test_bigquery_attach_job() -> anyhow::Result<()> {
-        let client = BigQuery::builder()
-            .with_credentials(Anonymous::new().build())
-            .build()
-            .await?;
+        let mut mock = MockJobService::new();
+        mock.expect_get_job().returning(|req, _| {
+            assert_eq!(req.project_id, "test-proj");
+            assert_eq!(req.job_id, "job_123");
+            let job = Job::new()
+                .set_job_reference(
+                    JobReference::new()
+                        .set_project_id("test-proj")
+                        .set_job_id("job_123"),
+                )
+                .set_configuration(
+                    JobConfiguration::new()
+                        .set_query(JobConfigurationQuery::new().set_query("SELECT 1")),
+                );
+            Ok(Response::from(job))
+        });
+        let client = BigQuery::from_job_service(create_job_service(mock), None);
         let job_ref = JobReference::new()
             .set_project_id("test-proj")
             .set_job_id("job_123");
-        let query = client.attach_job(job_ref)?;
+        let query = client.attach_job(job_ref).await?;
         let job_ref = query
             .metadata()
             .job_reference
@@ -286,13 +332,26 @@ mod tests {
 
     #[tokio::test]
     async fn test_bigquery_attach_job_inherits_project_id() -> anyhow::Result<()> {
-        let client = BigQuery::builder()
-            .with_project_id("client-proj")
-            .with_credentials(Anonymous::new().build())
-            .build()
-            .await?;
+        let mut mock = MockJobService::new();
+        mock.expect_get_job().returning(|req, _| {
+            assert_eq!(req.project_id, "client-proj");
+            assert_eq!(req.job_id, "job_456");
+            let job = Job::new()
+                .set_job_reference(
+                    JobReference::new()
+                        .set_project_id("client-proj")
+                        .set_job_id("job_456"),
+                )
+                .set_configuration(
+                    JobConfiguration::new()
+                        .set_query(JobConfigurationQuery::new().set_query("SELECT 1")),
+                );
+            Ok(Response::from(job))
+        });
+        let client =
+            BigQuery::from_job_service(create_job_service(mock), Some("client-proj".to_string()));
         let job_ref = JobReference::new().set_job_id("job_456");
-        let query = client.attach_job(job_ref)?;
+        let query = client.attach_job(job_ref).await?;
         let job_ref = query
             .metadata()
             .job_reference
@@ -312,13 +371,11 @@ mod tests {
         let job_ref = JobReference::new().set_job_id("job_789");
         let err = client
             .attach_job(job_ref)
+            .await
             .expect_err("should return an error when project_id is missing");
         assert!(
-            matches!(
-                &err,
-                crate::error::QueryError::InvalidArgument(msg) if msg == "no project ID was provided"
-            ),
-            "expected InvalidArgument for missing project ID, got {err:?}"
+            matches!(&err, QueryError::MissingProjectId),
+            "expected MissingProjectId, got {err:?}"
         );
         Ok(())
     }
@@ -333,13 +390,35 @@ mod tests {
         let job_ref = JobReference::new();
         let err = client
             .attach_job(job_ref)
+            .await
             .expect_err("should return an error when job_id is empty");
         assert!(
             matches!(
                 &err,
-                crate::error::QueryError::InvalidArgument(msg) if msg == "job_id cannot be empty"
+                QueryError::InvalidArgument(msg) if msg == "job_id cannot be empty"
             ),
             "expected InvalidArgument for empty job ID, got {err:?}"
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_bigquery_attach_job_unsupported_job_type() -> anyhow::Result<()> {
+        let mut mock = MockJobService::new();
+        mock.expect_get_job().returning(|_, _| {
+            let job = Job::new().set_configuration(JobConfiguration::new());
+            Ok(Response::from(job))
+        });
+        let client =
+            BigQuery::from_job_service(create_job_service(mock), Some("client-proj".to_string()));
+        let job_ref = JobReference::new().set_job_id("job_extract");
+        let err = client
+            .attach_job(job_ref)
+            .await
+            .expect_err("should return an error for non-query job");
+        assert!(
+            matches!(&err, QueryError::UnsupportedJobType),
+            "expected UnsupportedJobType, got {err:?}"
         );
         Ok(())
     }
