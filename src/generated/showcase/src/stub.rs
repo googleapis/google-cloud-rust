@@ -307,10 +307,7 @@ pub trait Echo: std::fmt::Debug + Send + Sync {
             google_cloud_gax::streaming::ResponseReceiver<crate::model::EchoResponse>,
         )>,
     > + Send {
-        async {
-            let _ = gaxi::unimplemented::unimplemented_stub::<()>().await;
-            unreachable!() // satisfies the type checker; the stub above always panics.
-        }
+        gaxi::unimplemented::unimplemented_bidi_stub()
     }
 
     /// Implements [super::client::Echo::paged_expand].
@@ -803,10 +800,7 @@ pub trait Messaging: std::fmt::Debug + Send + Sync {
             google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>,
         )>,
     > + Send {
-        async {
-            let _ = gaxi::unimplemented::unimplemented_stub::<()>().await;
-            unreachable!() // satisfies the type checker; the stub above always panics.
-        }
+        gaxi::unimplemented::unimplemented_bidi_stub()
     }
 
     /// Implements [super::client::Messaging::list_locations].
