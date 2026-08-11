@@ -28,8 +28,10 @@ use {
     google_cloud_gax::options::RequestOptions,
     google_cloud_monitoring_v3::client::MetricService,
     http::header::{HeaderName, HeaderValue},
+    opentelemetry::KeyValue,
     opentelemetry::metrics::{Counter, Histogram, Meter, MeterProvider},
     opentelemetry_sdk::{
+        Resource,
         error::OTelSdkError,
         metrics::{PeriodicReader, SdkMeterProvider},
     },
@@ -164,7 +166,7 @@ pub(crate) fn client_name() -> &'static str {
 #[derive(Clone, Debug)]
 pub(crate) struct Observability {
     pub(crate) metrics: Option<Arc<SpannerMetrics>>,
-    common_attributes: [opentelemetry::KeyValue; 3],
+    common_attributes: [KeyValue; 3],
     meter_provider: Option<Arc<SdkMeterProvider>>,
 }
 
@@ -174,9 +176,9 @@ impl Observability {
         Self {
             metrics: None,
             common_attributes: [
-                opentelemetry::KeyValue::new("client_uid", ""),
-                opentelemetry::KeyValue::new("client_name", ""),
-                opentelemetry::KeyValue::new("database", ""),
+                KeyValue::new("client_uid", ""),
+                KeyValue::new("client_name", ""),
+                KeyValue::new("database", ""),
             ],
             meter_provider: None,
         }
@@ -240,13 +242,13 @@ impl Observability {
         let client_hash = generate_client_hash(&client_uid);
         let client_name = client_name();
 
-        let resource = opentelemetry_sdk::Resource::builder()
+        let resource = Resource::builder()
             .with_attributes([
-                opentelemetry::KeyValue::new("project_id", project_id.to_string()),
-                opentelemetry::KeyValue::new("instance_id", instance_id.to_string()),
-                opentelemetry::KeyValue::new("location", "global"),
-                opentelemetry::KeyValue::new("instance_config", "unknown"),
-                opentelemetry::KeyValue::new("client_hash", client_hash),
+                KeyValue::new("project_id", project_id.to_string()),
+                KeyValue::new("instance_id", instance_id.to_string()),
+                KeyValue::new("location", "global"),
+                KeyValue::new("instance_config", "unknown"),
+                KeyValue::new("client_hash", client_hash),
             ])
             .build();
 
@@ -264,9 +266,9 @@ impl Observability {
         let metrics = SpannerMetrics::new(meter);
 
         let common_attributes = [
-            opentelemetry::KeyValue::new("client_uid", client_uid),
-            opentelemetry::KeyValue::new("client_name", client_name),
-            opentelemetry::KeyValue::new("database", database_id.to_string()),
+            KeyValue::new("client_uid", client_uid),
+            KeyValue::new("client_name", client_name),
+            KeyValue::new("database", database_id.to_string()),
         ];
 
         Self {
@@ -281,9 +283,9 @@ impl Observability {
         Self {
             metrics: Some(Arc::new(metrics)),
             common_attributes: [
-                opentelemetry::KeyValue::new("client_uid", "test-uid"),
-                opentelemetry::KeyValue::new("client_name", "test-name"),
-                opentelemetry::KeyValue::new("database", "test-db"),
+                KeyValue::new("client_uid", "test-uid"),
+                KeyValue::new("client_name", "test-name"),
+                KeyValue::new("database", "test-db"),
             ],
             meter_provider: Some(Arc::new(meter_provider)),
         }
@@ -321,9 +323,9 @@ impl Observability {
         let status = result_to_status_str(result);
         let method_name = normalize_method_name(method);
         let attributes = [
-            opentelemetry::KeyValue::new("method", method_name),
-            opentelemetry::KeyValue::new("status", status),
-            opentelemetry::KeyValue::new("directpath_enabled", "false"),
+            KeyValue::new("method", method_name),
+            KeyValue::new("status", status),
+            KeyValue::new("directpath_enabled", "false"),
             self.common_attributes[0].clone(),
             self.common_attributes[1].clone(),
             self.common_attributes[2].clone(),
@@ -352,10 +354,10 @@ impl Observability {
         let status = error.map_or("OK", error_to_status_str);
         let method_name = normalize_method_name(method);
         let attributes = [
-            opentelemetry::KeyValue::new("method", method_name),
-            opentelemetry::KeyValue::new("status", status),
-            opentelemetry::KeyValue::new("directpath_enabled", "false"),
-            opentelemetry::KeyValue::new("directpath_used", "false"),
+            KeyValue::new("method", method_name),
+            KeyValue::new("status", status),
+            KeyValue::new("directpath_enabled", "false"),
+            KeyValue::new("directpath_used", "false"),
             self.common_attributes[0].clone(),
             self.common_attributes[1].clone(),
             self.common_attributes[2].clone(),
@@ -813,9 +815,9 @@ mod tests {
         let o11y = Observability {
             metrics: Some(Arc::new(metrics)),
             common_attributes: [
-                opentelemetry::KeyValue::new("client_uid", ""),
-                opentelemetry::KeyValue::new("client_name", ""),
-                opentelemetry::KeyValue::new("database", ""),
+                KeyValue::new("client_uid", ""),
+                KeyValue::new("client_name", ""),
+                KeyValue::new("database", ""),
             ],
             meter_provider: Some(Arc::new(provider.clone())),
         };
@@ -1052,9 +1054,9 @@ mod tests {
         let o11y = Observability {
             metrics: Some(Arc::new(metrics)),
             common_attributes: [
-                opentelemetry::KeyValue::new("client_uid", "test-uid"),
-                opentelemetry::KeyValue::new("client_name", "test-name"),
-                opentelemetry::KeyValue::new("database", "test-db"),
+                KeyValue::new("client_uid", "test-uid"),
+                KeyValue::new("client_name", "test-name"),
+                KeyValue::new("database", "test-db"),
             ],
             meter_provider: Some(Arc::new(provider.clone())),
         };
@@ -1233,8 +1235,8 @@ mod tests {
         let metrics = SpannerMetrics::new(meter);
 
         let attributes = [
-            opentelemetry::KeyValue::new("method", "ExecuteSql"),
-            opentelemetry::KeyValue::new("status", "OK"),
+            KeyValue::new("method", "ExecuteSql"),
+            KeyValue::new("status", "OK"),
         ];
 
         metrics.operation_latencies.record(12.5, &attributes);
@@ -1330,9 +1332,9 @@ mod tests {
         let o11y = Observability {
             metrics: Some(Arc::new(metrics)),
             common_attributes: [
-                opentelemetry::KeyValue::new("client_uid", "test-uid"),
-                opentelemetry::KeyValue::new("client_name", "spanner-rust/1.0.0"),
-                opentelemetry::KeyValue::new("database", "test-db"),
+                KeyValue::new("client_uid", "test-uid"),
+                KeyValue::new("client_name", "spanner-rust/1.0.0"),
+                KeyValue::new("database", "test-db"),
             ],
             meter_provider: Some(Arc::new(provider.clone())),
         };
@@ -1486,7 +1488,7 @@ mod tests {
         let o11y = Arc::new(Observability::for_test(metrics, provider.clone()));
         let interceptor = SpannerMetricsInterceptor;
 
-        let options = crate::RequestOptions::default().insert_extension(o11y.clone());
+        let options = crate::RequestOptions::default().insert_extension(Arc::clone(&o11y));
         let start_time = Instant::now();
 
         // Attempt 1 fails with UNAVAILABLE

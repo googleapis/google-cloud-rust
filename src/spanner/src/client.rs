@@ -166,7 +166,7 @@ macro_rules! define_idempotent_rpc {
         ) -> crate::Result<$response_type> {
             let options = self.attach_request_id(options, channel_hint);
             #[cfg(feature = "_experimental-builtin-metrics")]
-            let options = options.insert_extension(o11y.clone());
+            let options = options.insert_extension(Arc::clone(o11y));
             o11y.trace_operation(
                 $canonical_name,
                 self.get_channel(channel_hint)
@@ -698,7 +698,7 @@ mod tests {
                 req,
                 crate::RequestOptions::default(),
                 client.next_channel_hint(),
-                &crate::observability::Observability::disabled_arc(),
+                &Observability::disabled_arc(),
             )
             .await
             .expect("Failed to call create_session");
@@ -818,7 +818,7 @@ mod tests {
                 req,
                 crate::RequestOptions::default(),
                 client.next_channel_hint(),
-                &crate::observability::Observability::disabled_arc(),
+                &Observability::disabled_arc(),
             )
             .await
             .expect("Failed to call create_session after transport error retry");
@@ -868,7 +868,7 @@ mod tests {
                 req,
                 crate::RequestOptions::default(),
                 client.next_channel_hint(),
-                &crate::observability::Observability::disabled_arc(),
+                &Observability::disabled_arc(),
             )
             .await
             .expect("Failed to call execute_sql");
@@ -912,7 +912,7 @@ mod tests {
                 req,
                 crate::RequestOptions::default(),
                 client.next_channel_hint(),
-                &crate::observability::Observability::disabled_arc(),
+                &Observability::disabled_arc(),
             )
             .await
             .expect("Failed to call execute_batch_dml");
@@ -951,7 +951,7 @@ mod tests {
                 req,
                 crate::RequestOptions::default(),
                 client.next_channel_hint(),
-                &crate::observability::Observability::disabled_arc(),
+                &Observability::disabled_arc(),
             )
             .await
             .expect("Failed to call begin_transaction");
@@ -994,7 +994,7 @@ mod tests {
                 req,
                 crate::RequestOptions::default(),
                 client.next_channel_hint(),
-                &crate::observability::Observability::disabled_arc(),
+                &Observability::disabled_arc(),
             )
             .await
             .expect("Failed to call commit");
@@ -1028,7 +1028,7 @@ mod tests {
                 req,
                 crate::RequestOptions::default(),
                 client.next_channel_hint(),
-                &crate::observability::Observability::disabled_arc(),
+                &Observability::disabled_arc(),
             )
             .await
             .expect("Failed to call rollback");
@@ -1261,7 +1261,7 @@ mod tests {
                 req,
                 crate::RequestOptions::default(),
                 client.next_channel_hint(),
-                &crate::observability::Observability::disabled_arc(),
+                &Observability::disabled_arc(),
             )
             .await
             .expect("Failed to call create_session");
@@ -1308,7 +1308,7 @@ mod tests {
                 req,
                 options,
                 client.next_channel_hint(),
-                &crate::observability::Observability::disabled_arc(),
+                &Observability::disabled_arc(),
             )
             .await;
 
