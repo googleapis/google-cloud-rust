@@ -22,22 +22,18 @@ use std::sync::Arc;
 pub type Result<T> = std::result::Result<T, RowError>;
 /// An iterator over rows returned by a query.
 ///
-/// Instances of this struct are produced by calling [`CompleteQuery::read()`](crate::CompleteQuery::read).
+/// [`CompleteQuery::read()`](crate::CompleteQuery::read) returns a
+/// `RowIterator`.
 ///
-/// `RowIterator` initially yields rows from the in-memory buffer fetched during early query completion. When the local buffer
-/// is exhausted, it automatically requests subsequent pages from the BigQuery service using stored pagination tokens until
-/// the entire result set has been consumed.
+/// `RowIterator` yields rows from the in-memory buffer fetched during query
+/// completion, then requests subsequent pages from BigQuery using pagination
+/// tokens until consuming the entire result set.
 ///
 /// # Example
 ///
 /// ```
-/// # async fn sample() -> anyhow::Result<()> {
-/// use google_cloud_bigquery::client::BigQuery;
-///
-/// let client = BigQuery::builder()
-///     .with_project_id("my-project-id")
-///     .build()
-///     .await?;
+/// # use google_cloud_bigquery::client::BigQuery;
+/// # async fn sample(client: BigQuery) -> anyhow::Result<()> {
 /// let mut rows = client
 ///     .query("SELECT name, state FROM `bigquery-public-data.usa_names.usa_1910_2013` LIMIT 10")
 ///     .run()
@@ -78,18 +74,14 @@ impl RowIterator {
 
     /// Sets the maximum number of rows to buffer in memory.
     ///
-    /// Setting this value controls page sizes during ongoing network fetches, allowing you to tune overall memory consumption and network round trips when streaming large result sets.
+    /// This controls page size during network fetches when streaming result
+    /// sets.
     ///
     /// # Example
     ///
     /// ```
-    /// # async fn sample() -> anyhow::Result<()> {
-    /// use google_cloud_bigquery::client::BigQuery;
-    ///
-    /// let client = BigQuery::builder()
-    ///     .with_project_id("my-project-id")
-    ///     .build()
-    ///     .await?;
+    /// # use google_cloud_bigquery::client::BigQuery;
+    /// # async fn sample(client: BigQuery) -> anyhow::Result<()> {
     /// let mut rows = client
     ///     .query("SELECT 1 AS n")
     ///     .run()
@@ -97,7 +89,7 @@ impl RowIterator {
     ///     .until_done()
     ///     .await?
     ///     .read()
-    ///     .set_max_results(500); // Request at most 500 rows per page during subsequent API fetches
+    ///     .set_max_results(500);
     /// # Ok(())
     /// # }
     /// ```
@@ -106,31 +98,16 @@ impl RowIterator {
         self
     }
 
-    /// Fetches and yields the next [`Row`](crate::Row) from the result set.
+    /// Fetches the next [`Row`](crate::Row) from the result set.
     ///
-    /// Returns `Some(Ok(Row))` when the next row is available, `Some(Err(RowError))` if an error occurs during schema parsing or network retrieval,
-    /// or `None` when the result set is exhausted and no further pages exist.
+    /// Returns `None` when all rows have been retrieved.
     ///
     /// # Example
     ///
     /// ```
-    /// # async fn sample() -> anyhow::Result<()> {
-    /// use google_cloud_bigquery::client::BigQuery;
-    ///
-    /// let client = BigQuery::builder()
-    ///     .with_project_id("my-project-id")
-    ///     .build()
-    ///     .await?;
-    /// let mut rows = client
-    ///     .query("SELECT 'hello' AS msg")
-    ///     .run()
-    ///     .await?
-    ///     .until_done()
-    ///     .await?
-    ///     .read();
-    ///
-    /// while let Some(res) = rows.next().await {
-    ///     let row = res?;
+    /// # use google_cloud_bigquery::RowIterator;
+    /// # async fn sample(mut rows: RowIterator) -> anyhow::Result<()> {
+    /// while let Some(row) = rows.next().await.transpose()? {
     ///     let msg: String = row.get("msg");
     ///     println!("Message: {msg}");
     /// }

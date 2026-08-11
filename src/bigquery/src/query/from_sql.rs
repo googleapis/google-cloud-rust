@@ -33,31 +33,29 @@ pub(crate) const BIGQUERY_DATETIME_SUBSEC_FORMAT: &[time::format_description::Fo
     'static,
 >] = time::macros::format_description!("[year]-[month]-[day]T[hour]:[minute]:[second].[subsecond]");
 
-/// A trait for converting BigQuery internal [`wkt::Value`] representations into strongly typed Rust values.
+/// A trait for converting BigQuery [`wkt::Value`] representations into Rust
+/// types.
 ///
-/// This trait is automatically applied when retrieving values from a row using [`Row::get()`](crate::Row::get)
-/// or [`Row::try_get()`](crate::Row::try_get), and is utilized by the [`FromRow`](crate::FromRow) derive macro.
+/// [`Row::get()`](crate::Row::get) and
+/// [`Row::try_get()`](crate::Row::try_get) use this trait to convert cell
+/// values, and the [`FromRow`](crate::FromRow) derive macro uses it for field
+/// deserialization.
 ///
-/// # Supported Mappings
+/// # Supported Types
 ///
-/// Standard implementations are provided for common Rust and domain types:
-/// - **Integers / Numbers**: `i32`, `i64`, `f32`, `f64`, [`Decimal`](rust_decimal::Decimal)
-/// - **Strings / Bytes**: `String`, `Vec<u8>` (decoded from standard base64), [`Bytes`](bytes::Bytes)
-/// - **Timestamps & Dates**: [`Timestamp`](wkt::Timestamp), [`Date`](google_cloud_type::model::Date), [`TimeOfDay`](google_cloud_type::model::TimeOfDay), [`DateTime`](google_cloud_type::model::DateTime)
-/// - **Intervals**: [`Interval`](crate::Interval)
-/// - **Collections**: `Option<T>` (for NULL handling), `Vec<T>` (for repeated arrays), [`Range<T>`](crate::Range) (for BQ `RANGE` types)
-/// - **Raw values**: [`Value`](wkt::Value), [`Struct`](wkt::Struct)
+/// Built-in implementations include:
+/// - Numbers: `i32`, `i64`, `f32`, `f64`, [`Decimal`](rust_decimal::Decimal)
+/// - Text & Bytes: `String`, `Vec<u8>` (decoded from base64), [`Bytes`](bytes::Bytes)
+/// - Dates & Times: [`Timestamp`](wkt::Timestamp), [`Date`](google_cloud_type::model::Date), [`TimeOfDay`](google_cloud_type::model::TimeOfDay), [`DateTime`](google_cloud_type::model::DateTime)
+/// - Intervals: [`Interval`](crate::Interval)
+/// - Collections: `Option<T>` (for `NULL`), `Vec<T>` (for repeated fields), [`Range<T>`](crate::Range) (for `RANGE` types)
+/// - Raw JSON: [`Value`](wkt::Value), [`Struct`](wkt::Struct)
 ///
 /// # Example
 ///
 /// ```
-/// # async fn sample() -> anyhow::Result<()> {
-/// use google_cloud_bigquery::client::BigQuery;
-///
-/// let client = BigQuery::builder()
-///     .with_project_id("my-project-id")
-///     .build()
-///     .await?;
+/// # use google_cloud_bigquery::client::BigQuery;
+/// # async fn sample(client: BigQuery) -> anyhow::Result<()> {
 /// let mut rows = client
 ///     .query("SELECT 12345 AS integer_col, 'foo' AS string_col")
 ///     .run()
@@ -67,7 +65,6 @@ pub(crate) const BIGQUERY_DATETIME_SUBSEC_FORMAT: &[time::format_description::Fo
 ///     .read();
 ///
 /// while let Some(row) = rows.next().await.transpose()? {
-///     // Automatically invokes FromSql implementations for i64 and String
 ///     let num: i64 = row.get("integer_col");
 ///     let txt: String = row.get("string_col");
 ///     println!("{txt}: {num}");

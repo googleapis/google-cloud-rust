@@ -21,76 +21,43 @@ pub type Result<T> = std::result::Result<T, RowError>;
 
 /// A container for a single row within a query result set.
 ///
-/// Instances of `Row` are yielded by [`RowIterator::next()`](crate::RowIterator::next).
+/// [`RowIterator::next()`](crate::RowIterator::next) yields a `Row`.
 ///
-/// Each `Row` stores parsed cell values alongside a reference to the table schema returned by BigQuery.
+/// Each `Row` contains parsed cell values and a reference to the table schema.
 ///
-/// # Preferred: Zero-Copy Struct Mapping via Derive Macros
+/// # Zero-Copy Struct Mapping via Derive Macros
 ///
-/// The most idiomatic and high-performance way to process BigQuery results is to define typed Rust structs
-/// and annotate them with `#[derive(FromRow)]`.
-///
-/// The procedural macro implements `TryFrom<Row>` using non-cloning, in-place [`take()`](Row::take) extractions.
-/// Strings, byte arrays, and records are moved directly into your struct fields without heap reallocation overhead.
+/// Define typed structs with `#[derive(FromRow)]` to convert rows directly into
+/// your domain types using `TryFrom<Row>` without unnecessary allocations:
 ///
 /// ```
-/// # async fn sample() -> anyhow::Result<()> {
-/// use google_cloud_bigquery::client::BigQuery;
-/// use google_cloud_bigquery::FromRow;
-///
+/// # use google_cloud_bigquery::FromRow;
+/// # use google_cloud_bigquery::Row;
 /// #[derive(FromRow, Debug)]
 /// struct UserStats {
 ///     name: String,
 ///     count: i64,
 /// }
 ///
-/// let client = BigQuery::builder()
-///     .with_project_id("my-project-id")
-///     .build()
-///     .await?;
-/// let mut rows = client
-///     .query("SELECT name, count FROM `bigquery-public-data.usa_names.usa_1910_2013` WHERE state = 'WA' LIMIT 5")
-///     .run()
-///     .await?
-///     .until_done()
-///     .await?
-///     .read();
-///
-/// while let Some(row) = rows.next().await.transpose()? {
-///     let user: UserStats = row.try_into()?;
-///     println!("{} has count {}", user.name, user.count);
-/// }
+/// # fn sample(row: Row) -> anyhow::Result<()> {
+/// let user: UserStats = row.try_into()?;
+/// println!("{}: {}", user.name, user.count);
 /// # Ok(())
 /// # }
 /// ```
 ///
-/// # Alternative: Dynamic Field Extraction by Name and Index
+/// # Field Extraction by Name or Index
 ///
-/// For dynamic schemas or ad-hoc queries, you can retrieve individual cell values by column name (`&str` or `String`)
-/// or by position (`usize`) using [`get()`](Row::get), [`try_get()`](Row::try_get), or [`take()`](Row::take).
+/// Retrieve individual cell values by column name (`&str`) or index (`usize`)
+/// using [`get()`](Row::get), [`try_get()`](Row::try_get), or
+/// [`take()`](Row::take):
 ///
 /// ```
-/// # async fn sample() -> anyhow::Result<()> {
-/// use google_cloud_bigquery::client::BigQuery;
-///
-/// let client = BigQuery::builder()
-///     .with_project_id("my-project-id")
-///     .build()
-///     .await?;
-/// let mut rows = client
-///     .query("SELECT 'Alice' AS name, 30 AS age")
-///     .run()
-///     .await?
-///     .until_done()
-///     .await?
-///     .read();
-///
-/// while let Some(row) = rows.next().await.transpose()? {
-///     let name: String = row.get("name");
-///     let age: i64 = row.get(1);
-///     println!("{name} is {age} years old");
-/// }
-/// # Ok(())
+/// # use google_cloud_bigquery::Row;
+/// # fn sample(row: Row) {
+/// let name: String = row.get("name");
+/// let age: i64 = row.get(1);
+/// println!("{name} is {age} years old");
 /// # }
 /// ```
 #[derive(Clone, Debug)]
@@ -185,41 +152,27 @@ impl Row {
         })
     }
 
-    /// Attempts to retrieve a strongly typed value from the row by column name or zero-based index.
+    /// Attempts to retrieve a value from the row by column name or zero-based
+    /// index.
     ///
-    /// The return type must implement the [`FromSql`](crate::FromSql) conversion trait.
+    /// The return type must implement [`FromSql`](crate::FromSql).
     ///
     /// # Errors
     ///
-    /// Returns:
-    /// - [`RowError::ColumnNotFound`](crate::error::RowError::ColumnNotFound) if an unknown column string name is provided.
-    /// - [`RowError::IndexOutOfRange`](crate::error::RowError::IndexOutOfRange) if a numerical column index exceeds schema bounds.
-    /// - [`RowError::TypeConversion`](crate::error::RowError::TypeConversion) if the cell value cannot be cleanly parsed into the requested target type `T`.
+    /// Returns [`RowError::ColumnNotFound`](crate::error::RowError::ColumnNotFound)
+    /// if the column does not exist,
+    /// [`RowError::IndexOutOfRange`](crate::error::RowError::IndexOutOfRange) if
+    /// the index exceeds schema bounds, or
+    /// [`RowError::TypeConversion`](crate::error::RowError::TypeConversion) if
+    /// the value cannot be converted to `T`.
     ///
     /// # Example
     ///
     /// ```
-    /// # async fn sample() -> anyhow::Result<()> {
-    /// use google_cloud_bigquery::client::BigQuery;
-    ///
-    /// let client = BigQuery::builder()
-    ///     .with_project_id("my-project-id")
-    ///     .build()
-    ///     .await?;
-    /// let mut rows = client
-    ///     .query("SELECT 'hello' AS msg")
-    ///     .run()
-    ///     .await?
-    ///     .until_done()
-    ///     .await?
-    ///     .read();
-    ///
-    /// if let Some(row) = rows.next().await.transpose()? {
-    ///     match row.try_get::<String, _>("msg") {
-    ///         Ok(val) => println!("Value: {val}"),
-    ///         Err(e) => println!("Conversion failed: {e}"),
-    ///     }
-    /// }
+    /// # use google_cloud_bigquery::Row;
+    /// # fn sample(row: Row) -> anyhow::Result<()> {
+    /// let msg: String = row.try_get("msg")?;
+    /// println!("Value: {msg}");
     /// # Ok(())
     /// # }
     /// ```
@@ -236,40 +189,24 @@ impl Row {
         self.convert_value_at(idx, val.clone())
     }
 
-    /// Takes ownership of a value from the row by column name or zero-based index.
+    /// Takes ownership of a value from the row by column name or zero-based
+    /// index.
     ///
-    /// Unlike [`try_get()`](Row::try_get), this method replaces the internal stored cell value with `Value::Null` in-place.
-    /// This is highly efficient when extracting large strings, nested struct records, or repeated arrays, as it avoids unnecessary cloning allocations.
-    ///
-    /// > **Note:** Because the value is swapped with `Value::Null`, attempting to read the same column a second time after calling `take()` will result in null extraction or type conversion failures.
+    /// This replaces the cell value in the row with `Value::Null` in-place to
+    /// avoid cloning. Attempting to read the column again after calling `take()`
+    /// yields `Value::Null`.
     ///
     /// # Errors
     ///
-    /// Returns the same error conditions as [`try_get()`](Row::try_get) if column resolution or type conversion fails.
+    /// Returns the same errors as [`try_get()`](Row::try_get).
     ///
     /// # Example
     ///
     /// ```
-    /// # async fn sample() -> anyhow::Result<()> {
-    /// use google_cloud_bigquery::client::BigQuery;
-    ///
-    /// let client = BigQuery::builder()
-    ///     .with_project_id("my-project-id")
-    ///     .build()
-    ///     .await?;
-    /// let mut rows = client
-    ///     .query("SELECT REPEAT('large string buffer ', 1000) AS big_text")
-    ///     .run()
-    ///     .await?
-    ///     .until_done()
-    ///     .await?
-    ///     .read();
-    ///
-    /// if let Some(mut row) = rows.next().await.transpose()? {
-    ///     // Take ownership of the string without cloning the underlying buffer
-    ///     let text: String = row.take("big_text")?;
-    ///     println!("Length: {}", text.len());
-    /// }
+    /// # use google_cloud_bigquery::Row;
+    /// # fn sample(mut row: Row) -> anyhow::Result<()> {
+    /// let text: String = row.take("big_text")?;
+    /// println!("Length: {}", text.len());
     /// # Ok(())
     /// # }
     /// ```
@@ -289,37 +226,20 @@ impl Row {
         self.convert_value_at(idx, owned_val)
     }
 
-    /// Retrieves a value from the row by column name or zero-based index, panicking on error.
-    ///
-    /// This is a convenience wrapper around [`try_get()`](Row::try_get) when schema and types are known to match statically.
+    /// Retrieves a value from the row by column name or zero-based index.
     ///
     /// # Panics
     ///
-    /// Panics if column index resolution fails or if the cell cannot be converted to type `T`.
+    /// Panics if the column does not exist or if the value cannot be converted
+    /// to type `T`.
     ///
     /// # Example
     ///
     /// ```
-    /// # async fn sample() -> anyhow::Result<()> {
-    /// use google_cloud_bigquery::client::BigQuery;
-    ///
-    /// let client = BigQuery::builder()
-    ///     .with_project_id("my-project-id")
-    ///     .build()
-    ///     .await?;
-    /// let mut rows = client
-    ///     .query("SELECT 42 AS count")
-    ///     .run()
-    ///     .await?
-    ///     .until_done()
-    ///     .await?
-    ///     .read();
-    ///
-    /// if let Some(row) = rows.next().await.transpose()? {
-    ///     let count: i64 = row.get("count"); // Panics on conversion error
-    ///     println!("Count: {count}");
-    /// }
-    /// # Ok(())
+    /// # use google_cloud_bigquery::Row;
+    /// # fn sample(row: Row) {
+    /// let count: i64 = row.get("count");
+    /// println!("Count: {count}");
     /// # }
     /// ```
     pub fn get<T: FromSql, I: ColumnIndex>(&self, index: I) -> T {
