@@ -224,10 +224,10 @@ pub trait RequestOptionsBuilder: internal::RequestBuilder {
 
     /// Injects a custom HTTP header (or gRPC metadata) into this specific request.
     ///
-    /// This method is dedicated to adding custom headers. Callers cannot use this
-    /// function to inject system or authentication headers (such as `user-agent`,
-    /// `authorization`, `x-goog-api-key`, `x-goog-api-client`, `x-goog-user-project`,
-    /// or `x-goog-request-params`); any attempt to do so will be silently ignored.
+    /// This method will ignore attempts to set system headers used by the client
+    /// library. These include: `user-agent`, `authorization`,
+    /// `x-goog-api-key`, `x-goog-api-client`, `x-goog-user-project`,
+    /// and `x-goog-request-params`.
     ///
     /// Callers who want to configure respective system headers should use the
     /// dedicated builder methods instead, such as [`with_quota_project`](Self::with_quota_project)
