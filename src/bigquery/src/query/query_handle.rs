@@ -365,7 +365,7 @@ impl CompleteQuery {
     /// execution timelines, billing tier estimates, and error summaries.
     ///
     /// > Calling this method on a stateless query returns
-    /// [`QueryError::StatelessQuery`](crate::error::QueryError::StatelessQuery).
+    /// > [`QueryError::StatelessQuery`](crate::error::QueryError::StatelessQuery).
     ///
     /// [Job]: https://docs.cloud.google.com/bigquery/docs/reference/rest/v2/Job
     ///
