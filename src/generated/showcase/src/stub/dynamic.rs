@@ -333,11 +333,12 @@ pub trait Echo: std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_gapic_streaming)]
     async fn chat(
         &self,
+        req: crate::model::EchoRequest,
         options: crate::RequestOptions,
-    ) -> (
+    ) -> crate::Result<(
         google_cloud_gax::streaming::RequestSender<crate::model::EchoRequest>,
         google_cloud_gax::streaming::ResponseReceiver<crate::model::EchoResponse>,
-    );
+    )>;
 
     async fn paged_expand(
         &self,
@@ -473,12 +474,13 @@ impl<T: super::Echo> Echo for T {
     #[cfg(google_cloud_unstable_gapic_streaming)]
     async fn chat(
         &self,
+        req: crate::model::EchoRequest,
         options: crate::RequestOptions,
-    ) -> (
+    ) -> crate::Result<(
         google_cloud_gax::streaming::RequestSender<crate::model::EchoRequest>,
         google_cloud_gax::streaming::ResponseReceiver<crate::model::EchoResponse>,
-    ) {
-        T::chat(self, options).await
+    )> {
+        T::chat(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -923,11 +925,12 @@ pub trait Messaging: std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_gapic_streaming)]
     async fn connect(
         &self,
+        req: crate::model::ConnectRequest,
         options: crate::RequestOptions,
-    ) -> (
+    ) -> crate::Result<(
         google_cloud_gax::streaming::RequestSender<crate::model::ConnectRequest>,
         google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>,
-    );
+    )>;
 
     async fn list_locations(
         &self,
@@ -1105,12 +1108,13 @@ impl<T: super::Messaging> Messaging for T {
     #[cfg(google_cloud_unstable_gapic_streaming)]
     async fn connect(
         &self,
+        req: crate::model::ConnectRequest,
         options: crate::RequestOptions,
-    ) -> (
+    ) -> crate::Result<(
         google_cloud_gax::streaming::RequestSender<crate::model::ConnectRequest>,
         google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>,
-    ) {
-        T::connect(self, options).await
+    )> {
+        T::connect(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

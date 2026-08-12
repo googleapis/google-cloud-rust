@@ -14,6 +14,8 @@
 
 use google_cloud_gax::Result;
 use google_cloud_gax::response::Response;
+#[cfg(google_cloud_unstable_gapic_streaming)]
+use google_cloud_gax::streaming::{RequestSender, ResponseReceiver};
 
 pub const UNIMPLEMENTED: &str = concat!(
     "to prevent breaking changes as services gain new RPCs, the stub ",
@@ -29,4 +31,28 @@ pub const UNIMPLEMENTED: &str = concat!(
 
 pub async fn unimplemented_stub<T: Send>() -> Result<Response<T>> {
     unimplemented!("{UNIMPLEMENTED}");
+}
+
+#[cfg(google_cloud_unstable_gapic_streaming)]
+pub async fn unimplemented_bidi_stub<I: Send, O: Send>()
+-> Result<(RequestSender<I>, ResponseReceiver<O>)> {
+    unimplemented!("{UNIMPLEMENTED}");
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[tokio::test]
+    #[should_panic(expected = "to prevent breaking changes as services gain new RPCs")]
+    async fn test_unimplemented_stub() {
+        let _ = unimplemented_stub::<()>().await;
+    }
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    #[tokio::test]
+    #[should_panic(expected = "to prevent breaking changes as services gain new RPCs")]
+    async fn test_unimplemented_bidi_stub() {
+        let _ = unimplemented_bidi_stub::<(), ()>().await;
+    }
 }

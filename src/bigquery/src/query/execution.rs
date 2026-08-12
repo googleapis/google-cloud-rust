@@ -52,17 +52,11 @@ impl PostQueryExecutor {
             return Err(QueryError::JobFailed { errors: res.errors });
         }
 
-        let completed = res.job_complete.unwrap_or(false);
-        let job_ref = res.job_reference.clone();
-
-        Ok(Query {
-            job_service: self.job_service.clone(),
-            job_ref,
-            completed,
-            initial_response: Some(res),
-            initial_job: None,
+        Ok(Query::from_query_response(
+            self.job_service.clone(),
+            res,
             max_results,
-        })
+        ))
     }
 }
 
@@ -113,17 +107,11 @@ impl InsertJobExecutor {
             return Err(QueryError::JobFailed { errors });
         }
 
-        let completed = job_status.map(|s| s.state == "DONE").unwrap_or(false);
-        let job_ref = res.job_reference.clone();
-
-        Ok(Query {
-            job_service: self.job_service.clone(),
-            job_ref,
-            completed,
-            initial_job: Some(res),
-            initial_response: None,
-            max_results: self.max_results,
-        })
+        Ok(Query::from_job(
+            self.job_service.clone(),
+            res,
+            self.max_results,
+        ))
     }
 }
 
@@ -138,6 +126,7 @@ mod tests {
     use google_cloud_gax::error::Error as GaxError;
     use google_cloud_gax::error::rpc::{Code, Status};
     use google_cloud_gax::response::Response;
+    use serde_json::{Map, json};
     use test_case::test_case;
 
     type TestResult = anyhow::Result<()>;
@@ -149,7 +138,8 @@ mod tests {
             let job_ref = JobReference::new().set_job_id("my-job-123");
             let query_res = QueryResponse::new()
                 .set_job_complete(true)
-                .set_job_reference(job_ref.clone());
+                .set_job_reference(job_ref.clone())
+                .set_rows([Map::from_iter([("f".to_string(), json!([{"v": "Hello"}]))])]);
             Ok(Response::from(query_res))
         });
 
@@ -160,9 +150,13 @@ mod tests {
         let query = executor.execute().await?;
 
         assert!(query.completed, "{query:?}");
-        let job_ref = query.job_ref.clone().expect("should have job_ref");
+        let job_ref = query
+            .metadata
+            .job_reference
+            .clone()
+            .expect("should have job_ref");
         assert_eq!(job_ref.job_id, "my-job-123", "{job_ref:?}");
-        assert!(query.initial_response.is_some(), "{query:?}");
+        assert!(query.cached_rows.is_some(), "{query:?}");
 
         Ok(())
     }
@@ -310,7 +304,7 @@ mod tests {
         let query = executor.execute().await?;
 
         assert_eq!(query.completed, completed);
-        assert_eq!(query.job_ref, Some(job_ref));
+        assert_eq!(query.metadata.job_reference, Some(job_ref));
         Ok(())
     }
 }

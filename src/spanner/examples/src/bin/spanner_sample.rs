@@ -67,7 +67,6 @@ async fn main() -> anyhow::Result<()> {
         let spanner = Spanner::builder().build().await?;
         let admin_client = spanner.database_admin_builder().build().await?;
         database::create_database::sample(&admin_client, &instance_name, database_id).await?;
-        println!("Closed client");
         return Ok(());
     }
 
@@ -104,6 +103,5 @@ async fn main() -> anyhow::Result<()> {
         }
     }
 
-    println!("Closed client");
     Ok(())
 }

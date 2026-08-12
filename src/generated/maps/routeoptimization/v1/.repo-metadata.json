@@ -1,0 +1,15 @@
+{
+    "api_description": "The Route Optimization API assigns tasks and routes to a vehicle fleet,\noptimizing against the objectives and constraints that you supply for your\ntransportation goals.",
+    "api_id": "routeoptimization.googleapis.com",
+    "api_shortname": "routeoptimization",
+    "client_documentation": "https://docs.rs/google-maps-routeoptimization-v1/latest",
+    "distribution_name": "google-maps-routeoptimization-v1",
+    "issue_tracker": "https://issuetracker.google.com/issues/new?component=1546507",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name": "routeoptimization",
+    "name_pretty": "Route Optimization",
+    "product_documentation": "https://developers.google.com/maps/documentation/route-optimization",
+    "release_level": "stable",
+    "repo": "googleapis/google-cloud-rust"
+}
