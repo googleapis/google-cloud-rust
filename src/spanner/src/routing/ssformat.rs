@@ -56,8 +56,8 @@ const ASCENDING_FF_ESCAPE: u8 = 0x10;
 const SEP: u8 = 0x78; // 'x'
 
 // Composite tag validation constants
-const K_OBJECT_EXISTENCE_TAG: i32 = 0x7e;
-const K_MAX_FIELD_TAG: i32 = 0xffff;
+const K_OBJECT_EXISTENCE_TAG: u32 = 0x7e;
+const K_MAX_FIELD_TAG: u32 = 0xffff;
 
 // Offset to make negative timestamp seconds sort correctly
 const TIMESTAMP_SECONDS_OFFSET: i64 = i64::MIN;
@@ -87,8 +87,8 @@ pub(crate) fn make_prefix_successor(key: &[u8]) -> Vec<u8> {
 }
 
 /// Appends a composite tag to the output buffer.
-pub(crate) fn append_composite_tag(out: &mut Vec<u8>, tag: i32) -> Result<()> {
-    if tag == K_OBJECT_EXISTENCE_TAG || tag <= 0 || tag > K_MAX_FIELD_TAG {
+pub(crate) fn append_composite_tag(out: &mut Vec<u8>, tag: u32) -> Result<()> {
+    if tag == K_OBJECT_EXISTENCE_TAG || tag == 0 || tag > K_MAX_FIELD_TAG {
         return Err(crate::error::internal_error(format!(
             "Invalid tag value: {tag}"
         )));
@@ -377,7 +377,7 @@ mod tests {
 
     #[test]
     fn append_composite_tag_invalid_tags() {
-        let invalid_tags = [0, -1, K_OBJECT_EXISTENCE_TAG, K_MAX_FIELD_TAG + 1];
+        let invalid_tags = [0, K_OBJECT_EXISTENCE_TAG, K_MAX_FIELD_TAG + 1, u32::MAX];
         for &tag in &invalid_tags {
             let mut out = Vec::new();
             assert!(
