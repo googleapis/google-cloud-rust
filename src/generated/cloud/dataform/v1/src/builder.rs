@@ -3015,6 +3015,24 @@ pub mod dataform {
             self.0.request.workspace = v.into();
             self
         }
+
+        /// Sets the value of [pipeline_config][crate::model::InstallNpmPackagesRequest::pipeline_config].
+        pub fn set_pipeline_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PipelineConfig>,
+        {
+            self.0.request.pipeline_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [pipeline_config][crate::model::InstallNpmPackagesRequest::pipeline_config].
+        pub fn set_or_clear_pipeline_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PipelineConfig>,
+        {
+            self.0.request.pipeline_config = v.map(|x| x.into());
+            self
+        }
     }
 
     #[doc(hidden)]

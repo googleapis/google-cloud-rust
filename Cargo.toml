@@ -306,6 +306,7 @@ members = [
   "src/generated/maps/navconnect/v1",
   "src/generated/maps/places/v1",
   "src/generated/maps/roads/v1op",
+  "src/generated/maps/routeoptimization/v1",
   "src/generated/maps/routes/v1",
   "src/generated/maps/routing/v2",
   "src/generated/maps/solar/v1",
@@ -318,12 +319,18 @@ members = [
   "src/generated/privacy/dlp/v2",
   "src/generated/rpc/context",
   "src/generated/rpc/types",
+  "src/generated/shopping/css/v1",
   "src/generated/shopping/gtype",
   "src/generated/shopping/merchant/conversions/v1",
   "src/generated/shopping/merchant/inventories/v1",
   "src/generated/shopping/merchant/issueresolution/v1",
   "src/generated/shopping/merchant/lfp/v1",
   "src/generated/shopping/merchant/notifications/v1",
+  "src/generated/shopping/merchant/ordertracking/v1",
+  "src/generated/shopping/merchant/products/v1",
+  "src/generated/shopping/merchant/promotions/v1",
+  "src/generated/shopping/merchant/quota/v1",
+  "src/generated/shopping/merchant/reports/v1",
   "src/generated/showcase",
   "src/generated/spanner/admin/database/v1",
   "src/generated/spanner/admin/instance/v1",
@@ -398,7 +405,7 @@ license      = "Apache-2.0"
 repository   = "https://github.com/googleapis/google-cloud-rust/tree/main"
 keywords     = ["gcp", "google-cloud", "google-cloud-rust", "sdk"]
 categories   = ["network-programming"]
-rust-version = "1.88.0"
+rust-version = "1.90.0"
 
 # Define a custom profile for builds on GHA. The standard profiles exhaust the
 # available disk space on the free GHA runners. The GHA builds cannot take
@@ -410,8 +417,9 @@ inherits    = "dev"
 incremental = false
 
 [workspace.dependencies]
+arrow                 = { default-features = false, version = "59.2" }
 async-trait           = { default-features = false, version = "0.1.85" }
-base64                = { default-features = false, version = "0.22", features = ["std"] }
+base64                = { default-features = false, version = "0.23", features = ["std"] }
 bytes                 = { default-features = false, version = "1.10", features = ["serde"] }
 cargo_metadata        = { default-features = false, version = "0.23" }
 chrono                = { default-features = false, version = "0.4.44" }
@@ -517,7 +525,7 @@ tokio-stream      = { default-features = false, version = "0.1.16" }
 # Local packages used as dependencies.
 google-cloud-auth        = { default-features = false, version = "1.15.0", path = "src/auth" }
 google-cloud-gax         = { default-features = false, version = "1.13.0", path = "src/gax" }
-gaxi                     = { default-features = false, version = "0.7.16", path = "src/gax-internal", package = "google-cloud-gax-internal" }
+gaxi                     = { default-features = false, version = "0.7.17", path = "src/gax-internal", package = "google-cloud-gax-internal" }
 wkt                      = { default-features = false, version = "1.7.0", path = "src/wkt", package = "google-cloud-wkt" }
 google-cloud-wkt         = { default-features = false, version = "1.7.0", path = "src/wkt", package = "google-cloud-wkt" }
 google-cloud-api         = { default-features = false, version = "1.7.0", path = "src/generated/api/types" }
@@ -568,6 +576,7 @@ google-cloud-spanner                 = { default-features = false, path = "src/s
 google-cloud-bigquery                = { default-features = false, path = "src/bigquery" }
 google-cloud-bigquery-derive         = { default-features = false, path = "src/bigquery-derive" }
 google-cloud-bigquery-v2             = { default-features = false, path = "src/generated/cloud/bigquery/v2" }
+google-cloud-bigquery-write          = { default-features = false, path = "src/bigquery-write" }
 google-cloud-iam-credentials-v1      = { default-features = false, path = "src/generated/iam/credentials/v1" }
 google-cloud-language-v2             = { default-features = false, path = "src/generated/cloud/language/v2" }
 google-cloud-dns-v1                  = { default-features = false, path = "src/generated/cloud/dns/v1" }

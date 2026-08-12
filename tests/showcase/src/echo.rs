@@ -62,6 +62,8 @@ pub async fn run() -> Result<()> {
     // Block() tests timeouts, which we already have tests for.
     request_id_unset(&client).await?;
     request_id_custom(&client).await?;
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    chat(&client).await?;
 
     Ok(())
 }
@@ -191,5 +193,32 @@ async fn request_id_custom(client: &Echo) -> Result<()> {
         .await?;
     assert_eq!(uuid1, response.request_id);
     assert_eq!(uuid2, response.other_request_id);
+    Ok(())
+}
+
+#[cfg(google_cloud_unstable_gapic_streaming)]
+async fn chat(client: &Echo) -> Result<()> {
+    use google_cloud_showcase_v1beta1::model::EchoRequest;
+
+    let (sender, mut receiver) = client
+        .chat()
+        .set_content("hello from bidi echo")
+        .send()
+        .await?;
+
+    let res = receiver
+        .recv()
+        .await
+        .expect("expected response from bidi stream");
+    let response = res?;
+    assert_eq!(response.content, "hello from bidi echo");
+
+    let req2 = EchoRequest::new().set_content("second message");
+    sender.send(req2).await?;
+    let res2 = receiver
+        .recv()
+        .await
+        .expect("expected response for second message")?;
+    assert_eq!(res2.content, "second message");
     Ok(())
 }

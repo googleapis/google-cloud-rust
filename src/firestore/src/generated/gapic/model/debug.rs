@@ -108,6 +108,17 @@ impl std::fmt::Debug for super::transaction_options::ReadOnly {
     }
 }
 
+impl std::fmt::Debug for super::RequestOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RequestOptions");
+        debug_struct.field("request_tags", &self.request_tags);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::Document {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Document");
@@ -197,6 +208,7 @@ impl std::fmt::Debug for super::GetDocumentRequest {
         let mut debug_struct = f.debug_struct("GetDocumentRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("mask", &self.mask);
+        debug_struct.field("request_options", &self.request_options);
         debug_struct.field("consistency_selector", &self.consistency_selector);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -215,6 +227,7 @@ impl std::fmt::Debug for super::ListDocumentsRequest {
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("mask", &self.mask);
         debug_struct.field("show_missing", &self.show_missing);
+        debug_struct.field("request_options", &self.request_options);
         debug_struct.field("consistency_selector", &self.consistency_selector);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -243,6 +256,7 @@ impl std::fmt::Debug for super::CreateDocumentRequest {
         debug_struct.field("document_id", &self.document_id);
         debug_struct.field("document", &self.document);
         debug_struct.field("mask", &self.mask);
+        debug_struct.field("request_options", &self.request_options);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -257,6 +271,7 @@ impl std::fmt::Debug for super::UpdateDocumentRequest {
         debug_struct.field("update_mask", &self.update_mask);
         debug_struct.field("mask", &self.mask);
         debug_struct.field("current_document", &self.current_document);
+        debug_struct.field("request_options", &self.request_options);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -269,6 +284,7 @@ impl std::fmt::Debug for super::DeleteDocumentRequest {
         let mut debug_struct = f.debug_struct("DeleteDocumentRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("current_document", &self.current_document);
+        debug_struct.field("request_options", &self.request_options);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -282,6 +298,7 @@ impl std::fmt::Debug for super::BatchGetDocumentsRequest {
         debug_struct.field("database", &self.database);
         debug_struct.field("documents", &self.documents);
         debug_struct.field("mask", &self.mask);
+        debug_struct.field("request_options", &self.request_options);
         debug_struct.field("consistency_selector", &self.consistency_selector);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -308,6 +325,7 @@ impl std::fmt::Debug for super::BeginTransactionRequest {
         let mut debug_struct = f.debug_struct("BeginTransactionRequest");
         debug_struct.field("database", &self.database);
         debug_struct.field("options", &self.options);
+        debug_struct.field("request_options", &self.request_options);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -332,6 +350,7 @@ impl std::fmt::Debug for super::CommitRequest {
         debug_struct.field("database", &self.database);
         debug_struct.field("writes", &self.writes);
         debug_struct.field("transaction", &self.transaction);
+        debug_struct.field("request_options", &self.request_options);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -356,6 +375,7 @@ impl std::fmt::Debug for super::RollbackRequest {
         let mut debug_struct = f.debug_struct("RollbackRequest");
         debug_struct.field("database", &self.database);
         debug_struct.field("transaction", &self.transaction);
+        debug_struct.field("request_options", &self.request_options);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -368,6 +388,7 @@ impl std::fmt::Debug for super::RunQueryRequest {
         let mut debug_struct = f.debug_struct("RunQueryRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("explain_options", &self.explain_options);
+        debug_struct.field("request_options", &self.request_options);
         debug_struct.field("query_type", &self.query_type);
         debug_struct.field("consistency_selector", &self.consistency_selector);
         if !self._unknown_fields.is_empty() {
@@ -398,6 +419,7 @@ impl std::fmt::Debug for super::RunAggregationQueryRequest {
         let mut debug_struct = f.debug_struct("RunAggregationQueryRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("explain_options", &self.explain_options);
+        debug_struct.field("request_options", &self.request_options);
         debug_struct.field("query_type", &self.query_type);
         debug_struct.field("consistency_selector", &self.consistency_selector);
         if !self._unknown_fields.is_empty() {
@@ -428,6 +450,7 @@ impl std::fmt::Debug for super::PartitionQueryRequest {
         debug_struct.field("partition_count", &self.partition_count);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("request_options", &self.request_options);
         debug_struct.field("query_type", &self.query_type);
         debug_struct.field("consistency_selector", &self.consistency_selector);
         if !self._unknown_fields.is_empty() {
@@ -457,6 +480,7 @@ impl std::fmt::Debug for super::WriteRequest {
         debug_struct.field("writes", &self.writes);
         debug_struct.field("stream_token", &self.stream_token);
         debug_struct.field("labels", &self.labels);
+        debug_struct.field("request_options", &self.request_options);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -483,6 +507,7 @@ impl std::fmt::Debug for super::ListenRequest {
         let mut debug_struct = f.debug_struct("ListenRequest");
         debug_struct.field("database", &self.database);
         debug_struct.field("labels", &self.labels);
+        debug_struct.field("request_options", &self.request_options);
         debug_struct.field("target_change", &self.target_change);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -561,6 +586,7 @@ impl std::fmt::Debug for super::ListCollectionIdsRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("request_options", &self.request_options);
         debug_struct.field("consistency_selector", &self.consistency_selector);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -587,6 +613,7 @@ impl std::fmt::Debug for super::BatchWriteRequest {
         debug_struct.field("database", &self.database);
         debug_struct.field("writes", &self.writes);
         debug_struct.field("labels", &self.labels);
+        debug_struct.field("request_options", &self.request_options);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

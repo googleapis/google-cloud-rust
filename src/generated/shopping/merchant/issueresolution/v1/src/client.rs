@@ -18,7 +18,7 @@
 #![allow(rustdoc::invalid_html_tags)]
 #![allow(rustdoc::redundant_explicit_links)]
 
-/// Implements a client for the Merchant API.
+/// Implements a client for the Shopping Merchant Issue Resolution API.
 ///
 /// # Example
 /// ```
@@ -162,7 +162,7 @@ impl AggregateProductStatusesService {
     }
 }
 
-/// Implements a client for the Merchant API.
+/// Implements a client for the Shopping Merchant Issue Resolution API.
 ///
 /// # Example
 /// ```

@@ -27,6 +27,7 @@
 //!
 //! # Available Clients
 //!
+//! * [AccessPolicies](client/struct.AccessPolicies.html)
 //! * [PolicyBindings](client/struct.PolicyBindings.html)
 //! * [PrincipalAccessBoundaryPolicies](client/struct.PrincipalAccessBoundaryPolicies.html)
 //!
@@ -55,14 +56,14 @@ pub mod stub;
 ///
 /// # Example
 /// ```
-/// # use google_cloud_iam_v3::client::PolicyBindings;
+/// # use google_cloud_iam_v3::client::AccessPolicies;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
 /// async fn sample(
 ///    organization_id: &str,
 ///    location_id: &str,
 /// ) -> anyhow::Result<()> {
-///     let client = PolicyBindings::builder().build().await?;
-///     let mut list = client.list_policy_bindings()
+///     let client = AccessPolicies::builder().build().await?;
+///     let mut list = client.list_access_policies()
 ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {

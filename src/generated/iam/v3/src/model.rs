@@ -37,6 +37,1403 @@ mod debug;
 mod deserialize;
 mod serialize;
 
+/// Request message for CreateAccessPolicy method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateAccessPolicyRequest {
+    /// Required. The parent resource where this access policy will be created.
+    ///
+    /// Format:
+    /// `projects/{project_id}/locations/{location}`
+    /// `projects/{project_number}/locations/{location}`
+    /// `folders/{folder_id}/locations/{location}`
+    /// `organizations/{organization_id}/locations/{location}`
+    pub parent: std::string::String,
+
+    /// Required. The ID to use for the access policy, which
+    /// will become the final component of the access policy's
+    /// resource name.
+    ///
+    /// This value must start with a lowercase letter followed by up to 62
+    /// lowercase letters, numbers, hyphens, or dots. Pattern,
+    /// /[a-z][a-z0-9-\.]{2,62}/.
+    ///
+    /// This value must be unique among all access policies with the same parent.
+    pub access_policy_id: std::string::String,
+
+    /// Required. The access policy to create.
+    pub access_policy: std::option::Option<crate::model::AccessPolicy>,
+
+    /// Optional. If set, validate the request and preview the creation, but do not
+    /// actually post it.
+    pub validate_only: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateAccessPolicyRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateAccessPolicyRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::CreateAccessPolicyRequest;
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateAccessPolicyRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [access_policy_id][crate::model::CreateAccessPolicyRequest::access_policy_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::CreateAccessPolicyRequest;
+    /// let x = CreateAccessPolicyRequest::new().set_access_policy_id("example");
+    /// ```
+    pub fn set_access_policy_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.access_policy_id = v.into();
+        self
+    }
+
+    /// Sets the value of [access_policy][crate::model::CreateAccessPolicyRequest::access_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::CreateAccessPolicyRequest;
+    /// use google_cloud_iam_v3::model::AccessPolicy;
+    /// let x = CreateAccessPolicyRequest::new().set_access_policy(AccessPolicy::default()/* use setters */);
+    /// ```
+    pub fn set_access_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AccessPolicy>,
+    {
+        self.access_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [access_policy][crate::model::CreateAccessPolicyRequest::access_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::CreateAccessPolicyRequest;
+    /// use google_cloud_iam_v3::model::AccessPolicy;
+    /// let x = CreateAccessPolicyRequest::new().set_or_clear_access_policy(Some(AccessPolicy::default()/* use setters */));
+    /// let x = CreateAccessPolicyRequest::new().set_or_clear_access_policy(None::<AccessPolicy>);
+    /// ```
+    pub fn set_or_clear_access_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AccessPolicy>,
+    {
+        self.access_policy = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [validate_only][crate::model::CreateAccessPolicyRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::CreateAccessPolicyRequest;
+    /// let x = CreateAccessPolicyRequest::new().set_validate_only(true);
+    /// ```
+    pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.validate_only = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateAccessPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.iam.v3.CreateAccessPolicyRequest"
+    }
+}
+
+/// Request message for GetAccessPolicy method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetAccessPolicyRequest {
+    /// Required. The name of the access policy to retrieve.
+    ///
+    /// Format:
+    /// `projects/{project_id}/locations/{location}/accessPolicies/{access_policy_id}`
+    /// `projects/{project_number}/locations/{location}/accessPolicies/{access_policy_id}`
+    /// `folders/{folder_id}/locations/{location}/accessPolicies/{access_policy_id}`
+    /// `organizations/{organization_id}/locations/{location}/accessPolicies/{access_policy_id}`
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetAccessPolicyRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetAccessPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::GetAccessPolicyRequest;
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let access_policy_id = "access_policy_id";
+    /// let x = GetAccessPolicyRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/accessPolicies/{access_policy_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetAccessPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.iam.v3.GetAccessPolicyRequest"
+    }
+}
+
+/// Request message for UpdateAccessPolicy method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateAccessPolicyRequest {
+    /// Required. The access policy to update.
+    ///
+    /// The access policy's `name` field is used to identify the
+    /// policy to update.
+    pub access_policy: std::option::Option<crate::model::AccessPolicy>,
+
+    /// Optional. If set, validate the request and preview the update, but do not
+    /// actually post it.
+    pub validate_only: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateAccessPolicyRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [access_policy][crate::model::UpdateAccessPolicyRequest::access_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::UpdateAccessPolicyRequest;
+    /// use google_cloud_iam_v3::model::AccessPolicy;
+    /// let x = UpdateAccessPolicyRequest::new().set_access_policy(AccessPolicy::default()/* use setters */);
+    /// ```
+    pub fn set_access_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AccessPolicy>,
+    {
+        self.access_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [access_policy][crate::model::UpdateAccessPolicyRequest::access_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::UpdateAccessPolicyRequest;
+    /// use google_cloud_iam_v3::model::AccessPolicy;
+    /// let x = UpdateAccessPolicyRequest::new().set_or_clear_access_policy(Some(AccessPolicy::default()/* use setters */));
+    /// let x = UpdateAccessPolicyRequest::new().set_or_clear_access_policy(None::<AccessPolicy>);
+    /// ```
+    pub fn set_or_clear_access_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AccessPolicy>,
+    {
+        self.access_policy = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [validate_only][crate::model::UpdateAccessPolicyRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::UpdateAccessPolicyRequest;
+    /// let x = UpdateAccessPolicyRequest::new().set_validate_only(true);
+    /// ```
+    pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.validate_only = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateAccessPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.iam.v3.UpdateAccessPolicyRequest"
+    }
+}
+
+/// Request message for DeleteAccessPolicy method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteAccessPolicyRequest {
+    /// Required. The name of the access policy to delete.
+    ///
+    /// Format:
+    /// `projects/{project_id}/locations/{location}/accessPolicies/{access_policy_id}`
+    /// `projects/{project_number}/locations/{location}/accessPolicies/{access_policy_id}`
+    /// `folders/{folder_id}/locations/{location}/accessPolicies/{access_policy_id}`
+    /// `organizations/{organization_id}/locations/{location}/accessPolicies/{access_policy_id}`
+    pub name: std::string::String,
+
+    /// Optional. The etag of the access policy. If this is provided, it must match
+    /// the server's etag.
+    pub etag: std::string::String,
+
+    /// Optional. If set, validate the request and preview the deletion, but do not
+    /// actually post it.
+    pub validate_only: bool,
+
+    /// Optional. If set to true, the request will force the deletion of the Policy
+    /// even if the Policy references PolicyBindings.
+    pub force: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteAccessPolicyRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteAccessPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::DeleteAccessPolicyRequest;
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let access_policy_id = "access_policy_id";
+    /// let x = DeleteAccessPolicyRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/accessPolicies/{access_policy_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::DeleteAccessPolicyRequest::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::DeleteAccessPolicyRequest;
+    /// let x = DeleteAccessPolicyRequest::new().set_etag("example");
+    /// ```
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [validate_only][crate::model::DeleteAccessPolicyRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::DeleteAccessPolicyRequest;
+    /// let x = DeleteAccessPolicyRequest::new().set_validate_only(true);
+    /// ```
+    pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.validate_only = v.into();
+        self
+    }
+
+    /// Sets the value of [force][crate::model::DeleteAccessPolicyRequest::force].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::DeleteAccessPolicyRequest;
+    /// let x = DeleteAccessPolicyRequest::new().set_force(true);
+    /// ```
+    pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.force = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteAccessPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.iam.v3.DeleteAccessPolicyRequest"
+    }
+}
+
+/// Request message for ListAccessPolicies method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListAccessPoliciesRequest {
+    /// Required. The parent resource, which owns the collection of access policy
+    /// resources.
+    ///
+    /// Format:
+    /// `projects/{project_id}/locations/{location}`
+    /// `projects/{project_number}/locations/{location}`
+    /// `folders/{folder_id}/locations/{location}`
+    /// `organizations/{organization_id}/locations/{location}`
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of access policies to return. The
+    /// service may return fewer than this value.
+    ///
+    /// If unspecified, at most 50 access policies will be returned. Valid value
+    /// ranges from 1 to 1000; values above 1000 will be coerced to 1000.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous
+    /// `ListAccessPolicies` call. Provide this to retrieve the
+    /// subsequent page.
+    ///
+    /// When paginating, all other parameters provided to
+    /// `ListAccessPolicies` must match the call that provided the
+    /// page token.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListAccessPoliciesRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListAccessPoliciesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::ListAccessPoliciesRequest;
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// let x = ListAccessPoliciesRequest::new().set_parent(format!("organizations/{organization_id}/locations/{location_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListAccessPoliciesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::ListAccessPoliciesRequest;
+    /// let x = ListAccessPoliciesRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListAccessPoliciesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::ListAccessPoliciesRequest;
+    /// let x = ListAccessPoliciesRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListAccessPoliciesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.iam.v3.ListAccessPoliciesRequest"
+    }
+}
+
+/// Response message for ListAccessPolicies method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListAccessPoliciesResponse {
+    /// The access policies from the specified parent.
+    pub access_policies: std::vec::Vec<crate::model::AccessPolicy>,
+
+    /// Optional. A token, which can be sent as `page_token` to retrieve the next
+    /// page. If this field is omitted, there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListAccessPoliciesResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [access_policies][crate::model::ListAccessPoliciesResponse::access_policies].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::ListAccessPoliciesResponse;
+    /// use google_cloud_iam_v3::model::AccessPolicy;
+    /// let x = ListAccessPoliciesResponse::new()
+    ///     .set_access_policies([
+    ///         AccessPolicy::default()/* use setters */,
+    ///         AccessPolicy::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_access_policies<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AccessPolicy>,
+    {
+        use std::iter::Iterator;
+        self.access_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAccessPoliciesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::ListAccessPoliciesResponse;
+    /// let x = ListAccessPoliciesResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListAccessPoliciesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.iam.v3.ListAccessPoliciesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListAccessPoliciesResponse {
+    type PageItem = crate::model::AccessPolicy;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.access_policies
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for SearchAccessPolicyBindings rpc.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SearchAccessPolicyBindingsRequest {
+    /// Required. The name of the access policy.
+    /// Format:
+    /// `organizations/{organization_id}/locations/{location}/accessPolicies/{access_policy_id}`
+    /// `folders/{folder_id}/locations/{location}/accessPolicies/{access_policy_id}`
+    /// `projects/{project_id}/locations/{location}/accessPolicies/{access_policy_id}`
+    /// `projects/{project_number}/locations/{location}/accessPolicies/{access_policy_id}`
+    pub name: std::string::String,
+
+    /// Optional. The maximum number of policy bindings to return. The service may
+    /// return fewer than this value.
+    ///
+    /// If unspecified, at most 50 policy bindings will be returned.
+    /// The maximum value is 1000; values above 1000 will be coerced to 1000.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous
+    /// `SearchAccessPolicyBindingsRequest` call. Provide this to
+    /// retrieve the subsequent page.
+    ///
+    /// When paginating, all other parameters provided to
+    /// `SearchAccessPolicyBindingsRequest` must match the call
+    /// that provided the page token.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SearchAccessPolicyBindingsRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::SearchAccessPolicyBindingsRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::SearchAccessPolicyBindingsRequest;
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let access_policy_id = "access_policy_id";
+    /// let x = SearchAccessPolicyBindingsRequest::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/accessPolicies/{access_policy_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::SearchAccessPolicyBindingsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::SearchAccessPolicyBindingsRequest;
+    /// let x = SearchAccessPolicyBindingsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::SearchAccessPolicyBindingsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::SearchAccessPolicyBindingsRequest;
+    /// let x = SearchAccessPolicyBindingsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SearchAccessPolicyBindingsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.iam.v3.SearchAccessPolicyBindingsRequest"
+    }
+}
+
+/// Response message for SearchAccessPolicyBindings rpc.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SearchAccessPolicyBindingsResponse {
+    /// The policy bindings that reference the specified policy.
+    pub policy_bindings: std::vec::Vec<crate::model::PolicyBinding>,
+
+    /// Optional. A token, which can be sent as `page_token` to retrieve the next
+    /// page. If this field is omitted, there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SearchAccessPolicyBindingsResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [policy_bindings][crate::model::SearchAccessPolicyBindingsResponse::policy_bindings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::SearchAccessPolicyBindingsResponse;
+    /// use google_cloud_iam_v3::model::PolicyBinding;
+    /// let x = SearchAccessPolicyBindingsResponse::new()
+    ///     .set_policy_bindings([
+    ///         PolicyBinding::default()/* use setters */,
+    ///         PolicyBinding::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_policy_bindings<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::PolicyBinding>,
+    {
+        use std::iter::Iterator;
+        self.policy_bindings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::SearchAccessPolicyBindingsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::SearchAccessPolicyBindingsResponse;
+    /// let x = SearchAccessPolicyBindingsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SearchAccessPolicyBindingsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.iam.v3.SearchAccessPolicyBindingsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for SearchAccessPolicyBindingsResponse
+{
+    type PageItem = crate::model::PolicyBinding;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.policy_bindings
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// An IAM access policy resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AccessPolicy {
+    /// Identifier. The resource name of the access policy.
+    ///
+    /// The following formats are supported:
+    ///
+    /// * `projects/{project_id}/locations/{location}/accessPolicies/{policy_id}`
+    /// * `projects/{project_number}/locations/{location}/accessPolicies/{policy_id}`
+    /// * `folders/{folder_id}/locations/{location}/accessPolicies/{policy_id}`
+    /// * `organizations/{organization_id}/locations/{location}/accessPolicies/{policy_id}`
+    pub name: std::string::String,
+
+    /// Output only. The globally unique ID of the access policy.
+    pub uid: std::string::String,
+
+    /// Optional. The etag for the access policy.
+    /// If this is provided on update, it must match the server's etag.
+    pub etag: std::string::String,
+
+    /// Optional. The description of the access policy. Must be less than
+    /// or equal to 63 characters.
+    pub display_name: std::string::String,
+
+    /// Optional. User defined annotations. See
+    /// <https://google.aip.dev/148#annotations> for more details such as format and
+    /// size limitations
+    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Output only. The time when the access policy was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The time when the access policy was most recently
+    /// updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. The details for the access policy.
+    pub details: std::option::Option<crate::model::AccessPolicyDetails>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AccessPolicy {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::AccessPolicy::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::AccessPolicy;
+    /// # let organization_id = "organization_id";
+    /// # let location_id = "location_id";
+    /// # let access_policy_id = "access_policy_id";
+    /// let x = AccessPolicy::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/accessPolicies/{access_policy_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [uid][crate::model::AccessPolicy::uid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::AccessPolicy;
+    /// let x = AccessPolicy::new().set_uid("example");
+    /// ```
+    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uid = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::AccessPolicy::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::AccessPolicy;
+    /// let x = AccessPolicy::new().set_etag("example");
+    /// ```
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::AccessPolicy::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::AccessPolicy;
+    /// let x = AccessPolicy::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [annotations][crate::model::AccessPolicy::annotations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::AccessPolicy;
+    /// let x = AccessPolicy::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::AccessPolicy::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::AccessPolicy;
+    /// use wkt::Timestamp;
+    /// let x = AccessPolicy::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::AccessPolicy::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::AccessPolicy;
+    /// use wkt::Timestamp;
+    /// let x = AccessPolicy::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AccessPolicy::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::AccessPolicy::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::AccessPolicy;
+    /// use wkt::Timestamp;
+    /// let x = AccessPolicy::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::AccessPolicy::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::AccessPolicy;
+    /// use wkt::Timestamp;
+    /// let x = AccessPolicy::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AccessPolicy::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [details][crate::model::AccessPolicy::details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::AccessPolicy;
+    /// use google_cloud_iam_v3::model::AccessPolicyDetails;
+    /// let x = AccessPolicy::new().set_details(AccessPolicyDetails::default()/* use setters */);
+    /// ```
+    pub fn set_details<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AccessPolicyDetails>,
+    {
+        self.details = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [details][crate::model::AccessPolicy::details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::AccessPolicy;
+    /// use google_cloud_iam_v3::model::AccessPolicyDetails;
+    /// let x = AccessPolicy::new().set_or_clear_details(Some(AccessPolicyDetails::default()/* use setters */));
+    /// let x = AccessPolicy::new().set_or_clear_details(None::<AccessPolicyDetails>);
+    /// ```
+    pub fn set_or_clear_details<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AccessPolicyDetails>,
+    {
+        self.details = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for AccessPolicy {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.iam.v3.AccessPolicy"
+    }
+}
+
+/// Access policy details.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AccessPolicyDetails {
+    /// Required. A list of access policy rules.
+    pub rules: std::vec::Vec<crate::model::AccessPolicyRule>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AccessPolicyDetails {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [rules][crate::model::AccessPolicyDetails::rules].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::AccessPolicyDetails;
+    /// use google_cloud_iam_v3::model::AccessPolicyRule;
+    /// let x = AccessPolicyDetails::new()
+    ///     .set_rules([
+    ///         AccessPolicyRule::default()/* use setters */,
+    ///         AccessPolicyRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AccessPolicyRule>,
+    {
+        use std::iter::Iterator;
+        self.rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for AccessPolicyDetails {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.iam.v3.AccessPolicyDetails"
+    }
+}
+
+/// Access Policy Rule that determines the behavior of the policy.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AccessPolicyRule {
+    /// Optional. Customer specified description of the rule. Must be less than or
+    /// equal to 256 characters.
+    pub description: std::option::Option<std::string::String>,
+
+    /// Required. The effect of the rule.
+    pub effect: std::option::Option<crate::model::access_policy_rule::Effect>,
+
+    /// Required. The identities for which this rule's effect governs using one or
+    /// more permissions on Google Cloud resources. This field can contain the
+    /// following values:
+    ///
+    /// * `principal://goog/subject/{email_id}`: A specific Google Account.
+    ///   Includes Gmail, Cloud Identity, and Google Workspace user accounts. For
+    ///   example, `principal://goog/subject/alice@example.com`.
+    ///
+    /// * `principal://iam.googleapis.com/projects/-/serviceAccounts/{service_account_id}`:
+    ///   A Google Cloud service account. For example,
+    ///   `principal://iam.googleapis.com/projects/-/serviceAccounts/my-service-account@iam.gserviceaccount.com`.
+    ///
+    /// * `principalSet://goog/group/{group_id}`: A Google group. For example,
+    ///   `principalSet://goog/group/admins@example.com`.
+    ///
+    /// * `principalSet://goog/cloudIdentityCustomerId/{customer_id}`: All of the
+    ///   principals associated with the specified Google Workspace or Cloud
+    ///   Identity customer ID. For example,
+    ///   `principalSet://goog/cloudIdentityCustomerId/C01Abc35`.
+    ///
+    ///
+    /// If an identifier that was previously set on a policy is soft deleted, then
+    /// calls to read that policy will return the identifier with a deleted
+    /// prefix. Users cannot set identifiers with this syntax.
+    ///
+    /// * `deleted:principal://goog/subject/{email_id}?uid={uid}`: A specific
+    ///   Google Account that was deleted recently. For example,
+    ///   `deleted:principal://goog/subject/alice@example.com?uid=1234567890`. If
+    ///   the Google Account is recovered, this identifier reverts to the standard
+    ///   identifier for a Google Account.
+    ///
+    /// * `deleted:principalSet://goog/group/{group_id}?uid={uid}`: A Google group
+    ///   that was deleted recently. For example,
+    ///   `deleted:principalSet://goog/group/admins@example.com?uid=1234567890`.
+    ///   If the Google group is restored, this identifier reverts to the standard
+    ///   identifier for a Google group.
+    ///
+    /// * `deleted:principal://iam.googleapis.com/projects/-/serviceAccounts/{service_account_id}?uid={uid}`:
+    ///   A Google Cloud service account that was deleted recently. For example,
+    ///   `deleted:principal://iam.googleapis.com/projects/-/serviceAccounts/my-service-account@iam.gserviceaccount.com?uid=1234567890`.
+    ///   If the service account is undeleted, this identifier reverts to the
+    ///   standard identifier for a service account.
+    ///
+    pub principals: std::vec::Vec<std::string::String>,
+
+    /// Optional. The identities that are excluded from the access policy rule,
+    /// even if they are listed in the `principals`. For example, you could add a
+    /// Google group to the `principals`, then exclude specific users who belong to
+    /// that group.
+    pub excluded_principals: std::vec::Vec<std::string::String>,
+
+    /// Required. Attributes that are used to determine whether this rule applies
+    /// to a request.
+    pub operation: std::option::Option<crate::model::access_policy_rule::Operation>,
+
+    /// Optional. The conditions that determine whether this rule applies to a
+    /// request. Conditions are identified by their key, which is the FQDN of the
+    /// service that they are relevant to. For example:
+    ///
+    /// ```norust
+    /// "conditions": {
+    ///  "iam.googleapis.com": {
+    ///   "expression": <cel expression>
+    ///  }
+    /// }
+    /// ```
+    ///
+    /// Each rule is evaluated independently. If this rule does not apply
+    /// to a request, other rules might still apply.
+    /// Currently supported keys are as follows:
+    ///
+    /// * `eventarc.googleapis.com`: Can use `CEL` functions that evaluate
+    ///   resource fields.
+    ///
+    /// * `iam.googleapis.com`: Can use `CEL` functions that evaluate
+    ///   [resource
+    ///   tags](https://cloud.google.com/iam/help/conditions/resource-tags) and
+    ///   combine them using boolean and logical operators. Other functions and
+    ///   operators are not supported.
+    ///
+    pub conditions: std::collections::HashMap<std::string::String, google_cloud_type::model::Expr>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AccessPolicyRule {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [description][crate::model::AccessPolicyRule::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::AccessPolicyRule;
+    /// let x = AccessPolicyRule::new().set_description("example");
+    /// ```
+    pub fn set_description<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [description][crate::model::AccessPolicyRule::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::AccessPolicyRule;
+    /// let x = AccessPolicyRule::new().set_or_clear_description(Some("example"));
+    /// let x = AccessPolicyRule::new().set_or_clear_description(None::<String>);
+    /// ```
+    pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [effect][crate::model::AccessPolicyRule::effect].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::AccessPolicyRule;
+    /// use google_cloud_iam_v3::model::access_policy_rule::Effect;
+    /// let x0 = AccessPolicyRule::new().set_effect(Effect::Deny);
+    /// let x1 = AccessPolicyRule::new().set_effect(Effect::Allow);
+    /// ```
+    pub fn set_effect<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::access_policy_rule::Effect>,
+    {
+        self.effect = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [effect][crate::model::AccessPolicyRule::effect].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::AccessPolicyRule;
+    /// use google_cloud_iam_v3::model::access_policy_rule::Effect;
+    /// let x0 = AccessPolicyRule::new().set_or_clear_effect(Some(Effect::Deny));
+    /// let x1 = AccessPolicyRule::new().set_or_clear_effect(Some(Effect::Allow));
+    /// let x_none = AccessPolicyRule::new().set_or_clear_effect(None::<Effect>);
+    /// ```
+    pub fn set_or_clear_effect<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::access_policy_rule::Effect>,
+    {
+        self.effect = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [principals][crate::model::AccessPolicyRule::principals].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::AccessPolicyRule;
+    /// let x = AccessPolicyRule::new().set_principals(["a", "b", "c"]);
+    /// ```
+    pub fn set_principals<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.principals = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [excluded_principals][crate::model::AccessPolicyRule::excluded_principals].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::AccessPolicyRule;
+    /// let x = AccessPolicyRule::new().set_excluded_principals(["a", "b", "c"]);
+    /// ```
+    pub fn set_excluded_principals<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.excluded_principals = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [operation][crate::model::AccessPolicyRule::operation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::AccessPolicyRule;
+    /// use google_cloud_iam_v3::model::access_policy_rule::Operation;
+    /// let x = AccessPolicyRule::new().set_operation(Operation::default()/* use setters */);
+    /// ```
+    pub fn set_operation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::access_policy_rule::Operation>,
+    {
+        self.operation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [operation][crate::model::AccessPolicyRule::operation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::AccessPolicyRule;
+    /// use google_cloud_iam_v3::model::access_policy_rule::Operation;
+    /// let x = AccessPolicyRule::new().set_or_clear_operation(Some(Operation::default()/* use setters */));
+    /// let x = AccessPolicyRule::new().set_or_clear_operation(None::<Operation>);
+    /// ```
+    pub fn set_or_clear_operation<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::access_policy_rule::Operation>,
+    {
+        self.operation = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [conditions][crate::model::AccessPolicyRule::conditions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::AccessPolicyRule;
+    /// use google_cloud_type::model::Expr;
+    /// let x = AccessPolicyRule::new().set_conditions([
+    ///     ("key0", Expr::default()/* use setters */),
+    ///     ("key1", Expr::default()/* use (different) setters */),
+    /// ]);
+    /// ```
+    pub fn set_conditions<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<google_cloud_type::model::Expr>,
+    {
+        use std::iter::Iterator;
+        self.conditions = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for AccessPolicyRule {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.iam.v3.AccessPolicyRule"
+    }
+}
+
+/// Defines additional types related to [AccessPolicyRule].
+pub mod access_policy_rule {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Attributes that are used to determine whether this rule applies to a
+    /// request.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Operation {
+        /// Optional. The permissions that are explicitly affected by this rule. Each
+        /// permission uses the format `{service_fqdn}/{resource}.{verb}`, where
+        /// `{service_fqdn}` is the fully qualified domain name for the service.
+        /// Currently supported permissions are as follows:
+        ///
+        /// * `eventarc.googleapis.com/messageBuses.publish`.
+        pub permissions: std::vec::Vec<std::string::String>,
+
+        /// Optional. Specifies the permissions that this rule excludes from the set
+        /// of affected permissions given by `permissions`. If a permission appears
+        /// in `permissions` _and_ in `excluded_permissions` then it will _not_ be
+        /// subject to the policy effect.
+        ///
+        /// The excluded permissions can be specified using the same syntax as
+        /// `permissions`.
+        pub excluded_permissions: std::vec::Vec<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Operation {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [permissions][crate::model::access_policy_rule::Operation::permissions].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_iam_v3::model::access_policy_rule::Operation;
+        /// let x = Operation::new().set_permissions(["a", "b", "c"]);
+        /// ```
+        pub fn set_permissions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.permissions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [excluded_permissions][crate::model::access_policy_rule::Operation::excluded_permissions].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_iam_v3::model::access_policy_rule::Operation;
+        /// let x = Operation::new().set_excluded_permissions(["a", "b", "c"]);
+        /// ```
+        pub fn set_excluded_permissions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.excluded_permissions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Operation {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.iam.v3.AccessPolicyRule.Operation"
+        }
+    }
+
+    /// An effect to describe the access relationship.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Effect {
+        /// The effect is unspecified.
+        Unspecified,
+        /// The policy will deny access if it evaluates to true.
+        Deny,
+        /// The policy will grant access if it evaluates to true.
+        Allow,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Effect::value] or
+        /// [Effect::name].
+        UnknownValue(effect::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod effect {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Effect {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Deny => std::option::Option::Some(1),
+                Self::Allow => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("EFFECT_UNSPECIFIED"),
+                Self::Deny => std::option::Option::Some("DENY"),
+                Self::Allow => std::option::Option::Some("ALLOW"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Effect {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Effect {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Effect {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Deny,
+                2 => Self::Allow,
+                _ => Self::UnknownValue(effect::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Effect {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "EFFECT_UNSPECIFIED" => Self::Unspecified,
+                "DENY" => Self::Deny,
+                "ALLOW" => Self::Allow,
+                _ => Self::UnknownValue(effect::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Effect {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Deny => serializer.serialize_i32(1),
+                Self::Allow => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Effect {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Effect>::new(
+                ".google.iam.v3.AccessPolicyRule.Effect",
+            ))
+        }
+    }
+}
+
 /// Represents the metadata of the long-running operation.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -242,8 +1639,8 @@ pub struct PolicyBinding {
     /// size limitations
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
-    /// Required. Immutable. Target is the full resource name of the resource to
-    /// which the policy will be bound. Immutable once set.
+    /// Required. Immutable. The full resource name of the resource to which the
+    /// policy will be bound. Immutable once set.
     pub target: std::option::Option<crate::model::policy_binding::Target>,
 
     /// Immutable. The kind of the policy to attach in this binding. This field
@@ -289,13 +1686,14 @@ pub struct PolicyBinding {
     /// - `principal.type != <principal type string>`
     /// - `principal.type in [<list of principal types>]`
     ///
-    /// Supported principal types are Workspace, Workforce Pool, Workload Pool and
-    /// Service Account. Allowed string must be one of:
+    /// Supported principal types are workspace, workforce pool, workload pool,
+    /// service account, and agent identity. Allowed string must be one of:
     ///
-    /// - iam.googleapis.com/WorkspaceIdentity
-    /// - iam.googleapis.com/WorkforcePoolIdentity
-    /// - iam.googleapis.com/WorkloadPoolIdentity
-    /// - iam.googleapis.com/ServiceAccount
+    /// - `iam.googleapis.com/WorkspaceIdentity`
+    /// - `iam.googleapis.com/WorkforcePoolIdentity`
+    /// - `iam.googleapis.com/WorkloadPoolIdentity`
+    /// - `iam.googleapis.com/ServiceAccount`
+    /// - `iam.googleapis.com/AgentPoolIdentity` (available in Preview)
     pub condition: std::option::Option<google_cloud_type::model::Expr>,
 
     /// Output only. The time when the policy binding was created.
@@ -425,6 +1823,7 @@ impl PolicyBinding {
     /// # use google_cloud_iam_v3::model::PolicyBinding;
     /// use google_cloud_iam_v3::model::policy_binding::PolicyKind;
     /// let x0 = PolicyBinding::new().set_policy_kind(PolicyKind::PrincipalAccessBoundary);
+    /// let x1 = PolicyBinding::new().set_policy_kind(PolicyKind::Access);
     /// ```
     pub fn set_policy_kind<T: std::convert::Into<crate::model::policy_binding::PolicyKind>>(
         mut self,
@@ -569,7 +1968,7 @@ pub mod policy_binding {
     #[allow(unused_imports)]
     use super::*;
 
-    /// Target is the full resource name of the resource to which the policy will
+    /// The full resource name of the resource to which the policy will
     /// be bound. Immutable once set.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
@@ -631,6 +2030,7 @@ pub mod policy_binding {
         /// # use google_cloud_iam_v3::model::policy_binding::Target;
         /// let x = Target::new().set_principal_set("example");
         /// assert!(x.principal_set().is_some());
+        /// assert!(x.resource().is_none());
         /// ```
         pub fn set_principal_set<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -638,6 +2038,39 @@ pub mod policy_binding {
         ) -> Self {
             self.target = std::option::Option::Some(
                 crate::model::policy_binding::target::Target::PrincipalSet(v.into()),
+            );
+            self
+        }
+
+        /// The value of [target][crate::model::policy_binding::Target::target]
+        /// if it holds a `Resource`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn resource(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.target.as_ref().and_then(|v| match v {
+                crate::model::policy_binding::target::Target::Resource(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [target][crate::model::policy_binding::Target::target]
+        /// to hold a `Resource`.
+        ///
+        /// Note that all the setters affecting `target` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_iam_v3::model::policy_binding::Target;
+        /// let x = Target::new().set_resource("example");
+        /// assert!(x.resource().is_some());
+        /// assert!(x.principal_set().is_none());
+        /// ```
+        pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.target = std::option::Option::Some(
+                crate::model::policy_binding::target::Target::Resource(v.into()),
             );
             self
         }
@@ -658,34 +2091,46 @@ pub mod policy_binding {
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Target {
-            /// Immutable. Full Resource Name used for principal access boundary policy
-            /// bindings. The principal set must be directly parented by the policy
-            /// binding's parent or same as the parent if the target is a
-            /// project/folder/organization.
+            /// Immutable. The full resource name that's used for principal access
+            /// boundary policy bindings. The principal set must be directly parented
+            /// by the policy binding's parent or same as the parent if the target is a
+            /// project, folder, or organization.
             ///
             /// Examples:
             ///
-            /// * For binding's parented by an organization:
+            /// * For bindings parented by an organization:
             ///   * Organization:
             ///     `//cloudresourcemanager.googleapis.com/organizations/ORGANIZATION_ID`
             ///   * Workforce Identity:
             ///     `//iam.googleapis.com/locations/global/workforcePools/WORKFORCE_POOL_ID`
             ///   * Workspace Identity:
             ///     `//iam.googleapis.com/locations/global/workspace/WORKSPACE_ID`
-            /// * For binding's parented by a folder:
+            /// * For bindings parented by a folder:
             ///   * Folder:
             ///     `//cloudresourcemanager.googleapis.com/folders/FOLDER_ID`
-            /// * For binding's parented by a project:
+            /// * For bindings parented by a project:
             ///   * Project:
             ///     * `//cloudresourcemanager.googleapis.com/projects/PROJECT_NUMBER`
             ///     * `//cloudresourcemanager.googleapis.com/projects/PROJECT_ID`
             ///   * Workload Identity Pool:
             ///     `//iam.googleapis.com/projects/PROJECT_NUMBER/locations/LOCATION/workloadIdentityPools/WORKLOAD_POOL_ID`
             PrincipalSet(std::string::String),
+            /// Immutable. The full resource name that's used for access policy
+            /// bindings.
+            ///
+            /// Examples:
+            ///
+            /// * Organization:
+            ///   `//cloudresourcemanager.googleapis.com/organizations/ORGANIZATION_ID`
+            /// * Folder: `//cloudresourcemanager.googleapis.com/folders/FOLDER_ID`
+            /// * Project:
+            ///   * `//cloudresourcemanager.googleapis.com/projects/PROJECT_NUMBER`
+            ///   * `//cloudresourcemanager.googleapis.com/projects/PROJECT_ID`
+            Resource(std::string::String),
         }
     }
 
-    /// Different policy kinds supported in this binding.
+    /// The different policy kinds supported in this binding.
     ///
     /// # Working with unknown values
     ///
@@ -707,6 +2152,8 @@ pub mod policy_binding {
         Unspecified,
         /// Principal access boundary policy kind
         PrincipalAccessBoundary,
+        /// Access policy kind.
+        Access,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [PolicyKind::value] or
@@ -731,6 +2178,7 @@ pub mod policy_binding {
             match self {
                 Self::Unspecified => std::option::Option::Some(0),
                 Self::PrincipalAccessBoundary => std::option::Option::Some(1),
+                Self::Access => std::option::Option::Some(2),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -745,6 +2193,7 @@ pub mod policy_binding {
                 Self::PrincipalAccessBoundary => {
                     std::option::Option::Some("PRINCIPAL_ACCESS_BOUNDARY")
                 }
+                Self::Access => std::option::Option::Some("ACCESS"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -768,6 +2217,7 @@ pub mod policy_binding {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::PrincipalAccessBoundary,
+                2 => Self::Access,
                 _ => Self::UnknownValue(policy_kind::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -781,6 +2231,7 @@ pub mod policy_binding {
             match value {
                 "POLICY_KIND_UNSPECIFIED" => Self::Unspecified,
                 "PRINCIPAL_ACCESS_BOUNDARY" => Self::PrincipalAccessBoundary,
+                "ACCESS" => Self::Access,
                 _ => Self::UnknownValue(policy_kind::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -796,6 +2247,7 @@ pub mod policy_binding {
             match self {
                 Self::Unspecified => serializer.serialize_i32(0),
                 Self::PrincipalAccessBoundary => serializer.serialize_i32(1),
+                Self::Access => serializer.serialize_i32(2),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -1185,8 +2637,7 @@ pub struct ListPolicyBindingsRequest {
     /// Optional. The maximum number of policy bindings to return. The service may
     /// return fewer than this value.
     ///
-    /// If unspecified, at most 50 policy bindings will be returned.
-    /// The maximum value is 1000; values above 1000 will be coerced to 1000.
+    /// The default value is 50. The maximum value is 1000.
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListPolicyBindings` call.
@@ -1197,7 +2648,8 @@ pub struct ListPolicyBindingsRequest {
     pub page_token: std::string::String,
 
     /// Optional. An expression for filtering the results of the request. Filter
-    /// rules are case insensitive. Some eligible fields for filtering are:
+    /// rules are case insensitive. Some eligible fields for filtering are the
+    /// following:
     ///
     /// + `target`
     /// + `policy`
@@ -1369,8 +2821,7 @@ pub struct SearchTargetPolicyBindingsRequest {
     /// Optional. The maximum number of policy bindings to return. The service may
     /// return fewer than this value.
     ///
-    /// If unspecified, at most 50 policy bindings will be returned.
-    /// The maximum value is 1000; values above 1000 will be coerced to 1000.
+    /// The default value is 50. The maximum value is 1000.
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous
@@ -1393,6 +2844,18 @@ pub struct SearchTargetPolicyBindingsRequest {
     /// * `folders/{folder_id}/locations/{location}`
     /// * `organizations/{organization_id}/locations/{location}`
     pub parent: std::string::String,
+
+    /// Optional. Filtering currently only supports the kind of policies to return,
+    /// and must be in the format "policy_kind={policy_kind}".
+    ///
+    /// If String is empty, bindings bound to all kinds of policies would be
+    /// returned.
+    ///
+    /// The only supported values are the following:
+    ///
+    /// * "policy_kind=PRINCIPAL_ACCESS_BOUNDARY",
+    /// * "policy_kind=ACCESS"
+    pub filter: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1450,6 +2913,18 @@ impl SearchTargetPolicyBindingsRequest {
     /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::SearchTargetPolicyBindingsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v3::model::SearchTargetPolicyBindingsRequest;
+    /// let x = SearchTargetPolicyBindingsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
         self
     }
 }
