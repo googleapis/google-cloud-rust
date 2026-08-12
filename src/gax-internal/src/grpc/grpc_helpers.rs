@@ -182,6 +182,11 @@ pub(crate) fn unary_make_request_span(
 }
 
 /// Wraps a unary gRPC request future with observability instrumentation.
+///
+/// * `metric` - The [`TransportMetric`] instance used to record transport-level duration metrics.
+/// * `span` - The [`tracing::Span`] for the attempt, attached to the request execution context.
+/// * `prior_attempt_count` - The zero-based count of prior request attempts.
+/// * `pending` - The [`Future`] for the pending unary gRPC call execution.
 pub(crate) async fn unary_wrap_and_record_request<Fut, Response>(
     metric: crate::observability::TransportMetric,
     span: tracing::Span,
