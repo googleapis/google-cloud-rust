@@ -64,12 +64,12 @@ pub async fn job_service() -> Result<()> {
     Ok(())
 }
 
-pub fn random_job_id() -> String {
+fn random_job_id() -> String {
     let rand_suffix = random_id_suffix();
     format!("rust_bq_test_job_{rand_suffix}")
 }
 
-pub async fn cleanup_stale_jobs(client: &JobService, project_id: &str) -> Result<()> {
+async fn cleanup_stale_jobs(client: &JobService, project_id: &str) -> Result<()> {
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
     let stale_deadline = SystemTime::now().duration_since(UNIX_EPOCH)?;
     let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
