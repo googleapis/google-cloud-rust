@@ -15,7 +15,8 @@
 mod arrow;
 
 use super::*;
-use google_cloud_bigquery_v2::client::TableService;
+use crate::dataset::{cleanup_stale_datasets, create_dataset, delete_dataset, random_dataset_id};
+use google_cloud_bigquery_v2::client::{DatasetService, TableService};
 use google_cloud_bigquery_v2::model::{Table, TableFieldSchema, TableReference, TableSchema};
 
 pub async fn run_writes() -> Result<()> {
