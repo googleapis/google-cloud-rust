@@ -191,7 +191,7 @@ impl RunQuery {
 
     /// Sets the value of [request.job_timeout_ms][crate::model::RunQueryRequest::job_timeout_ms].
     pub fn set_job_timeout_ms<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::Int64Value>
+    where T: std::convert::Into<i64>
     {
         self.request.job_timeout_ms = std::option::Option::Some(v.into());
         self
@@ -199,7 +199,7 @@ impl RunQuery {
 
     /// Sets or clears the value of [request.job_timeout_ms][crate::model::RunQueryRequest::job_timeout_ms].
     pub fn set_or_clear_job_timeout_ms<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::Int64Value>
+    where T: std::convert::Into<i64>
     {
         self.request.job_timeout_ms = v.map(|x| x.into());
         self

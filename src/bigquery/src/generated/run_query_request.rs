@@ -34,7 +34,7 @@ pub struct RunQueryRequest {
     /// Clustering specification for the destination table.
     pub clustering: std::option::Option<crate::model::Clustering>,
 
-    /// Connection properties which can modify the query behavior.
+    /// Optional. Connection properties which can modify the query behavior.
     pub connection_properties: std::vec::Vec<crate::model::ConnectionProperty>,
 
     /// Optional. Whether to run the query as continuous or a regular query.
@@ -55,15 +55,12 @@ pub struct RunQueryRequest {
     /// upon job completion.
     pub create_disposition: std::string::String,
 
-    /// If this property is true, the job creates a new session using a randomly
-    /// generated session_id.  To continue using a created session with
-    /// subsequent queries, pass the existing session identifier as a
-    /// `ConnectionProperty` value.  The session identifier is returned as part of
-    /// the `SessionInfo` message within the query statistics.
+    /// Optional. If true, creates a new session using a randomly generated
+    /// session_id. If false, runs query with an existing session_id passed in
+    /// ConnectionProperty, otherwise runs query in non-session mode.
     ///
-    /// The new session's location will be set to `Job.JobReference.location` if it
-    /// is present, otherwise it's set to the default location based on existing
-    /// routing logic.
+    /// The session location will be set to QueryRequest.location if it is present,
+    /// otherwise it's set to the default location based on existing routing logic.
     pub create_session: std::option::Option<wkt::BoolValue>,
 
     /// Optional. Specifies the default datasetId and projectId to assume for any
@@ -71,7 +68,7 @@ pub struct RunQueryRequest {
     /// query string must be qualified in the format 'datasetId.tableId'.
     pub default_dataset: std::option::Option<crate::model::DatasetReference>,
 
-    /// Custom encryption configuration (e.g., Cloud KMS keys)
+    /// Optional. Custom encryption configuration (e.g., Cloud KMS keys)
     pub destination_encryption_configuration:
         std::option::Option<crate::model::EncryptionConfiguration>,
 
@@ -107,12 +104,13 @@ pub struct RunQueryRequest {
     /// JobCreationMode.
     pub job_creation_mode: crate::model::query_request::JobCreationMode,
 
-    /// Optional. Job timeout in milliseconds relative to the job creation time. If
-    /// this time limit is exceeded, BigQuery attempts to stop the job, but might
-    /// not always succeed in canceling it before the job completes. For example, a
-    /// job that takes more than 60 seconds to complete has a better chance of
-    /// being stopped than a job that takes 10 seconds to complete.
-    pub job_timeout_ms: std::option::Option<wkt::Int64Value>,
+    /// Optional. Job timeout in milliseconds. If this time limit is exceeded,
+    /// BigQuery will attempt to stop a longer job, but may not always succeed in
+    /// canceling it before the job completes. For example, a job that takes more
+    /// than 60 seconds to complete has a better chance of being stopped than a job
+    /// that takes 10 seconds to complete. This timeout applies to the query even
+    /// if a job does not need to be created.
+    pub job_timeout_ms: std::option::Option<i64>,
 
     /// Optional. The labels associated with this query.
     /// Labels can be used to organize and group query jobs.
@@ -144,9 +142,9 @@ pub struct RunQueryRequest {
     /// Note: This feature is not yet generally available.
     pub max_slots: std::option::Option<i32>,
 
-    /// Limits the bytes billed for this job. Queries that will have
-    /// bytes billed beyond this limit will fail (without incurring a charge).
-    /// If unspecified, this will be set to your project default.
+    /// Optional. Limits the bytes billed for this query. Queries with
+    /// bytes billed above this limit will fail (without incurring a charge).
+    /// If unspecified, the project default is used.
     pub maximum_bytes_billed: std::option::Option<wkt::Int64Value>,
 
     /// GoogleSQL only. Set to POSITIONAL to use positional (?) query parameters
@@ -157,8 +155,9 @@ pub struct RunQueryRequest {
     /// INTERACTIVE and BATCH. The default value is INTERACTIVE.
     pub priority: std::string::String,
 
-    /// [Required] SQL query text to execute. The useLegacySql field can be used
-    /// to indicate whether the query uses legacy SQL or GoogleSQL.
+    /// Required. A query string to execute, using Google Standard SQL or legacy
+    /// SQL syntax. Example: "SELECT COUNT(f1) FROM
+    /// myProjectId.myDatasetId.myTableId".
     pub query: std::string::String,
 
     /// Query parameters for GoogleSQL queries.
@@ -210,20 +209,16 @@ pub struct RunQueryRequest {
     /// getQueryResults response is true.
     pub timeout_ms: std::option::Option<wkt::UInt32Value>,
 
-    /// Optional. Specifies whether to use BigQuery's legacy SQL dialect for this
-    /// query. The default value is true. If set to false, the query uses
-    /// BigQuery's
+    /// Specifies whether to use BigQuery's legacy SQL dialect for this query. The
+    /// default value is true. If set to false, the query uses BigQuery's
     /// [GoogleSQL](https://docs.cloud.google.com/bigquery/docs/introduction-sql).
-    ///
     /// When useLegacySql is set to false, the value of flattenResults is ignored;
     /// query will be run as if flattenResults is false.
     pub use_legacy_sql: std::option::Option<wkt::BoolValue>,
 
     /// Optional. Whether to look for the result in the query cache. The query
     /// cache is a best-effort cache that will be flushed whenever tables in the
-    /// query are modified. Moreover, the query cache is only available when a
-    /// query does not have a destination table specified. The default value is
-    /// true.
+    /// query are modified. The default value is true.
     pub use_query_cache: std::option::Option<wkt::BoolValue>,
 
     /// Describes user-defined function resources used in the query.
@@ -246,10 +241,10 @@ pub struct RunQueryRequest {
     /// append actions occur as one atomic update upon job completion.
     pub write_disposition: std::string::String,
 
-    /// Optional. This is only supported for a SELECT query using a temporary
-    /// table. If set, the query is allowed to write results incrementally to the
-    /// temporary result table. This may incur a performance penalty. This option
-    /// cannot be used with Legacy SQL. This feature is not yet available.
+    /// Optional. This is only supported for SELECT query. If set, the query is
+    /// allowed to write results incrementally to the temporary result table. This
+    /// may incur a performance penalty. This option cannot be used with Legacy
+    /// SQL. This feature is not yet available.
     pub write_incremental_results: bool,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -461,7 +456,7 @@ impl RunQueryRequest {
     /// Sets the value of [job_timeout_ms][crate::model::RunQueryRequest::job_timeout_ms].
     pub fn set_job_timeout_ms<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<wkt::Int64Value>,
+        T: std::convert::Into<i64>,
     {
         self.job_timeout_ms = std::option::Option::Some(v.into());
         self
@@ -470,7 +465,7 @@ impl RunQueryRequest {
     /// Sets or clears the value of [job_timeout_ms][crate::model::RunQueryRequest::job_timeout_ms].
     pub fn set_or_clear_job_timeout_ms<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<wkt::Int64Value>,
+        T: std::convert::Into<i64>,
     {
         self.job_timeout_ms = v.map(|x| x.into());
         self
