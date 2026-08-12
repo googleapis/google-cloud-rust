@@ -13,7 +13,7 @@
 # limitations under the License.
 
 [package]
-description       = "Integration tests for google-cloud-bigquery-v2."
+description       = "Integration tests for BigQuery"
 name              = "integration-tests-bigquery"
 publish           = false
 version           = "0.0.0"
@@ -27,15 +27,17 @@ run-integration-tests = []
 log-integration-tests = []
 
 [dependencies]
-anyhow.workspace         = true
-bytes.workspace          = true
-futures.workspace        = true
-google-cloud-bigquery    = { path = "../../src/bigquery" }
-google-cloud-bigquery-v2 = { workspace = true, features = ["default"] }
-google-cloud-gax         = { workspace = true, features = ["unstable-stream"] }
-google-cloud-test-utils  = { workspace = true }
-google-cloud-type        = { workspace = true }
-rand.workspace           = true
-rust_decimal             = { workspace = true }
-tokio.workspace          = true
-wkt.workspace            = true
+anyhow.workspace            = true
+arrow                       = { workspace = true, features = ["ipc"] }
+bytes.workspace             = true
+futures.workspace           = true
+google-cloud-bigquery       = { workspace = true, features = ["default"] }
+google-cloud-bigquery-v2    = { workspace = true, features = ["default"] }
+google-cloud-bigquery-write = { workspace = true, features = ["default"] }
+google-cloud-gax            = { workspace = true, features = ["unstable-stream"] }
+google-cloud-test-utils     = { workspace = true }
+google-cloud-type           = { workspace = true }
+rand.workspace              = true
+rust_decimal                = { workspace = true }
+tokio.workspace             = true
+wkt.workspace               = true

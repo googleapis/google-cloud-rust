@@ -16,6 +16,8 @@
 mod tests {
     use google_cloud_auth::credentials::{Credentials, anonymous::Builder as Anonymous};
     use google_cloud_gax::backoff_policy::BackoffPolicy;
+    use google_cloud_gax::error::Error;
+    use google_cloud_gax::error::rpc::Code;
     use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
     use google_cloud_gax::options::RequestOptions;
     use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
@@ -26,6 +28,7 @@ mod tests {
     use grpc_server::{builder, google, start_fixed_responses};
     use http::HeaderMap;
     use std::sync::{Arc, Mutex};
+    use std::time::Instant;
 
     fn test_credentials() -> Credentials {
         Anonymous::new().build()
@@ -108,7 +111,7 @@ mod tests {
         }
         impl AttemptInterceptor for AttemptTracker {
             fn intercept(&self, _headers: &mut HeaderMap, attempt: u32) {
-                self.attempts.lock().unwrap().push(attempt);
+                self.attempts.lock().expect("lock failed").push(attempt);
             }
         }
 
@@ -125,8 +128,94 @@ mod tests {
         client.set_attempt_interceptor(tracker.clone());
         let _response = send_request(client, "interceptor_on_retry").await?;
 
-        let attempts = tracker.attempts.lock().unwrap().clone();
+        let attempts = tracker.attempts.lock().expect("lock failed").clone();
         assert_eq!(attempts, vec![1, 2, 3]);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn interceptor_on_attempt_complete() -> anyhow::Result<()> {
+        #[derive(Clone, Debug, Default)]
+        struct AttemptCompletionRecord {
+            method: String,
+            attempt: u32,
+            has_response_headers: bool,
+            has_error: bool,
+            status_code: Option<Code>,
+            measured_start_time: bool,
+        }
+
+        #[derive(Debug, Default)]
+        struct AttemptCompletionTracker {
+            completed_attempts: Mutex<Vec<AttemptCompletionRecord>>,
+        }
+        impl AttemptInterceptor for AttemptCompletionTracker {
+            fn intercept(&self, _headers: &mut HeaderMap, _attempt: u32) {}
+
+            fn on_attempt_complete(
+                &self,
+                method: &str,
+                attempt: u32,
+                start_time: Instant,
+                response_headers: Option<&HeaderMap>,
+                error: Option<&Error>,
+                _options: &RequestOptions,
+            ) {
+                self.completed_attempts.lock().expect("lock failed").push(
+                    AttemptCompletionRecord {
+                        method: method.to_string(),
+                        attempt,
+                        has_response_headers: response_headers.is_some(),
+                        has_error: error.is_some(),
+                        status_code: error.and_then(|e| e.status().map(|s| s.code)),
+                        measured_start_time: start_time.elapsed().as_nanos() > 0,
+                    },
+                );
+            }
+        }
+
+        let tracker = Arc::new(AttemptCompletionTracker::default());
+        let (endpoint, _server) =
+            start_fixed_responses(vec![transient(), transient(), success()]).await?;
+
+        let mut config = ClientConfig::default();
+        config.cred = Some(test_credentials());
+        config.endpoint = Some(endpoint);
+        config.backoff_policy = Some(Arc::new(test_backoff()));
+
+        let mut client = grpc::Client::new(config, "https://test-only.googleapis.com").await?;
+        client.set_attempt_interceptor(tracker.clone());
+        let _response = send_request(client, "interceptor_on_attempt_complete").await?;
+
+        let completed = tracker
+            .completed_attempts
+            .lock()
+            .expect("lock failed")
+            .clone();
+        assert_eq!(completed.len(), 3);
+
+        // Attempt 1: Transient unavailable error
+        assert_eq!(completed[0].method, "/google.test.v1.EchoService/Echo");
+        assert_eq!(completed[0].attempt, 1);
+        assert!(completed[0].has_error);
+        assert_eq!(completed[0].status_code, Some(Code::Unavailable));
+        assert!(completed[0].measured_start_time);
+
+        // Attempt 2: Transient unavailable error
+        assert_eq!(completed[1].method, "/google.test.v1.EchoService/Echo");
+        assert_eq!(completed[1].attempt, 2);
+        assert!(completed[1].has_error);
+        assert_eq!(completed[1].status_code, Some(Code::Unavailable));
+        assert!(completed[1].measured_start_time);
+
+        // Attempt 3: Success with response headers
+        assert_eq!(completed[2].method, "/google.test.v1.EchoService/Echo");
+        assert_eq!(completed[2].attempt, 3);
+        assert!(!completed[2].has_error);
+        assert_eq!(completed[2].status_code, None);
+        assert!(completed[2].has_response_headers);
+        assert!(completed[2].measured_start_time);
 
         Ok(())
     }
