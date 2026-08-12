@@ -2391,6 +2391,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-iam-v1",
  "google-cloud-rpc",
+ "google-cloud-type",
  "google-cloud-wkt",
  "serde",
  "serde_json",

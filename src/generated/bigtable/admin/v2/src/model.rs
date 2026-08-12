@@ -12545,6 +12545,7 @@ impl Table {
     /// # use google_cloud_bigtable_admin_v2::model::Table;
     /// use google_cloud_bigtable_admin_v2::model::table::TimestampGranularity;
     /// let x0 = Table::new().set_granularity(TimestampGranularity::Millis);
+    /// let x1 = Table::new().set_granularity(TimestampGranularity::Micros);
     /// ```
     pub fn set_granularity<T: std::convert::Into<crate::model::table::TimestampGranularity>>(
         mut self,
@@ -13158,6 +13159,8 @@ pub mod table {
         Unspecified,
         /// The table keeps data versioned at a granularity of 1ms.
         Millis,
+        /// The table keeps data versioned at a granularity of 1us.
+        Micros,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [TimestampGranularity::value] or
@@ -13182,6 +13185,7 @@ pub mod table {
             match self {
                 Self::Unspecified => std::option::Option::Some(0),
                 Self::Millis => std::option::Option::Some(1),
+                Self::Micros => std::option::Option::Some(2),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -13194,6 +13198,7 @@ pub mod table {
             match self {
                 Self::Unspecified => std::option::Option::Some("TIMESTAMP_GRANULARITY_UNSPECIFIED"),
                 Self::Millis => std::option::Option::Some("MILLIS"),
+                Self::Micros => std::option::Option::Some("MICROS"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -13217,6 +13222,7 @@ pub mod table {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::Millis,
+                2 => Self::Micros,
                 _ => Self::UnknownValue(timestamp_granularity::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -13230,6 +13236,7 @@ pub mod table {
             match value {
                 "TIMESTAMP_GRANULARITY_UNSPECIFIED" => Self::Unspecified,
                 "MILLIS" => Self::Millis,
+                "MICROS" => Self::Micros,
                 _ => Self::UnknownValue(timestamp_granularity::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -13245,6 +13252,7 @@ pub mod table {
             match self {
                 Self::Unspecified => serializer.serialize_i32(0),
                 Self::Millis => serializer.serialize_i32(1),
+                Self::Micros => serializer.serialize_i32(2),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }

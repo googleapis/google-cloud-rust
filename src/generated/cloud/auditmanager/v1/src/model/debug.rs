@@ -61,6 +61,7 @@ impl std::fmt::Debug for super::GenerateAuditReportRequest {
         debug_struct.field("compliance_standard", &self.compliance_standard);
         debug_struct.field("report_format", &self.report_format);
         debug_struct.field("compliance_framework", &self.compliance_framework);
+        debug_struct.field("validate_only", &self.validate_only);
         debug_struct.field("destination", &self.destination);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

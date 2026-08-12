@@ -438,6 +438,52 @@ impl RecaptchaEnterpriseService {
         super::builder::recaptcha_enterprise_service::GetMetrics::new(self.inner.clone())
     }
 
+    /// Get the policy for a key.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::client::RecaptchaEnterpriseService;
+    /// use google_cloud_recaptchaenterprise_v1::Result;
+    /// async fn sample(
+    ///    client: &RecaptchaEnterpriseService, project_id: &str, key_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_policy()
+    ///         .set_name(format!("projects/{project_id}/keys/{key_id}/policy"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_policy(&self) -> super::builder::recaptcha_enterprise_service::GetPolicy {
+        super::builder::recaptcha_enterprise_service::GetPolicy::new(self.inner.clone())
+    }
+
+    /// Updates the policy for a key.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::client::RecaptchaEnterpriseService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_recaptchaenterprise_v1::model::Policy;
+    /// use google_cloud_recaptchaenterprise_v1::Result;
+    /// async fn sample(
+    ///    client: &RecaptchaEnterpriseService, project_id: &str, key_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_policy()
+    ///         .set_policy(
+    ///             Policy::new().set_name(format!("projects/{project_id}/keys/{key_id}/policy"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_policy(&self) -> super::builder::recaptcha_enterprise_service::UpdatePolicy {
+        super::builder::recaptcha_enterprise_service::UpdatePolicy::new(self.inner.clone())
+    }
+
     /// Creates a new FirewallPolicy, specifying conditions at which reCAPTCHA
     /// Enterprise actions can be executed.
     /// A project may have a maximum of 1000 policies.
