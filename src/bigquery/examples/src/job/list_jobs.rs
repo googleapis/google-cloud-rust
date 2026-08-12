@@ -19,22 +19,15 @@ use google_cloud_gax::paginator::ItemPaginator;
 pub async fn sample(project_id: &str) -> anyhow::Result<()> {
     let job_service = JobService::builder().build().await?;
 
-    let mut listed_count = 0;
-
-    let mut list = job_service
+    let mut jobs = job_service
         .list_jobs()
         .set_project_id(project_id)
         .set_max_results(20)
         .by_item();
 
-    while let Some(job) = list.next().await.transpose()? {
+    while let Some(job) = jobs.next().await.transpose()? {
         if let Some(job_ref) = job.job_reference {
             println!("Job ID: {}", job_ref.job_id);
-            listed_count += 1;
-        }
-
-        if listed_count >= 20 {
-            break;
         }
     }
 
