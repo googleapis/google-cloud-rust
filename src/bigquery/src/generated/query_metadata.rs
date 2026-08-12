@@ -38,8 +38,8 @@ pub struct QueryMetadata {
     /// field will be present whenever a query job is in the DONE state.
     pub end_time: std::option::Option<i64>,
 
-    /// Output only. The first errors or warnings encountered during the running of
-    /// the job. The final message includes the number of errors that caused the
+    /// Output only. The first errors or warnings encountered during the running
+    /// of the job. The final message includes the number of errors that caused the
     /// process to stop. Errors here do not necessarily mean that the job has
     /// completed or was unsuccessful. For more information about error messages,
     /// see [Error
@@ -60,14 +60,11 @@ pub struct QueryMetadata {
     /// If job_reference is not present it will always be unset.
     pub job_creation_reason: std::option::Option<crate::model::JobCreationReason>,
 
-    /// Reference to the Job that was created to run the query. This field will be
-    /// present even if the original request timed out, in which case
+    /// Reference to the BigQuery Job that was created to run the query. This field
+    /// will be present even if the original request timed out, in which case
     /// GetQueryResults can be used to read the results once the query has
     /// completed. Since this API only returns the first page of results,
     /// subsequent pages can be fetched via the same mechanism (GetQueryResults).
-    ///
-    /// If job_creation_mode was set to `JOB_CREATION_OPTIONAL` and the query
-    /// completes without creating a job, this field will be empty.
     pub job_reference: std::option::Option<crate::model::JobReference>,
 
     /// The resource type of the response.
