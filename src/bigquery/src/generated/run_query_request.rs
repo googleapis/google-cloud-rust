@@ -735,6 +735,62 @@ impl RunQueryRequest {
         self
     }
 }
+mod debug {
+    use super::*;
+
+    impl std::fmt::Debug for super::RunQueryRequest {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RunQueryRequest");
+            debug_struct.field("allow_large_results", &self.allow_large_results);
+            debug_struct.field("clustering", &self.clustering);
+            debug_struct.field("connection_properties", &self.connection_properties);
+            debug_struct.field("continuous", &self.continuous);
+            debug_struct.field("create_disposition", &self.create_disposition);
+            debug_struct.field("create_session", &self.create_session);
+            debug_struct.field("default_dataset", &self.default_dataset);
+            debug_struct.field(
+                "destination_encryption_configuration",
+                &self.destination_encryption_configuration,
+            );
+            debug_struct.field("destination_table", &self.destination_table);
+            debug_struct.field("dry_run", &self.dry_run);
+            debug_struct.field(
+                "external_table_definitions",
+                &self.external_table_definitions,
+            );
+            debug_struct.field("flatten_results", &self.flatten_results);
+            debug_struct.field("job_creation_mode", &self.job_creation_mode);
+            debug_struct.field("job_timeout_ms", &self.job_timeout_ms);
+            debug_struct.field("labels", &self.labels);
+            debug_struct.field("location", &self.location);
+            debug_struct.field("max_results", &self.max_results);
+            debug_struct.field("max_slots", &self.max_slots);
+            debug_struct.field("maximum_bytes_billed", &self.maximum_bytes_billed);
+            debug_struct.field("parameter_mode", &self.parameter_mode);
+            debug_struct.field("priority", &self.priority);
+            debug_struct.field("query", &self.query);
+            debug_struct.field("query_parameters", &self.query_parameters);
+            debug_struct.field("range_partitioning", &self.range_partitioning);
+            debug_struct.field("reservation", &self.reservation);
+            debug_struct.field("schema_update_options", &self.schema_update_options);
+            debug_struct.field("script_options", &self.script_options);
+            debug_struct.field("time_partitioning", &self.time_partitioning);
+            debug_struct.field("timeout_ms", &self.timeout_ms);
+            debug_struct.field("use_legacy_sql", &self.use_legacy_sql);
+            debug_struct.field("use_query_cache", &self.use_query_cache);
+            debug_struct.field(
+                "user_defined_function_resources",
+                &self.user_defined_function_resources,
+            );
+            debug_struct.field("write_disposition", &self.write_disposition);
+            debug_struct.field("write_incremental_results", &self.write_incremental_results);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+}
 
 impl RunQueryRequest {
     #[allow(clippy::nonminimal_bool)]

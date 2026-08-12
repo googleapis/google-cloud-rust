@@ -436,6 +436,40 @@ impl QueryMetadata {
         self
     }
 }
+mod debug {
+    use super::*;
+
+    impl std::fmt::Debug for super::QueryMetadata {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("QueryMetadata");
+            debug_struct.field("cache_hit", &self.cache_hit);
+            debug_struct.field("creation_time", &self.creation_time);
+            debug_struct.field("dml_stats", &self.dml_stats);
+            debug_struct.field("end_time", &self.end_time);
+            debug_struct.field("errors", &self.errors);
+            debug_struct.field("etag", &self.etag);
+            debug_struct.field("job_complete", &self.job_complete);
+            debug_struct.field("job_creation_reason", &self.job_creation_reason);
+            debug_struct.field("job_reference", &self.job_reference);
+            debug_struct.field("kind", &self.kind);
+            debug_struct.field("location", &self.location);
+            debug_struct.field("num_dml_affected_rows", &self.num_dml_affected_rows);
+            debug_struct.field("page_token", &self.page_token);
+            debug_struct.field("query_id", &self.query_id);
+            debug_struct.field("schema", &self.schema);
+            debug_struct.field("session_info", &self.session_info);
+            debug_struct.field("start_time", &self.start_time);
+            debug_struct.field("total_bytes_billed", &self.total_bytes_billed);
+            debug_struct.field("total_bytes_processed", &self.total_bytes_processed);
+            debug_struct.field("total_rows", &self.total_rows);
+            debug_struct.field("total_slot_ms", &self.total_slot_ms);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+}
 
 impl std::convert::From<google_cloud_bigquery_v2::model::GetQueryResultsResponse>
     for QueryMetadata
