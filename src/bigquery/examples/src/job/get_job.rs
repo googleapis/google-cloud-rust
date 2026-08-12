@@ -24,8 +24,10 @@ pub async fn sample(project_id: &str, job_id: &str) -> anyhow::Result<()> {
         .send()
         .await?;
 
-    let job_ref = job.job_reference.unwrap();
-    println!("Job ID: {}", job_ref.job_id);
+    if let Some(job_ref) = job.job_reference {
+        println!("Job ID: {}", job_ref.job_id);
+    }
+
     if let Some(status) = job.status {
         println!("State: {:?}", status.state);
     }
