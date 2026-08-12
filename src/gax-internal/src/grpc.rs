@@ -25,7 +25,6 @@ mod transport_policies;
 pub use grpc_rust::{GrpcRustClient, GrpcRustStreaming};
 
 use crate::attempt_interceptor::AttemptInterceptor;
-use crate::observability::attributes::{self, keys::*, otel_status_codes};
 use crate::universe_domain::DEFAULT_UNIVERSE_DOMAIN;
 use ::tonic::client::Grpc;
 use ::tonic::metadata::MetadataMap;
@@ -45,7 +44,6 @@ use google_cloud_gax::response::{Parts, Response};
 use google_cloud_gax::retry_loop_internal::retry_loop;
 use grpc_helpers::{add_auth_headers, make_credentials, make_headers};
 use http::HeaderMap;
-use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
 use std::sync::Arc;
 use std::time::Duration;
 use std::time::Instant;
@@ -352,46 +350,11 @@ impl Client {
         Request: prost::Message + 'static,
         Response: prost::Message + Default + 'static,
     {
-        let span = if let Some(attrs) = &self.tracing_attributes {
-            let rpc_method = path.path().trim_start_matches('/');
-            let (service, version, repo, artifact) = if let Some(info) = attrs.instrumentation {
-                (
-                    Some(info.service_name),
-                    Some(info.client_version),
-                    Some("googleapis/google-cloud-rust"),
-                    Some(info.client_artifact),
-                )
-            } else {
-                (None, None, None, None)
-            };
-            let resend_count = if prior_attempt_count > 0 {
-                Some(prior_attempt_count)
-            } else {
-                None
-            };
-
-            tracing::info_span!(
-                "grpc.request",
-                { OTEL_NAME } = rpc_method,
-                { RPC_SYSTEM_NAME } = attributes::RPC_SYSTEM_GRPC,
-                { OTEL_KIND } = attributes::OTEL_KIND_CLIENT,
-                { otel_trace::RPC_METHOD } = rpc_method,
-                { otel_trace::SERVER_ADDRESS } = attrs.server_address,
-                { otel_trace::SERVER_PORT } = attrs.server_port,
-                { otel_attr::URL_DOMAIN } = attrs.url_domain,
-                { RPC_RESPONSE_STATUS_CODE } = tracing::field::Empty,
-                { OTEL_STATUS_CODE } = otel_status_codes::UNSET,
-                { otel_trace::ERROR_TYPE } = tracing::field::Empty,
-                { GCP_CLIENT_SERVICE } = service,
-                { GCP_CLIENT_VERSION } = version,
-                { GCP_CLIENT_REPO } = repo,
-                { GCP_CLIENT_ARTIFACT } = artifact,
-                { GCP_GRPC_RESEND_COUNT } = resend_count,
-                { GCP_RESOURCE_DESTINATION_ID } = tracing::field::Empty,
-            )
-        } else {
-            tracing::Span::none()
-        };
+        let span = grpc_helpers::unary_make_request_span(
+            self.tracing_attributes.as_ref(),
+            &path,
+            prior_attempt_count,
+        );
 
         #[allow(unused_mut)]
         let mut headers = add_auth_headers(headers, &self.credentials).await?;
@@ -423,20 +386,13 @@ impl Client {
                 .unary(request, path.clone(), codec)
                 .map_err(to_gax_error);
 
-            use crate::observability::{
-                WithTransportLogging, WithTransportMetric, WithTransportSpan,
-            };
-
-            let pending =
-                WithTransportMetric::new(self.metric.clone(), pending, prior_attempt_count as u32);
-            let pending = WithTransportLogging::new(pending);
-            let pending = WithTransportSpan::new(span, pending);
-
-            if let Some(recorder) = crate::observability::RequestRecorder::current() {
-                recorder.scope(pending).await
-            } else {
-                pending.await
-            }
+            grpc_helpers::unary_wrap_and_record_request(
+                self.metric.clone(),
+                span,
+                prior_attempt_count,
+                pending,
+            )
+            .await
         }
         .await;
 
