@@ -55,15 +55,12 @@ pub struct RunQueryRequest {
     /// upon job completion.
     pub create_disposition: std::string::String,
 
-    /// If this property is true, the job creates a new session using a randomly
-    /// generated session_id.  To continue using a created session with
-    /// subsequent queries, pass the existing session identifier as a
-    /// `ConnectionProperty` value.  The session identifier is returned as part of
-    /// the `SessionInfo` message within the query statistics.
+    /// Optional. If true, creates a new session using a randomly generated
+    /// session_id. If false, runs query with an existing session_id passed in
+    /// ConnectionProperty, otherwise runs query in non-session mode.
     ///
-    /// The new session's location will be set to `Job.JobReference.location` if it
-    /// is present, otherwise it's set to the default location based on existing
-    /// routing logic.
+    /// The session location will be set to QueryRequest.location if it is present,
+    /// otherwise it's set to the default location based on existing routing logic.
     pub create_session: std::option::Option<wkt::BoolValue>,
 
     /// Optional. Specifies the default datasetId and projectId to assume for any
@@ -71,7 +68,7 @@ pub struct RunQueryRequest {
     /// query string must be qualified in the format 'datasetId.tableId'.
     pub default_dataset: std::option::Option<crate::model::DatasetReference>,
 
-    /// Custom encryption configuration (e.g., Cloud KMS keys)
+    /// Optional. Custom encryption configuration (e.g., Cloud KMS keys)
     pub destination_encryption_configuration:
         std::option::Option<crate::model::EncryptionConfiguration>,
 
@@ -136,11 +133,11 @@ pub struct RunQueryRequest {
     /// default, there is no maximum row count, and only the byte limit applies.
     pub max_results: std::option::Option<wkt::UInt32Value>,
 
-    /// Optional. A target limit on the rate of slot consumption by this job. If
+    /// Optional. A target limit on the rate of slot consumption by this query. If
     /// set to a value > 0, BigQuery will attempt to limit the rate of slot
-    /// consumption by this job to keep it below the configured limit, even if the
-    /// job is eligible for more slots based on fair scheduling. The unused slots
-    /// will be available for other jobs and queries to use.
+    /// consumption by this query to keep it below the configured limit, even if
+    /// the query is eligible for more slots based on fair scheduling. The unused
+    /// slots will be available for other jobs and queries to use.
     ///
     /// Note: This feature is not yet generally available.
     pub max_slots: std::option::Option<i32>,
@@ -158,8 +155,9 @@ pub struct RunQueryRequest {
     /// INTERACTIVE and BATCH. The default value is INTERACTIVE.
     pub priority: std::string::String,
 
-    /// [Required] SQL query text to execute. The useLegacySql field can be used
-    /// to indicate whether the query uses legacy SQL or GoogleSQL.
+    /// Required. A query string to execute, using Google Standard SQL or legacy
+    /// SQL syntax. Example: "SELECT COUNT(f1) FROM
+    /// myProjectId.myDatasetId.myTableId".
     pub query: std::string::String,
 
     /// Query parameters for GoogleSQL queries.
@@ -168,39 +166,6 @@ pub struct RunQueryRequest {
     /// Range partitioning specification for the destination table.
     /// Only one of timePartitioning and rangePartitioning should be specified.
     pub range_partitioning: std::option::Option<crate::model::RangePartitioning>,
-
-    /// Optional. A unique user provided identifier to ensure idempotent behavior
-    /// for queries. Note that this is different from the job_id. It has the
-    /// following properties:
-    ///
-    /// 1. It is case-sensitive, limited to up to 36 ASCII characters. A UUID is
-    ///    recommended.
-    ///
-    /// 1. Read only queries can ignore this token since they are nullipotent by
-    ///    definition.
-    ///
-    /// 1. For the purposes of idempotency ensured by the request_id, a request
-    ///    is considered duplicate of another only if they have the same request_id
-    ///    and are actually duplicates. When determining whether a request is a
-    ///    duplicate of another request, all parameters in the request that
-    ///    may affect the result are considered. For example, query,
-    ///    connection_properties, query_parameters, use_legacy_sql are parameters
-    ///    that affect the result and are considered when determining whether a
-    ///    request is a duplicate, but properties like timeout_ms don't
-    ///    affect the result and are thus not considered. Dry run query
-    ///    requests are never considered duplicate of another request.
-    ///
-    /// 1. When a duplicate mutating query request is detected, it returns:
-    ///    a. the results of the mutation if it completes successfully within
-    ///    the timeout.
-    ///    b. the running operation if it is still in progress at the end of the
-    ///    timeout.
-    ///
-    /// 1. Its lifetime is limited to 15 minutes. In other words, if two
-    ///    requests are sent with the same request_id, but more than 15 minutes
-    ///    apart, idempotency is not guaranteed.
-    ///
-    pub request_id: std::string::String,
 
     /// Optional. The reservation that jobs.query request would use. User can
     /// specify a reservation to execute the job.query. The expected format is
@@ -244,11 +209,9 @@ pub struct RunQueryRequest {
     /// getQueryResults response is true.
     pub timeout_ms: std::option::Option<wkt::UInt32Value>,
 
-    /// Optional. Specifies whether to use BigQuery's legacy SQL dialect for this
-    /// query. The default value is true. If set to false, the query uses
-    /// BigQuery's
+    /// Specifies whether to use BigQuery's legacy SQL dialect for this query. The
+    /// default value is true. If set to false, the query uses BigQuery's
     /// [GoogleSQL](https://docs.cloud.google.com/bigquery/docs/introduction-sql).
-    ///
     /// When useLegacySql is set to false, the value of flattenResults is ignored;
     /// query will be run as if flattenResults is false.
     pub use_legacy_sql: std::option::Option<wkt::BoolValue>,
@@ -627,12 +590,6 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets the value of [request_id][crate::model::RunQueryRequest::request_id].
-    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.request_id = v.into();
-        self
-    }
-
     /// Sets the value of [reservation][crate::model::RunQueryRequest::reservation].
     pub fn set_reservation<T>(mut self, v: T) -> Self
     where
@@ -818,7 +775,6 @@ impl std::convert::From<RunQueryRequest> for google_cloud_bigquery_v2::model::Qu
         out.parameter_mode = req.parameter_mode;
         out.query = req.query;
         out.query_parameters = req.query_parameters;
-        out.request_id = req.request_id;
         out.reservation = req.reservation;
         out.timeout_ms = req.timeout_ms;
         out.use_legacy_sql = req.use_legacy_sql;

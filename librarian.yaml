@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.36.0
+version: v0.36.1-0.20260812182503-89eb4573ef49
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
@@ -494,10 +494,12 @@ libraries:
             - .google.cloud.bigquery.v2.JobConfiguration.extract
             - .google.cloud.bigquery.v2.QueryRequest.format_options
             - .google.cloud.bigquery.v2.GetQueryResultsRequest.format_options
+            - .google.cloud.bigquery.v2.QueryRequest.request_id
             - .google.cloud.bigquery.v2.QueryRequest.kind
             - .google.cloud.bigquery.v2.JobConfiguration.kind
             - .google.cloud.bigquery.v2.JobConfiguration.job_type
-            - rows
+            - .google.cloud.bigquery.v2.QueryResponse.rows
+            - .google.cloud.bigquery.v2.GetQueryResultsResponse.rows
           api_path: google/cloud/bigquery/v2
           template: bigquery
   - name: google-cloud-bigquery-analyticshub-v1
