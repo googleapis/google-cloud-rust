@@ -26,7 +26,36 @@ use google_cloud_gax::polling_state::PollingState;
 use std::collections::VecDeque;
 use std::sync::Arc;
 
-/// A handle representing a running query.
+/// A handle representing a running or completed SQL query execution.
+///
+/// [`RunQuery::run()`](crate::query::RunQuery::run) returns a `Query`.
+///
+/// To obtain the final result set, call [`until_done()`](Query::until_done),
+/// which checks the execution status and automatically polls the service if the
+/// job is still running in the background.
+///
+/// Depending on how the query was routed and executed, this handle may represent
+/// an asynchronous background job currently executing on BigQuery, or may
+/// contain an already completed query if it ran fast enough using the fast query
+/// path ([jobs.query]).
+///
+/// [jobs.query]: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query
+///
+/// # Example
+///
+/// ```
+/// # use google_cloud_bigquery::client::BigQuery;
+/// # async fn sample(client: BigQuery) -> anyhow::Result<()> {
+/// let query_handle = client
+///     .query("SELECT 42 AS answer")
+///     .run()
+///     .await?;
+///
+/// // Poll until execution completes.
+/// let completed = query_handle.until_done().await?;
+/// # Ok(())
+/// # }
+/// ```
 #[derive(Clone)]
 pub struct Query {
     pub(crate) job_service: Arc<JobService>,
@@ -86,8 +115,9 @@ impl Query {
 
     /// Returns the initial metadata from query creation.
     ///
-    /// This provides access to the [`QueryCreationMetadata`] returned by the initial
-    /// query execution request (either [`jobs.query`] or [`jobs.insert`]).
+    /// This provides access to the [`QueryCreationMetadata`] returned by the
+    /// initial query execution request (either [`jobs.query`] or
+    /// [`jobs.insert`]).
     ///
     /// Depending on how the query was executed, the metadata contains:
     /// - [`job_reference`][QueryCreationMetadata::job_reference]: The reference to the BigQuery job, if one was created.
@@ -95,8 +125,8 @@ impl Query {
     /// - [`job_creation_reason`][QueryCreationMetadata::job_creation_reason]: Why a job was created or skipped.
     /// - [`job_complete`][QueryCreationMetadata::job_complete]: Whether the query completed immediately without requiring polling.
     ///
-    /// To wait for the query to finish and retrieve full results and final metadata, call
-    /// [`until_done`][Self::until_done].
+    /// To wait for the query to finish and retrieve full results and final
+    /// metadata, call [`until_done`][Self::until_done].
     ///
     /// [`jobs.query`]: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query
     /// [`jobs.insert`]: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/insert
@@ -104,8 +134,36 @@ impl Query {
         &self.metadata
     }
 
-    /// Periodically checks the status of the background job until it finishes.
-    /// Returns an error if a remote service or connection failure happens during polling.
+    /// Periodically polls the background job status until query execution
+    /// finishes.
+    ///
+    /// If the query was executed via the fast query path ([jobs.query]) and
+    /// already completed during the initial request, this method immediately
+    /// returns a [`CompleteQuery`](crate::query::CompleteQuery) without making
+    /// additional network calls. Otherwise, it implements a polling loop
+    /// querying the job status until it succeeds or fails.
+    ///
+    /// [jobs.query]: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if a remote service or network failure happens during
+    /// polling, or if the BigQuery job fails due to runtime execution errors.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_bigquery::client::BigQuery;
+    /// # async fn sample(client: BigQuery) -> anyhow::Result<()> {
+    /// let complete = client
+    ///     .query("SELECT 1 + 1 AS result")
+    ///     .run()
+    ///     .await?
+    ///     .until_done()
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
     pub async fn until_done(self) -> Result<CompleteQuery> {
         let Query {
             job_service,
@@ -144,7 +202,31 @@ impl Query {
     }
 }
 
-/// A handle representing a successfully completed query ready for reading.
+/// A handle representing a successfully completed query ready for reading
+/// results.
+///
+/// [`Query::until_done()`](crate::query::Query::until_done) returns a
+/// `CompleteQuery`.
+///
+/// This handle provides access to cached execution metadata, schema
+/// definitions, and a row iterator via [`read()`](CompleteQuery::read).
+///
+/// # Example
+///
+/// ```
+/// # use google_cloud_bigquery::client::BigQuery;
+/// # async fn sample(client: BigQuery) -> anyhow::Result<()> {
+/// let complete = client
+///     .query("SELECT 'done' AS status")
+///     .run()
+///     .await?
+///     .until_done()
+///     .await?;
+///
+/// println!("Cache hit: {:?}", complete.metadata().cache_hit);
+/// # Ok(())
+/// # }
+/// ```
 #[derive(Clone)]
 pub struct CompleteQuery {
     pub(crate) job_service: Arc<JobService>,
@@ -222,19 +304,90 @@ impl CompleteQuery {
         }
     }
 
-    /// Returns a row iterator for the query result.
+    /// Read the result set of the query.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_bigquery::client::BigQuery;
+    /// # async fn sample(client: BigQuery) -> anyhow::Result<()> {
+    /// let mut rows = client
+    ///     .query("SELECT 100 AS score")
+    ///     .run()
+    ///     .await?
+    ///     .until_done()
+    ///     .await?
+    ///     .read();
+    ///
+    /// while let Some(row) = rows.next().await.transpose()? {
+    ///     let score: i64 = row.get("score");
+    ///     println!("Score: {score}");
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
     pub fn read(self) -> RowIterator {
         RowIterator::new(self)
     }
 
-    /// Returns the cached metadata for this query.
+    /// Returns a reference to the cached summary metadata for this query.
+    ///
+    /// The returned [`QueryMetadata`](crate::model::QueryMetadata) contains
+    /// summary statistics such as total rows, schema details, cache hit
+    /// indicators, and estimated bytes processed without making additional
+    /// RPCs.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_bigquery::client::BigQuery;
+    /// # async fn sample(client: BigQuery) -> anyhow::Result<()> {
+    /// let completed = client
+    ///     .query("SELECT 'metadata_check'")
+    ///     .run()
+    ///     .await?
+    ///     .until_done()
+    ///     .await?;
+    ///
+    /// let meta = completed.metadata();
+    /// println!("Total rows: {:?}", meta.total_rows);
+    /// # Ok(())
+    /// # }
+    /// ```
     pub fn metadata(&self) -> &QueryMetadata {
         &self.metadata
     }
 
-    /// Fetches the full `Job` information for the given query.
+    /// Fetches full [Job] execution metadata from the service for this query.
     ///
-    /// Stateless queries will return `QueryError::StatelessQuery`.
+    /// Unlike [`metadata()`](CompleteQuery::metadata), this method executes an
+    /// RPC (`jobs.get`) to retrieve complete job details, including user email,
+    /// execution timelines, billing tier estimates, and error summaries.
+    ///
+    /// > Calling this method on a stateless query returns
+    /// > [`QueryError::StatelessQuery`](crate::error::QueryError::StatelessQuery).
+    ///
+    /// [Job]: https://docs.cloud.google.com/bigquery/docs/reference/rest/v2/Job
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_bigquery::client::BigQuery;
+    /// # use google_cloud_bigquery::model::query_request::JobCreationMode;
+    /// # async fn sample(client: BigQuery) -> anyhow::Result<()> {
+    /// let completed = client
+    ///     .query("SELECT 1")
+    ///     .set_job_creation_mode(JobCreationMode::JobCreationRequired) // Forces a job to be created
+    ///     .run()
+    ///     .await?
+    ///     .until_done()
+    ///     .await?;
+    ///
+    /// let job_info = completed.job_metadata().await?;
+    /// println!("Executed by user: {}", job_info.user_email);
+    /// # Ok(())
+    /// # }
+    /// ```
     pub async fn job_metadata(&self) -> Result<Job> {
         let job_ref = self.job_ref.as_ref().ok_or(QueryError::StatelessQuery)?;
 
