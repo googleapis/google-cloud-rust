@@ -45,11 +45,9 @@ pub async fn sample(project_id: &str) -> anyhow::Result<()> {
         .set_job_id(&job_id)
         .set_location("US")
         .send()
-        .await;
+        .await?;
 
-    if cancelled.is_ok() {
-        println!("Successfully cancelled job.");
-    }
+    println!("Successfully cancelled job: {cancelled:?}");
 
     Ok(())
 }
