@@ -2994,43 +2994,6 @@ impl serde::ser::Serialize for super::finding_summary::SummaryDetails {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for super::ObjectFullContext {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !wkt::internal::is_default(&self.r#type) {
-            state.serialize_entry("type", &self.r#type)?;
-        }
-        if !self.key.is_empty() {
-            state.serialize_entry("key", &self.key)?;
-        }
-        if !self.value.is_empty() {
-            state.serialize_entry("value", &self.value)?;
-        }
-        if self.create_time.is_some() {
-            state.serialize_entry("createTime", &self.create_time)?;
-        }
-        if self.update_time.is_some() {
-            state.serialize_entry("updateTime", &self.update_time)?;
-        }
-        if self.extended_data.is_some() {
-            state.serialize_entry("extendedData", &self.extended_data)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[doc(hidden)]
 impl serde::ser::Serialize for super::ViewObjectFullContextRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
