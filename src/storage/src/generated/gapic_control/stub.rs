@@ -444,17 +444,6 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
-    /// Implements [super::client::StorageControl::view_object_full_context].
-    fn view_object_full_context(
-        &self,
-        _req: crate::model::ViewObjectFullContextRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<crate::model::ObjectFullContext>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
     /// Implements [super::client::StorageControl::get_operation].
     fn get_operation(
         &self,

@@ -560,20 +560,6 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
-    async fn view_object_full_context(
-        &self,
-        req: crate::model::ViewObjectFullContextRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::ObjectFullContext>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::StorageControl::view_object_full_context",
-            self.inner.view_object_full_context(req, options));
-        pending.await
-    }
-
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,

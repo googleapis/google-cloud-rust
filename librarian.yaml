@@ -1500,6 +1500,7 @@ libraries:
     version: 1.17.0
     copyright_year: "2025"
     output: src/storage
+    skip_generate: true
     rust:
       resource_name_heuristic: true
       modules:

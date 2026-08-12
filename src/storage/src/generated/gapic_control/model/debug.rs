@@ -206,7 +206,6 @@ impl std::fmt::Debug for super::StorageLayout {
         debug_struct.field("location_type", &self.location_type);
         debug_struct.field("custom_placement_config", &self.custom_placement_config);
         debug_struct.field("hierarchical_namespace", &self.hierarchical_namespace);
-        debug_struct.field("rapid_cache_info", &self.rapid_cache_info);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -229,17 +228,6 @@ impl std::fmt::Debug for super::storage_layout::HierarchicalNamespace {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("HierarchicalNamespace");
         debug_struct.field("enabled", &self.enabled);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-impl std::fmt::Debug for super::storage_layout::RapidCacheInfo {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("RapidCacheInfo");
-        debug_struct.field("cache_type", &self.cache_type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1165,19 +1153,6 @@ impl std::fmt::Debug for super::finding_summary::SummaryDetails {
         debug_struct.field("resource_type", &self.resource_type);
         debug_struct.field("description", &self.description);
         debug_struct.field("magnitude", &self.magnitude);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-impl std::fmt::Debug for super::ViewObjectFullContextRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ViewObjectFullContextRequest");
-        debug_struct.field("generation", &self.generation);
-        debug_struct.field("context_key", &self.context_key);
-        debug_struct.field("name", &self.name);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

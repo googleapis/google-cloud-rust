@@ -1481,9 +1481,6 @@ pub struct StorageLayout {
     pub hierarchical_namespace:
         std::option::Option<crate::model::storage_layout::HierarchicalNamespace>,
 
-    /// Output only. The Rapid Cache configuration for the bucket.
-    pub rapid_cache_info: std::option::Option<crate::model::storage_layout::RapidCacheInfo>,
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1596,39 +1593,6 @@ impl StorageLayout {
         self.hierarchical_namespace = v.map(|x| x.into());
         self
     }
-
-    /// Sets the value of [rapid_cache_info][crate::model::StorageLayout::rapid_cache_info].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::StorageLayout;
-    /// use google_cloud_storage::model::storage_layout::RapidCacheInfo;
-    /// let x = StorageLayout::new().set_rapid_cache_info(RapidCacheInfo::default()/* use setters */);
-    /// ```
-    pub fn set_rapid_cache_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::storage_layout::RapidCacheInfo>,
-    {
-        self.rapid_cache_info = std::option::Option::Some(v.into());
-        self
-    }
-
-    /// Sets or clears the value of [rapid_cache_info][crate::model::StorageLayout::rapid_cache_info].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::StorageLayout;
-    /// use google_cloud_storage::model::storage_layout::RapidCacheInfo;
-    /// let x = StorageLayout::new().set_or_clear_rapid_cache_info(Some(RapidCacheInfo::default()/* use setters */));
-    /// let x = StorageLayout::new().set_or_clear_rapid_cache_info(None::<RapidCacheInfo>);
-    /// ```
-    pub fn set_or_clear_rapid_cache_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::storage_layout::RapidCacheInfo>,
-    {
-        self.rapid_cache_info = v.map(|x| x.into());
-        self
-    }
 }
 
 impl wkt::message::Message for StorageLayout {
@@ -1716,42 +1680,6 @@ pub mod storage_layout {
     impl wkt::message::Message for HierarchicalNamespace {
         fn typename() -> &'static str {
             "type.googleapis.com/google.storage.control.v2.StorageLayout.HierarchicalNamespace"
-        }
-    }
-
-    /// The Rapid Cache configuration for the bucket.
-    #[derive(Clone, Default, PartialEq)]
-    #[non_exhaustive]
-    pub struct RapidCacheInfo {
-        /// Output only. The type of cache in the bucket. Set to `rapid-cache` or
-        /// `rapid-cache-ultra`, only if there is a cache present.
-        pub cache_type: std::string::String,
-
-        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-    }
-
-    impl RapidCacheInfo {
-        /// Creates a new default instance.
-        pub fn new() -> Self {
-            std::default::Default::default()
-        }
-
-        /// Sets the value of [cache_type][crate::model::storage_layout::RapidCacheInfo::cache_type].
-        ///
-        /// # Example
-        /// ```ignore,no_run
-        /// # use google_cloud_storage::model::storage_layout::RapidCacheInfo;
-        /// let x = RapidCacheInfo::new().set_cache_type("example");
-        /// ```
-        pub fn set_cache_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.cache_type = v.into();
-            self
-        }
-    }
-
-    impl wkt::message::Message for RapidCacheInfo {
-        fn typename() -> &'static str {
-            "type.googleapis.com/google.storage.control.v2.StorageLayout.RapidCacheInfo"
         }
     }
 }
@@ -10480,73 +10408,6 @@ pub mod finding_summary {
                 Self::Percentage(value.into())
             }
         }
-    }
-}
-
-/// Request message for ViewObjectFullContext.
-#[derive(Clone, Default, PartialEq)]
-#[non_exhaustive]
-pub struct ViewObjectFullContextRequest {
-    /// Optional. If present, selects a specific revision of this object (as
-    /// opposed to the latest version, the default).
-    pub generation: i64,
-
-    /// Required. The key of the object context to retrieve.
-    pub context_key: std::string::String,
-
-    /// Required. The name of the object.
-    /// Format: `projects/{project}/buckets/{bucket}/objects/{object}`
-    pub name: std::string::String,
-
-    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-}
-
-impl ViewObjectFullContextRequest {
-    /// Creates a new default instance.
-    pub fn new() -> Self {
-        std::default::Default::default()
-    }
-
-    /// Sets the value of [generation][crate::model::ViewObjectFullContextRequest::generation].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::ViewObjectFullContextRequest;
-    /// let x = ViewObjectFullContextRequest::new().set_generation(42);
-    /// ```
-    pub fn set_generation<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.generation = v.into();
-        self
-    }
-
-    /// Sets the value of [context_key][crate::model::ViewObjectFullContextRequest::context_key].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::ViewObjectFullContextRequest;
-    /// let x = ViewObjectFullContextRequest::new().set_context_key("example");
-    /// ```
-    pub fn set_context_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.context_key = v.into();
-        self
-    }
-
-    /// Sets the value of [name][crate::model::ViewObjectFullContextRequest::name].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::ViewObjectFullContextRequest;
-    /// let x = ViewObjectFullContextRequest::new().set_name("example");
-    /// ```
-    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.name = v.into();
-        self
-    }
-}
-
-impl wkt::message::Message for ViewObjectFullContextRequest {
-    fn typename() -> &'static str {
-        "type.googleapis.com/google.storage.control.v2.ViewObjectFullContextRequest"
     }
 }
 

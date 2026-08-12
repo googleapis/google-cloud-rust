@@ -369,24 +369,6 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::storage_layo
     }
 }
 
-impl gaxi::prost::ToProto<storage_layout::RapidCacheInfo> for crate::generated::gapic_control::model::storage_layout::RapidCacheInfo {
-    type Output = storage_layout::RapidCacheInfo;
-    fn to_proto(self) -> std::result::Result<storage_layout::RapidCacheInfo, gaxi::prost::ConvertError> {
-        Ok(Self::Output {
-            cache_type: self.cache_type.to_proto()?,
-        })
-    }
-}
-
-impl gaxi::prost::FromProto<crate::generated::gapic_control::model::storage_layout::RapidCacheInfo> for storage_layout::RapidCacheInfo {
-    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::storage_layout::RapidCacheInfo, gaxi::prost::ConvertError> {
-        Ok(
-            crate::generated::gapic_control::model::storage_layout::RapidCacheInfo::new()
-                .set_cache_type(self.cache_type)
-        )
-    }
-}
-
 impl gaxi::prost::ToProto<StorageLayout> for crate::generated::gapic_control::model::StorageLayout {
     type Output = StorageLayout;
     fn to_proto(self) -> std::result::Result<StorageLayout, gaxi::prost::ConvertError> {
@@ -396,7 +378,6 @@ impl gaxi::prost::ToProto<StorageLayout> for crate::generated::gapic_control::mo
             location_type: self.location_type.to_proto()?,
             custom_placement_config: self.custom_placement_config.map(|v| v.to_proto()).transpose()?,
             hierarchical_namespace: self.hierarchical_namespace.map(|v| v.to_proto()).transpose()?,
-            rapid_cache_info: self.rapid_cache_info.map(|v| v.to_proto()).transpose()?,
         })
     }
 }
@@ -410,7 +391,6 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::StorageLayou
                 .set_location_type(self.location_type)
                 .set_or_clear_custom_placement_config(self.custom_placement_config.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_hierarchical_namespace(self.hierarchical_namespace.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_rapid_cache_info(self.rapid_cache_info.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -2201,63 +2181,6 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::FindingSumma
                 .set_severity(self.severity)
                 .set_summary_details(self.summary_details.into_iter().map(|v| v.cnv())
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-        )
-    }
-}
-
-impl gaxi::prost::ToProto<object_full_context::Type> for crate::generated::gapic_control::model::object_full_context::Type {
-    type Output = i32;
-    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
-        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::generated::gapic_control::model::object_full_context::Type"))
-    }
-}
-
-impl gaxi::prost::ToProto<ObjectFullContext> for crate::generated::gapic_control::model::ObjectFullContext {
-    type Output = ObjectFullContext;
-    fn to_proto(self) -> std::result::Result<ObjectFullContext, gaxi::prost::ConvertError> {
-        Ok(Self::Output {
-            r#type: self.r#type.to_proto()?,
-            key: self.key.to_proto()?,
-            value: self.value.to_proto()?,
-            create_time: self.create_time.map(|v| v.to_proto()).transpose()?,
-            update_time: self.update_time.map(|v| v.to_proto()).transpose()?,
-            extended_data: self.extended_data.map(|v| v.to_proto()).transpose()?,
-        })
-    }
-}
-
-impl gaxi::prost::FromProto<crate::generated::gapic_control::model::ObjectFullContext> for ObjectFullContext {
-    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::ObjectFullContext, gaxi::prost::ConvertError> {
-        Ok(
-            crate::generated::gapic_control::model::ObjectFullContext::new()
-                .set_type(self.r#type)
-                .set_key(self.key)
-                .set_value(self.value)
-                .set_or_clear_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_extended_data(self.extended_data.map(|v| v.cnv()).transpose()?)
-        )
-    }
-}
-
-impl gaxi::prost::ToProto<ViewObjectFullContextRequest> for crate::generated::gapic_control::model::ViewObjectFullContextRequest {
-    type Output = ViewObjectFullContextRequest;
-    fn to_proto(self) -> std::result::Result<ViewObjectFullContextRequest, gaxi::prost::ConvertError> {
-        Ok(Self::Output {
-            generation: self.generation.to_proto()?,
-            context_key: self.context_key.to_proto()?,
-            name: self.name.to_proto()?,
-        })
-    }
-}
-
-impl gaxi::prost::FromProto<crate::generated::gapic_control::model::ViewObjectFullContextRequest> for ViewObjectFullContextRequest {
-    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::ViewObjectFullContextRequest, gaxi::prost::ConvertError> {
-        Ok(
-            crate::generated::gapic_control::model::ViewObjectFullContextRequest::new()
-                .set_generation(self.generation)
-                .set_context_key(self.context_key)
-                .set_name(self.name)
         )
     }
 }
