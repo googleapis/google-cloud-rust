@@ -34,7 +34,7 @@ pub struct RunQueryRequest {
     /// Clustering specification for the destination table.
     pub clustering: std::option::Option<crate::model::Clustering>,
 
-    /// Optional. Connection properties which can modify the query behavior.
+    /// Connection properties which can modify the query behavior.
     pub connection_properties: std::vec::Vec<crate::model::ConnectionProperty>,
 
     /// Optional. Whether to run the query as continuous or a regular query.
@@ -107,13 +107,12 @@ pub struct RunQueryRequest {
     /// JobCreationMode.
     pub job_creation_mode: crate::model::query_request::JobCreationMode,
 
-    /// Optional. Job timeout in milliseconds. If this time limit is exceeded,
-    /// BigQuery will attempt to stop a longer job, but may not always succeed in
-    /// canceling it before the job completes. For example, a job that takes more
-    /// than 60 seconds to complete has a better chance of being stopped than a job
-    /// that takes 10 seconds to complete. This timeout applies to the query even
-    /// if a job does not need to be created.
-    pub job_timeout_ms: std::option::Option<i64>,
+    /// Optional. Job timeout in milliseconds relative to the job creation time. If
+    /// this time limit is exceeded, BigQuery attempts to stop the job, but might
+    /// not always succeed in canceling it before the job completes. For example, a
+    /// job that takes more than 60 seconds to complete has a better chance of
+    /// being stopped than a job that takes 10 seconds to complete.
+    pub job_timeout_ms: std::option::Option<wkt::Int64Value>,
 
     /// Optional. The labels associated with this query.
     /// Labels can be used to organize and group query jobs.
@@ -136,18 +135,18 @@ pub struct RunQueryRequest {
     /// default, there is no maximum row count, and only the byte limit applies.
     pub max_results: std::option::Option<wkt::UInt32Value>,
 
-    /// Optional. A target limit on the rate of slot consumption by this job. If
+    /// Optional. A target limit on the rate of slot consumption by this query. If
     /// set to a value > 0, BigQuery will attempt to limit the rate of slot
-    /// consumption by this job to keep it below the configured limit, even if the
-    /// job is eligible for more slots based on fair scheduling. The unused slots
-    /// will be available for other jobs and queries to use.
+    /// consumption by this query to keep it below the configured limit, even if
+    /// the query is eligible for more slots based on fair scheduling. The unused
+    /// slots will be available for other jobs and queries to use.
     ///
     /// Note: This feature is not yet generally available.
     pub max_slots: std::option::Option<i32>,
 
-    /// Optional. Limits the bytes billed for this query. Queries with
-    /// bytes billed above this limit will fail (without incurring a charge).
-    /// If unspecified, the project default is used.
+    /// Limits the bytes billed for this job. Queries that will have
+    /// bytes billed beyond this limit will fail (without incurring a charge).
+    /// If unspecified, this will be set to your project default.
     pub maximum_bytes_billed: std::option::Option<wkt::Int64Value>,
 
     /// GoogleSQL only. Set to POSITIONAL to use positional (?) query parameters
@@ -168,39 +167,6 @@ pub struct RunQueryRequest {
     /// Range partitioning specification for the destination table.
     /// Only one of timePartitioning and rangePartitioning should be specified.
     pub range_partitioning: std::option::Option<crate::model::RangePartitioning>,
-
-    /// Optional. A unique user provided identifier to ensure idempotent behavior
-    /// for queries. Note that this is different from the job_id. It has the
-    /// following properties:
-    ///
-    /// 1. It is case-sensitive, limited to up to 36 ASCII characters. A UUID is
-    ///    recommended.
-    ///
-    /// 1. Read only queries can ignore this token since they are nullipotent by
-    ///    definition.
-    ///
-    /// 1. For the purposes of idempotency ensured by the request_id, a request
-    ///    is considered duplicate of another only if they have the same request_id
-    ///    and are actually duplicates. When determining whether a request is a
-    ///    duplicate of another request, all parameters in the request that
-    ///    may affect the result are considered. For example, query,
-    ///    connection_properties, query_parameters, use_legacy_sql are parameters
-    ///    that affect the result and are considered when determining whether a
-    ///    request is a duplicate, but properties like timeout_ms don't
-    ///    affect the result and are thus not considered. Dry run query
-    ///    requests are never considered duplicate of another request.
-    ///
-    /// 1. When a duplicate mutating query request is detected, it returns:
-    ///    a. the results of the mutation if it completes successfully within
-    ///    the timeout.
-    ///    b. the running operation if it is still in progress at the end of the
-    ///    timeout.
-    ///
-    /// 1. Its lifetime is limited to 15 minutes. In other words, if two
-    ///    requests are sent with the same request_id, but more than 15 minutes
-    ///    apart, idempotency is not guaranteed.
-    ///
-    pub request_id: std::string::String,
 
     /// Optional. The reservation that jobs.query request would use. User can
     /// specify a reservation to execute the job.query. The expected format is
@@ -255,7 +221,9 @@ pub struct RunQueryRequest {
 
     /// Optional. Whether to look for the result in the query cache. The query
     /// cache is a best-effort cache that will be flushed whenever tables in the
-    /// query are modified. The default value is true.
+    /// query are modified. Moreover, the query cache is only available when a
+    /// query does not have a destination table specified. The default value is
+    /// true.
     pub use_query_cache: std::option::Option<wkt::BoolValue>,
 
     /// Describes user-defined function resources used in the query.
@@ -278,10 +246,10 @@ pub struct RunQueryRequest {
     /// append actions occur as one atomic update upon job completion.
     pub write_disposition: std::string::String,
 
-    /// Optional. This is only supported for SELECT query. If set, the query is
-    /// allowed to write results incrementally to the temporary result table. This
-    /// may incur a performance penalty. This option cannot be used with Legacy
-    /// SQL. This feature is not yet available.
+    /// Optional. This is only supported for a SELECT query using a temporary
+    /// table. If set, the query is allowed to write results incrementally to the
+    /// temporary result table. This may incur a performance penalty. This option
+    /// cannot be used with Legacy SQL. This feature is not yet available.
     pub write_incremental_results: bool,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -493,7 +461,7 @@ impl RunQueryRequest {
     /// Sets the value of [job_timeout_ms][crate::model::RunQueryRequest::job_timeout_ms].
     pub fn set_job_timeout_ms<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<i64>,
+        T: std::convert::Into<wkt::Int64Value>,
     {
         self.job_timeout_ms = std::option::Option::Some(v.into());
         self
@@ -502,7 +470,7 @@ impl RunQueryRequest {
     /// Sets or clears the value of [job_timeout_ms][crate::model::RunQueryRequest::job_timeout_ms].
     pub fn set_or_clear_job_timeout_ms<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<i64>,
+        T: std::convert::Into<wkt::Int64Value>,
     {
         self.job_timeout_ms = v.map(|x| x.into());
         self
@@ -624,12 +592,6 @@ impl RunQueryRequest {
         T: std::convert::Into<crate::model::RangePartitioning>,
     {
         self.range_partitioning = v.map(|x| x.into());
-        self
-    }
-
-    /// Sets the value of [request_id][crate::model::RunQueryRequest::request_id].
-    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.request_id = v.into();
         self
     }
 
@@ -818,7 +780,6 @@ impl std::convert::From<RunQueryRequest> for google_cloud_bigquery_v2::model::Qu
         out.parameter_mode = req.parameter_mode;
         out.query = req.query;
         out.query_parameters = req.query_parameters;
-        out.request_id = req.request_id;
         out.reservation = req.reservation;
         out.timeout_ms = req.timeout_ms;
         out.use_legacy_sql = req.use_legacy_sql;

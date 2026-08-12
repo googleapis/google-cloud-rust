@@ -191,7 +191,7 @@ impl RunQuery {
 
     /// Sets the value of [request.job_timeout_ms][crate::model::RunQueryRequest::job_timeout_ms].
     pub fn set_job_timeout_ms<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<i64>
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.request.job_timeout_ms = std::option::Option::Some(v.into());
         self
@@ -199,7 +199,7 @@ impl RunQuery {
 
     /// Sets or clears the value of [request.job_timeout_ms][crate::model::RunQueryRequest::job_timeout_ms].
     pub fn set_or_clear_job_timeout_ms<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<i64>
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.request.job_timeout_ms = v.map(|x| x.into());
         self
@@ -313,12 +313,6 @@ impl RunQuery {
     where T: std::convert::Into<crate::model::RangePartitioning>
     {
         self.request.range_partitioning = v.map(|x| x.into());
-        self
-    }
-
-    /// Sets the value of [request.request_id][crate::model::RunQueryRequest::request_id].
-    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.request.request_id = v.into();
         self
     }
 
