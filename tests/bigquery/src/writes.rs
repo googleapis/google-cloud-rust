@@ -14,7 +14,7 @@
 
 mod arrow;
 
-use super::{INSTANCE_LABEL, random_id_suffix};
+use super::INSTANCE_LABEL;
 use crate::dataset::{cleanup_stale_datasets, create_dataset, delete_dataset, random_dataset_id};
 use crate::query::UserRecord;
 use anyhow::Result;
@@ -35,8 +35,8 @@ pub async fn run_writes() -> Result<()> {
     let table_id = "writes";
 
     let result = async {
-        create_table(&table_service, &project_id, &dataset_id, &table_id).await?;
-        arrow::basic(&project_id, &dataset_id, &table_id).await
+        create_table(&table_service, &project_id, &dataset_id, table_id).await?;
+        arrow::basic(&project_id, &dataset_id, table_id).await
     }
     .await;
 
