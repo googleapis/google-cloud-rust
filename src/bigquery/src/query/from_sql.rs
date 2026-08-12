@@ -14,6 +14,8 @@
 
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
+#[allow(unused_imports)]
+use wkt::{Struct, Timestamp, Value};
 
 use crate::error::ConvertError;
 
@@ -31,7 +33,45 @@ pub(crate) const BIGQUERY_DATETIME_SUBSEC_FORMAT: &[time::format_description::Fo
     'static,
 >] = time::macros::format_description!("[year]-[month]-[day]T[hour]:[minute]:[second].[subsecond]");
 
-/// Converts BigQuery internal [wkt::Value] to Rust types.
+/// A trait for converting BigQuery [`wkt::Value`] representations into Rust
+/// types.
+///
+/// [`Row::get()`](crate::Row::get) and
+/// [`Row::try_get()`](crate::Row::try_get) use this trait to convert cell
+/// values, and the [`FromRow`](crate::FromRow) derive macro uses it for field
+/// deserialization.
+///
+/// # Supported Types
+///
+/// Built-in implementations include:
+/// - Numbers: `i32`, `i64`, `f32`, `f64`, [`Decimal`](rust_decimal::Decimal)
+/// - Text & Bytes: `String`, `Vec<u8>` (decoded from base64), [`Bytes`](bytes::Bytes)
+/// - Dates & Times: [`Timestamp`](wkt::Timestamp), [`Date`](google_cloud_type::model::Date), [`TimeOfDay`](google_cloud_type::model::TimeOfDay), [`DateTime`](google_cloud_type::model::DateTime)
+/// - Intervals: [`Interval`](crate::Interval)
+/// - Collections: `Option<T>` (for `NULL`), `Vec<T>` (for repeated fields), [`Range<T>`](crate::Range) (for `RANGE` types)
+/// - Raw JSON: [`Value`](wkt::Value), [`Struct`](wkt::Struct)
+///
+/// # Example
+///
+/// ```
+/// # use google_cloud_bigquery::client::BigQuery;
+/// # async fn sample(client: BigQuery) -> anyhow::Result<()> {
+/// let mut rows = client
+///     .query("SELECT 12345 AS integer_col, 'foo' AS string_col")
+///     .run()
+///     .await?
+///     .until_done()
+///     .await?
+///     .read();
+///
+/// while let Some(row) = rows.next().await.transpose()? {
+///     let num: i64 = row.get("integer_col");
+///     let txt: String = row.get("string_col");
+///     println!("{txt}: {num}");
+/// }
+/// # Ok(())
+/// # }
+/// ```
 pub trait FromSql: Sized {
     /// Converts a BigQuery `wkt::Value` into the implementing type.
     fn from_sql(value: wkt::Value) -> Result<Self, ConvertError>;
@@ -337,7 +377,34 @@ impl FromSql for rust_decimal::Decimal {
 
 /// Represents a BigQuery time [INTERVAL] value.
 ///
-/// [INTERVAL]: https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/data-types#interval_type
+/// [INTERVAL]: https://cloud.google.com/bigquery/docs/reference/standard-sql/data-types#interval_type
+///
+/// # Example
+///
+/// ```
+/// # async fn sample() -> anyhow::Result<()> {
+/// use google_cloud_bigquery::client::BigQuery;
+/// use google_cloud_bigquery::Interval;
+///
+/// let client = BigQuery::builder()
+///     .with_project_id("my-project-id")
+///     .build()
+///     .await?;
+/// let mut rows = client
+///     .query("SELECT INTERVAL '1-2 15 5:30:00' YEAR TO SECOND AS duration")
+///     .run()
+///     .await?
+///     .until_done()
+///     .await?
+///     .read();
+///
+/// if let Some(row) = rows.next().await.transpose()? {
+///     let interval: Interval = row.get("duration");
+///     println!("{} years, {} months, {} days", interval.years, interval.months, interval.days);
+/// }
+/// # Ok(())
+/// # }
+/// ```
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct Interval {
     /// Years component.
@@ -438,6 +505,34 @@ impl FromSql for Interval {
 /// Represents a BigQuery [RANGE] value.
 ///
 /// [RANGE]: https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/data-types#range_type
+///
+/// # Example
+///
+/// ```
+/// # async fn sample() -> anyhow::Result<()> {
+/// use google_cloud_bigquery::client::BigQuery;
+/// use google_cloud_bigquery::Range;
+/// use google_cloud_type::model::Date;
+///
+/// let client = BigQuery::builder()
+///     .with_project_id("my-project-id")
+///     .build()
+///     .await?;
+/// let mut rows = client
+///     .query("SELECT RANGE(DATE '2024-01-01', DATE '2024-12-31') AS date_range")
+///     .run()
+///     .await?
+///     .until_done()
+///     .await?
+///     .read();
+///
+/// if let Some(row) = rows.next().await.transpose()? {
+///     let date_range: Range<Date> = row.get("date_range");
+///     println!("Start: {:?}, End: {:?}", date_range.start, date_range.end);
+/// }
+/// # Ok(())
+/// # }
+/// ```
 #[derive(Clone, Debug, PartialEq)]
 pub struct Range<T> {
     /// The inclusive start of the range (or None if unbounded).
