@@ -28,6 +28,7 @@ use std::sync::Arc;
 ///
 /// Common configuration customizations include:
 ///
+/// - [`with_project_id()`][crate::builder::bigquery::ClientBuilder::with_project_id]: Sets the default Google Cloud project ID for the client.
 /// - [`with_endpoint()`][crate::builder::bigquery::ClientBuilder::with_endpoint]: Overrides the default API endpoint (`https://bigquery.googleapis.com`). Useful when testing against mock servers or running in restricted network environments (for example, with VPC Service Controls).
 /// - [`with_credentials()`][crate::builder::bigquery::ClientBuilder::with_credentials]: Overrides the default Application Default Credentials with explicit or custom authentication credentials.
 ///
@@ -62,6 +63,7 @@ use std::sync::Arc;
 #[derive(Clone, Debug)]
 pub struct BigQuery {
     job_service: Arc<JobService>,
+    project_id: Option<String>,
 }
 
 impl BigQuery {
@@ -105,7 +107,10 @@ impl BigQuery {
             job_service_builder.with_retry_throttler(builder.config.retry_throttler);
         let job_service = Arc::new(job_service_builder.build().await?);
 
-        Ok(BigQuery { job_service })
+        Ok(BigQuery {
+            job_service,
+            project_id: builder.project_id,
+        })
     }
 
     /// Creates a request builder to configure and execute a SQL query.
@@ -150,7 +155,13 @@ impl BigQuery {
     /// # }
     /// ```
     pub fn query<S: Into<String>>(&self, sql: S) -> RunQuery {
-        RunQuery::new(self.job_service.clone(), sql.into())
+        let builder = RunQuery::new(self.job_service.clone(), sql.into());
+        self.project_id
+            .as_deref()
+            .into_iter()
+            .fold(builder, |builder, project_id| {
+                builder.with_project_id(project_id)
+            })
     }
 }
 
@@ -161,10 +172,45 @@ mod tests {
 
     #[tokio::test]
     async fn test_bigquery_builder() -> anyhow::Result<()> {
-        let _client = BigQuery::builder()
+        let client = BigQuery::builder()
             .with_credentials(Anonymous::new().build())
             .build()
             .await?;
+        assert!(client.project_id.is_none());
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_bigquery_builder_with_project_id() -> anyhow::Result<()> {
+        let client = BigQuery::builder()
+            .with_project_id("test-proj")
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        assert_eq!(client.project_id.as_deref(), Some("test-proj"));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_bigquery_query_inherits_project_id() -> anyhow::Result<()> {
+        let client = BigQuery::builder()
+            .with_project_id("test-proj")
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let run_query = client.query("SELECT 1");
+        assert_eq!(run_query.project_id.as_deref(), Some("test-proj"));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_bigquery_query_without_project_id() -> anyhow::Result<()> {
+        let client = BigQuery::builder()
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let run_query = client.query("SELECT 1");
+        assert!(run_query.project_id.is_none());
         Ok(())
     }
 }

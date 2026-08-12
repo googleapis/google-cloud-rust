@@ -17,6 +17,7 @@ mod tests {
     use google_cloud_auth::credentials::{
         Credentials, anonymous::Builder as Anonymous, testing::error_credentials,
     };
+    use google_cloud_gax::error::Error;
     use google_cloud_gax::error::rpc::Code;
     use google_cloud_gax::options::RequestOptions;
     use google_cloud_gax::retry_policy::NeverRetry;
@@ -25,7 +26,8 @@ mod tests {
     use google_cloud_gax_internal::options::ClientConfig;
     use grpc_server::{builder, google, start_echo_server, start_echo_server_with_address};
     use http::{HeaderMap, HeaderName, HeaderValue};
-    use std::sync::Arc;
+    use std::sync::{Arc, Mutex};
+    use std::time::Instant;
 
     fn test_credentials() -> Credentials {
         Anonymous::new().build()
@@ -227,6 +229,186 @@ mod tests {
         Ok(())
     }
 
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn interceptor_lifecycle_hooks() -> anyhow::Result<()> {
+        #[derive(Debug, Default)]
+        struct CompletionRecord {
+            method: String,
+            attempt: u32,
+            measured_start_time: bool,
+            has_response_headers: bool,
+            is_success: bool,
+        }
+
+        #[derive(Debug, Default)]
+        struct LifecycleTracker {
+            started: Mutex<Option<(String, u32)>>,
+            completed: Mutex<Option<CompletionRecord>>,
+        }
+
+        impl AttemptInterceptor for LifecycleTracker {
+            fn on_attempt_start(
+                &self,
+                method: &str,
+                attempt: u32,
+                headers: &mut HeaderMap,
+                _options: &RequestOptions,
+            ) -> Instant {
+                *self.started.lock().expect("lock failed") = Some((method.to_string(), attempt));
+                headers.insert(
+                    HeaderName::from_static("x-lifecycle-test"),
+                    HeaderValue::from_static("present"),
+                );
+                Instant::now()
+            }
+
+            fn on_attempt_complete(
+                &self,
+                method: &str,
+                attempt: u32,
+                start_time: Instant,
+                response_headers: Option<&HeaderMap>,
+                error: Option<&Error>,
+                _options: &RequestOptions,
+            ) {
+                *self.completed.lock().expect("lock failed") = Some(CompletionRecord {
+                    method: method.to_string(),
+                    attempt,
+                    measured_start_time: start_time.elapsed().as_nanos() > 0,
+                    has_response_headers: response_headers.is_some(),
+                    is_success: error.is_none(),
+                });
+            }
+        }
+
+        let tracker = Arc::new(LifecycleTracker::default());
+        let (endpoint, _server) = start_echo_server().await?;
+
+        let mut config = ClientConfig::default();
+        config.cred = Some(test_credentials());
+        config.endpoint = Some(endpoint);
+
+        let mut client = grpc::Client::new(config, "https://test-only.googleapis.com").await?;
+        client.set_attempt_interceptor(tracker.clone());
+
+        let response = send_request(client, "lifecycle test", "").await?;
+        assert_eq!(&response.message, "lifecycle test");
+        assert_eq!(
+            response
+                .metadata
+                .get("x-lifecycle-test")
+                .map(String::as_str),
+            Some("present")
+        );
+
+        let started = tracker.started.lock().expect("lock failed").take();
+        assert_eq!(
+            started,
+            Some(("/google.test.v1.EchoService/Echo".to_string(), 1))
+        );
+
+        let completed = tracker
+            .completed
+            .lock()
+            .expect("lock failed")
+            .take()
+            .expect("completed record present");
+        assert_eq!(completed.method, "/google.test.v1.EchoService/Echo");
+        assert_eq!(completed.attempt, 1);
+        assert!(completed.measured_start_time);
+        assert!(completed.has_response_headers);
+        assert!(completed.is_success);
+
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn interceptor_lifecycle_hooks_on_error() -> anyhow::Result<()> {
+        #[derive(Debug, Default)]
+        struct CompletionRecord {
+            method: String,
+            attempt: u32,
+            measured_start_time: bool,
+            is_success: bool,
+            status_code: Option<Code>,
+        }
+
+        #[derive(Debug, Default)]
+        struct LifecycleTracker {
+            started: Mutex<Option<(String, u32)>>,
+            completed: Mutex<Option<CompletionRecord>>,
+        }
+
+        impl AttemptInterceptor for LifecycleTracker {
+            fn on_attempt_start(
+                &self,
+                method: &str,
+                attempt: u32,
+                headers: &mut HeaderMap,
+                _options: &RequestOptions,
+            ) -> Instant {
+                *self.started.lock().expect("lock failed") = Some((method.to_string(), attempt));
+                headers.insert(
+                    HeaderName::from_static("x-lifecycle-test"),
+                    HeaderValue::from_static("present"),
+                );
+                Instant::now()
+            }
+
+            fn on_attempt_complete(
+                &self,
+                method: &str,
+                attempt: u32,
+                start_time: Instant,
+                _response_headers: Option<&HeaderMap>,
+                error: Option<&Error>,
+                _options: &RequestOptions,
+            ) {
+                *self.completed.lock().expect("lock failed") = Some(CompletionRecord {
+                    method: method.to_string(),
+                    attempt,
+                    measured_start_time: start_time.elapsed().as_nanos() > 0,
+                    is_success: error.is_none(),
+                    status_code: error.and_then(|e| e.status().map(|s| s.code)),
+                });
+            }
+        }
+
+        let tracker = Arc::new(LifecycleTracker::default());
+        let (endpoint, _server) = start_echo_server().await?;
+
+        let mut config = ClientConfig::default();
+        config.cred = Some(test_credentials());
+        config.endpoint = Some(endpoint);
+
+        let mut client = grpc::Client::new(config, "https://test-only.googleapis.com").await?;
+        client.set_attempt_interceptor(tracker.clone());
+
+        // An empty message causes the Echo server to return InvalidArgument error
+        let response = send_request(client, "", "").await;
+        assert!(response.is_err());
+
+        let started = tracker.started.lock().expect("lock failed").take();
+        assert_eq!(
+            started,
+            Some(("/google.test.v1.EchoService/Echo".to_string(), 1))
+        );
+
+        let completed = tracker
+            .completed
+            .lock()
+            .expect("lock failed")
+            .take()
+            .expect("completed record present");
+        assert_eq!(completed.method, "/google.test.v1.EchoService/Echo");
+        assert_eq!(completed.attempt, 1);
+        assert!(completed.measured_start_time);
+        assert!(!completed.is_success);
+        assert_eq!(completed.status_code, Some(Code::InvalidArgument));
+
+        Ok(())
+    }
+
     async fn send_request(
         client: grpc::Client,
         msg: &str,
@@ -279,7 +461,10 @@ mod tests {
                 .map(String::as_str),
             Some("name=test-only")
         );
-        let got_user_agent = response.metadata.get("user-agent").unwrap();
+        let got_user_agent = response
+            .metadata
+            .get("user-agent")
+            .expect("user-agent header present");
         assert!(got_user_agent.contains("tonic/"), "{got_user_agent:?}");
         Ok(())
     }

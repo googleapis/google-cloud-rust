@@ -20,7 +20,6 @@ pub async fn sample(admin_client: &DatabaseAdmin, database_name: &str) -> anyhow
     let statements =
         vec!["CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget)"];
 
-    println!("Creating AlbumsByAlbumTitle2 storing index...");
     admin_client
         .update_database_ddl()
         .set_database(database_name)
