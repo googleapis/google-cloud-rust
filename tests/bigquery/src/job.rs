@@ -14,7 +14,7 @@
 
 use super::{INSTANCE_LABEL, random_id_suffix};
 use anyhow::Result;
-use futures::stream::StreamExt;
+use futures::stream::{StreamExt, TryStreamExt};
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::{Job, JobConfiguration, JobConfigurationQuery, JobReference};
 use google_cloud_gax::paginator::ItemPaginator;
@@ -52,14 +52,10 @@ pub async fn job_service() -> Result<()> {
         .set_project_id(&project_id)
         .by_item()
         .into_stream();
-    let items = list.collect::<Vec<_>>().await;
+    let items: Vec<_> = list.try_collect().await?;
     println!("LIST JOBS = {} entries", items.len());
 
-    assert!(
-        items
-            .iter()
-            .any(|v| v.as_ref().unwrap().id.contains(&job_id))
-    );
+    assert!(items.iter().any(|v| v.id.contains(&job_id)));
 
     Ok(())
 }
