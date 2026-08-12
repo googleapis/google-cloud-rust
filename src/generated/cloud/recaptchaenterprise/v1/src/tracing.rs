@@ -224,6 +224,34 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_policy(
+        &self,
+        req: crate::model::GetPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::RecaptchaEnterpriseService::get_policy",
+            self.inner.get_policy(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_policy(
+        &self,
+        req: crate::model::UpdatePolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::RecaptchaEnterpriseService::update_policy",
+            self.inner.update_policy(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_firewall_policy(
         &self,
         req: crate::model::CreateFirewallPolicyRequest,

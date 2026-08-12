@@ -31280,6 +31280,9 @@ impl serde::ser::Serialize for super::ReasoningEngineSpec {
         if !wkt::internal::is_default(&self.identity_type) {
             state.serialize_entry("identityType", &self.identity_type)?;
         }
+        if self.build_spec.is_some() {
+            state.serialize_entry("buildSpec", &self.build_spec)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -31583,6 +31586,32 @@ impl serde::ser::Serialize for super::reasoning_engine_spec::ContainerSpec {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.image_uri.is_empty() {
             state.serialize_entry("imageUri", &self.image_uri)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "reasoning-engine-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::reasoning_engine_spec::BuildSpec {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.worker_pool.is_empty() {
+            state.serialize_entry("workerPool", &self.worker_pool)?;
+        }
+        if !self.service_account.is_empty() {
+            state.serialize_entry("serviceAccount", &self.service_account)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
