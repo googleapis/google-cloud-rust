@@ -1581,8 +1581,6 @@ libraries:
           output: src/storage/src/generated/gapic_control
           routing_required: true
           service_config: google/storage/control/v2/storage_v2.yaml
-          skipped_ids:
-            - .google.storage.control.v2.ObjectFullContext
           api_path: google/storage/control/v2
           template: grpc-client
         - output: src/storage/src/generated/protos/control
