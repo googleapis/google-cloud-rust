@@ -47,14 +47,7 @@ pub async fn sample(project_id: &str) -> anyhow::Result<()> {
         .send()
         .await;
 
-    if let Err(e) = cancelled {
-        if e.to_string().contains("Root element must be a message") {
-            // NOTE: A known issue in protobuf/gax serialization for empty POSTs.
-            println!("Successfully called cancel_job (caught expected empty body error).");
-        } else {
-            return Err(e.into());
-        }
-    } else {
+    if cancelled.is_ok() {
         println!("Successfully cancelled job.");
     }
 

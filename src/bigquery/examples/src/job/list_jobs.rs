@@ -14,38 +14,27 @@
 
 // [START bigquery_list_jobs]
 use google_cloud_bigquery_v2::client::JobService;
+use google_cloud_gax::paginator::ItemPaginator;
 
 pub async fn sample(project_id: &str) -> anyhow::Result<()> {
     let job_service = JobService::builder().build().await?;
 
-    let mut page_token = String::new();
     let mut listed_count = 0;
 
-    loop {
-        let mut req = job_service
-            .list_jobs()
-            .set_project_id(project_id)
-            .set_max_results(20);
-        if !page_token.is_empty() {
-            req = req.set_page_token(page_token);
-        }
-        let res = req.send().await?;
+    let mut list = job_service
+        .list_jobs()
+        .set_project_id(project_id)
+        .set_max_results(20)
+        .by_item();
 
-        for job in res.jobs {
-            if let Some(job_ref) = job.job_reference {
-                println!("Job ID: {}", job_ref.job_id);
-                listed_count += 1;
-            }
+    while let Some(job) = list.next().await.transpose()? {
+        if let Some(job_ref) = job.job_reference {
+            println!("Job ID: {}", job_ref.job_id);
+            listed_count += 1;
         }
 
-        // Let's break early to not overwhelm the test output
         if listed_count >= 20 {
             break;
-        }
-
-        match Some(res.next_page_token) {
-            Some(token) if !token.is_empty() => page_token = token,
-            _ => break,
         }
     }
 

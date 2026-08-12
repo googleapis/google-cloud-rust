@@ -402,6 +402,7 @@ dependencies = [
  "futures",
  "google-cloud-bigquery",
  "google-cloud-bigquery-v2",
+ "google-cloud-gax",
  "google-cloud-test-utils",
  "google-cloud-wkt",
  "rand 0.10.2",
