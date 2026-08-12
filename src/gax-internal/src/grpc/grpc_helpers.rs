@@ -134,51 +134,51 @@ pub(crate) fn unary_make_request_span(
     path: &http::uri::PathAndQuery,
     prior_attempt_count: i64,
 ) -> tracing::Span {
-    if let Some(attrs) = attrs {
-        let rpc_method = path.path().trim_start_matches('/');
+    let Some(attrs) = attrs else {
+        return tracing::Span::none();
+    };
 
-        // Extract client library telemetry metadata
-        let (service, version, repo, artifact) = if let Some(info) = attrs.instrumentation {
-            (
-                Some(info.service_name),
-                Some(info.client_version),
-                Some("googleapis/google-cloud-rust"),
-                Some(info.client_artifact),
-            )
-        } else {
-            (None, None, None, None)
-        };
+    let rpc_method = path.path().trim_start_matches('/');
 
-        // Record the attempt count only for resend/retry attempts.
-        let resend_count = if prior_attempt_count > 0 {
-            Some(prior_attempt_count)
-        } else {
-            None
-        };
-
-        // Construct the span.
-        tracing::info_span!(
-            "grpc.request",
-            { OTEL_NAME } = rpc_method,
-            { RPC_SYSTEM_NAME } = attributes::RPC_SYSTEM_GRPC,
-            { OTEL_KIND } = attributes::OTEL_KIND_CLIENT,
-            { otel_trace::RPC_METHOD } = rpc_method,
-            { otel_trace::SERVER_ADDRESS } = attrs.server_address,
-            { otel_trace::SERVER_PORT } = attrs.server_port,
-            { otel_attr::URL_DOMAIN } = attrs.url_domain,
-            { RPC_RESPONSE_STATUS_CODE } = tracing::field::Empty,
-            { OTEL_STATUS_CODE } = otel_status_codes::UNSET,
-            { otel_trace::ERROR_TYPE } = tracing::field::Empty,
-            { GCP_CLIENT_SERVICE } = service,
-            { GCP_CLIENT_VERSION } = version,
-            { GCP_CLIENT_REPO } = repo,
-            { GCP_CLIENT_ARTIFACT } = artifact,
-            { GCP_GRPC_RESEND_COUNT } = resend_count,
-            { GCP_RESOURCE_DESTINATION_ID } = tracing::field::Empty,
+    // Extract client library telemetry metadata
+    let (service, version, repo, artifact) = if let Some(info) = attrs.instrumentation {
+        (
+            Some(info.service_name),
+            Some(info.client_version),
+            Some("googleapis/google-cloud-rust"),
+            Some(info.client_artifact),
         )
     } else {
-        tracing::Span::none()
-    }
+        (None, None, None, None)
+    };
+
+    // Record the attempt count only for resend/retry attempts.
+    let resend_count = if prior_attempt_count > 0 {
+        Some(prior_attempt_count)
+    } else {
+        None
+    };
+
+    // Construct the span.
+    tracing::info_span!(
+        "grpc.request",
+        { OTEL_NAME } = rpc_method,
+        { RPC_SYSTEM_NAME } = attributes::RPC_SYSTEM_GRPC,
+        { OTEL_KIND } = attributes::OTEL_KIND_CLIENT,
+        { otel_trace::RPC_METHOD } = rpc_method,
+        { otel_trace::SERVER_ADDRESS } = attrs.server_address,
+        { otel_trace::SERVER_PORT } = attrs.server_port,
+        { otel_attr::URL_DOMAIN } = attrs.url_domain,
+        { RPC_RESPONSE_STATUS_CODE } = tracing::field::Empty,
+        { OTEL_STATUS_CODE } = otel_status_codes::UNSET,
+        { otel_trace::ERROR_TYPE } = tracing::field::Empty,
+        { GCP_CLIENT_SERVICE } = service,
+        { GCP_CLIENT_VERSION } = version,
+        { GCP_CLIENT_REPO } = repo,
+        { GCP_CLIENT_ARTIFACT } = artifact,
+        { GCP_GRPC_RESEND_COUNT } = resend_count,
+        { GCP_RESOURCE_DESTINATION_ID } = tracing::field::Empty,
+    )
 }
 
 /// Wraps a unary gRPC request future with observability instrumentation.
