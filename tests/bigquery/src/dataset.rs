@@ -169,6 +169,7 @@ pub(crate) fn random_dataset_id() -> String {
 }
 
 fn extract_dataset_id(project_id: &str, id: &str) -> Option<String> {
-    id.strip_prefix(format!("{project_id}:").as_str())
+    id.strip_prefix(project_id)
+        .and_then(|s| s.strip_prefix(":"))
         .map(|v| v.to_string())
 }
