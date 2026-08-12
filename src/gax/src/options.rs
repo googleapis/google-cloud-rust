@@ -226,12 +226,10 @@ impl From<BidiStreamOptions> for RequestOptions {
 impl BidiStreamOptions {
     /// Sets the buffer capacity of the internal request channel.
     ///
-    /// Valid values must be between `1` and [`MAX_REQUEST_CHANNEL_CAPACITY`]. The default
-    /// capacity is `16`.
-    ///
-    /// Values outside this range will result in an error when initiating the stream via `.send()`.
+    /// Valid values are between `1` and [`MAX_REQUEST_CHANNEL_CAPACITY`]. The default
+    /// capacity is `16`. This method clamps the supplied value to this range.
     pub fn set_request_channel_capacity(&mut self, capacity: usize) {
-        self.request_channel_capacity = capacity;
+        self.request_channel_capacity = capacity.clamp(1, MAX_REQUEST_CHANNEL_CAPACITY);
     }
 
     /// Returns the configured request channel capacity.
@@ -649,6 +647,16 @@ mod tests {
         assert_eq!(
             opts.request_options().user_agent().as_deref(),
             Some("modified-agent")
+        );
+
+        // Clamping tests
+        opts.set_request_channel_capacity(0);
+        assert_eq!(opts.request_channel_capacity(), 1);
+
+        opts.set_request_channel_capacity(usize::MAX);
+        assert_eq!(
+            opts.request_channel_capacity(),
+            MAX_REQUEST_CHANNEL_CAPACITY
         );
 
         let into_opts: RequestOptions = opts.into();
