@@ -21,9 +21,85 @@
 //! We welcome feedback about the APIs, documentation, missing features, bugs, etc.
 //!
 //! This crate contains traits, types, and functions to interact with
-//! [BigQuery].
+//! [Google Cloud BigQuery][bigquery]. Most applications will interact with the
+//! service through the structs defined in the [`client`] module.
+//!
+//! # Main Entry Points
+//!
+//! - [`BigQuery`][client::BigQuery]: The primary client used to execute queries
+//!   and manage jobs.
+//! - [`ClientBuilder`][builder::bigquery::ClientBuilder]: Builder for configuring
+//!   endpoint, credentials, default project ID, retry policies, and tracing.
+//! - [`RunQuery`][builder::bigquery::RunQuery]: A builder for configuring and
+//!   executing SQL queries that automatically routes between fast-path execution
+//!   and asynchronous background jobs.
+//! - [`Query`] and [`CompleteQuery`]: Handles representing a running query job
+//!   and a completed query ready for reading results.
+//! - [`RowIterator`] and [`Row`]: Types for streaming result rows and extracting
+//!   cell values.
+//! - [`FromRow`] and [`FromSql`]: Derive macro and conversion trait for mapping
+//!   BigQuery results directly into typed Rust structs and values.
 //!
 //! [bigquery]: https://cloud.google.com/bigquery
+//!
+//! # Example: Executing a Query
+//!
+//! ```
+//! # use google_cloud_bigquery::client::BigQuery;
+//! # async fn sample() -> anyhow::Result<()> {
+//! // Create a client configured with a default project ID.
+//! let client = BigQuery::builder()
+//!     .with_project_id("my-project-id")
+//!     .build()
+//!     .await?;
+//!
+//! // Configure, run, and read query results.
+//! let mut rows = client
+//!     .query("SELECT 'hello world' AS greeting")
+//!     .run()
+//!     .await?
+//!     .until_done()
+//!     .await?
+//!     .read();
+//!
+//! while let Some(row) = rows.next().await.transpose()? {
+//!     let greeting: String = row.get("greeting");
+//!     println!("Greeting: {greeting}");
+//! }
+//! # Ok(())
+//! # }
+//! ```
+//!
+//! # Example: Mapping Rows to Rust Structs
+//!
+//! Define typed Rust structs with `#[derive(FromRow)]` to convert rows
+//! directly into domain types using `TryFrom<Row>`:
+//!
+//! ```
+//! # use google_cloud_bigquery::client::BigQuery;
+//! # use google_cloud_bigquery::FromRow;
+//! #[derive(FromRow, Debug)]
+//! struct UserStats {
+//!     name: String,
+//!     count: i64,
+//! }
+//!
+//! # async fn sample(client: BigQuery) -> anyhow::Result<()> {
+//! let mut rows = client
+//!     .query("SELECT name, count FROM `bigquery-public-data.usa_names.usa_1910_2013` WHERE state = 'WA' LIMIT 5")
+//!     .run()
+//!     .await?
+//!     .until_done()
+//!     .await?
+//!     .read();
+//!
+//! while let Some(row) = rows.next().await.transpose()? {
+//!     let user: UserStats = row.try_into()?;
+//!     println!("{} has count {}", user.name, user.count);
+//! }
+//! # Ok(())
+//! # }
+//! ```
 
 pub use google_cloud_gax::Result;
 pub use google_cloud_gax::error::Error;
