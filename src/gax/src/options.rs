@@ -179,6 +179,9 @@ impl RequestOptions {
 #[cfg(google_cloud_unstable_gapic_streaming)]
 pub const MAX_REQUEST_CHANNEL_CAPACITY: usize = usize::MAX >> 3;
 
+#[cfg(google_cloud_unstable_gapic_streaming)]
+const DEFAULT_REQUEST_CHANNEL_CAPACITY: usize = 16;
+
 /// Configuration options specific to bidirectional streaming RPCs.
 ///
 /// Wraps standard [`RequestOptions`] while adding settings unique to bidirectional
@@ -195,7 +198,7 @@ impl Default for BidiStreamOptions {
     fn default() -> Self {
         Self {
             request_options: RequestOptions::default(),
-            request_channel_capacity: 16,
+            request_channel_capacity: DEFAULT_REQUEST_CHANNEL_CAPACITY,
         }
     }
 }
@@ -206,7 +209,7 @@ impl From<RequestOptions> for BidiStreamOptions {
     fn from(request_options: RequestOptions) -> Self {
         Self {
             request_options,
-            request_channel_capacity: 16,
+            request_channel_capacity: DEFAULT_REQUEST_CHANNEL_CAPACITY,
         }
     }
 }
