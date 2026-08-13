@@ -62,7 +62,7 @@ pub(crate) const QUERY_REQUEST_ID_PREFIX: &str = "req_";
 /// # Ok(())
 /// # }
 /// ```
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub struct RunQuery {
     pub(crate) job_service: Arc<JobService>,
     pub(crate) request: RunQueryRequest,
