@@ -248,7 +248,7 @@ resource "google_cloudbuild_trigger" "pull-request" {
     _UNSTABLE_CFG_FLAGS = lookup(each.value, "flags", "")
     _SCRIPT             = lookup(each.value, "script", "")
     _RUST_VERSION       = lookup(each.value, "rust_version", null)
-    _POOL_ID = lookup(each.value, "pool", null)
+    _POOL_ID            = lookup(each.value, "pool", null)
   }
 }
 
@@ -283,7 +283,7 @@ resource "google_cloudbuild_trigger" "post-merge" {
     _UNSTABLE_CFG_FLAGS = lookup(each.value, "flags", "")
     _SCRIPT             = lookup(each.value, "script", "")
     _RUST_VERSION       = lookup(each.value, "rust_version", null)
-    _POOL_ID = lookup(each.value, "pool", null)
+    _POOL_ID            = lookup(each.value, "pool", null)
   }
 }
 
