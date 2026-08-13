@@ -13,7 +13,7 @@
 // limitations under the License.
 
 pub(crate) mod execution;
-mod from_sql;
+pub(crate) mod from_sql;
 mod iterator;
 mod query_handle;
 mod row;
@@ -24,7 +24,7 @@ pub use iterator::RowIterator;
 pub use query_handle::{CompleteQuery, Query};
 pub(crate) use schema::Schema;
 
-pub use from_sql::{FromSql, Interval, Range};
+pub use from_sql::FromSql;
 pub use row::Row;
 pub use run_query::RunQuery;
 

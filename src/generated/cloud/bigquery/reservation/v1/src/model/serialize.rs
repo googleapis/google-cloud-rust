@@ -927,6 +927,21 @@ impl serde::ser::Serialize for super::Assignment {
         if !self.principal.is_empty() {
             state.serialize_entry("principal", &self.principal)?;
         }
+        if !wkt::internal::is_default(&self.precedence) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("precedence", &__With(&self.precedence))?;
+        }
+        if self.condition.is_some() {
+            state.serialize_entry("condition", &self.condition)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

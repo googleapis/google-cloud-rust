@@ -165,6 +165,7 @@ impl std::fmt::Debug for super::Assessment {
         debug_struct.field("fraud_signals", &self.fraud_signals);
         debug_struct.field("phone_fraud_assessment", &self.phone_fraud_assessment);
         debug_struct.field("assessment_environment", &self.assessment_environment);
+        debug_struct.field("policy_evaluation", &self.policy_evaluation);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -314,6 +315,7 @@ impl std::fmt::Debug for super::RiskAnalysis {
         debug_struct.field("score", &self.score);
         debug_struct.field("reasons", &self.reasons);
         debug_struct.field("extended_verdict_reasons", &self.extended_verdict_reasons);
+        debug_struct.field("last_challenge_type", &self.last_challenge_type);
         debug_struct.field("challenge", &self.challenge);
         debug_struct.field("verified_bots", &self.verified_bots);
         if !self._unknown_fields.is_empty() {
@@ -473,6 +475,42 @@ impl std::fmt::Debug for super::AccountDefenderAssessment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AccountDefenderAssessment");
         debug_struct.field("labels", &self.labels);
+        debug_struct.field("account_takeover_verdict", &self.account_takeover_verdict);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::account_defender_assessment::AccountTakeoverVerdict {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AccountTakeoverVerdict");
+        debug_struct.field("risk", &self.risk);
+        debug_struct.field("risk_reasons", &self.risk_reasons);
+        debug_struct.field("trust_reasons", &self.trust_reasons);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::account_defender_assessment::AccountRiskReason {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AccountRiskReason");
+        debug_struct.field("reason", &self.reason);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::account_defender_assessment::AccountTrustReason {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AccountTrustReason");
+        debug_struct.field("reason", &self.reason);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -806,6 +844,16 @@ impl std::fmt::Debug for super::IOSKeySettings {
 impl std::fmt::Debug for super::ExpressKeySettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExpressKeySettings");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::UniversalKeySettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UniversalKeySettings");
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1164,11 +1212,149 @@ impl std::fmt::Debug for super::AssessmentEnvironment {
     }
 }
 
+impl std::fmt::Debug for super::PolicyEvaluation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PolicyEvaluation");
+        debug_struct.field("challenge_rule_evaluation", &self.challenge_rule_evaluation);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ChallengeRuleEvaluation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ChallengeRuleEvaluation");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::IpOverrideData {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IpOverrideData");
         debug_struct.field("ip", &self.ip);
         debug_struct.field("override_type", &self.override_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetPolicyRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::UpdatePolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdatePolicyRequest");
+        debug_struct.field("policy", &self.policy);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::Policy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Policy");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("client_settings", &self.client_settings);
+        debug_struct.field("challenge_rule_groups", &self.challenge_rule_groups);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ChallengeRuleGroup {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ChallengeRuleGroup");
+        debug_struct.field("actions", &self.actions);
+        debug_struct.field("challenge_rules", &self.challenge_rules);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ChallengeRule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ChallengeRule");
+        debug_struct.field("condition", &self.condition);
+        debug_struct.field("outcome", &self.outcome);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::challenge_rule::NoChallengeOutcome {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NoChallengeOutcome");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::challenge_rule::ChallengeOutcome {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ChallengeOutcome");
+        debug_struct.field("difficulty", &self.difficulty);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ClientSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ClientSettings");
+        debug_struct.field("allowed_domains", &self.allowed_domains);
+        debug_struct.field("allow_all_domains", &self.allow_all_domains);
+        debug_struct.field("protected_endpoint_group", &self.protected_endpoint_group);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ProtectedEndpointGroup {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProtectedEndpointGroup");
+        debug_struct.field("protected_endpoints", &self.protected_endpoints);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ProtectedEndpoint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProtectedEndpoint");
+        debug_struct.field("path", &self.path);
+        debug_struct.field("action", &self.action);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -203,10 +203,9 @@ impl BigQuery {
     /// # }
     /// ```
     pub async fn attach_job(&self, mut job_ref: JobReference) -> QueryResult<Query> {
-        if job_ref.project_id.is_empty() {
-            let Some(proj) = &self.project_id else {
-                return Err(QueryError::MissingProjectId);
-            };
+        if job_ref.project_id.is_empty()
+            && let Some(proj) = &self.project_id
+        {
             job_ref.project_id = proj.clone();
         }
 
@@ -369,8 +368,8 @@ mod tests {
             .await
             .expect_err("should return an error when project_id is missing");
         assert!(
-            matches!(&err, QueryError::MissingProjectId),
-            "expected MissingProjectId, got {err:?}"
+            matches!(&err, QueryError::Rpc { source } if source.is_binding()),
+            "expected Binding error for missing project ID, got {err:?}"
         );
         Ok(())
     }

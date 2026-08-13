@@ -102,9 +102,10 @@
 
 pub use google_cloud_gax::Result;
 pub use google_cloud_gax::error::Error;
+pub mod datatypes;
 pub mod error;
 pub use crate::error::{ConvertError, QueryError, RowError};
-pub use crate::query::{CompleteQuery, FromSql, Interval, Query, Range, Row, RowIterator};
+pub use crate::query::{CompleteQuery, FromSql, Query, Row, RowIterator};
 pub use google_cloud_bigquery_derive::{FromRow, FromSql};
 
 pub(crate) mod generated;

@@ -90,6 +90,7 @@ impl wkt::message::Message for AirPressure {
 }
 
 /// Represents the events related to the sun (e.g. sunrise, sunset).
+/// (-- Next available tag: 3 --)
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SunEvents {
@@ -188,11 +189,16 @@ impl wkt::message::Message for SunEvents {
 }
 
 /// Represents the events related to the moon (e.g. moonrise, moonset).
+/// (-- Next available tag: 6 --)
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MoonEvents {
     /// The moon phase (a.k.a. lunar phase).
-    pub moon_phase: crate::model::MoonPhase,
+    /// (-- aip.dev/not-precedent: Field type changed to nested enum per atomic
+    /// transition strategy. Wire-compatible; external consumers
+    /// rely exclusively on HTTP REST/JSON where enum strings remain identical.
+    /// --)
+    pub moon_phase: crate::model::moon_events::Phase,
 
     /// The time when the upper limb of the moon appears above the horizon
     /// (see <https://en.wikipedia.org/wiki/Moonrise_and_moonset>).
@@ -230,12 +236,15 @@ impl MoonEvents {
     /// # Example
     /// ```ignore,no_run
     /// # use google_maps_weather_v1::model::MoonEvents;
-    /// use google_maps_weather_v1::model::MoonPhase;
-    /// let x0 = MoonEvents::new().set_moon_phase(MoonPhase::NewMoon);
-    /// let x1 = MoonEvents::new().set_moon_phase(MoonPhase::WaxingCrescent);
-    /// let x2 = MoonEvents::new().set_moon_phase(MoonPhase::FirstQuarter);
+    /// use google_maps_weather_v1::model::moon_events::Phase;
+    /// let x0 = MoonEvents::new().set_moon_phase(Phase::NewMoon);
+    /// let x1 = MoonEvents::new().set_moon_phase(Phase::WaxingCrescent);
+    /// let x2 = MoonEvents::new().set_moon_phase(Phase::FirstQuarter);
     /// ```
-    pub fn set_moon_phase<T: std::convert::Into<crate::model::MoonPhase>>(mut self, v: T) -> Self {
+    pub fn set_moon_phase<T: std::convert::Into<crate::model::moon_events::Phase>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.moon_phase = v.into();
         self
     }
@@ -288,6 +297,192 @@ impl MoonEvents {
 impl wkt::message::Message for MoonEvents {
     fn typename() -> &'static str {
         "type.googleapis.com/google.maps.weather.v1.MoonEvents"
+    }
+}
+
+/// Defines additional types related to [MoonEvents].
+pub mod moon_events {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Marks the moon phase (a.k.a. lunar phase).
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Phase {
+        /// Unspecified moon phase.
+        Unspecified,
+        /// The moon is not illuminated by the sun.
+        NewMoon,
+        /// The moon is lit by 0%-50% on its right side in the northern hemisphere 🌒
+        /// and on its left side in the southern hemisphere 🌘.
+        WaxingCrescent,
+        /// The moon is lit by 50.1% on its right side in the northern hemisphere 🌓
+        /// and on its left side in the southern hemisphere 🌗.
+        FirstQuarter,
+        /// The moon is lit by 50%-100% on its right side in the northern hemisphere
+        /// 🌔 and on its left side in the southern hemisphere 🌖.
+        WaxingGibbous,
+        /// The moon is fully illuminated.
+        FullMoon,
+        /// The moon is lit by 50%-100% on its left side in the northern hemisphere
+        /// 🌖 and on its right side in the southern hemisphere 🌔.
+        WaningGibbous,
+        /// The moon is lit by 50.1% on its left side in the northern hemisphere 🌗
+        /// and on its right side in the southern hemisphere 🌓.
+        LastQuarter,
+        /// The moon is lit by 0%-50% on its left side in the northern hemisphere 🌘
+        /// and on its right side in the southern hemisphere 🌒.
+        WaningCrescent,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Phase::value] or
+        /// [Phase::name].
+        UnknownValue(phase::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod phase {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Phase {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::NewMoon => std::option::Option::Some(1),
+                Self::WaxingCrescent => std::option::Option::Some(2),
+                Self::FirstQuarter => std::option::Option::Some(3),
+                Self::WaxingGibbous => std::option::Option::Some(4),
+                Self::FullMoon => std::option::Option::Some(5),
+                Self::WaningGibbous => std::option::Option::Some(6),
+                Self::LastQuarter => std::option::Option::Some(7),
+                Self::WaningCrescent => std::option::Option::Some(8),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("PHASE_UNSPECIFIED"),
+                Self::NewMoon => std::option::Option::Some("NEW_MOON"),
+                Self::WaxingCrescent => std::option::Option::Some("WAXING_CRESCENT"),
+                Self::FirstQuarter => std::option::Option::Some("FIRST_QUARTER"),
+                Self::WaxingGibbous => std::option::Option::Some("WAXING_GIBBOUS"),
+                Self::FullMoon => std::option::Option::Some("FULL_MOON"),
+                Self::WaningGibbous => std::option::Option::Some("WANING_GIBBOUS"),
+                Self::LastQuarter => std::option::Option::Some("LAST_QUARTER"),
+                Self::WaningCrescent => std::option::Option::Some("WANING_CRESCENT"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Phase {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Phase {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Phase {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::NewMoon,
+                2 => Self::WaxingCrescent,
+                3 => Self::FirstQuarter,
+                4 => Self::WaxingGibbous,
+                5 => Self::FullMoon,
+                6 => Self::WaningGibbous,
+                7 => Self::LastQuarter,
+                8 => Self::WaningCrescent,
+                _ => Self::UnknownValue(phase::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Phase {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PHASE_UNSPECIFIED" => Self::Unspecified,
+                "NEW_MOON" => Self::NewMoon,
+                "WAXING_CRESCENT" => Self::WaxingCrescent,
+                "FIRST_QUARTER" => Self::FirstQuarter,
+                "WAXING_GIBBOUS" => Self::WaxingGibbous,
+                "FULL_MOON" => Self::FullMoon,
+                "WANING_GIBBOUS" => Self::WaningGibbous,
+                "LAST_QUARTER" => Self::LastQuarter,
+                "WANING_CRESCENT" => Self::WaningCrescent,
+                _ => Self::UnknownValue(phase::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Phase {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::NewMoon => serializer.serialize_i32(1),
+                Self::WaxingCrescent => serializer.serialize_i32(2),
+                Self::FirstQuarter => serializer.serialize_i32(3),
+                Self::WaxingGibbous => serializer.serialize_i32(4),
+                Self::FullMoon => serializer.serialize_i32(5),
+                Self::WaningGibbous => serializer.serialize_i32(6),
+                Self::LastQuarter => serializer.serialize_i32(7),
+                Self::WaningCrescent => serializer.serialize_i32(8),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Phase {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Phase>::new(
+                ".google.maps.weather.v1.MoonEvents.Phase",
+            ))
+        }
     }
 }
 
@@ -3852,6 +4047,7 @@ pub mod ice_thickness {
 }
 
 /// Represents a set of precipitation values at a given location.
+/// (-- Next available tag: 5 --)
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Precipitation {
@@ -3859,14 +4055,15 @@ pub struct Precipitation {
     pub probability: std::option::Option<crate::model::PrecipitationProbability>,
 
     /// The amount of snow, measured as liquid water equivalent, that has
-    /// accumulated over a period of time. Note: QPF is an abbreviation for
-    /// Quantitative Precipitation Forecast (please see the
-    /// QuantitativePrecipitationForecast definition for more details).
+    /// accumulated over a period of time.
+    /// Note: QPF is an abbreviation for Quantitative Precipitation Forecast
+    /// (please see the QuantitativePrecipitationForecast definition for more
+    /// details).
     pub snow_qpf: std::option::Option<crate::model::QuantitativePrecipitationForecast>,
 
-    /// The amount of rain, measured as liquid water equivalent, that has
-    /// accumulated over a period of time. Note: QPF is an abbreviation for
-    /// Quantitative Precipitation Forecast (please see the
+    /// The amount of precipitation rain, measured as liquid water
+    /// equivalent, that has accumulated over a period of time. Note: QPF is an
+    /// abbreviation for Quantitative Precipitation Forecast (please see the
     /// QuantitativePrecipitationForecast definition for more details).
     pub qpf: std::option::Option<crate::model::QuantitativePrecipitationForecast>,
 
@@ -3986,6 +4183,9 @@ impl wkt::message::Message for Precipitation {
 }
 
 /// Represents the probability of precipitation at a given location.
+/// (-- This is a generic (shared) definition because it might be used as a
+/// standalone field for other endpoints/new features in the future. --)
+/// (-- Next available tag: 3 --)
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PrecipitationProbability {
@@ -3993,7 +4193,11 @@ pub struct PrecipitationProbability {
     pub percent: std::option::Option<i32>,
 
     /// A code that indicates the type of precipitation.
-    pub r#type: crate::model::PrecipitationType,
+    /// (-- aip.dev/not-precedent: Field type changed to nested enum per atomic
+    /// transition strategy. Wire-compatible; external consumers
+    /// rely exclusively on HTTP REST/JSON where enum strings remain identical.
+    /// --)
+    pub r#type: crate::model::precipitation_probability::Type,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4040,12 +4244,12 @@ impl PrecipitationProbability {
     /// # Example
     /// ```ignore,no_run
     /// # use google_maps_weather_v1::model::PrecipitationProbability;
-    /// use google_maps_weather_v1::model::PrecipitationType;
-    /// let x0 = PrecipitationProbability::new().set_type(PrecipitationType::None);
-    /// let x1 = PrecipitationProbability::new().set_type(PrecipitationType::Snow);
-    /// let x2 = PrecipitationProbability::new().set_type(PrecipitationType::Rain);
+    /// use google_maps_weather_v1::model::precipitation_probability::Type;
+    /// let x0 = PrecipitationProbability::new().set_type(Type::None);
+    /// let x1 = PrecipitationProbability::new().set_type(Type::Snow);
+    /// let x2 = PrecipitationProbability::new().set_type(Type::Rain);
     /// ```
-    pub fn set_type<T: std::convert::Into<crate::model::PrecipitationType>>(
+    pub fn set_type<T: std::convert::Into<crate::model::precipitation_probability::Type>>(
         mut self,
         v: T,
     ) -> Self {
@@ -4060,10 +4264,200 @@ impl wkt::message::Message for PrecipitationProbability {
     }
 }
 
+/// Defines additional types related to [PrecipitationProbability].
+pub mod precipitation_probability {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Represents the type of precipitation at a given location.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Type {
+        /// Unspecified precipitation type.
+        Unspecified,
+        /// No precipitation.
+        None,
+        /// Snow precipitation.
+        Snow,
+        /// Rain precipitation.
+        Rain,
+        /// Light rain precipitation.
+        LightRain,
+        /// Heavy rain precipitation.
+        HeavyRain,
+        /// Both rain and snow precipitations.
+        RainAndSnow,
+        /// Sleet precipitation.
+        Sleet,
+        /// Freezing rain precipitation.
+        FreezingRain,
+        /// Hail precipitation.
+        PrecipitationTypeHail,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Type::value] or
+        /// [Type::name].
+        UnknownValue(r#type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod r#type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Type {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::None => std::option::Option::Some(8),
+                Self::Snow => std::option::Option::Some(1),
+                Self::Rain => std::option::Option::Some(2),
+                Self::LightRain => std::option::Option::Some(3),
+                Self::HeavyRain => std::option::Option::Some(4),
+                Self::RainAndSnow => std::option::Option::Some(5),
+                Self::Sleet => std::option::Option::Some(6),
+                Self::FreezingRain => std::option::Option::Some(7),
+                Self::PrecipitationTypeHail => std::option::Option::Some(9),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
+                Self::None => std::option::Option::Some("NONE"),
+                Self::Snow => std::option::Option::Some("SNOW"),
+                Self::Rain => std::option::Option::Some("RAIN"),
+                Self::LightRain => std::option::Option::Some("LIGHT_RAIN"),
+                Self::HeavyRain => std::option::Option::Some("HEAVY_RAIN"),
+                Self::RainAndSnow => std::option::Option::Some("RAIN_AND_SNOW"),
+                Self::Sleet => std::option::Option::Some("SLEET"),
+                Self::FreezingRain => std::option::Option::Some("FREEZING_RAIN"),
+                Self::PrecipitationTypeHail => std::option::Option::Some("PRECIPITATION_TYPE_HAIL"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Snow,
+                2 => Self::Rain,
+                3 => Self::LightRain,
+                4 => Self::HeavyRain,
+                5 => Self::RainAndSnow,
+                6 => Self::Sleet,
+                7 => Self::FreezingRain,
+                8 => Self::None,
+                9 => Self::PrecipitationTypeHail,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Type {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TYPE_UNSPECIFIED" => Self::Unspecified,
+                "NONE" => Self::None,
+                "SNOW" => Self::Snow,
+                "RAIN" => Self::Rain,
+                "LIGHT_RAIN" => Self::LightRain,
+                "HEAVY_RAIN" => Self::HeavyRain,
+                "RAIN_AND_SNOW" => Self::RainAndSnow,
+                "SLEET" => Self::Sleet,
+                "FREEZING_RAIN" => Self::FreezingRain,
+                "PRECIPITATION_TYPE_HAIL" => Self::PrecipitationTypeHail,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Type {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::None => serializer.serialize_i32(8),
+                Self::Snow => serializer.serialize_i32(1),
+                Self::Rain => serializer.serialize_i32(2),
+                Self::LightRain => serializer.serialize_i32(3),
+                Self::HeavyRain => serializer.serialize_i32(4),
+                Self::RainAndSnow => serializer.serialize_i32(5),
+                Self::Sleet => serializer.serialize_i32(6),
+                Self::FreezingRain => serializer.serialize_i32(7),
+                Self::PrecipitationTypeHail => serializer.serialize_i32(9),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Type {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                ".google.maps.weather.v1.PrecipitationProbability.Type",
+            ))
+        }
+    }
+}
+
 /// Represents the expected amount of melted precipitation accumulated over a
 /// specified time period over a specified area (reference:
 /// <https://en.wikipedia.org/wiki/Quantitative_precipitation_forecast>) -
 /// usually abbreviated QPF for short.
+/// (-- This is a generic (shared) definition because it is used also as a
+/// standalone field in the CurrentConditionsHistory message. --)
+/// (-- Next available tag: 3 --)
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QuantitativePrecipitationForecast {
@@ -4148,6 +4542,10 @@ pub mod quantitative_precipitation_forecast {
 
     /// Represents the unit used to measure the amount of accumulated
     /// precipitation.
+    /// (-- These units are private to this definition to avoid conflicts with
+    /// similar length units used in other definitions (i.e.: QPF is measured in
+    /// millimeters while visibility is measured in kilometers). --)
+    /// (-- Next available tag: 4 --)
     ///
     /// # Working with unknown values
     ///
@@ -4281,11 +4679,18 @@ pub mod quantitative_precipitation_forecast {
 }
 
 /// Represents a link to a data source.
+/// (-- api-linter: core::0123::resource-annotation=disabled
+/// aip.dev/not-precedent: DataSource is not an AIP resource message;
+/// name represents the official publisher name. --)
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataSource {
     /// The publisher of the alert.
-    pub publisher: crate::model::Publisher,
+    /// (-- aip.dev/not-precedent: Field type changed to nested enum per atomic
+    /// transition strategy. Wire-compatible; external consumers
+    /// rely exclusively on HTTP REST/JSON where enum strings remain identical.
+    /// --)
+    pub publisher: crate::model::data_source::Publisher,
 
     /// Official publisher name. Please note that while this field should be
     /// localized, it is not guaranteed that it will be.
@@ -4308,12 +4713,15 @@ impl DataSource {
     /// # Example
     /// ```ignore,no_run
     /// # use google_maps_weather_v1::model::DataSource;
-    /// use google_maps_weather_v1::model::Publisher;
+    /// use google_maps_weather_v1::model::data_source::Publisher;
     /// let x0 = DataSource::new().set_publisher(Publisher::AustraliaActEsa);
     /// let x1 = DataSource::new().set_publisher(Publisher::AustraliaNswRfs);
     /// let x2 = DataSource::new().set_publisher(Publisher::AustraliaQldQfes);
     /// ```
-    pub fn set_publisher<T: std::convert::Into<crate::model::Publisher>>(mut self, v: T) -> Self {
+    pub fn set_publisher<T: std::convert::Into<crate::model::data_source::Publisher>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.publisher = v.into();
         self
     }
@@ -4346,6 +4754,473 @@ impl DataSource {
 impl wkt::message::Message for DataSource {
     fn typename() -> &'static str {
         "type.googleapis.com/google.maps.weather.v1.DataSource"
+    }
+}
+
+/// Defines additional types related to [DataSource].
+pub mod data_source {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The publisher of the alert.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Publisher {
+        /// Publisher unspecified.
+        Unspecified,
+        /// Australia Australian Capital Territory
+        AustraliaActEsa,
+        /// New South Wales
+        AustraliaNswRfs,
+        /// Queensland
+        AustraliaQldQfes,
+        /// South Australia
+        AustraliaSaCfs,
+        /// Meteoalarm / EUMETNET Austria
+        MeteoAlarmAt,
+        /// Bosnia
+        MeteoAlarmBs,
+        /// Disaster Agency in Brazil
+        BrazilCenad,
+        /// Meteorological Agency in Brazil
+        BrazilInmet,
+        /// Bulgaria
+        MeteoAlarmBg,
+        /// Croatia
+        MeteoAlarmCr,
+        /// Cyprus
+        MeteoAlarmCy,
+        /// Czechia
+        MeteoAlarmCs,
+        /// Denmark
+        MeteoAlarmDk,
+        /// Ecuador
+        EcInamhi,
+        /// Finland
+        MeteoAlarmFi,
+        /// France
+        MeteoAlarmFr,
+        /// Germany
+        DeDwd,
+        /// Great Britain
+        MeteoAlarmGb,
+        /// Greece
+        MeteoAlarmGr,
+        /// Hungary
+        MeteoAlarmHu,
+        /// Iceland
+        MeteoAlarmIs,
+        /// Ireland
+        MeteoAlarmIe,
+        /// Italy
+        MeteoAlarmIt,
+        /// Jamaica
+        JmJms,
+        /// Japan
+        Jma,
+        /// Netherlands
+        MeteoAlarmNl,
+        /// Latvia
+        MeteoAlarmLv,
+        /// Lithuania
+        MeteoAlarmLt,
+        /// Luxembourg
+        MeteoAlarmLu,
+        /// Mexico CIRES
+        MexicoCires,
+        /// New Zealand GeoNet
+        NzGeonet,
+        /// MetService
+        NzNms,
+        /// North Macedonia
+        MeteoAlarmMk,
+        /// Norway
+        MeteoAlarmNo,
+        /// Philippines
+        PhilippinesPagasa,
+        /// Poland
+        MeteoAlarmPl,
+        /// Portugal
+        MeteoAlarmPt,
+        /// Romania
+        MeteoAlarmRo,
+        /// Serbia
+        MeteoAlarmRs,
+        /// Singapore
+        SgMss,
+        /// Slovakia
+        MeteoAlarmSk,
+        /// Slovenia
+        MeteoAlarmSi,
+        /// Solomon Islands
+        SbMet,
+        /// Spain
+        MeteoAlarmEs,
+        /// Sweden
+        MeteoAlarmSe,
+        /// Switzerland
+        MeteoAlarmCh,
+        /// Taiwan
+        TaiwanNcdr,
+        /// NOAA
+        Noaa,
+        /// National Tsunami Warning Center
+        Wcatwc,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Publisher::value] or
+        /// [Publisher::name].
+        UnknownValue(publisher::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod publisher {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Publisher {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::AustraliaActEsa => std::option::Option::Some(1),
+                Self::AustraliaNswRfs => std::option::Option::Some(2),
+                Self::AustraliaQldQfes => std::option::Option::Some(3),
+                Self::AustraliaSaCfs => std::option::Option::Some(4),
+                Self::MeteoAlarmAt => std::option::Option::Some(5),
+                Self::MeteoAlarmBs => std::option::Option::Some(6),
+                Self::BrazilCenad => std::option::Option::Some(7),
+                Self::BrazilInmet => std::option::Option::Some(8),
+                Self::MeteoAlarmBg => std::option::Option::Some(10),
+                Self::MeteoAlarmCr => std::option::Option::Some(11),
+                Self::MeteoAlarmCy => std::option::Option::Some(12),
+                Self::MeteoAlarmCs => std::option::Option::Some(13),
+                Self::MeteoAlarmDk => std::option::Option::Some(14),
+                Self::EcInamhi => std::option::Option::Some(15),
+                Self::MeteoAlarmFi => std::option::Option::Some(16),
+                Self::MeteoAlarmFr => std::option::Option::Some(17),
+                Self::DeDwd => std::option::Option::Some(18),
+                Self::MeteoAlarmGb => std::option::Option::Some(19),
+                Self::MeteoAlarmGr => std::option::Option::Some(20),
+                Self::MeteoAlarmHu => std::option::Option::Some(21),
+                Self::MeteoAlarmIs => std::option::Option::Some(22),
+                Self::MeteoAlarmIe => std::option::Option::Some(23),
+                Self::MeteoAlarmIt => std::option::Option::Some(24),
+                Self::JmJms => std::option::Option::Some(25),
+                Self::Jma => std::option::Option::Some(26),
+                Self::MeteoAlarmNl => std::option::Option::Some(27),
+                Self::MeteoAlarmLv => std::option::Option::Some(28),
+                Self::MeteoAlarmLt => std::option::Option::Some(29),
+                Self::MeteoAlarmLu => std::option::Option::Some(30),
+                Self::MexicoCires => std::option::Option::Some(31),
+                Self::NzGeonet => std::option::Option::Some(32),
+                Self::NzNms => std::option::Option::Some(33),
+                Self::MeteoAlarmMk => std::option::Option::Some(34),
+                Self::MeteoAlarmNo => std::option::Option::Some(35),
+                Self::PhilippinesPagasa => std::option::Option::Some(36),
+                Self::MeteoAlarmPl => std::option::Option::Some(37),
+                Self::MeteoAlarmPt => std::option::Option::Some(38),
+                Self::MeteoAlarmRo => std::option::Option::Some(39),
+                Self::MeteoAlarmRs => std::option::Option::Some(40),
+                Self::SgMss => std::option::Option::Some(41),
+                Self::MeteoAlarmSk => std::option::Option::Some(42),
+                Self::MeteoAlarmSi => std::option::Option::Some(43),
+                Self::SbMet => std::option::Option::Some(44),
+                Self::MeteoAlarmEs => std::option::Option::Some(45),
+                Self::MeteoAlarmSe => std::option::Option::Some(46),
+                Self::MeteoAlarmCh => std::option::Option::Some(47),
+                Self::TaiwanNcdr => std::option::Option::Some(48),
+                Self::Noaa => std::option::Option::Some(49),
+                Self::Wcatwc => std::option::Option::Some(50),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("PUBLISHER_UNSPECIFIED"),
+                Self::AustraliaActEsa => std::option::Option::Some("AUSTRALIA_ACT_ESA"),
+                Self::AustraliaNswRfs => std::option::Option::Some("AUSTRALIA_NSW_RFS"),
+                Self::AustraliaQldQfes => std::option::Option::Some("AUSTRALIA_QLD_QFES"),
+                Self::AustraliaSaCfs => std::option::Option::Some("AUSTRALIA_SA_CFS"),
+                Self::MeteoAlarmAt => std::option::Option::Some("METEO_ALARM_AT"),
+                Self::MeteoAlarmBs => std::option::Option::Some("METEO_ALARM_BS"),
+                Self::BrazilCenad => std::option::Option::Some("BRAZIL_CENAD"),
+                Self::BrazilInmet => std::option::Option::Some("BRAZIL_INMET"),
+                Self::MeteoAlarmBg => std::option::Option::Some("METEO_ALARM_BG"),
+                Self::MeteoAlarmCr => std::option::Option::Some("METEO_ALARM_CR"),
+                Self::MeteoAlarmCy => std::option::Option::Some("METEO_ALARM_CY"),
+                Self::MeteoAlarmCs => std::option::Option::Some("METEO_ALARM_CS"),
+                Self::MeteoAlarmDk => std::option::Option::Some("METEO_ALARM_DK"),
+                Self::EcInamhi => std::option::Option::Some("EC_INAMHI"),
+                Self::MeteoAlarmFi => std::option::Option::Some("METEO_ALARM_FI"),
+                Self::MeteoAlarmFr => std::option::Option::Some("METEO_ALARM_FR"),
+                Self::DeDwd => std::option::Option::Some("DE_DWD"),
+                Self::MeteoAlarmGb => std::option::Option::Some("METEO_ALARM_GB"),
+                Self::MeteoAlarmGr => std::option::Option::Some("METEO_ALARM_GR"),
+                Self::MeteoAlarmHu => std::option::Option::Some("METEO_ALARM_HU"),
+                Self::MeteoAlarmIs => std::option::Option::Some("METEO_ALARM_IS"),
+                Self::MeteoAlarmIe => std::option::Option::Some("METEO_ALARM_IE"),
+                Self::MeteoAlarmIt => std::option::Option::Some("METEO_ALARM_IT"),
+                Self::JmJms => std::option::Option::Some("JM_JMS"),
+                Self::Jma => std::option::Option::Some("JMA"),
+                Self::MeteoAlarmNl => std::option::Option::Some("METEO_ALARM_NL"),
+                Self::MeteoAlarmLv => std::option::Option::Some("METEO_ALARM_LV"),
+                Self::MeteoAlarmLt => std::option::Option::Some("METEO_ALARM_LT"),
+                Self::MeteoAlarmLu => std::option::Option::Some("METEO_ALARM_LU"),
+                Self::MexicoCires => std::option::Option::Some("MEXICO_CIRES"),
+                Self::NzGeonet => std::option::Option::Some("NZ_GEONET"),
+                Self::NzNms => std::option::Option::Some("NZ_NMS"),
+                Self::MeteoAlarmMk => std::option::Option::Some("METEO_ALARM_MK"),
+                Self::MeteoAlarmNo => std::option::Option::Some("METEO_ALARM_NO"),
+                Self::PhilippinesPagasa => std::option::Option::Some("PHILIPPINES_PAGASA"),
+                Self::MeteoAlarmPl => std::option::Option::Some("METEO_ALARM_PL"),
+                Self::MeteoAlarmPt => std::option::Option::Some("METEO_ALARM_PT"),
+                Self::MeteoAlarmRo => std::option::Option::Some("METEO_ALARM_RO"),
+                Self::MeteoAlarmRs => std::option::Option::Some("METEO_ALARM_RS"),
+                Self::SgMss => std::option::Option::Some("SG_MSS"),
+                Self::MeteoAlarmSk => std::option::Option::Some("METEO_ALARM_SK"),
+                Self::MeteoAlarmSi => std::option::Option::Some("METEO_ALARM_SI"),
+                Self::SbMet => std::option::Option::Some("SB_MET"),
+                Self::MeteoAlarmEs => std::option::Option::Some("METEO_ALARM_ES"),
+                Self::MeteoAlarmSe => std::option::Option::Some("METEO_ALARM_SE"),
+                Self::MeteoAlarmCh => std::option::Option::Some("METEO_ALARM_CH"),
+                Self::TaiwanNcdr => std::option::Option::Some("TAIWAN_NCDR"),
+                Self::Noaa => std::option::Option::Some("NOAA"),
+                Self::Wcatwc => std::option::Option::Some("WCATWC"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Publisher {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Publisher {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Publisher {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::AustraliaActEsa,
+                2 => Self::AustraliaNswRfs,
+                3 => Self::AustraliaQldQfes,
+                4 => Self::AustraliaSaCfs,
+                5 => Self::MeteoAlarmAt,
+                6 => Self::MeteoAlarmBs,
+                7 => Self::BrazilCenad,
+                8 => Self::BrazilInmet,
+                10 => Self::MeteoAlarmBg,
+                11 => Self::MeteoAlarmCr,
+                12 => Self::MeteoAlarmCy,
+                13 => Self::MeteoAlarmCs,
+                14 => Self::MeteoAlarmDk,
+                15 => Self::EcInamhi,
+                16 => Self::MeteoAlarmFi,
+                17 => Self::MeteoAlarmFr,
+                18 => Self::DeDwd,
+                19 => Self::MeteoAlarmGb,
+                20 => Self::MeteoAlarmGr,
+                21 => Self::MeteoAlarmHu,
+                22 => Self::MeteoAlarmIs,
+                23 => Self::MeteoAlarmIe,
+                24 => Self::MeteoAlarmIt,
+                25 => Self::JmJms,
+                26 => Self::Jma,
+                27 => Self::MeteoAlarmNl,
+                28 => Self::MeteoAlarmLv,
+                29 => Self::MeteoAlarmLt,
+                30 => Self::MeteoAlarmLu,
+                31 => Self::MexicoCires,
+                32 => Self::NzGeonet,
+                33 => Self::NzNms,
+                34 => Self::MeteoAlarmMk,
+                35 => Self::MeteoAlarmNo,
+                36 => Self::PhilippinesPagasa,
+                37 => Self::MeteoAlarmPl,
+                38 => Self::MeteoAlarmPt,
+                39 => Self::MeteoAlarmRo,
+                40 => Self::MeteoAlarmRs,
+                41 => Self::SgMss,
+                42 => Self::MeteoAlarmSk,
+                43 => Self::MeteoAlarmSi,
+                44 => Self::SbMet,
+                45 => Self::MeteoAlarmEs,
+                46 => Self::MeteoAlarmSe,
+                47 => Self::MeteoAlarmCh,
+                48 => Self::TaiwanNcdr,
+                49 => Self::Noaa,
+                50 => Self::Wcatwc,
+                _ => Self::UnknownValue(publisher::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Publisher {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PUBLISHER_UNSPECIFIED" => Self::Unspecified,
+                "AUSTRALIA_ACT_ESA" => Self::AustraliaActEsa,
+                "AUSTRALIA_NSW_RFS" => Self::AustraliaNswRfs,
+                "AUSTRALIA_QLD_QFES" => Self::AustraliaQldQfes,
+                "AUSTRALIA_SA_CFS" => Self::AustraliaSaCfs,
+                "METEO_ALARM_AT" => Self::MeteoAlarmAt,
+                "METEO_ALARM_BS" => Self::MeteoAlarmBs,
+                "BRAZIL_CENAD" => Self::BrazilCenad,
+                "BRAZIL_INMET" => Self::BrazilInmet,
+                "METEO_ALARM_BG" => Self::MeteoAlarmBg,
+                "METEO_ALARM_CR" => Self::MeteoAlarmCr,
+                "METEO_ALARM_CY" => Self::MeteoAlarmCy,
+                "METEO_ALARM_CS" => Self::MeteoAlarmCs,
+                "METEO_ALARM_DK" => Self::MeteoAlarmDk,
+                "EC_INAMHI" => Self::EcInamhi,
+                "METEO_ALARM_FI" => Self::MeteoAlarmFi,
+                "METEO_ALARM_FR" => Self::MeteoAlarmFr,
+                "DE_DWD" => Self::DeDwd,
+                "METEO_ALARM_GB" => Self::MeteoAlarmGb,
+                "METEO_ALARM_GR" => Self::MeteoAlarmGr,
+                "METEO_ALARM_HU" => Self::MeteoAlarmHu,
+                "METEO_ALARM_IS" => Self::MeteoAlarmIs,
+                "METEO_ALARM_IE" => Self::MeteoAlarmIe,
+                "METEO_ALARM_IT" => Self::MeteoAlarmIt,
+                "JM_JMS" => Self::JmJms,
+                "JMA" => Self::Jma,
+                "METEO_ALARM_NL" => Self::MeteoAlarmNl,
+                "METEO_ALARM_LV" => Self::MeteoAlarmLv,
+                "METEO_ALARM_LT" => Self::MeteoAlarmLt,
+                "METEO_ALARM_LU" => Self::MeteoAlarmLu,
+                "MEXICO_CIRES" => Self::MexicoCires,
+                "NZ_GEONET" => Self::NzGeonet,
+                "NZ_NMS" => Self::NzNms,
+                "METEO_ALARM_MK" => Self::MeteoAlarmMk,
+                "METEO_ALARM_NO" => Self::MeteoAlarmNo,
+                "PHILIPPINES_PAGASA" => Self::PhilippinesPagasa,
+                "METEO_ALARM_PL" => Self::MeteoAlarmPl,
+                "METEO_ALARM_PT" => Self::MeteoAlarmPt,
+                "METEO_ALARM_RO" => Self::MeteoAlarmRo,
+                "METEO_ALARM_RS" => Self::MeteoAlarmRs,
+                "SG_MSS" => Self::SgMss,
+                "METEO_ALARM_SK" => Self::MeteoAlarmSk,
+                "METEO_ALARM_SI" => Self::MeteoAlarmSi,
+                "SB_MET" => Self::SbMet,
+                "METEO_ALARM_ES" => Self::MeteoAlarmEs,
+                "METEO_ALARM_SE" => Self::MeteoAlarmSe,
+                "METEO_ALARM_CH" => Self::MeteoAlarmCh,
+                "TAIWAN_NCDR" => Self::TaiwanNcdr,
+                "NOAA" => Self::Noaa,
+                "WCATWC" => Self::Wcatwc,
+                _ => Self::UnknownValue(publisher::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Publisher {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::AustraliaActEsa => serializer.serialize_i32(1),
+                Self::AustraliaNswRfs => serializer.serialize_i32(2),
+                Self::AustraliaQldQfes => serializer.serialize_i32(3),
+                Self::AustraliaSaCfs => serializer.serialize_i32(4),
+                Self::MeteoAlarmAt => serializer.serialize_i32(5),
+                Self::MeteoAlarmBs => serializer.serialize_i32(6),
+                Self::BrazilCenad => serializer.serialize_i32(7),
+                Self::BrazilInmet => serializer.serialize_i32(8),
+                Self::MeteoAlarmBg => serializer.serialize_i32(10),
+                Self::MeteoAlarmCr => serializer.serialize_i32(11),
+                Self::MeteoAlarmCy => serializer.serialize_i32(12),
+                Self::MeteoAlarmCs => serializer.serialize_i32(13),
+                Self::MeteoAlarmDk => serializer.serialize_i32(14),
+                Self::EcInamhi => serializer.serialize_i32(15),
+                Self::MeteoAlarmFi => serializer.serialize_i32(16),
+                Self::MeteoAlarmFr => serializer.serialize_i32(17),
+                Self::DeDwd => serializer.serialize_i32(18),
+                Self::MeteoAlarmGb => serializer.serialize_i32(19),
+                Self::MeteoAlarmGr => serializer.serialize_i32(20),
+                Self::MeteoAlarmHu => serializer.serialize_i32(21),
+                Self::MeteoAlarmIs => serializer.serialize_i32(22),
+                Self::MeteoAlarmIe => serializer.serialize_i32(23),
+                Self::MeteoAlarmIt => serializer.serialize_i32(24),
+                Self::JmJms => serializer.serialize_i32(25),
+                Self::Jma => serializer.serialize_i32(26),
+                Self::MeteoAlarmNl => serializer.serialize_i32(27),
+                Self::MeteoAlarmLv => serializer.serialize_i32(28),
+                Self::MeteoAlarmLt => serializer.serialize_i32(29),
+                Self::MeteoAlarmLu => serializer.serialize_i32(30),
+                Self::MexicoCires => serializer.serialize_i32(31),
+                Self::NzGeonet => serializer.serialize_i32(32),
+                Self::NzNms => serializer.serialize_i32(33),
+                Self::MeteoAlarmMk => serializer.serialize_i32(34),
+                Self::MeteoAlarmNo => serializer.serialize_i32(35),
+                Self::PhilippinesPagasa => serializer.serialize_i32(36),
+                Self::MeteoAlarmPl => serializer.serialize_i32(37),
+                Self::MeteoAlarmPt => serializer.serialize_i32(38),
+                Self::MeteoAlarmRo => serializer.serialize_i32(39),
+                Self::MeteoAlarmRs => serializer.serialize_i32(40),
+                Self::SgMss => serializer.serialize_i32(41),
+                Self::MeteoAlarmSk => serializer.serialize_i32(42),
+                Self::MeteoAlarmSi => serializer.serialize_i32(43),
+                Self::SbMet => serializer.serialize_i32(44),
+                Self::MeteoAlarmEs => serializer.serialize_i32(45),
+                Self::MeteoAlarmSe => serializer.serialize_i32(46),
+                Self::MeteoAlarmCh => serializer.serialize_i32(47),
+                Self::TaiwanNcdr => serializer.serialize_i32(48),
+                Self::Noaa => serializer.serialize_i32(49),
+                Self::Wcatwc => serializer.serialize_i32(50),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Publisher {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Publisher>::new(
+                ".google.maps.weather.v1.DataSource.Publisher",
+            ))
+        }
     }
 }
 
@@ -4432,9 +5307,16 @@ pub struct PublicAlerts {
     pub alert_title: std::option::Option<google_cloud_type::model::LocalizedText>,
 
     /// The type of weather event.
-    pub event_type: crate::model::WeatherEventType,
+    /// (-- aip.dev/not-precedent: Field type changed to nested enum per atomic
+    /// transition strategy. Wire-compatible; external consumers
+    /// rely exclusively on HTTP REST/JSON where enum strings remain identical.
+    /// --)
+    pub event_type: crate::model::public_alerts::EventType,
 
     /// The name of the area where the alert is issued.
+    /// (-- api-linter: core::0122::name-suffix=disabled
+    /// aip.dev/not-precedent: We need to use the _name suffix
+    /// to be consistent with the rest of the API. --)
     pub area_name: std::string::String,
 
     /// A GeoJSON representation of the areas where the alert is issued.
@@ -4466,6 +5348,7 @@ pub struct PublicAlerts {
     /// [0, 0], [-2, 0], [-2, 2], [0, 0]
     /// ]
     /// ]
+    /// }
     pub polygon: std::option::Option<std::string::String>,
 
     /// The latest text describing the alert as issued by the official authority.
@@ -4474,13 +5357,25 @@ pub struct PublicAlerts {
     pub description: std::option::Option<std::string::String>,
 
     /// The severity level of the alert.
-    pub severity: crate::model::Severity,
+    /// (-- aip.dev/not-precedent: Field type changed to nested enum per atomic
+    /// transition strategy. Wire-compatible; external consumers
+    /// rely exclusively on HTTP REST/JSON where enum strings remain identical.
+    /// --)
+    pub severity: std::option::Option<crate::model::public_alerts::Severity>,
 
     /// The certainty of the alert.
-    pub certainty: std::option::Option<crate::model::Certainty>,
+    /// (-- aip.dev/not-precedent: Field type changed to nested enum per atomic
+    /// transition strategy. Wire-compatible; external consumers
+    /// rely exclusively on HTTP REST/JSON where enum strings remain identical.
+    /// --)
+    pub certainty: std::option::Option<crate::model::public_alerts::Certainty>,
 
     /// The urgency of the alert.
-    pub urgency: std::option::Option<crate::model::Urgency>,
+    /// (-- aip.dev/not-precedent: Field type changed to nested enum per atomic
+    /// transition strategy. Wire-compatible; external consumers
+    /// rely exclusively on HTTP REST/JSON where enum strings remain identical.
+    /// --)
+    pub urgency: std::option::Option<crate::model::public_alerts::Urgency>,
 
     /// Instructions recommended by the publisher. Please note that while this
     /// field should be localized, it is not guaranteed that it will be.
@@ -4490,7 +5385,9 @@ pub struct PublicAlerts {
     /// publisher or other authorities.
     pub safety_recommendations: std::vec::Vec<crate::model::SafetyRecommendation>,
 
-    /// The timezone offset of the event, in +/-HH:MM format.
+    /// The time zone offset from UTC for the location of the alert.
+    /// The value is formatted as a string ending in 's', e.g., "-14400s" for 4
+    /// hours behind UTC.
     pub timezone_offset: std::string::String,
 
     /// The start time of the event.
@@ -4561,12 +5458,12 @@ impl PublicAlerts {
     /// # Example
     /// ```ignore,no_run
     /// # use google_maps_weather_v1::model::PublicAlerts;
-    /// use google_maps_weather_v1::model::WeatherEventType;
-    /// let x0 = PublicAlerts::new().set_event_type(WeatherEventType::AcidRain);
-    /// let x1 = PublicAlerts::new().set_event_type(WeatherEventType::Aftershock);
-    /// let x2 = PublicAlerts::new().set_event_type(WeatherEventType::Avalanche);
+    /// use google_maps_weather_v1::model::public_alerts::EventType;
+    /// let x0 = PublicAlerts::new().set_event_type(EventType::AcidRain);
+    /// let x1 = PublicAlerts::new().set_event_type(EventType::Aftershock);
+    /// let x2 = PublicAlerts::new().set_event_type(EventType::Avalanche);
     /// ```
-    pub fn set_event_type<T: std::convert::Into<crate::model::WeatherEventType>>(
+    pub fn set_event_type<T: std::convert::Into<crate::model::public_alerts::EventType>>(
         mut self,
         v: T,
     ) -> Self {
@@ -4653,13 +5550,35 @@ impl PublicAlerts {
     /// # Example
     /// ```ignore,no_run
     /// # use google_maps_weather_v1::model::PublicAlerts;
-    /// use google_maps_weather_v1::model::Severity;
+    /// use google_maps_weather_v1::model::public_alerts::Severity;
     /// let x0 = PublicAlerts::new().set_severity(Severity::Extreme);
     /// let x1 = PublicAlerts::new().set_severity(Severity::Severe);
     /// let x2 = PublicAlerts::new().set_severity(Severity::Moderate);
     /// ```
-    pub fn set_severity<T: std::convert::Into<crate::model::Severity>>(mut self, v: T) -> Self {
-        self.severity = v.into();
+    pub fn set_severity<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::public_alerts::Severity>,
+    {
+        self.severity = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [severity][crate::model::PublicAlerts::severity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_maps_weather_v1::model::PublicAlerts;
+    /// use google_maps_weather_v1::model::public_alerts::Severity;
+    /// let x0 = PublicAlerts::new().set_or_clear_severity(Some(Severity::Extreme));
+    /// let x1 = PublicAlerts::new().set_or_clear_severity(Some(Severity::Severe));
+    /// let x2 = PublicAlerts::new().set_or_clear_severity(Some(Severity::Moderate));
+    /// let x_none = PublicAlerts::new().set_or_clear_severity(None::<Severity>);
+    /// ```
+    pub fn set_or_clear_severity<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::public_alerts::Severity>,
+    {
+        self.severity = v.map(|x| x.into());
         self
     }
 
@@ -4668,14 +5587,14 @@ impl PublicAlerts {
     /// # Example
     /// ```ignore,no_run
     /// # use google_maps_weather_v1::model::PublicAlerts;
-    /// use google_maps_weather_v1::model::Certainty;
+    /// use google_maps_weather_v1::model::public_alerts::Certainty;
     /// let x0 = PublicAlerts::new().set_certainty(Certainty::Observed);
     /// let x1 = PublicAlerts::new().set_certainty(Certainty::VeryLikely);
     /// let x2 = PublicAlerts::new().set_certainty(Certainty::Likely);
     /// ```
     pub fn set_certainty<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<crate::model::Certainty>,
+        T: std::convert::Into<crate::model::public_alerts::Certainty>,
     {
         self.certainty = std::option::Option::Some(v.into());
         self
@@ -4686,7 +5605,7 @@ impl PublicAlerts {
     /// # Example
     /// ```ignore,no_run
     /// # use google_maps_weather_v1::model::PublicAlerts;
-    /// use google_maps_weather_v1::model::Certainty;
+    /// use google_maps_weather_v1::model::public_alerts::Certainty;
     /// let x0 = PublicAlerts::new().set_or_clear_certainty(Some(Certainty::Observed));
     /// let x1 = PublicAlerts::new().set_or_clear_certainty(Some(Certainty::VeryLikely));
     /// let x2 = PublicAlerts::new().set_or_clear_certainty(Some(Certainty::Likely));
@@ -4694,7 +5613,7 @@ impl PublicAlerts {
     /// ```
     pub fn set_or_clear_certainty<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<crate::model::Certainty>,
+        T: std::convert::Into<crate::model::public_alerts::Certainty>,
     {
         self.certainty = v.map(|x| x.into());
         self
@@ -4705,14 +5624,14 @@ impl PublicAlerts {
     /// # Example
     /// ```ignore,no_run
     /// # use google_maps_weather_v1::model::PublicAlerts;
-    /// use google_maps_weather_v1::model::Urgency;
+    /// use google_maps_weather_v1::model::public_alerts::Urgency;
     /// let x0 = PublicAlerts::new().set_urgency(Urgency::Immediate);
     /// let x1 = PublicAlerts::new().set_urgency(Urgency::Expected);
     /// let x2 = PublicAlerts::new().set_urgency(Urgency::Future);
     /// ```
     pub fn set_urgency<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<crate::model::Urgency>,
+        T: std::convert::Into<crate::model::public_alerts::Urgency>,
     {
         self.urgency = std::option::Option::Some(v.into());
         self
@@ -4723,7 +5642,7 @@ impl PublicAlerts {
     /// # Example
     /// ```ignore,no_run
     /// # use google_maps_weather_v1::model::PublicAlerts;
-    /// use google_maps_weather_v1::model::Urgency;
+    /// use google_maps_weather_v1::model::public_alerts::Urgency;
     /// let x0 = PublicAlerts::new().set_or_clear_urgency(Some(Urgency::Immediate));
     /// let x1 = PublicAlerts::new().set_or_clear_urgency(Some(Urgency::Expected));
     /// let x2 = PublicAlerts::new().set_or_clear_urgency(Some(Urgency::Future));
@@ -4731,7 +5650,7 @@ impl PublicAlerts {
     /// ```
     pub fn set_or_clear_urgency<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<crate::model::Urgency>,
+        T: std::convert::Into<crate::model::public_alerts::Urgency>,
     {
         self.urgency = v.map(|x| x.into());
         self
@@ -4894,7 +5813,1024 @@ impl wkt::message::Message for PublicAlerts {
     }
 }
 
+/// Defines additional types related to [PublicAlerts].
+pub mod public_alerts {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The type of the weather event.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum EventType {
+        /// Unspecified weather event type.
+        Unspecified,
+        /// Acid rain event.
+        AcidRain,
+        /// Aftershock event.
+        Aftershock,
+        /// Avalanche event.
+        Avalanche,
+        /// Blizzard event.
+        Blizzard,
+        /// Blowing snow event.
+        BlowingSnow,
+        /// Bushfire event.
+        Bushfire,
+        /// Coastal flood event.
+        CoastalFlood,
+        /// Coastal hazard event.
+        CoastalHazard,
+        /// Cold event.
+        Cold,
+        /// Cyclone event.
+        Cyclone,
+        /// Drought event.
+        Drought,
+        /// Dust storm event.
+        DustStorm,
+        /// Earthquake event.
+        Earthquake,
+        /// Extra tropical cyclone event.
+        ExtratropicalCyclone,
+        /// Fire event.
+        Fire,
+        /// Fire weather event.
+        FireWeather,
+        /// Flash flood event.
+        FlashFlood,
+        /// Flood event.
+        Flood,
+        /// Fog event.
+        Fog,
+        /// Freezing event.
+        Freezing,
+        /// Freezing air temperature event.
+        FreezingAirTemperature,
+        /// Freezing drizzle event.
+        FreezingDrizzle,
+        /// Freezing rain event.
+        FreezingRainEvent,
+        /// Frost event.
+        Frost,
+        /// Gale event.
+        Gale,
+        /// Glaze event.
+        Glaze,
+        /// Hail event.
+        Hail,
+        /// Hazardous seas event.
+        HazardousSeas,
+        /// Heat event.
+        Heat,
+        /// Humidity event.
+        Humidity,
+        /// Hurricane event.
+        Hurricane,
+        /// Ice storm event.
+        IceStorm,
+        /// Industrial fire event.
+        IndustrialFire,
+        /// Lake effect snow event.
+        LakeEffectSnow,
+        /// Landslide event.
+        Landslide,
+        /// Monsoon event.
+        Monsoon,
+        /// Muddy flood event.
+        MuddyFlood,
+        /// Outflow event.
+        Outflow,
+        /// Radiation event.
+        Radiation,
+        /// Rain event.
+        RainEvent,
+        /// River flooding event.
+        RiverFlooding,
+        /// Severe thunderstorm warning event.
+        SevereThunderstormWarning,
+        /// Snowsquall event.
+        Snowsquall,
+        /// Snow event.
+        SnowEvent,
+        /// Storm event.
+        Storm,
+        /// Storm surge event.
+        StormSurge,
+        /// Thunder event.
+        Thunder,
+        /// Thunderstorm event.
+        Thunderstorm,
+        /// Tornado event.
+        Tornado,
+        /// Tornado warning event.
+        TornadoWarning,
+        /// Tropical cyclone event.
+        TropicalCyclone,
+        /// Tropical cyclone warnings and watches event.
+        TropicalCycloneWarningsAndWatches,
+        /// Tropical disturbance event.
+        TropicalDisturbance,
+        /// Tropical storm event.
+        TropicalStorm,
+        /// Tsunami event.
+        Tsunami,
+        /// Typhoon event.
+        Typhoon,
+        /// Volcanic ash event.
+        VolcanicAsh,
+        /// Volcanic eruption event.
+        VolcanicEruption,
+        /// Wildfire event.
+        Wildfire,
+        /// Wind event.
+        Wind,
+        /// Wind chill event.
+        WindChill,
+        /// Wind wave event.
+        WindWave,
+        /// Winter storm event.
+        WinterStorm,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [EventType::value] or
+        /// [EventType::name].
+        UnknownValue(event_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod event_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl EventType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::AcidRain => std::option::Option::Some(1),
+                Self::Aftershock => std::option::Option::Some(2),
+                Self::Avalanche => std::option::Option::Some(3),
+                Self::Blizzard => std::option::Option::Some(4),
+                Self::BlowingSnow => std::option::Option::Some(5),
+                Self::Bushfire => std::option::Option::Some(6),
+                Self::CoastalFlood => std::option::Option::Some(7),
+                Self::CoastalHazard => std::option::Option::Some(8),
+                Self::Cold => std::option::Option::Some(9),
+                Self::Cyclone => std::option::Option::Some(10),
+                Self::Drought => std::option::Option::Some(11),
+                Self::DustStorm => std::option::Option::Some(12),
+                Self::Earthquake => std::option::Option::Some(13),
+                Self::ExtratropicalCyclone => std::option::Option::Some(14),
+                Self::Fire => std::option::Option::Some(15),
+                Self::FireWeather => std::option::Option::Some(16),
+                Self::FlashFlood => std::option::Option::Some(17),
+                Self::Flood => std::option::Option::Some(18),
+                Self::Fog => std::option::Option::Some(19),
+                Self::Freezing => std::option::Option::Some(20),
+                Self::FreezingAirTemperature => std::option::Option::Some(21),
+                Self::FreezingDrizzle => std::option::Option::Some(22),
+                Self::FreezingRainEvent => std::option::Option::Some(23),
+                Self::Frost => std::option::Option::Some(24),
+                Self::Gale => std::option::Option::Some(25),
+                Self::Glaze => std::option::Option::Some(26),
+                Self::Hail => std::option::Option::Some(27),
+                Self::HazardousSeas => std::option::Option::Some(28),
+                Self::Heat => std::option::Option::Some(29),
+                Self::Humidity => std::option::Option::Some(30),
+                Self::Hurricane => std::option::Option::Some(31),
+                Self::IceStorm => std::option::Option::Some(32),
+                Self::IndustrialFire => std::option::Option::Some(33),
+                Self::LakeEffectSnow => std::option::Option::Some(34),
+                Self::Landslide => std::option::Option::Some(35),
+                Self::Monsoon => std::option::Option::Some(36),
+                Self::MuddyFlood => std::option::Option::Some(37),
+                Self::Outflow => std::option::Option::Some(38),
+                Self::Radiation => std::option::Option::Some(39),
+                Self::RainEvent => std::option::Option::Some(40),
+                Self::RiverFlooding => std::option::Option::Some(41),
+                Self::SevereThunderstormWarning => std::option::Option::Some(42),
+                Self::Snowsquall => std::option::Option::Some(43),
+                Self::SnowEvent => std::option::Option::Some(44),
+                Self::Storm => std::option::Option::Some(45),
+                Self::StormSurge => std::option::Option::Some(46),
+                Self::Thunder => std::option::Option::Some(47),
+                Self::Thunderstorm => std::option::Option::Some(48),
+                Self::Tornado => std::option::Option::Some(49),
+                Self::TornadoWarning => std::option::Option::Some(50),
+                Self::TropicalCyclone => std::option::Option::Some(51),
+                Self::TropicalCycloneWarningsAndWatches => std::option::Option::Some(52),
+                Self::TropicalDisturbance => std::option::Option::Some(53),
+                Self::TropicalStorm => std::option::Option::Some(54),
+                Self::Tsunami => std::option::Option::Some(55),
+                Self::Typhoon => std::option::Option::Some(56),
+                Self::VolcanicAsh => std::option::Option::Some(57),
+                Self::VolcanicEruption => std::option::Option::Some(58),
+                Self::Wildfire => std::option::Option::Some(59),
+                Self::Wind => std::option::Option::Some(60),
+                Self::WindChill => std::option::Option::Some(61),
+                Self::WindWave => std::option::Option::Some(62),
+                Self::WinterStorm => std::option::Option::Some(63),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("EVENT_TYPE_UNSPECIFIED"),
+                Self::AcidRain => std::option::Option::Some("ACID_RAIN"),
+                Self::Aftershock => std::option::Option::Some("AFTERSHOCK"),
+                Self::Avalanche => std::option::Option::Some("AVALANCHE"),
+                Self::Blizzard => std::option::Option::Some("BLIZZARD"),
+                Self::BlowingSnow => std::option::Option::Some("BLOWING_SNOW"),
+                Self::Bushfire => std::option::Option::Some("BUSHFIRE"),
+                Self::CoastalFlood => std::option::Option::Some("COASTAL_FLOOD"),
+                Self::CoastalHazard => std::option::Option::Some("COASTAL_HAZARD"),
+                Self::Cold => std::option::Option::Some("COLD"),
+                Self::Cyclone => std::option::Option::Some("CYCLONE"),
+                Self::Drought => std::option::Option::Some("DROUGHT"),
+                Self::DustStorm => std::option::Option::Some("DUST_STORM"),
+                Self::Earthquake => std::option::Option::Some("EARTHQUAKE"),
+                Self::ExtratropicalCyclone => std::option::Option::Some("EXTRATROPICAL_CYCLONE"),
+                Self::Fire => std::option::Option::Some("FIRE"),
+                Self::FireWeather => std::option::Option::Some("FIRE_WEATHER"),
+                Self::FlashFlood => std::option::Option::Some("FLASH_FLOOD"),
+                Self::Flood => std::option::Option::Some("FLOOD"),
+                Self::Fog => std::option::Option::Some("FOG"),
+                Self::Freezing => std::option::Option::Some("FREEZING"),
+                Self::FreezingAirTemperature => {
+                    std::option::Option::Some("FREEZING_AIR_TEMPERATURE")
+                }
+                Self::FreezingDrizzle => std::option::Option::Some("FREEZING_DRIZZLE"),
+                Self::FreezingRainEvent => std::option::Option::Some("FREEZING_RAIN_EVENT"),
+                Self::Frost => std::option::Option::Some("FROST"),
+                Self::Gale => std::option::Option::Some("GALE"),
+                Self::Glaze => std::option::Option::Some("GLAZE"),
+                Self::Hail => std::option::Option::Some("HAIL"),
+                Self::HazardousSeas => std::option::Option::Some("HAZARDOUS_SEAS"),
+                Self::Heat => std::option::Option::Some("HEAT"),
+                Self::Humidity => std::option::Option::Some("HUMIDITY"),
+                Self::Hurricane => std::option::Option::Some("HURRICANE"),
+                Self::IceStorm => std::option::Option::Some("ICE_STORM"),
+                Self::IndustrialFire => std::option::Option::Some("INDUSTRIAL_FIRE"),
+                Self::LakeEffectSnow => std::option::Option::Some("LAKE_EFFECT_SNOW"),
+                Self::Landslide => std::option::Option::Some("LANDSLIDE"),
+                Self::Monsoon => std::option::Option::Some("MONSOON"),
+                Self::MuddyFlood => std::option::Option::Some("MUDDY_FLOOD"),
+                Self::Outflow => std::option::Option::Some("OUTFLOW"),
+                Self::Radiation => std::option::Option::Some("RADIATION"),
+                Self::RainEvent => std::option::Option::Some("RAIN_EVENT"),
+                Self::RiverFlooding => std::option::Option::Some("RIVER_FLOODING"),
+                Self::SevereThunderstormWarning => {
+                    std::option::Option::Some("SEVERE_THUNDERSTORM_WARNING")
+                }
+                Self::Snowsquall => std::option::Option::Some("SNOWSQUALL"),
+                Self::SnowEvent => std::option::Option::Some("SNOW_EVENT"),
+                Self::Storm => std::option::Option::Some("STORM"),
+                Self::StormSurge => std::option::Option::Some("STORM_SURGE"),
+                Self::Thunder => std::option::Option::Some("THUNDER"),
+                Self::Thunderstorm => std::option::Option::Some("THUNDERSTORM"),
+                Self::Tornado => std::option::Option::Some("TORNADO"),
+                Self::TornadoWarning => std::option::Option::Some("TORNADO_WARNING"),
+                Self::TropicalCyclone => std::option::Option::Some("TROPICAL_CYCLONE"),
+                Self::TropicalCycloneWarningsAndWatches => {
+                    std::option::Option::Some("TROPICAL_CYCLONE_WARNINGS_AND_WATCHES")
+                }
+                Self::TropicalDisturbance => std::option::Option::Some("TROPICAL_DISTURBANCE"),
+                Self::TropicalStorm => std::option::Option::Some("TROPICAL_STORM"),
+                Self::Tsunami => std::option::Option::Some("TSUNAMI"),
+                Self::Typhoon => std::option::Option::Some("TYPHOON"),
+                Self::VolcanicAsh => std::option::Option::Some("VOLCANIC_ASH"),
+                Self::VolcanicEruption => std::option::Option::Some("VOLCANIC_ERUPTION"),
+                Self::Wildfire => std::option::Option::Some("WILDFIRE"),
+                Self::Wind => std::option::Option::Some("WIND"),
+                Self::WindChill => std::option::Option::Some("WIND_CHILL"),
+                Self::WindWave => std::option::Option::Some("WIND_WAVE"),
+                Self::WinterStorm => std::option::Option::Some("WINTER_STORM"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for EventType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for EventType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for EventType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::AcidRain,
+                2 => Self::Aftershock,
+                3 => Self::Avalanche,
+                4 => Self::Blizzard,
+                5 => Self::BlowingSnow,
+                6 => Self::Bushfire,
+                7 => Self::CoastalFlood,
+                8 => Self::CoastalHazard,
+                9 => Self::Cold,
+                10 => Self::Cyclone,
+                11 => Self::Drought,
+                12 => Self::DustStorm,
+                13 => Self::Earthquake,
+                14 => Self::ExtratropicalCyclone,
+                15 => Self::Fire,
+                16 => Self::FireWeather,
+                17 => Self::FlashFlood,
+                18 => Self::Flood,
+                19 => Self::Fog,
+                20 => Self::Freezing,
+                21 => Self::FreezingAirTemperature,
+                22 => Self::FreezingDrizzle,
+                23 => Self::FreezingRainEvent,
+                24 => Self::Frost,
+                25 => Self::Gale,
+                26 => Self::Glaze,
+                27 => Self::Hail,
+                28 => Self::HazardousSeas,
+                29 => Self::Heat,
+                30 => Self::Humidity,
+                31 => Self::Hurricane,
+                32 => Self::IceStorm,
+                33 => Self::IndustrialFire,
+                34 => Self::LakeEffectSnow,
+                35 => Self::Landslide,
+                36 => Self::Monsoon,
+                37 => Self::MuddyFlood,
+                38 => Self::Outflow,
+                39 => Self::Radiation,
+                40 => Self::RainEvent,
+                41 => Self::RiverFlooding,
+                42 => Self::SevereThunderstormWarning,
+                43 => Self::Snowsquall,
+                44 => Self::SnowEvent,
+                45 => Self::Storm,
+                46 => Self::StormSurge,
+                47 => Self::Thunder,
+                48 => Self::Thunderstorm,
+                49 => Self::Tornado,
+                50 => Self::TornadoWarning,
+                51 => Self::TropicalCyclone,
+                52 => Self::TropicalCycloneWarningsAndWatches,
+                53 => Self::TropicalDisturbance,
+                54 => Self::TropicalStorm,
+                55 => Self::Tsunami,
+                56 => Self::Typhoon,
+                57 => Self::VolcanicAsh,
+                58 => Self::VolcanicEruption,
+                59 => Self::Wildfire,
+                60 => Self::Wind,
+                61 => Self::WindChill,
+                62 => Self::WindWave,
+                63 => Self::WinterStorm,
+                _ => Self::UnknownValue(event_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for EventType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "EVENT_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "ACID_RAIN" => Self::AcidRain,
+                "AFTERSHOCK" => Self::Aftershock,
+                "AVALANCHE" => Self::Avalanche,
+                "BLIZZARD" => Self::Blizzard,
+                "BLOWING_SNOW" => Self::BlowingSnow,
+                "BUSHFIRE" => Self::Bushfire,
+                "COASTAL_FLOOD" => Self::CoastalFlood,
+                "COASTAL_HAZARD" => Self::CoastalHazard,
+                "COLD" => Self::Cold,
+                "CYCLONE" => Self::Cyclone,
+                "DROUGHT" => Self::Drought,
+                "DUST_STORM" => Self::DustStorm,
+                "EARTHQUAKE" => Self::Earthquake,
+                "EXTRATROPICAL_CYCLONE" => Self::ExtratropicalCyclone,
+                "FIRE" => Self::Fire,
+                "FIRE_WEATHER" => Self::FireWeather,
+                "FLASH_FLOOD" => Self::FlashFlood,
+                "FLOOD" => Self::Flood,
+                "FOG" => Self::Fog,
+                "FREEZING" => Self::Freezing,
+                "FREEZING_AIR_TEMPERATURE" => Self::FreezingAirTemperature,
+                "FREEZING_DRIZZLE" => Self::FreezingDrizzle,
+                "FREEZING_RAIN_EVENT" => Self::FreezingRainEvent,
+                "FROST" => Self::Frost,
+                "GALE" => Self::Gale,
+                "GLAZE" => Self::Glaze,
+                "HAIL" => Self::Hail,
+                "HAZARDOUS_SEAS" => Self::HazardousSeas,
+                "HEAT" => Self::Heat,
+                "HUMIDITY" => Self::Humidity,
+                "HURRICANE" => Self::Hurricane,
+                "ICE_STORM" => Self::IceStorm,
+                "INDUSTRIAL_FIRE" => Self::IndustrialFire,
+                "LAKE_EFFECT_SNOW" => Self::LakeEffectSnow,
+                "LANDSLIDE" => Self::Landslide,
+                "MONSOON" => Self::Monsoon,
+                "MUDDY_FLOOD" => Self::MuddyFlood,
+                "OUTFLOW" => Self::Outflow,
+                "RADIATION" => Self::Radiation,
+                "RAIN_EVENT" => Self::RainEvent,
+                "RIVER_FLOODING" => Self::RiverFlooding,
+                "SEVERE_THUNDERSTORM_WARNING" => Self::SevereThunderstormWarning,
+                "SNOWSQUALL" => Self::Snowsquall,
+                "SNOW_EVENT" => Self::SnowEvent,
+                "STORM" => Self::Storm,
+                "STORM_SURGE" => Self::StormSurge,
+                "THUNDER" => Self::Thunder,
+                "THUNDERSTORM" => Self::Thunderstorm,
+                "TORNADO" => Self::Tornado,
+                "TORNADO_WARNING" => Self::TornadoWarning,
+                "TROPICAL_CYCLONE" => Self::TropicalCyclone,
+                "TROPICAL_CYCLONE_WARNINGS_AND_WATCHES" => Self::TropicalCycloneWarningsAndWatches,
+                "TROPICAL_DISTURBANCE" => Self::TropicalDisturbance,
+                "TROPICAL_STORM" => Self::TropicalStorm,
+                "TSUNAMI" => Self::Tsunami,
+                "TYPHOON" => Self::Typhoon,
+                "VOLCANIC_ASH" => Self::VolcanicAsh,
+                "VOLCANIC_ERUPTION" => Self::VolcanicEruption,
+                "WILDFIRE" => Self::Wildfire,
+                "WIND" => Self::Wind,
+                "WIND_CHILL" => Self::WindChill,
+                "WIND_WAVE" => Self::WindWave,
+                "WINTER_STORM" => Self::WinterStorm,
+                _ => Self::UnknownValue(event_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for EventType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::AcidRain => serializer.serialize_i32(1),
+                Self::Aftershock => serializer.serialize_i32(2),
+                Self::Avalanche => serializer.serialize_i32(3),
+                Self::Blizzard => serializer.serialize_i32(4),
+                Self::BlowingSnow => serializer.serialize_i32(5),
+                Self::Bushfire => serializer.serialize_i32(6),
+                Self::CoastalFlood => serializer.serialize_i32(7),
+                Self::CoastalHazard => serializer.serialize_i32(8),
+                Self::Cold => serializer.serialize_i32(9),
+                Self::Cyclone => serializer.serialize_i32(10),
+                Self::Drought => serializer.serialize_i32(11),
+                Self::DustStorm => serializer.serialize_i32(12),
+                Self::Earthquake => serializer.serialize_i32(13),
+                Self::ExtratropicalCyclone => serializer.serialize_i32(14),
+                Self::Fire => serializer.serialize_i32(15),
+                Self::FireWeather => serializer.serialize_i32(16),
+                Self::FlashFlood => serializer.serialize_i32(17),
+                Self::Flood => serializer.serialize_i32(18),
+                Self::Fog => serializer.serialize_i32(19),
+                Self::Freezing => serializer.serialize_i32(20),
+                Self::FreezingAirTemperature => serializer.serialize_i32(21),
+                Self::FreezingDrizzle => serializer.serialize_i32(22),
+                Self::FreezingRainEvent => serializer.serialize_i32(23),
+                Self::Frost => serializer.serialize_i32(24),
+                Self::Gale => serializer.serialize_i32(25),
+                Self::Glaze => serializer.serialize_i32(26),
+                Self::Hail => serializer.serialize_i32(27),
+                Self::HazardousSeas => serializer.serialize_i32(28),
+                Self::Heat => serializer.serialize_i32(29),
+                Self::Humidity => serializer.serialize_i32(30),
+                Self::Hurricane => serializer.serialize_i32(31),
+                Self::IceStorm => serializer.serialize_i32(32),
+                Self::IndustrialFire => serializer.serialize_i32(33),
+                Self::LakeEffectSnow => serializer.serialize_i32(34),
+                Self::Landslide => serializer.serialize_i32(35),
+                Self::Monsoon => serializer.serialize_i32(36),
+                Self::MuddyFlood => serializer.serialize_i32(37),
+                Self::Outflow => serializer.serialize_i32(38),
+                Self::Radiation => serializer.serialize_i32(39),
+                Self::RainEvent => serializer.serialize_i32(40),
+                Self::RiverFlooding => serializer.serialize_i32(41),
+                Self::SevereThunderstormWarning => serializer.serialize_i32(42),
+                Self::Snowsquall => serializer.serialize_i32(43),
+                Self::SnowEvent => serializer.serialize_i32(44),
+                Self::Storm => serializer.serialize_i32(45),
+                Self::StormSurge => serializer.serialize_i32(46),
+                Self::Thunder => serializer.serialize_i32(47),
+                Self::Thunderstorm => serializer.serialize_i32(48),
+                Self::Tornado => serializer.serialize_i32(49),
+                Self::TornadoWarning => serializer.serialize_i32(50),
+                Self::TropicalCyclone => serializer.serialize_i32(51),
+                Self::TropicalCycloneWarningsAndWatches => serializer.serialize_i32(52),
+                Self::TropicalDisturbance => serializer.serialize_i32(53),
+                Self::TropicalStorm => serializer.serialize_i32(54),
+                Self::Tsunami => serializer.serialize_i32(55),
+                Self::Typhoon => serializer.serialize_i32(56),
+                Self::VolcanicAsh => serializer.serialize_i32(57),
+                Self::VolcanicEruption => serializer.serialize_i32(58),
+                Self::Wildfire => serializer.serialize_i32(59),
+                Self::Wind => serializer.serialize_i32(60),
+                Self::WindChill => serializer.serialize_i32(61),
+                Self::WindWave => serializer.serialize_i32(62),
+                Self::WinterStorm => serializer.serialize_i32(63),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for EventType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<EventType>::new(
+                ".google.maps.weather.v1.PublicAlerts.EventType",
+            ))
+        }
+    }
+
+    /// The code denoting the severity of the subject event of the alert message.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Severity {
+        /// Severity not known.
+        Unknown,
+        /// Extraordinary threat to life or property.
+        Extreme,
+        /// Significant threat to life or property.
+        Severe,
+        /// Possible threat to life or property.
+        Moderate,
+        /// Minor threat to life or property.
+        Minor,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Severity::value] or
+        /// [Severity::name].
+        UnknownValue(severity::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod severity {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Severity {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unknown => std::option::Option::Some(0),
+                Self::Extreme => std::option::Option::Some(1),
+                Self::Severe => std::option::Option::Some(2),
+                Self::Moderate => std::option::Option::Some(3),
+                Self::Minor => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unknown => std::option::Option::Some("SEVERITY_UNKNOWN"),
+                Self::Extreme => std::option::Option::Some("EXTREME"),
+                Self::Severe => std::option::Option::Some("SEVERE"),
+                Self::Moderate => std::option::Option::Some("MODERATE"),
+                Self::Minor => std::option::Option::Some("MINOR"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Severity {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Severity {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Severity {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unknown,
+                1 => Self::Extreme,
+                2 => Self::Severe,
+                3 => Self::Moderate,
+                4 => Self::Minor,
+                _ => Self::UnknownValue(severity::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Severity {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SEVERITY_UNKNOWN" => Self::Unknown,
+                "EXTREME" => Self::Extreme,
+                "SEVERE" => Self::Severe,
+                "MODERATE" => Self::Moderate,
+                "MINOR" => Self::Minor,
+                _ => Self::UnknownValue(severity::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Severity {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unknown => serializer.serialize_i32(0),
+                Self::Extreme => serializer.serialize_i32(1),
+                Self::Severe => serializer.serialize_i32(2),
+                Self::Moderate => serializer.serialize_i32(3),
+                Self::Minor => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Severity {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Severity>::new(
+                ".google.maps.weather.v1.PublicAlerts.Severity",
+            ))
+        }
+    }
+
+    /// The code denoting the certainty of the subject event of the alert message.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Certainty {
+        /// Certainty not known.
+        Unknown,
+        /// Determined to have occurred or to be ongoing.
+        Observed,
+        /// Very likely.
+        VeryLikely,
+        /// Likely (p > ~50%).
+        Likely,
+        /// Possible but not likely (p <= ~50%).
+        Possible,
+        /// Unlikely (p ~ 0%).
+        Unlikely,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Certainty::value] or
+        /// [Certainty::name].
+        UnknownValue(certainty::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod certainty {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Certainty {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unknown => std::option::Option::Some(0),
+                Self::Observed => std::option::Option::Some(1),
+                Self::VeryLikely => std::option::Option::Some(2),
+                Self::Likely => std::option::Option::Some(3),
+                Self::Possible => std::option::Option::Some(4),
+                Self::Unlikely => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unknown => std::option::Option::Some("CERTAINTY_UNKNOWN"),
+                Self::Observed => std::option::Option::Some("OBSERVED"),
+                Self::VeryLikely => std::option::Option::Some("VERY_LIKELY"),
+                Self::Likely => std::option::Option::Some("LIKELY"),
+                Self::Possible => std::option::Option::Some("POSSIBLE"),
+                Self::Unlikely => std::option::Option::Some("UNLIKELY"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Certainty {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Certainty {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Certainty {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unknown,
+                1 => Self::Observed,
+                2 => Self::VeryLikely,
+                3 => Self::Likely,
+                4 => Self::Possible,
+                5 => Self::Unlikely,
+                _ => Self::UnknownValue(certainty::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Certainty {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CERTAINTY_UNKNOWN" => Self::Unknown,
+                "OBSERVED" => Self::Observed,
+                "VERY_LIKELY" => Self::VeryLikely,
+                "LIKELY" => Self::Likely,
+                "POSSIBLE" => Self::Possible,
+                "UNLIKELY" => Self::Unlikely,
+                _ => Self::UnknownValue(certainty::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Certainty {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unknown => serializer.serialize_i32(0),
+                Self::Observed => serializer.serialize_i32(1),
+                Self::VeryLikely => serializer.serialize_i32(2),
+                Self::Likely => serializer.serialize_i32(3),
+                Self::Possible => serializer.serialize_i32(4),
+                Self::Unlikely => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Certainty {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Certainty>::new(
+                ".google.maps.weather.v1.PublicAlerts.Certainty",
+            ))
+        }
+    }
+
+    /// The code denoting the urgency of the subject event of the alert message.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Urgency {
+        /// Urgency not known.
+        Unknown,
+        /// Responsive action SHOULD be taken immediately.
+        Immediate,
+        /// Responsive action SHOULD be taken soon (within next hour).
+        Expected,
+        /// Responsive action SHOULD be taken in the near future.
+        Future,
+        /// Responsive action is no longer required.
+        Past,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Urgency::value] or
+        /// [Urgency::name].
+        UnknownValue(urgency::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod urgency {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Urgency {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unknown => std::option::Option::Some(0),
+                Self::Immediate => std::option::Option::Some(1),
+                Self::Expected => std::option::Option::Some(2),
+                Self::Future => std::option::Option::Some(3),
+                Self::Past => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unknown => std::option::Option::Some("URGENCY_UNKNOWN"),
+                Self::Immediate => std::option::Option::Some("IMMEDIATE"),
+                Self::Expected => std::option::Option::Some("EXPECTED"),
+                Self::Future => std::option::Option::Some("FUTURE"),
+                Self::Past => std::option::Option::Some("PAST"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Urgency {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Urgency {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Urgency {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unknown,
+                1 => Self::Immediate,
+                2 => Self::Expected,
+                3 => Self::Future,
+                4 => Self::Past,
+                _ => Self::UnknownValue(urgency::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Urgency {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "URGENCY_UNKNOWN" => Self::Unknown,
+                "IMMEDIATE" => Self::Immediate,
+                "EXPECTED" => Self::Expected,
+                "FUTURE" => Self::Future,
+                "PAST" => Self::Past,
+                _ => Self::UnknownValue(urgency::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Urgency {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unknown => serializer.serialize_i32(0),
+                Self::Immediate => serializer.serialize_i32(1),
+                Self::Expected => serializer.serialize_i32(2),
+                Self::Future => serializer.serialize_i32(3),
+                Self::Past => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Urgency {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Urgency>::new(
+                ".google.maps.weather.v1.PublicAlerts.Urgency",
+            ))
+        }
+    }
+}
+
 /// Represents a temperature value.
+/// (-- Next available tag: 3 --)
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Temperature {
@@ -4902,7 +6838,11 @@ pub struct Temperature {
     pub degrees: std::option::Option<f32>,
 
     /// The code for the unit used to measure the temperature value.
-    pub unit: crate::model::TemperatureUnit,
+    /// (-- aip.dev/not-precedent: Field type changed to nested enum per atomic
+    /// transition strategy. Wire-compatible; external consumers
+    /// rely exclusively on HTTP REST/JSON where enum strings remain identical.
+    /// --)
+    pub unit: crate::model::temperature::Unit,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4949,11 +6889,14 @@ impl Temperature {
     /// # Example
     /// ```ignore,no_run
     /// # use google_maps_weather_v1::model::Temperature;
-    /// use google_maps_weather_v1::model::TemperatureUnit;
-    /// let x0 = Temperature::new().set_unit(TemperatureUnit::Celsius);
-    /// let x1 = Temperature::new().set_unit(TemperatureUnit::Fahrenheit);
+    /// use google_maps_weather_v1::model::temperature::Unit;
+    /// let x0 = Temperature::new().set_unit(Unit::Celsius);
+    /// let x1 = Temperature::new().set_unit(Unit::Fahrenheit);
     /// ```
-    pub fn set_unit<T: std::convert::Into<crate::model::TemperatureUnit>>(mut self, v: T) -> Self {
+    pub fn set_unit<T: std::convert::Into<crate::model::temperature::Unit>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.unit = v.into();
         self
     }
@@ -4962,6 +6905,144 @@ impl Temperature {
 impl wkt::message::Message for Temperature {
     fn typename() -> &'static str {
         "type.googleapis.com/google.maps.weather.v1.Temperature"
+    }
+}
+
+/// Defines additional types related to [Temperature].
+pub mod temperature {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Represents a unit used to measure temperatures.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Unit {
+        /// The temperature unit is unspecified.
+        Unspecified,
+        /// The temperature is measured in Celsius.
+        Celsius,
+        /// The temperature is measured in Fahrenheit.
+        Fahrenheit,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Unit::value] or
+        /// [Unit::name].
+        UnknownValue(unit::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod unit {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Unit {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Celsius => std::option::Option::Some(1),
+                Self::Fahrenheit => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("UNIT_UNSPECIFIED"),
+                Self::Celsius => std::option::Option::Some("CELSIUS"),
+                Self::Fahrenheit => std::option::Option::Some("FAHRENHEIT"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Unit {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Unit {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Unit {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Celsius,
+                2 => Self::Fahrenheit,
+                _ => Self::UnknownValue(unit::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Unit {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "UNIT_UNSPECIFIED" => Self::Unspecified,
+                "CELSIUS" => Self::Celsius,
+                "FAHRENHEIT" => Self::Fahrenheit,
+                _ => Self::UnknownValue(unit::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Unit {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Celsius => serializer.serialize_i32(1),
+                Self::Fahrenheit => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Unit {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Unit>::new(
+                ".google.maps.weather.v1.Temperature.Unit",
+            ))
+        }
     }
 }
 
@@ -8147,6 +10228,7 @@ impl wkt::message::Message for LookupMapTileRequest {
 }
 
 /// Represents a set of wind properties.
+/// (-- Next available tag: 4 --)
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Wind {
@@ -8275,6 +10357,9 @@ impl wkt::message::Message for Wind {
 }
 
 /// Represents the direction from which the wind originates.
+/// (-- This is a generic (shared) definition because it might be used as a
+/// standalone field for other endpoints/new features in the future. --)
+/// (-- Next available tag: 3 --)
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WindDirection {
@@ -8283,7 +10368,11 @@ pub struct WindDirection {
 
     /// The code that represents the cardinal direction from which the wind is
     /// blowing.
-    pub cardinal: crate::model::CardinalDirection,
+    /// (-- aip.dev/not-precedent: Field type changed to nested enum per atomic
+    /// transition strategy. Wire-compatible; external consumers
+    /// rely exclusively on HTTP REST/JSON where enum strings remain identical.
+    /// --)
+    pub cardinal: crate::model::wind_direction::Cardinal,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -8330,12 +10419,12 @@ impl WindDirection {
     /// # Example
     /// ```ignore,no_run
     /// # use google_maps_weather_v1::model::WindDirection;
-    /// use google_maps_weather_v1::model::CardinalDirection;
-    /// let x0 = WindDirection::new().set_cardinal(CardinalDirection::North);
-    /// let x1 = WindDirection::new().set_cardinal(CardinalDirection::NorthNortheast);
-    /// let x2 = WindDirection::new().set_cardinal(CardinalDirection::Northeast);
+    /// use google_maps_weather_v1::model::wind_direction::Cardinal;
+    /// let x0 = WindDirection::new().set_cardinal(Cardinal::North);
+    /// let x1 = WindDirection::new().set_cardinal(Cardinal::NorthNortheast);
+    /// let x2 = WindDirection::new().set_cardinal(Cardinal::Northeast);
     /// ```
-    pub fn set_cardinal<T: std::convert::Into<crate::model::CardinalDirection>>(
+    pub fn set_cardinal<T: std::convert::Into<crate::model::wind_direction::Cardinal>>(
         mut self,
         v: T,
     ) -> Self {
@@ -8350,7 +10439,246 @@ impl wkt::message::Message for WindDirection {
     }
 }
 
+/// Defines additional types related to [WindDirection].
+pub mod wind_direction {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Represents a cardinal direction (including ordinal directions).
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Cardinal {
+        /// The cardinal direction is unspecified.
+        Unspecified,
+        /// The north cardinal direction.
+        North,
+        /// The north-northeast secondary intercardinal direction.
+        NorthNortheast,
+        /// The northeast intercardinal direction.
+        Northeast,
+        /// The east-northeast secondary intercardinal direction.
+        EastNortheast,
+        /// The east cardinal direction.
+        East,
+        /// The east-southeast secondary intercardinal direction.
+        EastSoutheast,
+        /// The southeast intercardinal direction.
+        Southeast,
+        /// The south-southeast secondary intercardinal direction.
+        SouthSoutheast,
+        /// The south cardinal direction.
+        South,
+        /// The south-southwest secondary intercardinal direction.
+        SouthSouthwest,
+        /// The southwest intercardinal direction.
+        Southwest,
+        /// The west-southwest secondary intercardinal direction.
+        WestSouthwest,
+        /// The west cardinal direction.
+        West,
+        /// The west-northwest secondary intercardinal direction.
+        WestNorthwest,
+        /// The northwest intercardinal direction.
+        Northwest,
+        /// The north-northwest secondary intercardinal direction.
+        NorthNorthwest,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Cardinal::value] or
+        /// [Cardinal::name].
+        UnknownValue(cardinal::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod cardinal {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Cardinal {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::North => std::option::Option::Some(1),
+                Self::NorthNortheast => std::option::Option::Some(2),
+                Self::Northeast => std::option::Option::Some(3),
+                Self::EastNortheast => std::option::Option::Some(4),
+                Self::East => std::option::Option::Some(5),
+                Self::EastSoutheast => std::option::Option::Some(6),
+                Self::Southeast => std::option::Option::Some(7),
+                Self::SouthSoutheast => std::option::Option::Some(8),
+                Self::South => std::option::Option::Some(9),
+                Self::SouthSouthwest => std::option::Option::Some(10),
+                Self::Southwest => std::option::Option::Some(11),
+                Self::WestSouthwest => std::option::Option::Some(12),
+                Self::West => std::option::Option::Some(13),
+                Self::WestNorthwest => std::option::Option::Some(14),
+                Self::Northwest => std::option::Option::Some(15),
+                Self::NorthNorthwest => std::option::Option::Some(16),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CARDINAL_UNSPECIFIED"),
+                Self::North => std::option::Option::Some("NORTH"),
+                Self::NorthNortheast => std::option::Option::Some("NORTH_NORTHEAST"),
+                Self::Northeast => std::option::Option::Some("NORTHEAST"),
+                Self::EastNortheast => std::option::Option::Some("EAST_NORTHEAST"),
+                Self::East => std::option::Option::Some("EAST"),
+                Self::EastSoutheast => std::option::Option::Some("EAST_SOUTHEAST"),
+                Self::Southeast => std::option::Option::Some("SOUTHEAST"),
+                Self::SouthSoutheast => std::option::Option::Some("SOUTH_SOUTHEAST"),
+                Self::South => std::option::Option::Some("SOUTH"),
+                Self::SouthSouthwest => std::option::Option::Some("SOUTH_SOUTHWEST"),
+                Self::Southwest => std::option::Option::Some("SOUTHWEST"),
+                Self::WestSouthwest => std::option::Option::Some("WEST_SOUTHWEST"),
+                Self::West => std::option::Option::Some("WEST"),
+                Self::WestNorthwest => std::option::Option::Some("WEST_NORTHWEST"),
+                Self::Northwest => std::option::Option::Some("NORTHWEST"),
+                Self::NorthNorthwest => std::option::Option::Some("NORTH_NORTHWEST"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Cardinal {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Cardinal {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Cardinal {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::North,
+                2 => Self::NorthNortheast,
+                3 => Self::Northeast,
+                4 => Self::EastNortheast,
+                5 => Self::East,
+                6 => Self::EastSoutheast,
+                7 => Self::Southeast,
+                8 => Self::SouthSoutheast,
+                9 => Self::South,
+                10 => Self::SouthSouthwest,
+                11 => Self::Southwest,
+                12 => Self::WestSouthwest,
+                13 => Self::West,
+                14 => Self::WestNorthwest,
+                15 => Self::Northwest,
+                16 => Self::NorthNorthwest,
+                _ => Self::UnknownValue(cardinal::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Cardinal {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CARDINAL_UNSPECIFIED" => Self::Unspecified,
+                "NORTH" => Self::North,
+                "NORTH_NORTHEAST" => Self::NorthNortheast,
+                "NORTHEAST" => Self::Northeast,
+                "EAST_NORTHEAST" => Self::EastNortheast,
+                "EAST" => Self::East,
+                "EAST_SOUTHEAST" => Self::EastSoutheast,
+                "SOUTHEAST" => Self::Southeast,
+                "SOUTH_SOUTHEAST" => Self::SouthSoutheast,
+                "SOUTH" => Self::South,
+                "SOUTH_SOUTHWEST" => Self::SouthSouthwest,
+                "SOUTHWEST" => Self::Southwest,
+                "WEST_SOUTHWEST" => Self::WestSouthwest,
+                "WEST" => Self::West,
+                "WEST_NORTHWEST" => Self::WestNorthwest,
+                "NORTHWEST" => Self::Northwest,
+                "NORTH_NORTHWEST" => Self::NorthNorthwest,
+                _ => Self::UnknownValue(cardinal::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Cardinal {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::North => serializer.serialize_i32(1),
+                Self::NorthNortheast => serializer.serialize_i32(2),
+                Self::Northeast => serializer.serialize_i32(3),
+                Self::EastNortheast => serializer.serialize_i32(4),
+                Self::East => serializer.serialize_i32(5),
+                Self::EastSoutheast => serializer.serialize_i32(6),
+                Self::Southeast => serializer.serialize_i32(7),
+                Self::SouthSoutheast => serializer.serialize_i32(8),
+                Self::South => serializer.serialize_i32(9),
+                Self::SouthSouthwest => serializer.serialize_i32(10),
+                Self::Southwest => serializer.serialize_i32(11),
+                Self::WestSouthwest => serializer.serialize_i32(12),
+                Self::West => serializer.serialize_i32(13),
+                Self::WestNorthwest => serializer.serialize_i32(14),
+                Self::Northwest => serializer.serialize_i32(15),
+                Self::NorthNorthwest => serializer.serialize_i32(16),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Cardinal {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Cardinal>::new(
+                ".google.maps.weather.v1.WindDirection.Cardinal",
+            ))
+        }
+    }
+}
+
 /// Represents the speed of the wind.
+/// (-- This is a generic (shared) definition because it might be used as a
+/// standalone field for other endpoints/new features in the future. --)
+/// (-- Next available tag: 3 --)
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WindSpeed {
@@ -8358,7 +10686,11 @@ pub struct WindSpeed {
     pub value: std::option::Option<f32>,
 
     /// The code that represents the unit used to measure the wind speed.
-    pub unit: crate::model::SpeedUnit,
+    /// (-- aip.dev/not-precedent: Field type changed to nested enum per atomic
+    /// transition strategy. Wire-compatible; external consumers
+    /// rely exclusively on HTTP REST/JSON where enum strings remain identical.
+    /// --)
+    pub unit: crate::model::wind_speed::Unit,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -8405,11 +10737,11 @@ impl WindSpeed {
     /// # Example
     /// ```ignore,no_run
     /// # use google_maps_weather_v1::model::WindSpeed;
-    /// use google_maps_weather_v1::model::SpeedUnit;
-    /// let x0 = WindSpeed::new().set_unit(SpeedUnit::KilometersPerHour);
-    /// let x1 = WindSpeed::new().set_unit(SpeedUnit::MilesPerHour);
+    /// use google_maps_weather_v1::model::wind_speed::Unit;
+    /// let x0 = WindSpeed::new().set_unit(Unit::KilometersPerHour);
+    /// let x1 = WindSpeed::new().set_unit(Unit::MilesPerHour);
     /// ```
-    pub fn set_unit<T: std::convert::Into<crate::model::SpeedUnit>>(mut self, v: T) -> Self {
+    pub fn set_unit<T: std::convert::Into<crate::model::wind_speed::Unit>>(mut self, v: T) -> Self {
         self.unit = v.into();
         self
     }
@@ -8421,7 +10753,149 @@ impl wkt::message::Message for WindSpeed {
     }
 }
 
+/// Defines additional types related to [WindSpeed].
+pub mod wind_speed {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Represents the unit used to measure speed.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Unit {
+        /// The speed unit is unspecified.
+        Unspecified,
+        /// The speed is measured in kilometers per hour.
+        KilometersPerHour,
+        /// The speed is measured in miles per hour.
+        MilesPerHour,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Unit::value] or
+        /// [Unit::name].
+        UnknownValue(unit::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod unit {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Unit {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::KilometersPerHour => std::option::Option::Some(1),
+                Self::MilesPerHour => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("UNIT_UNSPECIFIED"),
+                Self::KilometersPerHour => std::option::Option::Some("KILOMETERS_PER_HOUR"),
+                Self::MilesPerHour => std::option::Option::Some("MILES_PER_HOUR"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Unit {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Unit {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Unit {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::KilometersPerHour,
+                2 => Self::MilesPerHour,
+                _ => Self::UnknownValue(unit::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Unit {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "UNIT_UNSPECIFIED" => Self::Unspecified,
+                "KILOMETERS_PER_HOUR" => Self::KilometersPerHour,
+                "MILES_PER_HOUR" => Self::MilesPerHour,
+                _ => Self::UnknownValue(unit::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Unit {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::KilometersPerHour => serializer.serialize_i32(1),
+                Self::MilesPerHour => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Unit {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Unit>::new(
+                ".google.maps.weather.v1.WindSpeed.Unit",
+            ))
+        }
+    }
+}
+
 /// Marks the moon phase (a.k.a. lunar phase).
+/// (-- This is a generic (shared) definition because it maybe used as a
+/// standalone field for other endpoints/new features in the future and it
+/// already contains all the possible moon phases. --)
+/// (-- Next available tag: 9 --)
 ///
 /// # Working with unknown values
 ///
@@ -8735,6 +11209,9 @@ impl<'de> serde::de::Deserialize<'de> for MapType {
 }
 
 /// Represents the type of precipitation at a given location.
+/// (-- This is a generic (shared) definition because it might be used as a
+/// standalone field for other endpoints/new features in the future. --)
+/// (-- Next available tag: 10 --)
 ///
 /// # Working with unknown values
 ///
@@ -10404,6 +12881,10 @@ impl<'de> serde::de::Deserialize<'de> for Certainty {
 }
 
 /// Represents a unit used to measure temperatures.
+/// (-- This is a generic (shared) definition because it maybe used as a
+/// standalone field for other endpoints/new features in the future and it
+/// already contains all the possible temperature units. --)
+/// (-- Next available tag: 3 --)
 ///
 /// # Working with unknown values
 ///
@@ -10668,6 +13149,10 @@ impl<'de> serde::de::Deserialize<'de> for UnitsSystem {
 }
 
 /// Represents a cardinal direction (including ordinal directions).
+/// (-- This is a generic (shared) definition because it maybe used as a
+/// standalone field for other endpoints/new features in the future and it
+/// already contains all the possible cardinal directions. --)
+/// (-- Next available tag: 17 --)
 ///
 /// # Working with unknown values
 ///
@@ -10898,6 +13383,10 @@ impl<'de> serde::de::Deserialize<'de> for CardinalDirection {
 }
 
 /// Represents the unit used to measure speed.
+/// (-- This is a generic (shared) definition because it maybe used as a
+/// standalone field for other endpoints/new features in the future and it
+/// already contains all the possible speed units. --)
+/// (-- Next available tag: 3 --)
 ///
 /// # Working with unknown values
 ///

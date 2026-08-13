@@ -38,8 +38,8 @@ pub struct QueryMetadata {
     /// field will be present whenever a query job is in the DONE state.
     pub end_time: std::option::Option<i64>,
 
-    /// Output only. The first errors or warnings encountered during the running of
-    /// the job. The final message includes the number of errors that caused the
+    /// Output only. The first errors or warnings encountered during the running
+    /// of the job. The final message includes the number of errors that caused the
     /// process to stop. Errors here do not necessarily mean that the job has
     /// completed or was unsuccessful. For more information about error messages,
     /// see [Error
@@ -60,14 +60,11 @@ pub struct QueryMetadata {
     /// If job_reference is not present it will always be unset.
     pub job_creation_reason: std::option::Option<crate::model::JobCreationReason>,
 
-    /// Reference to the Job that was created to run the query. This field will be
-    /// present even if the original request timed out, in which case
+    /// Reference to the BigQuery Job that was created to run the query. This field
+    /// will be present even if the original request timed out, in which case
     /// GetQueryResults can be used to read the results once the query has
     /// completed. Since this API only returns the first page of results,
     /// subsequent pages can be fetched via the same mechanism (GetQueryResults).
-    ///
-    /// If job_creation_mode was set to `JOB_CREATION_OPTIONAL` and the query
-    /// completes without creating a job, this field will be empty.
     pub job_reference: std::option::Option<crate::model::JobReference>,
 
     /// The resource type of the response.
@@ -437,6 +434,39 @@ impl QueryMetadata {
     {
         self.total_slot_ms = v.map(|x| x.into());
         self
+    }
+}
+mod debug {
+
+    impl std::fmt::Debug for super::QueryMetadata {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("QueryMetadata");
+            debug_struct.field("cache_hit", &self.cache_hit);
+            debug_struct.field("creation_time", &self.creation_time);
+            debug_struct.field("dml_stats", &self.dml_stats);
+            debug_struct.field("end_time", &self.end_time);
+            debug_struct.field("errors", &self.errors);
+            debug_struct.field("etag", &self.etag);
+            debug_struct.field("job_complete", &self.job_complete);
+            debug_struct.field("job_creation_reason", &self.job_creation_reason);
+            debug_struct.field("job_reference", &self.job_reference);
+            debug_struct.field("kind", &self.kind);
+            debug_struct.field("location", &self.location);
+            debug_struct.field("num_dml_affected_rows", &self.num_dml_affected_rows);
+            debug_struct.field("page_token", &self.page_token);
+            debug_struct.field("query_id", &self.query_id);
+            debug_struct.field("schema", &self.schema);
+            debug_struct.field("session_info", &self.session_info);
+            debug_struct.field("start_time", &self.start_time);
+            debug_struct.field("total_bytes_billed", &self.total_bytes_billed);
+            debug_struct.field("total_bytes_processed", &self.total_bytes_processed);
+            debug_struct.field("total_rows", &self.total_rows);
+            debug_struct.field("total_slot_ms", &self.total_slot_ms);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
     }
 }
 
