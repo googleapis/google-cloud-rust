@@ -30,6 +30,7 @@ use std::future::Future;
 const X_GOOG_API_CLIENT: HeaderName = HeaderName::from_static("x-goog-api-client");
 const X_GOOG_REQUEST_PARAMS: HeaderName = HeaderName::from_static("x-goog-request-params");
 const X_GOOG_USER_PROJECT: HeaderName = HeaderName::from_static("x-goog-user-project");
+const X_GOOG_API_KEY: HeaderName = HeaderName::from_static("x-goog-api-key");
 
 /// Extends the supplied `headers` map with authentication headers from a
 /// `Credentials` object. For entries with the same header name, the one in
@@ -81,8 +82,11 @@ pub(crate) fn make_headers(
     // Sanitize user custom headers by stripping away any keys conflicting with system headers.
     for key in [
         http::header::USER_AGENT,
+        http::header::AUTHORIZATION,
+        X_GOOG_API_KEY,
         X_GOOG_USER_PROJECT,
         X_GOOG_REQUEST_PARAMS,
+        X_GOOG_API_CLIENT,
     ] {
         headers.remove(key);
     }
@@ -421,6 +425,11 @@ mod tests {
             X_GOOG_REQUEST_PARAMS,
             HeaderValue::from_static("custom-params"),
         );
+        custom_headers.insert(
+            http::header::AUTHORIZATION,
+            HeaderValue::from_static("custom-authorization"),
+        );
+        custom_headers.insert(X_GOOG_API_KEY, HeaderValue::from_static("custom-api-key"));
         // A legitimate custom header
         custom_headers.insert(
             "x-legitimate-header",
