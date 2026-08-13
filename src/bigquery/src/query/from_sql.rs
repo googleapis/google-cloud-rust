@@ -58,8 +58,6 @@ pub(crate) const BIGQUERY_DATETIME_SUBSEC_FORMAT: &[time::format_description::Fo
 /// # async fn sample(client: BigQuery) -> anyhow::Result<()> {
 /// let mut rows = client
 ///     .query("SELECT 12345 AS integer_col, 'foo' AS string_col")
-///     .run()
-///     .await?
 ///     .until_done()
 ///     .await?
 ///     .read();

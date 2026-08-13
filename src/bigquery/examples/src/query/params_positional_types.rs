@@ -35,8 +35,6 @@ pub async fn sample(project_id: &str) -> anyhow::Result<()> {
                 .set_parameter_value(QueryParameterValue::new().set_value("3.14159")),
         ])
         .set_location("US")
-        .run()
-        .await?
         .until_done()
         .await?
         .read();

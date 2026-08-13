@@ -14,7 +14,7 @@
 
 use crate::model::RunQueryRequest;
 use crate::query::execution::{InsertJobExecutor, PostQueryExecutor};
-use crate::query::{Query, Result};
+use crate::query::{CompleteQuery, Query, Result};
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::query_request::JobCreationMode;
 use google_cloud_bigquery_v2::model::{
@@ -49,8 +49,6 @@ pub(crate) const QUERY_REQUEST_ID_PREFIX: &str = "req_";
 ///     .query("SELECT name FROM `bigquery-public-data.usa_names.usa_1910_2013` WHERE state = 'TX' LIMIT 100")
 ///     .set_location("US")
 ///     .set_max_results(50_u32)
-///     .run()
-///     .await?
 ///     .until_done()
 ///     .await?
 ///     .read();
@@ -92,7 +90,7 @@ impl RunQuery {
     /// project ID for this specific query.
     ///
     /// You must specify a project ID either on the client or on the query
-    /// builder before calling [`run()`](RunQuery::run).
+    /// builder before calling [`send()`](RunQuery::send).
     ///
     /// # Example
     ///
@@ -102,7 +100,7 @@ impl RunQuery {
     /// let query_handle = client
     ///     .query("SELECT 1 AS count")
     ///     .with_project_id("my-project-id")
-    ///     .run()
+    ///     .send()
     ///     .await?;
     /// # Ok(())
     /// # }
@@ -134,10 +132,12 @@ impl RunQuery {
     /// ```
     /// # use google_cloud_bigquery::client::BigQuery;
     /// # async fn sample(client: BigQuery) -> anyhow::Result<()> {
-    /// let completed_query = client
+    /// let query_handle = client
     ///     .query("SELECT CURRENT_TIMESTAMP() AS now")
-    ///     .run()
-    ///     .await?
+    ///     .send()
+    ///     .await?;
+    ///
+    /// let completed_query = query_handle
     ///     .until_done()
     ///     .await?;
     ///
@@ -149,7 +149,7 @@ impl RunQuery {
     /// # Ok(())
     /// # }
     /// ```
-    pub async fn run(self) -> Result<Query> {
+    pub async fn send(self) -> Result<Query> {
         let project_id = self.project_id.unwrap_or_default();
         let max_results = self.request.max_results;
 
@@ -185,6 +185,33 @@ impl RunQuery {
                 .execute()
                 .await
         }
+    }
+
+    /// Sends the query execution request and polls until execution completes.
+    ///
+    /// This is a convenience method equivalent to calling
+    /// [`.send().await?.until_done().await`](RunQuery::send).
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_bigquery::client::BigQuery;
+    /// # async fn sample(client: BigQuery) -> anyhow::Result<()> {
+    /// let completed_query = client
+    ///     .query("SELECT CURRENT_TIMESTAMP() AS now")
+    ///     .until_done()
+    ///     .await?;
+    ///
+    /// let mut rows = completed_query.read();
+    /// if let Some(row) = rows.next().await.transpose()? {
+    ///     let now: String = row.get("now");
+    ///     println!("Current time: {now}");
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub async fn until_done(self) -> Result<CompleteQuery> {
+        self.send().await?.until_done().await
     }
 }
 
@@ -269,7 +296,7 @@ mod tests {
             .await?;
         let run_query = client.query("SELECT 1");
         let err = run_query
-            .run()
+            .send()
             .await
             .expect_err("should return an error when project_id is missing");
         assert!(
@@ -287,12 +314,30 @@ mod tests {
             .await?;
         let run_query = client.query("SELECT 1").set_allow_large_results(true);
         let err = run_query
-            .run()
+            .send()
             .await
             .expect_err("should return an error when project_id is missing");
         assert!(
             matches!(&err, QueryError::Rpc { source } if source.is_binding()),
             "expected Binding error for missing project ID on job path, got {err:?}"
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_run_until_done_missing_project_id() -> anyhow::Result<()> {
+        let client = BigQuery::builder()
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let run_query = client.query("SELECT 1");
+        let err = run_query
+            .until_done()
+            .await
+            .expect_err("should return an error when project_id is missing");
+        assert!(
+            matches!(&err, QueryError::Rpc { source } if source.is_binding()),
+            "expected Binding error for missing project ID, got {err:?}"
         );
         Ok(())
     }
@@ -342,7 +387,7 @@ mod tests {
         let run_query = RunQuery::new(job_service, "SELECT 1".to_string())
             .with_project_id("my-project")
             .set_allow_large_results(true);
-        let query = run_query.run().await?;
+        let query = run_query.send().await?;
         assert!(query.completed, "{query:?}");
 
         Ok(())
@@ -362,7 +407,7 @@ mod tests {
         let job_service = create_job_service(mock);
         let run_query =
             RunQuery::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
-        let query = run_query.run().await?;
+        let query = run_query.send().await?;
         assert!(!query.completed, "{query:?}");
         assert_eq!(query.metadata.query_id, "some_query_id");
 
@@ -415,7 +460,7 @@ mod tests {
         let run_query = RunQuery::new(job_service, "SELECT 1".to_string())
             .with_project_id("my-project")
             .set_max_results(100_u32);
-        let query = run_query.run().await?;
+        let query = run_query.send().await?;
         assert_eq!(query.max_results, Some(100));
 
         Ok(())
@@ -439,8 +484,27 @@ mod tests {
             .with_project_id("my-project")
             .set_allow_large_results(true)
             .set_max_results(50_u32);
-        let query = run_query.run().await?;
+        let query = run_query.send().await?;
         assert_eq!(query.max_results, Some(50));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_until_done_jobs_query() -> TestResult {
+        let mut mock = MockJobService::new();
+        mock.expect_query().returning(move |_, _| {
+            Ok(Response::from(
+                QueryResponse::new()
+                    .set_job_complete(true)
+                    .set_query_id("some_query_id"),
+            ))
+        });
+        let job_service = create_job_service(mock);
+        let run_query =
+            RunQuery::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
+        let complete = run_query.until_done().await?;
+        assert_eq!(complete.metadata().query_id, "some_query_id");
 
         Ok(())
     }
