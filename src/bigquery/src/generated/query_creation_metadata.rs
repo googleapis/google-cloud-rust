@@ -541,7 +541,6 @@ impl QueryCreationMetadata {
     }
 }
 mod debug {
-    use super::*;
 
     impl std::fmt::Debug for super::QueryCreationMetadata {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
