@@ -1747,6 +1747,9 @@ libraries:
   - name: google-cloud-workflows-v1
     version: 1.13.0
     copyright_year: "2025"
+  - name: google-cloud-workloadidentity-v1
+    version: 1.0.0
+    copyright_year: "2026"
   - name: google-cloud-workstations-v1
     version: 1.13.0
     copyright_year: "2025"
