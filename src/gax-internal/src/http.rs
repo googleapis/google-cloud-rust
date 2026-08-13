@@ -576,8 +576,19 @@ pub fn map_send_error(err: ::reqwest::Error) -> Error {
     }
 }
 
-#[derive(Default, serde::Serialize)]
+#[derive(Default)]
 pub struct NoBody;
+
+impl serde::Serialize for NoBody {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        let map = serializer.serialize_map(Some(0))?;
+        map.end()
+    }
+}
 
 pub fn handle_empty<T: Default>(body: Option<T>, method: &Method) -> Option<T> {
     body.or_else(|| {
@@ -638,6 +649,13 @@ async fn to_http_response<O: serde::de::DeserializeOwned + Default>(
 
 #[cfg(test)]
 mod tests {
+    #[test]
+    fn nobody_serializes_to_empty_object() -> anyhow::Result<()> {
+        let serialized = serde_json::to_string(&super::NoBody)?;
+        assert_eq!(serialized, "{}");
+        Ok(())
+    }
+
     use super::*;
     use crate::options::ClientConfig;
     use crate::options::InstrumentationClientInfo;
