@@ -333,7 +333,7 @@ pub trait Echo: std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_gapic_streaming)]
     async fn chat(
         &self,
-        req: crate::model::EchoRequest,
+        req: std::option::Option<crate::model::EchoRequest>,
         options: crate::BidiStreamOptions,
     ) -> crate::Result<(
         google_cloud_gax::streaming::RequestSender<crate::model::EchoRequest>,
@@ -474,7 +474,7 @@ impl<T: super::Echo> Echo for T {
     #[cfg(google_cloud_unstable_gapic_streaming)]
     async fn chat(
         &self,
-        req: crate::model::EchoRequest,
+        req: std::option::Option<crate::model::EchoRequest>,
         options: crate::BidiStreamOptions,
     ) -> crate::Result<(
         google_cloud_gax::streaming::RequestSender<crate::model::EchoRequest>,
@@ -925,7 +925,7 @@ pub trait Messaging: std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_gapic_streaming)]
     async fn connect(
         &self,
-        req: crate::model::ConnectRequest,
+        req: std::option::Option<crate::model::ConnectRequest>,
         options: crate::BidiStreamOptions,
     ) -> crate::Result<(
         google_cloud_gax::streaming::RequestSender<crate::model::ConnectRequest>,
@@ -1108,7 +1108,7 @@ impl<T: super::Messaging> Messaging for T {
     #[cfg(google_cloud_unstable_gapic_streaming)]
     async fn connect(
         &self,
-        req: crate::model::ConnectRequest,
+        req: std::option::Option<crate::model::ConnectRequest>,
         options: crate::BidiStreamOptions,
     ) -> crate::Result<(
         google_cloud_gax::streaming::RequestSender<crate::model::ConnectRequest>,

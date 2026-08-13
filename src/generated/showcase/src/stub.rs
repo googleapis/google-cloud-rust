@@ -299,7 +299,7 @@ pub trait Echo: std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_gapic_streaming)]
     fn chat(
         &self,
-        _req: crate::model::EchoRequest,
+        _req: std::option::Option<crate::model::EchoRequest>,
         _options: crate::BidiStreamOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<(
@@ -792,7 +792,7 @@ pub trait Messaging: std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_gapic_streaming)]
     fn connect(
         &self,
-        _req: crate::model::ConnectRequest,
+        _req: std::option::Option<crate::model::ConnectRequest>,
         _options: crate::BidiStreamOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<(

@@ -1786,7 +1786,7 @@ impl super::stub::Echo for Echo {
     #[cfg(google_cloud_unstable_gapic_streaming)]
     async fn chat(
         &self,
-        req: crate::model::EchoRequest,
+        req: std::option::Option<crate::model::EchoRequest>,
         options: crate::BidiStreamOptions,
     ) -> Result<(
         google_cloud_gax::streaming::RequestSender<crate::model::EchoRequest>,
@@ -1794,6 +1794,9 @@ impl super::stub::Echo for Echo {
     )> {
         use futures::stream::StreamExt as _;
         use gaxi::prost::{FromProto, ToProto};
+
+        let req =
+            req.ok_or_else(|| google_cloud_gax::error::Error::binding("a request is required"))?;
 
         let first_req = req
             .to_proto()
@@ -5033,7 +5036,7 @@ impl super::stub::Messaging for Messaging {
     #[cfg(google_cloud_unstable_gapic_streaming)]
     async fn connect(
         &self,
-        req: crate::model::ConnectRequest,
+        req: std::option::Option<crate::model::ConnectRequest>,
         options: crate::BidiStreamOptions,
     ) -> Result<(
         google_cloud_gax::streaming::RequestSender<crate::model::ConnectRequest>,
@@ -5041,6 +5044,9 @@ impl super::stub::Messaging for Messaging {
     )> {
         use futures::stream::StreamExt as _;
         use gaxi::prost::{FromProto, ToProto};
+
+        let req =
+            req.ok_or_else(|| google_cloud_gax::error::Error::binding("a request is required"))?;
 
         let first_req = req
             .to_proto()
