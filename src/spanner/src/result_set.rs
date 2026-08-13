@@ -393,6 +393,12 @@ impl ResultSet {
             self.seen_last = true;
         }
 
+        let cache_update = partial_result_set
+            .cache_update
+            .take()
+            .and_then(|cache_update| cache_update.cnv().ok());
+        self.client.observe_cache_update(cache_update);
+
         match (
             self.local_metadata.as_ref(),
             partial_result_set.metadata.take(),
@@ -686,7 +692,6 @@ impl ResultSet {
                     .or_else(|| req.transaction.take());
                 let stream = self
                     .client
-                    .spanner
                     .execute_streaming_sql(req.clone(), self.gax_options.clone(), self.channel_hint)
                     .send()
                     .await?;
@@ -699,7 +704,6 @@ impl ResultSet {
                     .or_else(|| req.transaction.take());
                 let stream = self
                     .client
-                    .spanner
                     .streaming_read(req.clone(), self.gax_options.clone(), self.channel_hint)
                     .send()
                     .await?;
@@ -1887,7 +1891,6 @@ pub(crate) mod tests {
             .set_sql("SELECT 1".to_string());
 
         let stream = db_client
-            .spanner
             .execute_streaming_sql(req.clone(), GaxRequestOptions::default(), 0)
             .send()
             .await?;
@@ -2918,6 +2921,80 @@ pub(crate) mod tests {
         // Now consume the row
         let row = rs.next().await;
         assert!(row.is_some());
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn result_set_streaming_observes_cache_update() -> anyhow::Result<()> {
+        use crate::client::SpannerBuilderExt;
+        use crate::omni::InstanceType;
+        use crate::routing::key_range_cache::RangeMode;
+        use spanner_grpc_mock::google::spanner::v1::{CacheUpdate, Group, Range, Tablet};
+
+        let mut mock = MockSpanner::new();
+        mock.expect_execute_streaming_sql().returning(|_| {
+            let cache_update = CacheUpdate {
+                database_id: 42,
+                group: vec![Group {
+                    group_uid: 7,
+                    leader_index: 0,
+                    tablets: vec![Tablet {
+                        server_address: "node-7.spanner.internal:15000".to_string(),
+                        ..Default::default()
+                    }],
+                    ..Default::default()
+                }],
+                range: vec![Range {
+                    group_uid: 7,
+                    start_key: b"k1".to_vec(),
+                    limit_key: b"k9".to_vec(),
+                    ..Default::default()
+                }],
+                ..Default::default()
+            };
+            let stream = adapt([Ok(PartialResultSet {
+                metadata: metadata(1),
+                values: vec![string_val("val1")],
+                cache_update: Some(cache_update),
+                ..Default::default()
+            })]);
+            Ok(Response::from(stream))
+        });
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let db_client = client.database_client("db").build().await?;
+        let transaction = db_client.single_use().build();
+        let mut result_set = transaction.execute_query("SELECT 1").await?;
+
+        let row = result_set.next().await;
+        assert!(row.is_some(), "expected row");
+
+        assert_eq!(db_client.database_id(), Some(42));
+        let router = db_client
+            .location_router()
+            .expect("location router present");
+        let found = router
+            .key_range_cache()
+            .find_range(b"k5", &[], RangeMode::CoveringSplit);
+        assert!(found.is_some(), "range covering 'k5' should be cached");
+        assert_eq!(found.expect("range present").group_uid, 7);
 
         Ok(())
     }

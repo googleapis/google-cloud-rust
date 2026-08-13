@@ -24,6 +24,7 @@ use crate::statement::Statement;
 use crate::transaction_retry_policy::{
     BasicTransactionRetryPolicy, TransactionRetryPolicy, retry_aborted,
 };
+use gaxi::prost::FromProto;
 use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
 
 /// A builder for [PartitionedDmlTransaction].
@@ -178,7 +179,7 @@ impl PartitionedDmlTransaction {
             ..Default::default()
         };
         let base_request = statement.into_request();
-        let channel_hint = self.client.spanner.next_channel_hint();
+        let channel_hint = self.client.next_channel_hint();
         let client = self.client;
         let is_emulator = client.is_emulator();
 
@@ -191,13 +192,7 @@ impl PartitionedDmlTransaction {
 
             async move {
                 let transaction = client
-                    .spanner
-                    .begin_transaction(
-                        begin_request,
-                        gax_options.clone(),
-                        channel_hint,
-                        &client.o11y,
-                    )
+                    .begin_transaction(begin_request, gax_options.clone(), channel_hint)
                     .await?;
 
                 let execute_request =
@@ -210,14 +205,11 @@ impl PartitionedDmlTransaction {
                             ..Default::default()
                         });
 
-                let stream_builder = client.spanner.execute_streaming_sql(
-                    execute_request,
-                    gax_options,
-                    channel_hint,
-                );
+                let stream_builder =
+                    client.execute_streaming_sql(execute_request, gax_options, channel_hint);
                 let stream = stream_builder.send().await?;
 
-                extract_lower_bound_update_count_from_stream(stream).await
+                extract_lower_bound_update_count_from_stream(stream, &client).await
             }
         };
 
@@ -238,10 +230,16 @@ impl PartitionedDmlTransaction {
 /// an internal error is returned.
 async fn extract_lower_bound_update_count_from_stream(
     mut stream: PartialResultSetStream,
+    client: &DatabaseClient,
 ) -> crate::Result<i64> {
     let mut lower_bound: Option<i64> = None;
-    while let Some(prs) = stream.next_message().await.transpose()? {
-        if let Some(RowCountLowerBound(val)) = prs.stats.and_then(|s| s.row_count) {
+    while let Some(mut partial_result_set) = stream.next_message().await.transpose()? {
+        let cache_update = partial_result_set
+            .cache_update
+            .take()
+            .and_then(|cache_update| cache_update.cnv().ok());
+        client.observe_cache_update(cache_update);
+        if let Some(RowCountLowerBound(val)) = partial_result_set.stats.and_then(|s| s.row_count) {
             lower_bound = Some(val);
         }
     }
@@ -505,5 +503,87 @@ mod tests {
         let statement = Statement::builder("UPDATE Users SET active = true").build();
         let res: i64 = transaction.execute_update(statement).await.unwrap();
         assert_eq!(res, 500);
+    }
+
+    #[tokio_test_no_panics]
+    async fn partitioned_dml_transaction_observes_cache_update() -> anyhow::Result<()> {
+        use crate::client::{Spanner, SpannerBuilderExt};
+        use crate::omni::InstanceType;
+        use crate::routing::key_range_cache::RangeMode;
+        use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+        use spanner_grpc_mock::MockSpanner;
+        use spanner_grpc_mock::google::spanner::v1::{CacheUpdate, Group, Range, Tablet};
+        use spanner_grpc_mock::start;
+
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().returning(|_| {
+            Ok(tonic::Response::new(v1::Session {
+                name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+        mock.expect_begin_transaction().returning(|_| {
+            let cache_update = CacheUpdate {
+                database_id: 111,
+                group: vec![Group {
+                    group_uid: 222,
+                    leader_index: 0,
+                    tablets: vec![Tablet {
+                        server_address: "node-222.spanner.internal:15000".to_string(),
+                        ..Default::default()
+                    }],
+                    ..Default::default()
+                }],
+                range: vec![Range {
+                    group_uid: 222,
+                    start_key: b"pd1".to_vec(),
+                    limit_key: b"pd9".to_vec(),
+                    ..Default::default()
+                }],
+                ..Default::default()
+            };
+            Ok(tonic::Response::new(v1::Transaction {
+                id: vec![0, 1, 2],
+                cache_update: Some(cache_update),
+                ..Default::default()
+            }))
+        });
+        mock.expect_execute_streaming_sql().returning(|_| {
+            let stream = adapt([Ok(v1::PartialResultSet {
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountLowerBound(500)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            })]);
+            Ok(tonic::Response::from(stream))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let db_client = client.database_client("db").build().await?;
+        let transaction = db_client.partitioned_dml_transaction().build().await?;
+        let statement = Statement::builder("UPDATE Users SET active = true").build();
+        let rows = transaction.execute_update(statement).await?;
+        assert_eq!(rows, 500);
+
+        assert_eq!(db_client.database_id(), Some(111));
+        let router = db_client
+            .location_router()
+            .expect("location router present");
+        let found = router
+            .key_range_cache()
+            .find_range(b"pd5", &[], RangeMode::CoveringSplit);
+        assert!(found.is_some(), "range covering 'pd5' should be cached");
+        assert_eq!(found.expect("range present").group_uid, 222);
+
+        Ok(())
     }
 }

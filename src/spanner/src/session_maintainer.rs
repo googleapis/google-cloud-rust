@@ -433,7 +433,6 @@ mod tests {
 
     #[tokio_test_no_panics]
     async fn transaction_session_consistency_across_retries() {
-        use crate::database_client::DatabaseClient;
         use crate::transaction_retry_policy::tests::create_aborted_status;
         use spanner_grpc_mock::google::spanner::v1 as mock_v1;
         use spanner_grpc_mock::google::spanner::v1::result_set_stats::RowCount;
@@ -548,22 +547,13 @@ mod tests {
             .await
             .expect("Failed to build client");
 
-        let maintainer = ManagedSessionMaintainer::create_and_start_maintenance(
-            spanner.clone(),
-            "projects/p/instances/i/databases/d".to_string(),
-            "test-role".to_string(),
-            RequestOptions::default(),
-            Arc::new(Observability::disabled()),
-        )
-        .await
-        .expect("Failed to create ManagedSessionMaintainer");
-
-        let db_client = DatabaseClient {
-            spanner,
-            session_maintainer: maintainer.clone(),
-            leader_aware_routing_enabled: true,
-            o11y: std::sync::Arc::new(crate::observability::Observability::disabled()),
-        };
+        let db_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .with_database_role("test-role")
+            .build()
+            .await
+            .expect("Failed to create DatabaseClient");
+        let maintainer = Arc::clone(&db_client.session_maintainer);
 
         // 1. Create builder (captures session 1)
         let runner = db_client

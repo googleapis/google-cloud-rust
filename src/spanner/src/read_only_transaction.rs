@@ -99,7 +99,7 @@ impl SingleUseReadOnlyTransactionBuilder {
             .set_single_use(TransactionOptions::default().set_read_only(read_only));
 
         let session_name = self.client.session_name();
-        let channel_hint = self.client.spanner.next_channel_hint();
+        let channel_hint = self.client.next_channel_hint();
         SingleUseReadOnlyTransaction {
             context: ReadContext {
                 session_name,
@@ -422,7 +422,7 @@ impl MultiUseReadOnlyTransactionBuilder {
         let options = TransactionOptions::default().set_read_only(read_only);
 
         let session_name = self.client.session_name();
-        let channel_hint = self.client.spanner.next_channel_hint();
+        let channel_hint = self.client.next_channel_hint();
         let selector = match self.begin_transaction_option {
             BeginTransactionOption::ExplicitBegin => {
                 self.begin(
@@ -570,8 +570,7 @@ pub(crate) async fn execute_begin_transaction(
     }
 
     client
-        .spanner
-        .begin_transaction(request, request_options, channel_hint, &client.o11y)
+        .begin_transaction(request, request_options, channel_hint)
         .await
 }
 
@@ -1075,7 +1074,6 @@ macro_rules! execute_stream_with_retry {
     ($self:expr, $request:ident, $gax_options:ident, $rpc_method:ident, $operation_variant:path, $method_name:expr) => {{
         let stream = match $self
             .client
-            .spanner
             .$rpc_method($request.clone(), $gax_options.clone(), $self.channel_hint)
             .send()
             .await
@@ -1105,7 +1103,6 @@ macro_rules! execute_stream_with_retry {
                                 Some($self.transaction_selector.selector().await?);
                             $self
                                 .client
-                                .spanner
                                 .$rpc_method(
                                     $request.clone(),
                                     $gax_options.clone(),
@@ -1148,7 +1145,6 @@ impl ReadContext {
         let statement = statement.into();
         let gax_options = self
             .client
-            .spanner
             .attach_request_id(statement.gax_options().clone(), self.channel_hint);
         let mut request = statement
             .into_request()
@@ -1174,7 +1170,6 @@ impl ReadContext {
         let read = read.into();
         let gax_options = self
             .client
-            .spanner
             .attach_request_id(read.gax_options.clone(), self.channel_hint);
         let mut request = read
             .into_request()

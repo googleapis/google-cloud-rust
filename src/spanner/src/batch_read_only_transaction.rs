@@ -163,12 +163,10 @@ impl BatchReadOnlyTransaction {
             .inner
             .context
             .client
-            .spanner
             .partition_query(
                 request,
                 crate::RequestOptions::default(),
                 self.inner.context.channel_hint,
-                &self.inner.context.client.o11y,
             )
             .await?;
 
@@ -228,12 +226,10 @@ impl BatchReadOnlyTransaction {
             .inner
             .context
             .client
-            .spanner
             .partition_read(
                 request,
                 crate::RequestOptions::default(),
                 self.inner.context.channel_hint,
-                &self.inner.context.client.o11y,
             )
             .await?;
 
@@ -384,10 +380,9 @@ impl Partition {
         req: &crate::model::ExecuteSqlRequest,
         gax_options: GaxRequestOptions,
     ) -> crate::Result<ResultSet> {
-        let channel_hint = client.spanner.next_channel_hint();
-        let gax_options = client.spanner.attach_request_id(gax_options, channel_hint);
+        let channel_hint = client.next_channel_hint();
+        let gax_options = client.attach_request_id(gax_options, channel_hint);
         let stream = client
-            .spanner
             .execute_streaming_sql(req.clone(), gax_options.clone(), channel_hint)
             .send()
             .await?;
@@ -417,10 +412,9 @@ impl Partition {
         req: &crate::model::ReadRequest,
         gax_options: GaxRequestOptions,
     ) -> crate::Result<ResultSet> {
-        let channel_hint = client.spanner.next_channel_hint();
-        let gax_options = client.spanner.attach_request_id(gax_options, channel_hint);
+        let channel_hint = client.next_channel_hint();
+        let gax_options = client.attach_request_id(gax_options, channel_hint);
         let stream = client
-            .spanner
             .streaming_read(req.clone(), gax_options.clone(), channel_hint)
             .send()
             .await?;
