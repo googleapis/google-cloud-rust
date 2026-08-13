@@ -42,22 +42,6 @@ impl<Req> std::fmt::Debug for RequestSender<Req> {
 }
 
 impl<Req> RequestSender<Req> {
-    /// Creates a new [`RequestSender`].
-    pub fn new(req_tx: mpsc::Sender<Req>) -> Self
-    where
-        Req: Send + Sync + 'static,
-    {
-        Self::from_fn(move |item| {
-            let req_tx = req_tx.clone();
-            async move {
-                req_tx
-                    .send(item)
-                    .await
-                    .map_err(|_| crate::error::Error::io("cannot send request: stream is closed"))
-            }
-        })
-    }
-
     /// Sends a request item over the stream.
     pub async fn send(&self, item: Req) -> Result<(), crate::error::Error> {
         (self.inner)(item).await
@@ -81,6 +65,23 @@ impl<Req> RequestSender<Req> {
     }
 }
 
+impl<Req> From<mpsc::Sender<Req>> for RequestSender<Req>
+where
+    Req: Send + Sync + 'static,
+{
+    fn from(req_tx: mpsc::Sender<Req>) -> RequestSender<Req> {
+        Self::from_fn(move |item| {
+            let req_tx = req_tx.clone();
+            async move {
+                req_tx
+                    .send(item)
+                    .await
+                    .map_err(|_| crate::error::Error::io("cannot send request: stream is closed"))
+            }
+        })
+    }
+}
+
 /// A type-erased stream of incoming responses from a gRPC stream.
 ///
 /// This wraps an underlying `futures::Stream` in a boxed pinned trait object,
@@ -100,14 +101,6 @@ impl<Resp> std::fmt::Debug for ResponseReceiver<Resp> {
 }
 
 impl<Resp> ResponseReceiver<Resp> {
-    /// Creates a new [`ResponseReceiver`].
-    pub fn new(rx: mpsc::Receiver<crate::Result<Resp>>) -> Self
-    where
-        Resp: Send + 'static,
-    {
-        Self::from_stream(tokio_stream::wrappers::ReceiverStream::new(rx))
-    }
-
     /// Receives the next response item from the stream.
     pub async fn recv(&mut self) -> Option<crate::Result<Resp>> {
         use futures::StreamExt as _;
@@ -131,6 +124,15 @@ impl<Resp> ResponseReceiver<Resp> {
     }
 }
 
+impl<Resp> From<mpsc::Receiver<crate::Result<Resp>>> for ResponseReceiver<Resp>
+where
+    Resp: Send + Sync + 'static,
+{
+    fn from(rx: mpsc::Receiver<crate::Result<Resp>>) -> Self {
+        Self::from_stream(tokio_stream::wrappers::ReceiverStream::new(rx))
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -140,8 +142,8 @@ mod tests {
         let (req_tx, mut req_rx) = mpsc::channel::<String>(16);
         let (resp_tx, resp_rx) = mpsc::channel::<crate::Result<String>>(16);
 
-        let sender = RequestSender::new(req_tx);
-        let mut receiver = ResponseReceiver::new(resp_rx);
+        let sender: RequestSender<_> = req_tx.into();
+        let mut receiver: ResponseReceiver<_> = resp_rx.into();
 
         sender.send("hello".to_string()).await?;
         assert_eq!(req_rx.recv().await.as_deref(), Some("hello"));
@@ -159,7 +161,7 @@ mod tests {
         use std::error::Error as _;
 
         let (req_tx, req_rx) = mpsc::channel::<String>(16);
-        let sender = RequestSender::new(req_tx);
+        let sender = RequestSender::from(req_tx);
 
         drop(req_rx);
         let err = sender
