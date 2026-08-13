@@ -183,7 +183,7 @@ impl super::stub::ApiHub for ApiHub {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -254,7 +254,7 @@ impl super::stub::ApiHub for ApiHub {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -415,7 +415,7 @@ impl super::stub::ApiHub for ApiHub {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner
             .execute(builder, body, options)
             .await
@@ -570,7 +570,7 @@ impl super::stub::ApiHub for ApiHub {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -645,7 +645,7 @@ impl super::stub::ApiHub for ApiHub {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -814,7 +814,7 @@ impl super::stub::ApiHub for ApiHub {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner
             .execute(builder, body, options)
             .await
@@ -977,7 +977,7 @@ impl super::stub::ApiHub for ApiHub {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -1057,7 +1057,7 @@ impl super::stub::ApiHub for ApiHub {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -1136,7 +1136,7 @@ impl super::stub::ApiHub for ApiHub {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -1312,7 +1312,7 @@ impl super::stub::ApiHub for ApiHub {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner
             .execute(builder, body, options)
             .await
@@ -1475,7 +1475,7 @@ impl super::stub::ApiHub for ApiHub {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -1554,7 +1554,7 @@ impl super::stub::ApiHub for ApiHub {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -1730,7 +1730,7 @@ impl super::stub::ApiHub for ApiHub {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner
             .execute(builder, body, options)
             .await
@@ -1816,7 +1816,7 @@ impl super::stub::ApiHub for ApiHub {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -1957,7 +1957,7 @@ impl super::stub::ApiHub for ApiHub {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -2028,7 +2028,7 @@ impl super::stub::ApiHub for ApiHub {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -2188,7 +2188,7 @@ impl super::stub::ApiHub for ApiHub {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner
             .execute(builder, body, options)
             .await
@@ -2335,7 +2335,7 @@ impl super::stub::ApiHub for ApiHub {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -2495,7 +2495,7 @@ impl super::stub::ApiHub for ApiHub {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner
             .execute(builder, body, options)
             .await
@@ -2572,7 +2572,7 @@ impl super::stub::ApiHub for ApiHub {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -2781,7 +2781,7 @@ impl super::stub::ApiHub for ApiHub {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -2941,7 +2941,7 @@ impl super::stub::ApiHub for ApiHub {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner
             .execute(builder, body, options)
             .await
@@ -3017,7 +3017,7 @@ impl super::stub::ApiHub for ApiHub {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -3076,7 +3076,7 @@ impl super::stub::ApiHub for ApiHub {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -3142,7 +3142,7 @@ impl super::stub::ApiHub for ApiHub {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -3213,7 +3213,7 @@ impl super::stub::ApiHub for ApiHub {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -3283,7 +3283,7 @@ impl super::stub::ApiHub for ApiHub {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -3353,7 +3353,7 @@ impl super::stub::ApiHub for ApiHub {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner
             .execute(builder, body, options)
             .await
@@ -3605,7 +3605,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -3765,7 +3765,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner
             .execute(builder, body, options)
             .await
@@ -3842,7 +3842,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -3901,7 +3901,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -3967,7 +3967,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -4038,7 +4038,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -4108,7 +4108,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -4178,7 +4178,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner
             .execute(builder, body, options)
             .await
@@ -4416,7 +4416,7 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -4482,7 +4482,7 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -4553,7 +4553,7 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -4623,7 +4623,7 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -4693,7 +4693,7 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner
             .execute(builder, body, options)
             .await
@@ -4959,7 +4959,7 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -5030,7 +5030,7 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -5190,7 +5190,7 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner
             .execute(builder, body, options)
             .await
@@ -5255,7 +5255,7 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -5321,7 +5321,7 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -5392,7 +5392,7 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -5462,7 +5462,7 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -5532,7 +5532,7 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner
             .execute(builder, body, options)
             .await
@@ -5715,7 +5715,7 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -5789,7 +5789,7 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -5865,7 +5865,7 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -5927,7 +5927,7 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -5986,7 +5986,7 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -6052,7 +6052,7 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -6123,7 +6123,7 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -6193,7 +6193,7 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -6263,7 +6263,7 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner
             .execute(builder, body, options)
             .await
@@ -6518,7 +6518,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -6590,7 +6590,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -6649,7 +6649,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -6715,7 +6715,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -6786,7 +6786,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -6856,7 +6856,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -6926,7 +6926,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner
             .execute(builder, body, options)
             .await
@@ -7111,7 +7111,7 @@ impl super::stub::LintingService for LintingService {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -7275,7 +7275,7 @@ impl super::stub::LintingService for LintingService {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -7420,7 +7420,7 @@ impl super::stub::LintingService for LintingService {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -7486,7 +7486,7 @@ impl super::stub::LintingService for LintingService {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -7557,7 +7557,7 @@ impl super::stub::LintingService for LintingService {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -7627,7 +7627,7 @@ impl super::stub::LintingService for LintingService {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -7697,7 +7697,7 @@ impl super::stub::LintingService for LintingService {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner
             .execute(builder, body, options)
             .await
@@ -7880,7 +7880,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -8164,7 +8164,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -8236,7 +8236,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -8463,7 +8463,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -8538,7 +8538,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -8862,7 +8862,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -8921,7 +8921,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -8987,7 +8987,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -9058,7 +9058,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -9128,7 +9128,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -9198,7 +9198,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner
             .execute(builder, body, options)
             .await
@@ -9464,7 +9464,7 @@ impl super::stub::Provisioning for Provisioning {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -9536,7 +9536,7 @@ impl super::stub::Provisioning for Provisioning {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -9604,7 +9604,7 @@ impl super::stub::Provisioning for Provisioning {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -9663,7 +9663,7 @@ impl super::stub::Provisioning for Provisioning {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -9729,7 +9729,7 @@ impl super::stub::Provisioning for Provisioning {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -9800,7 +9800,7 @@ impl super::stub::Provisioning for Provisioning {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -9870,7 +9870,7 @@ impl super::stub::Provisioning for Provisioning {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -9940,7 +9940,7 @@ impl super::stub::Provisioning for Provisioning {
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner
             .execute(builder, body, options)
             .await
@@ -10209,7 +10209,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -10281,7 +10281,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -10353,7 +10353,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner
             .execute(builder, body, options)
             .await
@@ -10427,7 +10427,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -10486,7 +10486,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -10552,7 +10552,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -10623,7 +10623,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -10693,7 +10693,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner.execute(builder, body, options).await
     }
 
@@ -10763,7 +10763,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
             "x-goog-api-client",
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        let body = gaxi::http::handle_empty(None::<wkt::Empty>, &method);
         self.inner
             .execute(builder, body, options)
             .await
