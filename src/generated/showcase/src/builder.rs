@@ -2420,7 +2420,7 @@ pub mod echo {
     #[derive(Clone, Debug)]
     pub(crate) struct BidiStreamBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Echo>,
-        request: R,
+        request: Option<R>,
         options: crate::BidiStreamOptions,
     }
 
@@ -2432,7 +2432,7 @@ pub mod echo {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
             Self {
                 stub,
-                request: R::default(),
+                request: None,
                 options: crate::BidiStreamOptions::default(),
             }
         }
@@ -2752,7 +2752,7 @@ pub mod echo {
 
         /// Sets the full request, replacing any prior values.
         pub fn with_request<V: Into<crate::model::EchoRequest>>(mut self, v: V) -> Self {
-            self.0.request = v.into();
+            self.0.request = std::option::Option::Some(v.into());
             self
         }
 
@@ -2774,25 +2774,37 @@ pub mod echo {
 
         /// Sets the value of [severity][crate::model::EchoRequest::severity].
         pub fn set_severity<T: Into<crate::model::Severity>>(mut self, v: T) -> Self {
-            self.0.request.severity = v.into();
+            self.0
+                .request
+                .get_or_insert_with(std::default::Default::default)
+                .severity = v.into();
             self
         }
 
         /// Sets the value of [header][crate::model::EchoRequest::header].
         pub fn set_header<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.header = v.into();
+            self.0
+                .request
+                .get_or_insert_with(std::default::Default::default)
+                .header = v.into();
             self
         }
 
         /// Sets the value of [other_header][crate::model::EchoRequest::other_header].
         pub fn set_other_header<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.other_header = v.into();
+            self.0
+                .request
+                .get_or_insert_with(std::default::Default::default)
+                .other_header = v.into();
             self
         }
 
         /// Sets the value of [request_id][crate::model::EchoRequest::request_id].
         pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.request_id = v.into();
+            self.0
+                .request
+                .get_or_insert_with(std::default::Default::default)
+                .request_id = v.into();
             self
         }
 
@@ -2801,7 +2813,10 @@ pub mod echo {
         where
             T: std::convert::Into<std::string::String>,
         {
-            self.0.request.other_request_id = std::option::Option::Some(v.into());
+            self.0
+                .request
+                .get_or_insert_with(std::default::Default::default)
+                .other_request_id = std::option::Option::Some(v.into());
             self
         }
 
@@ -2810,7 +2825,10 @@ pub mod echo {
         where
             T: std::convert::Into<std::string::String>,
         {
-            self.0.request.other_request_id = v.map(|x| x.into());
+            self.0
+                .request
+                .get_or_insert_with(std::default::Default::default)
+                .other_request_id = v.map(|x| x.into());
             self
         }
 
@@ -2822,7 +2840,10 @@ pub mod echo {
             mut self,
             v: T,
         ) -> Self {
-            self.0.request.response = v.into();
+            self.0
+                .request
+                .get_or_insert_with(std::default::Default::default)
+                .response = v.into();
             self
         }
 
@@ -2832,7 +2853,8 @@ pub mod echo {
         /// Note that all the setters affecting `response` are
         /// mutually exclusive.
         pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request = self.0.request.set_content(v);
+            let req = self.0.request.take().unwrap_or_default().set_content(v);
+            self.0.request = std::option::Option::Some(req);
             self
         }
 
@@ -2847,7 +2869,8 @@ pub mod echo {
             mut self,
             v: T,
         ) -> Self {
-            self.0.request = self.0.request.set_error(v);
+            let req = self.0.request.take().unwrap_or_default().set_error(v);
+            self.0.request = std::option::Option::Some(req);
             self
         }
     }
@@ -5433,7 +5456,7 @@ pub mod messaging {
     #[derive(Clone, Debug)]
     pub(crate) struct BidiStreamBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Messaging>,
-        request: R,
+        request: Option<R>,
         options: crate::BidiStreamOptions,
     }
 
@@ -5447,7 +5470,7 @@ pub mod messaging {
         ) -> Self {
             Self {
                 stub,
-                request: R::default(),
+                request: None,
                 options: crate::BidiStreamOptions::default(),
             }
         }
@@ -6407,7 +6430,7 @@ pub mod messaging {
 
         /// Sets the full request, replacing any prior values.
         pub fn with_request<V: Into<crate::model::ConnectRequest>>(mut self, v: V) -> Self {
-            self.0.request = v.into();
+            self.0.request = std::option::Option::Some(v.into());
             self
         }
 
@@ -6435,7 +6458,10 @@ pub mod messaging {
             mut self,
             v: T,
         ) -> Self {
-            self.0.request.request = v.into();
+            self.0
+                .request
+                .get_or_insert_with(std::default::Default::default)
+                .request = v.into();
             self
         }
 
@@ -6450,7 +6476,8 @@ pub mod messaging {
             mut self,
             v: T,
         ) -> Self {
-            self.0.request = self.0.request.set_config(v);
+            let req = self.0.request.take().unwrap_or_default().set_config(v);
+            self.0.request = std::option::Option::Some(req);
             self
         }
 
@@ -6463,7 +6490,8 @@ pub mod messaging {
             mut self,
             v: T,
         ) -> Self {
-            self.0.request = self.0.request.set_blurb(v);
+            let req = self.0.request.take().unwrap_or_default().set_blurb(v);
+            self.0.request = std::option::Option::Some(req);
             self
         }
     }
