@@ -172,6 +172,93 @@ impl RequestOptions {
     }
 }
 
+/// The maximum allowed capacity for a bidirectional stream request channel.
+///
+/// This upper limit matches Tokio's internal `mpsc::channel` capacity limit
+/// (`usize::MAX >> 3`).
+#[cfg(google_cloud_unstable_gapic_streaming)]
+pub const MAX_REQUEST_CHANNEL_CAPACITY: usize = usize::MAX >> 3;
+
+#[cfg(google_cloud_unstable_gapic_streaming)]
+const DEFAULT_REQUEST_CHANNEL_CAPACITY: usize = 16;
+
+/// Configuration options specific to bidirectional streaming RPCs.
+///
+/// Wraps standard [`RequestOptions`] while adding settings unique to bidirectional
+/// streaming RPCs, such as internal channel capacity for buffering requests.
+#[cfg(google_cloud_unstable_gapic_streaming)]
+#[derive(Clone, Debug)]
+pub struct BidiStreamOptions {
+    request_options: RequestOptions,
+    request_channel_capacity: usize,
+}
+
+#[cfg(google_cloud_unstable_gapic_streaming)]
+impl Default for BidiStreamOptions {
+    fn default() -> Self {
+        Self {
+            request_options: RequestOptions::default(),
+            request_channel_capacity: DEFAULT_REQUEST_CHANNEL_CAPACITY,
+        }
+    }
+}
+
+/// Converts [`RequestOptions`] into [`BidiStreamOptions`] using default request channel capacity (`16`).
+#[cfg(google_cloud_unstable_gapic_streaming)]
+impl From<RequestOptions> for BidiStreamOptions {
+    fn from(request_options: RequestOptions) -> Self {
+        Self {
+            request_options,
+            request_channel_capacity: DEFAULT_REQUEST_CHANNEL_CAPACITY,
+        }
+    }
+}
+
+/// Extracts the underlying [`RequestOptions`] from [`BidiStreamOptions`], discarding streaming-specific configuration.
+#[cfg(google_cloud_unstable_gapic_streaming)]
+impl From<BidiStreamOptions> for RequestOptions {
+    fn from(options: BidiStreamOptions) -> Self {
+        options.request_options
+    }
+}
+
+#[cfg(google_cloud_unstable_gapic_streaming)]
+impl BidiStreamOptions {
+    /// Sets the buffer capacity of the internal request channel.
+    ///
+    /// Valid values are between `1` and [`MAX_REQUEST_CHANNEL_CAPACITY`]. The default
+    /// capacity is `16`. This method clamps the supplied value to this range.
+    pub fn set_request_channel_capacity(&mut self, capacity: usize) {
+        self.request_channel_capacity = capacity.clamp(1, MAX_REQUEST_CHANNEL_CAPACITY);
+    }
+
+    /// Returns the configured request channel capacity.
+    ///
+    /// Defaults to `16`.
+    pub fn request_channel_capacity(&self) -> usize {
+        self.request_channel_capacity
+    }
+
+    /// Sets all request options, replacing any prior values.
+    pub fn set_request_options(&mut self, options: impl Into<RequestOptions>) {
+        self.request_options = options.into();
+    }
+
+    /// Returns a reference to standard per-request options.
+    pub fn request_options(&self) -> &RequestOptions {
+        &self.request_options
+    }
+
+    /// Returns a mutable reference to standard per-request options.
+    ///
+    /// Used by generated RPC builders to implement [`internal::RequestBuilder`]
+    /// so callers can chain `.with_*` option setters directly on the RPC builder.
+    #[doc(hidden)]
+    pub fn request_options_mut(&mut self) -> &mut RequestOptions {
+        &mut self.request_options
+    }
+}
+
 /// Implementations of this trait provide setters to configure request options.
 ///
 /// The Google Cloud Client Libraries for Rust provide a builder for each RPC.
@@ -610,5 +697,46 @@ mod tests {
             headers.get("x-custom-2").and_then(|v| v.to_str().ok()),
             Some("value2")
         );
+    }
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    #[test]
+    fn test_bidi_stream_options() {
+        let default_opts = BidiStreamOptions::default();
+        assert_eq!(default_opts.request_channel_capacity(), 16);
+        assert!(default_opts.request_options().user_agent().is_none());
+
+        let mut req_opts = RequestOptions::default();
+        req_opts.set_user_agent("custom-agent");
+
+        let mut opts = BidiStreamOptions::default();
+        opts.set_request_options(req_opts);
+        opts.set_request_channel_capacity(32);
+        assert_eq!(opts.request_channel_capacity(), 32);
+        assert_eq!(
+            opts.request_options().user_agent().as_deref(),
+            Some("custom-agent")
+        );
+
+        opts.set_request_channel_capacity(128);
+        assert_eq!(opts.request_channel_capacity(), 128);
+        opts.request_options_mut().set_user_agent("modified-agent");
+        assert_eq!(
+            opts.request_options().user_agent().as_deref(),
+            Some("modified-agent")
+        );
+
+        // Clamping tests
+        opts.set_request_channel_capacity(0);
+        assert_eq!(opts.request_channel_capacity(), 1);
+
+        opts.set_request_channel_capacity(usize::MAX);
+        assert_eq!(
+            opts.request_channel_capacity(),
+            MAX_REQUEST_CHANNEL_CAPACITY
+        );
+
+        let into_opts: RequestOptions = opts.into();
+        assert_eq!(into_opts.user_agent().as_deref(), Some("modified-agent"));
     }
 }

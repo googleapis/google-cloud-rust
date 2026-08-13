@@ -109,6 +109,62 @@ impl serde::ser::Serialize for super::SourceConfig {
                 &self.automatic_backups_replication_enabled,
             )?;
         }
+        if !wkt::internal::is_default(&self.source_type) {
+            state.serialize_entry("sourceType", &self.source_type)?;
+        }
+        if !wkt::internal::is_default(&self.clone_type) {
+            state.serialize_entry("cloneType", &self.clone_type)?;
+        }
+        if !wkt::internal::is_default(&self.refreshable_mode) {
+            state.serialize_entry("refreshableMode", &self.refreshable_mode)?;
+        }
+        if !wkt::internal::is_default(&self.auto_refresh_frequency_seconds) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "autoRefreshFrequencySeconds",
+                &__With(&self.auto_refresh_frequency_seconds),
+            )?;
+        }
+        if self.auto_refresh_point_lag_seconds.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "autoRefreshPointLagSeconds",
+                &__With(&self.auto_refresh_point_lag_seconds),
+            )?;
+        }
+        if self.auto_refresh_start_time.is_some() {
+            state.serialize_entry("autoRefreshStartTime", &self.auto_refresh_start_time)?;
+        }
+        if !self.autonomous_database_backup.is_empty() {
+            state.serialize_entry("autonomousDatabaseBackup", &self.autonomous_database_backup)?;
+        }
+        if self.backup_time.is_some() {
+            state.serialize_entry("backupTime", &self.backup_time)?;
+        }
+        if !wkt::internal::is_default(&self.use_latest_available_backup) {
+            state.serialize_entry(
+                "useLatestAvailableBackup",
+                &self.use_latest_available_backup,
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -496,6 +552,9 @@ impl serde::ser::Serialize for super::AutonomousDatabaseProperties {
                 &__With(&self.local_adg_auto_failover_max_data_loss_limit_duration),
             )?;
         }
+        if self.refreshable_clone.is_some() {
+            state.serialize_entry("refreshableClone", &self.refreshable_clone)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -798,6 +857,31 @@ impl serde::ser::Serialize for super::ScheduledOperationDetails {
         }
         if self.stop_time.is_some() {
             state.serialize_entry("stopTime", &self.stop_time)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AutonomousDatabaseRefreshableClone {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.region.is_empty() {
+            state.serialize_entry("region", &self.region)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2453,6 +2537,42 @@ impl serde::ser::Serialize for super::DbSystemShape {
                 &__With(&self.min_db_node_storage_per_node_gb),
             )?;
         }
+        if !wkt::internal::is_default(&self.minimum_core_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("minimumCoreCount", &__With(&self.minimum_core_count))?;
+        }
+        if !wkt::internal::is_default(&self.available_core_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("availableCoreCount", &__With(&self.available_core_count))?;
+        }
+        if !wkt::internal::is_default(&self.core_count_increment) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("coreCountIncrement", &__With(&self.core_count_increment))?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2984,6 +3104,36 @@ impl serde::ser::Serialize for super::ExascaleConfig {
                 &__With(&self.available_storage_size_gb),
             )?;
         }
+        if !wkt::internal::is_default(&self.total_vm_storage_size_gb) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "totalVmStorageSizeGb",
+                &__With(&self.total_vm_storage_size_gb),
+            )?;
+        }
+        if !wkt::internal::is_default(&self.available_vm_storage_size_gb) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "availableVmStorageSizeGb",
+                &__With(&self.available_vm_storage_size_gb),
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -3110,6 +3260,21 @@ impl serde::ser::Serialize for super::ConfigureExascaleCloudExadataInfrastructur
             }
             state.serialize_entry("totalStorageSizeGb", &__With(&self.total_storage_size_gb))?;
         }
+        if !wkt::internal::is_default(&self.total_vm_storage_size_gb) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "totalVmStorageSizeGb",
+                &__With(&self.total_vm_storage_size_gb),
+            )?;
+        }
         if !self.request_id.is_empty() {
             state.serialize_entry("requestId", &self.request_id)?;
         }
@@ -3161,6 +3326,9 @@ impl serde::ser::Serialize for super::ExadbVmCluster {
         }
         if !self.entitlement_id.is_empty() {
             state.serialize_entry("entitlementId", &self.entitlement_id)?;
+        }
+        if self.identity_connector.is_some() {
+            state.serialize_entry("identityConnector", &self.identity_connector)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -8798,6 +8966,78 @@ impl serde::ser::Serialize for super::FailoverAutonomousDatabaseRequest {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::GetAutonomousDatabaseRefreshableClonesRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AutonomousDatabaseRefreshableClones {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.autonomous_database_refreshable_clones.is_empty() {
+            state.serialize_entry(
+                "autonomousDatabaseRefreshableClones",
+                &self.autonomous_database_refreshable_clones,
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::RefreshAutonomousDatabaseRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if self.refresh_cutoff_time.is_some() {
+            state.serialize_entry("refreshCutoffTime", &self.refresh_cutoff_time)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::GenerateAutonomousDatabaseWalletRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -9806,6 +10046,12 @@ impl serde::ser::Serialize for super::CloudVmClusterProperties {
         }
         if !wkt::internal::is_default(&self.storage_management_type) {
             state.serialize_entry("storageManagementType", &self.storage_management_type)?;
+        }
+        if !wkt::internal::is_default(&self.vm_file_system_storage_type) {
+            state.serialize_entry("vmFileSystemStorageType", &self.vm_file_system_storage_type)?;
+        }
+        if !wkt::internal::is_default(&self.vm_backup_storage_type) {
+            state.serialize_entry("vmBackupStorageType", &self.vm_backup_storage_type)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

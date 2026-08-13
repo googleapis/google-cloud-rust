@@ -25,6 +25,7 @@ extern crate gaxi;
 extern crate google_cloud_gax;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_rpc;
+extern crate google_cloud_type;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -3376,6 +3377,20 @@ pub struct Assignment {
     ///   cannot be read from the user info service, for example deleted users.
     pub principal: std::string::String,
 
+    /// Optional. Specifies the priority precedence for this assignment. Used to
+    /// resolve ambiguity when multiple assignments match a single job. Higher
+    /// numerical values represent higher priority (e.g., 20 is higher than 10). If
+    /// unspecified, it defaults to 0. Multiple assignments can share the same
+    /// precedence, but it is recommended to use unique precedence values for
+    /// assignments within the same assignee scope.
+    pub precedence: i64,
+
+    /// Optional. Common Expression Language (CEL) condition that defines the
+    /// matching criteria for this assignment.
+    /// The condition must resolve to a boolean value.
+    /// Supported variables will be added later.
+    pub condition: std::option::Option<google_cloud_type::model::Expr>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3503,6 +3518,51 @@ impl Assignment {
     /// ```
     pub fn set_principal<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.principal = v.into();
+        self
+    }
+
+    /// Sets the value of [precedence][crate::model::Assignment::precedence].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::Assignment;
+    /// let x = Assignment::new().set_precedence(42);
+    /// ```
+    pub fn set_precedence<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.precedence = v.into();
+        self
+    }
+
+    /// Sets the value of [condition][crate::model::Assignment::condition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::Assignment;
+    /// use google_cloud_type::model::Expr;
+    /// let x = Assignment::new().set_condition(Expr::default()/* use setters */);
+    /// ```
+    pub fn set_condition<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_cloud_type::model::Expr>,
+    {
+        self.condition = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [condition][crate::model::Assignment::condition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::Assignment;
+    /// use google_cloud_type::model::Expr;
+    /// let x = Assignment::new().set_or_clear_condition(Some(Expr::default()/* use setters */));
+    /// let x = Assignment::new().set_or_clear_condition(None::<Expr>);
+    /// ```
+    pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_cloud_type::model::Expr>,
+    {
+        self.condition = v.map(|x| x.into());
         self
     }
 }

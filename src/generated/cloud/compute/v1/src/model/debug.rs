@@ -114,6 +114,7 @@ impl std::fmt::Debug for super::AcceleratorType {
             &self.maximum_cards_per_instance,
         );
         debug_struct.field("name", &self.name);
+        debug_struct.field("resource_metadata", &self.resource_metadata);
         debug_struct.field("self_link", &self.self_link);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
@@ -4931,6 +4932,7 @@ impl std::fmt::Debug for super::FutureReservation {
         debug_struct.field("planning_status", &self.planning_status);
         debug_struct.field("reservation_mode", &self.reservation_mode);
         debug_struct.field("reservation_name", &self.reservation_name);
+        debug_struct.field("resource_metadata", &self.resource_metadata);
         debug_struct.field("scheduling_type", &self.scheduling_type);
         debug_struct.field("self_link", &self.self_link);
         debug_struct.field("self_link_with_id", &self.self_link_with_id);
@@ -17970,6 +17972,7 @@ impl std::fmt::Debug for super::Reservation {
             "reservation_sharing_policy",
             &self.reservation_sharing_policy,
         );
+        debug_struct.field("resource_metadata", &self.resource_metadata);
         debug_struct.field("resource_policies", &self.resource_policies);
         debug_struct.field("resource_status", &self.resource_status);
         debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
@@ -18642,6 +18645,24 @@ impl std::fmt::Debug for super::ResourceGroupReference {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ResourceGroupReference");
         debug_struct.field("group", &self.group);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "accelerator-types",
+    feature = "future-reservations",
+    feature = "region-commitments",
+    feature = "reservations",
+))]
+impl std::fmt::Debug for super::ResourceMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResourceMetadata");
+        debug_struct.field("api_version", &self.api_version);
+        debug_struct.field("resource_type", &self.resource_type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

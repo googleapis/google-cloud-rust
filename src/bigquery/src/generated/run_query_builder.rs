@@ -316,12 +316,6 @@ impl RunQuery {
         self
     }
 
-    /// Sets the value of [request.request_id][crate::model::RunQueryRequest::request_id].
-    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.request.request_id = v.into();
-        self
-    }
-
     /// Sets the value of [request.reservation][crate::model::RunQueryRequest::reservation].
     pub fn set_reservation<T>(mut self, v: T) -> Self
     where T: std::convert::Into<std::string::String>
