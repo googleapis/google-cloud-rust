@@ -300,7 +300,7 @@ pub trait Echo: std::fmt::Debug + Send + Sync {
     fn chat(
         &self,
         _req: crate::model::EchoRequest,
-        _options: crate::RequestOptions,
+        _options: crate::BidiStreamOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<(
             google_cloud_gax::streaming::RequestSender<crate::model::EchoRequest>,
@@ -793,7 +793,7 @@ pub trait Messaging: std::fmt::Debug + Send + Sync {
     fn connect(
         &self,
         _req: crate::model::ConnectRequest,
-        _options: crate::RequestOptions,
+        _options: crate::BidiStreamOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<(
             google_cloud_gax::streaming::RequestSender<crate::model::ConnectRequest>,
