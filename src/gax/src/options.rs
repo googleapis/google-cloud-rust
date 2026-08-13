@@ -330,11 +330,15 @@ pub trait RequestOptionsBuilder: internal::RequestBuilder {
     /// are defined as comma-separated lists. Callers can supply repeated values natively as a single
     /// comma-separated [`HeaderValue`]:
     ///
-    /// ```rust,ignore
-    /// builder.with_custom_header(
-    ///     HeaderName::from_static("cache-control"),
-    ///     HeaderValue::from_static("no-cache, no-store"),
-    /// )
+    /// ```
+    /// # use google_cloud_gax::options::RequestOptionsBuilder;
+    /// use http::header::{HeaderName, HeaderValue};
+    /// fn sample<T: RequestOptionsBuilder>(builder: T) -> T {
+    ///     builder.with_custom_header(
+    ///         HeaderName::from_static("cache-control"),
+    ///         HeaderValue::from_static("no-cache, no-store"),
+    ///     )
+    /// }
     /// ```
     ///
     /// [`HeaderValue`]: http::header::HeaderValue
