@@ -897,6 +897,9 @@ libraries:
     apis:
       - path: google/firestore/admin/v1
     copyright_year: "2025"
+  - name: google-cloud-ftp-v1
+    version: 1.0.0
+    copyright_year: "2026"
   - name: google-cloud-functions-v2
     version: 1.13.0
     copyright_year: "2025"

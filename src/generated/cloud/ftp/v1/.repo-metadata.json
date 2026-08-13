@@ -1,0 +1,15 @@
+{
+    "api_description": "A managed, cloud-native solution to move data in and out of Google Cloud by\nusing SSH File Transfer Protocol (SFTP).",
+    "api_id": "ftp.googleapis.com",
+    "api_shortname": "ftp",
+    "client_documentation": "https://docs.rs/google-cloud-ftp-v1/latest",
+    "distribution_name": "google-cloud-ftp-v1",
+    "issue_tracker": "https://issuetracker.google.com/issues/new?component=1088719",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name": "ftp",
+    "name_pretty": "Cloud FTP",
+    "product_documentation": "https://docs.cloud.google.com/cloud-ftp",
+    "release_level": "stable",
+    "repo": "googleapis/google-cloud-rust"
+}
