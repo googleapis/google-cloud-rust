@@ -21,24 +21,23 @@
 //! We welcome feedback about the APIs, documentation, missing features, bugs, etc.
 //!
 //! This crate contains traits, types, and functions to interact with
-//! [Google Cloud BigQuery][bigquery]. Most applications will interact with the
-//! service through the structs defined in the [`client`] module.
+//! [Google Cloud BigQuery][bigquery]. Most applications will use the structs
+//! defined in the [client] module.
 //!
-//! # Main Entry Points
+//! For executing queries and managing jobs:
+//! * [BigQuery][client::BigQuery]
 //!
-//! - [`BigQuery`][client::BigQuery]: The primary client used to execute queries
-//!   and manage jobs.
-//! - [`ClientBuilder`][builder::bigquery::ClientBuilder]: Builder for configuring
-//!   endpoint, credentials, default project ID, retry policies, and tracing.
-//! - [`RunQuery`][builder::bigquery::RunQuery]: A builder for configuring and
-//!   executing SQL queries that automatically routes between fast-path execution
-//!   and asynchronous background jobs.
-//! - [`Query`] and [`CompleteQuery`]: Handles representing a running query job
-//!   and a completed query ready for reading results.
-//! - [`RowIterator`] and [`Row`]: Types for streaming result rows and extracting
-//!   cell values.
-//! - [`FromRow`] and [`FromSql`]: Derive macro and conversion trait for mapping
-//!   BigQuery results directly into typed Rust structs and values.
+//! For handling query execution:
+//! * [Query]
+//! * [CompleteQuery]
+//!
+//! For streaming and reading results:
+//! * [RowIterator]
+//! * [Row]
+//!
+//! For converting results to Rust types:
+//! * [FromRow]
+//! * [FromSql]
 //!
 //! [bigquery]: https://cloud.google.com/bigquery
 //!
@@ -113,14 +112,13 @@ pub(crate) mod query;
 pub(crate) mod retry_policy;
 pub(crate) use google_cloud_gax::client_builder::Result as ClientBuilderResult;
 
-/// High-level BigQuery client and execution entrypoints.
+/// Clients to interact with Google Cloud BigQuery.
 pub mod client;
 mod client_builder;
 
 pub mod model {
     //! Re-exports for the Google Cloud BigQuery v2 API types.
     pub use crate::generated::{QueryCreationMetadata, QueryMetadata, RunQueryRequest};
-    pub use crate::query::{CompleteQuery, Query, RowIterator, RunQuery};
     pub use google_cloud_bigquery_v2::model::*;
 }
 
@@ -129,7 +127,6 @@ pub mod builder {
     pub mod bigquery {
         //! Builder for [BigQuery][crate::client::BigQuery].
         pub use crate::client_builder::ClientBuilder;
-        pub use crate::generated::{QueryMetadata, RunQueryRequest};
         pub use crate::query::RunQuery;
     }
 }
