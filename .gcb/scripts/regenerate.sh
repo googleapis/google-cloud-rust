@@ -36,6 +36,10 @@ rustup show active-toolchain -v
 
 echo "Regenerate all the code"
 version=$(sed -n 's/^version: *//p' /workspace/librarian.yaml)
+# Make multiple download attempts to avoid flakes
+go run github.com/googleapis/librarian/cmd/librarian@${version} >/dev/null ||
+  go run github.com/googleapis/librarian/cmd/librarian@${version} >/dev/null ||
+  go run github.com/googleapis/librarian/cmd/librarian@${version} >/dev/null
 go run github.com/googleapis/librarian/cmd/librarian@${version} generate --all
 
 # If there is any difference between the generated code and the
