@@ -334,10 +334,10 @@ pub trait RequestOptionsBuilder: internal::RequestBuilder {
     /// # use google_cloud_gax::options::RequestOptionsBuilder;
     /// use http::header::{HeaderName, HeaderValue};
     /// fn sample<T: RequestOptionsBuilder>(builder: T) -> T {
-    /// builder.with_custom_header(
-    ///     HeaderName::from_static("cache-control"),
-    ///     HeaderValue::from_static("no-cache, no-store"),
-    /// )
+    ///     builder.with_custom_header(
+    ///         HeaderName::from_static("cache-control"),
+    ///         HeaderValue::from_static("no-cache, no-store"),
+    ///     )
     /// }
     /// ```
     ///
