@@ -35,11 +35,13 @@ rustup component add rustfmt
 rustup show active-toolchain -v
 
 echo "Regenerate all the code"
+# Normally we recommend `librarian config get version` but that requires
+# downloading two copies of librarian.
 version=$(sed -n 's/^version: *//p' /workspace/librarian.yaml)
-# Make multiple download attempts to avoid flakes
-go run github.com/googleapis/librarian/cmd/librarian@${version} help >/dev/null ||
-  go run github.com/googleapis/librarian/cmd/librarian@${version} help >/dev/null ||
-  go run github.com/googleapis/librarian/cmd/librarian@${version} help >/dev/null
+# Make multiple download attempts to avoid download-induced flakes.
+go install github.com/googleapis/librarian/cmd/librarian@${version} ||
+(sleep 5 && go install github.com/googleapis/librarian/cmd/librarian@${version}) ||
+(sleep 10 && go install github.com/googleapis/librarian/cmd/librarian@${version})
 go run github.com/googleapis/librarian/cmd/librarian@${version} generate --all
 
 # If there is any difference between the generated code and the
