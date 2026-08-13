@@ -36,8 +36,6 @@ pub type Result<T> = std::result::Result<T, RowError>;
 /// # async fn sample(client: BigQuery) -> anyhow::Result<()> {
 /// let mut rows = client
 ///     .query("SELECT name, state FROM `bigquery-public-data.usa_names.usa_1910_2013` LIMIT 10")
-///     .run()
-///     .await?
 ///     .until_done()
 ///     .await?
 ///     .read();
@@ -84,8 +82,6 @@ impl RowIterator {
     /// # async fn sample(client: BigQuery) -> anyhow::Result<()> {
     /// let mut rows = client
     ///     .query("SELECT 1 AS n")
-    ///     .run()
-    ///     .await?
     ///     .until_done()
     ///     .await?
     ///     .read()

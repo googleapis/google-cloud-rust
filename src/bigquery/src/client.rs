@@ -49,8 +49,6 @@ use std::sync::Arc;
 /// let mut rows = client
 ///     .query("SELECT name, count FROM `bigquery-public-data.usa_names.usa_1910_2013` WHERE state = 'WA' ORDER BY count DESC LIMIT 5")
 ///     .with_project_id("my-project-id")
-///     .run()
-///     .await?
 ///     .until_done()
 ///     .await?
 ///     .read();
@@ -119,7 +117,7 @@ impl BigQuery {
     ///
     /// This method returns a [`RunQuery`] builder. You can chain additional configuration methods
     /// (such as setting the project ID, positional or named parameters, query location, and maximum result buffer sizes)
-    /// before calling [`RunQuery::run()`].
+    /// before calling [`RunQuery::send()`] or [`RunQuery::until_done()`].
     ///
     /// The [`RunQuery`] builder automatically decides whether to route your request via the fast path ([`jobs.query`][jobs_query])
     /// or the background job creation path ([`jobs.insert`][jobs_insert]). If the query configuration uses only options supported
@@ -142,8 +140,6 @@ impl BigQuery {
     ///     .query("SELECT name, count FROM `my-project.my_dataset.stats` LIMIT 50")
     ///     .with_project_id("my-project-id")
     ///     .set_location("US")
-    ///     .run()
-    ///     .await?
     ///     .until_done()
     ///     .await?
     ///     .read();

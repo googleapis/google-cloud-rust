@@ -58,8 +58,6 @@ pub(crate) const BIGQUERY_DATETIME_SUBSEC_FORMAT: &[time::format_description::Fo
 /// # async fn sample(client: BigQuery) -> anyhow::Result<()> {
 /// let mut rows = client
 ///     .query("SELECT 12345 AS integer_col, 'foo' AS string_col")
-///     .run()
-///     .await?
 ///     .until_done()
 ///     .await?
 ///     .read();
@@ -392,8 +390,6 @@ impl FromSql for rust_decimal::Decimal {
 ///     .await?;
 /// let mut rows = client
 ///     .query("SELECT INTERVAL '1-2 15 5:30:00' YEAR TO SECOND AS duration")
-///     .run()
-///     .await?
 ///     .until_done()
 ///     .await?
 ///     .read();
@@ -520,8 +516,6 @@ impl FromSql for Interval {
 ///     .await?;
 /// let mut rows = client
 ///     .query("SELECT RANGE(DATE '2024-01-01', DATE '2024-12-31') AS date_range")
-///     .run()
-///     .await?
 ///     .until_done()
 ///     .await?
 ///     .read();

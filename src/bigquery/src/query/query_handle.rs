@@ -28,7 +28,7 @@ use std::sync::Arc;
 
 /// A handle representing a running or completed SQL query execution.
 ///
-/// [`RunQuery::run()`](crate::query::RunQuery::run) returns a `Query`.
+/// [`RunQuery::send()`](crate::query::RunQuery::send) returns a `Query`.
 ///
 /// To obtain the final result set, call [`until_done()`](Query::until_done),
 /// which checks the execution status and automatically polls the service if the
@@ -48,7 +48,7 @@ use std::sync::Arc;
 /// # async fn sample(client: BigQuery) -> anyhow::Result<()> {
 /// let query_handle = client
 ///     .query("SELECT 42 AS answer")
-///     .run()
+///     .send()
 ///     .await?;
 ///
 /// // Poll until execution completes.
@@ -155,12 +155,12 @@ impl Query {
     /// ```
     /// # use google_cloud_bigquery::client::BigQuery;
     /// # async fn sample(client: BigQuery) -> anyhow::Result<()> {
-    /// let complete = client
+    /// let query_handle = client
     ///     .query("SELECT 1 + 1 AS result")
-    ///     .run()
-    ///     .await?
-    ///     .until_done()
+    ///     .send()
     ///     .await?;
+    ///
+    /// let complete = query_handle.until_done().await?;
     /// # Ok(())
     /// # }
     /// ```
@@ -218,8 +218,6 @@ impl Query {
 /// # async fn sample(client: BigQuery) -> anyhow::Result<()> {
 /// let complete = client
 ///     .query("SELECT 'done' AS status")
-///     .run()
-///     .await?
 ///     .until_done()
 ///     .await?;
 ///
@@ -313,8 +311,6 @@ impl CompleteQuery {
     /// # async fn sample(client: BigQuery) -> anyhow::Result<()> {
     /// let mut rows = client
     ///     .query("SELECT 100 AS score")
-    ///     .run()
-    ///     .await?
     ///     .until_done()
     ///     .await?
     ///     .read();
@@ -344,8 +340,6 @@ impl CompleteQuery {
     /// # async fn sample(client: BigQuery) -> anyhow::Result<()> {
     /// let completed = client
     ///     .query("SELECT 'metadata_check'")
-    ///     .run()
-    ///     .await?
     ///     .until_done()
     ///     .await?;
     ///
@@ -378,8 +372,6 @@ impl CompleteQuery {
     /// let completed = client
     ///     .query("SELECT 1")
     ///     .set_job_creation_mode(JobCreationMode::JobCreationRequired) // Forces a job to be created
-    ///     .run()
-    ///     .await?
     ///     .until_done()
     ///     .await?;
     ///
