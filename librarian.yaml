@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.37.0
+version: v0.37.1-0.20260813160127-4fab542fba93
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
@@ -897,6 +897,9 @@ libraries:
     apis:
       - path: google/firestore/admin/v1
     copyright_year: "2025"
+  - name: google-cloud-ftp-v1
+    version: 1.0.0
+    copyright_year: "2026"
   - name: google-cloud-functions-v2
     version: 1.13.0
     copyright_year: "2025"

@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::error::QueryError;
 use crate::model::RunQueryRequest;
 use crate::query::execution::{InsertJobExecutor, PostQueryExecutor};
 use crate::query::{CompleteQuery, Query, Result};
@@ -61,7 +60,7 @@ pub(crate) const QUERY_REQUEST_ID_PREFIX: &str = "req_";
 /// # Ok(())
 /// # }
 /// ```
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub struct RunQuery {
     pub(crate) job_service: Arc<JobService>,
     pub(crate) request: RunQueryRequest,
@@ -91,8 +90,7 @@ impl RunQuery {
     /// project ID for this specific query.
     ///
     /// You must specify a project ID either on the client or on the query
-    /// builder before calling [`send()`](RunQuery::send); otherwise, `send()`
-    /// returns [`QueryError::MissingProjectId`](crate::error::QueryError::MissingProjectId).
+    /// builder before calling [`send()`](RunQuery::send).
     ///
     /// # Example
     ///
@@ -152,7 +150,7 @@ impl RunQuery {
     /// # }
     /// ```
     pub async fn send(self) -> Result<Query> {
-        let project_id = self.project_id.ok_or(QueryError::MissingProjectId)?;
+        let project_id = self.project_id.unwrap_or_default();
         let max_results = self.request.max_results;
 
         if self.request.force_job_path() {
@@ -193,11 +191,6 @@ impl RunQuery {
     ///
     /// This is a convenience method equivalent to calling
     /// [`.send().await?.until_done().await`](RunQuery::send).
-    ///
-    /// # Errors
-    ///
-    /// Returns [`QueryError::MissingProjectId`](crate::error::QueryError::MissingProjectId)
-    /// if no project ID was configured, or an error if query execution or polling fails.
     ///
     /// # Example
     ///
@@ -255,8 +248,10 @@ include!("../generated/run_query_builder.rs");
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::client::BigQuery;
     use crate::error::QueryError;
     use crate::query::tests::{MockJobService, create_job_service};
+    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_bigquery_v2::model::query_request::JobCreationMode;
     use google_cloud_bigquery_v2::model::{
         Job, JobConfiguration, JobReference, JobStatus, QueryRequest, QueryResponse,
@@ -294,19 +289,57 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_run_missing_project_id() {
-        let job_service = create_job_service(MockJobService::new());
-        let run_query = RunQuery::new(job_service, "SELECT 1".to_string());
-        let res = run_query.send().await;
-        assert!(matches!(res, Err(QueryError::MissingProjectId)));
+    async fn test_run_missing_project_id() -> anyhow::Result<()> {
+        let client = BigQuery::builder()
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let run_query = client.query("SELECT 1");
+        let err = run_query
+            .send()
+            .await
+            .expect_err("should return an error when project_id is missing");
+        assert!(
+            matches!(&err, QueryError::Rpc { source } if source.is_binding()),
+            "expected Binding error for missing project ID, got {err:?}"
+        );
+        Ok(())
     }
 
     #[tokio::test]
-    async fn test_until_done_missing_project_id() {
-        let job_service = create_job_service(MockJobService::new());
-        let run_query = RunQuery::new(job_service, "SELECT 1".to_string());
-        let res = run_query.until_done().await;
-        assert!(matches!(res, Err(QueryError::MissingProjectId)));
+    async fn test_run_missing_project_id_force_job_path() -> anyhow::Result<()> {
+        let client = BigQuery::builder()
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let run_query = client.query("SELECT 1").set_allow_large_results(true);
+        let err = run_query
+            .send()
+            .await
+            .expect_err("should return an error when project_id is missing");
+        assert!(
+            matches!(&err, QueryError::Rpc { source } if source.is_binding()),
+            "expected Binding error for missing project ID on job path, got {err:?}"
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_run_until_done_missing_project_id() -> anyhow::Result<()> {
+        let client = BigQuery::builder()
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let run_query = client.query("SELECT 1");
+        let err = run_query
+            .until_done()
+            .await
+            .expect_err("should return an error when project_id is missing");
+        assert!(
+            matches!(&err, QueryError::Rpc { source } if source.is_binding()),
+            "expected Binding error for missing project ID, got {err:?}"
+        );
+        Ok(())
     }
 
     #[test]

@@ -334,7 +334,7 @@ pub trait Echo: std::fmt::Debug + Send + Sync {
     async fn chat(
         &self,
         req: crate::model::EchoRequest,
-        options: crate::RequestOptions,
+        options: crate::BidiStreamOptions,
     ) -> crate::Result<(
         google_cloud_gax::streaming::RequestSender<crate::model::EchoRequest>,
         google_cloud_gax::streaming::ResponseReceiver<crate::model::EchoResponse>,
@@ -475,7 +475,7 @@ impl<T: super::Echo> Echo for T {
     async fn chat(
         &self,
         req: crate::model::EchoRequest,
-        options: crate::RequestOptions,
+        options: crate::BidiStreamOptions,
     ) -> crate::Result<(
         google_cloud_gax::streaming::RequestSender<crate::model::EchoRequest>,
         google_cloud_gax::streaming::ResponseReceiver<crate::model::EchoResponse>,
@@ -926,7 +926,7 @@ pub trait Messaging: std::fmt::Debug + Send + Sync {
     async fn connect(
         &self,
         req: crate::model::ConnectRequest,
-        options: crate::RequestOptions,
+        options: crate::BidiStreamOptions,
     ) -> crate::Result<(
         google_cloud_gax::streaming::RequestSender<crate::model::ConnectRequest>,
         google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>,
@@ -1109,7 +1109,7 @@ impl<T: super::Messaging> Messaging for T {
     async fn connect(
         &self,
         req: crate::model::ConnectRequest,
-        options: crate::RequestOptions,
+        options: crate::BidiStreamOptions,
     ) -> crate::Result<(
         google_cloud_gax::streaming::RequestSender<crate::model::ConnectRequest>,
         google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>,

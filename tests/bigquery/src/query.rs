@@ -15,6 +15,7 @@
 use super::INSTANCE_LABEL;
 use anyhow::Result;
 use google_cloud_bigquery::client::BigQuery;
+use google_cloud_bigquery::datatypes::{Interval, Range};
 use google_cloud_bigquery::{FromRow, FromSql};
 use google_cloud_test_utils::runtime_config::project_id;
 use google_cloud_type::model::Decimal;
@@ -59,14 +60,14 @@ struct UserData {
     birth_date: google_cloud_type::model::Date,
     daily_alarm: google_cloud_type::model::TimeOfDay,
     event_time: google_cloud_type::model::DateTime,
-    date_range: google_cloud_bigquery::Range<google_cloud_type::model::Date>,
-    timestamp_range: google_cloud_bigquery::Range<wkt::Timestamp>,
+    date_range: Range<google_cloud_type::model::Date>,
+    timestamp_range: Range<wkt::Timestamp>,
     nullable_name: Option<String>,
     nullable_age: Option<i64>,
     raw_bytes: Vec<u8>,
     payload_bytes: bytes::Bytes,
     nullable_bytes: Option<Vec<u8>>,
-    interval_val: google_cloud_bigquery::Interval,
+    interval_val: Interval,
 }
 
 pub async fn query_client_datatypes() -> Result<()> {
@@ -128,7 +129,7 @@ pub async fn query_client_datatypes() -> Result<()> {
             .set_minutes(30)
             .set_seconds(0)
             .set_nanos(0),
-        date_range: google_cloud_bigquery::Range {
+        date_range: Range {
             start: Some(
                 google_cloud_type::model::Date::new()
                     .set_year(2026)
@@ -142,7 +143,7 @@ pub async fn query_client_datatypes() -> Result<()> {
                     .set_day(29),
             ),
         },
-        timestamp_range: google_cloud_bigquery::Range {
+        timestamp_range: Range {
             start: Some(wkt::Timestamp::new(1779982200, 0).unwrap()),
             end: None,
         },
@@ -151,7 +152,7 @@ pub async fn query_client_datatypes() -> Result<()> {
         raw_bytes: b"hello world".to_vec(),
         payload_bytes: bytes::Bytes::from_static(b"payload in bytes"),
         nullable_bytes: None,
-        interval_val: google_cloud_bigquery::Interval {
+        interval_val: Interval {
             years: 0,
             months: 0,
             days: 1,
@@ -184,11 +185,11 @@ pub async fn query_client_datatypes() -> Result<()> {
         expected.event_time
     );
     assert_eq!(
-        row.get::<google_cloud_bigquery::Range<google_cloud_type::model::Date>, _>("date_range"),
+        row.get::<Range<google_cloud_type::model::Date>, _>("date_range"),
         expected.date_range
     );
     assert_eq!(
-        row.get::<google_cloud_bigquery::Range<wkt::Timestamp>, _>("timestamp_range"),
+        row.get::<Range<wkt::Timestamp>, _>("timestamp_range"),
         expected.timestamp_range
     );
     assert_eq!(
@@ -209,7 +210,7 @@ pub async fn query_client_datatypes() -> Result<()> {
         expected.nullable_bytes
     );
     assert_eq!(
-        row.get::<google_cloud_bigquery::Interval, _>("interval_val"),
+        row.get::<Interval, _>("interval_val"),
         expected.interval_val
     );
 

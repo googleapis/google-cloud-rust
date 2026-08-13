@@ -56,24 +56,13 @@ use std::sync::Arc;
 /// # Ok(())
 /// # }
 /// ```
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub struct Query {
     pub(crate) job_service: Arc<JobService>,
     pub(crate) completed: bool,
     pub(crate) metadata: QueryCreationMetadata,
     pub(crate) cached_rows: Option<VecDeque<wkt::Struct>>,
     pub(crate) max_results: Option<u32>,
-}
-
-impl std::fmt::Debug for Query {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.debug_struct("Query")
-            .field("completed", &self.completed)
-            .field("job_reference", &self.metadata.job_reference)
-            .field("query_id", &self.metadata.query_id)
-            .field("max_results", &self.max_results)
-            .finish()
-    }
 }
 
 impl Query {
@@ -225,7 +214,7 @@ impl Query {
 /// # Ok(())
 /// # }
 /// ```
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub struct CompleteQuery {
     pub(crate) job_service: Arc<JobService>,
     pub(crate) job_ref: Option<JobReference>,
@@ -234,17 +223,6 @@ pub struct CompleteQuery {
     pub(crate) page_token: Option<String>,
     pub(crate) metadata: QueryMetadata,
     pub(crate) max_results: Option<u32>,
-}
-
-impl std::fmt::Debug for CompleteQuery {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.debug_struct("CompleteQuery")
-            .field("job_ref", &self.job_ref)
-            .field("cached_rows", &self.cached_rows)
-            .field("schema", &self.schema)
-            .field("page_token", &self.page_token)
-            .finish_non_exhaustive()
-    }
 }
 
 impl CompleteQuery {

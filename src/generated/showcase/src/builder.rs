@@ -2415,6 +2415,29 @@ pub mod echo {
         }
     }
 
+    /// Common implementation for [crate::client::Echo] bidi stream builders.
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    #[derive(Clone, Debug)]
+    pub(crate) struct BidiStreamBuilder<R: std::default::Default> {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Echo>,
+        request: R,
+        options: crate::BidiStreamOptions,
+    }
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    impl<R> BidiStreamBuilder<R>
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
+            Self {
+                stub,
+                request: R::default(),
+                options: crate::BidiStreamOptions::default(),
+            }
+        }
+    }
+
     /// The request builder for [Echo::echo][crate::client::Echo::echo] calls.
     ///
     /// # Example
@@ -2693,14 +2716,12 @@ pub mod echo {
         }
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     /// The request builder for [Echo::chat][crate::client::Echo::chat] calls.
     ///
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::echo::Chat;
     /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
-    ///
     /// let builder = prepare_request_builder();
     /// let (sender, mut receiver) = builder.send().await?;
     /// # Ok(()) }
@@ -2710,13 +2731,23 @@ pub mod echo {
     ///   // ... details omitted ...
     /// }
     /// ```
+    #[cfg(google_cloud_unstable_gapic_streaming)]
     #[derive(Clone, Debug)]
-    pub struct Chat(RequestBuilder<crate::model::EchoRequest>);
+    pub struct Chat(BidiStreamBuilder<crate::model::EchoRequest>);
 
     #[cfg(google_cloud_unstable_gapic_streaming)]
     impl Chat {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
-            Self(RequestBuilder::new(stub))
+            Self(BidiStreamBuilder::new(stub))
+        }
+
+        /// Sets the buffer capacity of internal request channel.
+        ///
+        /// Valid values must be between `1` and `google_cloud_gax::options::MAX_REQUEST_CHANNEL_CAPACITY`.
+        /// The default capacity is `16`.
+        pub fn with_request_channel_capacity(mut self, capacity: usize) -> Self {
+            self.0.options.set_request_channel_capacity(capacity);
+            self
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2726,7 +2757,7 @@ pub mod echo {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::BidiStreamOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2821,11 +2852,11 @@ pub mod echo {
         }
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     #[doc(hidden)]
+    #[cfg(google_cloud_unstable_gapic_streaming)]
     impl crate::RequestBuilder for Chat {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
-            &mut self.0.options
+            self.0.options.request_options_mut()
         }
     }
 
@@ -5397,6 +5428,31 @@ pub mod messaging {
         }
     }
 
+    /// Common implementation for [crate::client::Messaging] bidi stream builders.
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    #[derive(Clone, Debug)]
+    pub(crate) struct BidiStreamBuilder<R: std::default::Default> {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Messaging>,
+        request: R,
+        options: crate::BidiStreamOptions,
+    }
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    impl<R> BidiStreamBuilder<R>
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Messaging>,
+        ) -> Self {
+            Self {
+                stub,
+                request: R::default(),
+                options: crate::BidiStreamOptions::default(),
+            }
+        }
+    }
+
     /// The request builder for [Messaging::create_room][crate::client::Messaging::create_room] calls.
     ///
     /// # Example
@@ -6313,14 +6369,12 @@ pub mod messaging {
         }
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     /// The request builder for [Messaging::connect][crate::client::Messaging::connect] calls.
     ///
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::messaging::Connect;
     /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
-    ///
     /// let builder = prepare_request_builder();
     /// let (sender, mut receiver) = builder.send().await?;
     /// # Ok(()) }
@@ -6330,15 +6384,25 @@ pub mod messaging {
     ///   // ... details omitted ...
     /// }
     /// ```
+    #[cfg(google_cloud_unstable_gapic_streaming)]
     #[derive(Clone, Debug)]
-    pub struct Connect(RequestBuilder<crate::model::ConnectRequest>);
+    pub struct Connect(BidiStreamBuilder<crate::model::ConnectRequest>);
 
     #[cfg(google_cloud_unstable_gapic_streaming)]
     impl Connect {
         pub(crate) fn new(
             stub: std::sync::Arc<dyn super::super::stub::dynamic::Messaging>,
         ) -> Self {
-            Self(RequestBuilder::new(stub))
+            Self(BidiStreamBuilder::new(stub))
+        }
+
+        /// Sets the buffer capacity of internal request channel.
+        ///
+        /// Valid values must be between `1` and `google_cloud_gax::options::MAX_REQUEST_CHANNEL_CAPACITY`.
+        /// The default capacity is `16`.
+        pub fn with_request_channel_capacity(mut self, capacity: usize) -> Self {
+            self.0.options.set_request_channel_capacity(capacity);
+            self
         }
 
         /// Sets the full request, replacing any prior values.
@@ -6348,7 +6412,7 @@ pub mod messaging {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::BidiStreamOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6404,11 +6468,11 @@ pub mod messaging {
         }
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     #[doc(hidden)]
+    #[cfg(google_cloud_unstable_gapic_streaming)]
     impl crate::RequestBuilder for Connect {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
-            &mut self.0.options
+            self.0.options.request_options_mut()
         }
     }
 
