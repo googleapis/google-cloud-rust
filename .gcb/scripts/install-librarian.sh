@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Copyright 2025 Google LLC
+# Copyright 2026 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ version=$(sed -n 's/^version: *//p' /workspace/librarian.yaml)
 go install github.com/googleapis/librarian/cmd/librarian@${version} ||
 (sleep 5 && go install github.com/googleapis/librarian/cmd/librarian@${version}) ||
 (sleep 10 && go install github.com/googleapis/librarian/cmd/librarian@${version})
-# Make multiple attempts as install the tools may require downloads
+# Make multiple attempts as installing the tools may require downloads.
 go run github.com/googleapis/librarian/cmd/librarian@${version} install ||
 (sleep 5 && go run github.com/googleapis/librarian/cmd/librarian@${version} install) ||
 (sleep 10 && go run github.com/googleapis/librarian/cmd/librarian@${version} install)
