@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.37.1-0.20260814190025-b8ffbf6000fa
+version: v0.37.1-0.20260814193952-f51a5f9543f5
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
