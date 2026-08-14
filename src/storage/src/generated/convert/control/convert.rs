@@ -2221,7 +2221,7 @@ impl gaxi::prost::ToProto<ObjectFullContext> for crate::generated::gapic_control
             value: self.value.to_proto()?,
             create_time: self.create_time.map(|v| v.to_proto()).transpose()?,
             update_time: self.update_time.map(|v| v.to_proto()).transpose()?,
-            extended_data: self.extended_data.map(|v| v.to_proto()).transpose()?,
+            extended_data: None,
         })
     }
 }
@@ -2235,7 +2235,6 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::ObjectFullCo
                 .set_value(self.value)
                 .set_or_clear_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_extended_data(self.extended_data.map(|v| v.cnv()).transpose()?)
         )
     }
 }
