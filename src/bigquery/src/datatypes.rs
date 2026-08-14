@@ -38,8 +38,6 @@ use crate::query::from_sql::parse_time;
 ///     .await?;
 /// let mut rows = client
 ///     .query("SELECT INTERVAL '1-2 15 5:30:00' YEAR TO SECOND AS duration")
-///     .run()
-///     .await?
 ///     .until_done()
 ///     .await?
 ///     .read();
@@ -166,8 +164,6 @@ impl FromSql for Interval {
 ///     .await?;
 /// let mut rows = client
 ///     .query("SELECT RANGE(DATE '2024-01-01', DATE '2024-12-31') AS date_range")
-///     .run()
-///     .await?
 ///     .until_done()
 ///     .await?
 ///     .read();
