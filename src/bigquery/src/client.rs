@@ -13,9 +13,10 @@
 // limitations under the License.
 
 use crate::ClientBuilderResult as BuilderResult;
+use crate::builder::bigquery::Query;
 use crate::client_builder::ClientBuilder;
 use crate::error::QueryError;
-use crate::query::{Query, Result as QueryResult, RunQuery};
+use crate::query::{Query as QueryHandle, Result as QueryResult};
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::JobReference;
 use std::sync::Arc;
@@ -115,11 +116,11 @@ impl BigQuery {
 
     /// Creates a request builder to configure and execute a SQL query.
     ///
-    /// This method returns a [`RunQuery`] builder. You can chain additional configuration methods
+    /// This method returns a [`Query`] builder. You can chain additional configuration methods
     /// (such as setting the project ID, positional or named parameters, query location, and maximum result buffer sizes)
-    /// before calling [`RunQuery::send()`] or [`RunQuery::until_done()`].
+    /// before calling [`Query::send()`] or [`Query::until_done()`].
     ///
-    /// The [`RunQuery`] builder automatically decides whether to route your request via the fast path ([`jobs.query`][jobs_query])
+    /// The [`Query`] builder automatically decides whether to route your request via the fast path ([`jobs.query`][jobs_query])
     /// or the background job creation path ([`jobs.insert`][jobs_insert]). If the query configuration uses only options supported
     /// by the fast path, the client library uses [`jobs.query`][jobs_query] for lower latency. If advanced options (such as destination
     /// tables or allowing large results) are configured, the client automatically falls back to creating an asynchronous job.
@@ -152,8 +153,8 @@ impl BigQuery {
     /// # Ok(())
     /// # }
     /// ```
-    pub fn query<S: Into<String>>(&self, sql: S) -> RunQuery {
-        let builder = RunQuery::new(self.job_service.clone(), sql.into());
+    pub fn query<S: Into<String>>(&self, sql: S) -> Query {
+        let builder = Query::new(self.job_service.clone(), sql.into());
         self.project_id
             .as_deref()
             .into_iter()
@@ -161,20 +162,10 @@ impl BigQuery {
                 builder.with_project_id(project_id)
             })
     }
-    #[cfg(test)]
-    pub(crate) fn from_job_service(
-        job_service: Arc<JobService>,
-        project_id: Option<String>,
-    ) -> Self {
-        Self {
-            job_service,
-            project_id,
-        }
-    }
 
-    /// Binds an existing out-of-process query job reference to a high-level `Query` handle.
+    /// Binds an existing out-of-process query job reference to a high-level [`Query`](crate::Query) handle.
     ///
-    /// Fetches the job metadata via [`JobService::get_job`] and initializes a [`Query`] handle.
+    /// Fetches the job metadata via [`JobService::get_job`] and initializes a [`Query`](crate::Query) handle.
     /// If `job_ref.project_id` is empty, it defaults to the client's billing project ID.
     ///
     /// # Arguments
@@ -198,7 +189,7 @@ impl BigQuery {
     /// # Ok(())
     /// # }
     /// ```
-    pub async fn attach_job(&self, mut job_ref: JobReference) -> QueryResult<Query> {
+    pub async fn attach_job(&self, mut job_ref: JobReference) -> QueryResult<QueryHandle> {
         if job_ref.project_id.is_empty()
             && let Some(proj) = &self.project_id
         {
@@ -228,7 +219,7 @@ impl BigQuery {
             return Err(QueryError::UnsupportedJobType);
         }
 
-        Ok(Query::from_job(self.job_service.clone(), job, None))
+        Ok(QueryHandle::from_job(self.job_service.clone(), job, None))
     }
 }
 
@@ -238,10 +229,21 @@ mod tests {
     use crate::error::QueryError;
     use crate::query::tests::{MockJobService, create_job_service};
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+    use google_cloud_bigquery_v2::client::JobService;
     use google_cloud_bigquery_v2::model::{
         Job, JobConfiguration, JobConfigurationQuery, JobReference,
     };
     use google_cloud_gax::response::Response;
+    use std::sync::Arc;
+
+    impl BigQuery {
+        fn from_job_service(job_service: Arc<JobService>, project_id: Option<String>) -> Self {
+            Self {
+                job_service,
+                project_id,
+            }
+        }
+    }
 
     #[tokio::test]
     async fn test_bigquery_builder() -> anyhow::Result<()> {
