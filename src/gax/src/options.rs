@@ -192,16 +192,6 @@ const DEFAULT_REQUEST_CHANNEL_CAPACITY: usize = 16;
 /// options.
 ///
 /// All other code uses this type indirectly, via the per-request builders.
-///
-/// ### Example
-/// ```rust
-/// use google_cloud_gax::options::{BidiStreamOptions, RequestOptions};
-/// use std::time::Duration;
-///
-/// let mut opts = BidiStreamOptions::default();
-/// opts.set_request_channel_capacity(64);
-/// opts.request_options_mut().set_attempt_timeout(Duration::from_secs(30));
-/// ```
 #[cfg(google_cloud_unstable_gapic_streaming)]
 #[derive(Clone, Debug)]
 pub struct BidiStreamOptions {
