@@ -391,6 +391,5 @@ go run github.com/googleapis/librarian/cmd/librarian@main generate google-cloud-
 [add new dependency]: #add-new-dependency
 [generate new library]: #generate-new-library
 [librarian.yaml]: https://github.com/googleapis/google-cloud-rust/blob/main/librarian.yaml
-[protocol buffer compiler installation]: https://protobuf.dev/installation/
 [sdk.yaml]: https://github.com/googleapis/librarian/blob/main/internal/serviceconfig/sdk.yaml
 [set up development environment]: /doc/contributor/howto-guide-set-up-development-environment.md
