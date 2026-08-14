@@ -433,7 +433,7 @@ mod tests {
             .set_dry_run(true)
             .set_use_legacy_sql(true);
 
-        let query_request: QueryRequest = req.clone().into();
+        let query_request: JobsQueryRequest = req.clone().into();
         assert_eq!(query_request.query, "SELECT 1");
         assert!(query_request.dry_run);
         assert_eq!(
