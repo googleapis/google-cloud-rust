@@ -131,7 +131,7 @@ async fn cleanup_stale_jobs(client: &JobService, project_id: &str) -> Result<()>
 
 pub async fn job_service_poller() -> Result<()> {
     let project_id = project_id()?;
-    let client = JobService::builder().with_tracing().build().await?;
+    let client = JobService::builder().build().await?;
     cleanup_stale_jobs(&client, &project_id).await?;
 
     let job_id = random_job_id();
@@ -172,7 +172,7 @@ pub async fn job_service_poller() -> Result<()> {
 
 pub async fn job_service_poller_error() -> Result<()> {
     let project_id = project_id()?;
-    let client = JobService::builder().with_tracing().build().await?;
+    let client = JobService::builder().build().await?;
 
     let job_id = random_job_id();
     let query = "SELECT * FROM `non_existent_dataset_12345.non_existent_table_67890`";
