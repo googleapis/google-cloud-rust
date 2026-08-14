@@ -12,10 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#[cfg(feature = "__enable-discovery-LRO")]
 use crate::model::{
     InstancesBulkInsertOperationMetadata, SetCommonInstanceMetadataOperationMetadata,
 };
 
+#[cfg(feature = "__enable-discovery-LRO")]
 impl crate::model::Operation {
     pub fn to_result(self) -> std::result::Result<Self, OperationError> {
         if self.error.is_some()
@@ -69,6 +71,7 @@ impl crate::model::Operation {
 ///
 /// The Compute API long running operations return different errors depending on
 /// the operation being called.
+#[cfg(feature = "__enable-discovery-LRO")]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum OperationError {
@@ -80,6 +83,7 @@ pub enum OperationError {
     SetCommonInstanceMetadata(SetCommonInstanceMetadataOperationError),
 }
 
+#[cfg(feature = "__enable-discovery-LRO")]
 impl std::fmt::Display for OperationError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
@@ -98,9 +102,11 @@ impl std::fmt::Display for OperationError {
     }
 }
 
+#[cfg(feature = "__enable-discovery-LRO")]
 impl std::error::Error for OperationError {}
 
 /// Details about a generic long-running operation error.
+#[cfg(feature = "__enable-discovery-LRO")]
 #[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenericOperationError {
@@ -114,6 +120,7 @@ pub struct GenericOperationError {
     pub details: Option<crate::model::operation::Error>,
 }
 
+#[cfg(feature = "__enable-discovery-LRO")]
 impl GenericOperationError {
     /// Create a new instance.
     pub fn new() -> Self {
@@ -168,6 +175,7 @@ impl GenericOperationError {
 /// Details about an [instance bulk insert] long-runing operation error.
 ///
 /// [instance bulk insert]: crate::client::Instances::bulk_insert
+#[cfg(feature = "__enable-discovery-LRO")]
 #[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstanceBulkInsertOperationError {
@@ -175,6 +183,7 @@ pub struct InstanceBulkInsertOperationError {
     pub metadata: InstancesBulkInsertOperationMetadata,
 }
 
+#[cfg(feature = "__enable-discovery-LRO")]
 impl InstanceBulkInsertOperationError {
     /// Create a new instance.
     pub fn new() -> Self {
@@ -203,6 +212,7 @@ impl InstanceBulkInsertOperationError {
 /// Details about an [set common instance metadata] long-runing operation error.
 ///
 /// [set common instance metadata]: crate::client::Projects::set_common_instance_metadata
+#[cfg(feature = "__enable-discovery-LRO")]
 #[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SetCommonInstanceMetadataOperationError {
@@ -210,6 +220,7 @@ pub struct SetCommonInstanceMetadataOperationError {
     pub metadata: SetCommonInstanceMetadataOperationMetadata,
 }
 
+#[cfg(feature = "__enable-discovery-LRO")]
 impl SetCommonInstanceMetadataOperationError {
     /// Create a new instance.
     pub fn new() -> Self {
@@ -238,7 +249,7 @@ impl SetCommonInstanceMetadataOperationError {
     }
 }
 
-#[cfg(test)]
+#[cfg(all(test, feature = "__enable-discovery-LRO"))]
 mod tests {
     use super::*;
     use crate::model::{

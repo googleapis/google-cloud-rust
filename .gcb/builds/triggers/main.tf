@@ -53,6 +53,10 @@ locals {
       script = "compute-full"
       pool   = "rust-sdk-pool-large"
     }
+    compute-minimal = {
+      config = "complex.yaml"
+      script = "compute-minimal"
+    }
     coverage = {
       config = "coverage.yaml"
       script = "coverage"
