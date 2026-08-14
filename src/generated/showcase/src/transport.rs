@@ -1840,7 +1840,10 @@ impl super::stub::Echo for Echo {
                         .to_proto()
                         .map_err(google_cloud_gax::error::Error::ser)?;
                     req_tx.send(prost_item).await.map_err(|_| {
-                        google_cloud_gax::error::Error::io("cannot send request: stream is closed")
+                        google_cloud_gax::error::Error::io(std::io::Error::new(
+                            std::io::ErrorKind::BrokenPipe,
+                            "cannot send request: stream is closed",
+                        ))
                     })
                 }
             },
@@ -5091,7 +5094,10 @@ impl super::stub::Messaging for Messaging {
                         .to_proto()
                         .map_err(google_cloud_gax::error::Error::ser)?;
                     req_tx.send(prost_item).await.map_err(|_| {
-                        google_cloud_gax::error::Error::io("cannot send request: stream is closed")
+                        google_cloud_gax::error::Error::io(std::io::Error::new(
+                            std::io::ErrorKind::BrokenPipe,
+                            "cannot send request: stream is closed",
+                        ))
                     })
                 }
             },

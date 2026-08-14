@@ -949,6 +949,38 @@ impl StorageControl {
         super::builder::storage_control::ListIntelligenceFindingRevisions::new(self.inner.clone())
     }
 
+    /// Retrieves the full content of an object context, including its key, value,
+    /// and any associated extended data for a given context key.
+    ///
+    /// Object contexts can optionally contain extended data. If an object context
+    /// contains extended data, the metadata payload structure will contain only
+    /// its type URL. To retrieve the full extended data, call this method.
+    ///
+    /// Returns the complete representation of the context as an
+    /// [`ObjectFullContext`][google.storage.control.v2.ObjectFullContext].
+    ///
+    /// [google.storage.control.v2.ObjectFullContext]: crate::model::ObjectFullContext
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::StorageControl;
+    /// use google_cloud_storage::Result;
+    /// async fn sample(
+    ///    client: &StorageControl
+    /// ) -> Result<()> {
+    ///     let response = client.view_object_full_context()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn view_object_full_context(
+        &self,
+    ) -> super::builder::storage_control::ViewObjectFullContext {
+        super::builder::storage_control::ViewObjectFullContext::new(self.inner.clone())
+    }
+
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
