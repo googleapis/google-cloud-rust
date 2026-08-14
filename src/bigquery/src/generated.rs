@@ -18,4 +18,4 @@ mod query_request;
 
 pub use complete_query_metadata::CompleteQueryMetadata;
 pub use query_metadata::QueryMetadata;
-pub use query_request::QueryBuilderRequest;
+pub use query_request::QueryRequest;

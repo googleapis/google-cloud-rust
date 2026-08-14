@@ -18,9 +18,9 @@
 #[allow(rustdoc::broken_intra_doc_links)]
 #[allow(rustdoc::invalid_html_tags)]
 #[allow(rustdoc::redundant_explicit_links)]
-impl QueryBuilder {
+impl Query {
 
-    /// Sets the value of [request.allow_large_results][crate::generated::QueryBuilderRequest::allow_large_results].
+    /// Sets the value of [request.allow_large_results][crate::builder::bigquery::QueryRequest::allow_large_results].
     pub fn set_allow_large_results<T>(mut self, v: T) -> Self
     where T: std::convert::Into<wkt::BoolValue>
     {
@@ -28,7 +28,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets or clears the value of [request.allow_large_results][crate::generated::QueryBuilderRequest::allow_large_results].
+    /// Sets or clears the value of [request.allow_large_results][crate::builder::bigquery::QueryRequest::allow_large_results].
     pub fn set_or_clear_allow_large_results<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<wkt::BoolValue>
     {
@@ -36,7 +36,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets the value of [request.clustering][crate::generated::QueryBuilderRequest::clustering].
+    /// Sets the value of [request.clustering][crate::builder::bigquery::QueryRequest::clustering].
     pub fn set_clustering<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::Clustering>
     {
@@ -44,7 +44,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets or clears the value of [request.clustering][crate::generated::QueryBuilderRequest::clustering].
+    /// Sets or clears the value of [request.clustering][crate::builder::bigquery::QueryRequest::clustering].
     pub fn set_or_clear_clustering<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::Clustering>
     {
@@ -52,7 +52,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets the value of [request.connection_properties][crate::generated::QueryBuilderRequest::connection_properties].
+    /// Sets the value of [request.connection_properties][crate::builder::bigquery::QueryRequest::connection_properties].
     pub fn set_connection_properties<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -63,7 +63,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets the value of [request.continuous][crate::generated::QueryBuilderRequest::continuous].
+    /// Sets the value of [request.continuous][crate::builder::bigquery::QueryRequest::continuous].
     pub fn set_continuous<T>(mut self, v: T) -> Self
     where T: std::convert::Into<wkt::BoolValue>
     {
@@ -71,7 +71,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets or clears the value of [request.continuous][crate::generated::QueryBuilderRequest::continuous].
+    /// Sets or clears the value of [request.continuous][crate::builder::bigquery::QueryRequest::continuous].
     pub fn set_or_clear_continuous<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<wkt::BoolValue>
     {
@@ -79,13 +79,13 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets the value of [request.create_disposition][crate::generated::QueryBuilderRequest::create_disposition].
+    /// Sets the value of [request.create_disposition][crate::builder::bigquery::QueryRequest::create_disposition].
     pub fn set_create_disposition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request.create_disposition = v.into();
         self
     }
 
-    /// Sets the value of [request.create_session][crate::generated::QueryBuilderRequest::create_session].
+    /// Sets the value of [request.create_session][crate::builder::bigquery::QueryRequest::create_session].
     pub fn set_create_session<T>(mut self, v: T) -> Self
     where T: std::convert::Into<wkt::BoolValue>
     {
@@ -93,7 +93,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets or clears the value of [request.create_session][crate::generated::QueryBuilderRequest::create_session].
+    /// Sets or clears the value of [request.create_session][crate::builder::bigquery::QueryRequest::create_session].
     pub fn set_or_clear_create_session<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<wkt::BoolValue>
     {
@@ -101,7 +101,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets the value of [request.default_dataset][crate::generated::QueryBuilderRequest::default_dataset].
+    /// Sets the value of [request.default_dataset][crate::builder::bigquery::QueryRequest::default_dataset].
     pub fn set_default_dataset<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::DatasetReference>
     {
@@ -109,7 +109,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets or clears the value of [request.default_dataset][crate::generated::QueryBuilderRequest::default_dataset].
+    /// Sets or clears the value of [request.default_dataset][crate::builder::bigquery::QueryRequest::default_dataset].
     pub fn set_or_clear_default_dataset<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::DatasetReference>
     {
@@ -117,7 +117,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets the value of [request.destination_encryption_configuration][crate::generated::QueryBuilderRequest::destination_encryption_configuration].
+    /// Sets the value of [request.destination_encryption_configuration][crate::builder::bigquery::QueryRequest::destination_encryption_configuration].
     pub fn set_destination_encryption_configuration<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::EncryptionConfiguration>
     {
@@ -125,7 +125,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets or clears the value of [request.destination_encryption_configuration][crate::generated::QueryBuilderRequest::destination_encryption_configuration].
+    /// Sets or clears the value of [request.destination_encryption_configuration][crate::builder::bigquery::QueryRequest::destination_encryption_configuration].
     pub fn set_or_clear_destination_encryption_configuration<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::EncryptionConfiguration>
     {
@@ -133,7 +133,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets the value of [request.destination_table][crate::generated::QueryBuilderRequest::destination_table].
+    /// Sets the value of [request.destination_table][crate::builder::bigquery::QueryRequest::destination_table].
     pub fn set_destination_table<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::TableReference>
     {
@@ -141,7 +141,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets or clears the value of [request.destination_table][crate::generated::QueryBuilderRequest::destination_table].
+    /// Sets or clears the value of [request.destination_table][crate::builder::bigquery::QueryRequest::destination_table].
     pub fn set_or_clear_destination_table<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::TableReference>
     {
@@ -149,13 +149,13 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets the value of [request.dry_run][crate::generated::QueryBuilderRequest::dry_run].
+    /// Sets the value of [request.dry_run][crate::builder::bigquery::QueryRequest::dry_run].
     pub fn set_dry_run<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.request.dry_run = v.into();
         self
     }
 
-    /// Sets the value of [request.external_table_definitions][crate::generated::QueryBuilderRequest::external_table_definitions].
+    /// Sets the value of [request.external_table_definitions][crate::builder::bigquery::QueryRequest::external_table_definitions].
     pub fn set_external_table_definitions<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -167,7 +167,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets the value of [request.flatten_results][crate::generated::QueryBuilderRequest::flatten_results].
+    /// Sets the value of [request.flatten_results][crate::builder::bigquery::QueryRequest::flatten_results].
     pub fn set_flatten_results<T>(mut self, v: T) -> Self
     where T: std::convert::Into<wkt::BoolValue>
     {
@@ -175,7 +175,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets or clears the value of [request.flatten_results][crate::generated::QueryBuilderRequest::flatten_results].
+    /// Sets or clears the value of [request.flatten_results][crate::builder::bigquery::QueryRequest::flatten_results].
     pub fn set_or_clear_flatten_results<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<wkt::BoolValue>
     {
@@ -183,13 +183,13 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets the value of [request.job_creation_mode][crate::generated::QueryBuilderRequest::job_creation_mode].
+    /// Sets the value of [request.job_creation_mode][crate::builder::bigquery::QueryRequest::job_creation_mode].
     pub fn set_job_creation_mode<T: std::convert::Into<crate::model::query_request::JobCreationMode>>(mut self, v: T) -> Self {
         self.request.job_creation_mode = v.into();
         self
     }
 
-    /// Sets the value of [request.job_timeout_ms][crate::generated::QueryBuilderRequest::job_timeout_ms].
+    /// Sets the value of [request.job_timeout_ms][crate::builder::bigquery::QueryRequest::job_timeout_ms].
     pub fn set_job_timeout_ms<T>(mut self, v: T) -> Self
     where T: std::convert::Into<i64>
     {
@@ -197,7 +197,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets or clears the value of [request.job_timeout_ms][crate::generated::QueryBuilderRequest::job_timeout_ms].
+    /// Sets or clears the value of [request.job_timeout_ms][crate::builder::bigquery::QueryRequest::job_timeout_ms].
     pub fn set_or_clear_job_timeout_ms<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<i64>
     {
@@ -205,7 +205,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets the value of [request.labels][crate::generated::QueryBuilderRequest::labels].
+    /// Sets the value of [request.labels][crate::builder::bigquery::QueryRequest::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -217,13 +217,13 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets the value of [request.location][crate::generated::QueryBuilderRequest::location].
+    /// Sets the value of [request.location][crate::builder::bigquery::QueryRequest::location].
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request.location = v.into();
         self
     }
 
-    /// Sets the value of [request.max_results][crate::generated::QueryBuilderRequest::max_results].
+    /// Sets the value of [request.max_results][crate::builder::bigquery::QueryRequest::max_results].
     pub fn set_max_results<T>(mut self, v: T) -> Self
     where T: std::convert::Into<wkt::UInt32Value>
     {
@@ -231,7 +231,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets or clears the value of [request.max_results][crate::generated::QueryBuilderRequest::max_results].
+    /// Sets or clears the value of [request.max_results][crate::builder::bigquery::QueryRequest::max_results].
     pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<wkt::UInt32Value>
     {
@@ -239,7 +239,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets the value of [request.max_slots][crate::generated::QueryBuilderRequest::max_slots].
+    /// Sets the value of [request.max_slots][crate::builder::bigquery::QueryRequest::max_slots].
     pub fn set_max_slots<T>(mut self, v: T) -> Self
     where T: std::convert::Into<i32>
     {
@@ -247,7 +247,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets or clears the value of [request.max_slots][crate::generated::QueryBuilderRequest::max_slots].
+    /// Sets or clears the value of [request.max_slots][crate::builder::bigquery::QueryRequest::max_slots].
     pub fn set_or_clear_max_slots<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<i32>
     {
@@ -255,7 +255,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets the value of [request.maximum_bytes_billed][crate::generated::QueryBuilderRequest::maximum_bytes_billed].
+    /// Sets the value of [request.maximum_bytes_billed][crate::builder::bigquery::QueryRequest::maximum_bytes_billed].
     pub fn set_maximum_bytes_billed<T>(mut self, v: T) -> Self
     where T: std::convert::Into<wkt::Int64Value>
     {
@@ -263,7 +263,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets or clears the value of [request.maximum_bytes_billed][crate::generated::QueryBuilderRequest::maximum_bytes_billed].
+    /// Sets or clears the value of [request.maximum_bytes_billed][crate::builder::bigquery::QueryRequest::maximum_bytes_billed].
     pub fn set_or_clear_maximum_bytes_billed<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<wkt::Int64Value>
     {
@@ -271,25 +271,25 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets the value of [request.parameter_mode][crate::generated::QueryBuilderRequest::parameter_mode].
+    /// Sets the value of [request.parameter_mode][crate::builder::bigquery::QueryRequest::parameter_mode].
     pub fn set_parameter_mode<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request.parameter_mode = v.into();
         self
     }
 
-    /// Sets the value of [request.priority][crate::generated::QueryBuilderRequest::priority].
+    /// Sets the value of [request.priority][crate::builder::bigquery::QueryRequest::priority].
     pub fn set_priority<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request.priority = v.into();
         self
     }
 
-    /// Sets the value of [request.query][crate::generated::QueryBuilderRequest::query].
+    /// Sets the value of [request.query][crate::builder::bigquery::QueryRequest::query].
     pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request.query = v.into();
         self
     }
 
-    /// Sets the value of [request.query_parameters][crate::generated::QueryBuilderRequest::query_parameters].
+    /// Sets the value of [request.query_parameters][crate::builder::bigquery::QueryRequest::query_parameters].
     pub fn set_query_parameters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -300,7 +300,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets the value of [request.range_partitioning][crate::generated::QueryBuilderRequest::range_partitioning].
+    /// Sets the value of [request.range_partitioning][crate::builder::bigquery::QueryRequest::range_partitioning].
     pub fn set_range_partitioning<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::RangePartitioning>
     {
@@ -308,7 +308,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets or clears the value of [request.range_partitioning][crate::generated::QueryBuilderRequest::range_partitioning].
+    /// Sets or clears the value of [request.range_partitioning][crate::builder::bigquery::QueryRequest::range_partitioning].
     pub fn set_or_clear_range_partitioning<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::RangePartitioning>
     {
@@ -316,7 +316,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets the value of [request.reservation][crate::generated::QueryBuilderRequest::reservation].
+    /// Sets the value of [request.reservation][crate::builder::bigquery::QueryRequest::reservation].
     pub fn set_reservation<T>(mut self, v: T) -> Self
     where T: std::convert::Into<std::string::String>
     {
@@ -324,7 +324,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets or clears the value of [request.reservation][crate::generated::QueryBuilderRequest::reservation].
+    /// Sets or clears the value of [request.reservation][crate::builder::bigquery::QueryRequest::reservation].
     pub fn set_or_clear_reservation<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<std::string::String>
     {
@@ -332,7 +332,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets the value of [request.schema_update_options][crate::generated::QueryBuilderRequest::schema_update_options].
+    /// Sets the value of [request.schema_update_options][crate::builder::bigquery::QueryRequest::schema_update_options].
     pub fn set_schema_update_options<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -343,7 +343,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets the value of [request.script_options][crate::generated::QueryBuilderRequest::script_options].
+    /// Sets the value of [request.script_options][crate::builder::bigquery::QueryRequest::script_options].
     pub fn set_script_options<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::ScriptOptions>
     {
@@ -351,7 +351,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets or clears the value of [request.script_options][crate::generated::QueryBuilderRequest::script_options].
+    /// Sets or clears the value of [request.script_options][crate::builder::bigquery::QueryRequest::script_options].
     pub fn set_or_clear_script_options<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::ScriptOptions>
     {
@@ -359,7 +359,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets the value of [request.time_partitioning][crate::generated::QueryBuilderRequest::time_partitioning].
+    /// Sets the value of [request.time_partitioning][crate::builder::bigquery::QueryRequest::time_partitioning].
     pub fn set_time_partitioning<T>(mut self, v: T) -> Self
     where T: std::convert::Into<crate::model::TimePartitioning>
     {
@@ -367,7 +367,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets or clears the value of [request.time_partitioning][crate::generated::QueryBuilderRequest::time_partitioning].
+    /// Sets or clears the value of [request.time_partitioning][crate::builder::bigquery::QueryRequest::time_partitioning].
     pub fn set_or_clear_time_partitioning<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<crate::model::TimePartitioning>
     {
@@ -375,7 +375,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets the value of [request.timeout_ms][crate::generated::QueryBuilderRequest::timeout_ms].
+    /// Sets the value of [request.timeout_ms][crate::builder::bigquery::QueryRequest::timeout_ms].
     pub fn set_timeout_ms<T>(mut self, v: T) -> Self
     where T: std::convert::Into<wkt::UInt32Value>
     {
@@ -383,7 +383,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets or clears the value of [request.timeout_ms][crate::generated::QueryBuilderRequest::timeout_ms].
+    /// Sets or clears the value of [request.timeout_ms][crate::builder::bigquery::QueryRequest::timeout_ms].
     pub fn set_or_clear_timeout_ms<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<wkt::UInt32Value>
     {
@@ -391,7 +391,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets the value of [request.use_legacy_sql][crate::generated::QueryBuilderRequest::use_legacy_sql].
+    /// Sets the value of [request.use_legacy_sql][crate::builder::bigquery::QueryRequest::use_legacy_sql].
     pub fn set_use_legacy_sql<T>(mut self, v: T) -> Self
     where T: std::convert::Into<wkt::BoolValue>
     {
@@ -399,7 +399,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets or clears the value of [request.use_legacy_sql][crate::generated::QueryBuilderRequest::use_legacy_sql].
+    /// Sets or clears the value of [request.use_legacy_sql][crate::builder::bigquery::QueryRequest::use_legacy_sql].
     pub fn set_or_clear_use_legacy_sql<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<wkt::BoolValue>
     {
@@ -407,7 +407,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets the value of [request.use_query_cache][crate::generated::QueryBuilderRequest::use_query_cache].
+    /// Sets the value of [request.use_query_cache][crate::builder::bigquery::QueryRequest::use_query_cache].
     pub fn set_use_query_cache<T>(mut self, v: T) -> Self
     where T: std::convert::Into<wkt::BoolValue>
     {
@@ -415,7 +415,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets or clears the value of [request.use_query_cache][crate::generated::QueryBuilderRequest::use_query_cache].
+    /// Sets or clears the value of [request.use_query_cache][crate::builder::bigquery::QueryRequest::use_query_cache].
     pub fn set_or_clear_use_query_cache<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<wkt::BoolValue>
     {
@@ -423,7 +423,7 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets the value of [request.user_defined_function_resources][crate::generated::QueryBuilderRequest::user_defined_function_resources].
+    /// Sets the value of [request.user_defined_function_resources][crate::builder::bigquery::QueryRequest::user_defined_function_resources].
     pub fn set_user_defined_function_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -434,13 +434,13 @@ impl QueryBuilder {
         self
     }
 
-    /// Sets the value of [request.write_disposition][crate::generated::QueryBuilderRequest::write_disposition].
+    /// Sets the value of [request.write_disposition][crate::builder::bigquery::QueryRequest::write_disposition].
     pub fn set_write_disposition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request.write_disposition = v.into();
         self
     }
 
-    /// Sets the value of [request.write_incremental_results][crate::generated::QueryBuilderRequest::write_incremental_results].
+    /// Sets the value of [request.write_incremental_results][crate::builder::bigquery::QueryRequest::write_incremental_results].
     pub fn set_write_incremental_results<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.request.write_incremental_results = v.into();
         self

@@ -27,7 +27,7 @@ use std::sync::Arc;
 
 /// A handle representing a running or completed SQL query execution.
 ///
-/// [`QueryBuilder::send()`](crate::query::QueryBuilder::send) returns a `Query`.
+/// [`Query::send()`](crate::builder::bigquery::Query::send) returns a [`Query`](crate::Query).
 ///
 /// To obtain the final result set, call [`until_done()`](Query::until_done),
 /// which checks the execution status and automatically polls the service if the
@@ -127,7 +127,7 @@ impl Query {
     ///
     /// If the query was executed via the fast query path ([jobs.query]) and
     /// already completed during the initial request, this method immediately
-    /// returns a [`CompleteQuery`](crate::query::CompleteQuery) without making
+    /// returns a [`CompleteQuery`](crate::CompleteQuery) without making
     /// additional network calls. Otherwise, it implements a polling loop
     /// querying the job status until it succeeds or fails.
     ///

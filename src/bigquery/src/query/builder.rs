@@ -12,13 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::generated::QueryBuilderRequest;
+use crate::generated::QueryRequest;
 use crate::query::execution::{InsertJobExecutor, PostQueryExecutor};
-use crate::query::{CompleteQuery, Query, Result};
+use crate::query::{CompleteQuery, Query as QueryHandle, Result};
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::query_request::JobCreationMode;
 use google_cloud_bigquery_v2::model::{
-    InsertJobRequest, Job, JobConfiguration, JobReference, PostQueryRequest, QueryRequest,
+    InsertJobRequest, Job, JobConfiguration, JobReference, PostQueryRequest,
+    QueryRequest as JobsQueryRequest,
 };
 use std::sync::Arc;
 use uuid::Uuid;
@@ -28,7 +29,7 @@ pub(crate) const QUERY_REQUEST_ID_PREFIX: &str = "req_";
 
 /// A builder for executing a SQL query.
 ///
-/// [`BigQuery::query()`](crate::client::BigQuery::query) returns a `QueryBuilder`.
+/// [`BigQuery::query()`](crate::client::BigQuery::query) returns a [`Query`](crate::builder::bigquery::Query) builder.
 ///
 /// # Automatic Path Routing
 ///
@@ -61,18 +62,18 @@ pub(crate) const QUERY_REQUEST_ID_PREFIX: &str = "req_";
 /// # }
 /// ```
 #[derive(Clone, Debug)]
-pub struct QueryBuilder {
+pub struct Query {
     pub(crate) job_service: Arc<JobService>,
-    pub(crate) request: QueryBuilderRequest,
+    pub(crate) request: QueryRequest,
     pub(crate) project_id: Option<String>,
 }
 
-impl QueryBuilder {
+impl Query {
     /// Creates a new `QueryBuilder` for the given SQL query.
     pub(crate) fn new(job_service: Arc<JobService>, sql: String) -> Self {
         Self {
             job_service,
-            request: QueryBuilderRequest::default()
+            request: QueryRequest::default()
                 .set_query(sql)
                 .set_use_legacy_sql(wkt::BoolValue::from(false))
                 .set_job_creation_mode(JobCreationMode::JobCreationOptional),
@@ -90,7 +91,7 @@ impl QueryBuilder {
     /// project ID for this specific query.
     ///
     /// You must specify a project ID either on the client or on the query
-    /// builder before calling [`send()`](QueryBuilder::send).
+    /// builder before calling [`send()`](Query::send).
     ///
     /// # Example
     ///
@@ -112,18 +113,18 @@ impl QueryBuilder {
 
     /// Executes the SQL query.
     ///
-    /// This returns a [`Query`](crate::query::Query) handle representing an
+    /// This returns a [`Query`](crate::Query) handle representing an
     /// asynchronous background job executing on BigQuery, or an already
     /// completed query if it ran fast enough using the fast query path
     /// ([jobs.query]).
     ///
-    /// You can call [`until_done()`](crate::query::Query::until_done) on the
+    /// You can call [`until_done()`](crate::Query::until_done) on the
     /// returned handle to wait for the final results.
     ///
     /// You must configure a target project ID on either the
     /// [`BigQuery`][crate::client::BigQuery] client via
     /// [`ClientBuilder::with_project_id`][crate::client_builder::ClientBuilder::with_project_id]
-    /// or on this builder via [`with_project_id()`](QueryBuilder::with_project_id).
+    /// or on this builder via [`with_project_id()`](Query::with_project_id).
     ///
     /// [jobs.query]: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query
     ///
@@ -149,7 +150,7 @@ impl QueryBuilder {
     /// # Ok(())
     /// # }
     /// ```
-    pub async fn send(self) -> Result<Query> {
+    pub async fn send(self) -> Result<QueryHandle> {
         let project_id = self.project_id.unwrap_or_default();
         let max_results = self.request.max_results;
 
@@ -170,7 +171,7 @@ impl QueryBuilder {
         } else {
             let query_request_id = generate_prefixed_id(QUERY_REQUEST_ID_PREFIX);
             // Route to jobs.query
-            let query_request: QueryRequest = self.request.into();
+            let query_request: JobsQueryRequest = self.request.into();
             let query_request = query_request
                 .set_format_options(
                     google_cloud_bigquery_v2::model::DataFormatOptions::new()
@@ -190,7 +191,7 @@ impl QueryBuilder {
     /// Sends the query execution request and polls until execution completes.
     ///
     /// This is a convenience method equivalent to calling
-    /// [`.send().await?.until_done().await`](QueryBuilder::send).
+    /// [`.send().await?.until_done().await`](Query::send).
     ///
     /// # Example
     ///
@@ -254,7 +255,7 @@ mod tests {
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_bigquery_v2::model::query_request::JobCreationMode;
     use google_cloud_bigquery_v2::model::{
-        Job, JobConfiguration, JobReference, JobStatus, QueryRequest, QueryResponse,
+        Job, JobConfiguration, JobReference, JobStatus, QueryResponse,
     };
     use google_cloud_gax::response::Response;
 
@@ -267,7 +268,7 @@ mod tests {
     fn test_new() {
         let job_service = create_job_service(MockJobService::new());
         let sql = "SELECT 1".to_string();
-        let run_query = QueryBuilder::new(job_service, sql.clone());
+        let run_query = Query::new(job_service, sql.clone());
         assert_eq!(run_query.request.query, sql);
         assert_eq!(
             run_query.request.use_legacy_sql,
@@ -284,7 +285,7 @@ mod tests {
     fn test_with_project_id() {
         let job_service = create_job_service(MockJobService::new());
         let run_query =
-            QueryBuilder::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
+            Query::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
         assert_eq!(run_query.project_id.unwrap(), "my-project");
     }
 
@@ -384,7 +385,7 @@ mod tests {
         });
         let job_service = create_job_service(mock);
 
-        let run_query = QueryBuilder::new(job_service, "SELECT 1".to_string())
+        let run_query = Query::new(job_service, "SELECT 1".to_string())
             .with_project_id("my-project")
             .set_allow_large_results(true);
         let query = run_query.send().await?;
@@ -406,7 +407,7 @@ mod tests {
         });
         let job_service = create_job_service(mock);
         let run_query =
-            QueryBuilder::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
+            Query::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
         let query = run_query.send().await?;
         assert!(!query.completed, "{query:?}");
         assert_eq!(query.metadata.query_id, "some_query_id");
@@ -417,7 +418,7 @@ mod tests {
     #[test]
     fn test_force_job_path() {
         let job_service = create_job_service(MockJobService::new());
-        let mut run_query = QueryBuilder::new(job_service, "SELECT 1".to_string());
+        let mut run_query = Query::new(job_service, "SELECT 1".to_string());
         assert!(!run_query.request.force_job_path());
 
         // setting a jobs.insert exclusive field
@@ -427,7 +428,7 @@ mod tests {
 
     #[test]
     fn test_request_conversions() {
-        let req = QueryBuilderRequest::default()
+        let req = QueryRequest::default()
             .set_query("SELECT 1".to_string())
             .set_dry_run(true)
             .set_use_legacy_sql(true);
@@ -457,7 +458,7 @@ mod tests {
             Ok(Response::from(QueryResponse::new()))
         });
         let job_service = create_job_service(mock);
-        let run_query = QueryBuilder::new(job_service, "SELECT 1".to_string())
+        let run_query = Query::new(job_service, "SELECT 1".to_string())
             .with_project_id("my-project")
             .set_max_results(100_u32);
         let query = run_query.send().await?;
@@ -480,7 +481,7 @@ mod tests {
         });
         let job_service = create_job_service(mock);
 
-        let run_query = QueryBuilder::new(job_service, "SELECT 1".to_string())
+        let run_query = Query::new(job_service, "SELECT 1".to_string())
             .with_project_id("my-project")
             .set_allow_large_results(true)
             .set_max_results(50_u32);
@@ -502,7 +503,7 @@ mod tests {
         });
         let job_service = create_job_service(mock);
         let run_query =
-            QueryBuilder::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
+            Query::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
         let complete = run_query.until_done().await?;
         assert_eq!(complete.metadata().query_id, "some_query_id");
 

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-mod builder;
+pub(crate) mod builder;
 pub(crate) mod execution;
 pub(crate) mod from_sql;
 mod iterator;
@@ -24,7 +24,6 @@ pub use iterator::RowIterator;
 pub use query_handle::{CompleteQuery, Query};
 pub(crate) use schema::Schema;
 
-pub use builder::QueryBuilder;
 pub use from_sql::FromSql;
 pub use row::Row;
 

@@ -53,6 +53,7 @@ pub mod builder {
     pub mod bigquery {
         //! Builder for [BigQuery][crate::client::BigQuery].
         pub use crate::client_builder::ClientBuilder;
-        pub use crate::query::QueryBuilder;
+        pub use crate::generated::QueryRequest;
+        pub use crate::query::builder::Query;
     }
 }
