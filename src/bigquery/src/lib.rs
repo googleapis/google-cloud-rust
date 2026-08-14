@@ -55,8 +55,6 @@
 //! // Configure, run, and read query results.
 //! let mut rows = client
 //!     .query("SELECT 'hello world' AS greeting")
-//!     .run()
-//!     .await?
 //!     .until_done()
 //!     .await?
 //!     .read();
@@ -86,8 +84,6 @@
 //! # async fn sample(client: BigQuery) -> anyhow::Result<()> {
 //! let mut rows = client
 //!     .query("SELECT name, count FROM `bigquery-public-data.usa_names.usa_1910_2013` WHERE state = 'WA' LIMIT 5")
-//!     .run()
-//!     .await?
 //!     .until_done()
 //!     .await?
 //!     .read();
