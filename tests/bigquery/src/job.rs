@@ -128,3 +128,26 @@ async fn cleanup_stale_jobs(client: &JobService, project_id: &str) -> Result<()>
     futures::future::join_all(pending_deletion).await;
     Ok(())
 }
+
+#[cfg(test)]
+mod tests {
+    use anyhow::Result;
+    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+    use google_cloud_bigquery_v2::client::JobService;
+
+    #[tokio::test]
+    async fn poller_manageable_future_size() -> Result<()> {
+        let client = JobService::builder()
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let fut = client
+            .insert_job()
+            .set_project_id("test-project")
+            .into_job_poller()
+            .until_done();
+        let size = std::mem::size_of_val(&fut);
+        assert!(size < 1024, "{size}");
+        Ok(())
+    }
+}
