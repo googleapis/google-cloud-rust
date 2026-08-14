@@ -160,7 +160,7 @@ pub async fn job_service_poller() -> Result<()> {
 
     assert!(job.job_reference.is_some(), "{job:?}");
     let status = job.status.as_ref().expect("job should have status");
-    assert_eq!(status.state.as_str(), "DONE", "job state should be DONE");
+    assert_eq!(status.state.as_str(), "DONE");
     assert!(
         status.error_result.is_none(),
         "job completed with unexpected error_result: {:?}",
