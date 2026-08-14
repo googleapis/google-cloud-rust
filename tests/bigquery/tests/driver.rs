@@ -90,6 +90,14 @@ mod bigquery {
     }
 
     #[tokio::test]
+    async fn run_job_service_poller_heavy() -> anyhow::Result<()> {
+        let _guard = enable_tracing();
+        integration_tests_bigquery::job_service_poller_heavy()
+            .await
+            .inspect_err(anydump)
+    }
+
+    #[tokio::test]
     async fn run_job_service_poller() -> anyhow::Result<()> {
         let _guard = enable_tracing();
         integration_tests_bigquery::job_service_poller()

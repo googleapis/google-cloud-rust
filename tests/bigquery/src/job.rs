@@ -210,6 +210,60 @@ pub async fn job_service_poller_error() -> Result<()> {
 
     Ok(())
 }
+
+pub async fn job_service_poller_heavy() -> Result<()> {
+    let project_id = project_id()?;
+    let client = JobService::builder().build().await?;
+    cleanup_stale_jobs(&client, &project_id).await?;
+
+    let job_id = random_job_id();
+    println!("CREATING JOB (HEAVY POLLER) ID: {job_id}");
+
+    let query = r#"
+        DECLARE DELAY_TIME DATETIME;
+        DECLARE WAIT STRING;
+        SET WAIT = 'TRUE';
+        SET DELAY_TIME = DATETIME_ADD(CURRENT_DATETIME, INTERVAL 5 SECOND);
+
+        WHILE WAIT = 'TRUE' DO
+          IF (DELAY_TIME < CURRENT_DATETIME) THEN
+            SET WAIT = 'FALSE';
+          END IF;
+        END WHILE;
+    "#;
+
+    let job = client
+        .insert_job()
+        .set_project_id(&project_id)
+        .set_job(
+            Job::new()
+                .set_job_reference(JobReference::new().set_job_id(&job_id))
+                .set_configuration(
+                    JobConfiguration::new()
+                        .set_labels([(INSTANCE_LABEL, "true")])
+                        .set_query(
+                            JobConfigurationQuery::new()
+                                .set_query(query)
+                                .set_use_legacy_sql(false),
+                        ),
+                ),
+        )
+        .into_job_poller()
+        .until_done()
+        .await?;
+
+    assert!(job.job_reference.is_some(), "{job:?}");
+    let status = job.status.as_ref().expect("job should have status");
+    assert_eq!(status.state.as_str(), "DONE");
+    assert!(
+        status.error_result.is_none(),
+        "job completed with unexpected error_result: {:?}",
+        status.error_result
+    );
+
+    Ok(())
+}
+
 #[cfg(test)]
 mod tests {
     use anyhow::Result;
