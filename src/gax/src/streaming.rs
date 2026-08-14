@@ -12,7 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Types for gRPC streaming requests and responses.
+//! Defines types and handles for streaming RPCs.
+//!
+//! This module provides [`RequestSender`] and [`ResponseReceiver`], concrete stream
+//! wrapper types used by generated client libraries to manage outbound request streams
+//! and inbound response streams without exposing raw transport or protobuf wire types.
 
 use std::future::Future;
 use std::pin::Pin;
@@ -29,7 +33,25 @@ use tokio::sync::mpsc;
 type SenderFn<Req> =
     dyn Fn(Req) -> Pin<Box<dyn Future<Output = crate::Result<()>> + Send>> + Send + Sync;
 
-/// A handle for sending outbound request items over a gRPC stream.
+/// A handle for sending outbound request items over an active bidirectional streaming RPC.
+///
+/// `RequestSender` manages message transmission across bidirectional streaming
+/// RPCs. Outbound messages are passed to an internal bounded channel and processed by the
+/// underlying transport.
+///
+/// ### Flow Control & Backpressure
+/// Calling [`.send()`](Self::send) asynchronously yields if the internal channel buffer
+/// is full (configured via [`BidiStreamOptions::set_request_channel_capacity`](crate::options::BidiStreamOptions::set_request_channel_capacity)),
+/// providing natural backpressure against fast producers.
+///
+/// ### Half-Closing the Stream
+/// In gRPC bidirectional streaming, dropping the `RequestSender` handle (or letting it exit scope)
+/// closes the outbound channel and transmits an HTTP/2 `END_STREAM` frame to the server, signaling
+/// that the client has finished sending data while leaving the [`ResponseReceiver`] open for responses.
+///
+/// ### Mocking in Unit Tests
+/// `RequestSender` implements [`From<tokio::sync::mpsc::Sender<Req>>`], allowing unit tests
+/// and mock stubs to construct a sender directly from standard Tokio channels.
 #[derive(Clone)]
 pub struct RequestSender<Req> {
     inner: Arc<SenderFn<Req>>,
@@ -43,6 +65,19 @@ impl<Req> std::fmt::Debug for RequestSender<Req> {
 
 impl<Req> RequestSender<Req> {
     /// Sends a request item over the stream.
+    ///
+    /// # Errors
+    /// * Returns [`Error::io`](crate::error::Error::io) if the receiver was dropped or the stream connection closed.
+    /// * Returns [`Error::ser`](crate::error::Error::ser) if payload serialization or model conversion fails.
+    ///
+    /// # Example
+    /// ```rust
+    /// # use google_cloud_gax::streaming::RequestSender;
+    /// # use tokio::sync::mpsc;
+    /// # async fn sample<Req>(sender: RequestSender<Req>, req: Req) -> google_cloud_gax::Result<()> {
+    /// sender.send(req).await?;
+    /// # Ok(()) }
+    /// ```
     pub async fn send(&self, item: Req) -> Result<(), crate::error::Error> {
         (self.inner)(item).await
     }
@@ -89,7 +124,23 @@ where
 /// as Protobuf deserialization) without exposing `futures::Stream` in the public API.
 type ResponseStream<Resp> = Pin<Box<dyn futures::Stream<Item = crate::Result<Resp>> + Send>>;
 
-/// A handle for receiving inbound response items from a gRPC stream.
+/// A handle for receiving inbound response items from a bidirectional streaming RPC.
+/// 
+/// ```rust
+/// use google_cloud_gax::streaming::ResponseReceiver;
+/// use tokio::sync::mpsc;
+///
+/// let (tx, rx) = mpsc::channel::<google_cloud_gax::Result<String>>(16);
+/// let receiver = ResponseReceiver::from(rx); // Or `rx.into()`
+/// ```
+/// 
+/// ResponseReceiver` provides an inherent [`.recv()`](Self::recv) method to consume
+/// incoming messages sequentially. It is used for bidirectional streaming RPCs.
+///
+/// ### Mocking in Unit Tests
+/// `ResponseReceiver` implements [`From<tokio::sync::mpsc::Receiver<crate::Result<Resp>>>`],
+/// enabling unit test stubs to construct a receiver directly from standard Tokio channels:
+///
 pub struct ResponseReceiver<Resp> {
     inner: ResponseStream<Resp>,
 }
@@ -102,14 +153,42 @@ impl<Resp> std::fmt::Debug for ResponseReceiver<Resp> {
 
 impl<Resp> ResponseReceiver<Resp> {
     /// Receives the next response item from the stream.
+    ///
+    /// Returns `None` once the stream has finished.
+    ///
+    /// # Example
+    /// ```rust
+    /// # use google_cloud_gax::streaming::ResponseReceiver;
+    /// # use tokio::sync::mpsc;
+    /// # async fn sample<Resp: std::fmt::Debug>(mut receiver: ResponseReceiver<Resp>) -> google_cloud_gax::Result<()> {
+    /// while let Some(item) = receiver.recv().await {
+    ///     let item = item?;
+    ///     println!("Received: {item:?}");
+    /// }
+    /// # Ok(()) }
+    /// ```
     pub async fn recv(&mut self) -> Option<crate::Result<Resp>> {
         use futures::StreamExt as _;
         self.inner.next().await
     }
 
+    /// Converts the receiver into an asynchronous [`Stream`][futures::Stream].
+    ///
+    /// # Example
+    /// ```rust
+    /// # use google_cloud_gax::streaming::ResponseReceiver;
+    /// # use tokio::sync::mpsc;
+    /// # use futures::StreamExt as _;
+    /// # async fn sample<Resp: std::fmt::Debug>(mut receiver: ResponseReceiver<Resp>) -> google_cloud_gax::Result<()> {
+    /// let mut stream = receiver.into_stream();
+    /// while let Some(item) = stream.next().await {
+    ///     let item = item?;
+    ///     println!("Received: {item}");
+    /// }
+    /// # Ok(()) }
+    /// ```
     #[cfg(feature = "unstable-stream")]
     #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
-    /// Converts the receiver into an asynchronous [`Stream`][futures::Stream].
     pub fn into_stream(self) -> impl futures::Stream<Item = crate::Result<Resp>> + Send + Unpin {
         self.inner
     }

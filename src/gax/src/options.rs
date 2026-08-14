@@ -182,10 +182,26 @@ pub const MAX_REQUEST_CHANNEL_CAPACITY: usize = usize::MAX >> 3;
 #[cfg(google_cloud_unstable_gapic_streaming)]
 const DEFAULT_REQUEST_CHANNEL_CAPACITY: usize = 16;
 
-/// Configuration options specific to bidirectional streaming RPCs.
+/// A set of options configuring a bidirectional streaming RPC.
 ///
 /// Wraps standard [`RequestOptions`] while adding settings unique to bidirectional
-/// streaming RPCs, such as internal channel capacity for buffering requests.
+/// streaming RPCs, such as internal channel capacity for buffering outbound requests.
+///
+/// Applications only use this type directly in mocks, where they may want to
+/// verify their application has configured all the right request parameters and
+/// options.
+///
+/// All other code uses this type indirectly, via the per-request builders.
+///
+/// ### Example
+/// ```rust
+/// use google_cloud_gax::options::{BidiStreamOptions, RequestOptions};
+/// use std::time::Duration;
+///
+/// let mut opts = BidiStreamOptions::default();
+/// opts.set_request_channel_capacity(64);
+/// opts.request_options_mut().set_attempt_timeout(Duration::from_secs(30));
+/// ```
 #[cfg(google_cloud_unstable_gapic_streaming)]
 #[derive(Clone, Debug)]
 pub struct BidiStreamOptions {
@@ -227,7 +243,7 @@ impl BidiStreamOptions {
     /// Sets the buffer capacity of the internal request channel.
     ///
     /// Valid values are between `1` and [`MAX_REQUEST_CHANNEL_CAPACITY`]. The default
-    /// capacity is `16`. This method clamps the supplied value to this range.
+    /// capacity is `16`. Values outside this range will be clamped automatically.
     pub fn set_request_channel_capacity(&mut self, capacity: usize) {
         self.request_channel_capacity = capacity.clamp(1, MAX_REQUEST_CHANNEL_CAPACITY);
     }
