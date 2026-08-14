@@ -24,8 +24,6 @@ use tonic::metadata::MetadataMap;
 /// Invokes a unary gRPC call on `invoker`.
 ///
 /// Returns a [`tonic::Response`] wrapping the decoded response message on success.
-// TODO(#5991): Remove `allow(dead_code)` once `GrpcRustClient::execute` is implemented.
-#[allow(dead_code)]
 pub(super) async fn invoke_unary<Request, Response, T>(
     invoker: &T,
     request_headers: RequestHeaders,
