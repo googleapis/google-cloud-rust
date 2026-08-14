@@ -12,6 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// TODO(#5991): Revisit connection error classification when grpc-rust
+// preserves pre-RPC failure errors instead of reporting them as a generic
+// "UNAVAILABLE".
+use super::from_status::to_gax_error;
 use super::grpc_helpers;
 use super::transport_policies::TransportPolicies;
 use crate::grpc::tonic::{Extensions, Response as TonicResponse, Result as TonicResult};
@@ -25,15 +29,17 @@ use google_cloud_gax::error::Error;
 use google_cloud_gax::options::RequestOptions;
 use google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy;
 use google_cloud_gax::polling_error_policy::PollingErrorPolicy;
-use grpc::client::{Channel, ChannelOptions};
+use google_cloud_gax::retry_loop_internal::retry_loop;
+use grpc::client::{CallOptions, Channel, ChannelOptions};
 use grpc::core::RequestHeaders;
 use grpc::credentials::LocalChannelCredentials;
 // TODO(#5991): remove once grpc-rust corrects the typo.
 use grpc::credentials::rustls::client::{
     ClientTlsConfig, RustlsChannelCredendials as RustlsChannelCredentials,
 };
-use http::Uri;
+use http::{HeaderMap, Uri};
 use std::sync::Arc;
+use std::time::Duration;
 use tonic::metadata::MetadataMap;
 
 pub mod bidi;
@@ -49,8 +55,6 @@ pub struct GrpcRustClient {
     inner: Arc<GrpcRustClientInner>,
 }
 
-// TODO(#5991): `transport_metric`, `tracing_attributes`, and `endpoint` will be used when
-// unary RPC execution (`execute`) and gRPC-Rust observability instrumentation are implemented.
 struct GrpcRustClientInner {
     credentials: Credentials,
     transport_metric: crate::observability::TransportMetric,
@@ -83,20 +87,145 @@ impl GrpcRustClient {
         Self::build(config, default_endpoint, Some(instrumentation)).await
     }
 
+    // TODO(#5991): See if more parts can be refactored with `grpc.rs` Client.
     pub async fn execute<Request, Response>(
         &self,
-        _extensions: Extensions,
-        _path: http::uri::PathAndQuery,
-        _request: Request,
-        _options: RequestOptions,
-        _api_client_header: &'static str,
-        _request_params: &str,
+        extensions: Extensions,
+        path: http::uri::PathAndQuery,
+        request: Request,
+        options: RequestOptions,
+        api_client_header: &'static str,
+        request_params: &str,
     ) -> GaxResult<TonicResponse<Response>>
     where
-        Request: prost::Message + Clone + 'static,
-        Response: prost::Message + Default + 'static,
+        Request: prost::Message + Clone,
+        Response: prost::Message + Default,
     {
-        unimplemented!("not implemented yet")
+        Self::note_ignored_extensions(&extensions);
+        let headers = grpc_helpers::make_headers(api_client_header, request_params, &options)?;
+        self.retry_loop::<Request, Response>(path, request, options, headers)
+            .await
+    }
+
+    async fn retry_loop<Request, Response>(
+        &self,
+        path: http::uri::PathAndQuery,
+        request: Request,
+        options: RequestOptions,
+        headers: HeaderMap,
+    ) -> GaxResult<TonicResponse<Response>>
+    where
+        Request: prost::Message + Clone,
+        Response: prost::Message + Default,
+    {
+        let idempotent = options.idempotent().unwrap_or(false);
+        let retry_throttler = self.inner.transport_policies.get_retry_throttler(&options);
+        let retry_policy = self.inner.transport_policies.get_retry_policy(&options);
+        let backoff_policy = self.inner.transport_policies.get_backoff_policy(&options);
+
+        let this = self.clone();
+        let mut prior_attempt_count: i64 = 0;
+        let inner = async move |remaining_time: Option<Duration>| {
+            let current_attempt = prior_attempt_count;
+            prior_attempt_count += 1;
+            this.clone()
+                .request_attempt::<Request, Response>(
+                    path.clone(),
+                    request.clone(),
+                    &options,
+                    remaining_time,
+                    headers.clone(),
+                    current_attempt,
+                )
+                .await
+        };
+        let sleep = async |d| tokio::time::sleep(d).await;
+        retry_loop(
+            inner,
+            sleep,
+            idempotent,
+            retry_throttler,
+            retry_policy,
+            backoff_policy,
+        )
+        .await
+    }
+
+    #[allow(clippy::too_many_arguments)]
+    async fn request_attempt<Request, Response>(
+        &self,
+        path: http::uri::PathAndQuery,
+        request: Request,
+        options: &RequestOptions,
+        remaining_time: Option<Duration>,
+        headers: HeaderMap,
+        prior_attempt_count: i64,
+    ) -> GaxResult<TonicResponse<Response>>
+    where
+        Request: prost::Message,
+        Response: prost::Message + Default,
+    {
+        let span = grpc_helpers::unary_make_request_span(
+            self.inner.tracing_attributes.as_ref(),
+            &path,
+            prior_attempt_count,
+        );
+
+        #[allow(unused_mut)]
+        let mut headers = grpc_helpers::add_auth_headers(headers, &self.inner.credentials).await?;
+
+        crate::observability::propagation::inject_context(&span, &mut headers);
+
+        let mut call_options = CallOptions::default();
+        let timeout = crate::options::resolve_effective_timeout(
+            options,
+            self.inner.transport_policies.attempt_timeout(),
+            remaining_time,
+        );
+        if let Some(timeout) = timeout {
+            call_options.set_deadline(std::time::Instant::now() + timeout);
+        }
+
+        let metadata = MetadataMap::from_headers(headers)
+            .try_into()
+            .map_err(Error::ser)?;
+        let request_headers = RequestHeaders::new()
+            .with_method_name(path.as_str())
+            .with_metadata(metadata);
+
+        let invoker = &self.inner.invoker;
+
+        if let Some(recorder) = crate::observability::RequestRecorder::current() {
+            recorder.on_grpc_request(&path);
+        }
+
+        let pending = async move {
+            if let Some(timeout) = timeout {
+                match tokio::time::timeout(
+                    timeout,
+                    unary::invoke_unary(invoker, request_headers, request, call_options),
+                )
+                .await
+                {
+                    Ok(res) => res.map_err(to_gax_error),
+                    Err(_) => Err(Error::timeout(tonic::Status::deadline_exceeded(
+                        "grpc-rust call timeout",
+                    ))),
+                }
+            } else {
+                unary::invoke_unary(invoker, request_headers, request, call_options)
+                    .await
+                    .map_err(to_gax_error)
+            }
+        };
+
+        grpc_helpers::unary_wrap_and_record_request(
+            self.inner.transport_metric.clone(),
+            span,
+            prior_attempt_count,
+            pending,
+        )
+        .await
     }
 
     pub async fn bidi_stream<Request, Response>(
@@ -121,7 +250,7 @@ impl GrpcRustClient {
             request_params,
         )
         .await?
-        .map_err(super::from_status::to_gax_error)
+        .map_err(to_gax_error)
     }
 
     pub async fn bidi_stream_with_status<Request, Response>(
