@@ -125,7 +125,7 @@ where
 type ResponseStream<Resp> = Pin<Box<dyn futures::Stream<Item = crate::Result<Resp>> + Send>>;
 
 /// A handle for receiving inbound response items from a bidirectional streaming RPC.
-/// 
+///
 /// ```rust
 /// use google_cloud_gax::streaming::ResponseReceiver;
 /// use tokio::sync::mpsc;
@@ -133,7 +133,7 @@ type ResponseStream<Resp> = Pin<Box<dyn futures::Stream<Item = crate::Result<Res
 /// let (tx, rx) = mpsc::channel::<google_cloud_gax::Result<String>>(16);
 /// let receiver = ResponseReceiver::from(rx); // Or `rx.into()`
 /// ```
-/// 
+///
 /// ResponseReceiver` provides an inherent [`.recv()`](Self::recv) method to consume
 /// incoming messages sequentially. It is used for bidirectional streaming RPCs.
 ///
