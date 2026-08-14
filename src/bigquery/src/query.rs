@@ -12,21 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+mod builder;
 pub(crate) mod execution;
 pub(crate) mod from_sql;
 mod iterator;
 mod query_handle;
 mod row;
-mod run_query;
 mod schema;
 
 pub use iterator::RowIterator;
 pub use query_handle::{CompleteQuery, Query};
 pub(crate) use schema::Schema;
 
+pub use builder::QueryBuilder;
 pub use from_sql::FromSql;
 pub use row::Row;
-pub use run_query::RunQuery;
 
 /// Result type for query execution.
 pub type Result<T> = std::result::Result<T, crate::error::QueryError>;

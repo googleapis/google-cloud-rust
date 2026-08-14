@@ -44,8 +44,7 @@ mod client_builder;
 
 pub mod model {
     //! Re-exports for the Google Cloud BigQuery v2 API types.
-    pub use crate::generated::{QueryCreationMetadata, QueryMetadata, RunQueryRequest};
-    pub use crate::query::{CompleteQuery, Query, RowIterator, RunQuery};
+    pub use crate::generated::{CompleteQueryMetadata, QueryMetadata};
     pub use google_cloud_bigquery_v2::model::*;
 }
 
@@ -54,7 +53,6 @@ pub mod builder {
     pub mod bigquery {
         //! Builder for [BigQuery][crate::client::BigQuery].
         pub use crate::client_builder::ClientBuilder;
-        pub use crate::generated::{QueryMetadata, RunQueryRequest};
-        pub use crate::query::RunQuery;
+        pub use crate::query::QueryBuilder;
     }
 }

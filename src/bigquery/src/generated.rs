@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-mod query_creation_metadata;
+mod complete_query_metadata;
 mod query_metadata;
-mod run_query_request;
+mod query_request;
 
-pub use query_creation_metadata::QueryCreationMetadata;
+pub use complete_query_metadata::CompleteQueryMetadata;
 pub use query_metadata::QueryMetadata;
-pub use run_query_request::RunQueryRequest;
+pub use query_request::QueryBuilderRequest;
