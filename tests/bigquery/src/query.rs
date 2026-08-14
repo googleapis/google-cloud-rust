@@ -313,7 +313,7 @@ pub async fn query_client_job() -> Result<()> {
     assert_eq!(query.metadata().total_rows, Some(1));
 
     // fetch full job metadata
-    let job = query.job_metadata().await?;
+    let job = query.get_job()?.send().await?;
 
     let job_ref = job
         .job_reference
@@ -323,6 +323,7 @@ pub async fn query_client_job() -> Result<()> {
     assert!(!job_ref.job_id.is_empty(), "{job_ref:?}");
     assert!(job.status.is_some(), "{job:?}");
     assert!(job.statistics.is_some(), "{job:?}");
+
     let config_query = job
         .configuration
         .as_ref()
