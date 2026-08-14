@@ -13,8 +13,7 @@
 // limitations under the License.
 
 use crate::error::QueryError;
-use crate::generated::QueryCreationMetadata;
-use crate::model::QueryMetadata;
+use crate::generated::{CompleteQueryMetadata, QueryMetadata};
 use crate::query::{Result, RowIterator, Schema};
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::{
@@ -28,7 +27,7 @@ use std::sync::Arc;
 
 /// A handle representing a running or completed SQL query execution.
 ///
-/// [`RunQuery::send()`](crate::query::RunQuery::send) returns a `Query`.
+/// [`Query::send()`](crate::builder::bigquery::Query::send) returns a [`Query`](crate::Query).
 ///
 /// To obtain the final result set, call [`until_done()`](Query::until_done),
 /// which checks the execution status and automatically polls the service if the
@@ -60,7 +59,7 @@ use std::sync::Arc;
 pub struct Query {
     pub(crate) job_service: Arc<JobService>,
     pub(crate) completed: bool,
-    pub(crate) metadata: QueryCreationMetadata,
+    pub(crate) metadata: QueryMetadata,
     pub(crate) cached_rows: Option<VecDeque<wkt::Struct>>,
     pub(crate) max_results: Option<u32>,
 }
@@ -80,7 +79,7 @@ impl Query {
             job_service,
             completed,
             cached_rows: None,
-            metadata: QueryCreationMetadata::from(initial_job),
+            metadata: QueryMetadata::from(initial_job),
             max_results,
         }
     }
@@ -92,7 +91,7 @@ impl Query {
     ) -> Self {
         let completed = query_response.job_complete.unwrap_or(false);
         let cached_rows = VecDeque::from(std::mem::take(&mut query_response.rows));
-        let metadata = QueryCreationMetadata::from(query_response);
+        let metadata = QueryMetadata::from(query_response);
         Self {
             job_service,
             completed,
@@ -104,22 +103,22 @@ impl Query {
 
     /// Returns the initial metadata from query creation.
     ///
-    /// This provides access to the [`QueryCreationMetadata`] returned by the
+    /// This provides access to the [`QueryMetadata`] returned by the
     /// initial query execution request (either [`jobs.query`] or
     /// [`jobs.insert`]).
     ///
     /// Depending on how the query was executed, the metadata contains:
-    /// - [`job_reference`][QueryCreationMetadata::job_reference]: The reference to the BigQuery job, if one was created.
-    /// - [`query_id`][QueryCreationMetadata::query_id]: The unique ID of the query if executed statelessly.
-    /// - [`job_creation_reason`][QueryCreationMetadata::job_creation_reason]: Why a job was created or skipped.
-    /// - [`job_complete`][QueryCreationMetadata::job_complete]: Whether the query completed immediately without requiring polling.
+    /// - [`job_reference`][QueryMetadata::job_reference]: The reference to the BigQuery job, if one was created.
+    /// - [`query_id`][QueryMetadata::query_id]: The unique ID of the query if executed statelessly.
+    /// - [`job_creation_reason`][QueryMetadata::job_creation_reason]: Why a job was created or skipped.
+    /// - [`job_complete`][QueryMetadata::job_complete]: Whether the query completed immediately without requiring polling.
     ///
     /// To wait for the query to finish and retrieve full results and final
     /// metadata, call [`until_done`][Self::until_done].
     ///
     /// [`jobs.query`]: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query
     /// [`jobs.insert`]: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/insert
-    pub fn metadata(&self) -> &QueryCreationMetadata {
+    pub fn metadata(&self) -> &QueryMetadata {
         &self.metadata
     }
 
@@ -128,7 +127,7 @@ impl Query {
     ///
     /// If the query was executed via the fast query path ([jobs.query]) and
     /// already completed during the initial request, this method immediately
-    /// returns a [`CompleteQuery`](crate::query::CompleteQuery) without making
+    /// returns a [`CompleteQuery`](crate::CompleteQuery) without making
     /// additional network calls. Otherwise, it implements a polling loop
     /// querying the job status until it succeeds or fails.
     ///
@@ -163,7 +162,7 @@ impl Query {
         } = self;
 
         if let (true, Some(cached_rows)) = (completed, cached_rows) {
-            return Ok(CompleteQuery::from_query_creation_metadata(
+            return Ok(CompleteQuery::from_query_metadata(
                 job_service,
                 metadata,
                 cached_rows,
@@ -221,7 +220,7 @@ pub struct CompleteQuery {
     pub(crate) cached_rows: VecDeque<wkt::Struct>,
     pub(crate) schema: Arc<Schema>,
     pub(crate) page_token: Option<String>,
-    pub(crate) metadata: QueryMetadata,
+    pub(crate) metadata: CompleteQueryMetadata,
     pub(crate) max_results: Option<u32>,
 }
 
@@ -233,7 +232,7 @@ impl CompleteQuery {
         max_results: Option<u32>,
     ) -> Self {
         let cached_rows = VecDeque::from(std::mem::take(&mut res.rows));
-        let metadata = QueryMetadata::from(res);
+        let metadata = CompleteQueryMetadata::from(res);
         // DDL/DML queries have no schema.
         let schema = metadata.schema.clone().unwrap_or_default();
         let schema = Arc::new(Schema::new(schema));
@@ -253,14 +252,14 @@ impl CompleteQuery {
         }
     }
 
-    pub(crate) fn from_query_creation_metadata(
+    pub(crate) fn from_query_metadata(
         job_service: Arc<JobService>,
-        metadata: QueryCreationMetadata,
+        metadata: QueryMetadata,
         cached_rows: VecDeque<wkt::Struct>,
         max_results: Option<u32>,
     ) -> Self {
         let job_ref = metadata.job_reference.clone();
-        let metadata = QueryMetadata::from(metadata);
+        let metadata = CompleteQueryMetadata::from(metadata);
         // DDL/DML queries have no schema.
         let schema = metadata.schema.clone().unwrap_or_default();
         let schema = Arc::new(Schema::new(schema));
@@ -306,7 +305,7 @@ impl CompleteQuery {
 
     /// Returns a reference to the cached summary metadata for this query.
     ///
-    /// The returned [`QueryMetadata`](crate::model::QueryMetadata) contains
+    /// The returned [`CompleteQueryMetadata`](crate::model::CompleteQueryMetadata) contains
     /// summary statistics such as total rows, schema details, cache hit
     /// indicators, and estimated bytes processed without making additional
     /// RPCs.
@@ -326,7 +325,7 @@ impl CompleteQuery {
     /// # Ok(())
     /// # }
     /// ```
-    pub fn metadata(&self) -> &QueryMetadata {
+    pub fn metadata(&self) -> &CompleteQueryMetadata {
         &self.metadata
     }
 
@@ -440,8 +439,8 @@ mod tests {
             max_results: Option<u32>,
         ) -> Self {
             let cached_rows = std::mem::take(&mut query_res.rows).into();
-            let metadata = QueryCreationMetadata::from(query_res);
-            Self::from_query_creation_metadata(job_service, metadata, cached_rows, max_results)
+            let metadata = QueryMetadata::from(query_res);
+            Self::from_query_metadata(job_service, metadata, cached_rows, max_results)
         }
     }
 
