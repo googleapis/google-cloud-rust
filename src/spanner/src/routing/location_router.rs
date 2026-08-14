@@ -242,7 +242,8 @@ impl LocationRouter {
 mod tests {
     use super::*;
     use crate::client::Channel;
-    use crate::model::{Group, Range, Tablet};
+    use crate::generated::gapic_dataplane::stub::Spanner as SpannerStub;
+    use crate::model::{CacheUpdate, Group, Range, Tablet};
     use crate::routing::server_connection::ServerConnection;
     use gaxi::options::ClientConfig;
 
@@ -253,7 +254,7 @@ mod tests {
 
     #[derive(Debug)]
     struct DummyStub;
-    impl crate::generated::gapic_dataplane::stub::Spanner for DummyStub {}
+    impl SpannerStub for DummyStub {}
 
     fn create_test_connection(address: &str) -> ServerConnection {
         let channel = Channel::new_for_test(DummyStub);
@@ -283,7 +284,7 @@ mod tests {
             .set_group_uid(100u64)
             .set_start_key(start_key)
             .set_limit_key(limit_key);
-        let update = crate::model::CacheUpdate::new()
+        let update = CacheUpdate::new()
             .set_database_id(1u64)
             .set_group(vec![group])
             .set_range(vec![range]);
@@ -487,7 +488,7 @@ mod tests {
             .set_group_uid(100u64)
             .set_start_key(vec![0x01])
             .set_limit_key(vec![0x09]);
-        let update = crate::model::CacheUpdate::new()
+        let update = CacheUpdate::new()
             .set_database_id(1u64)
             .set_group(vec![group])
             .set_range(vec![range]);
