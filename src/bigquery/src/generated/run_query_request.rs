@@ -37,11 +37,6 @@ pub struct RunQueryRequest {
     /// Optional. Connection properties which can modify the query behavior.
     pub connection_properties: std::vec::Vec<crate::model::ConnectionProperty>,
 
-    /// Optional. Whether to run the query as continuous or a regular query.
-    /// Continuous query is currently in experimental stage and not ready for
-    /// general usage.
-    pub continuous: std::option::Option<wkt::BoolValue>,
-
     /// Optional. Specifies whether the job is allowed to create new tables.
     /// The following values are supported:
     ///
@@ -241,12 +236,6 @@ pub struct RunQueryRequest {
     /// append actions occur as one atomic update upon job completion.
     pub write_disposition: std::string::String,
 
-    /// Optional. This is only supported for SELECT query. If set, the query is
-    /// allowed to write results incrementally to the temporary result table. This
-    /// may incur a performance penalty. This option cannot be used with Legacy
-    /// SQL. This feature is not yet available.
-    pub write_incremental_results: bool,
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -300,24 +289,6 @@ impl RunQueryRequest {
     {
         use std::iter::Iterator;
         self.connection_properties = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [continuous][crate::model::RunQueryRequest::continuous].
-    pub fn set_continuous<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
-    {
-        self.continuous = std::option::Option::Some(v.into());
-        self
-    }
-
-    /// Sets or clears the value of [continuous][crate::model::RunQueryRequest::continuous].
-    pub fn set_or_clear_continuous<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
-    {
-        self.continuous = v.map(|x| x.into());
         self
     }
 
@@ -728,12 +699,6 @@ impl RunQueryRequest {
         self.write_disposition = v.into();
         self
     }
-
-    /// Sets the value of [write_incremental_results][crate::model::RunQueryRequest::write_incremental_results].
-    pub fn set_write_incremental_results<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.write_incremental_results = v.into();
-        self
-    }
 }
 mod debug {
 
@@ -743,7 +708,6 @@ mod debug {
             debug_struct.field("allow_large_results", &self.allow_large_results);
             debug_struct.field("clustering", &self.clustering);
             debug_struct.field("connection_properties", &self.connection_properties);
-            debug_struct.field("continuous", &self.continuous);
             debug_struct.field("create_disposition", &self.create_disposition);
             debug_struct.field("create_session", &self.create_session);
             debug_struct.field("default_dataset", &self.default_dataset);
@@ -782,7 +746,6 @@ mod debug {
                 &self.user_defined_function_resources,
             );
             debug_struct.field("write_disposition", &self.write_disposition);
-            debug_struct.field("write_incremental_results", &self.write_incremental_results);
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -797,7 +760,6 @@ impl RunQueryRequest {
         false
             || !wkt::internal::is_default(&self.allow_large_results)
             || !wkt::internal::is_default(&self.clustering)
-            || !wkt::internal::is_default(&self.continuous)
             || !wkt::internal::is_default(&self.create_disposition)
             || !wkt::internal::is_default(&self.destination_table)
             || !wkt::internal::is_default(&self.external_table_definitions)
@@ -834,7 +796,6 @@ impl std::convert::From<RunQueryRequest> for google_cloud_bigquery_v2::model::Qu
         out.timeout_ms = req.timeout_ms;
         out.use_legacy_sql = req.use_legacy_sql;
         out.use_query_cache = req.use_query_cache;
-        out.write_incremental_results = req.write_incremental_results;
         out
     }
 }
@@ -847,7 +808,6 @@ impl std::convert::From<RunQueryRequest>
         out.allow_large_results = req.allow_large_results;
         out.clustering = req.clustering;
         out.connection_properties = req.connection_properties;
-        out.continuous = req.continuous;
         out.create_disposition = req.create_disposition;
         out.create_session = req.create_session;
         out.default_dataset = req.default_dataset;
@@ -868,7 +828,6 @@ impl std::convert::From<RunQueryRequest>
         out.use_query_cache = req.use_query_cache;
         out.user_defined_function_resources = req.user_defined_function_resources;
         out.write_disposition = req.write_disposition;
-        out.write_incremental_results = req.write_incremental_results;
         out
     }
 }
@@ -880,7 +839,6 @@ impl std::convert::From<RunQueryRequest> for google_cloud_bigquery_v2::model::Jo
         query.allow_large_results = req.allow_large_results;
         query.clustering = req.clustering;
         query.connection_properties = req.connection_properties;
-        query.continuous = req.continuous;
         query.create_disposition = req.create_disposition;
         query.create_session = req.create_session;
         query.default_dataset = req.default_dataset;
@@ -901,7 +859,6 @@ impl std::convert::From<RunQueryRequest> for google_cloud_bigquery_v2::model::Jo
         query.use_query_cache = req.use_query_cache;
         query.user_defined_function_resources = req.user_defined_function_resources;
         query.write_disposition = req.write_disposition;
-        query.write_incremental_results = req.write_incremental_results;
         let mut out = Self::default();
         out.query = Some(query);
         out.dry_run = req.dry_run.into();
