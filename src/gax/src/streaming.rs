@@ -183,7 +183,7 @@ impl<Resp> ResponseReceiver<Resp> {
     /// let mut stream = receiver.into_stream();
     /// while let Some(item) = stream.next().await {
     ///     let item = item?;
-    ///     println!("Received: {item}");
+    ///     println!("Received: {item:?}");
     /// }
     /// # Ok(()) }
     /// ```
