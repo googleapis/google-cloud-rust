@@ -67,7 +67,7 @@ impl<Req> RequestSender<Req> {
 
 impl<Req> From<mpsc::Sender<Req>> for RequestSender<Req>
 where
-    Req: Send + Sync + 'static,
+    Req: Send + 'static,
 {
     fn from(req_tx: mpsc::Sender<Req>) -> RequestSender<Req> {
         Self::from_fn(move |item| {
@@ -126,7 +126,7 @@ impl<Resp> ResponseReceiver<Resp> {
 
 impl<Resp> From<mpsc::Receiver<crate::Result<Resp>>> for ResponseReceiver<Resp>
 where
-    Resp: Send + Sync + 'static,
+    Resp: Send + 'static,
 {
     fn from(rx: mpsc::Receiver<crate::Result<Resp>>) -> Self {
         Self::from_stream(tokio_stream::wrappers::ReceiverStream::new(rx))
@@ -138,7 +138,7 @@ mod tests {
     use super::*;
 
     #[tokio::test]
-    async fn test_request_sender_and_response_receiver() -> Result<(), Box<dyn std::error::Error>> {
+    async fn request_sender_and_response_receiver() -> Result<(), Box<dyn std::error::Error>> {
         let (req_tx, mut req_rx) = mpsc::channel::<String>(16);
         let (resp_tx, resp_rx) = mpsc::channel::<crate::Result<String>>(16);
 
@@ -157,7 +157,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_request_sender_send_error() {
+    async fn request_sender_send_error() {
         use std::error::Error as _;
 
         let (req_tx, req_rx) = mpsc::channel::<String>(16);
@@ -176,7 +176,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_request_sender_from_fn() -> Result<(), Box<dyn std::error::Error>> {
+    async fn request_sender_from_fn() -> Result<(), Box<dyn std::error::Error>> {
         let sender = RequestSender::from_fn(|item: i32| async move {
             if item < 0 {
                 Err(crate::error::Error::ser("negative number"))
@@ -196,7 +196,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_response_receiver_from_stream() -> Result<(), Box<dyn std::error::Error>> {
+    async fn response_receiver_from_stream() -> Result<(), Box<dyn std::error::Error>> {
         let stream = futures::stream::iter(vec![
             Ok("first".to_string()),
             Err(crate::error::Error::deser("bad data")),
@@ -232,8 +232,8 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_response_receiver_generator_mapping_pipeline()
-    -> Result<(), Box<dyn std::error::Error>> {
+    async fn response_receiver_generator_mapping_pipeline() -> Result<(), Box<dyn std::error::Error>>
+    {
         use futures::StreamExt as _;
 
         #[derive(Debug, PartialEq)]
