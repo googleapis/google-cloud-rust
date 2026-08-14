@@ -15,7 +15,7 @@
 
 set -ev
 
-"$(dirname "$0")"/install-librarian.sh
+source "$(dirname "$0")"/install-librarian.sh
 
 echo "==== Install taplo ===="
 cargo install taplo-cli --locked

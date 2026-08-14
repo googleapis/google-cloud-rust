@@ -19,7 +19,7 @@ cargo version
 rustup show active-toolchain -v
 
 # We use `--all-features` which triggers the Tonic+Prost code generation.
-"$(dirname "$0")"/install-librarian.sh
+source "$(dirname "$0")"/install-librarian.sh
 
 echo "==== Install cargo-llvm-cov ===="
 cargo install cargo-llvm-cov --version 0.8.5 --locked
