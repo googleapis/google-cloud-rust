@@ -22,6 +22,7 @@ pub(crate) mod key_range_cache;
 pub(crate) mod key_recipe;
 pub(crate) mod key_recipe_cache;
 pub(crate) mod location_router;
+pub(crate) mod power_of_two_selector;
 pub(crate) mod server_connection;
 pub(crate) mod ssformat;
 pub(crate) mod temporal;
