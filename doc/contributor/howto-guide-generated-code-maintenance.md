@@ -7,18 +7,15 @@ when the generator changes.
 
 ## Prerequisites
 
-The generator and its unit tests use `protoc`, the Protobuf compiler. Ensure you
-have `protoc >= v23.0` installed and it is found via your `$PATH`.
-
-```bash
-protoc --version
-```
-
-If not, follow the steps in [Protocol Buffer Compiler Installation] to download
-a suitable version.
-
 Make sure your workstation has up-to-date versions of Rust and Go. Follow the
 instructions in [Set Up Development Environment].
+
+To install the generator dependencies use `librarian install`:
+
+```bash
+V=$(go run github.com/googleapis/librarian/cmd/librarian@latest config get version)
+go run github.com/googleapis/librarian/cmd/librarian@${V} install
+```
 
 ## Generate new library
 
@@ -309,7 +306,7 @@ Then finish your PR in `google-cloud-rust`.
 
    ```bash
    V=$(GOPROXY=direct go list -m -f '{{.Version}}' github.com/googleapis/librarian@main)
-   sed -i.bak "s;^version: .*;version: ${V};" librarian.yaml && rm librarian.yaml.bak
+   go run github.com/googleapis/librarian/cmd/librarian@${V} config set version ${V}
    ```
 
 1. Update the generated code:

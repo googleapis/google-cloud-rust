@@ -15,17 +15,7 @@
 
 set -ev
 
-echo "==== Install protoc ===="
-curl -fsSL --retry 5 --retry-delay 15 -o /tmp/protoc.zip https://github.com/protocolbuffers/protobuf/releases/download/v33.2/protoc-33.2-linux-x86_64.zip
-sha256sum -c <(echo b24b53f87c151bfd48b112fe4c3a6e6574e5198874f38036aff41df3456b8caf /tmp/protoc.zip)
-env -C /usr/local unzip -x /tmp/protoc.zip
-protoc --version
-
-echo "==== Install go compiler ===="
-curl -fsSL --retry 5 --retry-delay 15 https://go.dev/dl/go1.25.6.linux-amd64.tar.gz -o /tmp/go.tar.gz
-sha256sum -c <(echo f022b6aad78e362bcba9b0b94d09ad58c5a70c6ba3b7582905fababf5fe0181a /tmp/go.tar.gz)
-tar -C /usr/local -xzf /tmp/go.tar.gz
-export PATH=${PATH}:/usr/local/go/bin
+"$(dirname "$0")"/install-librarian.sh
 
 echo "==== Install taplo ===="
 cargo install taplo-cli --locked
@@ -35,13 +25,6 @@ rustup component add rustfmt
 rustup show active-toolchain -v
 
 echo "Regenerate all the code"
-# Normally we recommend `librarian config get version` but that requires
-# downloading two copies of librarian.
-version=$(sed -n 's/^version: *//p' /workspace/librarian.yaml)
-# Make multiple download attempts to avoid download-induced flakes.
-go install github.com/googleapis/librarian/cmd/librarian@${version} ||
-(sleep 5 && go install github.com/googleapis/librarian/cmd/librarian@${version}) ||
-(sleep 10 && go install github.com/googleapis/librarian/cmd/librarian@${version})
 go run github.com/googleapis/librarian/cmd/librarian@${version} generate --all
 
 # If there is any difference between the generated code and the
