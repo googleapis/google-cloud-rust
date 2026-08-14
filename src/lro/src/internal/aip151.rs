@@ -58,16 +58,10 @@ where
         + Send
         + 'static,
 {
-    let start_boxed =
-        Box::new(move || Box::pin(start()) as BoxedStartFuture<ResponseType, MetadataType>);
-    let query_boxed: BoxedQuery<ResponseType, MetadataType> =
+    let start = Box::new(move || Box::pin(start()) as BoxedStartFuture<ResponseType, MetadataType>);
+    let query: BoxedQuery<ResponseType, MetadataType> =
         Box::new(move |name| Box::pin(query(name)) as BoxedStartFuture<ResponseType, MetadataType>);
-    PollerImpl::new(
-        polling_error_policy,
-        polling_backoff_policy,
-        start_boxed,
-        query_boxed,
-    )
+    PollerImpl::new(polling_error_policy, polling_backoff_policy, start, query)
 }
 
 /// Creates a new `impl Poller<(), M>` from the closures created by the generator.
