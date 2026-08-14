@@ -21,6 +21,7 @@ pub(crate) mod key_extractor;
 pub(crate) mod key_range_cache;
 pub(crate) mod key_recipe;
 pub(crate) mod key_recipe_cache;
+pub(crate) mod latency_registry;
 pub(crate) mod location_router;
 pub(crate) mod server_connection;
 pub(crate) mod ssformat;
