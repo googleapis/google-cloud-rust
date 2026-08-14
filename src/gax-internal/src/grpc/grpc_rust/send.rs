@@ -70,9 +70,11 @@ impl SendTask {
         Self::new(handle)
     }
 
-    /// `true` if the background request task can be [`join()`](Self::join)ed.
-    pub(super) fn is_joinable(&self) -> bool {
-        self.handle.is_some()
+    /// `true` if the background request task has finished and can be joined without waiting.
+    pub(super) fn is_finished(&self) -> bool {
+        self.handle
+            .as_ref()
+            .is_some_and(tokio::task::JoinHandle::is_finished)
     }
 
     /// Aborts the background request task if it is still running.
@@ -115,6 +117,62 @@ impl Drop for SendTask {
             // The task owns the SendStream, so aborting drops that too.
             handle.abort();
         }
+    }
+}
+
+/// Tracks the lifecycle of a [`SendTask`].
+pub(super) enum SendState {
+    Active(SendTask),
+    Complete,
+    Failed(tonic::Status),
+}
+
+impl SendState {
+    pub(super) fn new(send_task: SendTask) -> Self {
+        Self::Active(send_task)
+    }
+
+    /// `true` if the background request task is active and running.
+    pub(super) fn is_active(&self) -> bool {
+        matches!(self, Self::Active(_))
+    }
+
+    /// Awaits the background request task and records its completion or failure status.
+    pub(super) async fn join(&mut self) {
+        let result = match self {
+            Self::Active(send_task) => send_task.join().await,
+            Self::Complete | Self::Failed(_) => return,
+        };
+        *self = match result {
+            Ok(()) => Self::Complete,
+            Err(status) => Self::Failed(status),
+        };
+    }
+
+    pub(super) async fn join_if_finished(&mut self) {
+        let is_finished = match self {
+            Self::Active(send_task) => send_task.is_finished(),
+            Self::Complete | Self::Failed(_) => false,
+        };
+        if is_finished {
+            self.join().await;
+        }
+    }
+
+    /// Returns a reference to the status error if the task failed.
+    pub(super) fn failure(&self) -> Option<&tonic::Status> {
+        match self {
+            Self::Failed(status) => Some(status),
+            Self::Active(_) | Self::Complete => None,
+        }
+    }
+
+    /// Aborts the background request task and marks the state as complete.
+    pub(super) fn abort(&mut self) {
+        if let Self::Active(send_task) = self {
+            send_task.abort();
+        }
+        *self = Self::Complete;
     }
 }
 
@@ -255,10 +313,6 @@ mod tests {
 
         // Assert
         assert!(result.is_ok(), "task join should return Ok");
-        assert!(
-            !task.is_joinable(),
-            "task should no longer be joinable after join"
-        );
         assert!(task.handle.is_none(), "handle should be cleared after join");
         drop(task); // Shouldn't panic
         Ok(())
@@ -269,16 +323,15 @@ mod tests {
         // Arrange
         let stream = tokio_stream::pending::<TestMessage>();
         let mut task = SendTask::start(TestPendingSendStream, stream);
-        assert!(task.is_joinable());
+        assert!(
+            task.handle.is_some(),
+            "task should contain handle after start"
+        );
 
         // Act
         task.abort();
 
         // Assert
-        assert!(
-            !task.is_joinable(),
-            "task should no longer be joinable after abort"
-        );
         assert!(
             task.handle.is_none(),
             "handle should be cleared after abort"
@@ -299,6 +352,98 @@ mod tests {
         // Act & Assert
         task.abort();
         assert!(task.handle.is_none());
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn send_state_join_transitions_to_complete_on_success() -> anyhow::Result<()> {
+        // Arrange
+        let stream = tokio_stream::empty::<TestMessage>();
+        let mut state = SendState::new(SendTask::start(TestPendingSendStream, stream));
+        assert!(state.is_active(), "state should initially be active");
+
+        // Act
+        state.join().await;
+
+        // Assert
+        assert!(!state.is_active(), "state should no longer be active");
+        assert!(state.failure().is_none(), "expected no failure on success");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn send_state_join_transitions_to_failed_on_send_error() -> anyhow::Result<()> {
+        // Arrange
+        let stream = tokio_stream::iter([TestMessage {
+            value: "hello".to_string(),
+        }]);
+        let mut state = SendState::new(SendTask::start(TestFailingSendStream, stream));
+
+        // Act
+        state.join().await;
+
+        // Assert
+        assert!(!state.is_active(), "state should no longer be active");
+        let status = state.failure().expect("expected failure status on error");
+        assert_eq!(status.code(), tonic::Code::Internal);
+        assert_eq!(status.message(), SendTask::ERROR_MESSAGE_STREAM_CLOSED);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn send_state_join_if_finished_joins_when_task_is_finished() -> anyhow::Result<()> {
+        // Arrange
+        let stream = tokio_stream::iter([TestMessage {
+            value: "hello".to_string(),
+        }]);
+        let mut state = SendState::new(SendTask::start(TestFailingSendStream, stream));
+
+        // Wait briefly for the task to finish executing.
+        tokio::time::sleep(std::time::Duration::from_millis(50)).await;
+
+        // Act
+        state.join_if_finished().await;
+
+        // Assert
+        assert!(!state.is_active(), "state should be joined and inactive");
+        let status = state.failure().expect("expected failure status on error");
+        assert_eq!(status.code(), tonic::Code::Internal);
+        assert_eq!(status.message(), SendTask::ERROR_MESSAGE_STREAM_CLOSED);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn send_state_join_if_finished_noop_when_task_is_not_finished() -> anyhow::Result<()> {
+        // Arrange
+        let stream = tokio_stream::pending::<TestMessage>();
+        let mut state = SendState::new(SendTask::start(TestPendingSendStream, stream));
+
+        // Act
+        state.join_if_finished().await;
+
+        // Assert
+        assert!(state.is_active(), "state should remain active");
+        assert!(state.failure().is_none());
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn send_state_abort_transitions_to_complete_and_aborts_task() -> anyhow::Result<()> {
+        // Arrange
+        let stream = tokio_stream::pending::<TestMessage>();
+        let mut state = SendState::new(SendTask::start(TestPendingSendStream, stream));
+
+        // Act
+        state.abort();
+
+        // Assert
+        assert!(!state.is_active(), "state should be marked complete");
+        assert!(state.failure().is_none());
+
+        // Check idempotency
+        // Act & Assert
+        state.abort();
+        assert!(!state.is_active());
         Ok(())
     }
 }
