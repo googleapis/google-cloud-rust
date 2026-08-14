@@ -12,5 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub mod job;
-pub mod query;
+mod cancel_job;
+mod create_job;
+mod get_job;
+mod list_jobs;
+
+use google_cloud_test_utils::runtime_config::project_id;
+
+pub async fn run_samples() -> anyhow::Result<()> {
+    let project_id = project_id()?;
+
+    let job_id = create_job::sample(&project_id).await?;
+    get_job::sample(&project_id, &job_id).await?;
+    list_jobs::sample(&project_id).await?;
+    cancel_job::sample(&project_id).await?;
+
+    Ok(())
+}
