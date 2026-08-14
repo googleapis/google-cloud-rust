@@ -22,7 +22,7 @@ use rand::{RngExt, distr::Alphanumeric};
 const INSTANCE_LABEL: &str = "rust-sdk-integration-test";
 
 pub use dataset::dataset_admin;
-pub use job::job_service;
+pub use job::{job_service, job_service_poller, job_service_poller_error};
 pub use query::{
     query_client, query_client_datatypes, query_client_job, query_client_multi_page,
     query_client_nested_types, query_client_numeric_limits,
