@@ -219,18 +219,7 @@ pub async fn job_service_poller_heavy() -> Result<()> {
     let job_id = random_job_id();
     println!("CREATING JOB (HEAVY POLLER) ID: {job_id}");
 
-    let query = r#"
-        DECLARE DELAY_TIME DATETIME;
-        DECLARE WAIT STRING;
-        SET WAIT = 'TRUE';
-        SET DELAY_TIME = DATETIME_ADD(CURRENT_DATETIME, INTERVAL 5 SECOND);
-
-        WHILE WAIT = 'TRUE' DO
-          IF (DELAY_TIME < CURRENT_DATETIME) THEN
-            SET WAIT = 'FALSE';
-          END IF;
-        END WHILE;
-    "#;
+    let query = "SELECT count(*) FROM UNNEST(GENERATE_ARRAY(1, 1000000)), UNNEST(GENERATE_ARRAY(1, 100)) as foo";
 
     let job = client
         .insert_job()
