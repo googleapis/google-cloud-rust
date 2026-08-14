@@ -104,14 +104,22 @@ pub enum JobPollerError {
 #[derive(Debug)]
 pub struct JobPoller {
     policy: JobRetryPolicy,
-    builder: InsertJob,
+    // Because the builder holds a `Job` which is >7kB, we ought to store it
+    // on the heap.
+    //
+    // This is important across `await` points where stack variables
+    // are captured in the async fn's state machine. This bloats the size of
+    // the returned `Future`, which can potentially overflow the stack.
+    //
+    // See #6391.
+    builder: Box<InsertJob>,
 }
 
 impl JobPoller {
     pub(crate) fn new(builder: InsertJob) -> Self {
         Self {
             policy: JobRetryPolicy::default(),
-            builder,
+            builder: Box::new(builder),
         }
     }
 
@@ -137,28 +145,35 @@ impl JobPoller {
         loop {
             // NOTE: the client library intercepts errors and retries internally
             // according to the policies set on `builder`.
-            let job_result = builder.clone().poller().until_done().await?;
-            attempts += 1;
-
-            if let Some(status) = &job_result.status
-                && let Some(err) = &status.error_result
             {
-                if is_retryable_job_error(&err.reason)
-                    && attempts < self.policy.job_level_attempt_limit
-                {
-                    let retry_job = prepare_job_for_retry(job_result);
-                    builder = builder.set_job(retry_job);
+                let poller = (*builder).clone().poller();
+                let job = poller.until_done().await?;
+                let Some(status) = &job.status else {
+                    return Ok(job);
+                };
+                let Some(err) = &status.error_result else {
+                    return Ok(job);
+                };
 
-                    let retry_state = RetryState::new(true)
-                        .set_start(start_time)
-                        .set_attempt_count(attempts);
-                    let delay = backoff.on_failure(&retry_state);
-                    tokio::time::sleep(delay).await;
-                    continue;
+                attempts += 1;
+                if !is_retryable_job_error(&err.reason)
+                    || attempts >= self.policy.job_level_attempt_limit
+                {
+                    return Err(JobPollerError::ErrorProto(err.clone()));
                 }
-                return Err(JobPollerError::ErrorProto(err.clone()));
+
+                let job = prepare_job_for_retry(job);
+                *builder = (*builder).set_job(job);
+
+                // We use a block so that `job` (~7kB) is not allocated on the
+                // stack across the sleep `await` point.
             }
-            return Ok(job_result);
+
+            let retry_state = RetryState::new(true)
+                .set_start(start_time)
+                .set_attempt_count(attempts);
+            let delay = backoff.on_failure(&retry_state);
+            tokio::time::sleep(delay).await;
         }
     }
 }

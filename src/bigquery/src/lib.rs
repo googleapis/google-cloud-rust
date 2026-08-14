@@ -21,9 +21,80 @@
 //! We welcome feedback about the APIs, documentation, missing features, bugs, etc.
 //!
 //! This crate contains traits, types, and functions to interact with
-//! [BigQuery].
+//! [Google Cloud BigQuery][bigquery]. Most applications will use the structs
+//! defined in the [client] module.
+//!
+//! For executing queries and managing jobs:
+//! * [BigQuery][client::BigQuery]
+//!
+//! For handling query execution:
+//! * [Query]
+//! * [CompleteQuery]
+//!
+//! For streaming and reading results:
+//! * [RowIterator]
+//! * [Row]
+//!
+//! For converting results to Rust types:
+//! * [FromRow]
+//! * [FromSql]
 //!
 //! [bigquery]: https://cloud.google.com/bigquery
+//!
+//! # Example: Executing a Query
+//!
+//! ```
+//! # use google_cloud_bigquery::client::BigQuery;
+//! # async fn sample() -> anyhow::Result<()> {
+//! // Create a client configured with a default project ID.
+//! let client = BigQuery::builder()
+//!     .with_project_id("my-project-id")
+//!     .build()
+//!     .await?;
+//!
+//! // Configure, run, and read query results.
+//! let mut rows = client
+//!     .query("SELECT 'hello world' AS greeting")
+//!     .until_done()
+//!     .await?
+//!     .read();
+//!
+//! while let Some(row) = rows.next().await.transpose()? {
+//!     let greeting: String = row.get("greeting");
+//!     println!("Greeting: {greeting}");
+//! }
+//! # Ok(())
+//! # }
+//! ```
+//!
+//! # Example: Mapping Rows to Rust Structs
+//!
+//! Define typed Rust structs with `#[derive(FromRow)]` to convert rows
+//! directly into domain types using `TryFrom<Row>`:
+//!
+//! ```
+//! # use google_cloud_bigquery::client::BigQuery;
+//! # use google_cloud_bigquery::FromRow;
+//! #[derive(FromRow, Debug)]
+//! struct UserStats {
+//!     name: String,
+//!     count: i64,
+//! }
+//!
+//! # async fn sample(client: BigQuery) -> anyhow::Result<()> {
+//! let mut rows = client
+//!     .query("SELECT name, count FROM `bigquery-public-data.usa_names.usa_1910_2013` WHERE state = 'WA' LIMIT 5")
+//!     .until_done()
+//!     .await?
+//!     .read();
+//!
+//! while let Some(row) = rows.next().await.transpose()? {
+//!     let user: UserStats = row.try_into()?;
+//!     println!("{} has count {}", user.name, user.count);
+//! }
+//! # Ok(())
+//! # }
+//! ```
 
 pub use google_cloud_gax::Result;
 pub use google_cloud_gax::error::Error;
@@ -38,7 +109,7 @@ pub(crate) mod query;
 pub(crate) mod retry_policy;
 pub(crate) use google_cloud_gax::client_builder::Result as ClientBuilderResult;
 
-/// High-level BigQuery client and execution entrypoints.
+/// Clients to interact with Google Cloud BigQuery.
 pub mod client;
 mod client_builder;
 
