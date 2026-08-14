@@ -107,6 +107,13 @@ impl<Resp> ResponseReceiver<Resp> {
         self.inner.next().await
     }
 
+    #[cfg(feature = "unstable-stream")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
+    /// Converts the receiver into an asynchronous [`Stream`][futures::Stream].
+    pub fn into_stream(self) -> impl futures::Stream<Item = crate::Result<Resp>> + Send + Unpin {
+        self.inner
+    }
+
     /// Creates a [`ResponseReceiver`] from an asynchronous stream.
     ///
     /// This constructor is `doc(hidden)` (except when `_internal-semver` is enabled)
@@ -321,6 +328,21 @@ mod tests {
 
         // 5. Stream finished
         assert!(receiver.recv().await.is_none());
+        Ok(())
+    }
+
+    #[cfg(feature = "unstable-stream")]
+    #[tokio::test]
+    async fn response_receiver_into_stream() -> Result<(), Box<dyn std::error::Error>> {
+        use futures::StreamExt as _;
+
+        let stream = futures::stream::iter(vec![Ok("first".to_string()), Ok("second".to_string())]);
+        let receiver = ResponseReceiver::from_stream(stream);
+        let mut stream = receiver.into_stream();
+
+        assert_eq!(stream.next().await.transpose()?.as_deref(), Some("first"));
+        assert_eq!(stream.next().await.transpose()?.as_deref(), Some("second"));
+        assert!(stream.next().await.is_none());
         Ok(())
     }
 }
