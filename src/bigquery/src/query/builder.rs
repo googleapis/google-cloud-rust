@@ -12,14 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::error::QueryError;
-use crate::model::RunQueryRequest;
+use crate::generated::QueryRequest;
 use crate::query::execution::{InsertJobExecutor, PostQueryExecutor};
-use crate::query::{Query, Result};
+use crate::query::{CompleteQuery, Query as QueryHandle, Result};
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::query_request::JobCreationMode;
 use google_cloud_bigquery_v2::model::{
-    InsertJobRequest, Job, JobConfiguration, JobReference, PostQueryRequest, QueryRequest,
+    InsertJobRequest, Job, JobConfiguration, JobReference, PostQueryRequest,
+    QueryRequest as JobsQueryRequest,
 };
 use std::sync::Arc;
 use uuid::Uuid;
@@ -29,7 +29,7 @@ pub(crate) const QUERY_REQUEST_ID_PREFIX: &str = "req_";
 
 /// A builder for executing a SQL query.
 ///
-/// [`BigQuery::query()`](crate::client::BigQuery::query) returns a `RunQuery`.
+/// [`BigQuery::query()`](crate::client::BigQuery::query) returns a [`Query`](crate::builder::bigquery::Query) builder.
 ///
 /// # Automatic Path Routing
 ///
@@ -50,8 +50,6 @@ pub(crate) const QUERY_REQUEST_ID_PREFIX: &str = "req_";
 ///     .query("SELECT name FROM `bigquery-public-data.usa_names.usa_1910_2013` WHERE state = 'TX' LIMIT 100")
 ///     .set_location("US")
 ///     .set_max_results(50_u32)
-///     .run()
-///     .await?
 ///     .until_done()
 ///     .await?
 ///     .read();
@@ -63,19 +61,19 @@ pub(crate) const QUERY_REQUEST_ID_PREFIX: &str = "req_";
 /// # Ok(())
 /// # }
 /// ```
-#[derive(Clone)]
-pub struct RunQuery {
+#[derive(Clone, Debug)]
+pub struct Query {
     pub(crate) job_service: Arc<JobService>,
-    pub(crate) request: RunQueryRequest,
+    pub(crate) request: QueryRequest,
     pub(crate) project_id: Option<String>,
 }
 
-impl RunQuery {
-    /// Creates a new `RunQuery` builder for the given SQL query.
+impl Query {
+    /// Creates a new `QueryBuilder` for the given SQL query.
     pub(crate) fn new(job_service: Arc<JobService>, sql: String) -> Self {
         Self {
             job_service,
-            request: RunQueryRequest::default()
+            request: QueryRequest::default()
                 .set_query(sql)
                 .set_use_legacy_sql(wkt::BoolValue::from(false))
                 .set_job_creation_mode(JobCreationMode::JobCreationOptional),
@@ -93,8 +91,7 @@ impl RunQuery {
     /// project ID for this specific query.
     ///
     /// You must specify a project ID either on the client or on the query
-    /// builder before calling [`run()`](RunQuery::run); otherwise, `run()`
-    /// returns [`QueryError::MissingProjectId`](crate::error::QueryError::MissingProjectId).
+    /// builder before calling [`send()`](Query::send).
     ///
     /// # Example
     ///
@@ -104,7 +101,7 @@ impl RunQuery {
     /// let query_handle = client
     ///     .query("SELECT 1 AS count")
     ///     .with_project_id("my-project-id")
-    ///     .run()
+    ///     .send()
     ///     .await?;
     /// # Ok(())
     /// # }
@@ -116,18 +113,18 @@ impl RunQuery {
 
     /// Executes the SQL query.
     ///
-    /// This returns a [`Query`](crate::query::Query) handle representing an
+    /// This returns a [`Query`](crate::Query) handle representing an
     /// asynchronous background job executing on BigQuery, or an already
     /// completed query if it ran fast enough using the fast query path
     /// ([jobs.query]).
     ///
-    /// You can call [`until_done()`](crate::query::Query::until_done) on the
+    /// You can call [`until_done()`](crate::Query::until_done) on the
     /// returned handle to wait for the final results.
     ///
     /// You must configure a target project ID on either the
     /// [`BigQuery`][crate::client::BigQuery] client via
     /// [`ClientBuilder::with_project_id`][crate::client_builder::ClientBuilder::with_project_id]
-    /// or on this builder via [`with_project_id()`](RunQuery::with_project_id).
+    /// or on this builder via [`with_project_id()`](Query::with_project_id).
     ///
     /// [jobs.query]: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query
     ///
@@ -136,10 +133,12 @@ impl RunQuery {
     /// ```
     /// # use google_cloud_bigquery::client::BigQuery;
     /// # async fn sample(client: BigQuery) -> anyhow::Result<()> {
-    /// let completed_query = client
+    /// let query_handle = client
     ///     .query("SELECT CURRENT_TIMESTAMP() AS now")
-    ///     .run()
-    ///     .await?
+    ///     .send()
+    ///     .await?;
+    ///
+    /// let completed_query = query_handle
     ///     .until_done()
     ///     .await?;
     ///
@@ -151,8 +150,8 @@ impl RunQuery {
     /// # Ok(())
     /// # }
     /// ```
-    pub async fn run(self) -> Result<Query> {
-        let project_id = self.project_id.ok_or(QueryError::MissingProjectId)?;
+    pub async fn send(self) -> Result<QueryHandle> {
+        let project_id = self.project_id.unwrap_or_default();
         let max_results = self.request.max_results;
 
         if self.request.force_job_path() {
@@ -172,7 +171,7 @@ impl RunQuery {
         } else {
             let query_request_id = generate_prefixed_id(QUERY_REQUEST_ID_PREFIX);
             // Route to jobs.query
-            let query_request: QueryRequest = self.request.into();
+            let query_request: JobsQueryRequest = self.request.into();
             let query_request = query_request
                 .set_format_options(
                     google_cloud_bigquery_v2::model::DataFormatOptions::new()
@@ -187,6 +186,33 @@ impl RunQuery {
                 .execute()
                 .await
         }
+    }
+
+    /// Sends the query execution request and polls until execution completes.
+    ///
+    /// This is a convenience method equivalent to calling
+    /// [`.send().await?.until_done().await`](Query::send).
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_bigquery::client::BigQuery;
+    /// # async fn sample(client: BigQuery) -> anyhow::Result<()> {
+    /// let completed_query = client
+    ///     .query("SELECT CURRENT_TIMESTAMP() AS now")
+    ///     .until_done()
+    ///     .await?;
+    ///
+    /// let mut rows = completed_query.read();
+    /// if let Some(row) = rows.next().await.transpose()? {
+    ///     let now: String = row.get("now");
+    ///     println!("Current time: {now}");
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub async fn until_done(self) -> Result<CompleteQuery> {
+        self.send().await?.until_done().await
     }
 }
 
@@ -218,16 +244,18 @@ fn generate_prefixed_id(prefix: &str) -> String {
     format!("{prefix}{}", Uuid::new_v4().simple())
 }
 
-include!("../generated/run_query_builder.rs");
+include!("../generated/builder.rs");
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::client::BigQuery;
     use crate::error::QueryError;
     use crate::query::tests::{MockJobService, create_job_service};
+    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_bigquery_v2::model::query_request::JobCreationMode;
     use google_cloud_bigquery_v2::model::{
-        Job, JobConfiguration, JobReference, JobStatus, QueryRequest, QueryResponse,
+        Job, JobConfiguration, JobReference, JobStatus, QueryResponse,
     };
     use google_cloud_gax::response::Response;
 
@@ -240,7 +268,7 @@ mod tests {
     fn test_new() {
         let job_service = create_job_service(MockJobService::new());
         let sql = "SELECT 1".to_string();
-        let run_query = RunQuery::new(job_service, sql.clone());
+        let run_query = Query::new(job_service, sql.clone());
         assert_eq!(run_query.request.query, sql);
         assert_eq!(
             run_query.request.use_legacy_sql,
@@ -257,16 +285,62 @@ mod tests {
     fn test_with_project_id() {
         let job_service = create_job_service(MockJobService::new());
         let run_query =
-            RunQuery::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
+            Query::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
         assert_eq!(run_query.project_id.unwrap(), "my-project");
     }
 
     #[tokio::test]
-    async fn test_run_missing_project_id() {
-        let job_service = create_job_service(MockJobService::new());
-        let run_query = RunQuery::new(job_service, "SELECT 1".to_string());
-        let res = run_query.run().await;
-        assert!(matches!(res, Err(QueryError::MissingProjectId)));
+    async fn test_run_missing_project_id() -> anyhow::Result<()> {
+        let client = BigQuery::builder()
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let run_query = client.query("SELECT 1");
+        let err = run_query
+            .send()
+            .await
+            .expect_err("should return an error when project_id is missing");
+        assert!(
+            matches!(&err, QueryError::Rpc { source } if source.is_binding()),
+            "expected Binding error for missing project ID, got {err:?}"
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_run_missing_project_id_force_job_path() -> anyhow::Result<()> {
+        let client = BigQuery::builder()
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let run_query = client.query("SELECT 1").set_allow_large_results(true);
+        let err = run_query
+            .send()
+            .await
+            .expect_err("should return an error when project_id is missing");
+        assert!(
+            matches!(&err, QueryError::Rpc { source } if source.is_binding()),
+            "expected Binding error for missing project ID on job path, got {err:?}"
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_run_until_done_missing_project_id() -> anyhow::Result<()> {
+        let client = BigQuery::builder()
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let run_query = client.query("SELECT 1");
+        let err = run_query
+            .until_done()
+            .await
+            .expect_err("should return an error when project_id is missing");
+        assert!(
+            matches!(&err, QueryError::Rpc { source } if source.is_binding()),
+            "expected Binding error for missing project ID, got {err:?}"
+        );
+        Ok(())
     }
 
     #[test]
@@ -311,10 +385,10 @@ mod tests {
         });
         let job_service = create_job_service(mock);
 
-        let run_query = RunQuery::new(job_service, "SELECT 1".to_string())
+        let run_query = Query::new(job_service, "SELECT 1".to_string())
             .with_project_id("my-project")
             .set_allow_large_results(true);
-        let query = run_query.run().await?;
+        let query = run_query.send().await?;
         assert!(query.completed, "{query:?}");
 
         Ok(())
@@ -333,8 +407,8 @@ mod tests {
         });
         let job_service = create_job_service(mock);
         let run_query =
-            RunQuery::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
-        let query = run_query.run().await?;
+            Query::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
+        let query = run_query.send().await?;
         assert!(!query.completed, "{query:?}");
         assert_eq!(query.metadata.query_id, "some_query_id");
 
@@ -344,7 +418,7 @@ mod tests {
     #[test]
     fn test_force_job_path() {
         let job_service = create_job_service(MockJobService::new());
-        let mut run_query = RunQuery::new(job_service, "SELECT 1".to_string());
+        let mut run_query = Query::new(job_service, "SELECT 1".to_string());
         assert!(!run_query.request.force_job_path());
 
         // setting a jobs.insert exclusive field
@@ -354,12 +428,12 @@ mod tests {
 
     #[test]
     fn test_request_conversions() {
-        let req = RunQueryRequest::default()
+        let req = QueryRequest::default()
             .set_query("SELECT 1".to_string())
             .set_dry_run(true)
             .set_use_legacy_sql(true);
 
-        let query_request: QueryRequest = req.clone().into();
+        let query_request: JobsQueryRequest = req.clone().into();
         assert_eq!(query_request.query, "SELECT 1");
         assert!(query_request.dry_run);
         assert_eq!(
@@ -384,10 +458,10 @@ mod tests {
             Ok(Response::from(QueryResponse::new()))
         });
         let job_service = create_job_service(mock);
-        let run_query = RunQuery::new(job_service, "SELECT 1".to_string())
+        let run_query = Query::new(job_service, "SELECT 1".to_string())
             .with_project_id("my-project")
             .set_max_results(100_u32);
-        let query = run_query.run().await?;
+        let query = run_query.send().await?;
         assert_eq!(query.max_results, Some(100));
 
         Ok(())
@@ -407,12 +481,31 @@ mod tests {
         });
         let job_service = create_job_service(mock);
 
-        let run_query = RunQuery::new(job_service, "SELECT 1".to_string())
+        let run_query = Query::new(job_service, "SELECT 1".to_string())
             .with_project_id("my-project")
             .set_allow_large_results(true)
             .set_max_results(50_u32);
-        let query = run_query.run().await?;
+        let query = run_query.send().await?;
         assert_eq!(query.max_results, Some(50));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_until_done_jobs_query() -> TestResult {
+        let mut mock = MockJobService::new();
+        mock.expect_query().returning(move |_, _| {
+            Ok(Response::from(
+                QueryResponse::new()
+                    .set_job_complete(true)
+                    .set_query_id("some_query_id"),
+            ))
+        });
+        let job_service = create_job_service(mock);
+        let run_query =
+            Query::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
+        let complete = run_query.until_done().await?;
+        assert_eq!(complete.metadata().query_id, "some_query_id");
 
         Ok(())
     }

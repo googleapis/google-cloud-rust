@@ -15,6 +15,7 @@
 use super::INSTANCE_LABEL;
 use anyhow::Result;
 use google_cloud_bigquery::client::BigQuery;
+use google_cloud_bigquery::datatypes::{Interval, Range};
 use google_cloud_bigquery::{FromRow, FromSql};
 use google_cloud_test_utils::runtime_config::project_id;
 use google_cloud_type::model::Decimal;
@@ -28,7 +29,7 @@ pub async fn query_client() -> Result<()> {
         .query("SELECT 1 as one")
         .with_project_id(project_id)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
-        .run()
+        .send()
         .await?;
 
     // BigQuery client sets JobCreationMode::JobCreationOptional by default
@@ -59,14 +60,14 @@ struct UserData {
     birth_date: google_cloud_type::model::Date,
     daily_alarm: google_cloud_type::model::TimeOfDay,
     event_time: google_cloud_type::model::DateTime,
-    date_range: google_cloud_bigquery::Range<google_cloud_type::model::Date>,
-    timestamp_range: google_cloud_bigquery::Range<wkt::Timestamp>,
+    date_range: Range<google_cloud_type::model::Date>,
+    timestamp_range: Range<wkt::Timestamp>,
     nullable_name: Option<String>,
     nullable_age: Option<i64>,
     raw_bytes: Vec<u8>,
     payload_bytes: bytes::Bytes,
     nullable_bytes: Option<Vec<u8>>,
-    interval_val: google_cloud_bigquery::Interval,
+    interval_val: Interval,
 }
 
 pub async fn query_client_datatypes() -> Result<()> {
@@ -96,13 +97,12 @@ pub async fn query_client_datatypes() -> Result<()> {
         )
         .with_project_id(project_id)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
-        .run()
+        .until_done()
         .await?;
 
-    let complete_query = query.until_done().await?;
-    assert_eq!(complete_query.metadata().total_rows, Some(1));
+    assert_eq!(query.metadata().total_rows, Some(1));
 
-    let mut iter = complete_query.read();
+    let mut iter = query.read();
     let row = iter.next().await.expect("row must exist")?;
 
     let expected = UserData {
@@ -129,7 +129,7 @@ pub async fn query_client_datatypes() -> Result<()> {
             .set_minutes(30)
             .set_seconds(0)
             .set_nanos(0),
-        date_range: google_cloud_bigquery::Range {
+        date_range: Range {
             start: Some(
                 google_cloud_type::model::Date::new()
                     .set_year(2026)
@@ -143,7 +143,7 @@ pub async fn query_client_datatypes() -> Result<()> {
                     .set_day(29),
             ),
         },
-        timestamp_range: google_cloud_bigquery::Range {
+        timestamp_range: Range {
             start: Some(wkt::Timestamp::new(1779982200, 0).unwrap()),
             end: None,
         },
@@ -152,7 +152,7 @@ pub async fn query_client_datatypes() -> Result<()> {
         raw_bytes: b"hello world".to_vec(),
         payload_bytes: bytes::Bytes::from_static(b"payload in bytes"),
         nullable_bytes: None,
-        interval_val: google_cloud_bigquery::Interval {
+        interval_val: Interval {
             years: 0,
             months: 0,
             days: 1,
@@ -185,11 +185,11 @@ pub async fn query_client_datatypes() -> Result<()> {
         expected.event_time
     );
     assert_eq!(
-        row.get::<google_cloud_bigquery::Range<google_cloud_type::model::Date>, _>("date_range"),
+        row.get::<Range<google_cloud_type::model::Date>, _>("date_range"),
         expected.date_range
     );
     assert_eq!(
-        row.get::<google_cloud_bigquery::Range<wkt::Timestamp>, _>("timestamp_range"),
+        row.get::<Range<wkt::Timestamp>, _>("timestamp_range"),
         expected.timestamp_range
     );
     assert_eq!(
@@ -210,7 +210,7 @@ pub async fn query_client_datatypes() -> Result<()> {
         expected.nullable_bytes
     );
     assert_eq!(
-        row.get::<google_cloud_bigquery::Interval, _>("interval_val"),
+        row.get::<Interval, _>("interval_val"),
         expected.interval_val
     );
 
@@ -236,13 +236,12 @@ pub async fn query_client_numeric_limits() -> Result<()> {
         )
         .with_project_id(project_id)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
-        .run()
+        .until_done()
         .await?;
 
-    let complete_query = query.until_done().await?;
-    assert_eq!(complete_query.metadata().total_rows, Some(1));
+    assert_eq!(query.metadata().total_rows, Some(1));
 
-    let mut iter = complete_query.read();
+    let mut iter = query.read();
     let row = iter.next().await.expect("row must exist")?;
 
     // Verify google_cloud_type::model::Decimal preserves values for NUMERIC (38 digits) and BIGNUMERIC (76 digits).
@@ -284,14 +283,12 @@ pub async fn query_client_multi_page() -> Result<()> {
         .set_max_results(1000_u32)
         .with_project_id(project_id)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
-        .run()
+        .until_done()
         .await?;
 
-    let complete_query = query.until_done().await?;
+    assert_eq!(query.metadata().total_rows, Some(10000));
 
-    assert_eq!(complete_query.metadata().total_rows, Some(10000));
-
-    let mut iter = complete_query.read();
+    let mut iter = query.read();
     let mut count = 0;
     while let Some(_row) = iter.next().await.transpose()? {
         count += 1;
@@ -310,15 +307,13 @@ pub async fn query_client_job() -> Result<()> {
         .set_priority("INTERACTIVE") // force job path
         .with_project_id(project_id.clone())
         .set_labels(vec![(INSTANCE_LABEL, "true")])
-        .run()
+        .until_done()
         .await?;
 
-    let complete_query = query.until_done().await?;
-
-    assert_eq!(complete_query.metadata().total_rows, Some(1));
+    assert_eq!(query.metadata().total_rows, Some(1));
 
     // fetch full job metadata
-    let job = complete_query.job_metadata().await?;
+    let job = query.job_metadata().await?;
 
     let job_ref = job
         .job_reference
@@ -337,7 +332,7 @@ pub async fn query_client_job() -> Result<()> {
     assert_eq!(config_query, "SELECT 2 as two");
 
     // read the results
-    let mut iter = complete_query.read();
+    let mut iter = query.read();
     let row = iter.next().await.expect("should return first row")?;
     assert_eq!(row.get::<i64, _>("two"), 2);
     assert!(iter.next().await.is_none(), "{iter:?}");
@@ -383,11 +378,10 @@ pub async fn query_client_nested_types() -> Result<()> {
         .query(sql)
         .with_project_id(project_id)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
-        .run()
+        .until_done()
         .await?;
 
-    let complete_query = query.until_done().await?;
-    let mut rows = complete_query.read();
+    let mut rows = query.read();
 
     let row = rows.next().await.expect("row must exist")?;
 

@@ -26,6 +26,9 @@ pub struct QueryMetadata {
     /// Whether the query result was fetched from the query cache.
     pub cache_hit: std::option::Option<wkt::BoolValue>,
 
+    /// Required. Describes the job configuration.
+    pub configuration: std::option::Option<crate::model::JobConfiguration>,
+
     /// Output only. Creation time of this query, in milliseconds since the epoch.
     /// This field will be present on all queries.
     pub creation_time: std::option::Option<i64>,
@@ -38,36 +41,32 @@ pub struct QueryMetadata {
     /// field will be present whenever a query job is in the DONE state.
     pub end_time: std::option::Option<i64>,
 
-    /// Output only. The first errors or warnings encountered during the running
-    /// of the job. The final message includes the number of errors that caused the
+    /// Output only. The first errors or warnings encountered during the running of
+    /// the job. The final message includes the number of errors that caused the
     /// process to stop. Errors here do not necessarily mean that the job has
     /// completed or was unsuccessful. For more information about error messages,
     /// see [Error
     /// messages](https://cloud.google.com/bigquery/docs/error-messages).
     pub errors: std::vec::Vec<crate::model::ErrorProto>,
 
-    /// A hash of this response.
+    /// Output only. A hash of this resource.
     pub etag: std::string::String,
+
+    /// Output only. Opaque ID field of the job.
+    pub id: std::string::String,
 
     /// Whether the query has completed or not. If rows or totalRows are present,
     /// this will always be true. If this is false, totalRows will not be
     /// available.
     pub job_complete: std::option::Option<wkt::BoolValue>,
 
-    /// Optional. The reason why a Job was created.
-    ///
-    /// Only relevant when a job_reference is present in the response.
-    /// If job_reference is not present it will always be unset.
+    /// Output only. The reason why a Job was created.
     pub job_creation_reason: std::option::Option<crate::model::JobCreationReason>,
 
-    /// Reference to the BigQuery Job that was created to run the query. This field
-    /// will be present even if the original request timed out, in which case
-    /// GetQueryResults can be used to read the results once the query has
-    /// completed. Since this API only returns the first page of results,
-    /// subsequent pages can be fetched via the same mechanism (GetQueryResults).
+    /// Optional. Reference describing the unique-per-user name of the job.
     pub job_reference: std::option::Option<crate::model::JobReference>,
 
-    /// The resource type of the response.
+    /// Output only. The type of the resource.
     pub kind: std::string::String,
 
     /// Output only. The geographic location of the query.
@@ -80,9 +79,18 @@ pub struct QueryMetadata {
     /// for DML statements INSERT, UPDATE or DELETE.
     pub num_dml_affected_rows: std::option::Option<wkt::Int64Value>,
 
-    /// A token used for paging results.  When this token is non-empty, it
-    /// indicates additional results are available.
+    /// A token used for paging results. A non-empty token indicates that
+    /// additional results are available. To see additional results,
+    /// query the
+    /// [`jobs.getQueryResults`](https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/getQueryResults)
+    /// method. For more information, see [Paging through table
+    /// data](https://cloud.google.com/bigquery/docs/paging-results).
     pub page_token: std::string::String,
+
+    /// Output only. [Full-projection-only] String representation of identity of
+    /// requesting party. Populated for both first- and third-party identities.
+    /// Only present for APIs that support third-party identities.
+    pub principal_subject: std::string::String,
 
     /// Auto-generated ID for the query.
     pub query_id: std::string::String,
@@ -90,6 +98,9 @@ pub struct QueryMetadata {
     /// The schema of the results. Present only when the query completes
     /// successfully.
     pub schema: std::option::Option<crate::model::TableSchema>,
+
+    /// Output only. A URL that can be used to access the resource again.
+    pub self_link: std::string::String,
 
     /// Output only. Information of the session if this job is part of one.
     pub session_info: std::option::Option<crate::model::SessionInfo>,
@@ -99,22 +110,34 @@ pub struct QueryMetadata {
     /// state to either RUNNING or DONE.
     pub start_time: std::option::Option<i64>,
 
+    /// Output only. Information about the job, including starting time and ending
+    /// time of the job.
+    pub statistics: std::option::Option<crate::model::JobStatistics>,
+
+    /// Output only. The status of this job. Examine this value when polling an
+    /// asynchronous job to see if the job is complete.
+    pub status: std::option::Option<crate::model::JobStatus>,
+
     /// Output only. If the project is configured to use on-demand pricing,
     /// then this field contains the total bytes billed for the job.
     /// If the project is configured to use flat-rate pricing, then you are
     /// not billed for bytes and this field is informational only.
     pub total_bytes_billed: std::option::Option<i64>,
 
-    /// The total number of bytes processed for this query.
+    /// The total number of bytes processed for this query. If this query was a dry
+    /// run, this is the number of bytes that would be processed if the query were
+    /// run.
     pub total_bytes_processed: std::option::Option<wkt::Int64Value>,
 
     /// The total number of rows in the complete query result set, which can be
-    /// more than the number of rows in this single page of results. Present only
-    /// when the query completes successfully.
+    /// more than the number of rows in this single page of results.
     pub total_rows: std::option::Option<wkt::UInt64Value>,
 
     /// Output only. Number of slot ms the user is actually billed for.
     pub total_slot_ms: std::option::Option<i64>,
+
+    /// Output only. Email address of the user who ran the job.
+    pub user_email: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -140,6 +163,24 @@ impl QueryMetadata {
         T: std::convert::Into<wkt::BoolValue>,
     {
         self.cache_hit = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [configuration][crate::model::QueryMetadata::configuration].
+    pub fn set_configuration<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::JobConfiguration>,
+    {
+        self.configuration = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [configuration][crate::model::QueryMetadata::configuration].
+    pub fn set_or_clear_configuration<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::JobConfiguration>,
+    {
+        self.configuration = v.map(|x| x.into());
         self
     }
 
@@ -211,6 +252,12 @@ impl QueryMetadata {
     /// Sets the value of [etag][crate::model::QueryMetadata::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [id][crate::model::QueryMetadata::id].
+    pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.id = v.into();
         self
     }
 
@@ -304,6 +351,15 @@ impl QueryMetadata {
         self
     }
 
+    /// Sets the value of [principal_subject][crate::model::QueryMetadata::principal_subject].
+    pub fn set_principal_subject<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.principal_subject = v.into();
+        self
+    }
+
     /// Sets the value of [query_id][crate::model::QueryMetadata::query_id].
     pub fn set_query_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query_id = v.into();
@@ -325,6 +381,12 @@ impl QueryMetadata {
         T: std::convert::Into<crate::model::TableSchema>,
     {
         self.schema = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [self_link][crate::model::QueryMetadata::self_link].
+    pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.self_link = v.into();
         self
     }
 
@@ -361,6 +423,42 @@ impl QueryMetadata {
         T: std::convert::Into<i64>,
     {
         self.start_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [statistics][crate::model::QueryMetadata::statistics].
+    pub fn set_statistics<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::JobStatistics>,
+    {
+        self.statistics = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [statistics][crate::model::QueryMetadata::statistics].
+    pub fn set_or_clear_statistics<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::JobStatistics>,
+    {
+        self.statistics = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [status][crate::model::QueryMetadata::status].
+    pub fn set_status<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::JobStatus>,
+    {
+        self.status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [status][crate::model::QueryMetadata::status].
+    pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::JobStatus>,
+    {
+        self.status = v.map(|x| x.into());
         self
     }
 
@@ -435,24 +533,69 @@ impl QueryMetadata {
         self.total_slot_ms = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [user_email][crate::model::QueryMetadata::user_email].
+    pub fn set_user_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.user_email = v.into();
+        self
+    }
 }
 
-impl std::convert::From<google_cloud_bigquery_v2::model::GetQueryResultsResponse>
-    for QueryMetadata
-{
-    fn from(resp: google_cloud_bigquery_v2::model::GetQueryResultsResponse) -> Self {
+mod debug {
+
+    impl std::fmt::Debug for super::QueryMetadata {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("QueryMetadata");
+            debug_struct.field("cache_hit", &self.cache_hit);
+            debug_struct.field("configuration", &self.configuration);
+            debug_struct.field("creation_time", &self.creation_time);
+            debug_struct.field("dml_stats", &self.dml_stats);
+            debug_struct.field("end_time", &self.end_time);
+            debug_struct.field("errors", &self.errors);
+            debug_struct.field("etag", &self.etag);
+            debug_struct.field("id", &self.id);
+            debug_struct.field("job_complete", &self.job_complete);
+            debug_struct.field("job_creation_reason", &self.job_creation_reason);
+            debug_struct.field("job_reference", &self.job_reference);
+            debug_struct.field("kind", &self.kind);
+            debug_struct.field("location", &self.location);
+            debug_struct.field("num_dml_affected_rows", &self.num_dml_affected_rows);
+            debug_struct.field("page_token", &self.page_token);
+            debug_struct.field("principal_subject", &self.principal_subject);
+            debug_struct.field("query_id", &self.query_id);
+            debug_struct.field("schema", &self.schema);
+            debug_struct.field("self_link", &self.self_link);
+            debug_struct.field("session_info", &self.session_info);
+            debug_struct.field("start_time", &self.start_time);
+            debug_struct.field("statistics", &self.statistics);
+            debug_struct.field("status", &self.status);
+            debug_struct.field("total_bytes_billed", &self.total_bytes_billed);
+            debug_struct.field("total_bytes_processed", &self.total_bytes_processed);
+            debug_struct.field("total_rows", &self.total_rows);
+            debug_struct.field("total_slot_ms", &self.total_slot_ms);
+            debug_struct.field("user_email", &self.user_email);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+}
+
+impl std::convert::From<google_cloud_bigquery_v2::model::Job> for QueryMetadata {
+    fn from(resp: google_cloud_bigquery_v2::model::Job) -> Self {
         Self {
-            cache_hit: resp.cache_hit,
-            errors: resp.errors,
+            configuration: resp.configuration,
             etag: resp.etag,
-            job_complete: resp.job_complete,
+            id: resp.id,
+            job_creation_reason: resp.job_creation_reason,
             job_reference: resp.job_reference,
             kind: resp.kind,
-            num_dml_affected_rows: resp.num_dml_affected_rows,
-            page_token: resp.page_token,
-            schema: resp.schema,
-            total_bytes_processed: resp.total_bytes_processed,
-            total_rows: resp.total_rows,
+            principal_subject: resp.principal_subject,
+            self_link: resp.self_link,
+            statistics: resp.statistics,
+            status: resp.status,
+            user_email: resp.user_email,
             ..Default::default()
         }
     }
@@ -481,6 +624,34 @@ impl std::convert::From<google_cloud_bigquery_v2::model::QueryResponse> for Quer
             total_bytes_processed: resp.total_bytes_processed,
             total_rows: resp.total_rows,
             total_slot_ms: resp.total_slot_ms,
+            ..Default::default()
+        }
+    }
+}
+
+impl std::convert::From<QueryMetadata> for crate::generated::CompleteQueryMetadata {
+    fn from(md: QueryMetadata) -> Self {
+        crate::generated::CompleteQueryMetadata {
+            cache_hit: md.cache_hit,
+            creation_time: md.creation_time,
+            dml_stats: md.dml_stats,
+            end_time: md.end_time,
+            errors: md.errors,
+            job_complete: md.job_complete,
+            job_creation_reason: md.job_creation_reason,
+            job_reference: md.job_reference,
+            kind: md.kind,
+            location: md.location,
+            num_dml_affected_rows: md.num_dml_affected_rows,
+            page_token: md.page_token,
+            query_id: md.query_id,
+            schema: md.schema,
+            session_info: md.session_info,
+            start_time: md.start_time,
+            total_bytes_billed: md.total_bytes_billed,
+            total_bytes_processed: md.total_bytes_processed,
+            total_rows: md.total_rows,
+            total_slot_ms: md.total_slot_ms,
             ..Default::default()
         }
     }

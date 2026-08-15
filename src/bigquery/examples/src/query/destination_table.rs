@@ -34,8 +34,6 @@ pub async fn sample(project_id: &str, dataset_id: &str, table_id: &str) -> anyho
         .with_project_id(project_id)
         .set_destination_table(destination)
         .set_location("US")
-        .run()
-        .await?
         .until_done()
         .await?
         .read();

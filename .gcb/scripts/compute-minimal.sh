@@ -15,19 +15,14 @@
 
 set -ev
 
-source "$(dirname "$0")"/install-librarian.sh
-
-echo "==== Install taplo ===="
-cargo install taplo-cli --locked
-
+rustup component add clippy
 cargo version
-rustup component add rustfmt
 rustup show active-toolchain -v
 
-echo "Regenerate all the code"
-go run github.com/googleapis/librarian/cmd/librarian@${version} generate --all
+set -e
+cargo check --profile=test -p google-cloud-compute-v1 --no-default-features
+cargo check --profile=test -p google-cloud-compute-v1 --no-default-features --features accelerator-types
 
-# If there is any difference between the generated code and the
-# committed code that is an error. All the inputs should be pinned,
-# including the generator version and the googleapis SHA.
-git diff --exit-code
+echo "==== DONE ===="
+
+/workspace/.bin/sccache --show-stats

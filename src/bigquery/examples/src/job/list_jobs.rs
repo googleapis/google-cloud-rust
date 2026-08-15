@@ -12,29 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// [START bigquery_query]
-use google_cloud_bigquery::client::BigQuery;
+// [START bigquery_list_jobs]
+use google_cloud_bigquery_v2::client::JobService;
+use google_cloud_gax::paginator::ItemPaginator;
 
 pub async fn sample(project_id: &str) -> anyhow::Result<()> {
-    let client = BigQuery::builder().build().await?;
+    let job_service = JobService::builder().build().await?;
 
-    let mut rows = client
-        .query(
-            "SELECT \
-        name FROM `bigquery-public-data.usa_names.usa_1910_2013` \
-        WHERE state = 'TX' \
-        LIMIT 100",
-        )
-        .with_project_id(project_id)
-        .set_location("US")
-        .until_done()
-        .await?
-        .read();
+    let mut jobs = job_service
+        .list_jobs()
+        .set_project_id(project_id)
+        .set_max_results(20)
+        .by_item();
 
-    while let Some(row) = rows.next().await.transpose()? {
-        let name: String = row.get("name");
-        println!("Name: {name}");
+    while let Some(job) = jobs.next().await.transpose()? {
+        if let Some(job_ref) = job.job_reference {
+            println!("Job ID: {}", job_ref.job_id);
+        }
     }
+
     Ok(())
 }
-// [END bigquery_query]
+// [END bigquery_list_jobs]

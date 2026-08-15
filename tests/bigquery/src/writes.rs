@@ -82,8 +82,6 @@ async fn read_table(project_id: &str, dataset_id: &str, table_id: &str) -> Resul
         .query(query)
         .with_project_id(project_id)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
-        .run()
-        .await?
         .until_done()
         .await?
         .read();

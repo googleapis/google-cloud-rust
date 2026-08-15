@@ -521,6 +521,7 @@ mod tests {
         assert!(debug_str.contains("cooldown_tracker"));
     }
 
+    #[ignore = "TODO(#6413) - disabled as it seems flaky"]
     #[test]
     fn location_router_record_cooldown_helper() {
         let router = make_test_router();

@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.37.0
+version: v0.37.1-0.20260814214806-54acc4445345
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
@@ -43,6 +43,12 @@ tools:
       version: 0.4.0
     - name: taplo-cli
       version: 0.10.0
+  protoc:
+    version: "33.2"
+    sha256_by_platform:
+      linux-x86_64: b24b53f87c151bfd48b112fe4c3a6e6574e5198874f38036aff41df3456b8caf
+      osx-aarch_64: 5be1427127788c9f7dd7d606c3e69843dd3587327dea993917ffcb77e7234b44
+      win64: 376770cd4073beb63db56fdd339260edb9957b3c4472e05a75f5f9ec8f98d8f5
 default:
   output: src/generated/
   rust:
@@ -1505,7 +1511,6 @@ libraries:
     version: 1.17.0
     copyright_year: "2025"
     output: src/storage
-    skip_generate: true
     rust:
       resource_name_heuristic: true
       modules:
