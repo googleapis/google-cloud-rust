@@ -14,7 +14,6 @@
 
 // [START bigquery_query_job_optional]
 use google_cloud_bigquery::client::BigQuery;
-use google_cloud_bigquery::model::QueryReference;
 use google_cloud_bigquery::model::query_request::JobCreationMode;
 
 pub async fn sample(project_id: &str) -> anyhow::Result<()> {
@@ -32,23 +31,24 @@ pub async fn sample(project_id: &str) -> anyhow::Result<()> {
         .with_project_id(project_id)
         .set_job_creation_mode(JobCreationMode::JobCreationOptional)
         .set_location("US")
-        .run()
+        .send()
         .await?;
 
-    match query.query_reference() {
-        QueryReference::Stateless { query_id } => {
-            println!("Query was run in optional job mode.  Query ID: \"{query_id}\"");
-        }
-        QueryReference::Job(job) => {
-            let qualified_job_id = format!(
-                "{}:{}.{}",
-                job.project_id,
-                job.location.as_deref().unwrap_or_default(),
-                job.job_id
-            );
-            println!("Query was run with job state.  Job ID: \"{qualified_job_id}\"");
-        }
-        _ => {}
+    let metadata = query.metadata();
+    if !metadata.query_id.is_empty() {
+        println!(
+            "Query was run in optional job mode. Query ID: \"{}\"",
+            metadata.query_id
+        );
+    }
+    if let Some(job) = &metadata.job_reference {
+        let qualified_job_id = format!(
+            "{}:{}.{}",
+            job.project_id,
+            job.location.as_deref().unwrap_or_default(),
+            job.job_id
+        );
+        println!("Query was run with job state.  Job ID: \"{qualified_job_id}\"");
     }
 
     let mut rows = query.until_done().await?.read();

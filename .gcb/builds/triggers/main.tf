@@ -51,14 +51,21 @@ locals {
     compute-full = {
       config = "complex.yaml"
       script = "compute-full"
+      pool   = "rust-sdk-pool-large"
+    }
+    compute-minimal = {
+      config = "complex.yaml"
+      script = "compute-minimal"
     }
     coverage = {
       config = "coverage.yaml"
       script = "coverage"
+      pool   = "rust-sdk-pool-large"
       flags  = local.unstable_flags
     }
     crypto-providers = {
       config = "cryptoproviders.yaml"
+      pool   = "rust-sdk-pool-large"
     }
     deny = {
       config = "complex.yaml"
@@ -67,6 +74,7 @@ locals {
     docs = {
       config = "complex.yaml"
       script = "docs"
+      pool   = "rust-sdk-pool-large"
     }
     docs-rs = {
       config = "complex.yaml"
@@ -75,10 +83,12 @@ locals {
     features = {
       config = "complex.yaml"
       script = "features"
+      pool   = "rust-sdk-pool-large"
     }
     features-gax-internal = {
       config = "complex.yaml"
       script = "features-gax-internal"
+      pool   = "rust-sdk-pool-large"
     }
     per-client-features = {
       config = "complex.yaml"
@@ -89,13 +99,16 @@ locals {
     }
     integration = {
       config = "integration.yaml"
+      pool   = "rust-sdk-pool-large"
     }
     integration-unstable = {
       config = "integration.yaml"
+      pool   = "rust-sdk-pool-large"
       flags  = local.unstable_flags
     }
     lint = {
       config = "complex.yaml"
+      pool   = "rust-sdk-pool-large"
       script = "lint"
     }
     lint-unstable = {
@@ -105,10 +118,12 @@ locals {
     }
     minimal-versions = {
       config = "complex.yaml"
+      pool   = "rust-sdk-pool-large"
       script = "minimal-versions"
     }
     minimal-versions-direct = {
       config = "complex.yaml"
+      pool   = "rust-sdk-pool-large"
       script = "minimal-versions-direct"
     }
     protojson-conformance = {
@@ -121,6 +136,7 @@ locals {
     }
     semver-checks = {
       config = "complex.yaml"
+      pool   = "rust-sdk-pool-large"
       script = "semver-checks"
     }
     showcase = {
@@ -129,22 +145,25 @@ locals {
     }
     test-current = {
       config = "complex.yaml"
+      pool   = "rust-sdk-pool-large"
       flags  = local.unstable_flags
       script = "test"
     }
     test-tokio-unstable = {
       config = "complex.yaml"
+      pool   = "rust-sdk-pool-large"
       flags  = local.tokio_unstable_flags
       script = "test"
     }
     test-msrv = {
-      config       = "complex.yaml"
-      flags        = local.unstable_flags
-      script       = "test"
-      rust_version = "1.88"
+      config = "msrv.yaml"
+      pool   = "rust-sdk-pool-large"
+      flags  = local.unstable_flags
+      script = "test"
     }
     test-unstable-cfg = {
       config = "complex.yaml"
+      pool   = "rust-sdk-pool-large"
       flags  = local.unstable_flags
       script = "test-unstable-cfg"
     }
@@ -233,6 +252,7 @@ resource "google_cloudbuild_trigger" "pull-request" {
     _UNSTABLE_CFG_FLAGS = lookup(each.value, "flags", "")
     _SCRIPT             = lookup(each.value, "script", "")
     _RUST_VERSION       = lookup(each.value, "rust_version", null)
+    _POOL_ID            = lookup(each.value, "pool", null)
   }
 }
 
@@ -245,6 +265,7 @@ resource "google_cloudbuild_trigger" "post-merge" {
       flags          = try(v.flags, "")
       rust_version   = try(v.rust_version, null)
       included_files = try(v.included_files, [])
+      pool           = try(v.pool, null)
     }
   }
   location       = var.region
@@ -266,6 +287,7 @@ resource "google_cloudbuild_trigger" "post-merge" {
     _UNSTABLE_CFG_FLAGS = lookup(each.value, "flags", "")
     _SCRIPT             = lookup(each.value, "script", "")
     _RUST_VERSION       = lookup(each.value, "rust_version", null)
+    _POOL_ID            = lookup(each.value, "pool", null)
   }
 }
 

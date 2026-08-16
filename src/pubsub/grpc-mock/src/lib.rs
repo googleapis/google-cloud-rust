@@ -16,6 +16,38 @@
 
 #![allow(missing_docs)]
 
+//! End-to-end mocks for the `google.pubsub.v1.Subscriber` gRPC service.
+//!
+//! Use this crate for end-to-end client library tests. Start a local server
+//! implementing the `google.pubsub.v1.Subscriber` API, with the implementation
+//! defined by a mock. Then test the client library against this mock.
+//!
+//! # Example
+//! ```no_rust
+//! use pubsub_grpc_mock::{start, MockSubscriber};
+//! use google_cloud_subscriber::client::Subscriber;
+//! use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+//!
+//! # async fn test() -> anyhow::Result<()> {
+//! let mut mock = MockSubscriber::new();
+//! mock.expect_get_subscription()
+//!     .return_once(|_| Err(tonic::Status::invalid_argument("test message")));
+//! // Starts a service using `mock` and a random port.
+//! let (endpoint, server) = start("0.0.0.0:0", mock).await?;
+//! // Use the service in a test.
+//! let client = Subscriber::builder()
+//!     .with_endpoint(endpoint)
+//!     .with_credentials(Anonymous::default().build())
+//!     .build()
+//!     .await?;
+//! let err = client
+//!     .get_subscription()
+//!     .send()
+//!     .unwrap_err("mock returns an error");
+//! assert_eq!(err.status().is_some(), "{err:?}");
+//! # Ok(()) }
+//! ```
+
 mod mocks;
 use std::net::SocketAddr;
 use tokio::task::JoinHandle;

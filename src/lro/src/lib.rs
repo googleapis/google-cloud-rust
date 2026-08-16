@@ -174,25 +174,18 @@ where
     P: Poller<R, M> + Send,
 {
     let mut state = PollingState::default();
-    while let Some(p) = poller.poll().await {
-        match p {
-            // Return, the operation completed or the polling policy is
-            // exhausted.
-            PollingResult::Completed(r) => return r,
-            // Continue, the operation was successfully polled and the
-            // polling policy was queried.
-            PollingResult::InProgress(_) => (),
-            // Continue, the polling policy was queried and decided the
-            // error is recoverable.
-            PollingResult::PollingError(_) => (),
-        }
+    loop {
+        match Box::pin(poller.poll()).await {
+            Some(PollingResult::Completed(r)) => return r,
+            Some(PollingResult::InProgress(_)) => (),
+            Some(PollingResult::PollingError(_)) => (),
+            // `poll()` only returns `None` after it returned `Polling::Completed`
+            // therefore this is never reached.
+            None => unreachable!("loop should exit via the `Completed` branch vs. this line"),
+        };
         state.attempt_count += 1;
-        poller.backoff(&state).await
+        Box::pin(poller.backoff(&state)).await;
     }
-    // We can only get here if `poll()` returns `None`, but it only returns
-    // `None` after it returned `Polling::Completed` and therefore this is
-    // never reached.
-    unreachable!("loop should exit via the `Completed` branch vs. this line");
 }
 
 /// The default implementation of into_stream used by most Poller implementations.

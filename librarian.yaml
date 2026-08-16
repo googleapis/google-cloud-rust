@@ -12,18 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.31.0
+version: v0.37.1-0.20260816173129-01e160eba49a
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
   discovery:
-    commit: 0b5eedd3dd989e77c18e161a1ff41ce1ef224732
-    sha256: 9ae2e477905346c9224ef05df2799c6682da28fc8963848ec9bdfed3b5a106ab
+    commit: 05b3ceb44e69212f6dad682f450862270749aee5
+    sha256: 11d07430eb3845b98a60178ee05e0656c0de6952d392e49a04f8d240e9d6a81f
   googleapis:
-    commit: b8486a2f44f15dc578a9dc1e17b144253079d5c1
-    sha256: 12411ca5cb6c70d7c873d7058c5182a8d23fa88af8d984b0e73b1c3ad1d83766
+    commit: 240b58fe7058f6fff77cba02f51d600170b6c421
+    sha256: ca03f2c93b8f1e92fd75c87b2568992c96a2ecc37fde750c5bf83129fa17b407
   protobuf:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
@@ -43,6 +43,12 @@ tools:
       version: 0.4.0
     - name: taplo-cli
       version: 0.10.0
+  protoc:
+    version: "33.2"
+    sha256_by_platform:
+      linux-x86_64: b24b53f87c151bfd48b112fe4c3a6e6574e5198874f38036aff41df3456b8caf
+      osx-aarch_64: 5be1427127788c9f7dd7d606c3e69843dd3587327dea993917ffcb77e7234b44
+      win64: 376770cd4073beb63db56fdd339260edb9957b3c4472e05a75f5f9ec8f98d8f5
 default:
   output: src/generated/
   rust:
@@ -488,6 +494,18 @@ libraries:
     rust:
       modules:
         - output: src/bigquery/src/generated
+          skipped_ids:
+            - .google.cloud.bigquery.v2.JobConfiguration.copy
+            - .google.cloud.bigquery.v2.JobConfiguration.load
+            - .google.cloud.bigquery.v2.JobConfiguration.extract
+            - .google.cloud.bigquery.v2.QueryRequest.format_options
+            - .google.cloud.bigquery.v2.GetQueryResultsRequest.format_options
+            - .google.cloud.bigquery.v2.QueryRequest.request_id
+            - .google.cloud.bigquery.v2.QueryRequest.kind
+            - .google.cloud.bigquery.v2.JobConfiguration.kind
+            - .google.cloud.bigquery.v2.JobConfiguration.job_type
+            - .google.cloud.bigquery.v2.QueryResponse.rows
+            - .google.cloud.bigquery.v2.GetQueryResultsResponse.rows
           api_path: google/cloud/bigquery/v2
           template: bigquery
   - name: google-cloud-bigquery-analyticshub-v1
@@ -885,6 +903,9 @@ libraries:
     apis:
       - path: google/firestore/admin/v1
     copyright_year: "2025"
+  - name: google-cloud-ftp-v1
+    version: 1.0.0
+    copyright_year: "2026"
   - name: google-cloud-functions-v2
     version: 1.13.0
     copyright_year: "2025"
@@ -893,7 +914,7 @@ libraries:
     copyright_year: "2025"
     output: src/gax
   - name: google-cloud-gax-internal
-    version: 0.7.16
+    version: 0.7.17
     copyright_year: "2025"
     output: src/gax-internal
     rust:
@@ -1402,12 +1423,14 @@ libraries:
     version: 1.0.0
     apis:
       - path: schema/google/showcase/v1beta1
-    copyright_year: "2025"
+    copyright_year: "2026"
     output: src/generated/showcase
     roots:
       - showcase
       - googleapis
     skip_release: true
+    rust:
+      include_bidi_streaming_methods: true
   - name: google-cloud-spanner
     version: 0.34.4-preview
     copyright_year: "2026"
@@ -1494,6 +1517,8 @@ libraries:
         - module_path: crate::generated::gapic_control::model
           name_overrides: .google.storage.control.v2.IntelligenceConfig.Filter.cloud_storage_buckets=CloudStorageBucketsOneOf,.google.storage.control.v2.IntelligenceConfig.Filter.cloud_storage_locations=CloudStorageLocationsOneOf
           output: src/storage/src/generated/convert/control
+          skipped_ids:
+            - .google.storage.control.v2.ObjectFullContext.extended_data
           api_path: google/storage/control/v2
           template: convert-prost
         - module_path: google_cloud_iam_v1::model
@@ -1569,6 +1594,8 @@ libraries:
           output: src/storage/src/generated/gapic_control
           routing_required: true
           service_config: google/storage/control/v2/storage_v2.yaml
+          skipped_ids:
+            - .google.storage.control.v2.ObjectFullContext.extended_data
           api_path: google/storage/control/v2
           template: grpc-client
         - output: src/storage/src/generated/protos/control
@@ -1732,6 +1759,9 @@ libraries:
   - name: google-cloud-workflows-v1
     version: 1.13.0
     copyright_year: "2025"
+  - name: google-cloud-workloadidentity-v1
+    version: 1.0.0
+    copyright_year: "2026"
   - name: google-cloud-workstations-v1
     version: 1.13.0
     copyright_year: "2025"
@@ -1778,6 +1808,26 @@ libraries:
   - name: google-maps-roads-v1op
     version: 1.0.0
     copyright_year: "2026"
+  - name: google-maps-routeoptimization-v1
+    version: 1.0.0
+    copyright_year: "2026"
+    rust:
+      documentation_overrides:
+        - id: .google.maps.routeoptimization.v1.VehicleFullness.active_span
+          match: |-
+            The ratio (vehicle_end_time - vehicle_start_time) /
+            (latest_vehicle_end_time - earliest_vehicle_start_time) for a given
+            vehicle. If the denominator is not present, it uses
+            ([ShipmentModel.global_end_time][google.maps.routeoptimization.v1.ShipmentModel.global_end_time]
+            -
+            [ShipmentModel.global_start_time][google.maps.routeoptimization.v1.ShipmentModel.global_start_time])
+            instead.
+          replace: |-
+            The ratio `(vehicle_end_time - vehicle_start_time) /
+            (latest_vehicle_end_time - earliest_vehicle_start_time)` for a
+            given vehicle. If the denominator is not present, it uses
+            `([ShipmentModel.global_end_time] - [ShipmentModel.global_start_time])`
+            instead.
   - name: google-maps-routes-v1
     version: 1.0.0
     copyright_year: "2026"
@@ -1788,6 +1838,39 @@ libraries:
     version: 1.0.0
     copyright_year: "2026"
   - name: google-maps-weather-v1
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-shopping-css-v1
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-shopping-merchant-conversions-v1
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-shopping-merchant-inventories-v1
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-shopping-merchant-issueresolution-v1
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-shopping-merchant-lfp-v1
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-shopping-merchant-notifications-v1
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-shopping-merchant-ordertracking-v1
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-shopping-merchant-products-v1
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-shopping-merchant-promotions-v1
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-shopping-merchant-quota-v1
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-shopping-merchant-reports-v1
     version: 1.0.0
     copyright_year: "2026"
   - name: google-shopping-type

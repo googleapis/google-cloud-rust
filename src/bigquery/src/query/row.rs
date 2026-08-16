@@ -20,6 +20,46 @@ use wkt::{ListValue, Struct, Value};
 pub type Result<T> = std::result::Result<T, RowError>;
 
 /// A container for a single row within a query result set.
+///
+/// [`RowIterator::next()`](crate::RowIterator::next) yields a `Row`.
+///
+/// Each `Row` contains parsed cell values and a reference to the table schema.
+///
+/// # Zero-Copy Struct Mapping via Derive Macros
+///
+/// Define typed structs with `#[derive(FromRow)]` to convert rows directly into
+/// your domain types using `TryFrom<Row>` without unnecessary allocations:
+///
+/// ```
+/// # use google_cloud_bigquery::FromRow;
+/// # use google_cloud_bigquery::Row;
+/// #[derive(FromRow, Debug)]
+/// struct UserStats {
+///     name: String,
+///     count: i64,
+/// }
+///
+/// # fn sample(row: Row) -> anyhow::Result<()> {
+/// let user: UserStats = row.try_into()?;
+/// println!("{}: {}", user.name, user.count);
+/// # Ok(())
+/// # }
+/// ```
+///
+/// # Field Extraction by Name or Index
+///
+/// Retrieve individual cell values by column name (`&str`) or index (`usize`)
+/// using [`get()`](Row::get), [`try_get()`](Row::try_get), or
+/// [`take()`](Row::take):
+///
+/// ```
+/// # use google_cloud_bigquery::Row;
+/// # fn sample(row: Row) {
+/// let name: String = row.get("name");
+/// let age: i64 = row.get(1);
+/// println!("{name} is {age} years old");
+/// # }
+/// ```
 #[derive(Clone, Debug)]
 pub struct Row {
     pub(crate) values: Value,
@@ -112,7 +152,30 @@ impl Row {
         })
     }
 
-    /// Retrieves a value from the row by column name or zero-based index.
+    /// Attempts to retrieve a value from the row by column name or zero-based
+    /// index.
+    ///
+    /// The return type must implement [`FromSql`](crate::FromSql).
+    ///
+    /// # Errors
+    ///
+    /// Returns [`RowError::ColumnNotFound`](crate::error::RowError::ColumnNotFound)
+    /// if the column does not exist,
+    /// [`RowError::IndexOutOfRange`](crate::error::RowError::IndexOutOfRange) if
+    /// the index exceeds schema bounds, or
+    /// [`RowError::TypeConversion`](crate::error::RowError::TypeConversion) if
+    /// the value cannot be converted to `T`.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_bigquery::Row;
+    /// # fn sample(row: Row) -> anyhow::Result<()> {
+    /// let msg: String = row.try_get("msg")?;
+    /// println!("Value: {msg}");
+    /// # Ok(())
+    /// # }
+    /// ```
     pub fn try_get<T: FromSql, I: ColumnIndex>(&self, index: I) -> Result<T> {
         let idx = self.resolve_index(&index)?;
         let val = self
@@ -126,8 +189,27 @@ impl Row {
         self.convert_value_at(idx, val.clone())
     }
 
-    /// Takes ownership of a value from the row by column name or zero-based index.
-    /// The value in the row is replaced with `Value::Null` in-place to avoid cloning.
+    /// Takes ownership of a value from the row by column name or zero-based
+    /// index.
+    ///
+    /// This replaces the cell value in the row with `Value::Null` in-place to
+    /// avoid cloning. Attempting to read the column again after calling `take()`
+    /// yields `Value::Null`.
+    ///
+    /// # Errors
+    ///
+    /// Returns the same errors as [`try_get()`](Row::try_get).
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_bigquery::Row;
+    /// # fn sample(mut row: Row) -> anyhow::Result<()> {
+    /// let text: String = row.take("big_text")?;
+    /// println!("Length: {}", text.len());
+    /// # Ok(())
+    /// # }
+    /// ```
     pub fn take<T: FromSql, I: ColumnIndex>(&mut self, index: I) -> Result<T> {
         let idx = self.resolve_index(&index)?;
 
@@ -144,7 +226,22 @@ impl Row {
         self.convert_value_at(idx, owned_val)
     }
 
-    /// Retrieves a value from the row by column name or zero-based index, panicking on error.
+    /// Retrieves a value from the row by column name or zero-based index.
+    ///
+    /// # Panics
+    ///
+    /// Panics if the column does not exist or if the value cannot be converted
+    /// to type `T`.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_bigquery::Row;
+    /// # fn sample(row: Row) {
+    /// let count: i64 = row.get("count");
+    /// println!("Count: {count}");
+    /// # }
+    /// ```
     pub fn get<T: FromSql, I: ColumnIndex>(&self, index: I) -> T {
         self.try_get(index).unwrap()
     }

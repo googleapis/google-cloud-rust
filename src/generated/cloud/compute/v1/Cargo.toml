@@ -17,7 +17,7 @@
 [package]
 name                   = "google-cloud-compute-v1"
 version                = "3.4.0"
-description            = "Google Cloud Client Libraries for Rust - Google Compute Engine API"
+description            = "Google Cloud Client Libraries for Rust - Compute Engine API"
 edition.workspace      = true
 authors.workspace      = true
 license.workspace      = true
@@ -39,185 +39,185 @@ default-rustls-provider = ["gaxi/_default-rustls-provider"]
 # Enables `client::AcceleratorTypes` and all the types it depends on.
 accelerator-types = []
 # Enables `client::Addresses` and all the types it depends on.
-addresses = []
+addresses = ["__enable-discovery-LRO"]
 # Enables `client::Advice` and all the types it depends on.
 advice = []
 # Enables `client::Autoscalers` and all the types it depends on.
-autoscalers = []
+autoscalers = ["__enable-discovery-LRO"]
 # Enables `client::BackendBuckets` and all the types it depends on.
-backend-buckets = []
+backend-buckets = ["__enable-discovery-LRO"]
 # Enables `client::BackendServices` and all the types it depends on.
-backend-services = []
+backend-services = ["__enable-discovery-LRO"]
 # Enables `client::CrossSiteNetworks` and all the types it depends on.
-cross-site-networks = []
+cross-site-networks = ["__enable-discovery-LRO"]
 # Enables `client::DiskTypes` and all the types it depends on.
 disk-types = []
 # Enables `client::Disks` and all the types it depends on.
-disks = []
+disks = ["__enable-discovery-LRO"]
 # Enables `client::ExternalVpnGateways` and all the types it depends on.
-external-vpn-gateways = []
+external-vpn-gateways = ["__enable-discovery-LRO"]
 # Enables `client::FirewallPolicies` and all the types it depends on.
-firewall-policies = []
+firewall-policies = ["__enable-discovery-LRO"]
 # Enables `client::Firewalls` and all the types it depends on.
-firewalls = []
+firewalls = ["__enable-discovery-LRO"]
 # Enables `client::ForwardingRules` and all the types it depends on.
-forwarding-rules = []
+forwarding-rules = ["__enable-discovery-LRO"]
 # Enables `client::FutureReservations` and all the types it depends on.
-future-reservations = []
+future-reservations = ["__enable-discovery-LRO"]
 # Enables `client::GlobalAddresses` and all the types it depends on.
-global-addresses = []
+global-addresses = ["__enable-discovery-LRO"]
 # Enables `client::GlobalForwardingRules` and all the types it depends on.
-global-forwarding-rules = []
+global-forwarding-rules = ["__enable-discovery-LRO"]
 # Enables `client::GlobalNetworkEndpointGroups` and all the types it depends on.
-global-network-endpoint-groups = []
+global-network-endpoint-groups = ["__enable-discovery-LRO"]
 # Enables `client::GlobalOperations` and all the types it depends on.
 global-operations = []
 # Enables `client::GlobalOrganizationOperations` and all the types it depends on.
 global-organization-operations = []
 # Enables `client::GlobalPublicDelegatedPrefixes` and all the types it depends on.
-global-public-delegated-prefixes = []
+global-public-delegated-prefixes = ["__enable-discovery-LRO"]
 # Enables `client::GlobalVmExtensionPolicies` and all the types it depends on.
-global-vm-extension-policies = []
+global-vm-extension-policies = ["__enable-discovery-LRO"]
 # Enables `client::HealthChecks` and all the types it depends on.
-health-checks = []
+health-checks = ["__enable-discovery-LRO"]
 # Enables `client::Hosts` and all the types it depends on.
-hosts = []
+hosts = ["__enable-discovery-LRO"]
 # Enables `client::HttpHealthChecks` and all the types it depends on.
-http-health-checks = []
+http-health-checks = ["__enable-discovery-LRO"]
 # Enables `client::HttpsHealthChecks` and all the types it depends on.
-https-health-checks = []
+https-health-checks = ["__enable-discovery-LRO"]
 # Enables `client::ImageFamilyViews` and all the types it depends on.
 image-family-views = []
 # Enables `client::Images` and all the types it depends on.
-images = []
+images = ["__enable-discovery-LRO"]
 # Enables `client::InstanceGroupManagerResizeRequests` and all the types it depends on.
-instance-group-manager-resize-requests = []
+instance-group-manager-resize-requests = ["__enable-discovery-LRO"]
 # Enables `client::InstanceGroupManagers` and all the types it depends on.
-instance-group-managers = []
+instance-group-managers = ["__enable-discovery-LRO"]
 # Enables `client::InstanceGroups` and all the types it depends on.
-instance-groups = []
+instance-groups = ["__enable-discovery-LRO"]
 # Enables `client::InstanceSettings` and all the types it depends on.
-instance-settings = []
+instance-settings = ["__enable-discovery-LRO"]
 # Enables `client::InstanceTemplates` and all the types it depends on.
-instance-templates = []
+instance-templates = ["__enable-discovery-LRO"]
 # Enables `client::Instances` and all the types it depends on.
-instances = []
+instances = ["__enable-discovery-LRO"]
 # Enables `client::InstantSnapshotGroups` and all the types it depends on.
-instant-snapshot-groups = []
+instant-snapshot-groups = ["__enable-discovery-LRO"]
 # Enables `client::InstantSnapshots` and all the types it depends on.
-instant-snapshots = []
+instant-snapshots = ["__enable-discovery-LRO"]
 # Enables `client::InterconnectAttachmentGroups` and all the types it depends on.
-interconnect-attachment-groups = []
+interconnect-attachment-groups = ["__enable-discovery-LRO"]
 # Enables `client::InterconnectAttachments` and all the types it depends on.
-interconnect-attachments = []
+interconnect-attachments = ["__enable-discovery-LRO"]
 # Enables `client::InterconnectGroups` and all the types it depends on.
-interconnect-groups = []
+interconnect-groups = ["__enable-discovery-LRO"]
 # Enables `client::InterconnectLocations` and all the types it depends on.
 interconnect-locations = []
 # Enables `client::InterconnectRemoteLocations` and all the types it depends on.
 interconnect-remote-locations = []
 # Enables `client::Interconnects` and all the types it depends on.
-interconnects = []
+interconnects = ["__enable-discovery-LRO"]
 # Enables `client::LicenseCodes` and all the types it depends on.
 license-codes = []
 # Enables `client::Licenses` and all the types it depends on.
-licenses = []
+licenses = ["__enable-discovery-LRO"]
 # Enables `client::MachineImages` and all the types it depends on.
-machine-images = []
+machine-images = ["__enable-discovery-LRO"]
 # Enables `client::MachineTypes` and all the types it depends on.
 machine-types = []
 # Enables `client::NetworkAttachments` and all the types it depends on.
-network-attachments = []
+network-attachments = ["__enable-discovery-LRO"]
 # Enables `client::NetworkEdgeSecurityServices` and all the types it depends on.
-network-edge-security-services = []
+network-edge-security-services = ["__enable-discovery-LRO"]
 # Enables `client::NetworkEndpointGroups` and all the types it depends on.
-network-endpoint-groups = []
+network-endpoint-groups = ["__enable-discovery-LRO"]
 # Enables `client::NetworkFirewallPolicies` and all the types it depends on.
-network-firewall-policies = []
+network-firewall-policies = ["__enable-discovery-LRO"]
 # Enables `client::NetworkProfiles` and all the types it depends on.
 network-profiles = []
 # Enables `client::Networks` and all the types it depends on.
-networks = []
+networks = ["__enable-discovery-LRO"]
 # Enables `client::NodeGroups` and all the types it depends on.
-node-groups = []
+node-groups = ["__enable-discovery-LRO"]
 # Enables `client::NodeTemplates` and all the types it depends on.
-node-templates = []
+node-templates = ["__enable-discovery-LRO"]
 # Enables `client::NodeTypes` and all the types it depends on.
 node-types = []
 # Enables `client::OrganizationSecurityPolicies` and all the types it depends on.
-organization-security-policies = []
+organization-security-policies = ["__enable-discovery-LRO"]
 # Enables `client::PacketMirrorings` and all the types it depends on.
-packet-mirrorings = []
+packet-mirrorings = ["__enable-discovery-LRO"]
 # Enables `client::PreviewFeatures` and all the types it depends on.
-preview-features = []
+preview-features = ["__enable-discovery-LRO"]
 # Enables `client::Projects` and all the types it depends on.
-projects = []
+projects = ["__enable-discovery-LRO"]
 # Enables `client::PublicAdvertisedPrefixes` and all the types it depends on.
-public-advertised-prefixes = []
+public-advertised-prefixes = ["__enable-discovery-LRO"]
 # Enables `client::PublicDelegatedPrefixes` and all the types it depends on.
-public-delegated-prefixes = []
+public-delegated-prefixes = ["__enable-discovery-LRO"]
 # Enables `client::RegionAutoscalers` and all the types it depends on.
-region-autoscalers = []
+region-autoscalers = ["__enable-discovery-LRO"]
 # Enables `client::RegionBackendBuckets` and all the types it depends on.
-region-backend-buckets = []
+region-backend-buckets = ["__enable-discovery-LRO"]
 # Enables `client::RegionBackendServices` and all the types it depends on.
-region-backend-services = []
+region-backend-services = ["__enable-discovery-LRO"]
 # Enables `client::RegionCommitments` and all the types it depends on.
-region-commitments = []
+region-commitments = ["__enable-discovery-LRO"]
 # Enables `client::RegionCompositeHealthChecks` and all the types it depends on.
-region-composite-health-checks = []
+region-composite-health-checks = ["__enable-discovery-LRO"]
 # Enables `client::RegionDiskTypes` and all the types it depends on.
 region-disk-types = []
 # Enables `client::RegionDisks` and all the types it depends on.
-region-disks = []
+region-disks = ["__enable-discovery-LRO"]
 # Enables `client::RegionHealthAggregationPolicies` and all the types it depends on.
-region-health-aggregation-policies = []
+region-health-aggregation-policies = ["__enable-discovery-LRO"]
 # Enables `client::RegionHealthCheckServices` and all the types it depends on.
-region-health-check-services = []
+region-health-check-services = ["__enable-discovery-LRO"]
 # Enables `client::RegionHealthChecks` and all the types it depends on.
-region-health-checks = []
+region-health-checks = ["__enable-discovery-LRO"]
 # Enables `client::RegionHealthSources` and all the types it depends on.
-region-health-sources = []
+region-health-sources = ["__enable-discovery-LRO"]
 # Enables `client::RegionInstanceGroupManagerResizeRequests` and all the types it depends on.
-region-instance-group-manager-resize-requests = []
+region-instance-group-manager-resize-requests = ["__enable-discovery-LRO"]
 # Enables `client::RegionInstanceGroupManagers` and all the types it depends on.
-region-instance-group-managers = []
+region-instance-group-managers = ["__enable-discovery-LRO"]
 # Enables `client::RegionInstanceGroups` and all the types it depends on.
-region-instance-groups = []
+region-instance-groups = ["__enable-discovery-LRO"]
 # Enables `client::RegionInstanceTemplates` and all the types it depends on.
-region-instance-templates = []
+region-instance-templates = ["__enable-discovery-LRO"]
 # Enables `client::RegionInstances` and all the types it depends on.
-region-instances = []
+region-instances = ["__enable-discovery-LRO"]
 # Enables `client::RegionInstantSnapshotGroups` and all the types it depends on.
-region-instant-snapshot-groups = []
+region-instant-snapshot-groups = ["__enable-discovery-LRO"]
 # Enables `client::RegionInstantSnapshots` and all the types it depends on.
-region-instant-snapshots = []
+region-instant-snapshots = ["__enable-discovery-LRO"]
 # Enables `client::RegionNetworkEndpointGroups` and all the types it depends on.
-region-network-endpoint-groups = []
+region-network-endpoint-groups = ["__enable-discovery-LRO"]
 # Enables `client::RegionNetworkFirewallPolicies` and all the types it depends on.
-region-network-firewall-policies = []
+region-network-firewall-policies = ["__enable-discovery-LRO"]
 # Enables `client::RegionNotificationEndpoints` and all the types it depends on.
-region-notification-endpoints = []
+region-notification-endpoints = ["__enable-discovery-LRO"]
 # Enables `client::RegionOperations` and all the types it depends on.
 region-operations = []
 # Enables `client::RegionSecurityPolicies` and all the types it depends on.
-region-security-policies = []
+region-security-policies = ["__enable-discovery-LRO"]
 # Enables `client::RegionSnapshotSettings` and all the types it depends on.
-region-snapshot-settings = []
+region-snapshot-settings = ["__enable-discovery-LRO"]
 # Enables `client::RegionSnapshots` and all the types it depends on.
-region-snapshots = []
+region-snapshots = ["__enable-discovery-LRO"]
 # Enables `client::RegionSslCertificates` and all the types it depends on.
-region-ssl-certificates = []
+region-ssl-certificates = ["__enable-discovery-LRO"]
 # Enables `client::RegionSslPolicies` and all the types it depends on.
-region-ssl-policies = []
+region-ssl-policies = ["__enable-discovery-LRO"]
 # Enables `client::RegionTargetHttpProxies` and all the types it depends on.
-region-target-http-proxies = []
+region-target-http-proxies = ["__enable-discovery-LRO"]
 # Enables `client::RegionTargetHttpsProxies` and all the types it depends on.
-region-target-https-proxies = []
+region-target-https-proxies = ["__enable-discovery-LRO"]
 # Enables `client::RegionTargetTcpProxies` and all the types it depends on.
-region-target-tcp-proxies = []
+region-target-tcp-proxies = ["__enable-discovery-LRO"]
 # Enables `client::RegionUrlMaps` and all the types it depends on.
-region-url-maps = []
+region-url-maps = ["__enable-discovery-LRO"]
 # Enables `client::RegionZones` and all the types it depends on.
 region-zones = []
 # Enables `client::Regions` and all the types it depends on.
@@ -225,71 +225,72 @@ regions = []
 # Enables `client::ReliabilityRisks` and all the types it depends on.
 reliability-risks = []
 # Enables `client::ReservationBlocks` and all the types it depends on.
-reservation-blocks = []
+reservation-blocks = ["__enable-discovery-LRO"]
 # Enables `client::ReservationSlots` and all the types it depends on.
-reservation-slots = []
+reservation-slots = ["__enable-discovery-LRO"]
 # Enables `client::ReservationSubBlocks` and all the types it depends on.
-reservation-sub-blocks = []
+reservation-sub-blocks = ["__enable-discovery-LRO"]
 # Enables `client::Reservations` and all the types it depends on.
-reservations = []
+reservations = ["__enable-discovery-LRO"]
 # Enables `client::ResourcePolicies` and all the types it depends on.
-resource-policies = []
+resource-policies = ["__enable-discovery-LRO"]
 # Enables `client::RolloutPlans` and all the types it depends on.
-rollout-plans = []
+rollout-plans = ["__enable-discovery-LRO"]
 # Enables `client::Rollouts` and all the types it depends on.
-rollouts = []
+rollouts = ["__enable-discovery-LRO"]
 # Enables `client::Routers` and all the types it depends on.
-routers = []
+routers = ["__enable-discovery-LRO"]
 # Enables `client::Routes` and all the types it depends on.
-routes = []
+routes = ["__enable-discovery-LRO"]
 # Enables `client::SecurityPolicies` and all the types it depends on.
-security-policies = []
+security-policies = ["__enable-discovery-LRO"]
 # Enables `client::ServiceAttachments` and all the types it depends on.
-service-attachments = []
+service-attachments = ["__enable-discovery-LRO"]
 # Enables `client::SnapshotSettings` and all the types it depends on.
-snapshot-settings = []
+snapshot-settings = ["__enable-discovery-LRO"]
 # Enables `client::Snapshots` and all the types it depends on.
-snapshots = []
+snapshots = ["__enable-discovery-LRO"]
 # Enables `client::SslCertificates` and all the types it depends on.
-ssl-certificates = []
+ssl-certificates = ["__enable-discovery-LRO"]
 # Enables `client::SslPolicies` and all the types it depends on.
-ssl-policies = []
+ssl-policies = ["__enable-discovery-LRO"]
 # Enables `client::StoragePoolTypes` and all the types it depends on.
 storage-pool-types = []
 # Enables `client::StoragePools` and all the types it depends on.
-storage-pools = []
+storage-pools = ["__enable-discovery-LRO"]
 # Enables `client::Subnetworks` and all the types it depends on.
-subnetworks = []
+subnetworks = ["__enable-discovery-LRO"]
 # Enables `client::TargetGrpcProxies` and all the types it depends on.
-target-grpc-proxies = []
+target-grpc-proxies = ["__enable-discovery-LRO"]
 # Enables `client::TargetHttpProxies` and all the types it depends on.
-target-http-proxies = []
+target-http-proxies = ["__enable-discovery-LRO"]
 # Enables `client::TargetHttpsProxies` and all the types it depends on.
-target-https-proxies = []
+target-https-proxies = ["__enable-discovery-LRO"]
 # Enables `client::TargetInstances` and all the types it depends on.
-target-instances = []
+target-instances = ["__enable-discovery-LRO"]
 # Enables `client::TargetPools` and all the types it depends on.
-target-pools = []
+target-pools = ["__enable-discovery-LRO"]
 # Enables `client::TargetSslProxies` and all the types it depends on.
-target-ssl-proxies = []
+target-ssl-proxies = ["__enable-discovery-LRO"]
 # Enables `client::TargetTcpProxies` and all the types it depends on.
-target-tcp-proxies = []
+target-tcp-proxies = ["__enable-discovery-LRO"]
 # Enables `client::TargetVpnGateways` and all the types it depends on.
-target-vpn-gateways = []
+target-vpn-gateways = ["__enable-discovery-LRO"]
 # Enables `client::UrlMaps` and all the types it depends on.
-url-maps = []
+url-maps = ["__enable-discovery-LRO"]
 # Enables `client::VpnGateways` and all the types it depends on.
-vpn-gateways = []
+vpn-gateways = ["__enable-discovery-LRO"]
 # Enables `client::VpnTunnels` and all the types it depends on.
-vpn-tunnels = []
+vpn-tunnels = ["__enable-discovery-LRO"]
 # Enables `client::WireGroups` and all the types it depends on.
-wire-groups = []
+wire-groups = ["__enable-discovery-LRO"]
 # Enables `client::ZoneOperations` and all the types it depends on.
 zone-operations = []
 # Enables `client::ZoneVmExtensionPolicies` and all the types it depends on.
-zone-vm-extension-policies = []
+zone-vm-extension-policies = ["__enable-discovery-LRO"]
 # Enables `client::Zones` and all the types it depends on.
-zones = []
+zones                  = []
+__enable-discovery-LRO = []
 
 [package.metadata.docs.rs]
 all-features = true

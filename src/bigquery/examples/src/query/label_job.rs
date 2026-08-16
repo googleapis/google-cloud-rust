@@ -33,8 +33,6 @@ LIMIT 10
             ("team", "data-analytics"),
         ])
         .set_location("US")
-        .run()
-        .await?
         .until_done()
         .await?
         .read();

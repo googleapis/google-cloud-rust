@@ -951,6 +951,7 @@ impl std::fmt::Debug for super::InstallNpmPackagesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InstallNpmPackagesRequest");
         debug_struct.field("workspace", &self.workspace);
+        debug_struct.field("pipeline_config", &self.pipeline_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1090,6 +1091,10 @@ impl std::fmt::Debug for super::CompilationResult {
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("internal_metadata", &self.internal_metadata);
         debug_struct.field("private_resource_metadata", &self.private_resource_metadata);
+        debug_struct.field(
+            "gcs_repository_snapshot_metadata",
+            &self.gcs_repository_snapshot_metadata,
+        );
         debug_struct.field("source", &self.source);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1131,6 +1136,31 @@ impl std::fmt::Debug for super::CodeCompilationConfig {
             "default_notebook_runtime_options",
             &self.default_notebook_runtime_options,
         );
+        debug_struct.field("pipeline_config", &self.pipeline_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GcsRepositorySnapshotMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GcsRepositorySnapshotMetadata");
+        debug_struct.field("repository_snapshot_uri", &self.repository_snapshot_uri);
+        debug_struct.field("crc32c_checksum", &self.crc32c_checksum);
+        debug_struct.field("generation", &self.generation);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GcsRepositorySnapshotDestination {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GcsRepositorySnapshotDestination");
+        debug_struct.field("repository_snapshot_uri", &self.repository_snapshot_uri);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1146,6 +1176,22 @@ impl std::fmt::Debug for super::NotebookRuntimeOptions {
             &self.ai_platform_notebook_runtime_template,
         );
         debug_struct.field("execution_sink", &self.execution_sink);
+        debug_struct.field(
+            "repository_snapshot_storage",
+            &self.repository_snapshot_storage,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::PipelineConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PipelineConfig");
+        debug_struct.field("pipeline_type", &self.pipeline_type);
+        debug_struct.field("path", &self.path);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1613,6 +1659,7 @@ impl std::fmt::Debug for super::WorkflowInvocation {
         debug_struct.field("data_encryption_state", &self.data_encryption_state);
         debug_struct.field("internal_metadata", &self.internal_metadata);
         debug_struct.field("private_resource_metadata", &self.private_resource_metadata);
+        debug_struct.field("pipeline_config", &self.pipeline_config);
         debug_struct.field("compilation_source", &self.compilation_source);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1738,6 +1785,7 @@ impl std::fmt::Debug for super::workflow_invocation_action::NotebookAction {
         let mut debug_struct = f.debug_struct("NotebookAction");
         debug_struct.field("contents", &self.contents);
         debug_struct.field("job_id", &self.job_id);
+        debug_struct.field("file_path", &self.file_path);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

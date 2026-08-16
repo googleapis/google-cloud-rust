@@ -1,0 +1,14 @@
+{
+    "api_id": "workloadidentity.googleapis.com",
+    "api_shortname": "workloadidentity",
+    "client_documentation": "https://docs.rs/google-cloud-workloadidentity-v1/latest",
+    "distribution_name": "google-cloud-workloadidentity-v1",
+    "issue_tracker": "https://issuetracker.google.com/issues/new?component=943104\u0026template=2144157",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name": "workloadidentity",
+    "name_pretty": "Workload Identity",
+    "product_documentation": "https://cloud.google.com/iam/",
+    "release_level": "stable",
+    "repo": "googleapis/google-cloud-rust"
+}

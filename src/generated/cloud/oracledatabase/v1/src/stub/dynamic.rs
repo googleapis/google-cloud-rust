@@ -197,6 +197,18 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
+    async fn refresh_autonomous_database(
+        &self,
+        req: crate::model::RefreshAutonomousDatabaseRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn get_autonomous_database_refreshable_clones(
+        &self,
+        req: crate::model::GetAutonomousDatabaseRefreshableClonesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AutonomousDatabaseRefreshableClones>>;
+
     async fn list_odb_networks(
         &self,
         req: crate::model::ListOdbNetworksRequest,
@@ -810,6 +822,24 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::failover_autonomous_database(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn refresh_autonomous_database(
+        &self,
+        req: crate::model::RefreshAutonomousDatabaseRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::refresh_autonomous_database(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_autonomous_database_refreshable_clones(
+        &self,
+        req: crate::model::GetAutonomousDatabaseRefreshableClonesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AutonomousDatabaseRefreshableClones>> {
+        T::get_autonomous_database_refreshable_clones(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

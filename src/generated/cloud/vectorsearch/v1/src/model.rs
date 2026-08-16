@@ -2640,6 +2640,10 @@ pub struct Ranker {
     /// The ranking method to use.
     pub ranker: std::option::Option<crate::model::ranker::Ranker>,
 
+    /// The reranker to use for final ranking of the results combined by the
+    /// ranker.
+    pub reranker: std::option::Option<crate::model::ranker::Reranker>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2700,6 +2704,63 @@ impl Ranker {
         self.ranker = std::option::Option::Some(crate::model::ranker::Ranker::Rrf(v.into()));
         self
     }
+
+    /// Sets the value of [reranker][crate::model::Ranker::reranker].
+    ///
+    /// Note that all the setters affecting `reranker` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::Ranker;
+    /// use google_cloud_vectorsearch_v1::model::VertexRanker;
+    /// let x = Ranker::new().set_reranker(Some(
+    ///     google_cloud_vectorsearch_v1::model::ranker::Reranker::VertexRanker(VertexRanker::default().into())));
+    /// ```
+    pub fn set_reranker<
+        T: std::convert::Into<std::option::Option<crate::model::ranker::Reranker>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.reranker = v.into();
+        self
+    }
+
+    /// The value of [reranker][crate::model::Ranker::reranker]
+    /// if it holds a `VertexRanker`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn vertex_ranker(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::VertexRanker>> {
+        #[allow(unreachable_patterns)]
+        self.reranker.as_ref().and_then(|v| match v {
+            crate::model::ranker::Reranker::VertexRanker(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [reranker][crate::model::Ranker::reranker]
+    /// to hold a `VertexRanker`.
+    ///
+    /// Note that all the setters affecting `reranker` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::Ranker;
+    /// use google_cloud_vectorsearch_v1::model::VertexRanker;
+    /// let x = Ranker::new().set_vertex_ranker(VertexRanker::default()/* use setters */);
+    /// assert!(x.vertex_ranker().is_some());
+    /// ```
+    pub fn set_vertex_ranker<T: std::convert::Into<std::boxed::Box<crate::model::VertexRanker>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.reranker =
+            std::option::Option::Some(crate::model::ranker::Reranker::VertexRanker(v.into()));
+        self
+    }
 }
 
 impl wkt::message::Message for Ranker {
@@ -2719,6 +2780,15 @@ pub mod ranker {
     pub enum Ranker {
         /// Reciprocal Rank Fusion ranking.
         Rrf(std::boxed::Box<crate::model::ReciprocalRankFusion>),
+    }
+
+    /// The reranker to use for final ranking of the results combined by the
+    /// ranker.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Reranker {
+        /// Optional. Vertex AI ranking.
+        VertexRanker(std::boxed::Box<crate::model::VertexRanker>),
     }
 }
 
@@ -2759,6 +2829,213 @@ impl ReciprocalRankFusion {
 impl wkt::message::Message for ReciprocalRankFusion {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.vectorsearch.v1.ReciprocalRankFusion"
+    }
+}
+
+/// Defines a ranker using the Vertex AI ranking service.
+/// See <https://cloud.google.com/generative-ai-app-builder/docs/ranking> for
+/// details.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct VertexRanker {
+    /// Required. The model used for ranking documents. The list of available
+    /// models is described in
+    /// <https://docs.cloud.google.com/generative-ai-app-builder/docs/ranking#models>.
+    /// Currently, only `semantic-ranker-fast@latest` is supported.
+    pub model: std::string::String,
+
+    /// Required. The number of documents to be processed for ranking.
+    pub top_n: i32,
+
+    /// The record specification for ranking. At least one record spec must be
+    /// set.
+    pub record_spec: std::option::Option<crate::model::vertex_ranker::RecordSpec>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl VertexRanker {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [model][crate::model::VertexRanker::model].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::VertexRanker;
+    /// let x = VertexRanker::new().set_model("example");
+    /// ```
+    pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.model = v.into();
+        self
+    }
+
+    /// Sets the value of [top_n][crate::model::VertexRanker::top_n].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::VertexRanker;
+    /// let x = VertexRanker::new().set_top_n(42);
+    /// ```
+    pub fn set_top_n<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.top_n = v.into();
+        self
+    }
+
+    /// Sets the value of [record_spec][crate::model::VertexRanker::record_spec].
+    ///
+    /// Note that all the setters affecting `record_spec` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::VertexRanker;
+    /// use google_cloud_vectorsearch_v1::model::vertex_ranker::TextRecordSpec;
+    /// let x = VertexRanker::new().set_record_spec(Some(
+    ///     google_cloud_vectorsearch_v1::model::vertex_ranker::RecordSpec::TextRecordSpec(TextRecordSpec::default().into())));
+    /// ```
+    pub fn set_record_spec<
+        T: std::convert::Into<std::option::Option<crate::model::vertex_ranker::RecordSpec>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.record_spec = v.into();
+        self
+    }
+
+    /// The value of [record_spec][crate::model::VertexRanker::record_spec]
+    /// if it holds a `TextRecordSpec`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn text_record_spec(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::vertex_ranker::TextRecordSpec>> {
+        #[allow(unreachable_patterns)]
+        self.record_spec.as_ref().and_then(|v| match v {
+            crate::model::vertex_ranker::RecordSpec::TextRecordSpec(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [record_spec][crate::model::VertexRanker::record_spec]
+    /// to hold a `TextRecordSpec`.
+    ///
+    /// Note that all the setters affecting `record_spec` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::VertexRanker;
+    /// use google_cloud_vectorsearch_v1::model::vertex_ranker::TextRecordSpec;
+    /// let x = VertexRanker::new().set_text_record_spec(TextRecordSpec::default()/* use setters */);
+    /// assert!(x.text_record_spec().is_some());
+    /// ```
+    pub fn set_text_record_spec<
+        T: std::convert::Into<std::boxed::Box<crate::model::vertex_ranker::TextRecordSpec>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.record_spec = std::option::Option::Some(
+            crate::model::vertex_ranker::RecordSpec::TextRecordSpec(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for VertexRanker {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.vectorsearch.v1.VertexRanker"
+    }
+}
+
+/// Defines additional types related to [VertexRanker].
+pub mod vertex_ranker {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The record spec for text search.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct TextRecordSpec {
+        /// Required. The query against which the records are ranked and scored.
+        pub query: std::string::String,
+
+        /// Optional. The template used to generate the record's title.
+        pub title_template: std::string::String,
+
+        /// Optional. The template used to generate the record's content.
+        pub content_template: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl TextRecordSpec {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [query][crate::model::vertex_ranker::TextRecordSpec::query].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_vectorsearch_v1::model::vertex_ranker::TextRecordSpec;
+        /// let x = TextRecordSpec::new().set_query("example");
+        /// ```
+        pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.query = v.into();
+            self
+        }
+
+        /// Sets the value of [title_template][crate::model::vertex_ranker::TextRecordSpec::title_template].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_vectorsearch_v1::model::vertex_ranker::TextRecordSpec;
+        /// let x = TextRecordSpec::new().set_title_template("example");
+        /// ```
+        pub fn set_title_template<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.title_template = v.into();
+            self
+        }
+
+        /// Sets the value of [content_template][crate::model::vertex_ranker::TextRecordSpec::content_template].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_vectorsearch_v1::model::vertex_ranker::TextRecordSpec;
+        /// let x = TextRecordSpec::new().set_content_template("example");
+        /// ```
+        pub fn set_content_template<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.content_template = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for TextRecordSpec {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.vectorsearch.v1.VertexRanker.TextRecordSpec"
+        }
+    }
+
+    /// The record specification for ranking. At least one record spec must be
+    /// set.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum RecordSpec {
+        /// The record spec for text search.
+        TextRecordSpec(std::boxed::Box<crate::model::vertex_ranker::TextRecordSpec>),
     }
 }
 

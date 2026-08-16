@@ -122627,6 +122627,9 @@ pub struct ReasoningEngineSpec {
     /// used.
     pub identity_type: crate::model::reasoning_engine_spec::IdentityType,
 
+    /// Optional. Configuration for building container image.
+    pub build_spec: std::option::Option<crate::model::reasoning_engine_spec::BuildSpec>,
+
     /// Defines the source for the deployment.
     /// The `package_spec` field should not be set if `deployment_source` is
     /// specified.
@@ -122790,6 +122793,39 @@ impl ReasoningEngineSpec {
         v: T,
     ) -> Self {
         self.identity_type = v.into();
+        self
+    }
+
+    /// Sets the value of [build_spec][crate::model::ReasoningEngineSpec::build_spec].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1::model::ReasoningEngineSpec;
+    /// use google_cloud_aiplatform_v1::model::reasoning_engine_spec::BuildSpec;
+    /// let x = ReasoningEngineSpec::new().set_build_spec(BuildSpec::default()/* use setters */);
+    /// ```
+    pub fn set_build_spec<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::reasoning_engine_spec::BuildSpec>,
+    {
+        self.build_spec = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [build_spec][crate::model::ReasoningEngineSpec::build_spec].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1::model::ReasoningEngineSpec;
+    /// use google_cloud_aiplatform_v1::model::reasoning_engine_spec::BuildSpec;
+    /// let x = ReasoningEngineSpec::new().set_or_clear_build_spec(Some(BuildSpec::default()/* use setters */));
+    /// let x = ReasoningEngineSpec::new().set_or_clear_build_spec(None::<BuildSpec>);
+    /// ```
+    pub fn set_or_clear_build_spec<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::reasoning_engine_spec::BuildSpec>,
+    {
+        self.build_spec = v.map(|x| x.into());
         self
     }
 
@@ -123952,6 +123988,72 @@ pub mod reasoning_engine_spec {
     impl wkt::message::Message for ContainerSpec {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.aiplatform.v1.ReasoningEngineSpec.ContainerSpec"
+        }
+    }
+
+    /// Specification for building container image.
+    #[cfg(feature = "reasoning-engine-service")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct BuildSpec {
+        /// Optional. The resource name of the Cloud Build WorkerPool to use for
+        /// the build.
+        /// Format:
+        /// `projects/{project}/locations/{location}/workerPools/{worker_pool}`
+        pub worker_pool: std::string::String,
+
+        /// Optional. The service account that Cloud Build uses to run the build.
+        ///
+        /// This field is only applicable when `worker_pool` is specified (i.e., for
+        /// custom worker pools). If `worker_pool` is not specified, this field is
+        /// ignored and the build runs using the Google-managed service agent.
+        ///
+        /// Format: `projects/{project}/serviceAccounts/{service_account}` or
+        /// `{service_account}@{project}.iam.gserviceaccount.com`
+        pub service_account: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "reasoning-engine-service")]
+    impl BuildSpec {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [worker_pool][crate::model::reasoning_engine_spec::BuildSpec::worker_pool].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_aiplatform_v1::model::reasoning_engine_spec::BuildSpec;
+        /// let x = BuildSpec::new().set_worker_pool("example");
+        /// ```
+        pub fn set_worker_pool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.worker_pool = v.into();
+            self
+        }
+
+        /// Sets the value of [service_account][crate::model::reasoning_engine_spec::BuildSpec::service_account].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_aiplatform_v1::model::reasoning_engine_spec::BuildSpec;
+        /// let x = BuildSpec::new().set_service_account("example");
+        /// ```
+        pub fn set_service_account<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.service_account = v.into();
+            self
+        }
+    }
+
+    #[cfg(feature = "reasoning-engine-service")]
+    impl wkt::message::Message for BuildSpec {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.aiplatform.v1.ReasoningEngineSpec.BuildSpec"
         }
     }
 
@@ -140592,6 +140694,11 @@ pub struct Tool {
     /// Parallel.ai and presented to the model for response generation
     pub parallel_ai_search: std::option::Option<crate::model::tool::ParallelAiSearch>,
 
+    /// Optional. Uses Exa.ai to search for information to
+    /// answer user queries. The search results will be grounded on Exa.ai
+    /// and presented to the model for response generation
+    pub exa_ai_search: std::option::Option<crate::model::tool::ExaAiSearch>,
+
     /// Optional. CodeExecution tool type.
     /// Enables the model to execute code as part of generation.
     pub code_execution: std::option::Option<crate::model::tool::CodeExecution>,
@@ -140836,6 +140943,39 @@ impl Tool {
         T: std::convert::Into<crate::model::tool::ParallelAiSearch>,
     {
         self.parallel_ai_search = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [exa_ai_search][crate::model::Tool::exa_ai_search].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1::model::Tool;
+    /// use google_cloud_aiplatform_v1::model::tool::ExaAiSearch;
+    /// let x = Tool::new().set_exa_ai_search(ExaAiSearch::default()/* use setters */);
+    /// ```
+    pub fn set_exa_ai_search<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::tool::ExaAiSearch>,
+    {
+        self.exa_ai_search = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [exa_ai_search][crate::model::Tool::exa_ai_search].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1::model::Tool;
+    /// use google_cloud_aiplatform_v1::model::tool::ExaAiSearch;
+    /// let x = Tool::new().set_or_clear_exa_ai_search(Some(ExaAiSearch::default()/* use setters */));
+    /// let x = Tool::new().set_or_clear_exa_ai_search(None::<ExaAiSearch>);
+    /// ```
+    pub fn set_or_clear_exa_ai_search<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::tool::ExaAiSearch>,
+    {
+        self.exa_ai_search = v.map(|x| x.into());
         self
     }
 
@@ -141171,6 +141311,97 @@ pub mod tool {
     impl wkt::message::Message for ParallelAiSearch {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.aiplatform.v1.Tool.ParallelAiSearch"
+        }
+    }
+
+    /// ExaAiSearch tool type.
+    /// A tool that uses the Exa.ai search engine for grounding.
+    #[cfg(any(
+        feature = "gen-ai-cache-service",
+        feature = "llm-utility-service",
+        feature = "prediction-service",
+        feature = "vertex-rag-service",
+    ))]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ExaAiSearch {
+        /// Required. The API key for ExaAiSearch.
+        pub api_key: std::string::String,
+
+        /// Optional. This field can be used to pass any parameter from the Exa.ai
+        /// Search API.
+        pub custom_configs: std::option::Option<wkt::Struct>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(any(
+        feature = "gen-ai-cache-service",
+        feature = "llm-utility-service",
+        feature = "prediction-service",
+        feature = "vertex-rag-service",
+    ))]
+    impl ExaAiSearch {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [api_key][crate::model::tool::ExaAiSearch::api_key].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_aiplatform_v1::model::tool::ExaAiSearch;
+        /// let x = ExaAiSearch::new().set_api_key("example");
+        /// ```
+        pub fn set_api_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.api_key = v.into();
+            self
+        }
+
+        /// Sets the value of [custom_configs][crate::model::tool::ExaAiSearch::custom_configs].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_aiplatform_v1::model::tool::ExaAiSearch;
+        /// use wkt::Struct;
+        /// let x = ExaAiSearch::new().set_custom_configs(Struct::default()/* use setters */);
+        /// ```
+        pub fn set_custom_configs<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.custom_configs = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [custom_configs][crate::model::tool::ExaAiSearch::custom_configs].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_aiplatform_v1::model::tool::ExaAiSearch;
+        /// use wkt::Struct;
+        /// let x = ExaAiSearch::new().set_or_clear_custom_configs(Some(Struct::default()/* use setters */));
+        /// let x = ExaAiSearch::new().set_or_clear_custom_configs(None::<Struct>);
+        /// ```
+        pub fn set_or_clear_custom_configs<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.custom_configs = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[cfg(any(
+        feature = "gen-ai-cache-service",
+        feature = "llm-utility-service",
+        feature = "prediction-service",
+        feature = "vertex-rag-service",
+    ))]
+    impl wkt::message::Message for ExaAiSearch {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.aiplatform.v1.Tool.ExaAiSearch"
         }
     }
 

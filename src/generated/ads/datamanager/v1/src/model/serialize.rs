@@ -184,6 +184,12 @@ impl serde::ser::Serialize for super::AudienceMember {
         if let Some(value) = self.composite_data() {
             state.serialize_entry("compositeData", value)?;
         }
+        if let Some(value) = self.google_user_id_data() {
+            state.serialize_entry("googleUserIdData", value)?;
+        }
+        if let Some(value) = self.partner_provided_id_data() {
+            state.serialize_entry("partnerProvidedIdData", value)?;
+        }
         if self.consent.is_some() {
             state.serialize_entry("consent", &self.consent)?;
         }
@@ -327,6 +333,50 @@ impl serde::ser::Serialize for super::IpData {
         }
         if self.observe_end_time.is_some() {
             state.serialize_entry("observeEndTime", &self.observe_end_time)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GoogleUserIdData {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.google_user_ids.is_empty() {
+            state.serialize_entry("googleUserIds", &self.google_user_ids)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::PartnerProvidedIdData {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.partner_provided_ids.is_empty() {
+            state.serialize_entry("partnerProvidedIds", &self.partner_provided_ids)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1137,6 +1187,9 @@ impl serde::ser::Serialize for super::IngestAudienceMembersResponse {
         if !self.request_id.is_empty() {
             state.serialize_entry("requestId", &self.request_id)?;
         }
+        if !self.field_warnings.is_empty() {
+            state.serialize_entry("fieldWarnings", &self.field_warnings)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1182,6 +1235,56 @@ impl serde::ser::Serialize for super::RemoveAudienceMembersRequest {
 
 #[doc(hidden)]
 impl serde::ser::Serialize for super::RemoveAudienceMembersResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.request_id.is_empty() {
+            state.serialize_entry("requestId", &self.request_id)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::RemoveAllAudienceMembersRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.destinations.is_empty() {
+            state.serialize_entry("destinations", &self.destinations)?;
+        }
+        if self.remove_as_of_time.is_some() {
+            state.serialize_entry("removeAsOfTime", &self.remove_as_of_time)?;
+        }
+        if !wkt::internal::is_default(&self.validate_only) {
+            state.serialize_entry("validateOnly", &self.validate_only)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::RemoveAllAudienceMembersResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1251,6 +1354,9 @@ impl serde::ser::Serialize for super::IngestEventsResponse {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.request_id.is_empty() {
             state.serialize_entry("requestId", &self.request_id)?;
+        }
+        if !self.field_warnings.is_empty() {
+            state.serialize_entry("fieldWarnings", &self.field_warnings)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1872,6 +1978,34 @@ impl serde::ser::Serialize for super::WarningCount {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::FieldWarning {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.reason) {
+            state.serialize_entry("reason", &self.reason)?;
+        }
+        if !self.description.is_empty() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if !self.field.is_empty() {
+            state.serialize_entry("field", &self.field)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::RequestStatusPerDestination {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -1901,6 +2035,9 @@ impl serde::ser::Serialize for super::RequestStatusPerDestination {
         }
         if let Some(value) = self.audience_members_removal_status() {
             state.serialize_entry("audienceMembersRemovalStatus", value)?;
+        }
+        if let Some(value) = self.remove_all_audience_members_status() {
+            state.serialize_entry("removeAllAudienceMembersStatus", value)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1939,6 +2076,12 @@ impl serde::ser::Serialize for super::request_status_per_destination::IngestAudi
         if let Some(value) = self.composite_data_ingestion_status() {
             state.serialize_entry("compositeDataIngestionStatus", value)?;
         }
+        if let Some(value) = self.google_user_id_data_ingestion_status() {
+            state.serialize_entry("googleUserIdDataIngestionStatus", value)?;
+        }
+        if let Some(value) = self.partner_provided_id_data_ingestion_status() {
+            state.serialize_entry("partnerProvidedIdDataIngestionStatus", value)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1976,6 +2119,33 @@ impl serde::ser::Serialize for super::request_status_per_destination::RemoveAudi
         if let Some(value) = self.composite_data_removal_status() {
             state.serialize_entry("compositeDataRemovalStatus", value)?;
         }
+        if let Some(value) = self.google_user_id_data_removal_status() {
+            state.serialize_entry("googleUserIdDataRemovalStatus", value)?;
+        }
+        if let Some(value) = self.partner_provided_id_data_removal_status() {
+            state.serialize_entry("partnerProvidedIdDataRemovalStatus", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize
+    for super::request_status_per_destination::RemoveAllAudienceMembersStatus
+{
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2521,6 +2691,188 @@ impl serde::ser::Serialize for super::request_status_per_destination::RemoveComp
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::request_status_per_destination::IngestGoogleUserIdDataStatus {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.record_count) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("recordCount", &__With(&self.record_count))?;
+        }
+        if !wkt::internal::is_default(&self.google_user_id_count) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("googleUserIdCount", &__With(&self.google_user_id_count))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::request_status_per_destination::RemoveGoogleUserIdDataStatus {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.record_count) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("recordCount", &__With(&self.record_count))?;
+        }
+        if !wkt::internal::is_default(&self.google_user_id_count) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("googleUserIdCount", &__With(&self.google_user_id_count))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize
+    for super::request_status_per_destination::IngestPartnerProvidedIdDataStatus
+{
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.record_count) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("recordCount", &__With(&self.record_count))?;
+        }
+        if !wkt::internal::is_default(&self.partner_provided_id_count) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "partnerProvidedIdCount",
+                &__With(&self.partner_provided_id_count),
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize
+    for super::request_status_per_destination::RemovePartnerProvidedIdDataStatus
+{
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.record_count) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("recordCount", &__With(&self.record_count))?;
+        }
+        if !wkt::internal::is_default(&self.partner_provided_id_count) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "partnerProvidedIdCount",
+                &__With(&self.partner_provided_id_count),
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::request_status_per_destination::DataTypeCount {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -2650,6 +3002,15 @@ impl serde::ser::Serialize for super::AddressInfo {
         }
         if !self.postal_code.is_empty() {
             state.serialize_entry("postalCode", &self.postal_code)?;
+        }
+        if !self.address_line.is_empty() {
+            state.serialize_entry("addressLine", &self.address_line)?;
+        }
+        if !self.city.is_empty() {
+            state.serialize_entry("city", &self.city)?;
+        }
+        if !self.administrative_area.is_empty() {
+            state.serialize_entry("administrativeArea", &self.administrative_area)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

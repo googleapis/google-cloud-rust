@@ -1,4 +1,4 @@
-// Copyright 2025 Google LLC
+// Copyright 2026 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -92,6 +92,16 @@ pub(crate) mod tracing;
 #[doc(hidden)]
 pub(crate) mod transport;
 
+#[cfg(google_cloud_unstable_gapic_streaming)]
+#[doc(hidden)]
+#[allow(clippy::all)]
+#[allow(unused_imports)]
+#[allow(dead_code)]
+#[allow(missing_docs)]
+pub(crate) mod prost {
+    include!("prost/includes.rs");
+}
+
 /// The default host used by the service.
 const DEFAULT_HOST: &str = "https://localhost:7469/";
 
@@ -114,6 +124,8 @@ pub(crate) use google_cloud_gax::client_builder::ClientBuilder;
 pub(crate) use google_cloud_gax::client_builder::Result as ClientBuilderResult;
 pub(crate) use google_cloud_gax::client_builder::internal::ClientFactory;
 pub(crate) use google_cloud_gax::client_builder::internal::new_builder as new_client_builder;
+#[cfg(google_cloud_unstable_gapic_streaming)]
+pub(crate) use google_cloud_gax::options::BidiStreamOptions;
 pub(crate) use google_cloud_gax::options::RequestOptions;
 pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
 pub(crate) use google_cloud_gax::response::Response;

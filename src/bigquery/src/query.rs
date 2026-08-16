@@ -12,23 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+pub(crate) mod builder;
 pub(crate) mod execution;
-mod from_sql;
+pub(crate) mod from_sql;
 mod iterator;
 mod query_handle;
-mod query_reference;
 mod row;
-mod run_query;
 mod schema;
 
 pub use iterator::RowIterator;
 pub use query_handle::{CompleteQuery, Query};
 pub(crate) use schema::Schema;
 
-pub use from_sql::{FromSql, Interval, Range};
-pub use query_reference::QueryReference;
+pub use from_sql::FromSql;
 pub use row::Row;
-pub use run_query::RunQuery;
 
 /// Result type for query execution.
 pub type Result<T> = std::result::Result<T, crate::error::QueryError>;
@@ -45,6 +42,7 @@ pub(crate) mod tests {
     use google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy;
     use google_cloud_gax::polling_state::PollingState;
     use google_cloud_gax::response::Response;
+    use google_cloud_gax::retry_state::RetryState;
     use std::sync::Arc;
 
     mockall::mock! {
@@ -79,6 +77,9 @@ pub(crate) mod tests {
         pub BackoffPolicy {}
         impl PollingBackoffPolicy for BackoffPolicy {
             fn wait_period(&self, _state: &PollingState) -> std::time::Duration;
+        }
+        impl google_cloud_gax::backoff_policy::BackoffPolicy for BackoffPolicy {
+            fn on_failure(&self, state: &RetryState) -> std::time::Duration;
         }
     }
 

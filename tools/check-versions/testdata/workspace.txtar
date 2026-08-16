@@ -1,0 +1,83 @@
+-- Cargo.toml --
+[workspace]
+members = [
+    "publishable-pkg",
+    "ws-dep-versioned",
+    "ws-dep-path-only",
+    "dev-dep-path-only",
+    "unpublishable-pkg",
+]
+
+[workspace.dependencies]
+# ✅ Successful Case 1: Path dependency WITH version constraint
+ws-dep-versioned = { version = "1.0.0", path = "ws-dep-versioned" }
+
+# ✅ Successful Case 2: External non-path dependency WITH version constraint
+serde = { version = "1.0" }
+
+# ❌ Error Case 1: Path-only workspace dependency with NO version specified
+ws-dep-path-only = { path = "ws-dep-path-only" }
+
+# ❌ Error Case 2: Workspace dependency with a version specified, but the target package is publish = false
+unpublishable-pkg = { version = "0.1.0", path = "unpublishable-pkg" }
+
+# ✅ Allowed Case: Path-only workspace dependency used ONLY as a dev-dependency
+dev-dep-path-only = { path = "dev-dep-path-only" }
+
+-- publishable-pkg/Cargo.toml --
+[package]
+name = "publishable-pkg"
+version = "1.0.0"
+edition = "2021"
+
+[dependencies]
+# ✅ Successful Case 1: Workspace path dependency WITH version constraint
+ws-dep-versioned = { workspace = true }
+
+# ✅ Successful Case 2: External non-path dependency WITH version constraint
+serde = { workspace = true }
+
+# ❌ Error Case 1: Depending on a path-only workspace package without a version constraint
+ws-dep-path-only = { workspace = true }
+
+# ❌ Error Case 2: Depending on an unpublishable workspace package (publish = false)
+unpublishable-pkg = { workspace = true }
+
+[dev-dependencies]
+# ✅ Allowed Case: Dev-dependencies are permitted to be path-only
+dev-dep-path-only = { workspace = true }
+
+-- publishable-pkg/src/lib.rs --
+
+-- ws-dep-versioned/Cargo.toml --
+[package]
+name = "ws-dep-versioned"
+version = "1.0.0"
+edition = "2021"
+
+-- ws-dep-versioned/src/lib.rs --
+
+-- ws-dep-path-only/Cargo.toml --
+[package]
+name = "ws-dep-path-only"
+version = "1.0.0"
+edition = "2021"
+
+-- ws-dep-path-only/src/lib.rs --
+
+-- dev-dep-path-only/Cargo.toml --
+[package]
+name = "dev-dep-path-only"
+version = "1.0.0"
+edition = "2021"
+
+-- dev-dep-path-only/src/lib.rs --
+
+-- unpublishable-pkg/Cargo.toml --
+[package]
+name = "unpublishable-pkg"
+version = "0.1.0"
+publish = false
+edition = "2021"
+
+-- unpublishable-pkg/src/lib.rs --

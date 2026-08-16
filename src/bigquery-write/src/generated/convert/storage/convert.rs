@@ -301,8 +301,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic_storage::model::read_rows_re
     fn cnv(self) -> std::result::Result<crate::generated::gapic_storage::model::read_rows_response::Rows, gaxi::prost::ConvertError> {
         use crate::generated::gapic_storage::model::read_rows_response::Rows as T;
         match self {
-            Self::AvroRows(v) => Ok(T::from_avro_rows(v.cnv()?)),
-            Self::ArrowRecordBatch(v) => Ok(T::from_arrow_record_batch(v.cnv()?)),
+            Self::AvroRows(v) => Ok(T::AvroRows(std::boxed::Box::new(v.cnv()?))),
+            Self::ArrowRecordBatch(v) => Ok(T::ArrowRecordBatch(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -321,8 +321,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic_storage::model::read_rows_re
     fn cnv(self) -> std::result::Result<crate::generated::gapic_storage::model::read_rows_response::Schema, gaxi::prost::ConvertError> {
         use crate::generated::gapic_storage::model::read_rows_response::Schema as T;
         match self {
-            Self::AvroSchema(v) => Ok(T::from_avro_schema(v.cnv()?)),
-            Self::ArrowSchema(v) => Ok(T::from_arrow_schema(v.cnv()?)),
+            Self::AvroSchema(v) => Ok(T::AvroSchema(std::boxed::Box::new(v.cnv()?))),
+            Self::ArrowSchema(v) => Ok(T::ArrowSchema(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -476,8 +476,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic_storage::model::append_rows_
     fn cnv(self) -> std::result::Result<crate::generated::gapic_storage::model::append_rows_request::Rows, gaxi::prost::ConvertError> {
         use crate::generated::gapic_storage::model::append_rows_request::Rows as T;
         match self {
-            Self::ProtoRows(v) => Ok(T::from_proto_rows(v.cnv()?)),
-            Self::ArrowRows(v) => Ok(T::from_arrow_rows(v.cnv()?)),
+            Self::ProtoRows(v) => Ok(T::ProtoRows(std::boxed::Box::new(v.cnv()?))),
+            Self::ArrowRows(v) => Ok(T::ArrowRows(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -549,8 +549,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic_storage::model::append_rows_
     fn cnv(self) -> std::result::Result<crate::generated::gapic_storage::model::append_rows_response::Response, gaxi::prost::ConvertError> {
         use crate::generated::gapic_storage::model::append_rows_response::Response as T;
         match self {
-            Self::AppendResult(v) => Ok(T::from_append_result(v.cnv()?)),
-            Self::Error(v) => Ok(T::from_error(v.cnv()?)),
+            Self::AppendResult(v) => Ok(T::AppendResult(std::boxed::Box::new(v.cnv()?))),
+            Self::Error(v) => Ok(T::Error(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -822,8 +822,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic_storage::model::read_session
     fn cnv(self) -> std::result::Result<crate::generated::gapic_storage::model::read_session::table_read_options::OutputFormatSerializationOptions, gaxi::prost::ConvertError> {
         use crate::generated::gapic_storage::model::read_session::table_read_options::OutputFormatSerializationOptions as T;
         match self {
-            Self::ArrowSerializationOptions(v) => Ok(T::from_arrow_serialization_options(v.cnv()?)),
-            Self::AvroSerializationOptions(v) => Ok(T::from_avro_serialization_options(v.cnv()?)),
+            Self::ArrowSerializationOptions(v) => Ok(T::ArrowSerializationOptions(std::boxed::Box::new(v.cnv()?))),
+            Self::AvroSerializationOptions(v) => Ok(T::AvroSerializationOptions(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }
@@ -872,8 +872,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic_storage::model::read_session
     fn cnv(self) -> std::result::Result<crate::generated::gapic_storage::model::read_session::Schema, gaxi::prost::ConvertError> {
         use crate::generated::gapic_storage::model::read_session::Schema as T;
         match self {
-            Self::AvroSchema(v) => Ok(T::from_avro_schema(v.cnv()?)),
-            Self::ArrowSchema(v) => Ok(T::from_arrow_schema(v.cnv()?)),
+            Self::AvroSchema(v) => Ok(T::AvroSchema(std::boxed::Box::new(v.cnv()?))),
+            Self::ArrowSchema(v) => Ok(T::ArrowSchema(std::boxed::Box::new(v.cnv()?))),
         }
     }
 }

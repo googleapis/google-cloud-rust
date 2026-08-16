@@ -81,7 +81,7 @@ steps:
       set -euv
       cargo build --release --package check-copyright
       git ls-files -z -- '*.yaml' '*.yml' '*.toml' '*.go' '*.rs' \
-        ':!:testdata/**' ':!:**.md' ':!:**.mustache' ':!:**/generated/protos/**' | \
+        ':!:testdata/**' ':!:**.md' ':!:**.mustache' ':!:**/generated/protos/**' ':!:**/generated/**/prost/**' | \
         xargs -0 -r -P "$(nproc)" -n 50 target/release/check-copyright
   - name: 'rust:${_RUST_VERSION}-bookworm'
     volumes:
@@ -121,7 +121,13 @@ steps:
         go install github.com/google/yamlfmt/cmd/yamlfmt@v0.21.0
       git ls-files -z -- '*.yaml' '*.yml' ':!:testdata/**' ':!:**/generated/**' ':!:librarian.yaml' | \
         xargs -0 yamlfmt
-      V=$(go run github.com/googleapis/librarian/cmd/librarian@latest config get version)
+      # Normally we recommend `librarian config get version` but that requires
+      # downloading two copies of librarian.
+      V=$(sed -n 's/^version: *//p' /workspace/librarian.yaml)
+      # Make multiple attempts to install librarian to avoid download-induced flakes.
+      go install github.com/googleapis/librarian/cmd/librarian@${V} || \
+        (sleep 5 && go install github.com/googleapis/librarian/cmd/librarian@${V}) || \
+        (sleep 10 && go install github.com/googleapis/librarian/cmd/librarian@${V})
       go run github.com/googleapis/librarian/cmd/librarian@${V} tidy
     waitFor: ['-']
     env:
