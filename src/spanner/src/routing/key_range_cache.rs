@@ -22,6 +22,7 @@
 
 use crate::model::{CacheUpdate, Group, Range, Tablet};
 use bytes::Bytes;
+use std::collections::hash_map::Entry;
 use std::collections::{BTreeMap, HashMap};
 use std::ops::Bound;
 use std::sync::atomic::{AtomicU64, AtomicUsize, Ordering};
@@ -36,30 +37,176 @@ pub(crate) enum RangeMode {
     PickRandom,
 }
 
-/// An in-memory cache representation of a Spanner Paxos group.
+/// Maximum distance for a replica to be considered local (within the same region or metro).
+pub(crate) const MAX_LOCAL_REPLICA_DISTANCE: u32 = 5;
+
+/// An immutable, in-memory cache representation of a Spanner Paxos group.
+///
+/// # Thread-Safety & Immutability
+/// This struct is completely immutable once constructed via [`CachedGroup::from_proto`].
+/// Precomputed fields (`local_leader_index` and `eligible_replica_indices`) are evaluated once
+/// during ingestion and remain fixed for the lifetime of the struct.
+///
+/// The cache manages group updates via a Read-Copy-Update (RCU) pattern wrapped in `Arc<CachedGroup>`:
+/// background updates atomically replace the `Arc` pointer in the cache map under a write lock,
+/// while concurrent in-flight requests safely read their immutable snapshot without locks or data races.
 #[derive(Debug, Clone)]
 pub(crate) struct CachedGroup {
     pub group_uid: u64,
     pub generation: Bytes,
     pub tablets: Vec<Tablet>,
-    pub leader_index: i32,
+    /// 0-based index into `tablets` representing the designated Paxos leader, or `None` if no leader is designated.
+    ///
+    /// In Spanner metadata protos, a negative `leader_index` (typically `-1`) denotes that no leader is designated
+    /// or that leader routing is unknown/unspecified.
+    pub leader_index: Option<usize>,
+    /// Precomputed index into `tablets` of the local leader (if designated, routable, and distance <= 5).
+    pub local_leader_index: Option<usize>,
+    /// Precomputed indices into `tablets` for candidate replicas in the lowest available distance tier.
+    pub eligible_replica_indices: Vec<usize>,
 }
 
 impl CachedGroup {
-    pub(crate) fn from_proto(proto: &Group) -> Self {
+    pub(crate) fn from_proto(proto: Group) -> Self {
+        let leader_index = Self::parse_leader_index(proto.leader_index, proto.tablets.len());
+        let local_leader_index = Self::compute_local_leader_index(&proto.tablets, leader_index);
+        let eligible_replica_indices = Self::compute_eligible_replica_indices(&proto.tablets);
+
         Self {
             group_uid: proto.group_uid,
-            generation: proto.generation.clone(),
-            tablets: proto.tablets.clone(),
-            leader_index: proto.leader_index,
+            generation: proto.generation,
+            tablets: proto.tablets,
+            leader_index,
+            local_leader_index,
+            eligible_replica_indices,
         }
     }
 
-    pub(crate) fn update_from_proto(&mut self, proto: &Group) {
-        if proto.generation >= self.generation {
-            self.generation = proto.generation.clone();
-            self.tablets = proto.tablets.clone();
-            self.leader_index = proto.leader_index;
+    /// Returns `true` if this group has a designated leader index within valid bounds.
+    pub(crate) fn has_leader(&self) -> bool {
+        self.leader_index.is_some()
+    }
+
+    /// Returns a reference to the leader tablet if designated, non-skipped, and with a non-empty server address.
+    pub(crate) fn leader(&self) -> Option<&Tablet> {
+        let candidate = &self.tablets[self.leader_index?];
+        if !Self::is_routable(candidate) {
+            return None;
+        }
+        Some(candidate)
+    }
+
+    /// Returns a reference to the leader tablet if designated, routable, and local
+    /// (`distance <= MAX_LOCAL_REPLICA_DISTANCE`).
+    pub(crate) fn local_leader(&self) -> Option<&Tablet> {
+        let index = self.local_leader_index?;
+        Some(&self.tablets[index])
+    }
+
+    /// Returns candidate replica references in the lowest locality tier matching the minimum distance.
+    ///
+    /// If `prefer_leader` is `true` and a valid leader is present, returns a single-element
+    /// vector containing a reference to that leader (even if remote, to avoid forwarding hops).
+    ///
+    /// Otherwise, returns references to the precomputed candidate replicas in the lowest available distance tier.
+    pub(crate) fn eligible_tablets(&self, prefer_leader: bool) -> Vec<&Tablet> {
+        if prefer_leader && let Some(leader) = self.leader() {
+            return vec![leader];
+        }
+
+        self.eligible_replica_indices
+            .iter()
+            .map(|&index| &self.tablets[index])
+            .collect()
+    }
+
+    /// Parses the raw protobuf leader index, returning `None` if negative or out of bounds.
+    fn parse_leader_index(leader_index: i32, tablets_count: usize) -> Option<usize> {
+        if leader_index < 0 {
+            return None;
+        }
+        let index = leader_index as usize;
+        if index >= tablets_count {
+            return None;
+        }
+        Some(index)
+    }
+
+    /// Precomputes the local leader index if the designated leader is routable and local.
+    fn compute_local_leader_index(
+        tablets: &[Tablet],
+        leader_index: Option<usize>,
+    ) -> Option<usize> {
+        let index = leader_index?;
+        let candidate = &tablets[index];
+        if !Self::is_routable(candidate) || !Self::is_local_distance(candidate.distance) {
+            return None;
+        }
+        Some(index)
+    }
+
+    /// Precomputes indices into `tablets` for candidate replicas in the lowest available distance tier.
+    fn compute_eligible_replica_indices(tablets: &[Tablet]) -> Vec<usize> {
+        let mut candidates = Vec::new();
+        let mut minimum_distance = u32::MAX;
+        let mut local_tier_active = false;
+
+        for (index, tablet) in tablets.iter().enumerate() {
+            if !Self::is_routable(tablet) {
+                continue;
+            }
+
+            let is_local = Self::is_local_distance(tablet.distance);
+
+            // When encountering a local replica for the first time, switch to local tier and clear remote candidates.
+            if is_local && !local_tier_active {
+                local_tier_active = true;
+                minimum_distance = u32::MAX;
+                candidates.clear();
+            }
+
+            // If a local replica was already found, ignore all remote replicas.
+            if !is_local && local_tier_active {
+                continue;
+            }
+
+            Self::collect_minimum_distance_index(
+                &mut candidates,
+                &mut minimum_distance,
+                index,
+                tablet.distance,
+            );
+        }
+
+        candidates
+    }
+
+    /// Returns `true` if the tablet is non-skipped and has a non-empty server address.
+    fn is_routable(tablet: &Tablet) -> bool {
+        !tablet.skip && !tablet.server_address.is_empty()
+    }
+
+    /// Returns `true` if the distance metric is within the local region/metro threshold.
+    fn is_local_distance(distance: u32) -> bool {
+        distance <= MAX_LOCAL_REPLICA_DISTANCE
+    }
+
+    /// Appends the tablet index if distance matches current minimum, or resets the list
+    /// if it establishes a strictly lower minimum distance.
+    fn collect_minimum_distance_index(
+        candidates: &mut Vec<usize>,
+        minimum_distance: &mut u32,
+        index: usize,
+        distance: u32,
+    ) {
+        if distance < *minimum_distance {
+            *minimum_distance = distance;
+            candidates.clear();
+            candidates.push(index);
+            return;
+        }
+        if distance == *minimum_distance {
+            candidates.push(index);
         }
     }
 }
@@ -160,7 +307,7 @@ impl KeyRangeCache {
             .expect("lock cache state for get_group")
             .groups
             .get(&group_uid)
-            .cloned()
+            .map(Arc::clone)
     }
 
     /// Applies updates from a Spanner `CacheUpdate` message.
@@ -171,17 +318,14 @@ impl KeyRangeCache {
         let mut state = self.state.write().expect("lock cache state for add_ranges");
 
         for group_in in &cache_update.group {
-            if let Some(existing) = state.groups.get_mut(&group_in.group_uid) {
-                if group_in.generation >= existing.generation {
-                    let mut updated = (**existing).clone();
-                    updated.update_from_proto(group_in);
-                    *existing = Arc::new(updated);
+            match state.groups.entry(group_in.group_uid) {
+                Entry::Occupied(mut entry) if group_in.generation >= entry.get().generation => {
+                    entry.insert(Arc::new(CachedGroup::from_proto(group_in.clone())));
                 }
-            } else {
-                state.groups.insert(
-                    group_in.group_uid,
-                    Arc::new(CachedGroup::from_proto(group_in)),
-                );
+                Entry::Vacant(entry) => {
+                    entry.insert(Arc::new(CachedGroup::from_proto(group_in.clone())));
+                }
+                _ => {}
             }
         }
 
@@ -261,7 +405,7 @@ impl KeyRangeCache {
             let overlaps = existing.limit_key.is_empty()
                 || existing.limit_key.as_ref() > range_in.start_key.as_ref();
             if overlaps {
-                overlapping.push(existing.clone());
+                overlapping.push(Arc::clone(existing));
             }
         }
 
@@ -335,7 +479,7 @@ impl KeyRangeCache {
                     first_range
                         .last_access
                         .store(self.access_time_now(), Ordering::Relaxed);
-                    return Some(first_range.clone());
+                    return Some(Arc::clone(first_range));
                 }
                 return None;
             }
@@ -346,7 +490,7 @@ impl KeyRangeCache {
                 first_range
                     .last_access
                     .store(self.access_time_now(), Ordering::Relaxed);
-                return Some(first_range.clone());
+                return Some(Arc::clone(first_range));
             }
         }
 
@@ -418,55 +562,60 @@ impl KeyRangeCache {
             sampled_range
                 .last_access
                 .store(self.access_time_now(), Ordering::Relaxed);
-            return Some(sampled_range.clone());
+            return Some(Arc::clone(sampled_range));
         }
 
         None
     }
 
-    /// Selects an appropriate tablet replica from the cached range's group.
-    pub(crate) fn select_tablet(&self, range: &CachedRange, prefer_leader: bool) -> Option<Tablet> {
-        let state = self
-            .state
-            .read()
-            .expect("lock cache state for select_tablet");
-        let group = state.groups.get(&range.group_uid)?;
-        if group.tablets.is_empty() {
+    /// Returns all eligible candidate tablets in the lowest distance tier for the split range.
+    ///
+    /// If `prefer_leader` is `true` and a valid leader is present, returns a single-element
+    /// vector containing that leader. Otherwise, returns candidate replicas in the lowest available
+    /// distance tier.
+    pub(crate) fn get_eligible_tablets(
+        &self,
+        range: &CachedRange,
+        prefer_leader: bool,
+    ) -> Option<Vec<Tablet>> {
+        let group = self.get_group(range.group_uid)?;
+        let eligible = group.eligible_tablets(prefer_leader);
+        if eligible.is_empty() {
             return None;
         }
-        if prefer_leader
-            && group.leader_index >= 0
-            && (group.leader_index as usize) < group.tablets.len()
-        {
-            let leader = &group.tablets[group.leader_index as usize];
-            if !leader.skip && !leader.server_address.is_empty() {
-                return Some(leader.clone());
-            }
+        Some(eligible.into_iter().cloned().collect())
+    }
+
+    /// Selects an appropriate tablet replica from the cached range's group.
+    ///
+    /// If `prefer_leader` is `true` and a valid leader is present, selects that leader.
+    /// Otherwise, selects uniformly among candidate replicas within the lowest available distance tier.
+    pub(crate) fn select_tablet(&self, range: &CachedRange, prefer_leader: bool) -> Option<Tablet> {
+        let group = self.get_group(range.group_uid)?;
+
+        if prefer_leader && let Some(leader) = group.leader() {
+            return Some(leader.clone());
         }
-        let mut best_tablet = None;
-        let mut best_distance = u32::MAX;
-        let mut count = 0;
-        for t in &group.tablets {
-            if !t.skip && !t.server_address.is_empty() {
-                if t.distance < best_distance {
-                    best_tablet = Some(t);
-                    best_distance = t.distance;
-                    count = 1;
-                } else if t.distance == best_distance {
-                    count += 1;
-                    if rand::random_range(0..count) == 0 {
-                        best_tablet = Some(t);
-                    }
-                }
-            }
+
+        let indices = &group.eligible_replica_indices;
+        if indices.is_empty() {
+            return None;
         }
-        best_tablet.cloned()
+        if indices.len() == 1 {
+            return Some(group.tablets[indices[0]].clone());
+        }
+        let selected_index = rand::random_range(0..indices.len());
+        Some(group.tablets[indices[selected_index]].clone())
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::model::tablet::Role;
+    use static_assertions::assert_impl_all;
+    use std::collections::HashSet;
+    use std::fmt::Debug;
 
     fn make_range(
         start: &'static str,
@@ -493,7 +642,7 @@ mod tests {
                     tablet_uid: 1,
                     server_address: "localhost:8001".to_string(),
                     location: "us-central1".to_string(),
-                    role: crate::model::tablet::Role::ReadWrite,
+                    role: Role::ReadWrite,
                     incarnation: Bytes::from_static(b"1"),
                     distance: 0,
                     skip: false,
@@ -503,7 +652,7 @@ mod tests {
                     tablet_uid: 2,
                     server_address: "localhost:8002".to_string(),
                     location: "us-central1".to_string(),
-                    role: crate::model::tablet::Role::ReadWrite,
+                    role: Role::ReadWrite,
                     incarnation: Bytes::from_static(b"1"),
                     distance: 1,
                     skip: false,
@@ -1043,7 +1192,7 @@ mod tests {
             tablet_uid: 3,
             server_address: "localhost:8003".to_string(),
             location: "us-central1".to_string(),
-            role: crate::model::tablet::Role::ReadWrite,
+            role: Role::ReadWrite,
             incarnation: Bytes::from_static(b"1"),
             distance: 10,
             skip: false,
@@ -1301,7 +1450,7 @@ mod tests {
         let hit = cache.find_range(b"d", b"g", RangeMode::PickRandom);
         assert!(hit.is_some());
         assert_eq!(
-            hit.unwrap().group_uid,
+            hit.expect("hit").group_uid,
             2,
             "must never sample preceding non-overlapping range"
         );
@@ -1325,7 +1474,7 @@ mod tests {
 
         let hit = cache.find_range(b"a", b"p", RangeMode::PickRandom);
         assert!(hit.is_some());
-        assert_eq!(hit.unwrap().group_uid, 1);
+        assert_eq!(hit.expect("hit").group_uid, 1);
     }
 
     #[test]
@@ -1404,12 +1553,12 @@ mod tests {
         assert_eq!(tail.start_key, Bytes::from_static(b"i"));
         assert_eq!(tail.limit_key, Bytes::from_static(b"j"));
 
-        assert!(
+        assert_eq!(
             cache
                 .find_range(b"d", b"", RangeMode::CoveringSplit)
-                .unwrap()
-                .group_uid
-                == 4
+                .expect("range")
+                .group_uid,
+            4
         );
     }
 
@@ -1467,28 +1616,412 @@ mod tests {
         // 4. ["n" .. "p") - group 1 (split tail of ["m" .. "p"))
         assert_eq!(cache.len(), 4);
 
-        let r1 = cache
+        let range_a = cache
             .find_range(b"a", b"", RangeMode::CoveringSplit)
-            .unwrap();
-        assert_eq!(r1.group_uid, 2);
-        assert_eq!(r1.limit_key, Bytes::from_static(b"c"));
+            .expect("find range starting at 'a'");
+        assert_eq!(range_a.group_uid, 2);
+        assert_eq!(range_a.limit_key, Bytes::from_static(b"c"));
 
-        let r2 = cache
+        let range_c = cache
             .find_range(b"c", b"", RangeMode::CoveringSplit)
-            .unwrap();
-        assert_eq!(r2.group_uid, 3);
-        assert_eq!(r2.limit_key, Bytes::from_static(b"d"));
+            .expect("find range starting at 'c'");
+        assert_eq!(range_c.group_uid, 3);
+        assert_eq!(range_c.limit_key, Bytes::from_static(b"d"));
 
-        let r3 = cache
+        let range_d = cache
             .find_range(b"d", b"", RangeMode::CoveringSplit)
-            .unwrap();
-        assert_eq!(r3.group_uid, 4);
-        assert_eq!(r3.limit_key, Bytes::from_static(b"n"));
+            .expect("find range starting at 'd'");
+        assert_eq!(range_d.group_uid, 4);
+        assert_eq!(range_d.limit_key, Bytes::from_static(b"n"));
 
-        let r4 = cache
+        let range_n = cache
             .find_range(b"n", b"", RangeMode::CoveringSplit)
-            .unwrap();
-        assert_eq!(r4.group_uid, 1);
-        assert_eq!(r4.limit_key, Bytes::from_static(b"p"));
+            .expect("find range starting at 'n'");
+        assert_eq!(range_n.group_uid, 1);
+        assert_eq!(range_n.limit_key, Bytes::from_static(b"p"));
+    }
+
+    #[test]
+    fn traits() {
+        assert_impl_all!(KeyRangeCache: Send, Sync);
+        assert_impl_all!(CachedGroup: Send, Sync, Debug, Clone);
+        assert_impl_all!(CachedRange: Send, Sync, Debug);
+    }
+
+    #[test]
+    fn cached_group_leader_accessors() {
+        // 1. Group with no leader (leader_index = -1)
+        let group_no_leader = CachedGroup::from_proto(make_group(1, "1", -1));
+        assert!(!group_no_leader.has_leader());
+        assert!(group_no_leader.leader().is_none());
+        assert!(group_no_leader.local_leader().is_none());
+
+        // 2. Group with valid local leader (leader_index = 0, distance = 0)
+        let group_local_leader = CachedGroup::from_proto(make_group(1, "1", 0));
+        assert!(group_local_leader.has_leader());
+        assert_eq!(
+            group_local_leader
+                .leader()
+                .expect("should find leader")
+                .tablet_uid,
+            1
+        );
+        assert_eq!(
+            group_local_leader
+                .local_leader()
+                .expect("should find local leader")
+                .tablet_uid,
+            1
+        );
+
+        // 3. Group with remote leader (leader_index = 0, distance = 10)
+        let mut proto_remote = make_group(1, "1", 0);
+        proto_remote.tablets[0].distance = 10;
+        let group_remote_leader = CachedGroup::from_proto(proto_remote);
+        assert!(group_remote_leader.has_leader());
+        assert_eq!(
+            group_remote_leader
+                .leader()
+                .expect("should find leader")
+                .tablet_uid,
+            1
+        );
+        assert!(
+            group_remote_leader.local_leader().is_none(),
+            "remote leader with distance 10 must not be considered a local leader"
+        );
+
+        // 4. Group with skipped leader
+        let mut proto_skipped = make_group(1, "1", 0);
+        proto_skipped.tablets[0].skip = true;
+        let group_skipped_leader = CachedGroup::from_proto(proto_skipped);
+        assert!(group_skipped_leader.has_leader());
+        assert!(group_skipped_leader.leader().is_none());
+        assert!(group_skipped_leader.local_leader().is_none());
+
+        // 5. Group with empty address leader
+        let mut proto_empty_address = make_group(1, "1", 0);
+        proto_empty_address.tablets[0].server_address.clear();
+        let group_empty_address_leader = CachedGroup::from_proto(proto_empty_address);
+        assert!(group_empty_address_leader.has_leader());
+        assert!(group_empty_address_leader.leader().is_none());
+        assert!(group_empty_address_leader.local_leader().is_none());
+    }
+
+    #[test]
+    fn cached_group_eligible_tablets_partitions_local_and_remote() {
+        let mut proto = make_group(1, "1", -1);
+        proto.tablets.push(Tablet {
+            tablet_uid: 3,
+            server_address: "localhost:8003".to_string(),
+            location: "us-central1".to_string(),
+            role: Role::ReadWrite,
+            incarnation: Bytes::from_static(b"1"),
+            distance: 10,
+            skip: false,
+            _unknown_fields: Default::default(),
+        });
+        proto.tablets[0].distance = 4; // Local tier
+        proto.tablets[1].distance = 2; // Local tier (minimum)
+        proto.tablets[2].distance = 10; // Remote tier
+
+        let group = CachedGroup::from_proto(proto.clone());
+        let eligible = group.eligible_tablets(false);
+        assert_eq!(
+            eligible.len(),
+            1,
+            "should select single minimum distance local replica"
+        );
+        assert_eq!(eligible[0].tablet_uid, 2);
+
+        // When multiple replicas tie at the minimum local distance
+        let mut proto_tied = proto;
+        proto_tied.tablets[0].distance = 2; // tied with tablet 2 at distance 2
+        let group_tied = CachedGroup::from_proto(proto_tied);
+        let eligible_tied = group_tied.eligible_tablets(false);
+        assert_eq!(
+            eligible_tied.len(),
+            2,
+            "both local candidates at distance 2 should be eligible"
+        );
+
+        // When only remote replicas exist (all distance > 5)
+        let mut proto_remote_only = make_group(1, "1", -1);
+        proto_remote_only.tablets[0].distance = 15;
+        proto_remote_only.tablets[1].distance = 10; // lowest remote distance
+        let group_remote_only = CachedGroup::from_proto(proto_remote_only);
+        let eligible_remote = group_remote_only.eligible_tablets(false);
+        assert_eq!(
+            eligible_remote.len(),
+            1,
+            "should select lowest remote distance replica"
+        );
+        assert_eq!(eligible_remote[0].tablet_uid, 2);
+    }
+
+    #[test]
+    fn get_group_and_get_eligible_tablets() {
+        let cache = KeyRangeCache::new();
+        let update = CacheUpdate {
+            database_id: 1,
+            range: vec![make_range("a", "z", 100, "1")],
+            group: vec![make_group(100, "1", 0)],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&update);
+
+        let group = cache.get_group(100);
+        assert!(group.is_some(), "group 100 should be cached");
+        assert_eq!(group.expect("group").group_uid, 100);
+
+        assert!(
+            cache.get_group(999).is_none(),
+            "non-existent group should return None"
+        );
+
+        let range = cache
+            .find_range(b"m", b"", RangeMode::CoveringSplit)
+            .expect("range hit");
+
+        let eligible_leader = cache.get_eligible_tablets(&range, true);
+        assert!(eligible_leader.is_some());
+        assert_eq!(eligible_leader.expect("eligible leader").len(), 1);
+
+        let eligible_replicas = cache.get_eligible_tablets(&range, false);
+        assert!(eligible_replicas.is_some());
+        assert_eq!(
+            eligible_replicas.expect("eligible replicas")[0].tablet_uid,
+            1
+        );
+    }
+
+    #[test]
+    fn select_tablet_prefers_leader_even_when_remote() {
+        let cache = KeyRangeCache::new();
+        let mut group = make_group(1, "1", 0);
+        // Leader (tablet 1) is remote in Europe (distance = 20)
+        group.tablets[0].distance = 20;
+        // Replica (tablet 2) is local in US (distance = 1)
+        group.tablets[1].distance = 1;
+
+        let update = CacheUpdate {
+            database_id: 1,
+            range: vec![make_range("a", "z", 1, "1")],
+            group: vec![group],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&update);
+
+        let hit = cache
+            .find_range(b"m", b"", RangeMode::CoveringSplit)
+            .expect("range hit");
+
+        // When prefer_leader = true, the leader (even if remote at distance 20) is selected
+        // to avoid forwarding hops for write transactions.
+        let selected_leader = cache
+            .select_tablet(&hit, true)
+            .expect("should select remote leader");
+        assert_eq!(
+            selected_leader.tablet_uid, 1,
+            "must prefer leader (UID 1) when prefer_leader is true"
+        );
+
+        // When prefer_leader = false, the local replica tier (distance 1) is selected.
+        let selected_replica = cache
+            .select_tablet(&hit, false)
+            .expect("should select local replica");
+        assert_eq!(
+            selected_replica.tablet_uid, 2,
+            "must prefer local replica (UID 2) when prefer_leader is false"
+        );
+    }
+
+    #[test]
+    fn parse_leader_index_out_of_bounds() {
+        // leader_index = 5 when tablets count = 2
+        let group_out_of_bounds = CachedGroup::from_proto(make_group(1, "1", 5));
+        assert!(!group_out_of_bounds.has_leader());
+        assert!(group_out_of_bounds.leader().is_none());
+        assert!(group_out_of_bounds.local_leader().is_none());
+    }
+
+    #[test]
+    fn eligible_tablets_prefer_leader_returns_leader_even_when_remote() {
+        let mut proto = make_group(1, "1", 0);
+        proto.tablets[0].distance = 20; // Remote leader
+        proto.tablets[1].distance = 1; // Local replica
+        let group = CachedGroup::from_proto(proto);
+
+        // When prefer_leader is true, eligible_tablets returns the leader directly
+        let eligible = group.eligible_tablets(true);
+        assert_eq!(eligible.len(), 1);
+        assert_eq!(eligible[0].tablet_uid, 1);
+
+        // When prefer_leader is false, eligible_tablets returns the local replica
+        let eligible_read = group.eligible_tablets(false);
+        assert_eq!(eligible_read.len(), 1);
+        assert_eq!(eligible_read[0].tablet_uid, 2);
+    }
+
+    #[test]
+    fn compute_eligible_replica_indices_clears_prior_remote_when_local_discovered() {
+        let mut proto = make_group(1, "1", -1);
+        proto.tablets.clear();
+        proto.tablets.push(Tablet {
+            tablet_uid: 1,
+            server_address: "localhost:8001".to_string(),
+            location: "us-central1".to_string(),
+            role: Role::ReadWrite,
+            incarnation: Bytes::from_static(b"1"),
+            distance: 10, // Remote seen first
+            skip: false,
+            _unknown_fields: Default::default(),
+        });
+        proto.tablets.push(Tablet {
+            tablet_uid: 2,
+            server_address: "localhost:8002".to_string(),
+            location: "us-central1".to_string(),
+            role: Role::ReadWrite,
+            incarnation: Bytes::from_static(b"1"),
+            distance: 3, // Local seen second (should clear remote)
+            skip: false,
+            _unknown_fields: Default::default(),
+        });
+        proto.tablets.push(Tablet {
+            tablet_uid: 3,
+            server_address: "localhost:8003".to_string(),
+            location: "us-central1".to_string(),
+            role: Role::ReadWrite,
+            incarnation: Bytes::from_static(b"1"),
+            distance: 3, // Local tied with tablet 2
+            skip: false,
+            _unknown_fields: Default::default(),
+        });
+        proto.tablets.push(Tablet {
+            tablet_uid: 4,
+            server_address: "localhost:8004".to_string(),
+            location: "us-central1".to_string(),
+            role: Role::ReadWrite,
+            incarnation: Bytes::from_static(b"1"),
+            distance: 1, // Strictly lower local distance (should clear tablets 2 and 3)
+            skip: false,
+            _unknown_fields: Default::default(),
+        });
+        proto.tablets.push(Tablet {
+            tablet_uid: 5,
+            server_address: "localhost:8005".to_string(),
+            location: "us-central1".to_string(),
+            role: Role::ReadWrite,
+            incarnation: Bytes::from_static(b"1"),
+            distance: 1, // Skipped replica with distance 1 (must be ignored)
+            skip: true,
+            _unknown_fields: Default::default(),
+        });
+        proto.tablets.push(Tablet {
+            tablet_uid: 6,
+            server_address: "".to_string(), // Empty address (must be ignored)
+            location: "us-central1".to_string(),
+            role: Role::ReadWrite,
+            incarnation: Bytes::from_static(b"1"),
+            distance: 1,
+            skip: false,
+            _unknown_fields: Default::default(),
+        });
+
+        let group = CachedGroup::from_proto(proto);
+        let eligible = group.eligible_tablets(false);
+        assert_eq!(eligible.len(), 1, "only tablet 4 should be eligible");
+        assert_eq!(eligible[0].tablet_uid, 4);
+    }
+
+    #[test]
+    fn get_eligible_tablets_and_select_tablet_missing_group_and_empty_tablets() {
+        let cache = KeyRangeCache::new();
+        let range = CachedRange::new(
+            Bytes::from_static(b"a"),
+            Bytes::from_static(b"z"),
+            999, // Non-existent group UID
+            1,
+            Bytes::from_static(b"1"),
+            0,
+        );
+
+        assert!(cache.get_eligible_tablets(&range, true).is_none());
+        assert!(cache.get_eligible_tablets(&range, false).is_none());
+        assert!(cache.select_tablet(&range, true).is_none());
+        assert!(cache.select_tablet(&range, false).is_none());
+
+        // Group exists but has zero routable tablets
+        let mut group = make_group(100, "1", -1);
+        group.tablets[0].skip = true;
+        group.tablets[1].server_address.clear();
+        let update = CacheUpdate {
+            database_id: 1,
+            range: vec![make_range("a", "z", 100, "1")],
+            group: vec![group],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&update);
+
+        let hit = cache
+            .find_range(b"m", b"", RangeMode::CoveringSplit)
+            .expect("range hit");
+        assert!(cache.get_eligible_tablets(&hit, true).is_none());
+        assert!(cache.get_eligible_tablets(&hit, false).is_none());
+        assert!(cache.select_tablet(&hit, true).is_none());
+        assert!(cache.select_tablet(&hit, false).is_none());
+    }
+
+    #[test]
+    fn select_tablet_random_sampling_over_tied_replicas() {
+        let cache = KeyRangeCache::new();
+        let mut group = make_group(1, "1", -1);
+        // Add 3 replicas all with same distance
+        group.tablets[0].distance = 1;
+        group.tablets[1].distance = 1;
+        group.tablets.push(Tablet {
+            tablet_uid: 3,
+            server_address: "localhost:8003".to_string(),
+            location: "us-central1".to_string(),
+            role: Role::ReadWrite,
+            incarnation: Bytes::from_static(b"1"),
+            distance: 1,
+            skip: false,
+            _unknown_fields: Default::default(),
+        });
+
+        let update = CacheUpdate {
+            database_id: 1,
+            range: vec![make_range("a", "z", 1, "1")],
+            group: vec![group],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&update);
+
+        let hit = cache
+            .find_range(b"m", b"", RangeMode::CoveringSplit)
+            .expect("range hit");
+
+        let eligible = cache
+            .get_eligible_tablets(&hit, false)
+            .expect("eligible replicas");
+        assert_eq!(eligible.len(), 3);
+        let candidate_uids: HashSet<u64> =
+            eligible.iter().map(|tablet| tablet.tablet_uid).collect();
+        assert_eq!(candidate_uids, HashSet::from([1, 2, 3]));
+
+        let selected = cache
+            .select_tablet(&hit, false)
+            .expect("should select tablet");
+        assert!(
+            candidate_uids.contains(&selected.tablet_uid),
+            "selected tablet UID {} must be among candidate pool {:?}",
+            selected.tablet_uid,
+            candidate_uids
+        );
     }
 }
