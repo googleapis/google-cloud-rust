@@ -16,6 +16,7 @@
 
 pub(crate) mod cache_updater;
 pub(crate) mod connection_cache;
+pub(crate) mod directed_read;
 pub(crate) mod endpoint_cooldown;
 pub(crate) mod key_extractor;
 pub(crate) mod key_range_cache;
