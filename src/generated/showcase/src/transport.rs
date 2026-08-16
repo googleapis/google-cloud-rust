@@ -1829,7 +1829,7 @@ impl super::stub::Echo for Echo {
                 req_stream,
                 options.into(),
                 &crate::info::X_GOOG_API_CLIENT_HEADER,
-                &x_goog_request_params,
+                x_goog_request_params,
             )
             .await?;
 
@@ -5084,7 +5084,7 @@ impl super::stub::Messaging for Messaging {
                 req_stream,
                 options.into(),
                 &crate::info::X_GOOG_API_CLIENT_HEADER,
-                &x_goog_request_params,
+                x_goog_request_params,
             )
             .await?;
 
