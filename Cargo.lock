@@ -3439,7 +3439,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gax-internal"
-version = "0.7.17"
+version = "0.7.18"
 dependencies = [
  "anyhow",
  "bytes",
@@ -3471,6 +3471,7 @@ dependencies = [
  "prost-types",
  "reqwest 0.13.4",
  "rustc_version",
+ "rustls",
  "scoped-env",
  "serde",
  "serde_json",
