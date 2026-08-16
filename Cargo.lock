@@ -3471,6 +3471,7 @@ dependencies = [
  "prost-types",
  "reqwest 0.13.4",
  "rustc_version",
+ "rustls",
  "scoped-env",
  "serde",
  "serde_json",

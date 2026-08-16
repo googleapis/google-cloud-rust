@@ -24,3 +24,4 @@ pub use ::tonic::Result;
 pub use ::tonic::Status;
 pub use ::tonic::Streaming;
 pub use ::tonic::metadata::MetadataMap;
+pub use ::tonic::transport;

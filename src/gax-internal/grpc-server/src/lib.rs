@@ -21,6 +21,7 @@ use std::collections::{HashMap, VecDeque};
 use std::sync::{Arc, Mutex};
 use tokio::task::JoinHandle;
 use tonic::metadata::MetadataMap;
+use tonic::transport::{Certificate, Identity, Server, ServerTlsConfig};
 
 type EchoResult = tonic::Result<tonic::Response<EchoResponse>>;
 
@@ -46,7 +47,7 @@ pub async fn start_echo_server_with_address(
         let echo = Echo;
         let stream = tokio_stream::wrappers::TcpListenerStream::new(listener);
 
-        let _ = tonic::transport::Server::builder()
+        let _ = Server::builder()
             .add_service(google::test::v1::echo_service_server::EchoServiceServer::new(echo))
             .serve_with_incoming(stream)
             .await;
@@ -59,6 +60,53 @@ pub async fn start_echo_server_with_address(
     };
 
     Ok((uri, server))
+}
+
+pub async fn start_echo_server_with_tls(
+    identity: Identity,
+) -> anyhow::Result<(String, JoinHandle<()>)> {
+    let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await?;
+    let addr = listener.local_addr()?;
+
+    let server = tokio::spawn(async move {
+        let echo = Echo;
+        let stream = tokio_stream::wrappers::TcpListenerStream::new(listener);
+
+        let _ = Server::builder()
+            .tls_config(ServerTlsConfig::new().identity(identity))
+            .expect("valid server tls config")
+            .add_service(google::test::v1::echo_service_server::EchoServiceServer::new(echo))
+            .serve_with_incoming(stream)
+            .await;
+    });
+
+    Ok((format!("https://127.0.0.1:{}", addr.port()), server))
+}
+
+pub async fn start_echo_server_with_mtls(
+    server_identity: Identity,
+    client_ca_root: Certificate,
+) -> anyhow::Result<(String, JoinHandle<()>)> {
+    let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await?;
+    let addr = listener.local_addr()?;
+
+    let server = tokio::spawn(async move {
+        let echo = Echo;
+        let stream = tokio_stream::wrappers::TcpListenerStream::new(listener);
+
+        let _ = Server::builder()
+            .tls_config(
+                ServerTlsConfig::new()
+                    .identity(server_identity)
+                    .client_ca_root(client_ca_root),
+            )
+            .expect("valid server mtls config")
+            .add_service(google::test::v1::echo_service_server::EchoServiceServer::new(echo))
+            .serve_with_incoming(stream)
+            .await;
+    });
+
+    Ok((format!("https://127.0.0.1:{}", addr.port()), server))
 }
 
 pub async fn start_fixed_responses<I, V>(responses: I) -> anyhow::Result<(String, JoinHandle<()>)>

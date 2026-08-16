@@ -142,6 +142,7 @@ serde_with.workspace              = true
 serial_test.workspace             = true
 test-case.workspace               = true
 tokio                             = { workspace = true, features = ["test-util"] }
+rustls                            = { workspace = true, features = ["aws_lc_rs", "std"] }
 tracing                           = { workspace = true, features = ["std"] }
 tracing-opentelemetry             = { workspace = true }
 tracing-subscriber                = { workspace = true, features = ["json", "registry", "std"] }

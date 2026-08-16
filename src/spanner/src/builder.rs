@@ -22,7 +22,7 @@ pub use crate::client::SpannerBuilderExt;
 pub use crate::database_client::DatabaseClientBuilder;
 pub use crate::key::KeySetBuilder;
 pub use crate::mutation::WriteBuilder;
-pub use crate::omni::InstanceType;
+pub use crate::omni::{InstanceType, TlsConfig, TlsError};
 pub use crate::partitioned_dml_transaction::PartitionedDmlTransactionBuilder;
 pub use crate::read::ConfiguredReadRequestBuilder;
 pub use crate::read::ReadRequestBuilder;

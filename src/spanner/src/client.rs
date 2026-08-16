@@ -18,13 +18,14 @@ use crate::model::{
     ExecuteBatchDmlRequest, ExecuteBatchDmlResponse, ExecuteSqlRequest, PartitionQueryRequest,
     PartitionReadRequest, PartitionResponse, RollbackRequest, Session, Transaction,
 };
-use crate::omni::{InstanceType, is_plaintext_endpoint};
+use crate::omni::{InstanceType, TlsConfig, TlsError, is_plaintext_endpoint};
 use crate::request_id::RequestIdCreator;
 use crate::request_id_interceptor::{REQUEST_ID_HEADER, SpannerRequestIdInterceptor};
 use crate::server_streaming::builder;
 use gaxi::options::{ClientConfig, Credentials};
 use google_cloud_auth::credentials::anonymous;
 use google_cloud_gax::client_builder::ClientBuilder as GaxClientBuilder;
+use google_cloud_gax::client_builder::Error as BuilderError;
 use google_cloud_gax::client_builder::internal::new_builder;
 use google_cloud_gax::options::{
     RequestOptions as GaxRequestOptions, internal::RequestOptionsExt as _,
@@ -52,7 +53,7 @@ pub use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
 #[derive(Clone, Debug)]
 pub struct Spanner {
     pub(crate) channels: Vec<Channel>,
-    pub(crate) counter: std::sync::Arc<AtomicUsize>,
+    pub(crate) counter: Arc<AtomicUsize>,
     pub(crate) config: ClientConfig,
     pub(crate) is_emulator: bool,
     pub(crate) instance_type: InstanceType,
@@ -81,12 +82,28 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
             }
         }
 
-        if config
+        let is_plaintext = config
             .endpoint
-            .as_ref()
-            .is_some_and(|ep| is_plaintext_endpoint(ep))
-            && config.cred.is_none()
-        {
+            .as_deref()
+            .is_some_and(is_plaintext_endpoint);
+
+        if let Some(tls_config) = config.extensions.get::<TlsConfig>() {
+            tls_config.validate().map_err(BuilderError::transport)?;
+            if is_plaintext && tls_config.has_custom_certificates() {
+                return Err(BuilderError::transport(TlsError::PlaintextWithTls));
+            }
+            if let Some(tonic_tls) = tls_config.to_tonic_client_tls_config() {
+                config.extensions.insert(tonic_tls);
+            }
+        }
+
+        let instance_type = config
+            .extensions
+            .get::<InstanceType>()
+            .copied()
+            .unwrap_or_default();
+
+        if (instance_type == InstanceType::Omni || is_plaintext) && config.cred.is_none() {
             config.cred = Some(anonymous::Builder::new().build());
         }
 
@@ -100,15 +117,9 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
             channels.push(Channel::create(&config).await?);
         }
 
-        let instance_type = config
-            .extensions
-            .get::<InstanceType>()
-            .copied()
-            .unwrap_or_default();
-
         Ok(Spanner {
             channels,
-            counter: std::sync::Arc::new(AtomicUsize::new(0)),
+            counter: Arc::new(AtomicUsize::new(0)),
             config,
             is_emulator,
             instance_type,
@@ -136,11 +147,35 @@ pub trait SpannerBuilderExt {
     /// # Ok(()) }
     /// ```
     fn with_instance_type(self, instance_type: InstanceType) -> Self;
+
+    /// Configures custom TLS or mutual TLS (mTLS) settings for Spanner Omni.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner::client::{Spanner, SpannerBuilderExt};
+    /// # use google_cloud_spanner::omni::TlsConfig;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let tls_config = TlsConfig::new()
+    ///     .with_root_certificate_file("path/to/ca.pem")?;
+    /// let client = Spanner::builder()
+    ///     .with_omni_tls(tls_config)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// Calling this method automatically configures the client instance type as `InstanceType::Omni`.
+    fn with_omni_tls(self, tls_config: TlsConfig) -> Self;
 }
 
 impl SpannerBuilderExt for ClientBuilder {
     fn with_instance_type(self, instance_type: InstanceType) -> Self {
         self.with_extension(instance_type)
+    }
+
+    fn with_omni_tls(self, tls_config: TlsConfig) -> Self {
+        self.with_extension(InstanceType::Omni)
+            .with_extension(tls_config)
     }
 }
 
