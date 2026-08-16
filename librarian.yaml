@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.37.1-0.20260814214806-54acc4445345
+version: v0.37.1-0.20260816153656-85d1716233af
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
@@ -1191,7 +1191,7 @@ libraries:
     rust:
       documentation_overrides:
         - id: .google.cloud.orgpolicy.v1.Policy.ListPolicy
-          match: "Ancestry subtrees must be in one of the following formats:"
+          match: 'Ancestry subtrees must be in one of the following formats:'
           replace: " \nAncestry subtrees must be in one of the following formats:"
         - id: .google.cloud.orgpolicy.v1.Policy.ListPolicy
           match: The `supports_under` field of the associated `Constraint`  defines whether
@@ -1592,10 +1592,10 @@ libraries:
           include_grpc_only_methods: true
           name_overrides: .google.storage.control.v2.IntelligenceConfig.Filter.cloud_storage_buckets=CloudStorageBucketsOneOf,.google.storage.control.v2.IntelligenceConfig.Filter.cloud_storage_locations=CloudStorageLocationsOneOf
           output: src/storage/src/generated/gapic_control
-          skipped_ids:
-            - .google.storage.control.v2.ObjectFullContext.extended_data
           routing_required: true
           service_config: google/storage/control/v2/storage_v2.yaml
+          skipped_ids:
+            - .google.storage.control.v2.ObjectFullContext.extended_data
           api_path: google/storage/control/v2
           template: grpc-client
         - output: src/storage/src/generated/protos/control
