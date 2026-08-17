@@ -26,7 +26,7 @@ mod tests {
     use grpc_server::{google, start_echo_server};
     use pretty_assertions::assert_eq;
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[tokio::test]
     async fn default_endpoint() -> anyhow::Result<()> {
         // Arrange
         let (endpoint, _server) = start_echo_server().await?;
