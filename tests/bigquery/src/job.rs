@@ -106,7 +106,6 @@ async fn cleanup_stale_jobs(client: &JobService, project_id: &str) -> Result<()>
 
     println!("found {} stale test jobs", pending_deletion.len());
 
-    use futures::StreamExt;
     futures::stream::iter(pending_deletion).buffer_unordered(10).collect::<Vec<_>>().await;
     Ok(())
 }
