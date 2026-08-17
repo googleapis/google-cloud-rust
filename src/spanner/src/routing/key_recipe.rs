@@ -51,21 +51,72 @@ pub(crate) fn encode_key_from_recipe(recipe: &KeyRecipe, values: &[Value]) -> Re
     Ok(buffer)
 }
 
-/// Encodes a Spanner routing key from a [`KeyRecipe`] and a slice of column [`Value`]s directly
-/// into an existing output buffer.
+/// Trait abstracting over typed [`Value`] and raw JSON [`serde_json::Value`] for recipe encoding.
+pub(crate) trait RecipeValue: Sized {
+    /// Resolves nested struct fields based on `struct_identifiers`.
+    fn resolve_field(&self, struct_identifiers: &[i32]) -> Result<&Self>;
+
+    /// Encodes this value according to the recipe part specification.
+    fn encode_into(&self, buffer: &mut Vec<u8>, part: &Part) -> Result<()>;
+}
+
+impl RecipeValue for Value {
+    fn resolve_field(&self, struct_identifiers: &[i32]) -> Result<&Self> {
+        resolve_struct_field(self, struct_identifiers)
+    }
+
+    fn encode_into(&self, buffer: &mut Vec<u8>, part: &Part) -> Result<()> {
+        encode_part(buffer, part, self)
+    }
+}
+
+impl RecipeValue for serde_json::Value {
+    fn resolve_field(&self, struct_identifiers: &[i32]) -> Result<&Self> {
+        resolve_struct_field_json(self, struct_identifiers)
+    }
+
+    fn encode_into(&self, buffer: &mut Vec<u8>, part: &Part) -> Result<()> {
+        encode_json_part(buffer, part, self)
+    }
+}
+
+enum PreambleResult {
+    Handled,
+    ValuePart,
+}
+
+/// Encodes composite tags, random sharding tags, or literal constant parts if present.
+fn encode_recipe_part_preamble(part: &Part, buffer: &mut Vec<u8>) -> Result<PreambleResult> {
+    if part.tag != 0 {
+        ssformat::append_composite_tag(buffer, part.tag)?;
+        return Ok(PreambleResult::Handled);
+    }
+    if part.random() == Some(&true) {
+        let decreasing = matches!(part.order, Order::Descending);
+        encode_random_part(buffer, part, decreasing)?;
+        return Ok(PreambleResult::Handled);
+    }
+    if let Some(constant_val) = part.value() {
+        let resolved_value = resolve_struct_field_json(constant_val, &part.struct_identifiers)?;
+        encode_json_part(buffer, part, resolved_value)?;
+        return Ok(PreambleResult::Handled);
+    }
+    Ok(PreambleResult::ValuePart)
+}
+
+/// Generic encoder from a positional slice of values into `buffer`.
 ///
-/// This avoids new `Vec<u8>` heap allocations when callers reuse a scratch buffer across RPCs
-/// on the Spanner Omni hot path.
-///
-/// # Caller Fallback Contract
-/// If encoding returns an error (for example, due to an unsupported key column type like `NUMERIC`
-/// or `FLOAT32`), callers (`LocationRouter` / `DatabaseClient`) MUST catch the error and silently
-/// fall back to default routing (without tablet affinity) rather than failing the user's RPC.
-pub(crate) fn encode_key_from_recipe_into(
+/// Iterates sequentially through each part of the recipe:
+/// 1. Validates the recipe structure (non-empty and starting with a table or index tag).
+/// 2. Evaluates the preamble for each part (composite tags, random root tags, or constant literals).
+/// 3. For column value parts, draws the next value positionally from `values` and encodes it.
+/// 4. If any step fails, restores `buffer` to its initial length before returning the error.
+fn encode_key_from_slice_into<V: RecipeValue>(
     recipe: &KeyRecipe,
-    values: &[Value],
+    values: &[V],
     buffer: &mut Vec<u8>,
 ) -> Result<()> {
+    // 1. Validate recipe structure.
     if recipe.part.is_empty() {
         return Err(internal_error(
             "Invalid KeyRecipe: must have at least one part",
@@ -81,41 +132,19 @@ pub(crate) fn encode_key_from_recipe_into(
     let mut values_iter = values.iter();
 
     for part in &recipe.part {
-        if part.tag != 0 {
-            if let Err(e) = ssformat::append_composite_tag(buffer, part.tag) {
+        // 2. Handle composite tags, random sharding tags, or constant JSON literals.
+        match encode_recipe_part_preamble(part, buffer) {
+            Ok(PreambleResult::Handled) => continue,
+            Ok(PreambleResult::ValuePart) => {}
+            Err(error) => {
                 buffer.truncate(initial_len);
-                return Err(e);
+                return Err(error);
             }
-            continue;
         }
 
-        if part.random() == Some(&true) {
-            let decreasing = matches!(part.order, Order::Descending);
-            if let Err(e) = encode_random_part(buffer, part, decreasing) {
-                buffer.truncate(initial_len);
-                return Err(e);
-            }
-            continue;
-        }
-
-        if let Some(constant_val) = part.value() {
-            let resolved_value =
-                match resolve_struct_field_json(constant_val, &part.struct_identifiers) {
-                    Ok(v) => v,
-                    Err(e) => {
-                        buffer.truncate(initial_len);
-                        return Err(e);
-                    }
-                };
-            if let Err(e) = encode_json_part(buffer, part, resolved_value) {
-                buffer.truncate(initial_len);
-                return Err(e);
-            }
-            continue;
-        }
-
+        // 3. Take the next value positionally for this column part.
         let value = match values_iter.next() {
-            Some(v) => v,
+            Some(value) => value,
             None => {
                 buffer.truncate(initial_len);
                 return Err(internal_error(
@@ -124,13 +153,30 @@ pub(crate) fn encode_key_from_recipe_into(
             }
         };
 
-        if let Err(e) = encode_part(buffer, part, value) {
+        // 4. Encode the value according to the part's type, sort order, and null ordering.
+        if let Err(error) = value.encode_into(buffer, part) {
             buffer.truncate(initial_len);
-            return Err(e);
+            return Err(error);
         }
     }
 
     Ok(())
+}
+
+/// Encodes a Spanner routing key from a [`KeyRecipe`] and key values directly into an existing output buffer.
+///
+/// This avoids new heap allocations when callers reuse a scratch buffer across RPCs on hot paths.
+///
+/// # Caller Fallback Contract
+/// If encoding returns an error (for example, due to an unsupported key column type like `NUMERIC`
+/// or `FLOAT32`), callers (`LocationRouter` / `DatabaseClient`) MUST catch the error and silently
+/// fall back to default routing (without tablet affinity) rather than failing the user's RPC.
+pub(crate) fn encode_key_from_recipe_into(
+    recipe: &KeyRecipe,
+    values: &[Value],
+    buffer: &mut Vec<u8>,
+) -> Result<()> {
+    encode_key_from_slice_into(recipe, values, buffer)
 }
 
 /// Encodes a Spanner routing key (`Vec<u8>`) from a SQL [`KeyRecipe`] and query parameters.
@@ -188,24 +234,150 @@ pub(crate) fn encode_key_from_query_params_into(
     let initial_len = buffer.len();
 
     for part in &recipe.part {
-        // In Spanner's KeyRecipe proto definition, `tag` is a u32:
-        // - Non-zero tag (> 0): composite tag identifying the table or index prefix namespace.
-        // - Zero tag (== 0): key column value to be extracted from query parameters and encoded.
-        if part.tag != 0 {
-            if let Err(e) = ssformat::append_composite_tag(buffer, part.tag) {
+        match encode_recipe_part_preamble(part, buffer) {
+            Ok(PreambleResult::Handled) => continue,
+            Ok(PreambleResult::ValuePart) => {}
+            Err(error) => {
                 buffer.truncate(initial_len);
-                return Err(e);
+                return Err(error);
             }
-            continue;
         }
 
-        if let Err(e) = encode_query_part(buffer, part, params) {
+        if let Err(error) = encode_query_part(buffer, part, params) {
             buffer.truncate(initial_len);
-            return Err(e);
+            return Err(error);
         }
     }
 
     Ok(())
+}
+
+/// Generic encoder matching key column identifiers against column names and encoding values into `buffer`.
+///
+/// Evaluates each part of the recipe in order:
+/// 1. Validates the recipe structure (non-empty and starting with a table or index tag).
+/// 2. Evaluates the preamble for each part (composite tags, random root tags, or constant literals).
+/// 3. Looks up the column name in `columns` case-insensitively using the recipe part's identifier.
+/// 4. Retrieves the corresponding value from `values` at the resolved column index.
+/// 5. Drills down into nested struct fields if `part.struct_identifiers` is present.
+/// 6. Encodes the resolved value into `buffer` (handling sort order and null ordering).
+/// 7. If any step fails, restores `buffer` to its initial length before returning the error.
+fn encode_key_from_column_values_into<V: RecipeValue>(
+    recipe: &KeyRecipe,
+    columns: &[impl AsRef<str>],
+    values: &[V],
+    buffer: &mut Vec<u8>,
+) -> Result<()> {
+    // 1. Validate recipe structure.
+    if recipe.part.is_empty() {
+        return Err(internal_error(
+            "Invalid KeyRecipe: must have at least one part",
+        ));
+    }
+    if recipe.part[0].tag == 0 {
+        return Err(internal_error(
+            "Invalid KeyRecipe: must start with a table or index tag",
+        ));
+    }
+
+    let initial_len = buffer.len();
+
+    for part in &recipe.part {
+        // 2. Handle composite tags, random sharding tags, or constant JSON literals.
+        match encode_recipe_part_preamble(part, buffer) {
+            Ok(PreambleResult::Handled) => continue,
+            Ok(PreambleResult::ValuePart) => {}
+            Err(error) => {
+                buffer.truncate(initial_len);
+                return Err(error);
+            }
+        }
+
+        // 3. Extract the column identifier specified by this key recipe part.
+        let identifier = match part.identifier() {
+            Some(id) => id,
+            None => {
+                buffer.truncate(initial_len);
+                return Err(internal_error(
+                    "Invalid KeyRecipe part: missing column identifier",
+                ));
+            }
+        };
+
+        // 4. Find the column position in the mutation columns (case-insensitive matching).
+        let column_index = match columns
+            .iter()
+            .position(|column| column.as_ref().eq_ignore_ascii_case(identifier))
+        {
+            Some(index) => index,
+            None => {
+                buffer.truncate(initial_len);
+                return Err(internal_error(format!(
+                    "Missing key column '{identifier}' in mutation columns"
+                )));
+            }
+        };
+
+        // 5. Retrieve the value corresponding to the matched column.
+        let column_value = match values.get(column_index) {
+            Some(value) => value,
+            None => {
+                buffer.truncate(initial_len);
+                return Err(internal_error(format!(
+                    "Missing value at column index {column_index} for key column '{identifier}'"
+                )));
+            }
+        };
+
+        // 6. Traverse into nested struct fields if struct_identifiers path is specified.
+        let resolved_value = match column_value.resolve_field(&part.struct_identifiers) {
+            Ok(value) => value,
+            Err(error) => {
+                buffer.truncate(initial_len);
+                return Err(error);
+            }
+        };
+
+        // 7. Encode the resolved value into the buffer according to type, order, and null ordering.
+        if let Err(error) = resolved_value.encode_into(buffer, part) {
+            buffer.truncate(initial_len);
+            return Err(error);
+        }
+    }
+
+    Ok(())
+}
+
+/// Encodes a Spanner routing key from a [`KeyRecipe`], a column name slice, and row [`Value`]s.
+///
+/// Matches key column identifiers against mutation columns case-insensitively and encodes
+/// the resulting primary key into `buffer`.
+pub(crate) fn encode_key_from_columns_and_values_into(
+    recipe: &KeyRecipe,
+    columns: &[impl AsRef<str>],
+    values: &[Value],
+    buffer: &mut Vec<u8>,
+) -> Result<()> {
+    encode_key_from_column_values_into(recipe, columns, values, buffer)
+}
+
+/// Encodes a Spanner routing key from a [`KeyRecipe`], a column name slice, and row [`serde_json::Value`]s.
+pub(crate) fn encode_key_from_json_columns_and_values_into(
+    recipe: &KeyRecipe,
+    columns: &[impl AsRef<str>],
+    values: &[serde_json::Value],
+    buffer: &mut Vec<u8>,
+) -> Result<()> {
+    encode_key_from_column_values_into(recipe, columns, values, buffer)
+}
+
+/// Encodes a Spanner routing key from a [`KeyRecipe`] and a slice of raw [`serde_json::Value`]s.
+pub(crate) fn encode_key_from_json_recipe_into(
+    recipe: &KeyRecipe,
+    values: &[serde_json::Value],
+    buffer: &mut Vec<u8>,
+) -> Result<()> {
+    encode_key_from_slice_into(recipe, values, buffer)
 }
 
 /// Evaluates a single query recipe part against query parameters and appends it to `buffer`.
@@ -214,24 +386,7 @@ fn encode_query_part(
     part: &Part,
     params: &BTreeMap<String, Value>,
 ) -> Result<()> {
-    let decreasing = matches!(part.order, Order::Descending);
-
-    // 1. Random partition root tag:
-    // In Spanner tables/queries with distributed random root sharding, the client router
-    // generates a pseudo-random positive 63-bit integer to pick a candidate root tablet.
-    if part.random() == Some(&true) {
-        return encode_random_part(buffer, part, decreasing);
-    }
-
-    // 2. Constant literal value:
-    // Some recipes embed hardcoded literal constants directly in the schema definition.
-    // Borrows directly from &serde_json::Value with zero allocations and full 64-bit integer precision.
-    if let Some(constant_val) = part.value() {
-        let resolved_value = resolve_struct_field_json(constant_val, &part.struct_identifiers)?;
-        return encode_json_part(buffer, part, resolved_value);
-    }
-
-    // 3. Resolve root parameter by identifier (case-insensitive lookup matching Spanner SQL semantics):
+    // 1. Resolve root parameter by identifier (case-insensitive lookup matching Spanner SQL semantics):
     let identifier = part
         .identifier()
         .ok_or_else(|| internal_error("Invalid KeyRecipe part: missing parameter identifier"))?;
@@ -242,10 +397,10 @@ fn encode_query_part(
         ))
     })?;
 
-    // 4. Drill down into nested struct fields if struct_identifiers is present:
+    // 2. Drill down into nested struct fields if struct_identifiers is present:
     let resolved_value = resolve_struct_field(param_value, &part.struct_identifiers)?;
 
-    // 5. Encode the resolved column value (handling sort order, null ordering, and type serialization):
+    // 3. Encode the resolved column value (handling sort order, null ordering, and type serialization):
     encode_part(buffer, part, resolved_value)
 }
 
@@ -308,14 +463,62 @@ fn encode_json_part(buffer: &mut Vec<u8>, part: &Part, value: &serde_json::Value
 
     match *type_code {
         TypeCode::Bool => encode_json_bool_part(buffer, value, decreasing),
-        TypeCode::Int64 => encode_json_int64_part(buffer, value, decreasing),
+        TypeCode::Int64 | TypeCode::Enum => encode_json_int64_part(buffer, value, decreasing),
         TypeCode::Float64 => encode_json_float64_part(buffer, value, decreasing),
         TypeCode::String => encode_json_string_part(buffer, value, decreasing),
         TypeCode::Bytes => encode_json_bytes_part(buffer, value, decreasing),
+        TypeCode::Date => encode_json_date_part(buffer, value, decreasing),
+        TypeCode::Timestamp => encode_json_timestamp_part(buffer, value, decreasing),
+        TypeCode::Uuid => encode_json_uuid_part(buffer, value, decreasing),
         ref other => Err(internal_error(format!(
             "Unsupported TypeCode {other:?} for key recipe encoding",
         ))),
     }
+}
+
+/// Helper to extract a string value from a [`serde_json::Value`] and parse it.
+fn encode_json_parsed_string<T>(
+    value: &serde_json::Value,
+    type_name: &str,
+    parse: impl FnOnce(&str) -> Result<T>,
+) -> Result<T> {
+    let string_value = value.as_str().ok_or_else(|| {
+        internal_error(format!(
+            "Type mismatch: expected String value for {type_name} column"
+        ))
+    })?;
+    parse(string_value)
+}
+
+/// Evaluates a date constant JSON value (`DATE`).
+fn encode_json_date_part(
+    buffer: &mut Vec<u8>,
+    value: &serde_json::Value,
+    decreasing: bool,
+) -> Result<()> {
+    let days_since_epoch = encode_json_parsed_string(value, "DATE", temporal::parse_date_days)?;
+    append_int64_ordered(buffer, days_since_epoch, decreasing)
+}
+
+/// Evaluates a timestamp constant JSON value (`TIMESTAMP`).
+fn encode_json_timestamp_part(
+    buffer: &mut Vec<u8>,
+    value: &serde_json::Value,
+    decreasing: bool,
+) -> Result<()> {
+    let timestamp_bytes =
+        encode_json_parsed_string(value, "TIMESTAMP", temporal::parse_timestamp_bytes)?;
+    append_bytes_ordered(buffer, &timestamp_bytes, decreasing)
+}
+
+/// Evaluates a UUID constant JSON value (`UUID`).
+fn encode_json_uuid_part(
+    buffer: &mut Vec<u8>,
+    value: &serde_json::Value,
+    decreasing: bool,
+) -> Result<()> {
+    let uuid_bytes = encode_json_parsed_string(value, "UUID", uuid::parse_uuid_bytes)?;
+    append_bytes_ordered(buffer, &uuid_bytes, decreasing)
 }
 
 /// Evaluates a boolean constant JSON value (`BOOL`).
@@ -566,9 +769,9 @@ fn encode_int64_part(buffer: &mut Vec<u8>, value: &Value, decreasing: bool) -> R
     let string_value = value.try_as_string().ok_or_else(|| {
         internal_error("Type mismatch: expected String value for INT64 or ENUM column")
     })?;
-    let integer_value = string_value.parse::<i64>().map_err(|e| {
+    let integer_value = string_value.parse::<i64>().map_err(|error| {
         internal_error(format!(
-            "Failed to parse Int64 from string '{string_value}': {e}"
+            "Failed to parse Int64 from string '{string_value}': {error}"
         ))
     })?;
     append_int64_ordered(buffer, integer_value, decreasing)
@@ -577,7 +780,7 @@ fn encode_int64_part(buffer: &mut Vec<u8>, value: &Value, decreasing: bool) -> R
 /// Evaluates a floating-point column value (`FLOAT64`).
 fn encode_float64_part(buffer: &mut Vec<u8>, value: &Value, decreasing: bool) -> Result<()> {
     if let Some(string_value) = value.try_as_string() {
-        let num = match string_value {
+        let number = match string_value {
             "NaN" => f64::NAN,
             "Infinity" => f64::INFINITY,
             "-Infinity" => f64::NEG_INFINITY,
@@ -587,12 +790,12 @@ fn encode_float64_part(buffer: &mut Vec<u8>, value: &Value, decreasing: bool) ->
                 )));
             }
         };
-        return append_double_ordered(buffer, num, decreasing);
+        return append_double_ordered(buffer, number, decreasing);
     }
-    let num = value.try_as_f64().ok_or_else(|| {
+    let number = value.try_as_f64().ok_or_else(|| {
         internal_error("Type mismatch: expected Number or special String value for FLOAT64 column")
     })?;
-    append_double_ordered(buffer, num, decreasing)
+    append_double_ordered(buffer, number, decreasing)
 }
 
 /// Evaluates a string column value (`STRING`).
@@ -609,12 +812,12 @@ fn encode_bytes_part(buffer: &mut Vec<u8>, value: &Value, decreasing: bool) -> R
         internal_error("Type mismatch: expected base64 String value for BYTES column")
     })?;
     let mut stack_buffer = [0u8; 512];
-    if let Ok(len) = BASE64_STANDARD.decode_slice(string_value, &mut stack_buffer) {
-        return append_bytes_ordered(buffer, &stack_buffer[..len], decreasing);
+    if let Ok(length) = BASE64_STANDARD.decode_slice(string_value, &mut stack_buffer) {
+        return append_bytes_ordered(buffer, &stack_buffer[..length], decreasing);
     }
-    let bytes_value = BASE64_STANDARD.decode(string_value).map_err(|e| {
+    let bytes_value = BASE64_STANDARD.decode(string_value).map_err(|error| {
         internal_error(format!(
-            "Failed to decode base64 Bytes from string '{string_value}': {e}"
+            "Failed to decode base64 Bytes from string '{string_value}': {error}"
         ))
     })?;
     append_bytes_ordered(buffer, &bytes_value, decreasing)
@@ -2304,5 +2507,397 @@ mod tests {
                 .contains("TypeCode::Unspecified is not permitted"),
             "unexpected error: {error}"
         );
+    }
+
+    #[test]
+    fn json_encoders_all_types_valid_and_invalid() {
+        // Int64 from string and number
+        let int64_part = Part::new()
+            .set_order(Order::Ascending)
+            .set_null_order(NullOrder::NotNull)
+            .set_type(Type::default().set_code(TypeCode::Int64));
+        let mut buffer = Vec::new();
+        encode_json_part(&mut buffer, &int64_part, &serde_json::json!("12345"))
+            .expect("int64 from string should succeed");
+        encode_json_part(&mut buffer, &int64_part, &serde_json::json!(67890))
+            .expect("int64 from number should succeed");
+        let error = encode_json_part(&mut buffer, &int64_part, &serde_json::json!(true))
+            .expect_err("int64 from bool should fail");
+        assert!(error.to_string().contains("expected String or Integer"));
+
+        // Bool
+        let bool_part = Part::new()
+            .set_order(Order::Ascending)
+            .set_null_order(NullOrder::NotNull)
+            .set_type(Type::default().set_code(TypeCode::Bool));
+        buffer.clear();
+        encode_json_part(&mut buffer, &bool_part, &serde_json::json!(true))
+            .expect("bool true should succeed");
+        let error = encode_json_part(&mut buffer, &bool_part, &serde_json::json!("not_a_bool"))
+            .expect_err("bool from string should fail");
+        assert!(error.to_string().contains("expected Bool"));
+
+        // Date
+        let date_part = Part::new()
+            .set_order(Order::Ascending)
+            .set_null_order(NullOrder::NotNull)
+            .set_type(Type::default().set_code(TypeCode::Date));
+        buffer.clear();
+        encode_json_part(&mut buffer, &date_part, &serde_json::json!("2026-08-17"))
+            .expect("valid date string should succeed");
+        let error = encode_json_part(&mut buffer, &date_part, &serde_json::json!("invalid-date"))
+            .expect_err("invalid date string should fail");
+        assert!(error.to_string().contains("Failed to parse DATE"));
+        let error = encode_json_part(&mut buffer, &date_part, &serde_json::json!(123))
+            .expect_err("date from number should fail");
+        assert!(error.to_string().contains("expected String value for DATE"));
+
+        // Timestamp
+        let timestamp_part = Part::new()
+            .set_order(Order::Ascending)
+            .set_null_order(NullOrder::NotNull)
+            .set_type(Type::default().set_code(TypeCode::Timestamp));
+        buffer.clear();
+        encode_json_part(
+            &mut buffer,
+            &timestamp_part,
+            &serde_json::json!("2026-08-17T12:00:00Z"),
+        )
+        .expect("valid timestamp string should succeed");
+        let error = encode_json_part(
+            &mut buffer,
+            &timestamp_part,
+            &serde_json::json!("invalid-timestamp"),
+        )
+        .expect_err("invalid timestamp string should fail");
+        assert!(error.to_string().contains("Failed to parse TIMESTAMP"));
+        let error = encode_json_part(&mut buffer, &timestamp_part, &serde_json::json!(123))
+            .expect_err("timestamp from number should fail");
+        assert!(
+            error
+                .to_string()
+                .contains("expected String value for TIMESTAMP")
+        );
+
+        // Uuid
+        let uuid_part = Part::new()
+            .set_order(Order::Ascending)
+            .set_null_order(NullOrder::NotNull)
+            .set_type(Type::default().set_code(TypeCode::Uuid));
+        buffer.clear();
+        encode_json_part(
+            &mut buffer,
+            &uuid_part,
+            &serde_json::json!("123e4567-e89b-12d3-a456-426614174000"),
+        )
+        .expect("valid uuid string should succeed");
+        let error = encode_json_part(&mut buffer, &uuid_part, &serde_json::json!("invalid-uuid"))
+            .expect_err("invalid uuid string should fail");
+        assert!(error.to_string().contains("Invalid UUID string"));
+        let error = encode_json_part(&mut buffer, &uuid_part, &serde_json::json!(123))
+            .expect_err("uuid from number should fail");
+        assert!(error.to_string().contains("expected String value for UUID"));
+
+        // Enum
+        let enum_part = Part::new()
+            .set_order(Order::Ascending)
+            .set_null_order(NullOrder::NotNull)
+            .set_type(Type::default().set_code(TypeCode::Enum));
+        buffer.clear();
+        encode_json_part(&mut buffer, &enum_part, &serde_json::json!("42"))
+            .expect("enum from string should succeed");
+        encode_json_part(&mut buffer, &enum_part, &serde_json::json!(42))
+            .expect("enum from number should succeed");
+        let error = encode_json_part(&mut buffer, &enum_part, &serde_json::json!("invalid_enum"))
+            .expect_err("invalid enum string should fail");
+        assert!(
+            error
+                .to_string()
+                .contains("Failed to parse Int64 from string")
+        );
+        let error = encode_json_part(&mut buffer, &enum_part, &serde_json::json!(true))
+            .expect_err("enum from bool should fail");
+        assert!(error.to_string().contains("expected String or Integer"));
+
+        // Float64
+        let float64_part = Part::new()
+            .set_order(Order::Ascending)
+            .set_null_order(NullOrder::NotNull)
+            .set_type(Type::default().set_code(TypeCode::Float64));
+        buffer.clear();
+        encode_json_part(&mut buffer, &float64_part, &serde_json::json!(123.456))
+            .expect("float64 number should succeed");
+        encode_json_part(&mut buffer, &float64_part, &serde_json::json!("NaN"))
+            .expect("float64 NaN string should succeed");
+        encode_json_part(&mut buffer, &float64_part, &serde_json::json!("Infinity"))
+            .expect("float64 Infinity string should succeed");
+        encode_json_part(&mut buffer, &float64_part, &serde_json::json!("-Infinity"))
+            .expect("float64 -Infinity string should succeed");
+        let error = encode_json_part(&mut buffer, &float64_part, &serde_json::json!("invalid"))
+            .expect_err("invalid float string should fail");
+        assert!(
+            error
+                .to_string()
+                .contains("Type mismatch: invalid FLOAT64 string")
+        );
+        let error = encode_json_part(&mut buffer, &float64_part, &serde_json::json!(true))
+            .expect_err("float from bool should fail");
+        assert!(
+            error
+                .to_string()
+                .contains("expected Number or special String")
+        );
+
+        // String
+        let string_part = Part::new()
+            .set_order(Order::Ascending)
+            .set_null_order(NullOrder::NotNull)
+            .set_type(Type::default().set_code(TypeCode::String));
+        buffer.clear();
+        encode_json_part(&mut buffer, &string_part, &serde_json::json!("hello"))
+            .expect("string should succeed");
+        let error = encode_json_part(&mut buffer, &string_part, &serde_json::json!(123))
+            .expect_err("string from number should fail");
+        assert!(error.to_string().contains("expected String value"));
+
+        // Bytes
+        let bytes_part = Part::new()
+            .set_order(Order::Ascending)
+            .set_null_order(NullOrder::NotNull)
+            .set_type(Type::default().set_code(TypeCode::Bytes));
+        buffer.clear();
+        let short_b64 = BASE64_STANDARD.encode(b"short");
+        encode_json_part(&mut buffer, &bytes_part, &serde_json::json!(short_b64))
+            .expect("short base64 bytes should succeed");
+        let long_bytes = vec![0xABu8; 600];
+        let long_b64 = BASE64_STANDARD.encode(&long_bytes);
+        encode_json_part(&mut buffer, &bytes_part, &serde_json::json!(long_b64))
+            .expect("long base64 bytes should succeed");
+        let error = encode_json_part(
+            &mut buffer,
+            &bytes_part,
+            &serde_json::json!("%%%invalid%%%"),
+        )
+        .expect_err("invalid base64 bytes string should fail");
+        assert!(
+            error
+                .to_string()
+                .contains("Failed to decode base64 Bytes from string")
+        );
+        let error = encode_json_part(&mut buffer, &bytes_part, &serde_json::json!(123))
+            .expect_err("bytes from number should fail");
+        assert!(
+            error
+                .to_string()
+                .contains("expected base64 String value for BYTES")
+        );
+    }
+
+    #[test]
+    fn resolve_struct_field_json_valid_and_errors() {
+        let nested_json =
+            serde_json::json!(["first_field", ["nested_subfield_0", "nested_subfield_1"]]);
+
+        // Empty struct identifiers returns original value
+        let resolved = resolve_struct_field_json(&nested_json, &[])
+            .expect("empty struct identifiers should succeed");
+        assert_eq!(resolved, &nested_json);
+
+        // Path [1, 1] resolves to "nested_subfield_1"
+        let resolved = resolve_struct_field_json(&nested_json, &[1, 1])
+            .expect("nested struct field resolution should succeed");
+        assert_eq!(resolved, &serde_json::json!("nested_subfield_1"));
+
+        // Negative index returns Err
+        let error = resolve_struct_field_json(&nested_json, &[-1])
+            .expect_err("negative struct index should fail");
+        assert!(
+            error
+                .to_string()
+                .contains("Invalid negative struct index -1")
+        );
+
+        // Out of bounds index returns Err
+        let error = resolve_struct_field_json(&nested_json, &[5])
+            .expect_err("out of bounds struct index should fail");
+        assert!(error.to_string().contains("out of bounds"));
+
+        // Non-array JSON value returns Err
+        let scalar_json = serde_json::json!("not_an_array");
+        let error = resolve_struct_field_json(&scalar_json, &[0])
+            .expect_err("struct field on scalar should fail");
+        assert!(
+            error
+                .to_string()
+                .contains("Expected Struct array for struct")
+        );
+    }
+
+    #[test]
+    fn encode_key_from_slice_into_validation_and_errors() {
+        let mut buffer = Vec::new();
+
+        // Empty recipe
+        let empty_recipe = KeyRecipe::new();
+        let error = encode_key_from_slice_into::<Value>(&empty_recipe, &[], &mut buffer)
+            .expect_err("empty recipe should fail");
+        assert!(error.to_string().contains("must have at least one part"));
+
+        // Recipe starting with tag 0
+        let invalid_recipe = KeyRecipe::new().set_part(vec![
+            Part::new().set_type(Type::default().set_code(TypeCode::Int64)),
+        ]);
+        let error = encode_key_from_slice_into::<Value>(&invalid_recipe, &[], &mut buffer)
+            .expect_err("recipe without leading tag should fail");
+        assert!(
+            error
+                .to_string()
+                .contains("must start with a table or index tag")
+        );
+
+        // Not enough values
+        let recipe = sample_recipe(vec![
+            Part::new()
+                .set_order(Order::Ascending)
+                .set_null_order(NullOrder::NotNull)
+                .set_type(Type::default().set_code(TypeCode::Int64)),
+        ]);
+        let values: Vec<Value> = Vec::new();
+        let error = encode_key_from_slice_into(&recipe, &values, &mut buffer)
+            .expect_err("not enough values should fail");
+        assert!(error.to_string().contains("Not enough column values"));
+
+        // Encoding failure rolls back buffer
+        buffer.extend_from_slice(b"prefix");
+        let initial_len = buffer.len();
+        let unsupported_recipe = sample_recipe(vec![
+            Part::new()
+                .set_order(Order::Ascending)
+                .set_null_order(NullOrder::NotNull)
+                .set_type(Type::default().set_code(TypeCode::Array)),
+        ]);
+        let values = vec![Value::null()];
+        let _ = encode_key_from_slice_into(&unsupported_recipe, &values, &mut buffer);
+        assert_eq!(buffer.len(), initial_len);
+    }
+
+    #[test]
+    fn encode_key_from_column_values_into_validation_and_errors() {
+        let mut buffer = Vec::new();
+
+        // Empty recipe
+        let empty_recipe = KeyRecipe::new();
+        let error = encode_key_from_column_values_into::<Value>(
+            &empty_recipe,
+            &["id"],
+            &[1_i64.to_value()],
+            &mut buffer,
+        )
+        .expect_err("empty recipe should fail");
+        assert!(error.to_string().contains("must have at least one part"));
+
+        // Recipe starting with tag 0
+        let invalid_recipe = KeyRecipe::new().set_part(vec![
+            Part::new().set_type(Type::default().set_code(TypeCode::Int64)),
+        ]);
+        let error = encode_key_from_column_values_into::<Value>(
+            &invalid_recipe,
+            &["id"],
+            &[1_i64.to_value()],
+            &mut buffer,
+        )
+        .expect_err("recipe without leading tag should fail");
+        assert!(
+            error
+                .to_string()
+                .contains("must start with a table or index tag")
+        );
+
+        // Missing column identifier in recipe part
+        let no_id_recipe = sample_recipe(vec![
+            Part::new()
+                .set_order(Order::Ascending)
+                .set_null_order(NullOrder::NotNull)
+                .set_type(Type::default().set_code(TypeCode::Int64)),
+        ]);
+        let error = encode_key_from_column_values_into::<Value>(
+            &no_id_recipe,
+            &["id"],
+            &[1_i64.to_value()],
+            &mut buffer,
+        )
+        .expect_err("part missing identifier should fail");
+        assert!(error.to_string().contains("missing column identifier"));
+
+        // Missing column in mutation columns
+        let id_recipe = sample_recipe(vec![
+            Part::new()
+                .set_identifier("user_id")
+                .set_order(Order::Ascending)
+                .set_null_order(NullOrder::NotNull)
+                .set_type(Type::default().set_code(TypeCode::Int64)),
+        ]);
+        let error = encode_key_from_column_values_into::<Value>(
+            &id_recipe,
+            &["wrong_column"],
+            &[1_i64.to_value()],
+            &mut buffer,
+        )
+        .expect_err("missing column in mutation should fail");
+        assert!(
+            error
+                .to_string()
+                .contains("Missing key column 'user_id' in mutation columns")
+        );
+
+        // Missing value at column index
+        let error =
+            encode_key_from_column_values_into::<Value>(&id_recipe, &["user_id"], &[], &mut buffer)
+                .expect_err("missing value at column index should fail");
+        assert!(
+            error
+                .to_string()
+                .contains("Missing value at column index 0")
+        );
+
+        // Struct traversal error
+        let struct_part_recipe = sample_recipe(vec![
+            Part::new()
+                .set_identifier("user_data")
+                .set_struct_identifiers(vec![0])
+                .set_order(Order::Ascending)
+                .set_null_order(NullOrder::NotNull)
+                .set_type(Type::default().set_code(TypeCode::Int64)),
+        ]);
+        let error = encode_key_from_column_values_into::<Value>(
+            &struct_part_recipe,
+            &["user_data"],
+            &[1_i64.to_value()],
+            &mut buffer,
+        )
+        .expect_err("struct traversal on scalar value should fail");
+        assert!(
+            error
+                .to_string()
+                .contains("Expected Struct ListValue for struct parameter traversal")
+        );
+
+        // Encoding failure rolls back buffer
+        buffer.extend_from_slice(b"prefix");
+        let initial_len = buffer.len();
+        let unsupported_recipe = sample_recipe(vec![
+            Part::new()
+                .set_identifier("user_id")
+                .set_order(Order::Ascending)
+                .set_null_order(NullOrder::NotNull)
+                .set_type(Type::default().set_code(TypeCode::Array)),
+        ]);
+        let _ = encode_key_from_column_values_into::<Value>(
+            &unsupported_recipe,
+            &["user_id"],
+            &[Value::null()],
+            &mut buffer,
+        );
+        assert_eq!(buffer.len(), initial_len);
     }
 }
