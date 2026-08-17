@@ -500,6 +500,9 @@ libraries:
             - .google.cloud.bigquery.v2.QueryRequest.format_options
             - .google.cloud.bigquery.v2.GetQueryResultsRequest.format_options
             - .google.cloud.bigquery.v2.QueryRequest.request_id
+            - .google.cloud.bigquery.v2.JobConfigurationQuery.continuous
+            - .google.cloud.bigquery.v2.QueryRequest.write_incremental_results
+            - .google.cloud.bigquery.v2.JobConfigurationQuery.write_incremental_results
             - .google.cloud.bigquery.v2.QueryRequest.kind
             - .google.cloud.bigquery.v2.JobConfiguration.kind
             - .google.cloud.bigquery.v2.JobConfiguration.job_type
