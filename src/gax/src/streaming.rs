@@ -73,10 +73,12 @@ where
         Self::from_fn(move |item| {
             let req_tx = req_tx.clone();
             async move {
-                req_tx
-                    .send(item)
-                    .await
-                    .map_err(|_| crate::error::Error::io("cannot send request: stream is closed"))
+                req_tx.send(item).await.map_err(|_| {
+                    crate::error::Error::io(std::io::Error::new(
+                        std::io::ErrorKind::BrokenPipe,
+                        "cannot send request: stream is closed",
+                    ))
+                })
             }
         })
     }
@@ -105,6 +107,13 @@ impl<Resp> ResponseReceiver<Resp> {
     pub async fn recv(&mut self) -> Option<crate::Result<Resp>> {
         use futures::StreamExt as _;
         self.inner.next().await
+    }
+
+    #[cfg(feature = "unstable-stream")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
+    /// Converts the receiver into an asynchronous [`Stream`][futures::Stream].
+    pub fn into_stream(self) -> impl futures::Stream<Item = crate::Result<Resp>> + Send + Unpin {
+        self.inner
     }
 
     /// Creates a [`ResponseReceiver`] from an asynchronous stream.
@@ -169,6 +178,11 @@ mod tests {
             .await
             .expect_err("send should fail when receiver is dropped");
         assert!(err.is_io());
+        let io_err = err
+            .source()
+            .and_then(|e| e.downcast_ref::<std::io::Error>())
+            .expect("source should be std::io::Error");
+        assert_eq!(io_err.kind(), std::io::ErrorKind::BrokenPipe);
         assert_eq!(
             err.source().map(|e| e.to_string()).as_deref(),
             Some("cannot send request: stream is closed")
@@ -321,6 +335,21 @@ mod tests {
 
         // 5. Stream finished
         assert!(receiver.recv().await.is_none());
+        Ok(())
+    }
+
+    #[cfg(feature = "unstable-stream")]
+    #[tokio::test]
+    async fn response_receiver_into_stream() -> Result<(), Box<dyn std::error::Error>> {
+        use futures::StreamExt as _;
+
+        let stream = futures::stream::iter(vec![Ok("first".to_string()), Ok("second".to_string())]);
+        let receiver = ResponseReceiver::from_stream(stream);
+        let mut stream = receiver.into_stream();
+
+        assert_eq!(stream.next().await.transpose()?.as_deref(), Some("first"));
+        assert_eq!(stream.next().await.transpose()?.as_deref(), Some("second"));
+        assert!(stream.next().await.is_none());
         Ok(())
     }
 }

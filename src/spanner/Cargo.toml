@@ -79,6 +79,7 @@ anyhow.workspace                   = true
 google-cloud-test-macros.workspace = true
 mockall.workspace                  = true
 opentelemetry_sdk                  = { workspace = true, features = ["metrics", "testing"] }
+scoped-env.workspace               = true
 spanner-grpc-mock                  = { path = "grpc-mock" }
 static_assertions.workspace        = true
 tokio                              = { workspace = true, features = ["test-util"] }

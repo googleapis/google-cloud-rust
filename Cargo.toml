@@ -526,8 +526,8 @@ tokio-stream      = { default-features = false, version = "0.1.16" }
 
 # Local packages used as dependencies.
 google-cloud-auth        = { default-features = false, version = "1.15.0", path = "src/auth" }
-google-cloud-gax         = { default-features = false, version = "1.13.0", path = "src/gax" }
-gaxi                     = { default-features = false, version = "0.7.17", path = "src/gax-internal", package = "google-cloud-gax-internal" }
+google-cloud-gax         = { default-features = false, version = "1.14.0", path = "src/gax" }
+gaxi                     = { default-features = false, version = "0.7.18", path = "src/gax-internal", package = "google-cloud-gax-internal" }
 wkt                      = { default-features = false, version = "1.7.0", path = "src/wkt", package = "google-cloud-wkt" }
 google-cloud-wkt         = { default-features = false, version = "1.7.0", path = "src/wkt", package = "google-cloud-wkt" }
 google-cloud-api         = { default-features = false, version = "1.7.0", path = "src/generated/api/types" }
@@ -575,10 +575,10 @@ google-cloud-compute-v1              = { default-features = false, path = "src/g
 google-cloud-storage                 = { default-features = false, path = "src/storage" }
 google-cloud-pubsub                  = { default-features = false, path = "src/pubsub" }
 google-cloud-spanner                 = { default-features = false, path = "src/spanner" }
-google-cloud-bigquery                = { default-features = false, path = "src/bigquery" }
-google-cloud-bigquery-derive         = { default-features = false, path = "src/bigquery-derive" }
-google-cloud-bigquery-v2             = { default-features = false, path = "src/generated/cloud/bigquery/v2" }
-google-cloud-bigquery-write          = { default-features = false, path = "src/bigquery-write" }
+google-cloud-bigquery                = { default-features = false, path = "src/bigquery", version = "0.16.0-preview" }
+google-cloud-bigquery-derive         = { default-features = false, path = "src/bigquery-derive", version = "0.1.0" }
+google-cloud-bigquery-v2             = { default-features = false, path = "src/generated/cloud/bigquery/v2", version = "0.1.0" }
+google-cloud-bigquery-write          = { default-features = false, path = "src/bigquery-write", version = "0.1.0" }
 google-cloud-iam-credentials-v1      = { default-features = false, path = "src/generated/iam/credentials/v1" }
 google-cloud-language-v2             = { default-features = false, path = "src/generated/cloud/language/v2" }
 google-cloud-dns-v1                  = { default-features = false, path = "src/generated/cloud/dns/v1" }

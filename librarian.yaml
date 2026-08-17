@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.37.1-0.20260814004615-cecd47a9776c
+version: v0.37.1-0.20260816173129-01e160eba49a
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
@@ -43,6 +43,12 @@ tools:
       version: 0.4.0
     - name: taplo-cli
       version: 0.10.0
+  protoc:
+    version: "33.2"
+    sha256_by_platform:
+      linux-x86_64: b24b53f87c151bfd48b112fe4c3a6e6574e5198874f38036aff41df3456b8caf
+      osx-aarch_64: 5be1427127788c9f7dd7d606c3e69843dd3587327dea993917ffcb77e7234b44
+      win64: 376770cd4073beb63db56fdd339260edb9957b3c4472e05a75f5f9ec8f98d8f5
 default:
   output: src/generated/
   rust:
@@ -484,7 +490,6 @@ libraries:
     version: 0.16.0-preview
     copyright_year: "2026"
     output: src/bigquery
-    skip_release: true
     rust:
       modules:
         - output: src/bigquery/src/generated
@@ -518,10 +523,9 @@ libraries:
     version: 1.11.0
     copyright_year: "2025"
   - name: google-cloud-bigquery-derive
-    version: 0.1.0-preview
+    version: 0.1.0
     copyright_year: "2026"
     output: src/bigquery-derive
-    skip_release: true
   - name: google-cloud-bigquery-migration-v2
     version: 1.11.0
     copyright_year: "2025"
@@ -533,7 +537,6 @@ libraries:
     copyright_year: "2025"
     keep:
       - src/operation.rs
-    skip_release: true
     rust:
       package_dependencies:
         - name: thiserror
@@ -546,9 +549,9 @@ libraries:
           package: uuid
           force_used: true
   - name: google-cloud-bigquery-write
+    version: 0.1.0
     copyright_year: "2026"
     output: src/bigquery-write
-    skip_release: true
     rust:
       modules:
         - module_path: crate::generated::gapic_storage::model
@@ -904,11 +907,11 @@ libraries:
     version: 1.13.0
     copyright_year: "2025"
   - name: google-cloud-gax
-    version: 1.13.0
+    version: 1.14.0
     copyright_year: "2025"
     output: src/gax
   - name: google-cloud-gax-internal
-    version: 0.7.17
+    version: 0.7.18
     copyright_year: "2025"
     output: src/gax-internal
     rust:
@@ -1505,13 +1508,14 @@ libraries:
     version: 1.17.0
     copyright_year: "2025"
     output: src/storage
-    skip_generate: true
     rust:
       resource_name_heuristic: true
       modules:
         - module_path: crate::generated::gapic_control::model
           name_overrides: .google.storage.control.v2.IntelligenceConfig.Filter.cloud_storage_buckets=CloudStorageBucketsOneOf,.google.storage.control.v2.IntelligenceConfig.Filter.cloud_storage_locations=CloudStorageLocationsOneOf
           output: src/storage/src/generated/convert/control
+          skipped_ids:
+            - .google.storage.control.v2.ObjectFullContext.extended_data
           api_path: google/storage/control/v2
           template: convert-prost
         - module_path: google_cloud_iam_v1::model
@@ -1587,6 +1591,8 @@ libraries:
           output: src/storage/src/generated/gapic_control
           routing_required: true
           service_config: google/storage/control/v2/storage_v2.yaml
+          skipped_ids:
+            - .google.storage.control.v2.ObjectFullContext.extended_data
           api_path: google/storage/control/v2
           template: grpc-client
         - output: src/storage/src/generated/protos/control
