@@ -17,6 +17,7 @@ use crate::model::key_recipe::Part;
 use crate::model::key_recipe::part::{NullOrder, Order};
 use crate::model::{KeyRecipe, Type, TypeCode};
 use crate::value::{ToValue, Value};
+use std::collections::HashMap;
 use std::fs;
 use std::iter::Peekable;
 use std::path::Path;
@@ -128,10 +129,9 @@ fn parse_part_block<'a, I: Iterator<Item = &'a str>>(lines: &mut Peekable<I>) ->
 
     for line in lines.by_ref() {
         let trimmed = line.trim();
-        if trimmed.contains('{') {
+        if trimmed.ends_with('{') {
             depth += 1;
-        }
-        if trimmed == "}" || trimmed.ends_with('}') {
+        } else if trimmed == "}" {
             depth -= 1;
             if depth == 0 {
                 break;
@@ -188,10 +188,9 @@ fn parse_test_block<'a, I: Iterator<Item = &'a str>>(
 
     for line in lines.by_ref() {
         let trimmed = line.trim();
-        if trimmed.contains('{') {
+        if trimmed.ends_with('{') {
             depth += 1;
-        }
-        if trimmed == "}" || trimmed.ends_with('}') {
+        } else if trimmed == "}" {
             depth -= 1;
             if depth == 0 {
                 break;
@@ -245,26 +244,22 @@ fn parse_test_case_block<'a, I: Iterator<Item = &'a str>>(
 
     while let Some(line) = lines.next() {
         let trimmed = line.trim();
-        if !trimmed.starts_with("part {") && !trimmed.starts_with("test {") {
-            if trimmed.contains('{') {
-                depth += 1;
-            }
-            if trimmed == "}" || trimmed.ends_with('}') {
-                depth -= 1;
-                if depth == 0 {
-                    break;
-                }
-            }
-        }
 
         if let Some(n) = extract_value(trimmed, "name:") {
             name = n.to_string();
         } else if trimmed.starts_with("part {") {
             parts.push(parse_part_block(lines));
-        } else if trimmed.starts_with("test {")
-            && let Some(test) = parse_test_block(lines)
-        {
-            tests.push(test);
+        } else if trimmed.starts_with("test {") {
+            if let Some(test) = parse_test_block(lines) {
+                tests.push(test);
+            }
+        } else if trimmed.ends_with('{') {
+            depth += 1;
+        } else if trimmed == "}" {
+            depth -= 1;
+            if depth == 0 {
+                break;
+            }
         }
     }
 
@@ -307,31 +302,45 @@ fn golden_conformance_supported_types() {
         .expect("failed to load Spanner golden testdata from recipe_test.textproto");
 
     let cases = parse_golden_textproto(&textproto);
-    assert!(
-        !cases.is_empty(),
-        "must parse at least one golden test case"
+    assert_eq!(
+        cases.len(),
+        38,
+        "recipe_test.textproto must parse all 38 Spanner golden test cases"
     );
 
-    // Only execute golden conformance tests for data types currently supported by `encode_key_from_recipe`.
-    // Binary ssformat encoding for DATE, TIMESTAMP, UUID, and ENUM is not yet supported and will be
-    // added in subsequent pull requests.
+    // Execute golden conformance tests for all supported key column data types and key structure test cases.
+    // Table mutations, key sets, query parameters, and struct resolution will be enabled in subsequent pull requests.
     let supported_test_prefixes = [
         "DataTypeTest_BOOL",
         "DataTypeTest_INT64",
         "DataTypeTest_FLOAT64",
         "DataTypeTest_STRING",
         "DataTypeTest_BYTES",
+        "DataTypeTest_DATE",
+        "DataTypeTest_TIMESTAMP",
+        "DataTypeTest_UUID",
+        "DataTypeTest_ENUM",
+        "NotNull",
+        "NullsLast",
+        "MultiPart",
+        "Interleaved",
+        "GeneratedKeyColumns",
     ];
+
+    let mut tests_per_prefix: HashMap<&'static str, usize> =
+        supported_test_prefixes.iter().map(|&p| (p, 0)).collect();
 
     let mut executed_tests = 0;
 
-    for case in cases {
-        if !supported_test_prefixes
+    for case in &cases {
+        let matching_prefix = supported_test_prefixes
             .iter()
-            .any(|prefix| case.name.starts_with(prefix))
-        {
+            .copied()
+            .find(|&prefix| case.name.starts_with(prefix));
+
+        let Some(prefix) = matching_prefix else {
             continue;
-        }
+        };
 
         for (index, test) in case.tests.iter().enumerate() {
             // In Spanner's `recipe_test.textproto`, tests marked `approximate: true` represent
@@ -358,11 +367,23 @@ fn golden_conformance_supported_types() {
                 case.name, index, test.start, encoded
             );
             executed_tests += 1;
+            *tests_per_prefix
+                .get_mut(prefix)
+                .expect("matching prefix must exist in prefix counter map") += 1;
         }
     }
 
-    assert!(
-        executed_tests > 20,
-        "Expected to execute over 20 golden tests for supported types, executed {executed_tests}"
+    // Verify that every single supported prefix actually executed tests (prevents dead prefixes).
+    for (prefix, count) in &tests_per_prefix {
+        assert!(
+            *count > 0,
+            "Golden test prefix '{prefix}' was configured as supported but executed 0 tests! \
+             Every supported prefix in the test harness must execute at least one test."
+        );
+    }
+
+    assert_eq!(
+        executed_tests, 86,
+        "Expected exactly 86 golden test vectors for supported types, executed {executed_tests}"
     );
 }

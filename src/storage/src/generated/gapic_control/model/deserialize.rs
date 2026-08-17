@@ -9880,7 +9880,6 @@ impl<'de> serde::de::Deserialize<'de> for super::ObjectFullContext {
             __value,
             __create_time,
             __update_time,
-            __extended_data,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -9908,8 +9907,6 @@ impl<'de> serde::de::Deserialize<'de> for super::ObjectFullContext {
                             "create_time" => Ok(__FieldTag::__create_time),
                             "updateTime" => Ok(__FieldTag::__update_time),
                             "update_time" => Ok(__FieldTag::__update_time),
-                            "extendedData" => Ok(__FieldTag::__extended_data),
-                            "extended_data" => Ok(__FieldTag::__extended_data),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -9980,15 +9977,6 @@ impl<'de> serde::de::Deserialize<'de> for super::ObjectFullContext {
                             }
                             result.update_time =
                                 map.next_value::<std::option::Option<wkt::Timestamp>>()?;
-                        }
-                        __FieldTag::__extended_data => {
-                            if !fields.insert(__FieldTag::__extended_data) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for extended_data",
-                                ));
-                            }
-                            result.extended_data =
-                                map.next_value::<std::option::Option<wkt::Any>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

@@ -28,7 +28,7 @@ use crate::attempt_interceptor::AttemptInterceptor;
 use crate::universe_domain::DEFAULT_UNIVERSE_DOMAIN;
 use ::tonic::client::Grpc;
 use ::tonic::metadata::MetadataMap;
-use ::tonic::transport::{Channel, ClientTlsConfig, Endpoint, Uri, channel::Change};
+use ::tonic::transport::Channel;
 use ::tonic::{Request as TonicRequest, Response as TonicResponse};
 use from_status::to_gax_error;
 use futures::TryFutureExt;
@@ -469,12 +469,16 @@ impl Client {
         universe_domain: &str,
         instrumentation: Option<&'static crate::options::InstrumentationClientInfo>,
     ) -> ClientBuilderResult<(InnerClient, Option<TracingAttributes>)> {
+        use ::tonic::transport::{Channel, channel::Change};
         let endpoint = Self::make_endpoint(
             config.endpoint.clone(),
             default_endpoint,
             universe_domain,
             config.grpc_max_header_list_size,
-            config.extensions.get::<ClientTlsConfig>().cloned(),
+            config
+                .extensions
+                .get::<::tonic::transport::ClientTlsConfig>()
+                .cloned(),
         )
         .await?;
         let (channel, tx) = Channel::balance_channel(
@@ -488,7 +492,7 @@ impl Client {
         }
 
         let default_uri = default_endpoint
-            .parse::<Uri>()
+            .parse::<::tonic::transport::Uri>()
             .map_err(BuilderError::transport)?;
         let default_host = default_uri.host().unwrap_or("").to_string();
 
@@ -520,8 +524,10 @@ impl Client {
         default_endpoint: &str,
         universe_domain: &str,
         grpc_max_header_list_size: Option<u32>,
-        tls_config: Option<ClientTlsConfig>,
-    ) -> ClientBuilderResult<Endpoint> {
+        tls_config: Option<::tonic::transport::ClientTlsConfig>,
+    ) -> ClientBuilderResult<::tonic::transport::Endpoint> {
+        use ::tonic::transport::{ClientTlsConfig, Endpoint};
+
         let service_endpoint = default_endpoint.replace(DEFAULT_UNIVERSE_DOMAIN, universe_domain);
         let origin = crate::host::origin(endpoint.as_deref(), default_endpoint, universe_domain)
             .map_err(|e| e.client_builder())?;
@@ -537,6 +543,10 @@ impl Client {
             endpoint
                 .tls_config(tls_config)
                 .map_err(BuilderError::transport)?
+        } else if tls_config.is_some() {
+            return Err(BuilderError::transport(
+                "cannot configure TLS on non-HTTPS endpoint",
+            ));
         } else {
             endpoint
         };
@@ -579,6 +589,7 @@ where
 mod tests {
     use super::*;
     use crate::options::InstrumentationClientInfo;
+    use ::tonic::transport::ClientTlsConfig;
     use test_case::test_case;
 
     type TestResult = anyhow::Result<()>;
@@ -669,14 +680,30 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn make_endpoint_plaintext_ignores_tls_config() -> TestResult {
+    async fn make_endpoint_plaintext_with_tls_config_fails() {
         let custom_tls = ClientTlsConfig::new().domain_name("custom.domain");
-        let endpoint = Client::make_endpoint(
+        let result = Client::make_endpoint(
             Some("http://localhost:15000".to_string()),
             "https://default.endpoint.com",
             DEFAULT_UNIVERSE_DOMAIN,
             None,
             Some(custom_tls),
+        )
+        .await;
+        assert!(
+            result.is_err(),
+            "expected error when combining plaintext endpoint with TLS configuration"
+        );
+    }
+
+    #[tokio::test]
+    async fn make_endpoint_plaintext_without_tls_config_succeeds() -> TestResult {
+        let endpoint = Client::make_endpoint(
+            Some("http://localhost:15000".to_string()),
+            "https://default.endpoint.com",
+            DEFAULT_UNIVERSE_DOMAIN,
+            None,
+            None,
         )
         .await?;
         assert_eq!(endpoint.uri().to_string(), "http://localhost:15000/");
@@ -696,5 +723,21 @@ mod tests {
             "expected Client::new to succeed with custom TLS extension: {client:?}"
         );
         Ok(())
+    }
+
+    #[tokio::test]
+    async fn client_new_with_tls_extension_and_plaintext_endpoint_fails() {
+        let mut config = crate::options::ClientConfig::default();
+        let custom_tls = ClientTlsConfig::new().domain_name("custom.domain");
+        config.extensions.insert(custom_tls);
+        config.cred = Some(google_cloud_auth::credentials::anonymous::Builder::new().build());
+
+        let err = Client::new(config, "http://localhost:15000")
+            .await
+            .unwrap_err();
+        assert!(
+            err.is_transport(),
+            "expected transport error when building client with plaintext endpoint and TLS extension: {err:?}"
+        );
     }
 }

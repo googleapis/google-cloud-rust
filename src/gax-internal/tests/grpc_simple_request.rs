@@ -37,6 +37,14 @@ mod tests {
         Anonymous::new().build()
     }
 
+    const TEST_CA_PEM: &[u8] = include_bytes!("../../../testdata/tls/ca_cert.pem");
+    const TEST_SERVER_CERT_PEM: &[u8] = include_bytes!("../../../testdata/tls/server_cert.pem");
+    const TEST_SERVER_KEY_PEM: &[u8] = include_bytes!("../../../testdata/tls/server_key.pem");
+
+    fn init_test_crypto_provider() {
+        let _ = rustls::crypto::aws_lc_rs::default_provider().install_default();
+    }
+
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn default_endpoint() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
@@ -473,14 +481,6 @@ mod tests {
         Ok(())
     }
 
-    const TEST_CA_PEM: &[u8] = include_bytes!("../../../testdata/tls/ca_cert.pem");
-    const TEST_SERVER_CERT_PEM: &[u8] = include_bytes!("../../../testdata/tls/server_cert.pem");
-    const TEST_SERVER_KEY_PEM: &[u8] = include_bytes!("../../../testdata/tls/server_key.pem");
-
-    fn init_test_crypto_provider() {
-        let _ = rustls::crypto::aws_lc_rs::default_provider().install_default();
-    }
-
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn tls_custom_root_certificate_succeeds() -> anyhow::Result<()> {
         init_test_crypto_provider();
@@ -570,6 +570,68 @@ mod tests {
             response.is_err(),
             "expected mTLS handshake failure when server requires client certificate"
         );
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn tls_domain_name_mismatch_fails() -> anyhow::Result<()> {
+        init_test_crypto_provider();
+        let server_identity = Identity::from_pem(TEST_SERVER_CERT_PEM, TEST_SERVER_KEY_PEM);
+        let (endpoint, _server) = start_echo_server_with_tls(server_identity).await?;
+
+        // Server certificate SAN is "localhost", client verifies against "unmatched-host.example.com"
+        let root_certificate = Certificate::from_pem(TEST_CA_PEM);
+        let client_tls = ClientTlsConfig::new()
+            .ca_certificate(root_certificate)
+            .domain_name("unmatched-host.example.com");
+
+        let client = builder(&endpoint)
+            .with_credentials(test_credentials())
+            .with_extension(client_tls)
+            .build()
+            .await?;
+
+        let response = send_request(client, "test message", "").await;
+        assert!(
+            response.is_err(),
+            "expected TLS handshake failure when server certificate SAN does not match domain_name"
+        );
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn tls_with_multiple_subchannels_succeeds() -> anyhow::Result<()> {
+        use std::collections::HashSet;
+
+        init_test_crypto_provider();
+        let server_identity = Identity::from_pem(TEST_SERVER_CERT_PEM, TEST_SERVER_KEY_PEM);
+        let (endpoint, _server) = start_echo_server_with_tls(server_identity).await?;
+
+        let root_certificate = Certificate::from_pem(TEST_CA_PEM);
+        let client_tls = ClientTlsConfig::new()
+            .ca_certificate(root_certificate)
+            .domain_name("localhost");
+
+        let mut client_config = ClientConfig::default();
+        client_config.grpc_subchannel_count = Some(16);
+        client_config.extensions.insert(client_tls);
+        client_config.cred = Some(test_credentials());
+
+        let client = grpc::Client::new(client_config, &endpoint).await?;
+
+        // Make sure we can make at least one request.
+        check_simple_request(client.clone()).await?;
+
+        // Verify that multiple requests use different client connection addresses across the subchannel pool.
+        let addresses = futures::future::join_all(
+            (0..32).map(|_| send_request(client.clone(), "test message", "")),
+        )
+        .await
+        .into_iter()
+        .map(|r| r.map(|e| e.client_address))
+        .collect::<google_cloud_gax::Result<HashSet<_>>>()?;
+
+        assert!(addresses.len() > 1, "{addresses:?}");
         Ok(())
     }
 }

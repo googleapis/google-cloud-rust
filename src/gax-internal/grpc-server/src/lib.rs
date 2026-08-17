@@ -67,14 +67,14 @@ pub async fn start_echo_server_with_tls(
 ) -> anyhow::Result<(String, JoinHandle<()>)> {
     let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await?;
     let addr = listener.local_addr()?;
+    let mut server_builder =
+        Server::builder().tls_config(ServerTlsConfig::new().identity(identity))?;
 
     let server = tokio::spawn(async move {
         let echo = Echo;
         let stream = tokio_stream::wrappers::TcpListenerStream::new(listener);
 
-        let _ = Server::builder()
-            .tls_config(ServerTlsConfig::new().identity(identity))
-            .expect("valid server tls config")
+        let _ = server_builder
             .add_service(google::test::v1::echo_service_server::EchoServiceServer::new(echo))
             .serve_with_incoming(stream)
             .await;
@@ -89,18 +89,17 @@ pub async fn start_echo_server_with_mtls(
 ) -> anyhow::Result<(String, JoinHandle<()>)> {
     let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await?;
     let addr = listener.local_addr()?;
+    let mut server_builder = Server::builder().tls_config(
+        ServerTlsConfig::new()
+            .identity(server_identity)
+            .client_ca_root(client_ca_root),
+    )?;
 
     let server = tokio::spawn(async move {
         let echo = Echo;
         let stream = tokio_stream::wrappers::TcpListenerStream::new(listener);
 
-        let _ = Server::builder()
-            .tls_config(
-                ServerTlsConfig::new()
-                    .identity(server_identity)
-                    .client_ca_root(client_ca_root),
-            )
-            .expect("valid server mtls config")
+        let _ = server_builder
             .add_service(google::test::v1::echo_service_server::EchoServiceServer::new(echo))
             .serve_with_incoming(stream)
             .await;
