@@ -34,6 +34,7 @@ also describes the common terminology used with authentication, such as
   - Configure this crate with `default-features = false`, and
     `features = ["idtoken"]`
   - Select the desired backend for `jsonwebtoken`.
+  - You **MUST** use the same major version of `jsonwebtoken` as we do.
 
 [authentication methods at google]: https://cloud.google.com/docs/authentication
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs

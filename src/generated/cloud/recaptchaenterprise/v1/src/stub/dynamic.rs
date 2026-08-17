@@ -95,6 +95,18 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Metrics>>;
 
+    async fn get_policy(
+        &self,
+        req: crate::model::GetPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>>;
+
+    async fn update_policy(
+        &self,
+        req: crate::model::UpdatePolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>>;
+
     async fn create_firewall_policy(
         &self,
         req: crate::model::CreateFirewallPolicyRequest,
@@ -268,6 +280,24 @@ impl<T: super::RecaptchaEnterpriseService> RecaptchaEnterpriseService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Metrics>> {
         T::get_metrics(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_policy(
+        &self,
+        req: crate::model::GetPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>> {
+        T::get_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_policy(
+        &self,
+        req: crate::model::UpdatePolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>> {
+        T::update_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

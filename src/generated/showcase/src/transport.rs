@@ -1786,8 +1786,8 @@ impl super::stub::Echo for Echo {
     #[cfg(google_cloud_unstable_gapic_streaming)]
     async fn chat(
         &self,
-        req: crate::model::EchoRequest,
-        options: crate::RequestOptions,
+        req: std::option::Option<crate::model::EchoRequest>,
+        options: crate::BidiStreamOptions,
     ) -> Result<(
         google_cloud_gax::streaming::RequestSender<crate::model::EchoRequest>,
         google_cloud_gax::streaming::ResponseReceiver<crate::model::EchoResponse>,
@@ -1795,11 +1795,16 @@ impl super::stub::Echo for Echo {
         use futures::stream::StreamExt as _;
         use gaxi::prost::{FromProto, ToProto};
 
+        let req =
+            req.ok_or_else(|| google_cloud_gax::error::Error::binding("a request is required"))?;
+
+        let x_goog_request_params = "";
+
         let first_req = req
             .to_proto()
             .map_err(google_cloud_gax::error::Error::ser)?;
 
-        let (req_tx, req_rx) = tokio::sync::mpsc::channel(16);
+        let (req_tx, req_rx) = tokio::sync::mpsc::channel(options.request_channel_capacity());
 
         let req_stream = futures::stream::once(async move { first_req })
             .chain(tokio_stream::wrappers::ReceiverStream::new(req_rx));
@@ -1813,7 +1818,6 @@ impl super::stub::Echo for Echo {
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.showcase.v1beta1.Echo/Chat");
-        let x_goog_request_params = "";
 
         let result = self.grpc_inner
             .bidi_stream::<
@@ -1823,7 +1827,7 @@ impl super::stub::Echo for Echo {
                 extensions,
                 path,
                 req_stream,
-                options,
+                options.into(),
                 &crate::info::X_GOOG_API_CLIENT_HEADER,
                 x_goog_request_params,
             )
@@ -1837,7 +1841,10 @@ impl super::stub::Echo for Echo {
                         .to_proto()
                         .map_err(google_cloud_gax::error::Error::ser)?;
                     req_tx.send(prost_item).await.map_err(|_| {
-                        google_cloud_gax::error::Error::io("cannot send request: stream is closed")
+                        google_cloud_gax::error::Error::io(std::io::Error::new(
+                            std::io::ErrorKind::BrokenPipe,
+                            "cannot send request: stream is closed",
+                        ))
                     })
                 }
             },
@@ -5033,8 +5040,8 @@ impl super::stub::Messaging for Messaging {
     #[cfg(google_cloud_unstable_gapic_streaming)]
     async fn connect(
         &self,
-        req: crate::model::ConnectRequest,
-        options: crate::RequestOptions,
+        req: std::option::Option<crate::model::ConnectRequest>,
+        options: crate::BidiStreamOptions,
     ) -> Result<(
         google_cloud_gax::streaming::RequestSender<crate::model::ConnectRequest>,
         google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>,
@@ -5042,11 +5049,16 @@ impl super::stub::Messaging for Messaging {
         use futures::stream::StreamExt as _;
         use gaxi::prost::{FromProto, ToProto};
 
+        let req =
+            req.ok_or_else(|| google_cloud_gax::error::Error::binding("a request is required"))?;
+
+        let x_goog_request_params = "";
+
         let first_req = req
             .to_proto()
             .map_err(google_cloud_gax::error::Error::ser)?;
 
-        let (req_tx, req_rx) = tokio::sync::mpsc::channel(16);
+        let (req_tx, req_rx) = tokio::sync::mpsc::channel(options.request_channel_capacity());
 
         let req_stream = futures::stream::once(async move { first_req })
             .chain(tokio_stream::wrappers::ReceiverStream::new(req_rx));
@@ -5061,7 +5073,6 @@ impl super::stub::Messaging for Messaging {
         };
         let path =
             http::uri::PathAndQuery::from_static("/google.showcase.v1beta1.Messaging/Connect");
-        let x_goog_request_params = "";
 
         let result = self.grpc_inner
             .bidi_stream::<
@@ -5071,7 +5082,7 @@ impl super::stub::Messaging for Messaging {
                 extensions,
                 path,
                 req_stream,
-                options,
+                options.into(),
                 &crate::info::X_GOOG_API_CLIENT_HEADER,
                 x_goog_request_params,
             )
@@ -5085,7 +5096,10 @@ impl super::stub::Messaging for Messaging {
                         .to_proto()
                         .map_err(google_cloud_gax::error::Error::ser)?;
                     req_tx.send(prost_item).await.map_err(|_| {
-                        google_cloud_gax::error::Error::io("cannot send request: stream is closed")
+                        google_cloud_gax::error::Error::io(std::io::Error::new(
+                            std::io::ErrorKind::BrokenPipe,
+                            "cannot send request: stream is closed",
+                        ))
                     })
                 }
             },

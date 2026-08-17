@@ -14,7 +14,7 @@
 
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod tests {
-    use bigquery_samples::query;
+    use bigquery_samples::{job, query};
     use google_cloud_test_utils::errors::anydump;
 
     #[tokio::test]
@@ -27,5 +27,10 @@ mod tests {
         query::run_samples_with_resources()
             .await
             .inspect_err(anydump)
+    }
+
+    #[tokio::test]
+    async fn job_samples() -> anyhow::Result<()> {
+        job::run_samples().await.inspect_err(anydump)
     }
 }
