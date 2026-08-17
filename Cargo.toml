@@ -575,10 +575,10 @@ google-cloud-compute-v1              = { default-features = false, path = "src/g
 google-cloud-storage                 = { default-features = false, path = "src/storage" }
 google-cloud-pubsub                  = { default-features = false, path = "src/pubsub" }
 google-cloud-spanner                 = { default-features = false, path = "src/spanner" }
-google-cloud-bigquery                = { default-features = false, path = "src/bigquery" }
-google-cloud-bigquery-derive         = { default-features = false, path = "src/bigquery-derive" }
-google-cloud-bigquery-v2             = { default-features = false, path = "src/generated/cloud/bigquery/v2" }
-google-cloud-bigquery-write          = { default-features = false, path = "src/bigquery-write" }
+google-cloud-bigquery                = { default-features = false, path = "src/bigquery", version = "0.16.0-preview" }
+google-cloud-bigquery-derive         = { default-features = false, path = "src/bigquery-derive", version = "0.1.0" }
+google-cloud-bigquery-v2             = { default-features = false, path = "src/generated/cloud/bigquery/v2", version = "0.1.0" }
+google-cloud-bigquery-write          = { default-features = false, path = "src/bigquery-write", version = "0.1.0" }
 google-cloud-iam-credentials-v1      = { default-features = false, path = "src/generated/iam/credentials/v1" }
 google-cloud-language-v2             = { default-features = false, path = "src/generated/cloud/language/v2" }
 google-cloud-dns-v1                  = { default-features = false, path = "src/generated/cloud/dns/v1" }
