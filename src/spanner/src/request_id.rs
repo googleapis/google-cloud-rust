@@ -86,12 +86,13 @@ impl RequestIdCreator {
 mod tests {
     use super::*;
     use crate::client::Spanner;
+    use crate::observability::Observability;
     use gaxi::grpc::tonic::{Response, Status};
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_test_macros::tokio_test_no_panics;
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
     use spanner_grpc_mock::{MockSpanner, start};
-    use std::sync::Mutex;
+    use std::sync::{Arc, Mutex};
 
     #[test]
     fn traits() {
@@ -151,12 +152,12 @@ mod tests {
 
     #[tokio_test_no_panics]
     async fn request_id_header_sent_unary_rpc() {
-        let captured = std::sync::Arc::new(Mutex::new(Vec::new()));
+        let captured = Arc::new(Mutex::new(Vec::new()));
         let mut mock = MockSpanner::new();
         let mut seq = mockall::Sequence::new();
 
         // 1. Initial attempt of first RPC -> records header and returns UNAVAILABLE to force retry
-        let captured_clone = captured.clone();
+        let captured_clone = Arc::clone(&captured);
         mock.expect_create_session()
             .once()
             .in_sequence(&mut seq)
@@ -168,12 +169,15 @@ mod tests {
                     .to_str()
                     .expect("should be valid ASCII")
                     .to_string();
-                captured_clone.lock().unwrap().push(request_id);
+                captured_clone
+                    .lock()
+                    .expect("mutex lock should succeed")
+                    .push(request_id);
                 Err(Status::unavailable("server is unavailable"))
             });
 
         // 2. Retry attempt of first RPC -> records header and returns Ok(Session)
-        let captured_clone = captured.clone();
+        let captured_clone = Arc::clone(&captured);
         mock.expect_create_session()
             .once()
             .in_sequence(&mut seq)
@@ -185,7 +189,10 @@ mod tests {
                     .to_str()
                     .expect("should be valid ASCII")
                     .to_string();
-                captured_clone.lock().unwrap().push(request_id);
+                captured_clone
+                    .lock()
+                    .expect("mutex lock should succeed")
+                    .push(request_id);
                 Ok(Response::new(mock_v1::Session {
                     name: "projects/p/instances/i/databases/d/sessions/s1".to_string(),
                     ..Default::default()
@@ -193,7 +200,7 @@ mod tests {
             });
 
         // 3. Second RPC -> records header and returns Ok(Session)
-        let captured_clone = captured.clone();
+        let captured_clone = Arc::clone(&captured);
         mock.expect_create_session()
             .once()
             .in_sequence(&mut seq)
@@ -205,7 +212,10 @@ mod tests {
                     .to_str()
                     .expect("should be valid ASCII")
                     .to_string();
-                captured_clone.lock().unwrap().push(request_id);
+                captured_clone
+                    .lock()
+                    .expect("mutex lock should succeed")
+                    .push(request_id);
                 Ok(Response::new(mock_v1::Session {
                     name: "projects/p/instances/i/databases/d/sessions/s2".to_string(),
                     ..Default::default()
@@ -233,7 +243,7 @@ mod tests {
                 request.clone(),
                 crate::RequestOptions::default(),
                 0,
-                &crate::observability::Observability::disabled(),
+                &Observability::disabled_arc(),
             )
             .await
             .expect("first create_session should succeed after retry");
@@ -244,12 +254,12 @@ mod tests {
                 request,
                 crate::RequestOptions::default(),
                 0,
-                &crate::observability::Observability::disabled(),
+                &Observability::disabled_arc(),
             )
             .await
             .expect("second create_session should succeed");
 
-        let ids = captured.lock().unwrap();
+        let ids = captured.lock().expect("mutex lock should succeed");
         assert_eq!(ids.len(), 3, "should have captured 3 RPC attempt headers");
 
         let id_rpc1_attempt1 = &ids[0];
@@ -261,8 +271,14 @@ mod tests {
             "Request ID should start with version 1, got {id_rpc1_attempt1}"
         );
 
-        let prefix1_attempt1 = id_rpc1_attempt1.rsplit_once('.').unwrap().0;
-        let prefix1_attempt2 = id_rpc1_attempt2.rsplit_once('.').unwrap().0;
+        let prefix1_attempt1 = id_rpc1_attempt1
+            .rsplit_once('.')
+            .expect("should have dot separator")
+            .0;
+        let prefix1_attempt2 = id_rpc1_attempt2
+            .rsplit_once('.')
+            .expect("should have dot separator")
+            .0;
         assert_eq!(
             prefix1_attempt2, prefix1_attempt1,
             "Retry attempt should have exactly the same values as initial attempt"
@@ -303,12 +319,12 @@ mod tests {
     async fn request_id_header_sent_streaming_rpc() {
         use crate::result_set::tests::adapt;
 
-        let captured = std::sync::Arc::new(Mutex::new(Vec::new()));
+        let captured = Arc::new(Mutex::new(Vec::new()));
         let mut mock = MockSpanner::new();
         let mut seq = mockall::Sequence::new();
 
         // 1. Initial attempt of first streaming SQL -> records header and returns stream with 1 row + UNAVAILABLE
-        let captured_clone = captured.clone();
+        let captured_clone = Arc::clone(&captured);
         mock.expect_execute_streaming_sql()
             .once()
             .in_sequence(&mut seq)
@@ -320,7 +336,10 @@ mod tests {
                     .to_str()
                     .expect("should be valid ASCII")
                     .to_string();
-                captured_clone.lock().unwrap().push(request_id);
+                captured_clone
+                    .lock()
+                    .expect("mutex lock should succeed")
+                    .push(request_id);
 
                 let prs1 = mock_v1::PartialResultSet {
                     metadata: Some(mock_v1::ResultSetMetadata {
@@ -343,7 +362,7 @@ mod tests {
             });
 
         // 2. Retry attempt of first streaming SQL -> records header and returns stream with row2 (last)
-        let captured_clone = captured.clone();
+        let captured_clone = Arc::clone(&captured);
         mock.expect_execute_streaming_sql()
             .once()
             .in_sequence(&mut seq)
@@ -355,7 +374,10 @@ mod tests {
                     .to_str()
                     .expect("should be valid ASCII")
                     .to_string();
-                captured_clone.lock().unwrap().push(request_id);
+                captured_clone
+                    .lock()
+                    .expect("mutex lock should succeed")
+                    .push(request_id);
 
                 let prs2 = mock_v1::PartialResultSet {
                     values: vec![prost_types::Value {
@@ -370,7 +392,7 @@ mod tests {
             });
 
         // 3. Second streaming query -> records header and returns stream with row3 (last)
-        let captured_clone = captured.clone();
+        let captured_clone = Arc::clone(&captured);
         mock.expect_execute_streaming_sql()
             .once()
             .in_sequence(&mut seq)
@@ -382,7 +404,10 @@ mod tests {
                     .to_str()
                     .expect("should be valid ASCII")
                     .to_string();
-                captured_clone.lock().unwrap().push(request_id);
+                captured_clone
+                    .lock()
+                    .expect("mutex lock should succeed")
+                    .push(request_id);
 
                 let prs3 = mock_v1::PartialResultSet {
                     metadata: Some(mock_v1::ResultSetMetadata {
@@ -427,7 +452,7 @@ mod tests {
             .database_client("projects/p/instances/i/databases/d")
             .build()
             .await
-            .unwrap();
+            .expect("database client build should succeed");
 
         // Execute first streaming query via single_use().execute_query (attempt 1 -> row1 + UNAVAILABLE, attempt 2 -> row2)
         let mut rs1 = db_client
@@ -451,7 +476,7 @@ mod tests {
             row.expect("row should succeed");
         }
 
-        let ids = captured.lock().unwrap();
+        let ids = captured.lock().expect("mutex lock should succeed");
         assert_eq!(ids.len(), 3, "should have captured 3 RPC attempt headers");
 
         let id_rpc1_attempt1 = &ids[0];
@@ -463,8 +488,14 @@ mod tests {
             "Request ID should start with version 1, got {id_rpc1_attempt1}"
         );
 
-        let prefix1_attempt1 = id_rpc1_attempt1.rsplit_once('.').unwrap().0;
-        let prefix1_attempt2 = id_rpc1_attempt2.rsplit_once('.').unwrap().0;
+        let prefix1_attempt1 = id_rpc1_attempt1
+            .rsplit_once('.')
+            .expect("should have dot separator")
+            .0;
+        let prefix1_attempt2 = id_rpc1_attempt2
+            .rsplit_once('.')
+            .expect("should have dot separator")
+            .0;
         assert_eq!(
             prefix1_attempt2, prefix1_attempt1,
             "Retry attempt should have exactly the same values as initial attempt"
@@ -505,7 +536,7 @@ mod tests {
     async fn request_id_header_sent_read_write_transaction_aborted_retry() {
         use crate::transaction_retry_policy::tests::create_aborted_status;
 
-        let captured = std::sync::Arc::new(Mutex::new(Vec::new()));
+        let captured = Arc::new(Mutex::new(Vec::new()));
         let mut mock = MockSpanner::new();
         let mut seq = mockall::Sequence::new();
 
@@ -521,7 +552,7 @@ mod tests {
             });
 
         // 1. First transaction attempt -> execute_sql fails with ABORTED
-        let captured_clone = captured.clone();
+        let captured_clone = Arc::clone(&captured);
         mock.expect_execute_sql()
             .once()
             .in_sequence(&mut seq)
@@ -533,12 +564,15 @@ mod tests {
                     .to_str()
                     .expect("should be valid ASCII")
                     .to_string();
-                captured_clone.lock().unwrap().push(request_id);
+                captured_clone
+                    .lock()
+                    .expect("mutex lock should succeed")
+                    .push(request_id);
                 Err(create_aborted_status(std::time::Duration::from_nanos(1)))
             });
 
         // 2. Second transaction attempt (after ABORTED retry) -> execute_sql succeeds
-        let captured_clone = captured.clone();
+        let captured_clone = Arc::clone(&captured);
         mock.expect_execute_sql()
             .once()
             .in_sequence(&mut seq)
@@ -550,7 +584,10 @@ mod tests {
                     .to_str()
                     .expect("should be valid ASCII")
                     .to_string();
-                captured_clone.lock().unwrap().push(request_id);
+                captured_clone
+                    .lock()
+                    .expect("mutex lock should succeed")
+                    .push(request_id);
                 Ok(Response::new(mock_v1::ResultSet {
                     metadata: Some(mock_v1::ResultSetMetadata {
                         transaction: Some(mock_v1::Transaction {
@@ -568,7 +605,7 @@ mod tests {
             });
 
         // 3. Second transaction attempt -> commit succeeds
-        let captured_clone = captured.clone();
+        let captured_clone = Arc::clone(&captured);
         mock.expect_commit()
             .once()
             .in_sequence(&mut seq)
@@ -580,7 +617,10 @@ mod tests {
                     .to_str()
                     .expect("should be valid ASCII")
                     .to_string();
-                captured_clone.lock().unwrap().push(request_id);
+                captured_clone
+                    .lock()
+                    .expect("mutex lock should succeed")
+                    .push(request_id);
                 Ok(Response::new(mock_v1::CommitResponse::default()))
             });
 
@@ -598,10 +638,10 @@ mod tests {
             .database_client("projects/p/instances/i/databases/d")
             .build()
             .await
-            .unwrap();
+            .expect("database client build should succeed");
 
-        let count = std::sync::Arc::new(std::sync::atomic::AtomicUsize::new(0));
-        let count_clone = count.clone();
+        let count = Arc::new(std::sync::atomic::AtomicUsize::new(0));
+        let count_clone = Arc::clone(&count);
 
         let runner = db_client
             .read_write_transaction()
@@ -624,7 +664,7 @@ mod tests {
             "transaction closure should have run twice"
         );
 
-        let ids = captured.lock().unwrap();
+        let ids = captured.lock().expect("mutex lock should succeed");
         assert_eq!(
             ids.len(),
             3,
