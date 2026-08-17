@@ -47,7 +47,6 @@ impl Future for AppendFuture {
                 if e.is_panic() {
                     std::panic::resume_unwind(e.into_panic());
                 } else {
-                    // Task was cancelled or dropped.
                     Poll::Ready(Err(AppendError::UnexpectedEndOfStream))
                 }
             }
