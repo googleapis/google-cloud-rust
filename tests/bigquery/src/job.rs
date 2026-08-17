@@ -74,59 +74,40 @@ async fn cleanup_stale_jobs(client: &JobService, project_id: &str) -> Result<()>
     let list = client
         .list_jobs()
         .set_project_id(project_id)
+        .set_projection(google_cloud_bigquery_v2::model::list_jobs_request::Projection::Full)
         .set_max_creation_time(stale_deadline)
         .by_item()
         .into_stream();
     let items = list.collect::<Vec<_>>().await;
     println!("LIST JOBS = {} entries", items.len());
 
-    let pending_all_stale_jobs = items
-        .iter()
-        .filter_map(|v| match v {
-            Ok(v) => {
-                if let Some(job_reference) = &v.job_reference {
-                    return Some(
-                        client
-                            .get_job()
-                            .set_project_id(project_id)
-                            .set_job_id(&job_reference.job_id)
-                            .send(),
-                    );
-                }
-                None
-            }
-            Err(_) => None,
-        })
-        .collect::<Vec<_>>();
-
-    let pending_deletion = futures::future::join_all(pending_all_stale_jobs)
-        .await
+    let pending_deletion = items
         .into_iter()
-        .filter_map(|r| match r {
-            Ok(r) => {
-                let job_reference = r.job_reference?;
-                if r.configuration
-                    .is_some_and(|c| c.labels.get(INSTANCE_LABEL).is_some_and(|v| v == "true"))
-                    && r.status.is_some_and(|s| s.state == "DONE")
-                {
-                    return Some(
-                        client
-                            .delete_job()
-                            .set_project_id(project_id)
-                            .set_job_id(&job_reference.job_id)
-                            .set_location(job_reference.location.unwrap_or_default())
-                            .send(),
-                    );
-                }
+        .filter_map(|v| {
+            let v = v.ok()?;
+            let job_ref = v.job_reference?;
+            if v.configuration
+                .is_some_and(|c| c.labels.get(INSTANCE_LABEL).is_some_and(|l| l == "true"))
+                && v.state == "DONE"
+            {
+                Some(
+                    client
+                        .delete_job()
+                        .set_project_id(project_id)
+                        .set_job_id(job_ref.job_id)
+                        .set_location(job_ref.location.unwrap_or_default())
+                        .send(),
+                )
+            } else {
                 None
             }
-            Err(_) => None,
         })
         .collect::<Vec<_>>();
 
     println!("found {} stale test jobs", pending_deletion.len());
 
-    futures::future::join_all(pending_deletion).await;
+    use futures::StreamExt;
+    futures::stream::iter(pending_deletion).buffer_unordered(10).collect::<Vec<_>>().await;
     Ok(())
 }
 
