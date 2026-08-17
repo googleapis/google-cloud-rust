@@ -114,6 +114,7 @@ async fn cleanup_stale_jobs(client: &JobService, project_id: &str) -> Result<()>
                             .delete_job()
                             .set_project_id(project_id)
                             .set_job_id(&job_reference.job_id)
+                            .set_location(job_reference.location.unwrap_or_default())
                             .send(),
                     );
                 }
