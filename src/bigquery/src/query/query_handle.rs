@@ -14,12 +14,13 @@
 
 use crate::error::QueryError;
 use crate::generated::{CompleteQueryMetadata, QueryMetadata};
+use crate::model::query_request::JobCreationMode;
+use crate::model::{
+    GetQueryResultsRequest, GetQueryResultsResponse, Job, JobReference, QueryResponse,
+};
 use crate::query::{Result, RowIterator, Schema};
 use google_cloud_bigquery_v2::builder::job_service::GetJob;
 use google_cloud_bigquery_v2::client::JobService;
-use google_cloud_bigquery_v2::model::{
-    GetQueryResultsRequest, GetQueryResultsResponse, Job, JobReference, QueryResponse,
-};
 use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
 use google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy;
 use google_cloud_gax::polling_state::PollingState;
