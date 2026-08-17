@@ -93,9 +93,9 @@ pub async fn run_all() -> anyhow::Result<()> {
 }
 
 async fn cleanup_stale_zones(client: &ManagedZones, project: &str) -> anyhow::Result<()> {
-    use chrono::Utc;
-    let deadline = Utc::now() - MAX_STALE;
-    let deadline = deadline.to_rfc3339();
+    use jiff::Timestamp;
+    let deadline = Timestamp::now() - MAX_STALE;
+    let deadline = deadline.to_string();
 
     let mut stale = Vec::new();
     let mut items = client.list().set_project(project).by_item();

@@ -19,9 +19,9 @@ use crate::{
     },
     errors,
 };
-use chrono::Utc;
 use google_cloud_gax::error::CredentialsError;
 use hmac::{Hmac, KeyInit, Mac};
+use jiff::Timestamp;
 use reqwest::{Client, Response};
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
@@ -127,9 +127,9 @@ impl SubjectTokenProvider for AwsSourcedCredentials {
             .resolve_credentials(&client, imdsv2_token.as_deref())
             .await?;
 
-        let now = Utc::now();
-        let amz_date = now.format("%Y%m%dT%H%M%SZ").to_string();
-        let date_stamp = now.format("%Y%m%d").to_string();
+        let now = Timestamp::now();
+        let amz_date = now.strftime("%Y%m%dT%H%M%SZ").to_string();
+        let date_stamp = now.strftime("%Y%m%d").to_string();
 
         let url = resolve_sts_url(self.regional_cred_verification_url.as_deref(), &region)?;
         let host = url.host_str().unwrap(); // unwrap is safe because resolve_sts_url checks for a host
