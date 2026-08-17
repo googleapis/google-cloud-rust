@@ -82,6 +82,7 @@ mod bigquery {
     }
 
     #[tokio::test]
+    #[ignore = "TODO(https://github.com/googleapis/google-cloud-rust/issues/6430) - disabled because it was flaky"]
     async fn run_writes() -> anyhow::Result<()> {
         let _guard = enable_tracing();
         integration_tests_bigquery::run_writes()
