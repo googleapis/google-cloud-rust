@@ -22,7 +22,7 @@
 #[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
-pub struct RunQueryRequest {
+pub struct QueryRequest {
     /// Optional. If true and query uses legacy SQL dialect, allows the query
     /// to produce arbitrarily large result tables at a slight cost in performance.
     /// Requires destinationTable to be set.
@@ -55,15 +55,12 @@ pub struct RunQueryRequest {
     /// upon job completion.
     pub create_disposition: std::string::String,
 
-    /// If this property is true, the job creates a new session using a randomly
-    /// generated session_id.  To continue using a created session with
-    /// subsequent queries, pass the existing session identifier as a
-    /// `ConnectionProperty` value.  The session identifier is returned as part of
-    /// the `SessionInfo` message within the query statistics.
+    /// Optional. If true, creates a new session using a randomly generated
+    /// session_id. If false, runs query with an existing session_id passed in
+    /// ConnectionProperty, otherwise runs query in non-session mode.
     ///
-    /// The new session's location will be set to `Job.JobReference.location` if it
-    /// is present, otherwise it's set to the default location based on existing
-    /// routing logic.
+    /// The session location will be set to QueryRequest.location if it is present,
+    /// otherwise it's set to the default location based on existing routing logic.
     pub create_session: std::option::Option<wkt::BoolValue>,
 
     /// Optional. Specifies the default datasetId and projectId to assume for any
@@ -71,7 +68,7 @@ pub struct RunQueryRequest {
     /// query string must be qualified in the format 'datasetId.tableId'.
     pub default_dataset: std::option::Option<crate::model::DatasetReference>,
 
-    /// Custom encryption configuration (e.g., Cloud KMS keys)
+    /// Optional. Custom encryption configuration (e.g., Cloud KMS keys)
     pub destination_encryption_configuration:
         std::option::Option<crate::model::EncryptionConfiguration>,
 
@@ -136,11 +133,11 @@ pub struct RunQueryRequest {
     /// default, there is no maximum row count, and only the byte limit applies.
     pub max_results: std::option::Option<wkt::UInt32Value>,
 
-    /// Optional. A target limit on the rate of slot consumption by this job. If
+    /// Optional. A target limit on the rate of slot consumption by this query. If
     /// set to a value > 0, BigQuery will attempt to limit the rate of slot
-    /// consumption by this job to keep it below the configured limit, even if the
-    /// job is eligible for more slots based on fair scheduling. The unused slots
-    /// will be available for other jobs and queries to use.
+    /// consumption by this query to keep it below the configured limit, even if
+    /// the query is eligible for more slots based on fair scheduling. The unused
+    /// slots will be available for other jobs and queries to use.
     ///
     /// Note: This feature is not yet generally available.
     pub max_slots: std::option::Option<i32>,
@@ -158,8 +155,9 @@ pub struct RunQueryRequest {
     /// INTERACTIVE and BATCH. The default value is INTERACTIVE.
     pub priority: std::string::String,
 
-    /// [Required] SQL query text to execute. The useLegacySql field can be used
-    /// to indicate whether the query uses legacy SQL or GoogleSQL.
+    /// Required. A query string to execute, using Google Standard SQL or legacy
+    /// SQL syntax. Example: "SELECT COUNT(f1) FROM
+    /// myProjectId.myDatasetId.myTableId".
     pub query: std::string::String,
 
     /// Query parameters for GoogleSQL queries.
@@ -168,39 +166,6 @@ pub struct RunQueryRequest {
     /// Range partitioning specification for the destination table.
     /// Only one of timePartitioning and rangePartitioning should be specified.
     pub range_partitioning: std::option::Option<crate::model::RangePartitioning>,
-
-    /// Optional. A unique user provided identifier to ensure idempotent behavior
-    /// for queries. Note that this is different from the job_id. It has the
-    /// following properties:
-    ///
-    /// 1. It is case-sensitive, limited to up to 36 ASCII characters. A UUID is
-    ///    recommended.
-    ///
-    /// 1. Read only queries can ignore this token since they are nullipotent by
-    ///    definition.
-    ///
-    /// 1. For the purposes of idempotency ensured by the request_id, a request
-    ///    is considered duplicate of another only if they have the same request_id
-    ///    and are actually duplicates. When determining whether a request is a
-    ///    duplicate of another request, all parameters in the request that
-    ///    may affect the result are considered. For example, query,
-    ///    connection_properties, query_parameters, use_legacy_sql are parameters
-    ///    that affect the result and are considered when determining whether a
-    ///    request is a duplicate, but properties like timeout_ms don't
-    ///    affect the result and are thus not considered. Dry run query
-    ///    requests are never considered duplicate of another request.
-    ///
-    /// 1. When a duplicate mutating query request is detected, it returns:
-    ///    a. the results of the mutation if it completes successfully within
-    ///    the timeout.
-    ///    b. the running operation if it is still in progress at the end of the
-    ///    timeout.
-    ///
-    /// 1. Its lifetime is limited to 15 minutes. In other words, if two
-    ///    requests are sent with the same request_id, but more than 15 minutes
-    ///    apart, idempotency is not guaranteed.
-    ///
-    pub request_id: std::string::String,
 
     /// Optional. The reservation that jobs.query request would use. User can
     /// specify a reservation to execute the job.query. The expected format is
@@ -244,11 +209,9 @@ pub struct RunQueryRequest {
     /// getQueryResults response is true.
     pub timeout_ms: std::option::Option<wkt::UInt32Value>,
 
-    /// Optional. Specifies whether to use BigQuery's legacy SQL dialect for this
-    /// query. The default value is true. If set to false, the query uses
-    /// BigQuery's
+    /// Specifies whether to use BigQuery's legacy SQL dialect for this query. The
+    /// default value is true. If set to false, the query uses BigQuery's
     /// [GoogleSQL](https://docs.cloud.google.com/bigquery/docs/introduction-sql).
-    ///
     /// When useLegacySql is set to false, the value of flattenResults is ignored;
     /// query will be run as if flattenResults is false.
     pub use_legacy_sql: std::option::Option<wkt::BoolValue>,
@@ -287,13 +250,13 @@ pub struct RunQueryRequest {
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
-impl RunQueryRequest {
+impl QueryRequest {
     /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
 
-    /// Sets the value of [allow_large_results][crate::model::RunQueryRequest::allow_large_results].
+    /// Sets the value of [allow_large_results][crate::model::QueryRequest::allow_large_results].
     pub fn set_allow_large_results<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -302,7 +265,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets or clears the value of [allow_large_results][crate::model::RunQueryRequest::allow_large_results].
+    /// Sets or clears the value of [allow_large_results][crate::model::QueryRequest::allow_large_results].
     pub fn set_or_clear_allow_large_results<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -311,7 +274,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets the value of [clustering][crate::model::RunQueryRequest::clustering].
+    /// Sets the value of [clustering][crate::model::QueryRequest::clustering].
     pub fn set_clustering<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Clustering>,
@@ -320,7 +283,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets or clears the value of [clustering][crate::model::RunQueryRequest::clustering].
+    /// Sets or clears the value of [clustering][crate::model::QueryRequest::clustering].
     pub fn set_or_clear_clustering<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Clustering>,
@@ -329,7 +292,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets the value of [connection_properties][crate::model::RunQueryRequest::connection_properties].
+    /// Sets the value of [connection_properties][crate::model::QueryRequest::connection_properties].
     pub fn set_connection_properties<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -340,7 +303,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets the value of [continuous][crate::model::RunQueryRequest::continuous].
+    /// Sets the value of [continuous][crate::model::QueryRequest::continuous].
     pub fn set_continuous<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -349,7 +312,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets or clears the value of [continuous][crate::model::RunQueryRequest::continuous].
+    /// Sets or clears the value of [continuous][crate::model::QueryRequest::continuous].
     pub fn set_or_clear_continuous<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -358,7 +321,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets the value of [create_disposition][crate::model::RunQueryRequest::create_disposition].
+    /// Sets the value of [create_disposition][crate::model::QueryRequest::create_disposition].
     pub fn set_create_disposition<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -367,7 +330,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets the value of [create_session][crate::model::RunQueryRequest::create_session].
+    /// Sets the value of [create_session][crate::model::QueryRequest::create_session].
     pub fn set_create_session<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -376,7 +339,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets or clears the value of [create_session][crate::model::RunQueryRequest::create_session].
+    /// Sets or clears the value of [create_session][crate::model::QueryRequest::create_session].
     pub fn set_or_clear_create_session<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -385,7 +348,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets the value of [default_dataset][crate::model::RunQueryRequest::default_dataset].
+    /// Sets the value of [default_dataset][crate::model::QueryRequest::default_dataset].
     pub fn set_default_dataset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DatasetReference>,
@@ -394,7 +357,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets or clears the value of [default_dataset][crate::model::RunQueryRequest::default_dataset].
+    /// Sets or clears the value of [default_dataset][crate::model::QueryRequest::default_dataset].
     pub fn set_or_clear_default_dataset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DatasetReference>,
@@ -403,7 +366,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets the value of [destination_encryption_configuration][crate::model::RunQueryRequest::destination_encryption_configuration].
+    /// Sets the value of [destination_encryption_configuration][crate::model::QueryRequest::destination_encryption_configuration].
     pub fn set_destination_encryption_configuration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionConfiguration>,
@@ -412,7 +375,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets or clears the value of [destination_encryption_configuration][crate::model::RunQueryRequest::destination_encryption_configuration].
+    /// Sets or clears the value of [destination_encryption_configuration][crate::model::QueryRequest::destination_encryption_configuration].
     pub fn set_or_clear_destination_encryption_configuration<T>(
         mut self,
         v: std::option::Option<T>,
@@ -424,7 +387,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets the value of [destination_table][crate::model::RunQueryRequest::destination_table].
+    /// Sets the value of [destination_table][crate::model::QueryRequest::destination_table].
     pub fn set_destination_table<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TableReference>,
@@ -433,7 +396,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets or clears the value of [destination_table][crate::model::RunQueryRequest::destination_table].
+    /// Sets or clears the value of [destination_table][crate::model::QueryRequest::destination_table].
     pub fn set_or_clear_destination_table<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TableReference>,
@@ -442,13 +405,13 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets the value of [dry_run][crate::model::RunQueryRequest::dry_run].
+    /// Sets the value of [dry_run][crate::model::QueryRequest::dry_run].
     pub fn set_dry_run<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.dry_run = v.into();
         self
     }
 
-    /// Sets the value of [external_table_definitions][crate::model::RunQueryRequest::external_table_definitions].
+    /// Sets the value of [external_table_definitions][crate::model::QueryRequest::external_table_definitions].
     pub fn set_external_table_definitions<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -461,7 +424,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets the value of [flatten_results][crate::model::RunQueryRequest::flatten_results].
+    /// Sets the value of [flatten_results][crate::model::QueryRequest::flatten_results].
     pub fn set_flatten_results<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -470,7 +433,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets or clears the value of [flatten_results][crate::model::RunQueryRequest::flatten_results].
+    /// Sets or clears the value of [flatten_results][crate::model::QueryRequest::flatten_results].
     pub fn set_or_clear_flatten_results<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -479,7 +442,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets the value of [job_creation_mode][crate::model::RunQueryRequest::job_creation_mode].
+    /// Sets the value of [job_creation_mode][crate::model::QueryRequest::job_creation_mode].
     pub fn set_job_creation_mode<
         T: std::convert::Into<crate::model::query_request::JobCreationMode>,
     >(
@@ -490,7 +453,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets the value of [job_timeout_ms][crate::model::RunQueryRequest::job_timeout_ms].
+    /// Sets the value of [job_timeout_ms][crate::model::QueryRequest::job_timeout_ms].
     pub fn set_job_timeout_ms<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -499,7 +462,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets or clears the value of [job_timeout_ms][crate::model::RunQueryRequest::job_timeout_ms].
+    /// Sets or clears the value of [job_timeout_ms][crate::model::QueryRequest::job_timeout_ms].
     pub fn set_or_clear_job_timeout_ms<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -508,7 +471,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets the value of [labels][crate::model::RunQueryRequest::labels].
+    /// Sets the value of [labels][crate::model::QueryRequest::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -520,13 +483,13 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets the value of [location][crate::model::RunQueryRequest::location].
+    /// Sets the value of [location][crate::model::QueryRequest::location].
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
-    /// Sets the value of [max_results][crate::model::RunQueryRequest::max_results].
+    /// Sets the value of [max_results][crate::model::QueryRequest::max_results].
     pub fn set_max_results<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::UInt32Value>,
@@ -535,7 +498,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets or clears the value of [max_results][crate::model::RunQueryRequest::max_results].
+    /// Sets or clears the value of [max_results][crate::model::QueryRequest::max_results].
     pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::UInt32Value>,
@@ -544,7 +507,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets the value of [max_slots][crate::model::RunQueryRequest::max_slots].
+    /// Sets the value of [max_slots][crate::model::QueryRequest::max_slots].
     pub fn set_max_slots<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -553,7 +516,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets or clears the value of [max_slots][crate::model::RunQueryRequest::max_slots].
+    /// Sets or clears the value of [max_slots][crate::model::QueryRequest::max_slots].
     pub fn set_or_clear_max_slots<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -562,7 +525,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets the value of [maximum_bytes_billed][crate::model::RunQueryRequest::maximum_bytes_billed].
+    /// Sets the value of [maximum_bytes_billed][crate::model::QueryRequest::maximum_bytes_billed].
     pub fn set_maximum_bytes_billed<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -571,7 +534,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets or clears the value of [maximum_bytes_billed][crate::model::RunQueryRequest::maximum_bytes_billed].
+    /// Sets or clears the value of [maximum_bytes_billed][crate::model::QueryRequest::maximum_bytes_billed].
     pub fn set_or_clear_maximum_bytes_billed<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -580,25 +543,25 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets the value of [parameter_mode][crate::model::RunQueryRequest::parameter_mode].
+    /// Sets the value of [parameter_mode][crate::model::QueryRequest::parameter_mode].
     pub fn set_parameter_mode<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parameter_mode = v.into();
         self
     }
 
-    /// Sets the value of [priority][crate::model::RunQueryRequest::priority].
+    /// Sets the value of [priority][crate::model::QueryRequest::priority].
     pub fn set_priority<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.priority = v.into();
         self
     }
 
-    /// Sets the value of [query][crate::model::RunQueryRequest::query].
+    /// Sets the value of [query][crate::model::QueryRequest::query].
     pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = v.into();
         self
     }
 
-    /// Sets the value of [query_parameters][crate::model::RunQueryRequest::query_parameters].
+    /// Sets the value of [query_parameters][crate::model::QueryRequest::query_parameters].
     pub fn set_query_parameters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -609,7 +572,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets the value of [range_partitioning][crate::model::RunQueryRequest::range_partitioning].
+    /// Sets the value of [range_partitioning][crate::model::QueryRequest::range_partitioning].
     pub fn set_range_partitioning<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RangePartitioning>,
@@ -618,7 +581,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets or clears the value of [range_partitioning][crate::model::RunQueryRequest::range_partitioning].
+    /// Sets or clears the value of [range_partitioning][crate::model::QueryRequest::range_partitioning].
     pub fn set_or_clear_range_partitioning<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RangePartitioning>,
@@ -627,13 +590,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets the value of [request_id][crate::model::RunQueryRequest::request_id].
-    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.request_id = v.into();
-        self
-    }
-
-    /// Sets the value of [reservation][crate::model::RunQueryRequest::reservation].
+    /// Sets the value of [reservation][crate::model::QueryRequest::reservation].
     pub fn set_reservation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -642,7 +599,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets or clears the value of [reservation][crate::model::RunQueryRequest::reservation].
+    /// Sets or clears the value of [reservation][crate::model::QueryRequest::reservation].
     pub fn set_or_clear_reservation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -651,7 +608,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets the value of [schema_update_options][crate::model::RunQueryRequest::schema_update_options].
+    /// Sets the value of [schema_update_options][crate::model::QueryRequest::schema_update_options].
     pub fn set_schema_update_options<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -662,7 +619,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets the value of [script_options][crate::model::RunQueryRequest::script_options].
+    /// Sets the value of [script_options][crate::model::QueryRequest::script_options].
     pub fn set_script_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ScriptOptions>,
@@ -671,7 +628,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets or clears the value of [script_options][crate::model::RunQueryRequest::script_options].
+    /// Sets or clears the value of [script_options][crate::model::QueryRequest::script_options].
     pub fn set_or_clear_script_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ScriptOptions>,
@@ -680,7 +637,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets the value of [time_partitioning][crate::model::RunQueryRequest::time_partitioning].
+    /// Sets the value of [time_partitioning][crate::model::QueryRequest::time_partitioning].
     pub fn set_time_partitioning<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TimePartitioning>,
@@ -689,7 +646,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets or clears the value of [time_partitioning][crate::model::RunQueryRequest::time_partitioning].
+    /// Sets or clears the value of [time_partitioning][crate::model::QueryRequest::time_partitioning].
     pub fn set_or_clear_time_partitioning<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TimePartitioning>,
@@ -698,7 +655,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets the value of [timeout_ms][crate::model::RunQueryRequest::timeout_ms].
+    /// Sets the value of [timeout_ms][crate::model::QueryRequest::timeout_ms].
     pub fn set_timeout_ms<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::UInt32Value>,
@@ -707,7 +664,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets or clears the value of [timeout_ms][crate::model::RunQueryRequest::timeout_ms].
+    /// Sets or clears the value of [timeout_ms][crate::model::QueryRequest::timeout_ms].
     pub fn set_or_clear_timeout_ms<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::UInt32Value>,
@@ -716,7 +673,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets the value of [use_legacy_sql][crate::model::RunQueryRequest::use_legacy_sql].
+    /// Sets the value of [use_legacy_sql][crate::model::QueryRequest::use_legacy_sql].
     pub fn set_use_legacy_sql<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -725,7 +682,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets or clears the value of [use_legacy_sql][crate::model::RunQueryRequest::use_legacy_sql].
+    /// Sets or clears the value of [use_legacy_sql][crate::model::QueryRequest::use_legacy_sql].
     pub fn set_or_clear_use_legacy_sql<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -734,7 +691,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets the value of [use_query_cache][crate::model::RunQueryRequest::use_query_cache].
+    /// Sets the value of [use_query_cache][crate::model::QueryRequest::use_query_cache].
     pub fn set_use_query_cache<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -743,7 +700,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets or clears the value of [use_query_cache][crate::model::RunQueryRequest::use_query_cache].
+    /// Sets or clears the value of [use_query_cache][crate::model::QueryRequest::use_query_cache].
     pub fn set_or_clear_use_query_cache<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -752,7 +709,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets the value of [user_defined_function_resources][crate::model::RunQueryRequest::user_defined_function_resources].
+    /// Sets the value of [user_defined_function_resources][crate::model::QueryRequest::user_defined_function_resources].
     pub fn set_user_defined_function_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -763,7 +720,7 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets the value of [write_disposition][crate::model::RunQueryRequest::write_disposition].
+    /// Sets the value of [write_disposition][crate::model::QueryRequest::write_disposition].
     pub fn set_write_disposition<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -772,14 +729,70 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets the value of [write_incremental_results][crate::model::RunQueryRequest::write_incremental_results].
+    /// Sets the value of [write_incremental_results][crate::model::QueryRequest::write_incremental_results].
     pub fn set_write_incremental_results<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.write_incremental_results = v.into();
         self
     }
 }
 
-impl RunQueryRequest {
+mod debug {
+
+    impl std::fmt::Debug for super::QueryRequest {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("QueryRequest");
+            debug_struct.field("allow_large_results", &self.allow_large_results);
+            debug_struct.field("clustering", &self.clustering);
+            debug_struct.field("connection_properties", &self.connection_properties);
+            debug_struct.field("continuous", &self.continuous);
+            debug_struct.field("create_disposition", &self.create_disposition);
+            debug_struct.field("create_session", &self.create_session);
+            debug_struct.field("default_dataset", &self.default_dataset);
+            debug_struct.field(
+                "destination_encryption_configuration",
+                &self.destination_encryption_configuration,
+            );
+            debug_struct.field("destination_table", &self.destination_table);
+            debug_struct.field("dry_run", &self.dry_run);
+            debug_struct.field(
+                "external_table_definitions",
+                &self.external_table_definitions,
+            );
+            debug_struct.field("flatten_results", &self.flatten_results);
+            debug_struct.field("job_creation_mode", &self.job_creation_mode);
+            debug_struct.field("job_timeout_ms", &self.job_timeout_ms);
+            debug_struct.field("labels", &self.labels);
+            debug_struct.field("location", &self.location);
+            debug_struct.field("max_results", &self.max_results);
+            debug_struct.field("max_slots", &self.max_slots);
+            debug_struct.field("maximum_bytes_billed", &self.maximum_bytes_billed);
+            debug_struct.field("parameter_mode", &self.parameter_mode);
+            debug_struct.field("priority", &self.priority);
+            debug_struct.field("query", &self.query);
+            debug_struct.field("query_parameters", &self.query_parameters);
+            debug_struct.field("range_partitioning", &self.range_partitioning);
+            debug_struct.field("reservation", &self.reservation);
+            debug_struct.field("schema_update_options", &self.schema_update_options);
+            debug_struct.field("script_options", &self.script_options);
+            debug_struct.field("time_partitioning", &self.time_partitioning);
+            debug_struct.field("timeout_ms", &self.timeout_ms);
+            debug_struct.field("use_legacy_sql", &self.use_legacy_sql);
+            debug_struct.field("use_query_cache", &self.use_query_cache);
+            debug_struct.field(
+                "user_defined_function_resources",
+                &self.user_defined_function_resources,
+            );
+            debug_struct.field("write_disposition", &self.write_disposition);
+            debug_struct.field("write_incremental_results", &self.write_incremental_results);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+}
+
+impl QueryRequest {
     #[allow(clippy::nonminimal_bool)]
     pub(crate) fn force_job_path(&self) -> bool {
         false
@@ -800,8 +813,8 @@ impl RunQueryRequest {
     }
 }
 
-impl std::convert::From<RunQueryRequest> for google_cloud_bigquery_v2::model::QueryRequest {
-    fn from(req: RunQueryRequest) -> Self {
+impl std::convert::From<QueryRequest> for google_cloud_bigquery_v2::model::QueryRequest {
+    fn from(req: QueryRequest) -> Self {
         let mut out = Self::default();
         out.connection_properties = req.connection_properties;
         out.create_session = req.create_session;
@@ -818,7 +831,6 @@ impl std::convert::From<RunQueryRequest> for google_cloud_bigquery_v2::model::Qu
         out.parameter_mode = req.parameter_mode;
         out.query = req.query;
         out.query_parameters = req.query_parameters;
-        out.request_id = req.request_id;
         out.reservation = req.reservation;
         out.timeout_ms = req.timeout_ms;
         out.use_legacy_sql = req.use_legacy_sql;
@@ -828,10 +840,8 @@ impl std::convert::From<RunQueryRequest> for google_cloud_bigquery_v2::model::Qu
     }
 }
 
-impl std::convert::From<RunQueryRequest>
-    for google_cloud_bigquery_v2::model::JobConfigurationQuery
-{
-    fn from(req: RunQueryRequest) -> Self {
+impl std::convert::From<QueryRequest> for google_cloud_bigquery_v2::model::JobConfigurationQuery {
+    fn from(req: QueryRequest) -> Self {
         let mut out = Self::default();
         out.allow_large_results = req.allow_large_results;
         out.clustering = req.clustering;
@@ -862,9 +872,9 @@ impl std::convert::From<RunQueryRequest>
     }
 }
 
-impl std::convert::From<RunQueryRequest> for google_cloud_bigquery_v2::model::JobConfiguration {
+impl std::convert::From<QueryRequest> for google_cloud_bigquery_v2::model::JobConfiguration {
     #[allow(clippy::useless_conversion)]
-    fn from(req: RunQueryRequest) -> Self {
+    fn from(req: QueryRequest) -> Self {
         let mut query = google_cloud_bigquery_v2::model::JobConfigurationQuery::default();
         query.allow_large_results = req.allow_large_results;
         query.clustering = req.clustering;

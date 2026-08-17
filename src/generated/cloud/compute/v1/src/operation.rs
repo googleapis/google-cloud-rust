@@ -12,9 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#[cfg(feature = "__enable-discovery-LRO")]
 use crate::model::Operation;
+#[cfg(feature = "__enable-discovery-LRO")]
 use google_cloud_gax::error::rpc::{Code, Status};
 
+#[cfg(feature = "__enable-discovery-LRO")]
 impl google_cloud_lro::internal::DiscoveryOperation for Operation {
     fn name(&self) -> Option<&String> {
         self.name.as_ref()

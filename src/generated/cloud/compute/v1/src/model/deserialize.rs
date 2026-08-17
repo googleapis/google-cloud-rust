@@ -539,6 +539,7 @@ impl<'de> serde::de::Deserialize<'de> for super::AcceleratorType {
             __kind,
             __maximum_cards_per_instance,
             __name,
+            __resource_metadata,
             __self_link,
             __zone,
             Unknown(std::string::String),
@@ -570,6 +571,7 @@ impl<'de> serde::de::Deserialize<'de> for super::AcceleratorType {
                                 Ok(__FieldTag::__maximum_cards_per_instance)
                             }
                             "name" => Ok(__FieldTag::__name),
+                            "resourceMetadata" => Ok(__FieldTag::__resource_metadata),
                             "selfLink" => Ok(__FieldTag::__self_link),
                             "zone" => Ok(__FieldTag::__zone),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
@@ -680,6 +682,16 @@ impl<'de> serde::de::Deserialize<'de> for super::AcceleratorType {
                             }
                             result.name =
                                 map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__resource_metadata => {
+                            if !fields.insert(__FieldTag::__resource_metadata) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for resource_metadata",
+                                ));
+                            }
+                            result.resource_metadata = map
+                                .next_value::<std::option::Option<crate::model::ResourceMetadata>>(
+                                )?;
                         }
                         __FieldTag::__self_link => {
                             if !fields.insert(__FieldTag::__self_link) {
@@ -34372,6 +34384,7 @@ impl<'de> serde::de::Deserialize<'de> for super::FutureReservation {
             __planning_status,
             __reservation_mode,
             __reservation_name,
+            __resource_metadata,
             __scheduling_type,
             __self_link,
             __self_link_with_id,
@@ -34429,6 +34442,7 @@ impl<'de> serde::de::Deserialize<'de> for super::FutureReservation {
                             "planningStatus" => Ok(__FieldTag::__planning_status),
                             "reservationMode" => Ok(__FieldTag::__reservation_mode),
                             "reservationName" => Ok(__FieldTag::__reservation_name),
+                            "resourceMetadata" => Ok(__FieldTag::__resource_metadata),
                             "schedulingType" => Ok(__FieldTag::__scheduling_type),
                             "selfLink" => Ok(__FieldTag::__self_link),
                             "selfLinkWithId" => Ok(__FieldTag::__self_link_with_id),
@@ -34644,6 +34658,16 @@ impl<'de> serde::de::Deserialize<'de> for super::FutureReservation {
                             }
                             result.reservation_name =
                                 map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__resource_metadata => {
+                            if !fields.insert(__FieldTag::__resource_metadata) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for resource_metadata",
+                                ));
+                            }
+                            result.resource_metadata = map
+                                .next_value::<std::option::Option<crate::model::ResourceMetadata>>(
+                                )?;
                         }
                         __FieldTag::__scheduling_type => {
                             if !fields.insert(__FieldTag::__scheduling_type) {
@@ -121922,6 +121946,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Reservation {
             __params,
             __protection_tier,
             __reservation_sharing_policy,
+            __resource_metadata,
             __resource_policies,
             __resource_status,
             __satisfies_pzs,
@@ -121978,6 +122003,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Reservation {
                             "reservationSharingPolicy" => {
                                 Ok(__FieldTag::__reservation_sharing_policy)
                             }
+                            "resourceMetadata" => Ok(__FieldTag::__resource_metadata),
                             "resourcePolicies" => Ok(__FieldTag::__resource_policies),
                             "resourceStatus" => Ok(__FieldTag::__resource_status),
                             "satisfiesPzs" => Ok(__FieldTag::__satisfies_pzs),
@@ -122196,6 +122222,16 @@ impl<'de> serde::de::Deserialize<'de> for super::Reservation {
                                 .next_value::<std::option::Option<
                                     crate::model::AllocationReservationSharingPolicy,
                                 >>()?;
+                        }
+                        __FieldTag::__resource_metadata => {
+                            if !fields.insert(__FieldTag::__resource_metadata) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for resource_metadata",
+                                ));
+                            }
+                            result.resource_metadata = map
+                                .next_value::<std::option::Option<crate::model::ResourceMetadata>>(
+                                )?;
                         }
                         __FieldTag::__resource_policies => {
                             if !fields.insert(__FieldTag::__resource_policies) {
@@ -127305,6 +127341,102 @@ impl<'de> serde::de::Deserialize<'de> for super::ResourceGroupReference {
                                 ));
                             }
                             result.group =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[cfg(any(
+    feature = "accelerator-types",
+    feature = "future-reservations",
+    feature = "region-commitments",
+    feature = "reservations",
+))]
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ResourceMetadata {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __api_version,
+            __resource_type,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ResourceMetadata")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "apiVersion" => Ok(__FieldTag::__api_version),
+                            "resourceType" => Ok(__FieldTag::__resource_type),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ResourceMetadata;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ResourceMetadata")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__api_version => {
+                            if !fields.insert(__FieldTag::__api_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for api_version",
+                                ));
+                            }
+                            result.api_version =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__resource_type => {
+                            if !fields.insert(__FieldTag::__resource_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for resource_type",
+                                ));
+                            }
+                            result.resource_type =
                                 map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {

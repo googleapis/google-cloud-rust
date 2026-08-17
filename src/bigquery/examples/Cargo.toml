@@ -30,6 +30,7 @@ google-cloud-bigquery      = { workspace = true, features = ["default"] }
 google-cloud-bigquery-v2   = { workspace = true, features = ["default"] }
 google-cloud-test-utils    = { workspace = true }
 google-cloud-wkt.workspace = true
+google-cloud-gax.workspace = true
 rand.workspace             = true
 tokio.workspace            = true
 tracing.workspace          = true

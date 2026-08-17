@@ -42,22 +42,6 @@ impl<Req> std::fmt::Debug for RequestSender<Req> {
 }
 
 impl<Req> RequestSender<Req> {
-    /// Creates a new [`RequestSender`].
-    pub fn new(req_tx: mpsc::Sender<Req>) -> Self
-    where
-        Req: Send + Sync + 'static,
-    {
-        Self::from_fn(move |item| {
-            let req_tx = req_tx.clone();
-            async move {
-                req_tx
-                    .send(item)
-                    .await
-                    .map_err(|_| crate::error::Error::io("cannot send request: stream is closed"))
-            }
-        })
-    }
-
     /// Sends a request item over the stream.
     pub async fn send(&self, item: Req) -> Result<(), crate::error::Error> {
         (self.inner)(item).await
@@ -81,6 +65,25 @@ impl<Req> RequestSender<Req> {
     }
 }
 
+impl<Req> From<mpsc::Sender<Req>> for RequestSender<Req>
+where
+    Req: Send + 'static,
+{
+    fn from(req_tx: mpsc::Sender<Req>) -> RequestSender<Req> {
+        Self::from_fn(move |item| {
+            let req_tx = req_tx.clone();
+            async move {
+                req_tx.send(item).await.map_err(|_| {
+                    crate::error::Error::io(std::io::Error::new(
+                        std::io::ErrorKind::BrokenPipe,
+                        "cannot send request: stream is closed",
+                    ))
+                })
+            }
+        })
+    }
+}
+
 /// A type-erased stream of incoming responses from a gRPC stream.
 ///
 /// This wraps an underlying `futures::Stream` in a boxed pinned trait object,
@@ -100,18 +103,17 @@ impl<Resp> std::fmt::Debug for ResponseReceiver<Resp> {
 }
 
 impl<Resp> ResponseReceiver<Resp> {
-    /// Creates a new [`ResponseReceiver`].
-    pub fn new(rx: mpsc::Receiver<crate::Result<Resp>>) -> Self
-    where
-        Resp: Send + 'static,
-    {
-        Self::from_stream(tokio_stream::wrappers::ReceiverStream::new(rx))
-    }
-
     /// Receives the next response item from the stream.
     pub async fn recv(&mut self) -> Option<crate::Result<Resp>> {
         use futures::StreamExt as _;
         self.inner.next().await
+    }
+
+    #[cfg(feature = "unstable-stream")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
+    /// Converts the receiver into an asynchronous [`Stream`][futures::Stream].
+    pub fn into_stream(self) -> impl futures::Stream<Item = crate::Result<Resp>> + Send + Unpin {
+        self.inner
     }
 
     /// Creates a [`ResponseReceiver`] from an asynchronous stream.
@@ -131,17 +133,26 @@ impl<Resp> ResponseReceiver<Resp> {
     }
 }
 
+impl<Resp> From<mpsc::Receiver<crate::Result<Resp>>> for ResponseReceiver<Resp>
+where
+    Resp: Send + 'static,
+{
+    fn from(rx: mpsc::Receiver<crate::Result<Resp>>) -> Self {
+        Self::from_stream(tokio_stream::wrappers::ReceiverStream::new(rx))
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[tokio::test]
-    async fn test_request_sender_and_response_receiver() -> Result<(), Box<dyn std::error::Error>> {
+    async fn request_sender_and_response_receiver() -> Result<(), Box<dyn std::error::Error>> {
         let (req_tx, mut req_rx) = mpsc::channel::<String>(16);
         let (resp_tx, resp_rx) = mpsc::channel::<crate::Result<String>>(16);
 
-        let sender = RequestSender::new(req_tx);
-        let mut receiver = ResponseReceiver::new(resp_rx);
+        let sender: RequestSender<_> = req_tx.into();
+        let mut receiver: ResponseReceiver<_> = resp_rx.into();
 
         sender.send("hello".to_string()).await?;
         assert_eq!(req_rx.recv().await.as_deref(), Some("hello"));
@@ -155,11 +166,11 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_request_sender_send_error() {
+    async fn request_sender_send_error() {
         use std::error::Error as _;
 
         let (req_tx, req_rx) = mpsc::channel::<String>(16);
-        let sender = RequestSender::new(req_tx);
+        let sender = RequestSender::from(req_tx);
 
         drop(req_rx);
         let err = sender
@@ -167,6 +178,11 @@ mod tests {
             .await
             .expect_err("send should fail when receiver is dropped");
         assert!(err.is_io());
+        let io_err = err
+            .source()
+            .and_then(|e| e.downcast_ref::<std::io::Error>())
+            .expect("source should be std::io::Error");
+        assert_eq!(io_err.kind(), std::io::ErrorKind::BrokenPipe);
         assert_eq!(
             err.source().map(|e| e.to_string()).as_deref(),
             Some("cannot send request: stream is closed")
@@ -174,7 +190,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_request_sender_from_fn() -> Result<(), Box<dyn std::error::Error>> {
+    async fn request_sender_from_fn() -> Result<(), Box<dyn std::error::Error>> {
         let sender = RequestSender::from_fn(|item: i32| async move {
             if item < 0 {
                 Err(crate::error::Error::ser("negative number"))
@@ -194,7 +210,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_response_receiver_from_stream() -> Result<(), Box<dyn std::error::Error>> {
+    async fn response_receiver_from_stream() -> Result<(), Box<dyn std::error::Error>> {
         let stream = futures::stream::iter(vec![
             Ok("first".to_string()),
             Err(crate::error::Error::deser("bad data")),
@@ -230,8 +246,8 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_response_receiver_generator_mapping_pipeline()
-    -> Result<(), Box<dyn std::error::Error>> {
+    async fn response_receiver_generator_mapping_pipeline() -> Result<(), Box<dyn std::error::Error>>
+    {
         use futures::StreamExt as _;
 
         #[derive(Debug, PartialEq)]
@@ -319,6 +335,21 @@ mod tests {
 
         // 5. Stream finished
         assert!(receiver.recv().await.is_none());
+        Ok(())
+    }
+
+    #[cfg(feature = "unstable-stream")]
+    #[tokio::test]
+    async fn response_receiver_into_stream() -> Result<(), Box<dyn std::error::Error>> {
+        use futures::StreamExt as _;
+
+        let stream = futures::stream::iter(vec![Ok("first".to_string()), Ok("second".to_string())]);
+        let receiver = ResponseReceiver::from_stream(stream);
+        let mut stream = receiver.into_stream();
+
+        assert_eq!(stream.next().await.transpose()?.as_deref(), Some("first"));
+        assert_eq!(stream.next().await.transpose()?.as_deref(), Some("second"));
+        assert!(stream.next().await.is_none());
         Ok(())
     }
 }

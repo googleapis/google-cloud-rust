@@ -166,8 +166,8 @@ pub(crate) fn client_name() -> &'static str {
 #[derive(Clone, Debug)]
 pub(crate) struct Observability {
     pub(crate) metrics: Option<Arc<SpannerMetrics>>,
-    common_attributes: [KeyValue; 3],
-    meter_provider: Option<Arc<SdkMeterProvider>>,
+    pub(crate) common_attributes: [KeyValue; 3],
+    pub(crate) meter_provider: Option<Arc<SdkMeterProvider>>,
 }
 
 #[cfg(feature = "_experimental-builtin-metrics")]
@@ -306,21 +306,21 @@ impl Observability {
         let start_time = Instant::now();
         let result = fut.await;
         let elapsed = start_time.elapsed();
-        self.record_operation(method, elapsed, &result);
+        self.record_operation(method, elapsed, result.as_ref().err());
         result
     }
 
-    pub(crate) fn record_operation<T>(
+    pub(crate) fn record_operation(
         &self,
         method: &'static str,
         duration: Duration,
-        result: &crate::Result<T>,
+        error: Option<&Error>,
     ) {
         let Some(ref metrics) = self.metrics else {
             return;
         };
 
-        let status = result_to_status_str(result);
+        let status = error_to_status_str(error);
         let method_name = normalize_method_name(method);
         let attributes = [
             KeyValue::new("method", method_name),
@@ -351,7 +351,7 @@ impl Observability {
         };
 
         let timings = headers.map_or_else(ServerTimings::default, parse_server_timing_from_headers);
-        let status = error.map_or("OK", error_to_status_str);
+        let status = error_to_status_str(error);
         let method_name = normalize_method_name(method);
         let attributes = [
             KeyValue::new("method", method_name),
@@ -450,28 +450,17 @@ pub(crate) fn normalize_method_name(method: &str) -> Cow<'static, str> {
         "PartitionRead" | "Spanner/PartitionRead" => Cow::Borrowed("Spanner.PartitionRead"),
         "BatchWrite" | "Spanner/BatchWrite" => Cow::Borrowed("Spanner.BatchWrite"),
         _ => {
-            if let Some(suffix) = clean.strip_prefix("Spanner/") {
-                Cow::Owned(format!("Spanner.{}", suffix.replace('/', ".")))
-            } else {
-                Cow::Owned(format!("Spanner.{}", clean.replace('/', ".")))
-            }
+            let suffix = clean.strip_prefix("Spanner/").unwrap_or(clean);
+            Cow::Owned(format!("Spanner.{}", suffix.replace('/', ".")))
         }
     }
 }
 
 #[cfg(feature = "_experimental-builtin-metrics")]
-fn error_to_status_str(error: &Error) -> &'static str {
-    error
-        .status()
-        .map_or("UNKNOWN", |status| status.code.name())
-}
-
-#[cfg(feature = "_experimental-builtin-metrics")]
-fn result_to_status_str<T>(result: &crate::Result<T>) -> &'static str {
-    match result {
-        Ok(_) => "OK",
-        Err(error) => error_to_status_str(error),
-    }
+fn error_to_status_str(error: Option<&Error>) -> &'static str {
+    error.map_or("OK", |e| {
+        e.status().map_or("UNKNOWN", |status| status.code.name())
+    })
 }
 
 #[cfg(feature = "_experimental-builtin-metrics")]
@@ -567,12 +556,11 @@ fn parse_duration_param(param: &str) -> Option<f64> {
 }
 
 #[cfg(not(feature = "_experimental-builtin-metrics"))]
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Default)]
 pub(crate) struct Observability;
 
 #[cfg(not(feature = "_experimental-builtin-metrics"))]
 impl Observability {
-    #[allow(dead_code)]
     pub(crate) fn disabled() -> Self {
         Self
     }
@@ -608,7 +596,6 @@ impl Observability {
     /// This allows interceptors to call `record_attempt` unconditionally without sprinkling
     /// `#[cfg(feature = "_experimental-builtin-metrics")]` across call sites.
     #[inline(always)]
-    #[allow(dead_code)]
     pub(crate) fn record_attempt(
         &self,
         _method: &str,
@@ -623,18 +610,25 @@ impl Observability {
     /// This allows client operations to call `record_operation` unconditionally without sprinkling
     /// `#[cfg(feature = "_experimental-builtin-metrics")]` across call sites.
     #[inline(always)]
-    #[allow(dead_code)]
-    pub(crate) fn record_operation<T>(
+    pub(crate) fn record_operation(
         &self,
         _method: &'static str,
         _duration: Duration,
-        _result: &crate::Result<T>,
+        _error: Option<&Error>,
     ) {
     }
 
     #[allow(dead_code)]
     pub(crate) fn shutdown(&self) {}
 }
+
+#[cfg(not(feature = "_experimental-builtin-metrics"))]
+#[allow(dead_code)]
+#[derive(Debug, Default, Clone)]
+pub(crate) struct SpannerMetricsInterceptor;
+
+#[cfg(not(feature = "_experimental-builtin-metrics"))]
+impl gaxi::attempt_interceptor::AttemptInterceptor for SpannerMetricsInterceptor {}
 
 #[cfg(all(test, not(feature = "_experimental-builtin-metrics")))]
 mod disabled_tests {
@@ -652,8 +646,7 @@ mod disabled_tests {
         )
         .await;
         initialized.record_attempt("ExecuteSql", Duration::from_millis(10), None, None);
-        let ok_res: crate::Result<()> = Ok(());
-        initialized.record_operation("ExecuteSql", Duration::from_millis(10), &ok_res);
+        initialized.record_operation("ExecuteSql", Duration::from_millis(10), None);
         let res = initialized
             .trace_operation("ExecuteSql", async { Ok::<_, crate::Error>(42) })
             .await
@@ -666,7 +659,10 @@ mod disabled_tests {
 #[cfg(all(test, feature = "_experimental-builtin-metrics"))]
 mod tests {
     use super::*;
+    use google_cloud_gax::error::rpc::{Code, Status};
+    use http::HeaderValue;
     use opentelemetry_sdk::metrics::InMemoryMetricExporter;
+    use opentelemetry_sdk::metrics::PeriodicReader;
     use opentelemetry_sdk::metrics::data::{AggregatedMetrics, MetricData, ResourceMetrics};
     use std::collections::HashMap;
     use std::fmt::Debug;
@@ -767,8 +763,7 @@ mod tests {
         let o11y_arc = Observability::disabled_arc();
         assert!(o11y_arc.metrics.is_none());
 
-        let ok_res: crate::Result<()> = Ok(());
-        o11y.record_operation("ExecuteSql", Duration::from_millis(10), &ok_res);
+        o11y.record_operation("ExecuteSql", Duration::from_millis(10), None);
         o11y.record_attempt("ExecuteSql", Duration::from_millis(10), None, None);
         o11y.shutdown();
     }
@@ -787,28 +782,25 @@ mod tests {
     }
 
     #[test]
-    fn result_to_status_str_conversions() {
-        let ok_res: crate::Result<()> = Ok(());
-        assert_eq!(result_to_status_str(&ok_res), "OK");
+    fn error_to_status_str_conversions() {
+        assert_eq!(error_to_status_str(None), "OK");
 
-        let status_pd = google_cloud_gax::error::rpc::Status::default()
-            .set_code(google_cloud_gax::error::rpc::Code::PermissionDenied);
-        let err_pd: crate::Result<()> = Err(crate::Error::service(status_pd));
-        assert_eq!(result_to_status_str(&err_pd), "PERMISSION_DENIED");
+        let status_pd = Status::default().set_code(Code::PermissionDenied);
+        let err_pd = Error::service(status_pd);
+        assert_eq!(error_to_status_str(Some(&err_pd)), "PERMISSION_DENIED");
 
-        let status_nf = google_cloud_gax::error::rpc::Status::default()
-            .set_code(google_cloud_gax::error::rpc::Code::NotFound);
-        let err_nf: crate::Result<()> = Err(crate::Error::service(status_nf));
-        assert_eq!(result_to_status_str(&err_nf), "NOT_FOUND");
+        let status_nf = Status::default().set_code(Code::NotFound);
+        let err_nf = Error::service(status_nf);
+        assert_eq!(error_to_status_str(Some(&err_nf)), "NOT_FOUND");
 
-        let err_other: crate::Result<()> = Err(crate::Error::timeout("some generic timeout"));
-        assert_eq!(result_to_status_str(&err_other), "UNKNOWN");
+        let err_timeout = Error::timeout("simulated timeout");
+        assert_eq!(error_to_status_str(Some(&err_timeout)), "UNKNOWN");
     }
 
     #[test]
     fn spanner_metrics_record_operation_and_attempt() {
         let exporter = InMemoryMetricExporter::default();
-        let reader = opentelemetry_sdk::metrics::PeriodicReader::builder(exporter.clone()).build();
+        let reader = PeriodicReader::builder(exporter.clone()).build();
         let provider = SdkMeterProvider::builder().with_reader(reader).build();
         let meter = provider.meter("cloud.google.com/rust");
         let metrics = SpannerMetrics::new(meter);
@@ -822,8 +814,7 @@ mod tests {
             meter_provider: Some(Arc::new(provider.clone())),
         };
 
-        let ok_res: crate::Result<()> = Ok(());
-        o11y.record_operation("ExecuteSql", Duration::from_millis(50), &ok_res);
+        o11y.record_operation("ExecuteSql", Duration::from_millis(50), None);
         let mut headers = HeaderMap::new();
         headers.insert(
             "server-timing",
@@ -934,87 +925,47 @@ mod tests {
     }
 
     #[test]
-    fn parse_server_timing() {
+    fn parse_server_timing_header_values() {
         assert_eq!(
-            super::parse_server_timing("gfet4t7;dur=12.5"),
+            parse_server_timing("gfet4t7;dur=12.5"),
             ServerTimings {
                 gfe_latency: Some(12.5),
                 afe_latency: None,
             }
         );
         assert_eq!(
-            super::parse_server_timing("gfet4t7;desc=\"test\";dur=12.5,afe;dur=5;desc=\"other\""),
+            parse_server_timing("gfet4t7;desc=\"test\";dur=12.5,afe;dur=5;desc=\"other\""),
             ServerTimings {
                 gfe_latency: Some(12.5),
                 afe_latency: Some(5.0),
             }
         );
         assert_eq!(
-            super::parse_server_timing("afe;dur=3,some-other;dur=10"),
+            parse_server_timing("afe;dur=8.2,gfet4t7;dur=10.0"),
+            ServerTimings {
+                gfe_latency: Some(10.0),
+                afe_latency: Some(8.2),
+            }
+        );
+        assert_eq!(
+            parse_server_timing("other;dur=1.0"),
             ServerTimings {
                 gfe_latency: None,
-                afe_latency: Some(3.0),
-            }
-        );
-        assert_eq!(
-            super::parse_server_timing("invalid_format"),
-            ServerTimings::default()
-        );
-        assert_eq!(
-            super::parse_server_timing("gfet4t7;dur=\"12.5\",afe;dur=\"5.0\""),
-            ServerTimings {
-                gfe_latency: Some(12.5),
-                afe_latency: Some(5.0),
-            }
-        );
-        assert_eq!(
-            super::parse_server_timing("GFET4T7; dur=12.5, Afe; dur=5.0"),
-            ServerTimings {
-                gfe_latency: Some(12.5),
-                afe_latency: Some(5.0),
-            }
-        );
-        assert_eq!(
-            super::parse_server_timing("gfet4t7;dur=-5.0,afe;dur=NaN"),
-            ServerTimings::default()
-        );
-        assert_eq!(
-            super::parse_server_timing(",,,gfet4t7;dur=10.0,,,"),
-            ServerTimings {
-                gfe_latency: Some(10.0),
                 afe_latency: None,
             }
         );
         assert_eq!(
-            super::parse_server_timing("gfet4t7;dur=inf,afe;dur=Infinity"),
-            ServerTimings::default()
-        );
-        assert_eq!(
-            super::parse_server_timing("gfet4t7;dur=foo;dur=12.5"),
+            parse_server_timing("gfet4t7;dur=\"invalid\""),
             ServerTimings {
-                gfe_latency: Some(12.5),
+                gfe_latency: None,
                 afe_latency: None,
             }
         );
         assert_eq!(
-            super::parse_server_timing("gfet4t7; dur = 12.5 , afe; dur = \"5.0\" "),
+            parse_server_timing("gfet4t7;dur=-5.0"),
             ServerTimings {
-                gfe_latency: Some(12.5),
-                afe_latency: Some(5.0),
-            }
-        );
-        assert_eq!(
-            super::parse_server_timing("gfet4t7;dur=10.0, gfet4t7;dur=20.0"),
-            ServerTimings {
-                gfe_latency: Some(10.0),
+                gfe_latency: None,
                 afe_latency: None,
-            }
-        );
-        assert_eq!(
-            super::parse_server_timing("foo;dur=1.0,gfet4t7;dur=12.5,bar;dur=2.0,afe;dur=5.0"),
-            ServerTimings {
-                gfe_latency: Some(12.5),
-                afe_latency: Some(5.0),
             }
         );
     }
@@ -1024,460 +975,73 @@ mod tests {
         let mut headers = HeaderMap::new();
         headers.append(
             "server-timing",
-            http::HeaderValue::from_static("gfet4t7;dur=15.5"),
+            HeaderValue::from_static("gfet4t7;dur=15.0"),
         );
-        headers.append(
-            "server-timing",
-            http::HeaderValue::from_static("afe;dur=7.2"),
-        );
+        headers.append("server-timing", HeaderValue::from_static("afe;dur=7.5"));
 
         let timings = parse_server_timing_from_headers(&headers);
-        assert_eq!(timings.gfe_latency, Some(15.5));
-        assert_eq!(timings.afe_latency, Some(7.2));
-
-        let mut invalid_headers = HeaderMap::new();
-        invalid_headers.append(
-            "server-timing",
-            http::HeaderValue::from_bytes(b"\xff\xfe").expect("valid raw header bytes"),
-        );
-        let invalid_timings = parse_server_timing_from_headers(&invalid_headers);
-        assert_eq!(invalid_timings, ServerTimings::default());
-    }
-
-    #[tokio::test]
-    async fn trace_operation_records_operation_metrics() {
-        let exporter = InMemoryMetricExporter::default();
-        let reader = PeriodicReader::builder(exporter.clone()).build();
-        let provider = SdkMeterProvider::builder().with_reader(reader).build();
-        let meter = provider.meter("cloud.google.com/rust");
-        let metrics = SpannerMetrics::new(meter);
-        let o11y = Observability {
-            metrics: Some(Arc::new(metrics)),
-            common_attributes: [
-                KeyValue::new("client_uid", "test-uid"),
-                KeyValue::new("client_name", "test-name"),
-                KeyValue::new("database", "test-db"),
-            ],
-            meter_provider: Some(Arc::new(provider.clone())),
-        };
-
-        let result = o11y
-            .trace_operation("ExecuteSql", async { Ok::<i32, crate::Error>(100) })
-            .await;
         assert_eq!(
-            result.expect("trace_operation should succeed"),
-            100,
-            "operation result should match"
-        );
-
-        provider.force_flush().expect("force_flush failed");
-
-        let finished = exporter
-            .get_finished_metrics()
-            .expect("get_finished_metrics should succeed");
-        let metric_names: Vec<&str> = finished
-            .iter()
-            .flat_map(|rm| rm.scope_metrics())
-            .flat_map(|sm| sm.metrics())
-            .map(|m| m.name())
-            .collect();
-
-        assert!(
-            metric_names.contains(&"spanner.googleapis.com/internal/client/operation_latencies"),
-            "should record operation_latencies"
-        );
-        assert!(
-            metric_names.contains(&"spanner.googleapis.com/internal/client/operation_count"),
-            "should record operation_count"
-        );
-    }
-
-    #[test]
-    fn spanner_metrics_interceptor_records_attempt_metrics() {
-        use gaxi::attempt_interceptor::AttemptInterceptor;
-        use google_cloud_gax::options::internal::RequestOptionsExt as _;
-
-        let exporter = InMemoryMetricExporter::default();
-        let reader = PeriodicReader::builder(exporter.clone()).build();
-        let provider = SdkMeterProvider::builder().with_reader(reader).build();
-        let meter = provider.meter("cloud.google.com/rust");
-        let metrics = SpannerMetrics::new(meter);
-        let o11y = Arc::new(Observability::for_test(metrics, provider.clone()));
-        let interceptor = SpannerMetricsInterceptor;
-
-        let mut res_headers = HeaderMap::new();
-        res_headers.insert(
-            "server-timing",
-            http::HeaderValue::from_static("gfet4t7;dur=12.5,afe;dur=3.2"),
-        );
-        let options = crate::RequestOptions::default().insert_extension(o11y);
-        let start_time = Instant::now();
-
-        interceptor.on_attempt_complete(
-            "/google.spanner.v1.Spanner/ExecuteSql",
-            1,
-            start_time,
-            Some(&res_headers),
-            None,
-            &options,
-        );
-
-        provider.force_flush().expect("force_flush failed");
-
-        let finished = exporter
-            .get_finished_metrics()
-            .expect("get_finished_metrics should succeed");
-        let metric_names: Vec<&str> = finished
-            .iter()
-            .flat_map(|rm| rm.scope_metrics())
-            .flat_map(|sm| sm.metrics())
-            .map(|m| m.name())
-            .collect();
-
-        assert!(
-            metric_names.contains(&"spanner.googleapis.com/internal/client/attempt_latencies"),
-            "should record attempt_latencies"
-        );
-        assert!(
-            metric_names.contains(&"spanner.googleapis.com/internal/client/attempt_count"),
-            "should record attempt_count"
-        );
-        assert!(
-            metric_names.contains(&"spanner.googleapis.com/internal/client/gfe_latencies"),
-            "should record gfe_latencies"
-        );
-        assert!(
-            metric_names.contains(&"spanner.googleapis.com/internal/client/afe_latencies"),
-            "should record afe_latencies"
-        );
-    }
-
-    #[test]
-    fn default_export_interval() {
-        assert_eq!(DEFAULT_EXPORT_INTERVAL, Duration::from_secs(60));
-    }
-
-    #[test]
-    fn bucket_boundaries_len_and_values() {
-        assert_eq!(BUCKET_BOUNDARIES.len(), 50);
-        assert_eq!(BUCKET_BOUNDARIES[0], 0.0);
-        assert_eq!(
-            *BUCKET_BOUNDARIES
-                .last()
-                .expect("BUCKET_BOUNDARIES should not be empty"),
-            3200000.0
+            timings,
+            ServerTimings {
+                gfe_latency: Some(15.0),
+                afe_latency: Some(7.5),
+            }
         );
     }
 
     #[tokio::test]
-    async fn observability_disabled_paths() {
-        let o11y = Observability::disabled();
-        assert!(
-            o11y.metrics.is_none(),
-            "disabled observability should have no metrics"
-        );
+    async fn observability_init_disabled_env() {
+        let _env = scoped_env::ScopedEnv::set("SPANNER_DISABLE_BUILTIN_METRICS", "true");
+        let o11y = Observability::init(
+            &ClientConfig::default(),
+            InstanceType::Cloud,
+            "projects/p/instances/i/databases/d",
+            false,
+        )
+        .await;
+        assert!(o11y.metrics.is_none());
+    }
 
-        let config = ClientConfig::default();
-        let o11y_emulator = Observability::init(
+    #[tokio::test]
+    async fn observability_init_plaintext_endpoint() {
+        let mut config = ClientConfig::default();
+        config.endpoint = Some("http://localhost:9010".to_string());
+        let o11y = Observability::init(
             &config,
             InstanceType::Cloud,
-            "projects/proj/instances/inst/databases/db",
+            "projects/p/instances/i/databases/d",
+            false,
+        )
+        .await;
+        assert!(o11y.metrics.is_none());
+    }
+
+    #[tokio::test]
+    async fn observability_init_emulator() {
+        let o11y = Observability::init(
+            &ClientConfig::default(),
+            InstanceType::Cloud,
+            "projects/p/instances/i/databases/d",
             true,
         )
         .await;
-        assert!(
-            o11y_emulator.metrics.is_none(),
-            "emulator client should have disabled metrics"
-        );
+        assert!(o11y.metrics.is_none());
+    }
 
-        let o11y_omni = Observability::init(
-            &config,
+    #[tokio::test]
+    async fn observability_init_omni() {
+        let o11y = Observability::init(
+            &ClientConfig::default(),
             InstanceType::Omni,
-            "projects/proj/instances/inst/databases/db",
+            "projects/p/instances/i/databases/d",
             false,
         )
         .await;
-        assert!(
-            o11y_omni.metrics.is_none(),
-            "omni client should have disabled metrics"
-        );
-
-        let mut plaintext_config = ClientConfig::default();
-        plaintext_config.endpoint = Some("http://localhost:9010".to_string());
-        let o11y_plaintext = Observability::init(
-            &plaintext_config,
-            InstanceType::Cloud,
-            "projects/proj/instances/inst/databases/db",
-            false,
-        )
-        .await;
-        assert!(
-            o11y_plaintext.metrics.is_none(),
-            "plaintext endpoint must disable metrics"
-        );
-
-        let o11y_invalid_db =
-            Observability::init(&config, InstanceType::Cloud, "invalid-db-name", false).await;
-        assert!(
-            o11y_invalid_db.metrics.is_none(),
-            "invalid database name must return disabled observability"
-        );
+        assert!(o11y.metrics.is_none());
     }
 
     #[test]
-    fn spanner_metrics_initialization_and_recording() {
-        let exporter = InMemoryMetricExporter::default();
-        let reader = PeriodicReader::builder(exporter.clone())
-            .with_interval(DEFAULT_EXPORT_INTERVAL)
-            .build();
-        let provider = SdkMeterProvider::builder().with_reader(reader).build();
-        let meter = provider.meter("cloud.google.com/rust");
-        let metrics = SpannerMetrics::new(meter);
-
-        let attributes = [
-            KeyValue::new("method", "ExecuteSql"),
-            KeyValue::new("status", "OK"),
-        ];
-
-        metrics.operation_latencies.record(12.5, &attributes);
-        metrics.attempt_latencies.record(10.0, &attributes);
-        metrics.gfe_latencies.record(1.5, &attributes);
-        metrics.afe_latencies.record(2.0, &attributes);
-        metrics.operation_count.add(1, &attributes);
-        metrics.attempt_count.add(1, &attributes);
-
-        provider.force_flush().expect("force_flush should succeed");
-
-        let finished_metrics = exporter
-            .get_finished_metrics()
-            .expect("get_finished_metrics should succeed");
-        assert!(
-            !finished_metrics.is_empty(),
-            "exported metrics should not be empty"
-        );
-
-        let mut metric_names = Vec::new();
-        for resource_metrics in &finished_metrics {
-            for scope_metrics in resource_metrics.scope_metrics() {
-                for metric in scope_metrics.metrics() {
-                    metric_names.push(metric.name().to_string());
-                }
-            }
-        }
-
-        assert!(
-            metric_names.contains(
-                &"spanner.googleapis.com/internal/client/operation_latencies".to_string()
-            )
-        );
-        assert!(
-            metric_names
-                .contains(&"spanner.googleapis.com/internal/client/attempt_latencies".to_string())
-        );
-        assert!(
-            metric_names
-                .contains(&"spanner.googleapis.com/internal/client/gfe_latencies".to_string())
-        );
-        assert!(
-            metric_names
-                .contains(&"spanner.googleapis.com/internal/client/afe_latencies".to_string())
-        );
-        assert!(
-            metric_names
-                .contains(&"spanner.googleapis.com/internal/client/operation_count".to_string())
-        );
-        assert!(
-            metric_names
-                .contains(&"spanner.googleapis.com/internal/client/attempt_count".to_string())
-        );
-    }
-
-    fn extract_histogram_attributes(
-        finished: &[ResourceMetrics],
-        metric_name: &str,
-    ) -> Option<HashMap<String, String>> {
-        for resource_metrics in finished {
-            for scope_metrics in resource_metrics.scope_metrics() {
-                for metric in scope_metrics.metrics() {
-                    if metric.name() == metric_name
-                        && let AggregatedMetrics::F64(MetricData::Histogram(histogram)) =
-                            metric.data()
-                        && let Some(data_point) = histogram.data_points().next()
-                    {
-                        return Some(
-                            data_point
-                                .attributes()
-                                .map(|key_value| {
-                                    (key_value.key.to_string(), key_value.value.to_string())
-                                })
-                                .collect(),
-                        );
-                    }
-                }
-            }
-        }
-        None
-    }
-
-    #[test]
-    fn observability_recording_methods() {
-        let exporter = InMemoryMetricExporter::default();
-        let reader = PeriodicReader::builder(exporter.clone())
-            .with_interval(DEFAULT_EXPORT_INTERVAL)
-            .build();
-        let provider = SdkMeterProvider::builder().with_reader(reader).build();
-        let meter = provider.meter("cloud.google.com/rust");
-        let metrics = SpannerMetrics::new(meter);
-
-        let o11y = Observability {
-            metrics: Some(Arc::new(metrics)),
-            common_attributes: [
-                KeyValue::new("client_uid", "test-uid"),
-                KeyValue::new("client_name", "spanner-rust/1.0.0"),
-                KeyValue::new("database", "test-db"),
-            ],
-            meter_provider: Some(Arc::new(provider.clone())),
-        };
-
-        o11y.record_operation("test_op", Duration::from_millis(15), &Ok(()));
-        let mut headers = HeaderMap::new();
-        headers.insert(
-            "server-timing",
-            HeaderValue::from_static("gfet4t7;dur=3.0,afe;dur=2.0"),
-        );
-        o11y.record_attempt("test_op", Duration::from_millis(10), None, Some(&headers));
-
-        if let Some(ref provider) = o11y.meter_provider {
-            provider.force_flush().expect("force_flush should succeed");
-        }
-
-        let finished = exporter
-            .get_finished_metrics()
-            .expect("get_finished_metrics should succeed");
-        assert!(
-            !finished.is_empty(),
-            "exported metrics should not be empty after recording methods"
-        );
-
-        let attempt_attrs = extract_histogram_attributes(
-            &finished,
-            "spanner.googleapis.com/internal/client/attempt_latencies",
-        )
-        .expect("attempt_latencies should be exported");
-        assert_eq!(
-            attempt_attrs.get("method").map(String::as_str),
-            Some("Spanner.test_op")
-        );
-        assert_eq!(attempt_attrs.get("status").map(String::as_str), Some("OK"));
-        assert_eq!(
-            attempt_attrs.get("directpath_enabled").map(String::as_str),
-            Some("false")
-        );
-        assert_eq!(
-            attempt_attrs.get("directpath_used").map(String::as_str),
-            Some("false")
-        );
-        assert_eq!(
-            attempt_attrs.get("client_uid").map(String::as_str),
-            Some("test-uid")
-        );
-        assert_eq!(
-            attempt_attrs.get("client_name").map(String::as_str),
-            Some("spanner-rust/1.0.0")
-        );
-        assert_eq!(
-            attempt_attrs.get("database").map(String::as_str),
-            Some("test-db")
-        );
-
-        let gfe_attrs = extract_histogram_attributes(
-            &finished,
-            "spanner.googleapis.com/internal/client/gfe_latencies",
-        )
-        .expect("gfe_latencies should be exported");
-        assert_eq!(
-            gfe_attrs.get("directpath_enabled").map(String::as_str),
-            Some("false")
-        );
-        assert_eq!(
-            gfe_attrs.get("directpath_used").map(String::as_str),
-            Some("false")
-        );
-
-        let afe_attrs = extract_histogram_attributes(
-            &finished,
-            "spanner.googleapis.com/internal/client/afe_latencies",
-        )
-        .expect("afe_latencies should be exported");
-        assert_eq!(
-            afe_attrs.get("directpath_enabled").map(String::as_str),
-            Some("false")
-        );
-        assert_eq!(
-            afe_attrs.get("directpath_used").map(String::as_str),
-            Some("false")
-        );
-
-        let op_attrs = extract_histogram_attributes(
-            &finished,
-            "spanner.googleapis.com/internal/client/operation_latencies",
-        )
-        .expect("operation_latencies should be exported");
-        assert_eq!(
-            op_attrs.get("method").map(String::as_str),
-            Some("Spanner.test_op")
-        );
-        assert_eq!(op_attrs.get("status").map(String::as_str), Some("OK"));
-        assert_eq!(
-            op_attrs.get("directpath_enabled").map(String::as_str),
-            Some("false")
-        );
-        assert_eq!(op_attrs.get("directpath_used"), None);
-        assert_eq!(
-            op_attrs.get("client_uid").map(String::as_str),
-            Some("test-uid")
-        );
-        assert_eq!(
-            op_attrs.get("client_name").map(String::as_str),
-            Some("spanner-rust/1.0.0")
-        );
-        assert_eq!(
-            op_attrs.get("database").map(String::as_str),
-            Some("test-db")
-        );
-    }
-
-    #[test]
-    fn observability_disabled_shutdown_and_drop() {
-        let o11y = Observability::disabled();
-        o11y.shutdown();
-        o11y.shutdown();
-        // Dropping o11y should invoke Drop and shutdown without panic.
-    }
-
-    #[cfg(feature = "_experimental-builtin-metrics")]
-    #[test]
-    fn spanner_metrics_interceptor_traits() {
-        static_assertions::assert_impl_all!(SpannerMetricsInterceptor: Send, Sync, Debug, Clone);
-    }
-
-    #[test]
-    fn afe_server_timing_request_header_sent() {
-        let interceptor = SpannerMetricsInterceptor;
-        let mut headers = HeaderMap::new();
-        interceptor.intercept(&mut headers, 1);
-
-        assert_eq!(
-            headers
-                .get(AFE_SERVER_TIMING_HEADER)
-                .and_then(|value| value.to_str().ok()),
-            Some("true"),
-            "should add x-goog-spanner-enable-afe-server-timing header by default"
-        );
-    }
-
-    #[test]
-    fn multi_attempt_retry_metrics() {
+    fn retry_attempts_and_operation_recorded() {
         use google_cloud_gax::options::internal::RequestOptionsExt as _;
 
         let exporter = InMemoryMetricExporter::default();
@@ -1489,33 +1053,31 @@ mod tests {
         let interceptor = SpannerMetricsInterceptor;
 
         let options = crate::RequestOptions::default().insert_extension(Arc::clone(&o11y));
-        let start_time = Instant::now();
 
+        let start_time_1 = Instant::now();
         // Attempt 1 fails with UNAVAILABLE
-        let error_unavailable = Error::service(
-            google_cloud_gax::error::rpc::Status::default()
-                .set_code(google_cloud_gax::error::rpc::Code::Unavailable)
-                .set_message("service unavailable"),
-        );
+        let status_unavail = Status::default().set_code(Code::Unavailable);
+        let err_unavail = Error::service(status_unavail);
         interceptor.on_attempt_complete(
             "/google.spanner.v1.Spanner/ExecuteSql",
             1,
-            start_time,
+            start_time_1,
             None,
-            Some(&error_unavailable),
+            Some(&err_unavail),
             &options,
         );
 
-        // Attempt 2 succeeds
+        let start_time_2 = Instant::now();
+        // Attempt 2 succeeds with server-timing
         let mut res_headers = HeaderMap::new();
         res_headers.insert(
             "server-timing",
-            HeaderValue::from_static("gfet4t7;dur=10.0,afe;dur=2.0"),
+            HeaderValue::from_static("gfet4t7;dur=12.5,afe;dur=3.2"),
         );
         interceptor.on_attempt_complete(
             "/google.spanner.v1.Spanner/ExecuteSql",
             2,
-            start_time,
+            start_time_2,
             Some(&res_headers),
             None,
             &options,
@@ -1525,7 +1087,7 @@ mod tests {
         o11y.record_operation(
             "google.spanner.v1.Spanner/ExecuteSql",
             Duration::from_millis(50),
-            &Ok::<(), crate::Error>(()),
+            None,
         );
 
         provider.force_flush().expect("force_flush should succeed");

@@ -1481,6 +1481,9 @@ pub struct StorageLayout {
     pub hierarchical_namespace:
         std::option::Option<crate::model::storage_layout::HierarchicalNamespace>,
 
+    /// Output only. The Rapid Cache configuration for the bucket.
+    pub rapid_cache_info: std::option::Option<crate::model::storage_layout::RapidCacheInfo>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1593,6 +1596,39 @@ impl StorageLayout {
         self.hierarchical_namespace = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [rapid_cache_info][crate::model::StorageLayout::rapid_cache_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::StorageLayout;
+    /// use google_cloud_storage::model::storage_layout::RapidCacheInfo;
+    /// let x = StorageLayout::new().set_rapid_cache_info(RapidCacheInfo::default()/* use setters */);
+    /// ```
+    pub fn set_rapid_cache_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::storage_layout::RapidCacheInfo>,
+    {
+        self.rapid_cache_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [rapid_cache_info][crate::model::StorageLayout::rapid_cache_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::StorageLayout;
+    /// use google_cloud_storage::model::storage_layout::RapidCacheInfo;
+    /// let x = StorageLayout::new().set_or_clear_rapid_cache_info(Some(RapidCacheInfo::default()/* use setters */));
+    /// let x = StorageLayout::new().set_or_clear_rapid_cache_info(None::<RapidCacheInfo>);
+    /// ```
+    pub fn set_or_clear_rapid_cache_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::storage_layout::RapidCacheInfo>,
+    {
+        self.rapid_cache_info = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for StorageLayout {
@@ -1680,6 +1716,42 @@ pub mod storage_layout {
     impl wkt::message::Message for HierarchicalNamespace {
         fn typename() -> &'static str {
             "type.googleapis.com/google.storage.control.v2.StorageLayout.HierarchicalNamespace"
+        }
+    }
+
+    /// The Rapid Cache configuration for the bucket.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct RapidCacheInfo {
+        /// Output only. The type of cache in the bucket. Set to `rapid-cache` or
+        /// `rapid-cache-ultra`, only if there is a cache present.
+        pub cache_type: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl RapidCacheInfo {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [cache_type][crate::model::storage_layout::RapidCacheInfo::cache_type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_storage::model::storage_layout::RapidCacheInfo;
+        /// let x = RapidCacheInfo::new().set_cache_type("example");
+        /// ```
+        pub fn set_cache_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.cache_type = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for RapidCacheInfo {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.storage.control.v2.StorageLayout.RapidCacheInfo"
         }
     }
 }
@@ -10408,6 +10480,353 @@ pub mod finding_summary {
                 Self::Percentage(value.into())
             }
         }
+    }
+}
+
+/// A full representation of an object context.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ObjectFullContext {
+    /// The type of the object context.
+    pub r#type: crate::model::object_full_context::Type,
+
+    /// The key of the object context, which is unique among contexts of an object.
+    pub key: std::string::String,
+
+    /// The value of the object context.
+    pub value: std::string::String,
+
+    /// The time at which the object context was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// The time at which the object context was updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ObjectFullContext {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [r#type][crate::model::ObjectFullContext::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::ObjectFullContext;
+    /// use google_cloud_storage::model::object_full_context::Type;
+    /// let x0 = ObjectFullContext::new().set_type(Type::Custom);
+    /// let x1 = ObjectFullContext::new().set_type(Type::Google);
+    /// ```
+    pub fn set_type<T: std::convert::Into<crate::model::object_full_context::Type>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type = v.into();
+        self
+    }
+
+    /// Sets the value of [key][crate::model::ObjectFullContext::key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::ObjectFullContext;
+    /// let x = ObjectFullContext::new().set_key("example");
+    /// ```
+    pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.key = v.into();
+        self
+    }
+
+    /// Sets the value of [value][crate::model::ObjectFullContext::value].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::ObjectFullContext;
+    /// let x = ObjectFullContext::new().set_value("example");
+    /// ```
+    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.value = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::ObjectFullContext::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::ObjectFullContext;
+    /// use wkt::Timestamp;
+    /// let x = ObjectFullContext::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::ObjectFullContext::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::ObjectFullContext;
+    /// use wkt::Timestamp;
+    /// let x = ObjectFullContext::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ObjectFullContext::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::ObjectFullContext::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::ObjectFullContext;
+    /// use wkt::Timestamp;
+    /// let x = ObjectFullContext::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::ObjectFullContext::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::ObjectFullContext;
+    /// use wkt::Timestamp;
+    /// let x = ObjectFullContext::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ObjectFullContext::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for ObjectFullContext {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.ObjectFullContext"
+    }
+}
+
+/// Defines additional types related to [ObjectFullContext].
+pub mod object_full_context {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Types of object contexts.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Type {
+        /// The type is not specified.
+        Unspecified,
+        /// Custom context.
+        Custom,
+        /// Google context.
+        Google,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Type::value] or
+        /// [Type::name].
+        UnknownValue(r#type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod r#type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Type {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Custom => std::option::Option::Some(1),
+                Self::Google => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
+                Self::Custom => std::option::Option::Some("CUSTOM"),
+                Self::Google => std::option::Option::Some("GOOGLE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Custom,
+                2 => Self::Google,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Type {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TYPE_UNSPECIFIED" => Self::Unspecified,
+                "CUSTOM" => Self::Custom,
+                "GOOGLE" => Self::Google,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Type {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Custom => serializer.serialize_i32(1),
+                Self::Google => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Type {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                ".google.storage.control.v2.ObjectFullContext.Type",
+            ))
+        }
+    }
+}
+
+/// Request message for ViewObjectFullContext.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ViewObjectFullContextRequest {
+    /// Optional. If present, selects a specific revision of this object (as
+    /// opposed to the latest version, the default).
+    pub generation: i64,
+
+    /// Required. The key of the object context to retrieve.
+    pub context_key: std::string::String,
+
+    /// Required. The name of the object.
+    /// Format: `projects/{project}/buckets/{bucket}/objects/{object}`
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ViewObjectFullContextRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [generation][crate::model::ViewObjectFullContextRequest::generation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::ViewObjectFullContextRequest;
+    /// let x = ViewObjectFullContextRequest::new().set_generation(42);
+    /// ```
+    pub fn set_generation<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.generation = v.into();
+        self
+    }
+
+    /// Sets the value of [context_key][crate::model::ViewObjectFullContextRequest::context_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::ViewObjectFullContextRequest;
+    /// let x = ViewObjectFullContextRequest::new().set_context_key("example");
+    /// ```
+    pub fn set_context_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.context_key = v.into();
+        self
+    }
+
+    /// Sets the value of [name][crate::model::ViewObjectFullContextRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::ViewObjectFullContextRequest;
+    /// let x = ViewObjectFullContextRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ViewObjectFullContextRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.ViewObjectFullContextRequest"
     }
 }
 

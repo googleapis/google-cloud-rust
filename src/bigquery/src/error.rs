@@ -21,10 +21,6 @@ use google_cloud_gax::error::Error;
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
 pub enum QueryError {
-    /// The project ID was not provided or could not be determined.
-    #[error("no project ID was provided")]
-    MissingProjectId,
-
     /// Only query jobs are supported by this client.
     #[error("only query jobs are supported")]
     UnsupportedJobType,

@@ -36,8 +36,6 @@ LIMIT 10;
     let mut rows = client
         .query(query)
         .with_project_id(project_id)
-        .run()
-        .await?
         .until_done()
         .await?
         .read();

@@ -31,7 +31,7 @@ pub async fn sample(project_id: &str) -> anyhow::Result<()> {
         .with_project_id(project_id)
         .set_job_creation_mode(JobCreationMode::JobCreationOptional)
         .set_location("US")
-        .run()
+        .send()
         .await?;
 
     let metadata = query.metadata();

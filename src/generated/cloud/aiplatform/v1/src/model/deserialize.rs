@@ -106215,6 +106215,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ReasoningEngineSpec {
             __class_methods,
             __agent_framework,
             __identity_type,
+            __build_spec,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -106251,6 +106252,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ReasoningEngineSpec {
                             "agent_framework" => Ok(__FieldTag::__agent_framework),
                             "identityType" => Ok(__FieldTag::__identity_type),
                             "identity_type" => Ok(__FieldTag::__identity_type),
+                            "buildSpec" => Ok(__FieldTag::__build_spec),
+                            "build_spec" => Ok(__FieldTag::__build_spec),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -106370,6 +106373,16 @@ impl<'de> serde::de::Deserialize<'de> for super::ReasoningEngineSpec {
                                     crate::model::reasoning_engine_spec::IdentityType,
                                 >>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__build_spec => {
+                            if !fields.insert(__FieldTag::__build_spec) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for build_spec",
+                                ));
+                            }
+                            result.build_spec = map.next_value::<std::option::Option<
+                                crate::model::reasoning_engine_spec::BuildSpec,
+                            >>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -107405,6 +107418,101 @@ impl<'de> serde::de::Deserialize<'de> for super::reasoning_engine_spec::Containe
                                 ));
                             }
                             result.image_uri = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[cfg(feature = "reasoning-engine-service")]
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::reasoning_engine_spec::BuildSpec {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __worker_pool,
+            __service_account,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for BuildSpec")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "workerPool" => Ok(__FieldTag::__worker_pool),
+                            "worker_pool" => Ok(__FieldTag::__worker_pool),
+                            "serviceAccount" => Ok(__FieldTag::__service_account),
+                            "service_account" => Ok(__FieldTag::__service_account),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::reasoning_engine_spec::BuildSpec;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct BuildSpec")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__worker_pool => {
+                            if !fields.insert(__FieldTag::__worker_pool) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for worker_pool",
+                                ));
+                            }
+                            result.worker_pool = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__service_account => {
+                            if !fields.insert(__FieldTag::__service_account) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for service_account",
+                                ));
+                            }
+                            result.service_account = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
