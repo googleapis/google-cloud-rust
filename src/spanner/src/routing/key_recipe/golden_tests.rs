@@ -135,8 +135,7 @@ fn parse_part_block<'a, I: Iterator<Item = &'a str>>(lines: &mut Peekable<I>) ->
         let trimmed = line.trim();
         if trimmed.ends_with('{') {
             depth += 1;
-        }
-        if trimmed == "}" {
+        } else if trimmed == "}" {
             depth -= 1;
             if depth == 0 {
                 break;
@@ -212,8 +211,7 @@ fn parse_test_block<'a, I: Iterator<Item = &'a str>>(
         let trimmed = line.trim();
         if trimmed.ends_with('{') {
             depth += 1;
-        }
-        if trimmed == "}" {
+        } else if trimmed == "}" {
             depth -= 1;
             if depth == 0 {
                 break;
@@ -296,23 +294,20 @@ fn parse_test_case_block<'a, I: Iterator<Item = &'a str>>(
 
     while let Some(line) = lines.next() {
         let trimmed = line.trim();
-        if trimmed.starts_with("part {") {
+        if let Some(n) = extract_value(trimmed, "name:") {
+            name = n.to_string();
+        } else if trimmed.starts_with("part {") {
             parts.push(parse_part_block(lines));
         } else if trimmed.starts_with("test {") {
             if let Some(test) = parse_test_block(lines) {
                 tests.push(test);
             }
-        } else if let Some(test_name) = extract_value(trimmed, "name:") {
-            name = test_name.to_string();
-        } else {
-            if trimmed.ends_with('{') {
-                depth += 1;
-            }
-            if trimmed == "}" {
-                depth -= 1;
-                if depth == 0 {
-                    break;
-                }
+        } else if trimmed.ends_with('{') {
+            depth += 1;
+        } else if trimmed == "}" {
+            depth -= 1;
+            if depth == 0 {
+                break;
             }
         }
     }
@@ -359,26 +354,35 @@ fn golden_conformance_supported_types() {
     assert_eq!(
         cases.len(),
         38,
-        "all 38 test cases in recipe_test.textproto must be parsed"
+        "recipe_test.textproto must parse all 38 Spanner golden test cases"
     );
 
+    // Execute golden conformance tests for all supported key column data types and key structure test cases.
+    // Table mutations, key sets, query parameters, and struct resolution will be enabled in subsequent pull requests.
     let supported_test_prefixes = [
         "DataTypeTest_BOOL",
         "DataTypeTest_INT64",
         "DataTypeTest_FLOAT64",
         "DataTypeTest_STRING",
         "DataTypeTest_BYTES",
+        "DataTypeTest_DATE",
+        "DataTypeTest_TIMESTAMP",
+        "DataTypeTest_UUID",
+        "DataTypeTest_ENUM",
+        "NotNull",
+        "NullsLast",
+        "MultiPart",
+        "Interleaved",
+        "GeneratedKeyColumns",
         "QueryEncoding",
     ];
 
-    let mut prefix_counts: HashMap<&'static str, usize> = supported_test_prefixes
-        .iter()
-        .map(|&prefix| (prefix, 0))
-        .collect();
+    let mut tests_per_prefix: HashMap<&'static str, usize> =
+        supported_test_prefixes.iter().map(|&p| (p, 0)).collect();
 
     let mut executed_tests = 0;
 
-    for case in cases {
+    for case in &cases {
         let matching_prefix = supported_test_prefixes
             .iter()
             .copied()
@@ -420,21 +424,23 @@ fn golden_conformance_supported_types() {
                 case.name, index, test.start, encoded
             );
             executed_tests += 1;
-            *prefix_counts
+            *tests_per_prefix
                 .get_mut(prefix)
-                .expect("prefix must exist in tracking map") += 1;
+                .expect("matching prefix must exist in prefix counter map") += 1;
         }
     }
 
-    for (prefix, count) in &prefix_counts {
+    // Verify that every single supported prefix actually executed tests (prevents dead prefixes).
+    for (prefix, count) in &tests_per_prefix {
         assert!(
             *count > 0,
-            "Prefix '{prefix}' configured in golden harness but executed 0 test vectors!"
+            "Golden test prefix '{prefix}' was configured as supported but executed 0 tests! \
+             Every supported prefix in the test harness must execute at least one test."
         );
     }
 
-    assert!(
-        executed_tests > 20,
-        "Expected to execute over 20 golden tests for supported types, executed {executed_tests}"
+    assert_eq!(
+        executed_tests, 87,
+        "Expected exactly 87 golden test vectors for supported types, executed {executed_tests}"
     );
 }

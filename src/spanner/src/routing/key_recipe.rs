@@ -25,7 +25,7 @@ use crate::error::internal_error;
 use crate::model::key_recipe::Part;
 use crate::model::key_recipe::part::{NullOrder, Order};
 use crate::model::{KeyRecipe, TypeCode};
-use crate::routing::ssformat;
+use crate::routing::{ssformat, temporal, uuid};
 use crate::value::{Kind, Value};
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
@@ -464,14 +464,11 @@ fn lookup_query_param<'a>(
 /// According to [Spanner documentation](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#valid_key_column_types),
 /// all data types are valid key column types except for `FLOAT32`, `ARRAY`, `JSON`, and `STRUCT`.
 ///
-/// Currently, this encoder supports types whose wire-format encoding preserves lexicographical
-/// sort order without custom binary date/timestamp packing: `BOOL`, `INT64`, `FLOAT64`, `STRING`,
-/// and `BYTES`.
+/// Supported types include `BOOL`, `INT64`, `FLOAT64`, `STRING`, `BYTES`, `DATE`, `TIMESTAMP`,
+/// `UUID`, and `ENUM`.
 ///
-/// Note: `NUMERIC`, `DATE`, and `TIMESTAMP` are valid Spanner key column types, but are not
-/// currently supported here because they require specialized binary storage encodings (`ssformat`)
-/// (e.g., days since epoch for `DATE`, 12-byte binary format for `TIMESTAMP`, decimal bit-packing
-/// for `NUMERIC`). Unsupported types explicitly return an error so that requests gracefully fall back
+/// Note: `NUMERIC` is not supported for Storage Specification key encoding.
+/// Unsupported types explicitly return an error so that requests gracefully fall back
 /// to default routing rather than emitting invalid shard keys.
 fn check_supported_key_type(part: &Part) -> Result<&TypeCode> {
     let part_type = part
@@ -483,25 +480,13 @@ fn check_supported_key_type(part: &Part) -> Result<&TypeCode> {
         | TypeCode::Int64
         | TypeCode::Float64
         | TypeCode::String
-        | TypeCode::Bytes => Ok(&part_type.code),
+        | TypeCode::Bytes
+        | TypeCode::Date
+        | TypeCode::Timestamp
+        | TypeCode::Uuid
+        | TypeCode::Enum => Ok(&part_type.code),
         TypeCode::Unspecified => Err(internal_error(
             "Invalid KeyRecipe part: TypeCode::Unspecified is not permitted",
-        )),
-        // TODO(#6279): Support TypeCode::Date binary ssformat encoding in a separate pull request.
-        TypeCode::Date => Err(internal_error(
-            "TypeCode::Date is not yet supported for key recipe encoding (TODO(#6279): will be added in a separate pull request)",
-        )),
-        // TODO(#6279): Support TypeCode::Timestamp binary ssformat encoding in a separate pull request.
-        TypeCode::Timestamp => Err(internal_error(
-            "TypeCode::Timestamp is not yet supported for key recipe encoding (TODO(#6279): will be added in a separate pull request)",
-        )),
-        // TODO(#6279): Support TypeCode::Uuid binary ssformat encoding in a separate pull request.
-        TypeCode::Uuid => Err(internal_error(
-            "TypeCode::Uuid is not yet supported for key recipe encoding (TODO(#6279): will be added in a separate pull request)",
-        )),
-        // TODO(#6279): Support TypeCode::Enum binary ssformat encoding in a separate pull request.
-        TypeCode::Enum => Err(internal_error(
-            "TypeCode::Enum is not yet supported for key recipe encoding (TODO(#6279): will be added in a separate pull request)",
         )),
         unsupported => Err(internal_error(format!(
             "TypeCode {unsupported:?} is not supported for key recipe encoding",
@@ -524,10 +509,13 @@ fn encode_part(buffer: &mut Vec<u8>, part: &Part, value: &Value) -> Result<()> {
 
     match *type_code {
         TypeCode::Bool => encode_bool_part(buffer, value, decreasing),
-        TypeCode::Int64 => encode_int64_part(buffer, value, decreasing),
+        TypeCode::Int64 | TypeCode::Enum => encode_int64_part(buffer, value, decreasing),
         TypeCode::Float64 => encode_float64_part(buffer, value, decreasing),
         TypeCode::String => encode_string_part(buffer, value, decreasing),
         TypeCode::Bytes => encode_bytes_part(buffer, value, decreasing),
+        TypeCode::Date => temporal::encode_date_part(buffer, value, decreasing),
+        TypeCode::Timestamp => temporal::encode_timestamp_part(buffer, value, decreasing),
+        TypeCode::Uuid => uuid::encode_uuid_part(buffer, value, decreasing),
         ref other => Err(internal_error(format!(
             "Unsupported TypeCode {other:?} for key recipe encoding",
         ))),
@@ -573,11 +561,11 @@ fn encode_bool_part(buffer: &mut Vec<u8>, value: &Value, decreasing: bool) -> Re
     append_bool_ordered(buffer, boolean_value, decreasing)
 }
 
-/// Evaluates an integer column value (`INT64`).
+/// Evaluates an integer or enum column value (`INT64` or `ENUM`).
 fn encode_int64_part(buffer: &mut Vec<u8>, value: &Value, decreasing: bool) -> Result<()> {
-    let string_value = value
-        .try_as_string()
-        .ok_or_else(|| internal_error("Type mismatch: expected String value for INT64 column"))?;
+    let string_value = value.try_as_string().ok_or_else(|| {
+        internal_error("Type mismatch: expected String value for INT64 or ENUM column")
+    })?;
     let integer_value = string_value.parse::<i64>().map_err(|e| {
         internal_error(format!(
             "Failed to parse Int64 from string '{string_value}': {e}"
@@ -897,7 +885,7 @@ mod tests {
             .expect_err("Bool value for INT64 column should return error");
         assert!(
             err1.to_string()
-                .contains("Type mismatch: expected String value for INT64 column"),
+                .contains("Type mismatch: expected String value for INT64 or ENUM column"),
             "unexpected error message: {err1}"
         );
 
@@ -1086,39 +1074,38 @@ mod tests {
     }
 
     #[test]
-    fn encode_key_from_recipe_unsupported_type_timestamp_returns_err() {
+    fn encode_key_from_recipe_timestamp_encoding() {
         let recipe = sample_recipe(vec![
             Part::new()
                 .set_order(Order::Ascending)
+                .set_null_order(NullOrder::NotNull)
                 .set_type(Type::default().set_code(TypeCode::Timestamp)),
         ]);
-        let values = vec!["2026-08-05T00:00:00Z".to_value()];
-        let error = encode_key_from_recipe(&recipe, &values)
-            .expect_err("Timestamp should return error until binary ssformat is implemented");
-        assert!(
-            error
-                .to_string()
-                .contains("is not yet supported for key recipe encoding"),
-            "unexpected error message: {error}"
-        );
+        let values = vec!["1970-01-01T00:00:00Z".to_value()];
+        let encoded = encode_key_from_recipe(&recipe, &values)
+            .expect("Timestamp key encoding should succeed");
+        let mut expected = Vec::new();
+        ssformat::append_composite_tag(&mut expected, 1).expect("tag 1");
+        temporal::encode_timestamp_part(&mut expected, &values[0], false)
+            .expect("timestamp part encoding");
+        assert_eq!(encoded, expected, "Timestamp key encoding mismatch");
     }
 
     #[test]
-    fn encode_key_from_recipe_unsupported_type_date_returns_err() {
+    fn encode_key_from_recipe_date_encoding() {
         let recipe = sample_recipe(vec![
             Part::new()
                 .set_order(Order::Ascending)
+                .set_null_order(NullOrder::NotNull)
                 .set_type(Type::default().set_code(TypeCode::Date)),
         ]);
-        let values = vec!["2026-08-05".to_value()];
-        let error = encode_key_from_recipe(&recipe, &values)
-            .expect_err("Date should return error until binary ssformat is implemented");
-        assert!(
-            error
-                .to_string()
-                .contains("is not yet supported for key recipe encoding"),
-            "unexpected error message: {error}"
-        );
+        let values = vec!["1970-01-01".to_value()];
+        let encoded =
+            encode_key_from_recipe(&recipe, &values).expect("Date key encoding should succeed");
+        let mut expected = Vec::new();
+        ssformat::append_composite_tag(&mut expected, 1).expect("tag 1");
+        temporal::encode_date_part(&mut expected, &values[0], false).expect("date part encoding");
+        assert_eq!(encoded, expected, "Date key encoding mismatch");
     }
 
     #[test]
@@ -1169,39 +1156,37 @@ mod tests {
     }
 
     #[test]
-    fn encode_key_from_recipe_unsupported_type_uuid_returns_err() {
+    fn encode_key_from_recipe_uuid_encoding() {
         let recipe = sample_recipe(vec![
             Part::new()
                 .set_order(Order::Ascending)
+                .set_null_order(NullOrder::NotNull)
                 .set_type(Type::default().set_code(TypeCode::Uuid)),
         ]);
-        let values = vec!["123e4567-e89b-12d3-a456-426614174000".to_value()];
-        let error = encode_key_from_recipe(&recipe, &values)
-            .expect_err("Uuid should return error until binary ssformat is implemented");
-        assert!(
-            error
-                .to_string()
-                .contains("is not yet supported for key recipe encoding"),
-            "unexpected error message: {error}"
-        );
+        let values = vec!["01234567-89ab-cdef-0123-456789abcdef".to_value()];
+        let encoded =
+            encode_key_from_recipe(&recipe, &values).expect("UUID key encoding should succeed");
+        let mut expected = Vec::new();
+        ssformat::append_composite_tag(&mut expected, 1).expect("tag 1");
+        uuid::encode_uuid_part(&mut expected, &values[0], false).expect("uuid part encoding");
+        assert_eq!(encoded, expected, "UUID key encoding mismatch");
     }
 
     #[test]
-    fn encode_key_from_recipe_unsupported_type_enum_returns_err() {
+    fn encode_key_from_recipe_enum_encoding() {
         let recipe = sample_recipe(vec![
             Part::new()
                 .set_order(Order::Ascending)
+                .set_null_order(NullOrder::NotNull)
                 .set_type(Type::default().set_code(TypeCode::Enum)),
         ]);
-        let values = vec!["VALUE_1".to_value()];
-        let error = encode_key_from_recipe(&recipe, &values)
-            .expect_err("Enum should return error until binary ssformat is implemented");
-        assert!(
-            error
-                .to_string()
-                .contains("is not yet supported for key recipe encoding"),
-            "unexpected error message: {error}"
-        );
+        let values = vec!["42".to_value()];
+        let encoded =
+            encode_key_from_recipe(&recipe, &values).expect("Enum key encoding should succeed");
+        let mut expected = Vec::new();
+        ssformat::append_composite_tag(&mut expected, 1).expect("tag 1");
+        ssformat::append_int64_increasing(&mut expected, 42);
+        assert_eq!(encoded, expected, "Enum key encoding mismatch");
     }
 
     #[test]
@@ -1301,6 +1286,102 @@ mod tests {
                 "Type mismatch: expected Number or special String value for FLOAT64 column"
             ),
             "unexpected error message: {err3}"
+        );
+
+        // 4. INT64 column rejects bool value
+        let int64_recipe = sample_recipe(vec![
+            Part::new()
+                .set_order(Order::Ascending)
+                .set_type(Type::default().set_code(TypeCode::Int64)),
+        ]);
+        let err4 = encode_key_from_recipe(&int64_recipe, &[true.to_value()])
+            .expect_err("Bool value for INT64 column should fail");
+        assert!(
+            err4.to_string()
+                .contains("Type mismatch: expected String value for INT64 or ENUM column"),
+            "unexpected error message: {err4}"
+        );
+
+        // 5. DATE column rejects bool value
+        let date_recipe = sample_recipe(vec![
+            Part::new()
+                .set_order(Order::Ascending)
+                .set_type(Type::default().set_code(TypeCode::Date)),
+        ]);
+        let err5 = encode_key_from_recipe(&date_recipe, &[true.to_value()])
+            .expect_err("Bool value for DATE column should fail");
+        assert!(
+            err5.to_string()
+                .contains("Type mismatch: expected ISO 8601 String value for DATE column"),
+            "unexpected error message: {err5}"
+        );
+
+        // 6. TIMESTAMP column rejects bool value
+        let ts_recipe = sample_recipe(vec![
+            Part::new()
+                .set_order(Order::Ascending)
+                .set_type(Type::default().set_code(TypeCode::Timestamp)),
+        ]);
+        let err6 = encode_key_from_recipe(&ts_recipe, &[true.to_value()])
+            .expect_err("Bool value for TIMESTAMP column should fail");
+        assert!(
+            err6.to_string()
+                .contains("Type mismatch: expected RFC 3339 String value for TIMESTAMP column"),
+            "unexpected error message: {err6}"
+        );
+
+        // 7. UUID column rejects bool value
+        let uuid_recipe = sample_recipe(vec![
+            Part::new()
+                .set_order(Order::Ascending)
+                .set_type(Type::default().set_code(TypeCode::Uuid)),
+        ]);
+        let err7 = encode_key_from_recipe(&uuid_recipe, &[true.to_value()])
+            .expect_err("Bool value for UUID column should fail");
+        assert!(
+            err7.to_string()
+                .contains("Type mismatch: expected String value for UUID column"),
+            "unexpected error message: {err7}"
+        );
+
+        // 8. ENUM column rejects bool value
+        let enum_recipe = sample_recipe(vec![
+            Part::new()
+                .set_order(Order::Ascending)
+                .set_type(Type::default().set_code(TypeCode::Enum)),
+        ]);
+        let err8 = encode_key_from_recipe(&enum_recipe, &[true.to_value()])
+            .expect_err("Bool value for ENUM column should fail");
+        assert!(
+            err8.to_string()
+                .contains("Type mismatch: expected String value for INT64 or ENUM column"),
+            "unexpected error message: {err8}"
+        );
+    }
+
+    #[test]
+    fn encode_key_from_recipe_into_truncates_buffer_on_error() {
+        let recipe = sample_recipe(vec![
+            string_part(Order::Ascending),
+            Part::new()
+                .set_order(Order::Ascending)
+                .set_type(Type::default().set_code(TypeCode::Array)),
+        ]);
+        let values = vec!["spanner".to_value(), "invalid".to_value()];
+        let mut buffer = b"existing_prefix".to_vec();
+        let initial_len = buffer.len();
+
+        let err = encode_key_from_recipe_into(&recipe, &values, &mut buffer)
+            .expect_err("second column Array should fail");
+        assert_eq!(
+            buffer.len(),
+            initial_len,
+            "buffer must be truncated back to its initial length on error: {err}"
+        );
+        assert_eq!(
+            &buffer[..],
+            b"existing_prefix",
+            "existing buffer contents must remain untouched"
         );
     }
 

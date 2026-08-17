@@ -914,7 +914,7 @@ libraries:
     copyright_year: "2025"
     output: src/gax
   - name: google-cloud-gax-internal
-    version: 0.7.17
+    version: 0.7.18
     copyright_year: "2025"
     output: src/gax-internal
     rust:
