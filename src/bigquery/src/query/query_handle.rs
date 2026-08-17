@@ -14,7 +14,6 @@
 
 use crate::error::QueryError;
 use crate::generated::{CompleteQueryMetadata, QueryMetadata};
-use crate::model::query_request::JobCreationMode;
 use crate::model::{
     GetQueryResultsRequest, GetQueryResultsResponse, Job, JobReference, QueryResponse,
 };
@@ -130,6 +129,7 @@ impl Query {
     /// > (for example, when using [`JobCreationMode::JobCreationOptional`]).
     ///
     /// [Job]: https://docs.cloud.google.com/bigquery/docs/reference/rest/v2/Job
+    /// [`JobCreationMode::JobCreationOptional`]: crate::model::query_request::JobCreationMode::JobCreationOptional
     ///
     /// # Example
     ///
@@ -386,7 +386,7 @@ impl CompleteQuery {
     /// Build a request to fetch full [Job] execution metadata from the service for this query.
     ///
     /// > Returns `None` if the query was executed without creating a job
-    /// > (for example, when using [`JobCreationMode::JobCreationOptional`]).
+    /// > (for example, when using [JobCreationMode::JobCreationOptional](crate::model::query_request::JobCreationMode::JobCreationOptional)).
     ///
     /// [Job]: https://docs.cloud.google.com/bigquery/docs/reference/rest/v2/Job
     ///
