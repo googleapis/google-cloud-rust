@@ -73,10 +73,12 @@ where
         Self::from_fn(move |item| {
             let req_tx = req_tx.clone();
             async move {
-                req_tx
-                    .send(item)
-                    .await
-                    .map_err(|_| crate::error::Error::io("cannot send request: stream is closed"))
+                req_tx.send(item).await.map_err(|_| {
+                    crate::error::Error::io(std::io::Error::new(
+                        std::io::ErrorKind::BrokenPipe,
+                        "cannot send request: stream is closed",
+                    ))
+                })
             }
         })
     }
@@ -176,6 +178,11 @@ mod tests {
             .await
             .expect_err("send should fail when receiver is dropped");
         assert!(err.is_io());
+        let io_err = err
+            .source()
+            .and_then(|e| e.downcast_ref::<std::io::Error>())
+            .expect("source should be std::io::Error");
+        assert_eq!(io_err.kind(), std::io::ErrorKind::BrokenPipe);
         assert_eq!(
             err.source().map(|e| e.to_string()).as_deref(),
             Some("cannot send request: stream is closed")

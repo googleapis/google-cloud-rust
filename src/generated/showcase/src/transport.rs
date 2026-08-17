@@ -1798,6 +1798,8 @@ impl super::stub::Echo for Echo {
         let req =
             req.ok_or_else(|| google_cloud_gax::error::Error::binding("a request is required"))?;
 
+        let x_goog_request_params = "";
+
         let first_req = req
             .to_proto()
             .map_err(google_cloud_gax::error::Error::ser)?;
@@ -1816,7 +1818,6 @@ impl super::stub::Echo for Echo {
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.showcase.v1beta1.Echo/Chat");
-        let x_goog_request_params = "";
 
         let result = self.grpc_inner
             .bidi_stream::<
@@ -1840,7 +1841,10 @@ impl super::stub::Echo for Echo {
                         .to_proto()
                         .map_err(google_cloud_gax::error::Error::ser)?;
                     req_tx.send(prost_item).await.map_err(|_| {
-                        google_cloud_gax::error::Error::io("cannot send request: stream is closed")
+                        google_cloud_gax::error::Error::io(std::io::Error::new(
+                            std::io::ErrorKind::BrokenPipe,
+                            "cannot send request: stream is closed",
+                        ))
                     })
                 }
             },
@@ -5048,6 +5052,8 @@ impl super::stub::Messaging for Messaging {
         let req =
             req.ok_or_else(|| google_cloud_gax::error::Error::binding("a request is required"))?;
 
+        let x_goog_request_params = "";
+
         let first_req = req
             .to_proto()
             .map_err(google_cloud_gax::error::Error::ser)?;
@@ -5067,7 +5073,6 @@ impl super::stub::Messaging for Messaging {
         };
         let path =
             http::uri::PathAndQuery::from_static("/google.showcase.v1beta1.Messaging/Connect");
-        let x_goog_request_params = "";
 
         let result = self.grpc_inner
             .bidi_stream::<
@@ -5091,7 +5096,10 @@ impl super::stub::Messaging for Messaging {
                         .to_proto()
                         .map_err(google_cloud_gax::error::Error::ser)?;
                     req_tx.send(prost_item).await.map_err(|_| {
-                        google_cloud_gax::error::Error::io("cannot send request: stream is closed")
+                        google_cloud_gax::error::Error::io(std::io::Error::new(
+                            std::io::ErrorKind::BrokenPipe,
+                            "cannot send request: stream is closed",
+                        ))
                     })
                 }
             },

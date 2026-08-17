@@ -14,13 +14,9 @@
 
 //! `UUID` data type codec for Spanner location-aware routing.
 
-// TODO(#6279): Remove dead_code allowance once uuid codec is integrated into key_recipe.rs.
-#![allow(dead_code)]
-
 use crate::Result;
 use crate::routing::ssformat;
-use prost_types::Value;
-use prost_types::value::Kind as ProstValueKind;
+use crate::value::Value;
 
 #[inline]
 fn append_bytes_ordered(buffer: &mut Vec<u8>, value: &[u8], decreasing: bool) {
@@ -97,14 +93,9 @@ pub(crate) fn encode_uuid_part(
     value: &Value,
     decreasing: bool,
 ) -> Result<()> {
-    let uuid_string = match value.kind {
-        Some(ProstValueKind::StringValue(ref string_value)) => string_value,
-        _ => {
-            return Err(crate::error::internal_error(
-                "Type mismatch: expected String value for UUID column",
-            ));
-        }
-    };
+    let uuid_string = value.try_as_string().ok_or_else(|| {
+        crate::error::internal_error("Type mismatch: expected String value for UUID column")
+    })?;
     let uuid_bytes = parse_uuid_bytes(uuid_string)?;
     append_bytes_ordered(buffer, &uuid_bytes, decreasing);
     Ok(())
@@ -113,18 +104,7 @@ pub(crate) fn encode_uuid_part(
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    fn sample_string_value(text: &str) -> Value {
-        Value {
-            kind: Some(ProstValueKind::StringValue(text.to_string())),
-        }
-    }
-
-    fn sample_bool_value(boolean_value: bool) -> Value {
-        Value {
-            kind: Some(ProstValueKind::BoolValue(boolean_value)),
-        }
-    }
+    use crate::value::ToValue;
 
     #[test]
     fn parse_uuid_bytes_standard_format_returns_bytes() {
@@ -208,7 +188,7 @@ mod tests {
         let mut encoded_buffers = Vec::new();
 
         for uuid_text in sorted_uuids {
-            let value = sample_string_value(uuid_text);
+            let value = uuid_text.to_value();
             let mut buffer = Vec::new();
             encode_uuid_part(&mut buffer, &value, false)
                 .expect("failed to encode UUID in sort order test");
@@ -226,7 +206,7 @@ mod tests {
 
     #[test]
     fn encode_uuid_part_ascending_and_descending() {
-        let value = sample_string_value("01234567-89ab-cdef-0123-456789abcdef");
+        let value = "01234567-89ab-cdef-0123-456789abcdef".to_value();
         let mut ascending_buffer = Vec::new();
         encode_uuid_part(&mut ascending_buffer, &value, false)
             .expect("failed to encode ascending UUID part");
@@ -243,7 +223,7 @@ mod tests {
 
     #[test]
     fn encode_uuid_part_invalid_value_kind_returns_err() {
-        let value = sample_bool_value(true);
+        let value = true.to_value();
         let mut buffer = Vec::new();
         let error = encode_uuid_part(&mut buffer, &value, false)
             .expect_err("bool value for UUID column should fail");

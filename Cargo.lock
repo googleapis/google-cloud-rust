@@ -2356,7 +2356,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-bigquery-derive"
-version = "0.1.0-preview"
+version = "0.1.0"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -2423,7 +2423,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-bigquery-write"
-version = "0.0.0"
+version = "0.1.0"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -3417,7 +3417,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gax"
-version = "1.13.0"
+version = "1.14.0"
 dependencies = [
  "anyhow",
  "bytes",
@@ -3439,7 +3439,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gax-internal"
-version = "0.7.17"
+version = "0.7.18"
 dependencies = [
  "anyhow",
  "bytes",
@@ -3471,6 +3471,7 @@ dependencies = [
  "prost-types",
  "reqwest 0.13.4",
  "rustc_version",
+ "rustls",
  "scoped-env",
  "serde",
  "serde_json",
@@ -5190,6 +5191,7 @@ dependencies = [
  "prost-types",
  "rand 0.10.2",
  "rust_decimal",
+ "scoped-env",
  "serde",
  "serde_json",
  "serde_with",
@@ -7245,9 +7247,11 @@ dependencies = [
  "bytes",
  "google-cloud-auth",
  "google-cloud-gax",
+ "google-cloud-rpc",
  "google-cloud-showcase-v1beta1",
  "google-cloud-test-utils",
  "google-cloud-wkt",
+ "http",
  "tokio",
  "tracing",
  "uuid",
