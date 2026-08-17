@@ -73,15 +73,12 @@ where
         Self::from_fn(move |item| {
             let req_tx = req_tx.clone();
             async move {
-                req_tx
-                    .send(item)
-                    .await
-                    .map_err(|_| {
-                        crate::error::Error::io(std::io::Error::new(
-                            std::io::ErrorKind::BrokenPipe,
-                            "cannot send request: stream is closed",
-                        ))
-                    })
+                req_tx.send(item).await.map_err(|_| {
+                    crate::error::Error::io(std::io::Error::new(
+                        std::io::ErrorKind::BrokenPipe,
+                        "cannot send request: stream is closed",
+                    ))
+                })
             }
         })
     }
