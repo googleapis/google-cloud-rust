@@ -16,6 +16,7 @@ use super::{INSTANCE_LABEL, random_id_suffix};
 use anyhow::Result;
 use futures::stream::{StreamExt, TryStreamExt};
 use google_cloud_bigquery_v2::client::JobService;
+use google_cloud_bigquery_v2::model::list_jobs_request::Projection;
 use google_cloud_bigquery_v2::model::{Job, JobConfiguration, JobConfigurationQuery, JobReference};
 use google_cloud_gax::paginator::ItemPaginator;
 use google_cloud_test_utils::runtime_config::project_id;
@@ -74,7 +75,7 @@ async fn cleanup_stale_jobs(client: &JobService, project_id: &str) -> Result<()>
     let list = client
         .list_jobs()
         .set_project_id(project_id)
-        .set_projection(google_cloud_bigquery_v2::model::list_jobs_request::Projection::Full)
+        .set_projection(Projection::Full)
         .set_max_creation_time(stale_deadline)
         .by_item()
         .into_stream();
@@ -106,7 +107,10 @@ async fn cleanup_stale_jobs(client: &JobService, project_id: &str) -> Result<()>
 
     println!("found {} stale test jobs", pending_deletion.len());
 
-    futures::stream::iter(pending_deletion).buffer_unordered(10).collect::<Vec<_>>().await;
+    futures::stream::iter(pending_deletion)
+        .buffer_unordered(10)
+        .collect::<Vec<_>>()
+        .await;
     Ok(())
 }
 
