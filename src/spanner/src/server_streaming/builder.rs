@@ -62,7 +62,7 @@ impl ExecuteStreamingSql {
     pub(crate) async fn send(self) -> Result<PartialResultSetStream> {
         let session = self.request.session.clone();
         let request = self.request.to_proto().map_err(Error::deser)?;
-        let stream = make_server_streaming_request(
+        let response = make_server_streaming_request(
             &self.grpc_client,
             request,
             self.options,
@@ -71,7 +71,9 @@ impl ExecuteStreamingSql {
             &session,
         )
         .await?;
-        Ok(PartialResultSetStream::new(stream.into_inner()))
+        let (metadata, stream, _) = response.into_parts();
+        let headers = metadata.into_headers();
+        Ok(PartialResultSetStream::new(stream, headers))
     }
 }
 
@@ -114,7 +116,7 @@ impl StreamingRead {
     pub(crate) async fn send(self) -> Result<PartialResultSetStream> {
         let session = self.request.session.clone();
         let request = self.request.to_proto().map_err(Error::deser)?;
-        let stream = make_server_streaming_request(
+        let response = make_server_streaming_request(
             &self.grpc_client,
             request,
             self.options,
@@ -123,7 +125,9 @@ impl StreamingRead {
             &session,
         )
         .await?;
-        Ok(PartialResultSetStream::new(stream.into_inner()))
+        let (metadata, stream, _) = response.into_parts();
+        let headers = metadata.into_headers();
+        Ok(PartialResultSetStream::new(stream, headers))
     }
 }
 
@@ -166,7 +170,7 @@ impl BatchWrite {
     pub(crate) async fn send(self) -> Result<BatchWriteStream> {
         let session = self.request.session.clone();
         let request = self.request.to_proto().map_err(Error::deser)?;
-        let stream = make_server_streaming_request(
+        let response = make_server_streaming_request(
             &self.grpc_client,
             request,
             self.options,
@@ -175,7 +179,9 @@ impl BatchWrite {
             &session,
         )
         .await?;
-        Ok(BatchWriteStream::new(stream.into_inner()))
+        let (metadata, stream, _) = response.into_parts();
+        let headers = metadata.into_headers();
+        Ok(BatchWriteStream::new(stream, headers))
     }
 }
 
