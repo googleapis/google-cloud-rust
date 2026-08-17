@@ -797,7 +797,7 @@ mod tests {
     use google_cloud_gax::retry_result::RetryResult;
     use google_cloud_gax::retry_state::RetryState;
     use google_cloud_test_macros::tokio_test_no_panics;
-    use http::HeaderMap;
+    use http::{HeaderMap, HeaderValue};
     use prost_types::Timestamp;
     use spanner_grpc_mock::google::spanner::v1;
     use std::fmt::Debug;
@@ -2618,10 +2618,10 @@ mod tests {
             .build(None)
             .await?;
 
-        let mut custom_headers = http::HeaderMap::new();
+        let mut custom_headers = HeaderMap::new();
         custom_headers.insert(
             "x-custom-user-header",
-            http::HeaderValue::from_static("custom-value"),
+            HeaderValue::from_static("custom-value"),
         );
 
         let mut stmt = Statement::builder("UPDATE Users SET active = true").build();

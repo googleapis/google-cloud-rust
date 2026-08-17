@@ -25,6 +25,7 @@ use crate::transaction_retry_policy::is_aborted;
 use google_cloud_gax::backoff_policy::BackoffPolicyArg;
 use google_cloud_gax::options::internal::RequestOptionsExt as _;
 use google_cloud_gax::retry_policy::RetryPolicyArg;
+use http::HeaderMap;
 use std::mem::replace;
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
@@ -1057,15 +1058,11 @@ fn merge_request_options(
     if let Some(backoff) = source.backoff_policy() {
         destination.set_backoff_policy(backoff.clone());
     }
-    if let Some(src_headers) = source.get_extension::<http::HeaderMap>() {
-        let mut dest_headers = destination
-            .get_extension::<http::HeaderMap>()
-            .cloned()
-            .unwrap_or_default();
+    if let Some(src_headers) = source.get_extension::<HeaderMap>() {
+        let dest_headers = destination.get_extension_or_default_mut::<HeaderMap>();
         for (name, value) in src_headers.iter() {
             dest_headers.insert(name.clone(), value.clone());
         }
-        destination = destination.insert_extension(dest_headers);
     }
     destination
 }
@@ -3405,18 +3402,85 @@ pub(crate) mod tests {
         assert_eq!(
             merged_headers
                 .get("x-goog-spanner-route-to-leader")
-                .unwrap()
+                .expect("route to leader header should be present")
                 .to_str()
-                .unwrap(),
+                .expect("header value should be valid string"),
             "true"
         );
         assert_eq!(
             merged_headers
                 .get("x-custom-header")
-                .unwrap()
+                .expect("custom header should be present")
                 .to_str()
-                .unwrap(),
+                .expect("header value should be valid string"),
             "custom-value"
+        );
+        assert_eq!(
+            merged_headers
+                .get_all("x-goog-spanner-route-to-leader")
+                .iter()
+                .count(),
+            1,
+            "route to leader header should only appear once"
+        );
+        assert_eq!(
+            merged_headers.get_all("x-custom-header").iter().count(),
+            1,
+            "custom header should only appear once"
+        );
+
+        // Case 4: Overwriting existing header replaces value without duplicating key
+        let mut dest = crate::RequestOptions::default();
+        let mut dest_headers = HeaderMap::new();
+        dest_headers.insert(
+            HeaderName::from_static("x-custom-header"),
+            HeaderValue::from_static("original-value"),
+        );
+        dest = dest.insert_extension(dest_headers);
+
+        let mut source = crate::RequestOptions::default();
+        let mut src_headers = HeaderMap::new();
+        src_headers.insert(
+            HeaderName::from_static("x-custom-header"),
+            HeaderValue::from_static("overridden-value"),
+        );
+        source = source.insert_extension(src_headers);
+
+        let merged = merge_request_options(dest, Some(&source));
+        let merged_headers = merged
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap missing");
+
+        assert_eq!(
+            merged_headers.get_all("x-custom-header").iter().count(),
+            1,
+            "Overwritten header must only be present once"
+        );
+        assert_eq!(
+            merged_headers
+                .get("x-custom-header")
+                .expect("custom header present")
+                .to_str()
+                .expect("valid ascii"),
+            "overridden-value"
+        );
+
+        // Case 5: Source options is completely untouched (isolation)
+        let source_headers = source
+            .get_extension::<HeaderMap>()
+            .expect("source HeaderMap present");
+        assert_eq!(
+            source_headers
+                .get("x-custom-header")
+                .expect("source custom header present")
+                .to_str()
+                .expect("valid ascii"),
+            "overridden-value"
+        );
+        assert_eq!(
+            source_headers.len(),
+            1,
+            "source HeaderMap must remain isolated and unmodified"
         );
     }
 
@@ -3516,6 +3580,103 @@ pub(crate) mod tests {
         assert_eq!(
             err.status().map(|s| s.message.as_str()),
             Some("query failed")
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn concurrent_queries_shared_statement_with_custom_headers_isolation()
+    -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+
+        mock.expect_execute_streaming_sql()
+            .times(10)
+            .returning(|req| {
+                let metadata = req.metadata();
+                // 1. Verify custom header is present, has the expected value, and is present only ONCE
+                let custom_val = metadata
+                    .get("x-custom-header")
+                    .expect("x-custom-header must be present");
+                assert_eq!(
+                    custom_val.to_str().expect("valid ascii"),
+                    "custom-shared-value"
+                );
+                assert_eq!(
+                    metadata.get_all("x-custom-header").iter().count(),
+                    1,
+                    "x-custom-header must only be present once"
+                );
+
+                // 2. Verify request ID header is present and is present only ONCE
+                assert!(
+                    metadata.get("x-goog-spanner-request-id").is_some(),
+                    "request ID must be present"
+                );
+                assert_eq!(
+                    metadata.get_all("x-goog-spanner-request-id").iter().count(),
+                    1,
+                    "request ID header must only be present once"
+                );
+
+                Ok(gaxi::grpc::tonic::Response::from(adapt([Ok(
+                    setup_select1(),
+                )])))
+            });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let mut custom_headers = HeaderMap::new();
+        custom_headers.insert(
+            HeaderName::from_static("x-custom-header"),
+            HeaderValue::from_static("custom-shared-value"),
+        );
+
+        let shared_stmt = Statement::builder("SELECT 1")
+            .build()
+            .with_gax_options(crate::RequestOptions::default().insert_extension(custom_headers));
+
+        let mut handles = Vec::new();
+        for _ in 0..10 {
+            let client = db_client.clone();
+            let stmt = shared_stmt.clone();
+            handles.push(tokio::spawn(async move {
+                let mut rs = client
+                    .single_use()
+                    .build()
+                    .execute_query(stmt)
+                    .await
+                    .expect("Failed to execute query");
+                let row = rs.next().await.expect("has row").expect("has valid row");
+                assert_eq!(row.raw_values(), [Value(string_val("1"))]);
+            }));
+        }
+
+        for handle in handles {
+            handle.await.expect("task panicked");
+        }
+
+        // Verify the original shared statement's gax_options remained intact and isolated
+        let stmt_headers = shared_stmt
+            .gax_options()
+            .get_extension::<HeaderMap>()
+            .expect("shared statement HeaderMap intact");
+        assert_eq!(
+            stmt_headers
+                .get("x-custom-header")
+                .expect("custom header present")
+                .to_str()
+                .expect("valid ascii"),
+            "custom-shared-value"
+        );
+        assert_eq!(
+            stmt_headers.get_all("x-custom-header").iter().count(),
+            1,
+            "Shared statement custom header must only be present once"
+        );
+        assert!(
+            stmt_headers.get("x-goog-spanner-request-id").is_none(),
+            "Shared statement must NOT have been contaminated with request ID"
         );
 
         Ok(())

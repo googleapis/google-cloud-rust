@@ -659,22 +659,15 @@ impl ResultSet {
         // the attempt number suffix on the existing `x-goog-spanner-request-id` header in `RequestOptions`.
         // When `gaxi` invokes `SpannerRequestIdInterceptor` with attempt 1 for the retried stream,
         // the interceptor takes the maximum (`existing_attempt.max(attempt)`), preserving our bumped attempt number.
-        if self.retry_count > 0 {
-            let mut headers = self
-                .gax_options
-                .get_extension::<HeaderMap>()
-                .cloned()
-                .unwrap_or_default();
-            if let Some(val) = headers.get(&REQUEST_ID_HEADER)
-                && let Ok(s) = val.to_str()
-                && let Some((base, _)) = s.rsplit_once('.')
-            {
-                let new_id = format!("{}.{}", base, self.retry_count + 1);
-                if let Ok(new_val) = HeaderValue::from_str(&new_id) {
-                    headers.insert(REQUEST_ID_HEADER.clone(), new_val);
-                    self.gax_options =
-                        std::mem::take(&mut self.gax_options).insert_extension(headers);
-                }
+        if self.retry_count > 0
+            && let Some(headers) = self.gax_options.get_extension_mut::<HeaderMap>()
+            && let Some(val) = headers.get(&REQUEST_ID_HEADER)
+            && let Ok(s) = val.to_str()
+            && let Some((base, _)) = s.rsplit_once('.')
+        {
+            let new_id = format!("{}.{}", base, self.retry_count + 1);
+            if let Ok(new_val) = HeaderValue::from_str(&new_id) {
+                headers.insert(REQUEST_ID_HEADER.clone(), new_val);
             }
         }
 

@@ -36,7 +36,7 @@ use http::{
     header::{HeaderName, HeaderValue},
 };
 use std::sync::{
-    Arc, LazyLock,
+    Arc,
     atomic::{AtomicUsize, Ordering},
 };
 
@@ -185,26 +185,19 @@ fn apply_request_defaults(mut options: crate::RequestOptions) -> crate::RequestO
     options
 }
 
-pub(crate) static LAR_HEADER_MAP: LazyLock<HeaderMap> = LazyLock::new(|| {
-    let mut map = HeaderMap::new();
-    map.insert(
-        HeaderName::from_static("x-goog-spanner-route-to-leader"),
-        HeaderValue::from_static("true"),
-    );
-    map
-});
+static ROUTE_TO_LEADER_HEADER: HeaderName =
+    HeaderName::from_static("x-goog-spanner-route-to-leader");
+static ROUTE_TO_LEADER_VALUE: HeaderValue = HeaderValue::from_static("true");
 
 pub(crate) fn amend_request_options_for_lar(
     leader_aware_routing_enabled: bool,
     mut options: GaxRequestOptions,
 ) -> GaxRequestOptions {
     if leader_aware_routing_enabled {
-        let mut headers = options
-            .get_extension::<HeaderMap>()
-            .cloned()
-            .unwrap_or_default();
-        headers.extend((*LAR_HEADER_MAP).clone());
-        options = options.insert_extension(headers);
+        options.get_extension_or_default_mut::<HeaderMap>().insert(
+            ROUTE_TO_LEADER_HEADER.clone(),
+            ROUTE_TO_LEADER_VALUE.clone(),
+        );
     }
     options
 }
@@ -357,7 +350,7 @@ impl Spanner {
 
     pub(crate) fn attach_request_id(
         &self,
-        options: crate::RequestOptions,
+        mut options: crate::RequestOptions,
         channel_hint: usize,
     ) -> crate::RequestOptions {
         if options
@@ -378,12 +371,10 @@ impl Spanner {
             return options;
         };
 
-        let mut headers = options
-            .get_extension::<HeaderMap>()
-            .cloned()
-            .unwrap_or_default();
-        headers.insert(REQUEST_ID_HEADER.clone(), val);
-        options.insert_extension(headers)
+        options
+            .get_extension_or_default_mut::<HeaderMap>()
+            .insert(REQUEST_ID_HEADER.clone(), val);
+        options
     }
 
     define_idempotent_rpc!(
@@ -1942,6 +1933,74 @@ mod tests {
         assert!(
             val.contains(".4."),
             "Request ID should contain channel ID 4 for hint 7 with pool size 4, got {val}"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn attach_request_id_idempotent_no_duplicate_headers() {
+        let mock = MockSpanner::new();
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let mut options = crate::RequestOptions::default();
+        options = client.attach_request_id(options, 0);
+        let first_headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap should be present")
+            .clone();
+        let first_val = first_headers
+            .get(&REQUEST_ID_HEADER)
+            .expect("request id should be present")
+            .clone();
+
+        // Calling attach_request_id a second time must NOT change the value or add duplicate headers
+        options = client.attach_request_id(options, 0);
+        let second_headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap should be present");
+
+        assert_eq!(
+            second_headers.get_all(&REQUEST_ID_HEADER).iter().count(),
+            1,
+            "REQUEST_ID_HEADER should only be present once"
+        );
+        assert_eq!(
+            second_headers.get(&REQUEST_ID_HEADER),
+            Some(&first_val),
+            "Second call must preserve original Request ID"
+        );
+    }
+
+    #[test]
+    fn amend_request_options_for_lar_idempotent_no_duplicate_headers() {
+        let options = crate::RequestOptions::default();
+        let options = super::amend_request_options_for_lar(true, options);
+        let options = super::amend_request_options_for_lar(true, options);
+
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap should be present");
+
+        assert_eq!(
+            headers
+                .get_all(&super::ROUTE_TO_LEADER_HEADER)
+                .iter()
+                .count(),
+            1,
+            "LAR header should only be present once even after multiple amend calls"
+        );
+        assert_eq!(
+            headers.get(&super::ROUTE_TO_LEADER_HEADER),
+            Some(&super::ROUTE_TO_LEADER_VALUE),
+            "LAR header should match ROUTE_TO_LEADER_VALUE"
         );
     }
 }
