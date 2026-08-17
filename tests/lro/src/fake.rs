@@ -517,4 +517,21 @@ mod tests {
 
         Ok(())
     }
+
+    #[tokio::test]
+    async fn manageable_future_size() -> Result<()> {
+        let client = Workflows::builder()
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let fut = client
+            .create_workflow()
+            .set_parent("projects/p/locations/l")
+            .set_workflow_id("w01")
+            .poller()
+            .until_done();
+        let size = std::mem::size_of_val(&fut);
+        assert!(size < 8 * 1024, "{size}");
+        Ok(())
+    }
 }

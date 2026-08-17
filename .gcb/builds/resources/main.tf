@@ -93,6 +93,16 @@ resource "google_cloudbuild_worker_pool" "pool" {
   }
 }
 
+resource "google_cloudbuild_worker_pool" "large-pool" {
+  name     = "rust-sdk-pool-large"
+  location = "us-central1"
+  worker_config {
+    disk_size_gb   = 256
+    machine_type   = "e2-standard-32"
+    no_external_ip = false
+  }
+}
+
 output "build-cache" {
   value = resource.google_storage_bucket.build-cache.id
 }

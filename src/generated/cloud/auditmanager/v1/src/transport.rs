@@ -221,6 +221,23 @@ impl super::stub::AuditManager for AuditManager {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
+            .or_else(|| {
+                let var_scope = try_match(
+                    Some(&req).map(|m| &m.scope).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/auditScopeReports:generate", var_scope,);
+                let path_template = "/v1/{scope}/auditScopeReports:generate";
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -250,6 +267,21 @@ impl super::stub::AuditManager for AuditManager {
                         ],
                         "scope",
                         "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.scope).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "scope",
+                        "organizations/*/locations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -321,6 +353,23 @@ impl super::stub::AuditManager for AuditManager {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
+            .or_else(|| {
+                let var_scope = try_match(
+                    Some(&req).map(|m| &m.scope).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/auditReports:generate", var_scope,);
+                let path_template = "/v1/{scope}/auditReports:generate";
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -350,6 +399,21 @@ impl super::stub::AuditManager for AuditManager {
                         ],
                         "scope",
                         "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.scope).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "scope",
+                        "organizations/*/locations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -565,6 +629,26 @@ impl super::stub::AuditManager for AuditManager {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/auditReports/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//auditmanager.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -598,6 +682,23 @@ impl super::stub::AuditManager for AuditManager {
                         ],
                         "name",
                         "projects/*/locations/*/auditReports/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/auditReports/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*/auditReports/*",
                     );
                     paths.push(builder.build());
                 }

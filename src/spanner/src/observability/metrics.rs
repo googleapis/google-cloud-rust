@@ -14,22 +14,24 @@
 
 use crate::omni::InstanceType;
 use gaxi::options::ClientConfig;
+use http::HeaderMap;
+use std::sync::Arc;
 use std::time::Duration;
 
 #[cfg(feature = "_experimental-builtin-metrics")]
-use std::sync::Arc;
-#[cfg(feature = "_experimental-builtin-metrics")]
-use std::time::Instant;
-
-#[cfg(feature = "_experimental-builtin-metrics")]
 use {
+    crate::Error,
     crate::observability::exporter::GcpMonitoringExporter,
     google_cloud_monitoring_v3::client::MetricService,
+    opentelemetry::KeyValue,
     opentelemetry::metrics::{Counter, Histogram, Meter, MeterProvider},
     opentelemetry_sdk::{
+        Resource,
         error::OTelSdkError,
         metrics::{PeriodicReader, SdkMeterProvider},
     },
+    std::borrow::Cow,
+    std::time::Instant,
 };
 
 #[cfg(feature = "_experimental-builtin-metrics")]
@@ -151,11 +153,23 @@ pub(crate) fn client_name() -> &'static str {
 }
 
 #[cfg(feature = "_experimental-builtin-metrics")]
+fn is_plaintext_endpoint(endpoint: Option<&str>) -> bool {
+    endpoint.is_some_and(|ep| {
+        ep.starts_with("http://")
+            || (!ep.starts_with("https://")
+                && (ep.starts_with("localhost")
+                    || ep.starts_with("127.0.0.1")
+                    || ep.starts_with("::1")
+                    || ep.starts_with("[::1]")))
+    })
+}
+
+#[cfg(feature = "_experimental-builtin-metrics")]
 #[derive(Clone, Debug)]
 pub(crate) struct Observability {
     pub(crate) metrics: Option<Arc<SpannerMetrics>>,
-    common_attributes: [opentelemetry::KeyValue; 3],
-    meter_provider: Option<Arc<SdkMeterProvider>>,
+    pub(crate) common_attributes: [KeyValue; 3],
+    pub(crate) meter_provider: Option<Arc<SdkMeterProvider>>,
 }
 
 #[cfg(feature = "_experimental-builtin-metrics")]
@@ -164,12 +178,17 @@ impl Observability {
         Self {
             metrics: None,
             common_attributes: [
-                opentelemetry::KeyValue::new("client_uid", ""),
-                opentelemetry::KeyValue::new("client_name", ""),
-                opentelemetry::KeyValue::new("database", ""),
+                KeyValue::new("client_uid", ""),
+                KeyValue::new("client_name", ""),
+                KeyValue::new("database", ""),
             ],
             meter_provider: None,
         }
+    }
+
+    #[allow(dead_code)]
+    pub(crate) fn disabled_arc() -> Arc<Self> {
+        Arc::new(Self::disabled())
     }
 
     pub(crate) async fn init(
@@ -181,7 +200,12 @@ impl Observability {
         let disable_builtin_metrics = std::env::var("SPANNER_DISABLE_BUILTIN_METRICS")
             .map(|s| s.eq_ignore_ascii_case("true") || s == "1")
             .unwrap_or(false);
-        if disable_builtin_metrics || instance_type == InstanceType::Omni || is_emulator {
+        let is_plaintext = is_plaintext_endpoint(config.endpoint.as_deref());
+        if disable_builtin_metrics
+            || instance_type == InstanceType::Omni
+            || is_emulator
+            || is_plaintext
+        {
             return Self::disabled();
         }
 
@@ -217,13 +241,13 @@ impl Observability {
         let client_hash = generate_client_hash(&client_uid);
         let client_name = client_name();
 
-        let resource = opentelemetry_sdk::Resource::builder()
+        let resource = Resource::builder()
             .with_attributes([
-                opentelemetry::KeyValue::new("project_id", project_id.to_string()),
-                opentelemetry::KeyValue::new("instance_id", instance_id.to_string()),
-                opentelemetry::KeyValue::new("location", "global"),
-                opentelemetry::KeyValue::new("instance_config", "unknown"),
-                opentelemetry::KeyValue::new("client_hash", client_hash),
+                KeyValue::new("project_id", project_id.to_string()),
+                KeyValue::new("instance_id", instance_id.to_string()),
+                KeyValue::new("location", "global"),
+                KeyValue::new("instance_config", "unknown"),
+                KeyValue::new("client_hash", client_hash),
             ])
             .build();
 
@@ -241,9 +265,9 @@ impl Observability {
         let metrics = SpannerMetrics::new(meter);
 
         let common_attributes = [
-            opentelemetry::KeyValue::new("client_uid", client_uid),
-            opentelemetry::KeyValue::new("client_name", client_name),
-            opentelemetry::KeyValue::new("database", database_id.to_string()),
+            KeyValue::new("client_uid", client_uid),
+            KeyValue::new("client_name", client_name),
+            KeyValue::new("database", database_id.to_string()),
         ];
 
         Self {
@@ -267,46 +291,29 @@ impl Observability {
         let start_time = Instant::now();
         let result = fut.await;
         let elapsed = start_time.elapsed();
-        self.record_operation(method, elapsed, &result);
+        self.record_operation(method, elapsed, result.as_ref().err());
         result
     }
 
-    #[allow(dead_code)]
-    pub(crate) async fn trace_attempt<F, Fut, T>(
-        &self,
-        method: &'static str,
-        f: F,
-    ) -> crate::Result<T>
-    where
-        F: FnOnce() -> Fut,
-        Fut: std::future::Future<Output = crate::Result<T>>,
-    {
-        let start_time = Instant::now();
-        let result = f().await;
-        let elapsed = start_time.elapsed();
-        self.record_attempt(method, elapsed, &result, None, None);
-        result
-    }
-
-    #[allow(dead_code)]
-    pub(crate) fn record_attempt<T>(
+    pub(crate) fn record_attempt(
         &self,
         method: &'static str,
         duration: Duration,
-        result: &crate::Result<T>,
-        gfe_latency: Option<f64>,
-        afe_latency: Option<f64>,
+        error: Option<&Error>,
+        headers: Option<&HeaderMap>,
     ) {
         let Some(ref metrics) = self.metrics else {
             return;
         };
 
-        let status = result_to_status_str(result);
+        let timings = headers.map_or_else(ServerTimings::default, parse_server_timing_from_headers);
+        let status = error_to_status_str(error);
+        let normalized_method = normalize_method_name(method);
         let attributes = [
-            opentelemetry::KeyValue::new("method", method),
-            opentelemetry::KeyValue::new("status", status),
-            opentelemetry::KeyValue::new("directpath_enabled", "false"),
-            opentelemetry::KeyValue::new("directpath_used", "false"),
+            KeyValue::new("method", normalized_method),
+            KeyValue::new("status", status),
+            KeyValue::new("directpath_enabled", "false"),
+            KeyValue::new("directpath_used", "false"),
             self.common_attributes[0].clone(),
             self.common_attributes[1].clone(),
             self.common_attributes[2].clone(),
@@ -317,29 +324,30 @@ impl Observability {
             .record(duration.as_secs_f64() * 1000.0, &attributes);
         metrics.attempt_count.add(1, &attributes);
 
-        if let Some(gfe) = gfe_latency {
+        if let Some(gfe) = timings.gfe_latency {
             metrics.gfe_latencies.record(gfe, &attributes);
         }
-        if let Some(afe) = afe_latency {
+        if let Some(afe) = timings.afe_latency {
             metrics.afe_latencies.record(afe, &attributes);
         }
     }
 
-    pub(crate) fn record_operation<T>(
+    pub(crate) fn record_operation(
         &self,
         method: &'static str,
         duration: Duration,
-        result: &crate::Result<T>,
+        error: Option<&Error>,
     ) {
         let Some(ref metrics) = self.metrics else {
             return;
         };
 
-        let status = result_to_status_str(result);
+        let status = error_to_status_str(error);
+        let normalized_method = normalize_method_name(method);
         let attributes = [
-            opentelemetry::KeyValue::new("method", method),
-            opentelemetry::KeyValue::new("status", status),
-            opentelemetry::KeyValue::new("directpath_enabled", "false"),
+            KeyValue::new("method", normalized_method),
+            KeyValue::new("status", status),
+            KeyValue::new("directpath_enabled", "false"),
             self.common_attributes[0].clone(),
             self.common_attributes[1].clone(),
             self.common_attributes[2].clone(),
@@ -371,12 +379,54 @@ impl Drop for Observability {
     }
 }
 
+/// Normalizes gRPC method paths or method names to the standardized `"Spanner.<Method>"` format.
+/// Matches the built-in metrics convention (e.g. `"Spanner.ExecuteSql"`, `"Spanner.ExecuteStreamingSql"`).
 #[cfg(feature = "_experimental-builtin-metrics")]
-fn result_to_status_str<T>(result: &crate::Result<T>) -> &'static str {
-    match result {
-        Ok(_) => "OK",
-        Err(e) => e.status().map_or("UNKNOWN", |status| status.code.name()),
+pub(crate) fn normalize_method_name(method: &str) -> Cow<'static, str> {
+    let trimmed = method.trim_start_matches('/');
+    let clean = if let Some(suffix) = trimmed.strip_prefix("google.spanner.v1.") {
+        suffix
+    } else if let Some(suffix) = trimmed.strip_prefix("Spanner.") {
+        suffix
+    } else {
+        trimmed
+    };
+
+    match clean {
+        "CreateSession" | "Spanner/CreateSession" => Cow::Borrowed("Spanner.CreateSession"),
+        "BatchCreateSessions" | "Spanner/BatchCreateSessions" => {
+            Cow::Borrowed("Spanner.BatchCreateSessions")
+        }
+        "GetSession" | "Spanner/GetSession" => Cow::Borrowed("Spanner.GetSession"),
+        "ListSessions" | "Spanner/ListSessions" => Cow::Borrowed("Spanner.ListSessions"),
+        "DeleteSession" | "Spanner/DeleteSession" => Cow::Borrowed("Spanner.DeleteSession"),
+        "ExecuteSql" | "Spanner/ExecuteSql" => Cow::Borrowed("Spanner.ExecuteSql"),
+        "ExecuteStreamingSql" | "Spanner/ExecuteStreamingSql" => {
+            Cow::Borrowed("Spanner.ExecuteStreamingSql")
+        }
+        "ExecuteBatchDml" | "Spanner/ExecuteBatchDml" => Cow::Borrowed("Spanner.ExecuteBatchDml"),
+        "Read" | "Spanner/Read" => Cow::Borrowed("Spanner.Read"),
+        "StreamingRead" | "Spanner/StreamingRead" => Cow::Borrowed("Spanner.StreamingRead"),
+        "BeginTransaction" | "Spanner/BeginTransaction" => {
+            Cow::Borrowed("Spanner.BeginTransaction")
+        }
+        "Commit" | "Spanner/Commit" => Cow::Borrowed("Spanner.Commit"),
+        "Rollback" | "Spanner/Rollback" => Cow::Borrowed("Spanner.Rollback"),
+        "PartitionQuery" | "Spanner/PartitionQuery" => Cow::Borrowed("Spanner.PartitionQuery"),
+        "PartitionRead" | "Spanner/PartitionRead" => Cow::Borrowed("Spanner.PartitionRead"),
+        "BatchWrite" | "Spanner/BatchWrite" => Cow::Borrowed("Spanner.BatchWrite"),
+        _ => {
+            let s = clean.strip_prefix("Spanner/").unwrap_or(clean);
+            Cow::Owned(format!("Spanner.{}", s.replace('/', ".")))
+        }
     }
+}
+
+#[cfg(feature = "_experimental-builtin-metrics")]
+fn error_to_status_str(error: Option<&Error>) -> &'static str {
+    error.map_or("OK", |e| {
+        e.status().map_or("UNKNOWN", |status| status.code.name())
+    })
 }
 
 #[cfg(feature = "_experimental-builtin-metrics")]
@@ -403,11 +453,25 @@ pub(crate) fn parse_server_timing(header_val: &str) -> ServerTimings {
         if let Some(duration) = subparts.find_map(parse_duration_param) {
             if is_gfe {
                 timings.gfe_latency = Some(duration);
-            }
-            if is_afe {
+            } else if is_afe {
                 timings.afe_latency = Some(duration);
             }
         }
+    }
+    timings
+}
+
+#[cfg(feature = "_experimental-builtin-metrics")]
+#[allow(dead_code)]
+pub(crate) fn parse_server_timing_from_headers(headers: &HeaderMap) -> ServerTimings {
+    let mut timings = ServerTimings::default();
+    for val in headers.get_all("server-timing") {
+        let Ok(header_str) = val.to_str() else {
+            continue;
+        };
+        let parsed = parse_server_timing(header_str);
+        timings.gfe_latency = timings.gfe_latency.or(parsed.gfe_latency);
+        timings.afe_latency = timings.afe_latency.or(parsed.afe_latency);
     }
     timings
 }
@@ -437,6 +501,11 @@ impl Observability {
         Self
     }
 
+    #[allow(dead_code)]
+    pub(crate) fn disabled_arc() -> Arc<Self> {
+        Arc::new(Self)
+    }
+
     pub(crate) async fn init(
         _config: &ClientConfig,
         _instance_type: InstanceType,
@@ -459,33 +528,17 @@ impl Observability {
     }
 
     /// No-op stub implementation when the `_experimental-builtin-metrics` feature is disabled.
-    #[inline(always)]
-    #[allow(dead_code)]
-    pub(crate) async fn trace_attempt<F, Fut, T>(
-        &self,
-        _method: &'static str,
-        f: F,
-    ) -> crate::Result<T>
-    where
-        F: FnOnce() -> Fut,
-        Fut: std::future::Future<Output = crate::Result<T>>,
-    {
-        f().await
-    }
-
-    /// No-op stub implementation when the `_experimental-builtin-metrics` feature is disabled.
     ///
     /// This allows client operations to call `record_attempt` unconditionally without sprinkling
     /// `#[cfg(feature = "_experimental-builtin-metrics")]` across call sites.
     #[inline(always)]
     #[allow(dead_code)]
-    pub(crate) fn record_attempt<T>(
+    pub(crate) fn record_attempt(
         &self,
         _method: &'static str,
         _duration: Duration,
-        _result: &crate::Result<T>,
-        _gfe_latency: Option<f64>,
-        _afe_latency: Option<f64>,
+        _error: Option<&crate::Error>,
+        _headers: Option<&HeaderMap>,
     ) {
     }
 
@@ -495,11 +548,11 @@ impl Observability {
     /// `#[cfg(feature = "_experimental-builtin-metrics")]` across call sites.
     #[inline(always)]
     #[allow(dead_code)]
-    pub(crate) fn record_operation<T>(
+    pub(crate) fn record_operation(
         &self,
         _method: &'static str,
         _duration: Duration,
-        _result: &crate::Result<T>,
+        _error: Option<&crate::Error>,
     ) {
     }
 
@@ -507,10 +560,39 @@ impl Observability {
     pub(crate) fn shutdown(&self) {}
 }
 
+#[cfg(all(test, not(feature = "_experimental-builtin-metrics")))]
+mod disabled_tests {
+    use super::*;
+
+    #[tokio::test]
+    async fn disabled_stubs_exercise() {
+        let o11y = Observability::disabled();
+        let _o11y_arc = Observability::disabled_arc();
+        let initialized = Observability::init(
+            &ClientConfig::default(),
+            InstanceType::Cloud,
+            "projects/p/instances/i/databases/d",
+            false,
+        )
+        .await;
+        initialized.record_attempt("ExecuteSql", Duration::from_millis(10), None, None);
+        initialized.record_operation("ExecuteSql", Duration::from_millis(10), None);
+        let res = initialized
+            .trace_operation("ExecuteSql", async { Ok::<_, crate::Error>(42) })
+            .await
+            .expect("trace_operation should succeed");
+        assert_eq!(res, 42);
+        o11y.shutdown();
+    }
+}
+
 #[cfg(all(test, feature = "_experimental-builtin-metrics"))]
 mod tests {
     use super::*;
+    use google_cloud_gax::error::rpc::{Code, Status};
+    use http::HeaderValue;
     use opentelemetry_sdk::metrics::InMemoryMetricExporter;
+    use opentelemetry_sdk::metrics::PeriodicReader;
     use opentelemetry_sdk::metrics::data::{AggregatedMetrics, MetricData, ResourceMetrics};
     use std::collections::HashMap;
     use std::fmt::Debug;
@@ -519,50 +601,64 @@ mod tests {
     fn traits() {
         static_assertions::assert_impl_all!(Observability: Send, Sync, Debug, Clone);
         static_assertions::assert_impl_all!(SpannerMetrics: Send, Sync, Debug);
+        static_assertions::assert_impl_all!(ServerTimings: Send, Sync, Debug, PartialEq, Default);
     }
 
     #[test]
     fn observability_disabled() {
         let o11y = Observability::disabled();
         assert!(o11y.metrics.is_none());
+        let o11y_arc = Observability::disabled_arc();
+        assert!(o11y_arc.metrics.is_none());
     }
 
     #[test]
-    fn result_to_status_str_conversions() {
-        let ok_res: crate::Result<()> = Ok(());
-        assert_eq!(result_to_status_str(&ok_res), "OK");
+    fn error_to_status_str_conversions() {
+        assert_eq!(super::error_to_status_str(None), "OK");
 
-        let status_pd = google_cloud_gax::error::rpc::Status::default()
-            .set_code(google_cloud_gax::error::rpc::Code::PermissionDenied);
-        let err_pd: crate::Result<()> = Err(crate::Error::service(status_pd));
-        assert_eq!(result_to_status_str(&err_pd), "PERMISSION_DENIED");
+        let status_pd = Status::default().set_code(Code::PermissionDenied);
+        let err_pd = crate::Error::service(status_pd);
+        assert_eq!(
+            super::error_to_status_str(Some(&err_pd)),
+            "PERMISSION_DENIED"
+        );
+
+        let status_nf = Status::default().set_code(Code::NotFound);
+        let err_nf = crate::Error::service(status_nf);
+        assert_eq!(super::error_to_status_str(Some(&err_nf)), "NOT_FOUND");
+
+        let err_timeout = crate::Error::timeout("simulated timeout");
+        assert_eq!(super::error_to_status_str(Some(&err_timeout)), "UNKNOWN");
     }
 
     #[test]
     fn spanner_metrics_record_operation_and_attempt() {
         let exporter = InMemoryMetricExporter::default();
-        let reader = opentelemetry_sdk::metrics::PeriodicReader::builder(exporter.clone()).build();
+        let reader = PeriodicReader::builder(exporter.clone()).build();
         let provider = SdkMeterProvider::builder().with_reader(reader).build();
         let meter = provider.meter("cloud.google.com/rust");
         let metrics = SpannerMetrics::new(meter);
         let o11y = Observability {
             metrics: Some(Arc::new(metrics)),
             common_attributes: [
-                opentelemetry::KeyValue::new("client_uid", ""),
-                opentelemetry::KeyValue::new("client_name", ""),
-                opentelemetry::KeyValue::new("database", ""),
+                KeyValue::new("client_uid", ""),
+                KeyValue::new("client_name", ""),
+                KeyValue::new("database", ""),
             ],
             meter_provider: Some(Arc::new(provider.clone())),
         };
 
-        let ok_res: crate::Result<()> = Ok(());
-        o11y.record_operation("ExecuteSql", Duration::from_millis(50), &ok_res);
+        o11y.record_operation("ExecuteSql", Duration::from_millis(50), None);
+        let mut headers = HeaderMap::new();
+        headers.insert(
+            "server-timing",
+            HeaderValue::from_static("gfet4t7;dur=12.5,afe;dur=5.0"),
+        );
         o11y.record_attempt(
             "ExecuteSql",
             Duration::from_millis(40),
-            &ok_res,
-            Some(12.5),
-            Some(5.0),
+            None,
+            Some(&headers),
         );
 
         provider.force_flush().expect("force_flush failed");
@@ -580,6 +676,88 @@ mod tests {
             .trace_operation("ExecuteSql", async { Ok::<i32, crate::Error>(42) })
             .await;
         assert_eq!(result.expect("trace_operation result"), 42);
+    }
+
+    #[test]
+    fn normalize_method_names() {
+        assert_eq!(
+            super::normalize_method_name("google.spanner.v1.Spanner/ExecuteSql"),
+            "Spanner.ExecuteSql"
+        );
+        assert_eq!(
+            super::normalize_method_name("/google.spanner.v1.Spanner/ExecuteStreamingSql"),
+            "Spanner.ExecuteStreamingSql"
+        );
+        assert_eq!(
+            super::normalize_method_name("Spanner.ExecuteStreamingSql"),
+            "Spanner.ExecuteStreamingSql"
+        );
+        assert_eq!(
+            super::normalize_method_name("ExecuteStreamingSql"),
+            "Spanner.ExecuteStreamingSql"
+        );
+        assert_eq!(
+            super::normalize_method_name("StreamingRead"),
+            "Spanner.StreamingRead"
+        );
+        assert_eq!(
+            super::normalize_method_name("BatchWrite"),
+            "Spanner.BatchWrite"
+        );
+        assert_eq!(
+            super::normalize_method_name("CreateSession"),
+            "Spanner.CreateSession"
+        );
+        assert_eq!(
+            super::normalize_method_name("GetSession"),
+            "Spanner.GetSession"
+        );
+        assert_eq!(
+            super::normalize_method_name("ListSessions"),
+            "Spanner.ListSessions"
+        );
+        assert_eq!(
+            super::normalize_method_name("DeleteSession"),
+            "Spanner.DeleteSession"
+        );
+        assert_eq!(super::normalize_method_name("Commit"), "Spanner.Commit");
+        assert_eq!(super::normalize_method_name("Rollback"), "Spanner.Rollback");
+        assert_eq!(
+            super::normalize_method_name("PartitionQuery"),
+            "Spanner.PartitionQuery"
+        );
+        assert_eq!(
+            super::normalize_method_name("PartitionRead"),
+            "Spanner.PartitionRead"
+        );
+        assert_eq!(
+            super::normalize_method_name("Spanner/CustomOp"),
+            "Spanner.CustomOp"
+        );
+        assert_eq!(
+            super::normalize_method_name("Spanner/Sub/Method"),
+            "Spanner.Sub.Method"
+        );
+        assert_eq!(
+            super::normalize_method_name("/google.spanner.v1.Spanner/CustomOp"),
+            "Spanner.CustomOp"
+        );
+        assert_eq!(
+            super::normalize_method_name("google.spanner.v1.Spanner/CustomOp"),
+            "Spanner.CustomOp"
+        );
+        assert_eq!(
+            super::normalize_method_name("Spanner.CustomOp"),
+            "Spanner.CustomOp"
+        );
+        assert_eq!(
+            super::normalize_method_name("Spanner.Sub/Method"),
+            "Spanner.Sub.Method"
+        );
+        assert_eq!(
+            super::normalize_method_name("google.spanner.v1.Spanner/Sub/Method"),
+            "Spanner.Sub.Method"
+        );
     }
 
     #[test]
@@ -749,6 +927,54 @@ mod tests {
     }
 
     #[test]
+    fn parse_server_timing_from_headers() {
+        let mut headers = HeaderMap::new();
+        assert_eq!(
+            super::parse_server_timing_from_headers(&headers),
+            ServerTimings::default()
+        );
+
+        headers.insert(
+            "server-timing",
+            HeaderValue::from_static("gfet4t7;dur=12.5,afe;dur=5.0"),
+        );
+        assert_eq!(
+            super::parse_server_timing_from_headers(&headers),
+            ServerTimings {
+                gfe_latency: Some(12.5),
+                afe_latency: Some(5.0),
+            }
+        );
+
+        let mut invalid_headers = HeaderMap::new();
+        invalid_headers.append(
+            "server-timing",
+            HeaderValue::from_bytes(b"\xff\xfe").expect("valid raw header bytes"),
+        );
+        assert_eq!(
+            super::parse_server_timing_from_headers(&invalid_headers),
+            ServerTimings::default()
+        );
+    }
+
+    #[test]
+    fn parse_server_timing_from_headers_multiple() {
+        let mut headers = HeaderMap::new();
+        headers.append(
+            "server-timing",
+            HeaderValue::from_static("gfet4t7;dur=22.5"),
+        );
+        headers.append("server-timing", HeaderValue::from_static("afe;dur=15.0"));
+        assert_eq!(
+            super::parse_server_timing_from_headers(&headers),
+            ServerTimings {
+                gfe_latency: Some(22.5),
+                afe_latency: Some(15.0),
+            }
+        );
+    }
+
+    #[test]
     fn default_export_interval() {
         assert_eq!(DEFAULT_EXPORT_INTERVAL, Duration::from_secs(60));
     }
@@ -797,6 +1023,20 @@ mod tests {
             o11y_omni.metrics.is_none(),
             "omni client should have disabled metrics"
         );
+
+        let mut plaintext_config = ClientConfig::default();
+        plaintext_config.endpoint = Some("http://127.0.0.1:1234".to_string());
+        let o11y_plaintext = Observability::init(
+            &plaintext_config,
+            InstanceType::Cloud,
+            "projects/proj/instances/inst/databases/db",
+            false,
+        )
+        .await;
+        assert!(
+            o11y_plaintext.metrics.is_none(),
+            "plaintext client should have disabled metrics"
+        );
     }
 
     #[test]
@@ -810,8 +1050,8 @@ mod tests {
         let metrics = SpannerMetrics::new(meter);
 
         let attributes = [
-            opentelemetry::KeyValue::new("method", "ExecuteSql"),
-            opentelemetry::KeyValue::new("status", "OK"),
+            KeyValue::new("method", "ExecuteSql"),
+            KeyValue::new("status", "OK"),
         ];
 
         metrics.operation_latencies.record(12.5, &attributes);
@@ -907,21 +1147,20 @@ mod tests {
         let o11y = Observability {
             metrics: Some(Arc::new(metrics)),
             common_attributes: [
-                opentelemetry::KeyValue::new("client_uid", "test-uid"),
-                opentelemetry::KeyValue::new("client_name", "spanner-rust/1.0.0"),
-                opentelemetry::KeyValue::new("database", "test-db"),
+                KeyValue::new("client_uid", "test-uid"),
+                KeyValue::new("client_name", "spanner-rust/1.0.0"),
+                KeyValue::new("database", "test-db"),
             ],
             meter_provider: Some(Arc::new(provider.clone())),
         };
 
-        o11y.record_operation("test_op", Duration::from_millis(15), &Ok(()));
-        o11y.record_attempt(
-            "test_op",
-            Duration::from_millis(10),
-            &Ok(()),
-            Some(3.0),
-            Some(2.0),
+        o11y.record_operation("test_op", Duration::from_millis(15), None);
+        let mut headers = HeaderMap::new();
+        headers.insert(
+            "server-timing",
+            HeaderValue::from_static("gfet4t7;dur=3.0,afe;dur=2.0"),
         );
+        o11y.record_attempt("test_op", Duration::from_millis(10), None, Some(&headers));
 
         if let Some(ref provider) = o11y.meter_provider {
             provider.force_flush().expect("force_flush should succeed");
@@ -942,7 +1181,7 @@ mod tests {
         .expect("attempt_latencies should be exported");
         assert_eq!(
             attempt_attrs.get("method").map(String::as_str),
-            Some("test_op")
+            Some("Spanner.test_op")
         );
         assert_eq!(attempt_attrs.get("status").map(String::as_str), Some("OK"));
         assert_eq!(
@@ -999,7 +1238,10 @@ mod tests {
             "spanner.googleapis.com/internal/client/operation_latencies",
         )
         .expect("operation_latencies should be exported");
-        assert_eq!(op_attrs.get("method").map(String::as_str), Some("test_op"));
+        assert_eq!(
+            op_attrs.get("method").map(String::as_str),
+            Some("Spanner.test_op")
+        );
         assert_eq!(op_attrs.get("status").map(String::as_str), Some("OK"));
         assert_eq!(
             op_attrs.get("directpath_enabled").map(String::as_str),
@@ -1025,25 +1267,37 @@ mod tests {
         let o11y = Observability::disabled();
         o11y.shutdown();
         o11y.shutdown();
-        // Dropping o11y should invoke Drop and shutdown without panic.
     }
 
-    #[cfg(feature = "_experimental-builtin-metrics")]
     #[test]
     fn observability_double_shutdown_ignores_already_shutdown() {
         let meter_provider = SdkMeterProvider::builder().build();
         let o11y = Observability {
             metrics: None,
             common_attributes: [
-                opentelemetry::KeyValue::new("client_uid", ""),
-                opentelemetry::KeyValue::new("client_name", ""),
-                opentelemetry::KeyValue::new("database", ""),
+                KeyValue::new("client_uid", ""),
+                KeyValue::new("client_name", ""),
+                KeyValue::new("database", ""),
             ],
             meter_provider: Some(Arc::new(meter_provider)),
         };
-        // Calling shutdown twice should cleanly handle AlreadyShutdown on the second call.
         o11y.shutdown();
         o11y.shutdown();
-        // Dropping o11y invokes Drop and calls shutdown a third time without panic or warning.
+    }
+
+    #[test]
+    fn plaintext_endpoint_detection() {
+        assert!(is_plaintext_endpoint(Some("http://spanner.googleapis.com")));
+        assert!(is_plaintext_endpoint(Some("http://127.0.0.1:9010")));
+        assert!(is_plaintext_endpoint(Some("localhost:9010")));
+        assert!(is_plaintext_endpoint(Some("127.0.0.1:9010")));
+        assert!(is_plaintext_endpoint(Some("::1:9010")));
+        assert!(is_plaintext_endpoint(Some("[::1]:9010")));
+        assert!(!is_plaintext_endpoint(Some(
+            "https://spanner.googleapis.com"
+        )));
+        assert!(!is_plaintext_endpoint(Some("https://localhost:9010")));
+        assert!(!is_plaintext_endpoint(Some("spanner.googleapis.com:443")));
+        assert!(!is_plaintext_endpoint(None));
     }
 }

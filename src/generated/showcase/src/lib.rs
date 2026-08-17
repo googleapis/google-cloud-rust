@@ -124,6 +124,8 @@ pub(crate) use google_cloud_gax::client_builder::ClientBuilder;
 pub(crate) use google_cloud_gax::client_builder::Result as ClientBuilderResult;
 pub(crate) use google_cloud_gax::client_builder::internal::ClientFactory;
 pub(crate) use google_cloud_gax::client_builder::internal::new_builder as new_client_builder;
+#[cfg(google_cloud_unstable_gapic_streaming)]
+pub(crate) use google_cloud_gax::options::BidiStreamOptions;
 pub(crate) use google_cloud_gax::options::RequestOptions;
 pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
 pub(crate) use google_cloud_gax::response::Response;
