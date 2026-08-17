@@ -3018,9 +3018,6 @@ impl serde::ser::Serialize for super::ObjectFullContext {
         if self.update_time.is_some() {
             state.serialize_entry("updateTime", &self.update_time)?;
         }
-        if self.extended_data.is_some() {
-            state.serialize_entry("extendedData", &self.extended_data)?;
-        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
