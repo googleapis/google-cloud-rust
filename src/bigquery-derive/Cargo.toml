@@ -23,7 +23,6 @@ repository.workspace   = true
 keywords.workspace     = true
 categories.workspace   = true
 rust-version.workspace = true
-publish                = false
 
 [lib]
 proc-macro = true

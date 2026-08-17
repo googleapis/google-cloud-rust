@@ -490,7 +490,6 @@ libraries:
     version: 0.16.0-preview
     copyright_year: "2026"
     output: src/bigquery
-    skip_release: true
     rust:
       modules:
         - output: src/bigquery/src/generated
@@ -527,7 +526,6 @@ libraries:
     version: 0.1.0-preview
     copyright_year: "2026"
     output: src/bigquery-derive
-    skip_release: true
   - name: google-cloud-bigquery-migration-v2
     version: 1.11.0
     copyright_year: "2025"
@@ -539,7 +537,6 @@ libraries:
     copyright_year: "2025"
     keep:
       - src/operation.rs
-    skip_release: true
     rust:
       package_dependencies:
         - name: thiserror
@@ -552,9 +549,9 @@ libraries:
           package: uuid
           force_used: true
   - name: google-cloud-bigquery-write
+    version: 0.1.0-preview
     copyright_year: "2026"
     output: src/bigquery-write
-    skip_release: true
     rust:
       modules:
         - module_path: crate::generated::gapic_storage::model
