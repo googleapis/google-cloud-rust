@@ -41,6 +41,7 @@ pub mod builder {
     /// Request and client builders for the [Write][crate::client::Write] client
     pub mod write {
         pub use crate::append_builder::Append;
+        pub use crate::append_future::AppendFuture;
         pub use crate::client_builder::ClientBuilder;
     }
     // TODO(#6152) - add admin client
@@ -59,6 +60,7 @@ pub mod arrow;
 pub mod error;
 
 mod append_builder;
+mod append_future;
 mod append_response;
 mod client_builder;
 mod proto_schema;
