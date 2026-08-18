@@ -150,11 +150,9 @@ impl SendState {
     }
 
     pub(super) async fn join_if_finished(&mut self) {
-        let is_finished = match self {
-            Self::Active(send_task) => send_task.is_finished(),
-            Self::Complete | Self::Failed(_) => false,
-        };
-        if is_finished {
+        if let Self::Active(send_task) = self
+            && send_task.is_finished()
+        {
             self.join().await;
         }
     }
