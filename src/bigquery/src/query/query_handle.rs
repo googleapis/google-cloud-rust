@@ -14,11 +14,12 @@
 
 use crate::error::QueryError;
 use crate::generated::{CompleteQueryMetadata, QueryMetadata};
-use crate::query::{Result, RowIterator, Schema};
-use google_cloud_bigquery_v2::client::JobService;
-use google_cloud_bigquery_v2::model::{
+use crate::model::{
     GetQueryResultsRequest, GetQueryResultsResponse, Job, JobReference, QueryResponse,
 };
+use crate::query::{Result, RowIterator, Schema};
+use google_cloud_bigquery_v2::builder::job_service::GetJob;
+use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
 use google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy;
 use google_cloud_gax::polling_state::PollingState;
@@ -109,8 +110,8 @@ impl Query {
     ///
     /// Depending on how the query was executed, the metadata contains:
     /// - [`job_reference`][QueryMetadata::job_reference]: The reference to the BigQuery job, if one was created.
-    /// - [`query_id`][QueryMetadata::query_id]: The unique ID of the query if executed statelessly.
-    /// - [`job_creation_reason`][QueryMetadata::job_creation_reason]: Why a job was created or skipped.
+    /// - [`query_id`][QueryMetadata::query_id]: The unique ID of the query if executed without creating a job.
+    /// - [`job_creation_reason`][QueryMetadata::job_creation_reason]: The reason why a job was created (controlled via `set_job_creation_mode`).
     /// - [`job_complete`][QueryMetadata::job_complete]: Whether the query completed immediately without requiring polling.
     ///
     /// To wait for the query to finish and retrieve full results and final
@@ -120,6 +121,59 @@ impl Query {
     /// [`jobs.insert`]: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/insert
     pub fn metadata(&self) -> &QueryMetadata {
         &self.metadata
+    }
+
+    /// Build a request to fetch full [Job] execution metadata from the service for this query.
+    ///
+    /// > Returns `None` if the query was executed without creating a job
+    /// > (for example, when using [`JobCreationMode::JobCreationOptional`]).
+    ///
+    /// [Job]: https://docs.cloud.google.com/bigquery/docs/reference/rest/v2/Job
+    /// [`JobCreationMode::JobCreationOptional`]: crate::model::query_request::JobCreationMode::JobCreationOptional
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_bigquery::client::BigQuery;
+    /// # use google_cloud_bigquery::model::query_request::JobCreationMode;
+    /// # async fn sample(client: BigQuery) -> anyhow::Result<()> {
+    /// let query = client
+    ///     .query("SELECT 1")
+    ///     .set_job_creation_mode(JobCreationMode::JobCreationRequired) // Forces a job to be created
+    ///     .send()
+    ///     .await?;
+    ///
+    /// match query.get_job() {
+    ///     Some(req) => {
+    ///         let job_info = req.send().await?;
+    ///         println!("Executed by user: {}", job_info.user_email);
+    ///     }
+    ///     None => {
+    ///         println!(
+    ///             "Query was run without creating a job. Query ID: {}",
+    ///             query.metadata().query_id
+    ///         );
+    ///     }
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn get_job(&self) -> Option<GetJob> {
+        let job_ref = self.metadata.job_reference.as_ref()?;
+
+        let req = self
+            .job_service
+            .get_job()
+            .set_job_id(job_ref.job_id.clone())
+            .set_project_id(job_ref.project_id.clone());
+
+        let req = job_ref
+            .location
+            .clone()
+            .into_iter()
+            .fold(req, |req, location| req.set_location(location));
+
+        Some(req)
     }
 
     /// Periodically polls the background job status until query execution
@@ -329,14 +383,10 @@ impl CompleteQuery {
         &self.metadata
     }
 
-    /// Fetches full [Job] execution metadata from the service for this query.
+    /// Build a request to fetch full [Job] execution metadata from the service for this query.
     ///
-    /// Unlike [`metadata()`](CompleteQuery::metadata), this method executes an
-    /// RPC (`jobs.get`) to retrieve complete job details, including user email,
-    /// execution timelines, billing tier estimates, and error summaries.
-    ///
-    /// > Calling this method on a stateless query returns
-    /// > [`QueryError::StatelessQuery`](crate::error::QueryError::StatelessQuery).
+    /// > Returns `None` if the query was executed without creating a job
+    /// > (for example, when using [JobCreationMode::JobCreationOptional](crate::model::query_request::JobCreationMode::JobCreationOptional)).
     ///
     /// [Job]: https://docs.cloud.google.com/bigquery/docs/reference/rest/v2/Job
     ///
@@ -352,13 +402,23 @@ impl CompleteQuery {
     ///     .until_done()
     ///     .await?;
     ///
-    /// let job_info = completed.job_metadata().await?;
-    /// println!("Executed by user: {}", job_info.user_email);
+    /// match completed.get_job() {
+    ///     Some(req) => {
+    ///         let job_info = req.send().await?;
+    ///         println!("Executed by user: {}", job_info.user_email);
+    ///     }
+    ///     None => {
+    ///         println!(
+    ///             "Query was run without creating a job. Query ID: {}",
+    ///             completed.metadata().query_id
+    ///         );
+    ///     }
+    /// }
     /// # Ok(())
     /// # }
     /// ```
-    pub async fn job_metadata(&self) -> Result<Job> {
-        let job_ref = self.job_ref.as_ref().ok_or(QueryError::StatelessQuery)?;
+    pub fn get_job(&self) -> Option<GetJob> {
+        let job_ref = self.job_ref.as_ref()?;
 
         let req = self
             .job_service
@@ -372,8 +432,7 @@ impl CompleteQuery {
             .into_iter()
             .fold(req, |req, location| req.set_location(location));
 
-        let job = req.send().await?;
-        Ok(job)
+        Some(req)
     }
 }
 
@@ -671,7 +730,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_complete_query_job_metadata_success() -> TestResult {
+    async fn test_query_get_job_success() -> TestResult {
         let mut mock = MockJobService::new();
         mock.expect_get_job().returning(|req, _| {
             assert_eq!(req.project_id, "some_project");
@@ -691,24 +750,18 @@ mod tests {
             .set_schema(TableSchema::new())
             .set_job_reference(job_ref);
 
+        let query = Query::from_query_response(job_service.clone(), query_res.clone(), None);
+        let job = query.get_job().unwrap().send().await?;
+        assert_eq!(job.user_email, "test@example.com");
+
         let complete_query = CompleteQuery::from_query_response(job_service, query_res, None);
-        let job = complete_query.job_metadata().await?;
+        let job = complete_query.get_job().unwrap().send().await?;
         assert_eq!(job.user_email, "test@example.com");
         Ok(())
     }
 
     #[tokio::test]
-    async fn test_complete_query_job_metadata_stateless() -> TestResult {
-        let job_service = create_job_service(MockJobService::new());
-        let query_res = QueryResponse::new().set_schema(TableSchema::new());
-        let complete_query = CompleteQuery::from_query_response(job_service, query_res, None);
-        let err = complete_query.job_metadata().await.unwrap_err();
-        assert!(matches!(err, QueryError::StatelessQuery));
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn test_complete_query_job_metadata_rpc_error() -> TestResult {
+    async fn test_query_get_job_rpc_error() -> TestResult {
         let mut mock = MockJobService::new();
         mock.expect_get_job().returning(|req, _| {
             assert_eq!(req.project_id, "some_project");
@@ -726,13 +779,15 @@ mod tests {
             .set_schema(TableSchema::new())
             .set_job_reference(job_ref);
 
+        let query = Query::from_query_response(job_service.clone(), query_res.clone(), None);
+        let req = query.get_job().unwrap();
+        let err = req.send().await.unwrap_err();
+        assert_eq!(err.status().unwrap().code, Code::NotFound);
+
         let complete_query = CompleteQuery::from_query_response(job_service, query_res, None);
-        let err = complete_query.job_metadata().await.unwrap_err();
-        let source = match err {
-            QueryError::Rpc { source } => source,
-            _ => panic!("expected QueryError::Rpc, got {err:?}"),
-        };
-        assert_eq!(source.status().unwrap().code, Code::NotFound);
+        let req = complete_query.get_job().unwrap();
+        let err = req.send().await.unwrap_err();
+        assert_eq!(err.status().unwrap().code, Code::NotFound);
         Ok(())
     }
 }
