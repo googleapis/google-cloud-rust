@@ -31,6 +31,7 @@ pub struct AppendFuture {
 }
 
 impl AppendFuture {
+    #[allow(dead_code)]
     pub(crate) fn new(handle: JoinHandle<AppendResult<AppendResponse>>) -> Self {
         Self { handle }
     }
@@ -46,9 +47,8 @@ impl Future for AppendFuture {
             Err(e) => {
                 if e.is_panic() {
                     std::panic::resume_unwind(e.into_panic());
-                } else {
-                    Poll::Ready(Err(AppendError::UnexpectedEndOfStream))
                 }
+                Poll::Ready(Err(AppendError::UnexpectedEndOfStream))
             }
         }
     }
