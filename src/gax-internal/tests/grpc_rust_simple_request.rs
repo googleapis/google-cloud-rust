@@ -83,7 +83,7 @@ mod tests {
         let response = send_request(client, "", "").await;
 
         // Assert
-        let err = response.unwrap_err();
+        let err = response.expect_err("should fail");
         assert_eq!(err.status().map(|s| s.code), Some(Code::InvalidArgument));
         Ok(())
     }
