@@ -173,17 +173,15 @@ impl RequestOptions {
         self.polling_backoff_policy = Some(v.into().0);
     }
 
-    /// Gets the current request stream channel capacity, or the default `16`.
+    /// Gets the current request stream channel capacity, if set.
     #[cfg(google_cloud_unstable_gapic_streaming)]
-    pub fn request_stream_channel_capacity(&self) -> usize {
+    pub fn request_stream_channel_capacity(&self) -> Option<usize> {
         self.request_stream_channel_capacity
-            .unwrap_or(DEFAULT_REQUEST_CHANNEL_CAPACITY)
     }
 
     /// Sets the buffer capacity of the internal request channel for streaming RPCs.
     ///
-    /// Valid values are between `1` and `usize::MAX >> 3`. The default
-    /// capacity is `16`. Values outside this range will be clamped.
+    /// Valid values are between `1` and `usize::MAX >> 3`. Values outside this range will be clamped.
     #[cfg(google_cloud_unstable_gapic_streaming)]
     pub fn set_request_stream_channel_capacity(&mut self, capacity: usize) {
         self.request_stream_channel_capacity =
@@ -239,7 +237,9 @@ impl BidiStreamOptions {
     ///
     /// Defaults to `16`.
     pub fn request_channel_capacity(&self) -> usize {
-        self.request_options.request_stream_channel_capacity()
+        self.request_options
+            .request_stream_channel_capacity()
+            .unwrap_or(DEFAULT_REQUEST_CHANNEL_CAPACITY)
     }
 
     /// Sets all request options, replacing any prior values.
@@ -731,23 +731,26 @@ mod tests {
         let builder = TestBuilder::default();
         assert_eq!(
             builder.request_options.request_stream_channel_capacity(),
-            16
+            None
         );
 
         let builder = TestBuilder::default().with_request_stream_channel_capacity(32);
         assert_eq!(
             builder.request_options.request_stream_channel_capacity(),
-            32
+            Some(32)
         );
 
         // Clamping tests
         let builder = TestBuilder::default().with_request_stream_channel_capacity(0);
-        assert_eq!(builder.request_options.request_stream_channel_capacity(), 1);
+        assert_eq!(
+            builder.request_options.request_stream_channel_capacity(),
+            Some(1)
+        );
 
         let builder = TestBuilder::default().with_request_stream_channel_capacity(usize::MAX);
         assert_eq!(
             builder.request_options.request_stream_channel_capacity(),
-            MAX_REQUEST_CHANNEL_CAPACITY
+            Some(MAX_REQUEST_CHANNEL_CAPACITY)
         );
     }
 
@@ -792,7 +795,7 @@ mod tests {
         assert_eq!(into_opts.user_agent().as_deref(), Some("modified-agent"));
         assert_eq!(
             into_opts.request_stream_channel_capacity(),
-            MAX_REQUEST_CHANNEL_CAPACITY
+            Some(MAX_REQUEST_CHANNEL_CAPACITY)
         );
     }
 }
