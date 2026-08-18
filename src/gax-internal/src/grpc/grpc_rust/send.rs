@@ -167,12 +167,14 @@ impl SendState {
         }
     }
 
-    /// Aborts the background request task and marks the state as complete.
+    /// Aborts the background request task if active and transitions the state to [`Complete`](Self::Complete).
+    ///
+    /// If the state is already terminal it remains unchanged.
     pub(super) fn abort(&mut self) {
         if let Self::Active(send_task) = self {
             send_task.abort();
+            *self = Self::Complete;
         }
-        *self = Self::Complete;
     }
 }
 
@@ -444,6 +446,27 @@ mod tests {
         // Act & Assert
         state.abort();
         assert!(!state.is_active());
+        assert!(state.failure().is_none());
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn send_state_abort_on_failed_state_retains_failure() -> anyhow::Result<()> {
+        // Arrange
+        let stream = tokio_stream::iter([TestMessage {
+            value: "hello".to_string(),
+        }]);
+        let mut state = SendState::new(SendTask::start(TestFailingSendStream, stream));
+        state.join().await;
+        assert!(state.failure().is_some(), "should be failed");
+
+        // Act
+        state.abort();
+
+        // Assert
+        let status = state.failure().expect("should remain failed");
+        assert_eq!(status.code(), tonic::Code::Internal);
+        assert_eq!(status.message(), SendTask::ERROR_MESSAGE_STREAM_CLOSED);
         Ok(())
     }
 }
