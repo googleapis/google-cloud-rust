@@ -47,7 +47,7 @@ pub(crate) struct WriteRequest {
 /// `oneshot::error::RecvError` on their response channel.
 #[derive(Debug)]
 pub(crate) struct Runner {
-    pub(crate) req_tx: mpsc::Sender<WriteRequest>,
+    pub(crate) req_tx: mpsc::UnboundedSender<WriteRequest>,
     #[allow(dead_code)]
     pub(crate) handle: JoinHandle<()>,
 }
@@ -55,7 +55,7 @@ pub(crate) struct Runner {
 impl Runner {
     pub(crate) fn new(inner: Arc<Transport>) -> Self {
         // TODO(#6122) - configure flow control settings
-        let (req_tx, req_rx) = mpsc::channel(100);
+        let (req_tx, req_rx) = mpsc::unbounded_channel();
         let handle = tokio::spawn(async move {
             run_stream_task(inner, req_rx).await;
         });
@@ -63,7 +63,7 @@ impl Runner {
     }
 }
 
-async fn run_stream_task(inner: Arc<Transport>, mut req_rx: mpsc::Receiver<WriteRequest>) {
+async fn run_stream_task(inner: Arc<Transport>, mut req_rx: mpsc::UnboundedReceiver<WriteRequest>) {
     // Wait for the first write before opening the stream. Tonic will not yield
     // us a stream until we have performed the first write.
     let Some(initial_req) = req_rx.recv().await else {
@@ -186,7 +186,7 @@ pub(crate) mod tests {
             req: test_request(1),
             resp_tx: resp_tx1,
         };
-        req_tx.send(write1).await?;
+        req_tx.send(write1).unwrap();
 
         // write 2
         let (resp_tx2, resp_rx2) = oneshot::channel();
@@ -194,7 +194,7 @@ pub(crate) mod tests {
             req: test_request(2),
             resp_tx: resp_tx2,
         };
-        req_tx.send(write2).await?;
+        req_tx.send(write2).unwrap();
 
         // resp 1
         response_tx.send(Ok(convert(&test_response(1)))).await?;
@@ -207,7 +207,7 @@ pub(crate) mod tests {
             req: test_request(3),
             resp_tx: resp_tx3,
         };
-        req_tx.send(write3).await?;
+        req_tx.send(write3).unwrap();
 
         // resp 2
         response_tx.send(Ok(convert(&test_response(2)))).await?;
@@ -241,7 +241,7 @@ pub(crate) mod tests {
             req: test_request(1),
             resp_tx,
         };
-        req_tx.send(write).await?;
+        req_tx.send(write).unwrap();
 
         let resp = resp_rx.await?;
         let Err(AppendError::Rpc { source: err }) = resp else {
@@ -276,7 +276,7 @@ pub(crate) mod tests {
             req: test_request(1),
             resp_tx: resp_tx1,
         };
-        req_tx.send(write1).await?;
+        req_tx.send(write1).unwrap();
 
         // write 2
         let (resp_tx2, resp_rx2) = oneshot::channel();
@@ -284,7 +284,7 @@ pub(crate) mod tests {
             req: test_request(2),
             resp_tx: resp_tx2,
         };
-        req_tx.send(write2).await?;
+        req_tx.send(write2).unwrap();
 
         // write 3
         let (resp_tx3, resp_rx3) = oneshot::channel();
@@ -292,7 +292,7 @@ pub(crate) mod tests {
             req: test_request(3),
             resp_tx: resp_tx3,
         };
-        req_tx.send(write3).await?;
+        req_tx.send(write3).unwrap();
 
         // resp 1
         response_tx.send(Ok(convert(&test_response(1)))).await?;
@@ -340,7 +340,7 @@ pub(crate) mod tests {
             req: test_request(1),
             resp_tx: resp_tx1,
         };
-        req_tx.send(write1).await?;
+        req_tx.send(write1).unwrap();
 
         // write 2
         let (resp_tx2, resp_rx2) = oneshot::channel();
@@ -348,7 +348,7 @@ pub(crate) mod tests {
             req: test_request(2),
             resp_tx: resp_tx2,
         };
-        req_tx.send(write2).await?;
+        req_tx.send(write2).unwrap();
 
         // write 3
         let (resp_tx3, resp_rx3) = oneshot::channel();
@@ -356,7 +356,7 @@ pub(crate) mod tests {
             req: test_request(3),
             resp_tx: resp_tx3,
         };
-        req_tx.send(write3).await?;
+        req_tx.send(write3).unwrap();
 
         // resp 1
         response_tx.send(Ok(convert(&test_response(1)))).await?;
@@ -401,7 +401,7 @@ pub(crate) mod tests {
             req: test_request(1),
             resp_tx: resp_tx1,
         };
-        req_tx.send(write1).await?;
+        req_tx.send(write1).unwrap();
 
         // write 2
         let (resp_tx2, resp_rx2) = oneshot::channel();
@@ -409,7 +409,7 @@ pub(crate) mod tests {
             req: test_request(2),
             resp_tx: resp_tx2,
         };
-        req_tx.send(write2).await?;
+        req_tx.send(write2).unwrap();
 
         // write 3
         let (resp_tx3, resp_rx3) = oneshot::channel();
@@ -417,7 +417,7 @@ pub(crate) mod tests {
             req: test_request(3),
             resp_tx: resp_tx3,
         };
-        req_tx.send(write3).await?;
+        req_tx.send(write3).unwrap();
 
         // resp 1
         response_tx.send(Ok(convert(&test_response(1)))).await?;
