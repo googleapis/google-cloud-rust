@@ -30,8 +30,7 @@ mod tests {
     async fn default_endpoint() -> anyhow::Result<()> {
         // Arrange
         let (endpoint, _server) = start_echo_server().await?;
-        let client =
-            GrpcRustClient::new(test_config(endpoint), "https://storage.googleapis.com").await?;
+        let client = GrpcRustClient::new(test_config(), &endpoint).await?;
 
         // Act & Assert
         check_simple_request(client).await
@@ -41,20 +40,21 @@ mod tests {
     async fn no_request_params() -> anyhow::Result<()> {
         // Arrange
         let (endpoint, _server) = start_echo_server().await?;
-        let client =
-            GrpcRustClient::new(test_config(endpoint), "https://test-only.googleapis.com").await?;
+        let client = GrpcRustClient::new(test_config(), &endpoint).await?;
 
         // Act
         let response = send_request(client, "test message", "").await?;
 
         // Assert
+        assert_eq!(&response.message, "test message");
         assert_eq!(
             response
                 .metadata
-                .get("x-goog-request-params")
+                .get("x-goog-api-client")
                 .map(String::as_str),
-            None
+            Some("test-only-api-client/1.0")
         );
+        assert_eq!(response.metadata.get("x-goog-request-params"), None);
         Ok(())
     }
 
@@ -62,8 +62,9 @@ mod tests {
     async fn override_endpoint() -> anyhow::Result<()> {
         // Arrange
         let (endpoint, _server) = start_echo_server().await?;
-        let client =
-            GrpcRustClient::new(test_config(endpoint), "https://invalid.example.com").await?;
+        let mut config = test_config();
+        config.endpoint = Some(endpoint);
+        let client = GrpcRustClient::new(config, "https://invalid.example.com").await?;
 
         // Act & Assert
         check_simple_request(client).await
@@ -73,10 +74,9 @@ mod tests {
         Anonymous::new().build()
     }
 
-    fn test_config(endpoint: impl Into<String>) -> ClientConfig {
+    fn test_config() -> ClientConfig {
         let mut config = ClientConfig::default();
         config.cred = Some(test_credentials());
-        config.endpoint = Some(endpoint.into());
         config
     }
 
