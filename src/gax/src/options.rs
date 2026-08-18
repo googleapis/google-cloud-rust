@@ -50,6 +50,8 @@ pub struct RequestOptions {
     retry_throttler: Option<SharedRetryThrottler>,
     polling_error_policy: Option<Arc<dyn PollingErrorPolicy>>,
     polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    request_stream_channel_capacity: Option<usize>,
     extensions: http::Extensions,
 }
 
@@ -170,6 +172,21 @@ impl RequestOptions {
     pub fn set_polling_backoff_policy<V: Into<PollingBackoffPolicyArg>>(&mut self, v: V) {
         self.polling_backoff_policy = Some(v.into().0);
     }
+
+    /// Gets the current request stream channel capacity, if set.
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    pub fn request_stream_channel_capacity(&self) -> Option<usize> {
+        self.request_stream_channel_capacity
+    }
+
+    /// Sets the buffer capacity of the internal request channel for streaming RPCs.
+    ///
+    /// Valid values are between `1` and `usize::MAX >> 3`. Values outside this range will be clamped.
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    pub fn set_request_stream_channel_capacity(&mut self, capacity: usize) {
+        self.request_stream_channel_capacity =
+            Some(capacity.clamp(1, MAX_REQUEST_CHANNEL_CAPACITY));
+    }
 }
 
 /// The maximum allowed capacity for a bidirectional stream request channel.
@@ -177,44 +194,24 @@ impl RequestOptions {
 /// This upper limit matches Tokio's internal `mpsc::channel` capacity limit
 /// (`usize::MAX >> 3`).
 #[cfg(google_cloud_unstable_gapic_streaming)]
-pub const MAX_REQUEST_CHANNEL_CAPACITY: usize = usize::MAX >> 3;
+const MAX_REQUEST_CHANNEL_CAPACITY: usize = usize::MAX >> 3;
 
+/// Options for configuring bidirectional streaming RPCs.
 #[cfg(google_cloud_unstable_gapic_streaming)]
-const DEFAULT_REQUEST_CHANNEL_CAPACITY: usize = 16;
-
-/// Configuration options specific to bidirectional streaming RPCs.
-///
-/// Wraps standard [`RequestOptions`] while adding settings unique to bidirectional
-/// streaming RPCs, such as internal channel capacity for buffering requests.
-#[cfg(google_cloud_unstable_gapic_streaming)]
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Default)]
 pub struct BidiStreamOptions {
     request_options: RequestOptions,
-    request_channel_capacity: usize,
 }
 
-#[cfg(google_cloud_unstable_gapic_streaming)]
-impl Default for BidiStreamOptions {
-    fn default() -> Self {
-        Self {
-            request_options: RequestOptions::default(),
-            request_channel_capacity: DEFAULT_REQUEST_CHANNEL_CAPACITY,
-        }
-    }
-}
-
-/// Converts [`RequestOptions`] into [`BidiStreamOptions`] using default request channel capacity (`16`).
+/// Converts [`RequestOptions`] into [`BidiStreamOptions`].
 #[cfg(google_cloud_unstable_gapic_streaming)]
 impl From<RequestOptions> for BidiStreamOptions {
     fn from(request_options: RequestOptions) -> Self {
-        Self {
-            request_options,
-            request_channel_capacity: DEFAULT_REQUEST_CHANNEL_CAPACITY,
-        }
+        Self { request_options }
     }
 }
 
-/// Extracts the underlying [`RequestOptions`] from [`BidiStreamOptions`], discarding streaming-specific configuration.
+/// Extracts the underlying [`RequestOptions`] from [`BidiStreamOptions`].
 #[cfg(google_cloud_unstable_gapic_streaming)]
 impl From<BidiStreamOptions> for RequestOptions {
     fn from(options: BidiStreamOptions) -> Self {
@@ -226,17 +223,20 @@ impl From<BidiStreamOptions> for RequestOptions {
 impl BidiStreamOptions {
     /// Sets the buffer capacity of the internal request channel.
     ///
-    /// Valid values are between `1` and [`MAX_REQUEST_CHANNEL_CAPACITY`]. The default
+    /// Valid values are between `1` and `usize::MAX >> 3`. The default
     /// capacity is `16`. This method clamps the supplied value to this range.
     pub fn set_request_channel_capacity(&mut self, capacity: usize) {
-        self.request_channel_capacity = capacity.clamp(1, MAX_REQUEST_CHANNEL_CAPACITY);
+        self.request_options
+            .set_request_stream_channel_capacity(capacity);
     }
 
     /// Returns the configured request channel capacity.
     ///
     /// Defaults to `16`.
     pub fn request_channel_capacity(&self) -> usize {
-        self.request_channel_capacity
+        self.request_options
+            .request_stream_channel_capacity()
+            .unwrap_or(internal::DEFAULT_REQUEST_CHANNEL_CAPACITY)
     }
 
     /// Sets all request options, replacing any prior values.
@@ -362,6 +362,18 @@ pub trait RequestOptionsBuilder: internal::RequestBuilder {
         *self.request_options() = options;
         self
     }
+
+    /// Sets the buffer capacity of the internal request channel for streaming RPCs.
+    ///
+    /// Valid values are between `1` and `usize::MAX >> 3`. The default
+    /// capacity is `16`. Values outside this range will be clamped.
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    fn with_request_stream_channel_capacity(self, _capacity: usize) -> Self
+    where
+        Self: Sized,
+    {
+        unimplemented!();
+    }
 }
 
 #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
@@ -372,6 +384,10 @@ pub mod internal {
     //! without warnings. Applications should not use any types contained
     //! within.
     use super::RequestOptions;
+
+    /// Default channel capacity for request streaming channels.
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    pub const DEFAULT_REQUEST_CHANNEL_CAPACITY: usize = 16;
 
     /// Simplify implementation of the [super::RequestOptionsBuilder] trait in
     /// generated code.
@@ -530,6 +546,13 @@ where
 
     fn with_polling_backoff_policy<V: Into<PollingBackoffPolicyArg>>(mut self, v: V) -> Self {
         self.request_options().set_polling_backoff_policy(v);
+        self
+    }
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    fn with_request_stream_channel_capacity(mut self, capacity: usize) -> Self {
+        self.request_options()
+            .set_request_stream_channel_capacity(capacity);
         self
     }
 }
@@ -764,6 +787,35 @@ mod tests {
 
     #[cfg(google_cloud_unstable_gapic_streaming)]
     #[test]
+    fn request_options_builder_request_stream_channel_capacity() {
+        let builder = TestBuilder::default();
+        assert_eq!(
+            builder.request_options.request_stream_channel_capacity(),
+            None
+        );
+
+        let builder = TestBuilder::default().with_request_stream_channel_capacity(32);
+        assert_eq!(
+            builder.request_options.request_stream_channel_capacity(),
+            Some(32)
+        );
+
+        // Clamping tests
+        let builder = TestBuilder::default().with_request_stream_channel_capacity(0);
+        assert_eq!(
+            builder.request_options.request_stream_channel_capacity(),
+            Some(1)
+        );
+
+        let builder = TestBuilder::default().with_request_stream_channel_capacity(usize::MAX);
+        assert_eq!(
+            builder.request_options.request_stream_channel_capacity(),
+            Some(MAX_REQUEST_CHANNEL_CAPACITY)
+        );
+    }
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    #[test]
     fn test_bidi_stream_options() {
         let default_opts = BidiStreamOptions::default();
         assert_eq!(default_opts.request_channel_capacity(), 16);
@@ -801,5 +853,9 @@ mod tests {
 
         let into_opts: RequestOptions = opts.into();
         assert_eq!(into_opts.user_agent().as_deref(), Some("modified-agent"));
+        assert_eq!(
+            into_opts.request_stream_channel_capacity(),
+            Some(MAX_REQUEST_CHANNEL_CAPACITY)
+        );
     }
 }
