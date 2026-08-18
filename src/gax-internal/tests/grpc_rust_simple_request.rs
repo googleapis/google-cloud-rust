@@ -19,6 +19,7 @@
 ))]
 mod tests {
     use google_cloud_auth::credentials::{Credentials, anonymous::Builder as Anonymous};
+    use google_cloud_gax::error::rpc::Code;
     use google_cloud_gax::options::RequestOptions;
     use google_cloud_gax::retry_policy::NeverRetry;
     use google_cloud_gax_internal::grpc::GrpcRustClient;
@@ -62,12 +63,67 @@ mod tests {
     async fn override_endpoint() -> anyhow::Result<()> {
         // Arrange
         let (endpoint, _server) = start_echo_server().await?;
+
         let mut config = test_config();
         config.endpoint = Some(endpoint);
+
         let client = GrpcRustClient::new(config, "https://invalid.example.com").await?;
 
         // Act & Assert
         check_simple_request(client).await
+    }
+
+    #[tokio::test]
+    async fn request_error() -> anyhow::Result<()> {
+        // Arrange
+        let (endpoint, _server) = start_echo_server().await?;
+        let client = GrpcRustClient::new(test_config(), &endpoint).await?;
+
+        // Act
+        let response = send_request(client, "", "").await;
+
+        // Assert
+        let err = response.expect_err("should fail");
+        assert_eq!(err.status().map(|s| s.code), Some(Code::InvalidArgument));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_explicit_user_agent() -> anyhow::Result<()> {
+        // Arrange
+        const USER_AGENT: &str = "test-agent/1.0";
+
+        let (endpoint, _server) = start_echo_server().await?;
+        let client = GrpcRustClient::new(test_config(), &endpoint).await?;
+        let request = google::test::v1::EchoRequest {
+            message: "hello".into(),
+            delay_ms: None,
+        };
+        let mut options = RequestOptions::default();
+        options.set_user_agent(USER_AGENT);
+
+        // Act
+        let response = client
+            .execute::<_, google::test::v1::EchoResponse>(
+                tonic::Extensions::new(),
+                http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Echo"),
+                request,
+                options,
+                "test-only-api-client/1.0",
+                "",
+            )
+            .await?;
+
+        // Assert
+        assert_eq!(
+            response
+                .into_inner()
+                .metadata
+                .get("user-agent")
+                .map(String::as_str),
+            Some(USER_AGENT)
+        );
+        Ok(())
     }
 
     fn test_credentials() -> Credentials {
