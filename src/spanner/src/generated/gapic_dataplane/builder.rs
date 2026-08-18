@@ -447,6 +447,7 @@ pub mod spanner {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<crate::model::Type>,
         {
+            use std::iter::Iterator;
             self.0.request.param_types = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
@@ -1323,6 +1324,7 @@ pub mod spanner {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<crate::model::Type>,
         {
+            use std::iter::Iterator;
             self.0.request.param_types = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }

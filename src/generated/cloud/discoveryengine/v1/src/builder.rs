@@ -2939,6 +2939,7 @@ pub mod conversational_search_service {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<std::string::String>,
         {
+            use std::iter::Iterator;
             self.0.request.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
@@ -3635,6 +3636,7 @@ pub mod conversational_search_service {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<std::string::String>,
         {
+            use std::iter::Iterator;
             self.0.request.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
@@ -7660,6 +7662,7 @@ pub mod grounded_generation_service {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<std::string::String>,
         {
+            use std::iter::Iterator;
             self.0.request.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
@@ -7768,6 +7771,7 @@ pub mod grounded_generation_service {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<std::string::String>,
         {
+            use std::iter::Iterator;
             self.0.request.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
@@ -9812,6 +9816,7 @@ pub mod rank_service {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<std::string::String>,
         {
+            use std::iter::Iterator;
             self.0.request.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
@@ -10234,6 +10239,7 @@ pub mod recommendation_service {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<wkt::Value>,
         {
+            use std::iter::Iterator;
             self.0.request.params = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
@@ -10245,6 +10251,7 @@ pub mod recommendation_service {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<std::string::String>,
         {
+            use std::iter::Iterator;
             self.0.request.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
@@ -11677,6 +11684,7 @@ pub mod search_service {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<wkt::Value>,
         {
+            use std::iter::Iterator;
             self.0.request.params = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
@@ -11771,6 +11779,7 @@ pub mod search_service {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<std::string::String>,
         {
+            use std::iter::Iterator;
             self.0.request.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
@@ -12163,6 +12172,7 @@ pub mod search_service {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<wkt::Value>,
         {
+            use std::iter::Iterator;
             self.0.request.params = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
@@ -12257,6 +12267,7 @@ pub mod search_service {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<std::string::String>,
         {
+            use std::iter::Iterator;
             self.0.request.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }

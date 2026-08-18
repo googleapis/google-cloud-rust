@@ -146,6 +146,7 @@ pub mod image_annotator {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<std::string::String>,
         {
+            use std::iter::Iterator;
             self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
@@ -233,6 +234,7 @@ pub mod image_annotator {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<std::string::String>,
         {
+            use std::iter::Iterator;
             self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
@@ -401,6 +403,7 @@ pub mod image_annotator {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<std::string::String>,
         {
+            use std::iter::Iterator;
             self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
@@ -547,6 +550,7 @@ pub mod image_annotator {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<std::string::String>,
         {
+            use std::iter::Iterator;
             self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }

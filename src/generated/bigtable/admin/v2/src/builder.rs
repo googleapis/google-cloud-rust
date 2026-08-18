@@ -219,6 +219,7 @@ pub mod bigtable_instance_admin {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<crate::model::Cluster>,
         {
+            use std::iter::Iterator;
             self.0.request.clusters = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
@@ -446,6 +447,7 @@ pub mod bigtable_instance_admin {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<std::string::String>,
         {
+            use std::iter::Iterator;
             self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
@@ -511,6 +513,7 @@ pub mod bigtable_instance_admin {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<std::string::String>,
         {
+            use std::iter::Iterator;
             self.0.request.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }

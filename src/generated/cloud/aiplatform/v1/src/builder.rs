@@ -6836,6 +6836,7 @@ pub mod endpoint_service {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<i32>,
         {
+            use std::iter::Iterator;
             self.0.request.traffic_split =
                 v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
@@ -6975,6 +6976,7 @@ pub mod endpoint_service {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<i32>,
         {
+            use std::iter::Iterator;
             self.0.request.traffic_split =
                 v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
@@ -48912,6 +48914,7 @@ pub mod prediction_service {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<std::string::String>,
         {
+            use std::iter::Iterator;
             self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
@@ -49419,6 +49422,7 @@ pub mod prediction_service {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<std::string::String>,
         {
+            use std::iter::Iterator;
             self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }

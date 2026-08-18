@@ -1021,6 +1021,7 @@ pub mod grafeas {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<crate::model::Note>,
         {
+            use std::iter::Iterator;
             self.0.request.notes = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
