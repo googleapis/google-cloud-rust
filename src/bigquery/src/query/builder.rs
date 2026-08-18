@@ -139,7 +139,8 @@ impl Query {
     /// # }
     /// ```
     pub async fn send(self) -> Result<QueryHandle> {
-        RetryContext::new(self).execute().await
+        // Box heavy RPC call future to avoid large stack frames.
+        Box::pin(RetryContext::new(self).execute()).await
     }
 
     /// Sends the query execution request and waits until execution completes.
@@ -166,7 +167,8 @@ impl Query {
     /// # }
     /// ```
     pub async fn until_done(self) -> Result<CompleteQuery> {
-        self.send().await?.until_done().await
+        // Box heavy RPC call future to avoid large stack frames.
+        Box::pin(async move { self.send().await?.until_done().await }).await
     }
 }
 

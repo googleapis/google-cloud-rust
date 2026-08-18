@@ -126,14 +126,16 @@ impl RetryContext {
     pub(crate) async fn reissue(mut self, delay: Duration) -> Result<QueryHandle> {
         tokio::time::sleep(delay).await;
         self.state.attempt_count += 1;
-        self.execute().await
+        // Box heavy RPC call future to avoid large stack frames.
+        Box::pin(self.execute()).await
     }
 
     pub(crate) async fn execute(mut self) -> Result<QueryHandle> {
         let project_id = self.template.project_id.clone().unwrap_or_default();
 
         loop {
-            match self.execute_once(&project_id).await {
+            // Box heavy RPC call future to avoid large stack frames.
+            match Box::pin(self.execute_once(&project_id)).await {
                 Ok(query) => return Ok(query),
                 Err(err) => match self.on_error(err) {
                     JobRetryResult::Continue(delay, _) => {
