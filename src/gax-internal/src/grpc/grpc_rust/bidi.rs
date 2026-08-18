@@ -15,7 +15,7 @@
 pub use super::receive::ReceiveTask;
 pub use super::receive::RecvItem;
 pub use super::send::GrpcRustSend;
-use super::send::SendTask;
+use super::send::{SendState, SendTask};
 use grpc::client::{CallOptions, Invoke};
 use grpc::core::RequestHeaders;
 use prost::Message;
@@ -36,7 +36,7 @@ use tokio::sync::mpsc::Receiver;
 pub struct GrpcRustStreaming<Response> {
     responses: Option<Receiver<tonic::Result<Option<RecvItem<Response>>>>>,
     receive_task: Option<ReceiveTask>,
-    send_task: SendTask,
+    send_state: SendState,
     /// Holds a pre-decoded initial response message (e.g. from stream setup or handshake)
     /// to yield on the first call to [`GrpcRustStreaming::message`] before polling `responses`.
     pending_response: Option<Response>,
@@ -47,15 +47,15 @@ where
     Response: Message + Default + Send + 'static,
 {
     /// Creates a new [`GrpcRustStreaming`] instance with an active response channel and [`ReceiveTask`].
-    pub(super) fn new(
+    fn new(
         responses: Receiver<tonic::Result<Option<RecvItem<Response>>>>,
         receive_task: ReceiveTask,
-        send_task: SendTask,
+        send_state: SendState,
     ) -> Self {
         Self {
             responses: Some(responses),
             receive_task: Some(receive_task),
-            send_task,
+            send_state,
             pending_response: None,
         }
     }
@@ -64,25 +64,25 @@ where
     ///
     /// The first call to [`GrpcRustStreaming::message`] will yield `pending` before returning
     /// subsequent items from the response channel.
-    pub(super) fn new_with_pending(
+    fn new_with_pending(
         responses: Receiver<tonic::Result<Option<RecvItem<Response>>>>,
         receive_task: ReceiveTask,
-        send_task: SendTask,
+        send_state: SendState,
         pending: Response,
     ) -> Self {
-        let mut stream = Self::new(responses, receive_task, send_task);
+        let mut stream = Self::new(responses, receive_task, send_state);
         stream.pending_response = Some(pending);
         stream
     }
 
-    /// Creates a terminal (already closed) [`GrpcRustStreaming`] instance holding the outbound task.
+    /// Creates a terminal (already closed) [`GrpcRustStreaming`] instance.
     ///
     /// Subsequent calls to [`GrpcRustStreaming::message`] will return `Ok(None)`.
-    pub(super) fn new_terminal(send_task: SendTask) -> Self {
+    fn new_terminal() -> Self {
         Self {
             responses: None,
             receive_task: None,
-            send_task,
+            send_state: SendState::Complete,
             pending_response: None,
         }
     }
@@ -112,10 +112,13 @@ where
                     // Ignore additional headers received mid-stream.
                     // TODO(#5991): Consider logging (e.g. tracing::debug!) for unexpected mid-stream headers.
                     Some(Ok(Some(RecvItem::Headers(_)))) => continue,
-                    // Terminal with clean termination.
+                    // Terminal with clean termination. If sending failed, some requests were not
+                    // delivered, so return that failure.
                     Some(Ok(None)) => {
+                        self.send_state.join_if_finished().await;
+                        let send_error = self.send_state.failure().cloned();
                         self.terminate();
-                        return Ok(None);
+                        return send_error.map_or(Ok(None), Err);
                     }
                     // Terminal with error.
                     Some(Err(status)) => {
@@ -126,7 +129,7 @@ where
                     // Join the background receive task to extract the final exit status/error.
                     None => {
                         self.responses.take();
-                        self.send_task.abort();
+                        self.send_state.abort();
                         let status = self
                             .receive_task
                             .as_mut()
@@ -136,16 +139,11 @@ where
                         return Err(status);
                     }
                 },
-                // Monitor the background send task. If sending failed, fail early and terminate the stream.
-                status = self.send_task.join(), if self.send_task.is_joinable() => {
-                    if let Err(status) = status {
-                        // TODO(#5991): Consider waiting until the receive
-                        // side terminates, so server responses that haven't
-                        // arrived are not lost.
-                        self.terminate();
-                        return Err(status);
-                    }
-                }
+                // Concurrently wait for the send task to finish. When it completes:
+                // 1. `join()` records completion or failure into `self.send_state`.
+                // 2. We keep reading responses so the server's true error (if any) isn't masked.
+                //    The send error is only returned if the server finishes cleanly.
+                () = self.send_state.join(), if self.send_state.is_active() => {}
             }
         }
     }
@@ -154,7 +152,7 @@ where
     fn terminate(&mut self) {
         self.responses.take();
         self.receive_task.take();
-        self.send_task.abort();
+        self.send_state.abort();
     }
 }
 
@@ -183,7 +181,7 @@ where
     let (send, recv) = invoker
         .invoke(request_headers, CallOptions::default())
         .await;
-    let mut send_task = SendTask::start(send, request);
+    let mut send_state = SendState::new(SendTask::start(send, request));
     let (mut responses, mut receive_task) = ReceiveTask::start(recv);
 
     loop {
@@ -193,38 +191,45 @@ where
                 Some(Ok(Some(RecvItem::Headers(metadata)))) => {
                     return Ok(tonic::Response::from_parts(
                         metadata,
-                        GrpcRustStreaming::new(responses, receive_task, send_task),
+                        GrpcRustStreaming::new(responses, receive_task, send_state),
                         tonic::Extensions::new(),
                     ));
                 }
                 Some(Ok(Some(RecvItem::Message(pending)))) => {
                     return Ok(tonic::Response::from_parts(
                         tonic::metadata::MetadataMap::new(),
-                        GrpcRustStreaming::new_with_pending(responses, receive_task, send_task, pending),
+                        GrpcRustStreaming::new_with_pending(
+                            responses,
+                            receive_task,
+                            send_state,
+                            pending,
+                        ),
                         tonic::Extensions::new(),
                     ));
                 }
                 Some(Ok(None)) => {
+                    send_state.join_if_finished().await;
+                    if let Some(status) = send_state.failure().cloned() {
+                        return Err(status);
+                    }
+                    send_state.abort();
                     return Ok(tonic::Response::from_parts(
                         tonic::metadata::MetadataMap::new(),
-                        GrpcRustStreaming::new_terminal(send_task),
+                        GrpcRustStreaming::new_terminal(),
                         tonic::Extensions::new(),
                     ));
                 }
                 Some(Err(status)) => return Err(status),
                 None => {
-                    send_task.abort();
+                    send_state.abort();
                     let status = receive_task.join().await;
                     return Err(status);
                 }
             },
-            // TODO(#5991): Consider waiting until the receive
-            // side terminates, so server responses that haven't
-            // arrived are not lost. Perhaps we can removed biased;
-            // once that's in place.
-            status = send_task.join(), if send_task.is_joinable() => {
-                status?;
-            }
+            // Concurrently wait for the send task to finish. When it completes:
+            // 1. `join()` records completion or failure into `send_state`.
+            // 2. We keep waiting so server headers, initial messages, or status trailers take priority.
+            () = send_state.join(), if send_state.is_active() => {}
         }
     }
 }
@@ -287,11 +292,62 @@ mod tests {
         }
     }
 
+    struct FailingSendStream;
+
+    impl SendStream for FailingSendStream {
+        async fn send(
+            &mut self,
+            _message: &dyn SendMessage,
+            _options: SendOptions,
+        ) -> Result<(), ()> {
+            Err(())
+        }
+    }
+
+    struct FailAfterFirstSendStream {
+        sent_count: usize,
+        fail_gate: Arc<tokio::sync::Notify>,
+        failed: Arc<tokio::sync::Notify>,
+    }
+
+    impl FailAfterFirstSendStream {
+        fn gated() -> (Self, Arc<tokio::sync::Notify>, Arc<tokio::sync::Notify>) {
+            let fail_gate = Arc::new(tokio::sync::Notify::new());
+            let failed = Arc::new(tokio::sync::Notify::new());
+            (
+                Self {
+                    sent_count: 0,
+                    fail_gate: fail_gate.clone(),
+                    failed: failed.clone(),
+                },
+                fail_gate,
+                failed,
+            )
+        }
+    }
+
+    impl SendStream for FailAfterFirstSendStream {
+        async fn send(
+            &mut self,
+            _message: &dyn SendMessage,
+            _options: SendOptions,
+        ) -> Result<(), ()> {
+            self.sent_count += 1;
+            if self.sent_count == 1 {
+                return Ok(());
+            }
+            self.fail_gate.notified().await;
+            self.failed.notify_one();
+            Err(())
+        }
+    }
+
     enum MockRecvAction {
         WaitForMessage {
             observed_messages: Arc<Mutex<Vec<TestMessage>>>,
             notify: Arc<tokio::sync::Notify>,
         },
+        Wait(Arc<tokio::sync::Notify>),
         Headers(ResponseHeaders),
         Message(TestMessage),
         Trailers(Trailers),
@@ -336,6 +392,7 @@ mod tests {
                             notify.notified().await;
                         }
                     }
+                    MockRecvAction::Wait(notify) => notify.notified().await,
                     MockRecvAction::Headers(headers) => {
                         return ResponseStreamItem::Headers(headers);
                     }
@@ -546,22 +603,11 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
-    async fn bidi_call_immediately_fails_if_initial_request_fails() -> anyhow::Result<()> {
+    #[tokio::test(start_paused = true)]
+    async fn bidi_call_continues_receiving_even_after_initial_send_request_fails()
+    -> anyhow::Result<()> {
         // Arrange
         const METHOD_NAME: &str = "/google.test.v1.Test/Bidi";
-        const ERROR_MESSAGE_STREAM_CLOSED: &str = "grpc-rust request stream closed";
-
-        struct FailingSendStream;
-        impl SendStream for FailingSendStream {
-            async fn send(
-                &mut self,
-                _message: &dyn SendMessage,
-                _options: SendOptions,
-            ) -> Result<(), ()> {
-                Err(())
-            }
-        }
 
         struct PendingRecvStream;
         impl RecvStream for PendingRecvStream {
@@ -577,18 +623,175 @@ mod tests {
         };
 
         // Act
+        let result = tokio::time::timeout(
+            std::time::Duration::from_secs(1),
+            invoke_bidi::<TestMessage, TestMessage, _>(
+                &invoker,
+                headers,
+                tokio_stream::iter([request]),
+            ),
+        )
+        .await;
+
+        // Assert
+        // We use `result.is_err()` to verify if the timeout indeed elapsed.
+        // If instead `invoke_bidi` had returned the send error rather
+        // than continuing to receive (and thereby timing out), `result` would
+        // have been `Ok(Err(...))`.
+        assert!(
+            result.is_err(),
+            "receive should still be pending after initial send failure"
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn bidi_call_returns_server_error() -> anyhow::Result<()> {
+        // Arrange
+        const METHOD_NAME: &str = "/google.test.v1.Test/Bidi";
+        const ERROR_MESSAGE: &str = "request rejected by server";
+        let server_error = StatusError::new(StatusCodeError::InvalidArgument, ERROR_MESSAGE);
+        let invoker = MockInvoker::new(
+            FailingSendStream,
+            MockRecvStream::immediate_trailers(Trailers::new(Err(server_error))),
+        );
+        let headers = RequestHeaders::new().with_method_name(METHOD_NAME);
+        let request = TestMessage {
+            value: "request".to_string(),
+        };
+
+        // Act
         let err = invoke_bidi::<TestMessage, TestMessage, _>(
             &invoker,
             headers,
             tokio_stream::iter([request]),
         )
         .await
-        .expect_err("invoke_bidi should fail immediately when initial outbound send fails");
+        .expect_err("should fail with server error");
 
         // Assert
+        assert_eq!(err.code(), tonic::Code::InvalidArgument);
+        assert_eq!(err.message(), ERROR_MESSAGE);
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn bidi_stream_preserves_send_failure_and_server_response_across_cancelled_receive()
+    -> anyhow::Result<()> {
+        // Arrange
+        const RESPONSE_VALUE: &str = "buffered response";
+        const ERROR_MESSAGE_STREAM_CLOSED: &str = "grpc-rust request stream closed";
+        let (mut stream, receive_gate) = setup_failed_send_bidi_stream([
+            MockRecvAction::Message(TestMessage {
+                value: RESPONSE_VALUE.to_string(),
+            }),
+            MockRecvAction::Trailers(Trailers::new(Ok(()))),
+        ])
+        .await?;
+
+        // Act: cancel a read after the send task has failed but before the server completes.
+        let cancelled =
+            tokio::time::timeout(std::time::Duration::from_secs(1), stream.message()).await;
+        assert!(cancelled.is_err(), "the receive should still be pending");
+
+        // Unblock the server
+        receive_gate.notify_one();
+
+        // Assert
+        // We still receive the response from the server...
+        assert_eq!(
+            stream.message().await?,
+            Some(TestMessage {
+                value: RESPONSE_VALUE.to_string()
+            })
+        );
+        // ...and we report the send side failure.
+        let err = stream
+            .message()
+            .await
+            .expect_err("clean server completion should not mask outbound send failure");
         assert_eq!(err.code(), tonic::Code::Internal);
         assert_eq!(err.message(), ERROR_MESSAGE_STREAM_CLOSED);
 
+        // Subsequent reads signal end-of-stream.
+        assert_eq!(stream.message().await?, None);
         Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn bidi_stream_server_error_overrides_preserved_send_failure() -> anyhow::Result<()> {
+        // Arrange
+        const ERROR_MESSAGE: &str = "server rejected the stream";
+        let server_error = StatusError::new(StatusCodeError::PermissionDenied, ERROR_MESSAGE);
+        let (mut stream, receive_gate) = setup_failed_send_bidi_stream([MockRecvAction::Trailers(
+            Trailers::new(Err(server_error)),
+        )])
+        .await?;
+
+        // Act: cancel a read after the send task has failed but before the server completes.
+        let cancelled =
+            tokio::time::timeout(std::time::Duration::from_secs(1), stream.message()).await;
+        assert!(cancelled.is_err(), "the receive should still be pending");
+
+        // Unblock the server
+        receive_gate.notify_one();
+
+        // Assert
+        let err = stream.message().await.expect_err("expected an error");
+
+        // If it had been a send side error, then the code would instead be `tonic::Code::Internal` (see
+        // `bidi_stream_preserves_send_failure_and_server_response_across_cancelled_receive`).
+        assert_eq!(err.code(), tonic::Code::PermissionDenied);
+        assert_eq!(err.message(), ERROR_MESSAGE);
+
+        // Subsequent reads signal end-of-stream.
+        assert_eq!(stream.message().await?, None);
+        Ok(())
+    }
+
+    /// Sets up a bidi stream test fixture where the outbound send pump has failed and
+    /// the inbound receive stream is paused at a synchronization gate after initial headers.
+    ///
+    /// Returns the active [`GrpcRustStreaming`] and the [`Arc<tokio::sync::Notify>`] gate
+    /// used to unblock subsequent `server_actions`.
+    async fn setup_failed_send_bidi_stream(
+        server_actions: impl IntoIterator<Item = MockRecvAction>,
+    ) -> anyhow::Result<(GrpcRustStreaming<TestMessage>, Arc<tokio::sync::Notify>)> {
+        const METHOD_NAME: &str = "/google.test.v1.Test/Bidi";
+        let (send_stream, fail_gate, failed) = FailAfterFirstSendStream::gated();
+        let receive_gate = Arc::new(tokio::sync::Notify::new());
+
+        // Emit initial response headers and pause the server stream until unblocked by `receive_gate`.
+        let mut actions = vec![
+            MockRecvAction::Headers(ResponseHeaders::new()),
+            MockRecvAction::Wait(receive_gate.clone()),
+        ];
+        actions.extend(server_actions);
+        let invoker = MockInvoker::new(send_stream, MockRecvStream::new(actions));
+        let headers = RequestHeaders::new().with_method_name(METHOD_NAME);
+
+        // Send two requests: the first succeeds; the second blocks on `fail_gate`.
+        let requests = [
+            TestMessage {
+                value: "request-1".to_string(),
+            },
+            TestMessage {
+                value: "request-2".to_string(),
+            },
+        ];
+        let response = invoke_bidi::<TestMessage, TestMessage, _>(
+            &invoker,
+            headers,
+            tokio_stream::iter(requests),
+        )
+        .await?;
+        let stream = response.into_inner();
+
+        // Fail the outbound send stream so the caller receives a stream with an already-failed send task.
+        fail_gate.notify_one();
+        failed.notified().await; // Wait for failure to actually happen.
+
+        Ok((stream, receive_gate))
     }
 }
