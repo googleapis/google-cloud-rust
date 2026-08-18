@@ -33,15 +33,8 @@ use std::sync::Arc;
 /// [`Query::send()`](crate::builder::bigquery::Query::send) returns a [`Query`](crate::Query).
 ///
 /// To obtain the final result set, call [`until_done()`](Query::until_done),
-/// which checks the execution status and automatically polls the service if the
-/// job is still running in the background.
-///
-/// Depending on how the query was routed and executed, this handle may represent
-/// an asynchronous background job currently executing on BigQuery, or may
-/// contain an already completed query if it ran fast enough using the fast query
-/// path ([jobs.query]).
-///
-/// [jobs.query]: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query
+/// which waits for the query execution to complete and returns a
+/// [`CompleteQuery`](crate::CompleteQuery).
 ///
 /// # Example
 ///
@@ -109,11 +102,7 @@ impl Query {
         }
     }
 
-    /// Returns the initial metadata from query creation.
-    ///
-    /// This provides access to the [`QueryMetadata`] returned by the
-    /// initial query execution request (either [`jobs.query`] or
-    /// [`jobs.insert`]).
+    /// Returns the initial metadata from query execution.
     ///
     /// Depending on how the query was executed, the metadata contains:
     /// - [`job_reference`][QueryMetadata::job_reference]: The reference to the BigQuery job, if one was created.
@@ -123,9 +112,6 @@ impl Query {
     ///
     /// To wait for the query to finish and retrieve full results and final
     /// metadata, call [`until_done`][Self::until_done].
-    ///
-    /// [`jobs.query`]: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query
-    /// [`jobs.insert`]: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/insert
     pub fn metadata(&self) -> &QueryMetadata {
         &self.metadata
     }
@@ -183,16 +169,11 @@ impl Query {
         Some(req)
     }
 
-    /// Periodically polls the background job status until query execution
-    /// finishes.
+    /// Waits for query execution to complete.
     ///
-    /// If the query was executed via the fast query path ([jobs.query]) and
-    /// already completed during the initial request, this method immediately
-    /// returns a [`CompleteQuery`](crate::CompleteQuery) without making
-    /// additional network calls. Otherwise, it implements a polling loop
-    /// querying the job status until it succeeds or fails.
-    ///
-    /// [jobs.query]: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query
+    /// If the query completed immediately, this method returns a
+    /// [`CompleteQuery`](crate::CompleteQuery) without making additional
+    /// network calls. Otherwise, it polls the service until the query finishes.
     ///
     /// # Errors
     ///

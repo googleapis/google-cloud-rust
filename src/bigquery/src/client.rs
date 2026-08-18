@@ -116,17 +116,15 @@ impl BigQuery {
 
     /// Creates a request builder to configure and execute a SQL query.
     ///
-    /// This method returns a [`Query`] builder. You can chain additional configuration methods
-    /// (such as setting the project ID, positional or named parameters, query location, and maximum result buffer sizes)
-    /// before calling [`Query::send()`] or [`Query::until_done()`].
+    /// This method returns a [`Query`] builder used to set parameters, specify options,
+    /// and execute the query.
     ///
-    /// The [`Query`] builder automatically decides whether to route your request via the fast path ([`jobs.query`][jobs_query])
-    /// or the background job creation path ([`jobs.insert`][jobs_insert]). If the query configuration uses only options supported
-    /// by the fast path, the client library uses [`jobs.query`][jobs_query] for lower latency. If advanced options (such as destination
-    /// tables or allowing large results) are configured, the client automatically falls back to creating an asynchronous job.
+    /// If you configured a default project ID on the client via
+    /// [`ClientBuilder::with_project_id`][crate::client_builder::ClientBuilder::with_project_id],
+    /// the returned query builder inherits it automatically.
     ///
-    /// [jobs_query]: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query
-    /// [jobs_insert]: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/insert
+    /// Call [`Query::send()`] to start query execution, or [`Query::until_done()`]
+    /// to start execution and wait for results.
     ///
     /// # Example
     ///

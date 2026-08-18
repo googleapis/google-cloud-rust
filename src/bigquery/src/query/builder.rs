@@ -25,19 +25,13 @@ use uuid::Uuid;
 pub(crate) const JOB_ID_PREFIX: &str = "job_";
 pub(crate) const QUERY_REQUEST_ID_PREFIX: &str = "req_";
 
-/// A builder for executing a SQL query.
+/// A builder for configuring and executing a SQL query.
 ///
 /// [`BigQuery::query()`](crate::client::BigQuery::query) returns a [`Query`](crate::builder::bigquery::Query) builder.
 ///
-/// # Automatic Path Routing
-///
-/// The implementation routes internally to [jobs.query] (fast path) or
-/// [jobs.insert] (job path) depending on configured fields. If the fast path is
-/// available, the client library takes it. If not, it falls back to creating a
-/// job, which is typically slower.
-///
-/// [jobs.query]: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query
-/// [jobs.insert]: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/insert
+/// Use this builder to configure query parameters, dataset defaults, geographic location,
+/// result limits, and caching before executing the query with [`send()`](Query::send)
+/// or [`until_done()`](Query::until_done).
 ///
 /// # Example
 ///
@@ -113,26 +107,42 @@ impl Query {
 
     /// Executes the SQL query.
     ///
-    /// This returns a [`Query`](crate::Query) handle representing an
-    /// asynchronous background job executing on BigQuery, or an already
-    /// completed query if it ran fast enough using the fast query path
-    /// ([jobs.query]).
-    ///
-    /// You can call [`until_done()`](crate::Query::until_done) on the
-    /// returned handle to wait for the final results.
+    /// Returns a [`Query`](crate::Query) handle representing the query execution.
+    /// You can call [`until_done()`](crate::Query::until_done) on the returned handle
+    /// to wait for results, or inspect the initial [`metadata()`](crate::Query::metadata).
     ///
     /// You must configure a target project ID on either the
     /// [`BigQuery`][crate::client::BigQuery] client via
     /// [`ClientBuilder::with_project_id`][crate::client_builder::ClientBuilder::with_project_id]
     /// or on this builder via [`with_project_id()`](Query::with_project_id).
     ///
-    /// [jobs.query]: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query
-    /// [jobs.insert]: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/insert
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_bigquery::client::BigQuery;
+    /// # async fn sample(client: BigQuery) -> anyhow::Result<()> {
+    /// let query_handle = client
+    ///     .query("SELECT CURRENT_TIMESTAMP() AS now")
+    ///     .send()
+    ///     .await?;
+    ///
+    /// let completed_query = query_handle
+    ///     .until_done()
+    ///     .await?;
+    ///
+    /// let mut rows = completed_query.read();
+    /// if let Some(row) = rows.next().await.transpose()? {
+    ///     let now: String = row.get("now");
+    ///     println!("Current time: {now}");
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
     pub async fn send(self) -> Result<QueryHandle> {
         RetryContext::new(self).execute().await
     }
 
-    /// Sends the query execution request and polls until execution completes.
+    /// Sends the query execution request and waits until execution completes.
     ///
     /// This is a convenience method equivalent to calling
     /// [`.send().await?.until_done().await`](Query::send).
