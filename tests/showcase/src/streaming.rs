@@ -109,12 +109,16 @@ async fn chat_server_error(client: &Echo) -> Result<()> {
     // 4. Server stream should now be closed.
     assert!(receiver.recv().await.is_none());
 
-    // 5. Sending on stream after server termination should fail with an I/O error.
+    // 5. Sending on stream after server termination should fail.
     let err = sender
         .send(EchoRequest::new().set_content("after-error"))
         .await
         .expect_err("sending on stream after server error termination should fail");
-    assert!(err.is_io());
+    assert!(matches!(
+        err,
+        google_cloud_gax::streaming::SendError::StreamClosed
+            | google_cloud_gax::streaming::SendError::Serialization(_)
+    ));
 
     Ok(())
 }
