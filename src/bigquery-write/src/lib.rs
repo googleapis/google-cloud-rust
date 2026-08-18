@@ -26,6 +26,7 @@
 //!
 //! [bigquery write]: https://docs.cloud.google.com/bigquery/docs/write-api
 
+pub use crate::append_future::AppendFuture;
 pub use google_cloud_gax::Result;
 pub use google_cloud_gax::error::Error;
 
@@ -59,6 +60,7 @@ pub mod arrow;
 pub mod error;
 
 mod append_builder;
+mod append_future;
 mod append_response;
 mod client_builder;
 mod proto_schema;
