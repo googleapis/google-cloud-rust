@@ -25,4 +25,6 @@ pub(crate) mod location_router;
 pub(crate) mod server_connection;
 pub(crate) mod ssformat;
 pub(crate) mod temporal;
+#[cfg(test)]
+pub(crate) mod textproto_test_utils;
 pub(crate) mod uuid;

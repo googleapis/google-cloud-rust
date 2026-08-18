@@ -22,10 +22,19 @@
 
 use crate::model::{CacheUpdate, Group, Range, Tablet};
 use bytes::Bytes;
+#[cfg(test)]
+use crc32c::crc32c;
+use rand::random_range;
 use std::collections::{BTreeMap, HashMap};
+use std::mem::take;
 use std::ops::Bound;
+#[cfg(test)]
+use std::sync::atomic::AtomicBool;
 use std::sync::atomic::{AtomicU64, AtomicUsize, Ordering};
 use std::sync::{Arc, RwLock};
+
+/// Maximum distance metric for a replica to be considered local.
+const MAX_LOCAL_REPLICA_DISTANCE: u32 = 5;
 
 /// Determines how to handle ranges that span multiple splits.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -108,6 +117,8 @@ pub(crate) struct KeyRangeCache {
     state: RwLock<CacheState>,
     access_counter: AtomicU64,
     min_cache_entries_for_random_pick: AtomicUsize,
+    #[cfg(test)]
+    deterministic_random: AtomicBool,
 }
 
 impl KeyRangeCache {
@@ -117,7 +128,48 @@ impl KeyRangeCache {
             state: RwLock::new(CacheState::default()),
             access_counter: AtomicU64::new(0),
             min_cache_entries_for_random_pick: AtomicUsize::new(1000),
+            #[cfg(test)]
+            deterministic_random: AtomicBool::new(false),
         }
+    }
+
+    /// Enables deterministic pseudorandom selection for golden conformance testing.
+    #[cfg(test)]
+    pub(crate) fn use_deterministic_random(&self) {
+        self.deterministic_random.store(true, Ordering::Relaxed);
+    }
+
+    #[cfg(test)]
+    fn deterministic_uniform_random(
+        &self,
+        range_bound: usize,
+        key_seed: &[u8],
+        limit_seed: &[u8],
+        start_key_seed: &[u8],
+    ) -> usize {
+        let combined = [key_seed, limit_seed, start_key_seed].concat();
+        let hash = crc32c(&combined);
+        (hash as usize) % range_bound
+    }
+
+    fn uniform_random(
+        &self,
+        range_bound: usize,
+        key_seed: &[u8],
+        limit_seed: &[u8],
+        start_key_seed: &[u8],
+    ) -> usize {
+        #[cfg(test)]
+        if self.deterministic_random.load(Ordering::Relaxed) {
+            return self.deterministic_uniform_random(
+                range_bound,
+                key_seed,
+                limit_seed,
+                start_key_seed,
+            );
+        }
+        let _ = (key_seed, limit_seed, start_key_seed);
+        random_range(0..range_bound)
     }
 
     /// Returns the current logical access time counter value and increments it.
@@ -148,9 +200,11 @@ impl KeyRangeCache {
 
     /// Clears all cached ranges and groups.
     pub(crate) fn clear(&self) {
-        let mut state = self.state.write().expect("lock cache state for clear");
-        state.ranges.clear();
-        state.groups.clear();
+        let old_state = {
+            let mut state = self.state.write().expect("lock cache state for clear");
+            take(&mut *state)
+        };
+        drop(old_state);
     }
 
     /// Returns the cached group for the given group UID, if present.
@@ -389,7 +443,8 @@ impl KeyRangeCache {
                 found_gap = true;
             }
             total += 1;
-            if total == 1 || rand::random_range(0..total) == 0 {
+            if total == 1 || self.uniform_random(total, key, limit, current.start_key.as_ref()) == 0
+            {
                 sampled = Some(current);
             }
             last_limit = current.limit_key.as_ref();
@@ -439,7 +494,10 @@ impl KeyRangeCache {
             && (group.leader_index as usize) < group.tablets.len()
         {
             let leader = &group.tablets[group.leader_index as usize];
-            if !leader.skip && !leader.server_address.is_empty() {
+            if !leader.skip
+                && !leader.server_address.is_empty()
+                && leader.distance <= MAX_LOCAL_REPLICA_DISTANCE
+            {
                 return Some(leader.clone());
             }
         }
@@ -454,7 +512,7 @@ impl KeyRangeCache {
                     count = 1;
                 } else if t.distance == best_distance {
                     count += 1;
-                    if rand::random_range(0..count) == 0 {
+                    if random_range(0..count) == 0 {
                         best_tablet = Some(t);
                     }
                 }
@@ -467,6 +525,15 @@ impl KeyRangeCache {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::fmt::Debug;
+
+    #[test]
+    fn key_range_cache_types_implement_expected_traits() {
+        static_assertions::assert_impl_all!(KeyRangeCache: Send, Sync);
+        static_assertions::assert_impl_all!(RangeMode: Send, Sync, Debug, Clone, Copy, PartialEq, Eq);
+        static_assertions::assert_impl_all!(CachedRange: Send, Sync, Debug);
+        static_assertions::assert_impl_all!(CachedGroup: Send, Sync, Debug, Clone);
+    }
 
     fn make_range(
         start: &'static str,
@@ -1491,4 +1558,66 @@ mod tests {
         assert_eq!(r4.group_uid, 1);
         assert_eq!(r4.limit_key, Bytes::from_static(b"p"));
     }
+
+    #[test]
+    fn test_deterministic_random_crc32c() {
+        let non_deterministic_cache = KeyRangeCache::new();
+        let default_selection =
+            non_deterministic_cache.uniform_random(10, b"start_key", b"limit_key", b"current_key");
+        assert!(
+            default_selection < 10,
+            "uniform_random with standard rand must produce index within bounds"
+        );
+
+        let cache = KeyRangeCache::new();
+        cache.use_deterministic_random();
+
+        let selection1 = cache.uniform_random(10, b"start_key", b"limit_key", b"current_key");
+        let selection2 = cache.uniform_random(10, b"start_key", b"limit_key", b"current_key");
+        assert_eq!(
+            selection1, selection2,
+            "deterministic random must produce identical results for identical seeds"
+        );
+
+        let different_selection =
+            cache.uniform_random(10, b"other_start", b"limit_key", b"current_key");
+        // Verify output is within [0, range_bound)
+        assert!(selection1 < 10);
+        assert!(different_selection < 10);
+    }
+
+    #[test]
+    fn test_leader_distance_filtering() {
+        let cache = KeyRangeCache::new();
+        let mut group = make_group(10, "1", 1);
+        // Leader tablet (index 1) is remote with distance 6 (> MAX_LOCAL_REPLICA_DISTANCE = 5)
+        group.tablets[1].distance = 6;
+        // Follower tablet (index 0) is local with distance 5
+        group.tablets[0].distance = 5;
+
+        let update = CacheUpdate {
+            database_id: 1,
+            range: vec![make_range("a", "z", 10, "1")],
+            group: vec![group],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&update);
+
+        let cached_range = cache
+            .find_range(b"m", b"", RangeMode::CoveringSplit)
+            .expect("cached range must exist");
+
+        // When prefer_leader is true, but leader distance > 5, it should fall back to the local replica (distance 5)
+        let selected_tablet = cache
+            .select_tablet(&cached_range, true)
+            .expect("a routable tablet must be selected");
+        assert_eq!(
+            selected_tablet.tablet_uid, 1,
+            "must fall back to local replica (UID 1) because leader (UID 2) distance is > 5"
+        );
+    }
 }
+
+#[cfg(test)]
+mod golden_tests;

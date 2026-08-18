@@ -16,68 +16,12 @@ use crate::model::key_recipe::Part;
 use crate::model::key_recipe::part::{NullOrder, Order};
 use crate::model::{KeyRecipe, Type, TypeCode};
 use crate::routing::key_recipe::{encode_key_from_query_params, encode_key_from_recipe};
+use crate::routing::textproto_test_utils::{extract_value, unescape_bytes};
 use crate::value::{ToValue, Value};
 use std::collections::{BTreeMap, HashMap};
 use std::fs;
 use std::iter::Peekable;
 use std::path::Path;
-
-/// Unescapes C-style octal escape sequences (e.g. `\206`, `\310`, `\002`) and standard ASCII escapes
-/// from Protobuf `textproto` byte strings.
-fn unescape_bytes(escaped_string: &str) -> Vec<u8> {
-    let mut out = Vec::with_capacity(escaped_string.len());
-    let mut bytes = escaped_string.bytes().peekable();
-
-    while let Some(byte) = bytes.next() {
-        if byte != b'\\' {
-            out.push(byte);
-            continue;
-        }
-
-        // Try to parse up to 3 octal digits (`\ooo`) which represent raw byte values.
-        if let Some(octal_byte) = try_parse_octal_escape(&mut bytes) {
-            out.push(octal_byte);
-            continue;
-        }
-
-        // Otherwise, handle standard ASCII escape sequences (`\n`, `\r`, `\t`, etc.).
-        if let Some(next_byte) = bytes.next() {
-            let escaped = match next_byte {
-                b'n' => b'\n',
-                b'r' => b'\r',
-                b't' => b'\t',
-                b'\\' => b'\\',
-                b'"' => b'"',
-                _ => next_byte,
-            };
-            out.push(escaped);
-        }
-    }
-
-    out
-}
-
-/// Helper that attempts to read up to 3 consecutive octal digits from a byte stream.
-/// Returns `Some(byte)` if at least one octal digit was consumed, or `None` otherwise.
-fn try_parse_octal_escape<I: Iterator<Item = u8>>(bytes: &mut Peekable<I>) -> Option<u8> {
-    let mut value = 0u8;
-    let mut parsed_digits = 0;
-
-    for _ in 0..3 {
-        if let Some(&byte) = bytes.peek() {
-            if (b'0'..=b'7').contains(&byte) {
-                let digit = byte - b'0';
-                value = value.wrapping_mul(8).wrapping_add(digit);
-                bytes.next(); // Consume the octal digit byte.
-                parsed_digits += 1;
-            } else {
-                break;
-            }
-        }
-    }
-
-    if parsed_digits > 0 { Some(value) } else { None }
-}
 
 struct ParsedTestCase {
     name: String,
@@ -90,14 +34,6 @@ struct ParsedTest {
     query_params: Option<BTreeMap<String, Value>>,
     start: Vec<u8>,
     approximate: bool,
-}
-
-/// Simple line-trimming helper that extracts the value after a specified field prefix
-/// (e.g., stripping `"name: "` and removing surrounding quotes).
-fn extract_value<'a>(line: &'a str, prefix: &str) -> Option<&'a str> {
-    line.trim()
-        .strip_prefix(prefix)
-        .map(|rest| rest.trim_matches(|c| c == ' ' || c == '"'))
 }
 
 /// Maps Spanner data type code names in `recipe_test.textproto` to [`TypeCode`].

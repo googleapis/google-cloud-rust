@@ -5172,6 +5172,7 @@ dependencies = [
  "async-trait",
  "base64 0.23.1",
  "bytes",
+ "crc32c",
  "futures",
  "google-cloud-api",
  "google-cloud-auth",

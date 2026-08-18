@@ -146,6 +146,38 @@ impl KeyRecipeCache {
         true
     }
 
+    /// Ingests a slice of [`KeyRecipe`]s into the cache in a single batch,
+    /// acquiring the write lock only once.
+    pub(crate) fn insert_batch(&self, recipes: &[KeyRecipe]) {
+        if recipes.is_empty() {
+            return;
+        }
+        // Prepare target and Arc outside the write lock to minimize lock hold duration.
+        let mut prepared = Vec::with_capacity(recipes.len());
+        for recipe in recipes {
+            if let Some(target) = recipe.target.clone() {
+                prepared.push((target, Arc::new(recipe.clone())));
+            }
+        }
+        if prepared.is_empty() {
+            return;
+        }
+        let mut guard = self.write_store();
+        for (target, recipe_arc) in prepared {
+            match target {
+                Target::TableName(name) => {
+                    guard.tables.insert(name, recipe_arc);
+                }
+                Target::IndexName(name) => {
+                    guard.indexes.insert(name, recipe_arc);
+                }
+                Target::OperationUid(operation_uid) => {
+                    guard.queries.insert(operation_uid, recipe_arc);
+                }
+            }
+        }
+    }
+
     /// Clears all entries from the cache.
     pub(crate) fn clear(&self) {
         let old_store = {
@@ -309,6 +341,52 @@ mod tests {
         assert!(
             format!("{cache:?}").contains("entry_count: 1"),
             "debug format must show updated entry count"
+        );
+    }
+
+    #[test]
+    fn insert_batch_empty_or_no_targets() {
+        let cache = KeyRecipeCache::new();
+        cache.insert_batch(&[]);
+        assert!(
+            cache.is_empty(),
+            "cache must remain empty after empty batch"
+        );
+
+        let untargeted_recipe = KeyRecipe::new();
+        cache.insert_batch(&[untargeted_recipe]);
+        assert!(
+            cache.is_empty(),
+            "cache must remain empty when batch contains only untargeted recipes"
+        );
+    }
+
+    #[test]
+    fn insert_batch_all_target_types() {
+        let cache = KeyRecipeCache::new();
+        let table_recipe = KeyRecipe::new().set_table_name("Albums");
+        let index_recipe = KeyRecipe::new().set_index_name("AlbumsByArtist");
+        let query_recipe = KeyRecipe::new().set_operation_uid(42u64);
+        let untargeted_recipe = KeyRecipe::new();
+
+        cache.insert_batch(&[table_recipe, index_recipe, query_recipe, untargeted_recipe]);
+
+        assert_eq!(
+            cache.len(),
+            3,
+            "cache length must be 3 for the 3 targeted recipes"
+        );
+        assert!(
+            cache.get_table_recipe("Albums").is_some(),
+            "table recipe must be retrieved"
+        );
+        assert!(
+            cache.get_index_recipe("AlbumsByArtist").is_some(),
+            "index recipe must be retrieved"
+        );
+        assert!(
+            cache.get_query_recipe(42).is_some(),
+            "query recipe must be retrieved"
         );
     }
 }
