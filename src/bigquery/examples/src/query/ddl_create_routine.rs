@@ -35,8 +35,6 @@ pub async fn sample(project_id: &str, dataset_id: &str, routine_id: &str) -> any
         .query(ddl_sql)
         .with_project_id(project_id)
         .set_location("US")
-        .run()
-        .await?
         .until_done()
         .await?;
 

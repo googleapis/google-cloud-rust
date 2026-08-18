@@ -42,6 +42,7 @@
 //!   - Configure this crate with `default-features = false`, and
 //!     `features = ["idtoken"]`
 //!   - Select the desired backend for `jsonwebtoken`.
+//!   - You **MUST** use the same major version of `jsonwebtoken` as we do.
 //!
 //! [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 //! [ring]: https://crates.io/crates/ring

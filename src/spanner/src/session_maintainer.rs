@@ -130,7 +130,7 @@ impl ManagedSessionMaintainer {
         database_name: &str,
         database_role: &str,
         options: &RequestOptions,
-        o11y: &Observability,
+        o11y: &Arc<Observability>,
     ) -> Result<Session> {
         let request = CreateSessionRequest::new()
             .set_database(database_name)

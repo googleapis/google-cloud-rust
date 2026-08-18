@@ -32,8 +32,10 @@ bytes.workspace               = true
 google-cloud-auth.workspace   = true
 google-cloud-gax.workspace    = true
 google-cloud-test-utils       = { workspace = true }
+google-cloud-rpc.workspace    = true
 google-cloud-showcase-v1beta1 = { workspace = true, features = ["default"] }
 google-cloud-wkt.workspace    = true
+http.workspace                = true
 tokio.workspace               = true
 tracing.workspace             = true
 uuid                          = { workspace = true, features = ["v4"] }

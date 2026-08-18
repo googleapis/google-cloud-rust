@@ -115,7 +115,8 @@ where
     //
     // [^1]: https://github.com/hyperium/tonic/issues/515
     let shutdown = CancellationToken::new();
-    keepalive::spawn(request_tx, shutdown.clone());
+    let keepalive_guard = shutdown.clone().drop_guard();
+    keepalive::spawn(request_tx, shutdown);
 
     let stream = inner
         .streaming_pull(&request_params, request_rx, RequestOptions::default())
@@ -123,7 +124,7 @@ where
         .into_inner();
 
     Ok(Stream {
-        _keepalive_guard: shutdown.drop_guard(),
+        _keepalive_guard: keepalive_guard,
         stream,
     })
 }
@@ -163,12 +164,50 @@ mod tests {
     use google_cloud_gax::error::rpc::{Code, Status};
     use google_cloud_gax::retry_state::RetryState;
     use google_cloud_test_macros::tokio_test_no_panics;
+    use tokio::sync::oneshot;
 
     mockall::mock! {
         #[derive(Debug)]
         BackoffPolicy {}
         impl BackoffPolicy for BackoffPolicy {
             fn on_failure(&self, state: &RetryState) -> Duration;
+        }
+    }
+
+    #[derive(Debug)]
+    struct PendingStub {
+        request_tx: Mutex<Option<oneshot::Sender<mpsc::Receiver<StreamingPullRequest>>>>,
+    }
+
+    #[async_trait::async_trait]
+    impl Stub for PendingStub {
+        type Stream = mpsc::Receiver<TonicResult<StreamingPullResponse>>;
+
+        async fn streaming_pull(
+            &self,
+            _request_params: &str,
+            request_rx: mpsc::Receiver<StreamingPullRequest>,
+            _options: RequestOptions,
+        ) -> Result<TonicResponse<Self::Stream>> {
+            let request_tx = self.request_tx.lock().unwrap().take().unwrap();
+            let _ = request_tx.send(request_rx);
+            std::future::pending().await
+        }
+
+        async fn modify_ack_deadline(
+            &self,
+            _req: crate::model::ModifyAckDeadlineRequest,
+            _options: RequestOptions,
+        ) -> Result<crate::Response<()>> {
+            unreachable!()
+        }
+
+        async fn acknowledge(
+            &self,
+            _req: crate::model::AcknowledgeRequest,
+            _options: RequestOptions,
+        ) -> Result<crate::Response<()>> {
+            unreachable!()
         }
     }
 
@@ -279,6 +318,25 @@ mod tests {
         drop(stream);
         assert_eq!(recover_writes_rx.recv().await, None);
 
+        Ok(())
+    }
+
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn cancellation_stops_keepalives() -> anyhow::Result<()> {
+        let (request_tx, request_rx) = oneshot::channel();
+        let stub = PendingStub {
+            request_tx: Mutex::new(Some(request_tx)),
+        };
+
+        let open = tokio::spawn(open_stream(Arc::new(stub), initial_request()));
+        let mut requests = request_rx.await?;
+        assert_eq!(requests.recv().await, Some(initial_request()));
+
+        open.abort();
+        assert!(open.await.unwrap_err().is_cancelled());
+        tokio::time::advance(KEEPALIVE_PERIOD).await;
+
+        assert_eq!(requests.recv().await, None);
         Ok(())
     }
 

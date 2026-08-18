@@ -29,8 +29,6 @@ LIMIT 100
         )
         .with_project_id(project_id)
         .set_location("US")
-        .run()
-        .await?
         .until_done()
         .await?;
 

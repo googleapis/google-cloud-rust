@@ -430,6 +430,45 @@ pub struct SourceConfig {
     /// enabled when creating a Data Guard.
     pub automatic_backups_replication_enabled: bool,
 
+    /// Optional. The source type of the Autonomous Database.
+    pub source_type: crate::model::source_config::SourceType,
+
+    /// Optional. The clone type of the Autonomous Database. This field is only
+    /// applicable in case of cloning
+    pub clone_type: crate::model::source_config::CloneType,
+
+    /// Optional. The refresh mode of the clone.
+    pub refreshable_mode: crate::model::source_config::RefreshableMode,
+
+    /// Optional. The frequency in seconds a refreshable clone is refreshed after
+    /// auto-refresh is enabled.
+    pub auto_refresh_frequency_seconds: i32,
+
+    /// Optional. The time, in seconds, the data of the automatic refreshable clone
+    /// lags the primary database at the point of refresh.
+    pub auto_refresh_point_lag_seconds: std::option::Option<i32>,
+
+    /// Optional. The date and time that auto-refreshing will begin for an
+    /// Autonomous Database refreshable clone. This value controls only the start
+    /// time for the first refresh operation.
+    pub auto_refresh_start_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. The name of the Autonomous Database Backup resource with the
+    /// format:
+    /// projects/{project}/locations/{region}/autonomousDatabaseBackups/{autonomous_database_backup}
+    /// Required when source_type is BACKUP_FROM_ID.
+    pub autonomous_database_backup: std::string::String,
+
+    /// Optional. The timestamp specified for the point-in-time clone of the source
+    /// Autonomous Database. This field is only applicable
+    /// in case of BACKUP_FROM_TIMESTAMP source type and when
+    /// use_latest_available_backup is false.
+    pub backup_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. Clone from latest available backup timestamp. This field is only
+    /// applicable in case of BACKUP_FROM_TIMESTAMP source type.
+    pub use_latest_available_backup: bool,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -471,11 +510,640 @@ impl SourceConfig {
         self.automatic_backups_replication_enabled = v.into();
         self
     }
+
+    /// Sets the value of [source_type][crate::model::SourceConfig::source_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::SourceConfig;
+    /// use google_cloud_oracledatabase_v1::model::source_config::SourceType;
+    /// let x0 = SourceConfig::new().set_source_type(SourceType::CloneDatabase);
+    /// let x1 = SourceConfig::new().set_source_type(SourceType::CrossRegionDisasterRecovery);
+    /// let x2 = SourceConfig::new().set_source_type(SourceType::CloneToRefreshable);
+    /// ```
+    pub fn set_source_type<T: std::convert::Into<crate::model::source_config::SourceType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_type = v.into();
+        self
+    }
+
+    /// Sets the value of [clone_type][crate::model::SourceConfig::clone_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::SourceConfig;
+    /// use google_cloud_oracledatabase_v1::model::source_config::CloneType;
+    /// let x0 = SourceConfig::new().set_clone_type(CloneType::Full);
+    /// let x1 = SourceConfig::new().set_clone_type(CloneType::Metadata);
+    /// ```
+    pub fn set_clone_type<T: std::convert::Into<crate::model::source_config::CloneType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.clone_type = v.into();
+        self
+    }
+
+    /// Sets the value of [refreshable_mode][crate::model::SourceConfig::refreshable_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::SourceConfig;
+    /// use google_cloud_oracledatabase_v1::model::source_config::RefreshableMode;
+    /// let x0 = SourceConfig::new().set_refreshable_mode(RefreshableMode::Automatic);
+    /// let x1 = SourceConfig::new().set_refreshable_mode(RefreshableMode::Manual);
+    /// ```
+    pub fn set_refreshable_mode<
+        T: std::convert::Into<crate::model::source_config::RefreshableMode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.refreshable_mode = v.into();
+        self
+    }
+
+    /// Sets the value of [auto_refresh_frequency_seconds][crate::model::SourceConfig::auto_refresh_frequency_seconds].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::SourceConfig;
+    /// let x = SourceConfig::new().set_auto_refresh_frequency_seconds(42);
+    /// ```
+    pub fn set_auto_refresh_frequency_seconds<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.auto_refresh_frequency_seconds = v.into();
+        self
+    }
+
+    /// Sets the value of [auto_refresh_point_lag_seconds][crate::model::SourceConfig::auto_refresh_point_lag_seconds].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::SourceConfig;
+    /// let x = SourceConfig::new().set_auto_refresh_point_lag_seconds(42);
+    /// ```
+    pub fn set_auto_refresh_point_lag_seconds<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.auto_refresh_point_lag_seconds = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [auto_refresh_point_lag_seconds][crate::model::SourceConfig::auto_refresh_point_lag_seconds].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::SourceConfig;
+    /// let x = SourceConfig::new().set_or_clear_auto_refresh_point_lag_seconds(Some(42));
+    /// let x = SourceConfig::new().set_or_clear_auto_refresh_point_lag_seconds(None::<i32>);
+    /// ```
+    pub fn set_or_clear_auto_refresh_point_lag_seconds<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.auto_refresh_point_lag_seconds = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [auto_refresh_start_time][crate::model::SourceConfig::auto_refresh_start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::SourceConfig;
+    /// use wkt::Timestamp;
+    /// let x = SourceConfig::new().set_auto_refresh_start_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_auto_refresh_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.auto_refresh_start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [auto_refresh_start_time][crate::model::SourceConfig::auto_refresh_start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::SourceConfig;
+    /// use wkt::Timestamp;
+    /// let x = SourceConfig::new().set_or_clear_auto_refresh_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SourceConfig::new().set_or_clear_auto_refresh_start_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_auto_refresh_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.auto_refresh_start_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [autonomous_database_backup][crate::model::SourceConfig::autonomous_database_backup].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::SourceConfig;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let autonomous_database_backup_id = "autonomous_database_backup_id";
+    /// let x = SourceConfig::new().set_autonomous_database_backup(format!("projects/{project_id}/locations/{location_id}/autonomousDatabaseBackups/{autonomous_database_backup_id}"));
+    /// ```
+    pub fn set_autonomous_database_backup<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.autonomous_database_backup = v.into();
+        self
+    }
+
+    /// Sets the value of [backup_time][crate::model::SourceConfig::backup_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::SourceConfig;
+    /// use wkt::Timestamp;
+    /// let x = SourceConfig::new().set_backup_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_backup_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.backup_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [backup_time][crate::model::SourceConfig::backup_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::SourceConfig;
+    /// use wkt::Timestamp;
+    /// let x = SourceConfig::new().set_or_clear_backup_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SourceConfig::new().set_or_clear_backup_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_backup_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.backup_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [use_latest_available_backup][crate::model::SourceConfig::use_latest_available_backup].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::SourceConfig;
+    /// let x = SourceConfig::new().set_use_latest_available_backup(true);
+    /// ```
+    pub fn set_use_latest_available_backup<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.use_latest_available_backup = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SourceConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.oracledatabase.v1.SourceConfig"
+    }
+}
+
+/// Defines additional types related to [SourceConfig].
+pub mod source_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The refresh mode of a refreshable clone.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum RefreshableMode {
+        /// Default unspecified value.
+        Unspecified,
+        /// Automatic refresh.
+        Automatic,
+        /// Manual refresh.
+        Manual,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [RefreshableMode::value] or
+        /// [RefreshableMode::name].
+        UnknownValue(refreshable_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod refreshable_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl RefreshableMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Automatic => std::option::Option::Some(1),
+                Self::Manual => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("REFRESHABLE_MODE_UNSPECIFIED"),
+                Self::Automatic => std::option::Option::Some("AUTOMATIC"),
+                Self::Manual => std::option::Option::Some("MANUAL"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for RefreshableMode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for RefreshableMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for RefreshableMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Automatic,
+                2 => Self::Manual,
+                _ => Self::UnknownValue(refreshable_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for RefreshableMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "REFRESHABLE_MODE_UNSPECIFIED" => Self::Unspecified,
+                "AUTOMATIC" => Self::Automatic,
+                "MANUAL" => Self::Manual,
+                _ => Self::UnknownValue(refreshable_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for RefreshableMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Automatic => serializer.serialize_i32(1),
+                Self::Manual => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for RefreshableMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<RefreshableMode>::new(
+                ".google.cloud.oracledatabase.v1.SourceConfig.RefreshableMode",
+            ))
+        }
+    }
+
+    /// Specifies the source of the database. For example, a clone or peer from an
+    /// existing database.
+    /// This enum may be expanded to include other source types in the future.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum SourceType {
+        /// Default unspecified value.
+        Unspecified,
+        /// Clone database from an existing database specified in
+        /// autonomous_database field.
+        CloneDatabase,
+        /// Create a cross-region disaster recovery peer adb from an existing adb.
+        CrossRegionDisasterRecovery,
+        /// Create a refreshable clone from an existing database specified in
+        /// autonomous_database field.
+        CloneToRefreshable,
+        /// Create clone from the backup resource.
+        BackupFromId,
+        /// Create clone from backup specified by backup_time
+        /// field, or use latest available backup if use_latest_available_backup is
+        /// true. The autonomous_database field must specify the source database
+        /// to clone from.
+        BackupFromTimestamp,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [SourceType::value] or
+        /// [SourceType::name].
+        UnknownValue(source_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod source_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl SourceType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::CloneDatabase => std::option::Option::Some(1),
+                Self::CrossRegionDisasterRecovery => std::option::Option::Some(2),
+                Self::CloneToRefreshable => std::option::Option::Some(3),
+                Self::BackupFromId => std::option::Option::Some(4),
+                Self::BackupFromTimestamp => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SOURCE_TYPE_UNSPECIFIED"),
+                Self::CloneDatabase => std::option::Option::Some("CLONE_DATABASE"),
+                Self::CrossRegionDisasterRecovery => {
+                    std::option::Option::Some("CROSS_REGION_DISASTER_RECOVERY")
+                }
+                Self::CloneToRefreshable => std::option::Option::Some("CLONE_TO_REFRESHABLE"),
+                Self::BackupFromId => std::option::Option::Some("BACKUP_FROM_ID"),
+                Self::BackupFromTimestamp => std::option::Option::Some("BACKUP_FROM_TIMESTAMP"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for SourceType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for SourceType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for SourceType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::CloneDatabase,
+                2 => Self::CrossRegionDisasterRecovery,
+                3 => Self::CloneToRefreshable,
+                4 => Self::BackupFromId,
+                5 => Self::BackupFromTimestamp,
+                _ => Self::UnknownValue(source_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for SourceType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SOURCE_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "CLONE_DATABASE" => Self::CloneDatabase,
+                "CROSS_REGION_DISASTER_RECOVERY" => Self::CrossRegionDisasterRecovery,
+                "CLONE_TO_REFRESHABLE" => Self::CloneToRefreshable,
+                "BACKUP_FROM_ID" => Self::BackupFromId,
+                "BACKUP_FROM_TIMESTAMP" => Self::BackupFromTimestamp,
+                _ => Self::UnknownValue(source_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for SourceType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::CloneDatabase => serializer.serialize_i32(1),
+                Self::CrossRegionDisasterRecovery => serializer.serialize_i32(2),
+                Self::CloneToRefreshable => serializer.serialize_i32(3),
+                Self::BackupFromId => serializer.serialize_i32(4),
+                Self::BackupFromTimestamp => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SourceType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<SourceType>::new(
+                ".google.cloud.oracledatabase.v1.SourceConfig.SourceType",
+            ))
+        }
+    }
+
+    /// The clone type of the Autonomous Database.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum CloneType {
+        /// Default unspecified value.
+        Unspecified,
+        /// Creates a new database with the source database's data and metadata.
+        Full,
+        /// Creates a new database that includes all the source database schema
+        /// metadata, but none of the source database data.
+        Metadata,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [CloneType::value] or
+        /// [CloneType::name].
+        UnknownValue(clone_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod clone_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl CloneType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Full => std::option::Option::Some(1),
+                Self::Metadata => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CLONE_TYPE_UNSPECIFIED"),
+                Self::Full => std::option::Option::Some("FULL"),
+                Self::Metadata => std::option::Option::Some("METADATA"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for CloneType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for CloneType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for CloneType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Full,
+                2 => Self::Metadata,
+                _ => Self::UnknownValue(clone_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for CloneType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CLONE_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "FULL" => Self::Full,
+                "METADATA" => Self::Metadata,
+                _ => Self::UnknownValue(clone_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for CloneType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Full => serializer.serialize_i32(1),
+                Self::Metadata => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CloneType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<CloneType>::new(
+                ".google.cloud.oracledatabase.v1.SourceConfig.CloneType",
+            ))
+        }
     }
 }
 
@@ -737,6 +1405,11 @@ pub struct AutonomousDatabaseProperties {
     /// Optional. This field indicates the maximum data loss limit for an
     /// Autonomous Database, in seconds.
     pub local_adg_auto_failover_max_data_loss_limit_duration: std::option::Option<i32>,
+
+    /// Optional. Indicates if the Autonomous Database is a refreshable clone. This
+    /// field is used in update flow to connect / disconnect a refreshable clone
+    /// from its source database.
+    pub refreshable_clone: std::option::Option<bool>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2009,6 +2682,37 @@ impl AutonomousDatabaseProperties {
         T: std::convert::Into<i32>,
     {
         self.local_adg_auto_failover_max_data_loss_limit_duration = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [refreshable_clone][crate::model::AutonomousDatabaseProperties::refreshable_clone].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
+    /// let x = AutonomousDatabaseProperties::new().set_refreshable_clone(true);
+    /// ```
+    pub fn set_refreshable_clone<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.refreshable_clone = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [refreshable_clone][crate::model::AutonomousDatabaseProperties::refreshable_clone].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseProperties;
+    /// let x = AutonomousDatabaseProperties::new().set_or_clear_refreshable_clone(Some(false));
+    /// let x = AutonomousDatabaseProperties::new().set_or_clear_refreshable_clone(None::<bool>);
+    /// ```
+    pub fn set_or_clear_refreshable_clone<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.refreshable_clone = v.map(|x| x.into());
         self
     }
 }
@@ -5589,6 +6293,59 @@ impl ScheduledOperationDetails {
 impl wkt::message::Message for ScheduledOperationDetails {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.oracledatabase.v1.ScheduledOperationDetails"
+    }
+}
+
+/// An Autonomous Database refreshable clone
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AutonomousDatabaseRefreshableClone {
+    /// Output only. The GCP resource name of the Autonomous Database.
+    pub name: std::string::String,
+
+    /// Output only. The Google Cloud region where the refreshable clone exists.
+    pub region: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AutonomousDatabaseRefreshableClone {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::AutonomousDatabaseRefreshableClone::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseRefreshableClone;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let autonomous_database_id = "autonomous_database_id";
+    /// let x = AutonomousDatabaseRefreshableClone::new().set_name(format!("projects/{project_id}/locations/{location_id}/autonomousDatabases/{autonomous_database_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [region][crate::model::AutonomousDatabaseRefreshableClone::region].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseRefreshableClone;
+    /// let x = AutonomousDatabaseRefreshableClone::new().set_region("example");
+    /// ```
+    pub fn set_region<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.region = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AutonomousDatabaseRefreshableClone {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.AutonomousDatabaseRefreshableClone"
     }
 }
 
@@ -10427,23 +11184,28 @@ pub struct DbSystemProperties {
     /// Output only. OCID of the DbSystem.
     pub ocid: std::string::String,
 
-    /// Optional. The memory size in GB.
+    /// Optional. The memory size in GB. This value can not be set and is
+    /// automatically calculated based on the number of ECPUs allocated to the
+    /// DbSystem.
     pub memory_size_gb: i32,
 
     /// Optional. The compute model of the DbSystem.
     pub compute_model: crate::model::db_system_properties::ComputeModel,
 
     /// Optional. The data storage size in GB that is currently available to
-    /// DbSystems.
+    /// DbSystems. The value is same as initial_data_storage_size_gb. This can be
+    /// modified from OCI console.
     pub data_storage_size_gb: i32,
 
-    /// Optional. The reco/redo storage size in GB.
+    /// Optional. The reco/redo storage size in GB. The value for recovery storage
+    /// size is based on the available data storage size.
     pub reco_storage_size_gb: i32,
 
     /// Optional. The host domain name of the DbSystem.
     pub domain: std::string::String,
 
-    /// Optional. The number of nodes in the DbSystem.
+    /// Optional. The number of nodes to launch for a virtual machine DbSystem. By
+    /// default this will be set to 1.
     pub node_count: i32,
 
     /// Optional. The options for the DbSystem.
@@ -10736,7 +11498,6 @@ impl DbSystemProperties {
     /// # use google_cloud_oracledatabase_v1::model::DbSystemProperties;
     /// use google_cloud_oracledatabase_v1::model::db_system_properties::ComputeModel;
     /// let x0 = DbSystemProperties::new().set_compute_model(ComputeModel::Ecpu);
-    /// let x1 = DbSystemProperties::new().set_compute_model(ComputeModel::Ocpu);
     /// ```
     pub fn set_compute_model<
         T: std::convert::Into<crate::model::db_system_properties::ComputeModel>,
@@ -11330,7 +12091,9 @@ pub mod db_system_properties {
         Unspecified,
         /// The compute model is virtual.
         Ecpu,
+        /// Deprecated: This option is not supported. Please use ECPU instead.
         /// The compute model is physical.
+        #[deprecated]
         Ocpu,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -12886,6 +13649,15 @@ pub struct DbSystemShape {
     /// Optional. Minimum node storage per database server in gigabytes.
     pub min_db_node_storage_per_node_gb: i32,
 
+    /// Optional. Minimum core count per node.
+    pub minimum_core_count: i32,
+
+    /// Optional. Available core count.
+    pub available_core_count: i32,
+
+    /// Optional. Core count increment.
+    pub core_count_increment: i32,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -13039,6 +13811,42 @@ impl DbSystemShape {
     /// ```
     pub fn set_min_db_node_storage_per_node_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.min_db_node_storage_per_node_gb = v.into();
+        self
+    }
+
+    /// Sets the value of [minimum_core_count][crate::model::DbSystemShape::minimum_core_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::DbSystemShape;
+    /// let x = DbSystemShape::new().set_minimum_core_count(42);
+    /// ```
+    pub fn set_minimum_core_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.minimum_core_count = v.into();
+        self
+    }
+
+    /// Sets the value of [available_core_count][crate::model::DbSystemShape::available_core_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::DbSystemShape;
+    /// let x = DbSystemShape::new().set_available_core_count(42);
+    /// ```
+    pub fn set_available_core_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.available_core_count = v.into();
+        self
+    }
+
+    /// Sets the value of [core_count_increment][crate::model::DbSystemShape::core_count_increment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::DbSystemShape;
+    /// let x = DbSystemShape::new().set_core_count_increment(42);
+    /// ```
+    pub fn set_core_count_increment<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.core_count_increment = v.into();
         self
     }
 }
@@ -14064,10 +14872,10 @@ pub struct CloudExadataInfrastructureProperties {
     /// Output only. The compute model of the Exadata Infrastructure.
     pub compute_model: crate::model::ComputeModel,
 
-    /// Output only. The database server type of the Exadata Infrastructure.
+    /// Optional. The database server type of the Exadata Infrastructure.
     pub database_server_type: std::string::String,
 
-    /// Output only. The storage server type of the Exadata Infrastructure.
+    /// Optional. The storage server type of the Exadata Infrastructure.
     pub storage_server_type: std::string::String,
 
     /// Output only. The Exascale configuration for the Exadata Infrastructure.
@@ -14775,6 +15583,12 @@ pub struct ExascaleConfig {
     /// Output only. Available storage size for Exascale in GBs.
     pub available_storage_size_gb: i32,
 
+    /// Output only. Storage size needed for VM storage on Exascale in GBs.
+    pub total_vm_storage_size_gb: i32,
+
+    /// Output only. Available storage size for VM storage on Exascale in GBs.
+    pub available_vm_storage_size_gb: i32,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -14805,6 +15619,30 @@ impl ExascaleConfig {
     /// ```
     pub fn set_available_storage_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.available_storage_size_gb = v.into();
+        self
+    }
+
+    /// Sets the value of [total_vm_storage_size_gb][crate::model::ExascaleConfig::total_vm_storage_size_gb].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ExascaleConfig;
+    /// let x = ExascaleConfig::new().set_total_vm_storage_size_gb(42);
+    /// ```
+    pub fn set_total_vm_storage_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.total_vm_storage_size_gb = v.into();
+        self
+    }
+
+    /// Sets the value of [available_vm_storage_size_gb][crate::model::ExascaleConfig::available_vm_storage_size_gb].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ExascaleConfig;
+    /// let x = ExascaleConfig::new().set_available_vm_storage_size_gb(42);
+    /// ```
+    pub fn set_available_vm_storage_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.available_vm_storage_size_gb = v.into();
         self
     }
 }
@@ -15320,6 +16158,9 @@ pub struct ConfigureExascaleCloudExadataInfrastructureRequest {
     /// Required. The total storage to be allocated to Exascale in GBs.
     pub total_storage_size_gb: i32,
 
+    /// Optional. Storage size needed for VM storage on Exascale in GBs.
+    pub total_vm_storage_size_gb: i32,
+
     /// Optional. An optional ID to identify the request.
     pub request_id: std::string::String,
 
@@ -15356,6 +16197,18 @@ impl ConfigureExascaleCloudExadataInfrastructureRequest {
     /// ```
     pub fn set_total_storage_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_storage_size_gb = v.into();
+        self
+    }
+
+    /// Sets the value of [total_vm_storage_size_gb][crate::model::ConfigureExascaleCloudExadataInfrastructureRequest::total_vm_storage_size_gb].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ConfigureExascaleCloudExadataInfrastructureRequest;
+    /// let x = ConfigureExascaleCloudExadataInfrastructureRequest::new().set_total_vm_storage_size_gb(42);
+    /// ```
+    pub fn set_total_vm_storage_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.total_vm_storage_size_gb = v.into();
         self
     }
 
@@ -15428,6 +16281,10 @@ pub struct ExadbVmCluster {
     /// Output only. The ID of the subscription entitlement associated with the
     /// ExadbVmCluster.
     pub entitlement_id: std::string::String,
+
+    /// Output only. The identity connector details which will allow OCI to
+    /// securely access the resources in the customer project.
+    pub identity_connector: std::option::Option<crate::model::IdentityConnector>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -15623,6 +16480,39 @@ impl ExadbVmCluster {
     /// ```
     pub fn set_entitlement_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entitlement_id = v.into();
+        self
+    }
+
+    /// Sets the value of [identity_connector][crate::model::ExadbVmCluster::identity_connector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ExadbVmCluster;
+    /// use google_cloud_oracledatabase_v1::model::IdentityConnector;
+    /// let x = ExadbVmCluster::new().set_identity_connector(IdentityConnector::default()/* use setters */);
+    /// ```
+    pub fn set_identity_connector<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::IdentityConnector>,
+    {
+        self.identity_connector = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [identity_connector][crate::model::ExadbVmCluster::identity_connector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ExadbVmCluster;
+    /// use google_cloud_oracledatabase_v1::model::IdentityConnector;
+    /// let x = ExadbVmCluster::new().set_or_clear_identity_connector(Some(IdentityConnector::default()/* use setters */));
+    /// let x = ExadbVmCluster::new().set_or_clear_identity_connector(None::<IdentityConnector>);
+    /// ```
+    pub fn set_or_clear_identity_connector<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::IdentityConnector>,
+    {
+        self.identity_connector = v.map(|x| x.into());
         self
     }
 }
@@ -41483,9 +42373,9 @@ pub struct ListMinorVersionsRequest {
     /// provided this page token.
     pub page_token: std::string::String,
 
-    /// Optional. An expression for filtering the results of the request.
-    /// Only shapeFamily and gcp_oracle_zone_id are supported in this format:
-    /// `shape_family="{shapeFamily}" AND
+    /// Optional. An expression for filtering the results of the request. Only the
+    /// `shape_family` and `gcp_oracle_zone_id` fields are supported in the
+    /// following format: `shape_family="{shape_family}" AND
     /// gcp_oracle_zone_id="{gcp_oracle_zone_id}"`.
     pub filter: std::string::String,
 
@@ -44513,8 +45403,8 @@ pub struct ListGiVersionsRequest {
     pub page_token: std::string::String,
 
     /// Optional. An expression for filtering the results of the request. Only the
-    /// shape, gcp_oracle_zone and gi_version fields are supported in this format:
-    /// `shape="{shape}"`.
+    /// `shape` and `gcp_oracle_zone_id` fields are supported in the following
+    /// format: `shape="{shape}" AND gcp_oracle_zone_id="{gcp_oracle_zone_id}"`.
     pub filter: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -44673,9 +45563,11 @@ pub struct ListDbSystemShapesRequest {
     /// Optional. A token identifying a page of results the server should return.
     pub page_token: std::string::String,
 
-    /// Optional. An expression for filtering the results of the request. Only the
-    /// gcp_oracle_zone_id field is supported in this format:
-    /// `gcp_oracle_zone_id="{gcp_oracle_zone_id}"`.
+    /// Optional. An expression for filtering the results of the request. The
+    /// `gcp_oracle_zone_id`, `shape_family`, and `database_edition` fields
+    /// are supported in the following format:
+    /// `gcp_oracle_zone_id="{gcp_oracle_zone_id}" AND
+    /// shape_family="{shape_family}" AND database_edition="{database_edition}"`.
     pub filter: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -45846,6 +46738,170 @@ impl FailoverAutonomousDatabaseRequest {
 impl wkt::message::Message for FailoverAutonomousDatabaseRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.oracledatabase.v1.FailoverAutonomousDatabaseRequest"
+    }
+}
+
+/// Request message for getting refreshable clones for an Autonomous Database.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetAutonomousDatabaseRefreshableClonesRequest {
+    /// Required. The Autonomous Database resource whose refreshable clones are to
+    /// be listed. Format:
+    /// projects/{project}/locations/{location}/autonomousDatabases/{autonomous_database}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetAutonomousDatabaseRefreshableClonesRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetAutonomousDatabaseRefreshableClonesRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::GetAutonomousDatabaseRefreshableClonesRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let autonomous_database_id = "autonomous_database_id";
+    /// let x = GetAutonomousDatabaseRefreshableClonesRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/autonomousDatabases/{autonomous_database_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetAutonomousDatabaseRefreshableClonesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.GetAutonomousDatabaseRefreshableClonesRequest"
+    }
+}
+
+/// Response message for getting the Autonomous Database refreshable clones.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AutonomousDatabaseRefreshableClones {
+    /// The list of Autonomous Database refreshable clones.
+    pub autonomous_database_refreshable_clones:
+        std::vec::Vec<crate::model::AutonomousDatabaseRefreshableClone>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AutonomousDatabaseRefreshableClones {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [autonomous_database_refreshable_clones][crate::model::AutonomousDatabaseRefreshableClones::autonomous_database_refreshable_clones].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::AutonomousDatabaseRefreshableClones;
+    /// use google_cloud_oracledatabase_v1::model::AutonomousDatabaseRefreshableClone;
+    /// let x = AutonomousDatabaseRefreshableClones::new()
+    ///     .set_autonomous_database_refreshable_clones([
+    ///         AutonomousDatabaseRefreshableClone::default()/* use setters */,
+    ///         AutonomousDatabaseRefreshableClone::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_autonomous_database_refreshable_clones<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AutonomousDatabaseRefreshableClone>,
+    {
+        use std::iter::Iterator;
+        self.autonomous_database_refreshable_clones = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for AutonomousDatabaseRefreshableClones {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.AutonomousDatabaseRefreshableClones"
+    }
+}
+
+/// Request message for RefreshAutonomousDatabase method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RefreshAutonomousDatabaseRequest {
+    /// Required. The name of the AutonomousDatabase resource.
+    /// Format:
+    /// projects/{project}/location/{location}/autonomousDatabases/{autonomous_database}
+    pub name: std::string::String,
+
+    /// Required. The timestamp to which the Autonomous Database refreshable clone
+    /// will be refreshed. Changes made in the primary database after this
+    /// timestamp are not part of the data refresh.
+    pub refresh_cutoff_time: std::option::Option<wkt::Timestamp>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RefreshAutonomousDatabaseRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::RefreshAutonomousDatabaseRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::RefreshAutonomousDatabaseRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let autonomous_database_id = "autonomous_database_id";
+    /// let x = RefreshAutonomousDatabaseRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/autonomousDatabases/{autonomous_database_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [refresh_cutoff_time][crate::model::RefreshAutonomousDatabaseRequest::refresh_cutoff_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::RefreshAutonomousDatabaseRequest;
+    /// use wkt::Timestamp;
+    /// let x = RefreshAutonomousDatabaseRequest::new().set_refresh_cutoff_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_refresh_cutoff_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.refresh_cutoff_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [refresh_cutoff_time][crate::model::RefreshAutonomousDatabaseRequest::refresh_cutoff_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::RefreshAutonomousDatabaseRequest;
+    /// use wkt::Timestamp;
+    /// let x = RefreshAutonomousDatabaseRequest::new().set_or_clear_refresh_cutoff_time(Some(Timestamp::default()/* use setters */));
+    /// let x = RefreshAutonomousDatabaseRequest::new().set_or_clear_refresh_cutoff_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_refresh_cutoff_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.refresh_cutoff_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for RefreshAutonomousDatabaseRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.RefreshAutonomousDatabaseRequest"
     }
 }
 
@@ -49303,6 +50359,15 @@ pub struct CloudVmClusterProperties {
     /// Output only. The storage management type of the VM Cluster.
     pub storage_management_type: crate::model::cloud_vm_cluster_properties::StorageManagementType,
 
+    /// Optional. Specifies whether VM file system storage / VM images are stored
+    /// on local DB server storage or Exascale storage.
+    pub vm_file_system_storage_type:
+        crate::model::cloud_vm_cluster_properties::VmFileSystemStorageType,
+
+    /// Optional. Specifies whether VM backups are stored on local DB server
+    /// storage or Exascale storage.
+    pub vm_backup_storage_type: crate::model::cloud_vm_cluster_properties::VmBackupStorageType,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -49812,6 +50877,44 @@ impl CloudVmClusterProperties {
         v: T,
     ) -> Self {
         self.storage_management_type = v.into();
+        self
+    }
+
+    /// Sets the value of [vm_file_system_storage_type][crate::model::CloudVmClusterProperties::vm_file_system_storage_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
+    /// use google_cloud_oracledatabase_v1::model::cloud_vm_cluster_properties::VmFileSystemStorageType;
+    /// let x0 = CloudVmClusterProperties::new().set_vm_file_system_storage_type(VmFileSystemStorageType::Local);
+    /// let x1 = CloudVmClusterProperties::new().set_vm_file_system_storage_type(VmFileSystemStorageType::Exascale);
+    /// ```
+    pub fn set_vm_file_system_storage_type<
+        T: std::convert::Into<crate::model::cloud_vm_cluster_properties::VmFileSystemStorageType>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.vm_file_system_storage_type = v.into();
+        self
+    }
+
+    /// Sets the value of [vm_backup_storage_type][crate::model::CloudVmClusterProperties::vm_backup_storage_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::CloudVmClusterProperties;
+    /// use google_cloud_oracledatabase_v1::model::cloud_vm_cluster_properties::VmBackupStorageType;
+    /// let x0 = CloudVmClusterProperties::new().set_vm_backup_storage_type(VmBackupStorageType::Local);
+    /// let x1 = CloudVmClusterProperties::new().set_vm_backup_storage_type(VmBackupStorageType::Exascale);
+    /// ```
+    pub fn set_vm_backup_storage_type<
+        T: std::convert::Into<crate::model::cloud_vm_cluster_properties::VmBackupStorageType>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.vm_backup_storage_type = v.into();
         self
     }
 }
@@ -50388,6 +51491,273 @@ pub mod cloud_vm_cluster_properties {
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<StorageManagementType>::new(
                 ".google.cloud.oracledatabase.v1.CloudVmClusterProperties.StorageManagementType",
+            ))
+        }
+    }
+
+    /// Storage types for VM File System.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum VmFileSystemStorageType {
+        /// Unspecified storage type.
+        Unspecified,
+        /// Local DB server storage.
+        Local,
+        /// Exascale storage.
+        Exascale,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [VmFileSystemStorageType::value] or
+        /// [VmFileSystemStorageType::name].
+        UnknownValue(vm_file_system_storage_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod vm_file_system_storage_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl VmFileSystemStorageType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Local => std::option::Option::Some(1),
+                Self::Exascale => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("VM_FILE_SYSTEM_STORAGE_TYPE_UNSPECIFIED")
+                }
+                Self::Local => std::option::Option::Some("VM_FILE_SYSTEM_STORAGE_TYPE_LOCAL"),
+                Self::Exascale => std::option::Option::Some("VM_FILE_SYSTEM_STORAGE_TYPE_EXASCALE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for VmFileSystemStorageType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for VmFileSystemStorageType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for VmFileSystemStorageType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Local,
+                2 => Self::Exascale,
+                _ => Self::UnknownValue(vm_file_system_storage_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for VmFileSystemStorageType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "VM_FILE_SYSTEM_STORAGE_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "VM_FILE_SYSTEM_STORAGE_TYPE_LOCAL" => Self::Local,
+                "VM_FILE_SYSTEM_STORAGE_TYPE_EXASCALE" => Self::Exascale,
+                _ => Self::UnknownValue(vm_file_system_storage_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for VmFileSystemStorageType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Local => serializer.serialize_i32(1),
+                Self::Exascale => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for VmFileSystemStorageType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<VmFileSystemStorageType>::new(
+                ".google.cloud.oracledatabase.v1.CloudVmClusterProperties.VmFileSystemStorageType"))
+        }
+    }
+
+    /// Storage types for VM Backup.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum VmBackupStorageType {
+        /// Unspecified storage type.
+        Unspecified,
+        /// Local DB server storage.
+        Local,
+        /// Exascale storage.
+        Exascale,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [VmBackupStorageType::value] or
+        /// [VmBackupStorageType::name].
+        UnknownValue(vm_backup_storage_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod vm_backup_storage_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl VmBackupStorageType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Local => std::option::Option::Some(1),
+                Self::Exascale => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("VM_BACKUP_STORAGE_TYPE_UNSPECIFIED")
+                }
+                Self::Local => std::option::Option::Some("VM_BACKUP_STORAGE_TYPE_LOCAL"),
+                Self::Exascale => std::option::Option::Some("VM_BACKUP_STORAGE_TYPE_EXASCALE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for VmBackupStorageType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for VmBackupStorageType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for VmBackupStorageType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Local,
+                2 => Self::Exascale,
+                _ => Self::UnknownValue(vm_backup_storage_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for VmBackupStorageType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "VM_BACKUP_STORAGE_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "VM_BACKUP_STORAGE_TYPE_LOCAL" => Self::Local,
+                "VM_BACKUP_STORAGE_TYPE_EXASCALE" => Self::Exascale,
+                _ => Self::UnknownValue(vm_backup_storage_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for VmBackupStorageType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Local => serializer.serialize_i32(1),
+                Self::Exascale => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for VmBackupStorageType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<VmBackupStorageType>::new(
+                ".google.cloud.oracledatabase.v1.CloudVmClusterProperties.VmBackupStorageType",
             ))
         }
     }

@@ -2497,6 +2497,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Ranker {
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __rrf,
+            __vertex_ranker,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -2518,6 +2519,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Ranker {
                         use std::string::ToString;
                         match value {
                             "rrf" => Ok(__FieldTag::__rrf),
+                            "vertexRanker" => Ok(__FieldTag::__vertex_ranker),
+                            "vertex_ranker" => Ok(__FieldTag::__vertex_ranker),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -2561,6 +2564,26 @@ impl<'de> serde::de::Deserialize<'de> for super::Ranker {
                                     >>()?
                                     .unwrap_or_default(),
                                 ));
+                        }
+                        __FieldTag::__vertex_ranker => {
+                            if !fields.insert(__FieldTag::__vertex_ranker) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for vertex_ranker",
+                                ));
+                            }
+                            if result.reranker.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `reranker`, a oneof with full ID .google.cloud.vectorsearch.v1.Ranker.vertex_ranker, latest field was vertexRanker",
+                                ));
+                            }
+                            result.reranker = std::option::Option::Some(
+                                crate::model::ranker::Reranker::VertexRanker(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::VertexRanker>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -2653,6 +2676,239 @@ impl<'de> serde::de::Deserialize<'de> for super::ReciprocalRankFusion {
                                 }
                             }
                             result.weights = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::VertexRanker {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __text_record_spec,
+            __model,
+            __top_n,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for VertexRanker")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "textRecordSpec" => Ok(__FieldTag::__text_record_spec),
+                            "text_record_spec" => Ok(__FieldTag::__text_record_spec),
+                            "model" => Ok(__FieldTag::__model),
+                            "topN" => Ok(__FieldTag::__top_n),
+                            "top_n" => Ok(__FieldTag::__top_n),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::VertexRanker;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct VertexRanker")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__text_record_spec => {
+                            if !fields.insert(__FieldTag::__text_record_spec) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for text_record_spec",
+                                ));
+                            }
+                            if result.record_spec.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `record_spec`, a oneof with full ID .google.cloud.vectorsearch.v1.VertexRanker.text_record_spec, latest field was textRecordSpec",
+                                ));
+                            }
+                            result.record_spec = std::option::Option::Some(
+                                crate::model::vertex_ranker::RecordSpec::TextRecordSpec(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<
+                                            crate::model::vertex_ranker::TextRecordSpec,
+                                        >,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__model => {
+                            if !fields.insert(__FieldTag::__model) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for model",
+                                ));
+                            }
+                            result.model = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__top_n => {
+                            if !fields.insert(__FieldTag::__top_n) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for top_n",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.top_n = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::vertex_ranker::TextRecordSpec {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __query,
+            __title_template,
+            __content_template,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for TextRecordSpec")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "query" => Ok(__FieldTag::__query),
+                            "titleTemplate" => Ok(__FieldTag::__title_template),
+                            "title_template" => Ok(__FieldTag::__title_template),
+                            "contentTemplate" => Ok(__FieldTag::__content_template),
+                            "content_template" => Ok(__FieldTag::__content_template),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::vertex_ranker::TextRecordSpec;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct TextRecordSpec")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__query => {
+                            if !fields.insert(__FieldTag::__query) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for query",
+                                ));
+                            }
+                            result.query = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__title_template => {
+                            if !fields.insert(__FieldTag::__title_template) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for title_template",
+                                ));
+                            }
+                            result.title_template = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__content_template => {
+                            if !fields.insert(__FieldTag::__content_template) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for content_template",
+                                ));
+                            }
+                            result.content_template = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::observability::attributes::{self, keys::*, otel_status_codes};
+use crate::observability::{WithTransportLogging, WithTransportMetric, WithTransportSpan};
 use crate::options::ClientConfig;
 use google_cloud_auth::credentials::{
     Builder as CredentialsBuilder, CacheableResource, Credentials,
@@ -22,10 +24,13 @@ use google_cloud_gax::error::Error;
 use google_cloud_gax::options::RequestOptions;
 use google_cloud_gax::options::internal::RequestOptionsExt as _;
 use http::{HeaderMap, header::HeaderName};
+use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
+use std::future::Future;
 
 const X_GOOG_API_CLIENT: HeaderName = HeaderName::from_static("x-goog-api-client");
 const X_GOOG_REQUEST_PARAMS: HeaderName = HeaderName::from_static("x-goog-request-params");
 const X_GOOG_USER_PROJECT: HeaderName = HeaderName::from_static("x-goog-user-project");
+const X_GOOG_API_KEY: HeaderName = HeaderName::from_static("x-goog-api-key");
 
 /// Extends the supplied `headers` map with authentication headers from a
 /// `Credentials` object. For entries with the same header name, the one in
@@ -77,8 +82,11 @@ pub(crate) fn make_headers(
     // Sanitize user custom headers by stripping away any keys conflicting with system headers.
     for key in [
         http::header::USER_AGENT,
+        http::header::AUTHORIZATION,
+        X_GOOG_API_KEY,
         X_GOOG_USER_PROJECT,
         X_GOOG_REQUEST_PARAMS,
+        X_GOOG_API_CLIENT,
     ] {
         headers.remove(key);
     }
@@ -119,6 +127,89 @@ pub(crate) fn make_headers(
     }
 
     Ok(headers)
+}
+
+/// Creates an OpenTelemetry tracing span for a unary gRPC request attempt.
+///
+/// If `attrs` is `Some`, returns an info-level span named `grpc.request`;
+/// otherwise, returns an empty (disabled) span.
+pub(crate) fn unary_make_request_span(
+    attrs: Option<&super::TracingAttributes>,
+    path: &http::uri::PathAndQuery,
+    prior_attempt_count: i64,
+) -> tracing::Span {
+    let Some(attrs) = attrs else {
+        return tracing::Span::none();
+    };
+
+    let rpc_method = path.path().trim_start_matches('/');
+
+    // Extract client library telemetry metadata
+    let (service, version, repo, artifact) = if let Some(info) = attrs.instrumentation {
+        (
+            Some(info.service_name),
+            Some(info.client_version),
+            Some("googleapis/google-cloud-rust"),
+            Some(info.client_artifact),
+        )
+    } else {
+        (None, None, None, None)
+    };
+
+    // Record the attempt count only for resend/retry attempts.
+    let resend_count = if prior_attempt_count > 0 {
+        Some(prior_attempt_count)
+    } else {
+        None
+    };
+
+    // Construct the span.
+    tracing::info_span!(
+        "grpc.request",
+        { OTEL_NAME } = rpc_method,
+        { RPC_SYSTEM_NAME } = attributes::RPC_SYSTEM_GRPC,
+        { OTEL_KIND } = attributes::OTEL_KIND_CLIENT,
+        { otel_trace::RPC_METHOD } = rpc_method,
+        { otel_trace::SERVER_ADDRESS } = attrs.server_address,
+        { otel_trace::SERVER_PORT } = attrs.server_port,
+        { otel_attr::URL_DOMAIN } = attrs.url_domain,
+        { RPC_RESPONSE_STATUS_CODE } = tracing::field::Empty,
+        { OTEL_STATUS_CODE } = otel_status_codes::UNSET,
+        { otel_trace::ERROR_TYPE } = tracing::field::Empty,
+        { GCP_CLIENT_SERVICE } = service,
+        { GCP_CLIENT_VERSION } = version,
+        { GCP_CLIENT_REPO } = repo,
+        { GCP_CLIENT_ARTIFACT } = artifact,
+        { GCP_GRPC_RESEND_COUNT } = resend_count,
+        { GCP_RESOURCE_DESTINATION_ID } = tracing::field::Empty,
+    )
+}
+
+/// Wraps a unary gRPC request future with observability instrumentation.
+///
+/// * `metric` - The [`TransportMetric`] instance used to record transport-level duration metrics.
+/// * `span` - The [`tracing::Span`] for the attempt, attached to the request execution context.
+/// * `prior_attempt_count` - The zero-based count of prior request attempts.
+/// * `pending` - The [`Future`] for the pending unary gRPC call execution.
+pub(crate) async fn unary_wrap_and_record_request<Fut, Response>(
+    metric: crate::observability::TransportMetric,
+    span: tracing::Span,
+    prior_attempt_count: i64,
+    pending: Fut,
+) -> Result<Response>
+where
+    Fut: Future<Output = Result<Response>>,
+{
+    let pending = WithTransportMetric::new(metric, pending, prior_attempt_count as u32);
+    let pending = WithTransportLogging::new(pending);
+    let pending = WithTransportSpan::new(span, pending);
+
+    // Use the request recorder context if present.
+    if let Some(recorder) = crate::observability::RequestRecorder::current() {
+        recorder.scope(pending).await
+    } else {
+        pending.await
+    }
 }
 
 #[cfg(test)]
@@ -334,6 +425,11 @@ mod tests {
             X_GOOG_REQUEST_PARAMS,
             HeaderValue::from_static("custom-params"),
         );
+        custom_headers.insert(
+            http::header::AUTHORIZATION,
+            HeaderValue::from_static("custom-authorization"),
+        );
+        custom_headers.insert(X_GOOG_API_KEY, HeaderValue::from_static("custom-api-key"));
         // A legitimate custom header
         custom_headers.insert(
             "x-legitimate-header",
@@ -407,5 +503,76 @@ mod tests {
         assert_eq!(headers, expected);
 
         Ok(())
+    }
+
+    use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer};
+    use std::collections::HashMap;
+
+    #[test]
+    fn test_unary_make_request_span_none_attrs() {
+        // Arrange
+        let guard = TestLayer::initialize();
+        let attrs = None;
+        let path = http::uri::PathAndQuery::from_static("/google.pubsub.v1.Publisher/Publish");
+        let prior_attempt_count = 0;
+
+        // Act
+        let span = unary_make_request_span(attrs, &path, prior_attempt_count);
+
+        // Assert
+        assert!(span.is_none());
+
+        let captured = TestLayer::capture(&guard);
+        assert!(captured.is_empty());
+    }
+
+    #[test]
+    fn test_unary_make_request_span_with_instrumentation_and_resend_count() {
+        // Arrange
+        const TEST_INFO: crate::options::InstrumentationClientInfo =
+            crate::options::InstrumentationClientInfo {
+                service_name: "test-service",
+                client_version: "1.2.3",
+                client_artifact: "test-artifact",
+                default_host: "test-service.googleapis.com",
+            };
+        let guard = TestLayer::initialize();
+        let attrs = super::super::TracingAttributes {
+            server_address: "pubsub.googleapis.com".to_string(),
+            server_port: Some(443),
+            url_domain: "pubsub.googleapis.com".to_string(),
+            instrumentation: Some(&TEST_INFO),
+        };
+
+        let path = http::uri::PathAndQuery::from_static("/google.pubsub.v1.Publisher/Publish");
+        let prior_attempt_count = 2;
+
+        // Act
+        let _span = unary_make_request_span(Some(&attrs), &path, prior_attempt_count);
+
+        // Assert
+        let captured = TestLayer::capture(&guard);
+        assert_eq!(captured.len(), 1);
+
+        let span = &captured[0];
+        let expected_attributes: HashMap<String, AttributeValue> = [
+            ("otel.name", "google.pubsub.v1.Publisher/Publish".into()),
+            ("rpc.system.name", attributes::RPC_SYSTEM_GRPC.into()),
+            ("otel.kind", "Client".into()),
+            ("rpc.method", "google.pubsub.v1.Publisher/Publish".into()),
+            ("server.address", "pubsub.googleapis.com".into()),
+            ("server.port", 443_i64.into()),
+            ("url.domain", "pubsub.googleapis.com".into()),
+            ("gcp.client.service", "test-service".into()),
+            ("gcp.client.version", "1.2.3".into()),
+            ("gcp.client.repo", "googleapis/google-cloud-rust".into()),
+            ("gcp.client.artifact", "test-artifact".into()),
+            ("gcp.grpc.resend_count", 2_i64.into()),
+            ("otel.status_code", "UNSET".into()),
+        ]
+        .into_iter()
+        .map(|(k, v)| (k.to_string(), v))
+        .collect();
+        assert_eq!(span.attributes, expected_attributes);
     }
 }

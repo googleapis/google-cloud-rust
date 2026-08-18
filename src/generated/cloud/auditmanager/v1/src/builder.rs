@@ -206,8 +206,7 @@ pub mod audit_manager {
         }
 
         /// Sets the value of [compliance_standard][crate::model::GenerateAuditScopeReportRequest::compliance_standard].
-        ///
-        /// This is a **required** field for requests.
+        #[deprecated]
         pub fn set_compliance_standard<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.compliance_standard = v.into();
             self
@@ -355,8 +354,7 @@ pub mod audit_manager {
         }
 
         /// Sets the value of [compliance_standard][crate::model::GenerateAuditReportRequest::compliance_standard].
-        ///
-        /// This is a **required** field for requests.
+        #[deprecated]
         pub fn set_compliance_standard<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.compliance_standard = v.into();
             self
@@ -380,6 +378,12 @@ pub mod audit_manager {
         /// This is a **required** field for requests.
         pub fn set_compliance_framework<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.compliance_framework = v.into();
+            self
+        }
+
+        /// Sets the value of [validate_only][crate::model::GenerateAuditReportRequest::validate_only].
+        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.validate_only = v.into();
             self
         }
 

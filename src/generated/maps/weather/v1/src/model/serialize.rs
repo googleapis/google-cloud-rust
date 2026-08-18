@@ -837,7 +837,7 @@ impl serde::ser::Serialize for super::PublicAlerts {
         if self.description.is_some() {
             state.serialize_entry("description", &self.description)?;
         }
-        if !wkt::internal::is_default(&self.severity) {
+        if self.severity.is_some() {
             state.serialize_entry("severity", &self.severity)?;
         }
         if self.certainty.is_some() {

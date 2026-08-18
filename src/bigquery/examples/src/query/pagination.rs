@@ -30,8 +30,6 @@ LIMIT 2500
         .with_project_id(project_id)
         .set_max_results(1000_u32)
         .set_location("US")
-        .run()
-        .await?
         .until_done()
         .await?
         .read()

@@ -31,6 +31,7 @@ anyhow.workspace            = true
 arrow                       = { workspace = true, features = ["ipc"] }
 bytes.workspace             = true
 futures.workspace           = true
+google-cloud-auth           = { workspace = true }
 google-cloud-bigquery       = { workspace = true, features = ["default"] }
 google-cloud-bigquery-v2    = { workspace = true, features = ["default"] }
 google-cloud-bigquery-write = { workspace = true, features = ["default"] }

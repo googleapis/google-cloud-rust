@@ -271,9 +271,7 @@ impl<'de> serde::de::Deserialize<'de> for super::MoonEvents {
                                     "multiple values for moon_phase",
                                 ));
                             }
-                            result.moon_phase = map
-                                .next_value::<std::option::Option<crate::model::MoonPhase>>()?
-                                .unwrap_or_default();
+                            result.moon_phase = map.next_value::<std::option::Option<crate::model::moon_events::Phase>>()?.unwrap_or_default();
                         }
                         __FieldTag::__moonrise_times => {
                             if !fields.insert(__FieldTag::__moonrise_times) {
@@ -2105,9 +2103,10 @@ impl<'de> serde::de::Deserialize<'de> for super::PrecipitationProbability {
                                     "multiple values for type",
                                 ));
                             }
-                            result.r#type = map
-                                .next_value::<std::option::Option<crate::model::PrecipitationType>>(
-                                )?
+                            result.r#type =
+                                map.next_value::<std::option::Option<
+                                    crate::model::precipitation_probability::Type,
+                                >>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
@@ -2294,9 +2293,7 @@ impl<'de> serde::de::Deserialize<'de> for super::DataSource {
                                     "multiple values for publisher",
                                 ));
                             }
-                            result.publisher = map
-                                .next_value::<std::option::Option<crate::model::Publisher>>()?
-                                .unwrap_or_default();
+                            result.publisher = map.next_value::<std::option::Option<crate::model::data_source::Publisher>>()?.unwrap_or_default();
                         }
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
@@ -2541,10 +2538,7 @@ impl<'de> serde::de::Deserialize<'de> for super::PublicAlerts {
                                     "multiple values for event_type",
                                 ));
                             }
-                            result.event_type = map
-                                .next_value::<std::option::Option<crate::model::WeatherEventType>>(
-                                )?
-                                .unwrap_or_default();
+                            result.event_type = map.next_value::<std::option::Option<crate::model::public_alerts::EventType>>()?.unwrap_or_default();
                         }
                         __FieldTag::__area_name => {
                             if !fields.insert(__FieldTag::__area_name) {
@@ -2580,9 +2574,8 @@ impl<'de> serde::de::Deserialize<'de> for super::PublicAlerts {
                                     "multiple values for severity",
                                 ));
                             }
-                            result.severity = map
-                                .next_value::<std::option::Option<crate::model::Severity>>()?
-                                .unwrap_or_default();
+                            result.severity = map.next_value::<std::option::Option<crate::model::public_alerts::Severity>>()?
+                                ;
                         }
                         __FieldTag::__certainty => {
                             if !fields.insert(__FieldTag::__certainty) {
@@ -2590,8 +2583,8 @@ impl<'de> serde::de::Deserialize<'de> for super::PublicAlerts {
                                     "multiple values for certainty",
                                 ));
                             }
-                            result.certainty =
-                                map.next_value::<std::option::Option<crate::model::Certainty>>()?;
+                            result.certainty = map.next_value::<std::option::Option<crate::model::public_alerts::Certainty>>()?
+                                ;
                         }
                         __FieldTag::__urgency => {
                             if !fields.insert(__FieldTag::__urgency) {
@@ -2599,8 +2592,8 @@ impl<'de> serde::de::Deserialize<'de> for super::PublicAlerts {
                                     "multiple values for urgency",
                                 ));
                             }
-                            result.urgency =
-                                map.next_value::<std::option::Option<crate::model::Urgency>>()?;
+                            result.urgency = map.next_value::<std::option::Option<crate::model::public_alerts::Urgency>>()?
+                                ;
                         }
                         __FieldTag::__instruction => {
                             if !fields.insert(__FieldTag::__instruction) {
@@ -2757,7 +2750,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Temperature {
                                 ));
                             }
                             result.unit = map
-                                .next_value::<std::option::Option<crate::model::TemperatureUnit>>()?
+                                .next_value::<std::option::Option<crate::model::temperature::Unit>>(
+                                )?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
@@ -5140,10 +5134,7 @@ impl<'de> serde::de::Deserialize<'de> for super::WindDirection {
                                     "multiple values for cardinal",
                                 ));
                             }
-                            result.cardinal = map
-                                .next_value::<std::option::Option<crate::model::CardinalDirection>>(
-                                )?
-                                .unwrap_or_default();
+                            result.cardinal = map.next_value::<std::option::Option<crate::model::wind_direction::Cardinal>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -5243,7 +5234,8 @@ impl<'de> serde::de::Deserialize<'de> for super::WindSpeed {
                                 ));
                             }
                             result.unit = map
-                                .next_value::<std::option::Option<crate::model::SpeedUnit>>()?
+                                .next_value::<std::option::Option<crate::model::wind_speed::Unit>>(
+                                )?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {

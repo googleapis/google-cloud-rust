@@ -462,6 +462,34 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn refresh_autonomous_database(
+        &self,
+        req: crate::model::RefreshAutonomousDatabaseRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OracleDatabase::refresh_autonomous_database",
+            self.inner.refresh_autonomous_database(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_autonomous_database_refreshable_clones(
+        &self,
+        req: crate::model::GetAutonomousDatabaseRefreshableClonesRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AutonomousDatabaseRefreshableClones>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OracleDatabase::get_autonomous_database_refreshable_clones",
+            self.inner.get_autonomous_database_refreshable_clones(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_odb_networks(
         &self,
         req: crate::model::ListOdbNetworksRequest,

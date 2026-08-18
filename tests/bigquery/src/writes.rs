@@ -14,9 +14,14 @@
 
 mod arrow;
 
-use super::*;
-use google_cloud_bigquery_v2::client::TableService;
+use super::INSTANCE_LABEL;
+use crate::dataset::{cleanup_stale_datasets, create_dataset, delete_dataset, random_dataset_id};
+use crate::query::UserRecord;
+use anyhow::Result;
+use google_cloud_bigquery::client::BigQuery;
+use google_cloud_bigquery_v2::client::{DatasetService, TableService};
 use google_cloud_bigquery_v2::model::{Table, TableFieldSchema, TableReference, TableSchema};
+use google_cloud_test_utils::runtime_config::project_id;
 
 pub async fn run_writes() -> Result<()> {
     let project_id = project_id()?;
@@ -27,11 +32,11 @@ pub async fn run_writes() -> Result<()> {
     let _ = create_dataset(&dataset_service, &project_id, &dataset_id).await?;
 
     let table_service = TableService::builder().with_tracing().build().await?;
-    let table_id = random_table_id();
+    let table_id = "writes";
 
     let result = async {
-        create_table(&table_service, &project_id, &dataset_id, &table_id).await?;
-        arrow::basic(&project_id, &dataset_id, &table_id).await
+        create_table(&table_service, &project_id, &dataset_id, table_id).await?;
+        arrow::basic(&project_id, &dataset_id, table_id).await
     }
     .await;
 
@@ -77,8 +82,6 @@ async fn read_table(project_id: &str, dataset_id: &str, table_id: &str) -> Resul
         .query(query)
         .with_project_id(project_id)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
-        .run()
-        .await?
         .until_done()
         .await?
         .read();

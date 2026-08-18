@@ -31,6 +31,11 @@ use super::LroRecorder;
 
 pub type Operation<R, M> = crate::details::Operation<R, M>;
 
+type BoxedStartFuture<R, M> =
+    std::pin::Pin<Box<dyn std::future::Future<Output = Result<Operation<R, M>>> + Send>>;
+
+type BoxedQuery<R, M> = Box<dyn Fn(String) -> BoxedStartFuture<R, M> + Send + Sync>;
+
 /// Creates a new `impl Poller<R, M>` from the closures created by the generator.
 ///
 /// This is intended as an implementation detail of the generated clients.
@@ -42,17 +47,20 @@ pub fn new_poller<ResponseType, MetadataType, S, SF, Q, QF>(
     query: Q,
 ) -> impl Poller<ResponseType, MetadataType>
 where
-    ResponseType: Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
-    MetadataType: Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
-    S: FnOnce() -> SF + Send + Sync,
+    ResponseType: Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send + 'static,
+    MetadataType: Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send + 'static,
+    S: FnOnce() -> SF + Send + Sync + 'static,
     SF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
         + Send
         + 'static,
-    Q: Fn(String) -> QF + Send + Sync + Clone,
+    Q: Fn(String) -> QF + Send + Sync + 'static,
     QF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
         + Send
         + 'static,
 {
+    let start = Box::new(move || Box::pin(start()) as BoxedStartFuture<ResponseType, MetadataType>);
+    let query: BoxedQuery<ResponseType, MetadataType> =
+        Box::new(move |name| Box::pin(query(name)) as BoxedStartFuture<ResponseType, MetadataType>);
     PollerImpl::new(polling_error_policy, polling_backoff_policy, start, query)
 }
 
@@ -67,10 +75,10 @@ pub fn new_unit_response_poller<MetadataType, S, SF, Q, QF>(
     query: Q,
 ) -> impl Poller<(), MetadataType>
 where
-    MetadataType: Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
-    S: FnOnce() -> SF + Send + Sync,
+    MetadataType: Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send + 'static,
+    S: FnOnce() -> SF + Send + Sync + 'static,
     SF: std::future::Future<Output = Result<Operation<Empty, MetadataType>>> + Send + 'static,
-    Q: Fn(String) -> QF + Send + Sync + Clone,
+    Q: Fn(String) -> QF + Send + Sync + 'static,
     QF: std::future::Future<Output = Result<Operation<Empty, MetadataType>>> + Send + 'static,
 {
     let poller = new_poller(polling_error_policy, polling_backoff_policy, start, query);
@@ -88,10 +96,10 @@ pub fn new_unit_metadata_poller<ResponseType, S, SF, Q, QF>(
     query: Q,
 ) -> impl Poller<ResponseType, ()>
 where
-    ResponseType: Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
-    S: FnOnce() -> SF + Send + Sync,
+    ResponseType: Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send + 'static,
+    S: FnOnce() -> SF + Send + Sync + 'static,
     SF: std::future::Future<Output = Result<Operation<ResponseType, Empty>>> + Send + 'static,
-    Q: Fn(String) -> QF + Send + Sync + Clone,
+    Q: Fn(String) -> QF + Send + Sync + 'static,
     QF: std::future::Future<Output = Result<Operation<ResponseType, Empty>>> + Send + 'static,
 {
     let poller = new_poller(polling_error_policy, polling_backoff_policy, start, query);
@@ -109,9 +117,9 @@ pub fn new_unit_poller<S, SF, Q, QF>(
     query: Q,
 ) -> impl Poller<(), ()>
 where
-    S: FnOnce() -> SF + Send + Sync,
+    S: FnOnce() -> SF + Send + Sync + 'static,
     SF: std::future::Future<Output = Result<Operation<Empty, Empty>>> + Send + 'static,
-    Q: Fn(String) -> QF + Send + Sync + Clone,
+    Q: Fn(String) -> QF + Send + Sync + 'static,
     QF: std::future::Future<Output = Result<Operation<Empty, Empty>>> + Send + 'static,
 {
     let poller = new_poller(polling_error_policy, polling_backoff_policy, start, query);
@@ -272,7 +280,7 @@ where
     SF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
         + Send
         + 'static,
-    P: Fn(String) -> PF + Send + Sync + Clone,
+    P: Fn(String) -> PF + Send + Sync,
     PF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
         + Send
         + 'static,

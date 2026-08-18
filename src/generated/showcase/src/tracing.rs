@@ -419,8 +419,8 @@ where
     #[cfg(google_cloud_unstable_gapic_streaming)]
     async fn chat(
         &self,
-        req: crate::model::EchoRequest,
-        options: crate::RequestOptions,
+        req: std::option::Option<crate::model::EchoRequest>,
+        options: crate::BidiStreamOptions,
     ) -> Result<(
         google_cloud_gax::streaming::RequestSender<crate::model::EchoRequest>,
         google_cloud_gax::streaming::ResponseReceiver<crate::model::EchoResponse>,
@@ -1136,8 +1136,8 @@ where
     #[cfg(google_cloud_unstable_gapic_streaming)]
     async fn connect(
         &self,
-        req: crate::model::ConnectRequest,
-        options: crate::RequestOptions,
+        req: std::option::Option<crate::model::ConnectRequest>,
+        options: crate::BidiStreamOptions,
     ) -> Result<(
         google_cloud_gax::streaming::RequestSender<crate::model::ConnectRequest>,
         google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>,

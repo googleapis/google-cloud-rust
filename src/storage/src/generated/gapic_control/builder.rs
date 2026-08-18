@@ -4180,6 +4180,85 @@ pub mod storage_control {
         }
     }
 
+    /// The request builder for [StorageControl::view_object_full_context][crate::client::StorageControl::view_object_full_context] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::builder::storage_control::ViewObjectFullContext;
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ViewObjectFullContext {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ViewObjectFullContext(RequestBuilder<crate::model::ViewObjectFullContextRequest>);
+
+    impl ViewObjectFullContext {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ViewObjectFullContextRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ObjectFullContext> {
+            (*self.0.stub)
+                .view_object_full_context(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [generation][crate::model::ViewObjectFullContextRequest::generation].
+        pub fn set_generation<T: Into<i64>>(mut self, v: T) -> Self {
+            self.0.request.generation = v.into();
+            self
+        }
+
+        /// Sets the value of [context_key][crate::model::ViewObjectFullContextRequest::context_key].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_context_key<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.context_key = v.into();
+            self
+        }
+
+        /// Sets the value of [name][crate::model::ViewObjectFullContextRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ViewObjectFullContext {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [StorageControl::get_operation][crate::client::StorageControl::get_operation] calls.
     ///
     /// # Example

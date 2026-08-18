@@ -242,6 +242,9 @@ impl serde::ser::Serialize for super::AcceleratorType {
         if self.name.is_some() {
             state.serialize_entry("name", &self.name)?;
         }
+        if self.resource_metadata.is_some() {
+            state.serialize_entry("resourceMetadata", &self.resource_metadata)?;
+        }
         if self.self_link.is_some() {
             state.serialize_entry("selfLink", &self.self_link)?;
         }
@@ -11513,6 +11516,9 @@ impl serde::ser::Serialize for super::FutureReservation {
         }
         if self.reservation_name.is_some() {
             state.serialize_entry("reservationName", &self.reservation_name)?;
+        }
+        if self.resource_metadata.is_some() {
+            state.serialize_entry("resourceMetadata", &self.resource_metadata)?;
         }
         if self.scheduling_type.is_some() {
             state.serialize_entry("schedulingType", &self.scheduling_type)?;
@@ -39579,6 +39585,9 @@ impl serde::ser::Serialize for super::Reservation {
         if self.reservation_sharing_policy.is_some() {
             state.serialize_entry("reservationSharingPolicy", &self.reservation_sharing_policy)?;
         }
+        if self.resource_metadata.is_some() {
+            state.serialize_entry("resourceMetadata", &self.resource_metadata)?;
+        }
         if !self.resource_policies.is_empty() {
             state.serialize_entry("resourcePolicies", &self.resource_policies)?;
         }
@@ -41208,6 +41217,37 @@ impl serde::ser::Serialize for super::ResourceGroupReference {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.group.is_some() {
             state.serialize_entry("group", &self.group)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "accelerator-types",
+    feature = "future-reservations",
+    feature = "region-commitments",
+    feature = "reservations",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ResourceMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.api_version.is_some() {
+            state.serialize_entry("apiVersion", &self.api_version)?;
+        }
+        if self.resource_type.is_some() {
+            state.serialize_entry("resourceType", &self.resource_type)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

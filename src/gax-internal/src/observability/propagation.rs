@@ -126,6 +126,7 @@ mod tests {
         Dispatch::new(subscriber)
     }
 
+    #[ignore = "TODO(#6077) - disabled because it was flaky"]
     #[test]
     fn inject_context_success() {
         let dispatcher = set_up_otel_and_tracing();

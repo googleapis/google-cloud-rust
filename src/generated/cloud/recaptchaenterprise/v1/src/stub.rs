@@ -173,6 +173,26 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::RecaptchaEnterpriseService::get_policy].
+    fn get_policy(
+        &self,
+        _req: crate::model::GetPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Policy>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RecaptchaEnterpriseService::update_policy].
+    fn update_policy(
+        &self,
+        _req: crate::model::UpdatePolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Policy>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::RecaptchaEnterpriseService::create_firewall_policy].
     fn create_firewall_policy(
         &self,
