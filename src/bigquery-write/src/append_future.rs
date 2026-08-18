@@ -12,19 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::error::{AppendError, AppendResult};
+use crate::model::AppendResponse;
 use std::future::Future;
 use std::pin::Pin;
 use std::task::{Context, Poll};
 use tokio::task::JoinHandle;
 
-use crate::error::{AppendError, AppendResult};
-use crate::model::AppendResponse;
-
 /// A future that resolves to the result of an async append operation.
 ///
-/// This future represents a write request that has already been dispatched to the
-/// background network task. Awaiting this future yields the server's acknowledgment
-/// or an error if the stream fails.
+/// This future represents a write request that has already been queued by the
+/// client library to send over the network. Awaiting this future yields the server's acknowledgment
+/// or an error if the write fails.
 #[derive(Debug)]
 pub struct AppendFuture {
     handle: JoinHandle<AppendResult<AppendResponse>>,
@@ -59,16 +58,14 @@ mod tests {
     use super::*;
     use crate::model::TableSchema;
 
-    fn fake_response() -> AppendResponse {
-        AppendResponse {
-            offset: None,
-            updated_schema: Some(TableSchema::default()),
-        }
-    }
-
     #[tokio::test]
     async fn happy_path() {
-        let handle = tokio::spawn(async { Ok(fake_response()) });
+        let handle = tokio::spawn(async {
+            Ok(AppendResponse {
+                offset: None,
+                updated_schema: Some(TableSchema::default()),
+            })
+        });
         let future = AppendFuture::new(handle);
         let resp = future.await.expect("should succeed");
         assert_eq!(resp.offset, None);
@@ -77,11 +74,8 @@ mod tests {
 
     #[tokio::test]
     async fn dropped_task() {
-        let handle = tokio::spawn(async {
-            // Sleep forever to allow tests to abort it.
-            let _ = tokio::time::sleep(tokio::time::Duration::from_secs(10)).await;
-            Ok(fake_response())
-        });
+        let handle =
+            tokio::spawn(async { std::future::pending::<AppendResult<AppendResponse>>().await });
         // Abort the task immediately
         handle.abort();
 

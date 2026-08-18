@@ -26,6 +26,7 @@
 //!
 //! [bigquery write]: https://docs.cloud.google.com/bigquery/docs/write-api
 
+pub use crate::append_future::AppendFuture;
 pub use google_cloud_gax::Result;
 pub use google_cloud_gax::error::Error;
 
@@ -41,7 +42,6 @@ pub mod builder {
     /// Request and client builders for the [Write][crate::client::Write] client
     pub mod write {
         pub use crate::append_builder::Append;
-        pub use crate::append_future::AppendFuture;
         pub use crate::client_builder::ClientBuilder;
     }
     // TODO(#6152) - add admin client
