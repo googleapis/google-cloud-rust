@@ -207,7 +207,6 @@ pub mod translation_service {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<std::string::String>,
         {
-            use std::iter::Iterator;
             self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
@@ -374,7 +373,6 @@ pub mod translation_service {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<std::string::String>,
         {
-            use std::iter::Iterator;
             self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
@@ -628,7 +626,6 @@ pub mod translation_service {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<std::string::String>,
         {
-            use std::iter::Iterator;
             self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
@@ -807,7 +804,6 @@ pub mod translation_service {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<std::string::String>,
         {
-            use std::iter::Iterator;
             self.0.request.models = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
@@ -854,7 +850,6 @@ pub mod translation_service {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
         {
-            use std::iter::Iterator;
             self.0.request.glossaries = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
@@ -866,7 +861,6 @@ pub mod translation_service {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<std::string::String>,
         {
-            use std::iter::Iterator;
             self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
@@ -1056,7 +1050,6 @@ pub mod translation_service {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<std::string::String>,
         {
-            use std::iter::Iterator;
             self.0.request.models = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
@@ -1068,7 +1061,6 @@ pub mod translation_service {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
         {
-            use std::iter::Iterator;
             self.0.request.glossaries = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
@@ -1080,7 +1072,6 @@ pub mod translation_service {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<std::string::String>,
         {
-            use std::iter::Iterator;
             self.0.request.format_conversions =
                 v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self

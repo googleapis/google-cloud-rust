@@ -2891,7 +2891,6 @@ pub mod cluster_manager {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<std::string::String>,
         {
-            use std::iter::Iterator;
             self.0.request.resource_labels =
                 v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self

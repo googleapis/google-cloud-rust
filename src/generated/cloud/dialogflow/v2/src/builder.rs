@@ -3482,7 +3482,6 @@ pub mod conversations {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<crate::model::conversation::ContextReference>,
         {
-            use std::iter::Iterator;
             self.0.request.context_references =
                 v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
@@ -3888,7 +3887,6 @@ pub mod conversations {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<crate::model::conversation::ContextReference>,
         {
-            use std::iter::Iterator;
             self.0.request.context_references =
                 v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self

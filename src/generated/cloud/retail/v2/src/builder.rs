@@ -4776,7 +4776,6 @@ pub mod prediction_service {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<wkt::Value>,
         {
-            use std::iter::Iterator;
             self.0.request.params = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
@@ -4788,7 +4787,6 @@ pub mod prediction_service {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<std::string::String>,
         {
-            use std::iter::Iterator;
             self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
@@ -7192,7 +7190,6 @@ pub mod search_service {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<std::string::String>,
         {
-            use std::iter::Iterator;
             self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
@@ -7285,7 +7282,6 @@ pub mod search_service {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<crate::model::StringList>,
         {
-            use std::iter::Iterator;
             self.0.request.user_attributes =
                 v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self

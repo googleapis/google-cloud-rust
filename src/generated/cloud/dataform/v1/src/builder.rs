@@ -2187,7 +2187,6 @@ pub mod dataform {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<crate::model::commit_repository_changes_request::FileOperation>,
         {
-            use std::iter::Iterator;
             self.0.request.file_operations =
                 v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self

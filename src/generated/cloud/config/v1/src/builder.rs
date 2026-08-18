@@ -3653,7 +3653,6 @@ pub mod config {
             K: std::convert::Into<std::string::String>,
             V: std::convert::Into<crate::model::DeploymentSpec>,
         {
-            use std::iter::Iterator;
             self.0.request.deployment_specs =
                 v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
