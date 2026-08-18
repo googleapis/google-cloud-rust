@@ -299,18 +299,15 @@ pub trait Echo: std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_gapic_streaming)]
     fn chat(
         &self,
-        _req: crate::model::EchoRequest,
-        _options: crate::RequestOptions,
+        _req: std::option::Option<crate::model::EchoRequest>,
+        _options: crate::BidiStreamOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<(
             google_cloud_gax::streaming::RequestSender<crate::model::EchoRequest>,
             google_cloud_gax::streaming::ResponseReceiver<crate::model::EchoResponse>,
         )>,
     > + Send {
-        async {
-            let _ = gaxi::unimplemented::unimplemented_stub::<()>().await;
-            unreachable!() // satisfies the type checker; the stub above always panics.
-        }
+        gaxi::unimplemented::unimplemented_bidi_stub()
     }
 
     /// Implements [super::client::Echo::paged_expand].
@@ -795,18 +792,15 @@ pub trait Messaging: std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_gapic_streaming)]
     fn connect(
         &self,
-        _req: crate::model::ConnectRequest,
-        _options: crate::RequestOptions,
+        _req: std::option::Option<crate::model::ConnectRequest>,
+        _options: crate::BidiStreamOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<(
             google_cloud_gax::streaming::RequestSender<crate::model::ConnectRequest>,
             google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>,
         )>,
     > + Send {
-        async {
-            let _ = gaxi::unimplemented::unimplemented_stub::<()>().await;
-            unreachable!() // satisfies the type checker; the stub above always panics.
-        }
+        gaxi::unimplemented::unimplemented_bidi_stub()
     }
 
     /// Implements [super::client::Messaging::list_locations].

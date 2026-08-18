@@ -14,7 +14,7 @@
 
 name: Google Cloud Build Monitor
 on:
-  check_run:
+  check_suite:
     types: [completed]
 
 permissions:
@@ -24,47 +24,67 @@ permissions:
 jobs:
   create-issue-on-failure:
     runs-on: ubuntu-24.04
-    # Only alert for a failed GCB build on the main branch.
+    # Only alert for a failed GCB build suite on the main branch.
     if: >
-      github.repository == 'googleapis/google-cloud-rust' && github.event.check_run.app.name == 'Google Cloud Build' && github.event.check_run.check_suite.head_branch == 'main' && (github.event.check_run.conclusion == 'failure' || github.event.check_run.conclusion == 'timed_out' || github.event.check_run.conclusion == 'cancelled')
+      github.repository == 'googleapis/google-cloud-rust' && github.event.check_suite.app.name == 'Google Cloud Build' && github.event.check_suite.head_branch == 'main' && (github.event.check_suite.conclusion == 'failure' ||
+       github.event.check_suite.conclusion == 'timed_out' ||
+       github.event.check_suite.conclusion == 'cancelled')
     steps:
-      - name: Create or update CI failure issue
+      - name: Create CI failure issue
         shell: bash
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
-          BUILD_URL: ${{ github.event.check_run.details_url }}
-          BUILD_NAME: ${{ github.event.check_run.name }}
-          COMMIT_SHA: ${{ github.event.check_run.head_sha }}
+          CHECK_SUITE_ID: ${{ github.event.check_suite.id }}
+          COMMIT_SHA: ${{ github.event.check_suite.head_sha }}
         run: |
-          ISSUE_TITLE="Post-merge failure for \`$BUILD_NAME\`"
+          # Enumerate the failed builds in the check suite.
+          FAILED_BUILDS=$(gh api repos/$GH_REPO/check-suites/$CHECK_SUITE_ID/check-runs --paginate | jq -c '.check_runs[] | select(.conclusion == "failure" or .conclusion == "timed_out" or .conclusion == "cancelled") | {name: .name, url: .details_url}')
+
+          if [[ -z "$FAILED_BUILDS" ]]; then
+            echo "No failed check runs found in check suite $CHECK_SUITE_ID."
+            exit 0
+          fi
+
+          BUILD_TEXT=""
+          while IFS= read -r build; do
+            if [[ -n "$build" ]]; then
+              name=$(echo "$build" | jq -r '.name')
+              url=$(echo "$build" | jq -r '.url')
+              BUILD_TEXT="$BUILD_TEXT"$'\n'"- [\`$name\`]($url)"
+            fi
+          done < <(echo "$FAILED_BUILDS")
 
           # Query GitHub for any PRs associated with this commit
           PRS=$(gh api repos/$GH_REPO/commits/$COMMIT_SHA/pulls --jq '.[].number')
           PR_TEXT=""
           if [[ -n "$PRS" ]]; then
-            PR_TEXT="**Associated Pull Requests:**"
             for pr in $PRS; do
               PR_TEXT="$PR_TEXT"$'\n'"- #$pr"
             done
           fi
 
+          # Construct the title and body of the issue
+          TITLE="Post-merge failure"
           BODY="**Failure in Google Cloud Build on \`main\`:**
-          - **Build:** \`$BUILD_NAME\`
-          - **Build Log:** $BUILD_URL
-          - **Commit:** $COMMIT_SHA
 
+          **Failed Builds:**
+          $BUILD_TEXT
+
+          **Commit:** $COMMIT_SHA
+
+          **Associated Pull Requests:**
           $PR_TEXT"
 
           # Check for an existing open issue with the same title.
-          EXISTING_ISSUE=$(gh issue list --repo $GH_REPO --search "\"$ISSUE_TITLE\" in:title" --state open --json number --jq '.[0].number')
+          EXISTING_ISSUE=$(gh issue list --repo $GH_REPO --search "\"$TITLE\" in:title" --state open --json number --jq '.[0].number')
 
           if [[ -n "$EXISTING_ISSUE" && "$EXISTING_ISSUE" != "null" ]]; then
             echo "Found existing open issue #$EXISTING_ISSUE. Adding comment."
             gh issue comment "$EXISTING_ISSUE" --repo $GH_REPO --body "$BODY"
           else
             echo "Creating new issue."
-            ISSUE_LINK=$(gh issue create --title "$ISSUE_TITLE" --body "$BODY" --label ":rotating_light: critical" --assignee ${GITHUB_ACTOR} -R $GH_REPO)
-            ISSUE_NUM=${ISSUE_LINK##*/}
-            gh issue comment $ISSUE_NUM --repo $GH_REPO --body "@googleapis/cloud-sdk-rust-team A critical issue has been created, please respond immediately."
+            LINK=$(gh issue create --title "$TITLE" --body "$BODY" --label ":rotating_light: critical" --assignee ${GITHUB_ACTOR} -R $GH_REPO)
+            NUM=${LINK##*/}
+            gh issue comment $NUM --repo $GH_REPO --body "@googleapis/cloud-sdk-rust-team A critical issue has been created, please respond immediately."
           fi

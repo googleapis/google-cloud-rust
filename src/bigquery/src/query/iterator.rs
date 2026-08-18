@@ -21,6 +21,33 @@ use std::sync::Arc;
 
 pub type Result<T> = std::result::Result<T, RowError>;
 /// An iterator over rows returned by a query.
+///
+/// [`CompleteQuery::read()`](crate::CompleteQuery::read) returns a
+/// `RowIterator`.
+///
+/// `RowIterator` yields rows from the in-memory buffer fetched during query
+/// completion, then requests subsequent pages from BigQuery using pagination
+/// tokens until consuming the entire result set.
+///
+/// # Example
+///
+/// ```
+/// # use google_cloud_bigquery::client::BigQuery;
+/// # async fn sample(client: BigQuery) -> anyhow::Result<()> {
+/// let mut rows = client
+///     .query("SELECT name, state FROM `bigquery-public-data.usa_names.usa_1910_2013` LIMIT 10")
+///     .until_done()
+///     .await?
+///     .read();
+///
+/// while let Some(row) = rows.next().await.transpose()? {
+///     let name: String = row.get("name");
+///     let state: String = row.get("state");
+///     println!("{name} from {state}");
+/// }
+/// # Ok(())
+/// # }
+/// ```
 #[derive(Debug)]
 pub struct RowIterator {
     job_service: Arc<JobService>,
@@ -44,14 +71,45 @@ impl RowIterator {
     }
 
     /// Sets the maximum number of rows to buffer in memory.
+    ///
+    /// This controls page size during network fetches when streaming result
+    /// sets.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_bigquery::client::BigQuery;
+    /// # async fn sample(client: BigQuery) -> anyhow::Result<()> {
+    /// let mut rows = client
+    ///     .query("SELECT 1 AS n")
+    ///     .until_done()
+    ///     .await?
+    ///     .read()
+    ///     .set_max_results(500);
+    /// # Ok(())
+    /// # }
+    /// ```
     pub fn set_max_results(mut self, max_results: u32) -> Self {
         self.max_results = Some(max_results);
         self
     }
 
-    /// Fetches the next row from the result set.
+    /// Fetches the next [`Row`](crate::Row) from the result set.
     ///
     /// Returns `None` when all rows have been retrieved.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_bigquery::RowIterator;
+    /// # async fn sample(mut rows: RowIterator) -> anyhow::Result<()> {
+    /// while let Some(row) = rows.next().await.transpose()? {
+    ///     let msg: String = row.get("msg");
+    ///     println!("Message: {msg}");
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
     pub async fn next(&mut self) -> Option<Result<Row>> {
         loop {
             if let Some(raw_row) = self.rows.pop_front() {

@@ -376,6 +376,28 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::OracleDatabase::refresh_autonomous_database].
+    fn refresh_autonomous_database(
+        &self,
+        _req: crate::model::RefreshAutonomousDatabaseRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::get_autonomous_database_refreshable_clones].
+    fn get_autonomous_database_refreshable_clones(
+        &self,
+        _req: crate::model::GetAutonomousDatabaseRefreshableClonesRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::AutonomousDatabaseRefreshableClones>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::OracleDatabase::list_odb_networks].
     fn list_odb_networks(
         &self,

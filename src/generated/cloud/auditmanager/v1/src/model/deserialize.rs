@@ -333,6 +333,7 @@ impl<'de> serde::de::Deserialize<'de> for super::GenerateAuditReportRequest {
             __compliance_standard,
             __report_format,
             __compliance_framework,
+            __validate_only,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -362,6 +363,8 @@ impl<'de> serde::de::Deserialize<'de> for super::GenerateAuditReportRequest {
                             "report_format" => Ok(__FieldTag::__report_format),
                             "complianceFramework" => Ok(__FieldTag::__compliance_framework),
                             "compliance_framework" => Ok(__FieldTag::__compliance_framework),
+                            "validateOnly" => Ok(__FieldTag::__validate_only),
+                            "validate_only" => Ok(__FieldTag::__validate_only),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -445,6 +448,16 @@ impl<'de> serde::de::Deserialize<'de> for super::GenerateAuditReportRequest {
                             }
                             result.compliance_framework = map
                                 .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__validate_only => {
+                            if !fields.insert(__FieldTag::__validate_only) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for validate_only",
+                                ));
+                            }
+                            result.validate_only = map
+                                .next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {

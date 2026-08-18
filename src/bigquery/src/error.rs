@@ -21,17 +21,9 @@ use google_cloud_gax::error::Error;
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
 pub enum QueryError {
-    /// The project ID was not provided or could not be determined.
-    #[error("no project ID was provided")]
-    MissingProjectId,
-
     /// Only query jobs are supported by this client.
     #[error("only query jobs are supported")]
     UnsupportedJobType,
-
-    /// The operation is not supported for stateless queries.
-    #[error("cannot perform this operation on a stateless query")]
-    StatelessQuery,
 
     /// The query job failed on the BigQuery service side.
     /// Includes the list of error protocols returned by the service.
@@ -157,15 +149,6 @@ mod tests {
         assert_eq!(
             err.to_string(),
             "the operation failed. RPC error: the service reports an error with code INVALID_ARGUMENT described as: simulated bad request"
-        );
-    }
-
-    #[test]
-    fn test_stateless_query_display() {
-        let err = QueryError::StatelessQuery;
-        assert_eq!(
-            err.to_string(),
-            "cannot perform this operation on a stateless query"
         );
     }
 

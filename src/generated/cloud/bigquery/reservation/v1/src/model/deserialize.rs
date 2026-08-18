@@ -3026,6 +3026,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Assignment {
             __enable_gemini_in_bigquery,
             __scheduling_policy,
             __principal,
+            __precedence,
+            __condition,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -3058,6 +3060,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Assignment {
                             "schedulingPolicy" => Ok(__FieldTag::__scheduling_policy),
                             "scheduling_policy" => Ok(__FieldTag::__scheduling_policy),
                             "principal" => Ok(__FieldTag::__principal),
+                            "precedence" => Ok(__FieldTag::__precedence),
+                            "condition" => Ok(__FieldTag::__condition),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3151,6 +3155,35 @@ impl<'de> serde::de::Deserialize<'de> for super::Assignment {
                             result.principal = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__precedence => {
+                            if !fields.insert(__FieldTag::__precedence) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for precedence",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.precedence = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__condition => {
+                            if !fields.insert(__FieldTag::__condition) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for condition",
+                                ));
+                            }
+                            result.condition = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Expr>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

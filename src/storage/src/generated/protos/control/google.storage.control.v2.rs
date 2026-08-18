@@ -272,6 +272,8 @@ pub struct StorageLayout {
     pub hierarchical_namespace: ::core::option::Option<
         storage_layout::HierarchicalNamespace,
     >,
+    #[prost(message, optional, tag = "6")]
+    pub rapid_cache_info: ::core::option::Option<storage_layout::RapidCacheInfo>,
 }
 /// Nested message and enum types in `StorageLayout`.
 pub mod storage_layout {
@@ -304,6 +306,22 @@ pub mod storage_layout {
         }
         fn type_url() -> ::prost::alloc::string::String {
             "type.googleapis.com/google.storage.control.v2.StorageLayout.HierarchicalNamespace"
+                .into()
+        }
+    }
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+    pub struct RapidCacheInfo {
+        #[prost(string, tag = "1")]
+        pub cache_type: ::prost::alloc::string::String,
+    }
+    impl ::prost::Name for RapidCacheInfo {
+        const NAME: &'static str = "RapidCacheInfo";
+        const PACKAGE: &'static str = "google.storage.control.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.storage.control.v2.StorageLayout.RapidCacheInfo".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.storage.control.v2.StorageLayout.RapidCacheInfo"
                 .into()
         }
     }
@@ -2053,6 +2071,93 @@ impl ::prost::Name for FindingSummary {
     }
     fn type_url() -> ::prost::alloc::string::String {
         "type.googleapis.com/google.storage.control.v2.FindingSummary".into()
+    }
+}
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct ObjectFullContext {
+    #[prost(enumeration = "object_full_context::Type", tag = "1")]
+    pub r#type: i32,
+    #[prost(string, tag = "2")]
+    pub key: ::prost::alloc::string::String,
+    #[prost(string, tag = "3")]
+    pub value: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "4")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    #[prost(message, optional, tag = "5")]
+    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    #[prost(message, optional, tag = "6")]
+    pub extended_data: ::core::option::Option<::prost_types::Any>,
+}
+/// Nested message and enum types in `ObjectFullContext`.
+pub mod object_full_context {
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum Type {
+        Unspecified = 0,
+        Custom = 1,
+        Google = 2,
+    }
+    impl Type {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::Custom => "CUSTOM",
+                Self::Google => "GOOGLE",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "CUSTOM" => Some(Self::Custom),
+                "GOOGLE" => Some(Self::Google),
+                _ => None,
+            }
+        }
+    }
+}
+impl ::prost::Name for ObjectFullContext {
+    const NAME: &'static str = "ObjectFullContext";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.ObjectFullContext".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.ObjectFullContext".into()
+    }
+}
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct ViewObjectFullContextRequest {
+    #[prost(int64, tag = "3")]
+    pub generation: i64,
+    #[prost(string, tag = "4")]
+    pub context_key: ::prost::alloc::string::String,
+    #[prost(string, tag = "5")]
+    pub name: ::prost::alloc::string::String,
+}
+impl ::prost::Name for ViewObjectFullContextRequest {
+    const NAME: &'static str = "ViewObjectFullContextRequest";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.ViewObjectFullContextRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.ViewObjectFullContextRequest"
+            .into()
     }
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]

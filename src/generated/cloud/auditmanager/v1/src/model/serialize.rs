@@ -120,6 +120,9 @@ impl serde::ser::Serialize for super::GenerateAuditReportRequest {
         if !self.compliance_framework.is_empty() {
             state.serialize_entry("complianceFramework", &self.compliance_framework)?;
         }
+        if !wkt::internal::is_default(&self.validate_only) {
+            state.serialize_entry("validateOnly", &self.validate_only)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

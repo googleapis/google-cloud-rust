@@ -292,6 +292,7 @@ impl std::fmt::Debug for super::Ranker {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Ranker");
         debug_struct.field("ranker", &self.ranker);
+        debug_struct.field("reranker", &self.reranker);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -303,6 +304,32 @@ impl std::fmt::Debug for super::ReciprocalRankFusion {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReciprocalRankFusion");
         debug_struct.field("weights", &self.weights);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::VertexRanker {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VertexRanker");
+        debug_struct.field("model", &self.model);
+        debug_struct.field("top_n", &self.top_n);
+        debug_struct.field("record_spec", &self.record_spec);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::vertex_ranker::TextRecordSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TextRecordSpec");
+        debug_struct.field("query", &self.query);
+        debug_struct.field("title_template", &self.title_template);
+        debug_struct.field("content_template", &self.content_template);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

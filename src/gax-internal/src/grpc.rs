@@ -25,7 +25,6 @@ mod transport_policies;
 pub use grpc_rust::{GrpcRustClient, GrpcRustStreaming};
 
 use crate::attempt_interceptor::AttemptInterceptor;
-use crate::observability::attributes::{self, keys::*, otel_status_codes};
 use crate::universe_domain::DEFAULT_UNIVERSE_DOMAIN;
 use ::tonic::client::Grpc;
 use ::tonic::metadata::MetadataMap;
@@ -45,7 +44,6 @@ use google_cloud_gax::response::{Parts, Response};
 use google_cloud_gax::retry_loop_internal::retry_loop;
 use grpc_helpers::{add_auth_headers, make_credentials, make_headers};
 use http::HeaderMap;
-use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
 use std::sync::Arc;
 use std::time::Duration;
 use std::time::Instant;
@@ -352,46 +350,11 @@ impl Client {
         Request: prost::Message + 'static,
         Response: prost::Message + Default + 'static,
     {
-        let span = if let Some(attrs) = &self.tracing_attributes {
-            let rpc_method = path.path().trim_start_matches('/');
-            let (service, version, repo, artifact) = if let Some(info) = attrs.instrumentation {
-                (
-                    Some(info.service_name),
-                    Some(info.client_version),
-                    Some("googleapis/google-cloud-rust"),
-                    Some(info.client_artifact),
-                )
-            } else {
-                (None, None, None, None)
-            };
-            let resend_count = if prior_attempt_count > 0 {
-                Some(prior_attempt_count)
-            } else {
-                None
-            };
-
-            tracing::info_span!(
-                "grpc.request",
-                { OTEL_NAME } = rpc_method,
-                { RPC_SYSTEM_NAME } = attributes::RPC_SYSTEM_GRPC,
-                { OTEL_KIND } = attributes::OTEL_KIND_CLIENT,
-                { otel_trace::RPC_METHOD } = rpc_method,
-                { otel_trace::SERVER_ADDRESS } = attrs.server_address,
-                { otel_trace::SERVER_PORT } = attrs.server_port,
-                { otel_attr::URL_DOMAIN } = attrs.url_domain,
-                { RPC_RESPONSE_STATUS_CODE } = tracing::field::Empty,
-                { OTEL_STATUS_CODE } = otel_status_codes::UNSET,
-                { otel_trace::ERROR_TYPE } = tracing::field::Empty,
-                { GCP_CLIENT_SERVICE } = service,
-                { GCP_CLIENT_VERSION } = version,
-                { GCP_CLIENT_REPO } = repo,
-                { GCP_CLIENT_ARTIFACT } = artifact,
-                { GCP_GRPC_RESEND_COUNT } = resend_count,
-                { GCP_RESOURCE_DESTINATION_ID } = tracing::field::Empty,
-            )
-        } else {
-            tracing::Span::none()
-        };
+        let span = grpc_helpers::unary_make_request_span(
+            self.tracing_attributes.as_ref(),
+            &path,
+            prior_attempt_count,
+        );
 
         #[allow(unused_mut)]
         let mut headers = add_auth_headers(headers, &self.credentials).await?;
@@ -423,20 +386,13 @@ impl Client {
                 .unary(request, path.clone(), codec)
                 .map_err(to_gax_error);
 
-            use crate::observability::{
-                WithTransportLogging, WithTransportMetric, WithTransportSpan,
-            };
-
-            let pending =
-                WithTransportMetric::new(self.metric.clone(), pending, prior_attempt_count as u32);
-            let pending = WithTransportLogging::new(pending);
-            let pending = WithTransportSpan::new(span, pending);
-
-            if let Some(recorder) = crate::observability::RequestRecorder::current() {
-                recorder.scope(pending).await
-            } else {
-                pending.await
-            }
+            grpc_helpers::unary_wrap_and_record_request(
+                self.metric.clone(),
+                span,
+                prior_attempt_count,
+                pending,
+            )
+            .await
         }
         .await;
 
@@ -519,6 +475,10 @@ impl Client {
             default_endpoint,
             universe_domain,
             config.grpc_max_header_list_size,
+            config
+                .extensions
+                .get::<::tonic::transport::ClientTlsConfig>()
+                .cloned(),
         )
         .await?;
         let (channel, tx) = Channel::balance_channel(
@@ -564,6 +524,7 @@ impl Client {
         default_endpoint: &str,
         universe_domain: &str,
         grpc_max_header_list_size: Option<u32>,
+        tls_config: Option<::tonic::transport::ClientTlsConfig>,
     ) -> ClientBuilderResult<::tonic::transport::Endpoint> {
         use ::tonic::transport::{ClientTlsConfig, Endpoint};
 
@@ -577,9 +538,15 @@ impl Client {
             .scheme()
             .is_some_and(|s| s == &http::uri::Scheme::HTTPS)
         {
+            let tls_config =
+                tls_config.unwrap_or_else(|| ClientTlsConfig::new().with_enabled_roots());
             endpoint
-                .tls_config(ClientTlsConfig::new().with_enabled_roots())
+                .tls_config(tls_config)
                 .map_err(BuilderError::transport)?
+        } else if tls_config.is_some() {
+            return Err(BuilderError::transport(
+                "cannot configure TLS on non-HTTPS endpoint",
+            ));
         } else {
             endpoint
         };
@@ -622,6 +589,7 @@ where
 mod tests {
     use super::*;
     use crate::options::InstrumentationClientInfo;
+    use ::tonic::transport::ClientTlsConfig;
     use test_case::test_case;
 
     type TestResult = anyhow::Result<()>;
@@ -652,6 +620,7 @@ mod tests {
             endpoint_override.map(String::from),
             default_endpoint,
             universe_domain,
+            None,
             None,
         )
         .await?;
@@ -690,5 +659,85 @@ mod tests {
             .unwrap();
         // We can't easily assert the internal state without exposing more internals,
         // but this verifies the method exists and runs.
+    }
+
+    #[tokio::test]
+    async fn make_endpoint_with_custom_tls_config() -> TestResult {
+        let custom_tls = ClientTlsConfig::new().domain_name("custom.domain");
+        let endpoint = Client::make_endpoint(
+            Some("https://custom.endpoint.com:15000".to_string()),
+            "https://default.endpoint.com",
+            DEFAULT_UNIVERSE_DOMAIN,
+            None,
+            Some(custom_tls),
+        )
+        .await?;
+        assert_eq!(
+            endpoint.uri().to_string(),
+            "https://custom.endpoint.com:15000/"
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn make_endpoint_plaintext_with_tls_config_fails() {
+        let custom_tls = ClientTlsConfig::new().domain_name("custom.domain");
+        let result = Client::make_endpoint(
+            Some("http://localhost:15000".to_string()),
+            "https://default.endpoint.com",
+            DEFAULT_UNIVERSE_DOMAIN,
+            None,
+            Some(custom_tls),
+        )
+        .await;
+        assert!(
+            result.is_err(),
+            "expected error when combining plaintext endpoint with TLS configuration"
+        );
+    }
+
+    #[tokio::test]
+    async fn make_endpoint_plaintext_without_tls_config_succeeds() -> TestResult {
+        let endpoint = Client::make_endpoint(
+            Some("http://localhost:15000".to_string()),
+            "https://default.endpoint.com",
+            DEFAULT_UNIVERSE_DOMAIN,
+            None,
+            None,
+        )
+        .await?;
+        assert_eq!(endpoint.uri().to_string(), "http://localhost:15000/");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn client_new_with_custom_tls_extension() -> TestResult {
+        let mut config = crate::options::ClientConfig::default();
+        let custom_tls = ClientTlsConfig::new().domain_name("custom.domain");
+        config.extensions.insert(custom_tls);
+        config.cred = Some(google_cloud_auth::credentials::anonymous::Builder::new().build());
+
+        let client = Client::new(config, "https://language.googleapis.com").await;
+        assert!(
+            client.is_ok(),
+            "expected Client::new to succeed with custom TLS extension: {client:?}"
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn client_new_with_tls_extension_and_plaintext_endpoint_fails() {
+        let mut config = crate::options::ClientConfig::default();
+        let custom_tls = ClientTlsConfig::new().domain_name("custom.domain");
+        config.extensions.insert(custom_tls);
+        config.cred = Some(google_cloud_auth::credentials::anonymous::Builder::new().build());
+
+        let err = Client::new(config, "http://localhost:15000")
+            .await
+            .unwrap_err();
+        assert!(
+            err.is_transport(),
+            "expected transport error when building client with plaintext endpoint and TLS extension: {err:?}"
+        );
     }
 }

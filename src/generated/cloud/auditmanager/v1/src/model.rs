@@ -37,24 +37,29 @@ mod debug;
 mod deserialize;
 mod serialize;
 
-/// Request message to subscribe the Audit Manager service for given resource.
+/// Request message for
+/// [EnrollResource][google.cloud.auditmanager.v1.AuditManager.EnrollResource].
+///
+/// [google.cloud.auditmanager.v1.AuditManager.EnrollResource]: crate::client::AuditManager::enroll_resource
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnrollResourceRequest {
-    /// Required. The resource to be enrolled to the audit manager. Scope format
-    /// should be resource_type/resource_identifier Eg:
-    /// projects/{project}/locations/{location},
-    /// folders/{folder}/locations/{location}
-    /// organizations/{organization}/locations/{location}
+    /// Required. Organization, folder, or project to enroll in Audit Manager, in
+    /// one of the following formats:
+    ///
+    /// * `projects/{project}/locations/{location}`
+    /// * `folders/{folder}/locations/{location}`
+    /// * `organizations/{organization}/locations/{location}`
     pub scope: std::string::String,
 
-    /// Required. List of destination among which customer can choose to upload
-    /// their reports during the audit process. While enrolling at a
-    /// organization/folder level, customer can choose Cloud storage bucket in any
-    /// project. If the audit is triggered at project level using the service agent
-    /// at organization/folder level, all the destination options associated with
-    /// respective organization/folder level service agent will be available to
-    /// auditing projects.
+    /// Required. Cloud Storage buckets that you can upload your audit reports to
+    /// during the audit process.
+    ///
+    /// When you enroll an organization or folder, you can choose a Cloud Storage
+    /// bucket from any project in the organization or folder. If you run an audit
+    /// at the project level using the service agent at the organization or folder
+    /// level, all the buckets that are associated with the service agent are
+    /// available.
     pub destinations: std::vec::Vec<crate::model::enroll_resource_request::EligibleDestination>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -112,11 +117,11 @@ pub mod enroll_resource_request {
     #[allow(unused_imports)]
     use super::*;
 
-    /// The destination details where the audit report must be uploaded.
+    /// Details about the bucket where you want to upload the audit report.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EligibleDestination {
-        /// The options for the report destination location.
+        /// Available Cloud Storage buckets.
         pub eligible_destinations: std::option::Option<
             crate::model::enroll_resource_request::eligible_destination::EligibleDestinations,
         >,
@@ -194,36 +199,48 @@ pub mod enroll_resource_request {
         #[allow(unused_imports)]
         use super::*;
 
-        /// The options for the report destination location.
+        /// Available Cloud Storage buckets.
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum EligibleDestinations {
-            /// The Cloud Storage bucket location where the audit report and evidences
-            /// can be uploaded during the `GenerateAuditReport` API call.
+            /// The location of the Cloud Storage bucket where you want to upload the
+            /// audit report and evidence during the
+            /// [GenerateAuditReport][google.cloud.auditmanager.v1.AuditManager.GenerateAuditReport]
+            /// API call.
+            ///
+            /// [google.cloud.auditmanager.v1.AuditManager.GenerateAuditReport]: crate::client::AuditManager::generate_audit_report
             EligibleGcsBucket(std::string::String),
         }
     }
 }
 
-/// Message for requesting audit scope report.
+/// Request message for
+/// [GenerateAuditScopeReport][google.cloud.auditmanager.v1.AuditManager.GenerateAuditScopeReport].
+///
+/// [google.cloud.auditmanager.v1.AuditManager.GenerateAuditScopeReport]: crate::client::AuditManager::generate_audit_scope_report
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateAuditScopeReportRequest {
-    /// Required. Scope for which the AuditScopeReport is required. Must be of
-    /// format resource_type/resource_identifier Eg:
-    /// projects/{project}/locations/{location},
-    /// folders/{folder}/locations/{location}
+    /// Required. Project or folder that the audit scope report is generated for,
+    /// in one of the following formats:
+    ///
+    /// * `projects/{project}/locations/{location}`
+    /// * `folders/{folder}/locations/{location}`
+    /// * `organizations/{organization}/locations/{location}`
     pub scope: std::string::String,
 
-    /// Required. Compliance Standard against which the Scope Report must be
-    /// generated. Eg: FEDRAMP_MODERATE
+    /// Optional. Deprecated. The standard (industry or regulatory requirements)
+    /// that the audit scope report is run against.
+    ///
+    /// Use the `compliance_framework` field instead.
+    #[deprecated]
     pub compliance_standard: std::string::String,
 
-    /// Required. The format in which the Scope report bytes should be returned.
+    /// Required. Format for the audit scope report.
     pub report_format: crate::model::generate_audit_scope_report_request::AuditScopeReportFormat,
 
-    /// Required. Compliance framework against which the Scope Report must be
-    /// generated.
+    /// Required. Framework (set of controls) that the audit scope report is
+    /// generated against. For example, `NIST_800_53`.
     pub compliance_framework: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -254,6 +271,7 @@ impl GenerateAuditScopeReportRequest {
     /// # use google_cloud_auditmanager_v1::model::GenerateAuditScopeReportRequest;
     /// let x = GenerateAuditScopeReportRequest::new().set_compliance_standard("example");
     /// ```
+    #[deprecated]
     pub fn set_compliance_standard<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -309,7 +327,7 @@ pub mod generate_audit_scope_report_request {
     #[allow(unused_imports)]
     use super::*;
 
-    /// The options for the audit scope report format.
+    /// Format for the audit scope report.
     ///
     /// # Working with unknown values
     ///
@@ -327,9 +345,9 @@ pub mod generate_audit_scope_report_request {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum AuditScopeReportFormat {
-        /// Unspecified. Invalid format.
+        /// Default value. This value is unused.
         Unspecified,
-        /// Audit Scope Report creation format is Open Document.
+        /// Open Document format.
         Odf,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -436,27 +454,39 @@ pub mod generate_audit_scope_report_request {
     }
 }
 
-/// Message for requesting the Audit Report.
+/// Request message for
+/// [GenerateAuditReport][google.cloud.auditmanager.v1.AuditManager.GenerateAuditReport].
+///
+/// [google.cloud.auditmanager.v1.AuditManager.GenerateAuditReport]: crate::client::AuditManager::generate_audit_report
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateAuditReportRequest {
-    /// Required. Scope for which the AuditScopeReport is required. Must be of
-    /// format resource_type/resource_identifier Eg:
-    /// projects/{project}/locations/{location},
-    /// folders/{folder}/locations/{location}
+    /// Required. Organization, folder, or project that the audit applies to, in
+    /// one of the following formats:
+    ///
+    /// * `projects/{project}/locations/{location}`
+    /// * `folders/{folder}/locations/{location}`
+    /// * `organizations/{organization}/locations/{location}`
     pub scope: std::string::String,
 
-    /// Required. Compliance Standard against which the Scope Report must be
-    /// generated. Eg: FEDRAMP_MODERATE
+    /// Optional. Deprecated. Compliance standard for the audit report.
+    ///
+    /// Use the `compliance_framework` field instead.
+    #[deprecated]
     pub compliance_standard: std::string::String,
 
-    /// Required. The format in which the audit report should be created.
+    /// Required. Format for the audit report.
     pub report_format: crate::model::generate_audit_report_request::AuditReportFormat,
 
-    /// Required. Compliance framework against which the Report must be generated.
+    /// Required. The framework that's used for the audit report. For example,
+    /// `NIST_800_53`.
     pub compliance_framework: std::string::String,
 
-    /// Set of options for the report destination location.
+    /// Optional. If `true`, only validate the request and don't generate the audit
+    /// report.
+    pub validate_only: bool,
+
+    /// Options for the report destination location.
     pub destination: std::option::Option<crate::model::generate_audit_report_request::Destination>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -487,6 +517,7 @@ impl GenerateAuditReportRequest {
     /// # use google_cloud_auditmanager_v1::model::GenerateAuditReportRequest;
     /// let x = GenerateAuditReportRequest::new().set_compliance_standard("example");
     /// ```
+    #[deprecated]
     pub fn set_compliance_standard<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -525,6 +556,18 @@ impl GenerateAuditReportRequest {
         v: T,
     ) -> Self {
         self.compliance_framework = v.into();
+        self
+    }
+
+    /// Sets the value of [validate_only][crate::model::GenerateAuditReportRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::GenerateAuditReportRequest;
+    /// let x = GenerateAuditReportRequest::new().set_validate_only(true);
+    /// ```
+    pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.validate_only = v.into();
         self
     }
 
@@ -595,7 +638,7 @@ pub mod generate_audit_report_request {
     #[allow(unused_imports)]
     use super::*;
 
-    /// The options for the audit report format.
+    /// Format for the audit report.
     ///
     /// # Working with unknown values
     ///
@@ -613,9 +656,9 @@ pub mod generate_audit_report_request {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum AuditReportFormat {
-        /// Unspecified. Invalid state.
+        /// Default value. This value is unused.
         Unspecified,
-        /// Audit Report creation format is Open Document.
+        /// Open Document format.
         Odf,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -720,25 +763,30 @@ pub mod generate_audit_report_request {
         }
     }
 
-    /// Set of options for the report destination location.
+    /// Options for the report destination location.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Destination {
-        /// Destination Cloud storage bucket where report and evidence must be
-        /// uploaded. The Cloud storage bucket provided here must be selected among
-        /// the buckets entered during the enrollment process.
+        /// URL for the Cloud Storage bucket where the report and evidence is
+        /// uploaded. You must select a bucket that was provided during the
+        /// enrollment process.
         GcsUri(std::string::String),
     }
 }
 
-/// Message for getting the enrollment status of a resource.
+/// Request message for
+/// [GetResourceEnrollmentStatus][google.cloud.auditmanager.v1.AuditManager.GetResourceEnrollmentStatus].
+///
+/// [google.cloud.auditmanager.v1.AuditManager.GetResourceEnrollmentStatus]: crate::client::AuditManager::get_resource_enrollment_status
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetResourceEnrollmentStatusRequest {
-    /// Required. Format
-    /// folders/{folder}/locations/{location}/resourceEnrollmentStatuses/{resource_enrollment_status},
-    /// projects/{project}/locations/{location}/resourceEnrollmentStatuses/{resource_enrollment_status},
-    /// organizations/{organization}/locations/{location}/resourceEnrollmentStatuses/{resource_enrollment_status}
+    /// Required. Name of the resource enrollment status, in one of the following
+    /// formats:
+    ///
+    /// * `folders/{folder}/locations/{location}/resourceEnrollmentStatuses/{resource_enrollment_status}`
+    /// * `projects/{project}/locations/{location}/resourceEnrollmentStatuses/{resource_enrollment_status}`
+    /// * `organizations/{organization}/locations/{location}/resourceEnrollmentStatuses/{resource_enrollment_status}`
     pub name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -772,20 +820,28 @@ impl wkt::message::Message for GetResourceEnrollmentStatusRequest {
     }
 }
 
-/// Message for listing all the descendent resources under parent with
-/// enrollment.
+/// Request message for
+/// [ListResourceEnrollmentStatuses][google.cloud.auditmanager.v1.AuditManager.ListResourceEnrollmentStatuses].
+///
+/// [google.cloud.auditmanager.v1.AuditManager.ListResourceEnrollmentStatuses]: crate::client::AuditManager::list_resource_enrollment_statuses
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListResourceEnrollmentStatusesRequest {
-    /// Required. The parent scope for which the list of resources with enrollments
-    /// are required.
+    /// Required. Parent organization or folder to list enrollment statuses for,
+    /// in one of the following formats:
+    ///
+    /// * `folders/{folder}/locations/{location}`
+    /// * `organizations/{organization}/locations/{location}`
     pub parent: std::string::String,
 
-    /// Optional. The maximum number of resources to return.
+    /// Optional. Maximum number of items to return in a single page. The service
+    /// might return fewer items than this value. If unspecified, the service picks
+    /// an appropriate default. The maximum value is 100; values above 100 are
+    /// reduced to 100.
     pub page_size: i32,
 
-    /// Optional. The next_page_token value returned from a previous List request,
-    /// if any.
+    /// Optional. A page token, received from a previous call, to retrieve the next
+    /// page of results.
     pub page_token: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -840,14 +896,19 @@ impl wkt::message::Message for ListResourceEnrollmentStatusesRequest {
     }
 }
 
-/// Response message with all the descendent resources with enrollment.
+/// Response message for
+/// [ListResourceEnrollmentStatuses][google.cloud.auditmanager.v1.AuditManager.ListResourceEnrollmentStatuses].
+///
+/// [google.cloud.auditmanager.v1.AuditManager.ListResourceEnrollmentStatuses]: crate::client::AuditManager::list_resource_enrollment_statuses
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListResourceEnrollmentStatusesResponse {
-    /// The resources with their enrollment status.
+    /// Resources with their enrollment status.
     pub resource_enrollment_statuses: std::vec::Vec<crate::model::ResourceEnrollmentStatus>,
 
-    /// Output only. The token to retrieve the next page of results.
+    /// Output only. A token that you can send as the `page_token` in a subsequent
+    /// request to retrieve the next page of results. If this field is empty, there
+    /// are no subsequent pages.
     pub next_page_token: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -916,18 +977,29 @@ impl google_cloud_gax::paginator::internal::PageableResponse
     }
 }
 
-/// Message for requesting to list the audit reports.
+/// Request message for
+/// [ListAuditReports][google.cloud.auditmanager.v1.AuditManager.ListAuditReports].
+///
+/// [google.cloud.auditmanager.v1.AuditManager.ListAuditReports]: crate::client::AuditManager::list_audit_reports
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAuditReportsRequest {
-    /// Required. The parent scope for which to list the reports.
+    /// Required. Parent organization, folder, or project to list reports for,
+    /// in one of the following formats:
+    ///
+    /// * `projects/{project}/locations/{location}`
+    /// * `folders/{folder}/locations/{location}`
+    /// * `organizations/{organization}/locations/{location}`
     pub parent: std::string::String,
 
-    /// Optional. The maximum number of resources to return.
+    /// Optional. Maximum number of items to return in a single page. The service
+    /// might return fewer items than this value. If unspecified, the service picks
+    /// an appropriate default. The maximum value is 100; values above 100 are
+    /// reduced to 100.
     pub page_size: i32,
 
-    /// Optional. The next_page_token value returned from a previous List request,
-    /// if any.
+    /// Optional. A page token, received from a previous call, to retrieve the next
+    /// page of results.
     pub page_token: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -984,14 +1056,19 @@ impl wkt::message::Message for ListAuditReportsRequest {
     }
 }
 
-/// Response message with all the audit reports.
+/// Response message for
+/// [ListAuditReports][google.cloud.auditmanager.v1.AuditManager.ListAuditReports].
+///
+/// [google.cloud.auditmanager.v1.AuditManager.ListAuditReports]: crate::client::AuditManager::list_audit_reports
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAuditReportsResponse {
-    /// Output only. The audit reports.
+    /// Output only. Audit reports.
     pub audit_reports: std::vec::Vec<crate::model::AuditReport>,
 
-    /// Output only. The token to retrieve the next page of results.
+    /// Output only. A token that you can send as the `page_token` in a subsequent
+    /// request to retrieve the next page of results. If this field is empty, there
+    /// are no subsequent pages.
     pub next_page_token: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1058,13 +1135,18 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListAuditReport
     }
 }
 
-/// Message for requesting the overall audit report for an audit report name.
+/// Request message for
+/// [GetAuditReport][google.cloud.auditmanager.v1.AuditManager.GetAuditReport].
+///
+/// [google.cloud.auditmanager.v1.AuditManager.GetAuditReport]: crate::client::AuditManager::get_audit_report
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAuditReportRequest {
-    /// Required. Format
-    /// projects/{project}/locations/{location}/auditReports/{audit_report},
-    /// folders/{folder}/locations/{location}/auditReports/{audit_report}
+    /// Required. Name of the audit report, in one of the following formats:
+    ///
+    /// * `projects/{project}/locations/{location}/auditReports/{audit_report}`
+    /// * `folders/{folder}/locations/{location}/auditReports/{audit_report}`
+    /// * `organizations/{organization}/locations/{location}/auditReports/{audit_report}`
     pub name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1098,20 +1180,28 @@ impl wkt::message::Message for GetAuditReportRequest {
     }
 }
 
-/// Message for requesting all the controls for a compliance standard.
+/// Request message for
+/// [ListControls][google.cloud.auditmanager.v1.AuditManager.ListControls].
+///
+/// [google.cloud.auditmanager.v1.AuditManager.ListControls]: crate::client::AuditManager::list_controls
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListControlsRequest {
-    /// Required. Format
-    /// projects/{project}/locations/{location}/standards/{standard},
-    /// folders/{folder}/locations/{location}/standards/{standard}
+    /// Required. Standard to list controls for, in one of the following formats:
+    ///
+    /// * `projects/{project}/locations/{location}/standards/{standard}`
+    /// * `folders/{folder}/locations/{location}/standards/{standard}`
+    /// * `organizations/{organization}/locations/{location}/standards/{standard}`
     pub parent: std::string::String,
 
-    /// Optional. The maximum number of resources to return.
+    /// Optional. Maximum number of items to return in a single page. The service
+    /// might return fewer items than this value. If unspecified, the service picks
+    /// an appropriate default. The maximum value is 100; values above 100 are
+    /// reduced to 100.
     pub page_size: i32,
 
-    /// Optional. The next_page_token value returned from a previous List request,
-    /// if any.
+    /// Optional. A page token, received from a previous call, to retrieve the next
+    /// page of results.
     pub page_token: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1166,14 +1256,19 @@ impl wkt::message::Message for ListControlsRequest {
     }
 }
 
-/// Response message with all the controls for a compliance standard.
+/// Response message for
+/// [ListControls][google.cloud.auditmanager.v1.AuditManager.ListControls].
+///
+/// [google.cloud.auditmanager.v1.AuditManager.ListControls]: crate::client::AuditManager::list_controls
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListControlsResponse {
-    /// Output only. The controls for the compliance standard.
+    /// Output only. Controls for a given regulatory standard.
     pub controls: std::vec::Vec<crate::model::Control>,
 
-    /// Output only. The token to retrieve the next page of results.
+    /// Output only. A token that you can send as the `page_token` in a subsequent
+    /// request to retrieve the next page of results. If this field is empty, there
+    /// are no subsequent pages.
     pub next_page_token: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1240,45 +1335,36 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListControlsRes
     }
 }
 
-/// The `ReportGenerationProgress` is part of
-/// [google.longrunning.Operation][google.longrunning.Operation] returned to the
-/// client for every `GetOperation` request.
-///
-/// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
+/// Details about the current status of the report-generation process.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReportGenerationProgress {
-    /// Output only. The current state of execution for report generation.
+    /// Output only. Current state of execution for report generation.
     pub state: crate::model::OperationState,
 
-    /// Output only. States the reason of failure during the audit report
-    /// generation process. This field is set only if the state attribute is
-    /// OPERATION_STATE_FAILED.
+    /// Output only. Reason for failure during the audit report generation process.
+    /// This field is set only if the `OperationState` attribute is
+    /// `OPERATION_STATE_FAILED`.
     pub failure_reason: std::string::String,
 
-    /// Shows the progress of the CESS service evaluation process. The progress is
-    /// defined in terms of percentage complete and is being fetched from the CESS
-    /// service.
+    /// Progress of the evaluation process. The progress is
+    /// defined in terms of percentage complete.
     pub evaluation_percent_complete: f64,
 
-    /// Shows the report generation progress of the CESS Result Processor Service.
-    /// The // progress is defined in terms of percentage complete and is being
-    /// fetched from the CESS service. If report_generation_in_progress is non zero
-    /// then evaluation_percent_complete will be 100%.
+    /// Report generation progress, defined in terms of percentage complete.
+    /// Until evaluation is complete, this value is always `0`.
     pub report_generation_percent_complete: f64,
 
-    /// Shows the report uploading progress of the CESS Result Processor Service.
-    /// The progress is defined in terms of percentage complete and is being
-    /// fetched from the CESS service. If report_uploading_in_progress is non zero
-    /// then evaluation_percent_complete and report_generation_percent_complete
-    /// will be 100%.
+    /// Report uploading progress, defined in terms of percentage complete.
+    /// Until evaluation and report generation are complete, this value is always
+    /// `0`.
     pub report_uploading_percent_complete: f64,
 
-    /// Output only. The Cloud Storage bucket where the audit report will be
-    /// uploaded once the evaluation process is completed.
+    /// Output only. Cloud Storage bucket where the audit report is uploaded to
+    /// after the evaluation process is completed.
     pub destination_gcs_bucket: std::string::String,
 
-    /// Output only. The name of the audit report.
+    /// Output only. Name of the audit report.
     pub audit_report: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1396,15 +1482,19 @@ impl wkt::message::Message for ReportGenerationProgress {
     }
 }
 
-/// The enrollment resource.
+/// Organization, folder, or project to enroll for audit reports.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Enrollment {
-    /// Identifier. The name of this Enrollment, in the format of scope given in
-    /// request.
+    /// Identifier. Name of the enrollment, in one of the following formats:
+    ///
+    /// * `projects/{project}/locations/{location}/enrollments/{enrollment}`
+    /// * `folders/{folder}/locations/{location}/enrollments/{enrollment}`
+    /// * `organizations/{organization}/locations/{location}/enrollments/{enrollment}`
     pub name: std::string::String,
 
-    /// Output only. The locations where the generated reports can be uploaded.
+    /// Output only. Cloud Storage buckets where you want to upload the audit
+    /// reports.
     pub destination_details: std::vec::Vec<crate::model::DestinationDetails>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1460,15 +1550,19 @@ impl wkt::message::Message for Enrollment {
     }
 }
 
-/// The audit scope report.
+/// Audit scope report.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuditScopeReport {
-    /// Identifier. The name of this Audit Report, in the format of scope given in
-    /// request.
+    /// Identifier. Name for the audit scope report, in one of the following
+    /// formats:
+    ///
+    /// * `projects/{project}/locations/{location}/auditScopeReports/{audit_scope_report}`
+    /// * `folders/{folder}/locations/{location}/auditScopeReports/{audit_scope_report}`
+    /// * `organizations/{organization}/locations/{location}/auditScopeReports/{audit_scope_report}`
     pub name: std::string::String,
 
-    /// The options in which the audit scope report is exported.
+    /// Specific format or delivery method for the exported audit scope report.
     pub audit_report: std::option::Option<crate::model::audit_scope_report::AuditReport>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1563,42 +1657,46 @@ pub mod audit_scope_report {
     #[allow(unused_imports)]
     use super::*;
 
-    /// The options in which the audit scope report is exported.
+    /// Specific format or delivery method for the exported audit scope report.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum AuditReport {
-        /// The audit scope report content in byte format.
+        /// Audit scope report content in byte format.
         ScopeReportContents(::bytes::Bytes),
     }
 }
 
-/// The metadata of the long-running operation.
+/// Metadata for the long-running operation.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
-    /// Output only. The time the operation was created.
+    /// Output only. Time that the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
-    /// Output only. The time the operation finished running.
+    /// Output only. Time that the operation finished running.
     pub end_time: std::option::Option<wkt::Timestamp>,
 
-    /// Output only. Server-defined resource path for the target of the operation.
+    /// Output only. A server-defined resource path for the target of the
+    /// operation.
     pub target: std::string::String,
 
-    /// Output only. Name of the verb executed by the operation.
+    /// Output only. The name of the verb that was executed by the operation.
     pub verb: std::string::String,
 
-    /// Output only. Human-readable status of the operation, if any.
+    /// Output only. A human-readable status of the operation, if any.
     pub status_message: std::string::String,
 
-    /// Output only. Identifies whether the user has requested cancellation
-    /// of the operation. Operations that have been cancelled successfully
-    /// have [Operation.error][] value with a
-    /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
-    /// `Code.CANCELLED`.
+    /// Output only. Whether you requested that the operation be cancelled.
+    /// Operations that were cancelled successfully have an
+    /// [Operation.error][google.longrunning.Operation.error]
+    /// value with a status code
+    /// [Code.CANCELLED][google.rpc.Status.code.CANCELLED].
+    ///
+    /// [google.longrunning.Operation.error]: google_cloud_longrunning::model::Operation::result
     pub requested_cancellation: bool,
 
-    /// Output only. API version used to start the operation.
+    /// Output only. The API version used to start the operation. For example,
+    /// `v1`.
     pub api_version: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1743,25 +1841,31 @@ impl wkt::message::Message for OperationMetadata {
     }
 }
 
-/// A resource with its enrollment status.
+/// An organization, folder, or project with its enrollment status.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceEnrollmentStatus {
-    /// Identifier. The name of this resource.
+    /// Identifier. Name of the resource enrollment status, in one of the following
+    /// formats:
+    ///
+    /// * `folders/{folder}/locations/{location}/resourceEnrollmentStatuses/{resource_enrollment_status}`
+    /// * `projects/{project}/locations/{location}/resourceEnrollmentStatuses/{resource_enrollment_status}`
+    /// * `organizations/{organization}/locations/{location}/resourceEnrollmentStatuses/{resource_enrollment_status}`
     pub name: std::string::String,
 
-    /// Output only. Enrollment which contains enrolled destination details for a
-    /// resource
+    /// Output only. Enrolled destination details for the organization, folder, or
+    /// project.
     pub enrollment: std::option::Option<crate::model::Enrollment>,
 
-    /// Output only. Is resource enrolled.
+    /// Output only. Deprecated. Whether the organization, folder, or project is
+    /// enrolled. Use `enrollment_state` instead.
     #[deprecated]
     pub enrolled: bool,
 
-    /// Output only. Display name of the project/folder/organization.
+    /// Output only. Display name for the organization, folder, or project.
     pub display_name: std::string::String,
 
-    /// Output only. Enrollment state of the resource.
+    /// Output only. Enrollment state of the organization, folder, or project.
     pub enrollment_state: crate::model::resource_enrollment_status::ResourceEnrollmentState,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1878,7 +1982,7 @@ pub mod resource_enrollment_status {
     #[allow(unused_imports)]
     use super::*;
 
-    /// The different enrollment states of a resource.
+    /// Different enrollment states of the resource and its parent.
     ///
     /// # Working with unknown values
     ///
@@ -1896,13 +2000,13 @@ pub mod resource_enrollment_status {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ResourceEnrollmentState {
-        /// Unspecified. Invalid state.
+        /// Default value. This value is unused.
         Unspecified,
-        /// Not enrolled.
+        /// The resource isn't enrolled.
         NotEnrolled,
-        /// Resource is not enrolled but the parent is enrolled.
+        /// The resource isn't enrolled but the parent is enrolled.
         Inherited,
-        /// Enrolled.
+        /// The resource is enrolled.
         Enrolled,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -2023,39 +2127,52 @@ pub mod resource_enrollment_status {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuditReport {
-    /// Identifier. The name of this Audit Report, in the format of scope given in
-    /// request.
+    /// Identifier. Name of the audit report, in one of the following formats:
+    ///
+    /// * `projects/{project}/locations/{location}/auditReports/{audit_report}`
+    /// * `folders/{folder}/locations/{location}/auditReports/{audit_report}`
+    /// * `organizations/{organization}/locations/{location}/auditReports/{audit_report}`
     pub name: std::string::String,
 
-    /// Output only. Report summary with compliance, violation counts etc.
+    /// Output only. Report summary that includes information about compliance and
+    /// violation counts.
     pub report_summary: std::option::Option<crate::model::ReportSummary>,
 
-    /// Output only. ClientOperationId
+    /// Output only. Client operation ID for the audit report.
     pub operation_id: std::string::String,
 
-    /// Output only. The location where the generated report will be uploaded.
+    /// Output only. Cloud Storage bucket where the audit report is uploaded to.
     pub destination_details: std::option::Option<crate::model::DestinationDetails>,
 
-    /// Output only. Compliance Standard.
+    /// Output only. Deprecated. Compliance standard to be audited against.
+    ///
+    /// Use the `compliance_framework` field instead.
+    #[deprecated]
     pub compliance_standard: std::string::String,
 
-    /// Output only. The parent scope on which the report was generated.
+    /// Output only. Organization, folder, or project that the report is generated
+    /// for, in one of the following formats:
+    ///
+    /// * `projects/{project}/locations/{location}`
+    /// * `folders/{folder}/locations/{location}`
+    /// * `organizations/{organization}/locations/{location}`
     pub scope: std::string::String,
 
     /// Output only. Creation time of the audit report.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
-    /// Output only. The overall status of controls
+    /// Output only. Overall status of the controls.
     pub control_details: std::vec::Vec<crate::model::ControlDetails>,
 
-    /// Output only. The state of Audit Report Generation.
+    /// Output only. State of audit report generation.
     pub report_generation_state: crate::model::audit_report::ReportGenerationState,
 
-    /// Output only. Compliance Framework of Audit Report
+    /// Output only. Compliance framework to use for the audit report. For example,
+    /// `CIS_GCP_FOUNDATIONS_V1_2_0`.
     pub compliance_framework: std::string::String,
 
-    /// Output only. The ID/ Number for the scope on which the audit report was
-    /// generated.
+    /// Output only. Project number, folder ID, or organization ID that the audit
+    /// report was generated for.
     pub scope_id: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2167,6 +2284,7 @@ impl AuditReport {
     /// # use google_cloud_auditmanager_v1::model::AuditReport;
     /// let x = AuditReport::new().set_compliance_standard("example");
     /// ```
+    #[deprecated]
     pub fn set_compliance_standard<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2301,7 +2419,7 @@ pub mod audit_report {
     #[allow(unused_imports)]
     use super::*;
 
-    /// The different states of the Audit Manager report generation.
+    /// Different states of report generation.
     ///
     /// # Working with unknown values
     ///
@@ -2319,19 +2437,19 @@ pub mod audit_report {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ReportGenerationState {
-        /// Unspecified. Invalid state.
+        /// Default value. This value is unused.
         Unspecified,
-        /// Audit report generation process is in progress, ie. operation state is
-        /// neither OPERATION_STATE_DONE nor OPERATION_STATE_FAILED.
+        /// The process is in progress. The operation can have any state
+        /// except for `OPERATION_STATE_DONE` or `OPERATION_STATE_FAILED`.
         InProgress,
-        /// Audit report generation process is completed. Operation state is
-        /// OPERATION_STATE_DONE.
+        /// The process is completed. The operation state is
+        /// `OPERATION_STATE_DONE`.
         Completed,
-        /// Audit report generation process has failed. Operation state is
-        /// OPERATION_STATE_FAILED.
+        /// The process has failed. The operation state is
+        /// `OPERATION_STATE_FAILED`.
         Failed,
-        /// Audit report generation process has completed. But report summary is
-        /// unknown. This is valid for older reports.
+        /// The process completed, but the report summary's status is unknown. This
+        /// state isn't used for new reports.
         SummaryUnknown,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -2454,14 +2572,19 @@ pub mod audit_report {
     }
 }
 
-/// The regulatory family of the control.
+/// Regulatory family of the control.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ControlFamily {
-    /// The ID of the regulatory control family.
+    /// ID of the regulatory control family. To find the list of supported
+    /// control families, use the
+    /// [ListControls][google.cloud.auditmanager.v1.AuditManager.ListControls]
+    /// method and review the `control_family` field in the response.
+    ///
+    /// [google.cloud.auditmanager.v1.AuditManager.ListControls]: crate::client::AuditManager::list_controls
     pub family_id: std::string::String,
 
-    /// The display name of the regulatory control family.
+    /// Display name of the regulatory control family.
     pub display_name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2508,39 +2631,37 @@ impl wkt::message::Message for ControlFamily {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Control {
-    /// Output only. The control identifier used to fetch the findings. This is
-    /// same as the control report name.
+    /// Output only. Control identifier that's used to fetch the findings. The
+    /// identifier is the same as the control report name.
     pub id: std::string::String,
 
     /// Output only. Display name of the control.
     pub display_name: std::string::String,
 
-    /// Output only. Group where the control belongs. E.g. Access Control.
+    /// Output only. Category that the control belongs to.
     pub family: crate::model::control::Family,
 
-    /// Output only. Regulatory Family of the control E.g. Access Control
+    /// Output only. Regulatory family of the control.
     pub control_family: std::option::Option<crate::model::ControlFamily>,
 
-    /// Output only. Regulatory control ask of the control
+    /// Output only. Description of the control.
     pub description: std::string::String,
 
-    /// Output only. The type of responsibility for implementing this control. It
-    /// can be google, customer or shared.
+    /// Output only. Who is responsible for implementing this control. Set to one
+    /// of the following values: `GOOGLE`, `CUSTOMER`, or `SHARED`.
     pub responsibility_type: std::string::String,
 
-    /// Output only. Description of the google responsibility for implementing this
-    /// control.
+    /// Output only. A description of Google's responsibility for this control.
     pub google_responsibility_description: std::string::String,
 
-    /// Output only. Implementation of the google responsibility for implementing
+    /// Output only. A description of how Google implements its responsibility for
     /// this control.
     pub google_responsibility_implementation: std::string::String,
 
-    /// Output only. Description of the customer responsibility for implementing
-    /// this control.
+    /// Output only. A description of your responsibility for this control.
     pub customer_responsibility_description: std::string::String,
 
-    /// Output only. Implementation of the customer responsibility for implementing
+    /// Output only. A description of how you can implement your responsibility for
     /// this control.
     pub customer_responsibility_implementation: std::string::String,
 
@@ -2729,7 +2850,7 @@ pub mod control {
     #[allow(unused_imports)]
     use super::*;
 
-    /// The family of the control. For example, Access Control.
+    /// Category of the control.
     ///
     /// # Working with unknown values
     ///
@@ -2747,43 +2868,43 @@ pub mod control {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Family {
-        /// Unspecified. Invalid state.
+        /// Default value. This value is unused.
         Unspecified,
-        /// Access Control
+        /// Access control.
         Ac,
-        /// Awareness and Training
+        /// Awareness and training.
         At,
-        /// Audit and Accountability
+        /// Audit and accountability.
         Au,
-        /// Certification, Accreditation and Security Assessments
+        /// Certification, accreditation and security assessments.
         Ca,
-        /// Configuration Management
+        /// Configuration management and change control.
         Cm,
-        /// Contingency Planning
+        /// Contingency planning and disaster recovery.
         Cp,
-        /// Identification and Authentication
+        /// Identification and authentication.
         Ia,
-        /// Incident Response
+        /// Incident response.
         Ir,
-        /// Maintenance
+        /// Maintenance.
         Ma,
-        /// Media Protection
+        /// Media protection.
         Mp,
-        /// Physical and Environmental Protection
+        /// Physical and environmental protection.
         Pe,
-        /// Security Planning
+        /// Security planning.
         Pl,
-        /// Personnel Security
+        /// Personnel security.
         Ps,
-        /// Risk Assessment
+        /// Risk assessment.
         Ra,
-        /// System Services and Acquisition
+        /// System services and acquisition.
         Sa,
-        /// System and Communications Protection
+        /// System and communications protection.
         Sc,
-        /// System and Information Integrity
+        /// System and information integrity.
         Si,
-        /// Supply Chain Risk Management
+        /// Supply chain risk management.
         Sr,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -2974,11 +3095,11 @@ pub mod control {
     }
 }
 
-/// The locations where the generated reports are saved.
+/// Cloud Storage bucket where the audit report is uploaded to.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DestinationDetails {
-    #[allow(missing_docs)]
+    /// The specific destination where the audit report and evidence are stored.
     pub destination: std::option::Option<crate::model::destination_details::Destination>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3055,20 +3176,22 @@ pub mod destination_details {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
+    /// The specific destination where the audit report and evidence are stored.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Destination {
-        /// The Cloud Storage bucket where the audit report is/will be uploaded.
+        /// URI for the Cloud Storage bucket, in the format
+        /// `gs://{bucket_name}`.
         GcsBucketUri(std::string::String),
     }
 }
 
-/// The additional information for an audit operation.
+/// Additional information about the number of checks that were made during an
+/// audit operation.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReportSummary {
-    /// Total number of checks.
+    /// Total number of evaluated checks.
     pub total_count: i32,
 
     /// Number of compliant checks.
@@ -3077,10 +3200,10 @@ pub struct ReportSummary {
     /// Number of checks with violations.
     pub violation_count: i32,
 
-    /// Number of checks with "manual review needed" status.
+    /// Number of checks that require a manual review.
     pub manual_review_needed_count: i32,
 
-    /// Number of checks that could not be performed due to errors.
+    /// Number of checks that can't be performed due to errors.
     pub error_count: i32,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3159,17 +3282,18 @@ impl wkt::message::Message for ReportSummary {
     }
 }
 
-/// The evaluation details for a control.
+/// Evaluation details for a control.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ControlDetails {
-    /// The control for which the findings are being reported.
+    /// Control that the findings are being reported for.
     pub control: std::option::Option<crate::model::Control>,
 
     /// Output only. Overall status of the findings for the control.
     pub compliance_state: crate::model::ComplianceState,
 
-    /// Report summary with compliance, violation counts etc.
+    /// A control report summary that provides a high-level overview of the
+    /// compliance controls and the assessment status.
     pub control_report_summary: std::option::Option<crate::model::ReportSummary>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3272,7 +3396,7 @@ impl wkt::message::Message for ControlDetails {
     }
 }
 
-/// The different execution states of the Audit Manager service.
+/// Different execution states of the Audit Manager service.
 ///
 /// # Working with unknown values
 ///
@@ -3290,25 +3414,23 @@ impl wkt::message::Message for ControlDetails {
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum OperationState {
-    /// Unspecified. Invalid state.
+    /// Default value. This value is unused.
     Unspecified,
-    /// Audit report generation process has not started.
+    /// Audit generation process hasn't started.
     NotStarted,
-    /// Audit Manager is currently evaluating the workloads against specific
-    /// standard.
+    /// Evaluation process is in progress.
     EvaluationInProgress,
-    /// Audit Manager has completed Evaluation for the workload.
+    /// Evaluation process is completed.
     EvaluationDone,
-    /// Audit Manager is creating audit report from the evaluated data.
+    /// Report generation process is in progress.
     EvidenceReportGenerationInProgress,
-    /// Audit Manager has completed generation of the audit report.
+    /// Report generation process is completed.
     EvidenceReportGenerationDone,
-    /// Audit Manager is uploading the audit report and evidences to the customer
-    /// provided destination.
+    /// The audit report and evidence are being uploaded to your bucket.
     EvidenceUploadInProgress,
-    /// Audit report generation process is completed.
+    /// The audit report and evidence are uploaded to your bucket.
     Done,
-    /// Audit report generation process has failed.
+    /// Audit report generation process failed.
     Failed,
     /// If set, the enum was initialized with an unknown value.
     ///
@@ -3458,7 +3580,7 @@ impl<'de> serde::de::Deserialize<'de> for OperationState {
     }
 }
 
-/// The compliance state after evaluation.
+/// Compliance state after evaluation.
 ///
 /// # Working with unknown values
 ///
@@ -3476,17 +3598,18 @@ impl<'de> serde::de::Deserialize<'de> for OperationState {
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum ComplianceState {
-    /// Unspecified. Invalid state.
+    /// Default value. This value is unused.
     Unspecified,
-    /// Compliant.
+    /// The resource is compliant.
     Compliant,
-    /// Violation.
+    /// The resource isn't compliant.
     Violation,
-    /// MANUAL_REVIEW_NEEDED, requires manual review
+    /// You must complete a manual review.
     ManualReviewNeeded,
-    /// Error while computing status.
+    /// An error was encountered during the evaluation or evidence gathering
+    /// process.
     Error,
-    /// Cannot be audited
+    /// The resource can't be audited.
     AuditNotSupported,
     /// If set, the enum was initialized with an unknown value.
     ///

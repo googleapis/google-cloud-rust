@@ -239,6 +239,12 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ListIntelligenceFindingRevisionsResponse>>;
 
+    async fn view_object_full_context(
+        &self,
+        req: crate::model::ViewObjectFullContextRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ObjectFullContext>>;
+
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
@@ -597,6 +603,15 @@ impl<T: super::StorageControl> StorageControl for T {
     ) -> crate::Result<crate::Response<crate::model::ListIntelligenceFindingRevisionsResponse>>
     {
         T::list_intelligence_finding_revisions(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn view_object_full_context(
+        &self,
+        req: crate::model::ViewObjectFullContextRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ObjectFullContext>> {
+        T::view_object_full_context(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

@@ -13,10 +13,10 @@
 // limitations under the License.
 
 use crate::error::QueryError;
-use crate::query::run_query::{
-    QUERY_REQUEST_ID_PREFIX, generate_job_reference, generate_prefixed_id,
+use crate::query::builder::{
+    QUERY_REQUEST_ID_PREFIX, Query, generate_job_reference, generate_prefixed_id,
 };
-use crate::query::{Query, Result, RunQuery};
+use crate::query::{Query as QueryHandle, Result};
 use crate::retry_policy::JobRetryResult;
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::{
@@ -105,14 +105,14 @@ impl InsertJobExecutor {
 }
 
 /// Context for running queries and handling job-level retries / re-issuances.
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub(crate) struct RetryContext {
-    pub(crate) template: Arc<RunQuery>,
+    pub(crate) template: Arc<Query>,
     pub(crate) state: RetryState,
 }
 
 impl RetryContext {
-    pub(crate) fn new(template: RunQuery) -> Self {
+    pub(crate) fn new(template: Query) -> Self {
         Self {
             template: Arc::new(template),
             state: RetryState::default(),
@@ -123,21 +123,17 @@ impl RetryContext {
         self.template.job_retry_policy.on_error(&self.state, error)
     }
 
-    pub(crate) async fn reissue(mut self, delay: Duration) -> Result<Query> {
+    pub(crate) async fn reissue(mut self, delay: Duration) -> Result<QueryHandle> {
         tokio::time::sleep(delay).await;
         self.state.attempt_count += 1;
         self.execute().await
     }
 
-    pub(crate) async fn execute(mut self) -> Result<Query> {
-        let project_id = self
-            .template
-            .project_id
-            .as_ref()
-            .ok_or(QueryError::MissingProjectId)?;
+    pub(crate) async fn execute(mut self) -> Result<QueryHandle> {
+        let project_id = self.template.project_id.clone().unwrap_or_default();
 
         loop {
-            match self.execute_once(project_id).await {
+            match self.execute_once(&project_id).await {
                 Ok(query) => return Ok(query),
                 Err(err) => match self.on_error(err) {
                     JobRetryResult::Continue(delay, _) => {
@@ -152,7 +148,7 @@ impl RetryContext {
         }
     }
 
-    async fn execute_once(&self, project_id: &str) -> Result<Query> {
+    async fn execute_once(&self, project_id: &str) -> Result<QueryHandle> {
         let job_service = self.template.job_service.clone();
         let max_results = self.template.request.max_results;
 
@@ -169,7 +165,7 @@ impl RetryContext {
 
             let job = Box::pin(InsertJobExecutor::new(job_service.clone(), req).execute()).await?;
 
-            Ok(Query::from_job(
+            Ok(QueryHandle::from_job(
                 job_service,
                 job,
                 Some(self.clone()),
@@ -191,7 +187,7 @@ impl RetryContext {
 
             let res = Box::pin(PostQueryExecutor::new(job_service.clone(), req).execute()).await?;
 
-            Ok(Query::from_query_response(
+            Ok(QueryHandle::from_query_response(
                 job_service,
                 res,
                 Some(self.clone()),
@@ -234,7 +230,7 @@ mod tests {
         let request = PostQueryRequest::new();
         let executor = PostQueryExecutor::new(job_service.clone(), request);
         let res = executor.execute().await?;
-        let query = Query::from_query_response(job_service, res, None, None);
+        let query = QueryHandle::from_query_response(job_service, res, None, None);
 
         assert!(query.completed, "{query:?}");
         let job_ref = query
@@ -389,7 +385,7 @@ mod tests {
         let req = InsertJobRequest::new().set_job(job);
         let executor = InsertJobExecutor::new(job_service.clone(), req);
         let job = executor.execute().await?;
-        let query = Query::from_job(job_service, job, None, None);
+        let query = QueryHandle::from_job(job_service, job, None, None);
 
         assert_eq!(query.completed, completed);
         assert_eq!(query.metadata.job_reference, Some(job_ref));

@@ -35,8 +35,6 @@ pub async fn sample(project_id: &str, dataset_id: &str, table_id: &str) -> anyho
         .query(create_sql)
         .with_project_id(project_id)
         .set_location("US")
-        .run()
-        .await?
         .until_done()
         .await?;
 
@@ -50,8 +48,6 @@ pub async fn sample(project_id: &str, dataset_id: &str, table_id: &str) -> anyho
         .query(dml_sql)
         .with_project_id(project_id)
         .set_location("US")
-        .run()
-        .await?
         .until_done()
         .await?;
 

@@ -9,7 +9,7 @@ significant way. We do anticipate a number of new crate dependencies
 will be required. If you need these RPCs please open an issue in our
 GitHub repository.
 
-Vertex AI Search for commerce API is made up of Retail Search, Browse and
+AI Commerce Search API is made up of Search, Browse and
 Recommendations. These discovery AI solutions help you implement
 personalized search, browse and recommendations, based on machine learning
 models, across your websites and mobile applications.

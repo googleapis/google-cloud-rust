@@ -30,8 +30,6 @@ pub async fn sample(project_id: &str) -> anyhow::Result<()> {
         .set_parameter_mode("NAMED")
         .set_query_parameters(vec![param])
         .set_location("US")
-        .run()
-        .await?
         .until_done()
         .await?
         .read();

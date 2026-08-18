@@ -28,8 +28,6 @@ pub async fn sample(project_id: &str) -> anyhow::Result<()> {
         .with_project_id(project_id)
         .set_dry_run(true)
         .set_location("US")
-        .run()
-        .await?
         .until_done()
         .await?;
 

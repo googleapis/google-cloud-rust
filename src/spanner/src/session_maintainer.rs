@@ -130,7 +130,7 @@ impl ManagedSessionMaintainer {
         database_name: &str,
         database_role: &str,
         options: &RequestOptions,
-        o11y: &Observability,
+        o11y: &Arc<Observability>,
     ) -> Result<Session> {
         let request = CreateSessionRequest::new()
             .set_database(database_name)
@@ -562,7 +562,7 @@ mod tests {
             spanner,
             session_maintainer: maintainer.clone(),
             leader_aware_routing_enabled: true,
-            o11y: std::sync::Arc::new(crate::observability::Observability::disabled()),
+            o11y: Arc::new(Observability::disabled()),
         };
 
         // 1. Create builder (captures session 1)

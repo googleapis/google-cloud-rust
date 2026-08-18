@@ -33,4 +33,4 @@ rust-version = "1.92.0"
 anyhow            = { default-features = false, version = "1", features = ["std"] }
 test-metadata     = { path = "../test-metadata" }
 google-cloud-auth = { default-features = false, path = "../../../src/auth", features = ["idtoken"] }
-jsonwebtoken      = { default-features = false, version = "10", features = ["rust_crypto"] }
+jsonwebtoken      = { default-features = false, version = "11", features = ["rust_crypto"] }

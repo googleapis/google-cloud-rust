@@ -19,11 +19,7 @@ cargo version
 rustup show active-toolchain -v
 
 # We use `--all-features` which triggers the Tonic+Prost code generation.
-echo "==== Install protoc ===="
-curl -fsSL --retry 5 --retry-delay 15 -o /tmp/protoc.zip https://github.com/protocolbuffers/protobuf/releases/download/v31.0/protoc-31.0-linux-x86_64.zip
-sha256sum -c <(echo 24e2ed32060b7c990d5eb00d642fde04869d7f77c6d443f609353f097799dd42 /tmp/protoc.zip)
-env -C /usr/local unzip -x /tmp/protoc.zip
-protoc --version
+source "$(dirname "$0")"/install-librarian.sh
 
 echo "==== Install cargo-llvm-cov ===="
 cargo install cargo-llvm-cov --version 0.8.5 --locked

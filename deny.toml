@@ -28,7 +28,7 @@ git-fetch-with-cli = false
 ignore             = [{ id = "RUSTSEC-2023-0071", reason = "Only used in tests and no new version available" }]
 
 [licenses]
-allow                = ["Apache-2.0", "BSD-3-Clause", "ISC", "MIT", "Unicode-3.0"]
+allow                = ["Apache-2.0", "BSD-3-Clause", "CC0-1.0", "ISC", "MIT", "Unicode-3.0"]
 confidence-threshold = 0.8
 
 [[licenses.exceptions]]

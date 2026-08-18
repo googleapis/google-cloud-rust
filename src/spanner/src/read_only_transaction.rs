@@ -27,7 +27,7 @@ use google_cloud_gax::options::internal::RequestOptionsExt as _;
 use google_cloud_gax::retry_policy::RetryPolicyArg;
 use std::mem::replace;
 use std::sync::{Arc, Mutex};
-use std::time::Duration;
+use std::time::{Duration, Instant};
 use tokio::sync::Notify;
 
 /// A builder for [SingleUseReadOnlyTransaction].
@@ -1073,6 +1073,8 @@ fn merge_request_options(
 /// Helper macro to execute a streaming SQL or streaming read RPC with retry logic.
 macro_rules! execute_stream_with_retry {
     ($self:expr, $request:ident, $gax_options:ident, $rpc_method:ident, $operation_variant:path, $method_name:expr) => {{
+        let operation_start_time = Instant::now();
+        let mut attempt_start_time = operation_start_time;
         let stream = match $self
             .client
             .spanner
@@ -1082,6 +1084,11 @@ macro_rules! execute_stream_with_retry {
         {
             Ok(s) => s,
             Err(e) => {
+                let elapsed_attempt = attempt_start_time.elapsed();
+                $self
+                    .client
+                    .o11y
+                    .record_attempt($method_name, elapsed_attempt, Some(&e), None);
                 let is_starting = matches!(
                     $request
                         .transaction
@@ -1089,36 +1096,63 @@ macro_rules! execute_stream_with_retry {
                         .and_then(|t| t.selector.as_ref()),
                     Some(crate::model::transaction_selector::Selector::Begin(_))
                 );
-                if is_starting {
-                    if $self.transaction_selector.is_read_write() {
+                let record_op_failure = |err: &crate::Error| {
+                    let elapsed_op = operation_start_time.elapsed();
+                    $self
+                        .client
+                        .o11y
+                        .record_operation($method_name, elapsed_op, Some(err));
+                };
+                if !is_starting || $self.transaction_selector.is_read_write() || is_aborted(&e) {
+                    if is_starting && $self.transaction_selector.is_read_write() {
                         $self.transaction_selector.set_failed(&e);
-                        return Err(e);
-                    } else {
-                        if is_aborted(&e) {
-                            return Err(e);
-                        }
-                        if $self
-                            .begin_explicitly_if_not_started($gax_options.clone(), true, None)
-                            .await?
-                        {
-                            $request.transaction =
-                                Some($self.transaction_selector.selector().await?);
-                            $self
-                                .client
-                                .spanner
-                                .$rpc_method(
-                                    $request.clone(),
-                                    $gax_options.clone(),
-                                    $self.channel_hint,
-                                )
-                                .send()
-                                .await?
-                        } else {
-                            return Err(e);
-                        }
                     }
-                } else {
+                    record_op_failure(&e);
                     return Err(e);
+                }
+                let begin_result = $self
+                    .begin_explicitly_if_not_started($gax_options.clone(), true, None)
+                    .await;
+                let started = match begin_result {
+                    Ok(started) => started,
+                    Err(begin_err) => {
+                        record_op_failure(&begin_err);
+                        return Err(begin_err);
+                    }
+                };
+                if !started {
+                    record_op_failure(&e);
+                    return Err(e);
+                }
+                let selector = match $self.transaction_selector.selector().await {
+                    Ok(s) => s,
+                    Err(selector_err) => {
+                        record_op_failure(&selector_err);
+                        return Err(selector_err);
+                    }
+                };
+                $request.transaction = Some(selector);
+                // Reset attempt timestamp for the retry attempt
+                attempt_start_time = Instant::now();
+                match $self
+                    .client
+                    .spanner
+                    .$rpc_method($request.clone(), $gax_options.clone(), $self.channel_hint)
+                    .send()
+                    .await
+                {
+                    Ok(s) => s,
+                    Err(retry_err) => {
+                        let elapsed_attempt = attempt_start_time.elapsed();
+                        $self.client.o11y.record_attempt(
+                            $method_name,
+                            elapsed_attempt,
+                            Some(&retry_err),
+                            None,
+                        );
+                        record_op_failure(&retry_err);
+                        return Err(retry_err);
+                    }
                 }
             }
         };
@@ -1134,6 +1168,8 @@ macro_rules! execute_stream_with_retry {
             channel_hint: $self.channel_hint,
             gax_options: $gax_options,
             method_name: $method_name,
+            attempt_start_time: Some(attempt_start_time),
+            operation_start_time: Some(operation_start_time),
         }))
         .await
     }};

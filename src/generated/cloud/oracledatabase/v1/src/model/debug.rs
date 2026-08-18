@@ -57,6 +57,27 @@ impl std::fmt::Debug for super::SourceConfig {
             "automatic_backups_replication_enabled",
             &self.automatic_backups_replication_enabled,
         );
+        debug_struct.field("source_type", &self.source_type);
+        debug_struct.field("clone_type", &self.clone_type);
+        debug_struct.field("refreshable_mode", &self.refreshable_mode);
+        debug_struct.field(
+            "auto_refresh_frequency_seconds",
+            &self.auto_refresh_frequency_seconds,
+        );
+        debug_struct.field(
+            "auto_refresh_point_lag_seconds",
+            &self.auto_refresh_point_lag_seconds,
+        );
+        debug_struct.field("auto_refresh_start_time", &self.auto_refresh_start_time);
+        debug_struct.field(
+            "autonomous_database_backup",
+            &self.autonomous_database_backup,
+        );
+        debug_struct.field("backup_time", &self.backup_time);
+        debug_struct.field(
+            "use_latest_available_backup",
+            &self.use_latest_available_backup,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -189,6 +210,7 @@ impl std::fmt::Debug for super::AutonomousDatabaseProperties {
             "local_adg_auto_failover_max_data_loss_limit_duration",
             &self.local_adg_auto_failover_max_data_loss_limit_duration,
         );
+        debug_struct.field("refreshable_clone", &self.refreshable_clone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -331,6 +353,18 @@ impl std::fmt::Debug for super::ScheduledOperationDetails {
         debug_struct.field("day_of_week", &self.day_of_week);
         debug_struct.field("start_time", &self.start_time);
         debug_struct.field("stop_time", &self.stop_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::AutonomousDatabaseRefreshableClone {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AutonomousDatabaseRefreshableClone");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("region", &self.region);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -935,6 +969,9 @@ impl std::fmt::Debug for super::DbSystemShape {
             "min_db_node_storage_per_node_gb",
             &self.min_db_node_storage_per_node_gb,
         );
+        debug_struct.field("minimum_core_count", &self.minimum_core_count);
+        debug_struct.field("available_core_count", &self.available_core_count);
+        debug_struct.field("core_count_increment", &self.core_count_increment);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1098,6 +1135,11 @@ impl std::fmt::Debug for super::ExascaleConfig {
         let mut debug_struct = f.debug_struct("ExascaleConfig");
         debug_struct.field("total_storage_size_gb", &self.total_storage_size_gb);
         debug_struct.field("available_storage_size_gb", &self.available_storage_size_gb);
+        debug_struct.field("total_vm_storage_size_gb", &self.total_vm_storage_size_gb);
+        debug_struct.field(
+            "available_vm_storage_size_gb",
+            &self.available_vm_storage_size_gb,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1135,6 +1177,7 @@ impl std::fmt::Debug for super::ConfigureExascaleCloudExadataInfrastructureReque
         let mut debug_struct = f.debug_struct("ConfigureExascaleCloudExadataInfrastructureRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("total_storage_size_gb", &self.total_storage_size_gb);
+        debug_struct.field("total_vm_storage_size_gb", &self.total_vm_storage_size_gb);
         debug_struct.field("request_id", &self.request_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1156,6 +1199,7 @@ impl std::fmt::Debug for super::ExadbVmCluster {
         debug_struct.field("display_name", &self.display_name);
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("entitlement_id", &self.entitlement_id);
+        debug_struct.field("identity_connector", &self.identity_connector);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3536,6 +3580,43 @@ impl std::fmt::Debug for super::FailoverAutonomousDatabaseRequest {
     }
 }
 
+impl std::fmt::Debug for super::GetAutonomousDatabaseRefreshableClonesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAutonomousDatabaseRefreshableClonesRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::AutonomousDatabaseRefreshableClones {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AutonomousDatabaseRefreshableClones");
+        debug_struct.field(
+            "autonomous_database_refreshable_clones",
+            &self.autonomous_database_refreshable_clones,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::RefreshAutonomousDatabaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RefreshAutonomousDatabaseRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("refresh_cutoff_time", &self.refresh_cutoff_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::GenerateAutonomousDatabaseWalletRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GenerateAutonomousDatabaseWalletRequest");
@@ -3929,6 +4010,11 @@ impl std::fmt::Debug for super::CloudVmClusterProperties {
         debug_struct.field("cluster_name", &self.cluster_name);
         debug_struct.field("compute_model", &self.compute_model);
         debug_struct.field("storage_management_type", &self.storage_management_type);
+        debug_struct.field(
+            "vm_file_system_storage_type",
+            &self.vm_file_system_storage_type,
+        );
+        debug_struct.field("vm_backup_storage_type", &self.vm_backup_storage_type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
