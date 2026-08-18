@@ -258,6 +258,7 @@ impl BidiStreamOptions {
         &mut self.request_options
     }
 }
+
 /// Implementations of this trait provide setters to configure request options.
 ///
 /// The Google Cloud Client Libraries for Rust provide a builder for each RPC.

@@ -34,7 +34,8 @@ pub async fn unimplemented_stub<T: Send>() -> Result<Response<T>> {
 }
 
 #[cfg(google_cloud_unstable_gapic_streaming)]
-pub fn unimplemented_bidi_stub<I, O>() -> (RequestSender<I>, ResponseReceiver<O>) {
+pub async fn unimplemented_bidi_stub<I: Send, O: Send>()
+-> Result<(RequestSender<I>, ResponseReceiver<O>)> {
     unimplemented!("{UNIMPLEMENTED}");
 }
 
@@ -49,9 +50,9 @@ mod tests {
     }
 
     #[cfg(google_cloud_unstable_gapic_streaming)]
-    #[test]
+    #[tokio::test]
     #[should_panic(expected = "to prevent breaking changes as services gain new RPCs")]
-    fn test_unimplemented_bidi_stub() {
-        let _ = unimplemented_bidi_stub::<(), ()>();
+    async fn test_unimplemented_bidi_stub() {
+        let _ = unimplemented_bidi_stub::<(), ()>().await;
     }
 }

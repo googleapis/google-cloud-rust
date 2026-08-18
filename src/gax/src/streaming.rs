@@ -35,26 +35,6 @@ pub enum SendError {
     Serialization(#[from] crate::error::Error),
 }
 
-impl SendError {
-    /// Returns true if the error was caused by the stream being closed.
-    pub fn is_stream_closed(&self) -> bool {
-        matches!(self, Self::StreamClosed)
-    }
-
-    /// Returns true if the error was caused by request serialization failure.
-    pub fn is_serialization(&self) -> bool {
-        matches!(self, Self::Serialization(_))
-    }
-
-    /// Converts this [`SendError`] into a [`crate::error::Error`].
-    pub fn into_error(self) -> crate::error::Error {
-        match self {
-            Self::StreamClosed => crate::error::Error::io(self),
-            Self::Serialization(e) => e,
-        }
-    }
-}
-
 /// A type-erased asynchronous function that sends a request item over a stream.
 ///
 /// This closure takes an owned request item and returns a boxed, pinned future
@@ -90,13 +70,17 @@ impl<Req> RequestSender<Req> {
     /// that perform pre-send transformations without exposing the closure types or
     /// wire models in the public API documentation.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    pub fn from_fn<F, Fut>(f: F) -> Self
+    pub fn from_fn<F, Fut, E>(f: F) -> Self
     where
         F: Fn(Req) -> Fut + Send + Sync + 'static,
-        Fut: Future<Output = Result<(), SendError>> + Send + 'static,
+        Fut: Future<Output = Result<(), E>> + Send + 'static,
+        E: Into<SendError> + 'static,
     {
         Self {
-            inner: Arc::new(move |item| Box::pin(f(item))),
+            inner: Arc::new(move |item| {
+                let fut = f(item);
+                Box::pin(async move { fut.await.map_err(Into::into) })
+            }),
         }
     }
 }
@@ -261,8 +245,6 @@ mod tests {
 
     #[tokio::test]
     async fn request_sender_send_error_stream_closed() {
-        use std::error::Error as _;
-
         let (req_tx, req_rx) = mpsc::channel::<String>(16);
         let sender = RequestSender::from(req_tx);
 
@@ -271,24 +253,10 @@ mod tests {
             .send("hello".to_string())
             .await
             .expect_err("send should fail when receiver is dropped");
-        assert!(err.is_stream_closed());
-        assert!(!err.is_serialization());
+        assert!(matches!(err, SendError::StreamClosed));
         assert_eq!(
             err.to_string(),
             "cannot send request: stream is closed; inspect ResponseReceiver for details"
-        );
-
-        // Test conversion to crate::error::Error
-        let gax_err = err.into_error();
-        assert!(gax_err.is_io());
-        let io_err = gax_err
-            .source()
-            .and_then(|e| e.downcast_ref::<SendError>())
-            .expect("source should be SendError");
-        assert!(io_err.is_stream_closed());
-        assert_eq!(
-            gax_err.source().map(|e| e.to_string()).as_deref(),
-            Some("cannot send request: stream is closed; inspect ResponseReceiver for details")
         );
     }
 
@@ -296,9 +264,7 @@ mod tests {
     async fn request_sender_send_error_serialization() {
         let sender = RequestSender::from_fn(|item: i32| async move {
             if item < 0 {
-                Err(SendError::Serialization(crate::error::Error::ser(
-                    "negative number",
-                )))
+                Err(crate::error::Error::ser("negative number"))
             } else {
                 Ok(())
             }
@@ -309,12 +275,7 @@ mod tests {
             .send(-1)
             .await
             .expect_err("negative number should trigger serialization error");
-        assert!(err.is_serialization());
-        assert!(!err.is_stream_closed());
-
-        // Test conversion to crate::error::Error
-        let gax_err = err.into_error();
-        assert!(gax_err.is_serialization());
+        assert!(matches!(err, SendError::Serialization(_)));
         assert_eq!(format!("{sender:?}"), "RequestSender");
     }
 

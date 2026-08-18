@@ -417,14 +417,15 @@ where
     }
 
     #[cfg(google_cloud_unstable_gapic_streaming)]
-    fn chat(
+    async fn chat(
         &self,
-        options: crate::RequestOptions,
-    ) -> (
+        req: std::option::Option<crate::model::EchoRequest>,
+        options: crate::BidiStreamOptions,
+    ) -> Result<(
         google_cloud_gax::streaming::RequestSender<crate::model::EchoRequest>,
         google_cloud_gax::streaming::ResponseReceiver<crate::model::EchoResponse>,
-    ) {
-        self.inner.chat(options)
+    )> {
+        self.inner.chat(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1133,14 +1134,15 @@ where
     }
 
     #[cfg(google_cloud_unstable_gapic_streaming)]
-    fn connect(
+    async fn connect(
         &self,
-        options: crate::RequestOptions,
-    ) -> (
+        req: std::option::Option<crate::model::ConnectRequest>,
+        options: crate::BidiStreamOptions,
+    ) -> Result<(
         google_cloud_gax::streaming::RequestSender<crate::model::ConnectRequest>,
         google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>,
-    ) {
-        self.inner.connect(options)
+    )> {
+        self.inner.connect(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
