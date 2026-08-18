@@ -149,51 +149,64 @@ impl RetryContext {
     }
 
     async fn execute_once(&self, project_id: &str) -> Result<QueryHandle> {
+        if self.template.request.force_job_path() {
+            self.execute_jobs_insert(project_id).await
+        } else {
+            self.execute_jobs_query(project_id).await
+        }
+    }
+
+    // Execute the query using the jobs.insert method.
+    async fn execute_jobs_insert(&self, project_id: &str) -> Result<QueryHandle> {
         let job_service = self.template.job_service.clone();
         let max_results = self.template.request.max_results;
 
-        if self.template.request.force_job_path() {
-            // Route to jobs.insert
-            let job_config: JobConfiguration = self.template.request.clone().into();
-            let job_ref = generate_job_reference(project_id, &self.template.request.location);
-            let job = Job::new()
-                .set_configuration(job_config)
-                .set_job_reference(job_ref);
-            let req = InsertJobRequest::new()
-                .set_job(job)
-                .set_project_id(project_id);
+        let job_config: JobConfiguration = self.template.request.clone().into();
+        let job_ref = generate_job_reference(project_id, &self.template.request.location);
+        let job = Job::new()
+            .set_configuration(job_config)
+            .set_job_reference(job_ref);
+        let req = InsertJobRequest::new()
+            .set_job(job)
+            .set_project_id(project_id);
 
-            let job = Box::pin(InsertJobExecutor::new(job_service.clone(), req).execute()).await?;
+        // Box heavy RPC call future to avoid large stack frames.
+        let job = Box::pin(InsertJobExecutor::new(job_service.clone(), req).execute()).await?;
 
-            Ok(QueryHandle::from_job(
-                job_service,
-                job,
-                Some(self.clone()),
-                max_results,
-            ))
-        } else {
-            // Route to jobs.query
-            let query_request_id = generate_prefixed_id(QUERY_REQUEST_ID_PREFIX);
-            let query_request: QueryRequest = self.template.request.clone().into();
-            let query_request = query_request
-                .set_format_options(
-                    google_cloud_bigquery_v2::model::DataFormatOptions::new()
-                        .set_use_int64_timestamp(true),
-                )
-                .set_request_id(query_request_id);
-            let req = PostQueryRequest::new()
-                .set_project_id(project_id)
-                .set_query_request(query_request);
+        Ok(QueryHandle::from_job(
+            job_service,
+            job,
+            Some(self.clone()),
+            max_results,
+        ))
+    }
 
-            let res = Box::pin(PostQueryExecutor::new(job_service.clone(), req).execute()).await?;
+    // Execute the query using the jobs.query method.
+    async fn execute_jobs_query(&self, project_id: &str) -> Result<QueryHandle> {
+        let job_service = self.template.job_service.clone();
+        let max_results = self.template.request.max_results;
 
-            Ok(QueryHandle::from_query_response(
-                job_service,
-                res,
-                Some(self.clone()),
-                max_results,
-            ))
-        }
+        let query_request_id = generate_prefixed_id(QUERY_REQUEST_ID_PREFIX);
+        let query_request: QueryRequest = self.template.request.clone().into();
+        let query_request = query_request
+            .set_format_options(
+                google_cloud_bigquery_v2::model::DataFormatOptions::new()
+                    .set_use_int64_timestamp(true),
+            )
+            .set_request_id(query_request_id);
+        let req = PostQueryRequest::new()
+            .set_project_id(project_id)
+            .set_query_request(query_request);
+
+        // Box heavy RPC call future to avoid large stack frames.
+        let res = Box::pin(PostQueryExecutor::new(job_service.clone(), req).execute()).await?;
+
+        Ok(QueryHandle::from_query_response(
+            job_service,
+            res,
+            Some(self.clone()),
+            max_results,
+        ))
     }
 }
 
