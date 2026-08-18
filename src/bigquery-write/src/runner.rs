@@ -186,7 +186,7 @@ pub(crate) mod tests {
             req: test_request(1),
             resp_tx: resp_tx1,
         };
-        req_tx.send(write1).unwrap();
+        req_tx.send(write1)?;
 
         // write 2
         let (resp_tx2, resp_rx2) = oneshot::channel();
@@ -194,7 +194,7 @@ pub(crate) mod tests {
             req: test_request(2),
             resp_tx: resp_tx2,
         };
-        req_tx.send(write2).unwrap();
+        req_tx.send(write2)?;
 
         // resp 1
         response_tx.send(Ok(convert(&test_response(1)))).await?;
@@ -207,7 +207,7 @@ pub(crate) mod tests {
             req: test_request(3),
             resp_tx: resp_tx3,
         };
-        req_tx.send(write3).unwrap();
+        req_tx.send(write3)?;
 
         // resp 2
         response_tx.send(Ok(convert(&test_response(2)))).await?;
@@ -241,7 +241,7 @@ pub(crate) mod tests {
             req: test_request(1),
             resp_tx,
         };
-        req_tx.send(write).unwrap();
+        req_tx.send(write)?;
 
         let resp = resp_rx.await?;
         let Err(AppendError::Rpc { source: err }) = resp else {
@@ -276,7 +276,7 @@ pub(crate) mod tests {
             req: test_request(1),
             resp_tx: resp_tx1,
         };
-        req_tx.send(write1).unwrap();
+        req_tx.send(write1)?;
 
         // write 2
         let (resp_tx2, resp_rx2) = oneshot::channel();
@@ -284,7 +284,7 @@ pub(crate) mod tests {
             req: test_request(2),
             resp_tx: resp_tx2,
         };
-        req_tx.send(write2).unwrap();
+        req_tx.send(write2)?;
 
         // write 3
         let (resp_tx3, resp_rx3) = oneshot::channel();
@@ -292,7 +292,7 @@ pub(crate) mod tests {
             req: test_request(3),
             resp_tx: resp_tx3,
         };
-        req_tx.send(write3).unwrap();
+        req_tx.send(write3)?;
 
         // resp 1
         response_tx.send(Ok(convert(&test_response(1)))).await?;
@@ -340,7 +340,7 @@ pub(crate) mod tests {
             req: test_request(1),
             resp_tx: resp_tx1,
         };
-        req_tx.send(write1).unwrap();
+        req_tx.send(write1)?;
 
         // write 2
         let (resp_tx2, resp_rx2) = oneshot::channel();
@@ -348,7 +348,7 @@ pub(crate) mod tests {
             req: test_request(2),
             resp_tx: resp_tx2,
         };
-        req_tx.send(write2).unwrap();
+        req_tx.send(write2)?;
 
         // write 3
         let (resp_tx3, resp_rx3) = oneshot::channel();
@@ -356,7 +356,7 @@ pub(crate) mod tests {
             req: test_request(3),
             resp_tx: resp_tx3,
         };
-        req_tx.send(write3).unwrap();
+        req_tx.send(write3)?;
 
         // resp 1
         response_tx.send(Ok(convert(&test_response(1)))).await?;
@@ -401,7 +401,7 @@ pub(crate) mod tests {
             req: test_request(1),
             resp_tx: resp_tx1,
         };
-        req_tx.send(write1).unwrap();
+        req_tx.send(write1)?;
 
         // write 2
         let (resp_tx2, resp_rx2) = oneshot::channel();
@@ -409,7 +409,7 @@ pub(crate) mod tests {
             req: test_request(2),
             resp_tx: resp_tx2,
         };
-        req_tx.send(write2).unwrap();
+        req_tx.send(write2)?;
 
         // write 3
         let (resp_tx3, resp_rx3) = oneshot::channel();
@@ -417,7 +417,7 @@ pub(crate) mod tests {
             req: test_request(3),
             resp_tx: resp_tx3,
         };
-        req_tx.send(write3).unwrap();
+        req_tx.send(write3)?;
 
         // resp 1
         response_tx.send(Ok(convert(&test_response(1)))).await?;
