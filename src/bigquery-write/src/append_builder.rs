@@ -27,6 +27,22 @@ pub struct Append {
     pub(crate) req: AppendRowsRequest,
 }
 
+/// Executes the network transmission and underlying proto translation for an `AppendRowsRequest`.
+pub(crate) async fn send_append_request(
+    req_tx: &mpsc::UnboundedSender<WriteRequest>,
+    req: AppendRowsRequest,
+) -> AppendResult<AppendResponse> {
+    let (resp_tx, resp_rx) = oneshot::channel();
+    let req = req.to_proto().map_err(Error::deser)?;
+    let write = WriteRequest { req, resp_tx };
+    let _ = req_tx.send(write);
+    let resp = resp_rx
+        .await
+        .map_err(|_| AppendError::UnexpectedEndOfStream)??;
+    let resp = resp.cnv().map_err(Error::ser)?;
+    to_result(resp)
+}
+
 impl Append {
     pub(crate) fn new(req_tx: mpsc::UnboundedSender<WriteRequest>, req: AppendRowsRequest) -> Self {
         Self { req_tx, req }
@@ -34,15 +50,7 @@ impl Append {
 
     /// Append rows to the stream.
     pub async fn send(self) -> AppendResult<AppendResponse> {
-        let (resp_tx, resp_rx) = oneshot::channel();
-        let req = self.req.to_proto().map_err(Error::deser)?;
-        let write = WriteRequest { req, resp_tx };
-        let _ = self.req_tx.send(write);
-        let resp = resp_rx
-            .await
-            .map_err(|_| AppendError::UnexpectedEndOfStream)??;
-        let resp = resp.cnv().map_err(Error::ser)?;
-        to_result(resp)
+        send_append_request(&self.req_tx, self.req).await
     }
 }
 
