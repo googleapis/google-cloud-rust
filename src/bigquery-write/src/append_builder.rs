@@ -20,6 +20,39 @@ use crate::runner::WriteRequest;
 use gaxi::prost::{FromProto, ToProto};
 use tokio::sync::{mpsc, oneshot};
 
+/// A request builder for appending rows with a specific stream offset,
+/// ensuring exactly-once semantics.
+#[derive(Clone, Debug)]
+pub struct AppendWithOffset {
+    req_tx: mpsc::UnboundedSender<WriteRequest>,
+    pub(crate) req: AppendRowsRequest,
+}
+
+impl AppendWithOffset {
+    #[allow(dead_code)]
+    pub(crate) fn new(req_tx: mpsc::UnboundedSender<WriteRequest>, req: AppendRowsRequest) -> Self {
+        Self { req_tx, req }
+    }
+
+    /// Sets the target stream offset to guarantee exactly-once execution.
+    pub fn set_offset(mut self, offset: i64) -> Self {
+        self.req.offset = Some(offset);
+        self
+    }
+
+    /// Append rows to the stream.
+    pub fn send(self) -> crate::append_future::AppendFuture {
+        let (tx, rx) = oneshot::channel();
+
+        tokio::spawn(async move {
+            let res = send_append_request(self.req_tx, self.req).await;
+            let _ = tx.send(res);
+        });
+
+        crate::append_future::AppendFuture::new(rx)
+    }
+}
+
 /// A request builder for appending rows on the default stream.
 #[derive(Clone, Debug)]
 pub struct Append {
@@ -29,7 +62,7 @@ pub struct Append {
 
 /// Executes the network transmission and underlying proto translation for an `AppendRowsRequest`.
 pub(crate) async fn send_append_request(
-    req_tx: &mpsc::UnboundedSender<WriteRequest>,
+    req_tx: mpsc::UnboundedSender<WriteRequest>,
     req: AppendRowsRequest,
 ) -> AppendResult<AppendResponse> {
     let (resp_tx, resp_rx) = oneshot::channel();
@@ -50,7 +83,7 @@ impl Append {
 
     /// Append rows to the stream.
     pub async fn send(self) -> AppendResult<AppendResponse> {
-        send_append_request(&self.req_tx, self.req).await
+        send_append_request(self.req_tx, self.req).await
     }
 }
 
@@ -156,6 +189,100 @@ mod tests {
             .expect("sending on channel always succeeds");
 
         let err = handle.await?.expect_err("should return an error");
+        assert!(matches!(err, AppendError::RowErrors(_)));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn offset_success() -> anyhow::Result<()> {
+        let (req_tx, mut req_rx) = mpsc::unbounded_channel();
+        let req = AppendRowsRequest::new().set_write_stream(write_stream());
+
+        let builder = AppendWithOffset::new(req_tx, req).set_offset(100);
+        let future = builder.send();
+
+        let write = req_rx.recv().await.expect("should receive request");
+        assert_eq!(write.req.offset, Some(100));
+
+        let resp = v1::AppendRowsResponse {
+            response: Some(Response::AppendResult(AppendResult::default())),
+            write_stream: write_stream(),
+            // Ensure schema matches none
+            ..Default::default()
+        };
+        write
+            .resp_tx
+            .send(Ok(resp))
+            .expect("sending on channel always succeeds");
+
+        let resp = future.await?;
+        assert_eq!(resp.offset, None);
+        assert_eq!(resp.updated_schema, None);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn offset_stream_closed() -> anyhow::Result<()> {
+        let (req_tx, req_rx) = mpsc::unbounded_channel();
+        let req = AppendRowsRequest::new().set_write_stream(write_stream());
+
+        let builder = AppendWithOffset::new(req_tx, req).set_offset(100);
+        let future = builder.send();
+
+        drop(req_rx);
+
+        let err = future.await.expect_err("should return an error");
+        assert!(matches!(err, AppendError::UnexpectedEndOfStream));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn offset_rpc_error() -> anyhow::Result<()> {
+        let (req_tx, mut req_rx) = mpsc::unbounded_channel();
+        let req = AppendRowsRequest::new().set_write_stream(write_stream());
+
+        let builder = AppendWithOffset::new(req_tx, req).set_offset(100);
+        let future = builder.send();
+
+        // Simulate a stream ending in a known error
+        let write = req_rx.recv().await.expect("should receive request");
+        let append_err: AppendError = crate::Error::io("fail").into();
+        write
+            .resp_tx
+            .send(Err(append_err))
+            .expect("sending on channel always succeeds");
+
+        let err = future.await.expect_err("should return an error");
+        assert!(matches!(err, AppendError::Rpc { source: _ }));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn offset_row_errors() -> anyhow::Result<()> {
+        let (req_tx, mut req_rx) = mpsc::unbounded_channel();
+        let req = AppendRowsRequest::new().set_write_stream(write_stream());
+
+        let builder = AppendWithOffset::new(req_tx, req).set_offset(100);
+        let future = builder.send();
+
+        let write = req_rx.recv().await.expect("should receive request");
+
+        let row_error = v1::RowError {
+            index: 42,
+            code: v1::row_error::RowErrorCode::FieldsError as i32,
+            message: "fail".to_string(),
+        };
+        let resp = v1::AppendRowsResponse {
+            row_errors: vec![row_error],
+            write_stream: write_stream(),
+            ..Default::default()
+        };
+        write
+            .resp_tx
+            .send(Ok(resp))
+            .expect("sending on channel always succeeds");
+
+        let err = future.await.expect_err("should return an error");
         assert!(matches!(err, AppendError::RowErrors(_)));
         Ok(())
     }
