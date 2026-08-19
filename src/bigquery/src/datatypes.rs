@@ -227,9 +227,20 @@ impl<T: FromSql> FromSql for Range<T> {
 
                 Ok(Range { start, end })
             }
+            wkt::Value::Object(obj) => {
+                let start = match obj.get("start") {
+                    Some(wkt::Value::Null) | None => None,
+                    Some(val) => Some(T::from_sql(val.clone())?),
+                };
+                let end = match obj.get("end") {
+                    Some(wkt::Value::Null) | None => None,
+                    Some(val) => Some(T::from_sql(val.clone())?),
+                };
+                Ok(Range { start, end })
+            }
             wkt::Value::Null => Err(ConvertError::NotNull),
             other => Err(ConvertError::TypeMismatch {
-                expected: "string",
+                expected: "string or object",
                 got: other,
             }),
         }
@@ -283,7 +294,7 @@ mod tests {
     #[test_case(wkt::Value::String("[UNBOUNDED, 2026-05-29)".to_string()) => Ok(Range { start: None, end: Some(google_cloud_type::model::Date::new().set_year(2026).set_month(5).set_day(29)) }) ; "date range unbounded start")]
     #[test_case(wkt::Value::String("[UNBOUNDED, UNBOUNDED)".to_string()) => Ok(Range { start: None, end: None }) ; "date range unbounded both")]
     #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null range")]
-    #[test_case(wkt::Value::Number(123.into()) => Err(TestConvertError::TypeMismatch("string")) ; "range type mismatch")]
+    #[test_case(wkt::Value::Number(123.into()) => Err(TestConvertError::TypeMismatch("string or object")) ; "range type mismatch")]
     #[test_case(wkt::Value::String("[2026-05-28)".to_string()) => Err(TestConvertError::Convert("invalid range format: expected 2 parts, got 1".to_string())) ; "range invalid format one part")]
     #[test_case(wkt::Value::String("[2026-05-28, 2026-05-29, 2026-05-30)".to_string()) => Err(TestConvertError::Convert("invalid range format: expected 2 parts, got 3".to_string())) ; "range invalid format three parts")]
     #[test_case(wkt::Value::String("[".to_string()) => Err(TestConvertError::Convert("invalid range format: missing enclosing brackets".to_string())) ; "range too short")]

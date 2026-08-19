@@ -192,8 +192,17 @@ impl RetryContext {
         let query_request: QueryRequest = self.template.request.clone().into();
         let query_request = query_request
             .set_format_options(
-                google_cloud_bigquery_v2::model::DataFormatOptions::new()
+                crate::model::DataFormatOptions::new()
                     .set_use_int64_timestamp(true),
+            )
+            .set_query_results_format(crate::model::query_request::QueryResultsFormat::Arrow)
+            .set_results_format_serialization_options(
+                crate::model::query_request::ResultsFormatSerializationOptions::ArrowSerializationOptions(
+                    Box::new(crate::model::ArrowSerializationOptions::new()
+                        .set_buffer_compression(
+                            crate::model::arrow_serialization_options::CompressionCodec::Zstd,
+                        ))
+                )
             )
             .set_request_id(query_request_id);
         let req = PostQueryRequest::new()
@@ -254,7 +263,7 @@ mod tests {
             .clone()
             .expect("should have job_ref");
         assert_eq!(job_ref.job_id, "my-job-123", "{job_ref:?}");
-        assert!(query.cached_rows.is_some(), "{query:?}");
+        assert!(query.cached_data.is_some(), "{query:?}");
 
         Ok(())
     }

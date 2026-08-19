@@ -14,6 +14,17 @@
 
 use crate::error::{ConvertError, RowError};
 use crate::query::{FromSql, Schema};
+use arrow::array::{
+    Array, BinaryArray, BooleanArray, Float32Array, Float64Array, Int8Array, Int16Array,
+    Int32Array, Int64Array, IntervalMonthDayNanoArray, LargeBinaryArray, LargeListArray,
+    LargeStringArray, ListArray, StringArray, StructArray, TimestampMicrosecondArray,
+    TimestampMillisecondArray, TimestampNanosecondArray, TimestampSecondArray, UInt8Array,
+    UInt16Array, UInt32Array, UInt64Array,
+};
+use arrow::datatypes::IntervalUnit;
+use arrow::datatypes::{DataType, TimeUnit};
+use arrow::record_batch::RecordBatch;
+use base64::Engine;
 use std::sync::Arc;
 use wkt::{ListValue, Struct, Value};
 
@@ -125,6 +136,32 @@ impl Row {
                 }
                 None => continue,
             }
+        }
+
+        Ok(Self {
+            values: Value::Array(values),
+            schema: schema.clone(),
+        })
+    }
+
+    pub(crate) fn try_new_from_arrow(
+        batch: &RecordBatch,
+        row_idx: usize,
+        schema: &Arc<Schema>,
+    ) -> Result<Self> {
+        if batch.num_columns() != schema.len() {
+            return Err(RowError::InvalidRowFormat(format!(
+                "schema and row cell mismatch (expected {}, got {})",
+                schema.len(),
+                batch.num_columns()
+            )));
+        }
+
+        let mut values = ListValue::new();
+        for col_idx in 0..batch.num_columns() {
+            let col = batch.column(col_idx);
+            let value = arrow_to_value(col.as_ref(), row_idx)?;
+            values.push(value);
         }
 
         Ok(Self {
@@ -350,6 +387,262 @@ fn convert_basic_type(value: String, field_name: &str, field_type: &str) -> Resu
             field_type, field_name
         ))),
     }
+}
+
+fn arrow_to_value(array: &dyn Array, row_idx: usize) -> Result<Value> {
+    if array.is_null(row_idx) {
+        return Ok(Value::Null);
+    }
+
+    match array.data_type() {
+        DataType::Null => Ok(Value::Null),
+        DataType::Boolean => {
+            let arr = array
+                .as_any()
+                .downcast_ref::<BooleanArray>()
+                .ok_or_else(|| RowError::InvalidRowFormat("expected BooleanArray".into()))?;
+            Ok(Value::Bool(arr.value(row_idx)))
+        }
+        DataType::Int8 => {
+            let arr = array
+                .as_any()
+                .downcast_ref::<Int8Array>()
+                .ok_or_else(|| RowError::InvalidRowFormat("expected Int8Array".into()))?;
+            Ok(Value::Number(serde_json::Number::from(arr.value(row_idx))))
+        }
+        DataType::Int16 => {
+            let arr = array
+                .as_any()
+                .downcast_ref::<Int16Array>()
+                .ok_or_else(|| RowError::InvalidRowFormat("expected Int16Array".into()))?;
+            Ok(Value::Number(serde_json::Number::from(arr.value(row_idx))))
+        }
+        DataType::Int32 => {
+            let arr = array
+                .as_any()
+                .downcast_ref::<Int32Array>()
+                .ok_or_else(|| RowError::InvalidRowFormat("expected Int32Array".into()))?;
+            Ok(Value::Number(serde_json::Number::from(arr.value(row_idx))))
+        }
+        DataType::Int64 => {
+            let arr = array
+                .as_any()
+                .downcast_ref::<Int64Array>()
+                .ok_or_else(|| RowError::InvalidRowFormat("expected Int64Array".into()))?;
+            Ok(Value::Number(serde_json::Number::from(arr.value(row_idx))))
+        }
+        DataType::UInt8 => {
+            let arr = array
+                .as_any()
+                .downcast_ref::<UInt8Array>()
+                .ok_or_else(|| RowError::InvalidRowFormat("expected UInt8Array".into()))?;
+            Ok(Value::Number(serde_json::Number::from(arr.value(row_idx))))
+        }
+        DataType::UInt16 => {
+            let arr = array
+                .as_any()
+                .downcast_ref::<UInt16Array>()
+                .ok_or_else(|| RowError::InvalidRowFormat("expected UInt16Array".into()))?;
+            Ok(Value::Number(serde_json::Number::from(arr.value(row_idx))))
+        }
+        DataType::UInt32 => {
+            let arr = array
+                .as_any()
+                .downcast_ref::<UInt32Array>()
+                .ok_or_else(|| RowError::InvalidRowFormat("expected UInt32Array".into()))?;
+            Ok(Value::Number(serde_json::Number::from(arr.value(row_idx))))
+        }
+        DataType::UInt64 => {
+            let arr = array
+                .as_any()
+                .downcast_ref::<UInt64Array>()
+                .ok_or_else(|| RowError::InvalidRowFormat("expected UInt64Array".into()))?;
+            Ok(Value::Number(serde_json::Number::from(arr.value(row_idx))))
+        }
+        DataType::Float32 => {
+            let arr = array
+                .as_any()
+                .downcast_ref::<Float32Array>()
+                .ok_or_else(|| RowError::InvalidRowFormat("expected Float32Array".into()))?;
+            let n = serde_json::Number::from_f64(arr.value(row_idx) as f64)
+                .ok_or_else(|| RowError::InvalidRowFormat("invalid f32 value".into()))?;
+            Ok(Value::Number(n))
+        }
+        DataType::Float64 => {
+            let arr = array
+                .as_any()
+                .downcast_ref::<Float64Array>()
+                .ok_or_else(|| RowError::InvalidRowFormat("expected Float64Array".into()))?;
+            let n = serde_json::Number::from_f64(arr.value(row_idx))
+                .ok_or_else(|| RowError::InvalidRowFormat("invalid f64 value".into()))?;
+            Ok(Value::Number(n))
+        }
+        DataType::Utf8 => {
+            let arr = array
+                .as_any()
+                .downcast_ref::<StringArray>()
+                .ok_or_else(|| RowError::InvalidRowFormat("expected StringArray".into()))?;
+            Ok(Value::String(arr.value(row_idx).to_string()))
+        }
+        DataType::LargeUtf8 => {
+            let arr = array
+                .as_any()
+                .downcast_ref::<LargeStringArray>()
+                .ok_or_else(|| RowError::InvalidRowFormat("expected LargeStringArray".into()))?;
+            Ok(Value::String(arr.value(row_idx).to_string()))
+        }
+        DataType::Binary => {
+            let arr = array
+                .as_any()
+                .downcast_ref::<BinaryArray>()
+                .ok_or_else(|| RowError::InvalidRowFormat("expected BinaryArray".into()))?;
+            Ok(Value::String(
+                base64::prelude::BASE64_STANDARD.encode(arr.value(row_idx)),
+            ))
+        }
+        DataType::LargeBinary => {
+            let arr = array
+                .as_any()
+                .downcast_ref::<LargeBinaryArray>()
+                .ok_or_else(|| RowError::InvalidRowFormat("expected LargeBinaryArray".into()))?;
+            Ok(Value::String(
+                base64::prelude::BASE64_STANDARD.encode(arr.value(row_idx)),
+            ))
+        }
+        DataType::Interval(unit) => convert_arrow_interval(array, row_idx, unit),
+        DataType::Timestamp(unit, Some(_)) => convert_arrow_timestamp(array, row_idx, unit),
+        DataType::Struct(_) => convert_arrow_struct(array, row_idx),
+        DataType::List(_) | DataType::LargeList(_) => convert_arrow_list(array, row_idx),
+        _ => {
+            let formatter =
+                arrow::util::display::ArrayFormatter::try_new(array, &Default::default()).map_err(
+                    |e| RowError::InvalidRowFormat(format!("failed to format arrow value: {e}")),
+                )?;
+            Ok(Value::String(formatter.value(row_idx).to_string()))
+        }
+    }
+}
+
+fn convert_arrow_interval(array: &dyn Array, row_idx: usize, unit: &IntervalUnit) -> Result<Value> {
+    match unit {
+        IntervalUnit::MonthDayNano => {
+            let arr = array
+                .as_any()
+                .downcast_ref::<IntervalMonthDayNanoArray>()
+                .ok_or_else(|| RowError::InvalidRowFormat("expected IntervalArray".into()))?;
+            let v = arr.value(row_idx);
+            // Format Year-Month (e.g. "1-2" or "-1-2")
+            let ym_sign = if v.months < 0 { "-" } else { "" };
+            let years = v.months.abs() / 12;
+            let months = v.months.abs() % 12;
+
+            // Format Time H:MM:SS[.fffffffff]
+            let (time_sign, total_nanos) = if v.nanoseconds < 0 {
+                ("-", (-v.nanoseconds) as u64)
+            } else {
+                ("", v.nanoseconds as u64)
+            };
+            let nanos = total_nanos % 1_000_000_000;
+            let total_secs = total_nanos / 1_000_000_000;
+            let seconds = total_secs % 60;
+            let total_mins = total_secs / 60;
+            let minutes = total_mins % 60;
+            let hours = total_mins / 60;
+
+            let time_str = if nanos == 0 {
+                format!("{time_sign}{hours}:{minutes:02}:{seconds:02}")
+            } else {
+                let frac = format!("{nanos:09}");
+                let frac = frac.trim_end_matches('0');
+                format!("{time_sign}{hours}:{minutes:02}:{seconds:02}.{frac}")
+            };
+
+            Ok(Value::String(format!(
+                "{ym_sign}{years}-{months} {} {time_str}",
+                v.days
+            )))
+        }
+        _ => Err(RowError::InvalidRowFormat(format!(
+            "unsupported interval unit: {unit:?}"
+        ))),
+    }
+}
+
+fn convert_arrow_timestamp(array: &dyn Array, row_idx: usize, unit: &TimeUnit) -> Result<Value> {
+    let micros = match unit {
+        TimeUnit::Microsecond => {
+            let arr = array
+                .as_any()
+                .downcast_ref::<TimestampMicrosecondArray>()
+                .ok_or_else(|| {
+                    RowError::InvalidRowFormat("expected TimestampMicrosecondArray".into())
+                })?;
+            arr.value(row_idx)
+        }
+        TimeUnit::Millisecond => {
+            let arr = array
+                .as_any()
+                .downcast_ref::<TimestampMillisecondArray>()
+                .ok_or_else(|| {
+                    RowError::InvalidRowFormat("expected TimestampMillisecondArray".into())
+                })?;
+            arr.value(row_idx) * 1_000
+        }
+        TimeUnit::Second => {
+            let arr = array
+                .as_any()
+                .downcast_ref::<TimestampSecondArray>()
+                .ok_or_else(|| {
+                    RowError::InvalidRowFormat("expected TimestampSecondArray".into())
+                })?;
+            arr.value(row_idx) * 1_000_000
+        }
+        TimeUnit::Nanosecond => {
+            let arr = array
+                .as_any()
+                .downcast_ref::<TimestampNanosecondArray>()
+                .ok_or_else(|| {
+                    RowError::InvalidRowFormat("expected TimestampNanosecondArray".into())
+                })?;
+            arr.value(row_idx) / 1_000
+        }
+    };
+    Ok(Value::Number(serde_json::Number::from(micros)))
+}
+
+fn convert_arrow_struct(array: &dyn Array, row_idx: usize) -> Result<Value> {
+    let struct_arr = array
+        .as_any()
+        .downcast_ref::<StructArray>()
+        .ok_or_else(|| RowError::InvalidRowFormat("expected StructArray".into()))?;
+    let mut obj = Struct::new();
+    for (field, col) in struct_arr.fields().iter().zip(struct_arr.columns()) {
+        let val = arrow_to_value(col.as_ref(), row_idx)?;
+        obj.insert(field.name().to_string(), val);
+    }
+    Ok(Value::Object(obj))
+}
+
+fn convert_arrow_list(array: &dyn Array, row_idx: usize) -> Result<Value> {
+    if let Some(list_arr) = array.as_any().downcast_ref::<ListArray>() {
+        let sub_arr = list_arr.value(row_idx);
+        let mut values = ListValue::new();
+        for i in 0..sub_arr.len() {
+            values.push(arrow_to_value(sub_arr.as_ref(), i)?);
+        }
+        return Ok(Value::Array(values));
+    }
+    if let Some(list_arr) = array.as_any().downcast_ref::<LargeListArray>() {
+        let sub_arr = list_arr.value(row_idx);
+        let mut values = ListValue::new();
+        for i in 0..sub_arr.len() {
+            values.push(arrow_to_value(sub_arr.as_ref(), i)?);
+        }
+        return Ok(Value::Array(values));
+    }
+    Err(RowError::InvalidRowFormat(
+        "expected ListArray or LargeListArray".into(),
+    ))
 }
 
 #[cfg(test)]
@@ -835,6 +1128,156 @@ mod tests {
 
         let err = TestRow::try_from(row).unwrap_err();
         assert!(matches!(err, RowError::ColumnNotFound(col) if col == "custom_int"));
+        Ok(())
+    }
+
+    #[test]
+    fn try_new_from_arrow_batch() -> TestResult {
+        use arrow::array::{
+            BooleanArray, Float64Array, Int64Array, StringArray, TimestampMicrosecondArray,
+        };
+        use arrow::datatypes::{DataType, Field, Schema as ArrowSchema, TimeUnit};
+
+        let arrow_schema = Arc::new(ArrowSchema::new(vec![
+            Field::new("name", DataType::Utf8, false),
+            Field::new("age", DataType::Int64, true),
+            Field::new("active", DataType::Boolean, false),
+            Field::new("score", DataType::Float64, false),
+            Field::new(
+                "created_ts",
+                DataType::Timestamp(TimeUnit::Microsecond, Some("UTC".into())),
+                false,
+            ),
+            Field::new(
+                "created_dt",
+                DataType::Timestamp(TimeUnit::Microsecond, None),
+                false,
+            ),
+        ]));
+
+        let name = StringArray::from(vec!["Alice", "Bob"]);
+        let age = Int64Array::from(vec![Some(30), None]);
+        let active = BooleanArray::from(vec![true, false]);
+        let score = Float64Array::from(vec![98.5, 87.25]);
+        let created_ts =
+            TimestampMicrosecondArray::from(vec![1_600_000_000_000_000, 1_700_000_000_000_000])
+                .with_timezone("UTC");
+        let created_dt =
+            TimestampMicrosecondArray::from(vec![1_600_000_000_000_000, 1_700_000_000_000_000]);
+
+        let batch = RecordBatch::try_new(
+            arrow_schema,
+            vec![
+                Arc::new(name),
+                Arc::new(age),
+                Arc::new(active),
+                Arc::new(score),
+                Arc::new(created_ts),
+                Arc::new(created_dt),
+            ],
+        )?;
+
+        let table_schema = TableSchema::new().set_fields([
+            TableFieldSchema::new().set_name("name").set_type("STRING"),
+            TableFieldSchema::new().set_name("age").set_type("INTEGER"),
+            TableFieldSchema::new()
+                .set_name("active")
+                .set_type("BOOLEAN"),
+            TableFieldSchema::new().set_name("score").set_type("FLOAT"),
+            TableFieldSchema::new()
+                .set_name("created_ts")
+                .set_type("TIMESTAMP"),
+            TableFieldSchema::new()
+                .set_name("created_dt")
+                .set_type("DATETIME"),
+        ]);
+        let schema = Arc::new(Schema::new(table_schema));
+
+        let row0 = Row::try_new_from_arrow(&batch, 0, &schema)?;
+        assert_eq!(row0.get::<String, _>("name"), "Alice");
+        assert_eq!(row0.get::<Option<i64>, _>("age"), Some(30));
+        assert!(row0.get::<bool, _>("active"));
+        assert_eq!(row0.get::<f64, _>("score"), 98.5);
+        assert_eq!(
+            row0.get::<wkt::Timestamp, _>("created_ts"),
+            wkt::Timestamp::new(1_600_000_000, 0).unwrap()
+        );
+
+        let row1 = Row::try_new_from_arrow(&batch, 1, &schema)?;
+        assert_eq!(row1.get::<String, _>("name"), "Bob");
+        assert_eq!(row1.get::<Option<i64>, _>("age"), None);
+        assert!(!row1.get::<bool, _>("active"));
+        assert_eq!(row1.get::<f64, _>("score"), 87.25);
+        assert_eq!(
+            row1.get::<wkt::Timestamp, _>("created_ts"),
+            wkt::Timestamp::new(1_700_000_000, 0).unwrap()
+        );
+
+        Ok(())
+    }
+
+    #[test]
+    fn try_new_from_arrow_interval() -> TestResult {
+        use crate::datatypes::Interval;
+        use arrow::array::IntervalMonthDayNanoArray;
+        use arrow::datatypes::{DataType, Field, IntervalUnit, Schema as ArrowSchema};
+
+        let arrow_schema = Arc::new(ArrowSchema::new(vec![Field::new(
+            "duration",
+            DataType::Interval(IntervalUnit::MonthDayNano),
+            false,
+        )]));
+
+        let intervals = IntervalMonthDayNanoArray::from(vec![
+            arrow::datatypes::IntervalMonthDayNanoType::make_value(
+                14,
+                3,
+                (4 * 3600 + 5 * 60 + 6) * 1_000_000_000 + 789_123_456,
+            ),
+            arrow::datatypes::IntervalMonthDayNanoType::make_value(
+                -14,
+                -3,
+                -((4 * 3600 + 5 * 60 + 6) * 1_000_000_000 + 123_000_000),
+            ),
+        ]);
+
+        let batch = RecordBatch::try_new(arrow_schema, vec![Arc::new(intervals)])?;
+
+        let table_schema = TableSchema::new().set_fields([TableFieldSchema::new()
+            .set_name("duration")
+            .set_type("INTERVAL")]);
+        let schema = Arc::new(Schema::new(table_schema));
+
+        let row0 = Row::try_new_from_arrow(&batch, 0, &schema)?;
+        let int0: Interval = row0.get("duration");
+        assert_eq!(
+            int0,
+            Interval {
+                years: 1,
+                months: 2,
+                days: 3,
+                hours: 4,
+                minutes: 5,
+                seconds: 6,
+                nanos: 789_123_456,
+            }
+        );
+
+        let row1 = Row::try_new_from_arrow(&batch, 1, &schema)?;
+        let int1: Interval = row1.get("duration");
+        assert_eq!(
+            int1,
+            Interval {
+                years: -1,
+                months: -2,
+                days: -3,
+                hours: -4,
+                minutes: -5,
+                seconds: -6,
+                nanos: -123_000_000,
+            }
+        );
+
         Ok(())
     }
 }

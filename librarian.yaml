@@ -22,8 +22,8 @@ sources:
     commit: 05b3ceb44e69212f6dad682f450862270749aee5
     sha256: 11d07430eb3845b98a60178ee05e0656c0de6952d392e49a04f8d240e9d6a81f
   googleapis:
-    commit: 240b58fe7058f6fff77cba02f51d600170b6c421
-    sha256: ca03f2c93b8f1e92fd75c87b2568992c96a2ecc37fde750c5bf83129fa17b407
+    commit: 8856eed71a9cb2b9829d2617ee57fe2d8871a691
+    sha256: 54104af35306b605a97f7d1b98b9b96f4a507cd18322b44d81f62eca17969b3a
   protobuf:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
@@ -498,6 +498,8 @@ libraries:
             - .google.cloud.bigquery.v2.JobConfiguration.load
             - .google.cloud.bigquery.v2.JobConfiguration.extract
             - .google.cloud.bigquery.v2.QueryRequest.format_options
+            - .google.cloud.bigquery.v2.QueryRequest.query_results_format
+            - .google.cloud.bigquery.v2.QueryRequest.arrow_serialization_options
             - .google.cloud.bigquery.v2.GetQueryResultsRequest.format_options
             - .google.cloud.bigquery.v2.QueryRequest.request_id
             - .google.cloud.bigquery.v2.JobConfigurationQuery.continuous
@@ -507,6 +509,8 @@ libraries:
             - .google.cloud.bigquery.v2.JobConfiguration.kind
             - .google.cloud.bigquery.v2.JobConfiguration.job_type
             - .google.cloud.bigquery.v2.QueryResponse.rows
+            - .google.cloud.bigquery.v2.QueryResponse.arrow_record_batch
+            - .google.cloud.bigquery.v2.QueryResponse.arrow_schema
             - .google.cloud.bigquery.v2.GetQueryResultsResponse.rows
           api_path: google/cloud/bigquery/v2
           template: bigquery
