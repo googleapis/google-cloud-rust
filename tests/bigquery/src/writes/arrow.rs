@@ -168,6 +168,42 @@ pub async fn pending(project_id: &str, dataset_id: &str, table_id: &str) -> Resu
     Ok(())
 }
 
+pub async fn committed(project_id: &str, dataset_id: &str, table_id: &str) -> Result<()> {
+    let table = format!("projects/{project_id}/datasets/{dataset_id}/tables/{table_id}");
+
+    let arrow_schema = Arc::new(Schema::new(vec![
+        Field::new("name", DataType::Utf8, false),
+        Field::new("age", DataType::Int64, false),
+        Field::new("test", DataType::Utf8, false),
+    ]));
+    let schema_buf = serialize_schema(&arrow_schema)?;
+    let schema_len = schema_buf.len();
+
+    let client = Write::builder().build().await?;
+    let schema = ArrowSchema::new().set_serialized_schema(schema_buf);
+    let writer = client.arrow(schema).committed(table).await?;
+
+    let name = StringArray::from(vec!["George", "Hannah"]);
+    let age = Int64Array::from(vec![22, 27]);
+    let test_col = StringArray::from(vec!["committed", "committed"]);
+    let batch = RecordBatch::try_new(arrow_schema.clone(), vec![Arc::new(name), Arc::new(age), Arc::new(test_col)])?;
+    let batch_buf = serialize_batch(&batch, schema_len)?;
+
+    let rows = ArrowRecordBatch::new().set_serialized_record_batch(batch_buf);
+    let _ = writer.append(rows).set_offset(0).send().await?;
+
+    let users = crate::table::read_table(project_id, dataset_id, table_id, Some("committed")).await?;
+    let mut found = 0;
+    for user in users {
+        if user.name == "George" || user.name == "Hannah" {
+            found += 1;
+        }
+    }
+    assert_eq!(found, 2, "Committed rows not found immediately!");
+
+    Ok(())
+}
+
 fn serialize_schema(schema: &Schema) -> Result<Vec<u8>> {
     let mut buf = Vec::new();
     let _ = StreamWriter::try_new(&mut buf, schema)?;

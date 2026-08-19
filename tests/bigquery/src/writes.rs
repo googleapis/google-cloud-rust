@@ -35,7 +35,8 @@ pub async fn run_writes() -> Result<()> {
     let result = async {
         create_table(&table_service, &project_id, &dataset_id, table_id).await?;
         arrow::basic(&project_id, &dataset_id, table_id).await?;
-        arrow::pending(&project_id, &dataset_id, table_id).await
+        arrow::pending(&project_id, &dataset_id, table_id).await?;
+        arrow::committed(&project_id, &dataset_id, table_id).await
     }
     .await;
 

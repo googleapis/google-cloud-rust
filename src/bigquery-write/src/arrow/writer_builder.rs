@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::arrow::{DefaultWriter, PendingWriter};
+use crate::arrow::{CommittedWriter, DefaultWriter, PendingWriter};
 use crate::model::ArrowSchema;
 use crate::transport::Transport;
 use crate::{Error, Result};
@@ -64,6 +64,32 @@ impl WriterBuilder {
         Ok(PendingWriter::new(
             self.inner,
             table,
+            write_stream.name,
+            self.schema,
+        ))
+    }
+
+    /// Creates a committed writer for the given table.
+    ///
+    /// The client library creates a `WriteStream` with type `COMMITTED` on behalf of the application.
+    pub async fn committed<T: Into<String>>(self, table: T) -> Result<CommittedWriter> {
+        use crate::generated::gapic_storage::client::BigQueryWrite;
+        use crate::model::WriteStream;
+        use crate::model::write_stream::Type;
+
+        let table = table.into();
+        validate_table(table.as_str())?;
+
+        let client = BigQueryWrite::from_stub::<Transport>(self.inner.clone());
+        let write_stream = client
+            .create_write_stream()
+            .set_parent(table)
+            .set_write_stream(WriteStream::new().set_type(Type::Committed))
+            .send()
+            .await?;
+
+        Ok(CommittedWriter::new(
+            self.inner,
             write_stream.name,
             self.schema,
         ))
@@ -139,6 +165,40 @@ mod tests {
         assert!(err.is_binding(), "{err:?}");
         Ok(())
     }
+
+    #[tokio::test]
+    async fn committed_success() -> anyhow::Result<()> {
+        use bigquery_write_grpc_mock::{start, MockBigQueryWrite};
+        use bigquery_write_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream as MockWriteStream;
+        let mut mock = MockBigQueryWrite::new();
+        mock.expect_create_write_stream().return_once(|_| {
+            Ok(gaxi::grpc::tonic::Response::new(
+                MockWriteStream { name: "projects/p/datasets/d/tables/t/streams/s".to_string(), ..Default::default() },
+            ))
+        });
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let transport = Arc::new(test_transport(endpoint).await?);
+        let schema = ArrowSchema::new().set_serialized_schema("test");
+        let builder = WriterBuilder::new(transport, schema.clone());
+        let writer = builder.committed("projects/p/datasets/d/tables/t").await?;
+        assert_eq!(writer.write_stream, "projects/p/datasets/d/tables/t/streams/s");
+        assert_eq!(writer.schema, schema);
+        Ok(())
+    }
+
+    #[test_case("projects/p")]
+    #[test_case("projects/p/tables/t")]
+    #[test_case("projects/p/datasets/d/tables/")]
+    #[tokio::test]
+    async fn committed_bad_table_format(table: &str) -> anyhow::Result<()> {
+        let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
+        let schema = ArrowSchema::new().set_serialized_schema("test");
+        let builder = WriterBuilder::new(transport, schema.clone());
+        let err = builder.committed(table).await.expect_err("should fail locally on bad format");
+        assert!(err.is_binding(), "{err:?}");
+        Ok(())
+    }
+
 
     #[tokio::test]
     async fn default() -> anyhow::Result<()> {
