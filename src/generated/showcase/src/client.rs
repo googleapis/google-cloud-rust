@@ -744,7 +744,9 @@ impl Echo {
     ///    client: &Echo
     /// ) -> Result<()> {
     ///     let (sender, mut receiver) = client.chat()
-    ///         .build();
+    ///         .with_request(EchoRequest::default())
+    ///         .send()
+    ///         .await?;
     ///
     ///     sender.send(EchoRequest::default()).await?;
     ///     drop(sender); // Half-close the stream
@@ -1893,7 +1895,9 @@ impl Messaging {
     ///    client: &Messaging
     /// ) -> Result<()> {
     ///     let (sender, mut receiver) = client.connect()
-    ///         .build();
+    ///         .with_request(ConnectRequest::default())
+    ///         .send()
+    ///         .await?;
     ///
     ///     sender.send(ConnectRequest::default()).await?;
     ///     drop(sender); // Half-close the stream
