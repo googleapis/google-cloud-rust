@@ -205,7 +205,7 @@ const MAX_WRITE_CHUNK_SIZE: usize = 2 * 1024 * 1024;
 impl AppendableObjectWriter for AppendableObjectWriterTransport {
     async fn append(&mut self, chunk: Bytes) -> Result<()> {
         if chunk.is_empty() {
-            return self.append_sub_chunk(chunk).await;
+            return Ok(());
         }
 
         let mut offset = 0;
@@ -469,7 +469,7 @@ mod tests {
         if let UploadIntent::Append(req) = intent1 {
             assert_eq!(req.write_offset, 0);
             if let Some(Data::ChecksummedData(data)) = req.data {
-                assert_eq!(data.content.len(), 2 * 1024 * 1024);
+                assert_eq!(data.content.len(), MAX_WRITE_CHUNK_SIZE);
             } else {
                 panic!("expected ChecksummedData");
             }
@@ -480,9 +480,9 @@ mod tests {
         // Second chunk (2 MiB)
         let intent2 = rx.recv().await.unwrap();
         if let UploadIntent::Append(req) = intent2 {
-            assert_eq!(req.write_offset, (2 * 1024 * 1024) as i64);
+            assert_eq!(req.write_offset, MAX_WRITE_CHUNK_SIZE as i64);
             if let Some(Data::ChecksummedData(data)) = req.data {
-                assert_eq!(data.content.len(), 2 * 1024 * 1024);
+                assert_eq!(data.content.len(), MAX_WRITE_CHUNK_SIZE);
             } else {
                 panic!("expected ChecksummedData");
             }
@@ -493,7 +493,7 @@ mod tests {
         // Third chunk (1 MiB)
         let intent3 = rx.recv().await.unwrap();
         if let UploadIntent::Append(req) = intent3 {
-            assert_eq!(req.write_offset, (4 * 1024 * 1024) as i64);
+            assert_eq!(req.write_offset, (2 * MAX_WRITE_CHUNK_SIZE) as i64);
             if let Some(Data::ChecksummedData(data)) = req.data {
                 assert_eq!(data.content.len(), 1024 * 1024);
             } else {
@@ -506,6 +506,25 @@ mod tests {
         let transport = handle.await?;
         assert_eq!(transport.write_offset, (5 * 1024 * 1024) as i64);
         assert_eq!(transport.running_crc32c, Some(expected_total_crc));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn append_empty_chunk_noop() -> anyhow::Result<()> {
+        let (tx, mut rx) = mpsc::channel(1);
+        let mut transport = AppendableObjectWriterTransport {
+            tx,
+            write_offset: 0,
+            running_crc32c: Some(0),
+            generation: 123456,
+            persisted_size: 0,
+            worker_handle: None,
+        };
+
+        transport.append(bytes::Bytes::new()).await?;
+        assert_eq!(transport.write_offset, 0);
+        assert!(rx.try_recv().is_err());
+
         Ok(())
     }
 
