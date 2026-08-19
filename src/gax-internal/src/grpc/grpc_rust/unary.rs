@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::metadata::to_tonic_map;
 use super::receive::{GrpcRustRecv, trailers_to_tonic_status};
 use super::send::GrpcRustSend;
 use bytes::Buf;
@@ -95,14 +96,14 @@ where
     loop {
         match recv.recv(&mut slot).await {
             ResponseStreamItem::Headers(headers) => {
-                metadata = headers.metadata().clone().into();
+                metadata = to_tonic_map(headers.metadata());
             }
             ResponseStreamItem::Message => {
                 message = Some(slot.take()?);
             }
             ResponseStreamItem::Trailers(trailers) => {
                 // The trailer metadata will be merged with the header metadata.
-                let trailer_metadata: MetadataMap = trailers.metadata().clone().into();
+                let trailer_metadata = to_tonic_map(trailers.metadata());
                 // If the server returned an error status in trailers, return that error.
                 if let Some(status) = trailers_to_tonic_status(trailers) {
                     return Err(status);
