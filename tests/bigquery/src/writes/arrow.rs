@@ -80,6 +80,81 @@ pub async fn basic(project_id: &str, dataset_id: &str, table_id: &str) -> Result
     Ok(())
 }
 
+pub async fn pending(project_id: &str, dataset_id: &str, table_id: &str) -> Result<()> {
+    let table = format!("projects/{project_id}/datasets/{dataset_id}/tables/{table_id}");
+
+    // Create a Schema
+    let arrow_schema = Arc::new(Schema::new(vec![
+        Field::new("name", DataType::Utf8, false),
+        Field::new("age", DataType::Int64, false),
+    ]));
+    let schema_buf = serialize_schema(&arrow_schema)?;
+    let schema_len = schema_buf.len();
+
+    // Create a writer for a pending stream
+    let client = Write::builder().build().await?;
+    let schema = ArrowSchema::new().set_serialized_schema(schema_buf);
+    let writer = client.arrow(schema).pending(table).await?;
+
+    // Create a RecordBatch
+    let name = StringArray::from(vec!["David", "Eve"]);
+    let age = Int64Array::from(vec![42, 38]);
+    let batch = RecordBatch::try_new(arrow_schema.clone(), vec![Arc::new(name), Arc::new(age)])?;
+    let batch_buf = serialize_batch(&batch, schema_len)?;
+
+    // Write the batch with offset 0
+    let rows = ArrowRecordBatch::new().set_serialized_record_batch(batch_buf);
+    let _ = writer.append(rows).set_offset(0).send().await?;
+
+    // Create a second RecordBatch
+    let name = StringArray::from(vec!["Frank"]);
+    let age = Int64Array::from(vec![55]);
+    let batch = RecordBatch::try_new(arrow_schema, vec![Arc::new(name), Arc::new(age)])?;
+    let batch_buf = serialize_batch(&batch, schema_len)?;
+
+    // Write the second batch with offset 2
+    let rows = ArrowRecordBatch::new().set_serialized_record_batch(batch_buf);
+    let _ = writer.append(rows).set_offset(2).send().await?;
+
+    // Finalize the stream and commit
+    writer.finalize().await?;
+    writer.commit().await?;
+
+    // Verify the writes (contains the data from `.basic()` test + the pending data we just committed)
+    let users = read_table(project_id, dataset_id, table_id).await?;
+    assert_eq!(
+        users,
+        vec![
+            UserRecord {
+                name: "Alice".to_string(), // from `basic`
+                age: 25,
+            },
+            UserRecord {
+                name: "Bob".to_string(), // from `basic`
+                age: 28,
+            },
+            UserRecord {
+                name: "Charlie".to_string(), // from `basic`
+                age: 31,
+            },
+            UserRecord {
+                name: "David".to_string(), // from `pending`
+                age: 42,
+            },
+            UserRecord {
+                name: "Eve".to_string(), // from `pending`
+                age: 38,
+            },
+            UserRecord {
+                name: "Frank".to_string(), // from `pending`
+                age: 55,
+            },
+        ]
+    );
+
+    Ok(())
+}
+
 fn serialize_schema(schema: &Schema) -> Result<Vec<u8>> {
     let mut buf = Vec::new();
     let _ = StreamWriter::try_new(&mut buf, schema)?;
