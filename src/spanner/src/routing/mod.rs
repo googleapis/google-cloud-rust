@@ -14,15 +14,22 @@
 
 //! Location-aware routing internal modules.
 
+pub(crate) mod cache_subscriber;
 pub(crate) mod cache_updater;
 pub(crate) mod connection_cache;
+pub(crate) mod directed_read;
 pub(crate) mod endpoint_cooldown;
+pub(crate) mod endpoint_lifecycle;
 pub(crate) mod key_extractor;
 pub(crate) mod key_range_cache;
 pub(crate) mod key_recipe;
 pub(crate) mod key_recipe_cache;
+pub(crate) mod latency_registry;
 pub(crate) mod location_router;
+pub(crate) mod power_of_two_selector;
 pub(crate) mod server_connection;
 pub(crate) mod ssformat;
 pub(crate) mod temporal;
+#[cfg(test)]
+pub(crate) mod textproto_test_utils;
 pub(crate) mod uuid;

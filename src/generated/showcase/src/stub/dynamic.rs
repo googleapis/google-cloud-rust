@@ -331,14 +331,13 @@ pub trait Echo: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::Response<crate::model::FailEchoWithDetailsResponse>>;
 
     #[cfg(google_cloud_unstable_gapic_streaming)]
-    async fn chat(
+    fn chat(
         &self,
-        req: std::option::Option<crate::model::EchoRequest>,
-        options: crate::BidiStreamOptions,
-    ) -> crate::Result<(
+        options: crate::RequestOptions,
+    ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::EchoRequest>,
         google_cloud_gax::streaming::ResponseReceiver<crate::model::EchoResponse>,
-    )>;
+    );
 
     async fn paged_expand(
         &self,
@@ -472,15 +471,14 @@ impl<T: super::Echo> Echo for T {
 
     /// Forwards the call to the implementation provided by `T`.
     #[cfg(google_cloud_unstable_gapic_streaming)]
-    async fn chat(
+    fn chat(
         &self,
-        req: std::option::Option<crate::model::EchoRequest>,
-        options: crate::BidiStreamOptions,
-    ) -> crate::Result<(
+        options: crate::RequestOptions,
+    ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::EchoRequest>,
         google_cloud_gax::streaming::ResponseReceiver<crate::model::EchoResponse>,
-    )> {
-        T::chat(self, req, options).await
+    ) {
+        T::chat(self, options)
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -923,14 +921,13 @@ pub trait Messaging: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     #[cfg(google_cloud_unstable_gapic_streaming)]
-    async fn connect(
+    fn connect(
         &self,
-        req: std::option::Option<crate::model::ConnectRequest>,
-        options: crate::BidiStreamOptions,
-    ) -> crate::Result<(
+        options: crate::RequestOptions,
+    ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::ConnectRequest>,
         google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>,
-    )>;
+    );
 
     async fn list_locations(
         &self,
@@ -1106,15 +1103,14 @@ impl<T: super::Messaging> Messaging for T {
 
     /// Forwards the call to the implementation provided by `T`.
     #[cfg(google_cloud_unstable_gapic_streaming)]
-    async fn connect(
+    fn connect(
         &self,
-        req: std::option::Option<crate::model::ConnectRequest>,
-        options: crate::BidiStreamOptions,
-    ) -> crate::Result<(
+        options: crate::RequestOptions,
+    ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::ConnectRequest>,
         google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>,
-    )> {
-        T::connect(self, req, options).await
+    ) {
+        T::connect(self, options)
     }
 
     /// Forwards the call to the implementation provided by `T`.
