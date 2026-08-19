@@ -766,6 +766,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ReadRowsRequest {
         enum __FieldTag {
             __read_stream,
             __offset,
+            __arrow_serialization_options,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -789,6 +790,12 @@ impl<'de> serde::de::Deserialize<'de> for super::ReadRowsRequest {
                             "readStream" => Ok(__FieldTag::__read_stream),
                             "read_stream" => Ok(__FieldTag::__read_stream),
                             "offset" => Ok(__FieldTag::__offset),
+                            "arrowSerializationOptions" => {
+                                Ok(__FieldTag::__arrow_serialization_options)
+                            }
+                            "arrow_serialization_options" => {
+                                Ok(__FieldTag::__arrow_serialization_options)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -842,6 +849,23 @@ impl<'de> serde::de::Deserialize<'de> for super::ReadRowsRequest {
                                 }
                             }
                             result.offset = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__arrow_serialization_options => {
+                            if !fields.insert(__FieldTag::__arrow_serialization_options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for arrow_serialization_options",
+                                ));
+                            }
+                            if result.output_format_serialization_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `output_format_serialization_options`, a oneof with full ID .google.cloud.bigquery.storage.v1.ReadRowsRequest.arrow_serialization_options, latest field was arrowSerializationOptions",
+                                ));
+                            }
+                            result.output_format_serialization_options = std::option::Option::Some(
+                                crate::model::read_rows_request::OutputFormatSerializationOptions::ArrowSerializationOptions(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::ArrowSerializationOptions>>>()?.unwrap_or_default()
+                                ),
+                            );
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -1158,6 +1182,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ReadRowsResponse {
             __avro_schema,
             __arrow_schema,
             __uncompressed_byte_size,
+            __total_estimated_row_count,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1193,6 +1218,10 @@ impl<'de> serde::de::Deserialize<'de> for super::ReadRowsResponse {
                             "arrow_schema" => Ok(__FieldTag::__arrow_schema),
                             "uncompressedByteSize" => Ok(__FieldTag::__uncompressed_byte_size),
                             "uncompressed_byte_size" => Ok(__FieldTag::__uncompressed_byte_size),
+                            "totalEstimatedRowCount" => Ok(__FieldTag::__total_estimated_row_count),
+                            "total_estimated_row_count" => {
+                                Ok(__FieldTag::__total_estimated_row_count)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1353,6 +1382,25 @@ impl<'de> serde::de::Deserialize<'de> for super::ReadRowsResponse {
                                 }
                             }
                             result.uncompressed_byte_size = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__total_estimated_row_count => {
+                            if !fields.insert(__FieldTag::__total_estimated_row_count) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for total_estimated_row_count",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.total_estimated_row_count = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

@@ -112,6 +112,10 @@ impl std::fmt::Debug for super::ReadRowsRequest {
         let mut debug_struct = f.debug_struct("ReadRowsRequest");
         debug_struct.field("read_stream", &self.read_stream);
         debug_struct.field("offset", &self.offset);
+        debug_struct.field(
+            "output_format_serialization_options",
+            &self.output_format_serialization_options,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -160,6 +164,7 @@ impl std::fmt::Debug for super::ReadRowsResponse {
         debug_struct.field("stats", &self.stats);
         debug_struct.field("throttle_state", &self.throttle_state);
         debug_struct.field("uncompressed_byte_size", &self.uncompressed_byte_size);
+        debug_struct.field("total_estimated_row_count", &self.total_estimated_row_count);
         debug_struct.field("rows", &self.rows);
         debug_struct.field("schema", &self.schema);
         if !self._unknown_fields.is_empty() {

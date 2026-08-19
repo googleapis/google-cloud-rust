@@ -182,12 +182,31 @@ impl gaxi::prost::FromProto<crate::generated::gapic_storage::model::CreateReadSe
     }
 }
 
+impl gaxi::prost::ToProto<read_rows_request::OutputFormatSerializationOptions> for crate::generated::gapic_storage::model::read_rows_request::OutputFormatSerializationOptions {
+    type Output = read_rows_request::OutputFormatSerializationOptions;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        match self {
+            Self::ArrowSerializationOptions(v) => Ok(Self::Output::ArrowSerializationOptions((*v).to_proto()?)),
+        }
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_storage::model::read_rows_request::OutputFormatSerializationOptions> for read_rows_request::OutputFormatSerializationOptions {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_storage::model::read_rows_request::OutputFormatSerializationOptions, gaxi::prost::ConvertError> {
+        use crate::generated::gapic_storage::model::read_rows_request::OutputFormatSerializationOptions as T;
+        match self {
+            Self::ArrowSerializationOptions(v) => Ok(T::ArrowSerializationOptions(std::boxed::Box::new(v.cnv()?))),
+        }
+    }
+}
+
 impl gaxi::prost::ToProto<ReadRowsRequest> for crate::generated::gapic_storage::model::ReadRowsRequest {
     type Output = ReadRowsRequest;
     fn to_proto(self) -> std::result::Result<ReadRowsRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
             read_stream: self.read_stream.to_proto()?,
             offset: self.offset.to_proto()?,
+            output_format_serialization_options: self.output_format_serialization_options.map(|v| v.to_proto()).transpose()?,
         })
     }
 }
@@ -198,6 +217,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_storage::model::ReadRowsRequ
             crate::generated::gapic_storage::model::ReadRowsRequest::new()
                 .set_read_stream(self.read_stream)
                 .set_offset(self.offset)
+                .set_output_format_serialization_options(self.output_format_serialization_options.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -306,6 +326,7 @@ impl gaxi::prost::ToProto<ReadRowsResponse> for crate::generated::gapic_storage:
             stats: self.stats.map(|v| v.to_proto()).transpose()?,
             throttle_state: self.throttle_state.map(|v| v.to_proto()).transpose()?,
             uncompressed_byte_size: self.uncompressed_byte_size.map(|v| v.to_proto()).transpose()?,
+            total_estimated_row_count: self.total_estimated_row_count.map(|v| v.to_proto()).transpose()?,
             rows: self.rows.map(|v| v.to_proto()).transpose()?,
             schema: self.schema.map(|v| v.to_proto()).transpose()?,
         })
@@ -320,6 +341,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_storage::model::ReadRowsResp
                 .set_or_clear_stats(self.stats.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_throttle_state(self.throttle_state.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_uncompressed_byte_size(self.uncompressed_byte_size.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_total_estimated_row_count(self.total_estimated_row_count.map(|v| v.cnv()).transpose()?)
                 .set_rows(self.rows.map(|v| v.cnv()).transpose()?)
                 .set_schema(self.schema.map(|v| v.cnv()).transpose()?)
         )

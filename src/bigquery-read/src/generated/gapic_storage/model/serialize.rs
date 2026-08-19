@@ -292,6 +292,9 @@ impl serde::ser::Serialize for super::ReadRowsRequest {
             }
             state.serialize_entry("offset", &__With(&self.offset))?;
         }
+        if let Some(value) = self.arrow_serialization_options() {
+            state.serialize_entry("arrowSerializationOptions", value)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -452,6 +455,23 @@ impl serde::ser::Serialize for super::ReadRowsResponse {
             state.serialize_entry(
                 "uncompressedByteSize",
                 &__With(&self.uncompressed_byte_size),
+            )?;
+        }
+        if self.total_estimated_row_count.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "totalEstimatedRowCount",
+                &__With(&self.total_estimated_row_count),
             )?;
         }
         if !self._unknown_fields.is_empty() {

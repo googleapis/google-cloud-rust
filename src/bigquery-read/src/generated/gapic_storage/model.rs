@@ -827,6 +827,13 @@ pub struct ReadRowsRequest {
     /// from offset zero.
     pub offset: i64,
 
+    /// Specifies output serialization options. Only job _default streams are
+    /// supported.
+    ///
+    /// This feature is not yet available.
+    pub output_format_serialization_options:
+        std::option::Option<crate::model::read_rows_request::OutputFormatSerializationOptions>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -847,11 +854,89 @@ impl ReadRowsRequest {
         self.offset = v.into();
         self
     }
+
+    /// Sets the value of [output_format_serialization_options][crate::model::ReadRowsRequest::output_format_serialization_options].
+    ///
+    /// Note that all the setters affecting `output_format_serialization_options` are mutually
+    /// exclusive.
+    pub fn set_output_format_serialization_options<
+        T: std::convert::Into<
+                std::option::Option<
+                    crate::model::read_rows_request::OutputFormatSerializationOptions,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.output_format_serialization_options = v.into();
+        self
+    }
+
+    /// The value of [output_format_serialization_options][crate::model::ReadRowsRequest::output_format_serialization_options]
+    /// if it holds a `ArrowSerializationOptions`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn arrow_serialization_options(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ArrowSerializationOptions>> {
+        #[allow(unreachable_patterns)]
+        self.output_format_serialization_options.as_ref().and_then(|v| match v {
+            crate::model::read_rows_request::OutputFormatSerializationOptions::ArrowSerializationOptions(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [output_format_serialization_options][crate::model::ReadRowsRequest::output_format_serialization_options]
+    /// to hold a `ArrowSerializationOptions`.
+    ///
+    /// Note that all the setters affecting `output_format_serialization_options` are
+    /// mutually exclusive.
+    pub fn set_arrow_serialization_options<
+        T: std::convert::Into<std::boxed::Box<crate::model::ArrowSerializationOptions>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.output_format_serialization_options = std::option::Option::Some(
+            crate::model::read_rows_request::OutputFormatSerializationOptions::ArrowSerializationOptions(
+                v.into()
+            )
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for ReadRowsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.bigquery.storage.v1.ReadRowsRequest"
+    }
+}
+
+/// Defines additional types related to [ReadRowsRequest].
+pub mod read_rows_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Specifies output serialization options. Only job _default streams are
+    /// supported.
+    ///
+    /// This feature is not yet available.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum OutputFormatSerializationOptions {
+        /// Optional. Options specific to the Apache Arrow output format.
+        ///
+        /// This feature is not yet available.
+        ArrowSerializationOptions(std::boxed::Box<crate::model::ArrowSerializationOptions>),
+    }
+
+    impl OutputFormatSerializationOptions {
+        /// Initializes the enum to the [ArrowSerializationOptions](Self::ArrowSerializationOptions) branch.
+        pub fn from_arrow_serialization_options(
+            value: impl std::convert::Into<std::boxed::Box<crate::model::ArrowSerializationOptions>>,
+        ) -> Self {
+            Self::ArrowSerializationOptions(value.into())
+        }
     }
 }
 
@@ -1013,6 +1098,12 @@ pub struct ReadRowsResponse {
     /// greater than 0, the client should skip decompression.
     pub uncompressed_byte_size: std::option::Option<i64>,
 
+    /// Output only. The total estimated number of rows in the query results.
+    /// Only populated when reading data from a BigQuery job.
+    ///
+    /// This feature is not yet available.
+    pub total_estimated_row_count: std::option::Option<i64>,
+
     /// Row data is returned in format specified during session creation.
     pub rows: std::option::Option<crate::model::read_rows_response::Rows>,
 
@@ -1089,6 +1180,24 @@ impl ReadRowsResponse {
         T: std::convert::Into<i64>,
     {
         self.uncompressed_byte_size = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [total_estimated_row_count][crate::model::ReadRowsResponse::total_estimated_row_count].
+    pub fn set_total_estimated_row_count<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.total_estimated_row_count = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [total_estimated_row_count][crate::model::ReadRowsResponse::total_estimated_row_count].
+    pub fn set_or_clear_total_estimated_row_count<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.total_estimated_row_count = v.map(|x| x.into());
         self
     }
 
