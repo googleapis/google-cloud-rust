@@ -382,7 +382,7 @@ mod tests {
     }
 
     #[test]
-    fn test_make_headers_global() -> TestResult {
+    fn make_headers_with_global_headers() -> TestResult {
         // Arrange
         const GLOBAL_HEADER_NAME: &str = "x-global-header";
         const GLOBAL_HEADER_VAL: &str = "global-val";
@@ -408,7 +408,7 @@ mod tests {
     }
 
     #[test]
-    fn test_make_headers_precedence() -> TestResult {
+    fn make_headers_precedence_request_over_global() -> TestResult {
         // Arrange
         const KEY: &str = "x-test-precedence";
         let mut global_headers = HeaderMap::new();
