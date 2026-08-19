@@ -16,6 +16,7 @@
 // when available in a future release.
 
 use google_cloud_gax::Result as GaxResult;
+use google_cloud_gax::error::Error;
 use grpc::metadata::{
     Ascii as GrpcAscii, AsciiMetadataValue as GrpcAsciiMetadataValue, Binary as GrpcBinary,
     KeyAndValueRef as GrpcKeyAndValueRef, MetadataKey as GrpcMetadataKey,
@@ -32,13 +33,13 @@ pub(super) fn from_header_map(headers: &HeaderMap) -> GaxResult<GrpcMetadataMap>
     let mut grpc_map = GrpcMetadataMap::new();
     for (key, value) in headers {
         if key.as_str().ends_with("-bin") {
-            if let Ok(k) = GrpcMetadataKey::<GrpcBinary>::from_bytes(key.as_str().as_bytes()) {
-                grpc_map.append_bin(k, GrpcMetadataValue::from_bytes(value.as_bytes()));
-            }
-        } else if let (Ok(k), Ok(val)) = (
-            GrpcMetadataKey::<GrpcAscii>::from_bytes(key.as_str().as_bytes()),
-            GrpcAsciiMetadataValue::try_from(value.as_bytes()),
-        ) {
+            let k = GrpcMetadataKey::<GrpcBinary>::from_bytes(key.as_str().as_bytes())
+                .map_err(Error::ser)?;
+            grpc_map.append_bin(k, GrpcMetadataValue::from_bytes(value.as_bytes()));
+        } else {
+            let k = GrpcMetadataKey::<GrpcAscii>::from_bytes(key.as_str().as_bytes())
+                .map_err(Error::ser)?;
+            let val = GrpcAsciiMetadataValue::try_from(value.as_bytes()).map_err(Error::ser)?;
             grpc_map.append(k, val);
         }
     }
@@ -51,18 +52,17 @@ pub(super) fn to_tonic_map(metadata: &GrpcMetadataMap) -> TonicMetadataMap {
     for item in metadata.iter() {
         match item {
             GrpcKeyAndValueRef::Ascii(key, val) => {
-                if let (Ok(name), Ok(val)) = (
-                    TonicMetadataKey::from_bytes(key.as_str().as_bytes()),
-                    TonicMetadataValue::try_from(val.to_str().as_bytes()),
-                ) {
-                    tonic_map.append(name, val);
-                }
+                let name = TonicMetadataKey::from_bytes(key.as_str().as_bytes())
+                    .expect("grpc-rust guarantees valid metadata keys");
+                let val = TonicMetadataValue::try_from(val.to_str().as_bytes())
+                    .expect("grpc-rust guarantees valid ascii metadata values");
+                tonic_map.append(name, val);
             }
             GrpcKeyAndValueRef::Binary(key, val) => {
-                if let Ok(name) = TonicMetadataKey::from_bytes(key.as_str().as_bytes()) {
-                    let val = TonicMetadataValue::from_bytes(val.as_bytes());
-                    tonic_map.append_bin(name, val);
-                }
+                let name = TonicMetadataKey::from_bytes(key.as_str().as_bytes())
+                    .expect("grpc-rust guarantees valid metadata keys");
+                let val = TonicMetadataValue::from_bytes(val.as_bytes());
+                tonic_map.append_bin(name, val);
             }
         }
     }
@@ -131,5 +131,23 @@ mod tests {
             tonic_bin.to_bytes().expect("valid bytes"),
             bytes::Bytes::from_static(BIN_VAL)
         );
+    }
+
+    #[test]
+    fn test_from_header_map_invalid_ascii_value_returns_error() {
+        // Arrange
+        let mut headers = HeaderMap::new();
+        let invalid_val =
+            http::header::HeaderValue::from_bytes(&[0xFA]).expect("valid http header value");
+        headers.insert(
+            http::header::HeaderName::from_static("x-invalid-ascii"),
+            invalid_val,
+        );
+
+        // Act
+        let result = from_header_map(&headers);
+
+        // Assert
+        assert!(result.is_err());
     }
 }
