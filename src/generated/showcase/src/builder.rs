@@ -2418,22 +2418,17 @@ pub mod echo {
     /// Common implementation for [crate::client::Echo] bidi stream builders.
     #[cfg(google_cloud_unstable_gapic_streaming)]
     #[derive(Clone, Debug)]
-    pub(crate) struct BidiStreamBuilder<R: std::default::Default> {
+    pub(crate) struct BidiStreamBuilder {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Echo>,
-        request: Option<R>,
-        options: crate::BidiStreamOptions,
+        options: crate::RequestOptions,
     }
 
     #[cfg(google_cloud_unstable_gapic_streaming)]
-    impl<R> BidiStreamBuilder<R>
-    where
-        R: std::default::Default,
-    {
+    impl BidiStreamBuilder {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
             Self {
                 stub,
-                request: None,
-                options: crate::BidiStreamOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -2721,9 +2716,18 @@ pub mod echo {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::echo::Chat;
+    /// # use google_cloud_showcase_v1beta1::model::EchoRequest;
     /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     /// let builder = prepare_request_builder();
-    /// let (sender, mut receiver) = builder.send().await?;
+    /// let (sender, mut receiver) = builder.build();
+    ///
+    /// sender.send(EchoRequest::default()).await?;
+    /// drop(sender); // Half-close the stream
+    ///
+    /// while let Some(response) = receiver.recv().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
     /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> Chat {
@@ -2733,7 +2737,7 @@ pub mod echo {
     /// ```
     #[cfg(google_cloud_unstable_gapic_streaming)]
     #[derive(Clone, Debug)]
-    pub struct Chat(BidiStreamBuilder<crate::model::EchoRequest>);
+    pub struct Chat(BidiStreamBuilder);
 
     #[cfg(google_cloud_unstable_gapic_streaming)]
     impl Chat {
@@ -2741,145 +2745,28 @@ pub mod echo {
             Self(BidiStreamBuilder::new(stub))
         }
 
-        /// Sets the buffer capacity of internal request channel.
-        ///
-        /// Valid values must be between `1` and `google_cloud_gax::options::MAX_REQUEST_CHANNEL_CAPACITY`.
-        /// The default capacity is `16`.
-        pub fn with_request_channel_capacity(mut self, capacity: usize) -> Self {
-            self.0.options.set_request_channel_capacity(capacity);
-            self
-        }
-
-        /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::EchoRequest>>(mut self, v: V) -> Self {
-            self.0.request = std::option::Option::Some(v.into());
-            self
-        }
-
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<crate::BidiStreamOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
 
         /// Initiates the bidirectional stream.
-        pub async fn send(
+        pub fn build(
             self,
-        ) -> Result<(
+        ) -> (
             google_cloud_gax::streaming::RequestSender<crate::model::EchoRequest>,
             google_cloud_gax::streaming::ResponseReceiver<crate::model::EchoResponse>,
-        )> {
-            (*self.0.stub).chat(self.0.request, self.0.options).await
-        }
-
-        /// Sets the value of [severity][crate::model::EchoRequest::severity].
-        pub fn set_severity<T: Into<crate::model::Severity>>(mut self, v: T) -> Self {
-            self.0
-                .request
-                .get_or_insert_with(std::default::Default::default)
-                .severity = v.into();
-            self
-        }
-
-        /// Sets the value of [header][crate::model::EchoRequest::header].
-        pub fn set_header<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0
-                .request
-                .get_or_insert_with(std::default::Default::default)
-                .header = v.into();
-            self
-        }
-
-        /// Sets the value of [other_header][crate::model::EchoRequest::other_header].
-        pub fn set_other_header<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0
-                .request
-                .get_or_insert_with(std::default::Default::default)
-                .other_header = v.into();
-            self
-        }
-
-        /// Sets the value of [request_id][crate::model::EchoRequest::request_id].
-        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0
-                .request
-                .get_or_insert_with(std::default::Default::default)
-                .request_id = v.into();
-            self
-        }
-
-        /// Sets the value of [other_request_id][crate::model::EchoRequest::other_request_id].
-        pub fn set_other_request_id<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<std::string::String>,
-        {
-            self.0
-                .request
-                .get_or_insert_with(std::default::Default::default)
-                .other_request_id = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [other_request_id][crate::model::EchoRequest::other_request_id].
-        pub fn set_or_clear_other_request_id<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<std::string::String>,
-        {
-            self.0
-                .request
-                .get_or_insert_with(std::default::Default::default)
-                .other_request_id = v.map(|x| x.into());
-            self
-        }
-
-        /// Sets the value of [response][crate::model::EchoRequest::response].
-        ///
-        /// Note that all the setters affecting `response` are
-        /// mutually exclusive.
-        pub fn set_response<T: Into<Option<crate::model::echo_request::Response>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0
-                .request
-                .get_or_insert_with(std::default::Default::default)
-                .response = v.into();
-            self
-        }
-
-        /// Sets the value of [response][crate::model::EchoRequest::response]
-        /// to hold a `Content`.
-        ///
-        /// Note that all the setters affecting `response` are
-        /// mutually exclusive.
-        pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            let req = self.0.request.take().unwrap_or_default().set_content(v);
-            self.0.request = std::option::Option::Some(req);
-            self
-        }
-
-        /// Sets the value of [response][crate::model::EchoRequest::response]
-        /// to hold a `Error`.
-        ///
-        /// Note that all the setters affecting `response` are
-        /// mutually exclusive.
-        pub fn set_error<
-            T: std::convert::Into<std::boxed::Box<google_cloud_rpc::model::Status>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            let req = self.0.request.take().unwrap_or_default().set_error(v);
-            self.0.request = std::option::Option::Some(req);
-            self
+        ) {
+            (*self.0.stub).chat(self.0.options)
         }
     }
 
-    #[doc(hidden)]
     #[cfg(google_cloud_unstable_gapic_streaming)]
+    #[doc(hidden)]
     impl crate::RequestBuilder for Chat {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
-            self.0.options.request_options_mut()
+            &mut self.0.options
         }
     }
 
@@ -5454,24 +5341,19 @@ pub mod messaging {
     /// Common implementation for [crate::client::Messaging] bidi stream builders.
     #[cfg(google_cloud_unstable_gapic_streaming)]
     #[derive(Clone, Debug)]
-    pub(crate) struct BidiStreamBuilder<R: std::default::Default> {
+    pub(crate) struct BidiStreamBuilder {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Messaging>,
-        request: Option<R>,
-        options: crate::BidiStreamOptions,
+        options: crate::RequestOptions,
     }
 
     #[cfg(google_cloud_unstable_gapic_streaming)]
-    impl<R> BidiStreamBuilder<R>
-    where
-        R: std::default::Default,
-    {
+    impl BidiStreamBuilder {
         pub(crate) fn new(
             stub: std::sync::Arc<dyn super::super::stub::dynamic::Messaging>,
         ) -> Self {
             Self {
                 stub,
-                request: None,
-                options: crate::BidiStreamOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -6397,9 +6279,18 @@ pub mod messaging {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::messaging::Connect;
+    /// # use google_cloud_showcase_v1beta1::model::ConnectRequest;
     /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     /// let builder = prepare_request_builder();
-    /// let (sender, mut receiver) = builder.send().await?;
+    /// let (sender, mut receiver) = builder.build();
+    ///
+    /// sender.send(ConnectRequest::default()).await?;
+    /// drop(sender); // Half-close the stream
+    ///
+    /// while let Some(response) = receiver.recv().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
     /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> Connect {
@@ -6409,7 +6300,7 @@ pub mod messaging {
     /// ```
     #[cfg(google_cloud_unstable_gapic_streaming)]
     #[derive(Clone, Debug)]
-    pub struct Connect(BidiStreamBuilder<crate::model::ConnectRequest>);
+    pub struct Connect(BidiStreamBuilder);
 
     #[cfg(google_cloud_unstable_gapic_streaming)]
     impl Connect {
@@ -6419,88 +6310,28 @@ pub mod messaging {
             Self(BidiStreamBuilder::new(stub))
         }
 
-        /// Sets the buffer capacity of internal request channel.
-        ///
-        /// Valid values must be between `1` and `google_cloud_gax::options::MAX_REQUEST_CHANNEL_CAPACITY`.
-        /// The default capacity is `16`.
-        pub fn with_request_channel_capacity(mut self, capacity: usize) -> Self {
-            self.0.options.set_request_channel_capacity(capacity);
-            self
-        }
-
-        /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ConnectRequest>>(mut self, v: V) -> Self {
-            self.0.request = std::option::Option::Some(v.into());
-            self
-        }
-
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<crate::BidiStreamOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
 
         /// Initiates the bidirectional stream.
-        pub async fn send(
+        pub fn build(
             self,
-        ) -> Result<(
+        ) -> (
             google_cloud_gax::streaming::RequestSender<crate::model::ConnectRequest>,
             google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>,
-        )> {
-            (*self.0.stub).connect(self.0.request, self.0.options).await
-        }
-
-        /// Sets the value of [request][crate::model::ConnectRequest::request].
-        ///
-        /// Note that all the setters affecting `request` are
-        /// mutually exclusive.
-        pub fn set_request<T: Into<Option<crate::model::connect_request::Request>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0
-                .request
-                .get_or_insert_with(std::default::Default::default)
-                .request = v.into();
-            self
-        }
-
-        /// Sets the value of [request][crate::model::ConnectRequest::request]
-        /// to hold a `Config`.
-        ///
-        /// Note that all the setters affecting `request` are
-        /// mutually exclusive.
-        pub fn set_config<
-            T: std::convert::Into<std::boxed::Box<crate::model::connect_request::ConnectConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            let req = self.0.request.take().unwrap_or_default().set_config(v);
-            self.0.request = std::option::Option::Some(req);
-            self
-        }
-
-        /// Sets the value of [request][crate::model::ConnectRequest::request]
-        /// to hold a `Blurb`.
-        ///
-        /// Note that all the setters affecting `request` are
-        /// mutually exclusive.
-        pub fn set_blurb<T: std::convert::Into<std::boxed::Box<crate::model::Blurb>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            let req = self.0.request.take().unwrap_or_default().set_blurb(v);
-            self.0.request = std::option::Option::Some(req);
-            self
+        ) {
+            (*self.0.stub).connect(self.0.options)
         }
     }
 
-    #[doc(hidden)]
     #[cfg(google_cloud_unstable_gapic_streaming)]
+    #[doc(hidden)]
     impl crate::RequestBuilder for Connect {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
-            self.0.options.request_options_mut()
+            &mut self.0.options
         }
     }
 

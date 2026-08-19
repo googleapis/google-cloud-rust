@@ -23,12 +23,12 @@ use tokio::sync::{mpsc, oneshot};
 /// A request builder for appending rows on the default stream.
 #[derive(Clone, Debug)]
 pub struct Append {
-    req_tx: mpsc::Sender<WriteRequest>,
+    req_tx: mpsc::UnboundedSender<WriteRequest>,
     pub(crate) req: AppendRowsRequest,
 }
 
 impl Append {
-    pub(crate) fn new(req_tx: mpsc::Sender<WriteRequest>, req: AppendRowsRequest) -> Self {
+    pub(crate) fn new(req_tx: mpsc::UnboundedSender<WriteRequest>, req: AppendRowsRequest) -> Self {
         Self { req_tx, req }
     }
 
@@ -37,7 +37,7 @@ impl Append {
         let (resp_tx, resp_rx) = oneshot::channel();
         let req = self.req.to_proto().map_err(Error::deser)?;
         let write = WriteRequest { req, resp_tx };
-        let _ = self.req_tx.send(write).await;
+        let _ = self.req_tx.send(write);
         let resp = resp_rx
             .await
             .map_err(|_| AppendError::UnexpectedEndOfStream)??;
@@ -57,7 +57,7 @@ mod tests {
 
     #[tokio::test]
     async fn success() -> anyhow::Result<()> {
-        let (req_tx, mut req_rx) = mpsc::channel(10);
+        let (req_tx, mut req_rx) = mpsc::unbounded_channel();
         let req = AppendRowsRequest::new().set_write_stream(write_stream());
 
         let builder = Append::new(req_tx, req);
@@ -87,7 +87,7 @@ mod tests {
 
     #[tokio::test]
     async fn stream_closed() -> anyhow::Result<()> {
-        let (req_tx, req_rx) = mpsc::channel(10);
+        let (req_tx, req_rx) = mpsc::unbounded_channel();
         let req = AppendRowsRequest::new().set_write_stream(write_stream());
 
         let builder = Append::new(req_tx, req);
@@ -103,7 +103,7 @@ mod tests {
 
     #[tokio::test]
     async fn rpc_error() -> anyhow::Result<()> {
-        let (req_tx, mut req_rx) = mpsc::channel(10);
+        let (req_tx, mut req_rx) = mpsc::unbounded_channel();
         let req = AppendRowsRequest::new().set_write_stream(write_stream());
 
         let builder = Append::new(req_tx, req);
@@ -124,7 +124,7 @@ mod tests {
 
     #[tokio::test]
     async fn row_errors() -> anyhow::Result<()> {
-        let (req_tx, mut req_rx) = mpsc::channel(10);
+        let (req_tx, mut req_rx) = mpsc::unbounded_channel();
         let req = AppendRowsRequest::new().set_write_stream(write_stream());
 
         let builder = Append::new(req_tx, req);
