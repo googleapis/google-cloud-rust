@@ -299,7 +299,7 @@ mod tests {
 
     #[cfg(google_cloud_unstable_gapic_streaming)]
     #[tokio::test]
-    async fn bidi_streaming_helper_basic() -> anyhow::Result<()> {
+    async fn execute_bidi_streaming_basic() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
         let client = builder(endpoint)
             .with_credentials(test_credentials())
@@ -321,7 +321,7 @@ mod tests {
         };
 
         let (sender, mut receiver) = client
-            .bidi_streaming::<DomainEchoRequest, DomainEchoResponse, EchoRequest, EchoResponse>(
+            .execute_bidi_streaming::<DomainEchoRequest, DomainEchoResponse, EchoRequest, EchoResponse>(
                 extensions,
                 http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Chat"),
                 request_options,

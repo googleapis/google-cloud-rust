@@ -217,7 +217,7 @@ impl Client {
 
     /// Opens a bidirectional stream with automatic model <-> proto conversion and channel management.
     #[cfg(google_cloud_unstable_gapic_streaming)]
-    pub fn bidi_streaming<DomainReq, DomainResp, ProstReq, ProstResp>(
+    pub fn execute_bidi_streaming<DomainReq, DomainResp, ProstReq, ProstResp>(
         &self,
         extensions: tonic::Extensions,
         path: http::uri::PathAndQuery,
