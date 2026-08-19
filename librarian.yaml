@@ -108,6 +108,12 @@ default:
       - name: google-shopping-type
         package: google-shopping-type
         source: google.shopping.type
+      - name: prost
+        package: prost
+        used_if: streaming
+      - name: prost-types
+        package: prost-types
+        used_if: streaming
       - name: serde
         package: serde
         force_used: true

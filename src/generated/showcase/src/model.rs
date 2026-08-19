@@ -28,6 +28,8 @@ extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
 extern crate google_cloud_rpc;
+extern crate prost;
+extern crate prost_types;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
