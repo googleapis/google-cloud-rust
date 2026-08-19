@@ -35,6 +35,23 @@ pub enum SendError {
     Serialization(#[from] crate::error::Error),
 }
 
+impl SendError {
+    /// Not part of the public API, subject to change without notice.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn stream_closed() -> Self {
+        Self::StreamClosed
+    }
+
+    /// Not part of the public API, subject to change without notice.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn ser<T>(source: T) -> Self
+    where
+        T: Into<Box<dyn std::error::Error + Send + Sync>>,
+    {
+        Self::Serialization(crate::error::Error::ser(source))
+    }
+}
+
 /// A type-erased asynchronous function that sends a request item over a stream.
 ///
 /// This closure takes an owned request item and returns a boxed, pinned future
@@ -92,7 +109,12 @@ where
     fn from(req_tx: mpsc::Sender<Req>) -> RequestSender<Req> {
         Self::from_fn(move |item| {
             let req_tx = req_tx.clone();
-            async move { req_tx.send(item).await.map_err(|_| SendError::StreamClosed) }
+            async move {
+                req_tx
+                    .send(item)
+                    .await
+                    .map_err(|_| SendError::stream_closed())
+            }
         })
     }
 }
@@ -258,13 +280,16 @@ mod tests {
             err.to_string(),
             "cannot send request: stream is closed; inspect ResponseReceiver for details"
         );
+
+        let constructed = SendError::stream_closed();
+        assert!(matches!(constructed, SendError::StreamClosed));
     }
 
     #[tokio::test]
     async fn request_sender_send_error_serialization() {
         let sender = RequestSender::from_fn(|item: i32| async move {
             if item < 0 {
-                Err(crate::error::Error::ser("negative number"))
+                Err(SendError::ser("negative number"))
             } else {
                 Ok(())
             }
@@ -276,7 +301,14 @@ mod tests {
             .await
             .expect_err("negative number should trigger serialization error");
         assert!(matches!(err, SendError::Serialization(_)));
+        assert_eq!(
+            err.to_string(),
+            "cannot serialize the request negative number"
+        );
         assert_eq!(format!("{sender:?}"), "RequestSender");
+
+        let ser_err = SendError::ser("test ser");
+        assert!(matches!(ser_err, SendError::Serialization(_)));
     }
 
     #[tokio::test]
