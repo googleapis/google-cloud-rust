@@ -5788,6 +5788,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Message {
             __quoted_message_metadata,
             __attached_gifs,
             __accessory_widgets,
+            __markup_syntax,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -5859,6 +5860,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Message {
                             "attached_gifs" => Ok(__FieldTag::__attached_gifs),
                             "accessoryWidgets" => Ok(__FieldTag::__accessory_widgets),
                             "accessory_widgets" => Ok(__FieldTag::__accessory_widgets),
+                            "markupSyntax" => Ok(__FieldTag::__markup_syntax),
+                            "markup_syntax" => Ok(__FieldTag::__markup_syntax),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -6140,6 +6143,16 @@ impl<'de> serde::de::Deserialize<'de> for super::Message {
                                 map.next_value::<std::option::Option<
                                     std::vec::Vec<crate::model::AccessoryWidget>,
                                 >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__markup_syntax => {
+                            if !fields.insert(__FieldTag::__markup_syntax) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for markup_syntax",
+                                ));
+                            }
+                            result.markup_syntax = map
+                                .next_value::<std::option::Option<crate::model::MarkupSyntax>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
@@ -7083,6 +7096,7 @@ impl<'de> serde::de::Deserialize<'de> for super::GetMessageRequest {
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __name,
+            __markup_syntax,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -7104,6 +7118,8 @@ impl<'de> serde::de::Deserialize<'de> for super::GetMessageRequest {
                         use std::string::ToString;
                         match value {
                             "name" => Ok(__FieldTag::__name),
+                            "markupSyntax" => Ok(__FieldTag::__markup_syntax),
+                            "markup_syntax" => Ok(__FieldTag::__markup_syntax),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -7137,6 +7153,16 @@ impl<'de> serde::de::Deserialize<'de> for super::GetMessageRequest {
                             }
                             result.name = map
                                 .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__markup_syntax => {
+                            if !fields.insert(__FieldTag::__markup_syntax) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for markup_syntax",
+                                ));
+                            }
+                            result.markup_syntax = map
+                                .next_value::<std::option::Option<crate::model::MarkupSyntax>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
@@ -7606,6 +7632,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ListMessagesRequest {
             __filter,
             __order_by,
             __show_deleted,
+            __markup_syntax,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -7636,6 +7663,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ListMessagesRequest {
                             "order_by" => Ok(__FieldTag::__order_by),
                             "showDeleted" => Ok(__FieldTag::__show_deleted),
                             "show_deleted" => Ok(__FieldTag::__show_deleted),
+                            "markupSyntax" => Ok(__FieldTag::__markup_syntax),
+                            "markup_syntax" => Ok(__FieldTag::__markup_syntax),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -7728,6 +7757,16 @@ impl<'de> serde::de::Deserialize<'de> for super::ListMessagesRequest {
                             }
                             result.show_deleted = map
                                 .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__markup_syntax => {
+                            if !fields.insert(__FieldTag::__markup_syntax) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for markup_syntax",
+                                ));
+                            }
+                            result.markup_syntax = map
+                                .next_value::<std::option::Option<crate::model::MarkupSyntax>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
@@ -8123,6 +8162,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SearchMessagesRequest {
             __page_size,
             __page_token,
             __order_by,
+            __markup_syntax,
             __view,
             Unknown(std::string::String),
         }
@@ -8152,6 +8192,8 @@ impl<'de> serde::de::Deserialize<'de> for super::SearchMessagesRequest {
                             "page_token" => Ok(__FieldTag::__page_token),
                             "orderBy" => Ok(__FieldTag::__order_by),
                             "order_by" => Ok(__FieldTag::__order_by),
+                            "markupSyntax" => Ok(__FieldTag::__markup_syntax),
+                            "markup_syntax" => Ok(__FieldTag::__markup_syntax),
                             "view" => Ok(__FieldTag::__view),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
@@ -8235,6 +8277,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SearchMessagesRequest {
                             }
                             result.order_by = map
                                 .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__markup_syntax => {
+                            if !fields.insert(__FieldTag::__markup_syntax) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for markup_syntax",
+                                ));
+                            }
+                            result.markup_syntax = map
+                                .next_value::<std::option::Option<crate::model::MarkupSyntax>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::__view => {

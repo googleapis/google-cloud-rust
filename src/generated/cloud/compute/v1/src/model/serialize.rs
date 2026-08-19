@@ -4851,6 +4851,9 @@ impl serde::ser::Serialize for super::BackendServiceTlsSettings {
         if self.authentication_config.is_some() {
             state.serialize_entry("authenticationConfig", &self.authentication_config)?;
         }
+        if self.identity.is_some() {
+            state.serialize_entry("identity", &self.identity)?;
+        }
         if self.sni.is_some() {
             state.serialize_entry("sni", &self.sni)?;
         }
@@ -11520,6 +11523,9 @@ impl serde::ser::Serialize for super::FutureReservation {
         if self.resource_metadata.is_some() {
             state.serialize_entry("resourceMetadata", &self.resource_metadata)?;
         }
+        if self.resource_name.is_some() {
+            state.serialize_entry("resourceName", &self.resource_name)?;
+        }
         if self.scheduling_type.is_some() {
             state.serialize_entry("schedulingType", &self.scheduling_type)?;
         }
@@ -11543,6 +11549,9 @@ impl serde::ser::Serialize for super::FutureReservation {
         }
         if self.status.is_some() {
             state.serialize_entry("status", &self.status)?;
+        }
+        if self.storage_pool_properties.is_some() {
+            state.serialize_entry("storagePoolProperties", &self.storage_pool_properties)?;
         }
         if self.time_window.is_some() {
             state.serialize_entry("timeWindow", &self.time_window)?;
@@ -11668,6 +11677,12 @@ impl serde::ser::Serialize for super::FutureReservationStatus {
         if !self.auto_created_reservations.is_empty() {
             state.serialize_entry("autoCreatedReservations", &self.auto_created_reservations)?;
         }
+        if self.exapool_provisioned_capacity_gb.is_some() {
+            state.serialize_entry(
+                "exapoolProvisionedCapacityGb",
+                &self.exapool_provisioned_capacity_gb,
+            )?;
+        }
         if self.existing_matching_usage_info.is_some() {
             state.serialize_entry(
                 "existingMatchingUsageInfo",
@@ -11699,6 +11714,12 @@ impl serde::ser::Serialize for super::FutureReservationStatus {
         }
         if self.specific_sku_properties.is_some() {
             state.serialize_entry("specificSkuProperties", &self.specific_sku_properties)?;
+        }
+        if self.storage_pool_provisioned_capacity.is_some() {
+            state.serialize_entry(
+                "storagePoolProvisionedCapacity",
+                &self.storage_pool_provisioned_capacity,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -11833,6 +11854,109 @@ impl serde::ser::Serialize for super::FutureReservationStatusSpecificSKUProperti
             state.serialize_entry(
                 "sourceInstanceTemplateId",
                 &self.source_instance_template_id,
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "future-reservations")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::FutureReservationStoragePoolProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.requested_exapool_provisioned_capacity_gb.is_some() {
+            state.serialize_entry(
+                "requestedExapoolProvisionedCapacityGb",
+                &self.requested_exapool_provisioned_capacity_gb,
+            )?;
+        }
+        if self.requested_storage_pool_provisioned_capacity.is_some() {
+            state.serialize_entry(
+                "requestedStoragePoolProvisionedCapacity",
+                &self.requested_storage_pool_provisioned_capacity,
+            )?;
+        }
+        if self.storage_pool_type.is_some() {
+            state.serialize_entry("storagePoolType", &self.storage_pool_type)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "future-reservations")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::FutureReservationStoragePoolProvisionedCapacity {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.pool_provisioned_capacity_gb.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "poolProvisionedCapacityGb",
+                &__With(&self.pool_provisioned_capacity_gb),
+            )?;
+        }
+        if self.pool_provisioned_iops.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("poolProvisionedIops", &__With(&self.pool_provisioned_iops))?;
+        }
+        if self.pool_provisioned_throughput.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "poolProvisionedThroughput",
+                &__With(&self.pool_provisioned_throughput),
             )?;
         }
         if !self._unknown_fields.is_empty() {
@@ -17911,6 +18035,9 @@ impl serde::ser::Serialize for super::InstanceFlexibilityPolicyInstanceSelection
         }
         if !self.machine_types.is_empty() {
             state.serialize_entry("machineTypes", &self.machine_types)?;
+        }
+        if self.min_cpu_platform.is_some() {
+            state.serialize_entry("minCpuPlatform", &self.min_cpu_platform)?;
         }
         if self.rank.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -37513,6 +37640,32 @@ impl serde::ser::Serialize for super::Reference {
     }
 }
 
+#[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::RegexRewrite {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.path_pattern.is_some() {
+            state.serialize_entry("pathPattern", &self.path_pattern)?;
+        }
+        if self.path_substitution.is_some() {
+            state.serialize_entry("pathSubstitution", &self.path_substitution)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 #[cfg(feature = "regions")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::Region {
@@ -50869,7 +51022,7 @@ impl serde::ser::Serialize for super::StoragePoolDisk {
     }
 }
 
-#[cfg(feature = "storage-pools")]
+#[cfg(any(feature = "future-reservations", feature = "storage-pools",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::StoragePoolExapoolProvisionedCapacityGb {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -56563,6 +56716,9 @@ impl serde::ser::Serialize for super::UrlRewrite {
         }
         if self.path_template_rewrite.is_some() {
             state.serialize_entry("pathTemplateRewrite", &self.path_template_rewrite)?;
+        }
+        if self.regex_rewrite.is_some() {
+            state.serialize_entry("regexRewrite", &self.regex_rewrite)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

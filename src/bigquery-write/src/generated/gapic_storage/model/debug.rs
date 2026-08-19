@@ -134,6 +134,10 @@ impl std::fmt::Debug for super::ReadRowsRequest {
         let mut debug_struct = f.debug_struct("ReadRowsRequest");
         debug_struct.field("read_stream", &self.read_stream);
         debug_struct.field("offset", &self.offset);
+        debug_struct.field(
+            "output_format_serialization_options",
+            &self.output_format_serialization_options,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -182,6 +186,7 @@ impl std::fmt::Debug for super::ReadRowsResponse {
         debug_struct.field("stats", &self.stats);
         debug_struct.field("throttle_state", &self.throttle_state);
         debug_struct.field("uncompressed_byte_size", &self.uncompressed_byte_size);
+        debug_struct.field("total_estimated_row_count", &self.total_estimated_row_count);
         debug_struct.field("rows", &self.rows);
         debug_struct.field("schema", &self.schema);
         if !self._unknown_fields.is_empty() {
@@ -241,6 +246,7 @@ impl std::fmt::Debug for super::AppendRowsRequest {
             "default_missing_value_interpretation",
             &self.default_missing_value_interpretation,
         );
+        debug_struct.field("client_stats", &self.client_stats);
         debug_struct.field("rows", &self.rows);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -398,6 +404,60 @@ impl std::fmt::Debug for super::RowError {
         debug_struct.field("index", &self.index);
         debug_struct.field("code", &self.code);
         debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ClientStats {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ClientStats");
+        debug_struct.field("request_stats", &self.request_stats);
+        debug_struct.field("window_stats", &self.window_stats);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::client_stats::RequestStats {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RequestStats");
+        debug_struct.field("send_time_millis", &self.send_time_millis);
+        debug_struct.field("queued_requests_count", &self.queued_requests_count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::client_stats::WindowStats {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WindowStats");
+        debug_struct.field(
+            "max_response_latency_millis",
+            &self.max_response_latency_millis,
+        );
+        debug_struct.field(
+            "avg_response_latency_millis",
+            &self.avg_response_latency_millis,
+        );
+        debug_struct.field(
+            "longest_wait_no_response_millis",
+            &self.longest_wait_no_response_millis,
+        );
+        debug_struct.field("requests_sent_count", &self.requests_sent_count);
+        debug_struct.field("responses_received_count", &self.responses_received_count);
+        debug_struct.field("bytes_sent_count", &self.bytes_sent_count);
+        debug_struct.field(
+            "window_start_time_epoch_millis",
+            &self.window_start_time_epoch_millis,
+        );
+        debug_struct.field("window_millis", &self.window_millis);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -839,6 +839,19 @@ pub struct ReadRowsRequest {
     pub read_stream: ::prost::alloc::string::String,
     #[prost(int64, tag = "2")]
     pub offset: i64,
+    #[prost(oneof = "read_rows_request::OutputFormatSerializationOptions", tags = "5")]
+    pub output_format_serialization_options: ::core::option::Option<
+        read_rows_request::OutputFormatSerializationOptions,
+    >,
+}
+/// Nested message and enum types in `ReadRowsRequest`.
+pub mod read_rows_request {
+    #[allow(clippy::large_enum_variant)]
+    #[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Oneof)]
+    pub enum OutputFormatSerializationOptions {
+        #[prost(message, tag = "5")]
+        ArrowSerializationOptions(super::ArrowSerializationOptions),
+    }
 }
 impl ::prost::Name for ReadRowsRequest {
     const NAME: &'static str = "ReadRowsRequest";
@@ -915,6 +928,8 @@ pub struct ReadRowsResponse {
     pub throttle_state: ::core::option::Option<ThrottleState>,
     #[prost(int64, optional, tag = "9")]
     pub uncompressed_byte_size: ::core::option::Option<i64>,
+    #[prost(int64, optional, tag = "10")]
+    pub total_estimated_row_count: ::core::option::Option<i64>,
     #[prost(oneof = "read_rows_response::Rows", tags = "3, 4")]
     pub rows: ::core::option::Option<read_rows_response::Rows>,
     #[prost(oneof = "read_rows_response::Schema", tags = "7, 8")]
@@ -1025,6 +1040,8 @@ pub struct AppendRowsRequest {
     >,
     #[prost(enumeration = "append_rows_request::MissingValueInterpretation", tag = "8")]
     pub default_missing_value_interpretation: i32,
+    #[prost(message, optional, tag = "9")]
+    pub client_stats: ::core::option::Option<ClientStats>,
     #[prost(oneof = "append_rows_request::Rows", tags = "4, 5")]
     pub rows: ::core::option::Option<append_rows_request::Rows>,
 }
@@ -1459,6 +1476,77 @@ impl ::prost::Name for RowError {
     }
     fn type_url() -> ::prost::alloc::string::String {
         "type.googleapis.com/google.cloud.bigquery.storage.v1.RowError".into()
+    }
+}
+#[allow(clippy::large_enum_variant)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct ClientStats {
+    #[prost(message, optional, tag = "1")]
+    pub request_stats: ::core::option::Option<client_stats::RequestStats>,
+    #[prost(message, optional, tag = "2")]
+    pub window_stats: ::core::option::Option<client_stats::WindowStats>,
+}
+/// Nested message and enum types in `ClientStats`.
+pub mod client_stats {
+    #[allow(clippy::large_enum_variant)]
+    #[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
+    pub struct RequestStats {
+        #[prost(int64, optional, tag = "1")]
+        pub send_time_millis: ::core::option::Option<i64>,
+        #[prost(int64, optional, tag = "2")]
+        pub queued_requests_count: ::core::option::Option<i64>,
+    }
+    impl ::prost::Name for RequestStats {
+        const NAME: &'static str = "RequestStats";
+        const PACKAGE: &'static str = "google.cloud.bigquery.storage.v1";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.cloud.bigquery.storage.v1.ClientStats.RequestStats".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.cloud.bigquery.storage.v1.ClientStats.RequestStats"
+                .into()
+        }
+    }
+    #[allow(clippy::large_enum_variant)]
+    #[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
+    pub struct WindowStats {
+        #[prost(int64, optional, tag = "1")]
+        pub max_response_latency_millis: ::core::option::Option<i64>,
+        #[prost(int64, optional, tag = "2")]
+        pub avg_response_latency_millis: ::core::option::Option<i64>,
+        #[prost(int64, optional, tag = "3")]
+        pub longest_wait_no_response_millis: ::core::option::Option<i64>,
+        #[prost(int64, optional, tag = "4")]
+        pub requests_sent_count: ::core::option::Option<i64>,
+        #[prost(int64, optional, tag = "5")]
+        pub responses_received_count: ::core::option::Option<i64>,
+        #[prost(int64, optional, tag = "6")]
+        pub bytes_sent_count: ::core::option::Option<i64>,
+        #[prost(int64, optional, tag = "7")]
+        pub window_start_time_epoch_millis: ::core::option::Option<i64>,
+        #[prost(int64, optional, tag = "8")]
+        pub window_millis: ::core::option::Option<i64>,
+    }
+    impl ::prost::Name for WindowStats {
+        const NAME: &'static str = "WindowStats";
+        const PACKAGE: &'static str = "google.cloud.bigquery.storage.v1";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.cloud.bigquery.storage.v1.ClientStats.WindowStats".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.cloud.bigquery.storage.v1.ClientStats.WindowStats"
+                .into()
+        }
+    }
+}
+impl ::prost::Name for ClientStats {
+    const NAME: &'static str = "ClientStats";
+    const PACKAGE: &'static str = "google.cloud.bigquery.storage.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.cloud.bigquery.storage.v1.ClientStats".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.cloud.bigquery.storage.v1.ClientStats".into()
     }
 }
 /// Generated client implementations.

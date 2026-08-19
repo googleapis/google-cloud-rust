@@ -18,6 +18,286 @@
 use super::*;
 
 #[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ArrowSchema {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __serialized_schema,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ArrowSchema")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "serializedSchema" => Ok(__FieldTag::__serialized_schema),
+                            "serialized_schema" => Ok(__FieldTag::__serialized_schema),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ArrowSchema;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ArrowSchema")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__serialized_schema => {
+                            if !fields.insert(__FieldTag::__serialized_schema) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for serialized_schema",
+                                ));
+                            }
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.serialized_schema =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ArrowRecordBatch {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __serialized_record_batch,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ArrowRecordBatch")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "serializedRecordBatch" => Ok(__FieldTag::__serialized_record_batch),
+                            "serialized_record_batch" => Ok(__FieldTag::__serialized_record_batch),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ArrowRecordBatch;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ArrowRecordBatch")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__serialized_record_batch => {
+                            if !fields.insert(__FieldTag::__serialized_record_batch) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for serialized_record_batch",
+                                ));
+                            }
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.serialized_record_batch =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ArrowSerializationOptions {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __buffer_compression,
+            __picos_timestamp_precision,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ArrowSerializationOptions")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "bufferCompression" => Ok(__FieldTag::__buffer_compression),
+                            "buffer_compression" => Ok(__FieldTag::__buffer_compression),
+                            "picosTimestampPrecision" => {
+                                Ok(__FieldTag::__picos_timestamp_precision)
+                            }
+                            "picos_timestamp_precision" => {
+                                Ok(__FieldTag::__picos_timestamp_precision)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ArrowSerializationOptions;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ArrowSerializationOptions")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__buffer_compression => {
+                            if !fields.insert(__FieldTag::__buffer_compression) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for buffer_compression",
+                                ));
+                            }
+                            result.buffer_compression = map
+                                .next_value::<std::option::Option<
+                                    crate::model::arrow_serialization_options::CompressionCodec,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__picos_timestamp_precision => {
+                            if !fields.insert(__FieldTag::__picos_timestamp_precision) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for picos_timestamp_precision",
+                                ));
+                            }
+                            result.picos_timestamp_precision = map.next_value::<std::option::Option<crate::model::arrow_serialization_options::PicosTimestampPrecision>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::BigLakeConfiguration {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -7324,6 +7604,8 @@ impl<'de> serde::de::Deserialize<'de> for super::QueryRequest {
             __job_creation_mode,
             __reservation,
             __write_incremental_results,
+            __query_results_format,
+            __arrow_serialization_options,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -7392,6 +7674,14 @@ impl<'de> serde::de::Deserialize<'de> for super::QueryRequest {
                             }
                             "write_incremental_results" => {
                                 Ok(__FieldTag::__write_incremental_results)
+                            }
+                            "queryResultsFormat" => Ok(__FieldTag::__query_results_format),
+                            "query_results_format" => Ok(__FieldTag::__query_results_format),
+                            "arrowSerializationOptions" => {
+                                Ok(__FieldTag::__arrow_serialization_options)
+                            }
+                            "arrow_serialization_options" => {
+                                Ok(__FieldTag::__arrow_serialization_options)
                             }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
@@ -7699,6 +7989,35 @@ impl<'de> serde::de::Deserialize<'de> for super::QueryRequest {
                                 .next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__query_results_format => {
+                            if !fields.insert(__FieldTag::__query_results_format) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for query_results_format",
+                                ));
+                            }
+                            result.query_results_format = map
+                                .next_value::<std::option::Option<
+                                    crate::model::query_request::QueryResultsFormat,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__arrow_serialization_options => {
+                            if !fields.insert(__FieldTag::__arrow_serialization_options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for arrow_serialization_options",
+                                ));
+                            }
+                            if result.results_format_serialization_options.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `results_format_serialization_options`, a oneof with full ID .google.cloud.bigquery.v2.QueryRequest.arrow_serialization_options, latest field was arrowSerializationOptions",
+                                ));
+                            }
+                            result.results_format_serialization_options = std::option::Option::Some(
+                                crate::model::query_request::ResultsFormatSerializationOptions::ArrowSerializationOptions(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::ArrowSerializationOptions>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -7743,6 +8062,10 @@ impl<'de> serde::de::Deserialize<'de> for super::QueryResponse {
             __creation_time,
             __start_time,
             __end_time,
+            __arrow_schema,
+            __arrow_record_batch,
+            __page_row_count,
+            __statement_type,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -7800,6 +8123,14 @@ impl<'de> serde::de::Deserialize<'de> for super::QueryResponse {
                             "start_time" => Ok(__FieldTag::__start_time),
                             "endTime" => Ok(__FieldTag::__end_time),
                             "end_time" => Ok(__FieldTag::__end_time),
+                            "arrowSchema" => Ok(__FieldTag::__arrow_schema),
+                            "arrow_schema" => Ok(__FieldTag::__arrow_schema),
+                            "arrowRecordBatch" => Ok(__FieldTag::__arrow_record_batch),
+                            "arrow_record_batch" => Ok(__FieldTag::__arrow_record_batch),
+                            "pageRowCount" => Ok(__FieldTag::__page_row_count),
+                            "page_row_count" => Ok(__FieldTag::__page_row_count),
+                            "statementType" => Ok(__FieldTag::__statement_type),
+                            "statement_type" => Ok(__FieldTag::__statement_type),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -8098,6 +8429,76 @@ impl<'de> serde::de::Deserialize<'de> for super::QueryResponse {
                                 }
                             }
                             result.end_time = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__arrow_schema => {
+                            if !fields.insert(__FieldTag::__arrow_schema) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for arrow_schema",
+                                ));
+                            }
+                            if result.results_schema.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `results_schema`, a oneof with full ID .google.cloud.bigquery.v2.QueryResponse.arrow_schema, latest field was arrowSchema",
+                                ));
+                            }
+                            result.results_schema = std::option::Option::Some(
+                                crate::model::query_response::ResultsSchema::ArrowSchema(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::ArrowSchema>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__arrow_record_batch => {
+                            if !fields.insert(__FieldTag::__arrow_record_batch) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for arrow_record_batch",
+                                ));
+                            }
+                            if result.results.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `results`, a oneof with full ID .google.cloud.bigquery.v2.QueryResponse.arrow_record_batch, latest field was arrowRecordBatch",
+                                ));
+                            }
+                            result.results = std::option::Option::Some(
+                                crate::model::query_response::Results::ArrowRecordBatch(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::ArrowRecordBatch>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__page_row_count => {
+                            if !fields.insert(__FieldTag::__page_row_count) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_row_count",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.page_row_count =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__statement_type => {
+                            if !fields.insert(__FieldTag::__statement_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for statement_type",
+                                ));
+                            }
+                            result.statement_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -13112,6 +13513,7 @@ impl<'de> serde::de::Deserialize<'de> for super::JobStatistics2 {
             __metadata_cache_statistics,
             __incremental_result_stats,
             __gen_ai_stats,
+            __object_storage_stats,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -13262,6 +13664,8 @@ impl<'de> serde::de::Deserialize<'de> for super::JobStatistics2 {
                             }
                             "genAiStats" => Ok(__FieldTag::__gen_ai_stats),
                             "gen_ai_stats" => Ok(__FieldTag::__gen_ai_stats),
+                            "objectStorageStats" => Ok(__FieldTag::__object_storage_stats),
+                            "object_storage_stats" => Ok(__FieldTag::__object_storage_stats),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -13817,6 +14221,145 @@ impl<'de> serde::de::Deserialize<'de> for super::JobStatistics2 {
                             result.gen_ai_stats =
                                 map.next_value::<std::option::Option<crate::model::GenAiStats>>()?;
                         }
+                        __FieldTag::__object_storage_stats => {
+                            if !fields.insert(__FieldTag::__object_storage_stats) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for object_storage_stats",
+                                ));
+                            }
+                            result.object_storage_stats = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::ObjectStorageStats>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ObjectStorageStats {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __cloud_provider,
+            __object_storage_bytes_read,
+            __cache_bytes_read,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ObjectStorageStats")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "cloudProvider" => Ok(__FieldTag::__cloud_provider),
+                            "cloud_provider" => Ok(__FieldTag::__cloud_provider),
+                            "objectStorageBytesRead" => Ok(__FieldTag::__object_storage_bytes_read),
+                            "object_storage_bytes_read" => {
+                                Ok(__FieldTag::__object_storage_bytes_read)
+                            }
+                            "cacheBytesRead" => Ok(__FieldTag::__cache_bytes_read),
+                            "cache_bytes_read" => Ok(__FieldTag::__cache_bytes_read),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ObjectStorageStats;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ObjectStorageStats")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__cloud_provider => {
+                            if !fields.insert(__FieldTag::__cloud_provider) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cloud_provider",
+                                ));
+                            }
+                            result.cloud_provider = map.next_value::<std::option::Option<
+                                crate::model::object_storage_stats::CloudProvider,
+                            >>()?;
+                        }
+                        __FieldTag::__object_storage_bytes_read => {
+                            if !fields.insert(__FieldTag::__object_storage_bytes_read) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for object_storage_bytes_read",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.object_storage_bytes_read = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__cache_bytes_read => {
+                            if !fields.insert(__FieldTag::__cache_bytes_read) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cache_bytes_read",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.cache_bytes_read = map.next_value::<__With>()?.0;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -14168,6 +14711,7 @@ impl<'de> serde::de::Deserialize<'de> for super::CopyJobStatistics {
         enum __FieldTag {
             __copied_rows,
             __copied_logical_bytes,
+            __remote_destination_region,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -14192,6 +14736,12 @@ impl<'de> serde::de::Deserialize<'de> for super::CopyJobStatistics {
                             "copied_rows" => Ok(__FieldTag::__copied_rows),
                             "copiedLogicalBytes" => Ok(__FieldTag::__copied_logical_bytes),
                             "copied_logical_bytes" => Ok(__FieldTag::__copied_logical_bytes),
+                            "remoteDestinationRegion" => {
+                                Ok(__FieldTag::__remote_destination_region)
+                            }
+                            "remote_destination_region" => {
+                                Ok(__FieldTag::__remote_destination_region)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -14254,6 +14804,16 @@ impl<'de> serde::de::Deserialize<'de> for super::CopyJobStatistics {
                                 }
                             }
                             result.copied_logical_bytes = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__remote_destination_region => {
+                            if !fields.insert(__FieldTag::__remote_destination_region) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for remote_destination_region",
+                                ));
+                            }
+                            result.remote_destination_region = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -14895,6 +15455,8 @@ impl<'de> serde::de::Deserialize<'de> for super::JobStatistics {
             __final_execution_duration_ms,
             __edition,
             __reservation_group_path,
+            __global_query_remote_regions,
+            __parent_global_query_job,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -14961,6 +15523,14 @@ impl<'de> serde::de::Deserialize<'de> for super::JobStatistics {
                             "edition" => Ok(__FieldTag::__edition),
                             "reservationGroupPath" => Ok(__FieldTag::__reservation_group_path),
                             "reservation_group_path" => Ok(__FieldTag::__reservation_group_path),
+                            "globalQueryRemoteRegions" => {
+                                Ok(__FieldTag::__global_query_remote_regions)
+                            }
+                            "global_query_remote_regions" => {
+                                Ok(__FieldTag::__global_query_remote_regions)
+                            }
+                            "parentGlobalQueryJob" => Ok(__FieldTag::__parent_global_query_job),
+                            "parent_global_query_job" => Ok(__FieldTag::__parent_global_query_job),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -15271,6 +15841,23 @@ impl<'de> serde::de::Deserialize<'de> for super::JobStatistics {
                                 ));
                             }
                             result.reservation_group_path = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__global_query_remote_regions => {
+                            if !fields.insert(__FieldTag::__global_query_remote_regions) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for global_query_remote_regions",
+                                ));
+                            }
+                            result.global_query_remote_regions = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__parent_global_query_job => {
+                            if !fields.insert(__FieldTag::__parent_global_query_job) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent_global_query_job",
+                                ));
+                            }
+                            result.parent_global_query_job = map
+                                .next_value::<std::option::Option<crate::model::JobReference>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -16284,6 +16871,9 @@ impl<'de> serde::de::Deserialize<'de> for super::partition_skew::SkewSource {
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __stage_id,
+            __output_bytes_median,
+            __output_bytes_p95,
+            __output_bytes_max,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -16306,6 +16896,12 @@ impl<'de> serde::de::Deserialize<'de> for super::partition_skew::SkewSource {
                         match value {
                             "stageId" => Ok(__FieldTag::__stage_id),
                             "stage_id" => Ok(__FieldTag::__stage_id),
+                            "outputBytesMedian" => Ok(__FieldTag::__output_bytes_median),
+                            "output_bytes_median" => Ok(__FieldTag::__output_bytes_median),
+                            "outputBytesP95" => Ok(__FieldTag::__output_bytes_p95),
+                            "output_bytes_p95" => Ok(__FieldTag::__output_bytes_p95),
+                            "outputBytesMax" => Ok(__FieldTag::__output_bytes_max),
+                            "output_bytes_max" => Ok(__FieldTag::__output_bytes_max),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -16349,6 +16945,66 @@ impl<'de> serde::de::Deserialize<'de> for super::partition_skew::SkewSource {
                                 }
                             }
                             result.stage_id = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__output_bytes_median => {
+                            if !fields.insert(__FieldTag::__output_bytes_median) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for output_bytes_median",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.output_bytes_median =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__output_bytes_p95 => {
+                            if !fields.insert(__FieldTag::__output_bytes_p95) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for output_bytes_p95",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.output_bytes_p95 =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__output_bytes_max => {
+                            if !fields.insert(__FieldTag::__output_bytes_max) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for output_bytes_max",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.output_bytes_max =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -29148,6 +29804,7 @@ impl<'de> serde::de::Deserialize<'de> for super::routine::Argument {
             __argument_kind,
             __mode,
             __data_type,
+            __table_type,
             __is_aggregate,
             Unknown(std::string::String),
         }
@@ -29175,6 +29832,8 @@ impl<'de> serde::de::Deserialize<'de> for super::routine::Argument {
                             "mode" => Ok(__FieldTag::__mode),
                             "dataType" => Ok(__FieldTag::__data_type),
                             "data_type" => Ok(__FieldTag::__data_type),
+                            "tableType" => Ok(__FieldTag::__table_type),
+                            "table_type" => Ok(__FieldTag::__table_type),
                             "isAggregate" => Ok(__FieldTag::__is_aggregate),
                             "is_aggregate" => Ok(__FieldTag::__is_aggregate),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
@@ -29239,6 +29898,15 @@ impl<'de> serde::de::Deserialize<'de> for super::routine::Argument {
                                 ));
                             }
                             result.data_type = map.next_value::<std::option::Option<crate::model::StandardSqlDataType>>()?
+                                ;
+                        }
+                        __FieldTag::__table_type => {
+                            if !fields.insert(__FieldTag::__table_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for table_type",
+                                ));
+                            }
+                            result.table_type = map.next_value::<std::option::Option<crate::model::StandardSqlTableType>>()?
                                 ;
                         }
                         __FieldTag::__is_aggregate => {
