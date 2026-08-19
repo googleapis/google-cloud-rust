@@ -382,7 +382,7 @@ impl DatabaseClient {
 
     /// Observes an incoming [`CacheUpdate`], updating routing ranges, pre-warming connections, and caching key recipes.
     pub(crate) fn observe_cache_update(&self, cache_update: Option<CacheUpdate>) {
-        let (Some(routing), Some(mut cache_update)) = (&self.location_routing, cache_update) else {
+        let (Some(routing), Some(cache_update)) = (&self.location_routing, cache_update) else {
             return;
         };
         let update_database_id = cache_update.database_id;
@@ -396,27 +396,14 @@ impl DatabaseClient {
                 let _write_guard = routing.update_lock.write().expect("poisoned update lock");
                 let current_id = routing.database_id.load(Ordering::Acquire);
                 if current_id != update_database_id {
-                    if current_id == 0 {
-                        routing
-                            .database_id
-                            .store(update_database_id, Ordering::Release);
-                    } else if update_database_id > current_id {
-                        routing.key_recipe_cache.clear();
-                        routing.location_router.key_range_cache().clear();
-                        routing
-                            .database_id
-                            .store(update_database_id, Ordering::Release);
-                    } else {
+                    if current_id != 0 && update_database_id < current_id {
                         // Stale update from an older database generation: abort ingestion.
                         return;
                     }
-                    // Under the write lock, ingest the recipes and ranges for the new database ID.
-                    if let Some(key_recipes) = cache_update.key_recipes.take() {
-                        routing
-                            .key_recipe_cache
-                            .update_from_recipe_list(key_recipes);
-                    }
                     routing.cache_updater.process_cache_update(&cache_update);
+                    routing
+                        .database_id
+                        .store(routing.cache_updater.database_id(), Ordering::Release);
                     return;
                 }
             }
@@ -432,12 +419,12 @@ impl DatabaseClient {
             return;
         }
 
-        if let Some(key_recipes) = cache_update.key_recipes.take() {
-            routing
-                .key_recipe_cache
-                .update_from_recipe_list(key_recipes);
-        }
         routing.cache_updater.process_cache_update(&cache_update);
+        if update_database_id != 0 {
+            routing
+                .database_id
+                .store(routing.cache_updater.database_id(), Ordering::Release);
+        }
     }
 }
 
@@ -613,6 +600,7 @@ impl LocationRoutingState {
         let default_connection = ServerConnection::new(default_endpoint, default_channel);
         let connection_cache = Arc::new(ConnectionCache::new(default_connection));
         let key_range_cache = Arc::new(KeyRangeCache::new());
+        let key_recipe_cache = Arc::new(KeyRecipeCache::new());
         let cooldown_tracker = Arc::new(EndpointCooldownTracker::new());
         let location_router = Arc::new(LocationRouter::new(
             Arc::clone(&key_range_cache),
@@ -621,10 +609,10 @@ impl LocationRoutingState {
         ));
         let cache_updater = Arc::new(CacheUpdater::new(
             key_range_cache,
+            Arc::clone(&key_recipe_cache),
             connection_cache,
             spanner.config.clone(),
         ));
-        let key_recipe_cache = Arc::new(KeyRecipeCache::new());
         let database_id = AtomicU64::new(0);
         let update_lock = RwLock::new(());
 
