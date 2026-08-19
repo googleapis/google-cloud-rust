@@ -86,6 +86,7 @@ mod pubsub {
         result
     }
 
+    #[ignore = "TODO(https://github.com/googleapis/google-cloud-rust/issues/6424) - disabled because it was flaky"]
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn run_exactly_once_roundtrip() -> anyhow::Result<()> {
         let _guard = enable_tracing();

@@ -14,16 +14,10 @@
 
 //! Temporal data type codecs (`DATE` and `TIMESTAMP`) for Spanner location-aware routing.
 
-// TODO(#6279): Remove dead_code allowance once temporal codecs are integrated into key_recipe.rs.
-#![allow(dead_code)]
-
-use crate::Error;
+use crate::Result;
 use crate::routing::ssformat;
-use prost_types::Value;
-use prost_types::value::Kind as ProstValueKind;
+use crate::value::Value;
 use time::{Date, OffsetDateTime, format_description::well_known::Rfc3339};
-
-type Result<T> = std::result::Result<T, Error>;
 
 /// The Julian day number of the Unix epoch (`1970-01-01`).
 const UNIX_EPOCH_JULIAN_DAY: i32 = 2440588;
@@ -85,14 +79,11 @@ pub(crate) fn encode_date_part(
     value: &Value,
     decreasing: bool,
 ) -> Result<()> {
-    let date_string = match value.kind {
-        Some(ProstValueKind::StringValue(ref s)) => s,
-        _ => {
-            return Err(crate::error::internal_error(
-                "Type mismatch: expected ISO 8601 String value for DATE column",
-            ));
-        }
-    };
+    let date_string = value.try_as_string().ok_or_else(|| {
+        crate::error::internal_error(
+            "Type mismatch: expected ISO 8601 String value for DATE column",
+        )
+    })?;
     let days_since_epoch = parse_date_days(date_string)?;
     append_int64_ordered(buffer, days_since_epoch, decreasing);
     Ok(())
@@ -104,14 +95,11 @@ pub(crate) fn encode_timestamp_part(
     value: &Value,
     decreasing: bool,
 ) -> Result<()> {
-    let timestamp_string = match value.kind {
-        Some(ProstValueKind::StringValue(ref s)) => s,
-        _ => {
-            return Err(crate::error::internal_error(
-                "Type mismatch: expected RFC 3339 String value for TIMESTAMP column",
-            ));
-        }
-    };
+    let timestamp_string = value.try_as_string().ok_or_else(|| {
+        crate::error::internal_error(
+            "Type mismatch: expected RFC 3339 String value for TIMESTAMP column",
+        )
+    })?;
     let timestamp_bytes = parse_timestamp_bytes(timestamp_string)?;
     append_bytes_ordered(buffer, &timestamp_bytes, decreasing);
     Ok(())
@@ -120,20 +108,7 @@ pub(crate) fn encode_timestamp_part(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use prost_types::Value;
-    use prost_types::value::Kind as ProstValueKind;
-
-    fn sample_string_value(text: &str) -> Value {
-        Value {
-            kind: Some(ProstValueKind::StringValue(text.to_string())),
-        }
-    }
-
-    fn sample_bool_value(boolean_value: bool) -> Value {
-        Value {
-            kind: Some(ProstValueKind::BoolValue(boolean_value)),
-        }
-    }
+    use crate::value::ToValue;
 
     #[test]
     fn parse_date_days_unix_epoch_returns_zero() {
@@ -223,7 +198,7 @@ mod tests {
         let mut encoded_buffers = Vec::new();
 
         for date_text in chronological_dates {
-            let value = sample_string_value(date_text);
+            let value = date_text.to_value();
             let mut buffer = Vec::new();
             encode_date_part(&mut buffer, &value, false)
                 .expect("failed to encode date in chronological sort test");
@@ -331,7 +306,7 @@ mod tests {
         let mut encoded_buffers = Vec::new();
 
         for timestamp_text in chronological_timestamps {
-            let value = sample_string_value(timestamp_text);
+            let value = timestamp_text.to_value();
             let mut buffer = Vec::new();
             encode_timestamp_part(&mut buffer, &value, false)
                 .expect("failed to encode timestamp in chronological sort test");
@@ -349,7 +324,7 @@ mod tests {
 
     #[test]
     fn encode_date_part_ascending_and_descending() {
-        let value = sample_string_value("1970-01-02");
+        let value = "1970-01-02".to_value();
         let mut ascending_buffer = Vec::new();
         encode_date_part(&mut ascending_buffer, &value, false)
             .expect("failed to encode ascending date part");
@@ -366,7 +341,7 @@ mod tests {
 
     #[test]
     fn encode_date_part_invalid_value_kind_returns_err() {
-        let value = sample_bool_value(true);
+        let value = true.to_value();
         let mut buffer = Vec::new();
         let error = encode_date_part(&mut buffer, &value, false)
             .expect_err("bool value for DATE column should fail");
@@ -380,7 +355,7 @@ mod tests {
 
     #[test]
     fn encode_timestamp_part_ascending_and_descending() {
-        let value = sample_string_value("1970-01-01T00:00:01Z");
+        let value = "1970-01-01T00:00:01Z".to_value();
         let mut ascending_buffer = Vec::new();
         encode_timestamp_part(&mut ascending_buffer, &value, false)
             .expect("failed to encode ascending timestamp part");
@@ -397,7 +372,7 @@ mod tests {
 
     #[test]
     fn encode_timestamp_part_invalid_value_kind_returns_err() {
-        let value = sample_bool_value(true);
+        let value = true.to_value();
         let mut buffer = Vec::new();
         let error = encode_timestamp_part(&mut buffer, &value, false)
             .expect_err("bool value for TIMESTAMP column should fail");

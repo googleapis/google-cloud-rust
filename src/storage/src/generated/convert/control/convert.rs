@@ -2221,7 +2221,7 @@ impl gaxi::prost::ToProto<ObjectFullContext> for crate::generated::gapic_control
             value: self.value.to_proto()?,
             create_time: self.create_time.map(|v| v.to_proto()).transpose()?,
             update_time: self.update_time.map(|v| v.to_proto()).transpose()?,
-            extended_data: None,
+            ..Self::Output::default()
         })
     }
 }

@@ -734,6 +734,28 @@ impl Echo {
     /// This method, upon receiving a request on the stream, will pass the same
     /// content back on the stream. This method showcases bidirectional
     /// streaming RPCs.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Echo;
+    /// # use google_cloud_showcase_v1beta1::model::EchoRequest;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Echo
+    /// ) -> Result<()> {
+    ///     let (sender, mut receiver) = client.chat()
+    ///         .build();
+    ///
+    ///     sender.send(EchoRequest::default()).await?;
+    ///     drop(sender); // Half-close the stream
+    ///
+    ///     while let Some(response) = receiver.recv().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn chat(&self) -> super::builder::echo::Chat {
         super::builder::echo::Chat::new(self.inner.clone())
     }
@@ -1861,6 +1883,28 @@ impl Messaging {
     /// are being created after the stream has started and sends requests to create
     /// blurbs. If an invalid blurb is requested to be created, the stream will
     /// close with an error.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Messaging;
+    /// # use google_cloud_showcase_v1beta1::model::ConnectRequest;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Messaging
+    /// ) -> Result<()> {
+    ///     let (sender, mut receiver) = client.connect()
+    ///         .build();
+    ///
+    ///     sender.send(ConnectRequest::default()).await?;
+    ///     drop(sender); // Half-close the stream
+    ///
+    ///     while let Some(response) = receiver.recv().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn connect(&self) -> super::builder::messaging::Connect {
         super::builder::messaging::Connect::new(self.inner.clone())
     }

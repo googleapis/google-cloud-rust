@@ -475,6 +475,10 @@ impl Client {
             default_endpoint,
             universe_domain,
             config.grpc_max_header_list_size,
+            config
+                .extensions
+                .get::<::tonic::transport::ClientTlsConfig>()
+                .cloned(),
         )
         .await?;
         let (channel, tx) = Channel::balance_channel(
@@ -520,6 +524,7 @@ impl Client {
         default_endpoint: &str,
         universe_domain: &str,
         grpc_max_header_list_size: Option<u32>,
+        tls_config: Option<::tonic::transport::ClientTlsConfig>,
     ) -> ClientBuilderResult<::tonic::transport::Endpoint> {
         use ::tonic::transport::{ClientTlsConfig, Endpoint};
 
@@ -533,9 +538,15 @@ impl Client {
             .scheme()
             .is_some_and(|s| s == &http::uri::Scheme::HTTPS)
         {
+            let tls_config =
+                tls_config.unwrap_or_else(|| ClientTlsConfig::new().with_enabled_roots());
             endpoint
-                .tls_config(ClientTlsConfig::new().with_enabled_roots())
+                .tls_config(tls_config)
                 .map_err(BuilderError::transport)?
+        } else if tls_config.is_some() {
+            return Err(BuilderError::transport(
+                "cannot configure TLS on non-HTTPS endpoint",
+            ));
         } else {
             endpoint
         };
@@ -578,6 +589,7 @@ where
 mod tests {
     use super::*;
     use crate::options::InstrumentationClientInfo;
+    use ::tonic::transport::ClientTlsConfig;
     use test_case::test_case;
 
     type TestResult = anyhow::Result<()>;
@@ -608,6 +620,7 @@ mod tests {
             endpoint_override.map(String::from),
             default_endpoint,
             universe_domain,
+            None,
             None,
         )
         .await?;
@@ -646,5 +659,85 @@ mod tests {
             .unwrap();
         // We can't easily assert the internal state without exposing more internals,
         // but this verifies the method exists and runs.
+    }
+
+    #[tokio::test]
+    async fn make_endpoint_with_custom_tls_config() -> TestResult {
+        let custom_tls = ClientTlsConfig::new().domain_name("custom.domain");
+        let endpoint = Client::make_endpoint(
+            Some("https://custom.endpoint.com:15000".to_string()),
+            "https://default.endpoint.com",
+            DEFAULT_UNIVERSE_DOMAIN,
+            None,
+            Some(custom_tls),
+        )
+        .await?;
+        assert_eq!(
+            endpoint.uri().to_string(),
+            "https://custom.endpoint.com:15000/"
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn make_endpoint_plaintext_with_tls_config_fails() {
+        let custom_tls = ClientTlsConfig::new().domain_name("custom.domain");
+        let result = Client::make_endpoint(
+            Some("http://localhost:15000".to_string()),
+            "https://default.endpoint.com",
+            DEFAULT_UNIVERSE_DOMAIN,
+            None,
+            Some(custom_tls),
+        )
+        .await;
+        assert!(
+            result.is_err(),
+            "expected error when combining plaintext endpoint with TLS configuration"
+        );
+    }
+
+    #[tokio::test]
+    async fn make_endpoint_plaintext_without_tls_config_succeeds() -> TestResult {
+        let endpoint = Client::make_endpoint(
+            Some("http://localhost:15000".to_string()),
+            "https://default.endpoint.com",
+            DEFAULT_UNIVERSE_DOMAIN,
+            None,
+            None,
+        )
+        .await?;
+        assert_eq!(endpoint.uri().to_string(), "http://localhost:15000/");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn client_new_with_custom_tls_extension() -> TestResult {
+        let mut config = crate::options::ClientConfig::default();
+        let custom_tls = ClientTlsConfig::new().domain_name("custom.domain");
+        config.extensions.insert(custom_tls);
+        config.cred = Some(google_cloud_auth::credentials::anonymous::Builder::new().build());
+
+        let client = Client::new(config, "https://language.googleapis.com").await;
+        assert!(
+            client.is_ok(),
+            "expected Client::new to succeed with custom TLS extension: {client:?}"
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn client_new_with_tls_extension_and_plaintext_endpoint_fails() {
+        let mut config = crate::options::ClientConfig::default();
+        let custom_tls = ClientTlsConfig::new().domain_name("custom.domain");
+        config.extensions.insert(custom_tls);
+        config.cred = Some(google_cloud_auth::credentials::anonymous::Builder::new().build());
+
+        let err = Client::new(config, "http://localhost:15000")
+            .await
+            .unwrap_err();
+        assert!(
+            err.is_transport(),
+            "expected transport error when building client with plaintext endpoint and TLS extension: {err:?}"
+        );
     }
 }

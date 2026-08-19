@@ -10502,9 +10502,6 @@ pub struct ObjectFullContext {
     /// The time at which the object context was updated.
     pub update_time: std::option::Option<wkt::Timestamp>,
 
-    /// The extended data of the object context.
-    pub extended_data: std::option::Option<wkt::Any>,
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -10618,39 +10615,6 @@ impl ObjectFullContext {
         T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
-        self
-    }
-
-    /// Sets the value of [extended_data][crate::model::ObjectFullContext::extended_data].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::ObjectFullContext;
-    /// use wkt::Any;
-    /// let x = ObjectFullContext::new().set_extended_data(Any::default()/* use setters */);
-    /// ```
-    pub fn set_extended_data<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Any>,
-    {
-        self.extended_data = std::option::Option::Some(v.into());
-        self
-    }
-
-    /// Sets or clears the value of [extended_data][crate::model::ObjectFullContext::extended_data].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::ObjectFullContext;
-    /// use wkt::Any;
-    /// let x = ObjectFullContext::new().set_or_clear_extended_data(Some(Any::default()/* use setters */));
-    /// let x = ObjectFullContext::new().set_or_clear_extended_data(None::<Any>);
-    /// ```
-    pub fn set_or_clear_extended_data<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Any>,
-    {
-        self.extended_data = v.map(|x| x.into());
         self
     }
 }
