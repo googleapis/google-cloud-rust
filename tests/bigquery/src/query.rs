@@ -348,6 +348,7 @@ pub async fn query_client_job() -> Result<()> {
 pub(crate) struct UserRecord {
     pub(crate) name: String,
     pub(crate) age: i64,
+    pub(crate) test: Option<String>,
 }
 
 #[derive(FromSql, Debug, PartialEq)]
@@ -403,10 +404,12 @@ pub async fn query_client_nested_types() -> Result<()> {
     let bob = UserRecord {
         name: "Bob".to_string(),
         age: 28,
+            test: None,
     };
     let charlie = UserRecord {
         name: "Charlie".to_string(),
         age: 31,
+            test: None,
     };
     assert_eq!(data.users, [bob, charlie]);
 

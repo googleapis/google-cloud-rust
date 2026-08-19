@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use super::*;
+use crate::query::UserRecord;
 use ::arrow::array::{Int64Array, StringArray};
 use ::arrow::datatypes::{DataType, Field, Schema};
 use ::arrow::ipc::writer::StreamWriter;
@@ -28,6 +29,7 @@ pub async fn basic(project_id: &str, dataset_id: &str, table_id: &str) -> Result
     let arrow_schema = Arc::new(Schema::new(vec![
         Field::new("name", DataType::Utf8, false),
         Field::new("age", DataType::Int64, false),
+        Field::new("test", DataType::Utf8, false),
     ]));
     let schema_buf = serialize_schema(&arrow_schema)?;
     let schema_len = schema_buf.len();
@@ -40,7 +42,8 @@ pub async fn basic(project_id: &str, dataset_id: &str, table_id: &str) -> Result
     // Create a RecordBatch
     let name = StringArray::from(vec!["Alice", "Bob"]);
     let age = Int64Array::from(vec![25, 28]);
-    let batch = RecordBatch::try_new(arrow_schema.clone(), vec![Arc::new(name), Arc::new(age)])?;
+    let test_col = StringArray::from(vec!["basic", "basic"]);
+    let batch = RecordBatch::try_new(arrow_schema.clone(), vec![Arc::new(name), Arc::new(age), Arc::new(test_col)])?;
     let batch_buf = serialize_batch(&batch, schema_len)?;
 
     // Write the batch
@@ -50,7 +53,8 @@ pub async fn basic(project_id: &str, dataset_id: &str, table_id: &str) -> Result
     // Create a second RecordBatch
     let name = StringArray::from(vec!["Charlie"]);
     let age = Int64Array::from(vec![31]);
-    let batch = RecordBatch::try_new(arrow_schema, vec![Arc::new(name), Arc::new(age)])?;
+    let test_col = StringArray::from(vec!["basic"]);
+    let batch = RecordBatch::try_new(arrow_schema, vec![Arc::new(name), Arc::new(age), Arc::new(test_col)])?;
     let batch_buf = serialize_batch(&batch, schema_len)?;
 
     // Write the second batch
@@ -58,21 +62,24 @@ pub async fn basic(project_id: &str, dataset_id: &str, table_id: &str) -> Result
     let _ = writer.append(rows).send().await?;
 
     // Verify the writes
-    let users = read_table(project_id, dataset_id, table_id).await?;
+    let users = crate::table::read_table(project_id, dataset_id, table_id, Some("basic")).await?;
     assert_eq!(
         users,
         vec![
             UserRecord {
-                name: "Alice".to_string(),
+                name: "Alice".to_string(), // from `basic`
                 age: 25,
+                test: Some("basic".to_string()),
             },
             UserRecord {
-                name: "Bob".to_string(),
+                name: "Bob".to_string(), // from `basic`
                 age: 28,
+                test: Some("basic".to_string()),
             },
             UserRecord {
-                name: "Charlie".to_string(),
+                name: "Charlie".to_string(), // from `basic`
                 age: 31,
+                test: Some("basic".to_string()),
             },
         ]
     );
@@ -87,6 +94,7 @@ pub async fn pending(project_id: &str, dataset_id: &str, table_id: &str) -> Resu
     let arrow_schema = Arc::new(Schema::new(vec![
         Field::new("name", DataType::Utf8, false),
         Field::new("age", DataType::Int64, false),
+        Field::new("test", DataType::Utf8, false),
     ]));
     let schema_buf = serialize_schema(&arrow_schema)?;
     let schema_len = schema_buf.len();
@@ -99,7 +107,8 @@ pub async fn pending(project_id: &str, dataset_id: &str, table_id: &str) -> Resu
     // Create a RecordBatch
     let name = StringArray::from(vec!["David", "Eve"]);
     let age = Int64Array::from(vec![42, 38]);
-    let batch = RecordBatch::try_new(arrow_schema.clone(), vec![Arc::new(name), Arc::new(age)])?;
+    let test_col = StringArray::from(vec!["pending", "pending"]);
+    let batch = RecordBatch::try_new(arrow_schema.clone(), vec![Arc::new(name), Arc::new(age), Arc::new(test_col)])?;
     let batch_buf = serialize_batch(&batch, schema_len)?;
 
     // Write the batch with offset 0
@@ -109,7 +118,8 @@ pub async fn pending(project_id: &str, dataset_id: &str, table_id: &str) -> Resu
     // Create a second RecordBatch
     let name = StringArray::from(vec!["Frank"]);
     let age = Int64Array::from(vec![55]);
-    let batch = RecordBatch::try_new(arrow_schema, vec![Arc::new(name), Arc::new(age)])?;
+    let test_col = StringArray::from(vec!["pending"]);
+    let batch = RecordBatch::try_new(arrow_schema, vec![Arc::new(name), Arc::new(age), Arc::new(test_col)])?;
     let batch_buf = serialize_batch(&batch, schema_len)?;
 
     // Write the second batch with offset 2
@@ -120,34 +130,25 @@ pub async fn pending(project_id: &str, dataset_id: &str, table_id: &str) -> Resu
     writer.finalize().await?;
     writer.commit().await?;
 
-    // Verify the writes (contains the data from `.basic()` test + the pending data we just committed)
-    let users = read_table(project_id, dataset_id, table_id).await?;
+    // Verify the writes (ONLY pending)
+    let users = crate::table::read_table(project_id, dataset_id, table_id, Some("pending")).await?;
     assert_eq!(
         users,
         vec![
             UserRecord {
-                name: "Alice".to_string(), // from `basic`
-                age: 25,
-            },
-            UserRecord {
-                name: "Bob".to_string(), // from `basic`
-                age: 28,
-            },
-            UserRecord {
-                name: "Charlie".to_string(), // from `basic`
-                age: 31,
-            },
-            UserRecord {
                 name: "David".to_string(), // from `pending`
                 age: 42,
+                test: Some("pending".to_string()),
             },
             UserRecord {
                 name: "Eve".to_string(), // from `pending`
                 age: 38,
+                test: Some("pending".to_string()),
             },
             UserRecord {
                 name: "Frank".to_string(), // from `pending`
                 age: 55,
+                test: Some("pending".to_string()),
             },
         ]
     );

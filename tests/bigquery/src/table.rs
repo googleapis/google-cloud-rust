@@ -29,6 +29,7 @@ pub(crate) async fn create_table(
     let schema = TableSchema::new().set_fields([
         TableFieldSchema::new().set_name("name").set_type("STRING"),
         TableFieldSchema::new().set_name("age").set_type("INTEGER"),
+        TableFieldSchema::new().set_name("test").set_type("STRING"),
     ]);
     table_service
         .insert_table()
@@ -54,9 +55,14 @@ pub(crate) async fn read_table(
     project_id: &str,
     dataset_id: &str,
     table_id: &str,
+    test_filter: Option<&str>,
 ) -> Result<Vec<UserRecord>> {
     let client = BigQuery::builder().build().await?;
-    let query = format!("SELECT * FROM `{project_id}.{dataset_id}.{table_id}` ORDER BY name");
+    let mut query = format!("SELECT * FROM `{project_id}.{dataset_id}.{table_id}`");
+    if let Some(test_name) = test_filter {
+        query.push_str(&format!(" WHERE test = '{test_name}'"));
+    }
+    query.push_str(" ORDER BY name");
     let mut rows = client
         .query(query)
         .with_project_id(project_id)

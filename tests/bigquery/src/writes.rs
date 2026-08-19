@@ -15,8 +15,8 @@
 mod arrow;
 
 use crate::dataset::{cleanup_stale_datasets, create_dataset, delete_dataset, random_dataset_id};
-use crate::query::UserRecord;
-use crate::table::{create_table, read_table};
+
+use crate::table::create_table;
 use anyhow::Result;
 use google_cloud_bigquery_v2::client::{DatasetService, TableService};
 use google_cloud_test_utils::runtime_config::project_id;
