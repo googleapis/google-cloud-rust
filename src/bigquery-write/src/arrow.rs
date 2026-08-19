@@ -13,7 +13,9 @@
 // limitations under the License.
 
 mod default;
+mod pending;
 mod writer_builder;
 
 pub use default::DefaultWriter;
+pub use pending::PendingWriter;
 pub use writer_builder::WriterBuilder;
