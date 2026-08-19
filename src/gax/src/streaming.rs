@@ -19,15 +19,48 @@ use std::pin::Pin;
 use std::sync::Arc;
 use tokio::sync::mpsc;
 
+/// An error returned when sending a request over a stream fails.
+#[derive(Debug, thiserror::Error)]
+#[non_exhaustive]
+pub enum SendError {
+    /// The stream was closed by the server or receiver.
+    ///
+    /// The underlying server status error (e.g., `InvalidArgument`, `PermissionDenied`)
+    /// is returned by [`ResponseReceiver::recv`].
+    #[error("cannot send request: stream is closed; inspect ResponseReceiver for details")]
+    StreamClosed,
+
+    /// Serialization / proto conversion of the request failed.
+    #[error(transparent)]
+    Serialization(#[from] crate::error::Error),
+}
+
+impl SendError {
+    /// Not part of the public API, subject to change without notice.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn stream_closed() -> Self {
+        Self::StreamClosed
+    }
+
+    /// Not part of the public API, subject to change without notice.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn ser<T>(source: T) -> Self
+    where
+        T: Into<Box<dyn std::error::Error + Send + Sync>>,
+    {
+        Self::Serialization(crate::error::Error::ser(source))
+    }
+}
+
 /// A type-erased asynchronous function that sends a request item over a stream.
 ///
 /// This closure takes an owned request item and returns a boxed, pinned future
-/// producing a [`crate::Result<()>`]. It allows [`RequestSender`] to perform
+/// producing a `Result<(), SendError>`. It allows [`RequestSender`] to perform
 /// pre-send transformations (such as converting high-level domain models to
 /// low-level Protobuf wire types) without exposing the underlying transport or
 /// wire types in the public API.
 type SenderFn<Req> =
-    dyn Fn(Req) -> Pin<Box<dyn Future<Output = crate::Result<()>> + Send>> + Send + Sync;
+    dyn Fn(Req) -> Pin<Box<dyn Future<Output = Result<(), SendError>> + Send>> + Send + Sync;
 
 /// A handle for sending outbound request items over a gRPC stream.
 #[derive(Clone)]
@@ -43,7 +76,7 @@ impl<Req> std::fmt::Debug for RequestSender<Req> {
 
 impl<Req> RequestSender<Req> {
     /// Sends a request item over the stream.
-    pub async fn send(&self, item: Req) -> Result<(), crate::error::Error> {
+    pub async fn send(&self, item: Req) -> Result<(), SendError> {
         (self.inner)(item).await
     }
 
@@ -54,13 +87,17 @@ impl<Req> RequestSender<Req> {
     /// that perform pre-send transformations without exposing the closure types or
     /// wire models in the public API documentation.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    pub fn from_fn<F, Fut>(f: F) -> Self
+    pub fn from_fn<F, Fut, E>(f: F) -> Self
     where
         F: Fn(Req) -> Fut + Send + Sync + 'static,
-        Fut: Future<Output = crate::Result<()>> + Send + 'static,
+        Fut: Future<Output = Result<(), E>> + Send + 'static,
+        E: Into<SendError> + 'static,
     {
         Self {
-            inner: Arc::new(move |item| Box::pin(f(item))),
+            inner: Arc::new(move |item| {
+                let fut = f(item);
+                Box::pin(async move { fut.await.map_err(Into::into) })
+            }),
         }
     }
 }
@@ -73,27 +110,40 @@ where
         Self::from_fn(move |item| {
             let req_tx = req_tx.clone();
             async move {
-                req_tx.send(item).await.map_err(|_| {
-                    crate::error::Error::io(std::io::Error::new(
-                        std::io::ErrorKind::BrokenPipe,
-                        "cannot send request: stream is closed",
-                    ))
-                })
+                req_tx
+                    .send(item)
+                    .await
+                    .map_err(|_| SendError::stream_closed())
             }
         })
     }
 }
+
+/// A boxed pinned future that resolves to an incoming response stream or an error.
+type ConnectingFuture<Resp> =
+    Pin<Box<dyn Future<Output = Result<ResponseStream<Resp>, crate::error::Error>> + Send>>;
 
 /// A type-erased stream of incoming responses from a gRPC stream.
 ///
 /// This wraps an underlying `futures::Stream` in a boxed pinned trait object,
 /// enabling [`ResponseReceiver`] to perform asynchronous transformations (such
 /// as Protobuf deserialization) without exposing `futures::Stream` in the public API.
-type ResponseStream<Resp> = Pin<Box<dyn futures::Stream<Item = crate::Result<Resp>> + Send>>;
+type ResponseStream<Resp> =
+    Pin<Box<dyn futures::Stream<Item = Result<Resp, crate::error::Error>> + Send>>;
+
+/// Internal state machine for [`ResponseReceiver`].
+enum ResponseState<Resp> {
+    /// Awaiting the initial connection future to resolve the response stream.
+    Connecting(ConnectingFuture<Resp>),
+    /// Response stream established; actively streaming incoming messages.
+    Connected(ResponseStream<Resp>),
+    /// Stream has completed or encountered a terminal error.
+    Closed,
+}
 
 /// A handle for receiving inbound response items from a gRPC stream.
 pub struct ResponseReceiver<Resp> {
-    inner: ResponseStream<Resp>,
+    state: ResponseState<Resp>,
 }
 
 impl<Resp> std::fmt::Debug for ResponseReceiver<Resp> {
@@ -103,17 +153,66 @@ impl<Resp> std::fmt::Debug for ResponseReceiver<Resp> {
 }
 
 impl<Resp> ResponseReceiver<Resp> {
-    /// Receives the next response item from the stream.
-    pub async fn recv(&mut self) -> Option<crate::Result<Resp>> {
+    /// Receives the next response message from the stream.
+    ///
+    /// On the first invocation, this awaits the server's response headers and connection
+    /// establishment if constructed via [`from_future`][Self::from_future]. If the server
+    /// rejected the stream during setup, the error is returned here.
+    pub async fn recv(&mut self) -> Option<Result<Resp, crate::error::Error>> {
         use futures::StreamExt as _;
-        self.inner.next().await
+        loop {
+            match &mut self.state {
+                ResponseState::Connecting(fut) => match fut.await {
+                    Ok(stream) => {
+                        self.state = ResponseState::Connected(stream);
+                    }
+                    Err(e) => {
+                        self.state = ResponseState::Closed;
+                        return Some(Err(e));
+                    }
+                },
+                ResponseState::Connected(stream) => {
+                    let item = stream.next().await;
+                    if item.is_none() {
+                        self.state = ResponseState::Closed;
+                    }
+                    return item;
+                }
+                ResponseState::Closed => return None,
+            }
+        }
     }
 
     #[cfg(feature = "unstable-stream")]
     #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
     /// Converts the receiver into an asynchronous [`Stream`][futures::Stream].
-    pub fn into_stream(self) -> impl futures::Stream<Item = crate::Result<Resp>> + Send + Unpin {
-        self.inner
+    pub fn into_stream(
+        self,
+    ) -> impl futures::Stream<Item = Result<Resp, crate::error::Error>> + Send + Unpin {
+        Box::pin(futures::stream::unfold(self, |mut rx| async move {
+            let item = rx.recv().await?;
+            Some((item, rx))
+        }))
+    }
+
+    /// Creates a [`ResponseReceiver`] from an asynchronous connection future.
+    ///
+    /// This constructor is `doc(hidden)` (except when `_internal-semver` is enabled)
+    /// so that generated client transports can construct [`ResponseReceiver`] instances
+    /// that lazily await HTTP/2 response headers.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn from_future<Fut, S>(fut: Fut) -> Self
+    where
+        Fut: Future<Output = Result<S, crate::error::Error>> + Send + 'static,
+        S: futures::Stream<Item = Result<Resp, crate::error::Error>> + Send + 'static,
+    {
+        let connecting: ConnectingFuture<Resp> = Box::pin(async move {
+            let stream = fut.await?;
+            Ok(Box::pin(stream) as ResponseStream<Resp>)
+        });
+        Self {
+            state: ResponseState::Connecting(connecting),
+        }
     }
 
     /// Creates a [`ResponseReceiver`] from an asynchronous stream.
@@ -125,10 +224,10 @@ impl<Resp> ResponseReceiver<Resp> {
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn from_stream<S>(stream: S) -> Self
     where
-        S: futures::Stream<Item = crate::Result<Resp>> + Send + 'static,
+        S: futures::Stream<Item = Result<Resp, crate::error::Error>> + Send + 'static,
     {
         Self {
-            inner: Box::pin(stream),
+            state: ResponseState::Connected(Box::pin(stream)),
         }
     }
 }
@@ -145,6 +244,7 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::sync::atomic::{AtomicBool, Ordering};
 
     #[tokio::test]
     async fn request_sender_and_response_receiver() -> Result<(), Box<dyn std::error::Error>> {
@@ -166,9 +266,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn request_sender_send_error() {
-        use std::error::Error as _;
-
+    async fn request_sender_send_error_stream_closed() {
         let (req_tx, req_rx) = mpsc::channel::<String>(16);
         let sender = RequestSender::from(req_tx);
 
@@ -177,71 +275,132 @@ mod tests {
             .send("hello".to_string())
             .await
             .expect_err("send should fail when receiver is dropped");
-        assert!(err.is_io());
-        let io_err = err
-            .source()
-            .and_then(|e| e.downcast_ref::<std::io::Error>())
-            .expect("source should be std::io::Error");
-        assert_eq!(io_err.kind(), std::io::ErrorKind::BrokenPipe);
+        assert!(matches!(err, SendError::StreamClosed));
         assert_eq!(
-            err.source().map(|e| e.to_string()).as_deref(),
-            Some("cannot send request: stream is closed")
+            err.to_string(),
+            "cannot send request: stream is closed; inspect ResponseReceiver for details"
         );
+
+        let constructed = SendError::stream_closed();
+        assert!(matches!(constructed, SendError::StreamClosed));
     }
 
     #[tokio::test]
-    async fn request_sender_from_fn() -> Result<(), Box<dyn std::error::Error>> {
+    async fn request_sender_send_error_serialization() {
         let sender = RequestSender::from_fn(|item: i32| async move {
             if item < 0 {
-                Err(crate::error::Error::ser("negative number"))
+                Err(SendError::ser("negative number"))
             } else {
                 Ok(())
             }
         });
 
-        sender.send(42).await?;
+        sender.send(42).await.expect("send should succeed");
         let err = sender
             .send(-1)
             .await
             .expect_err("negative number should trigger serialization error");
-        assert!(err.is_serialization());
+        assert!(matches!(err, SendError::Serialization(_)));
+        assert_eq!(
+            err.to_string(),
+            "cannot serialize the request negative number"
+        );
         assert_eq!(format!("{sender:?}"), "RequestSender");
+
+        let ser_err = SendError::ser("test ser");
+        assert!(matches!(ser_err, SendError::Serialization(_)));
+    }
+
+    #[tokio::test]
+    async fn response_receiver_lazy_future_success() -> Result<(), Box<dyn std::error::Error>> {
+        let future_polled = Arc::new(AtomicBool::new(false));
+        let polled_clone = future_polled.clone();
+
+        let lazy_fut = async move {
+            polled_clone.store(true, Ordering::SeqCst);
+            let stream =
+                futures::stream::iter(vec![Ok("item-1".to_string()), Ok("item-2".to_string())]);
+            Ok(stream)
+        };
+
+        let mut receiver = ResponseReceiver::from_future(lazy_fut);
+        // Ensure future is NOT polled before recv() is called
+        assert!(!future_polled.load(Ordering::SeqCst));
+
+        // First recv() awaits connection future and yields first item
+        let first = receiver.recv().await.expect("expected first response")?;
+        assert!(future_polled.load(Ordering::SeqCst));
+        assert_eq!(first, "item-1");
+
+        // Second recv() yields second item
+        let second = receiver.recv().await.expect("expected second response")?;
+        assert_eq!(second, "item-2");
+
+        // Third recv() returns None (clean EOF)
+        assert!(receiver.recv().await.is_none());
+
+        // Subsequent recv() calls on closed receiver return None
+        assert!(receiver.recv().await.is_none());
+        assert!(receiver.recv().await.is_none());
+        assert_eq!(format!("{receiver:?}"), "ResponseReceiver");
+
         Ok(())
     }
 
     #[tokio::test]
-    async fn response_receiver_from_stream() -> Result<(), Box<dyn std::error::Error>> {
-        let stream = futures::stream::iter(vec![
-            Ok("first".to_string()),
-            Err(crate::error::Error::deser("bad data")),
-            Ok("second".to_string()),
-        ]);
-        let mut receiver = ResponseReceiver::from_stream(stream);
+    async fn response_receiver_lazy_future_connecting_error() {
+        let status = crate::error::rpc::Status::default()
+            .set_code(crate::error::rpc::Code::PermissionDenied)
+            .set_message("permission denied");
 
-        assert_eq!(
-            receiver
-                .recv()
-                .await
-                .expect("expected first response")?
-                .as_str(),
-            "first"
-        );
+        let lazy_fut = async move {
+            let res: Result<futures::stream::Empty<crate::Result<String>>, _> =
+                Err(crate::error::Error::service(status));
+            res
+        };
+
+        let mut receiver = ResponseReceiver::<String>::from_future(lazy_fut);
+
+        // First recv() should return the connection setup error
         let err = receiver
             .recv()
             .await
             .expect("expected error item")
-            .expect_err("item should be Err");
-        assert!(err.is_deserialization());
+            .expect_err("should be Err");
         assert_eq!(
-            receiver
-                .recv()
-                .await
-                .expect("expected second response")?
-                .as_str(),
-            "second"
+            err.status().map(|s| s.code),
+            Some(crate::error::rpc::Code::PermissionDenied)
         );
+
+        // After error during connection, stream is closed and returns None
         assert!(receiver.recv().await.is_none());
-        assert_eq!(format!("{receiver:?}"), "ResponseReceiver");
+        assert!(receiver.recv().await.is_none());
+    }
+
+    #[tokio::test]
+    async fn response_receiver_stream_item_error_recovery() -> Result<(), Box<dyn std::error::Error>>
+    {
+        let stream = futures::stream::iter(vec![
+            Ok("item-1".to_string()),
+            Err(crate::error::Error::deser("corrupted item")),
+            Ok("item-2".to_string()),
+        ]);
+        let mut receiver = ResponseReceiver::from_stream(stream);
+
+        let item1 = receiver.recv().await.expect("expected item 1")?;
+        assert_eq!(item1, "item-1");
+
+        let err = receiver
+            .recv()
+            .await
+            .expect("expected item 2")
+            .expect_err("item 2 should be deserialization error");
+        assert!(err.is_deserialization());
+
+        let item2 = receiver.recv().await.expect("expected item 3")?;
+        assert_eq!(item2, "item-2");
+
+        assert!(receiver.recv().await.is_none());
         Ok(())
     }
 
@@ -273,7 +432,6 @@ mod tests {
             .set_code(crate::error::rpc::Code::Unavailable)
             .set_message("transport unavailable");
 
-        // Simulates a tonic gRPC response stream yielding Result<RawProto, StatusError>
         let raw_stream = futures::stream::iter(vec![
             Ok(RawProto {
                 text: "hello".to_string(),
@@ -290,7 +448,6 @@ mod tests {
             }),
         ]);
 
-        // Exact mapping pattern used by the generated transport:
         let response_stream = raw_stream
             .map(|res| res.and_then(|raw| from_proto(raw).map_err(crate::error::Error::deser)));
 
