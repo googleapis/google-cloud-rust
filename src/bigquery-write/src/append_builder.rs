@@ -46,7 +46,7 @@ impl AppendWithOffset {
         let AppendWithOffset { req_tx, req } = self;
         
         tokio::spawn(async move {
-            let res = send_append_request(&req_tx, req).await;
+            let res = send_append_request(req_tx, req).await;
             let _ = tx.send(res);
         });
         
@@ -63,7 +63,7 @@ pub struct Append {
 
 /// Executes the network transmission and underlying proto translation for an `AppendRowsRequest`.
 pub(crate) async fn send_append_request(
-    req_tx: &mpsc::UnboundedSender<WriteRequest>,
+    req_tx: mpsc::UnboundedSender<WriteRequest>,
     req: AppendRowsRequest,
 ) -> AppendResult<AppendResponse> {
     let (resp_tx, resp_rx) = oneshot::channel();
@@ -84,7 +84,7 @@ impl Append {
 
     /// Append rows to the stream.
     pub async fn send(self) -> AppendResult<AppendResponse> {
-        send_append_request(&self.req_tx, self.req).await
+        send_append_request(self.req_tx, self.req).await
     }
 }
 
