@@ -36,7 +36,7 @@ mod streaming;
 /// ```shell
 /// go list -m -f '{{.Version}}' github.com/googleapis/gapic-showcase@main
 /// ```
-const SHOWCASE_NAME: &str = "github.com/googleapis/gapic-showcase/cmd/gapic-showcase@v0.43.0";
+const SHOWCASE_NAME: &str = "github.com/googleapis/gapic-showcase/cmd/gapic-showcase@v0.43.1-0.20260817230810-0c88ce83d259";
 
 pub async fn run() -> Result<()> {
     let _guard = google_cloud_test_utils::tracing::enable_tracing();
