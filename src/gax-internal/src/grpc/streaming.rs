@@ -120,10 +120,9 @@ mod tests {
         type Output = MockProstReq;
         fn to_proto(self) -> std::result::Result<MockProstReq, ConvertError> {
             if self.should_fail {
-                Err(ConvertError::other("mock serialization error"))
-            } else {
-                Ok(MockProstReq { msg: self.msg })
+                return Err(ConvertError::other("mock serialization error"));
             }
+            Ok(MockProstReq { msg: self.msg })
         }
     }
 
@@ -143,10 +142,9 @@ mod tests {
     impl FromProto<MockDomainResp> for MockProstResp {
         fn cnv(self) -> std::result::Result<MockDomainResp, ConvertError> {
             if self.should_fail {
-                Err(ConvertError::other("mock deserialization error"))
-            } else {
-                Ok(MockDomainResp { msg: self.msg })
+                return Err(ConvertError::other("mock deserialization error"));
             }
+            Ok(MockDomainResp { msg: self.msg })
         }
     }
 
