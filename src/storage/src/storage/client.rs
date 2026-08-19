@@ -805,6 +805,44 @@ impl ClientBuilder {
         self
     }
 
+    /// Injects a global custom header for all HTTP and gRPC requests made by this client.
+    ///
+    /// Global custom headers serve as client-wide defaults. Request-level headers
+    /// override global headers when keys conflict. To configure headers for a single
+    /// request, use [`RequestOptionsBuilder::with_custom_header`](google_cloud_gax::options::RequestOptionsBuilder::with_custom_header).
+    /// Like request-level headers, global headers cannot overwrite reserved system headers.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// use http::header::{HeaderName, HeaderValue};
+    ///
+    /// let client = Storage::builder()
+    ///     .with_custom_header(
+    ///         HeaderName::from_static("x-custom-client-id"),
+    ///         HeaderValue::from_static("my-app-v1"),
+    ///     )
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_custom_header(
+        mut self,
+        name: http::header::HeaderName,
+        value: http::header::HeaderValue,
+    ) -> Self {
+        let mut headers = self
+            .config
+            .extensions
+            .get::<http::HeaderMap>()
+            .cloned()
+            .unwrap_or_default();
+        headers.insert(name, value);
+        self.config.extensions.insert(headers);
+        self
+    }
+
     pub(crate) fn apply_default_credentials(&mut self) -> BuilderResult<()> {
         if self.config.cred.is_some() {
             return Ok(());
@@ -951,6 +989,18 @@ pub(crate) mod tests {
 
         let stub_arc = std::sync::Arc::new(DummyStorage);
         let _client_arc = Storage::<DummyStorage>::from_stub(stub_arc);
+    }
+
+    #[test]
+    fn test_client_builder_with_custom_header() {
+        use http::header::{HeaderName, HeaderValue};
+        let name = HeaderName::from_static("x-custom-global");
+        let value = HeaderValue::from_static("global-value");
+        let builder = ClientBuilder::new()
+            .with_credentials(Anonymous::new().build())
+            .with_custom_header(name.clone(), value.clone());
+        let headers = builder.config.extensions.get::<http::HeaderMap>().unwrap();
+        assert_eq!(headers.get(&name).unwrap(), &value);
     }
 
     #[test]

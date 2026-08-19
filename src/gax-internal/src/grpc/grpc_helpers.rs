@@ -69,14 +69,21 @@ pub(crate) fn make_credentials(config: &ClientConfig) -> ClientBuilderResult<Cre
 /// Custom headers can be provided through `RequestOptions`.
 /// Returns an error if any of the header values fail to parse.
 pub(crate) fn make_headers(
+    extensions: &crate::options::Extensions,
     api_client_header: &'static str,
     request_params: &str,
     options: &RequestOptions,
 ) -> Result<HeaderMap> {
     let mut headers = HeaderMap::new();
 
+    if let Some(global_headers) = extensions.get::<HeaderMap>() {
+        headers.extend(global_headers.clone());
+    }
+
     if let Some(custom_headers) = options.get_extension::<HeaderMap>() {
-        headers.extend(custom_headers.clone());
+        for (k, v) in custom_headers.iter() {
+            headers.insert(k.clone(), v.clone());
+        }
     }
 
     // Sanitize user custom headers by stripping away any keys conflicting with system headers.
@@ -338,7 +345,12 @@ mod tests {
         options.set_quota_project(QUOTA_PROJECT);
 
         // Act
-        let headers = make_headers(API_CLIENT_HEADER, REQUEST_PARAMS, &options)?;
+        let headers = make_headers(
+            &crate::options::Extensions::new(),
+            API_CLIENT_HEADER,
+            REQUEST_PARAMS,
+            &options,
+        )?;
 
         // Assert
         assert_eq!(headers.get(X_GOOG_API_CLIENT).unwrap(), API_CLIENT_HEADER);
@@ -351,7 +363,12 @@ mod tests {
     #[test]
     fn make_headers_omits_unset_params() -> TestResult {
         // Act
-        let headers = make_headers(API_CLIENT_HEADER, "", &RequestOptions::default())?;
+        let headers = make_headers(
+            &crate::options::Extensions::new(),
+            API_CLIENT_HEADER,
+            "",
+            &RequestOptions::default(),
+        )?;
 
         // Assert
         assert_eq!(headers.get(X_GOOG_API_CLIENT).unwrap(), API_CLIENT_HEADER);
@@ -361,6 +378,52 @@ mod tests {
             headers.get(http::header::USER_AGENT).is_none(),
             "{headers:?}"
         );
+        Ok(())
+    }
+
+    #[test]
+    fn test_make_headers_global() -> TestResult {
+        // Arrange
+        const GLOBAL_HEADER_NAME: &str = "x-global-header";
+        const GLOBAL_HEADER_VAL: &str = "global-val";
+        let mut global_headers = HeaderMap::new();
+        global_headers.insert(
+            GLOBAL_HEADER_NAME,
+            HeaderValue::from_static(GLOBAL_HEADER_VAL),
+        );
+        let mut extensions = crate::options::Extensions::new();
+        extensions.insert(global_headers);
+
+        // Act
+        let headers = make_headers(
+            &extensions,
+            API_CLIENT_HEADER,
+            "",
+            &RequestOptions::default(),
+        )?;
+
+        // Assert
+        assert_eq!(headers.get(GLOBAL_HEADER_NAME).unwrap(), GLOBAL_HEADER_VAL);
+        Ok(())
+    }
+
+    #[test]
+    fn test_make_headers_precedence() -> TestResult {
+        // Arrange
+        const KEY: &str = "x-test-precedence";
+        let mut global_headers = HeaderMap::new();
+        global_headers.insert(KEY, HeaderValue::from_static("global-wins")); // Initial global
+        let mut extensions = crate::options::Extensions::new();
+        extensions.insert(global_headers);
+        let mut request_headers = HeaderMap::new();
+        request_headers.insert(KEY, HeaderValue::from_static("request-wins")); // Request overrides global
+        let options = RequestOptions::default().insert_extension(request_headers);
+
+        // Act
+        let headers = make_headers(&extensions, API_CLIENT_HEADER, "", &options)?;
+
+        // Assert
+        assert_eq!(headers.get(KEY).unwrap(), "request-wins"); // Request merged on top of global
         Ok(())
     }
 
@@ -377,7 +440,12 @@ mod tests {
         let options = RequestOptions::default().insert_extension(custom_headers);
 
         // Act
-        let headers = make_headers(API_CLIENT_HEADER, CUSTOM_REQUEST_PARAMS, &options)?;
+        let headers = make_headers(
+            &crate::options::Extensions::new(),
+            API_CLIENT_HEADER,
+            CUSTOM_REQUEST_PARAMS,
+            &options,
+        )?;
 
         // Assert
         assert_eq!(headers.get(X_GOOG_API_CLIENT).unwrap(), API_CLIENT_HEADER);
@@ -394,18 +462,33 @@ mod tests {
         // Invalid user agent
         let mut options = RequestOptions::default();
         options.set_user_agent("invalid\nagent");
-        let res = make_headers(API_CLIENT_HEADER, "param=1", &options);
+        let res = make_headers(
+            &crate::options::Extensions::new(),
+            API_CLIENT_HEADER,
+            "param=1",
+            &options,
+        );
         assert!(res.is_err(), "{res:?}");
 
         // Invalid quota project
         let mut options = RequestOptions::default();
         options.set_quota_project("invalid\nproject");
-        let res = make_headers(API_CLIENT_HEADER, "param=1", &options);
+        let res = make_headers(
+            &crate::options::Extensions::new(),
+            API_CLIENT_HEADER,
+            "param=1",
+            &options,
+        );
         assert!(res.is_err(), "{res:?}");
 
         // Invalid request params
         let options = RequestOptions::default();
-        let res = make_headers(API_CLIENT_HEADER, "invalid\nparams", &options);
+        let res = make_headers(
+            &crate::options::Extensions::new(),
+            API_CLIENT_HEADER,
+            "invalid\nparams",
+            &options,
+        );
         assert!(res.is_err(), "{res:?}");
     }
 
@@ -438,6 +521,35 @@ mod tests {
         custom_headers
     }
 
+    fn test_global_custom_headers() -> HeaderMap {
+        let mut custom_headers = HeaderMap::new();
+        // Try to override system headers with conflicting global values
+        custom_headers.insert(
+            http::header::USER_AGENT,
+            HeaderValue::from_static("global-agent"),
+        );
+        custom_headers.insert(
+            X_GOOG_USER_PROJECT,
+            HeaderValue::from_static("global-project"),
+        );
+        custom_headers.insert(X_GOOG_API_CLIENT, HeaderValue::from_static("global-client"));
+        custom_headers.insert(
+            X_GOOG_REQUEST_PARAMS,
+            HeaderValue::from_static("global-params"),
+        );
+        custom_headers.insert(
+            http::header::AUTHORIZATION,
+            HeaderValue::from_static("global-authorization"),
+        );
+        custom_headers.insert(X_GOOG_API_KEY, HeaderValue::from_static("global-api-key"));
+        // A legitimate custom header, distinct from the request-level one
+        custom_headers.insert(
+            "x-legitimate-header",
+            HeaderValue::from_static("global-legitimate-value"),
+        );
+        custom_headers
+    }
+
     #[test]
     fn make_headers_enforces_system_precedence_with_values() -> TestResult {
         // Arrange
@@ -449,9 +561,15 @@ mod tests {
         options.set_user_agent(TEST_USER_AGENT);
         options.set_quota_project(TEST_QUOTA_PROJECT);
         let options = options.insert_extension(test_custom_headers());
-
+        let mut extensions = crate::options::Extensions::new();
+        extensions.insert(test_global_custom_headers());
         // Act
-        let headers = make_headers(API_CLIENT_HEADER, TEST_REQUEST_PARAMS, &options)?;
+        let headers = make_headers(
+            &extensions,
+            API_CLIENT_HEADER,
+            TEST_REQUEST_PARAMS,
+            &options,
+        )?;
 
         // Assert
         let expected = HeaderMap::from_iter([
@@ -485,9 +603,10 @@ mod tests {
     fn make_headers_enforces_system_precedence_without_values() -> TestResult {
         // Arrange
         let options = RequestOptions::default().insert_extension(test_custom_headers());
-
+        let mut extensions = crate::options::Extensions::new();
+        extensions.insert(test_global_custom_headers());
         // Act (pass empty request params, empty user agent, empty quota project)
-        let headers = make_headers(API_CLIENT_HEADER, "", &options)?;
+        let headers = make_headers(&extensions, API_CLIENT_HEADER, "", &options)?;
 
         // Assert
         let expected = HeaderMap::from_iter([
