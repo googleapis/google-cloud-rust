@@ -50,6 +50,7 @@ pub(crate) async fn create_table(
     Ok(())
 }
 
+#[allow(dead_code)]
 pub(crate) async fn read_table(
     project_id: &str,
     dataset_id: &str,
