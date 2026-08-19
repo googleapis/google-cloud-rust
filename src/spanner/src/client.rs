@@ -12,11 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::RequestOptions;
 use crate::generated::gapic_dataplane::client::Spanner as GapicSpanner;
 use crate::model::{
     BeginTransactionRequest, CommitRequest, CommitResponse, CreateSessionRequest,
-    ExecuteBatchDmlRequest, ExecuteBatchDmlResponse, ExecuteSqlRequest, PartitionQueryRequest,
-    PartitionReadRequest, PartitionResponse, RollbackRequest, Session, Transaction,
+    ExecuteBatchDmlRequest, ExecuteBatchDmlResponse, ExecuteSqlRequest, FetchCacheUpdateRequest,
+    PartitionQueryRequest, PartitionReadRequest, PartitionResponse, RollbackRequest, Session,
+    Transaction,
 };
 use crate::observability::Observability;
 #[cfg(feature = "_experimental-builtin-metrics")]
@@ -519,6 +521,22 @@ impl Spanner {
             .as_ref()
             .expect("Streaming RPCs are not supported when using a stub client");
         builder::BatchWrite::new(grpc.clone())
+            .with_request(request)
+            .with_options(self.attach_request_id(options, channel_hint))
+    }
+
+    pub(crate) fn fetch_cache_update(
+        &self,
+        request: FetchCacheUpdateRequest,
+        options: RequestOptions,
+        channel_hint: usize,
+    ) -> builder::FetchCacheUpdate {
+        let channel = self.get_channel(channel_hint);
+        let grpc = channel
+            .grpc_client
+            .as_ref()
+            .expect("Streaming RPCs are not supported when using a stub client");
+        builder::FetchCacheUpdate::new(grpc.clone())
             .with_request(request)
             .with_options(self.attach_request_id(options, channel_hint))
     }

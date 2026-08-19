@@ -16,6 +16,7 @@
 #![allow(dead_code)]
 
 use crate::google::spanner::v1::BatchWriteResponse;
+use crate::google::spanner::v1::CacheUpdate as ProtoCacheUpdate;
 use crate::google::spanner::v1::PartialResultSet;
 use gaxi::grpc::from_status::to_gax_error;
 use gaxi::grpc::tonic::Streaming;
@@ -73,6 +74,32 @@ impl BatchWriteStream {
     }
 }
 
+/// Representation for the `FetchCacheUpdate` RPC stream.
+#[derive(Debug)]
+pub(crate) struct CacheUpdateStream {
+    pub(crate) inner: Streaming<ProtoCacheUpdate>,
+    pub(crate) headers: HeaderMap,
+}
+
+impl CacheUpdateStream {
+    pub(crate) fn new(inner: Streaming<ProtoCacheUpdate>, headers: HeaderMap) -> Self {
+        Self { inner, headers }
+    }
+
+    /// Returns the initial response headers for the stream.
+    pub(crate) fn headers(&self) -> &HeaderMap {
+        &self.headers
+    }
+
+    /// Fetches the next `CacheUpdate` from the stream.
+    ///
+    /// Returns `Some(Ok(ProtoCacheUpdate))` when a message is successfully received,
+    /// `None` when the stream concludes naturally, or `Some(Err(_))` on RPC errors.
+    pub(crate) async fn next_message(&mut self) -> Option<crate::Result<ProtoCacheUpdate>> {
+        self.inner.message().await.map_err(to_gax_error).transpose()
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -82,5 +109,6 @@ mod tests {
     fn auto_traits() {
         static_assertions::assert_impl_all!(PartialResultSetStream: Send, Sync, Debug);
         static_assertions::assert_impl_all!(BatchWriteStream: Send, Sync, Debug);
+        static_assertions::assert_impl_all!(CacheUpdateStream: Send, Sync, Debug);
     }
 }
