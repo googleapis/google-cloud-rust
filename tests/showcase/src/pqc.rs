@@ -66,7 +66,8 @@ pub async fn run() -> Result<()> {
     let path = super::install().await?;
     let showcase: PathBuf = [path.as_str(), "bin", "gapic-showcase"].iter().collect();
 
-    let ca_cert_path = std::env::temp_dir().join("showcase_pqc_ca.pem");
+    let ca_cert_path =
+        std::env::temp_dir().join(format!("showcase_pqc_ca_{}.pem", std::process::id()));
     if ca_cert_path.exists() {
         let _ = std::fs::remove_file(&ca_cert_path);
     }
@@ -81,7 +82,9 @@ pub async fn run() -> Result<()> {
             PQC_FALLBACK_PORT,
             "--tls",
             "--ca-cert-output-file",
-            ca_cert_path.to_str().unwrap(),
+            ca_cert_path
+                .to_str()
+                .ok_or_else(|| Error::msg("temp dir path is not valid UTF-8"))?,
             "--tls-groups",
             "0x11ec",
         ])
@@ -111,7 +114,9 @@ pub async fn run() -> Result<()> {
     }
 
     if !ready {
-        tracing::error!("showcase PQC server is not ready {child:?}");
+        return Err(Error::msg(format!(
+            "showcase PQC server is not ready: {child:?}"
+        )));
     }
 
     tracing::info!("testing PQC transport (HTTP unary)");
