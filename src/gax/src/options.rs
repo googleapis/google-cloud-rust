@@ -50,6 +50,8 @@ pub struct RequestOptions {
     retry_throttler: Option<SharedRetryThrottler>,
     polling_error_policy: Option<Arc<dyn PollingErrorPolicy>>,
     polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    request_stream_channel_capacity: Option<usize>,
     extensions: http::Extensions,
 }
 
@@ -170,6 +172,21 @@ impl RequestOptions {
     pub fn set_polling_backoff_policy<V: Into<PollingBackoffPolicyArg>>(&mut self, v: V) {
         self.polling_backoff_policy = Some(v.into().0);
     }
+
+    /// Gets the current request stream channel capacity, if set.
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    pub fn request_stream_channel_capacity(&self) -> Option<usize> {
+        self.request_stream_channel_capacity
+    }
+
+    /// Sets the buffer capacity of the internal request channel for streaming RPCs.
+    ///
+    /// Valid values are between `1` and `usize::MAX >> 3`. Values outside this range will be clamped.
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    pub fn set_request_stream_channel_capacity(&mut self, capacity: usize) {
+        self.request_stream_channel_capacity =
+            Some(capacity.clamp(1, MAX_REQUEST_CHANNEL_CAPACITY));
+    }
 }
 
 /// The maximum allowed capacity for a bidirectional stream request channel.
@@ -177,87 +194,7 @@ impl RequestOptions {
 /// This upper limit matches Tokio's internal `mpsc::channel` capacity limit
 /// (`usize::MAX >> 3`).
 #[cfg(google_cloud_unstable_gapic_streaming)]
-pub const MAX_REQUEST_CHANNEL_CAPACITY: usize = usize::MAX >> 3;
-
-#[cfg(google_cloud_unstable_gapic_streaming)]
-const DEFAULT_REQUEST_CHANNEL_CAPACITY: usize = 16;
-
-/// Configuration options specific to bidirectional streaming RPCs.
-///
-/// Wraps standard [`RequestOptions`] while adding settings unique to bidirectional
-/// streaming RPCs, such as internal channel capacity for buffering requests.
-#[cfg(google_cloud_unstable_gapic_streaming)]
-#[derive(Clone, Debug)]
-pub struct BidiStreamOptions {
-    request_options: RequestOptions,
-    request_channel_capacity: usize,
-}
-
-#[cfg(google_cloud_unstable_gapic_streaming)]
-impl Default for BidiStreamOptions {
-    fn default() -> Self {
-        Self {
-            request_options: RequestOptions::default(),
-            request_channel_capacity: DEFAULT_REQUEST_CHANNEL_CAPACITY,
-        }
-    }
-}
-
-/// Converts [`RequestOptions`] into [`BidiStreamOptions`] using default request channel capacity (`16`).
-#[cfg(google_cloud_unstable_gapic_streaming)]
-impl From<RequestOptions> for BidiStreamOptions {
-    fn from(request_options: RequestOptions) -> Self {
-        Self {
-            request_options,
-            request_channel_capacity: DEFAULT_REQUEST_CHANNEL_CAPACITY,
-        }
-    }
-}
-
-/// Extracts the underlying [`RequestOptions`] from [`BidiStreamOptions`], discarding streaming-specific configuration.
-#[cfg(google_cloud_unstable_gapic_streaming)]
-impl From<BidiStreamOptions> for RequestOptions {
-    fn from(options: BidiStreamOptions) -> Self {
-        options.request_options
-    }
-}
-
-#[cfg(google_cloud_unstable_gapic_streaming)]
-impl BidiStreamOptions {
-    /// Sets the buffer capacity of the internal request channel.
-    ///
-    /// Valid values are between `1` and [`MAX_REQUEST_CHANNEL_CAPACITY`]. The default
-    /// capacity is `16`. This method clamps the supplied value to this range.
-    pub fn set_request_channel_capacity(&mut self, capacity: usize) {
-        self.request_channel_capacity = capacity.clamp(1, MAX_REQUEST_CHANNEL_CAPACITY);
-    }
-
-    /// Returns the configured request channel capacity.
-    ///
-    /// Defaults to `16`.
-    pub fn request_channel_capacity(&self) -> usize {
-        self.request_channel_capacity
-    }
-
-    /// Sets all request options, replacing any prior values.
-    pub fn set_request_options(&mut self, options: impl Into<RequestOptions>) {
-        self.request_options = options.into();
-    }
-
-    /// Returns a reference to standard per-request options.
-    pub fn request_options(&self) -> &RequestOptions {
-        &self.request_options
-    }
-
-    /// Returns a mutable reference to standard per-request options.
-    ///
-    /// Used by generated RPC builders to implement [`internal::RequestBuilder`]
-    /// so callers can chain `.with_*` option setters directly on the RPC builder.
-    #[doc(hidden)]
-    pub fn request_options_mut(&mut self) -> &mut RequestOptions {
-        &mut self.request_options
-    }
-}
+const MAX_REQUEST_CHANNEL_CAPACITY: usize = usize::MAX >> 3;
 
 /// Implementations of this trait provide setters to configure request options.
 ///
@@ -362,6 +299,18 @@ pub trait RequestOptionsBuilder: internal::RequestBuilder {
         *self.request_options() = options;
         self
     }
+
+    /// Sets the buffer capacity of the internal request channel for streaming RPCs.
+    ///
+    /// Valid values are between `1` and `usize::MAX >> 3`. The default
+    /// capacity is `16`. Values outside this range will be clamped.
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    fn with_request_stream_channel_capacity(self, _capacity: usize) -> Self
+    where
+        Self: Sized,
+    {
+        unimplemented!();
+    }
 }
 
 #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
@@ -372,6 +321,10 @@ pub mod internal {
     //! without warnings. Applications should not use any types contained
     //! within.
     use super::RequestOptions;
+
+    /// Default channel capacity for request streaming channels.
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    pub const DEFAULT_REQUEST_CHANNEL_CAPACITY: usize = 16;
 
     /// Simplify implementation of the [super::RequestOptionsBuilder] trait in
     /// generated code.
@@ -406,6 +359,16 @@ pub mod internal {
         where
             T: Send + Sync + 'static;
 
+        /// Gets a mutable reference to an extension value.
+        fn get_extension_mut<T>(&mut self) -> Option<&mut T>
+        where
+            T: Send + Sync + 'static;
+
+        /// Gets a mutable reference to an extension value, inserting the default if it does not exist.
+        fn get_extension_or_default_mut<T>(&mut self) -> &mut T
+        where
+            T: Default + Clone + Send + Sync + 'static;
+
         /// Sets an extension value.
         fn insert_extension<T>(self, value: T) -> Self
         where
@@ -419,6 +382,25 @@ pub mod internal {
             T: Send + Sync + 'static,
         {
             self.extensions.get::<T>()
+        }
+
+        fn get_extension_mut<T>(&mut self) -> Option<&mut T>
+        where
+            T: Send + Sync + 'static,
+        {
+            self.extensions.get_mut::<T>()
+        }
+
+        fn get_extension_or_default_mut<T>(&mut self) -> &mut T
+        where
+            T: Default + Clone + Send + Sync + 'static,
+        {
+            if self.extensions.get::<T>().is_none() {
+                let _ = self.extensions.insert(T::default());
+            }
+            self.extensions
+                .get_mut::<T>()
+                .expect("value was just inserted if missing")
         }
 
         fn insert_extension<T>(mut self, value: T) -> Self
@@ -501,6 +483,13 @@ where
 
     fn with_polling_backoff_policy<V: Into<PollingBackoffPolicyArg>>(mut self, v: V) -> Self {
         self.request_options().set_polling_backoff_policy(v);
+        self
+    }
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    fn with_request_stream_channel_capacity(mut self, capacity: usize) -> Self {
+        self.request_options()
+            .set_request_stream_channel_capacity(capacity);
         self
     }
 }
@@ -608,6 +597,36 @@ mod tests {
     }
 
     #[test]
+    fn request_options_ext_mut() {
+        #[derive(Debug, Clone, Default, PartialEq)]
+        struct TestCounter(u32);
+
+        let mut opts = RequestOptions::default();
+
+        // 1. get_extension_mut returns None when not present.
+        assert!(opts.get_extension_mut::<TestCounter>().is_none());
+
+        // 2. get_extension_or_default_mut inserts default TestCounter(0) and returns mutable reference.
+        let counter = opts.get_extension_or_default_mut::<TestCounter>();
+        assert_eq!(counter, &mut TestCounter(0));
+        counter.0 += 10;
+
+        // 3. get_extension_mut returns Some(&mut TestCounter(10)) when present.
+        let counter = opts
+            .get_extension_mut::<TestCounter>()
+            .expect("counter extension should be present after insertion");
+        assert_eq!(counter, &mut TestCounter(10));
+        counter.0 += 10;
+
+        // 4. Second call to get_extension_or_default_mut returns existing reference without resetting.
+        let counter2 = opts.get_extension_or_default_mut::<TestCounter>();
+        assert_eq!(counter2, &mut TestCounter(20));
+        counter2.0 += 5;
+
+        assert_eq!(opts.get_extension::<TestCounter>(), Some(&TestCounter(25)));
+    }
+
+    #[test]
     fn request_options_builder() -> anyhow::Result<()> {
         const USER_AGENT: &str = "test-only";
         const USER_PROJECT: &str = "test-project";
@@ -705,42 +724,30 @@ mod tests {
 
     #[cfg(google_cloud_unstable_gapic_streaming)]
     #[test]
-    fn test_bidi_stream_options() {
-        let default_opts = BidiStreamOptions::default();
-        assert_eq!(default_opts.request_channel_capacity(), 16);
-        assert!(default_opts.request_options().user_agent().is_none());
-
-        let mut req_opts = RequestOptions::default();
-        req_opts.set_user_agent("custom-agent");
-
-        let mut opts = BidiStreamOptions::default();
-        opts.set_request_options(req_opts);
-        opts.set_request_channel_capacity(32);
-        assert_eq!(opts.request_channel_capacity(), 32);
+    fn request_options_builder_request_stream_channel_capacity() {
+        let builder = TestBuilder::default();
         assert_eq!(
-            opts.request_options().user_agent().as_deref(),
-            Some("custom-agent")
+            builder.request_options.request_stream_channel_capacity(),
+            None
         );
 
-        opts.set_request_channel_capacity(128);
-        assert_eq!(opts.request_channel_capacity(), 128);
-        opts.request_options_mut().set_user_agent("modified-agent");
+        let builder = TestBuilder::default().with_request_stream_channel_capacity(32);
         assert_eq!(
-            opts.request_options().user_agent().as_deref(),
-            Some("modified-agent")
+            builder.request_options.request_stream_channel_capacity(),
+            Some(32)
         );
 
         // Clamping tests
-        opts.set_request_channel_capacity(0);
-        assert_eq!(opts.request_channel_capacity(), 1);
-
-        opts.set_request_channel_capacity(usize::MAX);
+        let builder = TestBuilder::default().with_request_stream_channel_capacity(0);
         assert_eq!(
-            opts.request_channel_capacity(),
-            MAX_REQUEST_CHANNEL_CAPACITY
+            builder.request_options.request_stream_channel_capacity(),
+            Some(1)
         );
 
-        let into_opts: RequestOptions = opts.into();
-        assert_eq!(into_opts.user_agent().as_deref(), Some("modified-agent"));
+        let builder = TestBuilder::default().with_request_stream_channel_capacity(usize::MAX);
+        assert_eq!(
+            builder.request_options.request_stream_channel_capacity(),
+            Some(MAX_REQUEST_CHANNEL_CAPACITY)
+        );
     }
 }

@@ -17,7 +17,7 @@ streams. It seemed easier to reason about the mock if it always used
 
 ## Usage
 
-Create a `mocks::MockPublisher` and call `start()` to launch a (local) server
+Create a `mocks::MockSubscriber` and call `start()` to launch a (local) server
 using the mock. Then connect your test to this mock server.
 
 The types have comments with trivial examples.

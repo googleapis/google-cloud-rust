@@ -63,22 +63,6 @@ impl Query {
         self
     }
 
-    /// Sets the value of [request.continuous][crate::builder::bigquery::QueryRequest::continuous].
-    pub fn set_continuous<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<wkt::BoolValue>
-    {
-        self.request.continuous = std::option::Option::Some(v.into());
-        self
-    }
-
-    /// Sets or clears the value of [request.continuous][crate::builder::bigquery::QueryRequest::continuous].
-    pub fn set_or_clear_continuous<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<wkt::BoolValue>
-    {
-        self.request.continuous = v.map(|x| x.into());
-        self
-    }
-
     /// Sets the value of [request.create_disposition][crate::builder::bigquery::QueryRequest::create_disposition].
     pub fn set_create_disposition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request.create_disposition = v.into();
@@ -437,12 +421,6 @@ impl Query {
     /// Sets the value of [request.write_disposition][crate::builder::bigquery::QueryRequest::write_disposition].
     pub fn set_write_disposition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request.write_disposition = v.into();
-        self
-    }
-
-    /// Sets the value of [request.write_incremental_results][crate::builder::bigquery::QueryRequest::write_incremental_results].
-    pub fn set_write_incremental_results<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.request.write_incremental_results = v.into();
         self
     }
 }

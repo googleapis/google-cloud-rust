@@ -1180,7 +1180,6 @@ impl std::fmt::Debug for super::ObjectFullContext {
         debug_struct.field("value", &self.value);
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
-        debug_struct.field("extended_data", &self.extended_data);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
