@@ -81,9 +81,10 @@ pub(crate) fn make_headers(
     }
 
     if let Some(custom_headers) = options.get_extension::<HeaderMap>() {
-        for (k, v) in custom_headers.iter() {
-            headers.insert(k.clone(), v.clone());
+        for k in custom_headers.keys() {
+            headers.remove(k);
         }
+        headers.extend(custom_headers.clone());
     }
 
     // Sanitize user custom headers by stripping away any keys conflicting with system headers.
