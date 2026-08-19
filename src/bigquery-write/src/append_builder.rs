@@ -44,12 +44,12 @@ impl AppendWithOffset {
     pub fn send(self) -> crate::append_future::AppendFuture {
         let (tx, rx) = oneshot::channel();
         let AppendWithOffset { req_tx, req } = self;
-        
+
         tokio::spawn(async move {
             let res = send_append_request(req_tx, req).await;
             let _ = tx.send(res);
         });
-        
+
         crate::append_future::AppendFuture::new(rx)
     }
 }
@@ -236,7 +236,7 @@ mod tests {
         assert!(matches!(err, AppendError::UnexpectedEndOfStream));
         Ok(())
     }
-    
+
     #[tokio::test]
     async fn offset_rpc_error() -> anyhow::Result<()> {
         let (req_tx, mut req_rx) = mpsc::unbounded_channel();
