@@ -86,7 +86,7 @@ pub async fn run() -> Result<()> {
                 .to_str()
                 .ok_or_else(|| Error::msg("temp dir path is not valid UTF-8"))?,
             "--tls-groups",
-            "0x11ec",
+            "0x11ec", // X25519MLKEM768
         ])
         .stdin(Stdio::null())
         .kill_on_drop(true)
