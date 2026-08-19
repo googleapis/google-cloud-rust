@@ -498,6 +498,8 @@ libraries:
             - .google.cloud.bigquery.v2.JobConfiguration.load
             - .google.cloud.bigquery.v2.JobConfiguration.extract
             - .google.cloud.bigquery.v2.QueryRequest.format_options
+            - .google.cloud.bigquery.v2.QueryRequest.query_results_format
+            - .google.cloud.bigquery.v2.QueryRequest.arrow_serialization_options
             - .google.cloud.bigquery.v2.GetQueryResultsRequest.format_options
             - .google.cloud.bigquery.v2.QueryRequest.request_id
             - .google.cloud.bigquery.v2.JobConfigurationQuery.continuous
@@ -507,6 +509,8 @@ libraries:
             - .google.cloud.bigquery.v2.JobConfiguration.kind
             - .google.cloud.bigquery.v2.JobConfiguration.job_type
             - .google.cloud.bigquery.v2.QueryResponse.rows
+            - .google.cloud.bigquery.v2.QueryResponse.arrow_record_batch
+            - .google.cloud.bigquery.v2.QueryResponse.arrow_schema
             - .google.cloud.bigquery.v2.GetQueryResultsResponse.rows
           api_path: google/cloud/bigquery/v2
           template: bigquery
