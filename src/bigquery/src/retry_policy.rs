@@ -63,7 +63,6 @@ pub(crate) fn default_retry_policy() -> Arc<dyn RetryPolicy> {
     Arc::new(RetryableErrors)
 }
 
-#[allow(dead_code)]
 pub(crate) fn default_backoff_policy() -> Arc<dyn BackoffPolicy> {
     Arc::new(
         ExponentialBackoffBuilder::default()
@@ -77,9 +76,8 @@ pub(crate) fn default_backoff_policy() -> Arc<dyn BackoffPolicy> {
 
 /// The result of evaluating a BigQuery job error against a [`JobRetryPolicy`].
 #[derive(Debug)]
-#[allow(dead_code)]
 pub(crate) enum JobRetryResult {
-    Continue(Duration, QueryError),
+    Continue(Duration, #[allow(dead_code)] QueryError),
     Exhausted(QueryError),
     Permanent(QueryError),
 }
@@ -107,13 +105,11 @@ impl JobRetryResult {
 /// `RetryPolicy` trait specifically tailored for BigQuery job-level re-issuance.
 /// In the future, we plan to refine this trait and discuss how to make it public
 /// so customers can provide their own custom job retry policies.
-#[allow(dead_code)]
 pub(crate) trait JobRetryPolicy<S = RetryState>: Send + Sync + std::fmt::Debug {
     fn on_error(&self, state: &S, error: QueryError) -> JobRetryResult;
 }
 
 #[derive(Clone, Debug)]
-#[allow(dead_code)]
 pub(crate) struct RetryableJobErrors {
     attempt_limit: u32,
     backoff: Arc<dyn BackoffPolicy>,
@@ -155,12 +151,10 @@ impl JobRetryPolicy for RetryableJobErrors {
     }
 }
 
-#[allow(dead_code)]
 pub(crate) fn default_job_retry_policy() -> Arc<dyn JobRetryPolicy> {
     Arc::new(RetryableJobErrors::default())
 }
 
-#[allow(dead_code)]
 pub(crate) fn is_query_error_retryable(err: &QueryError) -> bool {
     match err {
         QueryError::JobFailed { errors } => is_retryable_errors(errors),
@@ -168,7 +162,6 @@ pub(crate) fn is_query_error_retryable(err: &QueryError) -> bool {
     }
 }
 
-#[allow(dead_code)]
 pub(crate) fn is_retryable_errors(errors: &[ErrorProto]) -> bool {
     !errors.is_empty() && errors.iter().all(|e| is_retryable_error_reason(&e.reason))
 }

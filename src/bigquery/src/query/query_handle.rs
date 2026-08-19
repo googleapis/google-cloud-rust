@@ -17,7 +17,9 @@ use crate::generated::{CompleteQueryMetadata, QueryMetadata};
 use crate::model::{
     GetQueryResultsRequest, GetQueryResultsResponse, Job, JobReference, QueryResponse,
 };
+use crate::query::execution::RetryContext;
 use crate::query::{Result, RowIterator, Schema};
+use crate::retry_policy::JobRetryResult;
 use google_cloud_bigquery_v2::builder::job_service::GetJob;
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
@@ -56,12 +58,14 @@ pub struct Query {
     pub(crate) metadata: QueryMetadata,
     pub(crate) cached_rows: Option<VecDeque<wkt::Struct>>,
     pub(crate) max_results: Option<u32>,
+    pub(crate) retry_context: Option<RetryContext>,
 }
 
 impl Query {
     pub(crate) fn from_job(
         job_service: Arc<JobService>,
         initial_job: Job,
+        retry_context: Option<RetryContext>,
         max_results: Option<u32>,
     ) -> Self {
         let completed = initial_job
@@ -74,6 +78,7 @@ impl Query {
             completed,
             cached_rows: None,
             metadata: QueryMetadata::from(initial_job),
+            retry_context,
             max_results,
         }
     }
@@ -81,6 +86,7 @@ impl Query {
     pub(crate) fn from_query_response(
         job_service: Arc<JobService>,
         mut query_response: QueryResponse,
+        retry_context: Option<RetryContext>,
         max_results: Option<u32>,
     ) -> Self {
         let completed = query_response.job_complete.unwrap_or(false);
@@ -91,6 +97,7 @@ impl Query {
             completed,
             cached_rows: Some(cached_rows),
             metadata,
+            retry_context,
             max_results,
         }
     }
@@ -187,41 +194,62 @@ impl Query {
     /// # Ok(())
     /// # }
     /// ```
-    pub async fn until_done(self) -> Result<CompleteQuery> {
-        let Query {
-            job_service,
-            completed,
-            metadata,
-            cached_rows,
-            max_results,
-        } = self;
-
-        if let (true, Some(cached_rows)) = (completed, cached_rows) {
-            return Ok(CompleteQuery::from_query_metadata(
+    pub async fn until_done(mut self) -> Result<CompleteQuery> {
+        loop {
+            let Query {
                 job_service,
+                completed,
                 metadata,
                 cached_rows,
                 max_results,
-            ));
-        }
+                retry_context,
+            } = self;
 
-        let job_ref = metadata
-            .job_reference
-            .as_ref()
-            .expect("query job should have job reference at this point");
-        let backoff_policy = Arc::new(
-            ExponentialBackoffBuilder::default()
-                .with_initial_delay(std::time::Duration::from_secs(10))
-                .build()
-                .expect("valid backoff configuration"),
-        );
-        let res = poll_query_results(&job_service, job_ref, backoff_policy).await?;
-        Ok(CompleteQuery::from_get_query_results_response(
-            job_service,
-            job_ref,
-            res,
-            max_results,
-        ))
+            if let (true, Some(cached_rows)) = (completed, cached_rows) {
+                return Ok(CompleteQuery::from_query_metadata(
+                    job_service,
+                    metadata,
+                    cached_rows,
+                    max_results,
+                ));
+            }
+
+            let job_ref = metadata
+                .job_reference
+                .as_ref()
+                .expect("query job should have job reference at this point");
+
+            let backoff_policy = Arc::new(
+                ExponentialBackoffBuilder::default()
+                    .with_initial_delay(std::time::Duration::from_secs(10))
+                    .build()
+                    .expect("valid backoff configuration"),
+            );
+
+            match poll_query_results(&job_service, job_ref, backoff_policy).await {
+                Ok(res) => {
+                    return Ok(CompleteQuery::from_get_query_results_response(
+                        job_service,
+                        job_ref,
+                        res,
+                        max_results,
+                    ));
+                }
+                Err(err) => {
+                    let Some(retry_ctx) = retry_context else {
+                        return Err(err);
+                    };
+                    match retry_ctx.on_error(err) {
+                        JobRetryResult::Continue(delay, _) => {
+                            self = retry_ctx.reissue(delay).await?;
+                        }
+                        JobRetryResult::Permanent(e) | JobRetryResult::Exhausted(e) => {
+                            return Err(e);
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -441,7 +469,6 @@ pub(crate) async fn poll_query_results(
             .await?;
 
         if !res.errors.is_empty() {
-            // TODO(#5592): handle jobBackendError and other transient/retryable errors.
             return Err(QueryError::JobFailed { errors: res.errors });
         }
 
@@ -460,7 +487,10 @@ pub(crate) async fn poll_query_results(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::query::builder::QUERY_REQUEST_ID_PREFIX;
+    use crate::query::builder::Query as QueryBuilder;
     use crate::query::tests::{MockJobService, create_job_service, create_test_backoff_policy};
+    use crate::retry_policy::RetryableJobErrors;
     use google_cloud_bigquery_v2::model::{
         ErrorProto, GetQueryResultsResponse, Job, JobReference, QueryResponse, TableFieldSchema,
         TableSchema,
@@ -498,7 +528,7 @@ mod tests {
             .set_rows([wkt::Struct::new()])
             .set_cache_hit(true);
 
-        let query = Query::from_query_response(job_service, query_res, None);
+        let query = Query::from_query_response(job_service, query_res, None, None);
 
         let completed = query.until_done().await?;
         assert_eq!(completed.job_ref.as_ref().unwrap().job_id, "some_job_id");
@@ -524,7 +554,7 @@ mod tests {
             .set_job_reference(job_ref.clone())
             .set_schema(TableSchema::new());
 
-        let query = Query::from_query_response(job_service, query_res, Some(42));
+        let query = Query::from_query_response(job_service, query_res, None, Some(42));
 
         let completed = query.until_done().await?;
         assert_eq!(completed.max_results, Some(42));
@@ -556,9 +586,11 @@ mod tests {
             .set_project_id("some_project")
             .set_job_id("some_job_id")
             .set_location("us-central1");
-        let job = Job::new().set_job_reference(job_ref);
+        let query_res = QueryResponse::new()
+            .set_job_complete(false)
+            .set_job_reference(job_ref);
 
-        let query = Query::from_job(job_service, job, None);
+        let query = Query::from_query_response(job_service, query_res, None, None);
 
         let completed = query.until_done().await?;
         assert_eq!(completed.job_ref.as_ref().unwrap().job_id, "some_job_id");
@@ -631,9 +663,11 @@ mod tests {
         let job_ref = JobReference::new()
             .set_project_id("some_project")
             .set_job_id("some_job_id");
-        let job = Job::new().set_job_reference(job_ref);
+        let query_res = QueryResponse::new()
+            .set_job_complete(false)
+            .set_job_reference(job_ref);
 
-        let query = Query::from_job(job_service, job, None);
+        let query = Query::from_query_response(job_service, query_res, None, None);
 
         let err = query.until_done().await.unwrap_err();
         let errors = match err {
@@ -666,9 +700,11 @@ mod tests {
         let job_ref = JobReference::new()
             .set_project_id("some_project")
             .set_job_id("some_job_id");
-        let job = Job::new().set_job_reference(job_ref);
+        let query_res = QueryResponse::new()
+            .set_job_complete(false)
+            .set_job_reference(job_ref);
 
-        let query = Query::from_job(job_service, job, None);
+        let query = Query::from_query_response(job_service, query_res, None, None);
 
         let err = query.until_done().await.unwrap_err();
         let source = match err {
@@ -710,6 +746,153 @@ mod tests {
         Ok(())
     }
 
+    #[tokio::test(start_paused = true)]
+    async fn test_query_until_done_reissue_on_retryable_job_failed() -> TestResult {
+        let mut mock = MockJobService::new();
+        let mut seq = mockall::Sequence::new();
+
+        mock.expect_get_query_results()
+            .in_sequence(&mut seq)
+            .times(1)
+            .returning(|req, _| {
+                assert_eq!(req.job_id, "initial_job_id");
+                let err_proto = ErrorProto::new()
+                    .set_reason("backendError")
+                    .set_message("temporary server issue");
+                let res = GetQueryResultsResponse::new().set_errors(vec![err_proto]);
+                Ok(Response::from(res))
+            });
+
+        mock.expect_query()
+            .in_sequence(&mut seq)
+            .times(1)
+            .returning(|req, _| {
+                let req_id = &req.query_request.as_ref().unwrap().request_id;
+                assert!(req_id.starts_with(QUERY_REQUEST_ID_PREFIX));
+                assert!(uuid::Uuid::parse_str(&req_id[QUERY_REQUEST_ID_PREFIX.len()..]).is_ok());
+                let new_job_ref = JobReference::new()
+                    .set_project_id("some_project")
+                    .set_job_id("reissued_job_id");
+                Ok(Response::from(
+                    QueryResponse::new()
+                        .set_job_complete(false)
+                        .set_job_reference(new_job_ref)
+                        .set_schema(TableSchema::new()),
+                ))
+            });
+
+        mock.expect_get_query_results()
+            .in_sequence(&mut seq)
+            .times(1)
+            .returning(|req, _| {
+                assert_eq!(req.job_id, "reissued_job_id");
+                let res = GetQueryResultsResponse::new()
+                    .set_job_complete(true)
+                    .set_schema(TableSchema::new());
+                Ok(Response::from(res))
+            });
+
+        let job_service = create_job_service(mock);
+        let job_ref = JobReference::new()
+            .set_project_id("some_project")
+            .set_job_id("initial_job_id");
+        let query_res = QueryResponse::new()
+            .set_job_complete(false)
+            .set_job_reference(job_ref);
+
+        let query_builder = QueryBuilder::new(job_service.clone(), "SELECT 1".to_string())
+            .with_project_id("some_project");
+        let retry_context = Some(RetryContext::new(query_builder));
+
+        let query = Query::from_query_response(job_service, query_res, retry_context, None);
+
+        let completed = query.until_done().await?;
+        assert_eq!(
+            completed.job_ref.as_ref().unwrap().job_id,
+            "reissued_job_id"
+        );
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn test_query_until_done_reissue_retry_exhausted() -> TestResult {
+        let mut mock = MockJobService::new();
+        let mut seq = mockall::Sequence::new();
+
+        // First poll on initial_job_id fails with retryable error (attempt 0 -> 1)
+        mock.expect_get_query_results()
+            .in_sequence(&mut seq)
+            .times(1)
+            .returning(|req, _| {
+                assert_eq!(req.job_id, "initial_job_id");
+                let err_proto = ErrorProto::new()
+                    .set_reason("backendError")
+                    .set_message("first temporary server issue");
+                let res = GetQueryResultsResponse::new().set_errors(vec![err_proto]);
+                Ok(Response::from(res))
+            });
+
+        // Reissue succeeds and returns reissued_job_id
+        mock.expect_query()
+            .in_sequence(&mut seq)
+            .times(1)
+            .returning(|req, _| {
+                let req_id = &req.query_request.as_ref().unwrap().request_id;
+                assert!(req_id.starts_with(QUERY_REQUEST_ID_PREFIX));
+                assert!(uuid::Uuid::parse_str(&req_id[QUERY_REQUEST_ID_PREFIX.len()..]).is_ok());
+                let new_job_ref = JobReference::new()
+                    .set_project_id("some_project")
+                    .set_job_id("reissued_job_id");
+                Ok(Response::from(
+                    QueryResponse::new()
+                        .set_job_complete(false)
+                        .set_job_reference(new_job_ref)
+                        .set_schema(TableSchema::new()),
+                ))
+            });
+
+        // Second poll on reissued_job_id fails with retryable error, but attempt limit (1) is exhausted!
+        mock.expect_get_query_results()
+            .in_sequence(&mut seq)
+            .times(1)
+            .returning(|req, _| {
+                assert_eq!(req.job_id, "reissued_job_id");
+                let err_proto = ErrorProto::new()
+                    .set_reason("backendError")
+                    .set_message("second temporary server issue");
+                let res = GetQueryResultsResponse::new().set_errors(vec![err_proto]);
+                Ok(Response::from(res))
+            });
+
+        let job_service = create_job_service(mock);
+        let job_ref = JobReference::new()
+            .set_project_id("some_project")
+            .set_job_id("initial_job_id");
+
+        let query_res = QueryResponse::new()
+            .set_job_complete(false)
+            .set_job_reference(job_ref)
+            .set_schema(TableSchema::new());
+        let mut query_builder = QueryBuilder::new(job_service.clone(), "SELECT 1".to_string())
+            .with_project_id("some_project");
+        query_builder.job_retry_policy =
+            Arc::new(RetryableJobErrors::default().with_attempt_limit(1));
+        let retry_context = Some(RetryContext::new(query_builder));
+
+        let query = Query::from_query_response(job_service, query_res, retry_context, None);
+
+        let err = query.until_done().await.unwrap_err();
+        let errors = match err {
+            QueryError::JobFailed { errors } => errors,
+            _ => panic!("expected QueryError::JobFailed, got {err:?}"),
+        };
+        assert_eq!(errors.len(), 1);
+        assert_eq!(errors[0].reason, "backendError");
+        assert_eq!(errors[0].message, "second temporary server issue");
+
+        Ok(())
+    }
+
     #[tokio::test]
     async fn test_query_get_job_success() -> TestResult {
         let mut mock = MockJobService::new();
@@ -731,7 +914,7 @@ mod tests {
             .set_schema(TableSchema::new())
             .set_job_reference(job_ref);
 
-        let query = Query::from_query_response(job_service.clone(), query_res.clone(), None);
+        let query = Query::from_query_response(job_service.clone(), query_res.clone(), None, None);
         let job = query.get_job().unwrap().send().await?;
         assert_eq!(job.user_email, "test@example.com");
 
@@ -760,7 +943,7 @@ mod tests {
             .set_schema(TableSchema::new())
             .set_job_reference(job_ref);
 
-        let query = Query::from_query_response(job_service.clone(), query_res.clone(), None);
+        let query = Query::from_query_response(job_service.clone(), query_res.clone(), None, None);
         let req = query.get_job().unwrap();
         let err = req.send().await.unwrap_err();
         assert_eq!(err.status().unwrap().code, Code::NotFound);
