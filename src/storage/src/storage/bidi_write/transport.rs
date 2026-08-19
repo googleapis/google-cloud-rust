@@ -165,10 +165,8 @@ impl AppendableObjectWriterTransport {
 
         Ok(())
     }
-}
 
-impl AppendableObjectWriter for AppendableObjectWriterTransport {
-    async fn append(&mut self, chunk: Bytes) -> Result<()> {
+    async fn append_sub_chunk(&mut self, chunk: Bytes) -> Result<()> {
         let length = chunk.len() as i64;
         let crc32c = crc32c::crc32c(&chunk);
 
@@ -191,6 +189,32 @@ impl AppendableObjectWriter for AppendableObjectWriterTransport {
 
         self.write_offset += length;
         self.running_crc32c = new_running_crc32c;
+
+        Ok(())
+    }
+}
+
+/// Maximum payload chunk size for a single write request over gRPC (2 MiB).
+///
+/// The GCS v2 API specification (`google/storage/v2/storage.proto`) restricts the
+/// `ChecksummedData.content` payload length to at most 2 MiB per chunk. Splitting
+/// larger writes into <= 2 MiB chunks also ensures individual gRPC messages remain
+/// safely under gRPC's default 4 MiB message size limit.
+const MAX_WRITE_CHUNK_SIZE: usize = 2 * 1024 * 1024;
+
+impl AppendableObjectWriter for AppendableObjectWriterTransport {
+    async fn append(&mut self, chunk: Bytes) -> Result<()> {
+        if chunk.is_empty() {
+            return Ok(());
+        }
+
+        let mut offset = 0;
+        while offset < chunk.len() {
+            let end = (offset + MAX_WRITE_CHUNK_SIZE).min(chunk.len());
+            let sub_chunk = chunk.slice(offset..end);
+            self.append_sub_chunk(sub_chunk).await?;
+            offset = end;
+        }
 
         Ok(())
     }
@@ -416,6 +440,91 @@ mod tests {
 
         let transport = handle.await?;
         assert_eq!(transport.running_crc32c, None);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn append_splits_large_chunks() -> anyhow::Result<()> {
+        let (tx, mut rx) = mpsc::channel(10);
+        let mut transport = AppendableObjectWriterTransport {
+            tx,
+            write_offset: 0,
+            running_crc32c: Some(0),
+            generation: 123456,
+            persisted_size: 0,
+            worker_handle: None,
+        };
+
+        // Create a payload larger than 2 MiB (e.g. 5 MiB = 5 * 1024 * 1024 bytes)
+        let large_payload = bytes::Bytes::from(vec![0x42u8; 5 * 1024 * 1024]);
+        let expected_total_crc = crc32c::crc32c(&large_payload);
+
+        let handle = tokio::spawn(async move {
+            transport.append(large_payload).await.unwrap();
+            transport
+        });
+
+        // First chunk (2 MiB)
+        let intent1 = rx.recv().await.unwrap();
+        if let UploadIntent::Append(req) = intent1 {
+            assert_eq!(req.write_offset, 0);
+            if let Some(Data::ChecksummedData(data)) = req.data {
+                assert_eq!(data.content.len(), MAX_WRITE_CHUNK_SIZE);
+            } else {
+                panic!("expected ChecksummedData");
+            }
+        } else {
+            panic!("expected Append");
+        }
+
+        // Second chunk (2 MiB)
+        let intent2 = rx.recv().await.unwrap();
+        if let UploadIntent::Append(req) = intent2 {
+            assert_eq!(req.write_offset, MAX_WRITE_CHUNK_SIZE as i64);
+            if let Some(Data::ChecksummedData(data)) = req.data {
+                assert_eq!(data.content.len(), MAX_WRITE_CHUNK_SIZE);
+            } else {
+                panic!("expected ChecksummedData");
+            }
+        } else {
+            panic!("expected Append");
+        }
+
+        // Third chunk (1 MiB)
+        let intent3 = rx.recv().await.unwrap();
+        if let UploadIntent::Append(req) = intent3 {
+            assert_eq!(req.write_offset, (2 * MAX_WRITE_CHUNK_SIZE) as i64);
+            if let Some(Data::ChecksummedData(data)) = req.data {
+                assert_eq!(data.content.len(), 1024 * 1024);
+            } else {
+                panic!("expected ChecksummedData");
+            }
+        } else {
+            panic!("expected Append");
+        }
+
+        let transport = handle.await?;
+        assert_eq!(transport.write_offset, (5 * 1024 * 1024) as i64);
+        assert_eq!(transport.running_crc32c, Some(expected_total_crc));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn append_empty_chunk_noop() -> anyhow::Result<()> {
+        let (tx, mut rx) = mpsc::channel(1);
+        let mut transport = AppendableObjectWriterTransport {
+            tx,
+            write_offset: 0,
+            running_crc32c: Some(0),
+            generation: 123456,
+            persisted_size: 0,
+            worker_handle: None,
+        };
+
+        transport.append(bytes::Bytes::new()).await?;
+        assert_eq!(transport.write_offset, 0);
+        assert!(rx.try_recv().is_err());
+
         Ok(())
     }
 

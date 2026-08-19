@@ -18,11 +18,11 @@
 //! so that subsequent read and query RPCs can encode binary routing keys locally without relying on the
 //! Spanner Frontend (SpanFE) proxy to resolve tablet shard boundaries.
 
-// TODO(#6236): Remove dead_code allowance once KeyRecipe and KeyRecipeCache are integrated into DatabaseClient.
+// TODO(#6236): Remove dead_code allowance once request routing interceptors utilize KeyRecipeCache in subsequent PRs.
 #![allow(dead_code)]
 
-use crate::model::KeyRecipe;
 use crate::model::key_recipe::Target;
+use crate::model::{KeyRecipe, RecipeList};
 use std::collections::HashMap;
 use std::fmt::{self, Debug, Formatter};
 use std::mem::take;
@@ -121,10 +121,13 @@ impl KeyRecipeCache {
     /// Inserts a [`KeyRecipe`] into the cache.
     ///
     /// # Concurrency Optimization
-    /// Intentionally clones `recipe.target` (`String::clone` for table/index names) and wraps `recipe`
-    /// in an `Arc` before acquiring the write lock (`self.store.write()`). This ensures that all heap
-    /// allocations occur outside the critical section, reducing lock hold duration to a pure $O(1)$
-    /// hashmap insertion.
+    /// Clones `recipe.target` (`String::clone` for table/index names) and wraps `recipe`
+    /// in an [`Arc`] before acquiring the write lock (`self.store.write()`). This ensures that all
+    /// heap allocations occur outside the critical section, reducing lock hold duration to a pure
+    /// $O(1)$ hashmap insertion.
+    ///
+    /// The lock guard is explicitly dropped before any displaced previous recipe is deallocated,
+    /// ensuring heap deallocations also occur outside the critical section.
     ///
     /// Returns `true` if the recipe contained a target and was stored in the cache;
     /// returns `false` if `recipe.target` was `None`.
@@ -144,6 +147,13 @@ impl KeyRecipeCache {
         // outside the critical section.
         drop(guard);
         true
+    }
+
+    /// Ingests all recipes from a [`RecipeList`] returned in [`CacheUpdate`](crate::model::CacheUpdate).
+    pub(crate) fn update_from_recipe_list(&self, recipe_list: RecipeList) {
+        for recipe in recipe_list.recipe {
+            self.insert(recipe);
+        }
     }
 
     /// Clears all entries from the cache.
@@ -310,5 +320,21 @@ mod tests {
             format!("{cache:?}").contains("entry_count: 1"),
             "debug format must show updated entry count"
         );
+    }
+
+    #[test]
+    fn update_from_recipe_list_inserts_all_recipes() {
+        let cache = KeyRecipeCache::new();
+        let recipe_list = RecipeList::new().set_recipe(vec![
+            KeyRecipe::new().set_table_name("Albums"),
+            KeyRecipe::new().set_index_name("AlbumsBySinger"),
+            KeyRecipe::new().set_operation_uid(12345u64),
+        ]);
+
+        cache.update_from_recipe_list(recipe_list);
+        assert_eq!(cache.len(), 3, "all 3 recipes in list should be inserted");
+        assert!(cache.get_table_recipe("Albums").is_some());
+        assert!(cache.get_index_recipe("AlbumsBySinger").is_some());
+        assert!(cache.get_query_recipe(12345u64).is_some());
     }
 }

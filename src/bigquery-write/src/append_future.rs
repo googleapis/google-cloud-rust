@@ -17,7 +17,7 @@ use crate::model::AppendResponse;
 use std::future::Future;
 use std::pin::Pin;
 use std::task::{Context, Poll};
-use tokio::task::JoinHandle;
+use tokio::sync::oneshot;
 
 /// A future that resolves to the result of an async append operation.
 ///
@@ -26,13 +26,13 @@ use tokio::task::JoinHandle;
 /// or an error if the write fails.
 #[derive(Debug)]
 pub struct AppendFuture {
-    handle: JoinHandle<AppendResult<AppendResponse>>,
+    rx: oneshot::Receiver<AppendResult<AppendResponse>>,
 }
 
 impl AppendFuture {
     #[allow(dead_code)]
-    pub(crate) fn new(handle: JoinHandle<AppendResult<AppendResponse>>) -> Self {
-        Self { handle }
+    pub(crate) fn new(rx: oneshot::Receiver<AppendResult<AppendResponse>>) -> Self {
+        Self { rx }
     }
 }
 
@@ -40,15 +40,10 @@ impl Future for AppendFuture {
     type Output = AppendResult<AppendResponse>;
 
     fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
-        let result = std::task::ready!(Pin::new(&mut self.handle).poll(cx));
+        let result = std::task::ready!(Pin::new(&mut self.rx).poll(cx));
         match result {
             Ok(res) => Poll::Ready(res),
-            Err(e) => {
-                if e.is_panic() {
-                    std::panic::resume_unwind(e.into_panic());
-                }
-                Poll::Ready(Err(AppendError::UnexpectedEndOfStream))
-            }
+            Err(_) => Poll::Ready(Err(AppendError::UnexpectedEndOfStream)),
         }
     }
 }
@@ -60,26 +55,24 @@ mod tests {
 
     #[tokio::test]
     async fn happy_path() {
-        let handle = tokio::spawn(async {
-            Ok(AppendResponse {
-                offset: None,
-                updated_schema: Some(TableSchema::default()),
-            })
-        });
-        let future = AppendFuture::new(handle);
+        let (tx, rx) = oneshot::channel();
+        let _ = tx.send(Ok(AppendResponse {
+            offset: None,
+            updated_schema: Some(TableSchema::default()),
+        }));
+        let future = AppendFuture::new(rx);
         let resp = future.await.expect("should succeed");
         assert_eq!(resp.offset, None);
         assert_eq!(resp.updated_schema, Some(TableSchema::default()));
     }
 
     #[tokio::test]
-    async fn dropped_task() {
-        let handle =
-            tokio::spawn(async { std::future::pending::<AppendResult<AppendResponse>>().await });
-        // Abort the task immediately
-        handle.abort();
+    async fn dropped_sender() {
+        let (tx, rx) = oneshot::channel::<AppendResult<AppendResponse>>();
+        // Drop the sender immediately
+        drop(tx);
 
-        let future = AppendFuture::new(handle);
+        let future = AppendFuture::new(rx);
         let err = future
             .await
             .expect_err("should return unexpected end of stream");
@@ -87,21 +80,11 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn task_returns_error() {
-        let handle = tokio::spawn(async { Err(AppendError::UnexpectedEndOfStream) });
-        let future = AppendFuture::new(handle);
+    async fn channel_returns_error() {
+        let (tx, rx) = oneshot::channel();
+        let _ = tx.send(Err(AppendError::UnexpectedEndOfStream));
+        let future = AppendFuture::new(rx);
         let err = future.await.expect_err("should return error from task");
         assert!(matches!(err, AppendError::UnexpectedEndOfStream));
-    }
-
-    #[tokio::test]
-    #[should_panic(expected = "test panic")]
-    async fn panic_propagation() {
-        let handle: JoinHandle<AppendResult<AppendResponse>> = tokio::spawn(async {
-            panic!("test panic");
-        });
-
-        let future = AppendFuture::new(handle);
-        let _ = future.await;
     }
 }
