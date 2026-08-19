@@ -38,11 +38,12 @@ use grpc::credentials::rustls::client::{
     ClientTlsConfig, RustlsChannelCredendials as RustlsChannelCredentials,
 };
 use http::{HeaderMap, Uri};
+use metadata::from_header_map;
 use std::sync::Arc;
 use std::time::Duration;
-use tonic::metadata::MetadataMap;
 
 pub mod bidi;
+mod metadata;
 mod receive;
 mod send;
 mod unary;
@@ -186,9 +187,7 @@ impl GrpcRustClient {
             call_options.set_deadline(std::time::Instant::now() + timeout);
         }
 
-        let metadata = MetadataMap::from_headers(headers)
-            .try_into()
-            .map_err(Error::ser)?;
+        let metadata = from_header_map(&headers)?;
         let request_headers = RequestHeaders::new()
             .with_method_name(path.as_str())
             .with_metadata(metadata);
@@ -269,9 +268,7 @@ impl GrpcRustClient {
         Self::note_ignored_extensions(&extensions);
         let headers = grpc_helpers::make_headers(api_client_header, request_params, &options)?;
         let headers = grpc_helpers::add_auth_headers(headers, &self.inner.credentials).await?;
-        let metadata = MetadataMap::from_headers(headers)
-            .try_into()
-            .map_err(Error::ser)?;
+        let metadata = from_header_map(&headers)?;
         let request_headers = RequestHeaders::new()
             .with_method_name(path.as_str())
             .with_metadata(metadata);

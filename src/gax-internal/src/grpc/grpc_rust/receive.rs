@@ -16,6 +16,7 @@
 //! `grpc-rust` [`RecvStream`](grpc::client::RecvStream) in a background task,
 //! as well as [`GrpcRustRecv`] to decode protobuf messages using Prost.
 
+use super::metadata::to_tonic_map;
 use bytes::Buf;
 use grpc::StatusCodeError;
 use grpc::client::{RecvStream, ResponseStreamItem};
@@ -168,7 +169,7 @@ async fn receive_responses<Response, R>(
         };
         let (response, is_terminal) = match recv.recv(&mut slot).await {
             ResponseStreamItem::Headers(headers) => (
-                Ok(Some(RecvItem::Headers(headers.metadata().clone().into()))),
+                Ok(Some(RecvItem::Headers(to_tonic_map(headers.metadata())))),
                 false,
             ),
             ResponseStreamItem::Message => match slot.take() {
@@ -198,7 +199,7 @@ async fn receive_responses<Response, R>(
 /// Converts gRPC response [`Trailers`] into a [`tonic::Status`], preserving status code, message, metadata, and `grpc-status-details-bin`.
 pub(super) fn trailers_to_tonic_status(trailers: Trailers) -> Option<tonic::Status> {
     let status = trailers.status().as_ref().err()?;
-    let metadata: tonic::metadata::MetadataMap = trailers.metadata().clone().into();
+    let metadata = to_tonic_map(trailers.metadata());
     let details = metadata
         .get_bin("grpc-status-details-bin")
         .and_then(|value| value.to_bytes().ok())
