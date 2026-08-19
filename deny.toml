@@ -151,4 +151,6 @@ unused                    = "allow"
 unknown-registry = "deny"
 unknown-git      = "deny"
 allow-registry   = ["https://github.com/rust-lang/crates.io-index"]
-allow-git        = []
+allow-git        = [
+  "https://github.com/grpc/grpc-rust.git", # TODO(#5991): Remove when switching to grpc-rust 0.10 
+]
