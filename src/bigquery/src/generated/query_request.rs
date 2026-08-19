@@ -165,6 +165,9 @@ pub struct QueryRequest {
     /// Optional. The reservation that jobs.query request would use. User can
     /// specify a reservation to execute the job.query. The expected format is
     /// `projects/{project}/locations/{location}/reservations/{reservation}`.
+    /// Forces the query to use on-demand billing when set to `none`.
+    /// This requires the project or organization to have
+    /// `reservation_override_mode` set to `ALLOW_ANY_OVERRIDE`.
     pub reservation: std::option::Option<std::string::String>,
 
     /// Allows the schema of the destination table to be updated as a side effect

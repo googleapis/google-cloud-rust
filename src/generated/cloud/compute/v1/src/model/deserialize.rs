@@ -14620,6 +14620,7 @@ impl<'de> serde::de::Deserialize<'de> for super::BackendServiceTlsSettings {
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __authentication_config,
+            __identity,
             __sni,
             __subject_alt_names,
             Unknown(std::string::String),
@@ -14643,6 +14644,7 @@ impl<'de> serde::de::Deserialize<'de> for super::BackendServiceTlsSettings {
                         use std::string::ToString;
                         match value {
                             "authenticationConfig" => Ok(__FieldTag::__authentication_config),
+                            "identity" => Ok(__FieldTag::__identity),
                             "sni" => Ok(__FieldTag::__sni),
                             "subjectAltNames" => Ok(__FieldTag::__subject_alt_names),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
@@ -14677,6 +14679,15 @@ impl<'de> serde::de::Deserialize<'de> for super::BackendServiceTlsSettings {
                                 ));
                             }
                             result.authentication_config =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__identity => {
+                            if !fields.insert(__FieldTag::__identity) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for identity",
+                                ));
+                            }
+                            result.identity =
                                 map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__sni => {
@@ -34385,6 +34396,7 @@ impl<'de> serde::de::Deserialize<'de> for super::FutureReservation {
             __reservation_mode,
             __reservation_name,
             __resource_metadata,
+            __resource_name,
             __scheduling_type,
             __self_link,
             __self_link_with_id,
@@ -34392,6 +34404,7 @@ impl<'de> serde::de::Deserialize<'de> for super::FutureReservation {
             __specific_reservation_required,
             __specific_sku_properties,
             __status,
+            __storage_pool_properties,
             __time_window,
             __zone,
             Unknown(std::string::String),
@@ -34443,6 +34456,7 @@ impl<'de> serde::de::Deserialize<'de> for super::FutureReservation {
                             "reservationMode" => Ok(__FieldTag::__reservation_mode),
                             "reservationName" => Ok(__FieldTag::__reservation_name),
                             "resourceMetadata" => Ok(__FieldTag::__resource_metadata),
+                            "resourceName" => Ok(__FieldTag::__resource_name),
                             "schedulingType" => Ok(__FieldTag::__scheduling_type),
                             "selfLink" => Ok(__FieldTag::__self_link),
                             "selfLinkWithId" => Ok(__FieldTag::__self_link_with_id),
@@ -34452,6 +34466,7 @@ impl<'de> serde::de::Deserialize<'de> for super::FutureReservation {
                             }
                             "specificSkuProperties" => Ok(__FieldTag::__specific_sku_properties),
                             "status" => Ok(__FieldTag::__status),
+                            "storagePoolProperties" => Ok(__FieldTag::__storage_pool_properties),
                             "timeWindow" => Ok(__FieldTag::__time_window),
                             "zone" => Ok(__FieldTag::__zone),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
@@ -34669,6 +34684,15 @@ impl<'de> serde::de::Deserialize<'de> for super::FutureReservation {
                                 .next_value::<std::option::Option<crate::model::ResourceMetadata>>(
                                 )?;
                         }
+                        __FieldTag::__resource_name => {
+                            if !fields.insert(__FieldTag::__resource_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for resource_name",
+                                ));
+                            }
+                            result.resource_name =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
                         __FieldTag::__scheduling_type => {
                             if !fields.insert(__FieldTag::__scheduling_type) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -34733,6 +34757,16 @@ impl<'de> serde::de::Deserialize<'de> for super::FutureReservation {
                             }
                             result.status = map.next_value::<std::option::Option<crate::model::FutureReservationStatus>>()?
                                 ;
+                        }
+                        __FieldTag::__storage_pool_properties => {
+                            if !fields.insert(__FieldTag::__storage_pool_properties) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for storage_pool_properties",
+                                ));
+                            }
+                            result.storage_pool_properties = map.next_value::<std::option::Option<
+                                crate::model::FutureReservationStoragePoolProperties,
+                            >>()?;
                         }
                         __FieldTag::__time_window => {
                             if !fields.insert(__FieldTag::__time_window) {
@@ -35082,12 +35116,14 @@ impl<'de> serde::de::Deserialize<'de> for super::FutureReservationStatus {
         enum __FieldTag {
             __amendment_status,
             __auto_created_reservations,
+            __exapool_provisioned_capacity_gb,
             __existing_matching_usage_info,
             __fulfilled_count,
             __last_known_good_state,
             __lock_time,
             __procurement_status,
             __specific_sku_properties,
+            __storage_pool_provisioned_capacity,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -35112,6 +35148,9 @@ impl<'de> serde::de::Deserialize<'de> for super::FutureReservationStatus {
                             "autoCreatedReservations" => {
                                 Ok(__FieldTag::__auto_created_reservations)
                             }
+                            "exapoolProvisionedCapacityGb" => {
+                                Ok(__FieldTag::__exapool_provisioned_capacity_gb)
+                            }
                             "existingMatchingUsageInfo" => {
                                 Ok(__FieldTag::__existing_matching_usage_info)
                             }
@@ -35120,6 +35159,9 @@ impl<'de> serde::de::Deserialize<'de> for super::FutureReservationStatus {
                             "lockTime" => Ok(__FieldTag::__lock_time),
                             "procurementStatus" => Ok(__FieldTag::__procurement_status),
                             "specificSkuProperties" => Ok(__FieldTag::__specific_sku_properties),
+                            "storagePoolProvisionedCapacity" => {
+                                Ok(__FieldTag::__storage_pool_provisioned_capacity)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -35162,6 +35204,17 @@ impl<'de> serde::de::Deserialize<'de> for super::FutureReservationStatus {
                                 ));
                             }
                             result.auto_created_reservations = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__exapool_provisioned_capacity_gb => {
+                            if !fields.insert(__FieldTag::__exapool_provisioned_capacity_gb) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for exapool_provisioned_capacity_gb",
+                                ));
+                            }
+                            result.exapool_provisioned_capacity_gb = map
+                                .next_value::<std::option::Option<
+                                    crate::model::StoragePoolExapoolProvisionedCapacityGb,
+                                >>()?;
                         }
                         __FieldTag::__existing_matching_usage_info => {
                             if !fields.insert(__FieldTag::__existing_matching_usage_info) {
@@ -35231,6 +35284,17 @@ impl<'de> serde::de::Deserialize<'de> for super::FutureReservationStatus {
                             result.specific_sku_properties = map.next_value::<std::option::Option<
                                 crate::model::FutureReservationStatusSpecificSKUProperties,
                             >>()?;
+                        }
+                        __FieldTag::__storage_pool_provisioned_capacity => {
+                            if !fields.insert(__FieldTag::__storage_pool_provisioned_capacity) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for storage_pool_provisioned_capacity",
+                                ));
+                            }
+                            result.storage_pool_provisioned_capacity = map
+                                .next_value::<std::option::Option<
+                                    crate::model::FutureReservationStoragePoolProvisionedCapacity,
+                                >>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -35665,6 +35729,259 @@ impl<'de> serde::de::Deserialize<'de> for super::FutureReservationStatusSpecific
                             }
                             result.source_instance_template_id =
                                 map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[cfg(feature = "future-reservations")]
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::FutureReservationStoragePoolProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __requested_exapool_provisioned_capacity_gb,
+            __requested_storage_pool_provisioned_capacity,
+            __storage_pool_type,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter
+                            .write_str("a field name for FutureReservationStoragePoolProperties")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "requestedExapoolProvisionedCapacityGb" => {
+                                Ok(__FieldTag::__requested_exapool_provisioned_capacity_gb)
+                            }
+                            "requestedStoragePoolProvisionedCapacity" => {
+                                Ok(__FieldTag::__requested_storage_pool_provisioned_capacity)
+                            }
+                            "storagePoolType" => Ok(__FieldTag::__storage_pool_type),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::FutureReservationStoragePoolProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct FutureReservationStoragePoolProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__requested_exapool_provisioned_capacity_gb => {
+                            if !fields
+                                .insert(__FieldTag::__requested_exapool_provisioned_capacity_gb)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for requested_exapool_provisioned_capacity_gb",
+                                ));
+                            }
+                            result.requested_exapool_provisioned_capacity_gb =
+                                map.next_value::<std::option::Option<
+                                    crate::model::StoragePoolExapoolProvisionedCapacityGb,
+                                >>()?;
+                        }
+                        __FieldTag::__requested_storage_pool_provisioned_capacity => {
+                            if !fields
+                                .insert(__FieldTag::__requested_storage_pool_provisioned_capacity)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for requested_storage_pool_provisioned_capacity",
+                                ));
+                            }
+                            result.requested_storage_pool_provisioned_capacity =
+                                map.next_value::<std::option::Option<
+                                    crate::model::FutureReservationStoragePoolProvisionedCapacity,
+                                >>()?;
+                        }
+                        __FieldTag::__storage_pool_type => {
+                            if !fields.insert(__FieldTag::__storage_pool_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for storage_pool_type",
+                                ));
+                            }
+                            result.storage_pool_type =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[cfg(feature = "future-reservations")]
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::FutureReservationStoragePoolProvisionedCapacity {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __pool_provisioned_capacity_gb,
+            __pool_provisioned_iops,
+            __pool_provisioned_throughput,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str(
+                            "a field name for FutureReservationStoragePoolProvisionedCapacity",
+                        )
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "poolProvisionedCapacityGb" => {
+                                Ok(__FieldTag::__pool_provisioned_capacity_gb)
+                            }
+                            "poolProvisionedIops" => Ok(__FieldTag::__pool_provisioned_iops),
+                            "poolProvisionedThroughput" => {
+                                Ok(__FieldTag::__pool_provisioned_throughput)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::FutureReservationStoragePoolProvisionedCapacity;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct FutureReservationStoragePoolProvisionedCapacity")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__pool_provisioned_capacity_gb => {
+                            if !fields.insert(__FieldTag::__pool_provisioned_capacity_gb) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for pool_provisioned_capacity_gb",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.pool_provisioned_capacity_gb = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__pool_provisioned_iops => {
+                            if !fields.insert(__FieldTag::__pool_provisioned_iops) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for pool_provisioned_iops",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.pool_provisioned_iops = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__pool_provisioned_throughput => {
+                            if !fields.insert(__FieldTag::__pool_provisioned_throughput) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for pool_provisioned_throughput",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.pool_provisioned_throughput = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -54117,6 +54434,7 @@ impl<'de> serde::de::Deserialize<'de> for super::InstanceFlexibilityPolicyInstan
         enum __FieldTag {
             __disks,
             __machine_types,
+            __min_cpu_platform,
             __rank,
             Unknown(std::string::String),
         }
@@ -54142,6 +54460,7 @@ impl<'de> serde::de::Deserialize<'de> for super::InstanceFlexibilityPolicyInstan
                         match value {
                             "disks" => Ok(__FieldTag::__disks),
                             "machineTypes" => Ok(__FieldTag::__machine_types),
+                            "minCpuPlatform" => Ok(__FieldTag::__min_cpu_platform),
                             "rank" => Ok(__FieldTag::__rank),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
@@ -54183,6 +54502,15 @@ impl<'de> serde::de::Deserialize<'de> for super::InstanceFlexibilityPolicyInstan
                                 ));
                             }
                             result.machine_types = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__min_cpu_platform => {
+                            if !fields.insert(__FieldTag::__min_cpu_platform) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for min_cpu_platform",
+                                ));
+                            }
+                            result.min_cpu_platform =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__rank => {
                             if !fields.insert(__FieldTag::__rank) {
@@ -115179,6 +115507,97 @@ impl<'de> serde::de::Deserialize<'de> for super::Reference {
     }
 }
 
+#[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::RegexRewrite {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __path_pattern,
+            __path_substitution,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for RegexRewrite")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "pathPattern" => Ok(__FieldTag::__path_pattern),
+                            "pathSubstitution" => Ok(__FieldTag::__path_substitution),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::RegexRewrite;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct RegexRewrite")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__path_pattern => {
+                            if !fields.insert(__FieldTag::__path_pattern) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for path_pattern",
+                                ));
+                            }
+                            result.path_pattern =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__path_substitution => {
+                            if !fields.insert(__FieldTag::__path_substitution) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for path_substitution",
+                                ));
+                            }
+                            result.path_substitution =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
 #[cfg(feature = "regions")]
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::Region {
@@ -156916,7 +157335,7 @@ impl<'de> serde::de::Deserialize<'de> for super::StoragePoolDisk {
     }
 }
 
-#[cfg(feature = "storage-pools")]
+#[cfg(any(feature = "future-reservations", feature = "storage-pools",))]
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::StoragePoolExapoolProvisionedCapacityGb {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -175120,6 +175539,7 @@ impl<'de> serde::de::Deserialize<'de> for super::UrlRewrite {
             __host_rewrite,
             __path_prefix_rewrite,
             __path_template_rewrite,
+            __regex_rewrite,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -175143,6 +175563,7 @@ impl<'de> serde::de::Deserialize<'de> for super::UrlRewrite {
                             "hostRewrite" => Ok(__FieldTag::__host_rewrite),
                             "pathPrefixRewrite" => Ok(__FieldTag::__path_prefix_rewrite),
                             "pathTemplateRewrite" => Ok(__FieldTag::__path_template_rewrite),
+                            "regexRewrite" => Ok(__FieldTag::__regex_rewrite),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -175194,6 +175615,15 @@ impl<'de> serde::de::Deserialize<'de> for super::UrlRewrite {
                             }
                             result.path_template_rewrite =
                                 map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__regex_rewrite => {
+                            if !fields.insert(__FieldTag::__regex_rewrite) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for regex_rewrite",
+                                ));
+                            }
+                            result.regex_rewrite = map
+                                .next_value::<std::option::Option<crate::model::RegexRewrite>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

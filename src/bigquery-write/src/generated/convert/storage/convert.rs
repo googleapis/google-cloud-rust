@@ -211,12 +211,31 @@ impl gaxi::prost::FromProto<crate::generated::gapic_storage::model::CreateReadSe
     }
 }
 
+impl gaxi::prost::ToProto<read_rows_request::OutputFormatSerializationOptions> for crate::generated::gapic_storage::model::read_rows_request::OutputFormatSerializationOptions {
+    type Output = read_rows_request::OutputFormatSerializationOptions;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        match self {
+            Self::ArrowSerializationOptions(v) => Ok(Self::Output::ArrowSerializationOptions((*v).to_proto()?)),
+        }
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_storage::model::read_rows_request::OutputFormatSerializationOptions> for read_rows_request::OutputFormatSerializationOptions {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_storage::model::read_rows_request::OutputFormatSerializationOptions, gaxi::prost::ConvertError> {
+        use crate::generated::gapic_storage::model::read_rows_request::OutputFormatSerializationOptions as T;
+        match self {
+            Self::ArrowSerializationOptions(v) => Ok(T::ArrowSerializationOptions(std::boxed::Box::new(v.cnv()?))),
+        }
+    }
+}
+
 impl gaxi::prost::ToProto<ReadRowsRequest> for crate::generated::gapic_storage::model::ReadRowsRequest {
     type Output = ReadRowsRequest;
     fn to_proto(self) -> std::result::Result<ReadRowsRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
             read_stream: self.read_stream.to_proto()?,
             offset: self.offset.to_proto()?,
+            output_format_serialization_options: self.output_format_serialization_options.map(|v| v.to_proto()).transpose()?,
         })
     }
 }
@@ -227,6 +246,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_storage::model::ReadRowsRequ
             crate::generated::gapic_storage::model::ReadRowsRequest::new()
                 .set_read_stream(self.read_stream)
                 .set_offset(self.offset)
+                .set_output_format_serialization_options(self.output_format_serialization_options.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -335,6 +355,7 @@ impl gaxi::prost::ToProto<ReadRowsResponse> for crate::generated::gapic_storage:
             stats: self.stats.map(|v| v.to_proto()).transpose()?,
             throttle_state: self.throttle_state.map(|v| v.to_proto()).transpose()?,
             uncompressed_byte_size: self.uncompressed_byte_size.map(|v| v.to_proto()).transpose()?,
+            total_estimated_row_count: self.total_estimated_row_count.map(|v| v.to_proto()).transpose()?,
             rows: self.rows.map(|v| v.to_proto()).transpose()?,
             schema: self.schema.map(|v| v.to_proto()).transpose()?,
         })
@@ -349,6 +370,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_storage::model::ReadRowsResp
                 .set_or_clear_stats(self.stats.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_throttle_state(self.throttle_state.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_uncompressed_byte_size(self.uncompressed_byte_size.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_total_estimated_row_count(self.total_estimated_row_count.map(|v| v.cnv()).transpose()?)
                 .set_rows(self.rows.map(|v| v.cnv()).transpose()?)
                 .set_schema(self.schema.map(|v| v.cnv()).transpose()?)
         )
@@ -495,6 +517,7 @@ impl gaxi::prost::ToProto<AppendRowsRequest> for crate::generated::gapic_storage
                     gaxi::prost::pair_transpose(k.to_proto(), v.to_proto())
                 }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
             default_missing_value_interpretation: self.default_missing_value_interpretation.to_proto()?,
+            client_stats: self.client_stats.map(|v| v.to_proto()).transpose()?,
             rows: self.rows.map(|v| v.to_proto()).transpose()?,
         })
     }
@@ -512,6 +535,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_storage::model::AppendRowsRe
                         gaxi::prost::pair_transpose(k.cnv(), v.cnv())
                     }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
                 .set_default_missing_value_interpretation(self.default_missing_value_interpretation)
+                .set_or_clear_client_stats(self.client_stats.map(|v| v.cnv()).transpose()?)
                 .set_rows(self.rows.map(|v| v.cnv()).transpose()?)
         )
     }
@@ -779,6 +803,78 @@ impl gaxi::prost::FromProto<crate::generated::gapic_storage::model::RowError> fo
                 .set_index(self.index)
                 .set_code(self.code)
                 .set_message(self.message)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<client_stats::RequestStats> for crate::generated::gapic_storage::model::client_stats::RequestStats {
+    type Output = client_stats::RequestStats;
+    fn to_proto(self) -> std::result::Result<client_stats::RequestStats, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            send_time_millis: self.send_time_millis.map(|v| v.to_proto()).transpose()?,
+            queued_requests_count: self.queued_requests_count.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_storage::model::client_stats::RequestStats> for client_stats::RequestStats {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_storage::model::client_stats::RequestStats, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_storage::model::client_stats::RequestStats::new()
+                .set_or_clear_send_time_millis(self.send_time_millis.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_queued_requests_count(self.queued_requests_count.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<client_stats::WindowStats> for crate::generated::gapic_storage::model::client_stats::WindowStats {
+    type Output = client_stats::WindowStats;
+    fn to_proto(self) -> std::result::Result<client_stats::WindowStats, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            max_response_latency_millis: self.max_response_latency_millis.map(|v| v.to_proto()).transpose()?,
+            avg_response_latency_millis: self.avg_response_latency_millis.map(|v| v.to_proto()).transpose()?,
+            longest_wait_no_response_millis: self.longest_wait_no_response_millis.map(|v| v.to_proto()).transpose()?,
+            requests_sent_count: self.requests_sent_count.map(|v| v.to_proto()).transpose()?,
+            responses_received_count: self.responses_received_count.map(|v| v.to_proto()).transpose()?,
+            bytes_sent_count: self.bytes_sent_count.map(|v| v.to_proto()).transpose()?,
+            window_start_time_epoch_millis: self.window_start_time_epoch_millis.map(|v| v.to_proto()).transpose()?,
+            window_millis: self.window_millis.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_storage::model::client_stats::WindowStats> for client_stats::WindowStats {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_storage::model::client_stats::WindowStats, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_storage::model::client_stats::WindowStats::new()
+                .set_or_clear_max_response_latency_millis(self.max_response_latency_millis.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_avg_response_latency_millis(self.avg_response_latency_millis.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_longest_wait_no_response_millis(self.longest_wait_no_response_millis.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_requests_sent_count(self.requests_sent_count.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_responses_received_count(self.responses_received_count.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_bytes_sent_count(self.bytes_sent_count.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_window_start_time_epoch_millis(self.window_start_time_epoch_millis.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_window_millis(self.window_millis.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<ClientStats> for crate::generated::gapic_storage::model::ClientStats {
+    type Output = ClientStats;
+    fn to_proto(self) -> std::result::Result<ClientStats, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            request_stats: self.request_stats.map(|v| v.to_proto()).transpose()?,
+            window_stats: self.window_stats.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_storage::model::ClientStats> for ClientStats {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_storage::model::ClientStats, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_storage::model::ClientStats::new()
+                .set_or_clear_request_stats(self.request_stats.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_window_stats(self.window_stats.map(|v| v.cnv()).transpose()?)
         )
     }
 }

@@ -320,6 +320,12 @@ pub mod chat_service {
             self.0.request.show_deleted = v.into();
             self
         }
+
+        /// Sets the value of [markup_syntax][crate::model::ListMessagesRequest::markup_syntax].
+        pub fn set_markup_syntax<T: Into<crate::model::MarkupSyntax>>(mut self, v: T) -> Self {
+            self.0.request.markup_syntax = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -578,6 +584,12 @@ pub mod chat_service {
         /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [markup_syntax][crate::model::GetMessageRequest::markup_syntax].
+        pub fn set_markup_syntax<T: Into<crate::model::MarkupSyntax>>(mut self, v: T) -> Self {
+            self.0.request.markup_syntax = v.into();
             self
         }
     }
@@ -870,6 +882,12 @@ pub mod chat_service {
         /// Sets the value of [order_by][crate::model::SearchMessagesRequest::order_by].
         pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.order_by = v.into();
+            self
+        }
+
+        /// Sets the value of [markup_syntax][crate::model::SearchMessagesRequest::markup_syntax].
+        pub fn set_markup_syntax<T: Into<crate::model::MarkupSyntax>>(mut self, v: T) -> Self {
+            self.0.request.markup_syntax = v.into();
             self
         }
 
