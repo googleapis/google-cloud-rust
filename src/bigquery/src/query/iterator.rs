@@ -25,9 +25,8 @@ pub type Result<T> = std::result::Result<T, RowError>;
 /// [`CompleteQuery::read()`](crate::CompleteQuery::read) returns a
 /// `RowIterator`.
 ///
-/// `RowIterator` yields rows from the in-memory buffer fetched during query
-/// completion, then requests subsequent pages from BigQuery using pagination
-/// tokens until consuming the entire result set.
+/// `RowIterator` yields rows from the query result set, automatically requesting
+/// subsequent pages from BigQuery as needed until the entire result set has been consumed.
 ///
 /// # Example
 ///

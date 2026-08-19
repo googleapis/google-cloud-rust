@@ -27,31 +27,46 @@ pub async fn run() -> Result<()> {
         .build()
         .await?;
 
-    chat_without_request_fails(&client).await?;
     chat_bidi_and_half_close(&client).await?;
+    chat_send_before_recv(&client).await?;
     chat_server_error(&client).await?;
     chat_options_and_headers(&client).await?;
 
     Ok(())
 }
 
-async fn chat_without_request_fails(client: &Echo) -> Result<()> {
-    let err = client
-        .chat()
-        .send()
-        .await
-        .expect_err("calling chat().send() without setting request or fields must fail");
-    assert!(err.is_binding());
+async fn chat_send_before_recv(client: &Echo) -> Result<()> {
+    const TOTAL_MESSAGES: usize = 50;
+
+    let (sender, mut receiver) = client.chat().build();
+
+    for i in 0..TOTAL_MESSAGES {
+        sender
+            .send(EchoRequest::new().set_content(format!("burst-msg-{i}")))
+            .await
+            .expect("send should succeed even before receiver is polled");
+    }
+    drop(sender);
+
+    let mut received = Vec::new();
+    while let Some(res) = receiver.recv().await {
+        received.push(res?.content);
+    }
+
+    let expected: Vec<String> = (0..TOTAL_MESSAGES)
+        .map(|i| format!("burst-msg-{i}"))
+        .collect();
+    assert_eq!(received, expected);
     Ok(())
 }
 
 async fn chat_bidi_and_half_close(client: &Echo) -> Result<()> {
     const TOTAL_MESSAGES: usize = 10;
 
-    let (sender, mut receiver) = client.chat().set_content("concurrent-msg-0").send().await?;
+    let (sender, mut receiver) = client.chat().build();
 
     let sender_handle = tokio::spawn(async move {
-        for i in 1..TOTAL_MESSAGES {
+        for i in 0..TOTAL_MESSAGES {
             let req = EchoRequest::new().set_content(format!("concurrent-msg-{i}"));
             sender.send(req).await.expect("send should succeed");
             tokio::task::yield_now().await;
@@ -80,9 +95,12 @@ async fn chat_bidi_and_half_close(client: &Echo) -> Result<()> {
 }
 
 async fn chat_server_error(client: &Echo) -> Result<()> {
-    let (sender, mut receiver) = client.chat().set_content("before-error").send().await?;
+    let (sender, mut receiver) = client.chat().build();
 
     // 1. First message should succeed.
+    sender
+        .send(EchoRequest::new().set_content("before-error"))
+        .await?;
     let res = receiver.recv().await.expect("expected response")?;
     assert_eq!(res.content, "before-error");
 
@@ -109,12 +127,16 @@ async fn chat_server_error(client: &Echo) -> Result<()> {
     // 4. Server stream should now be closed.
     assert!(receiver.recv().await.is_none());
 
-    // 5. Sending on stream after server termination should fail with an I/O error.
+    // 5. Sending on stream after server termination should fail.
     let err = sender
         .send(EchoRequest::new().set_content("after-error"))
         .await
         .expect_err("sending on stream after server error termination should fail");
-    assert!(err.is_io());
+    assert!(matches!(
+        err,
+        google_cloud_gax::streaming::SendError::StreamClosed
+            | google_cloud_gax::streaming::SendError::Serialization(_)
+    ));
 
     Ok(())
 }
@@ -124,12 +146,13 @@ async fn chat_options_and_headers(client: &Echo) -> Result<()> {
     let header_value = http::header::HeaderValue::from_static("custom-header-value");
     let (sender, mut receiver) = client
         .chat()
-        .with_request_channel_capacity(8)
+        .with_request_stream_channel_capacity(8)
         .with_custom_header(header_name, header_value)
-        .set_content("header-and-capacity-test")
-        .send()
-        .await?;
+        .build();
 
+    sender
+        .send(EchoRequest::new().set_content("header-and-capacity-test"))
+        .await?;
     let res = receiver.recv().await.expect("expected response")?;
     assert_eq!(res.content, "header-and-capacity-test");
     drop(sender);

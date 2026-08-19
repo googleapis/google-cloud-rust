@@ -193,7 +193,7 @@ impl ReadWriteTransactionBuilder {
         deadline: Option<Instant>,
     ) -> crate::Result<ReadWriteTransaction> {
         let session_name = self.session_name.clone();
-        let channel_hint = self.client.spanner.next_channel_hint();
+        let channel_hint = self.client.next_channel_hint();
         let transaction_selector = match self.begin_transaction_option {
             BeginTransactionOption::ExplicitBegin => {
                 let mut options = self.begin_gax_options.clone().unwrap_or_default();
@@ -317,12 +317,10 @@ macro_rules! execute_with_retry {
         let response_result = $self
             .context
             .client
-            .spanner
             .$rpc_method(
                 $request.clone(),
                 $gax_options.clone(),
                 $self.context.channel_hint,
-                &$self.context.client.o11y,
             )
             .await;
 
@@ -653,13 +651,7 @@ impl ReadWriteTransaction {
         let response = self
             .context
             .client
-            .spanner
-            .commit(
-                request,
-                gax_options,
-                self.context.channel_hint,
-                &self.context.client.o11y,
-            )
+            .commit(request, gax_options, self.context.channel_hint)
             .await?;
 
         let response =
@@ -675,13 +667,7 @@ impl ReadWriteTransaction {
 
                 self.context
                     .client
-                    .spanner
-                    .commit(
-                        retry_commit_req,
-                        gax_options,
-                        self.context.channel_hint,
-                        &self.context.client.o11y,
-                    )
+                    .commit(retry_commit_req, gax_options, self.context.channel_hint)
                     .await?
             } else {
                 response
@@ -705,13 +691,7 @@ impl ReadWriteTransaction {
 
         self.context
             .client
-            .spanner
-            .rollback(
-                request,
-                gax_options,
-                self.context.channel_hint,
-                &self.context.client.o11y,
-            )
+            .rollback(request, gax_options, self.context.channel_hint)
             .await?;
 
         Ok(())
@@ -4073,5 +4053,179 @@ mod tests {
             remaining >= StdDuration::from_millis(9500)
                 && remaining <= StdDuration::from_millis(10500)
         );
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_commit_observes_cache_update() -> anyhow::Result<()> {
+        use crate::client::{Spanner, SpannerBuilderExt};
+        use crate::omni::InstanceType;
+        use crate::routing::key_range_cache::RangeMode;
+        use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+        use spanner_grpc_mock::google::spanner::v1::{
+            CacheUpdate, CommitResponse, Group, Range, Tablet,
+        };
+        use spanner_grpc_mock::start;
+
+        let mut mock = create_session_mock();
+        mock.expect_begin_transaction().returning(|_| {
+            Ok(tonic::Response::new(v1::Transaction {
+                id: vec![1, 2, 3],
+                ..Default::default()
+            }))
+        });
+        mock.expect_commit().returning(|_| {
+            let cache_update = CacheUpdate {
+                database_id: 88,
+                group: vec![Group {
+                    group_uid: 99,
+                    leader_index: 0,
+                    tablets: vec![Tablet {
+                        server_address: "node-99.spanner.internal:15000".to_string(),
+                        ..Default::default()
+                    }],
+                    ..Default::default()
+                }],
+                range: vec![Range {
+                    group_uid: 99,
+                    start_key: b"rw1".to_vec(),
+                    limit_key: b"rw9".to_vec(),
+                    ..Default::default()
+                }],
+                ..Default::default()
+            };
+            Ok(tonic::Response::new(CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp {
+                    seconds: 1000,
+                    nanos: 0,
+                }),
+                cache_update: Some(cache_update),
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let db_client = client.database_client("db").build().await?;
+        let runner = db_client.read_write_transaction().build().await?;
+        runner.run(|_transaction| async move { Ok(()) }).await?;
+
+        assert_eq!(db_client.database_id(), Some(88));
+        let router = db_client
+            .location_router()
+            .expect("location router present");
+        let found = router
+            .key_range_cache()
+            .find_range(b"rw5", &[], RangeMode::CoveringSplit);
+        assert!(found.is_some(), "range covering 'rw5' should be cached");
+        assert_eq!(found.expect("range present").group_uid, 99);
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_batch_dml_observes_cache_update() -> anyhow::Result<()> {
+        use super::ReadWriteTransaction;
+        use crate::client::{Spanner, SpannerBuilderExt};
+        use crate::omni::InstanceType;
+        use crate::routing::key_range_cache::RangeMode;
+        use crate::statement::Statement;
+        use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+        use spanner_grpc_mock::google::spanner::v1::{
+            CacheUpdate, CommitResponse, ExecuteBatchDmlResponse, Group, Range, ResultSet, Tablet,
+        };
+        use spanner_grpc_mock::start;
+
+        let mut mock = create_session_mock();
+        mock.expect_begin_transaction().returning(|_| {
+            Ok(tonic::Response::new(v1::Transaction {
+                id: vec![1, 2, 3],
+                ..Default::default()
+            }))
+        });
+        mock.expect_execute_batch_dml().returning(|_| {
+            let cache_update = CacheUpdate {
+                database_id: 77,
+                group: vec![Group {
+                    group_uid: 88,
+                    leader_index: 0,
+                    tablets: vec![Tablet {
+                        server_address: "node-88.spanner.internal:15000".to_string(),
+                        ..Default::default()
+                    }],
+                    ..Default::default()
+                }],
+                range: vec![Range {
+                    group_uid: 88,
+                    start_key: b"batch1".to_vec(),
+                    limit_key: b"batch9".to_vec(),
+                    ..Default::default()
+                }],
+                ..Default::default()
+            };
+            Ok(tonic::Response::new(ExecuteBatchDmlResponse {
+                result_sets: vec![ResultSet {
+                    metadata: Some(v1::ResultSetMetadata {
+                        transaction: Some(v1::Transaction {
+                            id: vec![1, 2, 3],
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                    cache_update: Some(cache_update),
+                    ..Default::default()
+                }],
+                status: Some(spanner_grpc_mock::google::rpc::Status {
+                    code: 0,
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+        mock.expect_commit().returning(|_| {
+            Ok(tonic::Response::new(CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp {
+                    seconds: 1000,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let db_client = client.database_client("db").build().await?;
+        let runner = db_client.read_write_transaction().build().await?;
+        runner
+            .run(|transaction: ReadWriteTransaction| async move {
+                transaction
+                    .execute_batch_update(vec![Statement::from("UPDATE Users SET active = true")])
+                    .await?;
+                Ok(())
+            })
+            .await?;
+
+        assert_eq!(db_client.database_id(), Some(77));
+        let router = db_client
+            .location_router()
+            .expect("location router present");
+        let found = router
+            .key_range_cache()
+            .find_range(b"batch5", &[], RangeMode::CoveringSplit);
+        assert!(found.is_some(), "range covering 'batch5' should be cached");
+        assert_eq!(found.expect("range present").group_uid, 88);
+
+        Ok(())
     }
 }

@@ -58,4 +58,6 @@ extend-ignore-re = [
   "\\Wgae_",
   "_GAE\\W",
   "_gae\\W",
+  # Access Front End (AFE) latency header parameter in Spanner server-timing tests
+  "afe;dur=",
 ]
