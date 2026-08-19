@@ -31,3 +31,6 @@ pub(crate) mod server_connection;
 pub(crate) mod ssformat;
 pub(crate) mod temporal;
 pub(crate) mod uuid;
+
+#[cfg(test)]
+mod mock_tests;
