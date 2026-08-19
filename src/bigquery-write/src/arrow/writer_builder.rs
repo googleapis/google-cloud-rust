@@ -45,8 +45,6 @@ impl WriterBuilder {
     }
 
     /// Creates a pending writer for the given table.
-    ///
-    /// The client library creates a `WriteStream` with type `PENDING` on behalf of the application.
     pub async fn pending<T: Into<String>>(self, table: T) -> Result<PendingWriter> {
         use crate::generated::gapic_storage::client::BigQueryWrite;
         use crate::model::WriteStream;
@@ -100,6 +98,39 @@ mod tests {
     use super::*;
     use crate::transport::tests::test_transport;
     use test_case::test_case;
+
+    #[tokio::test]
+    async fn pending_success() -> anyhow::Result<()> {
+        use bigquery_write_grpc_mock::{start, MockBigQueryWrite};
+        use bigquery_write_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream as MockWriteStream;
+        let mut mock = MockBigQueryWrite::new();
+        mock.expect_create_write_stream().return_once(|_| {
+            Ok(gaxi::grpc::tonic::Response::new(
+                MockWriteStream { name: "projects/p/datasets/d/tables/t/streams/s".to_string(), ..Default::default() },
+            ))
+        });
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let transport = Arc::new(test_transport(endpoint).await?);
+        let schema = ArrowSchema::new().set_serialized_schema("test");
+        let builder = WriterBuilder::new(transport, schema.clone());
+        let writer = builder.pending("projects/p/datasets/d/tables/t").await?;
+        assert_eq!(writer.write_stream, "projects/p/datasets/d/tables/t/streams/s");
+        assert_eq!(writer.schema, schema);
+        Ok(())
+    }
+
+    #[test_case("projects/p")]
+    #[test_case("projects/p/tables/t")]
+    #[test_case("projects/p/datasets/d/tables/")]
+    #[tokio::test]
+    async fn pending_bad_table_format(table: &str) -> anyhow::Result<()> {
+        let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
+        let schema = ArrowSchema::new().set_serialized_schema("test");
+        let builder = WriterBuilder::new(transport, schema.clone());
+        let err = builder.pending(table).await.expect_err("should fail locally on bad format");
+        assert!(err.is_binding(), "{err:?}");
+        Ok(())
+    }
 
     #[tokio::test]
     async fn default() -> anyhow::Result<()> {

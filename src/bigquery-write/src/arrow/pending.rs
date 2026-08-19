@@ -74,9 +74,9 @@ impl PendingWriter {
         // "projects/p/datasets/d/tables/t/streams/s" -> "projects/p/datasets/d/tables/t"
         let parent = self
             .write_stream
-            .split("/streams/")
-            .next()
-            .unwrap_or(&self.write_stream)
+            .split_once("/streams/")
+            .map(|(p, _)| p)
+            .unwrap_or(self.write_stream.as_str())
             .to_string();
 
         client
@@ -120,12 +120,12 @@ mod tests {
         let mut mock = MockBigQueryWrite::new();
         mock.expect_append_rows()
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
-            
+
         mock.expect_finalize_write_stream()
             .return_once(|_| Ok(TonicResponse::new(
                 bigquery_write_grpc_mock::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse::default()
             )));
-            
+
         mock.expect_batch_commit_write_streams()
             .return_once(|_| Ok(TonicResponse::new(
                 bigquery_write_grpc_mock::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse::default()
