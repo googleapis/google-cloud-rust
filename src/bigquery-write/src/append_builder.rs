@@ -43,10 +43,9 @@ impl AppendWithOffset {
     /// Append rows to the stream.
     pub fn send(self) -> crate::append_future::AppendFuture {
         let (tx, rx) = oneshot::channel();
-        let AppendWithOffset { req_tx, req } = self;
 
         tokio::spawn(async move {
-            let res = send_append_request(req_tx, req).await;
+            let res = send_append_request(self.req_tx, self.req).await;
             let _ = tx.send(res);
         });
 
