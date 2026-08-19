@@ -32,7 +32,7 @@ pub enum SendError {
     StreamClosed,
 
     /// Serialization / proto conversion of the request failed.
-    #[error("cannot serialize the request")]
+    #[error("cannot serialize the request: {0}")]
     Serialization(#[source] BoxError),
 }
 
@@ -279,7 +279,10 @@ mod tests {
             .await
             .expect_err("negative number should trigger serialization error");
         assert!(matches!(err, SendError::Serialization(_)));
-        assert_eq!(err.to_string(), "cannot serialize the request");
+        assert_eq!(
+            err.to_string(),
+            "cannot serialize the request: negative number"
+        );
         assert_eq!(format!("{sender:?}"), "RequestSender");
     }
 
