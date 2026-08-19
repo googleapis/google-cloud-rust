@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::arrow::DefaultWriter;
+use crate::arrow::{DefaultWriter, PendingWriter};
 use crate::model::ArrowSchema;
 use crate::transport::Transport;
 use crate::{Error, Result};
@@ -42,6 +42,32 @@ impl WriterBuilder {
         let mut write_stream = table;
         write_stream.push_str("/streams/_default");
         Ok(DefaultWriter::new(self.inner, write_stream, self.schema))
+    }
+
+    /// Creates a pending writer for the given table.
+    ///
+    /// The client library creates a `WriteStream` with type `PENDING` on behalf of the application.
+    pub async fn pending<T: Into<String>>(self, table: T) -> Result<PendingWriter> {
+        use crate::generated::gapic_storage::client::BigQueryWrite;
+        use crate::model::WriteStream;
+        use crate::model::write_stream::Type;
+
+        let table = table.into();
+        validate_table(table.as_str())?;
+
+        let client = BigQueryWrite::from_stub::<Transport>(self.inner.clone());
+        let write_stream = client
+            .create_write_stream()
+            .set_parent(table)
+            .set_write_stream(WriteStream::new().set_type(Type::Pending))
+            .send()
+            .await?;
+
+        Ok(PendingWriter::new(
+            self.inner,
+            write_stream.name,
+            self.schema,
+        ))
     }
 }
 
