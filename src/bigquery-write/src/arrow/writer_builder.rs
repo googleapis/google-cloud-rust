@@ -56,13 +56,14 @@ impl WriterBuilder {
         let client = BigQueryWrite::from_stub::<Transport>(self.inner.clone());
         let write_stream = client
             .create_write_stream()
-            .set_parent(table)
+            .set_parent(table.clone())
             .set_write_stream(WriteStream::new().set_type(Type::Pending))
             .send()
             .await?;
 
         Ok(PendingWriter::new(
             self.inner,
+            table,
             write_stream.name,
             self.schema,
         ))
@@ -101,20 +102,24 @@ mod tests {
 
     #[tokio::test]
     async fn pending_success() -> anyhow::Result<()> {
-        use bigquery_write_grpc_mock::{start, MockBigQueryWrite};
         use bigquery_write_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream as MockWriteStream;
+        use bigquery_write_grpc_mock::{MockBigQueryWrite, start};
         let mut mock = MockBigQueryWrite::new();
         mock.expect_create_write_stream().return_once(|_| {
-            Ok(gaxi::grpc::tonic::Response::new(
-                MockWriteStream { name: "projects/p/datasets/d/tables/t/streams/s".to_string(), ..Default::default() },
-            ))
+            Ok(gaxi::grpc::tonic::Response::new(MockWriteStream {
+                name: "projects/p/datasets/d/tables/t/streams/s".to_string(),
+                ..Default::default()
+            }))
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
         let schema = ArrowSchema::new().set_serialized_schema("test");
         let builder = WriterBuilder::new(transport, schema.clone());
         let writer = builder.pending("projects/p/datasets/d/tables/t").await?;
-        assert_eq!(writer.write_stream, "projects/p/datasets/d/tables/t/streams/s");
+        assert_eq!(
+            writer.write_stream,
+            "projects/p/datasets/d/tables/t/streams/s"
+        );
         assert_eq!(writer.schema, schema);
         Ok(())
     }
@@ -127,7 +132,10 @@ mod tests {
         let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
         let schema = ArrowSchema::new().set_serialized_schema("test");
         let builder = WriterBuilder::new(transport, schema.clone());
-        let err = builder.pending(table).await.expect_err("should fail locally on bad format");
+        let err = builder
+            .pending(table)
+            .await
+            .expect_err("should fail locally on bad format");
         assert!(err.is_binding(), "{err:?}");
         Ok(())
     }

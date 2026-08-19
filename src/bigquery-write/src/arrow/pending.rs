@@ -28,16 +28,18 @@ use std::sync::Arc;
 #[derive(Debug)]
 pub struct PendingWriter {
     runner: Runner,
+    pub(crate) parent: String,
     pub(crate) write_stream: String,
     pub(crate) schema: ArrowSchema,
     inner: Arc<Transport>,
 }
 
 impl PendingWriter {
-    pub(crate) fn new(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
+    pub(crate) fn new(inner: Arc<Transport>, parent: String, write_stream: String, schema: ArrowSchema) -> Self {
         let runner = Runner::new(inner.clone());
         Self {
             runner,
+            parent,
             write_stream,
             schema,
             inner,
@@ -69,19 +71,9 @@ impl PendingWriter {
     /// Commits the pending stream to the table.
     pub async fn commit(&self) -> Result<BatchCommitWriteStreamsResponse> {
         let client = BigQueryWrite::from_stub::<Transport>(self.inner.clone());
-
-        // Extract the parent table path from the stream name:
-        // "projects/p/datasets/d/tables/t/streams/s" -> "projects/p/datasets/d/tables/t"
-        let parent = self
-            .write_stream
-            .split_once("/streams/")
-            .map(|(p, _)| p)
-            .unwrap_or(self.write_stream.as_str())
-            .to_string();
-
         client
             .batch_commit_write_streams()
-            .set_parent(parent)
+            .set_parent(self.parent.clone())
             .set_write_streams(vec![self.write_stream.clone()])
             .send()
             .await
@@ -100,7 +92,7 @@ mod tests {
     #[tokio::test]
     async fn request_fields() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
-        let writer = PendingWriter::new(transport, write_stream(), schema());
+        let writer = PendingWriter::new(transport, parent(), write_stream(), schema());
 
         let b = writer.append(rows(1));
         assert_eq!(b.req.write_stream, write_stream());
@@ -134,7 +126,7 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
 
-        let writer = PendingWriter::new(transport, write_stream(), schema());
+        let writer = PendingWriter::new(transport, parent(), write_stream(), schema());
 
         response_tx.send(Ok(convert(&test_response(1)))).await?;
         let resp = writer.append(rows(1)).send().await?;
@@ -144,6 +136,10 @@ mod tests {
         writer.commit().await?;
 
         Ok(())
+    }
+
+    fn parent() -> String {
+        "projects/p/datasets/d/tables/t".to_string()
     }
 
     fn write_stream() -> String {

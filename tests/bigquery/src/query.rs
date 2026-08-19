@@ -404,12 +404,12 @@ pub async fn query_client_nested_types() -> Result<()> {
     let bob = UserRecord {
         name: "Bob".to_string(),
         age: 28,
-            test: None,
+        test: None,
     };
     let charlie = UserRecord {
         name: "Charlie".to_string(),
         age: 31,
-            test: None,
+        test: None,
     };
     assert_eq!(data.users, [bob, charlie]);
 

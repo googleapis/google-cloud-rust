@@ -43,7 +43,10 @@ pub async fn basic(project_id: &str, dataset_id: &str, table_id: &str) -> Result
     let name = StringArray::from(vec!["Alice", "Bob"]);
     let age = Int64Array::from(vec![25, 28]);
     let test_col = StringArray::from(vec!["basic", "basic"]);
-    let batch = RecordBatch::try_new(arrow_schema.clone(), vec![Arc::new(name), Arc::new(age), Arc::new(test_col)])?;
+    let batch = RecordBatch::try_new(
+        arrow_schema.clone(),
+        vec![Arc::new(name), Arc::new(age), Arc::new(test_col)],
+    )?;
     let batch_buf = serialize_batch(&batch, schema_len)?;
 
     // Write the batch
@@ -54,7 +57,10 @@ pub async fn basic(project_id: &str, dataset_id: &str, table_id: &str) -> Result
     let name = StringArray::from(vec!["Charlie"]);
     let age = Int64Array::from(vec![31]);
     let test_col = StringArray::from(vec!["basic"]);
-    let batch = RecordBatch::try_new(arrow_schema, vec![Arc::new(name), Arc::new(age), Arc::new(test_col)])?;
+    let batch = RecordBatch::try_new(
+        arrow_schema,
+        vec![Arc::new(name), Arc::new(age), Arc::new(test_col)],
+    )?;
     let batch_buf = serialize_batch(&batch, schema_len)?;
 
     // Write the second batch
@@ -108,7 +114,10 @@ pub async fn pending(project_id: &str, dataset_id: &str, table_id: &str) -> Resu
     let name = StringArray::from(vec!["David", "Eve"]);
     let age = Int64Array::from(vec![42, 38]);
     let test_col = StringArray::from(vec!["pending", "pending"]);
-    let batch = RecordBatch::try_new(arrow_schema.clone(), vec![Arc::new(name), Arc::new(age), Arc::new(test_col)])?;
+    let batch = RecordBatch::try_new(
+        arrow_schema.clone(),
+        vec![Arc::new(name), Arc::new(age), Arc::new(test_col)],
+    )?;
     let batch_buf = serialize_batch(&batch, schema_len)?;
 
     // Write the batch with offset 0
@@ -119,7 +128,10 @@ pub async fn pending(project_id: &str, dataset_id: &str, table_id: &str) -> Resu
     let name = StringArray::from(vec!["Frank"]);
     let age = Int64Array::from(vec![55]);
     let test_col = StringArray::from(vec!["pending"]);
-    let batch = RecordBatch::try_new(arrow_schema, vec![Arc::new(name), Arc::new(age), Arc::new(test_col)])?;
+    let batch = RecordBatch::try_new(
+        arrow_schema,
+        vec![Arc::new(name), Arc::new(age), Arc::new(test_col)],
+    )?;
     let batch_buf = serialize_batch(&batch, schema_len)?;
 
     // Write the second batch with offset 2
