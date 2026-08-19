@@ -2417,6 +2417,32 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-bigquery-read"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "bytes",
+ "google-cloud-auth",
+ "google-cloud-bigquery-read",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-rpc",
+ "google-cloud-wkt",
+ "http",
+ "prost",
+ "prost-types",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "test-case",
+ "thiserror",
+ "tokio",
+ "tokio-stream",
+ "tracing",
+]
+
+[[package]]
 name = "google-cloud-bigquery-reservation-v1"
 version = "1.11.0"
 dependencies = [
@@ -7061,6 +7087,7 @@ dependencies = [
  "futures",
  "google-cloud-auth",
  "google-cloud-bigquery",
+ "google-cloud-bigquery-read",
  "google-cloud-bigquery-v2",
  "google-cloud-bigquery-write",
  "google-cloud-gax",
