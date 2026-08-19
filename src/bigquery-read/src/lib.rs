@@ -22,7 +22,7 @@
 //! This crate contains traits, types, and functions to interact with
 //! [BigQuery Read].
 //!
-//! [bigquery read]: https://docs.cloud.google.com/bigquery/docs/read-api
+//! [bigquery read]: https://docs.cloud.google.com/bigquery/docs/reference/storage
 
 pub use google_cloud_gax::Result;
 pub use google_cloud_gax::error::Error;
