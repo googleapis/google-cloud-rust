@@ -12,16 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::RequestOptions;
 use crate::generated::gapic_dataplane::client::Spanner as GapicSpanner;
 use crate::model::{
     BeginTransactionRequest, CommitRequest, CommitResponse, CreateSessionRequest,
-    ExecuteBatchDmlRequest, ExecuteBatchDmlResponse, ExecuteSqlRequest, PartitionQueryRequest,
-    PartitionReadRequest, PartitionResponse, RollbackRequest, Session, Transaction,
+    ExecuteBatchDmlRequest, ExecuteBatchDmlResponse, ExecuteSqlRequest, FetchCacheUpdateRequest,
+    PartitionQueryRequest, PartitionReadRequest, PartitionResponse, RollbackRequest, Session,
+    Transaction,
 };
 use crate::observability::Observability;
 #[cfg(feature = "_experimental-builtin-metrics")]
 use crate::observability::metrics::SpannerMetricsInterceptor;
-use crate::omni::{InstanceType, is_plaintext_endpoint};
+use crate::omni::{InstanceType, TlsConfig, TlsError, is_plaintext_endpoint};
 use crate::request_id::RequestIdCreator;
 use crate::request_id_interceptor::{REQUEST_ID_HEADER, SpannerRequestIdInterceptor};
 use crate::server_streaming::builder;
@@ -29,6 +31,7 @@ use gaxi::attempt_interceptor::AttemptInterceptor;
 use gaxi::options::{ClientConfig, Credentials};
 use google_cloud_auth::credentials::anonymous;
 use google_cloud_gax::client_builder::ClientBuilder as GaxClientBuilder;
+use google_cloud_gax::client_builder::Error as BuilderError;
 use google_cloud_gax::client_builder::internal::new_builder;
 use google_cloud_gax::options::{
     RequestOptions as GaxRequestOptions, internal::RequestOptionsExt as _,
@@ -40,7 +43,7 @@ use http::{
     header::{HeaderName, HeaderValue},
 };
 use std::sync::{
-    Arc, LazyLock,
+    Arc,
     atomic::{AtomicUsize, Ordering},
 };
 
@@ -56,7 +59,7 @@ pub use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
 #[derive(Clone, Debug)]
 pub struct Spanner {
     pub(crate) channels: Vec<Channel>,
-    pub(crate) counter: std::sync::Arc<AtomicUsize>,
+    pub(crate) counter: Arc<AtomicUsize>,
     pub(crate) config: ClientConfig,
     pub(crate) is_emulator: bool,
     pub(crate) instance_type: InstanceType,
@@ -85,12 +88,28 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
             }
         }
 
-        if config
+        let is_plaintext = config
             .endpoint
-            .as_ref()
-            .is_some_and(|ep| is_plaintext_endpoint(ep))
-            && config.cred.is_none()
-        {
+            .as_deref()
+            .is_some_and(is_plaintext_endpoint);
+
+        if let Some(tls_config) = config.extensions.get::<TlsConfig>() {
+            tls_config.validate().map_err(BuilderError::transport)?;
+            if is_plaintext && tls_config.has_custom_certificates() {
+                return Err(BuilderError::transport(TlsError::PlaintextWithTls));
+            }
+            if let Some(tonic_tls) = tls_config.to_tonic_client_tls_config() {
+                config.extensions.insert(tonic_tls);
+            }
+        }
+
+        let instance_type = config
+            .extensions
+            .get::<InstanceType>()
+            .copied()
+            .unwrap_or_default();
+
+        if (instance_type == InstanceType::Omni || is_plaintext) && config.cred.is_none() {
             config.cred = Some(anonymous::Builder::new().build());
         }
 
@@ -104,15 +123,9 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
             channels.push(Channel::create(&config).await?);
         }
 
-        let instance_type = config
-            .extensions
-            .get::<InstanceType>()
-            .copied()
-            .unwrap_or_default();
-
         Ok(Spanner {
             channels,
-            counter: std::sync::Arc::new(AtomicUsize::new(0)),
+            counter: Arc::new(AtomicUsize::new(0)),
             config,
             is_emulator,
             instance_type,
@@ -140,11 +153,35 @@ pub trait SpannerBuilderExt {
     /// # Ok(()) }
     /// ```
     fn with_instance_type(self, instance_type: InstanceType) -> Self;
+
+    /// Configures custom TLS or mutual TLS (mTLS) settings for Spanner Omni.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner::client::{Spanner, SpannerBuilderExt};
+    /// # use google_cloud_spanner::omni::TlsConfig;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let tls_config = TlsConfig::new()
+    ///     .with_root_certificate_file("path/to/ca.pem")?;
+    /// let client = Spanner::builder()
+    ///     .with_omni_tls(tls_config)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// Calling this method automatically configures the client instance type as `InstanceType::Omni`.
+    fn with_omni_tls(self, tls_config: TlsConfig) -> Self;
 }
 
 impl SpannerBuilderExt for ClientBuilder {
     fn with_instance_type(self, instance_type: InstanceType) -> Self {
         self.with_extension(instance_type)
+    }
+
+    fn with_omni_tls(self, tls_config: TlsConfig) -> Self {
+        self.with_extension(InstanceType::Omni)
+            .with_extension(tls_config)
     }
 }
 
@@ -191,26 +228,19 @@ fn apply_request_defaults(mut options: crate::RequestOptions) -> crate::RequestO
     options
 }
 
-pub(crate) static LAR_HEADER_MAP: LazyLock<HeaderMap> = LazyLock::new(|| {
-    let mut map = HeaderMap::new();
-    map.insert(
-        HeaderName::from_static("x-goog-spanner-route-to-leader"),
-        HeaderValue::from_static("true"),
-    );
-    map
-});
+static ROUTE_TO_LEADER_HEADER: HeaderName =
+    HeaderName::from_static("x-goog-spanner-route-to-leader");
+static ROUTE_TO_LEADER_VALUE: HeaderValue = HeaderValue::from_static("true");
 
 pub(crate) fn amend_request_options_for_lar(
     leader_aware_routing_enabled: bool,
     mut options: GaxRequestOptions,
 ) -> GaxRequestOptions {
     if leader_aware_routing_enabled {
-        let mut headers = options
-            .get_extension::<HeaderMap>()
-            .cloned()
-            .unwrap_or_default();
-        headers.extend((*LAR_HEADER_MAP).clone());
-        options = options.insert_extension(headers);
+        options.get_extension_or_default_mut::<HeaderMap>().insert(
+            ROUTE_TO_LEADER_HEADER.clone(),
+            ROUTE_TO_LEADER_VALUE.clone(),
+        );
     }
     options
 }
@@ -363,7 +393,7 @@ impl Spanner {
 
     pub(crate) fn attach_request_id(
         &self,
-        options: crate::RequestOptions,
+        mut options: crate::RequestOptions,
         channel_hint: usize,
     ) -> crate::RequestOptions {
         if options
@@ -384,12 +414,10 @@ impl Spanner {
             return options;
         };
 
-        let mut headers = options
-            .get_extension::<HeaderMap>()
-            .cloned()
-            .unwrap_or_default();
-        headers.insert(REQUEST_ID_HEADER.clone(), val);
-        options.insert_extension(headers)
+        options
+            .get_extension_or_default_mut::<HeaderMap>()
+            .insert(REQUEST_ID_HEADER.clone(), val);
+        options
     }
 
     define_idempotent_rpc!(
@@ -493,6 +521,22 @@ impl Spanner {
             .as_ref()
             .expect("Streaming RPCs are not supported when using a stub client");
         builder::BatchWrite::new(grpc.clone())
+            .with_request(request)
+            .with_options(self.attach_request_id(options, channel_hint))
+    }
+
+    pub(crate) fn fetch_cache_update(
+        &self,
+        request: FetchCacheUpdateRequest,
+        options: RequestOptions,
+        channel_hint: usize,
+    ) -> builder::FetchCacheUpdate {
+        let channel = self.get_channel(channel_hint);
+        let grpc = channel
+            .grpc_client
+            .as_ref()
+            .expect("Streaming RPCs are not supported when using a stub client");
+        builder::FetchCacheUpdate::new(grpc.clone())
             .with_request(request)
             .with_options(self.attach_request_id(options, channel_hint))
     }
@@ -1958,6 +2002,74 @@ mod tests {
         assert!(
             val.contains(".4."),
             "Request ID should contain channel ID 4 for hint 7 with pool size 4, got {val}"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn attach_request_id_idempotent_no_duplicate_headers() {
+        let mock = MockSpanner::new();
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let mut options = crate::RequestOptions::default();
+        options = client.attach_request_id(options, 0);
+        let first_headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap should be present")
+            .clone();
+        let first_val = first_headers
+            .get(&REQUEST_ID_HEADER)
+            .expect("request id should be present")
+            .clone();
+
+        // Calling attach_request_id a second time must NOT change the value or add duplicate headers
+        options = client.attach_request_id(options, 0);
+        let second_headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap should be present");
+
+        assert_eq!(
+            second_headers.get_all(&REQUEST_ID_HEADER).iter().count(),
+            1,
+            "REQUEST_ID_HEADER should only be present once"
+        );
+        assert_eq!(
+            second_headers.get(&REQUEST_ID_HEADER),
+            Some(&first_val),
+            "Second call must preserve original Request ID"
+        );
+    }
+
+    #[test]
+    fn amend_request_options_for_lar_idempotent_no_duplicate_headers() {
+        let options = crate::RequestOptions::default();
+        let options = super::amend_request_options_for_lar(true, options);
+        let options = super::amend_request_options_for_lar(true, options);
+
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap should be present");
+
+        assert_eq!(
+            headers
+                .get_all(&super::ROUTE_TO_LEADER_HEADER)
+                .iter()
+                .count(),
+            1,
+            "LAR header should only be present once even after multiple amend calls"
+        );
+        assert_eq!(
+            headers.get(&super::ROUTE_TO_LEADER_HEADER),
+            Some(&super::ROUTE_TO_LEADER_VALUE),
+            "LAR header should match ROUTE_TO_LEADER_VALUE"
         );
     }
 }
