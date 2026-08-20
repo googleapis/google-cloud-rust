@@ -22,9 +22,15 @@
 
 use crate::model::{CacheUpdate, Group, Range, Tablet};
 use bytes::Bytes;
+#[cfg(test)]
+use crc32c::crc32c;
+use rand::random_range;
 use std::collections::hash_map::Entry;
 use std::collections::{BTreeMap, HashMap};
+use std::mem::take;
 use std::ops::Bound;
+#[cfg(test)]
+use std::sync::atomic::AtomicBool;
 use std::sync::atomic::{AtomicU64, AtomicUsize, Ordering};
 use std::sync::{Arc, RwLock};
 
@@ -105,12 +111,12 @@ impl CachedGroup {
 
     /// Returns candidate replica references in the lowest locality tier matching the minimum distance.
     ///
-    /// If `prefer_leader` is `true` and a valid leader is present, returns a single-element
-    /// vector containing a reference to that leader (even if remote, to avoid forwarding hops).
+    /// If `prefer_leader` is `true` and a valid local leader is present, returns a single-element
+    /// vector containing a reference to that leader.
     ///
     /// Otherwise, returns references to the precomputed candidate replicas in the lowest available distance tier.
     pub(crate) fn eligible_tablets(&self, prefer_leader: bool) -> Vec<&Tablet> {
-        if prefer_leader && let Some(leader) = self.leader() {
+        if prefer_leader && let Some(leader) = self.local_leader() {
             return vec![leader];
         }
 
@@ -255,6 +261,8 @@ pub(crate) struct KeyRangeCache {
     state: RwLock<CacheState>,
     access_counter: AtomicU64,
     min_cache_entries_for_random_pick: AtomicUsize,
+    #[cfg(test)]
+    deterministic_random: AtomicBool,
 }
 
 impl KeyRangeCache {
@@ -264,7 +272,48 @@ impl KeyRangeCache {
             state: RwLock::new(CacheState::default()),
             access_counter: AtomicU64::new(0),
             min_cache_entries_for_random_pick: AtomicUsize::new(1000),
+            #[cfg(test)]
+            deterministic_random: AtomicBool::new(false),
         }
+    }
+
+    /// Enables deterministic pseudorandom selection for golden conformance testing.
+    #[cfg(test)]
+    pub(crate) fn use_deterministic_random(&self) {
+        self.deterministic_random.store(true, Ordering::Relaxed);
+    }
+
+    #[cfg(test)]
+    fn deterministic_uniform_random(
+        &self,
+        range_bound: usize,
+        key_seed: &[u8],
+        limit_seed: &[u8],
+        start_key_seed: &[u8],
+    ) -> usize {
+        let combined = [key_seed, limit_seed, start_key_seed].concat();
+        let hash = crc32c(&combined);
+        (hash as usize) % range_bound
+    }
+
+    fn uniform_random(
+        &self,
+        range_bound: usize,
+        key_seed: &[u8],
+        limit_seed: &[u8],
+        start_key_seed: &[u8],
+    ) -> usize {
+        #[cfg(test)]
+        if self.deterministic_random.load(Ordering::Relaxed) {
+            return self.deterministic_uniform_random(
+                range_bound,
+                key_seed,
+                limit_seed,
+                start_key_seed,
+            );
+        }
+        let _ = (key_seed, limit_seed, start_key_seed);
+        random_range(0..range_bound)
     }
 
     /// Returns the current logical access time counter value and increments it.
@@ -295,9 +344,11 @@ impl KeyRangeCache {
 
     /// Clears all cached ranges and groups.
     pub(crate) fn clear(&self) {
-        let mut state = self.state.write().expect("lock cache state for clear");
-        state.ranges.clear();
-        state.groups.clear();
+        let old_state = {
+            let mut state = self.state.write().expect("lock cache state for clear");
+            take(&mut *state)
+        };
+        drop(old_state);
     }
 
     /// Returns the cached group for the given group UID, if present.
@@ -533,7 +584,8 @@ impl KeyRangeCache {
                 found_gap = true;
             }
             total += 1;
-            if total == 1 || rand::random_range(0..total) == 0 {
+            if total == 1 || self.uniform_random(total, key, limit, current.start_key.as_ref()) == 0
+            {
                 sampled = Some(current);
             }
             last_limit = current.limit_key.as_ref();
@@ -588,12 +640,12 @@ impl KeyRangeCache {
 
     /// Selects an appropriate tablet replica from the cached range's group.
     ///
-    /// If `prefer_leader` is `true` and a valid leader is present, selects that leader.
+    /// If `prefer_leader` is `true` and a valid local leader is present, selects that leader.
     /// Otherwise, selects uniformly among candidate replicas within the lowest available distance tier.
     pub(crate) fn select_tablet(&self, range: &CachedRange, prefer_leader: bool) -> Option<Tablet> {
         let group = self.get_group(range.group_uid)?;
 
-        if prefer_leader && let Some(leader) = group.leader() {
+        if prefer_leader && let Some(leader) = group.local_leader() {
             return Some(leader.clone());
         }
 
@@ -604,7 +656,7 @@ impl KeyRangeCache {
         if indices.len() == 1 {
             return Some(group.tablets[indices[0]].clone());
         }
-        let selected_index = rand::random_range(0..indices.len());
+        let selected_index = random_range(0..indices.len());
         Some(group.tablets[indices[selected_index]].clone())
     }
 }
@@ -616,6 +668,14 @@ mod tests {
     use static_assertions::assert_impl_all;
     use std::collections::HashSet;
     use std::fmt::Debug;
+
+    #[test]
+    fn key_range_cache_types_implement_expected_traits() {
+        assert_impl_all!(KeyRangeCache: Send, Sync);
+        assert_impl_all!(RangeMode: Send, Sync, Debug, Clone, Copy, PartialEq, Eq);
+        assert_impl_all!(CachedRange: Send, Sync, Debug);
+        assert_impl_all!(CachedGroup: Send, Sync, Debug, Clone);
+    }
 
     fn make_range(
         start: &'static str,
@@ -1797,12 +1857,12 @@ mod tests {
     }
 
     #[test]
-    fn select_tablet_prefers_leader_even_when_remote() {
+    fn select_tablet_prefers_local_leader_and_falls_back_when_remote() {
         let cache = KeyRangeCache::new();
         let mut group = make_group(1, "1", 0);
-        // Leader (tablet 1) is remote in Europe (distance = 20)
+        // Leader (tablet 1) is remote (distance = 20 > MAX_LOCAL_REPLICA_DISTANCE = 5)
         group.tablets[0].distance = 20;
-        // Replica (tablet 2) is local in US (distance = 1)
+        // Replica (tablet 2) is local (distance = 1)
         group.tablets[1].distance = 1;
 
         let update = CacheUpdate {
@@ -1818,14 +1878,14 @@ mod tests {
             .find_range(b"m", b"", RangeMode::CoveringSplit)
             .expect("range hit");
 
-        // When prefer_leader = true, the leader (even if remote at distance 20) is selected
-        // to avoid forwarding hops for write transactions.
+        // When prefer_leader = true but the leader is remote, it falls back to the local replica
+        // to avoid high cross-region latency.
         let selected_leader = cache
             .select_tablet(&hit, true)
-            .expect("should select remote leader");
+            .expect("should select tablet");
         assert_eq!(
-            selected_leader.tablet_uid, 1,
-            "must prefer leader (UID 1) when prefer_leader is true"
+            selected_leader.tablet_uid, 2,
+            "must fall back to local replica (UID 2) when leader is remote"
         );
 
         // When prefer_leader = false, the local replica tier (distance 1) is selected.
@@ -1848,16 +1908,16 @@ mod tests {
     }
 
     #[test]
-    fn eligible_tablets_prefer_leader_returns_leader_even_when_remote() {
+    fn eligible_tablets_prefer_leader_falls_back_to_local_when_remote() {
         let mut proto = make_group(1, "1", 0);
         proto.tablets[0].distance = 20; // Remote leader
         proto.tablets[1].distance = 1; // Local replica
         let group = CachedGroup::from_proto(proto);
 
-        // When prefer_leader is true, eligible_tablets returns the leader directly
+        // When prefer_leader is true but leader is remote, eligible_tablets falls back to local replica
         let eligible = group.eligible_tablets(true);
         assert_eq!(eligible.len(), 1);
-        assert_eq!(eligible[0].tablet_uid, 1);
+        assert_eq!(eligible[0].tablet_uid, 2);
 
         // When prefer_leader is false, eligible_tablets returns the local replica
         let eligible_read = group.eligible_tablets(false);
@@ -2024,4 +2084,66 @@ mod tests {
             candidate_uids
         );
     }
+
+    #[test]
+    fn deterministic_random_crc32c() {
+        let non_deterministic_cache = KeyRangeCache::new();
+        let default_selection =
+            non_deterministic_cache.uniform_random(10, b"start_key", b"limit_key", b"current_key");
+        assert!(
+            default_selection < 10,
+            "uniform_random with standard rand must produce index within bounds"
+        );
+
+        let cache = KeyRangeCache::new();
+        cache.use_deterministic_random();
+
+        let selection1 = cache.uniform_random(10, b"start_key", b"limit_key", b"current_key");
+        let selection2 = cache.uniform_random(10, b"start_key", b"limit_key", b"current_key");
+        assert_eq!(
+            selection1, selection2,
+            "deterministic random must produce identical results for identical seeds"
+        );
+
+        let different_selection =
+            cache.uniform_random(10, b"other_start", b"limit_key", b"current_key");
+        // Verify output is within [0, range_bound)
+        assert!(selection1 < 10);
+        assert!(different_selection < 10);
+    }
+
+    #[test]
+    fn leader_distance_filtering() {
+        let cache = KeyRangeCache::new();
+        let mut group = make_group(10, "1", 1);
+        // Leader tablet (index 1) is remote with distance 6 (> MAX_LOCAL_REPLICA_DISTANCE = 5)
+        group.tablets[1].distance = 6;
+        // Follower tablet (index 0) is local with distance 5
+        group.tablets[0].distance = 5;
+
+        let update = CacheUpdate {
+            database_id: 1,
+            range: vec![make_range("a", "z", 10, "1")],
+            group: vec![group],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&update);
+
+        let cached_range = cache
+            .find_range(b"m", b"", RangeMode::CoveringSplit)
+            .expect("cached range must exist");
+
+        // When prefer_leader is true, but leader distance > 5, it should fall back to the local replica (distance 5)
+        let selected_tablet = cache
+            .select_tablet(&cached_range, true)
+            .expect("a routable tablet must be selected");
+        assert_eq!(
+            selected_tablet.tablet_uid, 1,
+            "must fall back to local replica (UID 1) because leader (UID 2) distance is > 5"
+        );
+    }
 }
+
+#[cfg(test)]
+mod golden_tests;

@@ -25,20 +25,24 @@
 use crate::model::CacheUpdate;
 use crate::routing::connection_cache::ConnectionCache;
 use crate::routing::key_range_cache::KeyRangeCache;
+use crate::routing::key_recipe_cache::KeyRecipeCache;
 use gaxi::options::ClientConfig;
 use std::fmt::{self, Debug, Formatter};
-use std::sync::Arc;
+use std::sync::atomic::{AtomicU64, Ordering};
+use std::sync::{Arc, Mutex};
 use tokio::runtime::Handle;
 
 /// Orchestrates updates to the location-aware routing caches.
 ///
 /// `CacheUpdater` coordinates between wire-format [`CacheUpdate`] protobuf payloads and the
-/// client's in-memory [`KeyRangeCache`] and [`ConnectionCache`].
-#[derive(Clone)]
+/// client's in-memory [`KeyRangeCache`], [`KeyRecipeCache`], and [`ConnectionCache`].
 pub(crate) struct CacheUpdater {
     key_range_cache: Arc<KeyRangeCache>,
+    key_recipe_cache: Arc<KeyRecipeCache>,
     connection_cache: Arc<ConnectionCache>,
     client_config: Arc<ClientConfig>,
+    database_id: AtomicU64,
+    update_lock: Mutex<()>,
 }
 
 impl Debug for CacheUpdater {
@@ -46,6 +50,7 @@ impl Debug for CacheUpdater {
         f.debug_struct("CacheUpdater")
             .field("connection_cache", &self.connection_cache)
             .field("client_config", &self.client_config)
+            .field("database_id", &self.database_id.load(Ordering::Relaxed))
             .finish_non_exhaustive()
     }
 }
@@ -54,19 +59,33 @@ impl CacheUpdater {
     /// Creates a new `CacheUpdater` wrapping the provided caches and client configuration.
     pub(crate) fn new(
         key_range_cache: Arc<KeyRangeCache>,
+        key_recipe_cache: Arc<KeyRecipeCache>,
         connection_cache: Arc<ConnectionCache>,
         client_config: ClientConfig,
     ) -> Self {
         Self {
             key_range_cache,
+            key_recipe_cache,
             connection_cache,
             client_config: Arc::new(client_config),
+            database_id: AtomicU64::new(0),
+            update_lock: Mutex::new(()),
         }
     }
 
     /// Returns a reference to the underlying [`KeyRangeCache`].
     pub(crate) fn key_range_cache(&self) -> &Arc<KeyRangeCache> {
         &self.key_range_cache
+    }
+
+    /// Returns a reference to the underlying [`KeyRecipeCache`].
+    pub(crate) fn key_recipe_cache(&self) -> &Arc<KeyRecipeCache> {
+        &self.key_recipe_cache
+    }
+
+    /// Returns the current active database ID recorded by the cache updater.
+    pub(crate) fn database_id(&self) -> u64 {
+        self.database_id.load(Ordering::Relaxed)
     }
 
     /// Returns a reference to the underlying [`ConnectionCache`].
@@ -79,18 +98,50 @@ impl CacheUpdater {
         &self.client_config
     }
 
-    /// Ingests a [`CacheUpdate`] payload, updating the routing table and asynchronously
-    /// pre-warming server connections for newly discovered tablet endpoints.
+    /// Ingests a [`CacheUpdate`] payload, updating the routing table, key recipe cache,
+    /// and asynchronously pre-warming server connections for newly discovered tablet endpoints.
     pub(crate) fn process_cache_update(&self, cache_update: &CacheUpdate) {
-        if cache_update.group.is_empty() && cache_update.range.is_empty() {
-            return;
-        }
+        let _guard = self
+            .update_lock
+            .lock()
+            .expect("lock cache updater for update");
 
-        // Apply tablet ranges and group metadata to the key range cache.
-        self.key_range_cache.add_ranges(cache_update);
+        self.check_database_id_change(cache_update.database_id);
+        self.process_key_recipes(cache_update);
+
+        if !cache_update.group.is_empty() || !cache_update.range.is_empty() {
+            // Apply tablet ranges and group metadata to the key range cache.
+            self.key_range_cache.add_ranges(cache_update);
+        }
 
         // Pre-warm server connections for any newly discovered tablet addresses.
         self.prewarm_server_connections(cache_update);
+    }
+
+    /// Checks if the incoming `database_id` differs from the currently tracked ID.
+    ///
+    /// If a non-zero database ID changed (e.g. database dropped and recreated with the same name),
+    /// updates the ID and invalidates both the key range cache and key recipe cache.
+    fn check_database_id_change(&self, update_database_id: u64) {
+        if update_database_id == 0 {
+            return;
+        }
+        let current_database_id = self.database_id.load(Ordering::Acquire);
+        if current_database_id != update_database_id {
+            if current_database_id != 0 {
+                self.key_range_cache.clear();
+                self.key_recipe_cache.clear();
+            }
+            self.database_id
+                .store(update_database_id, Ordering::Release);
+        }
+    }
+
+    /// Ingests any key recipes in `cache_update` into the attached [`KeyRecipeCache`].
+    fn process_key_recipes(&self, cache_update: &CacheUpdate) {
+        if let Some(key_recipes) = &cache_update.key_recipes {
+            self.key_recipe_cache.insert_batch(&key_recipes.recipe);
+        }
     }
 
     /// Identifies new server addresses in `cache_update` and spawns asynchronous background tasks
@@ -143,13 +194,14 @@ impl CacheUpdater {
 mod tests {
     use super::*;
     use crate::client::Channel;
-    use crate::model::{Group, Range, Tablet};
+    use crate::model::key_recipe::Part;
+    use crate::model::{Group, KeyRecipe, Range, RecipeList, Tablet};
     use crate::routing::server_connection::ServerConnection;
     use std::time::{Duration, Instant};
 
     #[test]
-    fn cache_updater_implements_send_sync_debug_clone() {
-        static_assertions::assert_impl_all!(CacheUpdater: Send, Sync, Debug, Clone);
+    fn cache_updater_implements_send_sync_debug() {
+        static_assertions::assert_impl_all!(CacheUpdater: Send, Sync, Debug);
     }
 
     #[derive(Debug)]
@@ -165,8 +217,14 @@ mod tests {
         let default_connection = create_test_connection("spanner.googleapis.com:443");
         let connection_cache = Arc::new(ConnectionCache::new(default_connection));
         let key_range_cache = Arc::new(KeyRangeCache::new());
+        let key_recipe_cache = Arc::new(KeyRecipeCache::new());
         let client_config = ClientConfig::default();
-        CacheUpdater::new(key_range_cache, connection_cache, client_config)
+        CacheUpdater::new(
+            key_range_cache,
+            key_recipe_cache,
+            connection_cache,
+            client_config,
+        )
     }
 
     /// Helper to wait deterministically for background connection pre-warming tasks to complete
@@ -523,6 +581,92 @@ mod tests {
                 .expect("should exist")
                 .generation,
             vec![0x02]
+        );
+    }
+
+    #[test]
+    fn test_database_id_change_clears_range_and_recipe_caches() {
+        let updater = make_test_updater();
+        let recipe_cache = Arc::clone(updater.key_recipe_cache());
+
+        let initial_recipe = KeyRecipe::new()
+            .set_table_name("Users")
+            .set_part(vec![Part::new().set_tag(1u32)]);
+        let initial_group = Group::new().set_group_uid(10u64).set_generation(vec![0x01]);
+        let initial_range = Range::new()
+            .set_group_uid(10u64)
+            .set_start_key(vec![0x01])
+            .set_limit_key(vec![0x09]);
+
+        let initial_update = CacheUpdate::new()
+            .set_database_id(100u64)
+            .set_key_recipes(RecipeList::new().set_recipe(vec![initial_recipe]))
+            .set_group(vec![initial_group])
+            .set_range(vec![initial_range]);
+
+        updater.process_cache_update(&initial_update);
+        assert_eq!(updater.database_id(), 100);
+        assert_eq!(updater.key_range_cache().len(), 1);
+        assert!(recipe_cache.get_table_recipe("Users").is_some());
+
+        // Ingest an update with a different database_id (e.g. database dropped and recreated)
+        let new_update = CacheUpdate::new().set_database_id(200u64);
+        updater.process_cache_update(&new_update);
+
+        assert_eq!(updater.database_id(), 200);
+        assert_eq!(
+            updater.key_range_cache().len(),
+            0,
+            "key range cache must be cleared when database_id changes"
+        );
+        assert!(
+            recipe_cache.get_table_recipe("Users").is_none(),
+            "key recipe cache must be cleared when database_id changes"
+        );
+    }
+
+    #[test]
+    fn test_initial_database_id_does_not_clear_cache() {
+        let updater = make_test_updater();
+        let recipe_cache = Arc::clone(updater.key_recipe_cache());
+
+        // Pre-populate recipe cache before any database_id is recorded
+        let pre_recipe = KeyRecipe::new()
+            .set_table_name("PrePopulated")
+            .set_part(vec![Part::new().set_tag(2u32)]);
+        recipe_cache.insert(pre_recipe);
+
+        assert_eq!(updater.database_id(), 0);
+        assert!(recipe_cache.get_table_recipe("PrePopulated").is_some());
+
+        // First update establishing initial database_id must not wipe the pre-populated entries
+        let first_update = CacheUpdate::new().set_database_id(100u64);
+        updater.process_cache_update(&first_update);
+
+        assert_eq!(updater.database_id(), 100);
+        assert!(
+            recipe_cache.get_table_recipe("PrePopulated").is_some(),
+            "initial transition from database_id 0 to 100 must preserve existing cache entries"
+        );
+    }
+
+    #[test]
+    fn test_key_recipe_cache_ingestion() {
+        let updater = make_test_updater();
+        let recipe_cache = Arc::clone(updater.key_recipe_cache());
+
+        let recipe = KeyRecipe::new()
+            .set_table_name("Albums")
+            .set_part(vec![Part::new().set_tag(50u32)]);
+
+        let update = CacheUpdate::new()
+            .set_database_id(1u64)
+            .set_key_recipes(RecipeList::new().set_recipe(vec![recipe]));
+
+        updater.process_cache_update(&update);
+        assert!(
+            recipe_cache.get_table_recipe("Albums").is_some(),
+            "KeyRecipeCache must receive recipes from CacheUpdate"
         );
     }
 }

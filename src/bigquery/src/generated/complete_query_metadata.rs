@@ -80,6 +80,12 @@ pub struct CompleteQueryMetadata {
     /// for DML statements INSERT, UPDATE or DELETE.
     pub num_dml_affected_rows: std::option::Option<wkt::Int64Value>,
 
+    /// Output only. The number of rows out of `total_rows` returned in this
+    /// response.
+    ///
+    /// This feature is not yet available.
+    pub page_row_count: i64,
+
     /// A token used for paging results.  When this token is non-empty, it
     /// indicates additional results are available.
     pub page_token: std::string::String,
@@ -98,6 +104,133 @@ pub struct CompleteQueryMetadata {
     /// This field will be present when the query job transitions from the PENDING
     /// state to either RUNNING or DONE.
     pub start_time: std::option::Option<i64>,
+
+    /// Output only. The type of query statement, if valid.
+    /// Possible values:
+    ///
+    /// * `SELECT`:
+    ///   [`SELECT`](https://cloud.google.com/bigquery/docs/reference/standard-sql/query-syntax#select_list)
+    ///   statement.
+    /// * `ASSERT`:
+    ///   [`ASSERT`](https://cloud.google.com/bigquery/docs/reference/standard-sql/debugging-statements#assert)
+    ///   statement.
+    /// * `INSERT`:
+    ///   [`INSERT`](https://cloud.google.com/bigquery/docs/reference/standard-sql/dml-syntax#insert_statement)
+    ///   statement.
+    /// * `UPDATE`:
+    ///   [`UPDATE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/dml-syntax#update_statement)
+    ///   statement.
+    /// * `DELETE`:
+    ///   [`DELETE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-manipulation-language)
+    ///   statement.
+    /// * `MERGE`:
+    ///   [`MERGE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-manipulation-language)
+    ///   statement.
+    /// * `CREATE_TABLE`: [`CREATE
+    ///   TABLE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_table_statement)
+    ///   statement, without `AS SELECT`.
+    /// * `CREATE_TABLE_AS_SELECT`: [`CREATE TABLE AS
+    ///   SELECT`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_table_statement)
+    ///   statement.
+    /// * `CREATE_VIEW`: [`CREATE
+    ///   VIEW`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_view_statement)
+    ///   statement.
+    /// * `CREATE_MODEL`: [`CREATE
+    ///   MODEL`](https://cloud.google.com/bigquery-ml/docs/reference/standard-sql/bigqueryml-syntax-create#create_model_statement)
+    ///   statement.
+    /// * `CREATE_MATERIALIZED_VIEW`: [`CREATE MATERIALIZED
+    ///   VIEW`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_materialized_view_statement)
+    ///   statement.
+    /// * `CREATE_FUNCTION`: [`CREATE
+    ///   FUNCTION`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_function_statement)
+    ///   statement.
+    /// * `CREATE_TABLE_FUNCTION`: [`CREATE TABLE
+    ///   FUNCTION`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_table_function_statement)
+    ///   statement.
+    /// * `CREATE_PROCEDURE`: [`CREATE
+    ///   PROCEDURE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_procedure)
+    ///   statement.
+    /// * `CREATE_ROW_ACCESS_POLICY`: [`CREATE ROW ACCESS
+    ///   POLICY`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_row_access_policy_statement)
+    ///   statement.
+    /// * `CREATE_SCHEMA`: [`CREATE
+    ///   SCHEMA`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_schema_statement)
+    ///   statement.
+    /// * `CREATE_SNAPSHOT_TABLE`: [`CREATE SNAPSHOT
+    ///   TABLE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_snapshot_table_statement)
+    ///   statement.
+    /// * `CREATE_SEARCH_INDEX`: [`CREATE SEARCH
+    ///   INDEX`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_search_index_statement)
+    ///   statement.
+    /// * `DROP_TABLE`: [`DROP
+    ///   TABLE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#drop_table_statement)
+    ///   statement.
+    /// * `DROP_EXTERNAL_TABLE`: [`DROP EXTERNAL
+    ///   TABLE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#drop_external_table_statement)
+    ///   statement.
+    /// * `DROP_VIEW`: [`DROP
+    ///   VIEW`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#drop_view_statement)
+    ///   statement.
+    /// * `DROP_MODEL`: [`DROP
+    ///   MODEL`](https://cloud.google.com/bigquery-ml/docs/reference/standard-sql/bigqueryml-syntax-drop-model)
+    ///   statement.
+    /// * `DROP_MATERIALIZED_VIEW`: [`DROP MATERIALIZED
+    ///   VIEW`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#drop_materialized_view_statement)
+    ///   statement.
+    /// * `DROP_FUNCTION` : [`DROP
+    ///   FUNCTION`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#drop_function_statement)
+    ///   statement.
+    /// * `DROP_TABLE_FUNCTION` : [`DROP TABLE
+    ///   FUNCTION`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#drop_table_function)
+    ///   statement.
+    /// * `DROP_PROCEDURE`: [`DROP
+    ///   PROCEDURE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#drop_procedure_statement)
+    ///   statement.
+    /// * `DROP_SEARCH_INDEX`: [`DROP SEARCH
+    ///   INDEX`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#drop_search_index)
+    ///   statement.
+    /// * `DROP_SCHEMA`: [`DROP
+    ///   SCHEMA`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#drop_schema_statement)
+    ///   statement.
+    /// * `DROP_SNAPSHOT_TABLE`: [`DROP SNAPSHOT
+    ///   TABLE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#drop_snapshot_table_statement)
+    ///   statement.
+    /// * `DROP_ROW_ACCESS_POLICY`: [`DROP [ALL] ROW ACCESS
+    ///   POLICY|POLICIES`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#drop_row_access_policy_statement)
+    ///   statement.
+    /// * `ALTER_TABLE`: [`ALTER
+    ///   TABLE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#alter_table_set_options_statement)
+    ///   statement.
+    /// * `ALTER_VIEW`: [`ALTER
+    ///   VIEW`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#alter_view_set_options_statement)
+    ///   statement.
+    /// * `ALTER_MATERIALIZED_VIEW`: [`ALTER MATERIALIZED
+    ///   VIEW`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#alter_materialized_view_set_options_statement)
+    ///   statement.
+    /// * `ALTER_SCHEMA`: [`ALTER
+    ///   SCHEMA`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#alter_schema_set_options_statement)
+    ///   statement.
+    /// * `SCRIPT`:
+    ///   [`SCRIPT`](https://cloud.google.com/bigquery/docs/reference/standard-sql/procedural-language).
+    /// * `TRUNCATE_TABLE`: [`TRUNCATE
+    ///   TABLE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/dml-syntax#truncate_table_statement)
+    ///   statement.
+    /// * `CREATE_EXTERNAL_TABLE`: [`CREATE EXTERNAL
+    ///   TABLE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_external_table_statement)
+    ///   statement.
+    /// * `EXPORT_DATA`: [`EXPORT
+    ///   DATA`](https://cloud.google.com/bigquery/docs/reference/standard-sql/other-statements#export_data_statement)
+    ///   statement.
+    /// * `EXPORT_MODEL`: [`EXPORT
+    ///   MODEL`](https://cloud.google.com/bigquery-ml/docs/reference/standard-sql/bigqueryml-syntax-export-model)
+    ///   statement.
+    /// * `LOAD_DATA`: [`LOAD
+    ///   DATA`](https://cloud.google.com/bigquery/docs/reference/standard-sql/other-statements#load_data_statement)
+    ///   statement.
+    /// * `CALL`:
+    ///   [`CALL`](https://cloud.google.com/bigquery/docs/reference/standard-sql/procedural-language#call)
+    ///   statement.
+    pub statement_type: std::string::String,
 
     /// Output only. If the project is configured to use on-demand pricing,
     /// then this field contains the total bytes billed for the job.
@@ -298,6 +431,12 @@ impl CompleteQueryMetadata {
         self
     }
 
+    /// Sets the value of [page_row_count][crate::model::CompleteQueryMetadata::page_row_count].
+    pub fn set_page_row_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.page_row_count = v.into();
+        self
+    }
+
     /// Sets the value of [page_token][crate::model::CompleteQueryMetadata::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
@@ -361,6 +500,12 @@ impl CompleteQueryMetadata {
         T: std::convert::Into<i64>,
     {
         self.start_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [statement_type][crate::model::CompleteQueryMetadata::statement_type].
+    pub fn set_statement_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.statement_type = v.into();
         self
     }
 
@@ -454,11 +599,13 @@ mod debug {
             debug_struct.field("kind", &self.kind);
             debug_struct.field("location", &self.location);
             debug_struct.field("num_dml_affected_rows", &self.num_dml_affected_rows);
+            debug_struct.field("page_row_count", &self.page_row_count);
             debug_struct.field("page_token", &self.page_token);
             debug_struct.field("query_id", &self.query_id);
             debug_struct.field("schema", &self.schema);
             debug_struct.field("session_info", &self.session_info);
             debug_struct.field("start_time", &self.start_time);
+            debug_struct.field("statement_type", &self.statement_type);
             debug_struct.field("total_bytes_billed", &self.total_bytes_billed);
             debug_struct.field("total_bytes_processed", &self.total_bytes_processed);
             debug_struct.field("total_rows", &self.total_rows);
@@ -506,11 +653,13 @@ impl std::convert::From<google_cloud_bigquery_v2::model::QueryResponse> for Comp
             kind: resp.kind,
             location: resp.location,
             num_dml_affected_rows: resp.num_dml_affected_rows,
+            page_row_count: resp.page_row_count,
             page_token: resp.page_token,
             query_id: resp.query_id,
             schema: resp.schema,
             session_info: resp.session_info,
             start_time: resp.start_time,
+            statement_type: resp.statement_type,
             total_bytes_billed: resp.total_bytes_billed,
             total_bytes_processed: resp.total_bytes_processed,
             total_rows: resp.total_rows,

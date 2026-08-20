@@ -31,9 +31,7 @@ use crate::model::directed_read_options::Replicas;
 use crate::model::directed_read_options::replica_selection::Type;
 use crate::model::tablet::Role;
 use crate::model::{DirectedReadOptions, Tablet};
-
-/// Maximum distance for a replica to be considered local (within the same region or metro).
-pub(crate) const MAX_LOCAL_REPLICA_DISTANCE: u32 = 5;
+use crate::routing::key_range_cache::MAX_LOCAL_REPLICA_DISTANCE;
 
 /// Returns `true` if `tablet` satisfies the criteria in `selection`.
 ///

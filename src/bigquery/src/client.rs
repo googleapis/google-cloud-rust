@@ -217,7 +217,12 @@ impl BigQuery {
             return Err(QueryError::UnsupportedJobType);
         }
 
-        Ok(QueryHandle::from_job(self.job_service.clone(), job, None))
+        Ok(QueryHandle::from_job(
+            self.job_service.clone(),
+            job,
+            None,
+            None,
+        ))
     }
 }
 
@@ -271,8 +276,8 @@ mod tests {
             .with_credentials(Anonymous::new().build())
             .build()
             .await?;
-        let run_query = client.query("SELECT 1");
-        assert_eq!(run_query.project_id.as_deref(), Some("test-proj"));
+        let query_builder = client.query("SELECT 1");
+        assert_eq!(query_builder.project_id.as_deref(), Some("test-proj"));
         Ok(())
     }
 
@@ -282,8 +287,8 @@ mod tests {
             .with_credentials(Anonymous::new().build())
             .build()
             .await?;
-        let run_query = client.query("SELECT 1");
-        assert!(run_query.project_id.is_none());
+        let query_builder = client.query("SELECT 1");
+        assert!(query_builder.project_id.is_none());
         Ok(())
     }
 

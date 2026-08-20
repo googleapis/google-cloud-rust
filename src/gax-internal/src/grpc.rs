@@ -215,6 +215,82 @@ impl Client {
         Ok(result)
     }
 
+    /// Opens a bidirectional stream with automatic model <-> proto conversion and channel management.
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    pub fn execute_bidi_streaming<DomainReq, DomainResp, ProstReq, ProstResp>(
+        &self,
+        extensions: tonic::Extensions,
+        path: http::uri::PathAndQuery,
+        options: RequestOptions,
+        api_client_header: &'static str,
+        request_params: &str,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<DomainReq>,
+        google_cloud_gax::streaming::ResponseReceiver<DomainResp>,
+    )
+    where
+        DomainReq: crate::prost::ToProto<ProstReq, Output = ProstReq> + Send + 'static,
+        DomainResp: Send + 'static,
+        ProstReq: prost::Message + Send + 'static,
+        ProstResp: prost::Message + Default + crate::prost::FromProto<DomainResp> + 'static,
+    {
+        use futures::FutureExt as _;
+        use futures::stream::StreamExt as _;
+
+        let (req_tx, req_rx) = tokio::sync::mpsc::channel(
+            options
+                .request_stream_channel_capacity()
+                .unwrap_or(google_cloud_gax::options::internal::DEFAULT_REQUEST_CHANNEL_CAPACITY),
+        );
+        let req_stream = tokio_stream::wrappers::ReceiverStream::new(req_rx);
+
+        let (resp_tx, resp_rx) = tokio::sync::oneshot::channel();
+
+        let client = self.clone();
+        let request_params = request_params.to_string();
+        tokio::spawn(async move {
+            let result = client
+                .bidi_stream::<ProstReq, ProstResp>(
+                    extensions,
+                    path,
+                    req_stream,
+                    options,
+                    api_client_header,
+                    &request_params,
+                )
+                .await;
+            let _ = resp_tx.send(result);
+        });
+
+        let request_sender =
+            google_cloud_gax::streaming::RequestSender::from_fn(move |item: DomainReq| {
+                let req_tx = req_tx.clone();
+                async move {
+                    let prost_item = item
+                        .to_proto()
+                        .map_err(google_cloud_gax::streaming::SendError::ser)?;
+                    req_tx
+                        .send(prost_item)
+                        .await
+                        .map_err(|_| google_cloud_gax::streaming::SendError::stream_closed())
+                }
+            });
+        let future = resp_rx.map(|res| match res {
+            Ok(Ok(response)) => Ok(response.into_inner().map(|res| {
+                res.map_err(from_status::to_gax_error)
+                    .and_then(|m| m.cnv().map_err(Error::deser))
+            })),
+            Ok(Err(err)) => Err(err),
+            Err(_) => Err(Error::io(std::io::Error::new(
+                std::io::ErrorKind::BrokenPipe,
+                "stream initialization task cancelled",
+            ))),
+        });
+        let response_receiver = google_cloud_gax::streaming::ResponseReceiver::from_future(future);
+
+        (request_sender, response_receiver)
+    }
+
     /// Opens a server stream.
     #[cfg(feature = "_internal-grpc-server-streaming")]
     pub async fn server_streaming<Request, Response>(

@@ -174,7 +174,7 @@ fn is_permission_denied(err: &crate::Error) -> bool {
         .unwrap_or(false)
 }
 
-fn convert_metric_to_time_series(
+pub(crate) fn convert_metric_to_time_series(
     metric: &OTelMetric,
     monitored_resource: &MonitoredResource,
     out: &mut Vec<TimeSeries>,
@@ -274,7 +274,7 @@ fn key_values_to_metric_labels<'a>(
     labels
 }
 
-fn resource_to_monitored_resource(resource: &Resource) -> MonitoredResource {
+pub(crate) fn resource_to_monitored_resource(resource: &Resource) -> MonitoredResource {
     let mut labels = HashMap::new();
     for (key, val) in resource.iter() {
         let key_str = key.as_str();

@@ -503,6 +503,7 @@ mod tests {
     use crate::client::Channel;
     use crate::routing::connection_cache::ConnectionCache;
     use crate::routing::key_range_cache::{KeyRangeCache, RangeMode};
+    use crate::routing::key_recipe_cache::KeyRecipeCache;
     use crate::routing::server_connection::ServerConnection;
     use gaxi::grpc::tonic::Response;
     use gaxi::grpc::tonic::Status;
@@ -585,8 +586,10 @@ mod tests {
             ServerConnection::new("default.spanner.googleapis.com:443".to_string(), channel);
         let connection_cache = Arc::new(ConnectionCache::new(default_connection));
         let key_range_cache = Arc::new(KeyRangeCache::new());
+        let key_recipe_cache = Arc::new(KeyRecipeCache::new());
         Arc::new(CacheUpdater::new(
             key_range_cache,
+            key_recipe_cache,
             connection_cache,
             ClientConfig::default(),
         ))
