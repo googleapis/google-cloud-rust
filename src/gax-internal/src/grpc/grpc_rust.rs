@@ -30,13 +30,10 @@ use google_cloud_gax::options::RequestOptions;
 use google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy;
 use google_cloud_gax::polling_error_policy::PollingErrorPolicy;
 use google_cloud_gax::retry_loop_internal::retry_loop;
-use grpc::client::{CallOptions, Channel, ChannelOptions};
+use grpc::client::{CallOptions, Channel};
 use grpc::core::RequestHeaders;
-use grpc::credentials::LocalChannelCredentials;
-// TODO(#5991): remove once grpc-rust corrects the typo.
-use grpc::credentials::rustls::client::{
-    ClientTlsConfig, RustlsChannelCredendials as RustlsChannelCredentials,
-};
+use grpc::credentials::rustls::client::{ClientTlsConfig, RustlsChannelCredentials};
+use grpc::credentials::{ChannelCredentials, LocalChannelCredentials};
 use http::{HeaderMap, Uri};
 use metadata::from_header_map;
 use std::sync::Arc;
@@ -331,17 +328,10 @@ impl GrpcRustClient {
         // For now, ignore `grpc_subchannel_count` and use grpc-rust's default
         // `pick_first`. If measurements show that this isn't sufficient, we
         // can consider implementing a connection pool.
-        let options = ChannelOptions::default().override_authority(endpoint.authority.clone());
-
-        let invoker = if endpoint.tls {
-            Channel::new(endpoint.target.clone(), make_tls_credentials()?, options)
-        } else {
-            Channel::new(
-                endpoint.target.clone(),
-                LocalChannelCredentials::new_arc(),
-                options,
-            )
-        };
+        let channel_credentials = make_channel_credentials(&endpoint)?;
+        let invoker = Channel::builder(endpoint.target.clone(), channel_credentials)
+            .authority(endpoint.authority.clone())
+            .build();
 
         Ok(Self {
             inner: Arc::new(GrpcRustClientInner {
@@ -522,6 +512,16 @@ fn make_tracing_attributes(
         url_domain: default_uri.host().unwrap_or_default().to_string(),
         instrumentation,
     })
+}
+
+fn make_channel_credentials(
+    endpoint: &ResolvedGrpcEndpoint,
+) -> ClientBuilderResult<Arc<dyn ChannelCredentials>> {
+    if endpoint.tls {
+        Ok(make_tls_credentials()?)
+    } else {
+        Ok(LocalChannelCredentials::new_arc())
+    }
 }
 
 // NOTE: Tonic first uses an installed process-default CryptoProvider;
@@ -744,6 +744,26 @@ mod tests {
                 .get_polling_backoff_policy(&options)
         ));
 
+        Ok(())
+    }
+
+    #[test_case(true; "tls endpoint")]
+    #[test_case(false; "non-tls endpoint")]
+    fn make_channel_credentials_succeeds(tls: bool) -> anyhow::Result<()> {
+        // Arrange
+        let endpoint = ResolvedGrpcEndpoint {
+            target: "dns:///localhost:8080".to_string(),
+            authority: "localhost:8080".to_string(),
+            tls,
+            server_address: "localhost".to_string(),
+            server_port: Some(8080),
+        };
+
+        // Act
+        let creds = make_channel_credentials(&endpoint);
+
+        // Assert
+        assert!(creds.is_ok());
         Ok(())
     }
 }
