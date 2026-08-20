@@ -807,9 +807,9 @@ impl ClientBuilder {
 
     /// Injects a global custom header for all HTTP and gRPC requests made by this client.
     ///
-    /// Global custom headers serve as client-wide defaults. Request-level headers
-    /// override global headers when keys conflict. To configure headers for a single
+    /// Global custom headers serve as client-wide defaults. To configure headers for a single
     /// request, use [`RequestOptionsBuilder::with_custom_header`](google_cloud_gax::options::RequestOptionsBuilder::with_custom_header).
+    /// Request-level headers override global headers when keys conflict.
     /// Like request-level headers, global headers cannot overwrite reserved system headers.
     ///
     /// # Example
