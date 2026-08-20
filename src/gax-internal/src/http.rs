@@ -56,27 +56,7 @@ use std::sync::Arc;
 use std::time::Duration;
 use tracing::Instrument;
 
-const X_GOOG_USER_PROJECT: http::header::HeaderName =
-    http::header::HeaderName::from_static("x-goog-user-project");
-const X_GOOG_API_KEY: http::header::HeaderName =
-    http::header::HeaderName::from_static("x-goog-api-key");
-const X_GOOG_REQUEST_PARAMS: http::header::HeaderName =
-    http::header::HeaderName::from_static("x-goog-request-params");
-const X_GOOG_API_CLIENT: http::header::HeaderName =
-    http::header::HeaderName::from_static("x-goog-api-client");
-
-fn sanitize_custom_headers(headers: &mut http::HeaderMap) {
-    for key in [
-        http::header::USER_AGENT,
-        http::header::AUTHORIZATION,
-        X_GOOG_API_KEY,
-        X_GOOG_USER_PROJECT,
-        X_GOOG_REQUEST_PARAMS,
-        X_GOOG_API_CLIENT,
-    ] {
-        headers.remove(key);
-    }
-}
+use crate::headers::{X_GOOG_USER_PROJECT, sanitize_custom_headers};
 
 #[derive(Clone, Debug)]
 pub struct ReqwestClient {

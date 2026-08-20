@@ -12,6 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::headers::{
+    X_GOOG_API_CLIENT, X_GOOG_REQUEST_PARAMS, X_GOOG_USER_PROJECT, sanitize_custom_headers,
+};
 use crate::observability::attributes::{self, keys::*, otel_status_codes};
 use crate::observability::{WithTransportLogging, WithTransportMetric, WithTransportSpan};
 use crate::options::ClientConfig;
@@ -23,14 +26,9 @@ use google_cloud_gax::client_builder::{Error as BuilderError, Result as ClientBu
 use google_cloud_gax::error::Error;
 use google_cloud_gax::options::RequestOptions;
 use google_cloud_gax::options::internal::RequestOptionsExt as _;
-use http::{HeaderMap, header::HeaderName};
+use http::HeaderMap;
 use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
 use std::future::Future;
-
-const X_GOOG_API_CLIENT: HeaderName = HeaderName::from_static("x-goog-api-client");
-const X_GOOG_REQUEST_PARAMS: HeaderName = HeaderName::from_static("x-goog-request-params");
-const X_GOOG_USER_PROJECT: HeaderName = HeaderName::from_static("x-goog-user-project");
-const X_GOOG_API_KEY: HeaderName = HeaderName::from_static("x-goog-api-key");
 
 /// Extends the supplied `headers` map with authentication headers from a
 /// `Credentials` object. For entries with the same header name, the one in
@@ -88,16 +86,7 @@ pub(crate) fn make_headers(
     }
 
     // Sanitize user custom headers by stripping away any keys conflicting with system headers.
-    for key in [
-        http::header::USER_AGENT,
-        http::header::AUTHORIZATION,
-        X_GOOG_API_KEY,
-        X_GOOG_USER_PROJECT,
-        X_GOOG_REQUEST_PARAMS,
-        X_GOOG_API_CLIENT,
-    ] {
-        headers.remove(key);
-    }
+    sanitize_custom_headers(&mut headers);
 
     if let Some(user_agent) = options.user_agent() {
         headers.insert(
@@ -223,6 +212,7 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::headers::X_GOOG_API_KEY;
     use google_cloud_auth::credentials::{CacheableResource, CredentialsProvider, EntityTag};
     use google_cloud_auth::errors::CredentialsError;
     use http::{Extensions, header::HeaderName, header::HeaderValue};
