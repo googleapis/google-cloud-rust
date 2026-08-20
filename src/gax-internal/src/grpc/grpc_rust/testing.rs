@@ -39,6 +39,7 @@ impl TestMessage {
 }
 
 /// A [`SendStream`] that immediately fails every send attempt.
+#[derive(Clone, Debug)]
 pub struct FailingSendStream;
 
 impl SendStream for FailingSendStream {
@@ -48,6 +49,7 @@ impl SendStream for FailingSendStream {
 }
 
 /// A [`SendStream`] that returns pending forever.
+#[derive(Clone, Debug)]
 pub struct PendingSendStream;
 
 impl SendStream for PendingSendStream {
@@ -57,6 +59,7 @@ impl SendStream for PendingSendStream {
 }
 
 /// A [`SendStream`] that panics on send with a given message.
+#[derive(Clone, Debug)]
 pub struct PanicSendStream {
     /// Panic message to emit.
     pub panic_msg: &'static str,
@@ -77,6 +80,7 @@ impl SendStream for PanicSendStream {
 
 /// Scripted actions yielded by [`MockRecvStream`].
 #[non_exhaustive]
+#[derive(Clone, Debug)]
 pub enum MockRecvAction {
     /// Yield response headers.
     Headers(ResponseHeaders),
@@ -87,6 +91,7 @@ pub enum MockRecvAction {
 }
 
 /// A mock [`RecvStream`] that executes a queue of [`MockRecvAction`]s.
+#[derive(Clone, Debug)]
 pub struct MockRecvStream {
     actions: VecDeque<MockRecvAction>,
 }
@@ -121,6 +126,7 @@ impl RecvStream for MockRecvStream {
 }
 
 /// A [`RecvStream`] that is immediately closed.
+#[derive(Clone, Debug)]
 pub struct ClosedRecvStream;
 
 impl RecvStream for ClosedRecvStream {
@@ -130,6 +136,7 @@ impl RecvStream for ClosedRecvStream {
 }
 
 /// A [`RecvStream`] that stays pending forever.
+#[derive(Clone, Debug)]
 pub struct PendingRecvStream;
 
 impl RecvStream for PendingRecvStream {
@@ -139,6 +146,7 @@ impl RecvStream for PendingRecvStream {
 }
 
 /// A [`RecvStream`] that panics when polled.
+#[derive(Clone, Debug)]
 pub struct PanicRecvStream {
     /// Panic message to emit.
     pub panic_msg: &'static str,
