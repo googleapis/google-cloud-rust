@@ -20,6 +20,7 @@
 mod tests {
     use google_cloud_auth::credentials::{Credentials, anonymous::Builder as Anonymous};
     use google_cloud_gax::backoff_policy::BackoffPolicy;
+    use google_cloud_gax::error::rpc::Code;
     use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
     use google_cloud_gax::options::RequestOptions;
     use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
@@ -108,7 +109,10 @@ mod tests {
         let response = send_request(client, "retry_policy_exhausted").await;
 
         // Assert
-        assert!(response.is_err(), "{response:?}");
+        let err = response.expect_err("should fail");
+        let status = err.status().expect("expected status");
+        assert_eq!(status.code, Code::Unavailable);
+        assert_eq!(status.message, "try-again");
         Ok(())
     }
 
