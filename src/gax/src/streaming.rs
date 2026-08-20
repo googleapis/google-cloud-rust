@@ -98,25 +98,6 @@ pub enum SendError {
     Serialization(#[source] BoxError),
 }
 
-impl SendError {
-    /// Converts this `SendError` into a [`crate::error::Error`].
-    ///
-    /// # Examples
-    ///
-    /// ```
-    /// # use google_cloud_gax::streaming::SendError;
-    /// let err = SendError::StreamClosed;
-    /// let gax_err = err.into_error();
-    /// assert!(gax_err.is_io());
-    /// ```
-    pub fn into_error(self) -> crate::error::Error {
-        match self {
-            Self::StreamClosed => crate::error::Error::io(self),
-            Self::Serialization(e) => crate::error::Error::ser(e),
-        }
-    }
-}
-
 /// A type-erased asynchronous function that sends a request item over a stream.
 ///
 /// This closure takes an owned request item and returns a boxed, pinned future
@@ -452,7 +433,6 @@ mod tests {
             err.to_string(),
             "cannot send request: stream is closed; inspect ResponseReceiver for details"
         );
-        assert!(err.into_error().is_io());
     }
 
     #[tokio::test]
@@ -478,7 +458,6 @@ mod tests {
             "cannot serialize the request: negative number"
         );
         assert_eq!(format!("{sender:?}"), "RequestSender");
-        assert!(err.into_error().is_serialization());
     }
 
     #[tokio::test]
