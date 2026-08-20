@@ -98,6 +98,18 @@ pub async fn pending(
 
     // Finalize the stream and commit
     writer.finalize().await?;
+
+    // Verify no writes have been committed yet
+    let users = read_writes_table(project_id, dataset_id, table_id, "pending").await?;
+    assert!(users.is_empty(), "{users:?}");
+
+    // Verify that appending to a finalized stream fails
+    let batch3 = create_test_batch(schema.clone(), vec!["Ghost"], vec![99], "pending")?;
+    let result = writer.append(batch3).set_offset(3).send().await;
+    assert!(
+        result.is_err(),
+        "Appending to a finalized stream should fail"
+    );
     writer.commit().await?;
 
     // Verify the writes
