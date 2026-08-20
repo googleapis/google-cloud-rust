@@ -20,8 +20,10 @@
 mod tests {
     use google_cloud_auth::credentials::{Credentials, anonymous::Builder as Anonymous};
     use google_cloud_gax::backoff_policy::BackoffPolicy;
+    use google_cloud_gax::error::rpc::Code;
     use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
     use google_cloud_gax::options::RequestOptions;
+    use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
     use google_cloud_gax_internal::grpc::GrpcRustClient;
     use google_cloud_gax_internal::options::ClientConfig;
     use grpc_server::google::test::v1::EchoResponse;
@@ -89,6 +91,28 @@ mod tests {
 
         // Assert
         assert!(response.is_err(), "{response:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn retry_policy_exhausted() -> anyhow::Result<()> {
+        // Arrange
+        let (endpoint, _server) = start_fixed_responses((0..3).map(|_| transient())).await?;
+
+        let mut config = test_config();
+        config.retry_policy = Some(Arc::new(Aip194Strict.with_attempt_limit(3)));
+        config.backoff_policy = Some(Arc::new(test_backoff()));
+
+        let client = GrpcRustClient::new(config, &endpoint).await?;
+
+        // Act
+        let response = send_request(client, "retry_policy_exhausted").await;
+
+        // Assert
+        let err = response.expect_err("should fail");
+        let status = err.status().expect("expected status");
+        assert_eq!(status.code, Code::Unavailable);
+        assert_eq!(status.message, "try-again");
         Ok(())
     }
 
