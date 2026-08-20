@@ -16,8 +16,7 @@ pub use super::receive::ReceiveTask;
 pub use super::receive::RecvItem;
 pub use super::send::GrpcRustSend;
 use super::send::{SendState, SendTask};
-use grpc::client::{CallOptions, Invoke};
-use grpc::core::RequestHeaders;
+use grpc::client::{CallOptions, Invoke, RequestHeaders};
 use prost::Message;
 use tokio::sync::mpsc::Receiver;
 
@@ -238,8 +237,10 @@ where
 mod tests {
     use super::*;
     use bytes::Bytes;
-    use grpc::client::{RecvStream, ResponseStreamItem, SendOptions, SendStream};
-    use grpc::core::{RecvMessage, ResponseHeaders, SendMessage, Trailers};
+    use grpc::client::{
+        RecvStream, ResponseHeaders, ResponseStreamItem, SendOptions, SendStream, Trailers,
+    };
+    use grpc::core::{RecvMessage, SendMessage};
     use grpc::metadata::MetadataValue;
     use grpc::{StatusCodeError, StatusError};
     use pretty_assertions::assert_eq;
