@@ -827,6 +827,29 @@ impl ClientBuilder {
     ///     .await?;
     /// # Ok(()) }
     /// ```
+    ///
+    /// ### Repeated Headers
+    ///
+    /// Under HTTP RFC 9110 (Section 5.3), standard repeated headers (e.g. `Cache-Control`, `Accept`, or `Allow`)
+    /// are defined as comma-separated lists. Callers can supply repeated values natively as a single
+    /// comma-separated [`HeaderValue`]:
+    ///
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// use http::header::{HeaderName, HeaderValue};
+    ///
+    /// let client = Storage::builder()
+    ///     .with_custom_header(
+    ///         HeaderName::from_static("cache-control"),
+    ///         HeaderValue::from_static("no-cache, no-store"),
+    ///     )
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [`HeaderValue`]: http::header::HeaderValue
     pub fn with_custom_header(
         mut self,
         name: http::header::HeaderName,
