@@ -65,6 +65,29 @@ impl WriterBuilder {
             self.schema,
         ))
     }
+
+    /// Creates a committed writer for the given table.
+    pub async fn committed<T: Into<String>>(
+        self,
+        table: T,
+    ) -> Result<crate::arrow::CommittedWriter> {
+        let table = table.into();
+        validate_table(table.as_str())?;
+
+        let client = BigQueryWrite::from_stub::<Transport>(self.inner.clone());
+        let write_stream = client
+            .create_write_stream()
+            .set_parent(table)
+            .set_write_stream(WriteStream::new().set_type(Type::Committed))
+            .send()
+            .await?;
+
+        Ok(crate::arrow::CommittedWriter::new(
+            self.inner,
+            write_stream.name,
+            self.schema,
+        ))
+    }
 }
 
 fn validate_table(table: &str) -> Result<()> {
@@ -131,6 +154,51 @@ mod tests {
         let builder = WriterBuilder::new(transport, schema.clone());
         let err = builder
             .pending(table)
+            .await
+            .expect_err("should fail locally on bad format");
+        assert!(err.is_binding(), "{err:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn committed_success() -> anyhow::Result<()> {
+        use bigquery_write_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream as MockWriteStream;
+        use bigquery_write_grpc_mock::{MockBigQueryWrite, start};
+        let mut mock = MockBigQueryWrite::new();
+        mock.expect_create_write_stream().return_once(|req| {
+            let req = req.into_inner();
+            assert_eq!(req.parent, "projects/p/datasets/d/tables/t");
+            let ws = req.write_stream.expect("write_stream populated");
+            // 1 == COMMITTED
+            assert_eq!(ws.r#type, 1);
+            Ok(gaxi::grpc::tonic::Response::new(MockWriteStream {
+                name: "projects/p/datasets/d/tables/t/streams/s".to_string(),
+                ..Default::default()
+            }))
+        });
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let transport = Arc::new(test_transport(endpoint).await?);
+        let schema = ArrowSchema::new().set_serialized_schema("test");
+        let builder = WriterBuilder::new(transport, schema.clone());
+        let writer = builder.committed("projects/p/datasets/d/tables/t").await?;
+        assert_eq!(
+            writer.write_stream,
+            "projects/p/datasets/d/tables/t/streams/s"
+        );
+        assert_eq!(writer.schema, schema);
+        Ok(())
+    }
+
+    #[test_case("projects/p")]
+    #[test_case("projects/p/tables/t")]
+    #[test_case("projects/p/datasets/d/tables/")]
+    #[tokio::test]
+    async fn committed_bad_table_format(table: &str) -> anyhow::Result<()> {
+        let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
+        let schema = ArrowSchema::new().set_serialized_schema("test");
+        let builder = WriterBuilder::new(transport, schema.clone());
+        let err = builder
+            .committed(table)
             .await
             .expect_err("should fail locally on bad format");
         assert!(err.is_binding(), "{err:?}");
