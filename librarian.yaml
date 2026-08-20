@@ -1468,6 +1468,7 @@ libraries:
     skip_release: true
     rust:
       include_bidi_streaming_methods: true
+      include_server_streaming_methods: true
   - name: google-cloud-spanner
     version: 0.34.4-preview
     copyright_year: "2026"
