@@ -17,8 +17,10 @@ use super::receive::{GrpcRustRecv, trailers_to_tonic_status};
 use super::send::GrpcRustSend;
 use bytes::Buf;
 use grpc::client::stream_util::RecvStreamValidator;
-use grpc::client::{CallOptions, Invoke, RecvStream, ResponseStreamItem, SendOptions, SendStream};
-use grpc::core::{RecvMessage, RequestHeaders};
+use grpc::client::{
+    CallOptions, Invoke, RecvStream, RequestHeaders, ResponseStreamItem, SendOptions, SendStream,
+};
+use grpc::core::RecvMessage;
 use prost::Message;
 use tonic::metadata::MetadataMap;
 
@@ -139,8 +141,8 @@ mod tests {
     use bytes::Bytes;
     use grpc::StatusCodeError;
     use grpc::StatusError;
-    use grpc::client::{RecvStream, SendStream};
-    use grpc::core::{RecvMessage, ResponseHeaders, SendMessage, Trailers};
+    use grpc::client::{RecvStream, ResponseHeaders, SendStream, Trailers};
+    use grpc::core::{RecvMessage, SendMessage};
     use grpc::metadata::MetadataValue;
     use pretty_assertions::assert_eq;
     use std::sync::{Arc, Mutex};
