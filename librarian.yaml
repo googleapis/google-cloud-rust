@@ -1536,6 +1536,8 @@ libraries:
   - name: google-cloud-speech-v2
     version: 1.14.0
     copyright_year: "2025"
+    rust:
+      include_bidi_streaming_methods: true
   - name: google-cloud-sql-v1
     version: 2.10.0
     copyright_year: "2025"
