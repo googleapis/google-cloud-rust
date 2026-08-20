@@ -5212,6 +5212,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-rpc",
  "google-cloud-wkt",
+ "http",
  "prost",
  "prost-types",
  "serde",

@@ -51,6 +51,7 @@ google-cloud-location.workspace    = true
 google-cloud-longrunning.workspace = true
 google-cloud-lro.workspace         = true
 google-cloud-rpc.workspace         = true
+http.workspace                     = true
 prost-types.workspace              = true
 prost.workspace                    = true
 serde.workspace                    = true

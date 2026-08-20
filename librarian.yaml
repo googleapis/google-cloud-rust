@@ -108,6 +108,9 @@ default:
       - name: google-shopping-type
         package: google-shopping-type
         source: google.shopping.type
+      - name: http
+        package: http
+        used_if: streaming
       - name: prost
         package: prost
         used_if: streaming
