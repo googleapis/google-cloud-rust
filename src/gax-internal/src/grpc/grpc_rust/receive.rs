@@ -19,8 +19,8 @@
 use super::metadata::to_tonic_map;
 use bytes::Buf;
 use grpc::StatusCodeError;
-use grpc::client::{RecvStream, ResponseStreamItem};
-use grpc::core::{RecvMessage, Trailers};
+use grpc::client::{RecvStream, ResponseStreamItem, Trailers};
+use grpc::core::RecvMessage;
 use prost::Message;
 
 /// A [`RecvMessage`] adapter that decodes raw byte payloads into Prost protobuf messages.
@@ -241,7 +241,7 @@ fn grpc_rust_error_to_tonic_code(code: StatusCodeError) -> tonic::Code {
 mod tests {
     use super::*;
     use grpc::StatusError;
-    use grpc::core::ResponseHeaders;
+    use grpc::client::ResponseHeaders;
     use grpc::metadata::MetadataValue;
     use pretty_assertions::assert_eq;
     use test_case::test_case;
