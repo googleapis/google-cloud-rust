@@ -492,6 +492,9 @@ libraries:
   - name: google-cloud-beyondcorp-clientgateways-v1
     version: 1.13.0
     copyright_year: "2025"
+  - name: google-cloud-biglake-hive-v1
+    version: 1.0.0
+    copyright_year: "2026"
   - name: google-cloud-biglake-v1
     version: 2.1.0
     copyright_year: "2025"
