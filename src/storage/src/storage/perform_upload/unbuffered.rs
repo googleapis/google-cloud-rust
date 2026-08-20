@@ -205,12 +205,64 @@ where
             .await
             .map_err(Error::ser)?;
         let payload = self.payload_to_body().await?;
-        let form = multipart::Form::new().part("metadata", metadata);
-        let form = if let Some(exact) = hint.exact() {
+        let mut form = multipart::Form::new().part("metadata", metadata);
+        form = if let Some(exact) = hint.exact() {
             form.part("media", multipart::Part::stream_with_length(payload, exact))
         } else {
             form.part("media", multipart::Part::stream(payload))
         };
+
+        if self.options.checksum.crc32c.is_some() || self.options.checksum.md5_hash.is_some() {
+            let payload_arc = self.payload.clone();
+            let trailing_stream = Box::pin(unfold(false, move |done| {
+                let payload_arc = payload_arc.clone();
+                async move {
+                    if done {
+                        return None;
+                    }
+                    let checksums = payload_arc.lock().await.final_checksum();
+
+                    #[derive(serde::Serialize)]
+                    #[serde(rename_all = "camelCase")]
+                    struct TrailingMetadata {
+                        #[serde(skip_serializing_if = "Option::is_none")]
+                        crc32c: Option<String>,
+                        #[serde(skip_serializing_if = "Option::is_none")]
+                        md5_hash: Option<String>,
+                    }
+
+                    let trailing = TrailingMetadata {
+                        crc32c: checksums.crc32c.map(|c| {
+                            use base64::Engine;
+                            base64::engine::general_purpose::STANDARD.encode(c.to_be_bytes())
+                        }),
+                        md5_hash: if checksums.md5_hash.is_empty() {
+                            None
+                        } else {
+                            use base64::Engine;
+                            Some(
+                                base64::engine::general_purpose::STANDARD
+                                    .encode(&checksums.md5_hash),
+                            )
+                        },
+                    };
+
+                    let json =
+                        serde_json::to_string(&trailing).unwrap_or_else(|_| "{}".to_string());
+                    Some((
+                        std::result::Result::<bytes::Bytes, std::io::Error>::Ok(
+                            bytes::Bytes::from(json),
+                        ),
+                        true,
+                    ))
+                }
+            }));
+
+            let trailing_part = multipart::Part::stream(Body::wrap_stream(trailing_stream))
+                .mime_str("application/json; charset=UTF-8")
+                .map_err(Error::ser)?;
+            form = form.part("checksums", trailing_part);
+        }
 
         let builder = builder.header(
             "content-type",
