@@ -64,7 +64,11 @@ pub(crate) fn make_credentials(config: &ClientConfig) -> ClientBuilderResult<Cre
 }
 
 /// Constructs the headers required for Google Cloud API requests.
-/// Custom headers can be provided through `RequestOptions`.
+///
+/// Custom headers can be provided through global `extensions` (client-level) as well as
+/// per-call `options` ([`RequestOptions`]). Request-level custom headers override global-level
+/// headers when key conflicts occur.
+///
 /// Returns an error if any of the header values fail to parse.
 pub(crate) fn make_headers(
     extensions: &crate::options::Extensions,
