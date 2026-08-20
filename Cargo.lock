@@ -6627,14 +6627,14 @@ dependencies = [
 [[package]]
 name = "grpc"
 version = "0.10.0"
-source = "git+https://github.com/grpc/grpc-rust.git?rev=c808622ba37f73bf7e0c8e2dd70a819e31b7db6b#c808622ba37f73bf7e0c8e2dd70a819e31b7db6b"
+source = "git+https://github.com/grpc/grpc-rust.git?rev=110d4f439207ae01101fce40e82eb51febe185e1#110d4f439207ae01101fce40e82eb51febe185e1"
 dependencies = [
  "base64 0.22.1",
  "bytes",
- "futures",
  "hickory-resolver",
  "http",
  "http-body",
+ "httparse",
  "hyper",
  "hyper-util",
  "itoa",
@@ -6653,7 +6653,7 @@ dependencies = [
  "tokio",
  "tokio-rustls",
  "tokio-stream",
- "tonic 0.14.6 (git+https://github.com/grpc/grpc-rust.git?rev=c808622ba37f73bf7e0c8e2dd70a819e31b7db6b)",
+ "tonic 0.14.6 (git+https://github.com/grpc/grpc-rust.git?rev=110d4f439207ae01101fce40e82eb51febe185e1)",
  "tower",
  "tower-service",
  "trait-variant",
@@ -10241,11 +10241,12 @@ dependencies = [
 [[package]]
 name = "tonic"
 version = "0.14.6"
-source = "git+https://github.com/grpc/grpc-rust.git?rev=c808622ba37f73bf7e0c8e2dd70a819e31b7db6b#c808622ba37f73bf7e0c8e2dd70a819e31b7db6b"
+source = "git+https://github.com/grpc/grpc-rust.git?rev=110d4f439207ae01101fce40e82eb51febe185e1#110d4f439207ae01101fce40e82eb51febe185e1"
 dependencies = [
  "async-trait",
  "base64 0.22.1",
  "bytes",
+ "h2",
  "http",
  "http-body",
  "http-body-util",
@@ -10253,6 +10254,7 @@ dependencies = [
  "pin-project",
  "sync_wrapper",
  "tokio-stream",
+ "tokio-util",
  "tower-layer",
  "tower-service",
  "tracing",
