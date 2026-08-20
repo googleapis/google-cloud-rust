@@ -2395,7 +2395,7 @@ version = "0.1.0"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.119",
+ "syn 3.0.3",
 ]
 
 [[package]]
@@ -2413,6 +2413,32 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_with",
+ "tracing",
+]
+
+[[package]]
+name = "google-cloud-bigquery-read"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "bytes",
+ "google-cloud-auth",
+ "google-cloud-bigquery-read",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-rpc",
+ "google-cloud-wkt",
+ "http",
+ "prost",
+ "prost-types",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "test-case",
+ "thiserror",
+ "tokio",
+ "tokio-stream",
  "tracing",
 ]
 
@@ -5207,6 +5233,7 @@ dependencies = [
  "async-trait",
  "base64 0.23.1",
  "bytes",
+ "crc32c",
  "futures",
  "google-cloud-api",
  "google-cloud-auth",
@@ -5512,7 +5539,7 @@ version = "0.0.0"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.119",
+ "syn 3.0.3",
 ]
 
 [[package]]
@@ -7060,6 +7087,7 @@ dependencies = [
  "futures",
  "google-cloud-auth",
  "google-cloud-bigquery",
+ "google-cloud-bigquery-read",
  "google-cloud-bigquery-v2",
  "google-cloud-bigquery-write",
  "google-cloud-gax",

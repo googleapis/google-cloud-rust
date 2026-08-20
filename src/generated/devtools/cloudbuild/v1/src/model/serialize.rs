@@ -921,6 +921,9 @@ impl serde::ser::Serialize for super::dependency::GitSourceDependency {
         if !self.dest_path.is_empty() {
             state.serialize_entry("destPath", &self.dest_path)?;
         }
+        if !wkt::internal::is_default(&self.fetch_tags) {
+            state.serialize_entry("fetchTags", &self.fetch_tags)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

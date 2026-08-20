@@ -15,5 +15,7 @@
 #[cfg(feature = "_experimental-builtin-metrics")]
 pub(crate) mod exporter;
 pub(crate) mod metrics;
+#[cfg(all(test, feature = "_experimental-builtin-metrics"))]
+mod mock_tests;
 
 pub(crate) use metrics::Observability;

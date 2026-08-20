@@ -165,12 +165,10 @@ impl BatchReadOnlyTransaction {
             .inner
             .context
             .client
-            .spanner
             .partition_query(
                 request,
                 crate::RequestOptions::default(),
                 self.inner.context.channel_hint,
-                &self.inner.context.client.o11y,
             )
             .await?;
 
@@ -230,12 +228,10 @@ impl BatchReadOnlyTransaction {
             .inner
             .context
             .client
-            .spanner
             .partition_read(
                 request,
                 crate::RequestOptions::default(),
                 self.inner.context.channel_hint,
-                &self.inner.context.client.o11y,
             )
             .await?;
 
@@ -409,12 +405,11 @@ impl Partition {
         req: &ExecuteSqlRequest,
         gax_options: GaxRequestOptions,
     ) -> crate::Result<ResultSet> {
-        let channel_hint = client.spanner.next_channel_hint();
-        let gax_options = client.spanner.attach_request_id(gax_options, channel_hint);
+        let channel_hint = client.next_channel_hint();
+        let gax_options = client.attach_request_id(gax_options, channel_hint);
         let (stream, attempt_start_time) =
             Self::execute_partition_stream(client, "ExecuteStreamingSql", || {
                 client
-                    .spanner
                     .execute_streaming_sql(req.clone(), gax_options.clone(), channel_hint)
                     .send()
             })
@@ -447,12 +442,11 @@ impl Partition {
         req: &ReadRequest,
         gax_options: GaxRequestOptions,
     ) -> crate::Result<ResultSet> {
-        let channel_hint = client.spanner.next_channel_hint();
-        let gax_options = client.spanner.attach_request_id(gax_options, channel_hint);
+        let channel_hint = client.next_channel_hint();
+        let gax_options = client.attach_request_id(gax_options, channel_hint);
         let (stream, attempt_start_time) =
             Self::execute_partition_stream(client, "StreamingRead", || {
                 client
-                    .spanner
                     .streaming_read(req.clone(), gax_options.clone(), channel_hint)
                     .send()
             })

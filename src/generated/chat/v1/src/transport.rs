@@ -147,6 +147,7 @@ impl super::stub::ChatService for ChatService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = builder.query(&[("showDeleted", &req.show_deleted)]);
+                let builder = builder.query(&[("markupSyntax", &req.markup_syntax)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -343,6 +344,7 @@ impl super::stub::ChatService for ChatService {
 
                 let resource_name = format!("//chat.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("markupSyntax", &req.markup_syntax)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })

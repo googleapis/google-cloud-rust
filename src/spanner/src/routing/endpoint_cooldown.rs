@@ -18,8 +18,8 @@
 //! mechanisms to avoid sending traffic to unhealthy or overloaded endpoints:
 //!
 //! 1. [`EndpointCooldownTracker`]: A global, probabilistic cooldown tracker that puts an endpoint
-//!    address on temporary backoff (with full jitter and exponential scaling) when it returns
-//!    a `RESOURCE_EXHAUSTED` error.
+//!    address on temporary backoff (with exponential backoff and jitter in `[cooldown / 2, cooldown]`)
+//!    when it returns a `RESOURCE_EXHAUSTED` error.
 //! 2. [`EndpointExclusionList`]: A deterministic, request-scoped exclusion set of endpoints that
 //!    have already been attempted during an individual RPC retry loop.
 
@@ -56,8 +56,8 @@ struct EndpointCooldownState {
 /// Tracks endpoint-scoped overload cooldowns triggered by `RESOURCE_EXHAUSTED` gRPC errors.
 ///
 /// When a routed Spanner tablet endpoint returns `RESOURCE_EXHAUSTED`, it is placed on a
-/// probabilistic cooldown with full jitter and exponential backoff, preventing the client
-/// from routing new traffic to an overloaded tablet node.
+/// probabilistic cooldown with exponential backoff and jitter in `[cooldown / 2, cooldown]`,
+/// preventing the client from routing new traffic to an overloaded tablet node.
 #[derive(Debug)]
 pub(crate) struct EndpointCooldownTracker {
     initial_cooldown: Duration,
@@ -127,7 +127,7 @@ impl EndpointCooldownTracker {
     }
 
     /// Records a `RESOURCE_EXHAUSTED` failure for the endpoint, applying exponential backoff
-    /// and full jitter to calculate the new cooldown period.
+    /// and jitter in `[cooldown / 2, cooldown]` to calculate the new cooldown period.
     pub(crate) fn record_failure(&self, endpoint: &str) -> Duration {
         self.record_failure_at(endpoint, Instant::now())
     }
@@ -153,12 +153,13 @@ impl EndpointCooldownTracker {
         let base_cooldown = self.initial_cooldown.saturating_mul(1u32 << shift);
         let capped_cooldown = base_cooldown.min(self.max_cooldown);
 
-        // Apply full jitter: uniformly random duration in [0, capped_cooldown].
+        // Apply half-to-full jitter duration in [capped_cooldown / 2, capped_cooldown].
         let millis = u64::try_from(capped_cooldown.as_millis()).unwrap_or(u64::MAX);
         let jittered_millis = if millis == 0 {
             0
         } else {
-            rand::random_range(0..=millis)
+            let floor_millis = (millis / 2).max(1);
+            rand::random_range(floor_millis..=millis)
         };
         let jittered_cooldown = Duration::from_millis(jittered_millis);
 
@@ -244,9 +245,9 @@ impl EndpointCooldownTracker {
 
 /// A request-scoped exclusion list of Spanner tablet endpoints.
 ///
-/// Because [`EndpointCooldownTracker`] applies full jitter (which can evaluate to 0s),
-/// global cooldown alone does not guarantee that an immediate retry will avoid the same
-/// failed endpoint. `EndpointExclusionList` provides a deterministic guarantee for an individual
+/// Because [`EndpointCooldownTracker`] applies jitter in `[cooldown / 2, cooldown]`,
+/// global cooldown alone does not guarantee that an endpoint cannot expire during long retries.
+/// `EndpointExclusionList` provides a deterministic guarantee for an individual
 /// RPC retry chain by recording every endpoint address attempted during that request.
 #[derive(Debug, Default, Clone)]
 pub(crate) struct EndpointExclusionList {
@@ -309,15 +310,29 @@ mod tests {
     use std::thread;
 
     #[test]
-    fn test_cooldown_tracker_default_construction() {
-        let tracker = EndpointCooldownTracker::new();
-        assert!(tracker.is_empty());
-        assert_eq!(tracker.len(), 0);
-        assert!(!tracker.is_cooling_down("10.0.0.1:15000"));
+    fn traits() {
+        static_assertions::assert_impl_all!(EndpointCooldownTracker: Send, Sync, std::fmt::Debug);
+        static_assertions::assert_impl_all!(
+            EndpointExclusionList: Send,
+            Sync,
+            std::fmt::Debug,
+            Clone
+        );
     }
 
     #[test]
-    fn test_cooldown_tracker_record_failure_increases_consecutive_failures() {
+    fn cooldown_tracker_default_construction() {
+        let tracker = EndpointCooldownTracker::new();
+        assert!(tracker.is_empty(), "tracker should be empty initially");
+        assert_eq!(tracker.len(), 0, "tracker length should be 0");
+        assert!(
+            !tracker.is_cooling_down("10.0.0.1:15000"),
+            "untracked endpoint should not be cooling down"
+        );
+    }
+
+    #[test]
+    fn cooldown_tracker_record_failure_increases_consecutive_failures() {
         let now = Instant::now();
         let tracker = EndpointCooldownTracker::with_options(
             Duration::from_millis(100),
@@ -326,18 +341,39 @@ mod tests {
         );
 
         let duration1 = tracker.record_failure_at("ep-1", now);
-        assert!(duration1 <= Duration::from_millis(100));
+        assert!(
+            duration1 <= Duration::from_millis(100),
+            "duration1 {duration1:?} <= 100ms"
+        );
+        assert!(
+            duration1 >= Duration::from_millis(50),
+            "duration1 {duration1:?} >= 50ms (jitter floor)"
+        );
 
         let duration2 = tracker.record_failure_at("ep-1", now + Duration::from_millis(10));
-        assert!(duration2 <= Duration::from_millis(200));
+        assert!(
+            duration2 <= Duration::from_millis(200),
+            "duration2 {duration2:?} <= 200ms"
+        );
+        assert!(
+            duration2 >= Duration::from_millis(100),
+            "duration2 {duration2:?} >= 100ms (jitter floor)"
+        );
 
         let duration3 = tracker.record_failure_at("ep-1", now + Duration::from_millis(20));
-        assert!(duration3 <= Duration::from_millis(400));
-        assert_eq!(tracker.len(), 1);
+        assert!(
+            duration3 <= Duration::from_millis(400),
+            "duration3 {duration3:?} <= 400ms"
+        );
+        assert!(
+            duration3 >= Duration::from_millis(200),
+            "duration3 {duration3:?} >= 200ms (jitter floor)"
+        );
+        assert_eq!(tracker.len(), 1, "should have 1 tracked endpoint");
     }
 
     #[test]
-    fn test_cooldown_tracker_exponential_backoff_and_max_cap() {
+    fn cooldown_tracker_exponential_backoff_and_max_cap() {
         let now = Instant::now();
         let tracker = EndpointCooldownTracker::with_options(
             Duration::from_millis(100),
@@ -352,11 +388,17 @@ mod tests {
                 duration <= Duration::from_millis(500),
                 "duration {duration:?} exceeded max cap 500ms on attempt {i}"
             );
+            if i >= 3 {
+                assert!(
+                    duration >= Duration::from_millis(250),
+                    "duration {duration:?} under capped floor 250ms on attempt {i}"
+                );
+            }
         }
     }
 
     #[test]
-    fn test_cooldown_tracker_reset_after_window() {
+    fn cooldown_tracker_reset_after_window() {
         let now = Instant::now();
         let reset_after = Duration::from_secs(10);
         let tracker = EndpointCooldownTracker::with_options(
@@ -373,26 +415,42 @@ mod tests {
             tracker.record_failure_at("ep-reset", now + reset_after + Duration::from_millis(1));
         assert!(
             duration <= Duration::from_secs(5),
-            "after reset window, backoff should reset to base cooldown"
+            "after reset window, backoff should reset to base cooldown <= 5s"
+        );
+        assert!(
+            duration >= Duration::from_millis(2500),
+            "after reset window, backoff should reset to base cooldown >= 2.5s"
         );
     }
 
     #[test]
-    fn test_cooldown_tracker_only_triggers_on_resource_exhausted() {
+    fn cooldown_tracker_only_triggers_on_resource_exhausted() {
         let tracker = EndpointCooldownTracker::new();
 
-        assert_eq!(tracker.record_error("ep-1", Code::Unavailable), None);
-        assert_eq!(tracker.record_error("ep-1", Code::Internal), None);
-        assert_eq!(tracker.record_error("ep-1", Code::DeadlineExceeded), None);
-        assert!(tracker.is_empty());
+        assert_eq!(
+            tracker.record_error("ep-1", Code::Unavailable),
+            None,
+            "UNAVAILABLE should not trigger cooldown"
+        );
+        assert_eq!(
+            tracker.record_error("ep-1", Code::Internal),
+            None,
+            "INTERNAL should not trigger cooldown"
+        );
+        assert_eq!(
+            tracker.record_error("ep-1", Code::DeadlineExceeded),
+            None,
+            "DEADLINE_EXCEEDED should not trigger cooldown"
+        );
+        assert!(tracker.is_empty(), "tracker should remain empty");
 
         let res = tracker.record_error("ep-1", Code::ResourceExhausted);
-        assert!(res.is_some());
-        assert_eq!(tracker.len(), 1);
+        assert!(res.is_some(), "RESOURCE_EXHAUSTED should trigger cooldown");
+        assert_eq!(tracker.len(), 1, "tracker should have 1 entry");
     }
 
     #[test]
-    fn test_cooldown_tracker_clear_expired_removes_old_entries() {
+    fn cooldown_tracker_clear_expired_removes_old_entries() {
         let now = Instant::now();
         let tracker = EndpointCooldownTracker::with_options(
             Duration::from_millis(10),
@@ -401,7 +459,7 @@ mod tests {
         );
 
         tracker.record_failure_at("ep-old", now);
-        assert_eq!(tracker.len(), 1);
+        assert_eq!(tracker.len(), 1, "tracker should have 1 entry");
 
         // Advance time past both cooldown_until and reset_after
         let future = now + Duration::from_millis(200);
@@ -413,18 +471,18 @@ mod tests {
     }
 
     #[test]
-    fn test_cooldown_tracker_clear_removes_all_entries() {
+    fn cooldown_tracker_clear_removes_all_entries() {
         let tracker = EndpointCooldownTracker::new();
         tracker.record_failure("ep-1");
         tracker.record_failure("ep-2");
-        assert_eq!(tracker.len(), 2);
+        assert_eq!(tracker.len(), 2, "tracker should have 2 entries");
 
         tracker.clear();
-        assert!(tracker.is_empty());
+        assert!(tracker.is_empty(), "tracker should be empty after clear");
     }
 
     #[test]
-    fn test_cooldown_tracker_is_cooling_down_at_time() {
+    fn cooldown_tracker_is_cooling_down_at_time() {
         let now = Instant::now();
         let tracker = EndpointCooldownTracker::with_options(
             Duration::from_secs(5),
@@ -432,15 +490,23 @@ mod tests {
             Duration::from_secs(60),
         );
 
-        // Force a non-zero cooldown by checking until we get > 0
         tracker.record_failure_at("ep-time", now);
 
+        // At time of failure, is_cooling_down_at should be true (minimum cooldown is 2.5s).
+        assert!(
+            tracker.is_cooling_down_at("ep-time", now),
+            "endpoint should be cooling down at time of failure"
+        );
+
         // At now + 10s (past max 5s cooldown), is_cooling_down_at should be false.
-        assert!(!tracker.is_cooling_down_at("ep-time", now + Duration::from_secs(10)));
+        assert!(
+            !tracker.is_cooling_down_at("ep-time", now + Duration::from_secs(10)),
+            "endpoint should not be cooling down after cooldown expires"
+        );
     }
 
     #[test]
-    fn test_cooldown_tracker_concurrent_access() {
+    fn cooldown_tracker_concurrent_access() {
         let tracker = EndpointCooldownTracker::new();
 
         thread::scope(|s| {
@@ -455,31 +521,46 @@ mod tests {
             }
         });
 
-        assert!(tracker.len() <= 3);
+        assert!(
+            tracker.len() <= 3,
+            "tracker length should be at most 3 distinct endpoints"
+        );
     }
 
     #[test]
-    fn test_exclusion_list_basic_operations() {
+    fn exclusion_list_basic_operations() {
         let mut list = EndpointExclusionList::new();
-        assert!(list.is_empty());
-        assert_eq!(list.len(), 0);
+        assert!(list.is_empty(), "exclusion list should be empty initially");
+        assert_eq!(list.len(), 0, "exclusion list length should be 0");
 
         list.exclude("10.0.0.1:15000");
-        assert!(!list.is_empty());
-        assert_eq!(list.len(), 1);
-        assert!(list.is_excluded("10.0.0.1:15000"));
-        assert!(!list.is_excluded("10.0.0.2:15000"));
+        assert!(!list.is_empty(), "exclusion list should not be empty");
+        assert_eq!(list.len(), 1, "exclusion list length should be 1");
+        assert!(
+            list.is_excluded("10.0.0.1:15000"),
+            "10.0.0.1:15000 should be excluded"
+        );
+        assert!(
+            !list.is_excluded("10.0.0.2:15000"),
+            "10.0.0.2:15000 should not be excluded"
+        );
 
         list.exclude("10.0.0.2:15000");
-        assert_eq!(list.len(), 2);
+        assert_eq!(list.len(), 2, "exclusion list length should be 2");
 
         list.clear();
-        assert!(list.is_empty());
-        assert!(!list.is_excluded("10.0.0.1:15000"));
+        assert!(
+            list.is_empty(),
+            "exclusion list should be empty after clear"
+        );
+        assert!(
+            !list.is_excluded("10.0.0.1:15000"),
+            "cleared list should not contain excluded endpoints"
+        );
     }
 
     #[test]
-    fn test_exclusion_list_is_excluded_or_cooling_down_short_circuit() {
+    fn exclusion_list_is_excluded_or_cooling_down_short_circuit() {
         let now = Instant::now();
         let tracker = EndpointCooldownTracker::with_options(
             Duration::from_secs(10),
@@ -489,42 +570,53 @@ mod tests {
         let mut list = EndpointExclusionList::new();
 
         // 1. Neither excluded nor on cooldown
-        assert!(!list.is_excluded_or_cooling_down("ep-1", &tracker));
+        assert!(
+            !list.is_excluded_or_cooling_down("ep-1", &tracker),
+            "ep-1 is neither excluded nor on cooldown"
+        );
 
         // 2. Only in request exclusion list
         list.exclude("ep-2");
-        assert!(list.is_excluded_or_cooling_down("ep-2", &tracker));
+        assert!(
+            list.is_excluded_or_cooling_down("ep-2", &tracker),
+            "ep-2 is in request exclusion list"
+        );
 
         // 3. Only in global cooldown tracker
         tracker.record_failure_at("ep-3", now);
-        // Test at `now` where cooldown_until is >= now (unless jitter hit exactly 0; let's verify both)
-        let cooling = tracker.is_cooling_down_at("ep-3", now);
-        assert_eq!(list.is_excluded_or_cooling_down("ep-3", &tracker), cooling);
+        assert!(
+            tracker.is_cooling_down_at("ep-3", now),
+            "ep-3 must be on cooldown at now"
+        );
+        assert!(
+            list.is_excluded_or_cooling_down("ep-3", &tracker),
+            "ep-3 must be recognized as cooling down"
+        );
     }
 
     #[test]
-    fn test_exclusion_list_clear() {
+    fn exclusion_list_clear() {
         let mut list = EndpointExclusionList::new();
         list.exclude("ep-a");
         list.exclude("ep-b");
-        assert_eq!(list.len(), 2);
+        assert_eq!(list.len(), 2, "should have 2 items");
 
         list.clear();
-        assert_eq!(list.len(), 0);
-        assert!(!list.is_excluded("ep-a"));
+        assert_eq!(list.len(), 0, "should have 0 items after clear");
+        assert!(!list.is_excluded("ep-a"), "ep-a should not be excluded");
     }
 
     #[test]
-    fn test_cooldown_tracker_and_exclusion_list_default_traits() {
+    fn cooldown_tracker_and_exclusion_list_default_traits() {
         let tracker = EndpointCooldownTracker::default();
-        assert!(tracker.is_empty());
+        assert!(tracker.is_empty(), "default tracker should be empty");
 
         let list = EndpointExclusionList::default();
-        assert!(list.is_empty());
+        assert!(list.is_empty(), "default exclusion list should be empty");
     }
 
     #[test]
-    fn test_cooldown_tracker_zero_duration() {
+    fn cooldown_tracker_zero_duration() {
         let tracker = EndpointCooldownTracker::with_options(
             Duration::ZERO,
             Duration::ZERO,
@@ -532,12 +624,15 @@ mod tests {
         );
         let now = Instant::now();
         let duration = tracker.record_failure_at("ep-zero", now);
-        assert_eq!(duration, Duration::ZERO);
-        assert!(!tracker.is_cooling_down_at("ep-zero", now + Duration::from_millis(1)));
+        assert_eq!(duration, Duration::ZERO, "cooldown duration should be zero");
+        assert!(
+            !tracker.is_cooling_down_at("ep-zero", now + Duration::from_millis(1)),
+            "should not be cooling down past now"
+        );
     }
 
     #[test]
-    fn test_cooldown_tracker_clear_expired_selective() {
+    fn cooldown_tracker_clear_expired_selective() {
         let now = Instant::now();
         let tracker = EndpointCooldownTracker::with_options(
             Duration::from_millis(50),
@@ -547,16 +642,19 @@ mod tests {
 
         tracker.record_failure_at("ep-old", now);
         tracker.record_failure_at("ep-new", now + Duration::from_millis(200));
-        assert_eq!(tracker.len(), 2);
+        assert_eq!(tracker.len(), 2, "tracker should have 2 entries");
 
         // At now + 150ms, ep-old is expired (>100ms reset window and >50ms cooldown), but ep-new is in the future.
         tracker.clear_expired_at(now + Duration::from_millis(150));
-        assert_eq!(tracker.len(), 1);
-        assert!(!tracker.is_cooling_down_at("ep-old", now + Duration::from_millis(150)));
+        assert_eq!(tracker.len(), 1, "tracker should have 1 entry left");
+        assert!(
+            !tracker.is_cooling_down_at("ep-old", now + Duration::from_millis(150)),
+            "ep-old should no longer be cooling down"
+        );
     }
 
     #[test]
-    fn test_cooldown_tracker_clear_expired_no_op_when_none_expired() {
+    fn cooldown_tracker_clear_expired_no_op_when_none_expired() {
         let now = Instant::now();
         let tracker = EndpointCooldownTracker::with_options(
             Duration::from_secs(10),
@@ -566,11 +664,11 @@ mod tests {
 
         tracker.record_failure_at("ep-1", now);
         tracker.clear_expired_at(now);
-        assert_eq!(tracker.len(), 1);
+        assert_eq!(tracker.len(), 1, "tracker should retain non-expired entry");
     }
 
     #[test]
-    fn test_cooldown_tracker_atomic_consecutive_failures_no_lost_updates() {
+    fn cooldown_tracker_atomic_consecutive_failures_no_lost_updates() {
         let tracker = EndpointCooldownTracker::new();
         let num_threads = 10;
         let iterations_per_thread = 100;
@@ -604,7 +702,7 @@ mod tests {
     }
 
     #[test]
-    fn test_cooldown_tracker_large_duration_no_wrapping_cast() {
+    fn cooldown_tracker_large_duration_no_wrapping_cast() {
         let tracker = EndpointCooldownTracker::with_options(
             Duration::MAX,
             Duration::MAX,
@@ -613,7 +711,10 @@ mod tests {
 
         let now = Instant::now();
         let duration = tracker.record_failure_at("ep-huge", now);
-        assert!(duration <= Duration::from_millis(u64::MAX));
-        assert_eq!(tracker.len(), 1);
+        assert!(
+            duration <= Duration::from_millis(u64::MAX),
+            "duration should not overflow u64 millis"
+        );
+        assert_eq!(tracker.len(), 1, "tracker should have 1 entry");
     }
 }
