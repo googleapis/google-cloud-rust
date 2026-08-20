@@ -12,10 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::INSTANCE_LABEL;
-use crate::query::UserRecord;
 use anyhow::Result;
-use google_cloud_bigquery::client::BigQuery;
 use google_cloud_bigquery_v2::client::TableService;
 use google_cloud_bigquery_v2::model::{Table, TableFieldSchema, TableReference, TableSchema};
 
@@ -49,4 +46,3 @@ pub(crate) async fn create_table(
 
     Ok(())
 }
-
