@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.38.1-0.20260820171450-084470b21056
+version: v0.38.1-0.20260820180454-2c61baeaa4e4
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
@@ -1536,6 +1536,8 @@ libraries:
   - name: google-cloud-speech-v2
     version: 1.13.0
     copyright_year: "2025"
+    rust:
+      include_bidi_streaming_methods: true
   - name: google-cloud-sql-v1
     version: 2.9.0
     copyright_year: "2025"
