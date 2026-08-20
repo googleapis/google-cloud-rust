@@ -96,7 +96,7 @@ pub async fn pending(
     let batch2 = create_test_batch(schema.clone(), vec!["Frank"], vec![55], "pending")?;
     let _ = writer.append(batch2).set_offset(2).send().await?;
 
-    // Finalize the stream and commit
+    // Finalize the stream
     writer.finalize().await?;
 
     // Verify no writes have been committed yet
@@ -105,11 +105,13 @@ pub async fn pending(
 
     // Verify that appending to a finalized stream fails
     let batch3 = create_test_batch(schema.clone(), vec!["Ghost"], vec![99], "pending")?;
-    let result = writer.append(batch3).set_offset(3).send().await;
-    assert!(
-        result.is_err(),
-        "Appending to a finalized stream should fail"
-    );
+    let _err = writer
+        .append(batch3)
+        .set_offset(3)
+        .send()
+        .await
+        .expect_err("Appending to a finalized stream should fail");
+    // Commit the stream
     writer.commit().await?;
 
     // Verify the writes
