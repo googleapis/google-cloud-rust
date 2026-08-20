@@ -127,7 +127,7 @@ pub(crate) mod tests {
     use httptest::responders::json_encoded;
     use httptest::{Expectation, Server};
     use jsonwebtoken::Algorithm;
-    use p256::elliptic_curve::sec1::ToEncodedPoint;
+    use p256::elliptic_curve::sec1::ToSec1Point;
     use rsa::traits::PublicKeyParts;
     use serial_test::parallel;
 
