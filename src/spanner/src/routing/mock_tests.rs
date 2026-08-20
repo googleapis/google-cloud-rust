@@ -13,6 +13,17 @@
 // limitations under the License.
 
 //! Mock server integration tests for Spanner location-aware routing and multi-server topologies.
+//!
+//! This test suite exercises:
+//! - Inline `CacheUpdate` observation and cache population across single-use queries/reads, read-write
+//!   transactions (commits, batch DML), write-only mutations, and partitioned DML.
+//! - Direct multi-server routing, connection pre-warming, and gateway fallback on cache misses.
+//! - Replica selection (leader vs. read-only replicas, candidate pool distribution, distance-tier
+//!   prioritization, and directed read filtering).
+//! - Cooldown and failure failover (leader cooldown fallback, replica skip/cooldown failover, and recovery).
+//! - Dynamic range updates (split updates, generation ordering, and boundary lookups).
+//! - Transaction affinity isolation across concurrent transactions and independence for read-only transactions.
+//! - Proactive background cache synchronization via `CacheSubscriber`.
 
 use crate::client::{Spanner, SpannerBuilderExt};
 use crate::database_client::DatabaseClient;
@@ -70,7 +81,7 @@ async fn single_use_query_ingests_inline_cache_update_and_populates_caches() -> 
         Ok(Response::from(receiver))
     });
 
-    let (database_client, _spanner, _server) = setup_mock_database_client(mock).await;
+    let (database_client, _spanner, _server) = setup_mock_database_client(mock).await?;
 
     assert_eq!(
         database_client.database_id(),
@@ -84,7 +95,7 @@ async fn single_use_query_ingests_inline_cache_update_and_populates_caches() -> 
 
     let row = result_set.next().await;
     assert!(row.is_some(), "result set should yield at least one row");
-    let row = row.expect("row must exist").expect("row must be valid");
+    let row = row.expect("row must exist")?;
     assert_eq!(row.raw_values().len(), 1, "row should have 1 column");
 
     assert_eq!(
@@ -152,7 +163,7 @@ async fn single_use_read_ingests_inline_cache_update() -> anyhow::Result<()> {
         Ok(Response::from(receiver))
     });
 
-    let (database_client, _spanner, _server) = setup_mock_database_client(mock).await;
+    let (database_client, _spanner, _server) = setup_mock_database_client(mock).await?;
 
     let transaction = database_client.single_use().build();
     let read_request = ReadRequest::builder("Singers", vec!["SingerId"])
@@ -220,7 +231,7 @@ async fn read_write_transaction_commit_ingests_cache_update_and_sends_route_to_l
         }))
     });
 
-    let (database_client, _spanner, _server) = setup_mock_database_client(mock).await;
+    let (database_client, _spanner, _server) = setup_mock_database_client(mock).await?;
 
     let runner = database_client.read_write_transaction().build().await?;
     runner
@@ -304,7 +315,7 @@ async fn read_write_transaction_batch_dml_ingests_cache_update() -> anyhow::Resu
         }))
     });
 
-    let (database_client, _spanner, _server) = setup_mock_database_client(mock).await;
+    let (database_client, _spanner, _server) = setup_mock_database_client(mock).await?;
 
     let runner = database_client.read_write_transaction().build().await?;
     runner
@@ -356,7 +367,7 @@ async fn write_only_transaction_ingests_cache_update() -> anyhow::Result<()> {
         }))
     });
 
-    let (database_client, _spanner, _server) = setup_mock_database_client(mock).await;
+    let (database_client, _spanner, _server) = setup_mock_database_client(mock).await?;
 
     let mutation = Mutation::new_insert_builder("Singers")
         .set("SingerId")
@@ -392,10 +403,16 @@ async fn write_only_transaction_ingests_cache_update() -> anyhow::Result<()> {
 #[tokio_test_no_panics]
 async fn partitioned_dml_ingests_cache_update() -> anyhow::Result<()> {
     let mut mock = create_base_mock();
+    mock.expect_begin_transaction().returning(|_| {
+        Ok(Response::new(mock_v1::Transaction {
+            id: vec![1, 2, 3, 4],
+            ..Default::default()
+        }))
+    });
     mock.expect_execute_streaming_sql().returning(|_| {
         let partial_result_set = mock_v1::PartialResultSet {
             stats: Some(mock_v1::ResultSetStats {
-                row_count: Some(mock_v1::result_set_stats::RowCount::RowCountExact(50)),
+                row_count: Some(mock_v1::result_set_stats::RowCount::RowCountLowerBound(50)),
                 ..Default::default()
             }),
             cache_update: Some(sample_mock_cache_update(
@@ -414,7 +431,7 @@ async fn partitioned_dml_ingests_cache_update() -> anyhow::Result<()> {
         Ok(Response::from(receiver))
     });
 
-    let (database_client, _spanner, _server) = setup_mock_database_client(mock).await;
+    let (database_client, _spanner, _server) = setup_mock_database_client(mock).await?;
 
     let affected_rows = database_client
         .partitioned_dml_transaction()
@@ -452,7 +469,7 @@ async fn partitioned_dml_ingests_cache_update() -> anyhow::Result<()> {
 async fn database_id_switch_clears_stale_caches_and_rejects_older_generations() -> anyhow::Result<()>
 {
     let mock = create_base_mock();
-    let (database_client, _spanner, _server) = setup_mock_database_client(mock).await;
+    let (database_client, _spanner, _server) = setup_mock_database_client(mock).await?;
 
     let router = database_client
         .location_router()
@@ -539,28 +556,22 @@ async fn database_id_switch_clears_stale_caches_and_rejects_older_generations() 
 #[tokio_test_no_panics]
 async fn multi_server_routing_resolves_and_prewarms_tablet_endpoint() -> anyhow::Result<()> {
     let mock_gateway = create_base_mock();
-    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway)
-        .await
-        .expect("gateway mock server should start");
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
 
     let mock_tablet = create_base_mock();
-    let (tablet_address, _tablet_server) = start("127.0.0.1:0", mock_tablet)
-        .await
-        .expect("tablet mock server should start");
+    let (tablet_address, _tablet_server) = start("127.0.0.1:0", mock_tablet).await?;
 
     let spanner = Spanner::builder()
         .with_endpoint(gateway_address.clone())
         .with_instance_type(InstanceType::Omni)
         .with_credentials(Anonymous::new().build())
         .build()
-        .await
-        .expect("spanner client should build");
+        .await?;
 
     let database_client = spanner
         .database_client("projects/test-project/instances/test-instance/databases/test-db")
         .build()
-        .await
-        .expect("database client should build");
+        .await?;
 
     let router = database_client
         .location_router()
@@ -581,10 +592,7 @@ async fn multi_server_routing_resolves_and_prewarms_tablet_endpoint() -> anyhow:
         .cache_updater()
         .expect("cache updater present")
         .client_config();
-    let _prewarmed = connection_cache
-        .get(&tablet_address, client_config)
-        .await
-        .expect("pre-warming tablet connection must succeed");
+    let _prewarmed = connection_cache.get(&tablet_address, client_config).await?;
 
     // Route request targeting key inside the cached range
     let context = RoutingContext {
@@ -618,33 +626,25 @@ async fn multi_server_routing_resolves_and_prewarms_tablet_endpoint() -> anyhow:
 #[tokio_test_no_panics]
 async fn multi_replica_power_of_two_selection_distributes_requests() -> anyhow::Result<()> {
     let mock_gateway = create_base_mock();
-    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway)
-        .await
-        .expect("gateway server should start");
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
 
     let mock_replica1 = create_base_mock();
-    let (replica1_address, _replica1_server) = start("127.0.0.1:0", mock_replica1)
-        .await
-        .expect("replica 1 server should start");
+    let (replica1_address, _replica1_server) = start("127.0.0.1:0", mock_replica1).await?;
 
     let mock_replica2 = create_base_mock();
-    let (replica2_address, _replica2_server) = start("127.0.0.1:0", mock_replica2)
-        .await
-        .expect("replica 2 server should start");
+    let (replica2_address, _replica2_server) = start("127.0.0.1:0", mock_replica2).await?;
 
     let spanner = Spanner::builder()
         .with_endpoint(gateway_address)
         .with_instance_type(InstanceType::Omni)
         .with_credentials(Anonymous::new().build())
         .build()
-        .await
-        .expect("spanner client should build");
+        .await?;
 
     let database_client = spanner
         .database_client("projects/test-project/instances/test-instance/databases/test-db")
         .build()
-        .await
-        .expect("database client should build");
+        .await?;
 
     let router = database_client
         .location_router()
@@ -711,33 +711,25 @@ async fn multi_replica_power_of_two_selection_distributes_requests() -> anyhow::
 #[tokio_test_no_panics]
 async fn non_leader_failover_when_candidate_replica_skipped() -> anyhow::Result<()> {
     let mock_gateway = create_base_mock();
-    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway)
-        .await
-        .expect("gateway server should start");
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
 
     let mock_replica1 = create_base_mock();
-    let (replica1_address, _replica1_server) = start("127.0.0.1:0", mock_replica1)
-        .await
-        .expect("replica 1 server should start");
+    let (replica1_address, _replica1_server) = start("127.0.0.1:0", mock_replica1).await?;
 
     let mock_replica2 = create_base_mock();
-    let (replica2_address, _replica2_server) = start("127.0.0.1:0", mock_replica2)
-        .await
-        .expect("replica 2 server should start");
+    let (replica2_address, _replica2_server) = start("127.0.0.1:0", mock_replica2).await?;
 
     let spanner = Spanner::builder()
         .with_endpoint(gateway_address)
         .with_instance_type(InstanceType::Omni)
         .with_credentials(Anonymous::new().build())
         .build()
-        .await
-        .expect("spanner client should build");
+        .await?;
 
     let database_client = spanner
         .database_client("projects/test-project/instances/test-instance/databases/test-db")
         .build()
-        .await
-        .expect("database client should build");
+        .await?;
 
     let router = database_client
         .location_router()
@@ -868,28 +860,22 @@ async fn non_leader_failover_when_candidate_replica_skipped() -> anyhow::Result<
 #[tokio_test_no_panics]
 async fn transaction_affinity_lifecycle_binds_and_clears_affinity() -> anyhow::Result<()> {
     let mock_gateway = create_base_mock();
-    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway)
-        .await
-        .expect("gateway server should start");
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
 
     let mock_tablet = create_base_mock();
-    let (tablet_address, _tablet_server) = start("127.0.0.1:0", mock_tablet)
-        .await
-        .expect("tablet server should start");
+    let (tablet_address, _tablet_server) = start("127.0.0.1:0", mock_tablet).await?;
 
     let spanner = Spanner::builder()
         .with_endpoint(gateway_address.clone())
         .with_instance_type(InstanceType::Omni)
         .with_credentials(Anonymous::new().build())
         .build()
-        .await
-        .expect("spanner client should build");
+        .await?;
 
     let database_client = spanner
         .database_client("projects/test-project/instances/test-instance/databases/test-db")
         .build()
-        .await
-        .expect("database client should build");
+        .await?;
 
     let router = database_client
         .location_router()
@@ -966,33 +952,25 @@ async fn transaction_affinity_lifecycle_binds_and_clears_affinity() -> anyhow::R
 async fn read_only_transaction_does_not_bind_affinity_and_routes_independently()
 -> anyhow::Result<()> {
     let mock_gateway = create_base_mock();
-    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway)
-        .await
-        .expect("gateway server should start");
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
 
     let mock_tablet1 = create_base_mock();
-    let (tablet1_address, _tablet1_server) = start("127.0.0.1:0", mock_tablet1)
-        .await
-        .expect("tablet 1 server should start");
+    let (tablet1_address, _tablet1_server) = start("127.0.0.1:0", mock_tablet1).await?;
 
     let mock_tablet2 = create_base_mock();
-    let (tablet2_address, _tablet2_server) = start("127.0.0.1:0", mock_tablet2)
-        .await
-        .expect("tablet 2 server should start");
+    let (tablet2_address, _tablet2_server) = start("127.0.0.1:0", mock_tablet2).await?;
 
     let spanner = Spanner::builder()
         .with_endpoint(gateway_address)
         .with_instance_type(InstanceType::Omni)
         .with_credentials(Anonymous::new().build())
         .build()
-        .await
-        .expect("spanner client should build");
+        .await?;
 
     let database_client = spanner
         .database_client("projects/test-project/instances/test-instance/databases/test-db")
         .build()
-        .await
-        .expect("database client should build");
+        .await?;
 
     let router = database_client
         .location_router()
@@ -1107,33 +1085,25 @@ async fn read_only_transaction_does_not_bind_affinity_and_routes_independently()
 #[tokio_test_no_panics]
 async fn concurrent_transactions_bind_independent_affinities() -> anyhow::Result<()> {
     let mock_gateway = create_base_mock();
-    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway)
-        .await
-        .expect("gateway server should start");
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
 
     let mock_tablet1 = create_base_mock();
-    let (tablet1_address, _tablet1_server) = start("127.0.0.1:0", mock_tablet1)
-        .await
-        .expect("tablet 1 server should start");
+    let (tablet1_address, _tablet1_server) = start("127.0.0.1:0", mock_tablet1).await?;
 
     let mock_tablet2 = create_base_mock();
-    let (tablet2_address, _tablet2_server) = start("127.0.0.1:0", mock_tablet2)
-        .await
-        .expect("tablet 2 server should start");
+    let (tablet2_address, _tablet2_server) = start("127.0.0.1:0", mock_tablet2).await?;
 
     let spanner = Spanner::builder()
         .with_endpoint(gateway_address)
         .with_instance_type(InstanceType::Omni)
         .with_credentials(Anonymous::new().build())
         .build()
-        .await
-        .expect("spanner client should build");
+        .await?;
 
     let database_client = spanner
         .database_client("projects/test-project/instances/test-instance/databases/test-db")
         .build()
-        .await
-        .expect("database client should build");
+        .await?;
 
     let router = database_client
         .location_router()
@@ -1286,33 +1256,25 @@ async fn concurrent_transactions_bind_independent_affinities() -> anyhow::Result
 #[tokio_test_no_panics]
 async fn directed_read_routes_to_matching_location_and_role() -> anyhow::Result<()> {
     let mock_gateway = create_base_mock();
-    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway)
-        .await
-        .expect("gateway server should start");
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
 
     let mock_central = create_base_mock();
-    let (central_address, _central_server) = start("127.0.0.1:0", mock_central)
-        .await
-        .expect("central server should start");
+    let (central_address, _central_server) = start("127.0.0.1:0", mock_central).await?;
 
     let mock_east = create_base_mock();
-    let (east_address, _east_server) = start("127.0.0.1:0", mock_east)
-        .await
-        .expect("east server should start");
+    let (east_address, _east_server) = start("127.0.0.1:0", mock_east).await?;
 
     let spanner = Spanner::builder()
         .with_endpoint(gateway_address)
         .with_instance_type(InstanceType::Omni)
         .with_credentials(Anonymous::new().build())
         .build()
-        .await
-        .expect("spanner client should build");
+        .await?;
 
     let database_client = spanner
         .database_client("projects/test-project/instances/test-instance/databases/test-db")
         .build()
-        .await
-        .expect("database client should build");
+        .await?;
 
     // Ingest custom topology with central and east replicas
     let update = ModelCacheUpdate {
@@ -1402,23 +1364,19 @@ async fn directed_read_routes_to_matching_location_and_role() -> anyhow::Result<
 #[tokio_test_no_panics]
 async fn directed_read_exclude_replicas_filters_out_excluded_locations() -> anyhow::Result<()> {
     let mock_gateway = create_base_mock();
-    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway)
-        .await
-        .expect("gateway server should start");
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
 
     let spanner = Spanner::builder()
         .with_endpoint(gateway_address)
         .with_instance_type(InstanceType::Omni)
         .with_credentials(Anonymous::new().build())
         .build()
-        .await
-        .expect("spanner client should build");
+        .await?;
 
     let database_client = spanner
         .database_client("projects/test-project/instances/test-instance/databases/test-db")
         .build()
-        .await
-        .expect("database client should build");
+        .await?;
 
     let update = ModelCacheUpdate {
         database_id: 4005,
@@ -1506,33 +1464,25 @@ async fn directed_read_exclude_replicas_filters_out_excluded_locations() -> anyh
 #[tokio_test_no_panics]
 async fn multi_region_distance_tier_prioritizes_local_replicas() -> anyhow::Result<()> {
     let mock_gateway = create_base_mock();
-    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway)
-        .await
-        .expect("gateway server should start");
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
 
     let mock_local = create_base_mock();
-    let (local_address, _local_server) = start("127.0.0.1:0", mock_local)
-        .await
-        .expect("local server should start");
+    let (local_address, _local_server) = start("127.0.0.1:0", mock_local).await?;
 
     let mock_remote = create_base_mock();
-    let (remote_address, _remote_server) = start("127.0.0.1:0", mock_remote)
-        .await
-        .expect("remote server should start");
+    let (remote_address, _remote_server) = start("127.0.0.1:0", mock_remote).await?;
 
     let spanner = Spanner::builder()
         .with_endpoint(gateway_address)
         .with_instance_type(InstanceType::Omni)
         .with_credentials(Anonymous::new().build())
         .build()
-        .await
-        .expect("spanner client should build");
+        .await?;
 
     let database_client = spanner
         .database_client("projects/test-project/instances/test-instance/databases/test-db")
         .build()
-        .await
-        .expect("database client should build");
+        .await?;
 
     let router = database_client
         .location_router()
@@ -1616,33 +1566,25 @@ async fn multi_region_distance_tier_prioritizes_local_replicas() -> anyhow::Resu
 #[tokio_test_no_panics]
 async fn endpoint_cooldown_leader_on_cooldown_falls_back_to_gateway() -> anyhow::Result<()> {
     let mock_gateway = create_base_mock();
-    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway)
-        .await
-        .expect("gateway server should start");
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
 
     let mock_leader = create_base_mock();
-    let (leader_address, _leader_server) = start("127.0.0.1:0", mock_leader)
-        .await
-        .expect("leader server should start");
+    let (leader_address, _leader_server) = start("127.0.0.1:0", mock_leader).await?;
 
     let mock_follower = create_base_mock();
-    let (follower_address, _follower_server) = start("127.0.0.1:0", mock_follower)
-        .await
-        .expect("follower server should start");
+    let (follower_address, _follower_server) = start("127.0.0.1:0", mock_follower).await?;
 
     let spanner = Spanner::builder()
         .with_endpoint(gateway_address.clone())
         .with_instance_type(InstanceType::Omni)
         .with_credentials(Anonymous::new().build())
         .build()
-        .await
-        .expect("spanner client should build");
+        .await?;
 
     let database_client = spanner
         .database_client("projects/test-project/instances/test-instance/databases/test-db")
         .build()
-        .await
-        .expect("database client should build");
+        .await?;
 
     let router = database_client
         .location_router()
@@ -1694,28 +1636,22 @@ async fn endpoint_cooldown_leader_on_cooldown_falls_back_to_gateway() -> anyhow:
 #[tokio_test_no_panics]
 async fn endpoint_cooldown_recovers_after_clear() -> anyhow::Result<()> {
     let mock_gateway = create_base_mock();
-    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway)
-        .await
-        .expect("gateway server should start");
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
 
     let mock_leader = create_base_mock();
-    let (leader_address, _leader_server) = start("127.0.0.1:0", mock_leader)
-        .await
-        .expect("leader server should start");
+    let (leader_address, _leader_server) = start("127.0.0.1:0", mock_leader).await?;
 
     let spanner = Spanner::builder()
         .with_endpoint(gateway_address.clone())
         .with_instance_type(InstanceType::Omni)
         .with_credentials(Anonymous::new().build())
         .build()
-        .await
-        .expect("spanner client should build");
+        .await?;
 
     let database_client = spanner
         .database_client("projects/test-project/instances/test-instance/databases/test-db")
         .build()
-        .await
-        .expect("database client should build");
+        .await?;
 
     let router = database_client
         .location_router()
@@ -1766,33 +1702,25 @@ async fn endpoint_cooldown_recovers_after_clear() -> anyhow::Result<()> {
 #[tokio_test_no_panics]
 async fn all_replicas_on_cooldown_falls_back_to_gateway() -> anyhow::Result<()> {
     let mock_gateway = create_base_mock();
-    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway)
-        .await
-        .expect("gateway server should start");
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
 
     let mock_rep1 = create_base_mock();
-    let (rep1_address, _rep1_server) = start("127.0.0.1:0", mock_rep1)
-        .await
-        .expect("replica 1 server should start");
+    let (rep1_address, _rep1_server) = start("127.0.0.1:0", mock_rep1).await?;
 
     let mock_rep2 = create_base_mock();
-    let (rep2_address, _rep2_server) = start("127.0.0.1:0", mock_rep2)
-        .await
-        .expect("replica 2 server should start");
+    let (rep2_address, _rep2_server) = start("127.0.0.1:0", mock_rep2).await?;
 
     let spanner = Spanner::builder()
         .with_endpoint(gateway_address.clone())
         .with_instance_type(InstanceType::Omni)
         .with_credentials(Anonymous::new().build())
         .build()
-        .await
-        .expect("spanner client should build");
+        .await?;
 
     let database_client = spanner
         .database_client("projects/test-project/instances/test-instance/databases/test-db")
         .build()
-        .await
-        .expect("database client should build");
+        .await?;
 
     let router = database_client
         .location_router()
@@ -1837,23 +1765,19 @@ async fn all_replicas_on_cooldown_falls_back_to_gateway() -> anyhow::Result<()> 
 #[tokio_test_no_panics]
 async fn skipped_tablets_fall_back_to_gateway() -> anyhow::Result<()> {
     let mock_gateway = create_base_mock();
-    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway)
-        .await
-        .expect("gateway server should start");
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
 
     let spanner = Spanner::builder()
         .with_endpoint(gateway_address.clone())
         .with_instance_type(InstanceType::Omni)
         .with_credentials(Anonymous::new().build())
         .build()
-        .await
-        .expect("spanner client should build");
+        .await?;
 
     let database_client = spanner
         .database_client("projects/test-project/instances/test-instance/databases/test-db")
         .build()
-        .await
-        .expect("database client should build");
+        .await?;
 
     let update = ModelCacheUpdate {
         database_id: 111,
@@ -1908,23 +1832,19 @@ async fn skipped_tablets_fall_back_to_gateway() -> anyhow::Result<()> {
 #[tokio_test_no_panics]
 async fn split_updates_replaces_parent_ranges_and_routes_to_new_groups() -> anyhow::Result<()> {
     let mock_gateway = create_base_mock();
-    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway)
-        .await
-        .expect("gateway server should start");
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
 
     let spanner = Spanner::builder()
         .with_endpoint(gateway_address)
         .with_instance_type(InstanceType::Omni)
         .with_credentials(Anonymous::new().build())
         .build()
-        .await
-        .expect("spanner client should build");
+        .await?;
 
     let database_client = spanner
         .database_client("projects/test-project/instances/test-instance/databases/test-db")
         .build()
-        .await
-        .expect("database client should build");
+        .await?;
 
     // Ingest initial wide range [a, z)
     let initial_update = ModelCacheUpdate {
@@ -2055,7 +1975,7 @@ async fn split_updates_replaces_parent_ranges_and_routes_to_new_groups() -> anyh
 #[tokio_test_no_panics]
 async fn overlapping_key_range_stale_generation_rejected() -> anyhow::Result<()> {
     let mock = create_base_mock();
-    let (database_client, _spanner, _server) = setup_mock_database_client(mock).await;
+    let (database_client, _spanner, _server) = setup_mock_database_client(mock).await?;
 
     let router = database_client
         .location_router()
@@ -2153,7 +2073,7 @@ async fn overlapping_key_range_stale_generation_rejected() -> anyhow::Result<()>
 #[tokio_test_no_panics]
 async fn key_range_boundary_lookup_covering_split() -> anyhow::Result<()> {
     let mock = create_base_mock();
-    let (database_client, _spanner, _server) = setup_mock_database_client(mock).await;
+    let (database_client, _spanner, _server) = setup_mock_database_client(mock).await?;
 
     let router = database_client
         .location_router()
@@ -2320,7 +2240,7 @@ async fn composite_key_recipe_ingestion_and_extraction() -> anyhow::Result<()> {
         Ok(Response::from(receiver))
     });
 
-    let (database_client, _spanner, _server) = setup_mock_database_client(mock).await;
+    let (database_client, _spanner, _server) = setup_mock_database_client(mock).await?;
 
     let transaction = database_client.single_use().build();
     let statement = Statement::builder("SELECT AlbumTitle FROM Albums WHERE SingerId = 1").build();
@@ -2346,24 +2266,20 @@ async fn composite_key_recipe_ingestion_and_extraction() -> anyhow::Result<()> {
 #[tokio_test_no_panics]
 async fn concurrent_cache_updates_and_lookups_are_thread_safe() -> anyhow::Result<()> {
     let mock_gateway = create_base_mock();
-    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway)
-        .await
-        .expect("gateway server should start");
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
 
     let spanner = Spanner::builder()
         .with_endpoint(gateway_address)
         .with_instance_type(InstanceType::Omni)
         .with_credentials(Anonymous::new().build())
         .build()
-        .await
-        .expect("spanner client should build");
+        .await?;
 
     let database_client = Arc::new(
         spanner
             .database_client("projects/test-project/instances/test-instance/databases/test-db")
             .build()
-            .await
-            .expect("database client should build"),
+            .await?,
     );
 
     let client_clone1 = Arc::clone(&database_client);
@@ -2440,7 +2356,7 @@ async fn proactive_cache_subscriber_streams_update_to_router() -> anyhow::Result
         Ok(Response::from(stream_receiver))
     });
 
-    let (database_client, spanner, _server) = setup_mock_database_client(mock).await;
+    let (database_client, spanner, _server) = setup_mock_database_client(mock).await?;
 
     let cache_updater = database_client
         .cache_updater()
@@ -2480,10 +2396,6 @@ async fn proactive_cache_subscriber_streams_update_to_router() -> anyhow::Result
     Ok(())
 }
 
-// =========================================================================
-// Test Fixtures & Utilities
-// =========================================================================
-
 fn create_base_mock() -> MockSpanner {
     let mut mock = MockSpanner::new();
     mock.expect_create_session().returning(|_| {
@@ -2499,26 +2411,22 @@ fn create_base_mock() -> MockSpanner {
 
 async fn setup_mock_database_client(
     mock: MockSpanner,
-) -> (DatabaseClient, Spanner, tokio::task::JoinHandle<()>) {
-    let (address, server) = start("127.0.0.1:0", mock)
-        .await
-        .expect("mock server should start successfully");
+) -> anyhow::Result<(DatabaseClient, Spanner, tokio::task::JoinHandle<()>)> {
+    let (address, server) = start("127.0.0.1:0", mock).await?;
 
     let spanner = Spanner::builder()
         .with_endpoint(address)
         .with_instance_type(InstanceType::Omni)
         .with_credentials(Anonymous::new().build())
         .build()
-        .await
-        .expect("spanner client should build successfully");
+        .await?;
 
     let database_client = spanner
         .database_client("projects/test-project/instances/test-instance/databases/test-db")
         .build()
-        .await
-        .expect("database client should build successfully");
+        .await?;
 
-    (database_client, spanner, server)
+    Ok((database_client, spanner, server))
 }
 
 fn sample_int64_partial_result_set(
