@@ -322,10 +322,6 @@ pub mod internal {
     //! within.
     use super::RequestOptions;
 
-    /// Default channel capacity for request streaming channels.
-    #[cfg(google_cloud_unstable_gapic_streaming)]
-    pub const DEFAULT_REQUEST_CHANNEL_CAPACITY: usize = 16;
-
     /// Simplify implementation of the [super::RequestOptionsBuilder] trait in
     /// generated code.
     ///
