@@ -50,25 +50,3 @@ pub(crate) async fn create_table(
     Ok(())
 }
 
-#[allow(dead_code)]
-pub(crate) async fn read_table(
-    project_id: &str,
-    dataset_id: &str,
-    table_id: &str,
-) -> Result<Vec<UserRecord>> {
-    let client = BigQuery::builder().build().await?;
-    let query = format!("SELECT * FROM `{project_id}.{dataset_id}.{table_id}` ORDER BY name");
-    let mut rows = client
-        .query(query)
-        .with_project_id(project_id)
-        .set_labels(vec![(INSTANCE_LABEL, "true")])
-        .until_done()
-        .await?
-        .read();
-
-    let mut users = Vec::new();
-    while let Some(row) = rows.next().await {
-        users.push(row?.try_into()?);
-    }
-    Ok(users)
-}
