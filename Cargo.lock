@@ -5204,7 +5204,6 @@ dependencies = [
  "anyhow",
  "async-trait",
  "bytes",
- "futures",
  "google-cloud-gax",
  "google-cloud-gax-internal",
  "google-cloud-iam-v1",
@@ -5219,8 +5218,6 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_with",
- "tokio",
- "tokio-stream",
  "tracing",
  "uuid",
 ]
