@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use super::error::{AppendError, AppendResult};
-use super::generated::gapic_storage::model::append_rows_response::Response;
+use super::model::append_rows_response::Response;
 use super::model::{AppendRowsResponse, TableSchema};
 use crate::Error;
 

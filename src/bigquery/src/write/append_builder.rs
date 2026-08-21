@@ -13,9 +13,9 @@
 // limitations under the License.
 
 use super::append_future::AppendFuture;
-use super::append_response::to_result;
+use super::append_response::{AppendResponse, to_result};
 use super::error::{AppendError, AppendResult};
-use super::model::{AppendResponse, AppendRowsRequest};
+use super::model::AppendRowsRequest;
 use super::runner::WriteRequest;
 use crate::Error;
 use gaxi::prost::{FromProto, ToProto};

@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::append_response::AppendResponse;
 use super::error::{AppendError, AppendResult};
-use super::model::AppendResponse;
 use std::future::Future;
 use std::pin::Pin;
 use std::task::{Context, Poll};
