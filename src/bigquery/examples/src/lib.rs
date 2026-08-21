@@ -14,6 +14,7 @@
 
 pub mod job;
 pub mod query;
+pub mod write;
 
 use anyhow::Result;
 use futures::stream::StreamExt;
