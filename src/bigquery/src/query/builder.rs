@@ -16,8 +16,8 @@ use crate::generated::QueryRequest;
 use crate::model::JobReference;
 use crate::model::query_request::JobCreationMode;
 use crate::query::execution::RetryContext;
+use crate::query::retry_policy::{JobRetryPolicy, default_job_retry_policy};
 use crate::query::{CompleteQuery, Query as QueryHandle, Result};
-use crate::retry_policy::{JobRetryPolicy, default_job_retry_policy};
 use google_cloud_bigquery_v2::client::JobService;
 use std::sync::Arc;
 use uuid::Uuid;
@@ -27,7 +27,7 @@ pub(crate) const QUERY_REQUEST_ID_PREFIX: &str = "req_";
 
 /// A builder for configuring and executing a SQL query.
 ///
-/// [`BigQuery::query()`](crate::client::BigQuery::query) returns a [`Query`](crate::builder::bigquery::Query) builder.
+/// [`BigQuery::query()`](crate::client::BigQuery::query) returns a [`Query`] builder.
 ///
 /// Use this builder to configure query parameters, dataset defaults, geographic location,
 /// result limits, and caching before executing the query with [`send()`](Query::send)
@@ -80,7 +80,7 @@ impl Query {
     ///
     /// If you configured a default project ID on the
     /// [`BigQuery`][crate::client::BigQuery] client via
-    /// [`ClientBuilder::with_project_id`][crate::client_builder::ClientBuilder::with_project_id],
+    /// [`ClientBuilder::with_project_id`](crate::builder::bigquery::ClientBuilder::with_project_id),
     /// the query inherits it automatically. Calling this method overrides the
     /// project ID for this specific query.
     ///
@@ -107,13 +107,13 @@ impl Query {
 
     /// Executes the SQL query.
     ///
-    /// Returns a [`Query`](crate::Query) handle representing the query execution.
-    /// You can call [`until_done()`](crate::Query::until_done) on the returned handle
-    /// to wait for results, or inspect the initial [`metadata()`](crate::Query::metadata).
+    /// Returns a [`Query`](QueryHandle) handle representing the query execution.
+    /// You can call [`until_done()`](QueryHandle::until_done) on the returned handle
+    /// to wait for results, or inspect the initial [`metadata()`](QueryHandle::metadata).
     ///
     /// You must configure a target project ID on either the
     /// [`BigQuery`][crate::client::BigQuery] client via
-    /// [`ClientBuilder::with_project_id`][crate::client_builder::ClientBuilder::with_project_id]
+    /// [`ClientBuilder::with_project_id`](crate::builder::bigquery::ClientBuilder::with_project_id)
     /// or on this builder via [`with_project_id()`](Query::with_project_id).
     ///
     /// # Example

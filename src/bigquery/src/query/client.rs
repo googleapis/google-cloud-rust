@@ -12,13 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::ClientBuilderResult as BuilderResult;
 use crate::builder::bigquery::Query;
-use crate::client_builder::ClientBuilder;
 use crate::error::QueryError;
+use crate::query::client_builder::ClientBuilder;
 use crate::query::{Query as QueryHandle, Result as QueryResult};
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::JobReference;
+use google_cloud_gax::client_builder::Result as BuilderResult;
 use std::sync::Arc;
 
 /// A high-level BigQuery client for executing queries and managing jobs.
@@ -31,9 +31,9 @@ use std::sync::Arc;
 ///
 /// Common configuration customizations include:
 ///
-/// - [`with_project_id()`][crate::builder::bigquery::ClientBuilder::with_project_id]: Sets the default Google Cloud project ID for the client.
-/// - [`with_endpoint()`][crate::builder::bigquery::ClientBuilder::with_endpoint]: Overrides the default API endpoint (`https://bigquery.googleapis.com`). Useful when testing against mock servers or running in restricted network environments (for example, with VPC Service Controls).
-/// - [`with_credentials()`][crate::builder::bigquery::ClientBuilder::with_credentials]: Overrides the default Application Default Credentials with explicit or custom authentication credentials.
+/// - [`with_project_id()`][ClientBuilder::with_project_id]: Sets the default Google Cloud project ID for the client.
+/// - [`with_endpoint()`][ClientBuilder::with_endpoint]: Overrides the default API endpoint (`https://bigquery.googleapis.com`). Useful when testing against mock servers or running in restricted network environments (for example, with VPC Service Controls).
+/// - [`with_credentials()`][ClientBuilder::with_credentials]: Overrides the default Application Default Credentials with explicit or custom authentication credentials.
 ///
 /// # Pooling and Cloning
 ///
@@ -120,7 +120,7 @@ impl BigQuery {
     /// and execute the query.
     ///
     /// If you configured a default project ID on the client via
-    /// [`ClientBuilder::with_project_id`][crate::client_builder::ClientBuilder::with_project_id],
+    /// [`ClientBuilder::with_project_id`],
     /// the returned query builder inherits it automatically.
     ///
     /// Call [`Query::send()`] to start query execution, or [`Query::until_done()`]
@@ -161,9 +161,10 @@ impl BigQuery {
             })
     }
 
-    /// Binds an existing out-of-process query job reference to a high-level [`Query`](crate::Query) handle.
+    /// Binds an existing out-of-process query job reference to a high-level [`Query`](QueryHandle) handle.
     ///
-    /// Fetches the job metadata via [`JobService::get_job`] and initializes a [`Query`](crate::Query) handle.
+    /// Fetches the job metadata via [`JobService::get_job`] and initializes a
+    /// [`Query`](QueryHandle) handle.
     /// If `job_ref.project_id` is empty, it defaults to the client's billing project ID.
     ///
     /// # Arguments
