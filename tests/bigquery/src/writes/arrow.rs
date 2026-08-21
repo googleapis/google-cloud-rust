@@ -247,3 +247,99 @@ pub async fn committed(
 
     Ok(())
 }
+
+pub async fn buffered(
+    client: &Write,
+    project_id: &str,
+    dataset_id: &str,
+    table_id: &str,
+) -> Result<()> {
+    let table = format!("projects/{project_id}/datasets/{dataset_id}/tables/{table_id}");
+    let schema = create_test_schema();
+
+    // Create a writer for a buffered stream
+    let writer = client
+        .arrow(ArrowSchema::new().set_serialized_schema(serialize_schema(&schema)?))
+        .buffered(table)
+        .await?;
+
+    // Write the batches (no implicit commit yet)
+    let batch1 = create_test_batch(
+        schema.clone(),
+        vec!["Kelly", "Liam"],
+        vec![30, 32],
+        "buffered",
+    )?;
+    let resp1 = writer.append(batch1).set_offset(0).send().await?;
+    assert_eq!(resp1.offset, Some(0));
+
+    let batch2 = create_test_batch(schema.clone(), vec!["Mia"], vec![34], "buffered")?;
+    let resp2 = writer.append(batch2).set_offset(2).send().await?;
+    assert_eq!(resp2.offset, Some(2));
+
+    // Verify no writes have been committed
+    let users = read_writes_table(project_id, dataset_id, table_id, "buffered").await?;
+    assert!(users.is_empty(), "{users:?}");
+
+    // Flush to offset 2 (Kelly and Liam)
+    let flush1 = writer.flush(2).await?;
+    assert_eq!(flush1.offset, 2);
+
+    // Verify first batch is visible
+    let users = read_writes_table(project_id, dataset_id, table_id, "buffered").await?;
+    assert_eq!(
+        users,
+        vec![
+            WriteUserRecord {
+                name: "Kelly".to_string(),
+                age: 30,
+                test: "buffered".to_string()
+            },
+            WriteUserRecord {
+                name: "Liam".to_string(),
+                age: 32,
+                test: "buffered".to_string()
+            },
+        ]
+    );
+
+    // Flush to offset 3 (Mia)
+    let flush2 = writer.flush(3).await?;
+    assert_eq!(flush2.offset, 3);
+
+    let users = read_writes_table(project_id, dataset_id, table_id, "buffered").await?;
+    assert_eq!(
+        users,
+        vec![
+            WriteUserRecord {
+                name: "Kelly".to_string(),
+                age: 30,
+                test: "buffered".to_string()
+            },
+            WriteUserRecord {
+                name: "Liam".to_string(),
+                age: 32,
+                test: "buffered".to_string()
+            },
+            WriteUserRecord {
+                name: "Mia".to_string(),
+                age: 34,
+                test: "buffered".to_string()
+            },
+        ]
+    );
+
+    // Finalize the stream
+    writer.finalize().await?;
+
+    // Verify that appending to a finalized stream fails
+    let batch3 = create_test_batch(schema.clone(), vec!["Noah"], vec![36], "buffered")?;
+    let _err = writer
+        .append(batch3)
+        .set_offset(3)
+        .send()
+        .await
+        .expect_err("Appending to a finalized stream should fail");
+
+    Ok(())
+}

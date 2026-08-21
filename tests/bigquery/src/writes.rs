@@ -39,7 +39,8 @@ pub async fn run_writes() -> Result<()> {
         let client = Write::builder().build().await?;
         arrow::basic(&client, &project_id, &dataset_id, table_id).await?;
         arrow::pending(&client, &project_id, &dataset_id, table_id).await?;
-        arrow::committed(&client, &project_id, &dataset_id, table_id).await
+        arrow::committed(&client, &project_id, &dataset_id, table_id).await?;
+        arrow::buffered(&client, &project_id, &dataset_id, table_id).await
     }
     .await;
 
