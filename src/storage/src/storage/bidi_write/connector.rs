@@ -744,6 +744,7 @@ mod tests {
 
     #[tokio::test]
     async fn connect_open_and_append_sends_payload_in_first_request() -> Result<()> {
+        // Arrange
         let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(5);
         let stream = TonicResponse::from(rx);
 
@@ -790,9 +791,12 @@ mod tests {
         let chunk = bytes::Bytes::from_static(b"hello world");
         let expected_crc = crc32c::crc32c(&chunk);
 
+        // Act
         let (response, _connection) = connector
             .connect_open_and_append(req, Some(chunk.clone()))
             .await?;
+
+        // Assert
         assert_eq!(response, initial);
 
         let mut rx = receivers
