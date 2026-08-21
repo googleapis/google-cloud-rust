@@ -27,8 +27,10 @@ use crate::model::{
 use crate::routing::key_range_cache::RangeMode;
 use crate::value::{ToValue, Value};
 use bytes::Bytes;
+use serde_json::{Number as JsonNumber, Value as JsonValue};
 use std::collections::BTreeMap;
 use std::iter::Peekable;
+use std::mem;
 
 /// Unescapes C-style octal escape sequences (e.g. `\206`, `\310`, `\002`), hex escapes (e.g. `\x1b`, `\x0A`),
 /// and standard ASCII escapes from Protobuf `textproto` byte strings.
@@ -139,11 +141,11 @@ pub(crate) fn skip_block<'a, I: Iterator<Item = &'a str>>(lines: &mut Peekable<I
     }
 }
 
-/// Converts a JSON value (`serde_json::Value`) into a Spanner [`Value`].
-pub(crate) fn json_to_spanner_value(json_value: &serde_json::Value) -> Value {
+/// Converts a JSON value ([`JsonValue`]) into a Spanner [`Value`].
+pub(crate) fn json_to_spanner_value(json_value: &JsonValue) -> Value {
     match json_value {
-        serde_json::Value::Bool(boolean_value) => boolean_value.to_value(),
-        serde_json::Value::Number(number) => {
+        JsonValue::Bool(boolean_value) => boolean_value.to_value(),
+        JsonValue::Number(number) => {
             if let Some(integer) = number.as_i64() {
                 integer.to_value()
             } else if let Some(float_number) = number.as_f64() {
@@ -152,14 +154,14 @@ pub(crate) fn json_to_spanner_value(json_value: &serde_json::Value) -> Value {
                 Value::null()
             }
         }
-        serde_json::Value::String(string_value) => {
+        JsonValue::String(string_value) => {
             if let Ok(integer) = string_value.parse::<i64>() {
                 integer.to_value()
             } else {
                 string_value.as_str().to_value()
             }
         }
-        serde_json::Value::Null => Value::null(),
+        JsonValue::Null => Value::null(),
         _ => Value::null(),
     }
 }
@@ -207,18 +209,26 @@ pub(crate) fn parse_null_order(null_order_string: &str) -> Option<NullOrder> {
     }
 }
 
-/// Parses a constant value (`string_value`, `number_value`, `bool_value`) from a textproto line.
-pub(crate) fn parse_constant_value(trimmed: &str) -> Option<serde_json::Value> {
-    if let Some(string_val) = extract_value(trimmed, "string_value:") {
-        Some(serde_json::Value::String(string_val.to_string()))
-    } else if let Some(number_val) = extract_value(trimmed, "number_value:") {
-        number_val
-            .parse::<i64>()
-            .ok()
-            .map(|num| serde_json::Value::Number(num.into()))
-    } else {
-        extract_value(trimmed, "bool_value:")
-            .map(|bool_val| serde_json::Value::Bool(bool_val == "true"))
+/// Parses a constant value (`string_value`, `number_value`, `bool_value`, `null_value`) from a textproto line.
+pub(crate) fn parse_constant_value(trimmed: &str) -> Option<JsonValue> {
+    let (field_name, field_value) = trimmed.split_once(':')?;
+    let value = field_value.trim().trim_matches('"');
+    match field_name.trim() {
+        "string_value" => Some(JsonValue::String(value.to_string())),
+        "number_value" => {
+            if let Ok(integer) = value.parse::<i64>() {
+                Some(JsonValue::Number(integer.into()))
+            } else {
+                value
+                    .parse::<f64>()
+                    .ok()
+                    .and_then(JsonNumber::from_f64)
+                    .map(JsonValue::Number)
+            }
+        }
+        "bool_value" => Some(JsonValue::Bool(value == "true")),
+        "null_value" => Some(JsonValue::Null),
+        _ => None,
     }
 }
 
@@ -245,30 +255,45 @@ pub(crate) fn parse_part_block<'a, I: Iterator<Item = &'a str>>(lines: &mut Peek
             }
         }
 
-        if let Some(tag_string) = extract_value(trimmed, "tag:") {
-            if let Ok(tag_number) = tag_string.parse::<u32>() {
-                tag = tag_number;
+        if let Some((field, value)) = trimmed.split_once(':') {
+            let field = field.trim();
+            let value = value.trim().trim_matches('"');
+            match field {
+                "tag" => {
+                    if let Ok(tag_number) = value.parse::<u32>() {
+                        tag = tag_number;
+                    }
+                }
+                "order" => {
+                    if let Some(parsed_order) = parse_order(value) {
+                        order = parsed_order;
+                    }
+                }
+                "null_order" => {
+                    if let Some(parsed_null_order) = parse_null_order(value) {
+                        null_order = parsed_null_order;
+                    }
+                }
+                "code" => {
+                    type_code = parse_type_code(value);
+                }
+                "identifier" => {
+                    identifier = Some(value.to_string());
+                }
+                "struct_identifiers" => {
+                    if let Ok(id_val) = value.parse::<i32>() {
+                        struct_identifiers.push(id_val);
+                    }
+                }
+                "random" => {
+                    random = value == "true";
+                }
+                _ => {
+                    if let Some(constant) = parse_constant_value(trimmed) {
+                        constant_val = Some(constant);
+                    }
+                }
             }
-        } else if let Some(order_string) = extract_value(trimmed, "order:") {
-            if let Some(parsed_order) = parse_order(order_string) {
-                order = parsed_order;
-            }
-        } else if let Some(null_order_string) = extract_value(trimmed, "null_order:") {
-            if let Some(parsed_null_order) = parse_null_order(null_order_string) {
-                null_order = parsed_null_order;
-            }
-        } else if let Some(code_string) = extract_value(trimmed, "code:") {
-            type_code = parse_type_code(code_string);
-        } else if let Some(id_string) = extract_value(trimmed, "identifier:") {
-            identifier = Some(id_string.to_string());
-        } else if let Some(struct_id_string) = extract_value(trimmed, "struct_identifiers:") {
-            if let Ok(id_val) = struct_id_string.parse::<i32>() {
-                struct_identifiers.push(id_val);
-            }
-        } else if let Some(random_string) = extract_value(trimmed, "random:") {
-            random = random_string == "true";
-        } else if let Some(constant) = parse_constant_value(trimmed) {
-            constant_val = Some(constant);
         }
     }
 
@@ -324,10 +349,10 @@ pub(crate) fn parse_recipe_block<'a, I: Iterator<Item = &'a str>>(
             recipe = recipe.set_table_name(table_name);
         } else if let Some(index_name) = extract_value(trimmed, "index_name:") {
             recipe = recipe.set_index_name(index_name);
-        } else if let Some(op_uid_str) = extract_value(trimmed, "operation_uid:")
-            && let Ok(op_uid) = op_uid_str.parse::<u64>()
+        } else if let Some(operation_uid_string) = extract_value(trimmed, "operation_uid:")
+            && let Ok(operation_uid) = operation_uid_string.parse::<u64>()
         {
-            recipe = recipe.set_target(Target::OperationUid(op_uid));
+            recipe = recipe.set_target(Target::OperationUid(operation_uid));
         }
     }
 
@@ -346,8 +371,8 @@ pub(crate) fn parse_recipes_block<'a, I: Iterator<Item = &'a str>>(
         let trimmed = line.trim();
         if trimmed.starts_with("recipe {") {
             recipes.push(parse_recipe_block(lines));
-        } else if let Some(gen_str) = extract_value(trimmed, "schema_generation:") {
-            schema_generation = Bytes::from(unescape_bytes(gen_str));
+        } else if let Some(generation_string) = extract_value(trimmed, "schema_generation:") {
+            schema_generation = Bytes::from(unescape_bytes(generation_string));
         } else if trimmed.ends_with('{') {
             depth += 1;
         } else if trimmed == "}" {
@@ -389,24 +414,25 @@ pub(crate) fn parse_tablet_block<'a, I: Iterator<Item = &'a str>>(
             }
         }
 
-        if let Some(string_value) = extract_value(trimmed, "tablet_uid:") {
-            tablet_uid = string_value.parse::<u64>().unwrap_or(0);
-        } else if let Some(string_value) = extract_value(trimmed, "server_address:") {
-            server_address = string_value.to_string();
-        } else if let Some(string_value) = extract_value(trimmed, "location:") {
-            location = string_value.to_string();
-        } else if let Some(string_value) = extract_value(trimmed, "role:") {
-            role = match string_value {
-                "READ_WRITE" => Role::ReadWrite,
-                "READ_ONLY" => Role::ReadOnly,
-                _ => Role::Unspecified,
-            };
-        } else if let Some(string_value) = extract_value(trimmed, "incarnation:") {
-            incarnation = Bytes::from(unescape_bytes(string_value));
-        } else if let Some(string_value) = extract_value(trimmed, "distance:") {
-            distance = string_value.parse::<u32>().unwrap_or(0);
-        } else if let Some(string_value) = extract_value(trimmed, "skip:") {
-            skip = string_value == "true";
+        if let Some((field, value)) = trimmed.split_once(':') {
+            let field = field.trim();
+            let value = value.trim().trim_matches('"');
+            match field {
+                "tablet_uid" => tablet_uid = value.parse::<u64>().unwrap_or(0),
+                "server_address" => server_address = value.to_string(),
+                "location" => location = value.to_string(),
+                "role" => {
+                    role = match value {
+                        "READ_WRITE" => Role::ReadWrite,
+                        "READ_ONLY" => Role::ReadOnly,
+                        _ => Role::Unspecified,
+                    };
+                }
+                "incarnation" => incarnation = Bytes::from(unescape_bytes(value)),
+                "distance" => distance = value.parse::<u32>().unwrap_or(0),
+                "skip" => skip = value == "true",
+                _ => {}
+            }
         }
     }
 
@@ -434,12 +460,15 @@ pub(crate) fn parse_group_block<'a, I: Iterator<Item = &'a str>>(lines: &mut Pee
         let trimmed = line.trim();
         if trimmed.starts_with("tablets {") {
             tablets.push(parse_tablet_block(lines));
-        } else if let Some(string_value) = extract_value(trimmed, "group_uid:") {
-            group_uid = string_value.parse::<u64>().unwrap_or(0);
-        } else if let Some(string_value) = extract_value(trimmed, "generation:") {
-            generation = Bytes::from(unescape_bytes(string_value));
-        } else if let Some(string_value) = extract_value(trimmed, "leader_index:") {
-            leader_index = string_value.parse::<i32>().unwrap_or(-1);
+        } else if let Some((field, value)) = trimmed.split_once(':') {
+            let field = field.trim();
+            let value = value.trim().trim_matches('"');
+            match field {
+                "group_uid" => group_uid = value.parse::<u64>().unwrap_or(0),
+                "generation" => generation = Bytes::from(unescape_bytes(value)),
+                "leader_index" => leader_index = value.parse::<i32>().unwrap_or(-1),
+                _ => {}
+            }
         } else if trimmed.ends_with('{') {
             depth += 1;
         } else if trimmed == "}" {
@@ -479,16 +508,17 @@ pub(crate) fn parse_range_block<'a, I: Iterator<Item = &'a str>>(lines: &mut Pee
             }
         }
 
-        if let Some(string_value) = extract_value(trimmed, "start_key:") {
-            start_key = Bytes::from(unescape_bytes(string_value));
-        } else if let Some(string_value) = extract_value(trimmed, "limit_key:") {
-            limit_key = Bytes::from(unescape_bytes(string_value));
-        } else if let Some(string_value) = extract_value(trimmed, "group_uid:") {
-            group_uid = string_value.parse::<u64>().unwrap_or(0);
-        } else if let Some(string_value) = extract_value(trimmed, "split_id:") {
-            split_id = string_value.parse::<u64>().unwrap_or(0);
-        } else if let Some(string_value) = extract_value(trimmed, "generation:") {
-            generation = Bytes::from(unescape_bytes(string_value));
+        if let Some((field, value)) = trimmed.split_once(':') {
+            let field = field.trim();
+            let value = value.trim().trim_matches('"');
+            match field {
+                "start_key" => start_key = Bytes::from(unescape_bytes(value)),
+                "limit_key" => limit_key = Bytes::from(unescape_bytes(value)),
+                "group_uid" => group_uid = value.parse::<u64>().unwrap_or(0),
+                "split_id" => split_id = value.parse::<u64>().unwrap_or(0),
+                "generation" => generation = Bytes::from(unescape_bytes(value)),
+                _ => {}
+            }
         }
     }
 
@@ -624,12 +654,12 @@ pub(crate) fn parse_mutation_block<'a, I: Iterator<Item = &'a str>>(
             if in_values_item {
                 in_values_item = false;
                 if !current_row_values.is_empty() {
-                    current_rows.push(std::mem::take(&mut current_row_values));
+                    current_rows.push(mem::take(&mut current_row_values));
                 }
             } else if in_delete_keys {
                 in_delete_keys = false;
                 if !current_key_values.is_empty() {
-                    delete_keys.push(std::mem::take(&mut current_key_values));
+                    delete_keys.push(mem::take(&mut current_key_values));
                 }
             } else if in_key_block && depth == 3 {
                 in_key_block = false;
@@ -642,10 +672,10 @@ pub(crate) fn parse_mutation_block<'a, I: Iterator<Item = &'a str>>(
             {
                 let mut range = ProtoKeyRange::new();
                 if !current_range_start_closed.is_empty() {
-                    range = range.set_start_closed(std::mem::take(&mut current_range_start_closed));
+                    range = range.set_start_closed(mem::take(&mut current_range_start_closed));
                 }
                 if !current_range_start_open.is_empty() {
-                    range = range.set_start_open(std::mem::take(&mut current_range_start_open));
+                    range = range.set_start_open(mem::take(&mut current_range_start_open));
                 }
                 delete_ranges.push(range);
             }
@@ -662,7 +692,7 @@ pub(crate) fn parse_mutation_block<'a, I: Iterator<Item = &'a str>>(
         } else if trimmed == "all: true" {
             delete_all = true;
         } else if let Some(string_value) = extract_value(trimmed, "string_value:") {
-            let json_val = serde_json::Value::String(string_value.to_string());
+            let json_val = JsonValue::String(string_value.to_string());
             if in_range_start_closed {
                 current_range_start_closed.push(json_val);
             } else if in_range_start_open {
@@ -782,21 +812,26 @@ pub(crate) fn parse_recipe_test_block<'a, I: Iterator<Item = &'a str>>(
             mutation = parse_mutation_block(lines);
         } else if trimmed.starts_with("key_range {") || trimmed.starts_with("key_set {") {
             is_point_key_or_query_or_mutation = false;
-        } else if in_query_params && let Some(key_str) = extract_value(trimmed, "key:") {
-            current_field_key = Some(key_str.to_string());
-        } else if in_query_params && let Some(val_str) = extract_value(trimmed, "string_value:") {
+        } else if in_query_params && let Some(key_string) = extract_value(trimmed, "key:") {
+            current_field_key = Some(key_string.to_string());
+        } else if in_query_params
+            && let Some(value_string) = extract_value(trimmed, "string_value:")
+        {
             if let (Some(params), Some(key)) = (query_params.as_mut(), current_field_key.take()) {
-                params.insert(key, val_str.to_value());
+                params.insert(key, value_string.to_value());
             }
-        } else if in_query_params && let Some(val_str) = extract_value(trimmed, "bool_value:") {
+        } else if in_query_params && let Some(value_string) = extract_value(trimmed, "bool_value:")
+        {
             if let (Some(params), Some(key)) = (query_params.as_mut(), current_field_key.take()) {
-                params.insert(key, (val_str == "true").to_value());
+                params.insert(key, (value_string == "true").to_value());
             }
-        } else if in_query_params && let Some(val_str) = extract_value(trimmed, "number_value:") {
+        } else if in_query_params
+            && let Some(value_string) = extract_value(trimmed, "number_value:")
+        {
             if let (Some(params), Some(key)) = (query_params.as_mut(), current_field_key.take())
-                && let Ok(num) = val_str.parse::<f64>()
+                && let Ok(number) = value_string.parse::<f64>()
             {
-                params.insert(key, num.to_value());
+                params.insert(key, number.to_value());
             }
         } else if in_query_params && trimmed == "null_value: NULL_VALUE" {
             if let (Some(params), Some(key)) = (query_params.as_mut(), current_field_key.take()) {
@@ -815,8 +850,8 @@ pub(crate) fn parse_recipe_test_block<'a, I: Iterator<Item = &'a str>>(
         } else if !in_query_params
             && let Some(number_string) = extract_value(trimmed, "number_value:")
         {
-            if let Ok(num) = number_string.parse::<f64>() {
-                values.push(num.to_value());
+            if let Ok(number) = number_string.parse::<f64>() {
+                values.push(number.to_value());
             }
         } else if !in_query_params && trimmed == "null_value: NULL_VALUE" {
             values.push(Value::null());
@@ -849,8 +884,8 @@ pub(crate) fn parse_recipe_test_case_block<'a, I: Iterator<Item = &'a str>>(
 
     while let Some(line) = lines.next() {
         let trimmed = line.trim();
-        if let Some(n) = extract_value(trimmed, "name:") {
-            name = n.to_string();
+        if let Some(case_name) = extract_value(trimmed, "name:") {
+            name = case_name.to_string();
         } else if trimmed.starts_with("part {") {
             parts.push(parse_part_block(lines));
         } else if trimmed.starts_with("test {") {
@@ -947,16 +982,17 @@ pub(crate) fn parse_range_cache_result_block<'a, I: Iterator<Item = &'a str>>(
             }
         }
 
-        if let Some(string_value) = extract_value(trimmed, "key:") {
-            result.key = Some(unescape_bytes(string_value));
-        } else if let Some(string_value) = extract_value(trimmed, "limit_key:") {
-            result.limit_key = Some(unescape_bytes(string_value));
-        } else if let Some(string_value) = extract_value(trimmed, "group_uid:") {
-            result.group_uid = string_value.parse::<u64>().ok();
-        } else if let Some(string_value) = extract_value(trimmed, "split_id:") {
-            result.split_id = string_value.parse::<u64>().ok();
-        } else if let Some(string_value) = extract_value(trimmed, "tablet_uid:") {
-            result.tablet_uid = string_value.parse::<u64>().ok();
+        if let Some((field, value)) = trimmed.split_once(':') {
+            let field = field.trim();
+            let value = value.trim().trim_matches('"');
+            match field {
+                "key" => result.key = Some(unescape_bytes(value)),
+                "limit_key" => result.limit_key = Some(unescape_bytes(value)),
+                "group_uid" => result.group_uid = value.parse::<u64>().ok(),
+                "split_id" => result.split_id = value.parse::<u64>().ok(),
+                "tablet_uid" => result.tablet_uid = value.parse::<u64>().ok(),
+                _ => {}
+            }
         }
     }
 
@@ -981,22 +1017,24 @@ pub(crate) fn parse_range_cache_query_test_block<'a, I: Iterator<Item = &'a str>
             expected_result = parse_range_cache_result_block(lines);
         } else if trimmed.starts_with("directed_read_options {") {
             skip_block(lines);
-        } else if let Some(string_value) = extract_value(trimmed, "key:") {
-            key = Some(unescape_bytes(string_value));
-        } else if let Some(string_value) = extract_value(trimmed, "limit_key:") {
-            limit_key = Some(unescape_bytes(string_value));
-        } else if let Some(string_value) =
-            extract_value(trimmed, "min_cache_entries_for_random_pick:")
-        {
-            min_cache_entries_for_random_pick = string_value.parse::<usize>().ok();
-        } else if let Some(string_value) = extract_value(trimmed, "range_mode:") {
-            if string_value == "PICK_RANDOM" {
-                range_mode = RangeMode::PickRandom;
+        } else if let Some((field, value)) = trimmed.split_once(':') {
+            let field = field.trim();
+            let value = value.trim().trim_matches('"');
+            match field {
+                "key" => key = Some(unescape_bytes(value)),
+                "limit_key" => limit_key = Some(unescape_bytes(value)),
+                "min_cache_entries_for_random_pick" => {
+                    min_cache_entries_for_random_pick = value.parse::<usize>().ok()
+                }
+                "range_mode" => {
+                    if value == "PICK_RANDOM" {
+                        range_mode = RangeMode::PickRandom;
+                    }
+                }
+                "leader" => leader = value == "true",
+                "server" => expected_server = Some(value.to_string()),
+                _ => {}
             }
-        } else if let Some(string_value) = extract_value(trimmed, "leader:") {
-            leader = string_value == "true";
-        } else if let Some(string_value) = extract_value(trimmed, "server:") {
-            expected_server = Some(string_value.to_string());
         } else if trimmed.ends_with('{') {
             depth += 1;
         } else if trimmed == "}" {
@@ -1157,7 +1195,7 @@ pub(crate) struct ParsedKeyRange {
 #[derive(Debug, Default, Clone, PartialEq, Eq)]
 pub(crate) struct ParsedSqlRequest {
     pub sql: String,
-    pub params: BTreeMap<String, serde_json::Value>,
+    pub params: BTreeMap<String, JsonValue>,
     pub prefer_leader: bool,
 }
 
@@ -1181,7 +1219,7 @@ pub(crate) struct ParsedRoutingHint {
 }
 
 pub(crate) fn update_range_boundary_value(
-    string_val: &str,
+    string_value: &str,
     current_range: &mut ParsedKeyRange,
     in_start_closed: bool,
     in_start_open: bool,
@@ -1189,13 +1227,13 @@ pub(crate) fn update_range_boundary_value(
     in_end_open: bool,
 ) {
     if in_start_closed && let StartKeyType::Closed(vector) = &mut current_range.start {
-        vector.push(string_val.to_string());
+        vector.push(string_value.to_string());
     } else if in_start_open && let StartKeyType::Open(vector) = &mut current_range.start {
-        vector.push(string_val.to_string());
+        vector.push(string_value.to_string());
     } else if in_end_closed && let EndKeyType::Closed(vector) = &mut current_range.end {
-        vector.push(string_val.to_string());
+        vector.push(string_value.to_string());
     } else if in_end_open && let EndKeyType::Open(vector) = &mut current_range.end {
-        vector.push(string_val.to_string());
+        vector.push(string_value.to_string());
     }
 }
 
@@ -1219,12 +1257,18 @@ pub(crate) fn parse_routing_hint_block<'a, I: Iterator<Item = &'a str>>(
                     if sub_depth == 0 {
                         break;
                     }
-                } else if let Some(val) = extract_value(sub_trimmed, "tablet_uid:") {
-                    if let Ok(uid) = val.parse::<u64>() {
-                        skipped.tablet_uid = uid;
+                } else if let Some((sub_field, sub_value)) = sub_trimmed.split_once(':') {
+                    let sub_field = sub_field.trim();
+                    let sub_value = sub_value.trim().trim_matches('"');
+                    match sub_field {
+                        "tablet_uid" => {
+                            if let Ok(uid) = sub_value.parse::<u64>() {
+                                skipped.tablet_uid = uid;
+                            }
+                        }
+                        "incarnation" => skipped.incarnation = Some(unescape_bytes(sub_value)),
+                        _ => {}
                     }
-                } else if let Some(val) = extract_value(sub_trimmed, "incarnation:") {
-                    skipped.incarnation = Some(unescape_bytes(val));
                 }
             }
             hint.skipped_tablet_uids.push(skipped);
@@ -1235,22 +1279,20 @@ pub(crate) fn parse_routing_hint_block<'a, I: Iterator<Item = &'a str>>(
             if depth == 0 {
                 break;
             }
-        } else if let Some(val) = extract_value(trimmed, "operation_uid:") {
-            hint.operation_uid = val.parse::<u64>().ok();
-        } else if let Some(val) = extract_value(trimmed, "database_id:") {
-            hint.database_id = val.parse::<u64>().ok();
-        } else if let Some(val) = extract_value(trimmed, "schema_generation:") {
-            hint.schema_generation = Some(unescape_bytes(val));
-        } else if let Some(val) = extract_value(trimmed, "key:") {
-            hint.key = Some(unescape_bytes(val));
-        } else if let Some(val) = extract_value(trimmed, "limit_key:") {
-            hint.limit_key = Some(unescape_bytes(val));
-        } else if let Some(val) = extract_value(trimmed, "group_uid:") {
-            hint.group_uid = val.parse::<u64>().ok();
-        } else if let Some(val) = extract_value(trimmed, "split_id:") {
-            hint.split_id = val.parse::<u64>().ok();
-        } else if let Some(val) = extract_value(trimmed, "tablet_uid:") {
-            hint.tablet_uid = val.parse::<u64>().ok();
+        } else if let Some((field, value)) = trimmed.split_once(':') {
+            let field = field.trim();
+            let value = value.trim().trim_matches('"');
+            match field {
+                "operation_uid" => hint.operation_uid = value.parse::<u64>().ok(),
+                "database_id" => hint.database_id = value.parse::<u64>().ok(),
+                "schema_generation" => hint.schema_generation = Some(unescape_bytes(value)),
+                "key" => hint.key = Some(unescape_bytes(value)),
+                "limit_key" => hint.limit_key = Some(unescape_bytes(value)),
+                "group_uid" => hint.group_uid = value.parse::<u64>().ok(),
+                "split_id" => hint.split_id = value.parse::<u64>().ok(),
+                "tablet_uid" => hint.tablet_uid = value.parse::<u64>().ok(),
+                _ => {}
+            }
         }
     }
 
@@ -1314,12 +1356,10 @@ pub(crate) fn parse_read_request_block<'a, I: Iterator<Item = &'a str>>(
             } else if in_end_open && depth <= 3 {
                 in_end_open = false;
             } else if in_ranges && depth <= 2 {
-                read.key_set.ranges.push(std::mem::take(&mut current_range));
+                read.key_set.ranges.push(mem::take(&mut current_range));
                 in_ranges = false;
             } else if in_keys && depth <= 2 {
-                read.key_set
-                    .keys
-                    .push(std::mem::take(&mut current_key_tuple));
+                read.key_set.keys.push(mem::take(&mut current_key_tuple));
                 in_keys = false;
             } else if in_key_set && depth <= 1 {
                 in_key_set = false;
@@ -1329,30 +1369,32 @@ pub(crate) fn parse_read_request_block<'a, I: Iterator<Item = &'a str>>(
             }
         }
 
-        if let Some(table) = extract_value(trimmed, "table:") {
-            read.table = table.to_string();
-        } else if let Some(index) = extract_value(trimmed, "index:") {
-            read.index = index.to_string();
-        } else if let Some(col) = extract_value(trimmed, "columns:") {
-            read.columns.push(col.to_string());
-        } else if let Some(all_val) = extract_value(trimmed, "all:") {
-            read.key_set.all = all_val == "true";
-        } else if let Some(string_val) = extract_value(trimmed, "string_value:") {
-            update_range_boundary_value(
-                string_val,
-                &mut current_range,
-                in_start_closed,
-                in_start_open,
-                in_end_closed,
-                in_end_open,
-            );
-            if in_keys {
-                current_key_tuple.push(string_val.to_string());
+        if let Some((field, value)) = trimmed.split_once(':') {
+            let field = field.trim();
+            let value = value.trim().trim_matches('"');
+            match field {
+                "table" => read.table = value.to_string(),
+                "index" => read.index = value.to_string(),
+                "columns" => read.columns.push(value.to_string()),
+                "all" => read.key_set.all = value == "true",
+                "string_value" => {
+                    update_range_boundary_value(
+                        value,
+                        &mut current_range,
+                        in_start_closed,
+                        in_start_open,
+                        in_end_closed,
+                        in_end_open,
+                    );
+                    if in_keys {
+                        current_key_tuple.push(value.to_string());
+                    }
+                }
+                "strong" if value == "true" => {
+                    read.prefer_leader = true;
+                }
+                _ => {}
             }
-        } else if let Some(strong) = extract_value(trimmed, "strong:")
-            && strong == "true"
-        {
-            read.prefer_leader = true;
         }
     }
 
@@ -1380,14 +1422,14 @@ pub(crate) fn parse_sql_request_block<'a, I: Iterator<Item = &'a str>>(
                     if list_depth == 0 {
                         break;
                     }
-                } else if let Some(param_val) = parse_constant_value(list_trimmed) {
-                    list_elements.push(param_val);
+                } else if let Some(parameter_value) = parse_constant_value(list_trimmed) {
+                    list_elements.push(parameter_value);
                 }
             }
             if !current_field_key.is_empty() {
                 sql.params.insert(
-                    std::mem::take(&mut current_field_key),
-                    serde_json::Value::Array(list_elements),
+                    mem::take(&mut current_field_key),
+                    JsonValue::Array(list_elements),
                 );
             }
         } else if trimmed.ends_with('{') {
@@ -1397,19 +1439,24 @@ pub(crate) fn parse_sql_request_block<'a, I: Iterator<Item = &'a str>>(
             if depth == 0 {
                 break;
             }
-        } else if let Some(query) = extract_value(trimmed, "sql:") {
-            sql.sql = query.to_string();
-        } else if let Some(param_key) = extract_value(trimmed, "key:") {
-            current_field_key = param_key.to_string();
-        } else if let Some(param_val) = parse_constant_value(trimmed) {
-            if !current_field_key.is_empty() {
-                sql.params
-                    .insert(std::mem::take(&mut current_field_key), param_val);
+        } else if let Some((field, value)) = trimmed.split_once(':') {
+            let field = field.trim();
+            let value_unquoted = value.trim().trim_matches('"');
+            match field {
+                "sql" => sql.sql = value_unquoted.to_string(),
+                "key" => current_field_key = value_unquoted.to_string(),
+                "strong" if value_unquoted == "true" => {
+                    sql.prefer_leader = true;
+                }
+                _ => {
+                    if let Some(parameter_value) = parse_constant_value(trimmed)
+                        && !current_field_key.is_empty()
+                    {
+                        sql.params
+                            .insert(mem::take(&mut current_field_key), parameter_value);
+                    }
+                }
             }
-        } else if let Some(strong) = extract_value(trimmed, "strong:")
-            && strong == "true"
-        {
-            sql.prefer_leader = true;
         }
     }
 
@@ -1446,14 +1493,17 @@ pub(crate) fn parse_finder_event_block<'a, I: Iterator<Item = &'a str>>(
             }
         }
 
-        if let Some(n) = extract_value(trimmed, "name:") {
-            name = n.to_string();
-        } else if let Some(server) = extract_value(trimmed, "server:") {
-            expected_server = Some(server.to_string());
-        } else if let Some(unhealthy) = extract_value(trimmed, "unhealthy_servers:")
-            .or_else(|| extract_value(trimmed, "unhealthy_server:"))
-        {
-            unhealthy_servers.push(unhealthy.to_string());
+        if let Some((field, value)) = trimmed.split_once(':') {
+            let field = field.trim();
+            let value = value.trim().trim_matches('"');
+            match field {
+                "name" => name = value.to_string(),
+                "server" => expected_server = Some(value.to_string()),
+                "unhealthy_servers" | "unhealthy_server" => {
+                    unhealthy_servers.push(value.to_string())
+                }
+                _ => {}
+            }
         }
     }
 
@@ -1489,8 +1539,8 @@ pub(crate) fn parse_finder_test_case_block<'a, I: Iterator<Item = &'a str>>(
             }
         }
 
-        if let Some(n) = extract_value(trimmed, "name:") {
-            name = n.to_string();
+        if let Some(case_name) = extract_value(trimmed, "name:") {
+            name = case_name.to_string();
         }
     }
 
@@ -1615,20 +1665,20 @@ mod tests {
     fn parse_constant_value_unit() {
         assert_eq!(
             parse_constant_value(r#"string_value: "val""#),
-            Some(serde_json::Value::String("val".to_string()))
+            Some(JsonValue::String("val".to_string()))
         );
         assert_eq!(
             parse_constant_value("number_value: 123"),
-            Some(serde_json::Value::Number(123.into()))
+            Some(JsonValue::Number(123.into()))
         );
         assert_eq!(parse_constant_value("number_value: invalid"), None);
         assert_eq!(
             parse_constant_value("bool_value: true"),
-            Some(serde_json::Value::Bool(true))
+            Some(JsonValue::Bool(true))
         );
         assert_eq!(
             parse_constant_value("bool_value: false"),
-            Some(serde_json::Value::Bool(false))
+            Some(JsonValue::Bool(false))
         );
         assert_eq!(parse_constant_value("other: 1"), None);
     }
@@ -1666,7 +1716,7 @@ mod tests {
         let value_part = parse_part_block(&mut value_lines);
         assert_eq!(
             value_part.value().map(|v| &**v),
-            Some(&serde_json::Value::String("default".to_string()))
+            Some(&JsonValue::String("default".to_string()))
         );
     }
 
@@ -1893,7 +1943,7 @@ mod tests {
                         key: "p2"
                         bool_value: false
                         key: "p3"
-                        number_value: 3.14
+                        number_value: 123.456
                         key: "p4"
                         null_value: NULL_VALUE
                     }
@@ -2096,15 +2146,12 @@ mod tests {
             "SELECT * FROM Table WHERE id = @id AND tags = @tags"
         );
         assert!(sql.prefer_leader);
-        assert_eq!(
-            sql.params.get("id"),
-            Some(&serde_json::Value::Number(42.into()))
-        );
+        assert_eq!(sql.params.get("id"), Some(&JsonValue::Number(42.into())));
         assert_eq!(
             sql.params.get("tags"),
-            Some(&serde_json::Value::Array(vec![
-                serde_json::Value::String("tag1".to_string()),
-                serde_json::Value::String("tag2".to_string()),
+            Some(&JsonValue::Array(vec![
+                JsonValue::String("tag1".to_string()),
+                JsonValue::String("tag2".to_string()),
             ]))
         );
     }
@@ -2173,7 +2220,7 @@ mod tests {
 
     #[test]
     fn json_to_spanner_value_conversions() {
-        let bool_json = serde_json::Value::Bool(true);
+        let bool_json = JsonValue::Bool(true);
         assert_eq!(json_to_spanner_value(&bool_json), Value::from(true));
 
         let int_json = serde_json::json!(42);
@@ -2182,20 +2229,50 @@ mod tests {
         let float_json = serde_json::json!(42.5);
         assert_eq!(json_to_spanner_value(&float_json), Value::from(42.5f64));
 
-        let string_int_json = serde_json::Value::String("100".to_string());
+        let string_int_json = JsonValue::String("100".to_string());
         assert_eq!(json_to_spanner_value(&string_int_json), Value::from(100i64));
 
-        let string_text_json = serde_json::Value::String("hello".to_string());
+        let string_text_json = JsonValue::String("hello".to_string());
         assert_eq!(
             json_to_spanner_value(&string_text_json),
             Value::from("hello")
         );
 
-        let null_json = serde_json::Value::Null;
+        let null_json = JsonValue::Null;
         assert_eq!(json_to_spanner_value(&null_json), Value::null());
 
-        let array_json = serde_json::Value::Array(vec![]);
+        let array_json = JsonValue::Array(vec![]);
         assert_eq!(json_to_spanner_value(&array_json), Value::null());
+    }
+
+    #[test]
+    fn parse_constant_value_variants() {
+        assert_eq!(
+            parse_constant_value("string_value: \"hello\""),
+            Some(JsonValue::String("hello".to_string()))
+        );
+        assert_eq!(
+            parse_constant_value("number_value: 42"),
+            Some(serde_json::json!(42))
+        );
+        assert_eq!(
+            parse_constant_value("number_value: 42.5"),
+            Some(serde_json::json!(42.5))
+        );
+        assert_eq!(
+            parse_constant_value("bool_value: true"),
+            Some(JsonValue::Bool(true))
+        );
+        assert_eq!(
+            parse_constant_value("bool_value: false"),
+            Some(JsonValue::Bool(false))
+        );
+        assert_eq!(
+            parse_constant_value("null_value: NULL_VALUE"),
+            Some(JsonValue::Null)
+        );
+        assert_eq!(parse_constant_value("null_value: 0"), Some(JsonValue::Null));
+        assert_eq!(parse_constant_value("unknown_field: \"foo\""), None);
     }
 
     #[test]
@@ -2221,5 +2298,127 @@ mod tests {
 
         let res = RangeCacheExpectedResult::default();
         let _ = format!("{res:?}");
+    }
+
+    #[test]
+    fn parse_mutation_block_detailed_delete_and_queues() {
+        let delete_text = r#"
+            delete {
+                table: "Users"
+                all: true
+                keys {
+                    string_value: "k1"
+                    number_value: 100
+                }
+                keys {
+                    string_value: "single_key"
+                }
+                ranges {
+                    start_closed {
+                        string_value: "c1"
+                        number_value: 200
+                    }
+                    start_open {
+                        string_value: "o1"
+                        number_value: 300
+                    }
+                }
+            }
+        "#;
+        let mut lines = delete_text.lines().peekable();
+        let mutation = parse_mutation_block(&mut lines).expect("delete mutation");
+        let delete = mutation.delete().expect("delete operation");
+        assert_eq!(delete.table, "Users");
+        let key_set = delete.key_set.as_ref().expect("key_set present");
+        assert!(key_set.all);
+        assert_eq!(key_set.keys.len(), 2);
+        assert_eq!(key_set.ranges.len(), 1);
+
+        let send_text = r#"
+            send {
+                queue: "Tasks"
+                key {
+                    string_value: "task_1"
+                }
+            }
+        "#;
+        let mut lines = send_text.lines().peekable();
+        let mutation = parse_mutation_block(&mut lines).expect("send mutation");
+        let send = mutation.send().expect("send operation");
+        assert_eq!(send.queue, "Tasks");
+        assert_eq!(send.key.as_ref().expect("send key").len(), 1);
+
+        let ack_text = r#"
+            ack {
+                queue: "Completed"
+                key {
+                    string_value: "ack_1"
+                }
+            }
+        "#;
+        let mut lines = ack_text.lines().peekable();
+        let mutation = parse_mutation_block(&mut lines).expect("ack mutation");
+        let ack = mutation.ack().expect("ack operation");
+        assert_eq!(ack.queue, "Completed");
+        assert_eq!(ack.key.as_ref().expect("ack key").len(), 1);
+    }
+
+    #[test]
+    fn parse_read_request_block_range_boundary_variants() {
+        let text = r#"
+            table: "Accounts"
+            index: "AccountsByBranch"
+            columns: "balance"
+            strong: false
+            key_set {
+                ranges {
+                    start_open {
+                        string_value: "a"
+                    }
+                    end_closed {
+                        string_value: "z"
+                    }
+                }
+            }
+        "#;
+        let mut lines = text.lines().peekable();
+        let req = parse_read_request_block(&mut lines);
+        assert_eq!(req.table, "Accounts");
+        assert_eq!(req.index, "AccountsByBranch");
+        assert_eq!(req.columns, &["balance"]);
+        assert!(!req.prefer_leader);
+        assert_eq!(req.key_set.ranges.len(), 1);
+        assert!(matches!(req.key_set.ranges[0].start, StartKeyType::Open(_)));
+        assert!(matches!(req.key_set.ranges[0].end, EndKeyType::Closed(_)));
+    }
+
+    #[test]
+    fn parse_sql_request_block_all_json_types() {
+        let text = r#"
+            sql: "SELECT 1 WHERE a = @a AND b = @b AND c = @c AND d = @d"
+            strong: false
+            key: "a"
+            string_value: "str"
+            key: "b"
+            bool_value: true
+            key: "c"
+            number_value: 123.456
+            key: "d"
+            null_value: NULL_VALUE
+        "#;
+        let mut lines = text.lines().peekable();
+        let sql = parse_sql_request_block(&mut lines);
+        assert_eq!(
+            sql.sql,
+            "SELECT 1 WHERE a = @a AND b = @b AND c = @c AND d = @d"
+        );
+        assert!(!sql.prefer_leader);
+        assert_eq!(
+            sql.params.get("a"),
+            Some(&JsonValue::String("str".to_string()))
+        );
+        assert_eq!(sql.params.get("b"), Some(&JsonValue::Bool(true)));
+        assert_eq!(sql.params.get("c"), Some(&serde_json::json!(123.456)));
+        assert_eq!(sql.params.get("d"), Some(&JsonValue::Null));
     }
 }

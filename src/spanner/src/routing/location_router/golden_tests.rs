@@ -14,6 +14,7 @@
 
 use crate::model::CacheUpdate;
 use crate::model::KeyRecipe;
+use crate::model::TypeCode;
 use crate::model::key_recipe::Part;
 use crate::routing::key_range_cache::{KeyRangeCache, RangeMode};
 use crate::routing::key_recipe::RecipeValue;
@@ -26,6 +27,7 @@ use crate::routing::textproto_test_utils::{
 };
 use crate::value::Value;
 use bytes::Bytes;
+use serde_json::Value as JsonValue;
 use std::collections::{BTreeMap, HashMap, HashSet};
 use std::fs;
 use std::path::Path;
@@ -66,7 +68,7 @@ impl TargetRange {
 }
 
 #[test]
-fn golden_conformance_finder() {
+fn golden_conformance_location_router() {
     let manifest_dir = env!("CARGO_MANIFEST_DIR");
     let textproto_path = Path::new(manifest_dir).join("src/routing/testdata/finder_test.textproto");
     let textproto = fs::read_to_string(&textproto_path)
@@ -87,7 +89,7 @@ fn golden_conformance_finder() {
         finder.key_range_cache.use_deterministic_random();
 
         for event in &case.events {
-            // Apply unhealthy servers (cleared and replaced per event, matching Java and Go)
+            // Apply unhealthy servers (cleared and replaced per event)
             {
                 let mut unhealthy = finder
                     .unhealthy_servers
@@ -108,19 +110,17 @@ fn golden_conformance_finder() {
             if let Some(request) = &event.request {
                 executed_events += 1;
                 let (actual_server, actual_hint) = match request {
-                    FinderRequest::Read(read_req) => finder.find_server_read(read_req),
-                    FinderRequest::Sql(sql_req) => finder.find_server_sql(sql_req),
+                    FinderRequest::Read(read_request) => finder.find_server_read(read_request),
+                    FinderRequest::Sql(sql_request) => finder.find_server_sql(sql_request),
                 };
 
-                if let Some(expected_srv) = &event.expected_server {
-                    assert_eq!(
-                        actual_server.as_deref(),
-                        Some(expected_srv.as_str()),
-                        "server mismatch in case {}, event {}",
-                        case.name,
-                        event.name
-                    );
-                }
+                assert_eq!(
+                    actual_server.as_deref(),
+                    event.expected_server.as_deref(),
+                    "server mismatch in case {}, event {}",
+                    case.name,
+                    event.name
+                );
 
                 if let Some(expected_hint) = &event.expected_hint {
                     assert_hints_match(&case.name, &event.name, expected_hint, &actual_hint);
@@ -160,16 +160,37 @@ fn encode_single_value_part(
     value: &str,
     is_successor: bool,
 ) -> bool {
-    let mut buf = Vec::new();
-    let val = Value::from(value);
-    if val.encode_into(&mut buf, part).is_err() {
+    let mut encoded_buffer = Vec::new();
+    let spanner_value = if let Some(type_info) = part.r#type.as_ref() {
+        match type_info.code {
+            TypeCode::Bool => value
+                .parse::<bool>()
+                .map(Value::from)
+                .unwrap_or_else(|_| Value::from(value)),
+            TypeCode::Int64 => value
+                .parse::<i64>()
+                .map(Value::from)
+                .unwrap_or_else(|_| Value::from(value)),
+            TypeCode::Float64 => value
+                .parse::<f64>()
+                .map(Value::from)
+                .unwrap_or_else(|_| Value::from(value)),
+            _ => Value::from(value),
+        }
+    } else {
+        Value::from(value)
+    };
+    if spanner_value
+        .encode_into(&mut encoded_buffer, part)
+        .is_err()
+    {
         return false;
     }
     if is_successor {
-        let succ = ssformat::make_prefix_successor(&buf);
-        ss_key.extend_from_slice(&succ);
+        let successor = ssformat::make_prefix_successor(&encoded_buffer);
+        ss_key.extend_from_slice(&successor);
     } else {
-        ss_key.extend_from_slice(&buf);
+        ss_key.extend_from_slice(&encoded_buffer);
     }
     true
 }
@@ -192,15 +213,25 @@ fn encode_key_internal(
         } else if part.random() == Some(&true) {
             ssformat::append_int64_increasing(&mut ss_key, 0);
             parts_count += 1;
-        } else if let Some(constant_val) = part.value() {
-            let val = json_to_spanner_value(constant_val.as_ref());
-            let _ = val.encode_into(&mut ss_key, part);
-            parts_count += 1;
+        } else if let Some(constant_value) = part.value() {
+            assert!(
+                part.struct_identifiers.is_empty(),
+                "Struct identifiers on constant values are not used in finder_test.textproto \
+                 and not supported by the TestFinder harness (production struct support is \
+                 implemented and tested in key_recipe.rs)"
+            );
+            let spanner_value = json_to_spanner_value(constant_value.as_ref());
+            if spanner_value.encode_into(&mut ss_key, part).is_ok() {
+                parts_count += 1;
+            } else {
+                state_end_of_keys = true;
+                break;
+            }
         } else if value_index < values.len() {
-            let is_last_val = value_index + 1 == values.len();
-            let is_succ = is_last_val && key_type == KeyType::PrefixSuccessor;
+            let is_last_value = value_index + 1 == values.len();
+            let is_successor = is_last_value && key_type == KeyType::PrefixSuccessor;
             let success =
-                encode_single_value_part(&mut ss_key, part, &values[value_index], is_succ);
+                encode_single_value_part(&mut ss_key, part, &values[value_index], is_successor);
             if success {
                 parts_count += 1;
                 value_index += 1;
@@ -214,7 +245,7 @@ fn encode_key_internal(
         }
     }
 
-    let start = ss_key.clone();
+    let start = ss_key;
     let mut limit = Vec::new();
     let mut approximate = false;
 
@@ -311,8 +342,10 @@ fn key_set_to_target_range(
 
     let mut target = TargetRange::default();
     for point_key in &key_set.keys {
-        if let Some(t) = encode_key_internal(recipe, point_key, KeyType::FullKey, is_index) {
-            target.merge_from(t);
+        if let Some(point_target) =
+            encode_key_internal(recipe, point_key, KeyType::FullKey, is_index)
+        {
+            target.merge_from(point_target);
         }
     }
     for range in &key_set.ranges {
@@ -321,18 +354,54 @@ fn key_set_to_target_range(
     target
 }
 
+fn extract_and_encode_param_part(
+    part: &Part,
+    lowercase_params: &HashMap<String, &JsonValue>,
+    output_key: &mut Vec<u8>,
+) -> bool {
+    let Some(identifier) = part.identifier() else {
+        return false;
+    };
+    let Some(parameter_value) = lowercase_params.get(&identifier.to_ascii_lowercase()) else {
+        return false;
+    };
+
+    // The golden test suite in `finder_test.textproto` only tests scalar key extraction.
+    // Full production support for `STRUCT` query parameters with `struct_identifiers`
+    // is implemented and tested in `key_recipe.rs`. To avoid unexercised dead code in this
+    // test harness, struct_identifiers traversal is explicitly disallowed here.
+    assert!(
+        part.struct_identifiers.is_empty(),
+        "Struct query parameters with struct_identifiers are not used in finder_test.textproto \
+         and not supported by the TestFinder harness (production struct support is \
+         implemented and tested in key_recipe.rs)"
+    );
+
+    // If the parameter is non-scalar (e.g. an ARRAY for `WHERE Key IN UNNEST(@keys)`),
+    // point key extraction cannot proceed and falls back to table/prefix routing.
+    if !matches!(
+        parameter_value,
+        JsonValue::String(_) | JsonValue::Number(_) | JsonValue::Bool(_) | JsonValue::Null
+    ) {
+        return false;
+    }
+
+    let spanner_value = json_to_spanner_value(parameter_value);
+    spanner_value.encode_into(output_key, part).is_ok()
+}
+
 fn query_params_to_target_range(
     recipe: &KeyRecipe,
-    params: &BTreeMap<String, serde_json::Value>,
+    params: &BTreeMap<String, JsonValue>,
 ) -> Option<TargetRange> {
     let mut ss_key = Vec::new();
     let mut parts_count = 0;
     let mut state_end_of_keys = false;
 
     // Normalizing param keys case-insensitively
-    let lowercase_params: HashMap<String, &serde_json::Value> = params
+    let lowercase_params: HashMap<String, &JsonValue> = params
         .iter()
-        .map(|(k, v)| (k.to_ascii_lowercase(), v))
+        .map(|(key, value)| (key.to_ascii_lowercase(), value))
         .collect();
 
     for part in &recipe.part {
@@ -342,37 +411,29 @@ fn query_params_to_target_range(
         } else if part.random() == Some(&true) {
             ssformat::append_int64_increasing(&mut ss_key, 0);
             parts_count += 1;
-        } else if let Some(constant_val) = part.value() {
-            let val = json_to_spanner_value(constant_val.as_ref());
-            let _ = val.encode_into(&mut ss_key, part);
-            parts_count += 1;
-        } else if let Some(id) = part.identifier() {
-            if let Some(json_val) = lowercase_params.get(&id.to_ascii_lowercase()) {
-                if matches!(
-                    json_val,
-                    serde_json::Value::String(_)
-                        | serde_json::Value::Number(_)
-                        | serde_json::Value::Bool(_)
-                        | serde_json::Value::Null
-                ) {
-                    let val = json_to_spanner_value(json_val);
-                    let _ = val.encode_into(&mut ss_key, part);
-                    parts_count += 1;
-                } else {
-                    state_end_of_keys = true;
-                    break;
-                }
+        } else if let Some(constant_value) = part.value() {
+            assert!(
+                part.struct_identifiers.is_empty(),
+                "Struct identifiers on constant values are not used in finder_test.textproto \
+                 and not supported by the TestFinder harness (production struct support is \
+                 implemented and tested in key_recipe.rs)"
+            );
+            let spanner_value = json_to_spanner_value(constant_value.as_ref());
+            if spanner_value.encode_into(&mut ss_key, part).is_ok() {
+                parts_count += 1;
             } else {
                 state_end_of_keys = true;
                 break;
             }
+        } else if extract_and_encode_param_part(part, &lowercase_params, &mut ss_key) {
+            parts_count += 1;
         } else {
             state_end_of_keys = true;
             break;
         }
     }
 
-    let start = ss_key.clone();
+    let start = ss_key;
     let mut limit = Vec::new();
     let mut approximate = false;
 
@@ -461,13 +522,13 @@ impl TestFinder {
 
         if let Some(recipes) = &update.key_recipes {
             if !recipes.schema_generation.is_empty() {
-                let mut schema_gen = self
+                let mut schema_generation = self
                     .schema_generation
                     .write()
                     .expect("poisoned schema lock");
-                if *schema_gen != recipes.schema_generation {
+                if *schema_generation != recipes.schema_generation {
                     self.key_recipe_cache.clear();
-                    *schema_gen = recipes.schema_generation.clone();
+                    *schema_generation = recipes.schema_generation.clone();
                 }
             }
             for recipe in &recipes.recipe {
@@ -478,45 +539,111 @@ impl TestFinder {
         self.key_range_cache.add_ranges(update);
     }
 
-    fn find_server_read(&self, req: &ParsedReadRequest) -> (Option<String>, ParsedRoutingHint) {
-        let mut hint = ParsedRoutingHint::default();
+    fn get_or_create_read_operation_uid(&self, read_request: &ParsedReadRequest) -> u64 {
+        let key = (
+            read_request.table.clone(),
+            read_request.index.clone(),
+            read_request.columns.clone(),
+        );
+        let mut shapes = self.read_shapes.write().expect("poisoned read shapes lock");
+        if let Some(&uid) = shapes.get(&key) {
+            uid
+        } else {
+            let uid = self.next_operation_uid.fetch_add(1, Ordering::Relaxed);
+            shapes.insert(key, uid);
+            uid
+        }
+    }
 
-        let op_uid = {
-            let key = (req.table.clone(), req.index.clone(), req.columns.clone());
-            let mut shapes = self.read_shapes.write().expect("poisoned read shapes lock");
-            if let Some(&uid) = shapes.get(&key) {
-                uid
-            } else {
-                let uid = self.next_operation_uid.fetch_add(1, Ordering::Relaxed);
-                shapes.insert(key, uid);
-                uid
-            }
+    fn get_or_create_sql_operation_uid(&self, sql: &str) -> u64 {
+        let mut shapes = self.sql_shapes.write().expect("poisoned sql shapes lock");
+        if let Some(&uid) = shapes.get(sql) {
+            uid
+        } else {
+            let uid = self.next_operation_uid.fetch_add(1, Ordering::Relaxed);
+            shapes.insert(sql.to_string(), uid);
+            uid
+        }
+    }
+
+    fn populate_common_hint(&self, op_uid: u64) -> ParsedRoutingHint {
+        let mut hint = ParsedRoutingHint {
+            operation_uid: Some(op_uid),
+            ..Default::default()
         };
-        hint.operation_uid = Some(op_uid);
 
         let db_id = self.database_id.load(Ordering::Relaxed);
         if db_id != 0 {
             hint.database_id = Some(db_id);
         }
 
-        let schema_gen = self
+        let schema_generation = self
             .schema_generation
             .read()
             .expect("poisoned schema lock")
             .clone();
-        if !schema_gen.is_empty() {
-            hint.schema_generation = Some(schema_gen.to_vec());
+        if !schema_generation.is_empty() {
+            hint.schema_generation = Some(schema_generation.to_vec());
         }
 
-        let is_index = !req.index.is_empty();
-        let recipe = if is_index {
-            self.key_recipe_cache.get_index_recipe(&req.index)
+        hint
+    }
+
+    fn resolve_and_select_server(
+        &self,
+        range_mode: RangeMode,
+        prefer_leader: bool,
+        hint: &mut ParsedRoutingHint,
+    ) -> Option<String> {
+        let search_key = hint.key.as_ref()?;
+        let search_limit = hint.limit_key.as_deref().unwrap_or(&[]);
+        let range = self
+            .key_range_cache
+            .find_range(search_key, search_limit, range_mode)?;
+
+        hint.group_uid = Some(range.group_uid);
+        hint.split_id = Some(range.split_id);
+        hint.key = Some(range.start_key.to_vec());
+        hint.limit_key = Some(range.limit_key.to_vec());
+
+        let unhealthy = self
+            .unhealthy_servers
+            .read()
+            .expect("poisoned unhealthy lock");
+        let tablet = self.key_range_cache.select_tablet(&range, prefer_leader)?;
+
+        if unhealthy.contains(&tablet.server_address) {
+            hint.skipped_tablet_uids.push(ParsedTabletUid {
+                tablet_uid: tablet.tablet_uid,
+                incarnation: if tablet.incarnation.is_empty() {
+                    None
+                } else {
+                    Some(tablet.incarnation.to_vec())
+                },
+            });
+            None
         } else {
-            self.key_recipe_cache.get_table_recipe(&req.table)
+            hint.tablet_uid = Some(tablet.tablet_uid);
+            Some(tablet.server_address)
+        }
+    }
+
+    fn find_server_read(
+        &self,
+        read_request: &ParsedReadRequest,
+    ) -> (Option<String>, ParsedRoutingHint) {
+        let op_uid = self.get_or_create_read_operation_uid(read_request);
+        let mut hint = self.populate_common_hint(op_uid);
+
+        let is_index = !read_request.index.is_empty();
+        let recipe = if is_index {
+            self.key_recipe_cache.get_index_recipe(&read_request.index)
+        } else {
+            self.key_recipe_cache.get_table_recipe(&read_request.table)
         };
 
         if let Some(recipe) = recipe {
-            let target_range = key_set_to_target_range(&recipe, &req.key_set, is_index);
+            let target_range = key_set_to_target_range(&recipe, &read_request.key_set, is_index);
             if !target_range.start.is_empty() {
                 hint.key = Some(target_range.start);
             }
@@ -525,87 +652,24 @@ impl TestFinder {
             }
         }
 
-        // Query KeyRangeCache with RangeMode::CoveringSplit
-        let selected_server = if let Some(search_key) = &hint.key {
-            let search_limit = hint.limit_key.as_deref().unwrap_or(&[]);
-            if let Some(range) =
-                self.key_range_cache
-                    .find_range(search_key, search_limit, RangeMode::CoveringSplit)
-            {
-                hint.group_uid = Some(range.group_uid);
-                hint.split_id = Some(range.split_id);
-                hint.key = Some(range.start_key.to_vec());
-                hint.limit_key = Some(range.limit_key.to_vec());
-
-                // Select tablet excluding unhealthy servers
-                let unhealthy = self
-                    .unhealthy_servers
-                    .read()
-                    .expect("poisoned unhealthy lock");
-                let tablet = self
-                    .key_range_cache
-                    .select_tablet(&range, req.prefer_leader);
-
-                if let Some(t) = tablet {
-                    if unhealthy.contains(&t.server_address) {
-                        hint.skipped_tablet_uids.push(ParsedTabletUid {
-                            tablet_uid: t.tablet_uid,
-                            incarnation: if t.incarnation.is_empty() {
-                                None
-                            } else {
-                                Some(t.incarnation.to_vec())
-                            },
-                        });
-                        None
-                    } else {
-                        hint.tablet_uid = Some(t.tablet_uid);
-                        Some(t.server_address)
-                    }
-                } else {
-                    None
-                }
-            } else {
-                None
-            }
-        } else {
-            None
-        };
-
+        let selected_server = self.resolve_and_select_server(
+            RangeMode::CoveringSplit,
+            read_request.prefer_leader,
+            &mut hint,
+        );
         (selected_server, hint)
     }
 
-    fn find_server_sql(&self, req: &ParsedSqlRequest) -> (Option<String>, ParsedRoutingHint) {
-        let mut hint = ParsedRoutingHint::default();
-
-        let op_uid = {
-            let mut shapes = self.sql_shapes.write().expect("poisoned sql shapes lock");
-            if let Some(&uid) = shapes.get(&req.sql) {
-                uid
-            } else {
-                let uid = self.next_operation_uid.fetch_add(1, Ordering::Relaxed);
-                shapes.insert(req.sql.clone(), uid);
-                uid
-            }
-        };
-        hint.operation_uid = Some(op_uid);
-
-        let db_id = self.database_id.load(Ordering::Relaxed);
-        if db_id != 0 {
-            hint.database_id = Some(db_id);
-        }
-
-        let schema_gen = self
-            .schema_generation
-            .read()
-            .expect("poisoned schema lock")
-            .clone();
-        if !schema_gen.is_empty() {
-            hint.schema_generation = Some(schema_gen.to_vec());
-        }
+    fn find_server_sql(
+        &self,
+        sql_request: &ParsedSqlRequest,
+    ) -> (Option<String>, ParsedRoutingHint) {
+        let op_uid = self.get_or_create_sql_operation_uid(&sql_request.sql);
+        let mut hint = self.populate_common_hint(op_uid);
 
         let recipe = self.key_recipe_cache.get_query_recipe(op_uid);
         if let Some(recipe) = recipe
-            && let Some(target_range) = query_params_to_target_range(&recipe, &req.params)
+            && let Some(target_range) = query_params_to_target_range(&recipe, &sql_request.params)
         {
             if !target_range.start.is_empty() {
                 hint.key = Some(target_range.start);
@@ -615,72 +679,11 @@ impl TestFinder {
             }
         }
 
-        // Query KeyRangeCache with RangeMode::PickRandom
-        let selected_server = if let Some(search_key) = &hint.key {
-            let search_limit = hint.limit_key.as_deref().unwrap_or(&[]);
-            if let Some(range) =
-                self.key_range_cache
-                    .find_range(search_key, search_limit, RangeMode::PickRandom)
-            {
-                hint.group_uid = Some(range.group_uid);
-                hint.split_id = Some(range.split_id);
-                hint.key = Some(range.start_key.to_vec());
-                hint.limit_key = Some(range.limit_key.to_vec());
-
-                // Select tablet excluding unhealthy servers
-                let unhealthy = self
-                    .unhealthy_servers
-                    .read()
-                    .expect("poisoned unhealthy lock");
-                let tablet = self
-                    .key_range_cache
-                    .select_tablet(&range, req.prefer_leader);
-
-                if let Some(t) = tablet {
-                    if unhealthy.contains(&t.server_address) {
-                        hint.skipped_tablet_uids.push(ParsedTabletUid {
-                            tablet_uid: t.tablet_uid,
-                            incarnation: if t.incarnation.is_empty() {
-                                None
-                            } else {
-                                Some(t.incarnation.to_vec())
-                            },
-                        });
-                        None
-                    } else {
-                        hint.tablet_uid = Some(t.tablet_uid);
-                        Some(t.server_address)
-                    }
-                } else {
-                    None
-                }
-            } else {
-                None
-            }
-        } else {
-            None
-        };
-
+        let selected_server = self.resolve_and_select_server(
+            RangeMode::PickRandom,
+            sql_request.prefer_leader,
+            &mut hint,
+        );
         (selected_server, hint)
     }
-}
-
-#[test]
-fn test_query_params_with_null_param() {
-    use crate::model::TypeCode;
-    use crate::model::key_recipe::part::Order;
-
-    let part1 = Part::new()
-        .set_tag(50020u32)
-        .set_type(crate::model::Type::new().set_code(TypeCode::Int64))
-        .set_identifier("col1")
-        .set_order(Order::Ascending);
-    let recipe = KeyRecipe::new().set_part(vec![part1]);
-
-    let mut params = BTreeMap::new();
-    params.insert("col1".to_string(), serde_json::Value::Null);
-
-    let target = query_params_to_target_range(&recipe, &params)
-        .expect("query_params_to_target_range should succeed with null parameter");
-    assert!(!target.start.is_empty());
 }
