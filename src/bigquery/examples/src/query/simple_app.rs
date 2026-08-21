@@ -14,7 +14,7 @@
 
 // [START bigquery_simple_app_all]
 // [START bigquery_simple_app_deps]
-use google_cloud_bigquery::FromRow;
+use google_cloud_bigquery::query::FromRow;
 use google_cloud_bigquery::client::BigQuery;
 // [END bigquery_simple_app_deps]
 

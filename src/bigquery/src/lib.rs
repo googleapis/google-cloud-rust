@@ -28,16 +28,16 @@
 //! * [BigQuery][client::BigQuery]
 //!
 //! For handling query execution:
-//! * [Query]
-//! * [CompleteQuery]
+//! * [Query](crate::query::Query)
+//! * [CompleteQuery](crate::query::CompleteQuery)
 //!
 //! For streaming and reading results:
-//! * [RowIterator]
-//! * [Row]
+//! * [RowIterator](crate::query::RowIterator)
+//! * [Row](crate::query::Row)
 //!
 //! For converting results to Rust types:
-//! * [FromRow]
-//! * [FromSql]
+//! * [FromRow](crate::query::FromRow)
+//! * [FromSql](crate::query::FromSql)
 //!
 //! [bigquery]: https://cloud.google.com/bigquery
 //!
@@ -74,7 +74,7 @@
 //!
 //! ```
 //! # use google_cloud_bigquery::client::BigQuery;
-//! # use google_cloud_bigquery::FromRow;
+//! # use google_cloud_bigquery::query::FromRow;
 //! #[derive(FromRow, Debug)]
 //! struct UserStats {
 //!     name: String,
@@ -98,33 +98,36 @@
 
 pub use google_cloud_gax::Result;
 pub use google_cloud_gax::error::Error;
-pub mod datatypes;
-pub mod error;
-pub use crate::error::{ConvertError, QueryError, RowError};
-pub use crate::query::{CompleteQuery, FromSql, Query, Row, RowIterator};
-pub use google_cloud_bigquery_derive::{FromRow, FromSql};
 
 pub(crate) mod generated;
-pub(crate) mod query;
-pub(crate) mod retry_policy;
-pub(crate) use google_cloud_gax::client_builder::Result as ClientBuilderResult;
 
 /// Clients to interact with Google Cloud BigQuery.
-pub mod client;
-mod client_builder;
+pub mod client {
+    pub use crate::query::client::BigQuery;
+}
 
+/// The messages and enums that are part of this client library.
 pub mod model {
-    //! Re-exports for the Google Cloud BigQuery v2 API types.
+    // TODO(#6443) - move into `model_ext`
     pub use crate::generated::{CompleteQueryMetadata, QueryMetadata};
+    // TODO(#6224) - restrict exports?
     pub use google_cloud_bigquery_v2::model::*;
 }
 
+/// Request and client builders.
 pub mod builder {
-    //! Builders for the BigQuery client.
+    /// Request and client builders for the [BigQuery][crate::client::BigQuery] client.
     pub mod bigquery {
-        //! Builder for [BigQuery][crate::client::BigQuery].
-        pub use crate::client_builder::ClientBuilder;
         pub use crate::generated::QueryRequest;
         pub use crate::query::builder::Query;
+        pub use crate::query::client_builder::ClientBuilder;
     }
 }
+
+/// Custom errors for the BigQuery clients.
+pub mod error;
+
+/// Types related to querying with a [BigQuery][crate::client::BigQuery] client.
+pub mod query;
+
+pub mod datatypes;

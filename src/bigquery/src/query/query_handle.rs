@@ -18,8 +18,8 @@ use crate::model::{
     GetQueryResultsRequest, GetQueryResultsResponse, Job, JobReference, QueryResponse,
 };
 use crate::query::execution::RetryContext;
+use crate::query::retry_policy::JobRetryResult;
 use crate::query::{Result, RowIterator, Schema};
-use crate::retry_policy::JobRetryResult;
 use google_cloud_bigquery_v2::builder::job_service::GetJob;
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
@@ -30,11 +30,11 @@ use std::sync::Arc;
 
 /// A handle representing a running or completed SQL query execution.
 ///
-/// [`Query::send()`](crate::builder::bigquery::Query::send) returns a [`Query`](crate::Query).
+/// [`Query::send()`](crate::builder::bigquery::Query::send) returns a [`Query`].
 ///
 /// To obtain the final result set, call [`until_done()`](Query::until_done),
 /// which waits for the query execution to complete and returns a
-/// [`CompleteQuery`](crate::CompleteQuery).
+/// [`CompleteQuery`].
 ///
 /// # Example
 ///
@@ -172,7 +172,7 @@ impl Query {
     /// Waits for query execution to complete.
     ///
     /// If the query completed immediately, this method returns a
-    /// [`CompleteQuery`](crate::CompleteQuery) without making additional
+    /// [`CompleteQuery`] without making additional
     /// network calls. Otherwise, it polls the service until the query finishes.
     ///
     /// # Errors
@@ -256,8 +256,7 @@ impl Query {
 /// A handle representing a successfully completed query ready for reading
 /// results.
 ///
-/// [`Query::until_done()`](crate::query::Query::until_done) returns a
-/// `CompleteQuery`.
+/// [`Query::until_done()`] returns a [`CompleteQuery`].
 ///
 /// This handle provides access to cached execution metadata, schema
 /// definitions, and a row iterator via [`read()`](CompleteQuery::read).
@@ -368,7 +367,7 @@ impl CompleteQuery {
 
     /// Returns a reference to the cached summary metadata for this query.
     ///
-    /// The returned [`CompleteQueryMetadata`](crate::model::CompleteQueryMetadata) contains
+    /// The returned [`CompleteQueryMetadata`] contains
     /// summary statistics such as total rows, schema details, cache hit
     /// indicators, and estimated bytes processed without making additional
     /// RPCs.
@@ -395,9 +394,10 @@ impl CompleteQuery {
     /// Build a request to fetch full [Job] execution metadata from the service for this query.
     ///
     /// > Returns `None` if the query was executed without creating a job
-    /// > (for example, when using [JobCreationMode::JobCreationOptional](crate::model::query_request::JobCreationMode::JobCreationOptional)).
+    /// > (for example, when using [`JobCreationMode::JobCreationOptional`]).
     ///
     /// [Job]: https://docs.cloud.google.com/bigquery/docs/reference/rest/v2/Job
+    /// [`JobCreationMode::JobCreationOptional`]: crate::model::query_request::JobCreationMode::JobCreationOptional
     ///
     /// # Example
     ///
@@ -487,10 +487,9 @@ pub(crate) async fn poll_query_results(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::query::builder::QUERY_REQUEST_ID_PREFIX;
-    use crate::query::builder::Query as QueryBuilder;
+    use crate::query::builder::{QUERY_REQUEST_ID_PREFIX, Query as QueryBuilder};
+    use crate::query::retry_policy::RetryableJobErrors;
     use crate::query::tests::{MockJobService, create_job_service, create_test_backoff_policy};
-    use crate::retry_policy::RetryableJobErrors;
     use google_cloud_bigquery_v2::model::{
         ErrorProto, GetQueryResultsResponse, Job, JobReference, QueryResponse, TableFieldSchema,
         TableSchema,
