@@ -281,9 +281,9 @@ pub async fn buffered(
     let users = read_writes_table(project_id, dataset_id, table_id, "buffered").await?;
     assert!(users.is_empty(), "{users:?}");
 
-    // Flush to offset 2 (Kelly and Liam)
-    let flush1 = writer.flush(2).await?;
-    assert_eq!(flush1.offset, 2);
+    // Flush to offset 1 (Kelly and Liam)
+    let flush1 = writer.flush(1).await?;
+    assert_eq!(flush1.offset, 1);
 
     // Verify first batch is visible
     let users = read_writes_table(project_id, dataset_id, table_id, "buffered").await?;
@@ -303,9 +303,9 @@ pub async fn buffered(
         ]
     );
 
-    // Flush to offset 3 (Mia)
-    let flush2 = writer.flush(3).await?;
-    assert_eq!(flush2.offset, 3);
+    // Flush to offset 2 (Mia)
+    let flush2 = writer.flush(2).await?;
+    assert_eq!(flush2.offset, 2);
 
     let users = read_writes_table(project_id, dataset_id, table_id, "buffered").await?;
     assert_eq!(
