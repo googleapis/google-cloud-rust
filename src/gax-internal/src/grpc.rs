@@ -75,6 +75,7 @@ pub struct Client {
     credentials: Credentials,
     transport_policies: TransportPolicies,
     attempt_interceptor: Option<Arc<dyn AttemptInterceptor>>,
+    extensions: crate::options::Extensions,
 }
 
 impl Client {
@@ -122,6 +123,7 @@ impl Client {
             credentials,
             transport_policies: TransportPolicies::from_config(&config),
             attempt_interceptor: None,
+            extensions: config.extensions,
         })
     }
 
@@ -144,7 +146,12 @@ impl Client {
         Request: prost::Message + Clone + 'static,
         Response: prost::Message + Default + 'static,
     {
-        let headers = make_headers(api_client_header, request_params, &options)?;
+        let headers = make_headers(
+            &self.extensions,
+            api_client_header,
+            request_params,
+            &options,
+        )?;
         self.retry_loop::<Request, Response>(extensions, path, request, options, headers)
             .await
     }
@@ -194,7 +201,12 @@ impl Client {
         Response: prost::Message + Default + 'static,
     {
         use ::tonic::IntoStreamingRequest;
-        let headers = make_headers(api_client_header, request_params, &options)?;
+        let headers = make_headers(
+            &self.extensions,
+            api_client_header,
+            request_params,
+            &options,
+        )?;
         let mut headers = add_auth_headers(headers, &self.credentials).await?;
         self.intercept(&mut headers, 1);
         let metadata = tonic::MetadataMap::from_headers(headers);
@@ -334,7 +346,12 @@ impl Client {
         Response: prost::Message + Default + 'static,
     {
         use ::tonic::IntoRequest;
-        let headers = make_headers(api_client_header, request_params, &options)?;
+        let headers = make_headers(
+            &self.extensions,
+            api_client_header,
+            request_params,
+            &options,
+        )?;
         let mut headers = add_auth_headers(headers, &self.credentials).await?;
         self.intercept(&mut headers, 1);
         let metadata = tonic::MetadataMap::from_headers(headers);

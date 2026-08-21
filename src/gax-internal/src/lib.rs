@@ -64,6 +64,9 @@ pub mod unimplemented;
 pub mod routing_parameter;
 
 #[cfg(any(feature = "_internal-http-client", feature = "_internal-grpc-client"))]
+pub(crate) mod headers;
+
+#[cfg(any(feature = "_internal-http-client", feature = "_internal-grpc-client"))]
 pub(crate) mod host;
 
 #[cfg(feature = "_internal-common")]
