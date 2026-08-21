@@ -106,16 +106,7 @@ pub mod client {
     pub use crate::query::client::BigQuery;
 }
 
-/// The messages and enums that are part of this client library.
-pub mod model {
-    pub mod v2 {
-        // TODO: OR bigquery_v2 ? bigquery::v2 ? or remove it all together ?
-        pub use google_cloud_bigquery_v2::model::*;
-    }
-}
-
-/// Extends [model] with types that improve type safety and/or
-/// ergonomics.
+/// Extends [google_cloud_bigquery_v2::model] with types that improve ergonomics.
 pub mod model_ext {
     pub use crate::generated::{CompleteQueryMetadata, QueryMetadata};
 }

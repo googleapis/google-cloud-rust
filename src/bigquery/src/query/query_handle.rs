@@ -122,7 +122,7 @@ impl Query {
     /// > (for example, when using [`JobCreationMode::JobCreationOptional`]).
     ///
     /// [Job]: https://docs.cloud.google.com/bigquery/docs/reference/rest/v2/Job
-    /// [`JobCreationMode::JobCreationOptional`]: crate::model::v2::query_request::JobCreationMode::JobCreationOptional
+    /// [`JobCreationMode::JobCreationOptional`]: google_cloud_bigquery_v2::model::query_request::JobCreationMode::JobCreationOptional
     ///
     /// # Example
     ///
@@ -397,7 +397,7 @@ impl CompleteQuery {
     /// > (for example, when using [`JobCreationMode::JobCreationOptional`]).
     ///
     /// [Job]: https://docs.cloud.google.com/bigquery/docs/reference/rest/v2/Job
-    /// [`JobCreationMode::JobCreationOptional`]: crate::model::v2::query_request::JobCreationMode::JobCreationOptional
+    /// [`JobCreationMode::JobCreationOptional`]: google_cloud_bigquery_v2::model::query_request::JobCreationMode::JobCreationOptional
     ///
     /// # Example
     ///
