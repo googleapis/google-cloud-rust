@@ -127,6 +127,7 @@ members = [
   "src/generated/cloud/beyondcorp/appgateways/v1",
   "src/generated/cloud/beyondcorp/clientconnectorservices/v1",
   "src/generated/cloud/beyondcorp/clientgateways/v1",
+  "src/generated/cloud/biglake/hive/v1",
   "src/generated/cloud/biglake/v1",
   "src/generated/cloud/bigquery/analyticshub/v1",
   "src/generated/cloud/bigquery/connection/v1",
@@ -448,7 +449,7 @@ parse-size            = { default-features = false, version = "1.1" }
 percent-encoding      = { default-features = false, version = "2.3" }
 pin-project           = { default-features = false, version = "1.1.13" }
 rand                  = { default-features = false, version = "0.10" }
-p256                  = { default-features = false, version = "0.13" }
+p256                  = { default-features = false, version = "0.14" }
 rust_decimal          = { default-features = false, version = "1.42.0", features = ["std"] }
 rustls                = { default-features = false, version = "0.23.38" }
 rustls-pki-types      = { default-features = false, version = "1.14" }

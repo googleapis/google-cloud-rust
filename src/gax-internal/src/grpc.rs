@@ -19,6 +19,8 @@ mod grpc_helpers;
 #[cfg(google_cloud_unstable_grpc_rust)]
 mod grpc_rust;
 pub mod status;
+#[cfg(google_cloud_unstable_gapic_streaming)]
+pub(crate) mod streaming;
 pub mod tonic;
 mod transport_policies;
 #[cfg(google_cloud_unstable_grpc_rust)]
@@ -73,6 +75,7 @@ pub struct Client {
     credentials: Credentials,
     transport_policies: TransportPolicies,
     attempt_interceptor: Option<Arc<dyn AttemptInterceptor>>,
+    extensions: crate::options::Extensions,
 }
 
 impl Client {
@@ -120,6 +123,7 @@ impl Client {
             credentials,
             transport_policies: TransportPolicies::from_config(&config),
             attempt_interceptor: None,
+            extensions: config.extensions,
         })
     }
 
@@ -142,7 +146,12 @@ impl Client {
         Request: prost::Message + Clone + 'static,
         Response: prost::Message + Default + 'static,
     {
-        let headers = make_headers(api_client_header, request_params, &options)?;
+        let headers = make_headers(
+            &self.extensions,
+            api_client_header,
+            request_params,
+            &options,
+        )?;
         self.retry_loop::<Request, Response>(extensions, path, request, options, headers)
             .await
     }
@@ -192,7 +201,12 @@ impl Client {
         Response: prost::Message + Default + 'static,
     {
         use ::tonic::IntoStreamingRequest;
-        let headers = make_headers(api_client_header, request_params, &options)?;
+        let headers = make_headers(
+            &self.extensions,
+            api_client_header,
+            request_params,
+            &options,
+        )?;
         let mut headers = add_auth_headers(headers, &self.credentials).await?;
         self.intercept(&mut headers, 1);
         let metadata = tonic::MetadataMap::from_headers(headers);
@@ -234,61 +248,59 @@ impl Client {
         ProstReq: prost::Message + Send + 'static,
         ProstResp: prost::Message + Default + crate::prost::FromProto<DomainResp> + 'static,
     {
-        use futures::FutureExt as _;
-        use futures::stream::StreamExt as _;
-
-        let (req_tx, req_rx) = tokio::sync::mpsc::channel(
-            options
-                .request_stream_channel_capacity()
-                .unwrap_or(google_cloud_gax::options::internal::DEFAULT_REQUEST_CHANNEL_CAPACITY),
+        let (req_tx, req_stream) = streaming::create_request_channel(&options);
+        let resp_rx = self.spawn_bidi_stream::<ProstReq, ProstResp>(
+            extensions,
+            path,
+            req_stream,
+            options,
+            api_client_header,
+            request_params,
         );
-        let req_stream = tokio_stream::wrappers::ReceiverStream::new(req_rx);
 
-        let (resp_tx, resp_rx) = tokio::sync::oneshot::channel();
+        (
+            streaming::create_request_sender(req_tx),
+            streaming::create_response_receiver(resp_rx),
+        )
+    }
 
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    fn spawn_bidi_stream<ProstReq, ProstResp>(
+        &self,
+        extensions: tonic::Extensions,
+        path: http::uri::PathAndQuery,
+        req_stream: tokio_stream::wrappers::ReceiverStream<ProstReq>,
+        options: RequestOptions,
+        api_client_header: &'static str,
+        request_params: &str,
+    ) -> tokio::sync::oneshot::Receiver<Result<tonic::Response<tonic::Streaming<ProstResp>>>>
+    where
+        ProstReq: prost::Message + Send + 'static,
+        ProstResp: prost::Message + Default + 'static,
+    {
+        let (mut resp_tx, resp_rx) = tokio::sync::oneshot::channel();
         let client = self.clone();
         let request_params = request_params.to_string();
+        // TODO(#2318): Propagate tracing Span and RequestRecorder task-local context into the spawned task.
         tokio::spawn(async move {
-            let result = client
-                .bidi_stream::<ProstReq, ProstResp>(
+            tokio::select! {
+                result = client.bidi_stream::<ProstReq, ProstResp>(
                     extensions,
                     path,
                     req_stream,
                     options,
                     api_client_header,
                     &request_params,
-                )
-                .await;
-            let _ = resp_tx.send(result);
-        });
-
-        let request_sender =
-            google_cloud_gax::streaming::RequestSender::from_fn(move |item: DomainReq| {
-                let req_tx = req_tx.clone();
-                async move {
-                    let prost_item = item
-                        .to_proto()
-                        .map_err(google_cloud_gax::streaming::SendError::ser)?;
-                    req_tx
-                        .send(prost_item)
-                        .await
-                        .map_err(|_| google_cloud_gax::streaming::SendError::stream_closed())
+                ) => {
+                    let _ = resp_tx.send(result);
                 }
-            });
-        let future = resp_rx.map(|res| match res {
-            Ok(Ok(response)) => Ok(response.into_inner().map(|res| {
-                res.map_err(from_status::to_gax_error)
-                    .and_then(|m| m.cnv().map_err(Error::deser))
-            })),
-            Ok(Err(err)) => Err(err),
-            Err(_) => Err(Error::io(std::io::Error::new(
-                std::io::ErrorKind::BrokenPipe,
-                "stream initialization task cancelled",
-            ))),
+                _ = resp_tx.closed() => {
+                    // ResponseReceiver was dropped before the stream was established;
+                    // abort the connection attempt immediately.
+                }
+            }
         });
-        let response_receiver = google_cloud_gax::streaming::ResponseReceiver::from_future(future);
-
-        (request_sender, response_receiver)
+        resp_rx
     }
 
     /// Opens a server stream.
@@ -334,7 +346,12 @@ impl Client {
         Response: prost::Message + Default + 'static,
     {
         use ::tonic::IntoRequest;
-        let headers = make_headers(api_client_header, request_params, &options)?;
+        let headers = make_headers(
+            &self.extensions,
+            api_client_header,
+            request_params,
+            &options,
+        )?;
         let mut headers = add_auth_headers(headers, &self.credentials).await?;
         self.intercept(&mut headers, 1);
         let metadata = tonic::MetadataMap::from_headers(headers);
