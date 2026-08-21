@@ -105,6 +105,7 @@ pub(crate) mod generated;
 pub mod client {
     pub use crate::query::client::BigQuery;
     pub use crate::write::client::Write;
+    // TODO(#6152) - add Write admin client
 }
 
 /// The messages and enums that are part of this client library.
@@ -125,7 +126,8 @@ pub mod builder {
     }
     /// Request and client builders for the [Write][crate::client::Write] client.
     pub mod write {
-        pub use crate::write::builder::write::*;
+        pub use crate::write::append_builder::{Append, AppendWithOffset};
+        pub use crate::write::client_builder::ClientBuilder;
     }
 }
 
@@ -139,3 +141,29 @@ pub mod query;
 pub mod write;
 
 pub mod datatypes;
+
+pub(crate) use google_cloud_gax::client_builder::Result as ClientBuilderResult;
+pub(crate) use google_cloud_gax::options::RequestOptions;
+pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
+pub(crate) use google_cloud_gax::response::Response;
+
+#[allow(dead_code)]
+pub(crate) mod google {
+    pub mod api {
+        include!("write/generated/protos/storage/google.api.rs");
+    }
+    pub mod cloud {
+        pub mod bigquery {
+            pub mod storage {
+                pub mod v1 {
+                    #![allow(deprecated)]
+                    include!("write/generated/protos/storage/google.cloud.bigquery.storage.v1.rs");
+                    include!("write/generated/convert/storage/convert.rs");
+                }
+            }
+        }
+    }
+    pub mod rpc {
+        include!("write/generated/protos/storage/google.rpc.rs");
+    }
+}
