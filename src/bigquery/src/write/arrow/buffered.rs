@@ -82,13 +82,12 @@ impl BufferedWriter {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::runner::tests::*;
-    use crate::transport::tests::*;
+    use super::super::super::runner::tests::*;
+    use super::super::super::transport::tests::*;
+    use crate::error::AppendError;
     use bigquery_write_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::Response as TonicResponse;
     use tokio::sync::mpsc;
-
-    use crate::error::AppendError;
 
     #[tokio::test]
     async fn request_fields() -> anyhow::Result<()> {
