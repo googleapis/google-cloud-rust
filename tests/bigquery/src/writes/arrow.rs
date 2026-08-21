@@ -183,3 +183,67 @@ fn serialize_batch(batch: &RecordBatch, schema_len: usize) -> Result<Vec<u8>> {
     // to strip it.
     Ok(buf[schema_len..].to_vec())
 }
+
+pub async fn committed(
+    client: &Write,
+    project_id: &str,
+    dataset_id: &str,
+    table_id: &str,
+) -> Result<()> {
+    let table = format!("projects/{project_id}/datasets/{dataset_id}/tables/{table_id}");
+    let schema = create_test_schema();
+
+    // Create a writer for a committed stream
+    let writer = client
+        .arrow(ArrowSchema::new().set_serialized_schema(serialize_schema(&schema)?))
+        .committed(table)
+        .await?;
+
+    // Write the batches
+    let batch1 = create_test_batch(
+        schema.clone(),
+        vec!["Gerald", "Hannah"],
+        vec![20, 22],
+        "committed",
+    )?;
+    let _ = writer.append(batch1).send().await?;
+
+    let batch2 = create_test_batch(schema.clone(), vec!["Ian"], vec![24], "committed")?;
+    let _ = writer.append(batch2).send().await?;
+
+    // Verify the writes are immediately available since it's a committed stream
+    let users = read_writes_table(project_id, dataset_id, table_id, "committed").await?;
+    assert_eq!(
+        users,
+        vec![
+            WriteUserRecord {
+                name: "Gerald".to_string(),
+                age: 20,
+                test: "committed".to_string()
+            },
+            WriteUserRecord {
+                name: "Hannah".to_string(),
+                age: 22,
+                test: "committed".to_string()
+            },
+            WriteUserRecord {
+                name: "Ian".to_string(),
+                age: 24,
+                test: "committed".to_string()
+            },
+        ]
+    );
+
+    // Finalize the stream
+    writer.finalize().await?;
+
+    // Verify that appending to a finalized stream fails
+    let batch3 = create_test_batch(schema.clone(), vec!["Jack"], vec![26], "committed")?;
+    let _err = writer
+        .append(batch3)
+        .send()
+        .await
+        .expect_err("Appending to a finalized stream should fail");
+
+    Ok(())
+}
