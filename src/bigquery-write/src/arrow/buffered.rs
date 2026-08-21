@@ -24,7 +24,9 @@ use crate::runner::Runner;
 use crate::transport::Transport;
 use std::sync::Arc;
 
-/// A writer for a buffered stream.
+/// A writer for the [buffered stream].
+///
+/// [buffered stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#buffered_type
 #[derive(Debug)]
 pub struct BufferedWriter {
     runner: Runner,
