@@ -343,10 +343,9 @@ fn convert_basic_type(value: String, field_name: &str, field_type: &str) -> Resu
             } else {
                 return Err(RowError::TypeConversion {
                     column: field_name.to_string(),
-                    source: ConvertError::TypeMismatch {
-                        expected: "bool",
-                        got: Value::String(value),
-                    },
+                    source: ConvertError::Convert(
+                        "provided string was not `true` or `false`".into(),
+                    ),
                 });
             };
             Ok(Value::Bool(b))
