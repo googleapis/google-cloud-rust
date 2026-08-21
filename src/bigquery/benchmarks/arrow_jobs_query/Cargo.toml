@@ -30,3 +30,4 @@ clap                  = { workspace = true, features = ["derive", "env", "help",
 google-cloud-bigquery = { workspace = true, features = ["default"] }
 tokio                 = { workspace = true, features = ["full"] }
 wkt.workspace         = true
+stats_alloc           = "0.1"

@@ -15,12 +15,33 @@
 use clap::{Parser, ValueEnum};
 use google_cloud_bigquery::FromRow;
 use google_cloud_bigquery::client::BigQuery;
+use stats_alloc::{Region, StatsAlloc};
+use std::alloc::System;
 use std::time::{Duration, Instant};
+
+#[global_allocator]
+static GLOBAL: StatsAlloc<System> = StatsAlloc::system();
+
+fn format_bytes(bytes: usize) -> String {
+    if bytes >= 1024 * 1024 * 1024 {
+        format!("{:.2} GB", bytes as f64 / (1024.0 * 1024.0 * 1024.0))
+    } else if bytes >= 1024 * 1024 {
+        format!("{:.2} MB", bytes as f64 / (1024.0 * 1024.0))
+    } else if bytes >= 1024 {
+        format!("{:.2} KB", bytes as f64 / 1024.0)
+    } else {
+        format!("{bytes} B")
+    }
+}
+
+// ============================================================================
+// CLI Arguments and Scenarios
+// ============================================================================
 
 #[derive(Parser, Debug)]
 #[command(
     name = "bigquery-benchmark-arrow-jobs-query",
-    about = "BigQuery jobs.query Benchmark: Arrow results format vs standard JSON"
+    about = "BigQuery jobs.query Benchmark: Arrow results format vs standard JSON (Speed & Allocations)"
 )]
 struct Args {
     /// GCP Project ID (reads from GOOGLE_CLOUD_PROJECT if omitted).
@@ -163,6 +184,8 @@ struct IterationResult {
     read_duration: Duration,
     total_duration: Duration,
     rows_count: usize,
+    bytes_allocated: usize,
+    allocations_count: usize,
 }
 
 #[tokio::main]
@@ -177,20 +200,26 @@ async fn main() -> anyhow::Result<()> {
 
     let sql_query = args.scenario.query(args.query.as_deref());
 
-    println!("================================================================================");
-    println!("                    BigQuery Query Benchmark");
-    println!("================================================================================");
+    println!(
+        "=========================================================================================================="
+    );
+    println!("                               BigQuery Query Benchmark (Speed & Memory)");
+    println!(
+        "=========================================================================================================="
+    );
     #[cfg(google_cloud_unstable_bigquery_arrow)]
-    println!("  Arrow Acceleration:  ENABLED (--cfg google_cloud_unstable_bigquery_arrow)");
+    println!("  Arrow Acceleration:    ENABLED (--cfg google_cloud_unstable_bigquery_arrow)");
     #[cfg(not(google_cloud_unstable_bigquery_arrow))]
-    println!("  Arrow Acceleration:  DISABLED (Standard JSON mode)");
-    println!("  Project ID:          {project_id}");
-    println!("  Scenario:            {:?}", args.scenario);
-    println!("  Warmup Iterations:   {}", args.warmup);
-    println!("  Measured Runs:       {}", args.iterations);
-    println!("  Use Query Cache:     {}", args.use_query_cache);
+    println!("  Arrow Acceleration:    DISABLED (Standard JSON mode)");
+    println!("  Project ID:            {project_id}");
+    println!("  Scenario:              {:?}", args.scenario);
+    println!("  Warmup Iterations:     {}", args.warmup);
+    println!("  Measured Runs:         {}", args.iterations);
+    println!("  Use Query Cache:       {}", args.use_query_cache);
     println!("  Typed Deserialization: {}", args.typed);
-    println!("================================================================================");
+    println!(
+        "=========================================================================================================="
+    );
     println!();
 
     let client = BigQuery::builder()
@@ -213,11 +242,12 @@ async fn main() -> anyhow::Result<()> {
             )
             .await?;
             println!(
-                "done ({} rows, query: {:.2?}, read: {:.2?}, total: {:.2?})",
+                "done ({} rows, query: {:.2?}, read: {:.2?}, total: {:.2?}, allocated: {})",
                 result.rows_count,
                 result.query_duration,
                 result.read_duration,
-                result.total_duration
+                result.total_duration,
+                format_bytes(result.bytes_allocated)
             );
         }
         println!();
@@ -225,12 +255,23 @@ async fn main() -> anyhow::Result<()> {
 
     // Benchmark measured runs
     println!("Running {} benchmark measurement(s)...", args.iterations);
-    println!("--------------------------------------------------------------------------------");
     println!(
-        "{:<6} | {:<12} | {:<12} | {:<12} | {:<10} | {:<14}",
-        "Run", "Query Time", "Read/Iter", "Total Time", "Rows", "Throughput"
+        "------------------------------------------------------------------------------------------------------------------"
     );
-    println!("--------------------------------------------------------------------------------");
+    println!(
+        "{:<6} | {:<12} | {:<12} | {:<12} | {:<10} | {:<14} | {:<11} | {:<12}",
+        "Run",
+        "Query Time",
+        "Read/Iter",
+        "Total Time",
+        "Rows",
+        "Throughput",
+        "Allocated",
+        "Allocations"
+    );
+    println!(
+        "------------------------------------------------------------------------------------------------------------------"
+    );
 
     let mut results = Vec::with_capacity(args.iterations);
     for i in 1..=args.iterations {
@@ -250,17 +291,21 @@ async fn main() -> anyhow::Result<()> {
         };
 
         println!(
-            "{:<6} | {:<12.2?} | {:<12.2?} | {:<12.2?} | {:<10} | {:>10.0} rows/s",
+            "{:<6} | {:<12.2?} | {:<12.2?} | {:<12.2?} | {:<10} | {:>10.0} rows/s | {:<11} | {:>12}",
             format!("#{i}"),
             result.query_duration,
             result.read_duration,
             result.total_duration,
             result.rows_count,
-            rps
+            rps,
+            format_bytes(result.bytes_allocated),
+            result.allocations_count
         );
         results.push(result);
     }
-    println!("--------------------------------------------------------------------------------");
+    println!(
+        "------------------------------------------------------------------------------------------------------------------"
+    );
 
     // Print summary statistics
     print_summary(&results);
@@ -288,6 +333,7 @@ async fn run_single_query(
     use_query_cache: bool,
     typed: bool,
 ) -> anyhow::Result<IterationResult> {
+    let region = Region::new(&GLOBAL);
     let start_total = Instant::now();
 
     // 1. Submit query and wait until complete
@@ -328,11 +374,17 @@ async fn run_single_query(
     let read_duration = start_read.elapsed();
     let total_duration = start_total.elapsed();
 
+    let stats = region.change();
+    let bytes_allocated = stats.bytes_allocated;
+    let allocations_count = stats.allocations;
+
     Ok(IterationResult {
         query_duration,
         read_duration,
         total_duration,
         rows_count,
+        bytes_allocated,
+        allocations_count,
     })
 }
 
@@ -364,6 +416,8 @@ fn print_summary(results: &[IterationResult]) {
             }
         })
         .collect();
+    let bytes_allocs: Vec<f64> = results.iter().map(|r| r.bytes_allocated as f64).collect();
+    let alloc_counts: Vec<f64> = results.iter().map(|r| r.allocations_count as f64).collect();
 
     let avg = |v: &[f64]| v.iter().sum::<f64>() / n;
     let min = |v: &[f64]| v.iter().cloned().fold(f64::INFINITY, f64::min);
@@ -377,6 +431,15 @@ fn print_summary(results: &[IterationResult]) {
     let r_avg = avg(&read_times);
     let t_avg = avg(&total_times);
     let tp_avg = avg(&throughputs);
+    let bytes_avg = avg(&bytes_allocs);
+    let count_avg = avg(&alloc_counts);
+
+    let rows_avg = results[0].rows_count as f64;
+    let bytes_per_row = if rows_avg > 0.0 {
+        bytes_avg / rows_avg
+    } else {
+        0.0
+    };
 
     println!("Summary Statistics (over {} runs):", results.len());
     println!(
@@ -405,5 +468,19 @@ fn print_summary(results: &[IterationResult]) {
         tp_avg,
         min(&throughputs),
         max(&throughputs)
+    );
+    println!(
+        "  Total Heap Allocated:   avg: {} ({:.1} bytes/row)",
+        format_bytes(bytes_avg as usize),
+        bytes_per_row
+    );
+    println!(
+        "  Total Allocations:      avg: {:.0} allocs ({:.1} allocs/row)",
+        count_avg,
+        if rows_avg > 0.0 {
+            count_avg / rows_avg
+        } else {
+            0.0
+        }
     );
 }
