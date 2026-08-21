@@ -14,14 +14,14 @@
 
 use crate::error::QueryError;
 use crate::generated::{CompleteQueryMetadata, QueryMetadata};
-use crate::model::{
-    GetQueryResultsRequest, GetQueryResultsResponse, Job, JobReference, QueryResponse,
-};
 use crate::query::execution::RetryContext;
 use crate::query::retry_policy::JobRetryResult;
 use crate::query::{Result, RowIterator, Schema};
 use google_cloud_bigquery_v2::builder::job_service::GetJob;
 use google_cloud_bigquery_v2::client::JobService;
+use google_cloud_bigquery_v2::model::{
+    GetQueryResultsRequest, GetQueryResultsResponse, Job, JobReference, QueryResponse,
+};
 use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
 use google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy;
 use google_cloud_gax::polling_state::PollingState;
@@ -122,13 +122,13 @@ impl Query {
     /// > (for example, when using [`JobCreationMode::JobCreationOptional`]).
     ///
     /// [Job]: https://docs.cloud.google.com/bigquery/docs/reference/rest/v2/Job
-    /// [`JobCreationMode::JobCreationOptional`]: crate::model::query_request::JobCreationMode::JobCreationOptional
+    /// [`JobCreationMode::JobCreationOptional`]: crate::model::v2::query_request::JobCreationMode::JobCreationOptional
     ///
     /// # Example
     ///
     /// ```
     /// # use google_cloud_bigquery::client::BigQuery;
-    /// # use google_cloud_bigquery::model::query_request::JobCreationMode;
+    /// # use google_cloud_bigquery_v2::model::query_request::JobCreationMode;
     /// # async fn sample(client: BigQuery) -> anyhow::Result<()> {
     /// let query = client
     ///     .query("SELECT 1")
@@ -397,13 +397,13 @@ impl CompleteQuery {
     /// > (for example, when using [`JobCreationMode::JobCreationOptional`]).
     ///
     /// [Job]: https://docs.cloud.google.com/bigquery/docs/reference/rest/v2/Job
-    /// [`JobCreationMode::JobCreationOptional`]: crate::model::query_request::JobCreationMode::JobCreationOptional
+    /// [`JobCreationMode::JobCreationOptional`]: crate::model::v2::query_request::JobCreationMode::JobCreationOptional
     ///
     /// # Example
     ///
     /// ```
     /// # use google_cloud_bigquery::client::BigQuery;
-    /// # use google_cloud_bigquery::model::query_request::JobCreationMode;
+    /// # use google_cloud_bigquery_v2::model::query_request::JobCreationMode;
     /// # async fn sample(client: BigQuery) -> anyhow::Result<()> {
     /// let completed = client
     ///     .query("SELECT 1")

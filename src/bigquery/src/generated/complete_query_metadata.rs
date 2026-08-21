@@ -32,7 +32,7 @@ pub struct CompleteQueryMetadata {
 
     /// Output only. Detailed statistics for DML statements INSERT, UPDATE, DELETE,
     /// MERGE or TRUNCATE.
-    pub dml_stats: std::option::Option<crate::model::DmlStats>,
+    pub dml_stats: std::option::Option<google_cloud_bigquery_v2::model::DmlStats>,
 
     /// Output only. End time of this query, in milliseconds since the epoch. This
     /// field will be present whenever a query job is in the DONE state.
@@ -44,7 +44,7 @@ pub struct CompleteQueryMetadata {
     /// completed or was unsuccessful. For more information about error messages,
     /// see [Error
     /// messages](https://cloud.google.com/bigquery/docs/error-messages).
-    pub errors: std::vec::Vec<crate::model::ErrorProto>,
+    pub errors: std::vec::Vec<google_cloud_bigquery_v2::model::ErrorProto>,
 
     /// A hash of this response.
     pub etag: std::string::String,
@@ -58,14 +58,15 @@ pub struct CompleteQueryMetadata {
     ///
     /// Only relevant when a job_reference is present in the response.
     /// If job_reference is not present it will always be unset.
-    pub job_creation_reason: std::option::Option<crate::model::JobCreationReason>,
+    pub job_creation_reason:
+        std::option::Option<google_cloud_bigquery_v2::model::JobCreationReason>,
 
     /// Reference to the BigQuery Job that was created to run the query. This field
     /// will be present even if the original request timed out, in which case
     /// GetQueryResults can be used to read the results once the query has
     /// completed. Since this API only returns the first page of results,
     /// subsequent pages can be fetched via the same mechanism (GetQueryResults).
-    pub job_reference: std::option::Option<crate::model::JobReference>,
+    pub job_reference: std::option::Option<google_cloud_bigquery_v2::model::JobReference>,
 
     /// The resource type of the response.
     pub kind: std::string::String,
@@ -95,10 +96,10 @@ pub struct CompleteQueryMetadata {
 
     /// The schema of the results. Present only when the query completes
     /// successfully.
-    pub schema: std::option::Option<crate::model::TableSchema>,
+    pub schema: std::option::Option<google_cloud_bigquery_v2::model::TableSchema>,
 
     /// Output only. Information of the session if this job is part of one.
-    pub session_info: std::option::Option<crate::model::SessionInfo>,
+    pub session_info: std::option::Option<google_cloud_bigquery_v2::model::SessionInfo>,
 
     /// Output only. Start time of this query, in milliseconds since the epoch.
     /// This field will be present when the query job transitions from the PENDING
@@ -258,7 +259,7 @@ impl CompleteQueryMetadata {
         std::default::Default::default()
     }
 
-    /// Sets the value of [cache_hit][crate::model::CompleteQueryMetadata::cache_hit].
+    /// Sets the value of [cache_hit][google_cloud_bigquery_v2::model::CompleteQueryMetadata::cache_hit].
     pub fn set_cache_hit<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -267,7 +268,7 @@ impl CompleteQueryMetadata {
         self
     }
 
-    /// Sets or clears the value of [cache_hit][crate::model::CompleteQueryMetadata::cache_hit].
+    /// Sets or clears the value of [cache_hit][google_cloud_bigquery_v2::model::CompleteQueryMetadata::cache_hit].
     pub fn set_or_clear_cache_hit<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -276,7 +277,7 @@ impl CompleteQueryMetadata {
         self
     }
 
-    /// Sets the value of [creation_time][crate::model::CompleteQueryMetadata::creation_time].
+    /// Sets the value of [creation_time][google_cloud_bigquery_v2::model::CompleteQueryMetadata::creation_time].
     pub fn set_creation_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -285,7 +286,7 @@ impl CompleteQueryMetadata {
         self
     }
 
-    /// Sets or clears the value of [creation_time][crate::model::CompleteQueryMetadata::creation_time].
+    /// Sets or clears the value of [creation_time][google_cloud_bigquery_v2::model::CompleteQueryMetadata::creation_time].
     pub fn set_or_clear_creation_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -294,25 +295,25 @@ impl CompleteQueryMetadata {
         self
     }
 
-    /// Sets the value of [dml_stats][crate::model::CompleteQueryMetadata::dml_stats].
+    /// Sets the value of [dml_stats][google_cloud_bigquery_v2::model::CompleteQueryMetadata::dml_stats].
     pub fn set_dml_stats<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<crate::model::DmlStats>,
+        T: std::convert::Into<google_cloud_bigquery_v2::model::DmlStats>,
     {
         self.dml_stats = std::option::Option::Some(v.into());
         self
     }
 
-    /// Sets or clears the value of [dml_stats][crate::model::CompleteQueryMetadata::dml_stats].
+    /// Sets or clears the value of [dml_stats][google_cloud_bigquery_v2::model::CompleteQueryMetadata::dml_stats].
     pub fn set_or_clear_dml_stats<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<crate::model::DmlStats>,
+        T: std::convert::Into<google_cloud_bigquery_v2::model::DmlStats>,
     {
         self.dml_stats = v.map(|x| x.into());
         self
     }
 
-    /// Sets the value of [end_time][crate::model::CompleteQueryMetadata::end_time].
+    /// Sets the value of [end_time][google_cloud_bigquery_v2::model::CompleteQueryMetadata::end_time].
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -321,7 +322,7 @@ impl CompleteQueryMetadata {
         self
     }
 
-    /// Sets or clears the value of [end_time][crate::model::CompleteQueryMetadata::end_time].
+    /// Sets or clears the value of [end_time][google_cloud_bigquery_v2::model::CompleteQueryMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -330,24 +331,24 @@ impl CompleteQueryMetadata {
         self
     }
 
-    /// Sets the value of [errors][crate::model::CompleteQueryMetadata::errors].
+    /// Sets the value of [errors][google_cloud_bigquery_v2::model::CompleteQueryMetadata::errors].
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ErrorProto>,
+        V: std::convert::Into<google_cloud_bigquery_v2::model::ErrorProto>,
     {
         use std::iter::Iterator;
         self.errors = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
-    /// Sets the value of [etag][crate::model::CompleteQueryMetadata::etag].
+    /// Sets the value of [etag][google_cloud_bigquery_v2::model::CompleteQueryMetadata::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
-    /// Sets the value of [job_complete][crate::model::CompleteQueryMetadata::job_complete].
+    /// Sets the value of [job_complete][google_cloud_bigquery_v2::model::CompleteQueryMetadata::job_complete].
     pub fn set_job_complete<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -356,7 +357,7 @@ impl CompleteQueryMetadata {
         self
     }
 
-    /// Sets or clears the value of [job_complete][crate::model::CompleteQueryMetadata::job_complete].
+    /// Sets or clears the value of [job_complete][google_cloud_bigquery_v2::model::CompleteQueryMetadata::job_complete].
     pub fn set_or_clear_job_complete<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -365,55 +366,55 @@ impl CompleteQueryMetadata {
         self
     }
 
-    /// Sets the value of [job_creation_reason][crate::model::CompleteQueryMetadata::job_creation_reason].
+    /// Sets the value of [job_creation_reason][google_cloud_bigquery_v2::model::CompleteQueryMetadata::job_creation_reason].
     pub fn set_job_creation_reason<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<crate::model::JobCreationReason>,
+        T: std::convert::Into<google_cloud_bigquery_v2::model::JobCreationReason>,
     {
         self.job_creation_reason = std::option::Option::Some(v.into());
         self
     }
 
-    /// Sets or clears the value of [job_creation_reason][crate::model::CompleteQueryMetadata::job_creation_reason].
+    /// Sets or clears the value of [job_creation_reason][google_cloud_bigquery_v2::model::CompleteQueryMetadata::job_creation_reason].
     pub fn set_or_clear_job_creation_reason<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<crate::model::JobCreationReason>,
+        T: std::convert::Into<google_cloud_bigquery_v2::model::JobCreationReason>,
     {
         self.job_creation_reason = v.map(|x| x.into());
         self
     }
 
-    /// Sets the value of [job_reference][crate::model::CompleteQueryMetadata::job_reference].
+    /// Sets the value of [job_reference][google_cloud_bigquery_v2::model::CompleteQueryMetadata::job_reference].
     pub fn set_job_reference<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<crate::model::JobReference>,
+        T: std::convert::Into<google_cloud_bigquery_v2::model::JobReference>,
     {
         self.job_reference = std::option::Option::Some(v.into());
         self
     }
 
-    /// Sets or clears the value of [job_reference][crate::model::CompleteQueryMetadata::job_reference].
+    /// Sets or clears the value of [job_reference][google_cloud_bigquery_v2::model::CompleteQueryMetadata::job_reference].
     pub fn set_or_clear_job_reference<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<crate::model::JobReference>,
+        T: std::convert::Into<google_cloud_bigquery_v2::model::JobReference>,
     {
         self.job_reference = v.map(|x| x.into());
         self
     }
 
-    /// Sets the value of [kind][crate::model::CompleteQueryMetadata::kind].
+    /// Sets the value of [kind][google_cloud_bigquery_v2::model::CompleteQueryMetadata::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
-    /// Sets the value of [location][crate::model::CompleteQueryMetadata::location].
+    /// Sets the value of [location][google_cloud_bigquery_v2::model::CompleteQueryMetadata::location].
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
-    /// Sets the value of [num_dml_affected_rows][crate::model::CompleteQueryMetadata::num_dml_affected_rows].
+    /// Sets the value of [num_dml_affected_rows][google_cloud_bigquery_v2::model::CompleteQueryMetadata::num_dml_affected_rows].
     pub fn set_num_dml_affected_rows<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -422,7 +423,7 @@ impl CompleteQueryMetadata {
         self
     }
 
-    /// Sets or clears the value of [num_dml_affected_rows][crate::model::CompleteQueryMetadata::num_dml_affected_rows].
+    /// Sets or clears the value of [num_dml_affected_rows][google_cloud_bigquery_v2::model::CompleteQueryMetadata::num_dml_affected_rows].
     pub fn set_or_clear_num_dml_affected_rows<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -431,61 +432,61 @@ impl CompleteQueryMetadata {
         self
     }
 
-    /// Sets the value of [page_row_count][crate::model::CompleteQueryMetadata::page_row_count].
+    /// Sets the value of [page_row_count][google_cloud_bigquery_v2::model::CompleteQueryMetadata::page_row_count].
     pub fn set_page_row_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.page_row_count = v.into();
         self
     }
 
-    /// Sets the value of [page_token][crate::model::CompleteQueryMetadata::page_token].
+    /// Sets the value of [page_token][google_cloud_bigquery_v2::model::CompleteQueryMetadata::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
-    /// Sets the value of [query_id][crate::model::CompleteQueryMetadata::query_id].
+    /// Sets the value of [query_id][google_cloud_bigquery_v2::model::CompleteQueryMetadata::query_id].
     pub fn set_query_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query_id = v.into();
         self
     }
 
-    /// Sets the value of [schema][crate::model::CompleteQueryMetadata::schema].
+    /// Sets the value of [schema][google_cloud_bigquery_v2::model::CompleteQueryMetadata::schema].
     pub fn set_schema<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<crate::model::TableSchema>,
+        T: std::convert::Into<google_cloud_bigquery_v2::model::TableSchema>,
     {
         self.schema = std::option::Option::Some(v.into());
         self
     }
 
-    /// Sets or clears the value of [schema][crate::model::CompleteQueryMetadata::schema].
+    /// Sets or clears the value of [schema][google_cloud_bigquery_v2::model::CompleteQueryMetadata::schema].
     pub fn set_or_clear_schema<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<crate::model::TableSchema>,
+        T: std::convert::Into<google_cloud_bigquery_v2::model::TableSchema>,
     {
         self.schema = v.map(|x| x.into());
         self
     }
 
-    /// Sets the value of [session_info][crate::model::CompleteQueryMetadata::session_info].
+    /// Sets the value of [session_info][google_cloud_bigquery_v2::model::CompleteQueryMetadata::session_info].
     pub fn set_session_info<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<crate::model::SessionInfo>,
+        T: std::convert::Into<google_cloud_bigquery_v2::model::SessionInfo>,
     {
         self.session_info = std::option::Option::Some(v.into());
         self
     }
 
-    /// Sets or clears the value of [session_info][crate::model::CompleteQueryMetadata::session_info].
+    /// Sets or clears the value of [session_info][google_cloud_bigquery_v2::model::CompleteQueryMetadata::session_info].
     pub fn set_or_clear_session_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<crate::model::SessionInfo>,
+        T: std::convert::Into<google_cloud_bigquery_v2::model::SessionInfo>,
     {
         self.session_info = v.map(|x| x.into());
         self
     }
 
-    /// Sets the value of [start_time][crate::model::CompleteQueryMetadata::start_time].
+    /// Sets the value of [start_time][google_cloud_bigquery_v2::model::CompleteQueryMetadata::start_time].
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -494,7 +495,7 @@ impl CompleteQueryMetadata {
         self
     }
 
-    /// Sets or clears the value of [start_time][crate::model::CompleteQueryMetadata::start_time].
+    /// Sets or clears the value of [start_time][google_cloud_bigquery_v2::model::CompleteQueryMetadata::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -503,13 +504,13 @@ impl CompleteQueryMetadata {
         self
     }
 
-    /// Sets the value of [statement_type][crate::model::CompleteQueryMetadata::statement_type].
+    /// Sets the value of [statement_type][google_cloud_bigquery_v2::model::CompleteQueryMetadata::statement_type].
     pub fn set_statement_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.statement_type = v.into();
         self
     }
 
-    /// Sets the value of [total_bytes_billed][crate::model::CompleteQueryMetadata::total_bytes_billed].
+    /// Sets the value of [total_bytes_billed][google_cloud_bigquery_v2::model::CompleteQueryMetadata::total_bytes_billed].
     pub fn set_total_bytes_billed<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -518,7 +519,7 @@ impl CompleteQueryMetadata {
         self
     }
 
-    /// Sets or clears the value of [total_bytes_billed][crate::model::CompleteQueryMetadata::total_bytes_billed].
+    /// Sets or clears the value of [total_bytes_billed][google_cloud_bigquery_v2::model::CompleteQueryMetadata::total_bytes_billed].
     pub fn set_or_clear_total_bytes_billed<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -527,7 +528,7 @@ impl CompleteQueryMetadata {
         self
     }
 
-    /// Sets the value of [total_bytes_processed][crate::model::CompleteQueryMetadata::total_bytes_processed].
+    /// Sets the value of [total_bytes_processed][google_cloud_bigquery_v2::model::CompleteQueryMetadata::total_bytes_processed].
     pub fn set_total_bytes_processed<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -536,7 +537,7 @@ impl CompleteQueryMetadata {
         self
     }
 
-    /// Sets or clears the value of [total_bytes_processed][crate::model::CompleteQueryMetadata::total_bytes_processed].
+    /// Sets or clears the value of [total_bytes_processed][google_cloud_bigquery_v2::model::CompleteQueryMetadata::total_bytes_processed].
     pub fn set_or_clear_total_bytes_processed<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -545,7 +546,7 @@ impl CompleteQueryMetadata {
         self
     }
 
-    /// Sets the value of [total_rows][crate::model::CompleteQueryMetadata::total_rows].
+    /// Sets the value of [total_rows][google_cloud_bigquery_v2::model::CompleteQueryMetadata::total_rows].
     pub fn set_total_rows<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::UInt64Value>,
@@ -554,7 +555,7 @@ impl CompleteQueryMetadata {
         self
     }
 
-    /// Sets or clears the value of [total_rows][crate::model::CompleteQueryMetadata::total_rows].
+    /// Sets or clears the value of [total_rows][google_cloud_bigquery_v2::model::CompleteQueryMetadata::total_rows].
     pub fn set_or_clear_total_rows<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::UInt64Value>,
@@ -563,7 +564,7 @@ impl CompleteQueryMetadata {
         self
     }
 
-    /// Sets the value of [total_slot_ms][crate::model::CompleteQueryMetadata::total_slot_ms].
+    /// Sets the value of [total_slot_ms][google_cloud_bigquery_v2::model::CompleteQueryMetadata::total_slot_ms].
     pub fn set_total_slot_ms<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -572,7 +573,7 @@ impl CompleteQueryMetadata {
         self
     }
 
-    /// Sets or clears the value of [total_slot_ms][crate::model::CompleteQueryMetadata::total_slot_ms].
+    /// Sets or clears the value of [total_slot_ms][google_cloud_bigquery_v2::model::CompleteQueryMetadata::total_slot_ms].
     pub fn set_or_clear_total_slot_ms<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,

@@ -505,6 +505,7 @@ libraries:
     rust:
       modules:
         - output: src/bigquery/src/generated
+          module_path: google_cloud_bigquery_v2::model
           skipped_ids:
             - .google.cloud.bigquery.v2.JobConfiguration.copy
             - .google.cloud.bigquery.v2.JobConfiguration.load

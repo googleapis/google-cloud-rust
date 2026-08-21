@@ -108,10 +108,16 @@ pub mod client {
 
 /// The messages and enums that are part of this client library.
 pub mod model {
-    // TODO(#6443) - move into `model_ext`
+    pub mod v2 {
+        // TODO: OR bigquery_v2 ? bigquery::v2 ? or remove it all together ?
+        pub use google_cloud_bigquery_v2::model::*;
+    }
+}
+
+/// Extends [model] with types that improve type safety and/or
+/// ergonomics.
+pub mod model_ext {
     pub use crate::generated::{CompleteQueryMetadata, QueryMetadata};
-    // TODO(#6224) - restrict exports?
-    pub use google_cloud_bigquery_v2::model::*;
 }
 
 /// Request and client builders.
