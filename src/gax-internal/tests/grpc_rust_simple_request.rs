@@ -126,6 +126,37 @@ mod tests {
         Ok(())
     }
 
+    #[tokio::test]
+    async fn custom_global_headers() -> anyhow::Result<()> {
+        // Arrange
+        const CUSTOM_HEADER: &str = "x-custom-global-header";
+        const CUSTOM_VALUE: &str = "global-value";
+
+        let (endpoint, _server) = start_echo_server().await?;
+
+        let mut global_headers = http::HeaderMap::new();
+        global_headers.insert(
+            http::header::HeaderName::from_static(CUSTOM_HEADER),
+            http::header::HeaderValue::from_static(CUSTOM_VALUE),
+        );
+
+        let mut config = test_config();
+        config.extensions.insert(global_headers);
+
+        let client = GrpcRustClient::new(config, &endpoint).await?;
+
+        // Act
+        let response = send_request(client, "test message", "").await?;
+
+        // Assert
+        assert_eq!(&response.message, "test message");
+        assert_eq!(
+            response.metadata.get(CUSTOM_HEADER).map(String::as_str),
+            Some(CUSTOM_VALUE)
+        );
+        Ok(())
+    }
+
     fn test_credentials() -> Credentials {
         Anonymous::new().build()
     }
