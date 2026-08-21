@@ -608,6 +608,14 @@ async fn run_object_appendable_examples(
         .send()
         .await?;
 
+    tracing::info!("running open_appendable_object_send_and_append example");
+    objects::open_appendable_object_send_and_append::sample(
+        client,
+        &rapid_bucket_id,
+        "appendable-send-and-append",
+    )
+    .await?;
+
     tracing::info!("running open_appendable_object_write example");
     objects::open_appendable_object_write::sample(client, &rapid_bucket_id, "appendable-write")
         .await?;
