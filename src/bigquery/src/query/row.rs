@@ -274,7 +274,7 @@ fn convert_value(value: Value, field: &TableFieldSchema) -> Result<Value> {
 }
 
 fn convert_repeated(value: ListValue, field: &TableFieldSchema) -> Result<Value> {
-    let mut values = ListValue::new();
+    let mut values = ListValue::with_capacity(value.len());
     for cell in value {
         // each cell contains a single entry, keyed by "v"
         let val = get_field_value(cell)?;
