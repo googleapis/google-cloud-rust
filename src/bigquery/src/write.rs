@@ -20,8 +20,6 @@ pub mod arrow;
 // TODO(#6443) - relocate this.
 /// The messages and enums that are part of this client library
 pub mod model {
-    // TODO(#6443) - move to model_ext
-    pub use crate::write::append_response::AppendResponse;
     // TODO(#6224) - restrict exports
     pub use crate::write::generated::gapic_storage::model::*;
 }
@@ -30,7 +28,7 @@ pub use append_future::AppendFuture;
 
 pub(super) mod append_builder;
 pub(super) mod append_future;
-mod append_response;
+pub(super) mod append_response;
 pub(super) mod client;
 pub(super) mod client_builder;
 pub(super) mod error;
