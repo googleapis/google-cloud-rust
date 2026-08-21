@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::arrow::{DefaultWriter, PendingWriter};
+use crate::arrow::{CommittedWriter, DefaultWriter, PendingWriter};
 use crate::generated::gapic_storage::client::BigQueryWrite;
 use crate::model::write_stream::Type;
 use crate::model::{ArrowSchema, WriteStream};
@@ -67,10 +67,7 @@ impl WriterBuilder {
     }
 
     /// Creates a committed writer for the given table.
-    pub async fn committed<T: Into<String>>(
-        self,
-        table: T,
-    ) -> Result<crate::arrow::CommittedWriter> {
+    pub async fn committed<T: Into<String>>(self, table: T) -> Result<CommittedWriter> {
         let table = table.into();
         validate_table(table.as_str())?;
 
@@ -82,7 +79,7 @@ impl WriterBuilder {
             .send()
             .await?;
 
-        Ok(crate::arrow::CommittedWriter::new(
+        Ok(CommittedWriter::new(
             self.inner,
             write_stream.name,
             self.schema,
