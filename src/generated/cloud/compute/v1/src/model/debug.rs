@@ -2008,6 +2008,7 @@ impl std::fmt::Debug for super::BackendServiceTlsSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BackendServiceTlsSettings");
         debug_struct.field("authentication_config", &self.authentication_config);
+        debug_struct.field("identity", &self.identity);
         debug_struct.field("sni", &self.sni);
         debug_struct.field("subject_alt_names", &self.subject_alt_names);
         if !self._unknown_fields.is_empty() {
@@ -4933,6 +4934,7 @@ impl std::fmt::Debug for super::FutureReservation {
         debug_struct.field("reservation_mode", &self.reservation_mode);
         debug_struct.field("reservation_name", &self.reservation_name);
         debug_struct.field("resource_metadata", &self.resource_metadata);
+        debug_struct.field("resource_name", &self.resource_name);
         debug_struct.field("scheduling_type", &self.scheduling_type);
         debug_struct.field("self_link", &self.self_link);
         debug_struct.field("self_link_with_id", &self.self_link_with_id);
@@ -4943,6 +4945,7 @@ impl std::fmt::Debug for super::FutureReservation {
         );
         debug_struct.field("specific_sku_properties", &self.specific_sku_properties);
         debug_struct.field("status", &self.status);
+        debug_struct.field("storage_pool_properties", &self.storage_pool_properties);
         debug_struct.field("time_window", &self.time_window);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
@@ -4999,6 +5002,10 @@ impl std::fmt::Debug for super::FutureReservationStatus {
         debug_struct.field("amendment_status", &self.amendment_status);
         debug_struct.field("auto_created_reservations", &self.auto_created_reservations);
         debug_struct.field(
+            "exapool_provisioned_capacity_gb",
+            &self.exapool_provisioned_capacity_gb,
+        );
+        debug_struct.field(
             "existing_matching_usage_info",
             &self.existing_matching_usage_info,
         );
@@ -5007,6 +5014,10 @@ impl std::fmt::Debug for super::FutureReservationStatus {
         debug_struct.field("lock_time", &self.lock_time);
         debug_struct.field("procurement_status", &self.procurement_status);
         debug_struct.field("specific_sku_properties", &self.specific_sku_properties);
+        debug_struct.field(
+            "storage_pool_provisioned_capacity",
+            &self.storage_pool_provisioned_capacity,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5069,6 +5080,46 @@ impl std::fmt::Debug for super::FutureReservationStatusSpecificSKUProperties {
         debug_struct.field(
             "source_instance_template_id",
             &self.source_instance_template_id,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "future-reservations")]
+impl std::fmt::Debug for super::FutureReservationStoragePoolProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FutureReservationStoragePoolProperties");
+        debug_struct.field(
+            "requested_exapool_provisioned_capacity_gb",
+            &self.requested_exapool_provisioned_capacity_gb,
+        );
+        debug_struct.field(
+            "requested_storage_pool_provisioned_capacity",
+            &self.requested_storage_pool_provisioned_capacity,
+        );
+        debug_struct.field("storage_pool_type", &self.storage_pool_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "future-reservations")]
+impl std::fmt::Debug for super::FutureReservationStoragePoolProvisionedCapacity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FutureReservationStoragePoolProvisionedCapacity");
+        debug_struct.field(
+            "pool_provisioned_capacity_gb",
+            &self.pool_provisioned_capacity_gb,
+        );
+        debug_struct.field("pool_provisioned_iops", &self.pool_provisioned_iops);
+        debug_struct.field(
+            "pool_provisioned_throughput",
+            &self.pool_provisioned_throughput,
         );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -7862,6 +7913,7 @@ impl std::fmt::Debug for super::InstanceFlexibilityPolicyInstanceSelection {
         let mut debug_struct = f.debug_struct("InstanceFlexibilityPolicyInstanceSelection");
         debug_struct.field("disks", &self.disks);
         debug_struct.field("machine_types", &self.machine_types);
+        debug_struct.field("min_cpu_platform", &self.min_cpu_platform);
         debug_struct.field("rank", &self.rank);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -17003,6 +17055,19 @@ impl std::fmt::Debug for super::Reference {
     }
 }
 
+#[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+impl std::fmt::Debug for super::RegexRewrite {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RegexRewrite");
+        debug_struct.field("path_pattern", &self.path_pattern);
+        debug_struct.field("path_substitution", &self.path_substitution);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 #[cfg(feature = "regions")]
 impl std::fmt::Debug for super::Region {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -23022,7 +23087,7 @@ impl std::fmt::Debug for super::StoragePoolDisk {
     }
 }
 
-#[cfg(feature = "storage-pools")]
+#[cfg(any(feature = "future-reservations", feature = "storage-pools",))]
 impl std::fmt::Debug for super::StoragePoolExapoolProvisionedCapacityGb {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StoragePoolExapoolProvisionedCapacityGb");
@@ -25535,6 +25600,7 @@ impl std::fmt::Debug for super::UrlRewrite {
         debug_struct.field("host_rewrite", &self.host_rewrite);
         debug_struct.field("path_prefix_rewrite", &self.path_prefix_rewrite);
         debug_struct.field("path_template_rewrite", &self.path_template_rewrite);
+        debug_struct.field("regex_rewrite", &self.regex_rewrite);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

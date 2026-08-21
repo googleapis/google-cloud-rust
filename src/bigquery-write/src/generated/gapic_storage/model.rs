@@ -913,6 +913,13 @@ pub struct ReadRowsRequest {
     /// from offset zero.
     pub offset: i64,
 
+    /// Specifies output serialization options. Only job _default streams are
+    /// supported.
+    ///
+    /// This feature is not yet available.
+    pub output_format_serialization_options:
+        std::option::Option<crate::model::read_rows_request::OutputFormatSerializationOptions>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -933,11 +940,89 @@ impl ReadRowsRequest {
         self.offset = v.into();
         self
     }
+
+    /// Sets the value of [output_format_serialization_options][crate::model::ReadRowsRequest::output_format_serialization_options].
+    ///
+    /// Note that all the setters affecting `output_format_serialization_options` are mutually
+    /// exclusive.
+    pub fn set_output_format_serialization_options<
+        T: std::convert::Into<
+                std::option::Option<
+                    crate::model::read_rows_request::OutputFormatSerializationOptions,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.output_format_serialization_options = v.into();
+        self
+    }
+
+    /// The value of [output_format_serialization_options][crate::model::ReadRowsRequest::output_format_serialization_options]
+    /// if it holds a `ArrowSerializationOptions`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn arrow_serialization_options(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ArrowSerializationOptions>> {
+        #[allow(unreachable_patterns)]
+        self.output_format_serialization_options.as_ref().and_then(|v| match v {
+            crate::model::read_rows_request::OutputFormatSerializationOptions::ArrowSerializationOptions(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [output_format_serialization_options][crate::model::ReadRowsRequest::output_format_serialization_options]
+    /// to hold a `ArrowSerializationOptions`.
+    ///
+    /// Note that all the setters affecting `output_format_serialization_options` are
+    /// mutually exclusive.
+    pub fn set_arrow_serialization_options<
+        T: std::convert::Into<std::boxed::Box<crate::model::ArrowSerializationOptions>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.output_format_serialization_options = std::option::Option::Some(
+            crate::model::read_rows_request::OutputFormatSerializationOptions::ArrowSerializationOptions(
+                v.into()
+            )
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for ReadRowsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.bigquery.storage.v1.ReadRowsRequest"
+    }
+}
+
+/// Defines additional types related to [ReadRowsRequest].
+pub mod read_rows_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Specifies output serialization options. Only job _default streams are
+    /// supported.
+    ///
+    /// This feature is not yet available.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum OutputFormatSerializationOptions {
+        /// Optional. Options specific to the Apache Arrow output format.
+        ///
+        /// This feature is not yet available.
+        ArrowSerializationOptions(std::boxed::Box<crate::model::ArrowSerializationOptions>),
+    }
+
+    impl OutputFormatSerializationOptions {
+        /// Initializes the enum to the [ArrowSerializationOptions](Self::ArrowSerializationOptions) branch.
+        pub fn from_arrow_serialization_options(
+            value: impl std::convert::Into<std::boxed::Box<crate::model::ArrowSerializationOptions>>,
+        ) -> Self {
+            Self::ArrowSerializationOptions(value.into())
+        }
     }
 }
 
@@ -1099,6 +1184,12 @@ pub struct ReadRowsResponse {
     /// greater than 0, the client should skip decompression.
     pub uncompressed_byte_size: std::option::Option<i64>,
 
+    /// Output only. The total estimated number of rows in the query results.
+    /// Only populated when reading data from a BigQuery job.
+    ///
+    /// This feature is not yet available.
+    pub total_estimated_row_count: std::option::Option<i64>,
+
     /// Row data is returned in format specified during session creation.
     pub rows: std::option::Option<crate::model::read_rows_response::Rows>,
 
@@ -1175,6 +1266,24 @@ impl ReadRowsResponse {
         T: std::convert::Into<i64>,
     {
         self.uncompressed_byte_size = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [total_estimated_row_count][crate::model::ReadRowsResponse::total_estimated_row_count].
+    pub fn set_total_estimated_row_count<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.total_estimated_row_count = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [total_estimated_row_count][crate::model::ReadRowsResponse::total_estimated_row_count].
+    pub fn set_or_clear_total_estimated_row_count<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.total_estimated_row_count = v.map(|x| x.into());
         self
     }
 
@@ -1551,7 +1660,7 @@ impl wkt::message::Message for CreateWriteStreamRequest {
 /// switching table destinations. You can also switch table destinations within
 /// the same connection for the default stream.
 ///
-/// The size of a single AppendRowsRequest must be less than 10 MB in size.
+/// The size of a single AppendRowsRequest must be less than 20 MB in size.
 /// Requests larger than this return an error, typically `INVALID_ARGUMENT`.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -1637,6 +1746,9 @@ pub struct AppendRowsRequest {
     pub default_missing_value_interpretation:
         crate::model::append_rows_request::MissingValueInterpretation,
 
+    /// Optional. Stats and telemetry data gathered on the client side.
+    pub client_stats: std::option::Option<crate::model::ClientStats>,
+
     /// Input rows. The `writer_schema` field must be specified at the initial
     /// request and currently, it will be ignored if specified in following
     /// requests. Following requests must have data in the same format as the
@@ -1703,6 +1815,24 @@ impl AppendRowsRequest {
         v: T,
     ) -> Self {
         self.default_missing_value_interpretation = v.into();
+        self
+    }
+
+    /// Sets the value of [client_stats][crate::model::AppendRowsRequest::client_stats].
+    pub fn set_client_stats<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ClientStats>,
+    {
+        self.client_stats = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [client_stats][crate::model::AppendRowsRequest::client_stats].
+    pub fn set_or_clear_client_stats<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ClientStats>,
+    {
+        self.client_stats = v.map(|x| x.into());
         self
     }
 
@@ -3081,6 +3211,347 @@ pub mod row_error {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<RowErrorCode>::new(
                 ".google.cloud.bigquery.storage.v1.RowError.RowErrorCode",
             ))
+        }
+    }
+}
+
+/// Stats and telemetry data gathered on the client side about requests
+/// being sent to the BigQuery Storage service, for internal use only.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ClientStats {
+    /// Optional. Per-request stats.
+    pub request_stats: std::option::Option<crate::model::client_stats::RequestStats>,
+
+    /// Optional. Windowed stats.
+    pub window_stats: std::option::Option<crate::model::client_stats::WindowStats>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ClientStats {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [request_stats][crate::model::ClientStats::request_stats].
+    pub fn set_request_stats<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::client_stats::RequestStats>,
+    {
+        self.request_stats = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [request_stats][crate::model::ClientStats::request_stats].
+    pub fn set_or_clear_request_stats<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::client_stats::RequestStats>,
+    {
+        self.request_stats = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [window_stats][crate::model::ClientStats::window_stats].
+    pub fn set_window_stats<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::client_stats::WindowStats>,
+    {
+        self.window_stats = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [window_stats][crate::model::ClientStats::window_stats].
+    pub fn set_or_clear_window_stats<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::client_stats::WindowStats>,
+    {
+        self.window_stats = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for ClientStats {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.storage.v1.ClientStats"
+    }
+}
+
+/// Defines additional types related to [ClientStats].
+pub mod client_stats {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Stats and telemetry data gathered on the client side about a single
+    /// request.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct RequestStats {
+        /// Optional. Timestamp indicating when the request was sent over the
+        /// network, expressed in epoch milliseconds.
+        pub send_time_millis: std::option::Option<i64>,
+
+        /// Optional. Number of pending requests at the moment this request was sent.
+        /// This includes requests waiting to be sent, and those that are inflight.
+        pub queued_requests_count: std::option::Option<i64>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl RequestStats {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [send_time_millis][crate::model::client_stats::RequestStats::send_time_millis].
+        pub fn set_send_time_millis<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.send_time_millis = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [send_time_millis][crate::model::client_stats::RequestStats::send_time_millis].
+        pub fn set_or_clear_send_time_millis<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.send_time_millis = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [queued_requests_count][crate::model::client_stats::RequestStats::queued_requests_count].
+        pub fn set_queued_requests_count<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.queued_requests_count = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [queued_requests_count][crate::model::client_stats::RequestStats::queued_requests_count].
+        pub fn set_or_clear_queued_requests_count<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.queued_requests_count = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for RequestStats {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.bigquery.storage.v1.ClientStats.RequestStats"
+        }
+    }
+
+    /// Aggregate connection metrics over a window interval.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct WindowStats {
+        /// Optional. The maximum response latency observed in the window, expressed
+        /// in milliseconds.
+        pub max_response_latency_millis: std::option::Option<i64>,
+
+        /// Optional. The average response latency observed in the window, expressed
+        /// in milliseconds.
+        pub avg_response_latency_millis: std::option::Option<i64>,
+
+        /// Optional. The longest time spent waiting without receiving a response in
+        /// the window. This could exceed max_response_latency_millis because the
+        /// latter is evaluated only when a response is received. Expressed in
+        /// milliseconds.
+        pub longest_wait_no_response_millis: std::option::Option<i64>,
+
+        /// Optional. How many requests were sent in the window.
+        pub requests_sent_count: std::option::Option<i64>,
+
+        /// Optional. How many responses were received in the window.
+        pub responses_received_count: std::option::Option<i64>,
+
+        /// Optional. How many bytes were sent in the window.
+        pub bytes_sent_count: std::option::Option<i64>,
+
+        /// Optional. Start time of the window interval for which these stats are
+        /// aggregated, expressed in epoch milliseconds.
+        pub window_start_time_epoch_millis: std::option::Option<i64>,
+
+        /// Optional. Duration of the window interval for which these stats are
+        /// aggregated, expressed in milliseconds.
+        pub window_millis: std::option::Option<i64>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl WindowStats {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [max_response_latency_millis][crate::model::client_stats::WindowStats::max_response_latency_millis].
+        pub fn set_max_response_latency_millis<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.max_response_latency_millis = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_response_latency_millis][crate::model::client_stats::WindowStats::max_response_latency_millis].
+        pub fn set_or_clear_max_response_latency_millis<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.max_response_latency_millis = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [avg_response_latency_millis][crate::model::client_stats::WindowStats::avg_response_latency_millis].
+        pub fn set_avg_response_latency_millis<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.avg_response_latency_millis = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [avg_response_latency_millis][crate::model::client_stats::WindowStats::avg_response_latency_millis].
+        pub fn set_or_clear_avg_response_latency_millis<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.avg_response_latency_millis = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [longest_wait_no_response_millis][crate::model::client_stats::WindowStats::longest_wait_no_response_millis].
+        pub fn set_longest_wait_no_response_millis<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.longest_wait_no_response_millis = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [longest_wait_no_response_millis][crate::model::client_stats::WindowStats::longest_wait_no_response_millis].
+        pub fn set_or_clear_longest_wait_no_response_millis<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.longest_wait_no_response_millis = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [requests_sent_count][crate::model::client_stats::WindowStats::requests_sent_count].
+        pub fn set_requests_sent_count<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.requests_sent_count = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [requests_sent_count][crate::model::client_stats::WindowStats::requests_sent_count].
+        pub fn set_or_clear_requests_sent_count<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.requests_sent_count = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [responses_received_count][crate::model::client_stats::WindowStats::responses_received_count].
+        pub fn set_responses_received_count<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.responses_received_count = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [responses_received_count][crate::model::client_stats::WindowStats::responses_received_count].
+        pub fn set_or_clear_responses_received_count<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.responses_received_count = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [bytes_sent_count][crate::model::client_stats::WindowStats::bytes_sent_count].
+        pub fn set_bytes_sent_count<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.bytes_sent_count = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [bytes_sent_count][crate::model::client_stats::WindowStats::bytes_sent_count].
+        pub fn set_or_clear_bytes_sent_count<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.bytes_sent_count = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [window_start_time_epoch_millis][crate::model::client_stats::WindowStats::window_start_time_epoch_millis].
+        pub fn set_window_start_time_epoch_millis<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.window_start_time_epoch_millis = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [window_start_time_epoch_millis][crate::model::client_stats::WindowStats::window_start_time_epoch_millis].
+        pub fn set_or_clear_window_start_time_epoch_millis<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.window_start_time_epoch_millis = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [window_millis][crate::model::client_stats::WindowStats::window_millis].
+        pub fn set_window_millis<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.window_millis = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [window_millis][crate::model::client_stats::WindowStats::window_millis].
+        pub fn set_or_clear_window_millis<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.window_millis = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for WindowStats {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.bigquery.storage.v1.ClientStats.WindowStats"
         }
     }
 }

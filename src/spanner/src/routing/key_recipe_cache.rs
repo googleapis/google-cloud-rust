@@ -18,11 +18,11 @@
 //! so that subsequent read and query RPCs can encode binary routing keys locally without relying on the
 //! Spanner Frontend (SpanFE) proxy to resolve tablet shard boundaries.
 
-// TODO(#6236): Remove dead_code allowance once KeyRecipe and KeyRecipeCache are integrated into DatabaseClient.
+// TODO(#6236): Remove dead_code allowance once request routing interceptors utilize KeyRecipeCache in subsequent PRs.
 #![allow(dead_code)]
 
-use crate::model::KeyRecipe;
 use crate::model::key_recipe::Target;
+use crate::model::{KeyRecipe, RecipeList};
 use std::collections::HashMap;
 use std::fmt::{self, Debug, Formatter};
 use std::mem::take;
@@ -121,10 +121,13 @@ impl KeyRecipeCache {
     /// Inserts a [`KeyRecipe`] into the cache.
     ///
     /// # Concurrency Optimization
-    /// Intentionally clones `recipe.target` (`String::clone` for table/index names) and wraps `recipe`
-    /// in an `Arc` before acquiring the write lock (`self.store.write()`). This ensures that all heap
-    /// allocations occur outside the critical section, reducing lock hold duration to a pure $O(1)$
-    /// hashmap insertion.
+    /// Clones `recipe.target` (`String::clone` for table/index names) and wraps `recipe`
+    /// in an [`Arc`] before acquiring the write lock (`self.store.write()`). This ensures that all
+    /// heap allocations occur outside the critical section, reducing lock hold duration to a pure
+    /// $O(1)$ hashmap insertion.
+    ///
+    /// The lock guard is explicitly dropped before any displaced previous recipe is deallocated,
+    /// ensuring heap deallocations also occur outside the critical section.
     ///
     /// Returns `true` if the recipe contained a target and was stored in the cache;
     /// returns `false` if `recipe.target` was `None`.
@@ -144,6 +147,43 @@ impl KeyRecipeCache {
         // outside the critical section.
         drop(guard);
         true
+    }
+
+    /// Ingests a slice of [`KeyRecipe`]s into the cache in a single batch,
+    /// acquiring the write lock only once.
+    pub(crate) fn insert_batch(&self, recipes: &[KeyRecipe]) {
+        if recipes.is_empty() {
+            return;
+        }
+        // Prepare target and Arc outside the write lock to minimize lock hold duration.
+        let mut prepared = Vec::with_capacity(recipes.len());
+        for recipe in recipes {
+            if let Some(target) = recipe.target.clone() {
+                prepared.push((target, Arc::new(recipe.clone())));
+            }
+        }
+        if prepared.is_empty() {
+            return;
+        }
+        let mut guard = self.write_store();
+        for (target, recipe_arc) in prepared {
+            match target {
+                Target::TableName(name) => {
+                    guard.tables.insert(name, recipe_arc);
+                }
+                Target::IndexName(name) => {
+                    guard.indexes.insert(name, recipe_arc);
+                }
+                Target::OperationUid(operation_uid) => {
+                    guard.queries.insert(operation_uid, recipe_arc);
+                }
+            }
+        }
+    }
+
+    /// Ingests all recipes from a [`RecipeList`] returned in [`CacheUpdate`](crate::model::CacheUpdate).
+    pub(crate) fn update_from_recipe_list(&self, recipe_list: RecipeList) {
+        self.insert_batch(&recipe_list.recipe);
     }
 
     /// Clears all entries from the cache.
@@ -309,6 +349,77 @@ mod tests {
         assert!(
             format!("{cache:?}").contains("entry_count: 1"),
             "debug format must show updated entry count"
+        );
+    }
+
+    #[test]
+    fn insert_batch_empty_or_no_targets() {
+        let cache = KeyRecipeCache::new();
+        cache.insert_batch(&[]);
+        assert!(
+            cache.is_empty(),
+            "cache must remain empty after empty batch"
+        );
+
+        let untargeted_recipe = KeyRecipe::new();
+        cache.insert_batch(&[untargeted_recipe]);
+        assert!(
+            cache.is_empty(),
+            "cache must remain empty when batch contains only untargeted recipes"
+        );
+    }
+
+    #[test]
+    fn insert_batch_all_target_types() {
+        let cache = KeyRecipeCache::new();
+        let table_recipe = KeyRecipe::new().set_table_name("Albums");
+        let index_recipe = KeyRecipe::new().set_index_name("AlbumsByArtist");
+        let query_recipe = KeyRecipe::new().set_operation_uid(42u64);
+        let untargeted_recipe = KeyRecipe::new();
+
+        cache.insert_batch(&[table_recipe, index_recipe, query_recipe, untargeted_recipe]);
+
+        assert_eq!(
+            cache.len(),
+            3,
+            "cache length must be 3 for the 3 targeted recipes"
+        );
+        assert!(
+            cache.get_table_recipe("Albums").is_some(),
+            "table recipe must be retrieved"
+        );
+        assert!(
+            cache.get_index_recipe("AlbumsByArtist").is_some(),
+            "index recipe must be retrieved"
+        );
+        assert!(
+            cache.get_query_recipe(42).is_some(),
+            "query recipe must be retrieved"
+        );
+    }
+
+    #[test]
+    fn update_from_recipe_list_inserts_all_recipes() {
+        let cache = KeyRecipeCache::new();
+        let recipe_list = RecipeList::new().set_recipe(vec![
+            KeyRecipe::new().set_table_name("Albums"),
+            KeyRecipe::new().set_index_name("AlbumsBySinger"),
+            KeyRecipe::new().set_operation_uid(12345u64),
+        ]);
+
+        cache.update_from_recipe_list(recipe_list);
+        assert_eq!(cache.len(), 3, "all 3 recipes in list should be inserted");
+        assert!(
+            cache.get_table_recipe("Albums").is_some(),
+            "table recipe must be present"
+        );
+        assert!(
+            cache.get_index_recipe("AlbumsBySinger").is_some(),
+            "index recipe must be present"
+        );
+        assert!(
+            cache.get_query_recipe(12345u64).is_some(),
+            "query recipe must be present"
         );
     }
 }

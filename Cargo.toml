@@ -20,6 +20,7 @@ default-members = [
   "src/auth",
   "src/bigquery",
   "src/bigquery-derive",
+  "src/bigquery-read",
   "src/bigquery-write",
   "src/bigquery/examples",
   "src/bigtable",
@@ -69,6 +70,7 @@ members = [
   "src/auth",
   "src/bigquery",
   "src/bigquery-derive",
+  "src/bigquery-read",
   "src/bigquery-write",
   "src/bigquery-write/grpc-mock",
   "src/bigquery/examples",
@@ -125,6 +127,7 @@ members = [
   "src/generated/cloud/beyondcorp/appgateways/v1",
   "src/generated/cloud/beyondcorp/clientconnectorservices/v1",
   "src/generated/cloud/beyondcorp/clientgateways/v1",
+  "src/generated/cloud/biglake/hive/v1",
   "src/generated/cloud/biglake/v1",
   "src/generated/cloud/bigquery/analyticshub/v1",
   "src/generated/cloud/bigquery/connection/v1",
@@ -446,7 +449,7 @@ parse-size            = { default-features = false, version = "1.1" }
 percent-encoding      = { default-features = false, version = "2.3" }
 pin-project           = { default-features = false, version = "1.1.13" }
 rand                  = { default-features = false, version = "0.10" }
-p256                  = { default-features = false, version = "0.13" }
+p256                  = { default-features = false, version = "0.14" }
 rust_decimal          = { default-features = false, version = "1.42.0", features = ["std"] }
 rustls                = { default-features = false, version = "0.23.38" }
 rustls-pki-types      = { default-features = false, version = "1.14" }
@@ -519,7 +522,7 @@ rustc_version     = { default-features = false, version = "0.4" }
 scoped-env        = { default-features = false, version = "2.1" }
 serial_test       = { default-features = false, version = "3" }
 static_assertions = { default-features = false, version = "1.1" }
-syn               = { default-features = false, version = "2.0.117" }
+syn               = { default-features = false, version = "3.0.3" }
 tempfile          = { default-features = false, version = "3.26" }
 test-case         = { default-features = false, version = "3.3" }
 tokio-stream      = { default-features = false, version = "0.1.16" }
@@ -577,6 +580,7 @@ google-cloud-pubsub                  = { default-features = false, path = "src/p
 google-cloud-spanner                 = { default-features = false, path = "src/spanner" }
 google-cloud-bigquery                = { default-features = false, path = "src/bigquery", version = "0.16.0-preview" }
 google-cloud-bigquery-derive         = { default-features = false, path = "src/bigquery-derive", version = "0.1.0" }
+google-cloud-bigquery-read           = { default-features = false, path = "src/bigquery-read" }
 google-cloud-bigquery-v2             = { default-features = false, path = "src/generated/cloud/bigquery/v2", version = "0.1.0" }
 google-cloud-bigquery-write          = { default-features = false, path = "src/bigquery-write", version = "0.1.0" }
 google-cloud-iam-credentials-v1      = { default-features = false, path = "src/generated/iam/credentials/v1" }

@@ -412,7 +412,7 @@ impl WriteOnlyTransaction {
         let client = self.client;
         let session_name = self.session_name.clone();
         let previous_transaction_id = Arc::new(Mutex::new(Bytes::new()));
-        let channel_hint = client.spanner.next_channel_hint();
+        let channel_hint = client.next_channel_hint();
 
         let max_commit_delay = self.max_commit_delay;
         let return_commit_stats = self.return_commit_stats;
@@ -447,8 +447,7 @@ impl WriteOnlyTransaction {
                     .set_or_clear_mutation_key(mutation_key.clone());
 
                 let tx = client
-                    .spanner
-                    .begin_transaction(begin_req, begin_gax_options, channel_hint, &client.o11y)
+                    .begin_transaction(begin_req, begin_gax_options, channel_hint)
                     .await?;
                 *previous_transaction_id.lock().unwrap() = tx.id.clone();
 
@@ -463,13 +462,7 @@ impl WriteOnlyTransaction {
                 );
 
                 let response = client
-                    .spanner
-                    .commit(
-                        commit_req,
-                        commit_gax_options.clone(),
-                        channel_hint,
-                        &client.o11y,
-                    )
+                    .commit(commit_req, commit_gax_options.clone(), channel_hint)
                     .await?;
 
                 // If a commit_response with a precommit_token is returned, then we need to
@@ -486,13 +479,7 @@ impl WriteOnlyTransaction {
                     );
 
                     client
-                        .spanner
-                        .commit(
-                            retry_commit_req,
-                            commit_gax_options,
-                            channel_hint,
-                            &client.o11y,
-                        )
+                        .commit(retry_commit_req, commit_gax_options, channel_hint)
                         .await
                 } else {
                     Ok(response)
@@ -555,7 +542,7 @@ impl WriteOnlyTransaction {
             .set_or_clear_max_commit_delay(self.max_commit_delay)
             .set_return_commit_stats(self.return_commit_stats);
         let client = self.client;
-        let channel_hint = client.spanner.next_channel_hint();
+        let channel_hint = client.next_channel_hint();
         let is_emulator = client.is_emulator();
 
         let action = || {
@@ -565,8 +552,7 @@ impl WriteOnlyTransaction {
 
             async move {
                 client
-                    .spanner
-                    .commit(request, commit_gax_options, channel_hint, &client.o11y)
+                    .commit(request, commit_gax_options, channel_hint)
                     .await
             }
         };
@@ -1548,6 +1534,175 @@ mod tests {
                 .seconds(),
             7777
         );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn write_only_transaction_write_observes_cache_update() -> anyhow::Result<()> {
+        use crate::client::{Spanner, SpannerBuilderExt};
+        use crate::key::KeySet;
+        use crate::omni::InstanceType;
+        use crate::routing::key_range_cache::RangeMode;
+        use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+        use spanner_grpc_mock::google::spanner::v1::{CacheUpdate, Group, Range, Tablet};
+        use spanner_grpc_mock::{MockSpanner, start};
+
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                ..Default::default()
+            }))
+        });
+        mock.expect_begin_transaction().returning(|_| {
+            Ok(Response::new(Transaction {
+                id: vec![42],
+                ..Default::default()
+            }))
+        });
+        mock.expect_commit().returning(|_| {
+            let cache_update = CacheUpdate {
+                database_id: 55,
+                group: vec![Group {
+                    group_uid: 66,
+                    leader_index: 0,
+                    tablets: vec![Tablet {
+                        server_address: "node-66.spanner.internal:15000".to_string(),
+                        ..Default::default()
+                    }],
+                    ..Default::default()
+                }],
+                range: vec![Range {
+                    group_uid: 66,
+                    start_key: b"wo1".to_vec(),
+                    limit_key: b"wo9".to_vec(),
+                    ..Default::default()
+                }],
+                ..Default::default()
+            };
+            Ok(Response::new(CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp {
+                    seconds: 1234,
+                    nanos: 0,
+                }),
+                cache_update: Some(cache_update),
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let db_client = client.database_client("db").build().await?;
+        let mutation = Mutation::delete("Users", KeySet::all());
+        db_client
+            .write_only_transaction()
+            .build()
+            .write(vec![mutation])
+            .await?;
+
+        assert_eq!(db_client.database_id(), Some(55));
+        let router = db_client
+            .location_router()
+            .expect("location router present");
+        let found = router
+            .key_range_cache()
+            .find_range(b"wo5", &[], RangeMode::CoveringSplit);
+        assert!(found.is_some(), "range covering 'wo5' should be cached");
+        assert_eq!(found.expect("range present").group_uid, 66);
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn write_only_transaction_multiplexed_begin_observes_cache_update() -> anyhow::Result<()>
+    {
+        use crate::client::{Spanner, SpannerBuilderExt};
+        use crate::key::KeySet;
+        use crate::mutation::Mutation;
+        use crate::omni::InstanceType;
+        use crate::routing::key_range_cache::RangeMode;
+        use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+        use spanner_grpc_mock::google::spanner::v1::{
+            CacheUpdate, CommitResponse, Group, Range, Session, Tablet, Transaction,
+        };
+        use spanner_grpc_mock::{MockSpanner, start};
+
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+        mock.expect_begin_transaction().returning(|_| {
+            let cache_update = CacheUpdate {
+                database_id: 33,
+                group: vec![Group {
+                    group_uid: 44,
+                    leader_index: 0,
+                    tablets: vec![Tablet {
+                        server_address: "node-44.spanner.internal:15000".to_string(),
+                        ..Default::default()
+                    }],
+                    ..Default::default()
+                }],
+                range: vec![Range {
+                    group_uid: 44,
+                    start_key: b"mb1".to_vec(),
+                    limit_key: b"mb9".to_vec(),
+                    ..Default::default()
+                }],
+                ..Default::default()
+            };
+            Ok(Response::new(Transaction {
+                id: vec![1, 2, 3],
+                cache_update: Some(cache_update),
+                ..Default::default()
+            }))
+        });
+        mock.expect_commit().returning(|_| {
+            Ok(Response::new(CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp {
+                    seconds: 1234,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let db_client = client.database_client("db").build().await?;
+        let mutation = Mutation::delete("Users", KeySet::all());
+        db_client
+            .write_only_transaction()
+            .build()
+            .write(vec![mutation])
+            .await?;
+
+        assert_eq!(db_client.database_id(), Some(33));
+        let router = db_client
+            .location_router()
+            .expect("location router present");
+        let found = router
+            .key_range_cache()
+            .find_range(b"mb5", &[], RangeMode::CoveringSplit);
+        assert!(found.is_some(), "range covering 'mb5' should be cached");
+        assert_eq!(found.expect("range present").group_uid, 44);
+
         Ok(())
     }
 }

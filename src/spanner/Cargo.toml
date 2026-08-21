@@ -76,6 +76,7 @@ uuid                       = { workspace = true, optional = true }
 
 [dev-dependencies]
 anyhow.workspace                   = true
+crc32c.workspace                   = true
 google-cloud-test-macros.workspace = true
 mockall.workspace                  = true
 opentelemetry_sdk                  = { workspace = true, features = ["metrics", "testing"] }
