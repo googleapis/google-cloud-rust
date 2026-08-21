@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::error::{AppendError, AppendResult};
+use super::stream::Stream;
+use super::transport::Transport;
 use crate::Result;
-use crate::error::{AppendError, AppendResult};
 use crate::google::cloud::bigquery::storage::v1::{AppendRowsRequest, AppendRowsResponse};
-use crate::stream::Stream;
-use crate::transport::Transport;
 use gaxi::grpc::from_status::to_gax_error;
 use gaxi::grpc::tonic::{Status as TonicStatus, Streaming};
 use std::collections::VecDeque;
@@ -142,11 +142,11 @@ fn process_gax_response(
 
 #[cfg(test)]
 pub(crate) mod tests {
+    use super::super::transport::tests::*;
     use super::*;
     use crate::google::cloud::bigquery::storage::v1::append_rows_response::{
         AppendResult, Response,
     };
-    use crate::transport::tests::*;
     use bigquery_write_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::Response as TonicResponse;
     use google_cloud_gax::error::rpc::Code;

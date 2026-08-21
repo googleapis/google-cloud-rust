@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+pub(super) use super::generated::gapic_storage::transport::BigQueryWrite as Transport;
 use crate::Result;
-pub(super) use crate::generated::gapic_storage::transport::BigQueryWrite as Transport;
 use crate::google::cloud::bigquery::storage::v1::{AppendRowsRequest, AppendRowsResponse};
 use gaxi::grpc::tonic::{Response as TonicResponse, Streaming};
 use tokio::sync::mpsc::Receiver;

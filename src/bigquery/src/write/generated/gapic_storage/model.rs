@@ -44,7 +44,7 @@ impl ArrowSchema {
         std::default::Default::default()
     }
 
-    /// Sets the value of [serialized_schema][crate::model::ArrowSchema::serialized_schema].
+    /// Sets the value of [serialized_schema][crate::write::generated::gapic_storage::model::ArrowSchema::serialized_schema].
     pub fn set_serialized_schema<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.serialized_schema = v.into();
         self
@@ -78,7 +78,7 @@ impl ArrowRecordBatch {
         std::default::Default::default()
     }
 
-    /// Sets the value of [serialized_record_batch][crate::model::ArrowRecordBatch::serialized_record_batch].
+    /// Sets the value of [serialized_record_batch][crate::write::generated::gapic_storage::model::ArrowRecordBatch::serialized_record_batch].
     pub fn set_serialized_record_batch<T: std::convert::Into<::bytes::Bytes>>(
         mut self,
         v: T,
@@ -87,7 +87,7 @@ impl ArrowRecordBatch {
         self
     }
 
-    /// Sets the value of [row_count][crate::model::ArrowRecordBatch::row_count].
+    /// Sets the value of [row_count][crate::write::generated::gapic_storage::model::ArrowRecordBatch::row_count].
     #[deprecated]
     pub fn set_row_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.row_count = v.into();
@@ -105,14 +105,14 @@ impl wkt::message::Message for ArrowRecordBatch {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ArrowSerializationOptions {
+
     /// The compression codec to use for Arrow buffers in serialized record
     /// batches.
-    pub buffer_compression: crate::model::arrow_serialization_options::CompressionCodec,
+    pub buffer_compression: crate::write::generated::gapic_storage::model::arrow_serialization_options::CompressionCodec,
 
     /// Optional. Set timestamp precision option. If not set, the default precision
     /// is microseconds.
-    pub picos_timestamp_precision:
-        crate::model::arrow_serialization_options::PicosTimestampPrecision,
+    pub picos_timestamp_precision: crate::write::generated::gapic_storage::model::arrow_serialization_options::PicosTimestampPrecision,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -123,24 +123,14 @@ impl ArrowSerializationOptions {
         std::default::Default::default()
     }
 
-    /// Sets the value of [buffer_compression][crate::model::ArrowSerializationOptions::buffer_compression].
-    pub fn set_buffer_compression<
-        T: std::convert::Into<crate::model::arrow_serialization_options::CompressionCodec>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    /// Sets the value of [buffer_compression][crate::write::generated::gapic_storage::model::ArrowSerializationOptions::buffer_compression].
+    pub fn set_buffer_compression<T: std::convert::Into<crate::write::generated::gapic_storage::model::arrow_serialization_options::CompressionCodec>>(mut self, v: T) -> Self{
         self.buffer_compression = v.into();
         self
     }
 
-    /// Sets the value of [picos_timestamp_precision][crate::model::ArrowSerializationOptions::picos_timestamp_precision].
-    pub fn set_picos_timestamp_precision<
-        T: std::convert::Into<crate::model::arrow_serialization_options::PicosTimestampPrecision>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    /// Sets the value of [picos_timestamp_precision][crate::write::generated::gapic_storage::model::ArrowSerializationOptions::picos_timestamp_precision].
+    pub fn set_picos_timestamp_precision<T: std::convert::Into<crate::write::generated::gapic_storage::model::arrow_serialization_options::PicosTimestampPrecision>>(mut self, v: T) -> Self{
         self.picos_timestamp_precision = v.into();
         self
     }
@@ -461,7 +451,7 @@ impl AvroSchema {
         std::default::Default::default()
     }
 
-    /// Sets the value of [schema][crate::model::AvroSchema::schema].
+    /// Sets the value of [schema][crate::write::generated::gapic_storage::model::AvroSchema::schema].
     pub fn set_schema<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.schema = v.into();
         self
@@ -495,7 +485,7 @@ impl AvroRows {
         std::default::Default::default()
     }
 
-    /// Sets the value of [serialized_binary_rows][crate::model::AvroRows::serialized_binary_rows].
+    /// Sets the value of [serialized_binary_rows][crate::write::generated::gapic_storage::model::AvroRows::serialized_binary_rows].
     pub fn set_serialized_binary_rows<T: std::convert::Into<::bytes::Bytes>>(
         mut self,
         v: T,
@@ -504,7 +494,7 @@ impl AvroRows {
         self
     }
 
-    /// Sets the value of [row_count][crate::model::AvroRows::row_count].
+    /// Sets the value of [row_count][crate::write::generated::gapic_storage::model::AvroRows::row_count].
     #[deprecated]
     pub fn set_row_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.row_count = v.into();
@@ -522,6 +512,7 @@ impl wkt::message::Message for AvroRows {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AvroSerializationOptions {
+
     /// Enable displayName attribute in Avro schema.
     ///
     /// The Avro specification requires field names to be alphanumeric.  By
@@ -536,8 +527,7 @@ pub struct AvroSerializationOptions {
 
     /// Optional. Set timestamp precision option. If not set, the default precision
     /// is microseconds.
-    pub picos_timestamp_precision:
-        crate::model::avro_serialization_options::PicosTimestampPrecision,
+    pub picos_timestamp_precision: crate::write::generated::gapic_storage::model::avro_serialization_options::PicosTimestampPrecision,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -548,19 +538,14 @@ impl AvroSerializationOptions {
         std::default::Default::default()
     }
 
-    /// Sets the value of [enable_display_name_attribute][crate::model::AvroSerializationOptions::enable_display_name_attribute].
+    /// Sets the value of [enable_display_name_attribute][crate::write::generated::gapic_storage::model::AvroSerializationOptions::enable_display_name_attribute].
     pub fn set_enable_display_name_attribute<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_display_name_attribute = v.into();
         self
     }
 
-    /// Sets the value of [picos_timestamp_precision][crate::model::AvroSerializationOptions::picos_timestamp_precision].
-    pub fn set_picos_timestamp_precision<
-        T: std::convert::Into<crate::model::avro_serialization_options::PicosTimestampPrecision>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    /// Sets the value of [picos_timestamp_precision][crate::write::generated::gapic_storage::model::AvroSerializationOptions::picos_timestamp_precision].
+    pub fn set_picos_timestamp_precision<T: std::convert::Into<crate::write::generated::gapic_storage::model::avro_serialization_options::PicosTimestampPrecision>>(mut self, v: T) -> Self{
         self.picos_timestamp_precision = v.into();
         self
     }
@@ -754,7 +739,7 @@ impl ProtoSchema {
         std::default::Default::default()
     }
 
-    /// Sets the value of [proto_descriptor][crate::model::ProtoSchema::proto_descriptor].
+    /// Sets the value of [proto_descriptor][crate::write::generated::gapic_storage::model::ProtoSchema::proto_descriptor].
     pub fn set_proto_descriptor<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::DescriptorProto>,
@@ -763,7 +748,7 @@ impl ProtoSchema {
         self
     }
 
-    /// Sets or clears the value of [proto_descriptor][crate::model::ProtoSchema::proto_descriptor].
+    /// Sets or clears the value of [proto_descriptor][crate::write::generated::gapic_storage::model::ProtoSchema::proto_descriptor].
     pub fn set_or_clear_proto_descriptor<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::DescriptorProto>,
@@ -798,7 +783,7 @@ impl ProtoRows {
         std::default::Default::default()
     }
 
-    /// Sets the value of [serialized_rows][crate::model::ProtoRows::serialized_rows].
+    /// Sets the value of [serialized_rows][crate::write::generated::gapic_storage::model::ProtoRows::serialized_rows].
     pub fn set_serialized_rows<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -825,7 +810,8 @@ pub struct CreateReadSessionRequest {
     pub parent: std::string::String,
 
     /// Required. Session to be created.
-    pub read_session: std::option::Option<crate::model::ReadSession>,
+    pub read_session:
+        std::option::Option<crate::write::generated::gapic_storage::model::ReadSession>,
 
     /// Max initial number of streams. If unset or zero, the server will
     /// provide a value of streams so as to produce reasonable throughput. Must be
@@ -858,37 +844,37 @@ impl CreateReadSessionRequest {
         std::default::Default::default()
     }
 
-    /// Sets the value of [parent][crate::model::CreateReadSessionRequest::parent].
+    /// Sets the value of [parent][crate::write::generated::gapic_storage::model::CreateReadSessionRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of [read_session][crate::model::CreateReadSessionRequest::read_session].
+    /// Sets the value of [read_session][crate::write::generated::gapic_storage::model::CreateReadSessionRequest::read_session].
     pub fn set_read_session<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<crate::model::ReadSession>,
+        T: std::convert::Into<crate::write::generated::gapic_storage::model::ReadSession>,
     {
         self.read_session = std::option::Option::Some(v.into());
         self
     }
 
-    /// Sets or clears the value of [read_session][crate::model::CreateReadSessionRequest::read_session].
+    /// Sets or clears the value of [read_session][crate::write::generated::gapic_storage::model::CreateReadSessionRequest::read_session].
     pub fn set_or_clear_read_session<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<crate::model::ReadSession>,
+        T: std::convert::Into<crate::write::generated::gapic_storage::model::ReadSession>,
     {
         self.read_session = v.map(|x| x.into());
         self
     }
 
-    /// Sets the value of [max_stream_count][crate::model::CreateReadSessionRequest::max_stream_count].
+    /// Sets the value of [max_stream_count][crate::write::generated::gapic_storage::model::CreateReadSessionRequest::max_stream_count].
     pub fn set_max_stream_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_stream_count = v.into();
         self
     }
 
-    /// Sets the value of [preferred_min_stream_count][crate::model::CreateReadSessionRequest::preferred_min_stream_count].
+    /// Sets the value of [preferred_min_stream_count][crate::write::generated::gapic_storage::model::CreateReadSessionRequest::preferred_min_stream_count].
     pub fn set_preferred_min_stream_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.preferred_min_stream_count = v.into();
         self
@@ -905,6 +891,7 @@ impl wkt::message::Message for CreateReadSessionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReadRowsRequest {
+
     /// Required. Stream to read rows from.
     pub read_stream: std::string::String,
 
@@ -917,8 +904,7 @@ pub struct ReadRowsRequest {
     /// supported.
     ///
     /// This feature is not yet available.
-    pub output_format_serialization_options:
-        std::option::Option<crate::model::read_rows_request::OutputFormatSerializationOptions>,
+    pub output_format_serialization_options: std::option::Option<crate::write::generated::gapic_storage::model::read_rows_request::OutputFormatSerializationOptions>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -929,62 +915,60 @@ impl ReadRowsRequest {
         std::default::Default::default()
     }
 
-    /// Sets the value of [read_stream][crate::model::ReadRowsRequest::read_stream].
+    /// Sets the value of [read_stream][crate::write::generated::gapic_storage::model::ReadRowsRequest::read_stream].
     pub fn set_read_stream<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.read_stream = v.into();
         self
     }
 
-    /// Sets the value of [offset][crate::model::ReadRowsRequest::offset].
+    /// Sets the value of [offset][crate::write::generated::gapic_storage::model::ReadRowsRequest::offset].
     pub fn set_offset<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.offset = v.into();
         self
     }
 
-    /// Sets the value of [output_format_serialization_options][crate::model::ReadRowsRequest::output_format_serialization_options].
+    /// Sets the value of [output_format_serialization_options][crate::write::generated::gapic_storage::model::ReadRowsRequest::output_format_serialization_options].
     ///
     /// Note that all the setters affecting `output_format_serialization_options` are mutually
     /// exclusive.
-    pub fn set_output_format_serialization_options<
+    pub fn set_output_format_serialization_options<T: std::convert::Into<std::option::Option<crate::write::generated::gapic_storage::model::read_rows_request::OutputFormatSerializationOptions>>>(mut self, v: T) -> Self
+    {
+        self.output_format_serialization_options = v.into();
+        self
+    }
+
+    /// The value of [output_format_serialization_options][crate::write::generated::gapic_storage::model::ReadRowsRequest::output_format_serialization_options]
+    /// if it holds a `ArrowSerializationOptions`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn arrow_serialization_options(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::write::generated::gapic_storage::model::ArrowSerializationOptions>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.output_format_serialization_options.as_ref().and_then(|v| match v {
+            crate::write::generated::gapic_storage::model::read_rows_request::OutputFormatSerializationOptions::ArrowSerializationOptions(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [output_format_serialization_options][crate::write::generated::gapic_storage::model::ReadRowsRequest::output_format_serialization_options]
+    /// to hold a `ArrowSerializationOptions`.
+    ///
+    /// Note that all the setters affecting `output_format_serialization_options` are
+    /// mutually exclusive.
+    pub fn set_arrow_serialization_options<
         T: std::convert::Into<
-                std::option::Option<
-                    crate::model::read_rows_request::OutputFormatSerializationOptions,
+                std::boxed::Box<
+                    crate::write::generated::gapic_storage::model::ArrowSerializationOptions,
                 >,
             >,
     >(
         mut self,
         v: T,
     ) -> Self {
-        self.output_format_serialization_options = v.into();
-        self
-    }
-
-    /// The value of [output_format_serialization_options][crate::model::ReadRowsRequest::output_format_serialization_options]
-    /// if it holds a `ArrowSerializationOptions`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn arrow_serialization_options(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ArrowSerializationOptions>> {
-        #[allow(unreachable_patterns)]
-        self.output_format_serialization_options.as_ref().and_then(|v| match v {
-            crate::model::read_rows_request::OutputFormatSerializationOptions::ArrowSerializationOptions(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// Sets the value of [output_format_serialization_options][crate::model::ReadRowsRequest::output_format_serialization_options]
-    /// to hold a `ArrowSerializationOptions`.
-    ///
-    /// Note that all the setters affecting `output_format_serialization_options` are
-    /// mutually exclusive.
-    pub fn set_arrow_serialization_options<
-        T: std::convert::Into<std::boxed::Box<crate::model::ArrowSerializationOptions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
         self.output_format_serialization_options = std::option::Option::Some(
-            crate::model::read_rows_request::OutputFormatSerializationOptions::ArrowSerializationOptions(
+            crate::write::generated::gapic_storage::model::read_rows_request::OutputFormatSerializationOptions::ArrowSerializationOptions(
                 v.into()
             )
         );
@@ -1013,13 +997,21 @@ pub mod read_rows_request {
         /// Optional. Options specific to the Apache Arrow output format.
         ///
         /// This feature is not yet available.
-        ArrowSerializationOptions(std::boxed::Box<crate::model::ArrowSerializationOptions>),
+        ArrowSerializationOptions(
+            std::boxed::Box<
+                crate::write::generated::gapic_storage::model::ArrowSerializationOptions,
+            >,
+        ),
     }
 
     impl OutputFormatSerializationOptions {
         /// Initializes the enum to the [ArrowSerializationOptions](Self::ArrowSerializationOptions) branch.
         pub fn from_arrow_serialization_options(
-            value: impl std::convert::Into<std::boxed::Box<crate::model::ArrowSerializationOptions>>,
+            value: impl std::convert::Into<
+                std::boxed::Box<
+                    crate::write::generated::gapic_storage::model::ArrowSerializationOptions,
+                >,
+            >,
         ) -> Self {
             Self::ArrowSerializationOptions(value.into())
         }
@@ -1043,7 +1035,7 @@ impl ThrottleState {
         std::default::Default::default()
     }
 
-    /// Sets the value of [throttle_percent][crate::model::ThrottleState::throttle_percent].
+    /// Sets the value of [throttle_percent][crate::write::generated::gapic_storage::model::ThrottleState::throttle_percent].
     pub fn set_throttle_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.throttle_percent = v.into();
         self
@@ -1061,7 +1053,8 @@ impl wkt::message::Message for ThrottleState {
 #[non_exhaustive]
 pub struct StreamStats {
     /// Represents the progress of the current stream.
-    pub progress: std::option::Option<crate::model::stream_stats::Progress>,
+    pub progress:
+        std::option::Option<crate::write::generated::gapic_storage::model::stream_stats::Progress>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1072,19 +1065,23 @@ impl StreamStats {
         std::default::Default::default()
     }
 
-    /// Sets the value of [progress][crate::model::StreamStats::progress].
+    /// Sets the value of [progress][crate::write::generated::gapic_storage::model::StreamStats::progress].
     pub fn set_progress<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<crate::model::stream_stats::Progress>,
+        T: std::convert::Into<
+                crate::write::generated::gapic_storage::model::stream_stats::Progress,
+            >,
     {
         self.progress = std::option::Option::Some(v.into());
         self
     }
 
-    /// Sets or clears the value of [progress][crate::model::StreamStats::progress].
+    /// Sets or clears the value of [progress][crate::write::generated::gapic_storage::model::StreamStats::progress].
     pub fn set_or_clear_progress<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<crate::model::stream_stats::Progress>,
+        T: std::convert::Into<
+                crate::write::generated::gapic_storage::model::stream_stats::Progress,
+            >,
     {
         self.progress = v.map(|x| x.into());
         self
@@ -1133,13 +1130,13 @@ pub mod stream_stats {
             std::default::Default::default()
         }
 
-        /// Sets the value of [at_response_start][crate::model::stream_stats::Progress::at_response_start].
+        /// Sets the value of [at_response_start][crate::write::generated::gapic_storage::model::stream_stats::Progress::at_response_start].
         pub fn set_at_response_start<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.at_response_start = v.into();
             self
         }
 
-        /// Sets the value of [at_response_end][crate::model::stream_stats::Progress::at_response_end].
+        /// Sets the value of [at_response_end][crate::write::generated::gapic_storage::model::stream_stats::Progress::at_response_end].
         pub fn set_at_response_end<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.at_response_end = v.into();
             self
@@ -1162,11 +1159,12 @@ pub struct ReadRowsResponse {
     pub row_count: i64,
 
     /// Statistics for the stream.
-    pub stats: std::option::Option<crate::model::StreamStats>,
+    pub stats: std::option::Option<crate::write::generated::gapic_storage::model::StreamStats>,
 
     /// Throttling state. If unset, the latest response still describes
     /// the current throttling status.
-    pub throttle_state: std::option::Option<crate::model::ThrottleState>,
+    pub throttle_state:
+        std::option::Option<crate::write::generated::gapic_storage::model::ThrottleState>,
 
     /// Optional. If the row data in this ReadRowsResponse is compressed, then
     /// uncompressed byte size is the original size of the uncompressed row data.
@@ -1191,14 +1189,18 @@ pub struct ReadRowsResponse {
     pub total_estimated_row_count: std::option::Option<i64>,
 
     /// Row data is returned in format specified during session creation.
-    pub rows: std::option::Option<crate::model::read_rows_response::Rows>,
+    pub rows: std::option::Option<
+        crate::write::generated::gapic_storage::model::read_rows_response::Rows,
+    >,
 
     /// The schema for the read. If read_options.selected_fields is set, the
     /// schema may be different from the table schema as it will only contain
     /// the selected fields. This schema is equivalent to the one returned by
     /// CreateSession. This field is only populated in the first ReadRowsResponse
     /// RPC.
-    pub schema: std::option::Option<crate::model::read_rows_response::Schema>,
+    pub schema: std::option::Option<
+        crate::write::generated::gapic_storage::model::read_rows_response::Schema,
+    >,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1209,49 +1211,49 @@ impl ReadRowsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [row_count][crate::model::ReadRowsResponse::row_count].
+    /// Sets the value of [row_count][crate::write::generated::gapic_storage::model::ReadRowsResponse::row_count].
     pub fn set_row_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.row_count = v.into();
         self
     }
 
-    /// Sets the value of [stats][crate::model::ReadRowsResponse::stats].
+    /// Sets the value of [stats][crate::write::generated::gapic_storage::model::ReadRowsResponse::stats].
     pub fn set_stats<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<crate::model::StreamStats>,
+        T: std::convert::Into<crate::write::generated::gapic_storage::model::StreamStats>,
     {
         self.stats = std::option::Option::Some(v.into());
         self
     }
 
-    /// Sets or clears the value of [stats][crate::model::ReadRowsResponse::stats].
+    /// Sets or clears the value of [stats][crate::write::generated::gapic_storage::model::ReadRowsResponse::stats].
     pub fn set_or_clear_stats<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<crate::model::StreamStats>,
+        T: std::convert::Into<crate::write::generated::gapic_storage::model::StreamStats>,
     {
         self.stats = v.map(|x| x.into());
         self
     }
 
-    /// Sets the value of [throttle_state][crate::model::ReadRowsResponse::throttle_state].
+    /// Sets the value of [throttle_state][crate::write::generated::gapic_storage::model::ReadRowsResponse::throttle_state].
     pub fn set_throttle_state<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<crate::model::ThrottleState>,
+        T: std::convert::Into<crate::write::generated::gapic_storage::model::ThrottleState>,
     {
         self.throttle_state = std::option::Option::Some(v.into());
         self
     }
 
-    /// Sets or clears the value of [throttle_state][crate::model::ReadRowsResponse::throttle_state].
+    /// Sets or clears the value of [throttle_state][crate::write::generated::gapic_storage::model::ReadRowsResponse::throttle_state].
     pub fn set_or_clear_throttle_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<crate::model::ThrottleState>,
+        T: std::convert::Into<crate::write::generated::gapic_storage::model::ThrottleState>,
     {
         self.throttle_state = v.map(|x| x.into());
         self
     }
 
-    /// Sets the value of [uncompressed_byte_size][crate::model::ReadRowsResponse::uncompressed_byte_size].
+    /// Sets the value of [uncompressed_byte_size][crate::write::generated::gapic_storage::model::ReadRowsResponse::uncompressed_byte_size].
     pub fn set_uncompressed_byte_size<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1260,7 +1262,7 @@ impl ReadRowsResponse {
         self
     }
 
-    /// Sets or clears the value of [uncompressed_byte_size][crate::model::ReadRowsResponse::uncompressed_byte_size].
+    /// Sets or clears the value of [uncompressed_byte_size][crate::write::generated::gapic_storage::model::ReadRowsResponse::uncompressed_byte_size].
     pub fn set_or_clear_uncompressed_byte_size<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1269,7 +1271,7 @@ impl ReadRowsResponse {
         self
     }
 
-    /// Sets the value of [total_estimated_row_count][crate::model::ReadRowsResponse::total_estimated_row_count].
+    /// Sets the value of [total_estimated_row_count][crate::write::generated::gapic_storage::model::ReadRowsResponse::total_estimated_row_count].
     pub fn set_total_estimated_row_count<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1278,7 +1280,7 @@ impl ReadRowsResponse {
         self
     }
 
-    /// Sets or clears the value of [total_estimated_row_count][crate::model::ReadRowsResponse::total_estimated_row_count].
+    /// Sets or clears the value of [total_estimated_row_count][crate::write::generated::gapic_storage::model::ReadRowsResponse::total_estimated_row_count].
     pub fn set_or_clear_total_estimated_row_count<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1287,12 +1289,16 @@ impl ReadRowsResponse {
         self
     }
 
-    /// Sets the value of [rows][crate::model::ReadRowsResponse::rows].
+    /// Sets the value of [rows][crate::write::generated::gapic_storage::model::ReadRowsResponse::rows].
     ///
     /// Note that all the setters affecting `rows` are mutually
     /// exclusive.
     pub fn set_rows<
-        T: std::convert::Into<std::option::Option<crate::model::read_rows_response::Rows>>,
+        T: std::convert::Into<
+                std::option::Option<
+                    crate::write::generated::gapic_storage::model::read_rows_response::Rows,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -1301,69 +1307,90 @@ impl ReadRowsResponse {
         self
     }
 
-    /// The value of [rows][crate::model::ReadRowsResponse::rows]
+    /// The value of [rows][crate::write::generated::gapic_storage::model::ReadRowsResponse::rows]
     /// if it holds a `AvroRows`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn avro_rows(&self) -> std::option::Option<&std::boxed::Box<crate::model::AvroRows>> {
+    pub fn avro_rows(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::write::generated::gapic_storage::model::AvroRows>,
+    > {
         #[allow(unreachable_patterns)]
         self.rows.as_ref().and_then(|v| match v {
-            crate::model::read_rows_response::Rows::AvroRows(v) => std::option::Option::Some(v),
+            crate::write::generated::gapic_storage::model::read_rows_response::Rows::AvroRows(
+                v,
+            ) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
 
-    /// Sets the value of [rows][crate::model::ReadRowsResponse::rows]
+    /// Sets the value of [rows][crate::write::generated::gapic_storage::model::ReadRowsResponse::rows]
     /// to hold a `AvroRows`.
     ///
     /// Note that all the setters affecting `rows` are
     /// mutually exclusive.
-    pub fn set_avro_rows<T: std::convert::Into<std::boxed::Box<crate::model::AvroRows>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.rows =
-            std::option::Option::Some(crate::model::read_rows_response::Rows::AvroRows(v.into()));
-        self
-    }
-
-    /// The value of [rows][crate::model::ReadRowsResponse::rows]
-    /// if it holds a `ArrowRecordBatch`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn arrow_record_batch(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ArrowRecordBatch>> {
-        #[allow(unreachable_patterns)]
-        self.rows.as_ref().and_then(|v| match v {
-            crate::model::read_rows_response::Rows::ArrowRecordBatch(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// Sets the value of [rows][crate::model::ReadRowsResponse::rows]
-    /// to hold a `ArrowRecordBatch`.
-    ///
-    /// Note that all the setters affecting `rows` are
-    /// mutually exclusive.
-    pub fn set_arrow_record_batch<
-        T: std::convert::Into<std::boxed::Box<crate::model::ArrowRecordBatch>>,
+    pub fn set_avro_rows<
+        T: std::convert::Into<
+                std::boxed::Box<crate::write::generated::gapic_storage::model::AvroRows>,
+            >,
     >(
         mut self,
         v: T,
     ) -> Self {
         self.rows = std::option::Option::Some(
-            crate::model::read_rows_response::Rows::ArrowRecordBatch(v.into()),
+            crate::write::generated::gapic_storage::model::read_rows_response::Rows::AvroRows(
+                v.into(),
+            ),
         );
         self
     }
 
-    /// Sets the value of [schema][crate::model::ReadRowsResponse::schema].
+    /// The value of [rows][crate::write::generated::gapic_storage::model::ReadRowsResponse::rows]
+    /// if it holds a `ArrowRecordBatch`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn arrow_record_batch(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::write::generated::gapic_storage::model::ArrowRecordBatch>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.rows.as_ref().and_then(|v| match v {
+            crate::write::generated::gapic_storage::model::read_rows_response::Rows::ArrowRecordBatch(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [rows][crate::write::generated::gapic_storage::model::ReadRowsResponse::rows]
+    /// to hold a `ArrowRecordBatch`.
+    ///
+    /// Note that all the setters affecting `rows` are
+    /// mutually exclusive.
+    pub fn set_arrow_record_batch<
+        T: std::convert::Into<
+                std::boxed::Box<crate::write::generated::gapic_storage::model::ArrowRecordBatch>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.rows = std::option::Option::Some(
+            crate::write::generated::gapic_storage::model::read_rows_response::Rows::ArrowRecordBatch(
+                v.into()
+            )
+        );
+        self
+    }
+
+    /// Sets the value of [schema][crate::write::generated::gapic_storage::model::ReadRowsResponse::schema].
     ///
     /// Note that all the setters affecting `schema` are mutually
     /// exclusive.
     pub fn set_schema<
-        T: std::convert::Into<std::option::Option<crate::model::read_rows_response::Schema>>,
+        T: std::convert::Into<
+                std::option::Option<
+                    crate::write::generated::gapic_storage::model::read_rows_response::Schema,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -1372,56 +1399,74 @@ impl ReadRowsResponse {
         self
     }
 
-    /// The value of [schema][crate::model::ReadRowsResponse::schema]
+    /// The value of [schema][crate::write::generated::gapic_storage::model::ReadRowsResponse::schema]
     /// if it holds a `AvroSchema`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn avro_schema(&self) -> std::option::Option<&std::boxed::Box<crate::model::AvroSchema>> {
+    pub fn avro_schema(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::write::generated::gapic_storage::model::AvroSchema>,
+    > {
         #[allow(unreachable_patterns)]
         self.schema.as_ref().and_then(|v| match v {
-            crate::model::read_rows_response::Schema::AvroSchema(v) => std::option::Option::Some(v),
+            crate::write::generated::gapic_storage::model::read_rows_response::Schema::AvroSchema(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
 
-    /// Sets the value of [schema][crate::model::ReadRowsResponse::schema]
+    /// Sets the value of [schema][crate::write::generated::gapic_storage::model::ReadRowsResponse::schema]
     /// to hold a `AvroSchema`.
     ///
     /// Note that all the setters affecting `schema` are
     /// mutually exclusive.
-    pub fn set_avro_schema<T: std::convert::Into<std::boxed::Box<crate::model::AvroSchema>>>(
+    pub fn set_avro_schema<
+        T: std::convert::Into<
+                std::boxed::Box<crate::write::generated::gapic_storage::model::AvroSchema>,
+            >,
+    >(
         mut self,
         v: T,
     ) -> Self {
         self.schema = std::option::Option::Some(
-            crate::model::read_rows_response::Schema::AvroSchema(v.into()),
+            crate::write::generated::gapic_storage::model::read_rows_response::Schema::AvroSchema(
+                v.into(),
+            ),
         );
         self
     }
 
-    /// The value of [schema][crate::model::ReadRowsResponse::schema]
+    /// The value of [schema][crate::write::generated::gapic_storage::model::ReadRowsResponse::schema]
     /// if it holds a `ArrowSchema`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn arrow_schema(&self) -> std::option::Option<&std::boxed::Box<crate::model::ArrowSchema>> {
+    pub fn arrow_schema(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::write::generated::gapic_storage::model::ArrowSchema>,
+    > {
         #[allow(unreachable_patterns)]
         self.schema.as_ref().and_then(|v| match v {
-            crate::model::read_rows_response::Schema::ArrowSchema(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::write::generated::gapic_storage::model::read_rows_response::Schema::ArrowSchema(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
 
-    /// Sets the value of [schema][crate::model::ReadRowsResponse::schema]
+    /// Sets the value of [schema][crate::write::generated::gapic_storage::model::ReadRowsResponse::schema]
     /// to hold a `ArrowSchema`.
     ///
     /// Note that all the setters affecting `schema` are
     /// mutually exclusive.
-    pub fn set_arrow_schema<T: std::convert::Into<std::boxed::Box<crate::model::ArrowSchema>>>(
+    pub fn set_arrow_schema<
+        T: std::convert::Into<
+                std::boxed::Box<crate::write::generated::gapic_storage::model::ArrowSchema>,
+            >,
+    >(
         mut self,
         v: T,
     ) -> Self {
         self.schema = std::option::Option::Some(
-            crate::model::read_rows_response::Schema::ArrowSchema(v.into()),
+            crate::write::generated::gapic_storage::model::read_rows_response::Schema::ArrowSchema(
+                v.into(),
+            ),
         );
         self
     }
@@ -1443,21 +1488,27 @@ pub mod read_rows_response {
     #[non_exhaustive]
     pub enum Rows {
         /// Serialized row data in AVRO format.
-        AvroRows(std::boxed::Box<crate::model::AvroRows>),
+        AvroRows(std::boxed::Box<crate::write::generated::gapic_storage::model::AvroRows>),
         /// Serialized row data in Arrow RecordBatch format.
-        ArrowRecordBatch(std::boxed::Box<crate::model::ArrowRecordBatch>),
+        ArrowRecordBatch(
+            std::boxed::Box<crate::write::generated::gapic_storage::model::ArrowRecordBatch>,
+        ),
     }
 
     impl Rows {
         /// Initializes the enum to the [AvroRows](Self::AvroRows) branch.
         pub fn from_avro_rows(
-            value: impl std::convert::Into<std::boxed::Box<crate::model::AvroRows>>,
+            value: impl std::convert::Into<
+                std::boxed::Box<crate::write::generated::gapic_storage::model::AvroRows>,
+            >,
         ) -> Self {
             Self::AvroRows(value.into())
         }
         /// Initializes the enum to the [ArrowRecordBatch](Self::ArrowRecordBatch) branch.
         pub fn from_arrow_record_batch(
-            value: impl std::convert::Into<std::boxed::Box<crate::model::ArrowRecordBatch>>,
+            value: impl std::convert::Into<
+                std::boxed::Box<crate::write::generated::gapic_storage::model::ArrowRecordBatch>,
+            >,
         ) -> Self {
             Self::ArrowRecordBatch(value.into())
         }
@@ -1472,21 +1523,25 @@ pub mod read_rows_response {
     #[non_exhaustive]
     pub enum Schema {
         /// Output only. Avro schema.
-        AvroSchema(std::boxed::Box<crate::model::AvroSchema>),
+        AvroSchema(std::boxed::Box<crate::write::generated::gapic_storage::model::AvroSchema>),
         /// Output only. Arrow schema.
-        ArrowSchema(std::boxed::Box<crate::model::ArrowSchema>),
+        ArrowSchema(std::boxed::Box<crate::write::generated::gapic_storage::model::ArrowSchema>),
     }
 
     impl Schema {
         /// Initializes the enum to the [AvroSchema](Self::AvroSchema) branch.
         pub fn from_avro_schema(
-            value: impl std::convert::Into<std::boxed::Box<crate::model::AvroSchema>>,
+            value: impl std::convert::Into<
+                std::boxed::Box<crate::write::generated::gapic_storage::model::AvroSchema>,
+            >,
         ) -> Self {
             Self::AvroSchema(value.into())
         }
         /// Initializes the enum to the [ArrowSchema](Self::ArrowSchema) branch.
         pub fn from_arrow_schema(
-            value: impl std::convert::Into<std::boxed::Box<crate::model::ArrowSchema>>,
+            value: impl std::convert::Into<
+                std::boxed::Box<crate::write::generated::gapic_storage::model::ArrowSchema>,
+            >,
         ) -> Self {
             Self::ArrowSchema(value.into())
         }
@@ -1518,13 +1573,13 @@ impl SplitReadStreamRequest {
         std::default::Default::default()
     }
 
-    /// Sets the value of [name][crate::model::SplitReadStreamRequest::name].
+    /// Sets the value of [name][crate::write::generated::gapic_storage::model::SplitReadStreamRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of [fraction][crate::model::SplitReadStreamRequest::fraction].
+    /// Sets the value of [fraction][crate::write::generated::gapic_storage::model::SplitReadStreamRequest::fraction].
     pub fn set_fraction<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.fraction = v.into();
         self
@@ -1544,11 +1599,13 @@ pub struct SplitReadStreamResponse {
     /// Primary stream, which contains the beginning portion of
     /// |original_stream|. An empty value indicates that the original stream can no
     /// longer be split.
-    pub primary_stream: std::option::Option<crate::model::ReadStream>,
+    pub primary_stream:
+        std::option::Option<crate::write::generated::gapic_storage::model::ReadStream>,
 
     /// Remainder stream, which contains the tail of |original_stream|. An empty
     /// value indicates that the original stream can no longer be split.
-    pub remainder_stream: std::option::Option<crate::model::ReadStream>,
+    pub remainder_stream:
+        std::option::Option<crate::write::generated::gapic_storage::model::ReadStream>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1559,37 +1616,37 @@ impl SplitReadStreamResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [primary_stream][crate::model::SplitReadStreamResponse::primary_stream].
+    /// Sets the value of [primary_stream][crate::write::generated::gapic_storage::model::SplitReadStreamResponse::primary_stream].
     pub fn set_primary_stream<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<crate::model::ReadStream>,
+        T: std::convert::Into<crate::write::generated::gapic_storage::model::ReadStream>,
     {
         self.primary_stream = std::option::Option::Some(v.into());
         self
     }
 
-    /// Sets or clears the value of [primary_stream][crate::model::SplitReadStreamResponse::primary_stream].
+    /// Sets or clears the value of [primary_stream][crate::write::generated::gapic_storage::model::SplitReadStreamResponse::primary_stream].
     pub fn set_or_clear_primary_stream<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<crate::model::ReadStream>,
+        T: std::convert::Into<crate::write::generated::gapic_storage::model::ReadStream>,
     {
         self.primary_stream = v.map(|x| x.into());
         self
     }
 
-    /// Sets the value of [remainder_stream][crate::model::SplitReadStreamResponse::remainder_stream].
+    /// Sets the value of [remainder_stream][crate::write::generated::gapic_storage::model::SplitReadStreamResponse::remainder_stream].
     pub fn set_remainder_stream<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<crate::model::ReadStream>,
+        T: std::convert::Into<crate::write::generated::gapic_storage::model::ReadStream>,
     {
         self.remainder_stream = std::option::Option::Some(v.into());
         self
     }
 
-    /// Sets or clears the value of [remainder_stream][crate::model::SplitReadStreamResponse::remainder_stream].
+    /// Sets or clears the value of [remainder_stream][crate::write::generated::gapic_storage::model::SplitReadStreamResponse::remainder_stream].
     pub fn set_or_clear_remainder_stream<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<crate::model::ReadStream>,
+        T: std::convert::Into<crate::write::generated::gapic_storage::model::ReadStream>,
     {
         self.remainder_stream = v.map(|x| x.into());
         self
@@ -1611,7 +1668,8 @@ pub struct CreateWriteStreamRequest {
     pub parent: std::string::String,
 
     /// Required. Stream to be created.
-    pub write_stream: std::option::Option<crate::model::WriteStream>,
+    pub write_stream:
+        std::option::Option<crate::write::generated::gapic_storage::model::WriteStream>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1622,25 +1680,25 @@ impl CreateWriteStreamRequest {
         std::default::Default::default()
     }
 
-    /// Sets the value of [parent][crate::model::CreateWriteStreamRequest::parent].
+    /// Sets the value of [parent][crate::write::generated::gapic_storage::model::CreateWriteStreamRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of [write_stream][crate::model::CreateWriteStreamRequest::write_stream].
+    /// Sets the value of [write_stream][crate::write::generated::gapic_storage::model::CreateWriteStreamRequest::write_stream].
     pub fn set_write_stream<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<crate::model::WriteStream>,
+        T: std::convert::Into<crate::write::generated::gapic_storage::model::WriteStream>,
     {
         self.write_stream = std::option::Option::Some(v.into());
         self
     }
 
-    /// Sets or clears the value of [write_stream][crate::model::CreateWriteStreamRequest::write_stream].
+    /// Sets or clears the value of [write_stream][crate::write::generated::gapic_storage::model::CreateWriteStreamRequest::write_stream].
     pub fn set_or_clear_write_stream<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<crate::model::WriteStream>,
+        T: std::convert::Into<crate::write::generated::gapic_storage::model::WriteStream>,
     {
         self.write_stream = v.map(|x| x.into());
         self
@@ -1665,6 +1723,7 @@ impl wkt::message::Message for CreateWriteStreamRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AppendRowsRequest {
+
     /// Required. The write_stream identifies the append operation. It must be
     /// provided in the following scenarios:
     ///
@@ -1729,10 +1788,7 @@ pub struct AppendRowsRequest {
     ///
     /// Currently, field name can only be top-level column name, can't be a struct
     /// field path like 'foo.bar'.
-    pub missing_value_interpretations: std::collections::HashMap<
-        std::string::String,
-        crate::model::append_rows_request::MissingValueInterpretation,
-    >,
+    pub missing_value_interpretations: std::collections::HashMap<std::string::String,crate::write::generated::gapic_storage::model::append_rows_request::MissingValueInterpretation>,
 
     /// Optional. Default missing value interpretation for all columns in the
     /// table. When a value is specified on an `AppendRowsRequest`, it is applied
@@ -1743,17 +1799,16 @@ pub struct AppendRowsRequest {
     /// `NULL` instead of using default values for some columns, you can set
     /// `default_missing_value_interpretation` to `DEFAULT_VALUE` and at the same
     /// time, set `missing_value_interpretations` to `NULL_VALUE` on those columns.
-    pub default_missing_value_interpretation:
-        crate::model::append_rows_request::MissingValueInterpretation,
+    pub default_missing_value_interpretation: crate::write::generated::gapic_storage::model::append_rows_request::MissingValueInterpretation,
 
     /// Optional. Stats and telemetry data gathered on the client side.
-    pub client_stats: std::option::Option<crate::model::ClientStats>,
+    pub client_stats: std::option::Option<crate::write::generated::gapic_storage::model::ClientStats>,
 
     /// Input rows. The `writer_schema` field must be specified at the initial
     /// request and currently, it will be ignored if specified in following
     /// requests. Following requests must have data in the same format as the
     /// initial request.
-    pub rows: std::option::Option<crate::model::append_rows_request::Rows>,
+    pub rows: std::option::Option<crate::write::generated::gapic_storage::model::append_rows_request::Rows>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1764,13 +1819,13 @@ impl AppendRowsRequest {
         std::default::Default::default()
     }
 
-    /// Sets the value of [write_stream][crate::model::AppendRowsRequest::write_stream].
+    /// Sets the value of [write_stream][crate::write::generated::gapic_storage::model::AppendRowsRequest::write_stream].
     pub fn set_write_stream<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.write_stream = v.into();
         self
     }
 
-    /// Sets the value of [offset][crate::model::AppendRowsRequest::offset].
+    /// Sets the value of [offset][crate::write::generated::gapic_storage::model::AppendRowsRequest::offset].
     pub fn set_offset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -1779,7 +1834,7 @@ impl AppendRowsRequest {
         self
     }
 
-    /// Sets or clears the value of [offset][crate::model::AppendRowsRequest::offset].
+    /// Sets or clears the value of [offset][crate::write::generated::gapic_storage::model::AppendRowsRequest::offset].
     pub fn set_or_clear_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -1788,18 +1843,18 @@ impl AppendRowsRequest {
         self
     }
 
-    /// Sets the value of [trace_id][crate::model::AppendRowsRequest::trace_id].
+    /// Sets the value of [trace_id][crate::write::generated::gapic_storage::model::AppendRowsRequest::trace_id].
     pub fn set_trace_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.trace_id = v.into();
         self
     }
 
-    /// Sets the value of [missing_value_interpretations][crate::model::AppendRowsRequest::missing_value_interpretations].
+    /// Sets the value of [missing_value_interpretations][crate::write::generated::gapic_storage::model::AppendRowsRequest::missing_value_interpretations].
     pub fn set_missing_value_interpretations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
         K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::append_rows_request::MissingValueInterpretation>,
+        V: std::convert::Into<crate::write::generated::gapic_storage::model::append_rows_request::MissingValueInterpretation>,
     {
         use std::iter::Iterator;
         self.missing_value_interpretations =
@@ -1807,41 +1862,40 @@ impl AppendRowsRequest {
         self
     }
 
-    /// Sets the value of [default_missing_value_interpretation][crate::model::AppendRowsRequest::default_missing_value_interpretation].
-    pub fn set_default_missing_value_interpretation<
-        T: std::convert::Into<crate::model::append_rows_request::MissingValueInterpretation>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    /// Sets the value of [default_missing_value_interpretation][crate::write::generated::gapic_storage::model::AppendRowsRequest::default_missing_value_interpretation].
+    pub fn set_default_missing_value_interpretation<T: std::convert::Into<crate::write::generated::gapic_storage::model::append_rows_request::MissingValueInterpretation>>(mut self, v: T) -> Self{
         self.default_missing_value_interpretation = v.into();
         self
     }
 
-    /// Sets the value of [client_stats][crate::model::AppendRowsRequest::client_stats].
+    /// Sets the value of [client_stats][crate::write::generated::gapic_storage::model::AppendRowsRequest::client_stats].
     pub fn set_client_stats<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<crate::model::ClientStats>,
+        T: std::convert::Into<crate::write::generated::gapic_storage::model::ClientStats>,
     {
         self.client_stats = std::option::Option::Some(v.into());
         self
     }
 
-    /// Sets or clears the value of [client_stats][crate::model::AppendRowsRequest::client_stats].
+    /// Sets or clears the value of [client_stats][crate::write::generated::gapic_storage::model::AppendRowsRequest::client_stats].
     pub fn set_or_clear_client_stats<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<crate::model::ClientStats>,
+        T: std::convert::Into<crate::write::generated::gapic_storage::model::ClientStats>,
     {
         self.client_stats = v.map(|x| x.into());
         self
     }
 
-    /// Sets the value of [rows][crate::model::AppendRowsRequest::rows].
+    /// Sets the value of [rows][crate::write::generated::gapic_storage::model::AppendRowsRequest::rows].
     ///
     /// Note that all the setters affecting `rows` are mutually
     /// exclusive.
     pub fn set_rows<
-        T: std::convert::Into<std::option::Option<crate::model::append_rows_request::Rows>>,
+        T: std::convert::Into<
+                std::option::Option<
+                    crate::write::generated::gapic_storage::model::append_rows_request::Rows,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -1850,61 +1904,87 @@ impl AppendRowsRequest {
         self
     }
 
-    /// The value of [rows][crate::model::AppendRowsRequest::rows]
+    /// The value of [rows][crate::write::generated::gapic_storage::model::AppendRowsRequest::rows]
     /// if it holds a `ProtoRows`, `None` if the field is not set or
     /// holds a different branch.
     pub fn proto_rows(
         &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::append_rows_request::ProtoData>> {
+    ) -> std::option::Option<
+        &std::boxed::Box<
+            crate::write::generated::gapic_storage::model::append_rows_request::ProtoData,
+        >,
+    > {
         #[allow(unreachable_patterns)]
         self.rows.as_ref().and_then(|v| match v {
-            crate::model::append_rows_request::Rows::ProtoRows(v) => std::option::Option::Some(v),
+            crate::write::generated::gapic_storage::model::append_rows_request::Rows::ProtoRows(
+                v,
+            ) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
 
-    /// Sets the value of [rows][crate::model::AppendRowsRequest::rows]
+    /// Sets the value of [rows][crate::write::generated::gapic_storage::model::AppendRowsRequest::rows]
     /// to hold a `ProtoRows`.
     ///
     /// Note that all the setters affecting `rows` are
     /// mutually exclusive.
     pub fn set_proto_rows<
-        T: std::convert::Into<std::boxed::Box<crate::model::append_rows_request::ProtoData>>,
+        T: std::convert::Into<
+                std::boxed::Box<
+                    crate::write::generated::gapic_storage::model::append_rows_request::ProtoData,
+                >,
+            >,
     >(
         mut self,
         v: T,
     ) -> Self {
-        self.rows =
-            std::option::Option::Some(crate::model::append_rows_request::Rows::ProtoRows(v.into()));
+        self.rows = std::option::Option::Some(
+            crate::write::generated::gapic_storage::model::append_rows_request::Rows::ProtoRows(
+                v.into(),
+            ),
+        );
         self
     }
 
-    /// The value of [rows][crate::model::AppendRowsRequest::rows]
+    /// The value of [rows][crate::write::generated::gapic_storage::model::AppendRowsRequest::rows]
     /// if it holds a `ArrowRows`, `None` if the field is not set or
     /// holds a different branch.
     pub fn arrow_rows(
         &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::append_rows_request::ArrowData>> {
+    ) -> std::option::Option<
+        &std::boxed::Box<
+            crate::write::generated::gapic_storage::model::append_rows_request::ArrowData,
+        >,
+    > {
         #[allow(unreachable_patterns)]
         self.rows.as_ref().and_then(|v| match v {
-            crate::model::append_rows_request::Rows::ArrowRows(v) => std::option::Option::Some(v),
+            crate::write::generated::gapic_storage::model::append_rows_request::Rows::ArrowRows(
+                v,
+            ) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
 
-    /// Sets the value of [rows][crate::model::AppendRowsRequest::rows]
+    /// Sets the value of [rows][crate::write::generated::gapic_storage::model::AppendRowsRequest::rows]
     /// to hold a `ArrowRows`.
     ///
     /// Note that all the setters affecting `rows` are
     /// mutually exclusive.
     pub fn set_arrow_rows<
-        T: std::convert::Into<std::boxed::Box<crate::model::append_rows_request::ArrowData>>,
+        T: std::convert::Into<
+                std::boxed::Box<
+                    crate::write::generated::gapic_storage::model::append_rows_request::ArrowData,
+                >,
+            >,
     >(
         mut self,
         v: T,
     ) -> Self {
-        self.rows =
-            std::option::Option::Some(crate::model::append_rows_request::Rows::ArrowRows(v.into()));
+        self.rows = std::option::Option::Some(
+            crate::write::generated::gapic_storage::model::append_rows_request::Rows::ArrowRows(
+                v.into(),
+            ),
+        );
         self
     }
 }
@@ -1925,10 +2005,12 @@ pub mod append_rows_request {
     #[non_exhaustive]
     pub struct ArrowData {
         /// Optional. Arrow Schema used to serialize the data.
-        pub writer_schema: std::option::Option<crate::model::ArrowSchema>,
+        pub writer_schema:
+            std::option::Option<crate::write::generated::gapic_storage::model::ArrowSchema>,
 
         /// Required. Serialized row data in Arrow format.
-        pub rows: std::option::Option<crate::model::ArrowRecordBatch>,
+        pub rows:
+            std::option::Option<crate::write::generated::gapic_storage::model::ArrowRecordBatch>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -1939,37 +2021,37 @@ pub mod append_rows_request {
             std::default::Default::default()
         }
 
-        /// Sets the value of [writer_schema][crate::model::append_rows_request::ArrowData::writer_schema].
+        /// Sets the value of [writer_schema][crate::write::generated::gapic_storage::model::append_rows_request::ArrowData::writer_schema].
         pub fn set_writer_schema<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<crate::model::ArrowSchema>,
+            T: std::convert::Into<crate::write::generated::gapic_storage::model::ArrowSchema>,
         {
             self.writer_schema = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [writer_schema][crate::model::append_rows_request::ArrowData::writer_schema].
+        /// Sets or clears the value of [writer_schema][crate::write::generated::gapic_storage::model::append_rows_request::ArrowData::writer_schema].
         pub fn set_or_clear_writer_schema<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<crate::model::ArrowSchema>,
+            T: std::convert::Into<crate::write::generated::gapic_storage::model::ArrowSchema>,
         {
             self.writer_schema = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [rows][crate::model::append_rows_request::ArrowData::rows].
+        /// Sets the value of [rows][crate::write::generated::gapic_storage::model::append_rows_request::ArrowData::rows].
         pub fn set_rows<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<crate::model::ArrowRecordBatch>,
+            T: std::convert::Into<crate::write::generated::gapic_storage::model::ArrowRecordBatch>,
         {
             self.rows = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [rows][crate::model::append_rows_request::ArrowData::rows].
+        /// Sets or clears the value of [rows][crate::write::generated::gapic_storage::model::append_rows_request::ArrowData::rows].
         pub fn set_or_clear_rows<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<crate::model::ArrowRecordBatch>,
+            T: std::convert::Into<crate::write::generated::gapic_storage::model::ArrowRecordBatch>,
         {
             self.rows = v.map(|x| x.into());
             self
@@ -1996,13 +2078,14 @@ pub mod append_rows_request {
         ///
         /// * You specify a new destination table.
         ///
-        pub writer_schema: std::option::Option<crate::model::ProtoSchema>,
+        pub writer_schema:
+            std::option::Option<crate::write::generated::gapic_storage::model::ProtoSchema>,
 
         /// Required. Serialized row data in protobuf message format.
         /// Currently, the backend expects the serialized rows to adhere to
         /// proto2 semantics when appending rows, particularly with respect to
         /// how default values are encoded.
-        pub rows: std::option::Option<crate::model::ProtoRows>,
+        pub rows: std::option::Option<crate::write::generated::gapic_storage::model::ProtoRows>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -2013,37 +2096,37 @@ pub mod append_rows_request {
             std::default::Default::default()
         }
 
-        /// Sets the value of [writer_schema][crate::model::append_rows_request::ProtoData::writer_schema].
+        /// Sets the value of [writer_schema][crate::write::generated::gapic_storage::model::append_rows_request::ProtoData::writer_schema].
         pub fn set_writer_schema<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<crate::model::ProtoSchema>,
+            T: std::convert::Into<crate::write::generated::gapic_storage::model::ProtoSchema>,
         {
             self.writer_schema = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [writer_schema][crate::model::append_rows_request::ProtoData::writer_schema].
+        /// Sets or clears the value of [writer_schema][crate::write::generated::gapic_storage::model::append_rows_request::ProtoData::writer_schema].
         pub fn set_or_clear_writer_schema<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<crate::model::ProtoSchema>,
+            T: std::convert::Into<crate::write::generated::gapic_storage::model::ProtoSchema>,
         {
             self.writer_schema = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [rows][crate::model::append_rows_request::ProtoData::rows].
+        /// Sets the value of [rows][crate::write::generated::gapic_storage::model::append_rows_request::ProtoData::rows].
         pub fn set_rows<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<crate::model::ProtoRows>,
+            T: std::convert::Into<crate::write::generated::gapic_storage::model::ProtoRows>,
         {
             self.rows = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [rows][crate::model::append_rows_request::ProtoData::rows].
+        /// Sets or clears the value of [rows][crate::write::generated::gapic_storage::model::append_rows_request::ProtoData::rows].
         pub fn set_or_clear_rows<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<crate::model::ProtoRows>,
+            T: std::convert::Into<crate::write::generated::gapic_storage::model::ProtoRows>,
         {
             self.rows = v.map(|x| x.into());
             self
@@ -2201,16 +2284,26 @@ pub mod append_rows_request {
     #[non_exhaustive]
     pub enum Rows {
         /// Rows in proto format.
-        ProtoRows(std::boxed::Box<crate::model::append_rows_request::ProtoData>),
+        ProtoRows(
+            std::boxed::Box<
+                crate::write::generated::gapic_storage::model::append_rows_request::ProtoData,
+            >,
+        ),
         /// Rows in arrow format.
-        ArrowRows(std::boxed::Box<crate::model::append_rows_request::ArrowData>),
+        ArrowRows(
+            std::boxed::Box<
+                crate::write::generated::gapic_storage::model::append_rows_request::ArrowData,
+            >,
+        ),
     }
 
     impl Rows {
         /// Initializes the enum to the [ProtoRows](Self::ProtoRows) branch.
         pub fn from_proto_rows(
             value: impl std::convert::Into<
-                std::boxed::Box<crate::model::append_rows_request::ProtoData>,
+                std::boxed::Box<
+                    crate::write::generated::gapic_storage::model::append_rows_request::ProtoData,
+                >,
             >,
         ) -> Self {
             Self::ProtoRows(value.into())
@@ -2218,7 +2311,9 @@ pub mod append_rows_request {
         /// Initializes the enum to the [ArrowRows](Self::ArrowRows) branch.
         pub fn from_arrow_rows(
             value: impl std::convert::Into<
-                std::boxed::Box<crate::model::append_rows_request::ArrowData>,
+                std::boxed::Box<
+                    crate::write::generated::gapic_storage::model::append_rows_request::ArrowData,
+                >,
             >,
         ) -> Self {
             Self::ArrowRows(value.into())
@@ -2233,19 +2328,22 @@ pub struct AppendRowsResponse {
     /// If backend detects a schema update, pass it to user so that user can
     /// use it to input new type of message. It will be empty when no schema
     /// updates have occurred.
-    pub updated_schema: std::option::Option<crate::model::TableSchema>,
+    pub updated_schema:
+        std::option::Option<crate::write::generated::gapic_storage::model::TableSchema>,
 
     /// If a request failed due to corrupted rows, no rows in the batch will be
     /// appended. The API will return row level error info, so that the caller can
     /// remove the bad rows and retry the request.
-    pub row_errors: std::vec::Vec<crate::model::RowError>,
+    pub row_errors: std::vec::Vec<crate::write::generated::gapic_storage::model::RowError>,
 
     /// The target of the append operation. Matches the write_stream in the
     /// corresponding request.
     pub write_stream: std::string::String,
 
     #[allow(missing_docs)]
-    pub response: std::option::Option<crate::model::append_rows_response::Response>,
+    pub response: std::option::Option<
+        crate::write::generated::gapic_storage::model::append_rows_response::Response,
+    >,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2256,47 +2354,51 @@ impl AppendRowsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [updated_schema][crate::model::AppendRowsResponse::updated_schema].
+    /// Sets the value of [updated_schema][crate::write::generated::gapic_storage::model::AppendRowsResponse::updated_schema].
     pub fn set_updated_schema<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<crate::model::TableSchema>,
+        T: std::convert::Into<crate::write::generated::gapic_storage::model::TableSchema>,
     {
         self.updated_schema = std::option::Option::Some(v.into());
         self
     }
 
-    /// Sets or clears the value of [updated_schema][crate::model::AppendRowsResponse::updated_schema].
+    /// Sets or clears the value of [updated_schema][crate::write::generated::gapic_storage::model::AppendRowsResponse::updated_schema].
     pub fn set_or_clear_updated_schema<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<crate::model::TableSchema>,
+        T: std::convert::Into<crate::write::generated::gapic_storage::model::TableSchema>,
     {
         self.updated_schema = v.map(|x| x.into());
         self
     }
 
-    /// Sets the value of [row_errors][crate::model::AppendRowsResponse::row_errors].
+    /// Sets the value of [row_errors][crate::write::generated::gapic_storage::model::AppendRowsResponse::row_errors].
     pub fn set_row_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::RowError>,
+        V: std::convert::Into<crate::write::generated::gapic_storage::model::RowError>,
     {
         use std::iter::Iterator;
         self.row_errors = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
-    /// Sets the value of [write_stream][crate::model::AppendRowsResponse::write_stream].
+    /// Sets the value of [write_stream][crate::write::generated::gapic_storage::model::AppendRowsResponse::write_stream].
     pub fn set_write_stream<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.write_stream = v.into();
         self
     }
 
-    /// Sets the value of [response][crate::model::AppendRowsResponse::response].
+    /// Sets the value of [response][crate::write::generated::gapic_storage::model::AppendRowsResponse::response].
     ///
     /// Note that all the setters affecting `response` are mutually
     /// exclusive.
     pub fn set_response<
-        T: std::convert::Into<std::option::Option<crate::model::append_rows_response::Response>>,
+        T: std::convert::Into<
+                std::option::Option<
+                    crate::write::generated::gapic_storage::model::append_rows_response::Response,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -2305,51 +2407,49 @@ impl AppendRowsResponse {
         self
     }
 
-    /// The value of [response][crate::model::AppendRowsResponse::response]
+    /// The value of [response][crate::write::generated::gapic_storage::model::AppendRowsResponse::response]
     /// if it holds a `AppendResult`, `None` if the field is not set or
     /// holds a different branch.
     pub fn append_result(
         &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::append_rows_response::AppendResult>>
-    {
+    ) -> std::option::Option<
+        &std::boxed::Box<
+            crate::write::generated::gapic_storage::model::append_rows_response::AppendResult,
+        >,
+    > {
         #[allow(unreachable_patterns)]
         self.response.as_ref().and_then(|v| match v {
-            crate::model::append_rows_response::Response::AppendResult(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::write::generated::gapic_storage::model::append_rows_response::Response::AppendResult(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
 
-    /// Sets the value of [response][crate::model::AppendRowsResponse::response]
+    /// Sets the value of [response][crate::write::generated::gapic_storage::model::AppendRowsResponse::response]
     /// to hold a `AppendResult`.
     ///
     /// Note that all the setters affecting `response` are
     /// mutually exclusive.
-    pub fn set_append_result<
-        T: std::convert::Into<std::boxed::Box<crate::model::append_rows_response::AppendResult>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_append_result<T: std::convert::Into<std::boxed::Box<crate::write::generated::gapic_storage::model::append_rows_response::AppendResult>>>(mut self, v: T) -> Self{
         self.response = std::option::Option::Some(
-            crate::model::append_rows_response::Response::AppendResult(v.into()),
+            crate::write::generated::gapic_storage::model::append_rows_response::Response::AppendResult(
+                v.into()
+            )
         );
         self
     }
 
-    /// The value of [response][crate::model::AppendRowsResponse::response]
+    /// The value of [response][crate::write::generated::gapic_storage::model::AppendRowsResponse::response]
     /// if it holds a `Error`, `None` if the field is not set or
     /// holds a different branch.
     pub fn error(&self) -> std::option::Option<&std::boxed::Box<google_cloud_rpc::model::Status>> {
         #[allow(unreachable_patterns)]
         self.response.as_ref().and_then(|v| match v {
-            crate::model::append_rows_response::Response::Error(v) => std::option::Option::Some(v),
+            crate::write::generated::gapic_storage::model::append_rows_response::Response::Error(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
 
-    /// Sets the value of [response][crate::model::AppendRowsResponse::response]
+    /// Sets the value of [response][crate::write::generated::gapic_storage::model::AppendRowsResponse::response]
     /// to hold a `Error`.
     ///
     /// Note that all the setters affecting `response` are
@@ -2359,7 +2459,9 @@ impl AppendRowsResponse {
         v: T,
     ) -> Self {
         self.response = std::option::Option::Some(
-            crate::model::append_rows_response::Response::Error(v.into()),
+            crate::write::generated::gapic_storage::model::append_rows_response::Response::Error(
+                v.into(),
+            ),
         );
         self
     }
@@ -2393,7 +2495,7 @@ pub mod append_rows_response {
             std::default::Default::default()
         }
 
-        /// Sets the value of [offset][crate::model::append_rows_response::AppendResult::offset].
+        /// Sets the value of [offset][crate::write::generated::gapic_storage::model::append_rows_response::AppendResult::offset].
         pub fn set_offset<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Int64Value>,
@@ -2402,7 +2504,7 @@ pub mod append_rows_response {
             self
         }
 
-        /// Sets or clears the value of [offset][crate::model::append_rows_response::AppendResult::offset].
+        /// Sets or clears the value of [offset][crate::write::generated::gapic_storage::model::append_rows_response::AppendResult::offset].
         pub fn set_or_clear_offset<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Int64Value>,
@@ -2423,7 +2525,11 @@ pub mod append_rows_response {
     #[non_exhaustive]
     pub enum Response {
         /// Result if the append is successful.
-        AppendResult(std::boxed::Box<crate::model::append_rows_response::AppendResult>),
+        AppendResult(
+            std::boxed::Box<
+                crate::write::generated::gapic_storage::model::append_rows_response::AppendResult,
+            >,
+        ),
         /// Error returned when problems were encountered.  If present,
         /// it indicates rows were not accepted into the system.
         /// Users can retry or continue with other append requests within the
@@ -2450,9 +2556,7 @@ pub mod append_rows_response {
     impl Response {
         /// Initializes the enum to the [AppendResult](Self::AppendResult) branch.
         pub fn from_append_result(
-            value: impl std::convert::Into<
-                std::boxed::Box<crate::model::append_rows_response::AppendResult>,
-            >,
+            value: impl std::convert::Into<std::boxed::Box<crate::write::generated::gapic_storage::model::append_rows_response::AppendResult>>,
         ) -> Self {
             Self::AppendResult(value.into())
         }
@@ -2475,7 +2579,7 @@ pub struct GetWriteStreamRequest {
 
     /// Indicates whether to get full or partial view of the WriteStream. If
     /// not set, view returned will be basic.
-    pub view: crate::model::WriteStreamView,
+    pub view: crate::write::generated::gapic_storage::model::WriteStreamView,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2486,14 +2590,19 @@ impl GetWriteStreamRequest {
         std::default::Default::default()
     }
 
-    /// Sets the value of [name][crate::model::GetWriteStreamRequest::name].
+    /// Sets the value of [name][crate::write::generated::gapic_storage::model::GetWriteStreamRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of [view][crate::model::GetWriteStreamRequest::view].
-    pub fn set_view<T: std::convert::Into<crate::model::WriteStreamView>>(mut self, v: T) -> Self {
+    /// Sets the value of [view][crate::write::generated::gapic_storage::model::GetWriteStreamRequest::view].
+    pub fn set_view<
+        T: std::convert::Into<crate::write::generated::gapic_storage::model::WriteStreamView>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.view = v.into();
         self
     }
@@ -2525,13 +2634,13 @@ impl BatchCommitWriteStreamsRequest {
         std::default::Default::default()
     }
 
-    /// Sets the value of [parent][crate::model::BatchCommitWriteStreamsRequest::parent].
+    /// Sets the value of [parent][crate::write::generated::gapic_storage::model::BatchCommitWriteStreamsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of [write_streams][crate::model::BatchCommitWriteStreamsRequest::write_streams].
+    /// Sets the value of [write_streams][crate::write::generated::gapic_storage::model::BatchCommitWriteStreamsRequest::write_streams].
     pub fn set_write_streams<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2563,7 +2672,7 @@ pub struct BatchCommitWriteStreamsResponse {
     /// If empty, there is no error and all streams are committed successfully.
     /// If non empty, certain streams have errors and ZERO stream is committed due
     /// to atomicity guarantee.
-    pub stream_errors: std::vec::Vec<crate::model::StorageError>,
+    pub stream_errors: std::vec::Vec<crate::write::generated::gapic_storage::model::StorageError>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2574,7 +2683,7 @@ impl BatchCommitWriteStreamsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [commit_time][crate::model::BatchCommitWriteStreamsResponse::commit_time].
+    /// Sets the value of [commit_time][crate::write::generated::gapic_storage::model::BatchCommitWriteStreamsResponse::commit_time].
     pub fn set_commit_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2583,7 +2692,7 @@ impl BatchCommitWriteStreamsResponse {
         self
     }
 
-    /// Sets or clears the value of [commit_time][crate::model::BatchCommitWriteStreamsResponse::commit_time].
+    /// Sets or clears the value of [commit_time][crate::write::generated::gapic_storage::model::BatchCommitWriteStreamsResponse::commit_time].
     pub fn set_or_clear_commit_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2592,11 +2701,11 @@ impl BatchCommitWriteStreamsResponse {
         self
     }
 
-    /// Sets the value of [stream_errors][crate::model::BatchCommitWriteStreamsResponse::stream_errors].
+    /// Sets the value of [stream_errors][crate::write::generated::gapic_storage::model::BatchCommitWriteStreamsResponse::stream_errors].
     pub fn set_stream_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::StorageError>,
+        V: std::convert::Into<crate::write::generated::gapic_storage::model::StorageError>,
     {
         use std::iter::Iterator;
         self.stream_errors = v.into_iter().map(|i| i.into()).collect();
@@ -2627,7 +2736,7 @@ impl FinalizeWriteStreamRequest {
         std::default::Default::default()
     }
 
-    /// Sets the value of [name][crate::model::FinalizeWriteStreamRequest::name].
+    /// Sets the value of [name][crate::write::generated::gapic_storage::model::FinalizeWriteStreamRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2656,7 +2765,7 @@ impl FinalizeWriteStreamResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [row_count][crate::model::FinalizeWriteStreamResponse::row_count].
+    /// Sets the value of [row_count][crate::write::generated::gapic_storage::model::FinalizeWriteStreamResponse::row_count].
     pub fn set_row_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.row_count = v.into();
         self
@@ -2689,13 +2798,13 @@ impl FlushRowsRequest {
         std::default::Default::default()
     }
 
-    /// Sets the value of [write_stream][crate::model::FlushRowsRequest::write_stream].
+    /// Sets the value of [write_stream][crate::write::generated::gapic_storage::model::FlushRowsRequest::write_stream].
     pub fn set_write_stream<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.write_stream = v.into();
         self
     }
 
-    /// Sets the value of [offset][crate::model::FlushRowsRequest::offset].
+    /// Sets the value of [offset][crate::write::generated::gapic_storage::model::FlushRowsRequest::offset].
     pub fn set_offset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -2704,7 +2813,7 @@ impl FlushRowsRequest {
         self
     }
 
-    /// Sets or clears the value of [offset][crate::model::FlushRowsRequest::offset].
+    /// Sets or clears the value of [offset][crate::write::generated::gapic_storage::model::FlushRowsRequest::offset].
     pub fn set_or_clear_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -2736,7 +2845,7 @@ impl FlushRowsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [offset][crate::model::FlushRowsResponse::offset].
+    /// Sets the value of [offset][crate::write::generated::gapic_storage::model::FlushRowsResponse::offset].
     pub fn set_offset<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.offset = v.into();
         self
@@ -2757,7 +2866,7 @@ impl wkt::message::Message for FlushRowsResponse {
 #[non_exhaustive]
 pub struct StorageError {
     /// BigQuery Storage specific error code.
-    pub code: crate::model::storage_error::StorageErrorCode,
+    pub code: crate::write::generated::gapic_storage::model::storage_error::StorageErrorCode,
 
     /// Name of the failed entity.
     pub entity: std::string::String,
@@ -2774,8 +2883,12 @@ impl StorageError {
         std::default::Default::default()
     }
 
-    /// Sets the value of [code][crate::model::StorageError::code].
-    pub fn set_code<T: std::convert::Into<crate::model::storage_error::StorageErrorCode>>(
+    /// Sets the value of [code][crate::write::generated::gapic_storage::model::StorageError::code].
+    pub fn set_code<
+        T: std::convert::Into<
+                crate::write::generated::gapic_storage::model::storage_error::StorageErrorCode,
+            >,
+    >(
         mut self,
         v: T,
     ) -> Self {
@@ -2783,13 +2896,13 @@ impl StorageError {
         self
     }
 
-    /// Sets the value of [entity][crate::model::StorageError::entity].
+    /// Sets the value of [entity][crate::write::generated::gapic_storage::model::StorageError::entity].
     pub fn set_entity<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entity = v.into();
         self
     }
 
-    /// Sets the value of [error_message][crate::model::StorageError::error_message].
+    /// Sets the value of [error_message][crate::write::generated::gapic_storage::model::StorageError::error_message].
     pub fn set_error_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.error_message = v.into();
         self
@@ -3042,7 +3155,7 @@ pub struct RowError {
     pub index: i64,
 
     /// Structured error reason for a row error.
-    pub code: crate::model::row_error::RowErrorCode,
+    pub code: crate::write::generated::gapic_storage::model::row_error::RowErrorCode,
 
     /// Description of the issue encountered when processing the row.
     pub message: std::string::String,
@@ -3056,14 +3169,16 @@ impl RowError {
         std::default::Default::default()
     }
 
-    /// Sets the value of [index][crate::model::RowError::index].
+    /// Sets the value of [index][crate::write::generated::gapic_storage::model::RowError::index].
     pub fn set_index<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.index = v.into();
         self
     }
 
-    /// Sets the value of [code][crate::model::RowError::code].
-    pub fn set_code<T: std::convert::Into<crate::model::row_error::RowErrorCode>>(
+    /// Sets the value of [code][crate::write::generated::gapic_storage::model::RowError::code].
+    pub fn set_code<
+        T: std::convert::Into<crate::write::generated::gapic_storage::model::row_error::RowErrorCode>,
+    >(
         mut self,
         v: T,
     ) -> Self {
@@ -3071,7 +3186,7 @@ impl RowError {
         self
     }
 
-    /// Sets the value of [message][crate::model::RowError::message].
+    /// Sets the value of [message][crate::write::generated::gapic_storage::model::RowError::message].
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
@@ -3221,10 +3336,14 @@ pub mod row_error {
 #[non_exhaustive]
 pub struct ClientStats {
     /// Optional. Per-request stats.
-    pub request_stats: std::option::Option<crate::model::client_stats::RequestStats>,
+    pub request_stats: std::option::Option<
+        crate::write::generated::gapic_storage::model::client_stats::RequestStats,
+    >,
 
     /// Optional. Windowed stats.
-    pub window_stats: std::option::Option<crate::model::client_stats::WindowStats>,
+    pub window_stats: std::option::Option<
+        crate::write::generated::gapic_storage::model::client_stats::WindowStats,
+    >,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3235,37 +3354,45 @@ impl ClientStats {
         std::default::Default::default()
     }
 
-    /// Sets the value of [request_stats][crate::model::ClientStats::request_stats].
+    /// Sets the value of [request_stats][crate::write::generated::gapic_storage::model::ClientStats::request_stats].
     pub fn set_request_stats<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<crate::model::client_stats::RequestStats>,
+        T: std::convert::Into<
+                crate::write::generated::gapic_storage::model::client_stats::RequestStats,
+            >,
     {
         self.request_stats = std::option::Option::Some(v.into());
         self
     }
 
-    /// Sets or clears the value of [request_stats][crate::model::ClientStats::request_stats].
+    /// Sets or clears the value of [request_stats][crate::write::generated::gapic_storage::model::ClientStats::request_stats].
     pub fn set_or_clear_request_stats<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<crate::model::client_stats::RequestStats>,
+        T: std::convert::Into<
+                crate::write::generated::gapic_storage::model::client_stats::RequestStats,
+            >,
     {
         self.request_stats = v.map(|x| x.into());
         self
     }
 
-    /// Sets the value of [window_stats][crate::model::ClientStats::window_stats].
+    /// Sets the value of [window_stats][crate::write::generated::gapic_storage::model::ClientStats::window_stats].
     pub fn set_window_stats<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<crate::model::client_stats::WindowStats>,
+        T: std::convert::Into<
+                crate::write::generated::gapic_storage::model::client_stats::WindowStats,
+            >,
     {
         self.window_stats = std::option::Option::Some(v.into());
         self
     }
 
-    /// Sets or clears the value of [window_stats][crate::model::ClientStats::window_stats].
+    /// Sets or clears the value of [window_stats][crate::write::generated::gapic_storage::model::ClientStats::window_stats].
     pub fn set_or_clear_window_stats<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<crate::model::client_stats::WindowStats>,
+        T: std::convert::Into<
+                crate::write::generated::gapic_storage::model::client_stats::WindowStats,
+            >,
     {
         self.window_stats = v.map(|x| x.into());
         self
@@ -3305,7 +3432,7 @@ pub mod client_stats {
             std::default::Default::default()
         }
 
-        /// Sets the value of [send_time_millis][crate::model::client_stats::RequestStats::send_time_millis].
+        /// Sets the value of [send_time_millis][crate::write::generated::gapic_storage::model::client_stats::RequestStats::send_time_millis].
         pub fn set_send_time_millis<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i64>,
@@ -3314,7 +3441,7 @@ pub mod client_stats {
             self
         }
 
-        /// Sets or clears the value of [send_time_millis][crate::model::client_stats::RequestStats::send_time_millis].
+        /// Sets or clears the value of [send_time_millis][crate::write::generated::gapic_storage::model::client_stats::RequestStats::send_time_millis].
         pub fn set_or_clear_send_time_millis<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
@@ -3323,7 +3450,7 @@ pub mod client_stats {
             self
         }
 
-        /// Sets the value of [queued_requests_count][crate::model::client_stats::RequestStats::queued_requests_count].
+        /// Sets the value of [queued_requests_count][crate::write::generated::gapic_storage::model::client_stats::RequestStats::queued_requests_count].
         pub fn set_queued_requests_count<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i64>,
@@ -3332,7 +3459,7 @@ pub mod client_stats {
             self
         }
 
-        /// Sets or clears the value of [queued_requests_count][crate::model::client_stats::RequestStats::queued_requests_count].
+        /// Sets or clears the value of [queued_requests_count][crate::write::generated::gapic_storage::model::client_stats::RequestStats::queued_requests_count].
         pub fn set_or_clear_queued_requests_count<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
@@ -3392,7 +3519,7 @@ pub mod client_stats {
             std::default::Default::default()
         }
 
-        /// Sets the value of [max_response_latency_millis][crate::model::client_stats::WindowStats::max_response_latency_millis].
+        /// Sets the value of [max_response_latency_millis][crate::write::generated::gapic_storage::model::client_stats::WindowStats::max_response_latency_millis].
         pub fn set_max_response_latency_millis<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i64>,
@@ -3401,7 +3528,7 @@ pub mod client_stats {
             self
         }
 
-        /// Sets or clears the value of [max_response_latency_millis][crate::model::client_stats::WindowStats::max_response_latency_millis].
+        /// Sets or clears the value of [max_response_latency_millis][crate::write::generated::gapic_storage::model::client_stats::WindowStats::max_response_latency_millis].
         pub fn set_or_clear_max_response_latency_millis<T>(
             mut self,
             v: std::option::Option<T>,
@@ -3413,7 +3540,7 @@ pub mod client_stats {
             self
         }
 
-        /// Sets the value of [avg_response_latency_millis][crate::model::client_stats::WindowStats::avg_response_latency_millis].
+        /// Sets the value of [avg_response_latency_millis][crate::write::generated::gapic_storage::model::client_stats::WindowStats::avg_response_latency_millis].
         pub fn set_avg_response_latency_millis<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i64>,
@@ -3422,7 +3549,7 @@ pub mod client_stats {
             self
         }
 
-        /// Sets or clears the value of [avg_response_latency_millis][crate::model::client_stats::WindowStats::avg_response_latency_millis].
+        /// Sets or clears the value of [avg_response_latency_millis][crate::write::generated::gapic_storage::model::client_stats::WindowStats::avg_response_latency_millis].
         pub fn set_or_clear_avg_response_latency_millis<T>(
             mut self,
             v: std::option::Option<T>,
@@ -3434,7 +3561,7 @@ pub mod client_stats {
             self
         }
 
-        /// Sets the value of [longest_wait_no_response_millis][crate::model::client_stats::WindowStats::longest_wait_no_response_millis].
+        /// Sets the value of [longest_wait_no_response_millis][crate::write::generated::gapic_storage::model::client_stats::WindowStats::longest_wait_no_response_millis].
         pub fn set_longest_wait_no_response_millis<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i64>,
@@ -3443,7 +3570,7 @@ pub mod client_stats {
             self
         }
 
-        /// Sets or clears the value of [longest_wait_no_response_millis][crate::model::client_stats::WindowStats::longest_wait_no_response_millis].
+        /// Sets or clears the value of [longest_wait_no_response_millis][crate::write::generated::gapic_storage::model::client_stats::WindowStats::longest_wait_no_response_millis].
         pub fn set_or_clear_longest_wait_no_response_millis<T>(
             mut self,
             v: std::option::Option<T>,
@@ -3455,7 +3582,7 @@ pub mod client_stats {
             self
         }
 
-        /// Sets the value of [requests_sent_count][crate::model::client_stats::WindowStats::requests_sent_count].
+        /// Sets the value of [requests_sent_count][crate::write::generated::gapic_storage::model::client_stats::WindowStats::requests_sent_count].
         pub fn set_requests_sent_count<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i64>,
@@ -3464,7 +3591,7 @@ pub mod client_stats {
             self
         }
 
-        /// Sets or clears the value of [requests_sent_count][crate::model::client_stats::WindowStats::requests_sent_count].
+        /// Sets or clears the value of [requests_sent_count][crate::write::generated::gapic_storage::model::client_stats::WindowStats::requests_sent_count].
         pub fn set_or_clear_requests_sent_count<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
@@ -3473,7 +3600,7 @@ pub mod client_stats {
             self
         }
 
-        /// Sets the value of [responses_received_count][crate::model::client_stats::WindowStats::responses_received_count].
+        /// Sets the value of [responses_received_count][crate::write::generated::gapic_storage::model::client_stats::WindowStats::responses_received_count].
         pub fn set_responses_received_count<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i64>,
@@ -3482,7 +3609,7 @@ pub mod client_stats {
             self
         }
 
-        /// Sets or clears the value of [responses_received_count][crate::model::client_stats::WindowStats::responses_received_count].
+        /// Sets or clears the value of [responses_received_count][crate::write::generated::gapic_storage::model::client_stats::WindowStats::responses_received_count].
         pub fn set_or_clear_responses_received_count<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
@@ -3491,7 +3618,7 @@ pub mod client_stats {
             self
         }
 
-        /// Sets the value of [bytes_sent_count][crate::model::client_stats::WindowStats::bytes_sent_count].
+        /// Sets the value of [bytes_sent_count][crate::write::generated::gapic_storage::model::client_stats::WindowStats::bytes_sent_count].
         pub fn set_bytes_sent_count<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i64>,
@@ -3500,7 +3627,7 @@ pub mod client_stats {
             self
         }
 
-        /// Sets or clears the value of [bytes_sent_count][crate::model::client_stats::WindowStats::bytes_sent_count].
+        /// Sets or clears the value of [bytes_sent_count][crate::write::generated::gapic_storage::model::client_stats::WindowStats::bytes_sent_count].
         pub fn set_or_clear_bytes_sent_count<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
@@ -3509,7 +3636,7 @@ pub mod client_stats {
             self
         }
 
-        /// Sets the value of [window_start_time_epoch_millis][crate::model::client_stats::WindowStats::window_start_time_epoch_millis].
+        /// Sets the value of [window_start_time_epoch_millis][crate::write::generated::gapic_storage::model::client_stats::WindowStats::window_start_time_epoch_millis].
         pub fn set_window_start_time_epoch_millis<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i64>,
@@ -3518,7 +3645,7 @@ pub mod client_stats {
             self
         }
 
-        /// Sets or clears the value of [window_start_time_epoch_millis][crate::model::client_stats::WindowStats::window_start_time_epoch_millis].
+        /// Sets or clears the value of [window_start_time_epoch_millis][crate::write::generated::gapic_storage::model::client_stats::WindowStats::window_start_time_epoch_millis].
         pub fn set_or_clear_window_start_time_epoch_millis<T>(
             mut self,
             v: std::option::Option<T>,
@@ -3530,7 +3657,7 @@ pub mod client_stats {
             self
         }
 
-        /// Sets the value of [window_millis][crate::model::client_stats::WindowStats::window_millis].
+        /// Sets the value of [window_millis][crate::write::generated::gapic_storage::model::client_stats::WindowStats::window_millis].
         pub fn set_window_millis<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i64>,
@@ -3539,7 +3666,7 @@ pub mod client_stats {
             self
         }
 
-        /// Sets or clears the value of [window_millis][crate::model::client_stats::WindowStats::window_millis].
+        /// Sets or clears the value of [window_millis][crate::write::generated::gapic_storage::model::client_stats::WindowStats::window_millis].
         pub fn set_or_clear_window_millis<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
@@ -3572,7 +3699,7 @@ pub struct ReadSession {
 
     /// Immutable. Data format of the output data. DATA_FORMAT_UNSPECIFIED not
     /// supported.
-    pub data_format: crate::model::DataFormat,
+    pub data_format: crate::write::generated::gapic_storage::model::DataFormat,
 
     /// Immutable. Table that this ReadSession is reading from, in the form
     /// `projects/{project_id}/datasets/{dataset_id}/tables/{table_id}`
@@ -3580,10 +3707,14 @@ pub struct ReadSession {
 
     /// Optional. Any modifiers which are applied when reading from the specified
     /// table.
-    pub table_modifiers: std::option::Option<crate::model::read_session::TableModifiers>,
+    pub table_modifiers: std::option::Option<
+        crate::write::generated::gapic_storage::model::read_session::TableModifiers,
+    >,
 
     /// Optional. Read options for this session (e.g. column selection, filters).
-    pub read_options: std::option::Option<crate::model::read_session::TableReadOptions>,
+    pub read_options: std::option::Option<
+        crate::write::generated::gapic_storage::model::read_session::TableReadOptions,
+    >,
 
     /// Output only. A list of streams created with the session.
     ///
@@ -3591,7 +3722,7 @@ pub struct ReadSession {
     /// request_stream_count values *may* result in this list being unpopulated,
     /// in that case, the user will need to use a List method to get the streams
     /// instead, which is not yet available.
-    pub streams: std::vec::Vec<crate::model::ReadStream>,
+    pub streams: std::vec::Vec<crate::write::generated::gapic_storage::model::ReadStream>,
 
     /// Output only. An estimate on the number of bytes this session will scan when
     /// all streams are completely consumed. This estimate is based on
@@ -3621,7 +3752,8 @@ pub struct ReadSession {
     /// The schema for the read. If read_options.selected_fields is set, the
     /// schema may be different from the table schema as it will only contain
     /// the selected fields.
-    pub schema: std::option::Option<crate::model::read_session::Schema>,
+    pub schema:
+        std::option::Option<crate::write::generated::gapic_storage::model::read_session::Schema>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3632,13 +3764,13 @@ impl ReadSession {
         std::default::Default::default()
     }
 
-    /// Sets the value of [name][crate::model::ReadSession::name].
+    /// Sets the value of [name][crate::write::generated::gapic_storage::model::ReadSession::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of [expire_time][crate::model::ReadSession::expire_time].
+    /// Sets the value of [expire_time][crate::write::generated::gapic_storage::model::ReadSession::expire_time].
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3647,7 +3779,7 @@ impl ReadSession {
         self
     }
 
-    /// Sets or clears the value of [expire_time][crate::model::ReadSession::expire_time].
+    /// Sets or clears the value of [expire_time][crate::write::generated::gapic_storage::model::ReadSession::expire_time].
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3656,8 +3788,10 @@ impl ReadSession {
         self
     }
 
-    /// Sets the value of [data_format][crate::model::ReadSession::data_format].
-    pub fn set_data_format<T: std::convert::Into<crate::model::DataFormat>>(
+    /// Sets the value of [data_format][crate::write::generated::gapic_storage::model::ReadSession::data_format].
+    pub fn set_data_format<
+        T: std::convert::Into<crate::write::generated::gapic_storage::model::DataFormat>,
+    >(
         mut self,
         v: T,
     ) -> Self {
@@ -3665,66 +3799,74 @@ impl ReadSession {
         self
     }
 
-    /// Sets the value of [table][crate::model::ReadSession::table].
+    /// Sets the value of [table][crate::write::generated::gapic_storage::model::ReadSession::table].
     pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.table = v.into();
         self
     }
 
-    /// Sets the value of [table_modifiers][crate::model::ReadSession::table_modifiers].
+    /// Sets the value of [table_modifiers][crate::write::generated::gapic_storage::model::ReadSession::table_modifiers].
     pub fn set_table_modifiers<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<crate::model::read_session::TableModifiers>,
+        T: std::convert::Into<
+                crate::write::generated::gapic_storage::model::read_session::TableModifiers,
+            >,
     {
         self.table_modifiers = std::option::Option::Some(v.into());
         self
     }
 
-    /// Sets or clears the value of [table_modifiers][crate::model::ReadSession::table_modifiers].
+    /// Sets or clears the value of [table_modifiers][crate::write::generated::gapic_storage::model::ReadSession::table_modifiers].
     pub fn set_or_clear_table_modifiers<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<crate::model::read_session::TableModifiers>,
+        T: std::convert::Into<
+                crate::write::generated::gapic_storage::model::read_session::TableModifiers,
+            >,
     {
         self.table_modifiers = v.map(|x| x.into());
         self
     }
 
-    /// Sets the value of [read_options][crate::model::ReadSession::read_options].
+    /// Sets the value of [read_options][crate::write::generated::gapic_storage::model::ReadSession::read_options].
     pub fn set_read_options<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<crate::model::read_session::TableReadOptions>,
+        T: std::convert::Into<
+                crate::write::generated::gapic_storage::model::read_session::TableReadOptions,
+            >,
     {
         self.read_options = std::option::Option::Some(v.into());
         self
     }
 
-    /// Sets or clears the value of [read_options][crate::model::ReadSession::read_options].
+    /// Sets or clears the value of [read_options][crate::write::generated::gapic_storage::model::ReadSession::read_options].
     pub fn set_or_clear_read_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<crate::model::read_session::TableReadOptions>,
+        T: std::convert::Into<
+                crate::write::generated::gapic_storage::model::read_session::TableReadOptions,
+            >,
     {
         self.read_options = v.map(|x| x.into());
         self
     }
 
-    /// Sets the value of [streams][crate::model::ReadSession::streams].
+    /// Sets the value of [streams][crate::write::generated::gapic_storage::model::ReadSession::streams].
     pub fn set_streams<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ReadStream>,
+        V: std::convert::Into<crate::write::generated::gapic_storage::model::ReadStream>,
     {
         use std::iter::Iterator;
         self.streams = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
-    /// Sets the value of [estimated_total_bytes_scanned][crate::model::ReadSession::estimated_total_bytes_scanned].
+    /// Sets the value of [estimated_total_bytes_scanned][crate::write::generated::gapic_storage::model::ReadSession::estimated_total_bytes_scanned].
     pub fn set_estimated_total_bytes_scanned<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.estimated_total_bytes_scanned = v.into();
         self
     }
 
-    /// Sets the value of [estimated_total_physical_file_size][crate::model::ReadSession::estimated_total_physical_file_size].
+    /// Sets the value of [estimated_total_physical_file_size][crate::write::generated::gapic_storage::model::ReadSession::estimated_total_physical_file_size].
     pub fn set_estimated_total_physical_file_size<T: std::convert::Into<i64>>(
         mut self,
         v: T,
@@ -3733,24 +3875,28 @@ impl ReadSession {
         self
     }
 
-    /// Sets the value of [estimated_row_count][crate::model::ReadSession::estimated_row_count].
+    /// Sets the value of [estimated_row_count][crate::write::generated::gapic_storage::model::ReadSession::estimated_row_count].
     pub fn set_estimated_row_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.estimated_row_count = v.into();
         self
     }
 
-    /// Sets the value of [trace_id][crate::model::ReadSession::trace_id].
+    /// Sets the value of [trace_id][crate::write::generated::gapic_storage::model::ReadSession::trace_id].
     pub fn set_trace_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.trace_id = v.into();
         self
     }
 
-    /// Sets the value of [schema][crate::model::ReadSession::schema].
+    /// Sets the value of [schema][crate::write::generated::gapic_storage::model::ReadSession::schema].
     ///
     /// Note that all the setters affecting `schema` are mutually
     /// exclusive.
     pub fn set_schema<
-        T: std::convert::Into<std::option::Option<crate::model::read_session::Schema>>,
+        T: std::convert::Into<
+                std::option::Option<
+                    crate::write::generated::gapic_storage::model::read_session::Schema,
+                >,
+            >,
     >(
         mut self,
         v: T,
@@ -3759,53 +3905,79 @@ impl ReadSession {
         self
     }
 
-    /// The value of [schema][crate::model::ReadSession::schema]
+    /// The value of [schema][crate::write::generated::gapic_storage::model::ReadSession::schema]
     /// if it holds a `AvroSchema`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn avro_schema(&self) -> std::option::Option<&std::boxed::Box<crate::model::AvroSchema>> {
+    pub fn avro_schema(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::write::generated::gapic_storage::model::AvroSchema>,
+    > {
         #[allow(unreachable_patterns)]
         self.schema.as_ref().and_then(|v| match v {
-            crate::model::read_session::Schema::AvroSchema(v) => std::option::Option::Some(v),
+            crate::write::generated::gapic_storage::model::read_session::Schema::AvroSchema(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
 
-    /// Sets the value of [schema][crate::model::ReadSession::schema]
+    /// Sets the value of [schema][crate::write::generated::gapic_storage::model::ReadSession::schema]
     /// to hold a `AvroSchema`.
     ///
     /// Note that all the setters affecting `schema` are
     /// mutually exclusive.
-    pub fn set_avro_schema<T: std::convert::Into<std::boxed::Box<crate::model::AvroSchema>>>(
+    pub fn set_avro_schema<
+        T: std::convert::Into<
+                std::boxed::Box<crate::write::generated::gapic_storage::model::AvroSchema>,
+            >,
+    >(
         mut self,
         v: T,
     ) -> Self {
-        self.schema =
-            std::option::Option::Some(crate::model::read_session::Schema::AvroSchema(v.into()));
+        self.schema = std::option::Option::Some(
+            crate::write::generated::gapic_storage::model::read_session::Schema::AvroSchema(
+                v.into(),
+            ),
+        );
         self
     }
 
-    /// The value of [schema][crate::model::ReadSession::schema]
+    /// The value of [schema][crate::write::generated::gapic_storage::model::ReadSession::schema]
     /// if it holds a `ArrowSchema`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn arrow_schema(&self) -> std::option::Option<&std::boxed::Box<crate::model::ArrowSchema>> {
+    pub fn arrow_schema(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::write::generated::gapic_storage::model::ArrowSchema>,
+    > {
         #[allow(unreachable_patterns)]
         self.schema.as_ref().and_then(|v| match v {
-            crate::model::read_session::Schema::ArrowSchema(v) => std::option::Option::Some(v),
+            crate::write::generated::gapic_storage::model::read_session::Schema::ArrowSchema(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
 
-    /// Sets the value of [schema][crate::model::ReadSession::schema]
+    /// Sets the value of [schema][crate::write::generated::gapic_storage::model::ReadSession::schema]
     /// to hold a `ArrowSchema`.
     ///
     /// Note that all the setters affecting `schema` are
     /// mutually exclusive.
-    pub fn set_arrow_schema<T: std::convert::Into<std::boxed::Box<crate::model::ArrowSchema>>>(
+    pub fn set_arrow_schema<
+        T: std::convert::Into<
+                std::boxed::Box<crate::write::generated::gapic_storage::model::ArrowSchema>,
+            >,
+    >(
         mut self,
         v: T,
     ) -> Self {
-        self.schema =
-            std::option::Option::Some(crate::model::read_session::Schema::ArrowSchema(v.into()));
+        self.schema = std::option::Option::Some(
+            crate::write::generated::gapic_storage::model::read_session::Schema::ArrowSchema(
+                v.into(),
+            ),
+        );
         self
     }
 }
@@ -3837,7 +4009,7 @@ pub mod read_session {
             std::default::Default::default()
         }
 
-        /// Sets the value of [snapshot_time][crate::model::read_session::TableModifiers::snapshot_time].
+        /// Sets the value of [snapshot_time][crate::write::generated::gapic_storage::model::read_session::TableModifiers::snapshot_time].
         pub fn set_snapshot_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -3846,7 +4018,7 @@ pub mod read_session {
             self
         }
 
-        /// Sets or clears the value of [snapshot_time][crate::model::read_session::TableModifiers::snapshot_time].
+        /// Sets or clears the value of [snapshot_time][crate::write::generated::gapic_storage::model::read_session::TableModifiers::snapshot_time].
         pub fn set_or_clear_snapshot_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -3866,6 +4038,7 @@ pub mod read_session {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TableReadOptions {
+
         /// Optional. The names of the fields in the table to be returned. If no
         /// field names are specified, then all fields in the table are returned.
         ///
@@ -3937,14 +4110,10 @@ pub mod read_session {
 
         /// Optional. Set response_compression_codec when creating a read session to
         /// enable application-level compression of ReadRows responses.
-        pub response_compression_codec: std::option::Option<
-            crate::model::read_session::table_read_options::ResponseCompressionCodec,
-        >,
+        pub response_compression_codec: std::option::Option<crate::write::generated::gapic_storage::model::read_session::table_read_options::ResponseCompressionCodec>,
 
         #[allow(missing_docs)]
-        pub output_format_serialization_options: std::option::Option<
-            crate::model::read_session::table_read_options::OutputFormatSerializationOptions,
-        >,
+        pub output_format_serialization_options: std::option::Option<crate::write::generated::gapic_storage::model::read_session::table_read_options::OutputFormatSerializationOptions>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -3955,7 +4124,7 @@ pub mod read_session {
             std::default::Default::default()
         }
 
-        /// Sets the value of [selected_fields][crate::model::read_session::TableReadOptions::selected_fields].
+        /// Sets the value of [selected_fields][crate::write::generated::gapic_storage::model::read_session::TableReadOptions::selected_fields].
         pub fn set_selected_fields<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3966,7 +4135,7 @@ pub mod read_session {
             self
         }
 
-        /// Sets the value of [row_restriction][crate::model::read_session::TableReadOptions::row_restriction].
+        /// Sets the value of [row_restriction][crate::write::generated::gapic_storage::model::read_session::TableReadOptions::row_restriction].
         pub fn set_row_restriction<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -3975,7 +4144,7 @@ pub mod read_session {
             self
         }
 
-        /// Sets the value of [sample_percentage][crate::model::read_session::TableReadOptions::sample_percentage].
+        /// Sets the value of [sample_percentage][crate::write::generated::gapic_storage::model::read_session::TableReadOptions::sample_percentage].
         pub fn set_sample_percentage<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<f64>,
@@ -3984,7 +4153,7 @@ pub mod read_session {
             self
         }
 
-        /// Sets or clears the value of [sample_percentage][crate::model::read_session::TableReadOptions::sample_percentage].
+        /// Sets or clears the value of [sample_percentage][crate::write::generated::gapic_storage::model::read_session::TableReadOptions::sample_percentage].
         pub fn set_or_clear_sample_percentage<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<f64>,
@@ -3993,100 +4162,106 @@ pub mod read_session {
             self
         }
 
-        /// Sets the value of [response_compression_codec][crate::model::read_session::TableReadOptions::response_compression_codec].
+        /// Sets the value of [response_compression_codec][crate::write::generated::gapic_storage::model::read_session::TableReadOptions::response_compression_codec].
         pub fn set_response_compression_codec<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::read_session::table_read_options::ResponseCompressionCodec,
-                >,
+        where T: std::convert::Into<crate::write::generated::gapic_storage::model::read_session::table_read_options::ResponseCompressionCodec>
         {
             self.response_compression_codec = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [response_compression_codec][crate::model::read_session::TableReadOptions::response_compression_codec].
-        pub fn set_or_clear_response_compression_codec<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::read_session::table_read_options::ResponseCompressionCodec,
-                >,
+        /// Sets or clears the value of [response_compression_codec][crate::write::generated::gapic_storage::model::read_session::TableReadOptions::response_compression_codec].
+        pub fn set_or_clear_response_compression_codec<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<crate::write::generated::gapic_storage::model::read_session::table_read_options::ResponseCompressionCodec>
         {
             self.response_compression_codec = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [output_format_serialization_options][crate::model::read_session::TableReadOptions::output_format_serialization_options].
+        /// Sets the value of [output_format_serialization_options][crate::write::generated::gapic_storage::model::read_session::TableReadOptions::output_format_serialization_options].
         ///
         /// Note that all the setters affecting `output_format_serialization_options` are mutually
         /// exclusive.
-        pub fn set_output_format_serialization_options<T: std::convert::Into<std::option::Option<crate::model::read_session::table_read_options::OutputFormatSerializationOptions>>>(mut self, v: T) -> Self
+        pub fn set_output_format_serialization_options<T: std::convert::Into<std::option::Option<crate::write::generated::gapic_storage::model::read_session::table_read_options::OutputFormatSerializationOptions>>>(mut self, v: T) -> Self
         {
             self.output_format_serialization_options = v.into();
             self
         }
 
-        /// The value of [output_format_serialization_options][crate::model::read_session::TableReadOptions::output_format_serialization_options]
+        /// The value of [output_format_serialization_options][crate::write::generated::gapic_storage::model::read_session::TableReadOptions::output_format_serialization_options]
         /// if it holds a `ArrowSerializationOptions`, `None` if the field is not set or
         /// holds a different branch.
         pub fn arrow_serialization_options(
             &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::ArrowSerializationOptions>>
-        {
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::write::generated::gapic_storage::model::ArrowSerializationOptions,
+            >,
+        > {
             #[allow(unreachable_patterns)]
             self.output_format_serialization_options.as_ref().and_then(|v| match v {
-                crate::model::read_session::table_read_options::OutputFormatSerializationOptions::ArrowSerializationOptions(v) => std::option::Option::Some(v),
+                crate::write::generated::gapic_storage::model::read_session::table_read_options::OutputFormatSerializationOptions::ArrowSerializationOptions(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
 
-        /// Sets the value of [output_format_serialization_options][crate::model::read_session::TableReadOptions::output_format_serialization_options]
+        /// Sets the value of [output_format_serialization_options][crate::write::generated::gapic_storage::model::read_session::TableReadOptions::output_format_serialization_options]
         /// to hold a `ArrowSerializationOptions`.
         ///
         /// Note that all the setters affecting `output_format_serialization_options` are
         /// mutually exclusive.
         pub fn set_arrow_serialization_options<
-            T: std::convert::Into<std::boxed::Box<crate::model::ArrowSerializationOptions>>,
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::write::generated::gapic_storage::model::ArrowSerializationOptions,
+                    >,
+                >,
         >(
             mut self,
             v: T,
         ) -> Self {
             self.output_format_serialization_options = std::option::Option::Some(
-                crate::model::read_session::table_read_options::OutputFormatSerializationOptions::ArrowSerializationOptions(
+                crate::write::generated::gapic_storage::model::read_session::table_read_options::OutputFormatSerializationOptions::ArrowSerializationOptions(
                     v.into()
                 )
             );
             self
         }
 
-        /// The value of [output_format_serialization_options][crate::model::read_session::TableReadOptions::output_format_serialization_options]
+        /// The value of [output_format_serialization_options][crate::write::generated::gapic_storage::model::read_session::TableReadOptions::output_format_serialization_options]
         /// if it holds a `AvroSerializationOptions`, `None` if the field is not set or
         /// holds a different branch.
         pub fn avro_serialization_options(
             &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::AvroSerializationOptions>> {
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::write::generated::gapic_storage::model::AvroSerializationOptions,
+            >,
+        > {
             #[allow(unreachable_patterns)]
             self.output_format_serialization_options.as_ref().and_then(|v| match v {
-                crate::model::read_session::table_read_options::OutputFormatSerializationOptions::AvroSerializationOptions(v) => std::option::Option::Some(v),
+                crate::write::generated::gapic_storage::model::read_session::table_read_options::OutputFormatSerializationOptions::AvroSerializationOptions(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
 
-        /// Sets the value of [output_format_serialization_options][crate::model::read_session::TableReadOptions::output_format_serialization_options]
+        /// Sets the value of [output_format_serialization_options][crate::write::generated::gapic_storage::model::read_session::TableReadOptions::output_format_serialization_options]
         /// to hold a `AvroSerializationOptions`.
         ///
         /// Note that all the setters affecting `output_format_serialization_options` are
         /// mutually exclusive.
         pub fn set_avro_serialization_options<
-            T: std::convert::Into<std::boxed::Box<crate::model::AvroSerializationOptions>>,
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::write::generated::gapic_storage::model::AvroSerializationOptions,
+                    >,
+                >,
         >(
             mut self,
             v: T,
         ) -> Self {
             self.output_format_serialization_options = std::option::Option::Some(
-                crate::model::read_session::table_read_options::OutputFormatSerializationOptions::AvroSerializationOptions(
+                crate::write::generated::gapic_storage::model::read_session::table_read_options::OutputFormatSerializationOptions::AvroSerializationOptions(
                     v.into()
                 )
             );
@@ -4245,21 +4420,37 @@ pub mod read_session {
         #[non_exhaustive]
         pub enum OutputFormatSerializationOptions {
             /// Optional. Options specific to the Apache Arrow output format.
-            ArrowSerializationOptions(std::boxed::Box<crate::model::ArrowSerializationOptions>),
+            ArrowSerializationOptions(
+                std::boxed::Box<
+                    crate::write::generated::gapic_storage::model::ArrowSerializationOptions,
+                >,
+            ),
             /// Optional. Options specific to the Apache Avro output format
-            AvroSerializationOptions(std::boxed::Box<crate::model::AvroSerializationOptions>),
+            AvroSerializationOptions(
+                std::boxed::Box<
+                    crate::write::generated::gapic_storage::model::AvroSerializationOptions,
+                >,
+            ),
         }
 
         impl OutputFormatSerializationOptions {
             /// Initializes the enum to the [ArrowSerializationOptions](Self::ArrowSerializationOptions) branch.
             pub fn from_arrow_serialization_options(
-                value: impl std::convert::Into<std::boxed::Box<crate::model::ArrowSerializationOptions>>,
+                value: impl std::convert::Into<
+                    std::boxed::Box<
+                        crate::write::generated::gapic_storage::model::ArrowSerializationOptions,
+                    >,
+                >,
             ) -> Self {
                 Self::ArrowSerializationOptions(value.into())
             }
             /// Initializes the enum to the [AvroSerializationOptions](Self::AvroSerializationOptions) branch.
             pub fn from_avro_serialization_options(
-                value: impl std::convert::Into<std::boxed::Box<crate::model::AvroSerializationOptions>>,
+                value: impl std::convert::Into<
+                    std::boxed::Box<
+                        crate::write::generated::gapic_storage::model::AvroSerializationOptions,
+                    >,
+                >,
             ) -> Self {
                 Self::AvroSerializationOptions(value.into())
             }
@@ -4273,21 +4464,25 @@ pub mod read_session {
     #[non_exhaustive]
     pub enum Schema {
         /// Output only. Avro schema.
-        AvroSchema(std::boxed::Box<crate::model::AvroSchema>),
+        AvroSchema(std::boxed::Box<crate::write::generated::gapic_storage::model::AvroSchema>),
         /// Output only. Arrow schema.
-        ArrowSchema(std::boxed::Box<crate::model::ArrowSchema>),
+        ArrowSchema(std::boxed::Box<crate::write::generated::gapic_storage::model::ArrowSchema>),
     }
 
     impl Schema {
         /// Initializes the enum to the [AvroSchema](Self::AvroSchema) branch.
         pub fn from_avro_schema(
-            value: impl std::convert::Into<std::boxed::Box<crate::model::AvroSchema>>,
+            value: impl std::convert::Into<
+                std::boxed::Box<crate::write::generated::gapic_storage::model::AvroSchema>,
+            >,
         ) -> Self {
             Self::AvroSchema(value.into())
         }
         /// Initializes the enum to the [ArrowSchema](Self::ArrowSchema) branch.
         pub fn from_arrow_schema(
-            value: impl std::convert::Into<std::boxed::Box<crate::model::ArrowSchema>>,
+            value: impl std::convert::Into<
+                std::boxed::Box<crate::write::generated::gapic_storage::model::ArrowSchema>,
+            >,
         ) -> Self {
             Self::ArrowSchema(value.into())
         }
@@ -4313,7 +4508,7 @@ impl ReadStream {
         std::default::Default::default()
     }
 
-    /// Sets the value of [name][crate::model::ReadStream::name].
+    /// Sets the value of [name][crate::write::generated::gapic_storage::model::ReadStream::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4335,7 +4530,7 @@ pub struct WriteStream {
     pub name: std::string::String,
 
     /// Immutable. Type of the stream.
-    pub r#type: crate::model::write_stream::Type,
+    pub r#type: crate::write::generated::gapic_storage::model::write_stream::Type,
 
     /// Output only. Create time of the stream. For the _default stream, this is
     /// the creation_time of the table.
@@ -4351,10 +4546,11 @@ pub struct WriteStream {
     /// `CreateWriteStream` response. Caller should generate data that's
     /// compatible with this schema to send in initial `AppendRowsRequest`.
     /// The table schema could go out of date during the life time of the stream.
-    pub table_schema: std::option::Option<crate::model::TableSchema>,
+    pub table_schema:
+        std::option::Option<crate::write::generated::gapic_storage::model::TableSchema>,
 
     /// Immutable. Mode of the stream.
-    pub write_mode: crate::model::write_stream::WriteMode,
+    pub write_mode: crate::write::generated::gapic_storage::model::write_stream::WriteMode,
 
     /// Output only. The geographic location where the stream's dataset resides.
     /// See <https://cloud.google.com/bigquery/docs/locations> for supported
@@ -4370,14 +4566,16 @@ impl WriteStream {
         std::default::Default::default()
     }
 
-    /// Sets the value of [name][crate::model::WriteStream::name].
+    /// Sets the value of [name][crate::write::generated::gapic_storage::model::WriteStream::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of [r#type][crate::model::WriteStream::type].
-    pub fn set_type<T: std::convert::Into<crate::model::write_stream::Type>>(
+    /// Sets the value of [r#type][crate::write::generated::gapic_storage::model::WriteStream::type].
+    pub fn set_type<
+        T: std::convert::Into<crate::write::generated::gapic_storage::model::write_stream::Type>,
+    >(
         mut self,
         v: T,
     ) -> Self {
@@ -4385,7 +4583,7 @@ impl WriteStream {
         self
     }
 
-    /// Sets the value of [create_time][crate::model::WriteStream::create_time].
+    /// Sets the value of [create_time][crate::write::generated::gapic_storage::model::WriteStream::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4394,7 +4592,7 @@ impl WriteStream {
         self
     }
 
-    /// Sets or clears the value of [create_time][crate::model::WriteStream::create_time].
+    /// Sets or clears the value of [create_time][crate::write::generated::gapic_storage::model::WriteStream::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4403,7 +4601,7 @@ impl WriteStream {
         self
     }
 
-    /// Sets the value of [commit_time][crate::model::WriteStream::commit_time].
+    /// Sets the value of [commit_time][crate::write::generated::gapic_storage::model::WriteStream::commit_time].
     pub fn set_commit_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4412,7 +4610,7 @@ impl WriteStream {
         self
     }
 
-    /// Sets or clears the value of [commit_time][crate::model::WriteStream::commit_time].
+    /// Sets or clears the value of [commit_time][crate::write::generated::gapic_storage::model::WriteStream::commit_time].
     pub fn set_or_clear_commit_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4421,26 +4619,28 @@ impl WriteStream {
         self
     }
 
-    /// Sets the value of [table_schema][crate::model::WriteStream::table_schema].
+    /// Sets the value of [table_schema][crate::write::generated::gapic_storage::model::WriteStream::table_schema].
     pub fn set_table_schema<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<crate::model::TableSchema>,
+        T: std::convert::Into<crate::write::generated::gapic_storage::model::TableSchema>,
     {
         self.table_schema = std::option::Option::Some(v.into());
         self
     }
 
-    /// Sets or clears the value of [table_schema][crate::model::WriteStream::table_schema].
+    /// Sets or clears the value of [table_schema][crate::write::generated::gapic_storage::model::WriteStream::table_schema].
     pub fn set_or_clear_table_schema<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<crate::model::TableSchema>,
+        T: std::convert::Into<crate::write::generated::gapic_storage::model::TableSchema>,
     {
         self.table_schema = v.map(|x| x.into());
         self
     }
 
-    /// Sets the value of [write_mode][crate::model::WriteStream::write_mode].
-    pub fn set_write_mode<T: std::convert::Into<crate::model::write_stream::WriteMode>>(
+    /// Sets the value of [write_mode][crate::write::generated::gapic_storage::model::WriteStream::write_mode].
+    pub fn set_write_mode<
+        T: std::convert::Into<crate::write::generated::gapic_storage::model::write_stream::WriteMode>,
+    >(
         mut self,
         v: T,
     ) -> Self {
@@ -4448,7 +4648,7 @@ impl WriteStream {
         self
     }
 
-    /// Sets the value of [location][crate::model::WriteStream::location].
+    /// Sets the value of [location][crate::write::generated::gapic_storage::model::WriteStream::location].
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
@@ -4740,7 +4940,7 @@ pub mod write_stream {
 #[non_exhaustive]
 pub struct TableSchema {
     /// Describes the fields in a table.
-    pub fields: std::vec::Vec<crate::model::TableFieldSchema>,
+    pub fields: std::vec::Vec<crate::write::generated::gapic_storage::model::TableFieldSchema>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4751,11 +4951,11 @@ impl TableSchema {
         std::default::Default::default()
     }
 
-    /// Sets the value of [fields][crate::model::TableSchema::fields].
+    /// Sets the value of [fields][crate::write::generated::gapic_storage::model::TableSchema::fields].
     pub fn set_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TableFieldSchema>,
+        V: std::convert::Into<crate::write::generated::gapic_storage::model::TableFieldSchema>,
     {
         use std::iter::Iterator;
         self.fields = v.into_iter().map(|i| i.into()).collect();
@@ -4779,14 +4979,14 @@ pub struct TableFieldSchema {
     pub name: std::string::String,
 
     /// Required. The field data type.
-    pub r#type: crate::model::table_field_schema::Type,
+    pub r#type: crate::write::generated::gapic_storage::model::table_field_schema::Type,
 
     /// Optional. The field mode. The default value is NULLABLE.
-    pub mode: crate::model::table_field_schema::Mode,
+    pub mode: crate::write::generated::gapic_storage::model::table_field_schema::Mode,
 
     /// Optional. Describes the nested schema fields if the type property is set to
     /// STRUCT.
-    pub fields: std::vec::Vec<crate::model::TableFieldSchema>,
+    pub fields: std::vec::Vec<crate::write::generated::gapic_storage::model::TableFieldSchema>,
 
     /// Optional. The field description. The maximum length is 1,024 characters.
     pub description: std::string::String,
@@ -4862,7 +5062,9 @@ pub struct TableFieldSchema {
     /// * DATE
     /// * DATETIME
     /// * TIMESTAMP
-    pub range_element_type: std::option::Option<crate::model::table_field_schema::FieldElementType>,
+    pub range_element_type: std::option::Option<
+        crate::write::generated::gapic_storage::model::table_field_schema::FieldElementType,
+    >,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4873,14 +5075,16 @@ impl TableFieldSchema {
         std::default::Default::default()
     }
 
-    /// Sets the value of [name][crate::model::TableFieldSchema::name].
+    /// Sets the value of [name][crate::write::generated::gapic_storage::model::TableFieldSchema::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of [r#type][crate::model::TableFieldSchema::type].
-    pub fn set_type<T: std::convert::Into<crate::model::table_field_schema::Type>>(
+    /// Sets the value of [r#type][crate::write::generated::gapic_storage::model::TableFieldSchema::type].
+    pub fn set_type<
+        T: std::convert::Into<crate::write::generated::gapic_storage::model::table_field_schema::Type>,
+    >(
         mut self,
         v: T,
     ) -> Self {
@@ -4888,8 +5092,10 @@ impl TableFieldSchema {
         self
     }
 
-    /// Sets the value of [mode][crate::model::TableFieldSchema::mode].
-    pub fn set_mode<T: std::convert::Into<crate::model::table_field_schema::Mode>>(
+    /// Sets the value of [mode][crate::write::generated::gapic_storage::model::TableFieldSchema::mode].
+    pub fn set_mode<
+        T: std::convert::Into<crate::write::generated::gapic_storage::model::table_field_schema::Mode>,
+    >(
         mut self,
         v: T,
     ) -> Self {
@@ -4897,42 +5103,42 @@ impl TableFieldSchema {
         self
     }
 
-    /// Sets the value of [fields][crate::model::TableFieldSchema::fields].
+    /// Sets the value of [fields][crate::write::generated::gapic_storage::model::TableFieldSchema::fields].
     pub fn set_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TableFieldSchema>,
+        V: std::convert::Into<crate::write::generated::gapic_storage::model::TableFieldSchema>,
     {
         use std::iter::Iterator;
         self.fields = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
-    /// Sets the value of [description][crate::model::TableFieldSchema::description].
+    /// Sets the value of [description][crate::write::generated::gapic_storage::model::TableFieldSchema::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
-    /// Sets the value of [max_length][crate::model::TableFieldSchema::max_length].
+    /// Sets the value of [max_length][crate::write::generated::gapic_storage::model::TableFieldSchema::max_length].
     pub fn set_max_length<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.max_length = v.into();
         self
     }
 
-    /// Sets the value of [precision][crate::model::TableFieldSchema::precision].
+    /// Sets the value of [precision][crate::write::generated::gapic_storage::model::TableFieldSchema::precision].
     pub fn set_precision<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.precision = v.into();
         self
     }
 
-    /// Sets the value of [scale][crate::model::TableFieldSchema::scale].
+    /// Sets the value of [scale][crate::write::generated::gapic_storage::model::TableFieldSchema::scale].
     pub fn set_scale<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.scale = v.into();
         self
     }
 
-    /// Sets the value of [default_value_expression][crate::model::TableFieldSchema::default_value_expression].
+    /// Sets the value of [default_value_expression][crate::write::generated::gapic_storage::model::TableFieldSchema::default_value_expression].
     pub fn set_default_value_expression<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4941,7 +5147,7 @@ impl TableFieldSchema {
         self
     }
 
-    /// Sets the value of [timestamp_precision][crate::model::TableFieldSchema::timestamp_precision].
+    /// Sets the value of [timestamp_precision][crate::write::generated::gapic_storage::model::TableFieldSchema::timestamp_precision].
     pub fn set_timestamp_precision<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -4950,7 +5156,7 @@ impl TableFieldSchema {
         self
     }
 
-    /// Sets or clears the value of [timestamp_precision][crate::model::TableFieldSchema::timestamp_precision].
+    /// Sets or clears the value of [timestamp_precision][crate::write::generated::gapic_storage::model::TableFieldSchema::timestamp_precision].
     pub fn set_or_clear_timestamp_precision<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -4959,19 +5165,23 @@ impl TableFieldSchema {
         self
     }
 
-    /// Sets the value of [range_element_type][crate::model::TableFieldSchema::range_element_type].
+    /// Sets the value of [range_element_type][crate::write::generated::gapic_storage::model::TableFieldSchema::range_element_type].
     pub fn set_range_element_type<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<crate::model::table_field_schema::FieldElementType>,
+        T: std::convert::Into<
+                crate::write::generated::gapic_storage::model::table_field_schema::FieldElementType,
+            >,
     {
         self.range_element_type = std::option::Option::Some(v.into());
         self
     }
 
-    /// Sets or clears the value of [range_element_type][crate::model::TableFieldSchema::range_element_type].
+    /// Sets or clears the value of [range_element_type][crate::write::generated::gapic_storage::model::TableFieldSchema::range_element_type].
     pub fn set_or_clear_range_element_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<crate::model::table_field_schema::FieldElementType>,
+        T: std::convert::Into<
+                crate::write::generated::gapic_storage::model::table_field_schema::FieldElementType,
+            >,
     {
         self.range_element_type = v.map(|x| x.into());
         self
@@ -4994,7 +5204,7 @@ pub mod table_field_schema {
     #[non_exhaustive]
     pub struct FieldElementType {
         /// Required. The type of a field element.
-        pub r#type: crate::model::table_field_schema::Type,
+        pub r#type: crate::write::generated::gapic_storage::model::table_field_schema::Type,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -5005,8 +5215,12 @@ pub mod table_field_schema {
             std::default::Default::default()
         }
 
-        /// Sets the value of [r#type][crate::model::table_field_schema::FieldElementType::type].
-        pub fn set_type<T: std::convert::Into<crate::model::table_field_schema::Type>>(
+        /// Sets the value of [r#type][crate::write::generated::gapic_storage::model::table_field_schema::FieldElementType::type].
+        pub fn set_type<
+            T: std::convert::Into<
+                    crate::write::generated::gapic_storage::model::table_field_schema::Type,
+                >,
+        >(
             mut self,
             v: T,
         ) -> Self {

@@ -67,9 +67,9 @@ impl BigQueryWrite {
 impl super::stub::BigQueryWrite for BigQueryWrite {
     async fn create_write_stream(
         &self,
-        req: crate::model::CreateWriteStreamRequest,
+        req: crate::write::generated::gapic_storage::model::CreateWriteStreamRequest,
         options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::WriteStream>> {
+    ) -> Result<crate::Response<crate::write::generated::gapic_storage::model::WriteStream>> {
         use gaxi::{
             grpc::tonic::{Extensions, GrpcMethod},
             prost::ToProto,
@@ -121,14 +121,19 @@ impl super::stub::BigQueryWrite for BigQueryWrite {
                 &x_goog_request_params,
             )
             .await
-            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::WriteStream>)
+            .and_then(
+                gaxi::grpc::to_gax_response::<
+                    TR,
+                    crate::write::generated::gapic_storage::model::WriteStream,
+                >,
+            )
     }
 
     async fn get_write_stream(
         &self,
-        req: crate::model::GetWriteStreamRequest,
+        req: crate::write::generated::gapic_storage::model::GetWriteStreamRequest,
         options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::WriteStream>> {
+    ) -> Result<crate::Response<crate::write::generated::gapic_storage::model::WriteStream>> {
         use gaxi::{
             grpc::tonic::{Extensions, GrpcMethod},
             prost::ToProto,
@@ -180,14 +185,21 @@ impl super::stub::BigQueryWrite for BigQueryWrite {
                 &x_goog_request_params,
             )
             .await
-            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::WriteStream>)
+            .and_then(
+                gaxi::grpc::to_gax_response::<
+                    TR,
+                    crate::write::generated::gapic_storage::model::WriteStream,
+                >,
+            )
     }
 
     async fn finalize_write_stream(
         &self,
-        req: crate::model::FinalizeWriteStreamRequest,
+        req: crate::write::generated::gapic_storage::model::FinalizeWriteStreamRequest,
         options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::FinalizeWriteStreamResponse>> {
+    ) -> Result<
+        crate::Response<crate::write::generated::gapic_storage::model::FinalizeWriteStreamResponse>,
+    > {
         use gaxi::{
             grpc::tonic::{Extensions, GrpcMethod},
             prost::ToProto,
@@ -241,14 +253,23 @@ impl super::stub::BigQueryWrite for BigQueryWrite {
                 &x_goog_request_params,
             )
             .await
-            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::FinalizeWriteStreamResponse>)
+            .and_then(
+                gaxi::grpc::to_gax_response::<
+                    TR,
+                    crate::write::generated::gapic_storage::model::FinalizeWriteStreamResponse,
+                >,
+            )
     }
 
     async fn batch_commit_write_streams(
         &self,
-        req: crate::model::BatchCommitWriteStreamsRequest,
+        req: crate::write::generated::gapic_storage::model::BatchCommitWriteStreamsRequest,
         options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::BatchCommitWriteStreamsResponse>> {
+    ) -> Result<
+        crate::Response<
+            crate::write::generated::gapic_storage::model::BatchCommitWriteStreamsResponse,
+        >,
+    > {
         use gaxi::{
             grpc::tonic::{Extensions, GrpcMethod},
             prost::ToProto,
@@ -303,15 +324,19 @@ impl super::stub::BigQueryWrite for BigQueryWrite {
             )
             .await
             .and_then(
-                gaxi::grpc::to_gax_response::<TR, crate::model::BatchCommitWriteStreamsResponse>,
+                gaxi::grpc::to_gax_response::<
+                    TR,
+                    crate::write::generated::gapic_storage::model::BatchCommitWriteStreamsResponse,
+                >,
             )
     }
 
     async fn flush_rows(
         &self,
-        req: crate::model::FlushRowsRequest,
+        req: crate::write::generated::gapic_storage::model::FlushRowsRequest,
         options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::FlushRowsResponse>> {
+    ) -> Result<crate::Response<crate::write::generated::gapic_storage::model::FlushRowsResponse>>
+    {
         use gaxi::{
             grpc::tonic::{Extensions, GrpcMethod},
             prost::ToProto,
@@ -363,6 +388,11 @@ impl super::stub::BigQueryWrite for BigQueryWrite {
                 &x_goog_request_params,
             )
             .await
-            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::FlushRowsResponse>)
+            .and_then(
+                gaxi::grpc::to_gax_response::<
+                    TR,
+                    crate::write::generated::gapic_storage::model::FlushRowsResponse,
+                >,
+            )
     }
 }

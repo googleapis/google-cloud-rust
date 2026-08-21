@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::transport::Transport;
 use crate::google::cloud::bigquery::storage::v1::{AppendRowsRequest, AppendRowsResponse};
-use crate::transport::Transport;
 use crate::{Error, Result};
 use gaxi::grpc::tonic::Streaming;
 use google_cloud_gax::options::RequestOptions;
@@ -52,11 +52,11 @@ async fn open_stream(inner: Arc<Transport>, initial_req: AppendRowsRequest) -> R
 
 #[cfg(test)]
 mod tests {
+    use super::super::transport::tests::*;
     use super::*;
     use crate::google::cloud::bigquery::storage::v1::append_rows_response::{
         AppendResult, Response,
     };
-    use crate::transport::tests::*;
     use bigquery_write_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::{Response as TonicResponse, Status as TonicStatus};
     use google_cloud_gax::error::rpc::Code;

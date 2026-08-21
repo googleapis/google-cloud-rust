@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::arrow::WriterBuilder as ArrowWriterBuilder;
+use super::client_builder::ClientBuilder;
+use super::model::ArrowSchema;
+use super::transport::Transport;
 use crate::ClientBuilderResult as BuilderResult;
-use crate::arrow::WriterBuilder as ArrowWriterBuilder;
-use crate::client_builder::ClientBuilder;
-use crate::model::ArrowSchema;
-use crate::transport::Transport;
 use std::sync::Arc;
 
 /// A client for BigQuery Storage Write API.
@@ -43,14 +43,14 @@ impl Write {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_bigquery_write::client::Write;
+    /// # use google_cloud_bigquery::client::Write;
     /// # async fn sample(client: Write) -> anyhow::Result<()> {
     /// let writer = client
     ///   .arrow(schema())
     ///   .default("projects/my-project/datasets/my-dataset/tables/my-table")?;
     /// # Ok(()) }
     ///
-    /// use google_cloud_bigquery_write::model::ArrowSchema;
+    /// use google_cloud_bigquery::write::model::ArrowSchema;
     /// fn schema() -> ArrowSchema {
     ///   todo!("Define your table's schema...")
     /// }
@@ -64,9 +64,9 @@ impl Write {
 
 #[cfg(test)]
 mod tests {
+    use super::super::error::AppendError;
+    use super::super::model::{ArrowRecordBatch, ArrowSchema};
     use super::*;
-    use crate::error::AppendError;
-    use crate::model::{ArrowRecordBatch, ArrowSchema};
     use bigquery_write_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::Status as TonicStatus;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;

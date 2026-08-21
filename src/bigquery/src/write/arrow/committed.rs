@@ -12,37 +12,42 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::builder::write::Append;
-use crate::model::append_rows_request::ArrowData;
-use crate::model::{AppendRowsRequest, ArrowRecordBatch, ArrowSchema};
-use crate::runner::Runner;
-use crate::transport::Transport;
+use super::super::append_builder::AppendWithOffset;
+use super::super::generated::gapic_storage::client::BigQueryWrite;
+use super::super::model::append_rows_request::ArrowData;
+use super::super::model::{
+    AppendRowsRequest, ArrowRecordBatch, ArrowSchema, FinalizeWriteStreamResponse,
+};
+use super::super::runner::Runner;
+use super::super::transport::Transport;
+use crate::Result;
 use std::sync::Arc;
 
-/// A writer for the [default stream]
+/// A writer for the [committed stream].
 ///
-/// [default stream]: https://docs.cloud.google.com/bigquery/docs/write-api#default_stream
+/// [committed stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#committed_type
 #[derive(Debug)]
-pub struct DefaultWriter {
-    // TODO(#5744) - support multiplexed connections
+pub struct CommittedWriter {
     runner: Runner,
     pub(crate) write_stream: String,
     pub(crate) schema: ArrowSchema,
+    client: BigQueryWrite,
 }
 
-impl DefaultWriter {
+impl CommittedWriter {
     pub(crate) fn new(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
-        let runner = Runner::new(inner);
+        let runner = Runner::new(inner.clone());
+        let client = BigQueryWrite::from_stub::<Transport>(inner);
         Self {
             runner,
             write_stream,
             schema,
+            client,
         }
     }
 
     /// Append rows to the stream.
-    pub fn append(&self, rows: ArrowRecordBatch) -> Append {
-        // TODO(#5744) - send optimization
+    pub fn append(&self, rows: ArrowRecordBatch) -> AppendWithOffset {
         let req = AppendRowsRequest::new()
             .set_write_stream(&self.write_stream)
             .set_arrow_rows(
@@ -50,16 +55,25 @@ impl DefaultWriter {
                     .set_writer_schema(self.schema.clone())
                     .set_rows(rows),
             );
-        Append::new(self.runner.req_tx.clone(), req)
+        AppendWithOffset::new(self.runner.req_tx.clone(), req)
+    }
+
+    /// Finalize the stream, preventing further writes.
+    pub async fn finalize(&self) -> Result<FinalizeWriteStreamResponse> {
+        self.client
+            .finalize_write_stream()
+            .set_name(&self.write_stream)
+            .send()
+            .await
     }
 }
 
 #[cfg(test)]
 mod tests {
+    use super::super::super::runner::tests::*;
+    use super::super::super::transport::tests::*;
     use super::*;
     use crate::error::AppendError;
-    use crate::runner::tests::*;
-    use crate::transport::tests::*;
     use bigquery_write_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::Response as TonicResponse;
     use tokio::sync::mpsc;
@@ -67,7 +81,7 @@ mod tests {
     #[tokio::test]
     async fn request_fields() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
-        let writer = DefaultWriter::new(transport, write_stream(), schema());
+        let writer = CommittedWriter::new(transport, write_stream(), schema());
 
         let b = writer.append(rows(1));
         assert_eq!(b.req.write_stream, write_stream());
@@ -95,10 +109,17 @@ mod tests {
         let mut mock = MockBigQueryWrite::new();
         mock.expect_append_rows()
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
+
+        mock.expect_finalize_write_stream().return_once(|_| {
+            Ok(TonicResponse::new(
+                bigquery_write_grpc_mock::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse::default(),
+            ))
+        });
+
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
 
-        let writer = DefaultWriter::new(transport, write_stream(), schema());
+        let writer = CommittedWriter::new(transport, write_stream(), schema());
 
         response_tx.send(Ok(convert(&test_response(1)))).await?;
         let resp = writer.append(rows(1)).send().await?;
@@ -116,11 +137,14 @@ mod tests {
         let err = writer.append(rows(4)).send().await.expect_err("channel");
         assert!(matches!(err, AppendError::UnexpectedEndOfStream));
 
+        // We can still finalize the stream even if row appends hit a closed bidirectional stream
+        writer.finalize().await?;
+
         Ok(())
     }
 
     fn write_stream() -> String {
-        "projects/p/datasets/d/tables/t/streams/_default".to_string()
+        "projects/p/datasets/d/tables/t/streams/s".to_string()
     }
 
     fn schema() -> ArrowSchema {

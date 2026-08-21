@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::error::{AppendError, AppendResult};
-use crate::model::AppendResponse;
+use super::error::{AppendError, AppendResult};
+use super::model::AppendResponse;
 use std::future::Future;
 use std::pin::Pin;
 use std::task::{Context, Poll};
@@ -50,8 +50,8 @@ impl Future for AppendFuture {
 
 #[cfg(test)]
 mod tests {
+    use super::super::model::TableSchema;
     use super::*;
-    use crate::model::TableSchema;
 
     #[tokio::test]
     async fn happy_path() {

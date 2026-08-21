@@ -292,11 +292,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ArrowSerializationOptions {
                                     "multiple values for buffer_compression",
                                 ));
                             }
-                            result.buffer_compression = map
-                                .next_value::<std::option::Option<
-                                    crate::model::arrow_serialization_options::CompressionCodec,
-                                >>()?
-                                .unwrap_or_default();
+                            result.buffer_compression = map.next_value::<std::option::Option<crate::write::generated::gapic_storage::model::arrow_serialization_options::CompressionCodec>>()?.unwrap_or_default();
                         }
                         __FieldTag::__picos_timestamp_precision => {
                             if !fields.insert(__FieldTag::__picos_timestamp_precision) {
@@ -304,7 +300,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ArrowSerializationOptions {
                                     "multiple values for picos_timestamp_precision",
                                 ));
                             }
-                            result.picos_timestamp_precision = map.next_value::<std::option::Option<crate::model::arrow_serialization_options::PicosTimestampPrecision>>()?.unwrap_or_default();
+                            result.picos_timestamp_precision = map.next_value::<std::option::Option<crate::write::generated::gapic_storage::model::arrow_serialization_options::PicosTimestampPrecision>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -597,7 +593,7 @@ impl<'de> serde::de::Deserialize<'de> for super::AvroSerializationOptions {
                                     "multiple values for picos_timestamp_precision",
                                 ));
                             }
-                            result.picos_timestamp_precision = map.next_value::<std::option::Option<crate::model::avro_serialization_options::PicosTimestampPrecision>>()?.unwrap_or_default();
+                            result.picos_timestamp_precision = map.next_value::<std::option::Option<crate::write::generated::gapic_storage::model::avro_serialization_options::PicosTimestampPrecision>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -874,8 +870,9 @@ impl<'de> serde::de::Deserialize<'de> for super::CreateReadSessionRequest {
                                     "multiple values for read_session",
                                 ));
                             }
-                            result.read_session =
-                                map.next_value::<std::option::Option<crate::model::ReadSession>>()?;
+                            result.read_session = map.next_value::<std::option::Option<
+                                crate::write::generated::gapic_storage::model::ReadSession,
+                            >>()?;
                         }
                         __FieldTag::__max_stream_count => {
                             if !fields.insert(__FieldTag::__max_stream_count) {
@@ -1038,8 +1035,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ReadRowsRequest {
                                 ));
                             }
                             result.output_format_serialization_options = std::option::Option::Some(
-                                crate::model::read_rows_request::OutputFormatSerializationOptions::ArrowSerializationOptions(
-                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::ArrowSerializationOptions>>>()?.unwrap_or_default()
+                                crate::write::generated::gapic_storage::model::read_rows_request::OutputFormatSerializationOptions::ArrowSerializationOptions(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::write::generated::gapic_storage::model::ArrowSerializationOptions>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -1210,7 +1207,7 @@ impl<'de> serde::de::Deserialize<'de> for super::StreamStats {
                                     "multiple values for progress",
                                 ));
                             }
-                            result.progress = map.next_value::<std::option::Option<crate::model::stream_stats::Progress>>()?
+                            result.progress = map.next_value::<std::option::Option<crate::write::generated::gapic_storage::model::stream_stats::Progress>>()?
                                 ;
                         }
                         __FieldTag::Unknown(key) => {
@@ -1435,11 +1432,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ReadRowsResponse {
                                 ));
                             }
                             result.rows = std::option::Option::Some(
-                                crate::model::read_rows_response::Rows::AvroRows(
-                                    map.next_value::<std::option::Option<
-                                        std::boxed::Box<crate::model::AvroRows>,
-                                    >>()?
-                                    .unwrap_or_default(),
+                                crate::write::generated::gapic_storage::model::read_rows_response::Rows::AvroRows(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::write::generated::gapic_storage::model::AvroRows>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -1455,11 +1449,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ReadRowsResponse {
                                 ));
                             }
                             result.rows = std::option::Option::Some(
-                                crate::model::read_rows_response::Rows::ArrowRecordBatch(
-                                    map.next_value::<std::option::Option<
-                                        std::boxed::Box<crate::model::ArrowRecordBatch>,
-                                    >>()?
-                                    .unwrap_or_default(),
+                                crate::write::generated::gapic_storage::model::read_rows_response::Rows::ArrowRecordBatch(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::write::generated::gapic_storage::model::ArrowRecordBatch>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -1488,8 +1479,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ReadRowsResponse {
                                     "multiple values for stats",
                                 ));
                             }
-                            result.stats =
-                                map.next_value::<std::option::Option<crate::model::StreamStats>>()?;
+                            result.stats = map.next_value::<std::option::Option<
+                                crate::write::generated::gapic_storage::model::StreamStats,
+                            >>()?;
                         }
                         __FieldTag::__throttle_state => {
                             if !fields.insert(__FieldTag::__throttle_state) {
@@ -1497,8 +1489,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ReadRowsResponse {
                                     "multiple values for throttle_state",
                                 ));
                             }
-                            result.throttle_state = map
-                                .next_value::<std::option::Option<crate::model::ThrottleState>>()?;
+                            result.throttle_state = map.next_value::<std::option::Option<
+                                crate::write::generated::gapic_storage::model::ThrottleState,
+                            >>()?;
                         }
                         __FieldTag::__avro_schema => {
                             if !fields.insert(__FieldTag::__avro_schema) {
@@ -1512,11 +1505,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ReadRowsResponse {
                                 ));
                             }
                             result.schema = std::option::Option::Some(
-                                crate::model::read_rows_response::Schema::AvroSchema(
-                                    map.next_value::<std::option::Option<
-                                        std::boxed::Box<crate::model::AvroSchema>,
-                                    >>()?
-                                    .unwrap_or_default(),
+                                crate::write::generated::gapic_storage::model::read_rows_response::Schema::AvroSchema(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::write::generated::gapic_storage::model::AvroSchema>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -1532,11 +1522,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ReadRowsResponse {
                                 ));
                             }
                             result.schema = std::option::Option::Some(
-                                crate::model::read_rows_response::Schema::ArrowSchema(
-                                    map.next_value::<std::option::Option<
-                                        std::boxed::Box<crate::model::ArrowSchema>,
-                                    >>()?
-                                    .unwrap_or_default(),
+                                crate::write::generated::gapic_storage::model::read_rows_response::Schema::ArrowSchema(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::write::generated::gapic_storage::model::ArrowSchema>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -1759,8 +1746,9 @@ impl<'de> serde::de::Deserialize<'de> for super::SplitReadStreamResponse {
                                     "multiple values for primary_stream",
                                 ));
                             }
-                            result.primary_stream =
-                                map.next_value::<std::option::Option<crate::model::ReadStream>>()?;
+                            result.primary_stream = map.next_value::<std::option::Option<
+                                crate::write::generated::gapic_storage::model::ReadStream,
+                            >>()?;
                         }
                         __FieldTag::__remainder_stream => {
                             if !fields.insert(__FieldTag::__remainder_stream) {
@@ -1768,8 +1756,9 @@ impl<'de> serde::de::Deserialize<'de> for super::SplitReadStreamResponse {
                                     "multiple values for remainder_stream",
                                 ));
                             }
-                            result.remainder_stream =
-                                map.next_value::<std::option::Option<crate::model::ReadStream>>()?;
+                            result.remainder_stream = map.next_value::<std::option::Option<
+                                crate::write::generated::gapic_storage::model::ReadStream,
+                            >>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -1860,8 +1849,9 @@ impl<'de> serde::de::Deserialize<'de> for super::CreateWriteStreamRequest {
                                     "multiple values for write_stream",
                                 ));
                             }
-                            result.write_stream =
-                                map.next_value::<std::option::Option<crate::model::WriteStream>>()?;
+                            result.write_stream = map.next_value::<std::option::Option<
+                                crate::write::generated::gapic_storage::model::WriteStream,
+                            >>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -2003,13 +1993,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AppendRowsRequest {
                                 ));
                             }
                             result.rows = std::option::Option::Some(
-                                crate::model::append_rows_request::Rows::ProtoRows(
-                                    map.next_value::<std::option::Option<
-                                        std::boxed::Box<
-                                            crate::model::append_rows_request::ProtoData,
-                                        >,
-                                    >>()?
-                                    .unwrap_or_default(),
+                                crate::write::generated::gapic_storage::model::append_rows_request::Rows::ProtoRows(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::write::generated::gapic_storage::model::append_rows_request::ProtoData>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -2025,13 +2010,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AppendRowsRequest {
                                 ));
                             }
                             result.rows = std::option::Option::Some(
-                                crate::model::append_rows_request::Rows::ArrowRows(
-                                    map.next_value::<std::option::Option<
-                                        std::boxed::Box<
-                                            crate::model::append_rows_request::ArrowData,
-                                        >,
-                                    >>()?
-                                    .unwrap_or_default(),
+                                crate::write::generated::gapic_storage::model::append_rows_request::Rows::ArrowRows(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::write::generated::gapic_storage::model::append_rows_request::ArrowData>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -2051,7 +2031,7 @@ impl<'de> serde::de::Deserialize<'de> for super::AppendRowsRequest {
                                     "multiple values for missing_value_interpretations",
                                 ));
                             }
-                            result.missing_value_interpretations = map.next_value::<std::option::Option<std::collections::HashMap<std::string::String,crate::model::append_rows_request::MissingValueInterpretation>>>()?.unwrap_or_default();
+                            result.missing_value_interpretations = map.next_value::<std::option::Option<std::collections::HashMap<std::string::String,crate::write::generated::gapic_storage::model::append_rows_request::MissingValueInterpretation>>>()?.unwrap_or_default();
                         }
                         __FieldTag::__default_missing_value_interpretation => {
                             if !fields.insert(__FieldTag::__default_missing_value_interpretation) {
@@ -2059,11 +2039,7 @@ impl<'de> serde::de::Deserialize<'de> for super::AppendRowsRequest {
                                     "multiple values for default_missing_value_interpretation",
                                 ));
                             }
-                            result.default_missing_value_interpretation = map
-                                .next_value::<std::option::Option<
-                                    crate::model::append_rows_request::MissingValueInterpretation,
-                                >>()?
-                                .unwrap_or_default();
+                            result.default_missing_value_interpretation = map.next_value::<std::option::Option<crate::write::generated::gapic_storage::model::append_rows_request::MissingValueInterpretation>>()?.unwrap_or_default();
                         }
                         __FieldTag::__client_stats => {
                             if !fields.insert(__FieldTag::__client_stats) {
@@ -2071,8 +2047,9 @@ impl<'de> serde::de::Deserialize<'de> for super::AppendRowsRequest {
                                     "multiple values for client_stats",
                                 ));
                             }
-                            result.client_stats =
-                                map.next_value::<std::option::Option<crate::model::ClientStats>>()?;
+                            result.client_stats = map.next_value::<std::option::Option<
+                                crate::write::generated::gapic_storage::model::ClientStats,
+                            >>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -2153,8 +2130,9 @@ impl<'de> serde::de::Deserialize<'de> for super::append_rows_request::ArrowData 
                                     "multiple values for writer_schema",
                                 ));
                             }
-                            result.writer_schema =
-                                map.next_value::<std::option::Option<crate::model::ArrowSchema>>()?;
+                            result.writer_schema = map.next_value::<std::option::Option<
+                                crate::write::generated::gapic_storage::model::ArrowSchema,
+                            >>()?;
                         }
                         __FieldTag::__rows => {
                             if !fields.insert(__FieldTag::__rows) {
@@ -2162,9 +2140,9 @@ impl<'de> serde::de::Deserialize<'de> for super::append_rows_request::ArrowData 
                                     "multiple values for rows",
                                 ));
                             }
-                            result.rows = map
-                                .next_value::<std::option::Option<crate::model::ArrowRecordBatch>>(
-                                )?;
+                            result.rows = map.next_value::<std::option::Option<
+                                crate::write::generated::gapic_storage::model::ArrowRecordBatch,
+                            >>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -2245,8 +2223,9 @@ impl<'de> serde::de::Deserialize<'de> for super::append_rows_request::ProtoData 
                                     "multiple values for writer_schema",
                                 ));
                             }
-                            result.writer_schema =
-                                map.next_value::<std::option::Option<crate::model::ProtoSchema>>()?;
+                            result.writer_schema = map.next_value::<std::option::Option<
+                                crate::write::generated::gapic_storage::model::ProtoSchema,
+                            >>()?;
                         }
                         __FieldTag::__rows => {
                             if !fields.insert(__FieldTag::__rows) {
@@ -2254,8 +2233,9 @@ impl<'de> serde::de::Deserialize<'de> for super::append_rows_request::ProtoData 
                                     "multiple values for rows",
                                 ));
                             }
-                            result.rows =
-                                map.next_value::<std::option::Option<crate::model::ProtoRows>>()?;
+                            result.rows = map.next_value::<std::option::Option<
+                                crate::write::generated::gapic_storage::model::ProtoRows,
+                            >>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -2351,13 +2331,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AppendRowsResponse {
                                 ));
                             }
                             result.response = std::option::Option::Some(
-                                crate::model::append_rows_response::Response::AppendResult(
-                                    map.next_value::<std::option::Option<
-                                        std::boxed::Box<
-                                            crate::model::append_rows_response::AppendResult,
-                                        >,
-                                    >>()?
-                                    .unwrap_or_default(),
+                                crate::write::generated::gapic_storage::model::append_rows_response::Response::AppendResult(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::write::generated::gapic_storage::model::append_rows_response::AppendResult>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -2373,11 +2348,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AppendRowsResponse {
                                 ));
                             }
                             result.response = std::option::Option::Some(
-                                crate::model::append_rows_response::Response::Error(
-                                    map.next_value::<std::option::Option<
-                                        std::boxed::Box<google_cloud_rpc::model::Status>,
-                                    >>()?
-                                    .unwrap_or_default(),
+                                crate::write::generated::gapic_storage::model::append_rows_response::Response::Error(
+                                    map.next_value::<std::option::Option<std::boxed::Box<google_cloud_rpc::model::Status>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -2387,8 +2359,9 @@ impl<'de> serde::de::Deserialize<'de> for super::AppendRowsResponse {
                                     "multiple values for updated_schema",
                                 ));
                             }
-                            result.updated_schema =
-                                map.next_value::<std::option::Option<crate::model::TableSchema>>()?;
+                            result.updated_schema = map.next_value::<std::option::Option<
+                                crate::write::generated::gapic_storage::model::TableSchema,
+                            >>()?;
                         }
                         __FieldTag::__row_errors => {
                             if !fields.insert(__FieldTag::__row_errors) {
@@ -2396,7 +2369,13 @@ impl<'de> serde::de::Deserialize<'de> for super::AppendRowsResponse {
                                     "multiple values for row_errors",
                                 ));
                             }
-                            result.row_errors = map.next_value::<std::option::Option<std::vec::Vec<crate::model::RowError>>>()?.unwrap_or_default();
+                            result.row_errors = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<
+                                        crate::write::generated::gapic_storage::model::RowError,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__write_stream => {
                             if !fields.insert(__FieldTag::__write_stream) {
@@ -2586,7 +2565,9 @@ impl<'de> serde::de::Deserialize<'de> for super::GetWriteStreamRequest {
                                 ));
                             }
                             result.view = map
-                                .next_value::<std::option::Option<crate::model::WriteStreamView>>()?
+                                .next_value::<std::option::Option<
+                                    crate::write::generated::gapic_storage::model::WriteStreamView,
+                                >>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
@@ -2769,7 +2750,13 @@ impl<'de> serde::de::Deserialize<'de> for super::BatchCommitWriteStreamsResponse
                                     "multiple values for stream_errors",
                                 ));
                             }
-                            result.stream_errors = map.next_value::<std::option::Option<std::vec::Vec<crate::model::StorageError>>>()?.unwrap_or_default();
+                            result.stream_errors = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<
+                                        crate::write::generated::gapic_storage::model::StorageError,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -3213,11 +3200,7 @@ impl<'de> serde::de::Deserialize<'de> for super::StorageError {
                                     "multiple values for code",
                                 ));
                             }
-                            result.code =
-                                map.next_value::<std::option::Option<
-                                    crate::model::storage_error::StorageErrorCode,
-                                >>()?
-                                .unwrap_or_default();
+                            result.code = map.next_value::<std::option::Option<crate::write::generated::gapic_storage::model::storage_error::StorageErrorCode>>()?.unwrap_or_default();
                         }
                         __FieldTag::__entity => {
                             if !fields.insert(__FieldTag::__entity) {
@@ -3338,7 +3321,7 @@ impl<'de> serde::de::Deserialize<'de> for super::RowError {
                                     "multiple values for code",
                                 ));
                             }
-                            result.code = map.next_value::<std::option::Option<crate::model::row_error::RowErrorCode>>()?.unwrap_or_default();
+                            result.code = map.next_value::<std::option::Option<crate::write::generated::gapic_storage::model::row_error::RowErrorCode>>()?.unwrap_or_default();
                         }
                         __FieldTag::__message => {
                             if !fields.insert(__FieldTag::__message) {
@@ -3430,7 +3413,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ClientStats {
                                     "multiple values for request_stats",
                                 ));
                             }
-                            result.request_stats = map.next_value::<std::option::Option<crate::model::client_stats::RequestStats>>()?
+                            result.request_stats = map.next_value::<std::option::Option<crate::write::generated::gapic_storage::model::client_stats::RequestStats>>()?
                                 ;
                         }
                         __FieldTag::__window_stats => {
@@ -3439,7 +3422,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ClientStats {
                                     "multiple values for window_stats",
                                 ));
                             }
-                            result.window_stats = map.next_value::<std::option::Option<crate::model::client_stats::WindowStats>>()?
+                            result.window_stats = map.next_value::<std::option::Option<crate::write::generated::gapic_storage::model::client_stats::WindowStats>>()?
                                 ;
                         }
                         __FieldTag::Unknown(key) => {
@@ -3954,7 +3937,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ReadSession {
                                 ));
                             }
                             result.data_format = map
-                                .next_value::<std::option::Option<crate::model::DataFormat>>()?
+                                .next_value::<std::option::Option<
+                                    crate::write::generated::gapic_storage::model::DataFormat,
+                                >>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::__avro_schema => {
@@ -3969,11 +3954,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ReadSession {
                                 ));
                             }
                             result.schema = std::option::Option::Some(
-                                crate::model::read_session::Schema::AvroSchema(
-                                    map.next_value::<std::option::Option<
-                                        std::boxed::Box<crate::model::AvroSchema>,
-                                    >>()?
-                                    .unwrap_or_default(),
+                                crate::write::generated::gapic_storage::model::read_session::Schema::AvroSchema(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::write::generated::gapic_storage::model::AvroSchema>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -3989,11 +3971,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ReadSession {
                                 ));
                             }
                             result.schema = std::option::Option::Some(
-                                crate::model::read_session::Schema::ArrowSchema(
-                                    map.next_value::<std::option::Option<
-                                        std::boxed::Box<crate::model::ArrowSchema>,
-                                    >>()?
-                                    .unwrap_or_default(),
+                                crate::write::generated::gapic_storage::model::read_session::Schema::ArrowSchema(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::write::generated::gapic_storage::model::ArrowSchema>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -4013,7 +3992,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ReadSession {
                                     "multiple values for table_modifiers",
                                 ));
                             }
-                            result.table_modifiers = map.next_value::<std::option::Option<crate::model::read_session::TableModifiers>>()?
+                            result.table_modifiers = map.next_value::<std::option::Option<crate::write::generated::gapic_storage::model::read_session::TableModifiers>>()?
                                 ;
                         }
                         __FieldTag::__read_options => {
@@ -4022,10 +4001,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ReadSession {
                                     "multiple values for read_options",
                                 ));
                             }
-                            result.read_options =
-                                map.next_value::<std::option::Option<
-                                    crate::model::read_session::TableReadOptions,
-                                >>()?;
+                            result.read_options = map.next_value::<std::option::Option<crate::write::generated::gapic_storage::model::read_session::TableReadOptions>>()?
+                                ;
                         }
                         __FieldTag::__streams => {
                             if !fields.insert(__FieldTag::__streams) {
@@ -4033,7 +4010,13 @@ impl<'de> serde::de::Deserialize<'de> for super::ReadSession {
                                     "multiple values for streams",
                                 ));
                             }
-                            result.streams = map.next_value::<std::option::Option<std::vec::Vec<crate::model::ReadStream>>>()?.unwrap_or_default();
+                            result.streams = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<
+                                        crate::write::generated::gapic_storage::model::ReadStream,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__estimated_total_bytes_scanned => {
                             if !fields.insert(__FieldTag::__estimated_total_bytes_scanned) {
@@ -4313,8 +4296,8 @@ impl<'de> serde::de::Deserialize<'de> for super::read_session::TableReadOptions 
                                 ));
                             }
                             result.output_format_serialization_options = std::option::Option::Some(
-                                crate::model::read_session::table_read_options::OutputFormatSerializationOptions::ArrowSerializationOptions(
-                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::ArrowSerializationOptions>>>()?.unwrap_or_default()
+                                crate::write::generated::gapic_storage::model::read_session::table_read_options::OutputFormatSerializationOptions::ArrowSerializationOptions(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::write::generated::gapic_storage::model::ArrowSerializationOptions>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -4330,8 +4313,8 @@ impl<'de> serde::de::Deserialize<'de> for super::read_session::TableReadOptions 
                                 ));
                             }
                             result.output_format_serialization_options = std::option::Option::Some(
-                                crate::model::read_session::table_read_options::OutputFormatSerializationOptions::AvroSerializationOptions(
-                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::AvroSerializationOptions>>>()?.unwrap_or_default()
+                                crate::write::generated::gapic_storage::model::read_session::table_read_options::OutputFormatSerializationOptions::AvroSerializationOptions(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::write::generated::gapic_storage::model::AvroSerializationOptions>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -4360,7 +4343,7 @@ impl<'de> serde::de::Deserialize<'de> for super::read_session::TableReadOptions 
                                     "multiple values for response_compression_codec",
                                 ));
                             }
-                            result.response_compression_codec = map.next_value::<std::option::Option<crate::model::read_session::table_read_options::ResponseCompressionCodec>>()?
+                            result.response_compression_codec = map.next_value::<std::option::Option<crate::write::generated::gapic_storage::model::read_session::table_read_options::ResponseCompressionCodec>>()?
                                 ;
                         }
                         __FieldTag::Unknown(key) => {
@@ -4545,7 +4528,7 @@ impl<'de> serde::de::Deserialize<'de> for super::WriteStream {
                                     "multiple values for type",
                                 ));
                             }
-                            result.r#type = map.next_value::<std::option::Option<crate::model::write_stream::Type>>()?.unwrap_or_default();
+                            result.r#type = map.next_value::<std::option::Option<crate::write::generated::gapic_storage::model::write_stream::Type>>()?.unwrap_or_default();
                         }
                         __FieldTag::__create_time => {
                             if !fields.insert(__FieldTag::__create_time) {
@@ -4571,8 +4554,9 @@ impl<'de> serde::de::Deserialize<'de> for super::WriteStream {
                                     "multiple values for table_schema",
                                 ));
                             }
-                            result.table_schema =
-                                map.next_value::<std::option::Option<crate::model::TableSchema>>()?;
+                            result.table_schema = map.next_value::<std::option::Option<
+                                crate::write::generated::gapic_storage::model::TableSchema,
+                            >>()?;
                         }
                         __FieldTag::__write_mode => {
                             if !fields.insert(__FieldTag::__write_mode) {
@@ -4580,7 +4564,7 @@ impl<'de> serde::de::Deserialize<'de> for super::WriteStream {
                                     "multiple values for write_mode",
                                 ));
                             }
-                            result.write_mode = map.next_value::<std::option::Option<crate::model::write_stream::WriteMode>>()?.unwrap_or_default();
+                            result.write_mode = map.next_value::<std::option::Option<crate::write::generated::gapic_storage::model::write_stream::WriteMode>>()?.unwrap_or_default();
                         }
                         __FieldTag::__location => {
                             if !fields.insert(__FieldTag::__location) {
@@ -4668,11 +4652,7 @@ impl<'de> serde::de::Deserialize<'de> for super::TableSchema {
                                     "multiple values for fields",
                                 ));
                             }
-                            result.fields =
-                                map.next_value::<std::option::Option<
-                                    std::vec::Vec<crate::model::TableFieldSchema>,
-                                >>()?
-                                .unwrap_or_default();
+                            result.fields = map.next_value::<std::option::Option<std::vec::Vec<crate::write::generated::gapic_storage::model::TableFieldSchema>>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -4786,7 +4766,7 @@ impl<'de> serde::de::Deserialize<'de> for super::TableFieldSchema {
                                     "multiple values for type",
                                 ));
                             }
-                            result.r#type = map.next_value::<std::option::Option<crate::model::table_field_schema::Type>>()?.unwrap_or_default();
+                            result.r#type = map.next_value::<std::option::Option<crate::write::generated::gapic_storage::model::table_field_schema::Type>>()?.unwrap_or_default();
                         }
                         __FieldTag::__mode => {
                             if !fields.insert(__FieldTag::__mode) {
@@ -4794,7 +4774,7 @@ impl<'de> serde::de::Deserialize<'de> for super::TableFieldSchema {
                                     "multiple values for mode",
                                 ));
                             }
-                            result.mode = map.next_value::<std::option::Option<crate::model::table_field_schema::Mode>>()?.unwrap_or_default();
+                            result.mode = map.next_value::<std::option::Option<crate::write::generated::gapic_storage::model::table_field_schema::Mode>>()?.unwrap_or_default();
                         }
                         __FieldTag::__fields => {
                             if !fields.insert(__FieldTag::__fields) {
@@ -4802,11 +4782,7 @@ impl<'de> serde::de::Deserialize<'de> for super::TableFieldSchema {
                                     "multiple values for fields",
                                 ));
                             }
-                            result.fields =
-                                map.next_value::<std::option::Option<
-                                    std::vec::Vec<crate::model::TableFieldSchema>,
-                                >>()?
-                                .unwrap_or_default();
+                            result.fields = map.next_value::<std::option::Option<std::vec::Vec<crate::write::generated::gapic_storage::model::TableFieldSchema>>>()?.unwrap_or_default();
                         }
                         __FieldTag::__description => {
                             if !fields.insert(__FieldTag::__description) {
@@ -4910,9 +4886,8 @@ impl<'de> serde::de::Deserialize<'de> for super::TableFieldSchema {
                                     "multiple values for range_element_type",
                                 ));
                             }
-                            result.range_element_type = map.next_value::<std::option::Option<
-                                crate::model::table_field_schema::FieldElementType,
-                            >>()?;
+                            result.range_element_type = map.next_value::<std::option::Option<crate::write::generated::gapic_storage::model::table_field_schema::FieldElementType>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -4990,7 +4965,7 @@ impl<'de> serde::de::Deserialize<'de> for super::table_field_schema::FieldElemen
                                     "multiple values for type",
                                 ));
                             }
-                            result.r#type = map.next_value::<std::option::Option<crate::model::table_field_schema::Type>>()?.unwrap_or_default();
+                            result.r#type = map.next_value::<std::option::Option<crate::write::generated::gapic_storage::model::table_field_schema::Type>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

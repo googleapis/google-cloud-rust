@@ -12,14 +12,35 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// TODO(#6443) - consolidate crates
-
-pub use google_cloud_bigquery_write::AppendFuture;
-pub use google_cloud_bigquery_write::arrow;
-
-pub(crate) use google_cloud_bigquery_write::builder;
-pub(crate) use google_cloud_bigquery_write::client;
-pub(crate) use google_cloud_bigquery_write::error;
+/// Types to write data in [Arrow] format
+///
+/// [arrow]: https://arrow.apache.org/
+pub mod arrow;
 
 // TODO(#6443) - relocate this.
-pub use google_cloud_bigquery_write::model;
+/// The messages and enums that are part of this client library
+pub mod model {
+    // TODO(#6443) - move to model_ext
+    pub use crate::write::append_response::AppendResponse;
+    // TODO(#6224) - restrict exports
+    pub use crate::write::generated::gapic_storage::model::*;
+}
+
+pub use append_future::AppendFuture;
+
+pub(super) mod append_builder;
+pub(super) mod append_future;
+mod append_response;
+pub(super) mod client;
+pub(super) mod client_builder;
+pub(super) mod error;
+mod proto_schema;
+mod runner;
+mod stream;
+mod transport;
+
+// TODO(#4832) - remove handwritten code.
+mod status;
+
+#[allow(dead_code)]
+pub(crate) mod generated;

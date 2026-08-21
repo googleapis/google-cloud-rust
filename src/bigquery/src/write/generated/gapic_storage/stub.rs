@@ -41,30 +41,40 @@ pub trait BigQueryWrite: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::BigQueryWrite::create_write_stream].
     fn create_write_stream(
         &self,
-        _req: crate::model::CreateWriteStreamRequest,
+        _req: crate::write::generated::gapic_storage::model::CreateWriteStreamRequest,
         _options: crate::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::WriteStream>>>
-    + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<crate::write::generated::gapic_storage::model::WriteStream>,
+        >,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BigQueryWrite::get_write_stream].
     fn get_write_stream(
         &self,
-        _req: crate::model::GetWriteStreamRequest,
+        _req: crate::write::generated::gapic_storage::model::GetWriteStreamRequest,
         _options: crate::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::WriteStream>>>
-    + Send {
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<crate::write::generated::gapic_storage::model::WriteStream>,
+        >,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BigQueryWrite::finalize_write_stream].
     fn finalize_write_stream(
         &self,
-        _req: crate::model::FinalizeWriteStreamRequest,
+        _req: crate::write::generated::gapic_storage::model::FinalizeWriteStreamRequest,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<crate::model::FinalizeWriteStreamResponse>>,
+        Output = crate::Result<
+            crate::Response<
+                crate::write::generated::gapic_storage::model::FinalizeWriteStreamResponse,
+            >,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -72,10 +82,14 @@ pub trait BigQueryWrite: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::BigQueryWrite::batch_commit_write_streams].
     fn batch_commit_write_streams(
         &self,
-        _req: crate::model::BatchCommitWriteStreamsRequest,
+        _req: crate::write::generated::gapic_storage::model::BatchCommitWriteStreamsRequest,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<crate::model::BatchCommitWriteStreamsResponse>>,
+        Output = crate::Result<
+            crate::Response<
+                crate::write::generated::gapic_storage::model::BatchCommitWriteStreamsResponse,
+            >,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -83,10 +97,12 @@ pub trait BigQueryWrite: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::BigQueryWrite::flush_rows].
     fn flush_rows(
         &self,
-        _req: crate::model::FlushRowsRequest,
+        _req: crate::write::generated::gapic_storage::model::FlushRowsRequest,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<crate::model::FlushRowsResponse>>,
+        Output = crate::Result<
+            crate::Response<crate::write::generated::gapic_storage::model::FlushRowsResponse>,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

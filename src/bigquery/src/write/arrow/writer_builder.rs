@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::arrow::{CommittedWriter, DefaultWriter, PendingWriter};
-use crate::generated::gapic_storage::client::BigQueryWrite;
-use crate::model::write_stream::Type;
-use crate::model::{ArrowSchema, WriteStream};
-use crate::transport::Transport;
+use super::super::generated::gapic_storage::client::BigQueryWrite;
+use super::super::model::write_stream::Type;
+use super::super::model::{ArrowSchema, WriteStream};
+use super::super::transport::Transport;
+use super::{CommittedWriter, DefaultWriter, PendingWriter};
 use crate::{Error, Result};
 use gaxi::path_parameter::{PathMismatchBuilder, try_match};
 use gaxi::routing_parameter::Segment;
@@ -113,8 +113,8 @@ fn validate_table(table: &str) -> Result<()> {
 
 #[cfg(test)]
 mod tests {
+    use super::super::super::transport::tests::test_transport;
     use super::*;
-    use crate::transport::tests::test_transport;
     use test_case::test_case;
 
     #[tokio::test]

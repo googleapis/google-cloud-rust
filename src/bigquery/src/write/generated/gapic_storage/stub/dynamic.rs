@@ -19,33 +19,41 @@
 pub trait BigQueryWrite: std::fmt::Debug + Send + Sync {
     async fn create_write_stream(
         &self,
-        req: crate::model::CreateWriteStreamRequest,
+        req: crate::write::generated::gapic_storage::model::CreateWriteStreamRequest,
         options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::WriteStream>>;
+    ) -> crate::Result<crate::Response<crate::write::generated::gapic_storage::model::WriteStream>>;
 
     async fn get_write_stream(
         &self,
-        req: crate::model::GetWriteStreamRequest,
+        req: crate::write::generated::gapic_storage::model::GetWriteStreamRequest,
         options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::WriteStream>>;
+    ) -> crate::Result<crate::Response<crate::write::generated::gapic_storage::model::WriteStream>>;
 
     async fn finalize_write_stream(
         &self,
-        req: crate::model::FinalizeWriteStreamRequest,
+        req: crate::write::generated::gapic_storage::model::FinalizeWriteStreamRequest,
         options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::FinalizeWriteStreamResponse>>;
+    ) -> crate::Result<
+        crate::Response<crate::write::generated::gapic_storage::model::FinalizeWriteStreamResponse>,
+    >;
 
     async fn batch_commit_write_streams(
         &self,
-        req: crate::model::BatchCommitWriteStreamsRequest,
+        req: crate::write::generated::gapic_storage::model::BatchCommitWriteStreamsRequest,
         options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::BatchCommitWriteStreamsResponse>>;
+    ) -> crate::Result<
+        crate::Response<
+            crate::write::generated::gapic_storage::model::BatchCommitWriteStreamsResponse,
+        >,
+    >;
 
     async fn flush_rows(
         &self,
-        req: crate::model::FlushRowsRequest,
+        req: crate::write::generated::gapic_storage::model::FlushRowsRequest,
         options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::FlushRowsResponse>>;
+    ) -> crate::Result<
+        crate::Response<crate::write::generated::gapic_storage::model::FlushRowsResponse>,
+    >;
 }
 
 /// All implementations of [super::BigQueryWrite] also implement [BigQueryWrite].
@@ -54,45 +62,55 @@ impl<T: super::BigQueryWrite> BigQueryWrite for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_write_stream(
         &self,
-        req: crate::model::CreateWriteStreamRequest,
+        req: crate::write::generated::gapic_storage::model::CreateWriteStreamRequest,
         options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::WriteStream>> {
+    ) -> crate::Result<crate::Response<crate::write::generated::gapic_storage::model::WriteStream>>
+    {
         T::create_write_stream(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_write_stream(
         &self,
-        req: crate::model::GetWriteStreamRequest,
+        req: crate::write::generated::gapic_storage::model::GetWriteStreamRequest,
         options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::WriteStream>> {
+    ) -> crate::Result<crate::Response<crate::write::generated::gapic_storage::model::WriteStream>>
+    {
         T::get_write_stream(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn finalize_write_stream(
         &self,
-        req: crate::model::FinalizeWriteStreamRequest,
+        req: crate::write::generated::gapic_storage::model::FinalizeWriteStreamRequest,
         options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::FinalizeWriteStreamResponse>> {
+    ) -> crate::Result<
+        crate::Response<crate::write::generated::gapic_storage::model::FinalizeWriteStreamResponse>,
+    > {
         T::finalize_write_stream(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn batch_commit_write_streams(
         &self,
-        req: crate::model::BatchCommitWriteStreamsRequest,
+        req: crate::write::generated::gapic_storage::model::BatchCommitWriteStreamsRequest,
         options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::BatchCommitWriteStreamsResponse>> {
+    ) -> crate::Result<
+        crate::Response<
+            crate::write::generated::gapic_storage::model::BatchCommitWriteStreamsResponse,
+        >,
+    > {
         T::batch_commit_write_streams(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn flush_rows(
         &self,
-        req: crate::model::FlushRowsRequest,
+        req: crate::write::generated::gapic_storage::model::FlushRowsRequest,
         options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::FlushRowsResponse>> {
+    ) -> crate::Result<
+        crate::Response<crate::write::generated::gapic_storage::model::FlushRowsResponse>,
+    > {
         T::flush_rows(self, req, options).await
     }
 }

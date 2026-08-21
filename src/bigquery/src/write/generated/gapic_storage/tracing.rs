@@ -44,9 +44,9 @@ where
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_write_stream(
         &self,
-        req: crate::model::CreateWriteStreamRequest,
+        req: crate::write::generated::gapic_storage::model::CreateWriteStreamRequest,
         options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::WriteStream>> {
+    ) -> Result<crate::Response<crate::write::generated::gapic_storage::model::WriteStream>> {
         let (_span, pending) = gaxi::client_request_signals!(
             metric: self.duration.clone(),
             info: *info::INSTRUMENTATION_CLIENT_INFO,
@@ -58,9 +58,9 @@ where
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_write_stream(
         &self,
-        req: crate::model::GetWriteStreamRequest,
+        req: crate::write::generated::gapic_storage::model::GetWriteStreamRequest,
         options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::WriteStream>> {
+    ) -> Result<crate::Response<crate::write::generated::gapic_storage::model::WriteStream>> {
         let (_span, pending) = gaxi::client_request_signals!(
             metric: self.duration.clone(),
             info: *info::INSTRUMENTATION_CLIENT_INFO,
@@ -72,9 +72,11 @@ where
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn finalize_write_stream(
         &self,
-        req: crate::model::FinalizeWriteStreamRequest,
+        req: crate::write::generated::gapic_storage::model::FinalizeWriteStreamRequest,
         options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::FinalizeWriteStreamResponse>> {
+    ) -> Result<
+        crate::Response<crate::write::generated::gapic_storage::model::FinalizeWriteStreamResponse>,
+    > {
         let (_span, pending) = gaxi::client_request_signals!(
             metric: self.duration.clone(),
             info: *info::INSTRUMENTATION_CLIENT_INFO,
@@ -86,9 +88,13 @@ where
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn batch_commit_write_streams(
         &self,
-        req: crate::model::BatchCommitWriteStreamsRequest,
+        req: crate::write::generated::gapic_storage::model::BatchCommitWriteStreamsRequest,
         options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::BatchCommitWriteStreamsResponse>> {
+    ) -> Result<
+        crate::Response<
+            crate::write::generated::gapic_storage::model::BatchCommitWriteStreamsResponse,
+        >,
+    > {
         let (_span, pending) = gaxi::client_request_signals!(
             metric: self.duration.clone(),
             info: *info::INSTRUMENTATION_CLIENT_INFO,
@@ -100,9 +106,10 @@ where
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn flush_rows(
         &self,
-        req: crate::model::FlushRowsRequest,
+        req: crate::write::generated::gapic_storage::model::FlushRowsRequest,
         options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::FlushRowsResponse>> {
+    ) -> Result<crate::Response<crate::write::generated::gapic_storage::model::FlushRowsResponse>>
+    {
         let (_span, pending) = gaxi::client_request_signals!(
             metric: self.duration.clone(),
             info: *info::INSTRUMENTATION_CLIENT_INFO,

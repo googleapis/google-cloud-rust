@@ -21,7 +21,7 @@ use google_cloud_auth::credentials::Credentials;
 ///
 /// # Example
 /// ```
-/// # use google_cloud_bigquery_write::client::Write;
+/// # use google_cloud_bigquery::client::Write;
 /// # async fn sample() -> anyhow::Result<()> {
 /// let builder = Write::builder();
 /// let client = builder
@@ -46,7 +46,7 @@ impl ClientBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_bigquery_write::client::Write;
+    /// # use google_cloud_bigquery::client::Write;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let client = Write::builder().build().await?;
     /// # Ok(()) }
@@ -59,7 +59,7 @@ impl ClientBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_bigquery_write::client::Write;
+    /// # use google_cloud_bigquery::client::Write;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let client = Write::builder()
     ///     .with_endpoint("https://private.googleapis.com")
@@ -79,7 +79,7 @@ impl ClientBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_bigquery_write::client::Write;
+    /// # use google_cloud_bigquery::client::Write;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let client = Write::builder()
     ///     .with_universe_domain("googleapis.com")
@@ -99,7 +99,7 @@ impl ClientBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_bigquery_write::client::Write;
+    /// # use google_cloud_bigquery::client::Write;
     /// # async fn sample() -> anyhow::Result<()> {
     /// use google_cloud_auth::credentials::mds;
     /// let client = Write::builder()
@@ -122,7 +122,7 @@ impl ClientBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_bigquery_write::client::Write;
+    /// # use google_cloud_bigquery::client::Write;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let count = std::thread::available_parallelism()?.get();
     /// let client = Write::builder()

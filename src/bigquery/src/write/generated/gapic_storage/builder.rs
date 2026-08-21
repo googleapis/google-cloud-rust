@@ -43,7 +43,9 @@ pub mod big_query_write {
 
     /// The request builder for [BigQueryWrite::create_write_stream][crate::client::BigQueryWrite::create_write_stream] calls.
     #[derive(Clone, Debug)]
-    pub(crate) struct CreateWriteStream(RequestBuilder<crate::model::CreateWriteStreamRequest>);
+    pub(crate) struct CreateWriteStream(
+        RequestBuilder<crate::write::generated::gapic_storage::model::CreateWriteStreamRequest>,
+    );
 
     impl CreateWriteStream {
         pub(crate) fn new(
@@ -53,7 +55,9 @@ pub mod big_query_write {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateWriteStreamRequest>>(
+        pub fn with_request<
+            V: Into<crate::write::generated::gapic_storage::model::CreateWriteStreamRequest>,
+        >(
             mut self,
             v: V,
         ) -> Self {
@@ -68,14 +72,16 @@ pub mod big_query_write {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<crate::model::WriteStream> {
+        pub async fn send(
+            self,
+        ) -> Result<crate::write::generated::gapic_storage::model::WriteStream> {
             (*self.0.stub)
                 .create_write_stream(self.0.request, self.0.options)
                 .await
                 .map(crate::Response::into_body)
         }
 
-        /// Sets the value of [parent][crate::model::CreateWriteStreamRequest::parent].
+        /// Sets the value of [parent][crate::write::generated::gapic_storage::model::CreateWriteStreamRequest::parent].
         ///
         /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -83,23 +89,23 @@ pub mod big_query_write {
             self
         }
 
-        /// Sets the value of [write_stream][crate::model::CreateWriteStreamRequest::write_stream].
+        /// Sets the value of [write_stream][crate::write::generated::gapic_storage::model::CreateWriteStreamRequest::write_stream].
         ///
         /// This is a **required** field for requests.
         pub fn set_write_stream<T>(mut self, v: T) -> Self
         where
-            T: std::convert::Into<crate::model::WriteStream>,
+            T: std::convert::Into<crate::write::generated::gapic_storage::model::WriteStream>,
         {
             self.0.request.write_stream = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets or clears the value of [write_stream][crate::model::CreateWriteStreamRequest::write_stream].
+        /// Sets or clears the value of [write_stream][crate::write::generated::gapic_storage::model::CreateWriteStreamRequest::write_stream].
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_write_stream<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::convert::Into<crate::model::WriteStream>,
+            T: std::convert::Into<crate::write::generated::gapic_storage::model::WriteStream>,
         {
             self.0.request.write_stream = v.map(|x| x.into());
             self
@@ -115,7 +121,9 @@ pub mod big_query_write {
 
     /// The request builder for [BigQueryWrite::get_write_stream][crate::client::BigQueryWrite::get_write_stream] calls.
     #[derive(Clone, Debug)]
-    pub(crate) struct GetWriteStream(RequestBuilder<crate::model::GetWriteStreamRequest>);
+    pub(crate) struct GetWriteStream(
+        RequestBuilder<crate::write::generated::gapic_storage::model::GetWriteStreamRequest>,
+    );
 
     impl GetWriteStream {
         pub(crate) fn new(
@@ -125,60 +133,9 @@ pub mod big_query_write {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetWriteStreamRequest>>(mut self, v: V) -> Self {
-            self.0.request = v.into();
-            self
-        }
-
-        /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
-            self.0.options = v.into();
-            self
-        }
-
-        /// Sends the request.
-        pub async fn send(self) -> Result<crate::model::WriteStream> {
-            (*self.0.stub)
-                .get_write_stream(self.0.request, self.0.options)
-                .await
-                .map(crate::Response::into_body)
-        }
-
-        /// Sets the value of [name][crate::model::GetWriteStreamRequest::name].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.name = v.into();
-            self
-        }
-
-        /// Sets the value of [view][crate::model::GetWriteStreamRequest::view].
-        pub fn set_view<T: Into<crate::model::WriteStreamView>>(mut self, v: T) -> Self {
-            self.0.request.view = v.into();
-            self
-        }
-    }
-
-    #[doc(hidden)]
-    impl crate::RequestBuilder for GetWriteStream {
-        fn request_options(&mut self) -> &mut crate::RequestOptions {
-            &mut self.0.options
-        }
-    }
-
-    /// The request builder for [BigQueryWrite::finalize_write_stream][crate::client::BigQueryWrite::finalize_write_stream] calls.
-    #[derive(Clone, Debug)]
-    pub(crate) struct FinalizeWriteStream(RequestBuilder<crate::model::FinalizeWriteStreamRequest>);
-
-    impl FinalizeWriteStream {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigQueryWrite>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
-        }
-
-        /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::FinalizeWriteStreamRequest>>(
+        pub fn with_request<
+            V: Into<crate::write::generated::gapic_storage::model::GetWriteStreamRequest>,
+        >(
             mut self,
             v: V,
         ) -> Self {
@@ -193,14 +150,82 @@ pub mod big_query_write {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<crate::model::FinalizeWriteStreamResponse> {
+        pub async fn send(
+            self,
+        ) -> Result<crate::write::generated::gapic_storage::model::WriteStream> {
+            (*self.0.stub)
+                .get_write_stream(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::write::generated::gapic_storage::model::GetWriteStreamRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [view][crate::write::generated::gapic_storage::model::GetWriteStreamRequest::view].
+        pub fn set_view<T: Into<crate::write::generated::gapic_storage::model::WriteStreamView>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.view = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetWriteStream {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [BigQueryWrite::finalize_write_stream][crate::client::BigQueryWrite::finalize_write_stream] calls.
+    #[derive(Clone, Debug)]
+    pub(crate) struct FinalizeWriteStream(
+        RequestBuilder<crate::write::generated::gapic_storage::model::FinalizeWriteStreamRequest>,
+    );
+
+    impl FinalizeWriteStream {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigQueryWrite>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::write::generated::gapic_storage::model::FinalizeWriteStreamRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(
+            self,
+        ) -> Result<crate::write::generated::gapic_storage::model::FinalizeWriteStreamResponse>
+        {
             (*self.0.stub)
                 .finalize_write_stream(self.0.request, self.0.options)
                 .await
                 .map(crate::Response::into_body)
         }
 
-        /// Sets the value of [name][crate::model::FinalizeWriteStreamRequest::name].
+        /// Sets the value of [name][crate::write::generated::gapic_storage::model::FinalizeWriteStreamRequest::name].
         ///
         /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -219,7 +244,9 @@ pub mod big_query_write {
     /// The request builder for [BigQueryWrite::batch_commit_write_streams][crate::client::BigQueryWrite::batch_commit_write_streams] calls.
     #[derive(Clone, Debug)]
     pub(crate) struct BatchCommitWriteStreams(
-        RequestBuilder<crate::model::BatchCommitWriteStreamsRequest>,
+        RequestBuilder<
+            crate::write::generated::gapic_storage::model::BatchCommitWriteStreamsRequest,
+        >,
     );
 
     impl BatchCommitWriteStreams {
@@ -230,7 +257,9 @@ pub mod big_query_write {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::BatchCommitWriteStreamsRequest>>(
+        pub fn with_request<
+            V: Into<crate::write::generated::gapic_storage::model::BatchCommitWriteStreamsRequest>,
+        >(
             mut self,
             v: V,
         ) -> Self {
@@ -245,14 +274,17 @@ pub mod big_query_write {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<crate::model::BatchCommitWriteStreamsResponse> {
+        pub async fn send(
+            self,
+        ) -> Result<crate::write::generated::gapic_storage::model::BatchCommitWriteStreamsResponse>
+        {
             (*self.0.stub)
                 .batch_commit_write_streams(self.0.request, self.0.options)
                 .await
                 .map(crate::Response::into_body)
         }
 
-        /// Sets the value of [parent][crate::model::BatchCommitWriteStreamsRequest::parent].
+        /// Sets the value of [parent][crate::write::generated::gapic_storage::model::BatchCommitWriteStreamsRequest::parent].
         ///
         /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -260,7 +292,7 @@ pub mod big_query_write {
             self
         }
 
-        /// Sets the value of [write_streams][crate::model::BatchCommitWriteStreamsRequest::write_streams].
+        /// Sets the value of [write_streams][crate::write::generated::gapic_storage::model::BatchCommitWriteStreamsRequest::write_streams].
         ///
         /// This is a **required** field for requests.
         pub fn set_write_streams<T, V>(mut self, v: T) -> Self
@@ -283,7 +315,9 @@ pub mod big_query_write {
 
     /// The request builder for [BigQueryWrite::flush_rows][crate::client::BigQueryWrite::flush_rows] calls.
     #[derive(Clone, Debug)]
-    pub(crate) struct FlushRows(RequestBuilder<crate::model::FlushRowsRequest>);
+    pub(crate) struct FlushRows(
+        RequestBuilder<crate::write::generated::gapic_storage::model::FlushRowsRequest>,
+    );
 
     impl FlushRows {
         pub(crate) fn new(
@@ -293,7 +327,12 @@ pub mod big_query_write {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::FlushRowsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<
+            V: Into<crate::write::generated::gapic_storage::model::FlushRowsRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -305,14 +344,16 @@ pub mod big_query_write {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<crate::model::FlushRowsResponse> {
+        pub async fn send(
+            self,
+        ) -> Result<crate::write::generated::gapic_storage::model::FlushRowsResponse> {
             (*self.0.stub)
                 .flush_rows(self.0.request, self.0.options)
                 .await
                 .map(crate::Response::into_body)
         }
 
-        /// Sets the value of [write_stream][crate::model::FlushRowsRequest::write_stream].
+        /// Sets the value of [write_stream][crate::write::generated::gapic_storage::model::FlushRowsRequest::write_stream].
         ///
         /// This is a **required** field for requests.
         pub fn set_write_stream<T: Into<std::string::String>>(mut self, v: T) -> Self {
@@ -320,7 +361,7 @@ pub mod big_query_write {
             self
         }
 
-        /// Sets the value of [offset][crate::model::FlushRowsRequest::offset].
+        /// Sets the value of [offset][crate::write::generated::gapic_storage::model::FlushRowsRequest::offset].
         pub fn set_offset<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Int64Value>,
@@ -329,7 +370,7 @@ pub mod big_query_write {
             self
         }
 
-        /// Sets or clears the value of [offset][crate::model::FlushRowsRequest::offset].
+        /// Sets or clears the value of [offset][crate::write::generated::gapic_storage::model::FlushRowsRequest::offset].
         pub fn set_or_clear_offset<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Int64Value>,

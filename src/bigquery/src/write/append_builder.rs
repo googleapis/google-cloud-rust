@@ -12,11 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::append_future::AppendFuture;
+use super::append_response::to_result;
+use super::error::{AppendError, AppendResult};
+use super::model::{AppendResponse, AppendRowsRequest};
+use super::runner::WriteRequest;
 use crate::Error;
-use crate::append_response::to_result;
-use crate::error::{AppendError, AppendResult};
-use crate::model::{AppendResponse, AppendRowsRequest};
-use crate::runner::WriteRequest;
 use gaxi::prost::{FromProto, ToProto};
 use tokio::sync::{mpsc, oneshot};
 
@@ -41,7 +42,7 @@ impl AppendWithOffset {
     }
 
     /// Append rows to the stream.
-    pub fn send(self) -> crate::append_future::AppendFuture {
+    pub fn send(self) -> AppendFuture {
         let (tx, rx) = oneshot::channel();
 
         tokio::spawn(async move {
@@ -49,7 +50,7 @@ impl AppendWithOffset {
             let _ = tx.send(res);
         });
 
-        crate::append_future::AppendFuture::new(rx)
+        AppendFuture::new(rx)
     }
 }
 
@@ -89,12 +90,12 @@ impl Append {
 
 #[cfg(test)]
 mod tests {
+    use super::super::model::TableSchema;
     use super::*;
     use crate::google::cloud::bigquery::storage::v1;
     use crate::google::cloud::bigquery::storage::v1::append_rows_response::{
         AppendResult, Response,
     };
-    use crate::model::TableSchema;
 
     #[tokio::test]
     async fn success() -> anyhow::Result<()> {
@@ -152,7 +153,7 @@ mod tests {
 
         // Simulate a stream ending in a known error
         let write = req_rx.recv().await.expect("should receive request");
-        let append_err: AppendError = crate::Error::io("fail").into();
+        let append_err: AppendError = Error::io("fail").into();
         write
             .resp_tx
             .send(Err(append_err))
@@ -246,7 +247,7 @@ mod tests {
 
         // Simulate a stream ending in a known error
         let write = req_rx.recv().await.expect("should receive request");
-        let append_err: AppendError = crate::Error::io("fail").into();
+        let append_err: AppendError = Error::io("fail").into();
         write
             .resp_tx
             .send(Err(append_err))
