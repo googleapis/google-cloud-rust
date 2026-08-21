@@ -61,6 +61,7 @@ struct GrpcRustClientInner {
     endpoint: ResolvedGrpcEndpoint,
     invoker: Channel,
     transport_policies: TransportPolicies,
+    extensions: crate::options::Extensions,
 }
 
 /// A gRPC endpoint resolved from the client configuration.
@@ -101,7 +102,12 @@ impl GrpcRustClient {
         Response: prost::Message + Default,
     {
         Self::note_ignored_extensions(&extensions);
-        let headers = grpc_helpers::make_headers(api_client_header, request_params, &options)?;
+        let headers = grpc_helpers::make_headers(
+            &self.inner.extensions,
+            api_client_header,
+            request_params,
+            &options,
+        )?;
         self.retry_loop::<Request, Response>(path, request, options, headers)
             .await
     }
@@ -264,7 +270,12 @@ impl GrpcRustClient {
         Response: prost::Message + Default + Send + 'static,
     {
         Self::note_ignored_extensions(&extensions);
-        let headers = grpc_helpers::make_headers(api_client_header, request_params, &options)?;
+        let headers = grpc_helpers::make_headers(
+            &self.inner.extensions,
+            api_client_header,
+            request_params,
+            &options,
+        )?;
         let headers = grpc_helpers::add_auth_headers(headers, &self.inner.credentials).await?;
         let metadata = from_header_map(&headers)?;
         let request_headers = RequestHeaders::new()
@@ -342,6 +353,7 @@ impl GrpcRustClient {
                 endpoint,
                 invoker,
                 transport_policies: TransportPolicies::from_config(&config),
+                extensions: config.extensions,
             }),
         })
     }
