@@ -16,8 +16,8 @@ use crate::error::QueryError;
 use crate::query::builder::{
     QUERY_REQUEST_ID_PREFIX, Query, generate_job_reference, generate_prefixed_id,
 };
+use crate::query::retry_policy::JobRetryResult;
 use crate::query::{Query as QueryHandle, Result};
-use crate::retry_policy::JobRetryResult;
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::{
     InsertJobRequest, Job, JobConfiguration, PostQueryRequest, QueryRequest, QueryResponse,
