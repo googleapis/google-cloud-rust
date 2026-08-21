@@ -108,7 +108,7 @@ pub mod client {
 
 /// Extends [google_cloud_bigquery_v2::model] with types that improve ergonomics.
 pub mod model_ext {
-    pub use crate::generated::{CompleteQueryMetadata, QueryMetadata};
+    pub use crate::generated::{CompleteQueryMetadata, QueryMetadata, QueryRequest};
 }
 
 /// Request and client builders.
