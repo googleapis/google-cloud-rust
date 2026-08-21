@@ -56,7 +56,7 @@ anyhow.workspace            = true
 mockall.workspace           = true
 test-case.workspace         = true
 tokio                       = { workspace = true, features = ["macros", "rt-multi-thread", "test-util"] }
-bigquery-write-grpc-mock    = { path = "../bigquery-write/grpc-mock" }
+bigquery-grpc-mock          = { path = "../bigquery/grpc-mock" }
 google-cloud-auth.workspace = true
 google-cloud-bigquery       = { path = ".", features = ["default-rustls-provider"] }
 

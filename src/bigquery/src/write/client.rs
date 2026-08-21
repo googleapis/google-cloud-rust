@@ -67,7 +67,7 @@ mod tests {
     use super::super::error::AppendError;
     use super::super::model::{ArrowRecordBatch, ArrowSchema};
     use super::*;
-    use bigquery_write_grpc_mock::{MockBigQueryWrite, start};
+    use bigquery_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::Status as TonicStatus;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 

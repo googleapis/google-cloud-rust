@@ -139,8 +139,8 @@ mod tests {
 
     #[tokio::test]
     async fn pending_success() -> anyhow::Result<()> {
-        use bigquery_write_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream as MockWriteStream;
-        use bigquery_write_grpc_mock::{MockBigQueryWrite, start};
+        use bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream as MockWriteStream;
+        use bigquery_grpc_mock::{MockBigQueryWrite, start};
         let mut mock = MockBigQueryWrite::new();
         mock.expect_create_write_stream().return_once(|req| {
             let req = req.into_inner();
@@ -183,8 +183,8 @@ mod tests {
 
     #[tokio::test]
     async fn committed_success() -> anyhow::Result<()> {
-        use bigquery_write_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream as MockWriteStream;
-        use bigquery_write_grpc_mock::{MockBigQueryWrite, start};
+        use bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream as MockWriteStream;
+        use bigquery_grpc_mock::{MockBigQueryWrite, start};
         let mut mock = MockBigQueryWrite::new();
         mock.expect_create_write_stream().return_once(|req| {
             let req = req.into_inner();
@@ -258,8 +258,8 @@ mod tests {
     }
     #[tokio::test]
     async fn buffered_success() -> anyhow::Result<()> {
-        use bigquery_write_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream as MockWriteStream;
-        use bigquery_write_grpc_mock::{MockBigQueryWrite, start};
+        use bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream as MockWriteStream;
+        use bigquery_grpc_mock::{MockBigQueryWrite, start};
         let mut mock = MockBigQueryWrite::new();
         mock.expect_create_write_stream().return_once(|req| {
             let req = req.into_inner();
