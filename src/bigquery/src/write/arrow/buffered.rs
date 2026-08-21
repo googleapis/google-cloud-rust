@@ -81,9 +81,9 @@ impl BufferedWriter {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use super::super::super::runner::tests::*;
     use super::super::super::transport::tests::*;
+    use super::*;
     use crate::error::AppendError;
     use bigquery_write_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::Response as TonicResponse;
