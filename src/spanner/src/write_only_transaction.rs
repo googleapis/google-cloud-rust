@@ -1598,7 +1598,11 @@ mod tests {
             .build()
             .await?;
 
-        let db_client = client.database_client("db").build().await?;
+        let db_client = client
+            .database_client("db")
+            .with_location_aware_routing(true)
+            .build()
+            .await?;
         let mutation = Mutation::delete("Users", KeySet::all());
         db_client
             .write_only_transaction()
@@ -1685,7 +1689,11 @@ mod tests {
             .build()
             .await?;
 
-        let db_client = client.database_client("db").build().await?;
+        let db_client = client
+            .database_client("db")
+            .with_location_aware_routing(true)
+            .build()
+            .await?;
         let mutation = Mutation::delete("Users", KeySet::all());
         db_client
             .write_only_transaction()
