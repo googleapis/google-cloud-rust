@@ -26,28 +26,39 @@ categories.workspace   = true
 rust-version.workspace = true
 
 [dependencies]
+async-trait.workspace        = true
 base64.workspace             = true
 bytes.workspace              = true
 http.workspace               = true
+prost.workspace              = true
+prost-types.workspace        = true
+serde.workspace              = true
 serde_json.workspace         = true
-google-cloud-auth            = { workspace = true }
+serde_with.workspace         = true
+google-cloud-auth.workspace  = true
 google-cloud-gax.workspace   = true
-google-cloud-bigquery-v2     = { workspace = true }
+gaxi                         = { workspace = true, features = ["_internal-common", "_internal-grpc-client", "_internal-http-client"] }
 google-cloud-bigquery-derive = { workspace = true }
-google-cloud-type            = { workspace = true }
+google-cloud-bigquery-v2     = { workspace = true }
+google-cloud-rpc.workspace   = true
+google-cloud-type.workspace  = true
+wkt.workspace                = true
 thiserror.workspace          = true
 time                         = { workspace = true, features = ["formatting", "macros", "parsing"] }
-wkt.workspace                = true
-gaxi                         = { workspace = true, features = ["_internal-common", "_internal-grpc-client", "_internal-http-client"] }
 tokio                        = { workspace = true, features = ["time"] }
+tokio-stream.workspace       = true
+tracing.workspace            = true
 rust_decimal.workspace       = true
 uuid.workspace               = true
 
 [dev-dependencies]
-anyhow.workspace    = true
-mockall.workspace   = true
-test-case.workspace = true
-tokio               = { workspace = true, features = ["macros", "rt-multi-thread", "test-util"] }
+anyhow.workspace            = true
+mockall.workspace           = true
+test-case.workspace         = true
+tokio                       = { workspace = true, features = ["macros", "rt-multi-thread", "test-util"] }
+bigquery-write-grpc-mock    = { path = "../bigquery-write/grpc-mock" }
+google-cloud-auth.workspace = true
+google-cloud-bigquery       = { path = ".", features = ["default-rustls-provider"] }
 
 [features]
 default = ["default-rustls-provider"]

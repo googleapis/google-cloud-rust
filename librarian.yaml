@@ -504,6 +504,28 @@ libraries:
     output: src/bigquery
     rust:
       modules:
+        - module_path: crate::write::generated::gapic_storage::model
+          output: src/bigquery/src/write/generated/convert/storage
+          skipped_ids:
+            - .google.cloud.bigquery.storage.v1.BigQueryRead
+            - .google.cloud.bigquery.storage.v1.ProtoSchema
+          api_path: google/cloud/bigquery/storage/v1
+          template: convert-prost
+        - extend_grpc_transport: true
+          generate_setter_samples: "false"
+          generate_rpc_samples: "false"
+          has_veneer: true
+          internal_builders: true
+          module_path: crate::write::generated::gapic_storage::model
+          output: src/bigquery/src/write/generated/gapic_storage
+          service_config: google/cloud/bigquery/storage/v1/bigquerystorage_v1.yaml
+          skipped_ids:
+            - .google.cloud.bigquery.storage.v1.BigQueryRead
+          api_path: google/cloud/bigquery/storage/v1
+          template: grpc-client
+        - output: src/bigquery/src/write/generated/protos/storage
+          api_path: google/cloud/bigquery/storage/v1
+          template: prost
         - module_path: google_cloud_bigquery_v2::model
           output: src/bigquery/src/generated
           skipped_ids:
@@ -593,33 +615,6 @@ libraries:
         - name: uuid
           package: uuid
           force_used: true
-  - name: google-cloud-bigquery-write
-    version: 0.1.0
-    copyright_year: "2026"
-    output: src/bigquery-write
-    rust:
-      modules:
-        - module_path: crate::generated::gapic_storage::model
-          output: src/bigquery-write/src/generated/convert/storage
-          skipped_ids:
-            - .google.cloud.bigquery.storage.v1.BigQueryRead
-            - .google.cloud.bigquery.storage.v1.ProtoSchema
-          api_path: google/cloud/bigquery/storage/v1
-          template: convert-prost
-        - extend_grpc_transport: true
-          generate_setter_samples: "false"
-          generate_rpc_samples: "false"
-          has_veneer: true
-          internal_builders: true
-          output: src/bigquery-write/src/generated/gapic_storage
-          service_config: google/cloud/bigquery/storage/v1/bigquerystorage_v1.yaml
-          skipped_ids:
-            - .google.cloud.bigquery.storage.v1.BigQueryRead
-          api_path: google/cloud/bigquery/storage/v1
-          template: grpc-client
-        - output: src/bigquery-write/src/generated/protos/storage
-          api_path: google/cloud/bigquery/storage/v1
-          template: prost
   - name: google-cloud-bigtable
     copyright_year: "2025"
     output: src/bigtable

@@ -16,11 +16,10 @@ mod arrow;
 
 use crate::dataset::{cleanup_stale_datasets, create_dataset, delete_dataset, random_dataset_id};
 use anyhow::Result;
-use google_cloud_bigquery::client::BigQuery;
+use google_cloud_bigquery::client::{BigQuery, Write};
 use google_cloud_bigquery::query::FromRow;
 use google_cloud_bigquery_v2::client::{DatasetService, TableService};
 use google_cloud_bigquery_v2::model::{Table, TableFieldSchema, TableReference, TableSchema};
-use google_cloud_bigquery_write::client::Write;
 use google_cloud_test_utils::runtime_config::project_id;
 
 pub async fn run_writes() -> Result<()> {
@@ -39,7 +38,8 @@ pub async fn run_writes() -> Result<()> {
         let client = Write::builder().build().await?;
         arrow::basic(&client, &project_id, &dataset_id, table_id).await?;
         arrow::pending(&client, &project_id, &dataset_id, table_id).await?;
-        arrow::committed(&client, &project_id, &dataset_id, table_id).await
+        arrow::committed(&client, &project_id, &dataset_id, table_id).await?;
+        arrow::buffered(&client, &project_id, &dataset_id, table_id).await
     }
     .await;
 

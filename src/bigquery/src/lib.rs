@@ -104,6 +104,8 @@ pub(crate) mod generated;
 /// Clients to interact with Google Cloud BigQuery.
 pub mod client {
     pub use crate::query::client::BigQuery;
+    pub use crate::write::client::Write;
+    // TODO(#6152) - add Write admin client
 }
 
 /// Extends [google_cloud_bigquery_v2::model] with types that improve ergonomics.
@@ -119,6 +121,11 @@ pub mod builder {
         pub use crate::query::builder::Query;
         pub use crate::query::client_builder::ClientBuilder;
     }
+    /// Request and client builders for the [Write][crate::client::Write] client.
+    pub mod write {
+        pub use crate::write::append_builder::{Append, AppendWithOffset};
+        pub use crate::write::client_builder::ClientBuilder;
+    }
 }
 
 /// Custom errors for the BigQuery clients.
@@ -127,4 +134,33 @@ pub mod error;
 /// Types related to querying with a [BigQuery][crate::client::BigQuery] client.
 pub mod query;
 
+/// Types related to writing with a [Write][crate::client::Write] client.
+pub mod write;
+
 pub mod datatypes;
+
+pub(crate) use google_cloud_gax::client_builder::Result as ClientBuilderResult;
+pub(crate) use google_cloud_gax::options::RequestOptions;
+pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
+pub(crate) use google_cloud_gax::response::Response;
+
+#[allow(dead_code)]
+pub(crate) mod google {
+    pub mod api {
+        include!("write/generated/protos/storage/google.api.rs");
+    }
+    pub mod cloud {
+        pub mod bigquery {
+            pub mod storage {
+                pub mod v1 {
+                    #![allow(deprecated)]
+                    include!("write/generated/protos/storage/google.cloud.bigquery.storage.v1.rs");
+                    include!("write/generated/convert/storage/convert.rs");
+                }
+            }
+        }
+    }
+    pub mod rpc {
+        include!("write/generated/protos/storage/google.rpc.rs");
+    }
+}

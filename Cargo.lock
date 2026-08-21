@@ -2326,23 +2326,33 @@ name = "google-cloud-bigquery"
 version = "0.16.0-preview"
 dependencies = [
  "anyhow",
+ "async-trait",
  "base64 0.23.1",
+ "bigquery-write-grpc-mock",
  "bytes",
  "google-cloud-auth",
+ "google-cloud-bigquery",
  "google-cloud-bigquery-derive",
  "google-cloud-bigquery-v2",
  "google-cloud-gax",
  "google-cloud-gax-internal",
+ "google-cloud-rpc",
  "google-cloud-type",
  "google-cloud-wkt",
  "http",
  "mockall",
+ "prost",
+ "prost-types",
  "rust_decimal",
+ "serde",
  "serde_json",
+ "serde_with",
  "test-case",
  "thiserror",
  "time",
  "tokio",
+ "tokio-stream",
+ "tracing",
  "uuid",
 ]
 
@@ -2525,33 +2535,6 @@ dependencies = [
  "tokio",
  "tracing",
  "uuid",
-]
-
-[[package]]
-name = "google-cloud-bigquery-write"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "async-trait",
- "bigquery-write-grpc-mock",
- "bytes",
- "google-cloud-auth",
- "google-cloud-bigquery-write",
- "google-cloud-gax",
- "google-cloud-gax-internal",
- "google-cloud-rpc",
- "google-cloud-wkt",
- "http",
- "prost",
- "prost-types",
- "serde",
- "serde_json",
- "serde_with",
- "test-case",
- "thiserror",
- "tokio",
- "tokio-stream",
- "tracing",
 ]
 
 [[package]]
@@ -7124,7 +7107,6 @@ dependencies = [
  "google-cloud-bigquery",
  "google-cloud-bigquery-read",
  "google-cloud-bigquery-v2",
- "google-cloud-bigquery-write",
  "google-cloud-gax",
  "google-cloud-test-utils",
  "google-cloud-type",
