@@ -336,13 +336,19 @@ fn convert_basic_type(value: String, field_name: &str, field_type: &str) -> Resu
             }
         }
         "BOOLEAN" | "BOOL" => {
-            let b = value
-                .to_lowercase()
-                .parse::<bool>()
-                .map_err(|e| RowError::TypeConversion {
+            let b = if value.eq_ignore_ascii_case("true") {
+                true
+            } else if value.eq_ignore_ascii_case("false") {
+                false
+            } else {
+                return Err(RowError::TypeConversion {
                     column: field_name.to_string(),
-                    source: ConvertError::Convert(Box::new(e)),
-                })?;
+                    source: ConvertError::TypeMismatch {
+                        expected: "bool",
+                        got: Value::String(value),
+                    },
+                });
+            };
             Ok(Value::Bool(b))
         }
         _ => Err(RowError::InvalidRowFormat(format!(
