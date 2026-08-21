@@ -92,7 +92,12 @@ _internal-common = [
 
 # Enables the default rustls crypto provider for whatever client(s) are enabled.
 _default-rustls-provider = ["google-cloud-auth?/default-rustls-provider", "tonic?/tls-aws-lc"]
-# Enables the unstable server streaming functionality in the gRPC client.
+# Deprecated: Server streaming functionality is now enabled by default when `_internal-grpc-client` is active.
+# This feature is retained as a no-op for backwards compatibility.
+#
+# TODO: Remove this feature flag during the next breaking version bump of
+# `google-cloud-gax-internal` (e.g., 0.8.0). It is retained as a no-op to avoid breaking
+# SemVer compatibility in the current 0.7.x series.
 _internal-grpc-server-streaming = []
 
 [dependencies]
