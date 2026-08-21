@@ -18,8 +18,8 @@ use ::arrow::datatypes::{DataType, Field, Schema};
 use ::arrow::ipc::writer::StreamWriter;
 use ::arrow::record_batch::RecordBatch;
 use anyhow::Result;
-use google_cloud_bigquery_write::client::Write;
-use google_cloud_bigquery_write::model::{ArrowRecordBatch, ArrowSchema};
+use google_cloud_bigquery::client::Write;
+use google_cloud_bigquery::write::model::{ArrowRecordBatch, ArrowSchema};
 use std::sync::Arc;
 
 pub async fn basic(

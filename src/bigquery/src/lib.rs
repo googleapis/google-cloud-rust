@@ -104,6 +104,7 @@ pub(crate) mod generated;
 /// Clients to interact with Google Cloud BigQuery.
 pub mod client {
     pub use crate::query::client::BigQuery;
+    pub use crate::write::client::Write;
 }
 
 /// The messages and enums that are part of this client library.
@@ -122,6 +123,10 @@ pub mod builder {
         pub use crate::query::builder::Query;
         pub use crate::query::client_builder::ClientBuilder;
     }
+    /// Request and client builders for the [Write][crate::client::Write] client.
+    pub mod write {
+        pub use crate::write::builder::write::*;
+    }
 }
 
 /// Custom errors for the BigQuery clients.
@@ -129,5 +134,8 @@ pub mod error;
 
 /// Types related to querying with a [BigQuery][crate::client::BigQuery] client.
 pub mod query;
+
+/// Types related to writing with a [Write][crate::client::Write] client.
+pub mod write;
 
 pub mod datatypes;
