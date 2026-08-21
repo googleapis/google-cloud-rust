@@ -2717,7 +2717,7 @@ pub mod echo {
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::echo::Chat;
     /// # use google_cloud_showcase_v1beta1::model::EchoRequest;
-    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// let builder = prepare_request_builder();
     /// let (sender, mut receiver) = builder.build();
     ///
@@ -6280,7 +6280,7 @@ pub mod messaging {
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::messaging::Connect;
     /// # use google_cloud_showcase_v1beta1::model::ConnectRequest;
-    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// let builder = prepare_request_builder();
     /// let (sender, mut receiver) = builder.build();
     ///
