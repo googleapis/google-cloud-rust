@@ -18,7 +18,7 @@
 //! asynchronously. This module provides [`RequestSender`] to send outbound request
 //! messages and [`ResponseReceiver`] to receive inbound response messages.
 //!
-//! Generated client libraries use these types to manage streaming communication without
+//! Client libraries use these types to manage streaming communication without
 //! exposing raw gRPC transport or Protobuf wire models in the public API.
 //!
 //! Connection establishment begins immediately when the streaming RPC is initiated.
@@ -127,9 +127,13 @@ type SenderFn<Req> =
 /// A handle for sending outbound request items over a streaming RPC.
 ///
 /// Typically, you receive a `RequestSender` as the result of initiating a streaming RPC.
-/// Outbound messages are buffered and sent asynchronously to the server. `RequestSender`
-/// is cheaply cloneable and can be shared across multiple tasks. The outbound request
-/// stream is closed once all clones of the `RequestSender` are dropped.
+/// Outbound messages are buffered and sent asynchronously to the server. The buffer size
+/// defaults to 16 and can be configured via
+/// [`RequestOptionsBuilder::with_request_stream_channel_capacity`][crate::options::RequestOptionsBuilder::with_request_stream_channel_capacity].
+///
+/// `RequestSender` is cheaply cloneable. Sending from multiple clones concurrently may
+/// interleave messages; if delivery order is important, send messages sequentially.
+/// The outbound request stream is closed once all clones of the `RequestSender` are dropped.
 ///
 /// # Examples
 ///
@@ -252,11 +256,12 @@ enum ResponseState<Resp> {
 /// A handle for receiving inbound response items from a streaming RPC.
 ///
 /// Typically, you receive a `ResponseReceiver` as the result of initiating a streaming RPC.
-/// Call [`recv`](Self::recv) to consume incoming messages sequentially. Dropping the
-/// `ResponseReceiver` cancels the stream.
+/// Unlike [`RequestSender`], `ResponseReceiver` cannot be cloned and represents exclusive
+/// ownership of the inbound stream. Call [`recv`](Self::recv) to consume incoming messages
+/// sequentially. Dropping the `ResponseReceiver` cancels the stream.
 ///
 /// Enable the `unstable-stream` feature to convert this type into a [`Stream`][futures::Stream]
-/// via [`into_stream`](Self::into_stream).
+/// via `into_stream`.
 ///
 /// # Examples
 ///
