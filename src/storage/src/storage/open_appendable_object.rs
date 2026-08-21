@@ -68,6 +68,29 @@ where
             .open_appendable_object(self.request, self.options)
             .await
     }
+
+    /// Sends the request and an initial chunk of data in the opening stream request,
+    /// returning an appendable object writer.
+    ///
+    /// Example:
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let mut writer = client
+    ///     .open_appendable_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .send_and_append(bytes::Bytes::from("hello world"))
+    ///     .await?;
+    /// writer.finalize().await?;
+    /// # Ok(()) }
+    /// ```
+    pub async fn send_and_append(
+        self,
+        chunk: impl Into<bytes::Bytes>,
+    ) -> Result<AppendableObjectWriter> {
+        self.stub
+            .open_appendable_object_and_append(self.request, chunk.into(), self.options)
+            .await
+    }
 }
 
 impl<S> OpenAppendableObject<S> {
@@ -617,6 +640,11 @@ mod tests {
             .send();
         need_send(&fut);
         need_static(&fut);
+        let fut2 = client
+            .open_appendable_object(BUCKET_NAME, OBJECT_NAME)
+            .send_and_append(bytes::Bytes::from("test"));
+        need_send(&fut2);
+        need_static(&fut2);
         Ok(())
     }
 
