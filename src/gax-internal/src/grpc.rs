@@ -304,7 +304,6 @@ impl Client {
     }
 
     /// Opens a server stream.
-    #[cfg(feature = "_internal-grpc-server-streaming")]
     pub async fn server_streaming<Request, Response>(
         &self,
         extensions: tonic::Extensions,

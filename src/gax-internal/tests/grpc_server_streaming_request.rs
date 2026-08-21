@@ -12,11 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(all(
-    test,
-    feature = "_internal-grpc-client",
-    feature = "_internal-grpc-server-streaming"
-))]
+#[cfg(all(test, feature = "_internal-grpc-client"))]
 mod tests {
     use google_cloud_auth::credentials::{
         Credentials, anonymous::Builder as Anonymous, testing::error_credentials,
