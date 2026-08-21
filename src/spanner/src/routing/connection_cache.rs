@@ -100,7 +100,7 @@ impl ConnectionCache {
             let mut ep_config = config.clone();
             let addr = address.to_string();
             ep_config.endpoint = Some(addr.clone());
-            let channel = Channel::create(&ep_config).await?;
+            let channel = Channel::create(&ep_config, 0).await?;
             Ok(ServerConnection::new(addr, channel))
         })
         .await

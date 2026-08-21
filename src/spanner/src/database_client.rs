@@ -15,10 +15,12 @@
 use crate::batch_read_only_transaction::BatchReadOnlyTransactionBuilder;
 use crate::batch_write_transaction::BatchWriteTransactionBuilder;
 use crate::client::Spanner;
+use crate::model::transaction_selector::Selector;
 use crate::model::{
     BatchWriteRequest, BeginTransactionRequest, CacheUpdate, CommitRequest, CommitResponse,
     ExecuteBatchDmlRequest, ExecuteBatchDmlResponse, ExecuteSqlRequest, PartitionQueryRequest,
     PartitionReadRequest, PartitionResponse, ReadRequest, ResultSet, RollbackRequest, Transaction,
+    TransactionSelector,
 };
 use crate::observability::Observability;
 use crate::omni::{InstanceType, format_database_name};
@@ -29,9 +31,10 @@ use crate::read_only_transaction::{
 use crate::routing::cache_updater::CacheUpdater;
 use crate::routing::connection_cache::ConnectionCache;
 use crate::routing::endpoint_cooldown::EndpointCooldownTracker;
+use crate::routing::key_extractor::extract_proto_read_request_routing_key;
 use crate::routing::key_range_cache::KeyRangeCache;
 use crate::routing::key_recipe_cache::KeyRecipeCache;
-use crate::routing::location_router::LocationRouter;
+use crate::routing::location_router::{LocationRouter, RoutingContext};
 use crate::routing::server_connection::ServerConnection;
 use crate::server_streaming::builder::{BatchWrite, ExecuteStreamingSql, StreamingRead};
 use crate::session_maintainer::ManagedSessionMaintainer;
@@ -83,9 +86,10 @@ macro_rules! define_db_rpc {
             options: RequestOptions,
             channel_hint: usize,
         ) -> Result<$response_type> {
+            let channel = self.spanner.get_channel(channel_hint);
             let response = self
                 .spanner
-                .$method(request, options, channel_hint, &self.o11y)
+                .$method(request, options, channel, &self.o11y)
                 .await?;
             response.observe(self);
             Ok(response)
@@ -101,7 +105,28 @@ macro_rules! define_db_streaming_rpc {
             options: RequestOptions,
             channel_hint: usize,
         ) -> $builder_type {
-            self.spanner.$method(request, options, channel_hint)
+            let channel = self.spanner.get_channel(channel_hint);
+            self.spanner.$method(request, options, channel)
+        }
+    };
+    ($method:ident, $request_type:ty, $builder_type:ty, $extract_key:expr) => {
+        pub(crate) fn $method(
+            &self,
+            request: $request_type,
+            options: RequestOptions,
+            channel_hint: usize,
+        ) -> $builder_type {
+            let routing_key = self
+                .location_routing
+                .as_ref()
+                .and_then(|routing| $extract_key(routing, &request));
+            let connection = self
+                .resolve_routing_connection(request.transaction.as_ref(), routing_key.as_deref());
+            let channel = connection.as_ref().map_or_else(
+                || self.spanner.get_channel(channel_hint),
+                |connection| connection.channel(),
+            );
+            self.spanner.$method(request, options, channel)
         }
     };
 }
@@ -120,7 +145,8 @@ impl DatabaseClient {
         options: RequestOptions,
         channel_hint: usize,
     ) -> RequestOptions {
-        self.spanner.attach_request_id(options, channel_hint)
+        let channel = self.spanner.get_channel(channel_hint);
+        self.spanner.attach_request_id(options, channel)
     }
 
     define_db_rpc!(begin_transaction, BeginTransactionRequest, Transaction);
@@ -135,12 +161,39 @@ impl DatabaseClient {
     define_db_rpc!(partition_query, PartitionQueryRequest, PartitionResponse);
     define_db_rpc!(partition_read, PartitionReadRequest, PartitionResponse);
 
+    /// Resolves the optimal [`ServerConnection`] for a request if location-aware routing is enabled.
+    ///
+    /// Returns `None` if location-aware routing is not configured or disabled (e.g. for standard Cloud Spanner).
+    pub(crate) fn resolve_routing_connection(
+        &self,
+        transaction: Option<&TransactionSelector>,
+        routing_key: Option<&[u8]>,
+    ) -> Option<ServerConnection> {
+        let routing = self.location_routing.as_ref()?;
+        let transaction_id = extract_transaction_id(transaction);
+        let routing_context = RoutingContext {
+            transaction_id,
+            routing_key,
+            prefer_leader: false,
+            use_transaction_affinity: false,
+        };
+        Some(routing.location_router.resolve_connection(&routing_context))
+    }
+
     define_db_streaming_rpc!(
         execute_streaming_sql,
         ExecuteSqlRequest,
-        ExecuteStreamingSql
+        ExecuteStreamingSql,
+        |_routing, _request| None::<Vec<u8>>
     );
-    define_db_streaming_rpc!(streaming_read, ReadRequest, StreamingRead);
+    define_db_streaming_rpc!(
+        streaming_read,
+        ReadRequest,
+        StreamingRead,
+        |routing: &LocationRoutingState, request: &ReadRequest| {
+            extract_proto_read_request_routing_key(&routing.key_recipe_cache, request)
+        }
+    );
     define_db_streaming_rpc!(batch_write, BatchWriteRequest, BatchWrite);
 
     /// Returns a builder for a single-use read-only transaction.
@@ -428,6 +481,13 @@ impl DatabaseClient {
     }
 }
 
+fn extract_transaction_id(transaction: Option<&TransactionSelector>) -> Option<&[u8]> {
+    match transaction?.selector.as_ref()? {
+        Selector::Id(bytes) => Some(bytes.as_ref()),
+        _ => None,
+    }
+}
+
 /// A builder for [DatabaseClient].
 pub struct DatabaseClientBuilder {
     spanner: Spanner,
@@ -435,6 +495,7 @@ pub struct DatabaseClientBuilder {
     database_role: Option<String>,
     options: Option<RequestOptions>,
     leader_aware_routing_enabled: bool,
+    location_aware_routing_enabled: Option<bool>,
 }
 
 impl DatabaseClientBuilder {
@@ -445,6 +506,7 @@ impl DatabaseClientBuilder {
             database_role: None,
             options: None,
             leader_aware_routing_enabled: true,
+            location_aware_routing_enabled: None,
         }
     }
 
@@ -525,6 +587,12 @@ impl DatabaseClientBuilder {
         self
     }
 
+    #[cfg(test)]
+    pub(crate) fn with_location_aware_routing(mut self, enabled: bool) -> Self {
+        self.location_aware_routing_enabled = Some(enabled);
+        self
+    }
+
     /// Builds the [DatabaseClient] and creates a single multiplexed session that
     /// will be used for all operations on the database.
     pub async fn build(self) -> crate::Result<DatabaseClient> {
@@ -553,10 +621,15 @@ impl DatabaseClientBuilder {
         )
         .await?;
 
-        let location_aware_routing_enabled = env::var("GOOGLE_SPANNER_EXPERIMENTAL_LOCATION_API")
-            .ok()
-            .and_then(|v| v.parse::<bool>().ok())
-            .unwrap_or(is_omni);
+        // TODO: Enable location-aware routing by default for Omni instances once fully stabilized.
+        let location_aware_routing_enabled = self
+            .location_aware_routing_enabled
+            .or_else(|| {
+                env::var("GOOGLE_SPANNER_EXPERIMENTAL_LOCATION_API")
+                    .ok()
+                    .and_then(|v| v.parse::<bool>().ok())
+            })
+            .unwrap_or(false);
 
         let location_routing = location_aware_routing_enabled
             .then(|| Arc::new(LocationRoutingState::new(&self.spanner)));
@@ -668,8 +741,14 @@ impl ObserveResponse for PartitionResponse {
 mod tests {
     use super::*;
     use crate::client::SpannerBuilderExt;
-    use crate::model::{CacheUpdate, CommitResponse, Group, KeyRecipe, Range, RecipeList, Tablet};
+    use crate::model::key_recipe::Part;
+    use crate::model::key_recipe::part::{NullOrder, Order};
+    use crate::model::{
+        CacheUpdate, CommitResponse, Group, KeyRecipe, KeySet, Range, RecipeList, Tablet,
+        TransactionOptions, Type, TypeCode,
+    };
     use crate::routing::key_range_cache::RangeMode;
+    use gaxi::options::ClientConfig;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_test_macros::tokio_test_no_panics;
     use spanner_grpc_mock::{MockSpanner, start};
@@ -865,14 +944,25 @@ mod tests {
             .await
             .expect("Failed to build client");
 
+        let db_client_omni_default = spanner_omni
+            .database_client("projects/p/instances/i/databases/d")
+            .build()
+            .await
+            .expect("omni default build should succeed");
+        assert!(
+            !db_client_omni_default.is_location_aware_routing_enabled(),
+            "location-aware routing should be disabled by default for Omni instances"
+        );
+
         let db_client_enabled = spanner_omni
             .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
             .build()
             .await
             .expect("build with enabled location-aware routing should succeed");
         assert!(
             db_client_enabled.is_location_aware_routing_enabled(),
-            "location-aware routing should be enabled for Omni instances"
+            "location-aware routing should be enabled when explicitly configured"
         );
     }
 
@@ -904,6 +994,7 @@ mod tests {
 
         let db_client = spanner
             .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
             .build()
             .await
             .expect("build should succeed");
@@ -1023,6 +1114,7 @@ mod tests {
 
         let db_client = spanner
             .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
             .build()
             .await
             .expect("build should succeed");
@@ -1076,6 +1168,7 @@ mod tests {
 
         let db_client = spanner
             .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
             .build()
             .await
             .expect("build should succeed");
@@ -1140,6 +1233,7 @@ mod tests {
 
         let db_client = spanner
             .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
             .build()
             .await
             .expect("build should succeed");
@@ -1206,6 +1300,7 @@ mod tests {
         let db_client = Arc::new(
             spanner
                 .database_client("projects/p/instances/i/databases/d")
+                .with_location_aware_routing(true)
                 .build()
                 .await
                 .expect("build should succeed"),
@@ -1263,6 +1358,7 @@ mod tests {
 
         let original_client = spanner
             .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
             .build()
             .await
             .expect("build should succeed");
@@ -1367,6 +1463,7 @@ mod tests {
 
         let db_client = spanner
             .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
             .build()
             .await
             .expect("build should succeed");
@@ -1429,6 +1526,7 @@ mod tests {
 
         let db_client = spanner
             .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
             .build()
             .await
             .expect("build should succeed");
@@ -1494,6 +1592,7 @@ mod tests {
         let db_client = Arc::new(
             spanner
                 .database_client("projects/p/instances/i/databases/d")
+                .with_location_aware_routing(true)
                 .build()
                 .await
                 .expect("build should succeed"),
@@ -1539,6 +1638,166 @@ mod tests {
         assert!(
             recipe_cache.get_table_recipe("NewTable_2").is_some(),
             "new database recipes must be preserved"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn resolve_read_channel_cloud_spanner_uses_default_channel() {
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().returning(|req| {
+            let req = req.into_inner();
+            let session = req.session.expect("session present in request");
+            Ok(gaxi::grpc::tonic::Response::new(
+                spanner_grpc_mock::google::spanner::v1::Session {
+                    name: "projects/p/instances/i/databases/d/sessions/s1".to_string(),
+                    multiplexed: session.multiplexed,
+                    ..Default::default()
+                },
+            ))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Cloud)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let db_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .build()
+            .await
+            .expect("build should succeed");
+
+        assert!(!db_client.is_location_aware_routing_enabled());
+        let connection = db_client.resolve_routing_connection(None, Some(b"Users.id=1".as_slice()));
+        assert!(connection.is_none());
+    }
+
+    #[tokio_test_no_panics]
+    async fn resolve_routing_connection_omni_cold_start_and_cache_hit_and_cooldown() {
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().returning(|req| {
+            let req = req.into_inner();
+            let session = req.session.expect("session present in request");
+            Ok(gaxi::grpc::tonic::Response::new(
+                spanner_grpc_mock::google::spanner::v1::Session {
+                    name: "projects/p/instances/i/databases/d/sessions/s1".to_string(),
+                    multiplexed: session.multiplexed,
+                    ..Default::default()
+                },
+            ))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let db_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
+            .build()
+            .await
+            .expect("build should succeed");
+
+        assert!(db_client.is_location_aware_routing_enabled());
+
+        let mut key_set = KeySet::new();
+        key_set
+            .keys
+            .push(vec![serde_json::Value::String("m".to_string())]);
+        let read_request = ReadRequest::new().set_table("Users").set_key_set(key_set);
+
+        // 1. Cold start: empty cache returns default connection
+        let routing_key = db_client.location_routing.as_ref().and_then(|routing| {
+            extract_proto_read_request_routing_key(&routing.key_recipe_cache, &read_request)
+        });
+        let cold_start_connection =
+            db_client.resolve_routing_connection(None, routing_key.as_deref());
+        assert!(cold_start_connection.is_some());
+        let cold_start_connection = cold_start_connection.expect("connection should be present");
+        assert_ne!(
+            cold_start_connection.address(),
+            "node-1.spanner.internal:15000"
+        );
+
+        // 2. Populate cache with a split covering "a" to "z" on node address
+        let node_address = "node-1.spanner.internal:15000";
+        let recipe = KeyRecipe::new().set_table_name("Users").set_part(vec![
+            Part::new().set_tag(50020u32),
+            Part::new()
+                .set_tag(1u32)
+                .set_identifier("id")
+                .set_type(Type::new().set_code(TypeCode::String))
+                .set_order(Order::Ascending)
+                .set_null_order(NullOrder::NotNull),
+        ]);
+        let cache_update = CacheUpdate::new()
+            .set_database_id(1u64)
+            .set_key_recipes(RecipeList::new().set_recipe(vec![recipe]))
+            .set_group(vec![
+                Group::new()
+                    .set_group_uid(100u64)
+                    .set_leader_index(0)
+                    .set_tablets(vec![Tablet::new().set_server_address(node_address)]),
+            ])
+            .set_range(vec![
+                Range::new()
+                    .set_group_uid(100u64)
+                    .set_start_key(b"".to_vec())
+                    .set_limit_key(b"\xff".to_vec()),
+            ]);
+        db_client.observe_cache_update(Some(cache_update));
+
+        let router = db_client.location_router().expect("router present");
+        let _ = router
+            .connection_cache()
+            .get(node_address, &ClientConfig::default())
+            .await
+            .expect("should initialize connection");
+
+        // 3. Cache hit: returns direct node connection
+        let routing_key = db_client.location_routing.as_ref().and_then(|routing| {
+            extract_proto_read_request_routing_key(&routing.key_recipe_cache, &read_request)
+        });
+        let hit_connection = db_client
+            .resolve_routing_connection(None, routing_key.as_deref())
+            .expect("hit connection present");
+        assert_eq!(hit_connection.address(), node_address);
+
+        // 4. Mark node on cooldown: falls back to default connection
+        router.cooldown_tracker().record_failure(node_address);
+        let fallback_connection = db_client
+            .resolve_routing_connection(None, routing_key.as_deref())
+            .expect("fallback connection present");
+        assert_ne!(fallback_connection.address(), node_address);
+    }
+
+    #[test]
+    fn extract_transaction_id_cases() {
+        assert_eq!(extract_transaction_id(None), None);
+
+        let selector_none = TransactionSelector::new();
+        assert_eq!(extract_transaction_id(Some(&selector_none)), None);
+
+        let selector_single = TransactionSelector::new().set_single_use(TransactionOptions::new());
+        assert_eq!(extract_transaction_id(Some(&selector_single)), None);
+
+        let selector_id = TransactionSelector::new().set_id(bytes::Bytes::from_static(b"txn-123"));
+        assert_eq!(
+            extract_transaction_id(Some(&selector_id)),
+            Some(b"txn-123".as_slice())
         );
     }
 }
