@@ -33,6 +33,7 @@ use crate::routing::key_recipe::{
     encode_key_from_json_recipe_into, encode_key_from_recipe_into,
 };
 use crate::routing::key_recipe_cache::KeyRecipeCache;
+use tracing::warn;
 
 /// Extracts and encodes a binary routing key (`Vec<u8>`) from a [`KeyRecipe`] and [`KeySet`].
 ///
@@ -319,7 +320,13 @@ pub(crate) fn extract_mutation_routing_key<M: ExtractableMutation>(
 ) -> Option<Vec<u8>> {
     let table = mutation.table_name()?;
     let recipe = key_recipe_cache.get_table_recipe(table)?;
-    mutation.extract_key(&recipe).ok().flatten()
+    match mutation.extract_key(&recipe) {
+        Ok(key) => key,
+        Err(err) => {
+            warn!(error = %err, table, "Failed to extract routing key from mutation");
+            None
+        }
+    }
 }
 
 /// Iterates through a slice of mutations and extracts the routing key from the first
@@ -362,7 +369,18 @@ pub(crate) fn extract_read_routing_key(
         Some(index_name) => key_recipe_cache.get_index_recipe(index_name)?,
         None => key_recipe_cache.get_table_recipe(table)?,
     };
-    extract_key_from_key_set(&recipe, key_set).ok().flatten()
+    match extract_key_from_key_set(&recipe, key_set) {
+        Ok(key) => key,
+        Err(err) => {
+            warn!(
+                error = %err,
+                table,
+                index = index.unwrap_or(""),
+                "Failed to extract routing key from read request"
+            );
+            None
+        }
+    }
 }
 
 /// Resolves the recipe from [`KeyRecipeCache`] and encodes the routing key for a [`ReadRequest`].
@@ -407,9 +425,18 @@ pub(crate) fn extract_proto_read_request_routing_key(
     } else {
         key_recipe_cache.get_table_recipe(&request.table)?
     };
-    extract_key_from_proto_key_set(&recipe, key_set)
-        .ok()
-        .flatten()
+    match extract_key_from_proto_key_set(&recipe, key_set) {
+        Ok(key) => key,
+        Err(err) => {
+            warn!(
+                error = %err,
+                table = request.table.as_str(),
+                index = request.index.as_str(),
+                "Failed to extract routing key from proto read request"
+            );
+            None
+        }
+    }
 }
 
 #[cfg(test)]
@@ -1422,6 +1449,34 @@ mod tests {
         assert_eq!(
             extract_proto_read_request_routing_key(&cache, &request_uncached),
             None
+        );
+    }
+
+    #[test]
+    fn extract_proto_read_request_routing_key_encoding_error_logs_and_returns_none() {
+        let cache = KeyRecipeCache::new();
+        let recipe = KeyRecipe::new().set_table_name("Events").set_part(vec![
+            Part::new().set_tag(50020u32),
+            Part::new()
+                .set_tag(0u32)
+                .set_identifier("event_date")
+                .set_type(Type::new().set_code(TypeCode::Date))
+                .set_order(Order::Ascending),
+        ]);
+        cache.insert(recipe);
+
+        let mut key_set = ProtoKeySet::new();
+        key_set.keys.push(vec![serde_json::Value::String(
+            "not-a-valid-date".to_string(),
+        )]);
+        let request = ProtoReadRequest::new()
+            .set_table("Events")
+            .set_key_set(key_set);
+
+        assert_eq!(
+            extract_proto_read_request_routing_key(&cache, &request),
+            None,
+            "Invalid date key value must fail encoding, log warning, and return None"
         );
     }
 }
