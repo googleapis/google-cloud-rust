@@ -190,21 +190,22 @@ impl RetryContext {
 
         let query_request_id = generate_prefixed_id(QUERY_REQUEST_ID_PREFIX);
         let query_request: QueryRequest = self.template.request.clone().into();
+        let query_request = query_request.set_format_options(
+            crate::model::DataFormatOptions::new().set_use_int64_timestamp(true),
+        );
+        #[cfg(google_cloud_unstable_bigquery_arrow)]
         let query_request = query_request
-            .set_format_options(
-                crate::model::DataFormatOptions::new()
-                    .set_use_int64_timestamp(true),
-            )
             .set_query_results_format(crate::model::query_request::QueryResultsFormat::Arrow)
             .set_results_format_serialization_options(
                 crate::model::query_request::ResultsFormatSerializationOptions::ArrowSerializationOptions(
-                    Box::new(crate::model::ArrowSerializationOptions::new()
-                        .set_buffer_compression(
+                    Box::new(
+                        crate::model::ArrowSerializationOptions::new().set_buffer_compression(
                             crate::model::arrow_serialization_options::CompressionCodec::Zstd,
-                        ))
-                )
-            )
-            .set_request_id(query_request_id);
+                        ),
+                    ),
+                ),
+            );
+        let query_request = query_request.set_request_id(query_request_id);
         let req = PostQueryRequest::new()
             .set_project_id(project_id)
             .set_query_request(query_request);
