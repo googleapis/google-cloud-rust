@@ -360,6 +360,59 @@ impl Storage {
             super::tracing::TracingAppendableObjectWriter::new(writer.into_parts()),
         ))
     }
+
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    async fn open_appendable_object_and_append_plain(
+        &self,
+        request: OpenAppendableObjectRequest,
+        chunk: bytes::Bytes,
+        options: RequestOptions,
+    ) -> Result<AppendableObjectWriter> {
+        let connector = BidiWriteConnector::new(options, self.inner.grpc.clone());
+        let transport =
+            AppendableObjectWriterTransport::new_open_and_append(connector, request, chunk).await?;
+        Ok(AppendableObjectWriter::new(transport))
+    }
+
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[tracing::instrument(name = "open_appendable_object", level = tracing::Level::DEBUG, ret, err(Debug), skip(chunk))]
+    async fn open_appendable_object_and_append_tracing(
+        &self,
+        request: OpenAppendableObjectRequest,
+        chunk: bytes::Bytes,
+        options: RequestOptions,
+    ) -> Result<AppendableObjectWriter> {
+        let resource_name = format!(
+            "//storage.googleapis.com/{}",
+            request
+                .spec
+                .resource
+                .as_ref()
+                .map(|r| r.bucket.as_str())
+                .unwrap_or_default()
+        );
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.metric.clone(),
+            info: *INSTRUMENTATION,
+            method: "client::Storage::open_appendable_object",
+            async {
+                if let Some(recorder) = RequestRecorder::current() {
+                    recorder.on_client_request(
+                        ClientRequestAttributes::default()
+                            .set_rpc_method("google.storage.v2.Storage/BidiWriteObject")
+                            .set_url_template("/upload/storage/v1/b/{bucket}/o")
+                            .set_resource_name(resource_name),
+                    );
+                }
+                self.open_appendable_object_and_append_plain(request, chunk, options)
+                    .await
+            }
+        );
+        let writer = pending.await?;
+        Ok(AppendableObjectWriter::new(
+            super::tracing::TracingAppendableObjectWriter::new(writer.into_parts()),
+        ))
+    }
 }
 
 impl super::stub::Storage for Storage {
@@ -434,6 +487,22 @@ impl super::stub::Storage for Storage {
             return self.open_appendable_object_tracing(request, options).await;
         }
         self.open_appendable_object_plain(request, options).await
+    }
+
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    async fn open_appendable_object_and_append(
+        &self,
+        request: OpenAppendableObjectRequest,
+        chunk: bytes::Bytes,
+        options: RequestOptions,
+    ) -> Result<AppendableObjectWriter> {
+        if self.tracing {
+            return self
+                .open_appendable_object_and_append_tracing(request, chunk, options)
+                .await;
+        }
+        self.open_appendable_object_and_append_plain(request, chunk, options)
+            .await
     }
 
     #[cfg(google_cloud_unstable_storage_bidi)]
