@@ -78,6 +78,7 @@ where
             spec: Arc::new(Mutex::new(AppendObjectSpecState::Write(
                 Box::default(),
                 None,
+                None,
             ))),
             options,
             client,
@@ -88,6 +89,14 @@ where
     pub async fn connect_open(
         &mut self,
         req: crate::model_ext::OpenAppendableObjectRequest,
+    ) -> Result<(BidiWriteObjectResponse, Connection<T::Stream>)> {
+        self.connect_open_and_append(req, None).await
+    }
+
+    pub async fn connect_open_and_append(
+        &mut self,
+        req: crate::model_ext::OpenAppendableObjectRequest,
+        initial_chunk: Option<bytes::Bytes>,
     ) -> Result<(BidiWriteObjectResponse, Connection<T::Stream>)> {
         let resource = match req.spec.resource {
             Some(r) => {
@@ -111,7 +120,7 @@ where
             .map(|p| p.to_proto().map_err(Error::deser))
             .transpose()?;
         *self.spec.lock().expect("never poisoned") =
-            AppendObjectSpecState::Write(Box::new(spec), None);
+            AppendObjectSpecState::Write(Box::new(spec), None, initial_chunk);
         self.connect_attempt_loop().await
     }
 
@@ -134,7 +143,7 @@ where
             .params
             .map(|p| p.to_proto().map_err(Error::deser))
             .transpose()?;
-        *self.spec.lock().expect("never poisoned") = AppendObjectSpecState::Append(spec);
+        *self.spec.lock().expect("never poisoned") = AppendObjectSpecState::Append(spec, None);
         self.connect_attempt_loop().await
     }
 
@@ -231,20 +240,40 @@ fn prepare_request(
     state: &AppendObjectSpecState,
     params: Option<CommonObjectRequestParams>,
 ) -> Result<(BidiWriteObjectRequest, String)> {
-    let (first_message, routing_token) = match state {
-        AppendObjectSpecState::Write(spec, rt) => {
-            (FirstMessage::WriteObjectSpec((**spec).clone()), rt.clone())
-        }
-        AppendObjectSpecState::Append(spec) => (
+    let (first_message, routing_token, initial_chunk) = match state {
+        AppendObjectSpecState::Write(spec, rt, data) => (
+            FirstMessage::WriteObjectSpec((**spec).clone()),
+            rt.clone(),
+            data.clone(),
+        ),
+        AppendObjectSpecState::Append(spec, data) => (
             FirstMessage::AppendObjectSpec(spec.clone()),
             spec.routing_token.clone(),
+            data.clone(),
         ),
     };
 
     let state_lookup = matches!(first_message, FirstMessage::AppendObjectSpec(_));
 
+    let data = match initial_chunk {
+        Some(chunk) if !chunk.is_empty() => {
+            let crc = crc32c::crc32c(&chunk);
+            Some(
+                crate::google::storage::v2::bidi_write_object_request::Data::ChecksummedData(
+                    crate::google::storage::v2::ChecksummedData {
+                        content: chunk,
+                        crc32c: Some(crc),
+                    },
+                ),
+            )
+        }
+        _ => None,
+    };
+
     let request = BidiWriteObjectRequest {
         first_message: Some(first_message),
+        write_offset: 0,
+        data,
         common_object_request_params: params,
         state_lookup,
         ..BidiWriteObjectRequest::default()
@@ -583,8 +612,8 @@ mod tests {
 
         let got = connector.spec.lock().expect("never poisoned").clone();
         match got {
-            AppendObjectSpecState::Write(_, _) => panic!("Should be Append"),
-            AppendObjectSpecState::Append(got) => {
+            AppendObjectSpecState::Write(..) => panic!("Should be Append"),
+            AppendObjectSpecState::Append(got, _) => {
                 assert_eq!(got.routing_token.as_deref(), Some("r1"));
             }
         }
@@ -698,7 +727,7 @@ mod tests {
         assert_eq!(response, initial);
 
         let guard = connector.spec.lock().expect("never poisoned");
-        if let AppendObjectSpecState::Append(s) = &*guard {
+        if let AppendObjectSpecState::Append(s, _) = &*guard {
             assert!(s.routing_token.is_none(), "{s:?}");
             assert_eq!(s.generation, 123456, "{s:?}");
             assert_eq!(
@@ -709,6 +738,83 @@ mod tests {
             panic!("Expected AppendObjectSpecState::Append");
         }
         drop(tx2);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn connect_open_and_append_sends_payload_in_first_request() -> Result<()> {
+        // Arrange
+        let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(5);
+        let stream = TonicResponse::from(rx);
+
+        let receivers = Arc::new(Mutex::new(Vec::new()));
+        let save = receivers.clone();
+        let mut mock = MockTestClient::new();
+        mock.expect_start()
+            .times(1)
+            .return_once(move |_, _, rx, _, _, _| {
+                save.lock().expect("never poisoned").push(rx);
+                Ok(Ok(stream))
+            });
+        let client = SharedMockClient::new(mock);
+        let mut connector = Connector::new(test_options(), client);
+
+        let initial = BidiWriteObjectResponse {
+            write_status: Some(
+                crate::google::storage::v2::bidi_write_object_response::WriteStatus::Resource(
+                    crate::google::storage::v2::Object {
+                        bucket: "projects/_/buckets/test-bucket".into(),
+                        name: "test-object".into(),
+                        generation: 123456,
+                        size: 11,
+                        ..crate::google::storage::v2::Object::default()
+                    },
+                ),
+            ),
+            ..BidiWriteObjectResponse::default()
+        };
+        tx.send(Ok(initial.clone())).await?;
+
+        let req = OpenAppendableObjectRequest {
+            spec: crate::model::WriteObjectSpec {
+                resource: Some(crate::model::Object {
+                    bucket: "projects/_/buckets/test-bucket".into(),
+                    name: "test-object".into(),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            },
+            params: None,
+        };
+
+        let chunk = bytes::Bytes::from_static(b"hello world");
+        let expected_crc = crc32c::crc32c(&chunk);
+
+        // Act
+        let (response, _connection) = connector
+            .connect_open_and_append(req, Some(chunk.clone()))
+            .await?;
+
+        // Assert
+        assert_eq!(response, initial);
+
+        let mut rx = receivers
+            .lock()
+            .expect("never poisoned")
+            .pop()
+            .expect("at least one receiver");
+        let got = rx.recv().await.expect("at least one request sent");
+
+        assert_eq!(got.write_offset, 0);
+        let checksummed_data = match got.data {
+            Some(crate::google::storage::v2::bidi_write_object_request::Data::ChecksummedData(
+                d,
+            )) => d,
+            _ => panic!("Expected ChecksummedData"),
+        };
+        assert_eq!(checksummed_data.content, chunk);
+        assert_eq!(checksummed_data.crc32c, Some(expected_crc));
 
         Ok(())
     }
@@ -774,8 +880,8 @@ mod tests {
         // spec state to an `Append` state tracking the new routing token.
         let got = connector.spec.lock().expect("never poisoned").clone();
         match got {
-            AppendObjectSpecState::Write(_, _) => panic!("Should be Append"),
-            AppendObjectSpecState::Append(got) => {
+            AppendObjectSpecState::Write(_, _, _) => panic!("Should be Append"),
+            AppendObjectSpecState::Append(got, _) => {
                 assert_eq!(got.routing_token.as_deref(), Some("r1"));
             }
         }
