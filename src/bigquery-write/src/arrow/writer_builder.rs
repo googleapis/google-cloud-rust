@@ -122,7 +122,11 @@ mod tests {
         use bigquery_write_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream as MockWriteStream;
         use bigquery_write_grpc_mock::{MockBigQueryWrite, start};
         let mut mock = MockBigQueryWrite::new();
-        mock.expect_create_write_stream().return_once(|_| {
+        mock.expect_create_write_stream().return_once(|req| {
+            let req = req.into_inner();
+            assert_eq!(req.parent, "projects/p/datasets/d/tables/t");
+            let ws = req.write_stream.expect("write_stream populated");
+            assert_eq!(Type::from(ws.r#type), Type::Pending);
             Ok(gaxi::grpc::tonic::Response::new(MockWriteStream {
                 name: "projects/p/datasets/d/tables/t/streams/s".to_string(),
                 ..Default::default()
@@ -166,8 +170,7 @@ mod tests {
             let req = req.into_inner();
             assert_eq!(req.parent, "projects/p/datasets/d/tables/t");
             let ws = req.write_stream.expect("write_stream populated");
-            // 1 == COMMITTED
-            assert_eq!(ws.r#type, 1);
+            assert_eq!(Type::from(ws.r#type), Type::Committed);
             Ok(gaxi::grpc::tonic::Response::new(MockWriteStream {
                 name: "projects/p/datasets/d/tables/t/streams/s".to_string(),
                 ..Default::default()
