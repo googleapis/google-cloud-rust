@@ -85,7 +85,7 @@ mod tests {
     use super::super::super::transport::tests::*;
     use super::*;
     use crate::error::AppendError;
-    use bigquery_write_grpc_mock::{MockBigQueryWrite, start};
+    use bigquery_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::Response as TonicResponse;
     use tokio::sync::mpsc;
 
@@ -126,7 +126,7 @@ mod tests {
                 assert_eq!(req.get_ref().offset, Some(3));
                 assert_eq!(req.get_ref().write_stream, write_stream());
                 Ok(TonicResponse::new(
-                    bigquery_write_grpc_mock::google::cloud::bigquery::storage::v1::FlushRowsResponse::default()
+                    bigquery_grpc_mock::google::cloud::bigquery::storage::v1::FlushRowsResponse::default()
                 ))
             });
 
@@ -134,7 +134,7 @@ mod tests {
             .return_once(|req| {
                 assert_eq!(req.get_ref().name, write_stream());
                 Ok(TonicResponse::new(
-                    bigquery_write_grpc_mock::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse::default()
+                    bigquery_grpc_mock::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse::default()
                 ))
             });
 
@@ -174,7 +174,7 @@ mod tests {
 
         mock.expect_flush_rows().times(2).returning(|req| {
             Ok(TonicResponse::new(
-                bigquery_write_grpc_mock::google::cloud::bigquery::storage::v1::FlushRowsResponse {
+                bigquery_grpc_mock::google::cloud::bigquery::storage::v1::FlushRowsResponse {
                     offset: req.get_ref().offset.unwrap_or(0),
                 },
             ))

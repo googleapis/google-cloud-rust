@@ -74,7 +74,7 @@ mod tests {
     use super::super::super::transport::tests::*;
     use super::*;
     use crate::error::AppendError;
-    use bigquery_write_grpc_mock::{MockBigQueryWrite, start};
+    use bigquery_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::Response as TonicResponse;
     use tokio::sync::mpsc;
 
@@ -112,7 +112,7 @@ mod tests {
 
         mock.expect_finalize_write_stream().return_once(|_| {
             Ok(TonicResponse::new(
-                bigquery_write_grpc_mock::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse::default(),
+                bigquery_grpc_mock::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse::default(),
             ))
         });
 

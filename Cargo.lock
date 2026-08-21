@@ -395,23 +395,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2af50177e190e07a26ab74f8b1efbfe2ef87da2116221318cb1c2e82baf7de06"
 
 [[package]]
-name = "bigquery-samples"
-version = "0.0.0"
-dependencies = [
- "anyhow",
- "futures",
- "google-cloud-bigquery",
- "google-cloud-bigquery-v2",
- "google-cloud-gax",
- "google-cloud-test-utils",
- "google-cloud-wkt",
- "rand 0.10.2",
- "tokio",
- "tracing",
-]
-
-[[package]]
-name = "bigquery-write-grpc-mock"
+name = "bigquery-grpc-mock"
 version = "0.0.0"
 dependencies = [
  "anyhow",
@@ -425,6 +409,22 @@ dependencies = [
  "tokio-stream",
  "tonic",
  "tonic-prost",
+]
+
+[[package]]
+name = "bigquery-samples"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "futures",
+ "google-cloud-bigquery",
+ "google-cloud-bigquery-v2",
+ "google-cloud-gax",
+ "google-cloud-test-utils",
+ "google-cloud-wkt",
+ "rand 0.10.2",
+ "tokio",
+ "tracing",
 ]
 
 [[package]]
@@ -2328,7 +2328,7 @@ dependencies = [
  "anyhow",
  "async-trait",
  "base64 0.23.1",
- "bigquery-write-grpc-mock",
+ "bigquery-grpc-mock",
  "bytes",
  "google-cloud-auth",
  "google-cloud-bigquery",

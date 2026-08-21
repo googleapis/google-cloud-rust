@@ -147,7 +147,7 @@ pub(crate) mod tests {
     use crate::google::cloud::bigquery::storage::v1::append_rows_response::{
         AppendResult, Response,
     };
-    use bigquery_write_grpc_mock::{MockBigQueryWrite, start};
+    use bigquery_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::Response as TonicResponse;
     use google_cloud_gax::error::rpc::Code;
 
