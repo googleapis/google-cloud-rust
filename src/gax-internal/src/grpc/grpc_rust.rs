@@ -42,6 +42,8 @@ pub mod bidi;
 mod metadata;
 mod receive;
 mod send;
+#[cfg(test)]
+pub(crate) mod testing;
 mod unary;
 
 pub use bidi::GrpcRustStreaming;
