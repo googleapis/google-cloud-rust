@@ -197,45 +197,14 @@ where
 
 #[cfg(test)]
 mod tests {
+    use super::super::testing::*;
     use super::*;
     use pretty_assertions::assert_eq;
-
-    #[derive(Clone, PartialEq, prost::Message)]
-    struct TestMessage {
-        #[prost(string, tag = "1")]
-        value: String,
-    }
-
-    struct TestPendingSendStream;
-
-    impl SendStream for TestPendingSendStream {
-        async fn send(
-            &mut self,
-            _message: &dyn SendMessage,
-            _options: SendOptions,
-        ) -> Result<(), ()> {
-            std::future::pending().await
-        }
-    }
-
-    struct TestFailingSendStream;
-
-    impl SendStream for TestFailingSendStream {
-        async fn send(
-            &mut self,
-            _message: &dyn SendMessage,
-            _options: SendOptions,
-        ) -> Result<(), ()> {
-            Err(())
-        }
-    }
 
     #[test]
     fn grpc_rust_send_encodes_correctly() -> anyhow::Result<()> {
         // Arrange
-        let want = TestMessage {
-            value: "hello".to_string(),
-        };
+        let want = TestMessage::new("hello");
 
         // Act
         let mut encoded = GrpcRustSend(want.clone())
@@ -251,10 +220,8 @@ mod tests {
     #[tokio::test]
     async fn send_task_join_returns_status_when_send_fails() -> anyhow::Result<()> {
         // Arrange
-        let stream = tokio_stream::iter(vec![TestMessage {
-            value: "hello".to_string(),
-        }]);
-        let mut task = SendTask::start(TestFailingSendStream, stream);
+        let stream = tokio_stream::iter(vec![TestMessage::new("hello")]);
+        let mut task = SendTask::start(FailingSendStream, stream);
 
         // Act
         let status = task
@@ -273,22 +240,8 @@ mod tests {
         // Arrange
         const SIMULATED_PANIC_MSG: &str = "simulated panic in send stream";
 
-        struct TestPanicSendStream;
-
-        impl SendStream for TestPanicSendStream {
-            async fn send(
-                &mut self,
-                _message: &dyn SendMessage,
-                _options: SendOptions,
-            ) -> Result<(), ()> {
-                panic!("{SIMULATED_PANIC_MSG}");
-            }
-        }
-
-        let stream = tokio_stream::iter(vec![TestMessage {
-            value: "hello".to_string(),
-        }]);
-        let mut task = SendTask::start(TestPanicSendStream, stream);
+        let stream = tokio_stream::iter(vec![TestMessage::new("hello")]);
+        let mut task = SendTask::start(PanicSendStream::new(SIMULATED_PANIC_MSG), stream);
 
         // Act
         let status = task
@@ -306,7 +259,7 @@ mod tests {
     async fn send_task_join_clears_handle_allowing_safe_drop() -> anyhow::Result<()> {
         // Arrange
         let stream = tokio_stream::empty::<TestMessage>();
-        let mut task = SendTask::start(TestPendingSendStream, stream);
+        let mut task = SendTask::start(PendingSendStream, stream);
 
         // Act
         let result = task.join().await;
@@ -322,7 +275,7 @@ mod tests {
     async fn send_task_abort_cancels_task_and_clears_handle() -> anyhow::Result<()> {
         // Arrange
         let stream = tokio_stream::pending::<TestMessage>();
-        let mut task = SendTask::start(TestPendingSendStream, stream);
+        let mut task = SendTask::start(PendingSendStream, stream);
         assert!(
             task.handle.is_some(),
             "task should contain handle after start"
@@ -343,7 +296,7 @@ mod tests {
     async fn send_task_abort_is_idempotent_when_handle_is_none() -> anyhow::Result<()> {
         // Arrange
         let stream = tokio_stream::pending::<TestMessage>();
-        let mut task = SendTask::start(TestPendingSendStream, stream);
+        let mut task = SendTask::start(PendingSendStream, stream);
 
         // Act
         task.abort();
@@ -359,7 +312,7 @@ mod tests {
     async fn send_state_join_transitions_to_complete_on_success() -> anyhow::Result<()> {
         // Arrange
         let stream = tokio_stream::empty::<TestMessage>();
-        let mut state = SendState::new(SendTask::start(TestPendingSendStream, stream));
+        let mut state = SendState::new(SendTask::start(PendingSendStream, stream));
         assert!(state.is_active(), "state should initially be active");
 
         // Act
@@ -374,10 +327,8 @@ mod tests {
     #[tokio::test]
     async fn send_state_join_transitions_to_failed_on_send_error() -> anyhow::Result<()> {
         // Arrange
-        let stream = tokio_stream::iter([TestMessage {
-            value: "hello".to_string(),
-        }]);
-        let mut state = SendState::new(SendTask::start(TestFailingSendStream, stream));
+        let stream = tokio_stream::iter([TestMessage::new("hello")]);
+        let mut state = SendState::new(SendTask::start(FailingSendStream, stream));
 
         // Act
         state.join().await;
@@ -393,10 +344,8 @@ mod tests {
     #[tokio::test]
     async fn send_state_join_if_finished_joins_when_task_is_finished() -> anyhow::Result<()> {
         // Arrange
-        let stream = tokio_stream::iter([TestMessage {
-            value: "hello".to_string(),
-        }]);
-        let mut state = SendState::new(SendTask::start(TestFailingSendStream, stream));
+        let stream = tokio_stream::iter([TestMessage::new("hello")]);
+        let mut state = SendState::new(SendTask::start(FailingSendStream, stream));
 
         // Wait briefly for the task to finish executing.
         tokio::time::sleep(std::time::Duration::from_millis(50)).await;
@@ -416,7 +365,7 @@ mod tests {
     async fn send_state_join_if_finished_noop_when_task_is_not_finished() -> anyhow::Result<()> {
         // Arrange
         let stream = tokio_stream::pending::<TestMessage>();
-        let mut state = SendState::new(SendTask::start(TestPendingSendStream, stream));
+        let mut state = SendState::new(SendTask::start(PendingSendStream, stream));
 
         // Act
         state.join_if_finished().await;
@@ -431,7 +380,7 @@ mod tests {
     async fn send_state_abort_transitions_to_complete_and_aborts_task() -> anyhow::Result<()> {
         // Arrange
         let stream = tokio_stream::pending::<TestMessage>();
-        let mut state = SendState::new(SendTask::start(TestPendingSendStream, stream));
+        let mut state = SendState::new(SendTask::start(PendingSendStream, stream));
 
         // Act
         state.abort();
@@ -451,10 +400,8 @@ mod tests {
     #[tokio::test]
     async fn send_state_abort_on_failed_state_retains_failure() -> anyhow::Result<()> {
         // Arrange
-        let stream = tokio_stream::iter([TestMessage {
-            value: "hello".to_string(),
-        }]);
-        let mut state = SendState::new(SendTask::start(TestFailingSendStream, stream));
+        let stream = tokio_stream::iter([TestMessage::new("hello")]);
+        let mut state = SendState::new(SendTask::start(FailingSendStream, stream));
         state.join().await;
         assert!(state.failure().is_some(), "should be failed");
 

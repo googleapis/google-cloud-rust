@@ -239,6 +239,7 @@ fn grpc_rust_error_to_tonic_code(code: StatusCodeError) -> tonic::Code {
 
 #[cfg(test)]
 mod tests {
+    use super::super::testing::*;
     use super::*;
     use grpc::StatusError;
     use grpc::client::ResponseHeaders;
@@ -300,18 +301,10 @@ mod tests {
         assert_eq!(grpc_rust_error_to_tonic_code(input), want);
     }
 
-    #[derive(Clone, PartialEq, prost::Message)]
-    struct TestMessage {
-        #[prost(string, tag = "1")]
-        value: String,
-    }
-
     #[test]
     fn grpc_rust_recv_decodes_correctly() -> anyhow::Result<()> {
         // Arrange
-        let want = TestMessage {
-            value: "hello".to_string(),
-        };
+        let want = TestMessage::new("hello");
         let mut encoded = bytes::Bytes::from(want.encode_to_vec());
         let mut recv = GrpcRustRecv::<TestMessage>::new();
 
@@ -324,27 +317,11 @@ mod tests {
         Ok(())
     }
 
-    struct TestClosedStream;
-
-    impl RecvStream for TestClosedStream {
-        async fn recv(&mut self, _buf: &mut dyn RecvMessage) -> ResponseStreamItem {
-            ResponseStreamItem::StreamClosed
-        }
-    }
-
-    struct TestPendingStream;
-
-    impl RecvStream for TestPendingStream {
-        async fn recv(&mut self, _buf: &mut dyn RecvMessage) -> ResponseStreamItem {
-            std::future::pending().await
-        }
-    }
-
     #[tokio::test]
     async fn receive_task_join_returns_internal_status_when_stream_closed_without_trailers()
     -> anyhow::Result<()> {
         // Arrange
-        let (mut rx, mut task) = ReceiveTask::start::<TestMessage, _>(TestClosedStream);
+        let (mut rx, mut task) = ReceiveTask::start::<TestMessage, _>(ClosedRecvStream);
 
         // Act
         let item = rx
@@ -369,7 +346,7 @@ mod tests {
     async fn receive_task_join_returns_internal_status_when_receiver_dropped_early()
     -> anyhow::Result<()> {
         // Arrange
-        let (rx, mut task) = ReceiveTask::start::<TestMessage, _>(TestPendingStream);
+        let (rx, mut task) = ReceiveTask::start::<TestMessage, _>(PendingRecvStream);
         drop(rx);
 
         // Act
@@ -386,15 +363,8 @@ mod tests {
         // Arrange
         const SIMULATED_PANIC_MSG: &str = "simulated panic in recv stream";
 
-        struct TestPanicStream;
-
-        impl RecvStream for TestPanicStream {
-            async fn recv(&mut self, _buf: &mut dyn RecvMessage) -> ResponseStreamItem {
-                panic!("{SIMULATED_PANIC_MSG}");
-            }
-        }
-
-        let (_rx, mut task) = ReceiveTask::start::<TestMessage, _>(TestPanicStream);
+        let (_rx, mut task) =
+            ReceiveTask::start::<TestMessage, _>(PanicRecvStream::new(SIMULATED_PANIC_MSG));
 
         // Act
         let status = task.join().await;
@@ -408,7 +378,7 @@ mod tests {
     #[tokio::test]
     async fn receive_task_join_returns_cancelled_status_when_task_aborted() -> anyhow::Result<()> {
         // Arrange
-        let (_rx, mut task) = ReceiveTask::start::<TestMessage, _>(TestPendingStream);
+        let (_rx, mut task) = ReceiveTask::start::<TestMessage, _>(PendingRecvStream);
         let handle = task
             .handle
             .as_ref()
@@ -427,7 +397,7 @@ mod tests {
     #[tokio::test]
     async fn receive_task_join_clears_handle_allowing_safe_drop() -> anyhow::Result<()> {
         // Arrange
-        let (_rx, mut task) = ReceiveTask::start::<TestMessage, _>(TestClosedStream);
+        let (_rx, mut task) = ReceiveTask::start::<TestMessage, _>(ClosedRecvStream);
 
         // Act
         let status = task.join().await;
@@ -442,7 +412,7 @@ mod tests {
     #[tokio::test]
     async fn receive_task_join_called_multiple_times_returns_error() -> anyhow::Result<()> {
         // Arrange
-        let (_rx, mut task) = ReceiveTask::start::<TestMessage, _>(TestPendingStream);
+        let (_rx, mut task) = ReceiveTask::start::<TestMessage, _>(PendingRecvStream);
         let handle = task
             .handle
             .as_ref()
@@ -483,52 +453,15 @@ mod tests {
         const ERROR_MESSAGE_CHANNEL_YIELD: &str = "channel should yield item";
         const ERROR_MESSAGE_NON_TERMINAL: &str = "expected non-terminal item";
 
-        // TODO(#5991): Refactor common stream state test mocks across grpc_rust tests.
-        #[derive(Default)]
-        enum StreamState {
-            #[default]
-            Initial,
-            HeadersSent,
-            MessageSent,
-            Done,
-        }
+        let mut metadata = grpc::metadata::MetadataMap::new();
+        metadata.insert(HEADER_KEY, MetadataValue::from_static(HEADER_VALUE));
+        let stream = MockRecvStream::new([
+            MockRecvAction::Headers(ResponseHeaders::new().with_metadata(metadata)),
+            MockRecvAction::Message(TestMessage::new(MESSAGE_VALUE)),
+            MockRecvAction::Trailers(Trailers::new(Ok(()))),
+        ]);
 
-        struct TestHeadersStream {
-            state: StreamState,
-        }
-
-        impl RecvStream for TestHeadersStream {
-            async fn recv(&mut self, message: &mut dyn RecvMessage) -> ResponseStreamItem {
-                match self.state {
-                    StreamState::Initial => {
-                        self.state = StreamState::HeadersSent;
-                        let mut metadata = grpc::metadata::MetadataMap::new();
-                        metadata.insert(HEADER_KEY, MetadataValue::from_static(HEADER_VALUE));
-                        ResponseStreamItem::Headers(ResponseHeaders::new().with_metadata(metadata))
-                    }
-                    StreamState::HeadersSent => {
-                        self.state = StreamState::MessageSent;
-                        let response = TestMessage {
-                            value: MESSAGE_VALUE.to_string(),
-                        };
-                        let mut encoded = bytes::Bytes::from(response.encode_to_vec());
-                        message
-                            .decode(&mut encoded)
-                            .expect("decode response message");
-                        ResponseStreamItem::Message
-                    }
-                    StreamState::MessageSent => {
-                        self.state = StreamState::Done;
-                        ResponseStreamItem::Trailers(Trailers::new(Ok(())))
-                    }
-                    StreamState::Done => ResponseStreamItem::StreamClosed,
-                }
-            }
-        }
-
-        let (mut rx, _task) = ReceiveTask::start::<TestMessage, _>(TestHeadersStream {
-            state: StreamState::default(),
-        });
+        let (mut rx, _task) = ReceiveTask::start::<TestMessage, _>(stream);
 
         // Act
         let first_item = rx
@@ -559,12 +492,7 @@ mod tests {
             RecvItem::Headers(_) => panic!("expected message item"),
             RecvItem::Message(m) => m,
         };
-        assert_eq!(
-            msg,
-            TestMessage {
-                value: MESSAGE_VALUE.to_string()
-            }
-        );
+        assert_eq!(msg, TestMessage::new(MESSAGE_VALUE));
 
         // Act
         let terminal_item = rx
