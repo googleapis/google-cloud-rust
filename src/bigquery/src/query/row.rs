@@ -14,6 +14,7 @@
 
 use crate::error::{ConvertError, RowError};
 use crate::query::{FromSql, Schema};
+use google_cloud_bigquery_v2::model::TableFieldSchema;
 use std::sync::Arc;
 use wkt::{ListValue, Struct, Value};
 
@@ -101,30 +102,7 @@ impl ColumnIndex for String {
 
 impl Row {
     pub(crate) fn try_new(row: Struct, schema: &Arc<Schema>) -> Result<Self> {
-        let field_list = get_field_list(row)?;
-
-        if field_list.len() != schema.len() {
-            return Err(RowError::InvalidRowFormat(format!(
-                "schema and row cell mismatch (expected {}, got {})",
-                schema.len(),
-                field_list.len()
-            )));
-        }
-
-        let mut values = ListValue::new();
-        for (i, cell) in field_list.into_iter().enumerate() {
-            let value = get_field_value(cell)?;
-            match schema.get_field_by_index(i) {
-                Some(f) => {
-                    let field_name = &f.name;
-                    let field_type = &f.r#type;
-                    let schema = Arc::new(Schema::new_from_field(f.clone()));
-                    let value = convert_value(value, field_name, field_type, &schema)?;
-                    values.push(value);
-                }
-                None => continue,
-            }
-        }
+        let values = convert_row(row, schema.fields())?;
 
         Ok(Self {
             values: Value::Array(values),
@@ -246,6 +224,24 @@ impl Row {
     }
 }
 
+fn convert_row(row: Struct, fields: &[TableFieldSchema]) -> Result<ListValue> {
+    let field_list = get_field_list(row)?;
+
+    if field_list.len() != fields.len() {
+        return Err(RowError::InvalidRowFormat(format!(
+            "schema and row cell mismatch (expected {}, got {})",
+            fields.len(),
+            field_list.len()
+        )));
+    }
+
+    let mut values = ListValue::with_capacity(fields.len());
+    for (cell, field) in field_list.into_iter().zip(fields) {
+        values.push(convert_value(get_field_value(cell)?, field)?);
+    }
+    Ok(values)
+}
+
 fn get_field_list(mut row: Struct) -> Result<Vec<Value>> {
     match row.remove("f") {
         Some(Value::Array(arr)) => Ok(arr),
@@ -264,49 +260,35 @@ fn get_field_value(value: Value) -> Result<Value> {
     }
 }
 
-fn convert_value(
-    value: Value,
-    field_name: &str,
-    field_type: &str,
-    schema: &Arc<Schema>,
-) -> Result<Value> {
+fn convert_value(value: Value, field: &TableFieldSchema) -> Result<Value> {
     match value {
         Value::Null => Ok(Value::Null),
-        Value::String(v) => convert_basic_type(v, field_name, field_type),
-        Value::Object(v) => convert_nested(v, schema),
-        Value::Array(v) => convert_repeated(v, field_name, field_type, schema),
+        Value::String(v) => convert_basic_type(v, &field.name, &field.r#type),
+        Value::Object(v) => convert_nested(v, &field.fields),
+        Value::Array(v) => convert_repeated(v, field),
         _ => Err(RowError::InvalidRowFormat(format!(
             "cell value is not an object: value={:?}, field_type={:?}",
-            value, field_type
+            value, field.r#type
         ))),
     }
 }
 
-fn convert_repeated(
-    value: ListValue,
-    field_name: &str,
-    field_type: &str,
-    schema: &Arc<Schema>,
-) -> Result<Value> {
+fn convert_repeated(value: ListValue, field: &TableFieldSchema) -> Result<Value> {
     let mut values = ListValue::new();
     for cell in value {
         // each cell contains a single entry, keyed by "v"
         let val = get_field_value(cell)?;
-        let v = convert_value(val, field_name, field_type, schema)?;
+        let v = convert_value(val, field)?;
         values.push(v);
     }
     Ok(Value::Array(values))
 }
 
-fn convert_nested(value: Struct, schema: &Arc<Schema>) -> Result<Value> {
-    let row = Row::try_new(value, schema)?;
+fn convert_nested(value: Struct, fields: &[TableFieldSchema]) -> Result<Value> {
+    let values = convert_row(value, fields)?;
     let mut obj = Struct::new();
-    if let Value::Array(list) = row.values {
-        for (i, val) in list.into_iter().enumerate() {
-            if let Some(field) = schema.get_field_by_index(i) {
-                obj.insert(field.name.clone(), val);
-            }
-        }
+    for (field, value) in fields.iter().zip(values) {
+        obj.insert(field.name.clone(), value);
     }
     Ok(Value::Object(obj))
 }
