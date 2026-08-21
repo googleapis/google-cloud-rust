@@ -51,7 +51,45 @@ impl AppendableObjectWriterTransport {
         <T as Client>::Stream: TonicStreaming,
     {
         let (initial, connection) = connector.connect_open(req).await?;
-        Self::start_worker(connector, initial, connection, 0)
+        Self::start_worker(connector, initial, connection, 0, 0, None)
+    }
+
+    pub async fn new_open_and_append<T>(
+        mut connector: Connector<T>,
+        req: OpenAppendableObjectRequest,
+        chunk: Bytes,
+    ) -> Result<Self>
+    where
+        T: Client + Clone + Sync + Send + 'static,
+        <T as Client>::Stream: TonicStreaming,
+    {
+        if chunk.is_empty() {
+            return Self::new_open(connector, req).await;
+        }
+
+        let first_chunk_len = std::cmp::min(chunk.len(), MAX_WRITE_CHUNK_SIZE);
+        let first_chunk = chunk.slice(0..first_chunk_len);
+        let first_chunk_crc = crc32c::crc32c(&first_chunk);
+
+        let (initial, connection) = connector
+            .connect_open_and_append(req, Some(first_chunk))
+            .await?;
+
+        let mut transport = Self::start_worker(
+            connector,
+            initial,
+            connection,
+            0,
+            first_chunk_len,
+            Some(first_chunk_crc),
+        )?;
+
+        if chunk.len() > MAX_WRITE_CHUNK_SIZE {
+            let remaining = chunk.slice(MAX_WRITE_CHUNK_SIZE..);
+            transport.append(remaining).await?;
+        }
+
+        Ok(transport)
     }
 
     pub async fn new_reopen<T>(
@@ -64,7 +102,7 @@ impl AppendableObjectWriterTransport {
     {
         let generation = req.generation;
         let (initial, connection) = connector.connect_reopen(req).await?;
-        Self::start_worker(connector, initial, connection, generation)
+        Self::start_worker(connector, initial, connection, generation, 0, None)
     }
 
     fn start_worker<T>(
@@ -72,6 +110,8 @@ impl AppendableObjectWriterTransport {
         initial: BidiWriteObjectResponse,
         connection: Connection<<T as Client>::Stream>,
         generation: i64,
+        initial_chunk_len: usize,
+        initial_chunk_crc: Option<u32>,
     ) -> Result<Self>
     where
         T: Client + Clone + Sync + Send + 'static,
@@ -98,19 +138,23 @@ impl AppendableObjectWriterTransport {
         // calculation. Default is `None`. We will then see if we can establish
         // a valid CRC32C baseline.
         let mut running_crc32c = None;
-        if persisted_size == 0 {
-            // A brand new object or takeover an existing object with 0 bytes written,
-            // so we start with a checksum of 0.
-            running_crc32c = Some(0);
-        } else if let Some(crc) = initial
-            .persisted_data_checksums
-            .as_ref()
-            .and_then(|c| c.crc32c)
-        {
-            // Takeover an existing object where the server returns the checksum
-            // of the persisted data. The running CRC32C checksum will start with
-            // this value.
-            running_crc32c = Some(crc);
+        if initial_chunk_len == 0 {
+            if persisted_size == 0 {
+                // A brand new object or takeover an existing object with 0 bytes written,
+                // so we start with a checksum of 0.
+                running_crc32c = Some(0);
+            } else if let Some(crc) = initial
+                .persisted_data_checksums
+                .as_ref()
+                .and_then(|c| c.crc32c)
+            {
+                // Takeover an existing object where the server returns the checksum
+                // of the persisted data. The running CRC32C checksum will start with
+                // this value.
+                running_crc32c = Some(crc);
+            }
+        } else {
+            running_crc32c = initial_chunk_crc;
         }
         // If persisted_size > 0 but the server didn't provide a checksum,
         // we can't reliably continue a running checksum, so it remains `None`.
@@ -120,11 +164,13 @@ impl AppendableObjectWriterTransport {
         let worker = Worker::new(connector);
         let worker_handle = Some(tokio::spawn(worker.run(connection, rx)));
 
+        let write_offset = std::cmp::max(persisted_size, initial_chunk_len as i64);
+
         Ok(Self {
             tx,
             generation,
             persisted_size,
-            write_offset: persisted_size,
+            write_offset,
             running_crc32c,
             worker_handle,
         })
@@ -1026,6 +1072,53 @@ mod tests {
 
         assert!(err.is_io(), "{err:?}");
         assert!(err.to_string().contains("object is already finalized"));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn open_and_append_initial_state() -> anyhow::Result<()> {
+        let (tx1, rx1) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(5);
+        let stream1 = TonicResponse::from(rx1);
+
+        let mut mock = MockTestClient::new();
+        mock.expect_start()
+            .return_once(move |_, _, _, _, _, _| Ok(Ok(stream1)));
+        let connector = mock_connector(mock);
+
+        let mut req = OpenAppendableObjectRequest {
+            spec: Default::default(),
+            params: None,
+        };
+        req.spec.resource = Some(
+            crate::model::Object::default()
+                .set_bucket("projects/_/buckets/test-bucket")
+                .set_name("test-object"),
+        );
+
+        let chunk = bytes::Bytes::from_static(b"hello world");
+        let expected_crc = crc32c::crc32c(&chunk);
+
+        let initial_response = BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::Resource(Object {
+                bucket: "projects/_/buckets/test-bucket".into(),
+                name: "test-object".into(),
+                size: 0,
+                generation: 987654321,
+                finalize_time: None,
+                ..Default::default()
+            })),
+            ..Default::default()
+        };
+        tx1.send(Ok(initial_response)).await?;
+
+        let transport =
+            AppendableObjectWriterTransport::new_open_and_append(connector, req, chunk.clone())
+                .await?;
+
+        assert_eq!(transport.generation(), 987654321);
+        assert_eq!(transport.persisted_size(), 0);
+        assert_eq!(transport.write_offset, chunk.len() as i64);
+        assert_eq!(transport.running_crc32c, Some(expected_crc));
         Ok(())
     }
 }
