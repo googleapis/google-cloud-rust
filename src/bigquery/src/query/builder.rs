@@ -13,12 +13,12 @@
 // limitations under the License.
 
 use crate::generated::QueryRequest;
-use crate::model::JobReference;
-use crate::model::query_request::JobCreationMode;
 use crate::query::execution::RetryContext;
 use crate::query::retry_policy::{JobRetryPolicy, default_job_retry_policy};
 use crate::query::{CompleteQuery, Query as QueryHandle, Result};
 use google_cloud_bigquery_v2::client::JobService;
+use google_cloud_bigquery_v2::model::JobReference;
+use google_cloud_bigquery_v2::model::query_request::JobCreationMode;
 use std::sync::Arc;
 use uuid::Uuid;
 

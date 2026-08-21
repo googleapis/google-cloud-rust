@@ -739,10 +739,9 @@ impl Echo {
     /// ```
     /// # use google_cloud_showcase_v1beta1::client::Echo;
     /// # use google_cloud_showcase_v1beta1::model::EchoRequest;
-    /// use google_cloud_showcase_v1beta1::Result;
     /// async fn sample(
     ///    client: &Echo
-    /// ) -> Result<()> {
+    /// ) -> anyhow::Result<()> {
     ///     let (sender, mut receiver) = client.chat()
     ///         .build();
     ///
@@ -1888,10 +1887,9 @@ impl Messaging {
     /// ```
     /// # use google_cloud_showcase_v1beta1::client::Messaging;
     /// # use google_cloud_showcase_v1beta1::model::ConnectRequest;
-    /// use google_cloud_showcase_v1beta1::Result;
     /// async fn sample(
     ///    client: &Messaging
-    /// ) -> Result<()> {
+    /// ) -> anyhow::Result<()> {
     ///     let (sender, mut receiver) = client.connect()
     ///         .build();
     ///

@@ -108,12 +108,9 @@ pub mod client {
     // TODO(#6152) - add Write admin client
 }
 
-/// The messages and enums that are part of this client library.
-pub mod model {
-    // TODO(#6443) - move into `model_ext`
-    pub use crate::generated::{CompleteQueryMetadata, QueryMetadata};
-    // TODO(#6224) - restrict exports?
-    pub use google_cloud_bigquery_v2::model::*;
+/// Extends [google_cloud_bigquery_v2::model] with types that improve ergonomics.
+pub mod model_ext {
+    pub use crate::generated::{CompleteQueryMetadata, QueryMetadata, QueryRequest};
 }
 
 /// Request and client builders.
