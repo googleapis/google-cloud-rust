@@ -1508,7 +1508,6 @@ mod tests {
                 let stmt = Statement::builder("SELECT 1")
                     .with_attempt_timeout(Duration::from_secs(10))
                     .build();
-                // TODO(#5673): ensure that transaction ID is processed even if ResultSet is dropped
                 let _rs = tx.execute_query(stmt).await?;
 
                 // Read
