@@ -55,6 +55,25 @@ impl ::prost::Name for EchoResponse {
         "type.googleapis.com/google.showcase.v1beta1.EchoResponse".into()
     }
 }
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ExpandRequest {
+    #[prost(string, tag = "1")]
+    pub content: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "2")]
+    pub error: ::core::option::Option<super::super::rpc::Status>,
+    #[prost(message, optional, tag = "3")]
+    pub stream_wait_time: ::core::option::Option<::prost_types::Duration>,
+}
+impl ::prost::Name for ExpandRequest {
+    const NAME: &'static str = "ExpandRequest";
+    const PACKAGE: &'static str = "google.showcase.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.showcase.v1beta1.ExpandRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.showcase.v1beta1.ExpandRequest".into()
+    }
+}
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
 pub enum Severity {
@@ -127,6 +146,23 @@ impl ::prost::Name for Blurb {
     }
     fn type_url() -> ::prost::alloc::string::String {
         "type.googleapis.com/google.showcase.v1beta1.Blurb".into()
+    }
+}
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct StreamBlurbsRequest {
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "2")]
+    pub expire_time: ::core::option::Option<::prost_types::Timestamp>,
+}
+impl ::prost::Name for StreamBlurbsRequest {
+    const NAME: &'static str = "StreamBlurbsRequest";
+    const PACKAGE: &'static str = "google.showcase.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.showcase.v1beta1.StreamBlurbsRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.showcase.v1beta1.StreamBlurbsRequest".into()
     }
 }
 #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
@@ -230,5 +266,39 @@ impl ::prost::Name for ConnectRequest {
     }
     fn type_url() -> ::prost::alloc::string::String {
         "type.googleapis.com/google.showcase.v1beta1.ConnectRequest".into()
+    }
+}
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct AttemptStreamingSequenceRequest {
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    #[prost(int32, tag = "2")]
+    pub last_fail_index: i32,
+}
+impl ::prost::Name for AttemptStreamingSequenceRequest {
+    const NAME: &'static str = "AttemptStreamingSequenceRequest";
+    const PACKAGE: &'static str = "google.showcase.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.showcase.v1beta1.AttemptStreamingSequenceRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.showcase.v1beta1.AttemptStreamingSequenceRequest"
+            .into()
+    }
+}
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct AttemptStreamingSequenceResponse {
+    #[prost(string, tag = "1")]
+    pub content: ::prost::alloc::string::String,
+}
+impl ::prost::Name for AttemptStreamingSequenceResponse {
+    const NAME: &'static str = "AttemptStreamingSequenceResponse";
+    const PACKAGE: &'static str = "google.showcase.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.showcase.v1beta1.AttemptStreamingSequenceResponse".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.showcase.v1beta1.AttemptStreamingSequenceResponse"
+            .into()
     }
 }

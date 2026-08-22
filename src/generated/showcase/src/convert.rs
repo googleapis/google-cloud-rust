@@ -123,6 +123,28 @@ impl gaxi::prost::FromProto<crate::model::EchoResponse> for EchoResponse {
     }
 }
 
+impl gaxi::prost::ToProto<ExpandRequest> for crate::model::ExpandRequest {
+    type Output = ExpandRequest;
+    fn to_proto(self) -> std::result::Result<ExpandRequest, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            content: self.content.to_proto()?,
+            error: self.error.map(|v| v.to_proto()).transpose()?,
+            stream_wait_time: self.stream_wait_time.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::model::ExpandRequest> for ExpandRequest {
+    fn cnv(self) -> std::result::Result<crate::model::ExpandRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::ExpandRequest::new()
+                .set_content(self.content)
+                .set_or_clear_error(self.error.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_stream_wait_time(self.stream_wait_time.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
 impl gaxi::prost::ToProto<blurb::Content> for crate::model::blurb::Content {
     type Output = blurb::Content;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -187,6 +209,26 @@ impl gaxi::prost::FromProto<crate::model::Blurb> for Blurb {
                 .set_or_clear_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
                 .set_content(self.content.map(|v| v.cnv()).transpose()?)
                 .set_legacy_id(self.legacy_id.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<StreamBlurbsRequest> for crate::model::StreamBlurbsRequest {
+    type Output = StreamBlurbsRequest;
+    fn to_proto(self) -> std::result::Result<StreamBlurbsRequest, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            name: self.name.to_proto()?,
+            expire_time: self.expire_time.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::model::StreamBlurbsRequest> for StreamBlurbsRequest {
+    fn cnv(self) -> std::result::Result<crate::model::StreamBlurbsRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::StreamBlurbsRequest::new()
+                .set_name(self.name)
+                .set_or_clear_expire_time(self.expire_time.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -270,6 +312,44 @@ impl gaxi::prost::FromProto<crate::model::ConnectRequest> for ConnectRequest {
         Ok(
             crate::model::ConnectRequest::new()
                 .set_request(self.request.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<AttemptStreamingSequenceRequest> for crate::model::AttemptStreamingSequenceRequest {
+    type Output = AttemptStreamingSequenceRequest;
+    fn to_proto(self) -> std::result::Result<AttemptStreamingSequenceRequest, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            name: self.name.to_proto()?,
+            last_fail_index: self.last_fail_index.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::model::AttemptStreamingSequenceRequest> for AttemptStreamingSequenceRequest {
+    fn cnv(self) -> std::result::Result<crate::model::AttemptStreamingSequenceRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::AttemptStreamingSequenceRequest::new()
+                .set_name(self.name)
+                .set_last_fail_index(self.last_fail_index)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<AttemptStreamingSequenceResponse> for crate::model::AttemptStreamingSequenceResponse {
+    type Output = AttemptStreamingSequenceResponse;
+    fn to_proto(self) -> std::result::Result<AttemptStreamingSequenceResponse, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            content: self.content.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::model::AttemptStreamingSequenceResponse> for AttemptStreamingSequenceResponse {
+    fn cnv(self) -> std::result::Result<crate::model::AttemptStreamingSequenceResponse, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::AttemptStreamingSequenceResponse::new()
+                .set_content(self.content)
         )
     }
 }

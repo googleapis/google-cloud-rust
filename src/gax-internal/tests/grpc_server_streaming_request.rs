@@ -254,4 +254,100 @@ mod tests {
             )
             .await
     }
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    #[derive(Clone, Debug, PartialEq)]
+    struct DomainEchoRequest {
+        message: String,
+    }
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    impl google_cloud_gax_internal::prost::ToProto<EchoRequest> for DomainEchoRequest {
+        type Output = EchoRequest;
+        fn to_proto(
+            self,
+        ) -> std::result::Result<EchoRequest, google_cloud_gax_internal::prost::ConvertError>
+        {
+            Ok(EchoRequest {
+                message: self.message,
+                ..Default::default()
+            })
+        }
+    }
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    #[derive(Clone, Debug, PartialEq)]
+    struct DomainEchoResponse {
+        message: String,
+    }
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    impl google_cloud_gax_internal::prost::FromProto<DomainEchoResponse> for EchoResponse {
+        fn cnv(
+            self,
+        ) -> std::result::Result<DomainEchoResponse, google_cloud_gax_internal::prost::ConvertError>
+        {
+            Ok(DomainEchoResponse {
+                message: self.message,
+            })
+        }
+    }
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    #[tokio::test]
+    async fn execute_server_streaming_basic() -> anyhow::Result<()> {
+        let (endpoint, _server) = start_echo_server().await?;
+        let client = builder(endpoint)
+            .with_credentials(test_credentials())
+            .build()
+            .await?;
+
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.test.v1.EchoServices",
+                "Expand",
+            ));
+            e
+        };
+        let request_options = {
+            let mut o = RequestOptions::default();
+            o.set_retry_policy(NeverRetry);
+            o
+        };
+
+        let mut receiver = client
+            .execute_server_streaming::<DomainEchoRequest, DomainEchoResponse, EchoRequest, EchoResponse>(
+                extensions,
+                http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Expand"),
+                DomainEchoRequest {
+                    message: "msg0 msg1".to_string(),
+                },
+                request_options,
+                "test-only-api-client/1.0",
+                "resource=test",
+            )
+            .await?;
+
+        let r0 = receiver.recv().await;
+        assert_eq!(
+            r0.transpose()?,
+            Some(DomainEchoResponse {
+                message: "msg0".to_string()
+            })
+        );
+
+        let r1 = receiver.recv().await;
+        assert_eq!(
+            r1.transpose()?,
+            Some(DomainEchoResponse {
+                message: "msg1".to_string()
+            })
+        );
+
+        let r2 = receiver.recv().await;
+        assert!(r2.is_none());
+
+        Ok(())
+    }
 }

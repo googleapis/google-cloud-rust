@@ -32,6 +32,10 @@ pub async fn run() -> Result<()> {
     chat_server_error(&client).await?;
     chat_options_and_headers(&client).await?;
 
+    expand_happy_path(&client).await?;
+    expand_server_error(&client).await?;
+    expand_options_and_headers(&client).await?;
+
     Ok(())
 }
 
@@ -156,6 +160,88 @@ async fn chat_options_and_headers(client: &Echo) -> Result<()> {
     let res = receiver.recv().await.expect("expected response")?;
     assert_eq!(res.content, "header-and-capacity-test");
     drop(sender);
+    assert!(receiver.recv().await.is_none());
+
+    Ok(())
+}
+
+async fn expand_happy_path(client: &Echo) -> Result<()> {
+    let mut receiver = client
+        .expand()
+        .set_content("The quick brown fox jumps over the lazy dog")
+        .send()
+        .await?;
+
+    let mut words = Vec::new();
+    while let Some(res) = receiver.recv().await {
+        words.push(res?.content);
+    }
+
+    let expected = vec![
+        "The", "quick", "brown", "fox", "jumps", "over", "the", "lazy", "dog",
+    ];
+    assert_eq!(words, expected);
+
+    // Further recv() calls on closed receiver must return None.
+    assert!(receiver.recv().await.is_none());
+    assert!(receiver.recv().await.is_none());
+
+    Ok(())
+}
+
+async fn expand_server_error(client: &Echo) -> Result<()> {
+    let mut receiver = client
+        .expand()
+        .set_content("hello world")
+        .set_error(
+            google_cloud_rpc::model::Status::default()
+                .set_code(Code::InvalidArgument as i32)
+                .set_message("injected error for expand test"),
+        )
+        .send()
+        .await?;
+
+    // Words are streamed first.
+    let first = receiver.recv().await.expect("expected first word")?;
+    assert_eq!(first.content, "hello");
+
+    let second = receiver.recv().await.expect("expected second word")?;
+    assert_eq!(second.content, "world");
+
+    // Server error is delivered after the words.
+    let res = receiver
+        .recv()
+        .await
+        .expect("expected error item from receiver");
+    let err = res.expect_err("response should be an error");
+    let status = err
+        .status()
+        .expect("the error should include the service payload");
+    assert_eq!(status.code, Code::InvalidArgument);
+    assert_eq!(status.message.as_str(), "injected error for expand test");
+
+    // Server stream should now be closed.
+    assert!(receiver.recv().await.is_none());
+
+    Ok(())
+}
+
+async fn expand_options_and_headers(client: &Echo) -> Result<()> {
+    let header_name = http::header::HeaderName::from_static("x-custom-test-header");
+    let header_value = http::header::HeaderValue::from_static("custom-header-value");
+    let mut receiver = client
+        .expand()
+        .with_custom_header(header_name, header_value)
+        .set_content("header test")
+        .send()
+        .await?;
+
+    let first = receiver.recv().await.expect("expected first word")?;
+    assert_eq!(first.content, "header");
+
+    let second = receiver.recv().await.expect("expected second word")?;
+    assert_eq!(second.content, "test");
+
     assert!(receiver.recv().await.is_none());
 
     Ok(())
