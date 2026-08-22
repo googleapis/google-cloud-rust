@@ -21,7 +21,7 @@ pub type Result<T> = std::result::Result<T, RowError>;
 
 /// A container for a single row within a query result set.
 ///
-/// [`RowIterator::next()`](crate::RowIterator::next) yields a `Row`.
+/// [`RowIterator::next()`](crate::query::RowIterator::next) yields a `Row`.
 ///
 /// Each `Row` contains parsed cell values and a reference to the table schema.
 ///
@@ -31,8 +31,7 @@ pub type Result<T> = std::result::Result<T, RowError>;
 /// your domain types using `TryFrom<Row>` without unnecessary allocations:
 ///
 /// ```
-/// # use google_cloud_bigquery::FromRow;
-/// # use google_cloud_bigquery::Row;
+/// # use google_cloud_bigquery::query::{Row, FromRow};
 /// #[derive(FromRow, Debug)]
 /// struct UserStats {
 ///     name: String,
@@ -53,7 +52,7 @@ pub type Result<T> = std::result::Result<T, RowError>;
 /// [`take()`](Row::take):
 ///
 /// ```
-/// # use google_cloud_bigquery::Row;
+/// # use google_cloud_bigquery::query::Row;
 /// # fn sample(row: Row) {
 /// let name: String = row.get("name");
 /// let age: i64 = row.get(1);
@@ -155,7 +154,7 @@ impl Row {
     /// Attempts to retrieve a value from the row by column name or zero-based
     /// index.
     ///
-    /// The return type must implement [`FromSql`](crate::FromSql).
+    /// The return type must implement [`FromSql`](crate::query::FromSql).
     ///
     /// # Errors
     ///
@@ -169,7 +168,7 @@ impl Row {
     /// # Example
     ///
     /// ```
-    /// # use google_cloud_bigquery::Row;
+    /// # use google_cloud_bigquery::query::Row;
     /// # fn sample(row: Row) -> anyhow::Result<()> {
     /// let msg: String = row.try_get("msg")?;
     /// println!("Value: {msg}");
@@ -203,7 +202,7 @@ impl Row {
     /// # Example
     ///
     /// ```
-    /// # use google_cloud_bigquery::Row;
+    /// # use google_cloud_bigquery::query::Row;
     /// # fn sample(mut row: Row) -> anyhow::Result<()> {
     /// let text: String = row.take("big_text")?;
     /// println!("Length: {}", text.len());
@@ -236,7 +235,7 @@ impl Row {
     /// # Example
     ///
     /// ```
-    /// # use google_cloud_bigquery::Row;
+    /// # use google_cloud_bigquery::query::Row;
     /// # fn sample(row: Row) {
     /// let count: i64 = row.get("count");
     /// println!("Count: {count}");
@@ -336,13 +335,18 @@ fn convert_basic_type(value: String, field_name: &str, field_type: &str) -> Resu
             }
         }
         "BOOLEAN" | "BOOL" => {
-            let b = value
-                .to_lowercase()
-                .parse::<bool>()
-                .map_err(|e| RowError::TypeConversion {
+            let b = if value.eq_ignore_ascii_case("true") {
+                true
+            } else if value.eq_ignore_ascii_case("false") {
+                false
+            } else {
+                return Err(RowError::TypeConversion {
                     column: field_name.to_string(),
-                    source: ConvertError::Convert(Box::new(e)),
-                })?;
+                    source: ConvertError::Convert(
+                        "provided string was not `true` or `false`".into(),
+                    ),
+                });
+            };
             Ok(Value::Bool(b))
         }
         _ => Err(RowError::InvalidRowFormat(format!(
@@ -356,7 +360,7 @@ fn convert_basic_type(value: String, field_name: &str, field_type: &str) -> Resu
 mod tests {
     use super::*;
     use crate as google_cloud_bigquery;
-    use crate::FromRow;
+    use crate::query::FromRow;
     use google_cloud_bigquery_v2::model::{TableFieldSchema, TableSchema};
     use google_cloud_type::model::Decimal;
     use rust_decimal::Decimal as RustDecimal;

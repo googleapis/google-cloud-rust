@@ -1137,6 +1137,7 @@ impl std::fmt::Debug for super::CodeCompilationConfig {
             &self.default_notebook_runtime_options,
         );
         debug_struct.field("pipeline_config", &self.pipeline_config);
+        debug_struct.field("lineage_enabled", &self.lineage_enabled);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

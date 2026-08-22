@@ -3307,6 +3307,9 @@ impl serde::ser::Serialize for super::Sleep {
         if self.update_time.is_some() {
             state.serialize_entry("updateTime", &self.update_time)?;
         }
+        if !self.short_awakenings.is_empty() {
+            state.serialize_entry("shortAwakenings", &self.short_awakenings)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -3411,6 +3414,9 @@ impl serde::ser::Serialize for super::sleep::SleepMetadata {
         }
         if !self.external_id.is_empty() {
             state.serialize_entry("externalId", &self.external_id)?;
+        }
+        if !wkt::internal::is_default(&self.main_sleep) {
+            state.serialize_entry("mainSleep", &self.main_sleep)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -4129,6 +4135,109 @@ impl serde::ser::Serialize for super::ActiveEnergyBurnedRollupValue {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::MenstrualPeriod {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.interval.is_some() {
+            state.serialize_entry("interval", &self.interval)?;
+        }
+        if !self.notes.is_empty() {
+            state.serialize_entry("notes", &self.notes)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::OvulationTest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.sample_time.is_some() {
+            state.serialize_entry("sampleTime", &self.sample_time)?;
+        }
+        if !wkt::internal::is_default(&self.result) {
+            state.serialize_entry("result", &self.result)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Symptoms {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.sample_time.is_some() {
+            state.serialize_entry("sampleTime", &self.sample_time)?;
+        }
+        if !self.symptoms.is_empty() {
+            state.serialize_entry("symptoms", &self.symptoms)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Moods {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.sample_time.is_some() {
+            state.serialize_entry("sampleTime", &self.sample_time)?;
+        }
+        if !self.moods.is_empty() {
+            state.serialize_entry("moods", &self.moods)?;
+        }
+        if !self.valences.is_empty() {
+            state.serialize_entry("valences", &self.valences)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::DataPoint {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -4251,6 +4360,18 @@ impl serde::ser::Serialize for super::DataPoint {
         }
         if let Some(value) = self.blood_glucose() {
             state.serialize_entry("bloodGlucose", value)?;
+        }
+        if let Some(value) = self.menstrual_period() {
+            state.serialize_entry("menstrualPeriod", value)?;
+        }
+        if let Some(value) = self.ovulation_test() {
+            state.serialize_entry("ovulationTest", value)?;
+        }
+        if let Some(value) = self.symptoms() {
+            state.serialize_entry("symptoms", value)?;
+        }
+        if let Some(value) = self.moods() {
+            state.serialize_entry("moods", value)?;
         }
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;

@@ -22,7 +22,7 @@ use std::sync::Arc;
 pub type Result<T> = std::result::Result<T, RowError>;
 /// An iterator over rows returned by a query.
 ///
-/// [`CompleteQuery::read()`](crate::CompleteQuery::read) returns a
+/// [`CompleteQuery::read()`](crate::query::CompleteQuery::read) returns a
 /// `RowIterator`.
 ///
 /// `RowIterator` yields rows from the query result set, automatically requesting
@@ -93,14 +93,14 @@ impl RowIterator {
         self
     }
 
-    /// Fetches the next [`Row`](crate::Row) from the result set.
+    /// Fetches the next [`Row`](crate::query::Row) from the result set.
     ///
     /// Returns `None` when all rows have been retrieved.
     ///
     /// # Example
     ///
     /// ```
-    /// # use google_cloud_bigquery::RowIterator;
+    /// # use google_cloud_bigquery::query::RowIterator;
     /// # async fn sample(mut rows: RowIterator) -> anyhow::Result<()> {
     /// while let Some(row) = rows.next().await.transpose()? {
     ///     let msg: String = row.get("msg");

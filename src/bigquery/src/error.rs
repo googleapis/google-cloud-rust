@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Custom errors for the Cloud BigQuery query client.
-
 use google_cloud_bigquery_v2::model::ErrorProto;
 use google_cloud_gax::error::Error;
 
@@ -115,6 +113,9 @@ pub enum ConvertError {
         Box<dyn std::error::Error + Send + Sync + 'static>,
     ),
 }
+
+// TODO(#6443) - consolidate crates
+pub use crate::write::error::AppendError;
 
 #[cfg(test)]
 mod tests {

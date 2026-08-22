@@ -12,11 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub(crate) mod builder;
-pub(crate) mod execution;
-pub(crate) mod from_sql;
+pub(super) mod builder;
+pub(super) mod client;
+pub(super) mod client_builder;
+mod execution;
+pub(super) mod from_sql;
 mod iterator;
 mod query_handle;
+mod retry_policy;
 mod row;
 mod schema;
 
@@ -25,10 +28,11 @@ pub use query_handle::{CompleteQuery, Query};
 pub(crate) use schema::Schema;
 
 pub use from_sql::FromSql;
+pub use google_cloud_bigquery_derive::{FromRow, FromSql};
 pub use row::Row;
 
 /// Result type for query execution.
-pub type Result<T> = std::result::Result<T, crate::error::QueryError>;
+pub(super) type Result<T> = std::result::Result<T, crate::error::QueryError>;
 
 #[cfg(test)]
 pub(crate) mod tests {

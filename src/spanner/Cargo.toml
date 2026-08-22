@@ -47,7 +47,7 @@ async-trait.workspace                  = true
 base64.workspace                       = true
 bytes.workspace                        = true
 futures                                = { workspace = true, optional = true }
-gaxi                                   = { workspace = true, features = ["_internal-common", "_internal-grpc-client", "_internal-grpc-server-streaming"] }
+gaxi                                   = { workspace = true, features = ["_internal-common", "_internal-grpc-client"] }
 google-cloud-auth                      = { workspace = true }
 google-cloud-gax                       = { workspace = true }
 google-cloud-spanner-admin-database-v1 = { workspace = true }
@@ -77,6 +77,7 @@ uuid                       = { workspace = true, optional = true }
 
 [dev-dependencies]
 anyhow.workspace                   = true
+crc32c.workspace                   = true
 google-cloud-test-macros.workspace = true
 mockall.workspace                  = true
 opentelemetry_sdk                  = { workspace = true, features = ["metrics", "testing"] }

@@ -36,9 +36,9 @@ pub(crate) const BIGQUERY_DATETIME_SUBSEC_FORMAT: &[time::format_description::Fo
 /// A trait for converting BigQuery [`wkt::Value`] representations into Rust
 /// types.
 ///
-/// [`Row::get()`](crate::Row::get) and
-/// [`Row::try_get()`](crate::Row::try_get) use this trait to convert cell
-/// values, and the [`FromRow`](crate::FromRow) derive macro uses it for field
+/// [`Row::get()`](crate::query::Row::get) and
+/// [`Row::try_get()`](crate::query::Row::try_get) use this trait to convert cell
+/// values, and the [`FromRow`](crate::query::FromRow) derive macro uses it for field
 /// deserialization.
 ///
 /// # Supported Types
@@ -398,7 +398,7 @@ impl FromSql for bytes::Bytes {
 mod tests {
     use super::*;
     use crate as google_cloud_bigquery;
-    use crate::FromSql;
+    use crate::query::FromSql;
     use google_cloud_type::model::Decimal;
     use rust_decimal::Decimal as RustDecimal;
     use test_case::test_case;

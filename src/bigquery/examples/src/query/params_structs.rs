@@ -13,9 +13,9 @@
 // limitations under the License.
 
 // [START bigquery_query_params_structs]
-use google_cloud_bigquery::FromRow;
 use google_cloud_bigquery::client::BigQuery;
-use google_cloud_bigquery::model::{
+use google_cloud_bigquery::query::FromRow;
+use google_cloud_bigquery_v2::model::{
     QueryParameter, QueryParameterStructType, QueryParameterType, QueryParameterValue,
 };
 

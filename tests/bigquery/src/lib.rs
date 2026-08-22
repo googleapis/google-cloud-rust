@@ -15,6 +15,8 @@
 mod dataset;
 mod job;
 mod query;
+mod reads;
+mod table;
 mod writes;
 
 use rand::{RngExt, distr::Alphanumeric};
@@ -27,6 +29,7 @@ pub use query::{
     query_client, query_client_datatypes, query_client_job, query_client_multi_page,
     query_client_nested_types, query_client_numeric_limits,
 };
+pub use reads::run_reads;
 pub use writes::run_writes;
 
 fn random_id_suffix() -> String {
