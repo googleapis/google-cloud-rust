@@ -151,7 +151,7 @@ impl RetryContext {
     }
 
     async fn execute_once(&self, project_id: &str) -> Result<QueryHandle> {
-        if self.template.request.force_job_path() {
+        if self.template.use_jobs_insert || self.template.request.force_job_path() {
             self.execute_jobs_insert(project_id).await
         } else {
             self.execute_jobs_query(project_id).await

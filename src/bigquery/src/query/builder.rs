@@ -59,6 +59,7 @@ pub struct Query {
     pub(crate) request: QueryRequest,
     pub(crate) project_id: Option<String>,
     pub(crate) job_retry_policy: Arc<dyn JobRetryPolicy>,
+    pub(crate) use_jobs_insert: bool,
 }
 
 impl Query {
@@ -72,6 +73,7 @@ impl Query {
                 .set_job_creation_mode(JobCreationMode::JobCreationOptional),
             project_id: None,
             job_retry_policy: default_job_retry_policy(),
+            use_jobs_insert: false,
         }
     }
 
@@ -102,6 +104,51 @@ impl Query {
     /// ```
     pub fn with_project_id<S: Into<String>>(mut self, project_id: S) -> Self {
         self.project_id = Some(project_id.into());
+        self
+    }
+
+    /// Sets whether the query is routed through the BigQuery [`jobs.insert`]
+    /// method.
+    ///
+    /// By default, the client uses [`jobs.query`] unless the query contains an
+    /// option that is only supported by `jobs.insert`. Only the `jobs.insert`
+    /// response carries the [`Job`] statistics, which then appear in
+    /// [`metadata()`](QueryHandle::metadata). A dry run, for example, reports
+    /// its undeclared query parameters there.
+    ///
+    /// Setting this to `false` restores the default behavior; it does not force
+    /// `jobs.query` for queries that can only run through `jobs.insert`.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_bigquery::client::BigQuery;
+    /// # async fn sample(client: BigQuery) -> anyhow::Result<()> {
+    /// let query = client
+    ///     .query("SELECT @value = 1")
+    ///     .set_dry_run(true)
+    ///     .set_parameter_mode("NAMED")
+    ///     .with_jobs_insert(true)
+    ///     .send()
+    ///     .await?;
+    ///
+    /// let parameters = query
+    ///     .metadata()
+    ///     .statistics
+    ///     .as_ref()
+    ///     .and_then(|statistics| statistics.query.as_ref())
+    ///     .map(|statistics| statistics.undeclared_query_parameters.as_slice())
+    ///     .unwrap_or_default();
+    /// assert_eq!(parameters.len(), 1);
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// [`jobs.insert`]: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/insert
+    /// [`jobs.query`]: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query
+    /// [`Job`]: google_cloud_bigquery_v2::model::Job
+    pub fn with_jobs_insert(mut self, v: bool) -> Self {
+        self.use_jobs_insert = v;
         self
     }
 
@@ -211,8 +258,8 @@ mod tests {
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_bigquery_v2::model::query_request::JobCreationMode;
     use google_cloud_bigquery_v2::model::{
-        ErrorProto, Job, JobConfiguration, JobReference, JobStatus,
-        QueryRequest as JobsQueryRequest, QueryResponse,
+        ErrorProto, Job, JobConfiguration, JobReference, JobStatistics, JobStatistics2, JobStatus,
+        QueryParameter, QueryRequest as JobsQueryRequest, QueryResponse,
     };
     use google_cloud_gax::response::Response;
 
@@ -236,6 +283,7 @@ mod tests {
             JobCreationMode::JobCreationOptional
         );
         assert_eq!(query_builder.project_id, None);
+        assert!(!query_builder.use_jobs_insert);
     }
 
     #[test]
@@ -352,6 +400,60 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn test_run_dry_run_with_jobs_insert() -> TestResult {
+        let mut mock = MockJobService::new();
+        mock.expect_insert_job().returning(|req, _| {
+            let job = req.job.as_ref().expect("request should contain a job");
+            let job_ref = job
+                .job_reference
+                .as_ref()
+                .expect("request should contain a job reference");
+            assert!(job_ref.job_id.starts_with(JOB_ID_PREFIX), "{job_ref:?}");
+
+            let configuration = job
+                .configuration
+                .clone()
+                .expect("request should contain a job configuration");
+            assert_eq!(configuration.dry_run, Some(true));
+
+            let statistics =
+                JobStatistics::new()
+                    .set_query(JobStatistics2::new().set_undeclared_query_parameters([
+                        QueryParameter::new().set_name("value"),
+                    ]));
+            let response = Job::new()
+                .set_configuration(configuration)
+                // BigQuery dry runs return a reference without a job ID.
+                .set_job_reference(JobReference::new().set_project_id("my-project"))
+                .set_statistics(statistics);
+            Ok(Response::from(response))
+        });
+        let job_service = create_job_service(mock);
+
+        let query = Query::new(job_service, "SELECT @value = 1".to_string())
+            .with_project_id("my-project")
+            .set_dry_run(true)
+            .set_parameter_mode("NAMED")
+            .with_jobs_insert(true)
+            .send()
+            .await?;
+
+        // The undeclared parameters detected by the dry run are reported in the
+        // job statistics.
+        let parameters = query
+            .metadata()
+            .statistics
+            .as_ref()
+            .and_then(|statistics| statistics.query.as_ref())
+            .map(|statistics| statistics.undeclared_query_parameters.as_slice())
+            .expect("dry run should report undeclared query parameters");
+        assert_eq!(parameters.len(), 1);
+        assert_eq!(parameters[0].name, "value");
+
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn test_run_jobs_query() -> TestResult {
         let mut mock = MockJobService::new();
         mock.expect_query().returning(move |req, _| {
@@ -381,6 +483,23 @@ mod tests {
         // setting a jobs.insert exclusive field
         query_builder = query_builder.set_allow_large_results(true);
         assert!(query_builder.request.force_job_path());
+    }
+
+    #[test]
+    fn test_with_jobs_insert() {
+        let job_service = create_job_service(MockJobService::new());
+        let query_builder = Query::new(job_service, "SELECT 1".to_string()).with_jobs_insert(true);
+        assert!(query_builder.use_jobs_insert);
+        assert!(!query_builder.request.force_job_path());
+
+        let query_builder = query_builder.with_jobs_insert(false);
+        assert!(!query_builder.use_jobs_insert);
+
+        // A dry run does not select jobs.insert on its own.
+        let job_service = create_job_service(MockJobService::new());
+        let query_builder = Query::new(job_service, "SELECT 1".to_string()).set_dry_run(true);
+        assert!(!query_builder.use_jobs_insert);
+        assert!(!query_builder.request.force_job_path());
     }
 
     #[test]
