@@ -12,9 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// TODO(#4969)
-#![allow(dead_code)]
-
 use crate::Error;
 use crate::RequestBuilder;
 use crate::RequestOptions;
