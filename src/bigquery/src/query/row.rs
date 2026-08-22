@@ -225,7 +225,7 @@ impl Row {
 }
 
 fn convert_row(row: Struct, fields: &[TableFieldSchema]) -> Result<ListValue> {
-    let field_list = get_field_list(row)?;
+    let mut field_list = get_field_list(row)?;
 
     if field_list.len() != fields.len() {
         return Err(RowError::InvalidRowFormat(format!(
@@ -235,11 +235,10 @@ fn convert_row(row: Struct, fields: &[TableFieldSchema]) -> Result<ListValue> {
         )));
     }
 
-    let mut values = ListValue::with_capacity(fields.len());
-    for (cell, field) in field_list.into_iter().zip(fields) {
-        values.push(convert_value(get_field_value(cell)?, field)?);
+    for (cell, field) in field_list.iter_mut().zip(fields) {
+        *cell = convert_value(get_field_value(cell.take())?, field)?;
     }
-    Ok(values)
+    Ok(field_list)
 }
 
 fn get_field_list(mut row: Struct) -> Result<Vec<Value>> {
@@ -273,15 +272,13 @@ fn convert_value(value: Value, field: &TableFieldSchema) -> Result<Value> {
     }
 }
 
-fn convert_repeated(value: ListValue, field: &TableFieldSchema) -> Result<Value> {
-    let mut values = ListValue::with_capacity(value.len());
-    for cell in value {
+fn convert_repeated(mut value: ListValue, field: &TableFieldSchema) -> Result<Value> {
+    for cell in &mut value {
         // each cell contains a single entry, keyed by "v"
-        let val = get_field_value(cell)?;
-        let v = convert_value(val, field)?;
-        values.push(v);
+        let val = get_field_value(cell.take())?;
+        *cell = convert_value(val, field)?;
     }
-    Ok(Value::Array(values))
+    Ok(Value::Array(value))
 }
 
 fn convert_nested(value: Struct, fields: &[TableFieldSchema]) -> Result<Value> {
