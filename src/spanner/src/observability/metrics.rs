@@ -37,9 +37,12 @@ use {
         metrics::{PeriodicReader, SdkMeterProvider},
     },
     std::borrow::Cow,
+    std::env,
+    std::process,
     std::sync::LazyLock,
     std::time::Instant,
     tokio::sync::OnceCell,
+    uuid::Uuid,
 };
 
 #[cfg(feature = "_experimental-builtin-metrics")]
@@ -147,10 +150,10 @@ pub(crate) fn parse_database_name(database_name: &str) -> Option<(&str, &str, &s
 /// `UUID@PID@hostname`.
 #[cfg(feature = "_experimental-builtin-metrics")]
 pub(crate) fn generate_client_uid() -> String {
-    let uuid = uuid::Uuid::new_v4().to_string();
-    let pid = std::process::id();
-    let hostname = std::env::var("HOSTNAME")
-        .or_else(|_| std::env::var("COMPUTERNAME"))
+    let uuid = Uuid::new_v4().to_string();
+    let pid = process::id();
+    let hostname = env::var("HOSTNAME")
+        .or_else(|_| env::var("COMPUTERNAME"))
         .unwrap_or_else(|_| "localhost".to_string());
     format!("{uuid}@{pid}@{hostname}")
 }
@@ -218,12 +221,12 @@ pub(crate) async fn detect_client_location(is_emulator: bool, is_plaintext: bool
 /// Resolves the GCP location from environment variables or the Metadata Service.
 #[cfg(feature = "_experimental-builtin-metrics")]
 pub(crate) async fn resolve_client_location() -> String {
-    if let Ok(loc) = std::env::var("SPANNER_CLIENT_LOCATION")
+    if let Ok(loc) = env::var("SPANNER_CLIENT_LOCATION")
         && !loc.trim().is_empty()
     {
         return loc.trim().to_string();
     }
-    if let Ok(region) = std::env::var("GOOGLE_CLOUD_REGION")
+    if let Ok(region) = env::var("GOOGLE_CLOUD_REGION")
         && !region.trim().is_empty()
     {
         return region.trim().to_string();
@@ -236,7 +239,7 @@ pub(crate) async fn resolve_client_location() -> String {
 
 #[cfg(feature = "_experimental-builtin-metrics")]
 async fn fetch_location_from_mds() -> Option<String> {
-    let timeout_ms = std::env::var("SPANNER_CHECK_IS_RUNNING_ON_GCP_TIMEOUT")
+    let timeout_ms = env::var("SPANNER_CHECK_IS_RUNNING_ON_GCP_TIMEOUT")
         .ok()
         .and_then(|s| s.parse::<u64>().ok())
         .unwrap_or(DEFAULT_GCP_CHECK_TIMEOUT_MS);
@@ -244,8 +247,8 @@ async fn fetch_location_from_mds() -> Option<String> {
     let connect_timeout_duration =
         Duration::from_millis(timeout_ms.min(DEFAULT_GCP_CHECK_CONNECT_TIMEOUT_MS));
 
-    let host = std::env::var(GCE_METADATA_HOST_ENV_VAR)
-        .unwrap_or_else(|_| DEFAULT_METADATA_ROOT.to_string());
+    let host =
+        env::var(GCE_METADATA_HOST_ENV_VAR).unwrap_or_else(|_| DEFAULT_METADATA_ROOT.to_string());
     let base = if host.contains("://") {
         host
     } else {
@@ -316,7 +319,7 @@ impl Observability {
         database_name: &str,
         is_emulator: bool,
     ) -> Self {
-        let disable_builtin_metrics = std::env::var("SPANNER_DISABLE_BUILTIN_METRICS")
+        let disable_builtin_metrics = env::var("SPANNER_DISABLE_BUILTIN_METRICS")
             .map(|s| s.eq_ignore_ascii_case("true") || s == "1")
             .unwrap_or(false);
         let is_plaintext = config
@@ -526,7 +529,7 @@ pub(crate) const AFE_SERVER_TIMING_HEADER: &str = "x-goog-spanner-enable-afe-ser
 
 #[cfg(feature = "_experimental-builtin-metrics")]
 static AFE_SERVER_TIMING_ENABLED: LazyLock<bool> = LazyLock::new(|| {
-    !std::env::var("SPANNER_DISABLE_AFE_SERVER_TIMING")
+    !env::var("SPANNER_DISABLE_AFE_SERVER_TIMING")
         .map(|val| val.eq_ignore_ascii_case("true") || val == "1")
         .unwrap_or(false)
 });
@@ -1025,25 +1028,64 @@ mod tests {
         assert_eq!(hash1, hash2, "client hash must be deterministic");
     }
 
-    async fn spawn_mock_mds_server(
-        status_line: &'static str,
-        body: &'static str,
+    /// Spawns an in-memory mock Google Compute Engine (GCE) Instance Metadata Server.
+    ///
+    /// The Metadata Server (often abbreviated as MDS) is a link-local HTTP service
+    /// (`http://169.254.169.254` or `http://metadata.google.internal`) available within Google Cloud
+    /// compute environments (such as Compute Engine VMs, Google Kubernetes Engine Pods, and Cloud Run).
+    /// Applications and client libraries query the Metadata Server to discover runtime metadata about
+    /// the host environment—including the current GCP zone and region, project ID, and temporary OAuth2
+    /// service account access tokens—without requiring local credential files.
+    ///
+    /// In Cloud Spanner built-in metrics, the client queries the Metadata Server zone endpoint
+    /// (`/computeMetadata/v1/instance/zone`) upon startup to detect the client's geographic GCP region
+    /// (e.g., `us-central1` or `europe-west3`) and populate the `location` label of the
+    /// `spanner_instance_client` MonitoredResource.
+    ///
+    /// This test helper binds a local TCP listener on an ephemeral port, accepts incoming HTTP
+    /// requests in a loop, and matches each request URL against the caller-supplied `routes`
+    /// (defined as `(expected_path_substring, status_line, response_body)`). Any request path not
+    /// matching one of the supplied routes receives a standard `404 Not Found` response.
+    async fn spawn_mock_metadata_server(
+        routes: &[(&'static str, &'static str, &'static str)],
     ) -> (String, String) {
         let listener = TcpListener::bind("127.0.0.1:0")
             .await
             .expect("bind listener");
         let local_addr = listener.local_addr().expect("local_addr");
+        let owned_routes: Vec<(&'static str, &'static str, &'static str)> = routes.to_vec();
 
         tokio::spawn(async move {
-            if let Ok((mut socket, _)) = listener.accept().await {
-                use tokio::io::{AsyncReadExt, AsyncWriteExt};
-                let mut buf = [0u8; 1024];
-                let _ = socket.read(&mut buf).await;
-                let response = format!(
-                    "HTTP/1.1 {status_line}\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{body}",
-                    body.len()
-                );
-                let _ = socket.write_all(response.as_bytes()).await;
+            loop {
+                let Ok((mut socket, _)) = listener.accept().await else {
+                    break;
+                };
+                let routes_for_task = owned_routes.clone();
+                tokio::spawn(async move {
+                    use tokio::io::{AsyncReadExt, AsyncWriteExt};
+                    let mut buffer = [0u8; 2048];
+                    let Ok(bytes_read) = socket.read(&mut buffer).await else {
+                        return;
+                    };
+                    let request_string = String::from_utf8_lossy(&buffer[..bytes_read]);
+
+                    let mut matched_response = None;
+                    for &(path, status_line, body) in &routes_for_task {
+                        if request_string.contains(path) {
+                            matched_response = Some(format!(
+                                "HTTP/1.1 {status_line}\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{body}",
+                                body.len()
+                            ));
+                            break;
+                        }
+                    }
+
+                    let response = matched_response.unwrap_or_else(|| {
+                        "HTTP/1.1 404 Not Found\r\nContent-Length: 0\r\nConnection: close\r\n\r\n"
+                            .to_string()
+                    });
+                    let _ = socket.write_all(response.as_bytes()).await;
+                });
             }
         });
 
@@ -1088,6 +1130,14 @@ mod tests {
             parse_region_from_zone_or_region("us-central1/"),
             Some("us-central1")
         );
+        assert_eq!(
+            parse_region_from_zone_or_region("projects/12345/zones/us-central1-a\n"),
+            Some("us-central1")
+        );
+        assert_eq!(
+            parse_region_from_zone_or_region("projects/12345/zones/us-central1-a\r\n"),
+            Some("us-central1")
+        );
         assert_eq!(parse_region_from_zone_or_region("global"), Some("global"));
         assert_eq!(parse_region_from_zone_or_region(""), None);
         assert_eq!(parse_region_from_zone_or_region("   "), None);
@@ -1110,6 +1160,17 @@ mod tests {
             assert_eq!(resolve_client_location().await, "us-east1");
         }
 
+        // SPANNER_CLIENT_LOCATION takes precedence over GOOGLE_CLOUD_REGION
+        {
+            let _env_loc = ScopedEnv::set("SPANNER_CLIENT_LOCATION", "europe-west4");
+            let _env_reg = ScopedEnv::set("GOOGLE_CLOUD_REGION", "us-east1");
+            assert_eq!(
+                resolve_client_location().await,
+                "europe-west4",
+                "SPANNER_CLIENT_LOCATION must take precedence over GOOGLE_CLOUD_REGION"
+            );
+        }
+
         // Whitespace-only values must be ignored and fall back to MDS / global
         {
             let _env_loc = ScopedEnv::set("SPANNER_CLIENT_LOCATION", "   ");
@@ -1122,23 +1183,47 @@ mod tests {
 
     #[tokio::test]
     #[serial]
-    async fn resolve_client_location_with_mock_mds() {
-        let (url, _addr) = spawn_mock_mds_server("200 OK", "projects/123/zones/us-west1-b").await;
+    async fn resolve_client_location_with_mock_metadata_server() {
+        let (url, _addr) = spawn_mock_metadata_server(&[
+            (
+                INSTANCE_ZONE_METADATA_PATH,
+                "200 OK",
+                "projects/123/zones/us-west1-b",
+            ),
+            (
+                "/computeMetadata/v1/universe/universe_domain",
+                "200 OK",
+                "googleapis.com",
+            ),
+        ])
+        .await;
 
         let _env_host = ScopedEnv::set("GCE_METADATA_HOST", &url);
         let _env_timeout = ScopedEnv::set("SPANNER_CHECK_IS_RUNNING_ON_GCP_TIMEOUT", "1000");
         let _env_loc = ScopedEnv::remove("SPANNER_CLIENT_LOCATION");
         let _env_reg = ScopedEnv::remove("GOOGLE_CLOUD_REGION");
 
-        let loc = resolve_client_location().await;
-        assert_eq!(loc, "us-west1");
+        let location = resolve_client_location().await;
+        assert_eq!(location, "us-west1");
     }
 
     #[tokio::test]
     #[serial]
-    async fn resolve_client_location_with_mock_mds_without_scheme_and_invalid_timeout() {
-        let (_url, addr) =
-            spawn_mock_mds_server("200 OK", "projects/456/zones/europe-west3-c").await;
+    async fn resolve_client_location_with_mock_metadata_server_without_scheme_and_invalid_timeout()
+    {
+        let (_url, addr) = spawn_mock_metadata_server(&[
+            (
+                INSTANCE_ZONE_METADATA_PATH,
+                "200 OK",
+                "projects/456/zones/europe-west3-c",
+            ),
+            (
+                "/computeMetadata/v1/universe/universe_domain",
+                "200 OK",
+                "googleapis.com",
+            ),
+        ])
+        .await;
 
         // Test GCE_METADATA_HOST without "http://" prefix (e.g. "127.0.0.1:12345")
         let _env_host = ScopedEnv::set("GCE_METADATA_HOST", &addr);
@@ -1148,41 +1233,52 @@ mod tests {
         let _env_loc = ScopedEnv::remove("SPANNER_CLIENT_LOCATION");
         let _env_reg = ScopedEnv::remove("GOOGLE_CLOUD_REGION");
 
-        let loc = resolve_client_location().await;
-        assert_eq!(loc, "europe-west3");
+        let location = resolve_client_location().await;
+        assert_eq!(location, "europe-west3");
     }
 
     #[tokio::test]
     #[serial]
-    async fn resolve_client_location_with_mock_mds_error_status() {
-        let (url, _addr) =
-            spawn_mock_mds_server("500 Internal Server Error", "Internal Server Error").await;
+    async fn resolve_client_location_with_mock_metadata_server_error_status() {
+        let (url, _addr) = spawn_mock_metadata_server(&[
+            (
+                INSTANCE_ZONE_METADATA_PATH,
+                "500 Internal Server Error",
+                "Internal Server Error",
+            ),
+            (
+                "/computeMetadata/v1/universe/universe_domain",
+                "200 OK",
+                "googleapis.com",
+            ),
+        ])
+        .await;
 
         let _env_host = ScopedEnv::set("GCE_METADATA_HOST", &url);
         let _env_timeout = ScopedEnv::set("SPANNER_CHECK_IS_RUNNING_ON_GCP_TIMEOUT", "1000");
         let _env_loc = ScopedEnv::remove("SPANNER_CLIENT_LOCATION");
         let _env_reg = ScopedEnv::remove("GOOGLE_CLOUD_REGION");
 
-        let loc = resolve_client_location().await;
+        let location = resolve_client_location().await;
         assert_eq!(
-            loc, "global",
-            "HTTP 500 error from MDS must fall back to 'global'"
+            location, "global",
+            "HTTP 500 error from metadata server must fall back to 'global'"
         );
     }
 
     #[tokio::test]
     #[serial]
-    async fn resolve_client_location_unreachable_mds_fallback() {
+    async fn resolve_client_location_unreachable_metadata_server_fallback() {
         // Test connection failure / unreachable host falling back to global
         let _env_host = ScopedEnv::set("GCE_METADATA_HOST", "http://127.0.0.1:1");
         let _env_timeout = ScopedEnv::set("SPANNER_CHECK_IS_RUNNING_ON_GCP_TIMEOUT", "50");
         let _env_loc = ScopedEnv::remove("SPANNER_CLIENT_LOCATION");
         let _env_reg = ScopedEnv::remove("GOOGLE_CLOUD_REGION");
 
-        let loc = resolve_client_location().await;
+        let location = resolve_client_location().await;
         assert_eq!(
-            loc, "global",
-            "unreachable MDS host must fall back to 'global'"
+            location, "global",
+            "unreachable metadata server host must fall back to 'global'"
         );
     }
 
