@@ -29,6 +29,7 @@ log-integration-tests = []
 [dependencies]
 anyhow.workspace           = true
 arrow                      = { workspace = true, features = ["ipc"] }
+bigquery-samples           = { workspace = true }
 bytes.workspace            = true
 futures.workspace          = true
 google-cloud-auth          = { workspace = true }
