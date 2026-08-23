@@ -119,7 +119,8 @@ impl Query {
     /// Build a request to fetch full [Job] execution metadata from the service for this query.
     ///
     /// > Returns `None` if the query was executed without creating a job
-    /// > (for example, when using [`JobCreationMode::JobCreationOptional`]).
+    /// > (for example, when using [`JobCreationMode::JobCreationOptional`],
+    /// > or when the query was a dry run).
     ///
     /// [Job]: https://docs.cloud.google.com/bigquery/docs/reference/rest/v2/Job
     /// [`JobCreationMode::JobCreationOptional`]: google_cloud_bigquery_v2::model::query_request::JobCreationMode::JobCreationOptional
@@ -152,21 +153,7 @@ impl Query {
     /// # }
     /// ```
     pub fn get_job(&self) -> Option<GetJob> {
-        let job_ref = self.metadata.job_reference.as_ref()?;
-
-        let req = self
-            .job_service
-            .get_job()
-            .set_job_id(job_ref.job_id.clone())
-            .set_project_id(job_ref.project_id.clone());
-
-        let req = job_ref
-            .location
-            .clone()
-            .into_iter()
-            .fold(req, |req, location| req.set_location(location));
-
-        Some(req)
+        build_get_job(&self.job_service, self.metadata.job_reference.as_ref()?)
     }
 
     /// Waits for query execution to complete.
@@ -394,7 +381,8 @@ impl CompleteQuery {
     /// Build a request to fetch full [Job] execution metadata from the service for this query.
     ///
     /// > Returns `None` if the query was executed without creating a job
-    /// > (for example, when using [`JobCreationMode::JobCreationOptional`]).
+    /// > (for example, when using [`JobCreationMode::JobCreationOptional`],
+    /// > or when the query was a dry run).
     ///
     /// [Job]: https://docs.cloud.google.com/bigquery/docs/reference/rest/v2/Job
     /// [`JobCreationMode::JobCreationOptional`]: google_cloud_bigquery_v2::model::query_request::JobCreationMode::JobCreationOptional
@@ -427,22 +415,30 @@ impl CompleteQuery {
     /// # }
     /// ```
     pub fn get_job(&self) -> Option<GetJob> {
-        let job_ref = self.job_ref.as_ref()?;
-
-        let req = self
-            .job_service
-            .get_job()
-            .set_job_id(job_ref.job_id.clone())
-            .set_project_id(job_ref.project_id.clone());
-
-        let req = job_ref
-            .location
-            .clone()
-            .into_iter()
-            .fold(req, |req, location| req.set_location(location));
-
-        Some(req)
+        build_get_job(&self.job_service, self.job_ref.as_ref()?)
     }
+}
+
+/// Builds a `jobs.get` request from a job reference, or `None` if the
+/// reference cannot identify a job. Dry-run queries return a job reference
+/// without a job ID.
+fn build_get_job(job_service: &JobService, job_ref: &JobReference) -> Option<GetJob> {
+    if job_ref.job_id.is_empty() {
+        return None;
+    }
+
+    let req = job_service
+        .get_job()
+        .set_job_id(job_ref.job_id.clone())
+        .set_project_id(job_ref.project_id.clone());
+
+    let req = job_ref
+        .location
+        .clone()
+        .into_iter()
+        .fold(req, |req, location| req.set_location(location));
+
+    Some(req)
 }
 
 /// Helper function to poll getQueryResults until a job finishes.
@@ -920,6 +916,25 @@ mod tests {
         let complete_query = CompleteQuery::from_query_response(job_service, query_res, None);
         let job = complete_query.get_job().unwrap().send().await?;
         assert_eq!(job.user_email, "test@example.com");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_query_get_job_empty_job_id() -> TestResult {
+        let job_service = create_job_service(MockJobService::new());
+        // Dry-runs return a reference that has a location and project id, but no job id.
+        let job_ref = JobReference::new()
+            .set_location("us-central1")
+            .set_project_id("some-project");
+        let query_res = QueryResponse::new()
+            .set_schema(TableSchema::new())
+            .set_job_reference(job_ref);
+
+        let query = Query::from_query_response(job_service.clone(), query_res.clone(), None, None);
+        assert!(query.get_job().is_none(), "{query:?}");
+
+        let complete_query = CompleteQuery::from_query_response(job_service, query_res, None);
+        assert!(complete_query.get_job().is_none(), "{complete_query:?}");
         Ok(())
     }
 
