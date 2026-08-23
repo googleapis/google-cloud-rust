@@ -7101,6 +7101,7 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "arrow",
+ "bigquery-samples",
  "bytes",
  "futures",
  "google-cloud-auth",

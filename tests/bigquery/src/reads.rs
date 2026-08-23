@@ -12,12 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::dataset::{cleanup_stale_datasets, create_dataset, delete_dataset, random_dataset_id};
-use crate::table::create_table;
 use anyhow::Result;
+use bigquery_samples::{
+    cleanup_stale_datasets, create_dataset, create_table, delete_dataset, random_dataset_id,
+};
 use google_cloud_bigquery_read::client::Read;
 use google_cloud_bigquery_read::model::{DataFormat, ReadSession};
 use google_cloud_bigquery_v2::client::{DatasetService, TableService};
+use google_cloud_bigquery_v2::model::{TableFieldSchema, TableSchema};
 use google_cloud_test_utils::runtime_config::project_id;
 
 pub async fn run_reads() -> Result<()> {
@@ -32,7 +34,11 @@ pub async fn run_reads() -> Result<()> {
     let table_id = "reads";
 
     let result = async {
-        create_table(&table_service, &project_id, &dataset_id, table_id).await?;
+        let schema = TableSchema::new().set_fields([
+            TableFieldSchema::new().set_name("name").set_type("STRING"),
+            TableFieldSchema::new().set_name("age").set_type("INTEGER"),
+        ]);
+        create_table(&table_service, &project_id, &dataset_id, table_id, schema).await?;
         basic(&project_id, &dataset_id, table_id).await
     }
     .await;
