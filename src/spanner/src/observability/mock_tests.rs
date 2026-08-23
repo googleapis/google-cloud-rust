@@ -15,6 +15,7 @@
 use crate::client::Spanner;
 use crate::database_client::DatabaseClient;
 use crate::key::KeySet;
+use crate::mutation::{Mutation, MutationGroup};
 use crate::observability::exporter::{
     convert_metric_to_time_series, resource_to_monitored_resource,
 };
@@ -35,8 +36,8 @@ use opentelemetry_sdk::metrics::{
 use prost_types::{Value as ProstValue, value::Kind as ProstValueKind};
 use spanner_grpc_mock::MockSpanner;
 use spanner_grpc_mock::google::spanner::v1::{
-    PartialResultSet, ResultSetMetadata, Session, StructType, Type as SpannerType, TypeCode,
-    struct_type::Field,
+    BatchWriteResponse, PartialResultSet, ResultSetMetadata, Session, StructType,
+    Type as SpannerType, TypeCode, struct_type::Field,
 };
 use spanner_grpc_mock::start;
 use std::collections::HashMap;
@@ -819,6 +820,329 @@ async fn streaming_sql_missing_server_timing_increments_gfe_connectivity_error()
     assert!(
         access_frontend_connectivity_error_metric.is_none(),
         "access frontend connectivity error count must not be recorded"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn batch_write_happy_path_records_all_metrics_and_time_series() -> anyhow::Result<()> {
+    let mut mock = MockSpanner::new();
+
+    mock.expect_create_session().returning(|_| {
+        Ok(Response::new(Session {
+            name:
+                "projects/test-project/instances/test-instance/databases/test-database/sessions/s1"
+                    .to_string(),
+            multiplexed: true,
+            ..Default::default()
+        }))
+    });
+
+    mock.expect_batch_write().returning(|_| {
+        let response = BatchWriteResponse {
+            indexes: vec![0],
+            status: None,
+            commit_timestamp: None,
+        };
+        let stream = adapt(vec![Ok(response)].into_iter());
+        let mut resp = Response::from(stream);
+        resp.metadata_mut().insert(
+            "server-timing",
+            "gfet4t7;dur=20.5,afe;dur=8.1"
+                .parse()
+                .expect("valid server-timing header"),
+        );
+        Ok(resp)
+    });
+
+    let (database_client, exporter, meter_provider, _server_handle) =
+        setup_mock_client_with_metrics(mock).await?;
+
+    let mutation = Mutation::new_insert_builder("Users")
+        .set("UserId")
+        .to(1)
+        .build();
+    let groups = vec![MutationGroup::new(vec![mutation])];
+
+    let tx = database_client.batch_write_transaction().build();
+    let mut stream = tx.execute_streaming(groups).await?;
+
+    let mut message_count = 0;
+    while let Some(response) = stream.next().await {
+        let response = response?;
+        assert_eq!(response.indexes, vec![0]);
+        message_count += 1;
+    }
+    assert_eq!(message_count, 1, "Exactly one message should be yielded");
+
+    meter_provider
+        .force_flush()
+        .expect("force_flush should succeed");
+
+    let resource_metrics_list = exporter
+        .get_finished_metrics()
+        .expect("finished metrics should be present");
+
+    // 1. Validate operation_count
+    let operation_count_metric = find_metric(
+        &resource_metrics_list,
+        "spanner.googleapis.com/internal/client/operation_count",
+    )
+    .expect("operation_count metric must be recorded");
+    let operation_points = get_sum_u64_points(operation_count_metric);
+    assert_eq!(
+        operation_points.len(),
+        1,
+        "Expected 1 operation_count point"
+    );
+    assert_eq!(
+        operation_points[0].0, 1,
+        "operation_count value should be 1"
+    );
+    assert_operation_labels(&operation_points[0].1, "Spanner.BatchWrite", "OK");
+
+    // 2. Validate attempt_count
+    let attempt_count_metric = find_metric(
+        &resource_metrics_list,
+        "spanner.googleapis.com/internal/client/attempt_count",
+    )
+    .expect("attempt_count metric must be recorded");
+    let attempt_points = get_sum_u64_points(attempt_count_metric);
+    assert_eq!(attempt_points.len(), 1, "Expected 1 attempt_count point");
+    assert_eq!(attempt_points[0].0, 1, "attempt_count value should be 1");
+    assert_attempt_labels(&attempt_points[0].1, "Spanner.BatchWrite", "OK");
+
+    // 3. Validate latencies histograms
+    let operation_latencies_metric = find_metric(
+        &resource_metrics_list,
+        "spanner.googleapis.com/internal/client/operation_latencies",
+    )
+    .expect("operation_latencies metric must be recorded");
+    let operation_latency_counts = get_histogram_counts(operation_latencies_metric);
+    assert_eq!(
+        operation_latency_counts.len(),
+        1,
+        "Expected 1 operation_latencies point"
+    );
+    assert_eq!(operation_latency_counts[0].0, 1);
+    assert_operation_labels(&operation_latency_counts[0].1, "Spanner.BatchWrite", "OK");
+
+    let attempt_latencies_metric = find_metric(
+        &resource_metrics_list,
+        "spanner.googleapis.com/internal/client/attempt_latencies",
+    )
+    .expect("attempt_latencies metric must be recorded");
+    let attempt_latency_counts = get_histogram_counts(attempt_latencies_metric);
+    assert_eq!(
+        attempt_latency_counts.len(),
+        1,
+        "Expected 1 attempt_latencies point"
+    );
+    assert_eq!(attempt_latency_counts[0].0, 1);
+    assert_attempt_labels(&attempt_latency_counts[0].1, "Spanner.BatchWrite", "OK");
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn batch_write_dropped_incomplete_records_cancelled_status() -> anyhow::Result<()> {
+    let mut mock = MockSpanner::new();
+
+    mock.expect_create_session().returning(|_| {
+        Ok(Response::new(Session {
+            name:
+                "projects/test-project/instances/test-instance/databases/test-database/sessions/s1"
+                    .to_string(),
+            multiplexed: true,
+            ..Default::default()
+        }))
+    });
+
+    mock.expect_batch_write().returning(|_| {
+        let response = BatchWriteResponse {
+            indexes: vec![0],
+            status: None,
+            commit_timestamp: None,
+        };
+        let stream = adapt(vec![Ok(response)].into_iter());
+        Ok(Response::from(stream))
+    });
+
+    let (database_client, exporter, meter_provider, _server_handle) =
+        setup_mock_client_with_metrics(mock).await?;
+
+    let mutation1 = Mutation::new_insert_builder("Users")
+        .set("UserId")
+        .to(1)
+        .build();
+    let mutation2 = Mutation::new_insert_builder("Users")
+        .set("UserId")
+        .to(2)
+        .build();
+    let groups = vec![
+        MutationGroup::new(vec![mutation1]),
+        MutationGroup::new(vec![mutation2]),
+    ];
+
+    let tx = database_client.batch_write_transaction().build();
+    let mut stream = tx.execute_streaming(groups).await?;
+
+    // Read first message (group 0 is acknowledged, group 1 remains incomplete)
+    let response = stream
+        .next()
+        .await
+        .expect("stream should yield first message")?;
+    assert_eq!(response.indexes, vec![0]);
+
+    // Explicitly drop stream while incomplete
+    drop(stream);
+
+    meter_provider
+        .force_flush()
+        .expect("force_flush should succeed");
+
+    let resource_metrics_list = exporter
+        .get_finished_metrics()
+        .expect("finished metrics should be present");
+
+    // 1. Validate operation_count has status = "CANCELLED"
+    // 1. Validate operation_count has status = "CANCELLED"
+    let operation_count_metric = find_metric(
+        &resource_metrics_list,
+        "spanner.googleapis.com/internal/client/operation_count",
+    )
+    .expect("operation_count metric must be recorded");
+    let operation_points = get_sum_u64_points(operation_count_metric);
+    assert_eq!(
+        operation_points.len(),
+        1,
+        "Expected 1 operation_count point"
+    );
+    assert_eq!(
+        operation_points[0].0, 1,
+        "operation_count value should be 1"
+    );
+    assert_operation_labels(&operation_points[0].1, "Spanner.BatchWrite", "CANCELLED");
+
+    // 2. Validate attempt_count has status = "CANCELLED" (since the active attempt was terminated by the drop)
+    let attempt_count_metric = find_metric(
+        &resource_metrics_list,
+        "spanner.googleapis.com/internal/client/attempt_count",
+    )
+    .expect("attempt_count metric must be recorded");
+    let attempt_points = get_sum_u64_points(attempt_count_metric);
+    assert_eq!(attempt_points.len(), 1, "Expected 1 attempt_count point");
+    assert_eq!(attempt_points[0].0, 1, "attempt_count value should be 1");
+    assert_attempt_labels(&attempt_points[0].1, "Spanner.BatchWrite", "CANCELLED");
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn batch_write_restart_clears_previous_attempt_headers() -> anyhow::Result<()> {
+    let mut mock = MockSpanner::new();
+
+    mock.expect_create_session().returning(|_| {
+        Ok(Response::new(Session {
+            name:
+                "projects/test-project/instances/test-instance/databases/test-database/sessions/s1"
+                    .to_string(),
+            multiplexed: true,
+            ..Default::default()
+        }))
+    });
+
+    let mut sequence = mockall::Sequence::new();
+    mock.expect_batch_write()
+        .once()
+        .in_sequence(&mut sequence)
+        .returning(|_| {
+            // Attempt 1: yields 1 message with server-timing headers, then fails with transient error
+            let response = BatchWriteResponse {
+                indexes: vec![0],
+                status: None,
+                commit_timestamp: None,
+            };
+            let stream = adapt(vec![
+                Ok(response),
+                Err(Status::new(GrpcCode::Unavailable, "transient stream drop")),
+            ]);
+            let mut resp = Response::from(stream);
+            resp.metadata_mut().insert(
+                "server-timing",
+                "gfet4t7;dur=20.5"
+                    .parse()
+                    .expect("valid server-timing header"),
+            );
+            Ok(resp)
+        });
+
+    mock.expect_batch_write()
+        .once()
+        .in_sequence(&mut sequence)
+        .returning(|_| {
+            // Attempt 2: fails immediately on connection with NO headers
+            Err(Status::new(GrpcCode::PermissionDenied, "denied on restart"))
+        });
+
+    let (database_client, exporter, meter_provider, _server_handle) =
+        setup_mock_client_with_metrics(mock).await?;
+
+    let mutation1 = Mutation::new_insert_builder("Users")
+        .set("UserId")
+        .to(1)
+        .build();
+    let mutation2 = Mutation::new_insert_builder("Users")
+        .set("UserId")
+        .to(2)
+        .build();
+    let groups = vec![
+        MutationGroup::new(vec![mutation1]),
+        MutationGroup::new(vec![mutation2]),
+    ];
+
+    let tx = database_client.batch_write_transaction().build();
+    let mut stream = tx.execute_streaming(groups).await?;
+
+    // Attempt 1 yields message 0
+    let response = stream.next().await.expect("should yield message 0")?;
+    assert_eq!(response.indexes, vec![0]);
+
+    // Next poll triggers retry, attempt 2 fails with permanent PermissionDenied error
+    let result = stream.next().await;
+    assert!(result.is_some(), "must yield error");
+    assert!(result.expect("some").is_err());
+
+    meter_provider
+        .force_flush()
+        .expect("force_flush should succeed");
+
+    let resource_metrics_list = exporter
+        .get_finished_metrics()
+        .expect("finished metrics should be present");
+
+    // Attempt count should have 2 points: attempt 1 (OK), attempt 2 (PERMISSION_DENIED)
+    let attempt_count_metric = find_metric(
+        &resource_metrics_list,
+        "spanner.googleapis.com/internal/client/attempt_count",
+    )
+    .expect("attempt_count metric must be recorded");
+    let attempt_points = get_sum_u64_points(attempt_count_metric);
+    assert_eq!(attempt_points.len(), 2, "Expected 2 attempt_count points");
+
+    // GFE latencies should only be recorded for attempt 1 (where headers were present).
+    // Attempt 2 had NO headers, so it must not have recorded GFE latency (and instead recorded connectivity error).
+    let gfe_latencies_metric = find_metric(
+        &resource_metrics_list,
+        "spanner.googleapis.com/internal/client/gfe_latencies",
+    )
+    .expect("gfe_latencies metric must be recorded");
+    let gfe_latency_counts = get_histogram_counts(gfe_latencies_metric);
+    assert_eq!(
+        gfe_latency_counts.len(),
+        1,
+        "Expected exactly 1 gfe_latencies point from attempt 1 only"
     );
 
     Ok(())
