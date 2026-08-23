@@ -31,18 +31,20 @@ pub async fn sample(project_id: &str, dataset_id: &str, table_id: &str) -> anyho
         Field::new("string", DataType::Utf8, false),
         Field::new("int", DataType::Int64, false),
     ]));
+    let schema_buf = serialize_schema(&schema)?;
+    let schema_len = schema_buf.len();
 
     let table = format!("projects/{project_id}/datasets/{dataset_id}/tables/{table_id}");
     // Create a writer for the default stream
     let writer = Arc::new(
         client
-            .arrow(ArrowSchema::new().set_serialized_schema(serialize_schema(&schema)?))
+            .arrow(ArrowSchema::new().set_serialized_schema(schema_buf))
             .default(table)?,
     );
 
     let mut writes = JoinSet::new();
     for i in 0..100 {
-        let batch = make_batch(schema.clone(), i, 10)?;
+        let batch = make_batch(schema.clone(), schema_len, i, 10)?;
         let writer = writer.clone();
         writes.spawn(async move { writer.append(batch).send().await });
     }
@@ -53,10 +55,12 @@ pub async fn sample(project_id: &str, dataset_id: &str, table_id: &str) -> anyho
     Ok(())
 }
 
-fn make_batch(schema: Arc<Schema>, index: i64, record_count: i64) -> Result<ArrowRecordBatch> {
-    let schema_buf = serialize_schema(&schema)?;
-    let schema_len = schema_buf.len();
-
+fn make_batch(
+    schema: Arc<Schema>,
+    schema_len: usize,
+    index: i64,
+    record_count: i64,
+) -> Result<ArrowRecordBatch> {
     // Example data.
     let string = StringArray::from(vec![format!("batch {index}"); record_count as usize]);
     let int = Int64Array::from_iter_values(record_count * index..record_count * (index + 1));
