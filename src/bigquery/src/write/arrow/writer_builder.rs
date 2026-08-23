@@ -37,6 +37,22 @@ impl WriterBuilder {
 
     /// Create a writer for the [default stream] for the given table.
     ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_bigquery::client::Write;
+    /// # async fn sample(client: Write) -> anyhow::Result<()> {
+    /// let writer = client
+    ///     .arrow(schema())
+    ///     .default("projects/my-project/datasets/my-dataset/tables/my-table")?;
+    /// # Ok(()) }
+    ///
+    /// use google_cloud_bigquery::model::ArrowSchema;
+    /// fn schema() -> ArrowSchema {
+    ///   todo!("Define your table's schema...")
+    /// }
+    /// ```
+    ///
     /// [default stream]: https://docs.cloud.google.com/bigquery/docs/write-api#default_stream
     pub fn default<T: Into<String>>(self, table: T) -> Result<DefaultWriter> {
         let table = table.into();
@@ -47,6 +63,23 @@ impl WriterBuilder {
     }
 
     /// Creates a pending writer for the given table.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_bigquery::client::Write;
+    /// # async fn sample(client: Write) -> anyhow::Result<()> {
+    /// let writer = client
+    ///     .arrow(schema())
+    ///     .pending("projects/my-project/datasets/my-dataset/tables/my-table")
+    ///     .await?;
+    /// # Ok(()) }
+    ///
+    /// use google_cloud_bigquery::model::ArrowSchema;
+    /// fn schema() -> ArrowSchema {
+    ///   todo!("Define your table's schema...")
+    /// }
+    /// ```
     pub async fn pending<T: Into<String>>(self, table: T) -> Result<PendingWriter> {
         let table = table.into();
         validate_table(table.as_str())?;
@@ -67,6 +100,23 @@ impl WriterBuilder {
     }
 
     /// Creates a committed writer for the given table.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_bigquery::client::Write;
+    /// # async fn sample(client: Write) -> anyhow::Result<()> {
+    /// let writer = client
+    ///     .arrow(schema())
+    ///     .committed("projects/my-project/datasets/my-dataset/tables/my-table")
+    ///     .await?;
+    /// # Ok(()) }
+    ///
+    /// use google_cloud_bigquery::model::ArrowSchema;
+    /// fn schema() -> ArrowSchema {
+    ///   todo!("Define your table's schema...")
+    /// }
+    /// ```
     pub async fn committed<T: Into<String>>(self, table: T) -> Result<CommittedWriter> {
         let table = table.into();
         validate_table(table.as_str())?;
@@ -87,6 +137,23 @@ impl WriterBuilder {
     }
 
     /// Creates a buffered writer for the given table.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_bigquery::client::Write;
+    /// # async fn sample(client: Write) -> anyhow::Result<()> {
+    /// let writer = client
+    ///     .arrow(schema())
+    ///     .buffered("projects/my-project/datasets/my-dataset/tables/my-table")
+    ///     .await?;
+    /// # Ok(()) }
+    ///
+    /// use google_cloud_bigquery::model::ArrowSchema;
+    /// fn schema() -> ArrowSchema {
+    ///   todo!("Define your table's schema...")
+    /// }
+    /// ```
     pub async fn buffered<T: Into<String>>(self, table: T) -> Result<BufferedWriter> {
         let table = table.into();
         validate_table(table.as_str())?;

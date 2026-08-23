@@ -21,7 +21,7 @@ use crate::model::append_rows_request::ArrowData;
 use crate::model::{AppendRowsRequest, ArrowRecordBatch, ArrowSchema, FinalizeWriteStreamResponse};
 use std::sync::Arc;
 
-/// A writer for the [committed stream].
+/// A writer for a [committed stream].
 ///
 /// [committed stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#committed_type
 #[derive(Debug)]
