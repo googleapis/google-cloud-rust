@@ -13,9 +13,9 @@
 // limitations under the License.
 
 use super::error::{AppendError, AppendResult};
-use super::model::append_rows_response::Response;
-use super::model::{AppendRowsResponse, TableSchema};
 use crate::Error;
+use crate::model::append_rows_response::Response;
+use crate::model::{AppendRowsResponse, TableSchema};
 
 /// The return type of an `append()` operation.
 #[derive(Clone, Debug, Default, PartialEq)]
@@ -56,10 +56,10 @@ pub(crate) fn to_result(resp: AppendRowsResponse) -> AppendResult<AppendResponse
 
 #[cfg(test)]
 mod tests {
-    use super::super::model::RowError;
-    use super::super::model::append_rows_response::AppendResult;
-    use super::super::model::row_error::RowErrorCode;
     use super::*;
+    use crate::model::RowError;
+    use crate::model::append_rows_response::AppendResult;
+    use crate::model::row_error::RowErrorCode;
     use google_cloud_gax::error::rpc::Code;
     use google_cloud_rpc::model::Status as RpcStatus;
 

@@ -17,17 +17,6 @@
 /// [arrow]: https://arrow.apache.org/
 pub mod arrow;
 
-// TODO(#6443) - relocate this.
-/// The messages and enums that are part of this client library
-pub mod model {
-    pub(crate) use crate::write::generated::gapic_storage::model::*;
-    pub use crate::write::generated::gapic_storage::model::{
-        ArrowRecordBatch, ArrowSchema, BatchCommitWriteStreamsResponse,
-        FinalizeWriteStreamResponse, FlushRowsResponse, RowError, StorageError, TableFieldSchema,
-        TableSchema, row_error, storage_error, table_field_schema,
-    };
-}
-
 pub use append_future::AppendFuture;
 
 pub(super) mod append_builder;

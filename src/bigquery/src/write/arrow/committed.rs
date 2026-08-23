@@ -14,13 +14,11 @@
 
 use super::super::append_builder::AppendWithOffset;
 use super::super::generated::gapic_storage::client::BigQueryWrite;
-use super::super::model::append_rows_request::ArrowData;
-use super::super::model::{
-    AppendRowsRequest, ArrowRecordBatch, ArrowSchema, FinalizeWriteStreamResponse,
-};
 use super::super::runner::Runner;
 use super::super::transport::Transport;
 use crate::Result;
+use crate::model::append_rows_request::ArrowData;
+use crate::model::{AppendRowsRequest, ArrowRecordBatch, ArrowSchema, FinalizeWriteStreamResponse};
 use std::sync::Arc;
 
 /// A writer for the [committed stream].

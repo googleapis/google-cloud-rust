@@ -13,10 +13,10 @@
 // limitations under the License.
 
 use super::super::generated::gapic_storage::client::BigQueryWrite;
-use super::super::model::write_stream::Type;
-use super::super::model::{ArrowSchema, WriteStream};
 use super::super::transport::Transport;
 use super::{BufferedWriter, CommittedWriter, DefaultWriter, PendingWriter};
+use crate::model::write_stream::Type;
+use crate::model::{ArrowSchema, WriteStream};
 use crate::{Error, Result};
 use gaxi::path_parameter::{PathMismatchBuilder, try_match};
 use gaxi::routing_parameter::Segment;

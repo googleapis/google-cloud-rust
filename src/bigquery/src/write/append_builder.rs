@@ -15,9 +15,9 @@
 use super::append_future::AppendFuture;
 use super::append_response::{AppendResponse, to_result};
 use super::error::{AppendError, AppendResult};
-use super::model::AppendRowsRequest;
 use super::runner::WriteRequest;
 use crate::Error;
+use crate::model::AppendRowsRequest;
 use gaxi::prost::{FromProto, ToProto};
 use tokio::sync::{mpsc, oneshot};
 
@@ -90,12 +90,12 @@ impl Append {
 
 #[cfg(test)]
 mod tests {
-    use super::super::model::TableSchema;
     use super::*;
     use crate::google::cloud::bigquery::storage::v1;
     use crate::google::cloud::bigquery::storage::v1::append_rows_response::{
         AppendResult, Response,
     };
+    use crate::model::TableSchema;
 
     #[tokio::test]
     async fn success() -> anyhow::Result<()> {

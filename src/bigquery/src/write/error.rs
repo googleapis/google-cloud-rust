@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::model::RowError;
 use crate::Error;
+use crate::model::RowError;
 
 /// Represents an error that can occur when appending rows.
 #[derive(thiserror::Error, Debug)]
