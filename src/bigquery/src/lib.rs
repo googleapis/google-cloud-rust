@@ -108,7 +108,20 @@ pub mod client {
     // TODO(#6152) - add Write admin client
 }
 
-/// Extends [google_cloud_bigquery_v2::model] with types that improve ergonomics.
+/// The messages and enums that are part of this client library
+pub mod model {
+    pub(crate) use crate::write::generated::gapic_storage::model::*;
+    pub use crate::write::generated::gapic_storage::model::{
+        ArrowRecordBatch, ArrowSchema, BatchCommitWriteStreamsResponse,
+        FinalizeWriteStreamResponse, FlushRowsResponse, RowError, StorageError, TableFieldSchema,
+        TableSchema, row_error, storage_error, table_field_schema,
+    };
+}
+
+/// Extends [crate::model].
+///
+/// Note that there is no real distinction between the types in `model` and
+/// `model_ext`. The two modules are separate for library maintenance reasons.
 pub mod model_ext {
     pub use crate::generated::{CompleteQueryMetadata, QueryMetadata, QueryRequest};
     pub use crate::write::append_response::AppendResponse;

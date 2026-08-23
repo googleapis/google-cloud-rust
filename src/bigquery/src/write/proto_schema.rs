@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::model::ProtoSchema;
 use crate::google::cloud::bigquery::storage::v1;
+use crate::model::ProtoSchema;
 use gaxi::prost::{ConvertError, FromProto, ToProto};
 
 impl ToProto<v1::ProtoSchema> for ProtoSchema {
