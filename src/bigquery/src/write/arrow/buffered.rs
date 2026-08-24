@@ -34,12 +34,12 @@ impl BufferedWriter {
         }
     }
 
-    /// Append rows to the buffered stream.
     /// Return the full resource name of the underlying write stream.
     pub fn write_stream(&self) -> &str {
         &self.inner.write_stream
     }
 
+    /// Append rows to the buffered stream.
     pub fn append(&self, rows: ArrowRecordBatch) -> AppendWithOffset {
         AppendWithOffset::new(
             self.inner.runner.req_tx.clone(),
