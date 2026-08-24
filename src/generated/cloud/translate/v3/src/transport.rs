@@ -56,6 +56,7 @@ impl super::stub::TranslationService for TranslationService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -71,6 +72,7 @@ impl super::stub::TranslationService for TranslationService {
                 let path_template = "/v3/{parent}:translateText";
 
                 let resource_name = format!("//translate.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -84,6 +86,7 @@ impl super::stub::TranslationService for TranslationService {
                 let path_template = "/v3/{parent}:translateText";
 
                 let resource_name = format!("//translate.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -147,6 +150,7 @@ impl super::stub::TranslationService for TranslationService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -162,6 +166,7 @@ impl super::stub::TranslationService for TranslationService {
                 let path_template = "/v3/{parent}:romanizeText";
 
                 let resource_name = format!("//translate.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -175,6 +180,7 @@ impl super::stub::TranslationService for TranslationService {
                 let path_template = "/v3/{parent}:romanizeText";
 
                 let resource_name = format!("//translate.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -238,6 +244,7 @@ impl super::stub::TranslationService for TranslationService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -253,6 +260,7 @@ impl super::stub::TranslationService for TranslationService {
                 let path_template = "/v3/{parent}:detectLanguage";
 
                 let resource_name = format!("//translate.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -266,6 +274,7 @@ impl super::stub::TranslationService for TranslationService {
                 let path_template = "/v3/{parent}:detectLanguage";
 
                 let resource_name = format!("//translate.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -426,6 +435,7 @@ impl super::stub::TranslationService for TranslationService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -440,6 +450,7 @@ impl super::stub::TranslationService for TranslationService {
                 let path = format!("/v3/{}:translateDocument", var_parent,);
                 let path_template = "/v3/{parent}:translateDocument";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -494,6 +505,7 @@ impl super::stub::TranslationService for TranslationService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -509,6 +521,7 @@ impl super::stub::TranslationService for TranslationService {
                 let path_template = "/v3/{parent}:batchTranslateText";
 
                 let resource_name = format!("//translate.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -564,6 +577,7 @@ impl super::stub::TranslationService for TranslationService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -579,6 +593,7 @@ impl super::stub::TranslationService for TranslationService {
                 let path_template = "/v3/{parent}:batchTranslateDocument";
 
                 let resource_name = format!("//translate.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1978,6 +1993,7 @@ impl super::stub::TranslationService for TranslationService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -1993,6 +2009,7 @@ impl super::stub::TranslationService for TranslationService {
                 let path_template = "/v3/{parent}:adaptiveMtTranslate";
 
                 let resource_name = format!("//translate.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2210,6 +2227,7 @@ impl super::stub::TranslationService for TranslationService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -2227,6 +2245,7 @@ impl super::stub::TranslationService for TranslationService {
                 let path_template = "/v3/{parent}:importAdaptiveMtFile";
 
                 let resource_name = format!("//translate.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2479,6 +2498,7 @@ impl super::stub::TranslationService for TranslationService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_dataset = try_match(
@@ -2495,6 +2515,7 @@ impl super::stub::TranslationService for TranslationService {
                 let path = format!("/v3/{}:importData", var_dataset,);
                 let path_template = "/v3/{dataset}:importData";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.dataset));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -2549,6 +2570,7 @@ impl super::stub::TranslationService for TranslationService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_dataset = try_match(
@@ -2565,6 +2587,7 @@ impl super::stub::TranslationService for TranslationService {
                 let path = format!("/v3/{}:exportData", var_dataset,);
                 let path_template = "/v3/{dataset}:exportData";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.dataset));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -3319,6 +3342,7 @@ impl super::stub::TranslationService for TranslationService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -3335,6 +3359,7 @@ impl super::stub::TranslationService for TranslationService {
                 let path = format!("/v3/{}:cancel", var_name,);
                 let path_template = "/v3/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -3395,6 +3420,7 @@ impl super::stub::TranslationService for TranslationService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -3411,6 +3437,7 @@ impl super::stub::TranslationService for TranslationService {
                 let path = format!("/v3/{}:wait", var_name,);
                 let path_template = "/v3/{name}:wait";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))

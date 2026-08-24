@@ -896,6 +896,7 @@ impl super::stub::Compliance for Compliance {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -906,6 +907,7 @@ impl super::stub::Compliance for Compliance {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -919,6 +921,7 @@ impl super::stub::Compliance for Compliance {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -937,6 +940,7 @@ impl super::stub::Compliance for Compliance {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -950,6 +954,7 @@ impl super::stub::Compliance for Compliance {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1218,6 +1223,7 @@ impl super::stub::Compliance for Compliance {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -1228,6 +1234,7 @@ impl super::stub::Compliance for Compliance {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1241,6 +1248,7 @@ impl super::stub::Compliance for Compliance {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1259,6 +1267,7 @@ impl super::stub::Compliance for Compliance {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1272,6 +1281,7 @@ impl super::stub::Compliance for Compliance {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2188,6 +2198,7 @@ impl super::stub::Echo for Echo {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -2198,6 +2209,7 @@ impl super::stub::Echo for Echo {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2211,6 +2223,7 @@ impl super::stub::Echo for Echo {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2229,6 +2242,7 @@ impl super::stub::Echo for Echo {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2242,6 +2256,7 @@ impl super::stub::Echo for Echo {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2510,6 +2525,7 @@ impl super::stub::Echo for Echo {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -2520,6 +2536,7 @@ impl super::stub::Echo for Echo {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2533,6 +2550,7 @@ impl super::stub::Echo for Echo {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2551,6 +2569,7 @@ impl super::stub::Echo for Echo {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2564,6 +2583,7 @@ impl super::stub::Echo for Echo {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3349,6 +3369,7 @@ impl super::stub::Identity for Identity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -3359,6 +3380,7 @@ impl super::stub::Identity for Identity {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3372,6 +3394,7 @@ impl super::stub::Identity for Identity {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3390,6 +3413,7 @@ impl super::stub::Identity for Identity {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3403,6 +3427,7 @@ impl super::stub::Identity for Identity {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3671,6 +3696,7 @@ impl super::stub::Identity for Identity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -3681,6 +3707,7 @@ impl super::stub::Identity for Identity {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3694,6 +3721,7 @@ impl super::stub::Identity for Identity {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3712,6 +3740,7 @@ impl super::stub::Identity for Identity {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3725,6 +3754,7 @@ impl super::stub::Identity for Identity {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4390,6 +4420,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -4400,6 +4431,7 @@ impl super::stub::Messaging for Messaging {
                 let path_template = "/v1beta1/{parent}/blurbs";
 
                 let resource_name = format!("//localhost:7469/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4417,6 +4449,7 @@ impl super::stub::Messaging for Messaging {
                 let path_template = "/v1beta1/{parent}/blurbs";
 
                 let resource_name = format!("//localhost:7469/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4914,6 +4947,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -4924,6 +4958,7 @@ impl super::stub::Messaging for Messaging {
                 let path_template = "/v1beta1/{parent}/blurbs:search";
 
                 let resource_name = format!("//localhost:7469/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4941,6 +4976,7 @@ impl super::stub::Messaging for Messaging {
                 let path_template = "/v1beta1/{parent}/blurbs:search";
 
                 let resource_name = format!("//localhost:7469/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("query", &req.query)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -5167,6 +5203,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -5177,6 +5214,7 @@ impl super::stub::Messaging for Messaging {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5190,6 +5228,7 @@ impl super::stub::Messaging for Messaging {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5208,6 +5247,7 @@ impl super::stub::Messaging for Messaging {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5221,6 +5261,7 @@ impl super::stub::Messaging for Messaging {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5489,6 +5530,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -5499,6 +5541,7 @@ impl super::stub::Messaging for Messaging {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5512,6 +5555,7 @@ impl super::stub::Messaging for Messaging {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5530,6 +5574,7 @@ impl super::stub::Messaging for Messaging {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5543,6 +5588,7 @@ impl super::stub::Messaging for Messaging {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -6141,6 +6187,7 @@ impl super::stub::SequenceService for SequenceService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -6151,6 +6198,7 @@ impl super::stub::SequenceService for SequenceService {
                 let path_template = "/v1beta1/{name}";
 
                 let resource_name = format!("//localhost:7469/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -6330,6 +6378,7 @@ impl super::stub::SequenceService for SequenceService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -6340,6 +6389,7 @@ impl super::stub::SequenceService for SequenceService {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -6353,6 +6403,7 @@ impl super::stub::SequenceService for SequenceService {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -6371,6 +6422,7 @@ impl super::stub::SequenceService for SequenceService {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -6384,6 +6436,7 @@ impl super::stub::SequenceService for SequenceService {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -6652,6 +6705,7 @@ impl super::stub::SequenceService for SequenceService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -6662,6 +6716,7 @@ impl super::stub::SequenceService for SequenceService {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -6675,6 +6730,7 @@ impl super::stub::SequenceService for SequenceService {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -6693,6 +6749,7 @@ impl super::stub::SequenceService for SequenceService {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -6706,6 +6763,7 @@ impl super::stub::SequenceService for SequenceService {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7668,6 +7726,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -7678,6 +7737,7 @@ impl super::stub::Testing for Testing {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7691,6 +7751,7 @@ impl super::stub::Testing for Testing {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7709,6 +7770,7 @@ impl super::stub::Testing for Testing {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7722,6 +7784,7 @@ impl super::stub::Testing for Testing {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7990,6 +8053,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -8000,6 +8064,7 @@ impl super::stub::Testing for Testing {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -8013,6 +8078,7 @@ impl super::stub::Testing for Testing {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -8031,6 +8097,7 @@ impl super::stub::Testing for Testing {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -8044,6 +8111,7 @@ impl super::stub::Testing for Testing {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))

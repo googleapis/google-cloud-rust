@@ -1348,6 +1348,7 @@ impl super::stub::Workstations for Workstations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/workstationClusters/"), Segment::SingleWildcard, Segment::Literal("/workstationConfigs/"), Segment::SingleWildcard, Segment::Literal("/workstations/"), Segment::SingleWildcard])?;
@@ -1361,6 +1362,7 @@ impl super::stub::Workstations for Workstations {
                 "//workstations.googleapis.com/{}",
                 var_name,
             );
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1408,6 +1410,7 @@ impl super::stub::Workstations for Workstations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/workstationClusters/"), Segment::SingleWildcard, Segment::Literal("/workstationConfigs/"), Segment::SingleWildcard, Segment::Literal("/workstations/"), Segment::SingleWildcard])?;
@@ -1421,6 +1424,7 @@ impl super::stub::Workstations for Workstations {
                 "//workstations.googleapis.com/{}",
                 var_name,
             );
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1468,6 +1472,7 @@ impl super::stub::Workstations for Workstations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
         .or_else(|| {
             let var_workstation = try_match(Some(&req).map(|m| &m.workstation).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/workstationClusters/"), Segment::SingleWildcard, Segment::Literal("/workstationConfigs/"), Segment::SingleWildcard, Segment::Literal("/workstations/"), Segment::SingleWildcard])?;
@@ -1481,6 +1486,7 @@ impl super::stub::Workstations for Workstations {
                 "//workstations.googleapis.com/{}",
                 var_workstation,
             );
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.workstation));
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1528,6 +1534,7 @@ impl super::stub::Workstations for Workstations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
         .or_else(|| {
             let var_resource = try_match(Some(&req).map(|m| &m.resource).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/workstationClusters/"), Segment::SingleWildcard, Segment::Literal("/workstationConfigs/"), Segment::SingleWildcard])?;
@@ -1541,6 +1548,7 @@ impl super::stub::Workstations for Workstations {
                 "//workstations.googleapis.com/{}",
                 var_resource,
             );
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1557,6 +1565,7 @@ impl super::stub::Workstations for Workstations {
                 "//workstations.googleapis.com/{}",
                 var_resource,
             );
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1704,6 +1713,7 @@ impl super::stub::Workstations for Workstations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
         .or_else(|| {
             let var_resource = try_match(Some(&req).map(|m| &m.resource).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/workstationClusters/"), Segment::SingleWildcard, Segment::Literal("/workstationConfigs/"), Segment::SingleWildcard])?;
@@ -1717,6 +1727,7 @@ impl super::stub::Workstations for Workstations {
                 "//workstations.googleapis.com/{}",
                 var_resource,
             );
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1733,6 +1744,7 @@ impl super::stub::Workstations for Workstations {
                 "//workstations.googleapis.com/{}",
                 var_resource,
             );
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2006,6 +2018,7 @@ impl super::stub::Workstations for Workstations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -2022,6 +2035,7 @@ impl super::stub::Workstations for Workstations {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))

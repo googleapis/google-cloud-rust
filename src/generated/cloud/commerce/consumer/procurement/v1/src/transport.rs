@@ -210,6 +210,7 @@ impl super::stub::LicenseManagementService for LicenseManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -225,6 +226,7 @@ impl super::stub::LicenseManagementService for LicenseManagementService {
                 let path = format!("/v1/{}:assign", var_parent,);
                 let path_template = "/v1/{parent}:assign";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -278,6 +280,7 @@ impl super::stub::LicenseManagementService for LicenseManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -293,6 +296,7 @@ impl super::stub::LicenseManagementService for LicenseManagementService {
                 let path = format!("/v1/{}:unassign", var_parent,);
                 let path_template = "/v1/{parent}:unassign";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -515,6 +519,7 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -531,6 +536,7 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
                     "//cloudcommerceconsumerprocurement.googleapis.com/{}",
                     var_parent,
                 );
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -713,6 +719,7 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -727,6 +734,7 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
                 let path = format!("/v1/{}:modify", var_name,);
                 let path_template = "/v1/{name}:modify";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -779,6 +787,7 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -793,6 +802,7 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
