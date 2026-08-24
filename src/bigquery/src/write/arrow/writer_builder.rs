@@ -420,34 +420,42 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
-    async fn attach_success() -> anyhow::Result<()> {
-        use bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream as MockWriteStream;
-        use bigquery_grpc_mock::{MockBigQueryWrite, start};
-        let mut mock = MockBigQueryWrite::new();
-        mock.expect_get_write_stream().return_once(|req| {
-            let req = req.into_inner();
-            assert_eq!(req.name, "projects/p/datasets/d/tables/t/streams/s");
-            Ok(gaxi::grpc::tonic::Response::new(MockWriteStream {
-                name: "projects/p/datasets/d/tables/t/streams/s".to_string(),
-                r#type: 1, // Type::Committed mapped purely for proto enum bounds
-                ..Default::default()
-            }))
-        });
-        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
-        let transport = Arc::new(test_transport(endpoint).await?);
-        let schema = ArrowSchema::new().set_serialized_schema("test");
-        let builder = WriterBuilder::new(transport, schema.clone());
-        let writer: CommittedWriter = builder
-            .attach("projects/p/datasets/d/tables/t/streams/s")
-            .await?;
-        assert_eq!(
-            writer.inner.write_stream,
-            "projects/p/datasets/d/tables/t/streams/s"
-        );
-        assert_eq!(writer.inner.schema, schema);
-        Ok(())
+    macro_rules! test_attach_success {
+        ($name:ident, $writer_type:ident, $stream_type:expr) => {
+            #[tokio::test]
+            async fn $name() -> anyhow::Result<()> {
+                use bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream as MockWriteStream;
+                use bigquery_grpc_mock::{MockBigQueryWrite, start};
+                let mut mock = MockBigQueryWrite::new();
+                mock.expect_get_write_stream().return_once(|req| {
+                    let req = req.into_inner();
+                    assert_eq!(req.name, "projects/p/datasets/d/tables/t/streams/s");
+                    Ok(gaxi::grpc::tonic::Response::new(MockWriteStream {
+                        name: "projects/p/datasets/d/tables/t/streams/s".to_string(),
+                        r#type: $stream_type,
+                        ..Default::default()
+                    }))
+                });
+                let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+                let transport = Arc::new(test_transport(endpoint).await?);
+                let schema = ArrowSchema::new().set_serialized_schema("test");
+                let builder = WriterBuilder::new(transport, schema.clone());
+                let writer: $writer_type = builder
+                    .attach("projects/p/datasets/d/tables/t/streams/s")
+                    .await?;
+                assert_eq!(
+                    writer.inner.write_stream,
+                    "projects/p/datasets/d/tables/t/streams/s"
+                );
+                assert_eq!(writer.inner.schema, schema);
+                Ok(())
+            }
+        };
     }
+
+    test_attach_success!(attach_committed_success, CommittedWriter, 1);
+    test_attach_success!(attach_pending_success, PendingWriter, 2);
+    test_attach_success!(attach_buffered_success, BufferedWriter, 3);
 
     #[test_case("projects/p")]
     #[test_case("projects/p/tables/t")]
