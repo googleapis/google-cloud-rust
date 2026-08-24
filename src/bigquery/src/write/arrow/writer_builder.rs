@@ -225,10 +225,10 @@ mod tests {
         let builder = WriterBuilder::new(transport, schema.clone());
         let writer = builder.pending("projects/p/datasets/d/tables/t").await?;
         assert_eq!(
-            writer.write_stream,
+            writer.base.write_stream,
             "projects/p/datasets/d/tables/t/streams/s"
         );
-        assert_eq!(writer.schema, schema);
+        assert_eq!(writer.base.schema, schema);
         Ok(())
     }
 
@@ -269,10 +269,10 @@ mod tests {
         let builder = WriterBuilder::new(transport, schema.clone());
         let writer = builder.committed("projects/p/datasets/d/tables/t").await?;
         assert_eq!(
-            writer.write_stream,
+            writer.base.write_stream,
             "projects/p/datasets/d/tables/t/streams/s"
         );
-        assert_eq!(writer.schema, schema);
+        assert_eq!(writer.base.schema, schema);
         Ok(())
     }
 
@@ -299,10 +299,10 @@ mod tests {
         let builder = WriterBuilder::new(transport, schema.clone());
         let writer = builder.default("projects/p/datasets/d/tables/t")?;
         assert_eq!(
-            writer.write_stream,
+            writer.base.write_stream,
             "projects/p/datasets/d/tables/t/streams/_default"
         );
-        assert_eq!(writer.schema, schema);
+        assert_eq!(writer.base.schema, schema);
         Ok(())
     }
 
@@ -344,10 +344,10 @@ mod tests {
         let builder = WriterBuilder::new(transport, schema.clone());
         let writer = builder.buffered("projects/p/datasets/d/tables/t").await?;
         assert_eq!(
-            writer.write_stream,
+            writer.base.write_stream,
             "projects/p/datasets/d/tables/t/streams/s"
         );
-        assert_eq!(writer.schema, schema);
+        assert_eq!(writer.base.schema, schema);
         Ok(())
     }
 

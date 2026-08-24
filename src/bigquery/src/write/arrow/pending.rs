@@ -12,16 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::super::append_builder::AppendWithOffset;
-use super::super::generated::gapic_storage::client::BigQueryWrite;
-use super::super::runner::Runner;
-use super::super::transport::Transport;
+use super::base::BaseWriter;
 use crate::Result;
-use crate::model::append_rows_request::ArrowData;
 use crate::model::{
-    AppendRowsRequest, ArrowRecordBatch, ArrowSchema, BatchCommitWriteStreamsResponse,
-    FinalizeWriteStreamResponse,
+    ArrowRecordBatch, ArrowSchema, BatchCommitWriteStreamsResponse, FinalizeWriteStreamResponse,
 };
+use crate::write::append_builder::AppendWithOffset;
+use crate::write::transport::Transport;
 use std::sync::Arc;
 
 /// A writer for a [pending stream].
@@ -29,43 +26,27 @@ use std::sync::Arc;
 /// [pending stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#pending_type
 #[derive(Debug)]
 pub struct PendingWriter {
-    runner: Runner,
-    pub(crate) write_stream: String,
-    pub(crate) schema: ArrowSchema,
-    client: BigQueryWrite,
+    pub(crate) base: BaseWriter,
 }
 
 impl PendingWriter {
     pub(crate) fn new(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
-        let runner = Runner::new(inner.clone());
-        let client = BigQueryWrite::from_stub::<Transport>(inner);
         Self {
-            runner,
-            write_stream,
-            schema,
-            client,
+            base: BaseWriter::new(inner, write_stream, schema),
         }
     }
 
     /// Appends rows to the pending stream.
     pub fn append(&self, rows: ArrowRecordBatch) -> AppendWithOffset {
-        let req = AppendRowsRequest::new()
-            .set_write_stream(&self.write_stream)
-            .set_arrow_rows(
-                ArrowData::new()
-                    .set_writer_schema(self.schema.clone())
-                    .set_rows(rows),
-            );
-        AppendWithOffset::new(self.runner.req_tx.clone(), req)
+        AppendWithOffset::new(
+            self.base.runner.req_tx.clone(),
+            self.base.append_request(rows),
+        )
     }
 
     /// Finalizes the pending stream, preventing further writes.
     pub async fn finalize(&self) -> Result<FinalizeWriteStreamResponse> {
-        self.client
-            .finalize_write_stream()
-            .set_name(&self.write_stream)
-            .send()
-            .await
+        self.base.finalize().await
     }
 
     /// Commits the pending stream to the table.
@@ -73,15 +54,17 @@ impl PendingWriter {
         // Extract the parent table path from the stream name:
         // "projects/p/datasets/d/tables/t/streams/s" -> "projects/p/datasets/d/tables/t"
         let parent = self
+            .base
             .write_stream
             .split_once("/streams/")
-            .map_or(self.write_stream.as_str(), |(p, _)| p)
+            .map_or(self.base.write_stream.as_str(), |(p, _)| p)
             .to_string();
 
-        self.client
+        self.base
+            .client
             .batch_commit_write_streams()
             .set_parent(parent)
-            .set_write_streams(vec![self.write_stream.clone()])
+            .set_write_streams(vec![self.base.write_stream.clone()])
             .send()
             .await
     }
