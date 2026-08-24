@@ -261,16 +261,12 @@ mod tests {
             MockRecvStream::new([
                 MockRecvAction::Wait(send_stream.notify_handle()),
                 MockRecvAction::Headers(ResponseHeaders::new().with_metadata(metadata)),
-                MockRecvAction::Message(TestMessage {
-                    value: RESPONSE_VALUE.to_string(),
-                }),
+                MockRecvAction::Message(TestMessage::new(RESPONSE_VALUE)),
                 MockRecvAction::Trailers(Trailers::new(Ok(()))),
             ]),
         );
         let headers = RequestHeaders::new().with_method_name(METHOD_NAME);
-        let request = TestMessage {
-            value: REQUEST_VALUE.to_string(),
-        };
+        let request = TestMessage::new(REQUEST_VALUE);
 
         // Act
         let response = invoke_bidi::<TestMessage, TestMessage, _>(
@@ -291,9 +287,7 @@ mod tests {
         let mut stream = response.into_inner();
         assert_eq!(
             stream.message().await?,
-            Some(TestMessage {
-                value: RESPONSE_VALUE.to_string()
-            })
+            Some(TestMessage::new(RESPONSE_VALUE))
         );
         assert_eq!(stream.message().await?, None);
         assert_eq!(
@@ -376,9 +370,7 @@ mod tests {
 
         let invoker = MockInvoker::new(FailingSendStream, PendingRecvStream);
         let headers = RequestHeaders::new().with_method_name(METHOD_NAME);
-        let request = TestMessage {
-            value: "msg".to_string(),
-        };
+        let request = TestMessage::new("msg");
 
         // Act
         let result = tokio::time::timeout(
@@ -415,9 +407,7 @@ mod tests {
             MockRecvStream::with_immediate_trailers(Trailers::new(Err(server_error))),
         );
         let headers = RequestHeaders::new().with_method_name(METHOD_NAME);
-        let request = TestMessage {
-            value: "request".to_string(),
-        };
+        let request = TestMessage::new("request");
 
         // Act
         let err = invoke_bidi::<TestMessage, TestMessage, _>(
@@ -441,9 +431,7 @@ mod tests {
         const RESPONSE_VALUE: &str = "buffered response";
         const ERROR_MESSAGE_STREAM_CLOSED: &str = "grpc-rust request stream closed";
         let (mut stream, receive_gate) = setup_failed_send_bidi_stream([
-            MockRecvAction::Message(TestMessage {
-                value: RESPONSE_VALUE.to_string(),
-            }),
+            MockRecvAction::Message(TestMessage::new(RESPONSE_VALUE)),
             MockRecvAction::Trailers(Trailers::new(Ok(()))),
         ])
         .await?;
@@ -460,9 +448,7 @@ mod tests {
         // We still receive the response from the server...
         assert_eq!(
             stream.message().await?,
-            Some(TestMessage {
-                value: RESPONSE_VALUE.to_string()
-            })
+            Some(TestMessage::new(RESPONSE_VALUE))
         );
         // ...and we report the send side failure.
         let err = stream
@@ -530,14 +516,7 @@ mod tests {
         let headers = RequestHeaders::new().with_method_name(METHOD_NAME);
 
         // Send two requests: the first succeeds; the second blocks on `fail_gate`.
-        let requests = [
-            TestMessage {
-                value: "request-1".to_string(),
-            },
-            TestMessage {
-                value: "request-2".to_string(),
-            },
-        ];
+        let requests = [TestMessage::new("request-1"), TestMessage::new("request-2")];
         let response = invoke_bidi::<TestMessage, TestMessage, _>(
             &invoker,
             headers,

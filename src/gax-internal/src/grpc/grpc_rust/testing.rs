@@ -279,7 +279,7 @@ impl RecvStream for PanicRecvStream {
 pub struct MockInvoker<S = MockSendStream, R = MockRecvStream> {
     send_stream: Mutex<Option<S>>,
     recv_stream: Mutex<Option<R>>,
-    observed_headers: Arc<Mutex<Option<RequestHeaders>>>,
+    observed_headers: Mutex<Option<RequestHeaders>>,
 }
 
 impl<S, R> MockInvoker<S, R> {
@@ -288,7 +288,7 @@ impl<S, R> MockInvoker<S, R> {
         Self {
             send_stream: Mutex::new(Some(send_stream)),
             recv_stream: Mutex::new(Some(recv_stream)),
-            observed_headers: Arc::new(Mutex::new(None)),
+            observed_headers: Mutex::new(None),
         }
     }
 
