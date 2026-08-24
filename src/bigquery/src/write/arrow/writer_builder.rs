@@ -299,10 +299,10 @@ mod tests {
         let builder = WriterBuilder::new(transport, schema.clone());
         let writer = builder.default("projects/p/datasets/d/tables/t")?;
         assert_eq!(
-            writer.base.write_stream,
+            writer.write_stream,
             "projects/p/datasets/d/tables/t/streams/_default"
         );
-        assert_eq!(writer.base.schema, schema);
+        assert_eq!(writer.schema, schema);
         Ok(())
     }
 

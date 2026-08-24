@@ -12,33 +12,45 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::base::BaseWriter;
-use crate::model::{ArrowRecordBatch, ArrowSchema};
-use crate::write::append_builder::Append;
-use crate::write::transport::Transport;
+use super::super::append_builder::Append;
+use super::super::runner::Runner;
+use super::super::transport::Transport;
+use crate::model::append_rows_request::ArrowData;
+use crate::model::{AppendRowsRequest, ArrowRecordBatch, ArrowSchema};
 use std::sync::Arc;
 
-/// A writer for a [default stream].
+/// A writer for the [default stream]
 ///
-/// [default stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#default_stream
+/// [default stream]: https://docs.cloud.google.com/bigquery/docs/write-api#default_stream
 #[derive(Debug)]
 pub struct DefaultWriter {
-    pub(crate) base: BaseWriter,
+    // TODO(#5744) - support multiplexed connections
+    runner: Runner,
+    pub(crate) write_stream: String,
+    pub(crate) schema: ArrowSchema,
 }
 
 impl DefaultWriter {
     pub(crate) fn new(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
+        let runner = Runner::new(inner);
         Self {
-            base: BaseWriter::new(inner, write_stream, schema),
+            runner,
+            write_stream,
+            schema,
         }
     }
 
-    /// Append rows to the default stream.
+    /// Append rows to the stream.
     pub fn append(&self, rows: ArrowRecordBatch) -> Append {
-        Append::new(
-            self.base.runner.req_tx.clone(),
-            self.base.append_request(rows),
-        )
+        // TODO(#5744) - send optimization
+        let req = AppendRowsRequest::new()
+            .set_write_stream(&self.write_stream)
+            .set_arrow_rows(
+                ArrowData::new()
+                    .set_writer_schema(self.schema.clone())
+                    .set_rows(rows),
+            );
+        Append::new(self.runner.req_tx.clone(), req)
     }
 }
 
