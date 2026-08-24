@@ -6627,7 +6627,7 @@ dependencies = [
 [[package]]
 name = "grpc"
 version = "0.10.0"
-source = "git+https://github.com/grpc/grpc-rust.git?rev=110d4f439207ae01101fce40e82eb51febe185e1#110d4f439207ae01101fce40e82eb51febe185e1"
+source = "git+https://github.com/grpc/grpc-rust.git?rev=ecd8e0371aeb23ea1d4724194fec5e497d695fb9#ecd8e0371aeb23ea1d4724194fec5e497d695fb9"
 dependencies = [
  "base64 0.22.1",
  "bytes",
@@ -6653,7 +6653,7 @@ dependencies = [
  "tokio",
  "tokio-rustls",
  "tokio-stream",
- "tonic 0.14.6 (git+https://github.com/grpc/grpc-rust.git?rev=110d4f439207ae01101fce40e82eb51febe185e1)",
+ "tonic 0.14.6 (git+https://github.com/grpc/grpc-rust.git?rev=ecd8e0371aeb23ea1d4724194fec5e497d695fb9)",
  "tower",
  "tower-service",
  "trait-variant",
@@ -10241,7 +10241,7 @@ dependencies = [
 [[package]]
 name = "tonic"
 version = "0.14.6"
-source = "git+https://github.com/grpc/grpc-rust.git?rev=110d4f439207ae01101fce40e82eb51febe185e1#110d4f439207ae01101fce40e82eb51febe185e1"
+source = "git+https://github.com/grpc/grpc-rust.git?rev=ecd8e0371aeb23ea1d4724194fec5e497d695fb9#ecd8e0371aeb23ea1d4724194fec5e497d695fb9"
 dependencies = [
  "async-trait",
  "base64 0.22.1",

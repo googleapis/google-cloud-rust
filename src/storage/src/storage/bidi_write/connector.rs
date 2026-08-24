@@ -354,14 +354,14 @@ mod tests {
         need_send(&start);
 
         let err = start.await.unwrap_err();
-        assert!(err.is_connect(), "{err:?}");
-        // TODO(#5991): Re-enable when `grpc-rust` preserves `.source()` and endpoint URIs.
-        // See `to_gax_error` in `gax-internal/src/grpc/from_status.rs` for more background.
-        #[cfg(not(google_cloud_unstable_grpc_rust))]
-        {
-            let source = err.source().unwrap().to_string();
-            assert!(source.contains("127.0.0.1:1"), "{source}");
-        }
+        assert!(
+            err.is_connect(),
+            "expected connect error for bad endpoint: {err:?}"
+        );
+        assert!(
+            err.source().is_some(),
+            "expected underlying transport error source to be preserved: {err:?}"
+        );
 
         Ok(())
     }

@@ -260,7 +260,9 @@ mod tests {
             send_stream.clone(),
             MockRecvStream::new([
                 MockRecvAction::Wait(send_stream.notify_handle()),
-                MockRecvAction::Headers(ResponseHeaders::new().with_metadata(metadata)),
+                MockRecvAction::Headers(
+                    ResponseHeaders::new(test_connection_info()).with_metadata(metadata),
+                ),
                 MockRecvAction::Message(TestMessage::new(RESPONSE_VALUE)),
                 MockRecvAction::Trailers(Trailers::new(Ok(()))),
             ]),
@@ -312,7 +314,7 @@ mod tests {
         let invoker = MockInvoker::new(
             MockSendStream::default(),
             MockRecvStream::with_headers_and_trailers(
-                ResponseHeaders::new(),
+                ResponseHeaders::new(test_connection_info()),
                 Trailers::new(Err(err)),
             ),
         );
@@ -345,7 +347,9 @@ mod tests {
         let err = StatusError::new(StatusCodeError::Aborted, ERROR_MESSAGE);
         let invoker = MockInvoker::new(
             MockSendStream::default(),
-            MockRecvStream::with_immediate_trailers(Trailers::new(Err(err))),
+            MockRecvStream::with_immediate_trailers(
+                Trailers::new(Err(err)).with_connection_info(Some(test_connection_info())),
+            ),
         );
         let headers = RequestHeaders::new().with_method_name(METHOD_NAME);
 
@@ -404,7 +408,9 @@ mod tests {
         let server_error = StatusError::new(StatusCodeError::InvalidArgument, ERROR_MESSAGE);
         let invoker = MockInvoker::new(
             FailingSendStream,
-            MockRecvStream::with_immediate_trailers(Trailers::new(Err(server_error))),
+            MockRecvStream::with_immediate_trailers(
+                Trailers::new(Err(server_error)).with_connection_info(Some(test_connection_info())),
+            ),
         );
         let headers = RequestHeaders::new().with_method_name(METHOD_NAME);
         let request = TestMessage::new("request");
@@ -421,6 +427,43 @@ mod tests {
         // Assert
         assert_eq!(err.code(), tonic::Code::InvalidArgument);
         assert_eq!(err.message(), ERROR_MESSAGE);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn bidi_call_returns_connect_error_on_pre_connect_failure() -> anyhow::Result<()> {
+        // Arrange
+        use std::error::Error;
+        const METHOD_NAME: &str = "/google.test.v1.Test/Bidi";
+        const ERROR_MESSAGE: &str = "Service was not ready: connection refused to 127.0.0.1:1";
+        let connect_error = StatusError::new(StatusCodeError::Unavailable, ERROR_MESSAGE);
+        let invoker = MockInvoker::new(
+            FailingSendStream,
+            MockRecvStream::with_immediate_trailers(Trailers::new(Err(connect_error))),
+        );
+        let headers = RequestHeaders::new().with_method_name(METHOD_NAME);
+        let request = TestMessage::new("request");
+
+        // Act
+        let status = invoke_bidi::<TestMessage, TestMessage, _>(
+            &invoker,
+            headers,
+            tokio_stream::iter([request]),
+        )
+        .await
+        .expect_err("should fail with connect error");
+
+        // Assert
+        let gax_err = crate::grpc::from_status::to_gax_error(status);
+        assert!(
+            gax_err.is_connect(),
+            "pre-connect failure should map to connect error: {gax_err:?}"
+        );
+        let source = gax_err
+            .source()
+            .and_then(|e| e.source())
+            .and_then(|e| e.downcast_ref::<crate::grpc::from_status::ConnectError>());
+        assert!(source.is_some(), "{gax_err:?}");
         Ok(())
     }
 
@@ -508,7 +551,7 @@ mod tests {
 
         // Emit initial response headers and pause the server stream until unblocked by `receive_gate`.
         let mut actions = vec![
-            MockRecvAction::Headers(ResponseHeaders::new()),
+            MockRecvAction::Headers(ResponseHeaders::new(test_connection_info())),
             MockRecvAction::Wait(receive_gate.clone()),
         ];
         actions.extend(server_actions);

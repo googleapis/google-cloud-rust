@@ -68,16 +68,18 @@ async fn drain_recv_stream(mut recv: impl RecvStream) -> tonic::Status {
         }
     }
 
+    let mut seen_headers = false;
     loop {
         match recv.recv(&mut DrainRecv).await {
+            ResponseStreamItem::Headers(_) => seen_headers = true,
             ResponseStreamItem::Trailers(trailers) => {
-                if let Some(status) = trailers_to_tonic_status(trailers) {
+                if let Some(status) = trailers_to_tonic_status(trailers, seen_headers) {
                     return status;
                 }
                 break;
             }
             ResponseStreamItem::StreamClosed => break,
-            ResponseStreamItem::Headers(_) | ResponseStreamItem::Message => {}
+            ResponseStreamItem::Message => {}
         }
     }
     tonic::Status::internal("grpc-rust unary send failed without server error trailers")
@@ -94,10 +96,12 @@ where
     let mut metadata = MetadataMap::new();
     let mut message: Option<Response> = None;
     let mut slot = GrpcRustRecv::<Response>::default();
+    let mut seen_headers = false;
 
     loop {
         match recv.recv(&mut slot).await {
             ResponseStreamItem::Headers(headers) => {
+                seen_headers = true;
                 metadata = to_tonic_map(headers.metadata());
             }
             ResponseStreamItem::Message => {
@@ -107,7 +111,7 @@ where
                 // The trailer metadata will be merged with the header metadata.
                 let trailer_metadata = to_tonic_map(trailers.metadata());
                 // If the server returned an error status in trailers, return that error.
-                if let Some(status) = trailers_to_tonic_status(trailers) {
+                if let Some(status) = trailers_to_tonic_status(trailers, seen_headers) {
                     return Err(status);
                 }
                 let Some(msg) = message else {
@@ -155,7 +159,7 @@ mod tests {
         // Arrange
         let send_stream = MockSendStream::new();
 
-        let mut headers = ResponseHeaders::new();
+        let mut headers = ResponseHeaders::new(test_connection_info());
         headers.metadata_mut().append(
             RESPONSE_HEADER_KEY,
             MetadataValue::from_static(RESPONSE_HEADER_VALUE),
@@ -222,10 +226,13 @@ mod tests {
 
         let invoker = MockInvoker::new(
             MockSendStream::default(),
-            MockRecvStream::with_immediate_trailers(Trailers::new(Err(StatusError::new(
-                StatusCodeError::Unauthenticated,
-                INVALID_TOKEN_ERROR,
-            )))),
+            MockRecvStream::with_immediate_trailers(
+                Trailers::new(Err(StatusError::new(
+                    StatusCodeError::Unauthenticated,
+                    INVALID_TOKEN_ERROR,
+                )))
+                .with_connection_info(Some(test_connection_info())),
+            ),
         );
 
         // Act
@@ -249,7 +256,7 @@ mod tests {
         let invoker = MockInvoker::new(
             MockSendStream::default(),
             MockRecvStream::with_headers_and_trailers(
-                ResponseHeaders::new(),
+                ResponseHeaders::new(test_connection_info()),
                 Trailers::new(Ok(())),
             ),
         );
@@ -280,10 +287,13 @@ mod tests {
 
         let invoker = MockInvoker::new(
             FailingSendStream,
-            MockRecvStream::with_immediate_trailers(Trailers::new(Err(StatusError::new(
-                StatusCodeError::PermissionDenied,
-                ACCESS_DENIED_ERROR,
-            )))),
+            MockRecvStream::with_immediate_trailers(
+                Trailers::new(Err(StatusError::new(
+                    StatusCodeError::PermissionDenied,
+                    ACCESS_DENIED_ERROR,
+                )))
+                .with_connection_info(Some(test_connection_info())),
+            ),
         );
 
         // Act
@@ -299,5 +309,42 @@ mod tests {
         // Assert
         assert_eq!(status.code(), tonic::Code::PermissionDenied);
         assert_eq!(status.message(), ACCESS_DENIED_ERROR);
+    }
+
+    #[tokio::test]
+    async fn test_unary_connect_failure() {
+        // Arrange
+        use std::error::Error;
+        const CONNECT_ERROR: &str = "Service was not ready: connection refused to 127.0.0.1:1";
+
+        let invoker = MockInvoker::new(
+            MockSendStream::default(),
+            MockRecvStream::with_immediate_trailers(Trailers::new(Err(StatusError::new(
+                StatusCodeError::Unavailable,
+                CONNECT_ERROR,
+            )))),
+        );
+
+        // Act
+        let status = invoke_unary::<_, TestMessage, _>(
+            &invoker,
+            RequestHeaders::new().with_method_name(METHOD_NAME),
+            TestMessage::new("test"),
+            CallOptions::default(),
+        )
+        .await
+        .expect_err("unary invocation should fail on connect failure");
+
+        // Assert
+        let gax_err = crate::grpc::from_status::to_gax_error(status);
+        assert!(
+            gax_err.is_connect(),
+            "connect failure should map to connect error: {gax_err:?}"
+        );
+        let source = gax_err
+            .source()
+            .and_then(|e| e.source())
+            .and_then(|e| e.downcast_ref::<crate::grpc::from_status::ConnectError>());
+        assert!(source.is_some(), "{gax_err:?}");
     }
 }
