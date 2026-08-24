@@ -27,17 +27,8 @@
 //! For executing queries and managing jobs:
 //! * [BigQuery][client::BigQuery]
 //!
-//! For handling query execution:
-//! * [Query](crate::query::Query)
-//! * [CompleteQuery](crate::query::CompleteQuery)
-//!
-//! For streaming and reading results:
-//! * [RowIterator](crate::query::RowIterator)
-//! * [Row](crate::query::Row)
-//!
-//! For converting results to Rust types:
-//! * [FromRow](crate::query::FromRow)
-//! * [FromSql](crate::query::FromSql)
+//! For streaming data to BigQuery:
+//! * [Write][client::Write]
 //!
 //! [bigquery]: https://cloud.google.com/bigquery
 //!
@@ -94,6 +85,31 @@
 //! }
 //! # Ok(())
 //! # }
+//! ```
+//!
+//! # Example: Writing to BigQuery
+//!
+//! ```
+//! # use google_cloud_bigquery::client::Write;
+//! # async fn sample() -> anyhow::Result<()> {
+//! let client = Write::builder().build().await?;
+//! let writer = client
+//!     .arrow(schema())
+//!     .default("projects/my-project/datasets/my-dataset/tables/my-table")?;
+//!
+//! let f1 = writer.append(rows()).send();
+//! let f2 = writer.append(rows()).send();
+//!
+//! let _ = f1.await?;
+//! let _ = f2.await?;
+//! # Ok(()) }
+//! use google_cloud_bigquery::model::{ArrowSchema, ArrowRecordBatch};
+//! fn schema() -> ArrowSchema {
+//!   todo!("Define your table's schema...")
+//! }
+//! fn rows() -> ArrowRecordBatch {
+//!   todo!("Serialize your rows...")
+//! }
 //! ```
 
 pub use google_cloud_gax::Result;
