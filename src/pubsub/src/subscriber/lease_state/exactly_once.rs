@@ -106,45 +106,27 @@ impl Leases {
     ) -> Vec<Vec<String>> {
         let now = Instant::now();
 
-        // We want to extract some values from `HashMap`, leaving the rest
-        // unchanged.
-        // - `extract_if()` is not available as our MSRV is 1.87 and that appears
-        //   in 1.88.
-        // - `retain` does not work because we need a *value* of `info` to
-        //   change `tx` and that only gives us a `&mut ExactlyOnceInfo`.
-        // - using `Option<Sender>` would complicate the rest of the code.
-        //
-        // We believe the iterations are most of the problem.
+        // Extract and notify expired leases.
+        self.under_lease
+            .extract_if(|_id, info| {
+                matches!(info.status, MessageStatus::Leased) && info.receive_time + max_lease < now
+            })
+            .for_each(|(_id, info)| {
+                let _ = info.result_tx.send(Err(AckError::LeaseExpired));
+            });
 
-        let mut expired = Vec::new();
-        let remaining = self
-            .under_lease
-            .iter_mut()
+        self.under_lease
+            .iter()
             .filter_map(|(id, info)| match info.status {
                 MessageStatus::Nacking => None,
-                MessageStatus::Acking => {
+                MessageStatus::Acking | MessageStatus::Leased => {
                     if info.last_extension.is_some_and(|i| {
                         i + max_lease_extension > now + EXTEND_PERIOD + EXTEND_BUFFER
                     }) {
                         // The lease is still valid for a while. No need to extend.
                         None
                     } else {
-                        // Continue to extend messages being acked.
-                        Some(id.clone())
-                    }
-                }
-                MessageStatus::Leased => {
-                    if info.receive_time + max_lease < now {
-                        // Drop messages that have been held for too long.
-                        expired.push(id.clone());
-                        None
-                    } else if info.last_extension.is_some_and(|i| {
-                        i + max_lease_extension > now + EXTEND_PERIOD + EXTEND_BUFFER
-                    }) {
-                        // The lease is still valid for a while. No need to extend.
-                        None
-                    } else {
-                        // Extend leases for all other messages
+                        // Extend leases for all other messages.
                         Some(id.clone())
                     }
                 }
@@ -152,15 +134,7 @@ impl Leases {
             .collect::<Vec<_>>()
             .chunks(MAX_IDS_PER_RPC)
             .map(|c| c.to_vec())
-            .collect::<Vec<_>>();
-
-        expired
-            .into_iter()
-            .filter_map(|id| self.under_lease.remove_entry(&id))
-            .for_each(|(_id, info)| {
-                let _ = info.result_tx.send(Err(AckError::LeaseExpired));
-            });
-        remaining
+            .collect::<Vec<_>>()
     }
 
     /// Nacks all messages under lease management that have not been acked by
