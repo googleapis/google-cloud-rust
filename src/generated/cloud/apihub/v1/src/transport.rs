@@ -2586,6 +2586,7 @@ impl super::stub::ApiHub for ApiHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_location = try_match(
@@ -2601,6 +2602,7 @@ impl super::stub::ApiHub for ApiHub {
                 let path_template = "/v1/{location}:searchResources";
 
                 let resource_name = format!("//apihub.googleapis.com/{}", var_location,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.location));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3373,6 +3375,7 @@ impl super::stub::ApiHub for ApiHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -3389,6 +3392,7 @@ impl super::stub::ApiHub for ApiHub {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -4198,6 +4202,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -4214,6 +4219,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -4303,6 +4309,7 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_location = try_match(
@@ -4318,6 +4325,7 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
                 let path_template = "/v1/{location}:collectApiData";
 
                 let resource_name = format!("//apihub.googleapis.com/{}", var_location,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.location));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4713,6 +4721,7 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -4729,6 +4738,7 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -5552,6 +5562,7 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -5568,6 +5579,7 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -6283,6 +6295,7 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -6299,6 +6312,7 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -6946,6 +6960,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -6962,6 +6977,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -7289,6 +7305,7 @@ impl super::stub::LintingService for LintingService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -7310,6 +7327,7 @@ impl super::stub::LintingService for LintingService {
                 let path_template = "/v1/{name}:lint";
 
                 let resource_name = format!("//apihub.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7717,6 +7735,7 @@ impl super::stub::LintingService for LintingService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -7733,6 +7752,7 @@ impl super::stub::LintingService for LintingService {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -7894,6 +7914,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -7911,6 +7932,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                 let path_template = "/v1/{name}:enable";
 
                 let resource_name = format!("//apihub.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7966,6 +7988,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -7983,6 +8006,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                 let path_template = "/v1/{name}:disable";
 
                 let resource_name = format!("//apihub.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -8323,6 +8347,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -8342,6 +8367,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                 let path_template = "/v1/{name}:executeAction";
 
                 let resource_name = format!("//apihub.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -8552,6 +8578,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -8571,6 +8598,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                 let path_template = "/v1/{name}:enableAction";
 
                 let resource_name = format!("//apihub.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -8630,6 +8658,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -8649,6 +8678,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                 let path_template = "/v1/{name}:disableAction";
 
                 let resource_name = format!("//apihub.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -9218,6 +9248,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -9234,6 +9265,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -9960,6 +9992,7 @@ impl super::stub::Provisioning for Provisioning {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -9976,6 +10009,7 @@ impl super::stub::Provisioning for Provisioning {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -10783,6 +10817,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -10799,6 +10834,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))

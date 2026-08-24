@@ -56,6 +56,7 @@ impl super::stub::AssetService for AssetService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -70,6 +71,7 @@ impl super::stub::AssetService for AssetService {
                 let path_template = "/v1/{parent}:exportAssets";
 
                 let resource_name = format!("//cloudasset.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -296,6 +298,7 @@ impl super::stub::AssetService for AssetService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -309,6 +312,7 @@ impl super::stub::AssetService for AssetService {
                 let path = format!("/v1/{}/feeds", var_parent,);
                 let path_template = "/v1/{parent}/feeds";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -494,6 +498,7 @@ impl super::stub::AssetService for AssetService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_feed_name = try_match(
@@ -512,6 +517,9 @@ impl super::stub::AssetService for AssetService {
                 let path = format!("/v1/{}", var_feed_name,);
                 let path_template = "/v1/{feed.name}";
 
+                let _ = Some(&mut req)
+                    .and_then(|m| m.feed.as_mut())
+                    .map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PATCH, path_template)))
@@ -894,6 +902,7 @@ impl super::stub::AssetService for AssetService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_analysis_query_scope = try_match(
@@ -913,6 +922,9 @@ impl super::stub::AssetService for AssetService {
                 );
                 let path_template = "/v1/{analysis_query.scope}:analyzeIamPolicyLongrunning";
 
+                let _ = Some(&mut req)
+                    .and_then(|m| m.analysis_query.as_mut())
+                    .map(|m| std::mem::take(&mut m.scope));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -1037,6 +1049,7 @@ impl super::stub::AssetService for AssetService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -1051,6 +1064,7 @@ impl super::stub::AssetService for AssetService {
                 let path_template = "/v1/{parent}:queryAssets";
 
                 let resource_name = format!("//cloudasset.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))

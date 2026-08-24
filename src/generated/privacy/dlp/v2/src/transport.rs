@@ -56,6 +56,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -66,6 +67,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{parent}/content:inspect";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -84,6 +86,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{parent}/content:inspect";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -147,6 +150,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -157,6 +161,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{parent}/image:redact";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -175,6 +180,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{parent}/image:redact";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -238,6 +244,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -248,6 +255,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{parent}/content:deidentify";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -266,6 +274,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{parent}/content:deidentify";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -329,6 +338,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -339,6 +349,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{parent}/content:reidentify";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -357,6 +368,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{parent}/content:reidentify";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -565,6 +577,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -580,6 +593,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{parent}/inspectTemplates";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -598,6 +612,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{parent}/inspectTemplates";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -611,6 +626,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{parent}/inspectTemplates";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -624,6 +640,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{parent}/inspectTemplates";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -712,6 +729,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -729,6 +747,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{name}";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
@@ -749,6 +768,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{name}";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
@@ -767,6 +787,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{name}";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
@@ -785,6 +806,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{name}";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
@@ -1406,6 +1428,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -1416,6 +1439,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{parent}/deidentifyTemplates";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1434,6 +1458,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{parent}/deidentifyTemplates";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1447,6 +1472,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{parent}/deidentifyTemplates";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1465,6 +1491,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{parent}/deidentifyTemplates";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1553,6 +1580,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1568,6 +1596,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{name}";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
@@ -1588,6 +1617,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{name}";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
@@ -1606,6 +1636,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{name}";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
@@ -1626,6 +1657,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{name}";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
@@ -2247,6 +2279,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -2257,6 +2290,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{parent}/jobTriggers";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2275,6 +2309,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{parent}/jobTriggers";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2293,6 +2328,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{parent}/jobTriggers";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2371,6 +2407,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -2386,6 +2423,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{name}";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
@@ -2406,6 +2444,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{name}";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
@@ -2426,6 +2465,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{name}";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
@@ -2513,6 +2553,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -2530,6 +2571,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{name}:hybridInspect";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3017,6 +3059,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -3032,6 +3075,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{name}:activate";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3052,6 +3096,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{name}:activate";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3122,6 +3167,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -3137,6 +3183,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{parent}/discoveryConfigs";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3155,6 +3202,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{parent}/discoveryConfigs";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3223,6 +3271,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -3240,6 +3289,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{name}";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
@@ -3260,6 +3310,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{name}";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
@@ -3663,6 +3714,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -3673,6 +3725,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{parent}/dlpJobs";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3691,6 +3744,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{parent}/dlpJobs";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4112,6 +4166,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -4127,6 +4182,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{name}:cancel";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4147,6 +4203,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{name}:cancel";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4223,6 +4280,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -4233,6 +4291,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{parent}/storedInfoTypes";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4251,6 +4310,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{parent}/storedInfoTypes";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4264,6 +4324,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{parent}/storedInfoTypes";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4282,6 +4343,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{parent}/storedInfoTypes";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4370,6 +4432,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -4385,6 +4448,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{name}";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
@@ -4405,6 +4469,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{name}";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
@@ -4423,6 +4488,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{name}";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
@@ -4443,6 +4509,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{name}";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
@@ -6166,6 +6233,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -6183,6 +6251,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{name}:hybridInspect";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -6238,6 +6307,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -6255,6 +6325,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{name}:finish";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -6316,6 +6387,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -6331,6 +6403,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{parent}/connections";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -6349,6 +6422,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{parent}/connections";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -6855,6 +6929,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -6872,6 +6947,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{name}";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
@@ -6892,6 +6968,7 @@ impl super::stub::DlpService for DlpService {
                 let path_template = "/v2/{name}";
 
                 let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))

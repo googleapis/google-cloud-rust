@@ -160,6 +160,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_job_name = try_match(
@@ -172,6 +173,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                 let path = format!("/v1/{}", var_job_name,);
                 let path_template = "/v1/{job_name}";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.job_name));
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PATCH, path_template)))
@@ -338,6 +340,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -350,6 +353,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                 let path = format!("/v1/{}:pause", var_name,);
                 let path_template = "/v1/{name}:pause";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -408,6 +412,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -420,6 +425,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                 let path = format!("/v1/{}:resume", var_name,);
                 let path_template = "/v1/{name}:resume";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -478,6 +484,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_job_name = try_match(
@@ -490,6 +497,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                 let path = format!("/v1/{}:run", var_job_name,);
                 let path_template = "/v1/{job_name}:run";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.job_name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -1082,6 +1090,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1094,6 +1103,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))

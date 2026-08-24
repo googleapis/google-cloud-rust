@@ -574,6 +574,7 @@ impl super::stub::CloudRedisCluster for CloudRedisCluster {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -591,6 +592,7 @@ impl super::stub::CloudRedisCluster for CloudRedisCluster {
                 let path_template = "/v1/{name}:rescheduleClusterMaintenance";
 
                 let resource_name = format!("//redis.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1019,6 +1021,7 @@ impl super::stub::CloudRedisCluster for CloudRedisCluster {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1038,6 +1041,7 @@ impl super::stub::CloudRedisCluster for CloudRedisCluster {
                 let path_template = "/v1/{name}:export";
 
                 let resource_name = format!("//redis.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1095,6 +1099,7 @@ impl super::stub::CloudRedisCluster for CloudRedisCluster {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1112,6 +1117,7 @@ impl super::stub::CloudRedisCluster for CloudRedisCluster {
                 let path_template = "/v1/{name}:backup";
 
                 let resource_name = format!("//redis.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
