@@ -24,7 +24,9 @@ use crate::model::{
 };
 use std::sync::Arc;
 
-/// A writer for a pending stream.
+/// A writer for a [pending stream].
+///
+/// [pending stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#pending_type
 #[derive(Debug)]
 pub struct PendingWriter {
     runner: Runner,

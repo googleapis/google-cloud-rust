@@ -35,13 +35,53 @@ impl AppendWithOffset {
         Self { req_tx, req }
     }
 
-    /// Sets the target stream offset to guarantee exactly-once execution.
+    /// Sets the target stream offset to guarantee [exactly-once] writes.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_bigquery::write::arrow::PendingWriter;
+    /// # async fn sample(writer: PendingWriter) -> anyhow::Result<()> {
+    /// let resp = writer.append(rows()).set_offset(0).send().await?;
+    /// # Ok(()) }
+    ///
+    /// use google_cloud_bigquery::model::ArrowRecordBatch;
+    /// fn rows() -> ArrowRecordBatch {
+    ///   todo!("Define your rows...")
+    /// }
+    /// ```
+    ///
+    /// [exactly-once]: https://docs.cloud.google.com/bigquery/docs/write-api-best-practices#manage_stream_offsets_to_achieve_exactly-once_semantics
     pub fn set_offset(mut self, offset: i64) -> Self {
         self.req.offset = Some(offset);
         self
     }
 
     /// Append rows to the stream.
+    ///
+    /// Applications are encouraged to queue up requests and await their
+    /// responses independently.
+    ///
+    /// Note that the service will reject requests with a mismatched offset, so
+    /// requests must be queued in order.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_bigquery::write::arrow::PendingWriter;
+    /// # async fn sample(writer: PendingWriter) -> anyhow::Result<()> {
+    /// let f1 = writer.append(rows()).set_offset(0).send();
+    /// let f2 = writer.append(rows()).set_offset(1).send();
+    ///
+    /// let resp1 = f1.await?;
+    /// let resp2 = f2.await?;
+    /// # Ok(()) }
+    ///
+    /// use google_cloud_bigquery::model::ArrowRecordBatch;
+    /// fn rows() -> ArrowRecordBatch {
+    ///   todo!("Define your rows...")
+    /// }
+    /// ```
     pub fn send(self) -> AppendFuture {
         let (tx, rx) = oneshot::channel();
 
@@ -83,6 +123,27 @@ impl Append {
     }
 
     /// Append rows to the stream.
+    ///
+    /// Applications are encouraged to queue up requests and await their
+    /// responses independently.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_bigquery::write::arrow::DefaultWriter;
+    /// # async fn sample(writer: DefaultWriter) -> anyhow::Result<()> {
+    /// let f1 = tokio::spawn(writer.append(rows()).send());
+    /// let f2 = tokio::spawn(writer.append(rows()).send());
+    ///
+    /// let resp1 = f1.await??;
+    /// let resp2 = f2.await??;
+    /// # Ok(()) }
+    ///
+    /// use google_cloud_bigquery::model::ArrowRecordBatch;
+    /// fn rows() -> ArrowRecordBatch {
+    ///   todo!("Define your rows...")
+    /// }
+    /// ```
     pub async fn send(self) -> AppendResult<AppendResponse> {
         send_append_request(self.req_tx, self.req).await
     }

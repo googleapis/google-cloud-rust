@@ -24,7 +24,7 @@ use crate::model::{
 };
 use std::sync::Arc;
 
-/// A writer for the [buffered stream].
+/// A writer for a [buffered stream].
 ///
 /// [buffered stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#buffered_type
 #[derive(Debug)]
