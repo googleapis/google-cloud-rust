@@ -160,12 +160,17 @@ impl FailAfterFirstSendStream {
 impl SendStream for FailAfterFirstSendStream {
     async fn send(&mut self, _message: &dyn SendMessage, _options: SendOptions) -> Result<(), ()> {
         self.sent_count += 1;
-        if self.sent_count == 1 {
-            return Ok(());
+        match self.sent_count {
+            1 => Ok(()),
+            2 => {
+                self.fail_gate.notified().await;
+                self.failed.notify_one();
+                Err(())
+            }
+            count => {
+                unreachable!("only two send calls expected, received {count}")
+            }
         }
-        self.fail_gate.notified().await;
-        self.failed.notify_one();
-        Err(())
     }
 }
 
