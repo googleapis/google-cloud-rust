@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::inner::InnerWriter;
+use super::base::BaseWriter;
 use crate::Result;
 use crate::model::{
     ArrowRecordBatch, ArrowSchema, BatchCommitWriteStreamsResponse, FinalizeWriteStreamResponse,
@@ -26,13 +26,13 @@ use std::sync::Arc;
 /// [pending stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#pending_type
 #[derive(Debug)]
 pub struct PendingWriter {
-    pub(crate) inner: InnerWriter,
+    pub(crate) inner: BaseWriter,
 }
 
 impl PendingWriter {
     pub(crate) fn new(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
         Self {
-            inner: InnerWriter::new(inner, write_stream, schema),
+            inner: BaseWriter::new(inner, write_stream, schema),
         }
     }
 

@@ -15,7 +15,7 @@
 mod buffered;
 mod committed;
 mod default;
-mod inner;
+mod base;
 mod pending;
 mod writer_builder;
 

@@ -24,14 +24,14 @@ use std::sync::Arc;
 /// Providing shared implementations of operations core to most write streams. 
 /// Specific stream behaviors should be handled individually by their respective wrapper structs (e.g. `BufferedWriter`, `CommittedWriter`, `PendingWriter`).
 #[derive(Debug)]
-pub(crate) struct InnerWriter {
+pub(crate) struct BaseWriter {
     pub(crate) runner: Runner,
     pub(crate) write_stream: String,
     pub(crate) schema: ArrowSchema,
     pub(crate) client: BigQueryWrite,
 }
 
-impl InnerWriter {
+impl BaseWriter {
     pub(crate) fn new(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
         let runner = Runner::new(inner.clone());
         let client = BigQueryWrite::from_stub::<Transport>(inner);
