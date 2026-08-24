@@ -14,7 +14,7 @@
 
 use super::super::generated::gapic_storage::client::BigQueryWrite;
 use super::super::transport::Transport;
-use super::{BufferedWriter, CommittedWriter, DefaultWriter, PendingWriter};
+use super::{BufferedWriter, CommittedWriter, DefaultWriter, PendingWriter, TryFromStream};
 use crate::model::write_stream::Type;
 use crate::model::{ArrowSchema, WriteStream};
 use crate::{Error, Result};
@@ -172,6 +172,33 @@ impl WriterBuilder {
             self.schema,
         ))
     }
+
+    /// Attaches to an existing stream.
+    pub async fn attach<U: TryFromStream>(self, write_stream: impl Into<String>) -> Result<U> {
+        let write_stream = write_stream.into();
+        validate_stream(write_stream.as_str())?;
+
+        let client = BigQueryWrite::from_stub::<Transport>(self.inner.clone());
+        let stream = client
+            .get_write_stream()
+            .set_name(&write_stream)
+            .send()
+            .await?;
+
+        if stream.r#type != U::EXPECTED_TYPE {
+            let msg = format!(
+                "stream type mismatch. expected {:?}, got {:?}",
+                U::EXPECTED_TYPE,
+                stream.r#type
+            );
+            return Err(Error::io(std::io::Error::new(
+                std::io::ErrorKind::InvalidInput,
+                msg,
+            )));
+        }
+
+        Ok(U::build(self.inner, write_stream, self.schema))
+    }
 }
 
 fn validate_table(table: &str) -> Result<()> {
@@ -190,6 +217,32 @@ fn validate_table(table: &str) -> Result<()> {
                 segments,
                 "table",
                 "projects/*/datasets/*/tables/*",
+            );
+            Error::binding(BindingError {
+                paths: vec![builder.build()],
+            })
+        })
+        .map(|_| ())
+}
+
+fn validate_stream(stream: &str) -> Result<()> {
+    let segments = &[
+        Segment::Literal("projects/"),
+        Segment::SingleWildcard,
+        Segment::Literal("/datasets/"),
+        Segment::SingleWildcard,
+        Segment::Literal("/tables/"),
+        Segment::SingleWildcard,
+        Segment::Literal("/streams/"),
+        Segment::SingleWildcard,
+    ];
+    try_match(Some(stream), segments)
+        .ok_or_else(|| {
+            let builder = PathMismatchBuilder::default().maybe_add(
+                Some(stream),
+                segments,
+                "name",
+                "projects/*/datasets/*/tables/*/streams/*",
             );
             Error::binding(BindingError {
                 paths: vec![builder.build()],
@@ -364,6 +417,80 @@ mod tests {
             .await
             .expect_err("should fail locally on bad format");
         assert!(err.is_binding(), "{err:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn attach_success() -> anyhow::Result<()> {
+        use bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream as MockWriteStream;
+        use bigquery_grpc_mock::{MockBigQueryWrite, start};
+        let mut mock = MockBigQueryWrite::new();
+        mock.expect_get_write_stream().return_once(|req| {
+            let req = req.into_inner();
+            assert_eq!(req.name, "projects/p/datasets/d/tables/t/streams/s");
+            Ok(gaxi::grpc::tonic::Response::new(MockWriteStream {
+                name: "projects/p/datasets/d/tables/t/streams/s".to_string(),
+                r#type: 1, // Type::Committed mapped purely for proto enum bounds
+                ..Default::default()
+            }))
+        });
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let transport = Arc::new(test_transport(endpoint).await?);
+        let schema = ArrowSchema::new().set_serialized_schema("test");
+        let builder = WriterBuilder::new(transport, schema.clone());
+        let writer: CommittedWriter = builder
+            .attach("projects/p/datasets/d/tables/t/streams/s")
+            .await?;
+        assert_eq!(
+            writer.inner.write_stream,
+            "projects/p/datasets/d/tables/t/streams/s"
+        );
+        assert_eq!(writer.inner.schema, schema);
+        Ok(())
+    }
+
+    #[test_case("projects/p")]
+    #[test_case("projects/p/tables/t")]
+    #[test_case("projects/p/datasets/d/tables/t")]
+    #[test_case("projects/p/datasets/d/tables/t/streams/")]
+    #[tokio::test]
+    async fn attach_bad_stream_format(stream: &str) -> anyhow::Result<()> {
+        let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
+        let schema = ArrowSchema::new().set_serialized_schema("test");
+        let builder = WriterBuilder::new(transport, schema.clone());
+        let err = builder
+            .attach::<CommittedWriter>(stream)
+            .await
+            .expect_err("should fail locally on bad format");
+        assert!(err.is_binding(), "{err:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn attach_stream_type_mismatch() -> anyhow::Result<()> {
+        use bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream as MockWriteStream;
+        use bigquery_grpc_mock::{MockBigQueryWrite, start};
+        let mut mock = MockBigQueryWrite::new();
+        mock.expect_get_write_stream().return_once(|req| {
+            let req = req.into_inner();
+            assert_eq!(req.name, "projects/p/datasets/d/tables/t/streams/s");
+            // Return buffered type (3) when they requested a CommittedWriter (1)
+            Ok(gaxi::grpc::tonic::Response::new(MockWriteStream {
+                name: "projects/p/datasets/d/tables/t/streams/s".to_string(),
+                r#type: 3,
+                ..Default::default()
+            }))
+        });
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let transport = Arc::new(test_transport(endpoint).await?);
+        let schema = ArrowSchema::new().set_serialized_schema("test");
+        let builder = WriterBuilder::new(transport, schema.clone());
+        let err = builder
+            .attach::<CommittedWriter>("projects/p/datasets/d/tables/t/streams/s")
+            .await
+            .expect_err("should return type mismatch error");
+        assert!(err.is_io(), "{err:?}");
+        assert!(err.to_string().contains("stream type mismatch"));
         Ok(())
     }
 }
