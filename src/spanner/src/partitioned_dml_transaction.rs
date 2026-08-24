@@ -239,9 +239,7 @@ async fn extract_lower_bound_update_count_from_stream(
             .take()
             .and_then(|cache_update| cache_update.cnv().ok());
         client.observe_cache_update(cache_update);
-        if let Some(stats) = partial_result_set.stats
-            && let Some(RowCountLowerBound(val)) = stats.row_count
-        {
+        if let Some(RowCountLowerBound(val)) = partial_result_set.stats.and_then(|s| s.row_count) {
             lower_bound = Some(val);
         }
     }
