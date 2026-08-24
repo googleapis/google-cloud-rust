@@ -13,8 +13,8 @@
 // limitations under the License.
 
 use super::append_future::AppendFuture;
-use super::append_response::{AppendResponse, to_result};
-use super::error::{AppendError, AppendResult};
+use super::append_response::to_result;
+use super::error::AppendError;
 use super::runner::WriteRequest;
 use crate::Error;
 use crate::model::AppendRowsRequest;
@@ -131,11 +131,11 @@ impl Append {
     /// ```
     /// # use google_cloud_bigquery::write::arrow::DefaultWriter;
     /// # async fn sample(writer: DefaultWriter) -> anyhow::Result<()> {
-    /// let f1 = tokio::spawn(writer.append(rows()).send());
-    /// let f2 = tokio::spawn(writer.append(rows()).send());
+    /// let f1 = writer.append(rows()).send();
+    /// let f2 = writer.append(rows()).send();
     ///
-    /// let resp1 = f1.await??;
-    /// let resp2 = f2.await??;
+    /// let resp1 = f1.await?;
+    /// let resp2 = f2.await?;
     /// # Ok(()) }
     ///
     /// use google_cloud_bigquery::model::ArrowRecordBatch;
@@ -143,16 +143,24 @@ impl Append {
     ///   todo!("Define your rows...")
     /// }
     /// ```
-    pub async fn send(self) -> AppendResult<AppendResponse> {
-        let (resp_tx, resp_rx) = oneshot::channel();
-        let req = self.req.to_proto().map_err(Error::deser)?;
-        let write = WriteRequest { req, resp_tx };
-        let _ = self.req_tx.send(write);
-        let resp = resp_rx
-            .await
-            .map_err(|_| AppendError::UnexpectedEndOfStream)??;
-        let resp = resp.cnv().map_err(Error::ser)?;
-        to_result(resp)
+    pub fn send(self) -> AppendFuture {
+        let (tx, rx) = oneshot::channel();
+        tokio::spawn(async move {
+            let (resp_tx, resp_rx) = oneshot::channel();
+            let res = async move {
+                let req = self.req.to_proto().map_err(Error::deser)?;
+                let write = WriteRequest { req, resp_tx };
+                let _ = self.req_tx.send(write);
+                let resp = resp_rx
+                    .await
+                    .map_err(|_| AppendError::UnexpectedEndOfStream)??;
+                let resp = resp.cnv().map_err(Error::ser)?;
+                to_result(resp)
+            }
+            .await;
+            let _ = tx.send(res);
+        });
+        AppendFuture::new(rx)
     }
 }
 
