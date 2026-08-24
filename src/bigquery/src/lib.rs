@@ -105,10 +105,10 @@
 //! # Ok(()) }
 //! use google_cloud_bigquery::model::{ArrowSchema, ArrowRecordBatch};
 //! fn schema() -> ArrowSchema {
-//!   todo!("Define your table's schema...")
+//!     todo!("Define your table's schema...")
 //! }
 //! fn rows() -> ArrowRecordBatch {
-//!   todo!("Serialize your rows...")
+//!     todo!("Serialize your rows...")
 //! }
 //! ```
 
