@@ -37,6 +37,11 @@ impl PendingWriter {
     }
 
     /// Appends rows to the pending stream.
+    /// Returns the full resource name of the underlying write stream.
+    pub fn write_stream(&self) -> &str {
+        &self.inner.write_stream
+    }
+
     pub fn append(&self, rows: ArrowRecordBatch) -> AppendWithOffset {
         AppendWithOffset::new(
             self.inner.runner.req_tx.clone(),
