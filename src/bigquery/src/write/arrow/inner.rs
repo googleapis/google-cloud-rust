@@ -15,12 +15,14 @@
 use crate::Result;
 use crate::model::append_rows_request::ArrowData;
 use crate::model::{AppendRowsRequest, ArrowRecordBatch, ArrowSchema, FinalizeWriteStreamResponse};
-
 use crate::write::generated::gapic_storage::client::BigQueryWrite;
 use crate::write::runner::Runner;
 use crate::write::transport::Transport;
 use std::sync::Arc;
 
+/// A shared internal structure for holding common state across different stream types.
+/// Providing shared implementations of operations core to most write streams. 
+/// Specific stream behaviors should be handled individually by their respective wrapper structs (e.g. `BufferedWriter`, `CommittedWriter`, `PendingWriter`).
 #[derive(Debug)]
 pub(crate) struct InnerWriter {
     pub(crate) runner: Runner,
