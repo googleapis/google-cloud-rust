@@ -343,3 +343,68 @@ pub async fn buffered(
 
     Ok(())
 }
+
+pub async fn attach(
+    client: &Write,
+    project_id: &str,
+    dataset_id: &str,
+    table_id: &str,
+) -> Result<()> {
+    let table = format!("projects/{project_id}/datasets/{dataset_id}/tables/{table_id}");
+    let schema = create_test_schema();
+
+    // Create a writer for a committed stream
+    let writer = client
+        .arrow(ArrowSchema::new().set_serialized_schema(serialize_schema(&schema)?))
+        .committed(table)
+        .await?;
+
+    let stream_name = writer.write_stream().to_string();
+
+    // Write the first batch dynamically using the original stream
+    let batch1 = create_test_batch(
+        schema.clone(),
+        vec!["Attached1", "Attached2"],
+        vec![80, 81],
+        "attach",
+    )?;
+    let _ = writer.append(batch1).send().await?;
+
+    // Drop the first writer and launch a completely separate attached instance connecting back to the identical resource string via our new builder path
+    use google_cloud_bigquery::write::arrow::CommittedWriter;
+    let attached_writer: CommittedWriter = client
+        .arrow(ArrowSchema::new().set_serialized_schema(serialize_schema(&schema)?))
+        .attach(&stream_name)
+        .await?;
+
+    let batch2 = create_test_batch(schema.clone(), vec!["Attached3"], vec![82], "attach")?;
+    let _ = attached_writer.append(batch2).send().await?;
+
+    // Verify the writes are logically seamless across the boundary
+    let users = read_writes_table(project_id, dataset_id, table_id, "attach").await?;
+    assert_eq!(
+        users,
+        vec![
+            WriteUserRecord {
+                name: "Attached1".to_string(),
+                age: 80,
+                test: "attach".to_string()
+            },
+            WriteUserRecord {
+                name: "Attached2".to_string(),
+                age: 81,
+                test: "attach".to_string()
+            },
+            WriteUserRecord {
+                name: "Attached3".to_string(),
+                age: 82,
+                test: "attach".to_string()
+            },
+        ]
+    );
+
+    // Finalize via the attached client cleanly
+    attached_writer.finalize().await?;
+
+    Ok(())
+}
