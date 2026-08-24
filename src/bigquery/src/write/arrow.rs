@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-mod inner;
 mod buffered;
 mod committed;
 mod default;
+mod inner;
 mod pending;
 mod writer_builder;
 
