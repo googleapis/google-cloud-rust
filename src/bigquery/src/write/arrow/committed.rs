@@ -12,13 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::super::append_builder::AppendWithOffset;
-use super::super::generated::gapic_storage::client::BigQueryWrite;
-use super::super::runner::Runner;
-use super::super::transport::Transport;
+use super::base::BaseWriter;
 use crate::Result;
-use crate::model::append_rows_request::ArrowData;
-use crate::model::{AppendRowsRequest, ArrowRecordBatch, ArrowSchema, FinalizeWriteStreamResponse};
+use crate::model::{ArrowRecordBatch, ArrowSchema, FinalizeWriteStreamResponse};
+use crate::write::append_builder::AppendWithOffset;
+use crate::write::transport::Transport;
 use std::sync::Arc;
 
 /// A writer for a [committed stream].
@@ -26,43 +24,27 @@ use std::sync::Arc;
 /// [committed stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#committed_type
 #[derive(Debug)]
 pub struct CommittedWriter {
-    runner: Runner,
-    pub(crate) write_stream: String,
-    pub(crate) schema: ArrowSchema,
-    client: BigQueryWrite,
+    pub(crate) inner: BaseWriter,
 }
 
 impl CommittedWriter {
     pub(crate) fn new(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
-        let runner = Runner::new(inner.clone());
-        let client = BigQueryWrite::from_stub::<Transport>(inner);
         Self {
-            runner,
-            write_stream,
-            schema,
-            client,
+            inner: BaseWriter::new(inner, write_stream, schema),
         }
     }
 
     /// Append rows to the stream.
     pub fn append(&self, rows: ArrowRecordBatch) -> AppendWithOffset {
-        let req = AppendRowsRequest::new()
-            .set_write_stream(&self.write_stream)
-            .set_arrow_rows(
-                ArrowData::new()
-                    .set_writer_schema(self.schema.clone())
-                    .set_rows(rows),
-            );
-        AppendWithOffset::new(self.runner.req_tx.clone(), req)
+        AppendWithOffset::new(
+            self.inner.runner.req_tx.clone(),
+            self.inner.append_request(rows),
+        )
     }
 
     /// Finalize the stream, preventing further writes.
     pub async fn finalize(&self) -> Result<FinalizeWriteStreamResponse> {
-        self.client
-            .finalize_write_stream()
-            .set_name(&self.write_stream)
-            .send()
-            .await
+        self.inner.finalize().await
     }
 }
 
