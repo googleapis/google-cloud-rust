@@ -13,8 +13,8 @@
 // limitations under the License.
 
 use super::append_future::AppendFuture;
-use super::append_response::{AppendResponse, to_result};
-use super::error::{AppendError, AppendResult};
+use super::append_response::to_result;
+use super::error::AppendError;
 use super::runner::WriteRequest;
 use crate::Error;
 use crate::model::AppendRowsRequest;
@@ -84,12 +84,27 @@ impl AppendWithOffset {
     /// ```
     pub fn send(self) -> AppendFuture {
         let (tx, rx) = oneshot::channel();
-
+        let (resp_tx, resp_rx) = oneshot::channel();
+        let req = match self.req.to_proto().map_err(Error::deser) {
+            Ok(req) => req,
+            Err(e) => {
+                let _ = tx.send(Err(e.into()));
+                return AppendFuture::new(rx);
+            }
+        };
+        let write = WriteRequest { req, resp_tx };
+        let _ = self.req_tx.send(write);
         tokio::spawn(async move {
-            let res = send_append_request(self.req_tx, self.req).await;
+            let res = async {
+                let resp = resp_rx
+                    .await
+                    .map_err(|_| AppendError::UnexpectedEndOfStream)??;
+                let resp = resp.cnv().map_err(Error::ser)?;
+                to_result(resp)
+            }
+            .await;
             let _ = tx.send(res);
         });
-
         AppendFuture::new(rx)
     }
 }
@@ -99,22 +114,6 @@ impl AppendWithOffset {
 pub struct Append {
     req_tx: mpsc::UnboundedSender<WriteRequest>,
     pub(crate) req: AppendRowsRequest,
-}
-
-/// Executes the network transmission and underlying proto translation for an `AppendRowsRequest`.
-pub(crate) async fn send_append_request(
-    req_tx: mpsc::UnboundedSender<WriteRequest>,
-    req: AppendRowsRequest,
-) -> AppendResult<AppendResponse> {
-    let (resp_tx, resp_rx) = oneshot::channel();
-    let req = req.to_proto().map_err(Error::deser)?;
-    let write = WriteRequest { req, resp_tx };
-    let _ = req_tx.send(write);
-    let resp = resp_rx
-        .await
-        .map_err(|_| AppendError::UnexpectedEndOfStream)??;
-    let resp = resp.cnv().map_err(Error::ser)?;
-    to_result(resp)
 }
 
 impl Append {
@@ -132,11 +131,11 @@ impl Append {
     /// ```
     /// # use google_cloud_bigquery::write::arrow::DefaultWriter;
     /// # async fn sample(writer: DefaultWriter) -> anyhow::Result<()> {
-    /// let f1 = tokio::spawn(writer.append(rows()).send());
-    /// let f2 = tokio::spawn(writer.append(rows()).send());
+    /// let f1 = writer.append(rows()).send();
+    /// let f2 = writer.append(rows()).send();
     ///
-    /// let resp1 = f1.await??;
-    /// let resp2 = f2.await??;
+    /// let resp1 = f1.await?;
+    /// let resp2 = f2.await?;
     /// # Ok(()) }
     ///
     /// use google_cloud_bigquery::model::ArrowRecordBatch;
@@ -144,8 +143,24 @@ impl Append {
     ///   todo!("Define your rows...")
     /// }
     /// ```
-    pub async fn send(self) -> AppendResult<AppendResponse> {
-        send_append_request(self.req_tx, self.req).await
+    pub fn send(self) -> AppendFuture {
+        let (tx, rx) = oneshot::channel();
+        tokio::spawn(async move {
+            let (resp_tx, resp_rx) = oneshot::channel();
+            let res = async move {
+                let req = self.req.to_proto().map_err(Error::deser)?;
+                let write = WriteRequest { req, resp_tx };
+                let _ = self.req_tx.send(write);
+                let resp = resp_rx
+                    .await
+                    .map_err(|_| AppendError::UnexpectedEndOfStream)??;
+                let resp = resp.cnv().map_err(Error::ser)?;
+                to_result(resp)
+            }
+            .await;
+            let _ = tx.send(res);
+        });
+        AppendFuture::new(rx)
     }
 }
 
@@ -346,6 +361,30 @@ mod tests {
 
         let err = future.await.expect_err("should return an error");
         assert!(matches!(err, AppendError::RowErrors(_)));
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 8)]
+    async fn synchronous_queueing() -> anyhow::Result<()> {
+        const NUM_WRITES: i64 = 1000;
+        let (req_tx, mut req_rx) = mpsc::unbounded_channel();
+        let write_handle = tokio::spawn(async move {
+            let mut writes = tokio::task::JoinSet::new();
+            for i in 0..NUM_WRITES {
+                writes.spawn(
+                    AppendWithOffset::new(req_tx.clone(), AppendRowsRequest::new())
+                        .set_offset(i)
+                        .send(),
+                );
+            }
+            let _ = writes.join_all().await;
+        });
+
+        for i in 0..NUM_WRITES {
+            let write = req_rx.recv().await.expect("should receive request");
+            assert_eq!(write.req.offset, Some(i), "received out of order write");
+        }
+        write_handle.await?;
         Ok(())
     }
 
