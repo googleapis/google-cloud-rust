@@ -15,8 +15,8 @@
 use crate::{error::SigningError, signed_url::UrlStyle};
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
-use chrono::{DateTime, Utc};
 use google_cloud_auth::signer::Signer;
+use jiff::Timestamp;
 use std::collections::BTreeMap;
 use std::time::Duration;
 
@@ -85,7 +85,7 @@ pub struct PostPolicyV4Builder {
     bucket: String,
     object: String,
     expiration: Duration,
-    timestamp: Option<DateTime<Utc>>,
+    timestamp: Option<Timestamp>,
     url_style: UrlStyle,
     starts_with_conditions: Vec<(String, String)>,
     content_length_range: Option<(u64, u64)>,
@@ -374,8 +374,8 @@ impl PostPolicyV4Builder {
             ));
         }
 
-        let now = self.timestamp.unwrap_or_else(Utc::now);
-        let request_timestamp = now.format("%Y%m%dT%H%M%SZ").to_string();
+        let now = self.timestamp.unwrap_or_else(Timestamp::now);
+        let request_timestamp = now.strftime("%Y%m%dT%H%M%SZ").to_string();
 
         let client_email = if let Some(email) = self.client_email.take() {
             email
@@ -384,7 +384,7 @@ impl PostPolicyV4Builder {
         };
         let credential = format!(
             "{client_email}/{}/auto/storage/goog4_request",
-            now.format("%Y%m%d")
+            now.strftime("%Y%m%d")
         );
 
         let mut conditions = Vec::new();
@@ -424,9 +424,9 @@ impl PostPolicyV4Builder {
 
         // Expiration
         let expiration_time = now
-            + chrono::Duration::from_std(self.expiration)
-                .map_err(|e| SigningError::signing(format!("Invalid expiration duration: {e}")))?;
-        let expiration_str = expiration_time.format("%Y-%m-%dT%H:%M:%SZ").to_string();
+            .checked_add(self.expiration)
+            .map_err(|e| SigningError::signing(format!("Invalid expiration duration: {e}")))?;
+        let expiration_str = expiration_time.strftime("%Y-%m-%dT%H:%M:%SZ").to_string();
 
         let doc = PostPolicyV4Document {
             conditions,
@@ -502,7 +502,7 @@ mod tests {
 
     impl PostPolicyV4Builder {
         /// Sets the creation timestamp for the policy signature. Only used in tests.
-        pub(crate) fn with_timestamp(mut self, timestamp: DateTime<Utc>) -> Self {
+        pub(crate) fn with_timestamp(mut self, timestamp: Timestamp) -> Self {
             self.timestamp = Some(timestamp);
             self
         }
@@ -571,7 +571,10 @@ mod tests {
         let total_tests = suite.post_policy_v4_tests.len();
 
         for test in suite.post_policy_v4_tests {
-            let timestamp = DateTime::parse_from_rfc3339(&test.policy_input.timestamp)
+            let timestamp: Timestamp = test
+                .policy_input
+                .timestamp
+                .parse()
                 .expect("invalid timestamp");
             let scheme = test.policy_input.scheme.clone();
 
@@ -586,7 +589,7 @@ mod tests {
                 test.policy_input.object.clone(),
             )
             .with_url_style(url_style)
-            .with_timestamp(timestamp.into())
+            .with_timestamp(timestamp)
             .with_expiration(Duration::from_secs(test.policy_input.expiration));
 
             if let Some(hostname) = &test.policy_input.bucket_bound_hostname {
