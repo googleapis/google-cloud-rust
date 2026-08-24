@@ -514,7 +514,7 @@ once_cell         = { default-features = false, version = "1.19.0" }
 pastey            = { default-features = false, version = "0.2.3" }
 pretty_assertions = { default-features = false, version = "1.4.1", features = ["alloc"] }
 proc-macro2       = { default-features = false, version = "1.0.106" }
-quote             = { default-features = false, version = "1.0.35" }
+quote             = { default-features = false, version = "1.0.38" }
 regex             = { default-features = false, version = "1.10.4" }
 rsa               = { default-features = false, version = "0.9.10" }
 rustc_version     = { default-features = false, version = "0.4" }
