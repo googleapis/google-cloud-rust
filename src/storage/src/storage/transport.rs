@@ -459,6 +459,7 @@ mod tests {
     use google_cloud_test_utils::test_layer::{CapturedSpan, TestLayer};
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use pretty_assertions::assert_eq;
+    use serial_test::serial;
     use std::collections::BTreeMap;
     use std::sync::Arc;
 
@@ -469,6 +470,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[serial]
     async fn read_object() -> anyhow::Result<()> {
         let guard = TestLayer::initialize();
 
@@ -505,6 +507,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[serial]
     async fn read_object_success() -> anyhow::Result<()> {
         let guard = TestLayer::initialize();
 
@@ -554,6 +557,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[serial]
     async fn write_object_buffered() -> anyhow::Result<()> {
         let guard = TestLayer::initialize();
 
@@ -590,6 +594,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[serial]
     async fn write_object_unbuffered() -> anyhow::Result<()> {
         let guard = TestLayer::initialize();
 
@@ -626,6 +631,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[serial]
     async fn open_object() -> anyhow::Result<()> {
         use gaxi::grpc::tonic::Status as TonicStatus;
         use google_cloud_gax::error::rpc::Code;
@@ -661,7 +667,7 @@ mod tests {
     }
 
     #[tokio::test]
-    #[ignore = "flaky test, see #5290"]
+    #[serial]
     async fn open_object_success() -> anyhow::Result<()> {
         // TODO(#4772) - Move these `use` declarations and constants once the tracing APIs are stable.
         use crate::model_ext::ReadRange;
@@ -783,6 +789,7 @@ mod tests {
 
     #[cfg(google_cloud_unstable_storage_bidi)]
     #[tokio::test]
+    #[serial]
     async fn open_appendable_object_not_found() -> anyhow::Result<()> {
         use gaxi::grpc::tonic::Status as TonicStatus;
         use google_cloud_gax::error::rpc::Code;
@@ -817,9 +824,9 @@ mod tests {
     }
 
     /// Models a complete lifecycle ending in close: `open` -> `append` -> `flush` -> `close`.
-    #[ignore = "TODO(#6324) - disabled because it was flaky"]
     #[cfg(google_cloud_unstable_storage_bidi)]
     #[tokio::test]
+    #[serial]
     async fn open_appendable_object_success() -> anyhow::Result<()> {
         use bytes::Bytes;
         use gaxi::grpc::tonic::{Response as TonicResponse, Result as TonicResult};
@@ -899,9 +906,9 @@ mod tests {
     }
 
     /// Models a complete lifecycle ending in finalize: `open` -> `append` -> `flush` -> `finalize`.
-    #[ignore = "TODO(#6324) - disabled because it was flaky"]
     #[cfg(google_cloud_unstable_storage_bidi)]
     #[tokio::test]
+    #[serial]
     async fn open_appendable_object_finalize_success() -> anyhow::Result<()> {
         use bytes::Bytes;
         use gaxi::grpc::tonic::{Response as TonicResponse, Result as TonicResult};
@@ -992,6 +999,7 @@ mod tests {
 
     #[cfg(google_cloud_unstable_storage_bidi)]
     #[tokio::test]
+    #[serial]
     async fn reopen_appendable_object_not_found() -> anyhow::Result<()> {
         use gaxi::grpc::tonic::Status as TonicStatus;
         use google_cloud_gax::error::rpc::Code;
@@ -1028,6 +1036,7 @@ mod tests {
     /// Models a complete lifecycle: `reopen` -> `append` -> `flush` -> `finalize`.
     #[cfg(google_cloud_unstable_storage_bidi)]
     #[tokio::test]
+    #[serial]
     async fn reopen_appendable_object_success() -> anyhow::Result<()> {
         use bytes::Bytes;
         use gaxi::grpc::tonic::{Response as TonicResponse, Result as TonicResult};
