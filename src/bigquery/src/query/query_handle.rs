@@ -192,7 +192,7 @@ impl Query {
                 retry_context,
             } = self;
 
-            if let (true, Some(cached_rows)) = (completed, cached_rows) {
+            if completed && let Some(cached_rows) = cached_rows {
                 return Ok(CompleteQuery::from_query_metadata(
                     job_service,
                     metadata,

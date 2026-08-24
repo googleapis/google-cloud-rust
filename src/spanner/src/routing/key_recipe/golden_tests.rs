@@ -361,21 +361,28 @@ fn parse_test_block<'a, I: Iterator<Item = &'a str>>(
         } else if in_query_params && let Some(key_str) = extract_value(trimmed, "key:") {
             current_field_key = Some(key_str.to_string());
         } else if in_query_params && let Some(val_str) = extract_value(trimmed, "string_value:") {
-            if let (Some(params), Some(key)) = (query_params.as_mut(), current_field_key.take()) {
+            if let Some(params) = query_params.as_mut()
+                && let Some(key) = current_field_key.take()
+            {
                 params.insert(key, val_str.to_value());
             }
         } else if in_query_params && let Some(val_str) = extract_value(trimmed, "bool_value:") {
-            if let (Some(params), Some(key)) = (query_params.as_mut(), current_field_key.take()) {
+            if let Some(params) = query_params.as_mut()
+                && let Some(key) = current_field_key.take()
+            {
                 params.insert(key, (val_str == "true").to_value());
             }
         } else if in_query_params && let Some(val_str) = extract_value(trimmed, "number_value:") {
-            if let (Some(params), Some(key)) = (query_params.as_mut(), current_field_key.take())
+            if let Some(params) = query_params.as_mut()
+                && let Some(key) = current_field_key.take()
                 && let Ok(num) = val_str.parse::<f64>()
             {
                 params.insert(key, num.to_value());
             }
         } else if in_query_params && trimmed == "null_value: NULL_VALUE" {
-            if let (Some(params), Some(key)) = (query_params.as_mut(), current_field_key.take()) {
+            if let Some(params) = query_params.as_mut()
+                && let Some(key) = current_field_key.take()
+            {
                 params.insert(key, Value::null());
             }
         } else if let Some(start_string) = extract_value(trimmed, "start:") {
@@ -401,7 +408,7 @@ fn parse_test_block<'a, I: Iterator<Item = &'a str>>(
         }
     }
 
-    if let (true, Some(start_bytes)) = (is_point_key_or_query_or_mutation, start) {
+    if is_point_key_or_query_or_mutation && let Some(start_bytes) = start {
         Some(ParsedTest {
             values,
             query_params,
