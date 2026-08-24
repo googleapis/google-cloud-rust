@@ -130,13 +130,13 @@ impl Append {
     /// # Example
     ///
     /// ```
-    /// # use google_cloud_bigquery::write::arrow::PendingWriter;
-    /// # async fn sample(writer: PendingWriter) -> anyhow::Result<()> {
+    /// # use google_cloud_bigquery::write::arrow::DefaultWriter;
+    /// # async fn sample(writer: DefaultWriter) -> anyhow::Result<()> {
     /// let f1 = tokio::spawn(writer.append(rows()).send());
     /// let f2 = tokio::spawn(writer.append(rows()).send());
     ///
-    /// let resp1 = f1.await?;
-    /// let resp2 = f2.await?;
+    /// let resp1 = f1.await??;
+    /// let resp2 = f2.await??;
     /// # Ok(()) }
     ///
     /// use google_cloud_bigquery::model::ArrowRecordBatch;
