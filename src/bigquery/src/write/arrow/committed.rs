@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::base::BaseWriter;
+use super::inner::InnerWriter;
 use crate::Result;
 use crate::model::{ArrowRecordBatch, ArrowSchema, FinalizeWriteStreamResponse};
 use crate::write::append_builder::AppendWithOffset;
@@ -24,27 +24,27 @@ use std::sync::Arc;
 /// [committed stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#committed_type
 #[derive(Debug)]
 pub struct CommittedWriter {
-    pub(crate) base: BaseWriter,
+    pub(crate) inner: InnerWriter,
 }
 
 impl CommittedWriter {
     pub(crate) fn new(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
         Self {
-            base: BaseWriter::new(inner, write_stream, schema),
+            inner: InnerWriter::new(inner, write_stream, schema),
         }
     }
 
     /// Append rows to the stream.
     pub fn append(&self, rows: ArrowRecordBatch) -> AppendWithOffset {
         AppendWithOffset::new(
-            self.base.runner.req_tx.clone(),
-            self.base.append_request(rows),
+            self.inner.runner.req_tx.clone(),
+            self.inner.append_request(rows),
         )
     }
 
     /// Finalize the stream, preventing further writes.
     pub async fn finalize(&self) -> Result<FinalizeWriteStreamResponse> {
-        self.base.finalize().await
+        self.inner.finalize().await
     }
 }
 

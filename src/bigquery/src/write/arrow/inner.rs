@@ -21,14 +21,14 @@ use crate::write::transport::Transport;
 use std::sync::Arc;
 
 #[derive(Debug)]
-pub(crate) struct BaseWriter {
+pub(crate) struct InnerWriter {
     pub(crate) runner: Runner,
     pub(crate) write_stream: String,
     pub(crate) schema: ArrowSchema,
     pub(crate) client: BigQueryWrite,
 }
 
-impl BaseWriter {
+impl InnerWriter {
     pub(crate) fn new(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
         let runner = Runner::new(inner.clone());
         let client = BigQueryWrite::from_stub::<Transport>(inner);

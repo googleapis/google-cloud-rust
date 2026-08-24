@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::base::BaseWriter;
+use super::inner::InnerWriter;
 use crate::Result;
 use crate::model::{
     ArrowRecordBatch, ArrowSchema, BatchCommitWriteStreamsResponse, FinalizeWriteStreamResponse,
@@ -26,27 +26,27 @@ use std::sync::Arc;
 /// [pending stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#pending_type
 #[derive(Debug)]
 pub struct PendingWriter {
-    pub(crate) base: BaseWriter,
+    pub(crate) inner: InnerWriter,
 }
 
 impl PendingWriter {
     pub(crate) fn new(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
         Self {
-            base: BaseWriter::new(inner, write_stream, schema),
+            inner: InnerWriter::new(inner, write_stream, schema),
         }
     }
 
     /// Appends rows to the pending stream.
     pub fn append(&self, rows: ArrowRecordBatch) -> AppendWithOffset {
         AppendWithOffset::new(
-            self.base.runner.req_tx.clone(),
-            self.base.append_request(rows),
+            self.inner.runner.req_tx.clone(),
+            self.inner.append_request(rows),
         )
     }
 
     /// Finalizes the pending stream, preventing further writes.
     pub async fn finalize(&self) -> Result<FinalizeWriteStreamResponse> {
-        self.base.finalize().await
+        self.inner.finalize().await
     }
 
     /// Commits the pending stream to the table.
@@ -54,17 +54,17 @@ impl PendingWriter {
         // Extract the parent table path from the stream name:
         // "projects/p/datasets/d/tables/t/streams/s" -> "projects/p/datasets/d/tables/t"
         let parent = self
-            .base
+            .inner
             .write_stream
             .split_once("/streams/")
-            .map_or(self.base.write_stream.as_str(), |(p, _)| p)
+            .map_or(self.inner.write_stream.as_str(), |(p, _)| p)
             .to_string();
 
-        self.base
+        self.inner
             .client
             .batch_commit_write_streams()
             .set_parent(parent)
-            .set_write_streams(vec![self.base.write_stream.clone()])
+            .set_write_streams(vec![self.inner.write_stream.clone()])
             .send()
             .await
     }

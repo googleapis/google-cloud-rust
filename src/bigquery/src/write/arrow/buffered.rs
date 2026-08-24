@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::base::BaseWriter;
+use super::inner::InnerWriter;
 use crate::Result;
 use crate::model::{ArrowRecordBatch, ArrowSchema, FinalizeWriteStreamResponse, FlushRowsResponse};
 use crate::write::append_builder::AppendWithOffset;
@@ -24,30 +24,30 @@ use std::sync::Arc;
 /// [buffered stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#buffered_type
 #[derive(Debug)]
 pub struct BufferedWriter {
-    pub(crate) base: BaseWriter,
+    pub(crate) inner: InnerWriter,
 }
 
 impl BufferedWriter {
     pub(crate) fn new(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
         Self {
-            base: BaseWriter::new(inner, write_stream, schema),
+            inner: InnerWriter::new(inner, write_stream, schema),
         }
     }
 
     /// Append rows to the buffered stream.
     pub fn append(&self, rows: ArrowRecordBatch) -> AppendWithOffset {
         AppendWithOffset::new(
-            self.base.runner.req_tx.clone(),
-            self.base.append_request(rows),
+            self.inner.runner.req_tx.clone(),
+            self.inner.append_request(rows),
         )
     }
 
     /// Flush the buffered stream, making rows up to the specified offset available for reading.
     pub async fn flush(&self, offset: i64) -> Result<FlushRowsResponse> {
-        self.base
+        self.inner
             .client
             .flush_rows()
-            .set_write_stream(&self.base.write_stream)
+            .set_write_stream(&self.inner.write_stream)
             .set_offset(offset)
             .send()
             .await
@@ -55,7 +55,7 @@ impl BufferedWriter {
 
     /// Finalize the buffered stream, preventing further writes.
     pub async fn finalize(&self) -> Result<FinalizeWriteStreamResponse> {
-        self.base.finalize().await
+        self.inner.finalize().await
     }
 }
 
