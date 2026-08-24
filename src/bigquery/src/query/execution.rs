@@ -150,8 +150,15 @@ impl RetryContext {
         }
     }
 
+    /// Returns true if the query should use the jobs.insert API.
+    fn force_job_path(&self) -> bool {
+        // jobs.query doesn't return full statistics information, so we route to jobs.insert
+        let dry_run = self.template.request.dry_run;
+        self.template.request.force_job_path() || dry_run
+    }
+
     async fn execute_once(&self, project_id: &str) -> Result<QueryHandle> {
-        if self.template.request.force_job_path() {
+        if self.force_job_path() {
             self.execute_jobs_insert(project_id).await
         } else {
             self.execute_jobs_query(project_id).await
@@ -404,6 +411,47 @@ mod tests {
 
         assert_eq!(query.completed, completed);
         assert_eq!(query.metadata.job_reference, Some(job_ref));
+        Ok(())
+    }
+
+    #[test_case(true, "insert-job"; "dry_run routes to jobs.insert")]
+    #[test_case(false, "query-job"; "non dry_run routes to jobs.query")]
+    #[tokio::test]
+    async fn test_dry_run_routing(dry_run: bool, expected_job_id: &'static str) -> TestResult {
+        let mut mock = MockJobService::new();
+        if dry_run {
+            mock.expect_insert_job().returning(move |req, _| {
+                let job_config = req.job.as_ref().unwrap().configuration.as_ref().unwrap();
+                assert_eq!(job_config.dry_run, Some(wkt::BoolValue::from(true)));
+                let job =
+                    Job::new().set_job_reference(JobReference::new().set_job_id(expected_job_id));
+                Ok(Response::from(job))
+            });
+            mock.expect_query().never();
+        } else {
+            mock.expect_query().returning(move |req, _| {
+                let query_req = req.query_request.as_ref().unwrap();
+                assert!(!query_req.dry_run);
+                let res = QueryResponse::new()
+                    .set_job_reference(JobReference::new().set_job_id(expected_job_id));
+                Ok(Response::from(res))
+            });
+            mock.expect_insert_job().never();
+        }
+
+        let job_service = create_job_service(mock);
+        let query = Query::new(job_service, "SELECT 1".to_string())
+            .with_project_id("my-project")
+            .set_dry_run(dry_run);
+
+        let retry_ctx = RetryContext::new(query);
+        assert_eq!(retry_ctx.force_job_path(), dry_run);
+
+        let handle = retry_ctx.execute_once("my-project").await?;
+        assert_eq!(
+            handle.metadata.job_reference.unwrap().job_id,
+            expected_job_id
+        );
         Ok(())
     }
 }

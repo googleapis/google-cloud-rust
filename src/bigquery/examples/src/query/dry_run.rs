@@ -18,7 +18,7 @@ use google_cloud_bigquery::client::BigQuery;
 pub async fn sample(project_id: &str) -> anyhow::Result<()> {
     let client = BigQuery::builder().build().await?;
 
-    let complete_query = client
+    let query = client
         .query(
             "SELECT \
         name FROM `bigquery-public-data.usa_names.usa_1910_2013` \
@@ -28,11 +28,15 @@ pub async fn sample(project_id: &str) -> anyhow::Result<()> {
         .with_project_id(project_id)
         .set_dry_run(true)
         .set_location("US")
-        .until_done()
+        .send()
         .await?;
 
-    let bytes = complete_query.metadata().total_bytes_processed.unwrap_or(0);
+    let bytes = query.metadata().total_bytes_processed.unwrap_or(0);
     println!("This query will process {bytes} bytes.");
+
+    let stats = query.metadata().statistics.as_ref();
+    println!("Job Statistics: {stats:?}");
+    
     Ok(())
 }
 // [END bigquery_query_dry_run]

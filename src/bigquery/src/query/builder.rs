@@ -340,6 +340,8 @@ mod tests {
                 .set_status(JobStatus::new().set_state("DONE"));
             Ok(google_cloud_gax::response::Response::from(job))
         });
+        mock.expect_query().never();
+
         let job_service = create_job_service(mock);
 
         let query_builder = Query::new(job_service, "SELECT 1".to_string())
@@ -362,6 +364,8 @@ mod tests {
                 QueryResponse::new().set_query_id("some_query_id"),
             ))
         });
+        mock.expect_insert_job().never();
+
         let job_service = create_job_service(mock);
         let query_builder =
             Query::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
