@@ -36,7 +36,7 @@ pub async fn sample(project_id: &str) -> anyhow::Result<()> {
 
     let stats = query.metadata().statistics.as_ref();
     println!("Job Statistics: {stats:?}");
-    
+
     Ok(())
 }
 // [END bigquery_query_dry_run]
