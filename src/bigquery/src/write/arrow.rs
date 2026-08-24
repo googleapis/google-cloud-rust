@@ -17,10 +17,12 @@ mod buffered;
 mod committed;
 mod default;
 mod pending;
+mod try_from_stream;
 mod writer_builder;
 
 pub use buffered::BufferedWriter;
 pub use committed::CommittedWriter;
 pub use default::DefaultWriter;
 pub use pending::PendingWriter;
+pub use try_from_stream::TryFromStream;
 pub use writer_builder::WriterBuilder;
