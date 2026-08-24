@@ -7328,6 +7328,7 @@ dependencies = [
  "google-cloud-test-utils",
  "google-cloud-wkt",
  "http",
+ "serial_test",
  "tokio",
  "tracing",
  "uuid",

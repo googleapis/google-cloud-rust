@@ -17,6 +17,7 @@ mod pqc {
     use google_cloud_test_utils::errors::anydump;
 
     #[tokio::test]
+    #[serial_test::serial]
     async fn run() -> anyhow::Result<()> {
         integration_tests_showcase::pqc::run()
             .await
