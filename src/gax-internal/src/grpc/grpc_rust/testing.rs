@@ -16,11 +16,13 @@
 
 use bytes::Bytes;
 use grpc::client::{
-    RecvStream, ResponseHeaders, ResponseStreamItem, SendOptions, SendStream, Trailers,
+    CallOptions, Invoke, RecvStream, RequestHeaders, ResponseHeaders, ResponseStreamItem,
+    SendOptions, SendStream, Trailers,
 };
 use grpc::core::{RecvMessage, SendMessage};
 use prost::Message;
 use std::collections::VecDeque;
+use std::sync::{Arc, Mutex};
 
 #[derive(Clone, PartialEq, Message)]
 pub struct TestMessage {
@@ -35,6 +37,60 @@ impl TestMessage {
         Self {
             value: value.into(),
         }
+    }
+}
+
+/// A mock [`SendStream`] that captures sent [`TestMessage`] items and [`SendOptions`].
+#[derive(Clone, Default)]
+pub struct MockSendStream {
+    observed_messages: Arc<Mutex<Vec<TestMessage>>>,
+    observed_send_options: Arc<Mutex<Option<SendOptions>>>,
+    notify: Arc<tokio::sync::Notify>,
+}
+
+impl MockSendStream {
+    /// Creates a new [`MockSendStream`].
+    pub fn new() -> Self {
+        Self::default()
+    }
+
+    /// Returns the observed messages.
+    pub fn observed_messages(&self) -> Vec<TestMessage> {
+        self.observed_messages
+            .lock()
+            .expect("lock observed messages")
+            .clone()
+    }
+
+    /// Returns the observed send options, if any.
+    pub fn observed_send_options(&self) -> Option<SendOptions> {
+        self.observed_send_options
+            .lock()
+            .expect("lock observed send options")
+            .clone()
+    }
+
+    /// Returns the notification handle triggered when a message is sent.
+    pub fn notify_handle(&self) -> Arc<tokio::sync::Notify> {
+        self.notify.clone()
+    }
+}
+
+impl SendStream for MockSendStream {
+    async fn send(&mut self, message: &dyn SendMessage, options: SendOptions) -> Result<(), ()> {
+        let mut encoded = message.encode().expect("encode request message");
+        let decoded =
+            TestMessage::decode(&mut encoded).expect("decode request message as TestMessage");
+        self.observed_messages
+            .lock()
+            .expect("lock observed messages")
+            .push(decoded);
+        *self
+            .observed_send_options
+            .lock()
+            .expect("lock observed send options") = Some(options);
+        self.notify.notify_one();
+        Ok(())
     }
 }
 
@@ -78,10 +134,53 @@ impl SendStream for PanicSendStream {
     }
 }
 
+/// A [`SendStream`] that succeeds on its first message and then waits on `fail_gate` before failing.
+pub struct FailAfterFirstSendStream {
+    sent_count: usize,
+    fail_gate: Arc<tokio::sync::Notify>,
+    failed: Arc<tokio::sync::Notify>,
+}
+
+impl FailAfterFirstSendStream {
+    /// Creates a gated stream returning `(stream, fail_gate, failed)`.
+    pub fn gated() -> (Self, Arc<tokio::sync::Notify>, Arc<tokio::sync::Notify>) {
+        let fail_gate = Arc::new(tokio::sync::Notify::new());
+        let failed = Arc::new(tokio::sync::Notify::new());
+        (
+            Self {
+                sent_count: 0,
+                fail_gate: fail_gate.clone(),
+                failed: failed.clone(),
+            },
+            fail_gate,
+            failed,
+        )
+    }
+}
+
+impl SendStream for FailAfterFirstSendStream {
+    async fn send(&mut self, _message: &dyn SendMessage, _options: SendOptions) -> Result<(), ()> {
+        self.sent_count += 1;
+        match self.sent_count {
+            1 => Ok(()),
+            2 => {
+                self.fail_gate.notified().await;
+                self.failed.notify_one();
+                Err(())
+            }
+            count => {
+                unreachable!("only two send calls expected, received {count}")
+            }
+        }
+    }
+}
+
 /// Scripted actions yielded by [`MockRecvStream`].
 #[non_exhaustive]
 #[derive(Clone, Debug)]
 pub enum MockRecvAction {
+    /// Wait until the given [`tokio::sync::Notify`] is triggered.
+    Wait(Arc<tokio::sync::Notify>),
     /// Yield response headers.
     Headers(ResponseHeaders),
     /// Yield a response message.
@@ -103,25 +202,42 @@ impl MockRecvStream {
             actions: actions.into_iter().collect(),
         }
     }
+
+    /// Creates a stream that yields only immediate trailers.
+    pub fn with_immediate_trailers(trailers: Trailers) -> Self {
+        Self::new([MockRecvAction::Trailers(trailers)])
+    }
+
+    /// Creates a stream that yields headers followed by trailers.
+    pub fn with_headers_and_trailers(headers: ResponseHeaders, trailers: Trailers) -> Self {
+        Self::new([
+            MockRecvAction::Headers(headers),
+            MockRecvAction::Trailers(trailers),
+        ])
+    }
 }
 
 impl RecvStream for MockRecvStream {
     async fn recv(&mut self, message: &mut dyn RecvMessage) -> ResponseStreamItem {
-        if let Some(action) = self.actions.pop_front() {
+        while let Some(action) = self.actions.pop_front() {
             match action {
-                MockRecvAction::Headers(headers) => ResponseStreamItem::Headers(headers),
+                MockRecvAction::Wait(notify) => notify.notified().await,
+                MockRecvAction::Headers(headers) => {
+                    return ResponseStreamItem::Headers(headers);
+                }
                 MockRecvAction::Message(response) => {
                     let mut encoded = Bytes::from(response.encode_to_vec());
                     message
                         .decode(&mut encoded)
                         .expect("decode response message");
-                    ResponseStreamItem::Message
+                    return ResponseStreamItem::Message;
                 }
-                MockRecvAction::Trailers(trailers) => ResponseStreamItem::Trailers(trailers),
+                MockRecvAction::Trailers(trailers) => {
+                    return ResponseStreamItem::Trailers(trailers);
+                }
             }
-        } else {
-            ResponseStreamItem::StreamClosed
         }
+        ResponseStreamItem::StreamClosed
     }
 }
 
@@ -162,5 +278,60 @@ impl PanicRecvStream {
 impl RecvStream for PanicRecvStream {
     async fn recv(&mut self, _message: &mut dyn RecvMessage) -> ResponseStreamItem {
         panic!("{}", self.panic_msg);
+    }
+}
+
+/// A mock implementation of [`Invoke`] that dispenses preconfigured send and receive streams.
+pub struct MockInvoker<S = MockSendStream, R = MockRecvStream> {
+    send_stream: Mutex<Option<S>>,
+    recv_stream: Mutex<Option<R>>,
+    observed_headers: Mutex<Option<RequestHeaders>>,
+}
+
+impl<S, R> MockInvoker<S, R> {
+    /// Creates a new [`MockInvoker`] with the provided send and receive streams.
+    pub fn new(send_stream: S, recv_stream: R) -> Self {
+        Self {
+            send_stream: Mutex::new(Some(send_stream)),
+            recv_stream: Mutex::new(Some(recv_stream)),
+            observed_headers: Mutex::new(None),
+        }
+    }
+
+    /// Returns the observed request headers, if any.
+    pub fn observed_headers(&self) -> Option<RequestHeaders> {
+        self.observed_headers
+            .lock()
+            .expect("lock observed headers")
+            .clone()
+    }
+}
+
+impl<S, R> Invoke for MockInvoker<S, R>
+where
+    S: SendStream + Send + 'static,
+    R: RecvStream + Send + 'static,
+{
+    type SendStream = S;
+    type RecvStream = R;
+
+    async fn invoke(
+        &self,
+        headers: RequestHeaders,
+        _options: CallOptions,
+    ) -> (Self::SendStream, Self::RecvStream) {
+        *self.observed_headers.lock().expect("lock observed headers") = Some(headers);
+        (
+            self.send_stream
+                .lock()
+                .expect("lock send stream")
+                .take()
+                .expect("send stream should only be invoked once"),
+            self.recv_stream
+                .lock()
+                .expect("lock recv stream")
+                .take()
+                .expect("recv stream should only be invoked once"),
+        )
     }
 }

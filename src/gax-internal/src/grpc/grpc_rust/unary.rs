@@ -137,15 +137,12 @@ where
 // TODO(#5991): More unit tests including those covering failure cases to be added in upcoming PRs.
 #[cfg(test)]
 mod tests {
+    use super::super::testing::*;
     use super::*;
-    use bytes::Bytes;
-    use grpc::StatusCodeError;
-    use grpc::StatusError;
-    use grpc::client::{RecvStream, ResponseHeaders, SendStream, Trailers};
-    use grpc::core::{RecvMessage, SendMessage};
+    use grpc::client::{ResponseHeaders, Trailers};
     use grpc::metadata::MetadataValue;
+    use grpc::{StatusCodeError, StatusError};
     use pretty_assertions::assert_eq;
-    use std::sync::{Arc, Mutex};
 
     const METHOD_NAME: &str = "/test.Service/Method";
     const RESPONSE_HEADER_KEY: &str = "x-test-header";
@@ -153,210 +150,35 @@ mod tests {
     const RESPONSE_TRAILER_KEY: &str = "x-test-trailer";
     const RESPONSE_TRAILER_VALUE: &str = "test-trailer-val";
 
-    #[derive(Clone, PartialEq, Message)]
-    struct TestMessage {
-        #[prost(string, tag = "1")]
-        value: String,
-    }
-
-    struct MockInvoker {
-        observed_headers: Arc<Mutex<Option<RequestHeaders>>>,
-        observed_messages: Arc<Mutex<Vec<TestMessage>>>,
-        observed_send_options: Arc<Mutex<Option<SendOptions>>>,
-        response_type: TestResponseType,
-    }
-
-    impl MockInvoker {
-        fn new(response_type: TestResponseType) -> Self {
-            Self {
-                observed_headers: Arc::new(Mutex::new(None)),
-                observed_messages: Arc::new(Mutex::new(Vec::new())),
-                observed_send_options: Arc::new(Mutex::new(None)),
-                response_type,
-            }
-        }
-
-        fn observed_headers(&self) -> Option<RequestHeaders> {
-            self.observed_headers
-                .lock()
-                .expect("lock observed headers")
-                .clone()
-        }
-
-        fn observed_messages(&self) -> Vec<TestMessage> {
-            self.observed_messages
-                .lock()
-                .expect("lock observed messages")
-                .clone()
-        }
-
-        fn observed_send_options(&self) -> Option<SendOptions> {
-            self.observed_send_options
-                .lock()
-                .expect("lock observed send options")
-                .clone()
-        }
-    }
-
-    #[derive(Clone)]
-    enum TestResponseType {
-        Success {
-            value: String,
-        },
-        ErrorStatus {
-            code: StatusCodeError,
-            message: String,
-        },
-        MissingMessage,
-        SendErrorWithServerStatus {
-            code: StatusCodeError,
-            message: String,
-        },
-    }
-
-    impl Invoke for MockInvoker {
-        type SendStream = TestSendStream;
-        type RecvStream = TestRecvStream;
-
-        async fn invoke(
-            &self,
-            headers: RequestHeaders,
-            _options: CallOptions,
-        ) -> (Self::SendStream, Self::RecvStream) {
-            *self.observed_headers.lock().expect("lock observed headers") = Some(headers);
-            let send_error = matches!(
-                self.response_type,
-                TestResponseType::SendErrorWithServerStatus { .. }
-            );
-            (
-                TestSendStream {
-                    observed_messages: self.observed_messages.clone(),
-                    observed_send_options: self.observed_send_options.clone(),
-                    send_error,
-                },
-                TestRecvStream {
-                    response_type: self.response_type.clone(),
-                    state: StreamState::default(),
-                },
-            )
-        }
-    }
-
-    struct TestSendStream {
-        observed_messages: Arc<Mutex<Vec<TestMessage>>>,
-        observed_send_options: Arc<Mutex<Option<SendOptions>>>,
-        send_error: bool,
-    }
-
-    impl SendStream for TestSendStream {
-        async fn send(
-            &mut self,
-            message: &dyn SendMessage,
-            options: SendOptions,
-        ) -> Result<(), ()> {
-            if self.send_error {
-                return Err(());
-            }
-            let mut encoded = message.encode().map_err(|_| ())?;
-            let decoded = TestMessage::decode(&mut encoded).map_err(|_| ())?;
-            self.observed_messages
-                .lock()
-                .expect("lock observed messages")
-                .push(decoded);
-            *self
-                .observed_send_options
-                .lock()
-                .expect("lock observed send options") = Some(options);
-            Ok(())
-        }
-    }
-
-    // TODO(#5991): Refactor common stream state test mocks across grpc_rust tests.
-    #[derive(Default)]
-    enum StreamState {
-        #[default]
-        Initial,
-        HeadersSent,
-        MessageSent,
-        Done,
-    }
-
-    struct TestRecvStream {
-        response_type: TestResponseType,
-        state: StreamState,
-    }
-
-    impl RecvStream for TestRecvStream {
-        async fn recv(&mut self, msg: &mut dyn RecvMessage) -> ResponseStreamItem {
-            match (&self.response_type, &self.state) {
-                (TestResponseType::Success { .. }, StreamState::Initial) => {
-                    self.state = StreamState::HeadersSent;
-                    let mut headers = ResponseHeaders::new();
-                    headers.metadata_mut().append(
-                        RESPONSE_HEADER_KEY,
-                        MetadataValue::from_static(RESPONSE_HEADER_VALUE),
-                    );
-                    ResponseStreamItem::Headers(headers)
-                }
-                (TestResponseType::Success { value }, StreamState::HeadersSent) => {
-                    self.state = StreamState::MessageSent;
-                    let resp = TestMessage {
-                        value: value.clone(),
-                    };
-                    let mut bytes = Bytes::from(resp.encode_to_vec());
-                    msg.decode(&mut bytes).expect("decode message");
-                    ResponseStreamItem::Message
-                }
-                (TestResponseType::Success { .. }, StreamState::MessageSent) => {
-                    self.state = StreamState::Done;
-                    let mut trailers = Trailers::new(Ok(()));
-                    trailers.metadata_mut().append(
-                        RESPONSE_TRAILER_KEY,
-                        MetadataValue::from_static(RESPONSE_TRAILER_VALUE),
-                    );
-                    ResponseStreamItem::Trailers(trailers)
-                }
-                (TestResponseType::ErrorStatus { code, message }, StreamState::Initial) => {
-                    self.state = StreamState::Done;
-                    let trailers = Trailers::new(Err(StatusError::new(*code, message)));
-                    ResponseStreamItem::Trailers(trailers)
-                }
-                (TestResponseType::MissingMessage, StreamState::Initial) => {
-                    self.state = StreamState::HeadersSent;
-                    ResponseStreamItem::Headers(ResponseHeaders::new())
-                }
-                (TestResponseType::MissingMessage, StreamState::HeadersSent) => {
-                    self.state = StreamState::Done;
-                    ResponseStreamItem::Trailers(Trailers::new(Ok(())))
-                }
-                (
-                    TestResponseType::SendErrorWithServerStatus { code, message },
-                    StreamState::Initial,
-                ) => {
-                    self.state = StreamState::Done;
-                    let trailers = Trailers::new(Err(StatusError::new(*code, message)));
-                    ResponseStreamItem::Trailers(trailers)
-                }
-                _ => ResponseStreamItem::StreamClosed,
-            }
-        }
-    }
-
     #[tokio::test]
     async fn test_unary_success() {
         // Arrange
-        let invoker = MockInvoker::new(TestResponseType::Success {
-            value: "response-value".to_string(),
-        });
-        let request = TestMessage {
-            value: "request-value".to_string(),
-        };
+        let send_stream = MockSendStream::new();
+
+        let mut headers = ResponseHeaders::new();
+        headers.metadata_mut().append(
+            RESPONSE_HEADER_KEY,
+            MetadataValue::from_static(RESPONSE_HEADER_VALUE),
+        );
+        let mut trailers = Trailers::new(Ok(()));
+        trailers.metadata_mut().append(
+            RESPONSE_TRAILER_KEY,
+            MetadataValue::from_static(RESPONSE_TRAILER_VALUE),
+        );
+        let recv_stream = MockRecvStream::new([
+            MockRecvAction::Headers(headers),
+            MockRecvAction::Message(TestMessage::new("response-value")),
+            MockRecvAction::Trailers(trailers),
+        ]);
+
+        let invoker = MockInvoker::new(send_stream.clone(), recv_stream);
+        let request = TestMessage::new("request-value");
 
         // Act
         let response: tonic::Response<TestMessage> = invoke_unary(
             &invoker,
             RequestHeaders::new().with_method_name(METHOD_NAME),
-            request,
+            request.clone(),
             CallOptions::default(),
         )
         .await
@@ -376,21 +198,17 @@ mod tests {
             ))
         );
         assert_eq!(response.into_inner().value, "response-value");
-        assert_eq!(
-            invoker.observed_messages().as_slice(),
-            [TestMessage {
-                value: "request-value".to_string()
-            }]
-        );
+        assert_eq!(send_stream.observed_messages(), [request]);
         assert_eq!(
             invoker
                 .observed_headers()
+                .as_ref()
                 .expect("observed headers should be set")
                 .method_name(),
             METHOD_NAME
         );
         assert!(
-            invoker
+            send_stream
                 .observed_send_options()
                 .expect("observed send options should be set")
                 .final_msg
@@ -402,18 +220,19 @@ mod tests {
         // Arrange
         const INVALID_TOKEN_ERROR: &str = "invalid token";
 
-        let invoker = MockInvoker::new(TestResponseType::ErrorStatus {
-            code: StatusCodeError::Unauthenticated,
-            message: INVALID_TOKEN_ERROR.to_string(),
-        });
+        let invoker = MockInvoker::new(
+            MockSendStream::default(),
+            MockRecvStream::with_immediate_trailers(Trailers::new(Err(StatusError::new(
+                StatusCodeError::Unauthenticated,
+                INVALID_TOKEN_ERROR,
+            )))),
+        );
 
         // Act
         let status = invoke_unary::<_, TestMessage, _>(
             &invoker,
             RequestHeaders::new().with_method_name(METHOD_NAME),
-            TestMessage {
-                value: "test".to_string(),
-            },
+            TestMessage::new("test"),
             CallOptions::default(),
         )
         .await
@@ -427,15 +246,19 @@ mod tests {
     #[tokio::test]
     async fn test_unary_missing_message() {
         // Arrange
-        let invoker = MockInvoker::new(TestResponseType::MissingMessage);
+        let invoker = MockInvoker::new(
+            MockSendStream::default(),
+            MockRecvStream::with_headers_and_trailers(
+                ResponseHeaders::new(),
+                Trailers::new(Ok(())),
+            ),
+        );
 
         // Act
         let status = invoke_unary::<_, TestMessage, _>(
             &invoker,
             RequestHeaders::new().with_method_name(METHOD_NAME),
-            TestMessage {
-                value: "test".to_string(),
-            },
+            TestMessage::new("test"),
             CallOptions::default(),
         )
         .await
@@ -455,18 +278,19 @@ mod tests {
         // Arrange
         const ACCESS_DENIED_ERROR: &str = "access denied";
 
-        let invoker = MockInvoker::new(TestResponseType::SendErrorWithServerStatus {
-            code: StatusCodeError::PermissionDenied,
-            message: ACCESS_DENIED_ERROR.to_string(),
-        });
+        let invoker = MockInvoker::new(
+            FailingSendStream,
+            MockRecvStream::with_immediate_trailers(Trailers::new(Err(StatusError::new(
+                StatusCodeError::PermissionDenied,
+                ACCESS_DENIED_ERROR,
+            )))),
+        );
 
         // Act
         let status = invoke_unary::<_, TestMessage, _>(
             &invoker,
             RequestHeaders::new().with_method_name(METHOD_NAME),
-            TestMessage {
-                value: "test".to_string(),
-            },
+            TestMessage::new("test"),
             CallOptions::default(),
         )
         .await
