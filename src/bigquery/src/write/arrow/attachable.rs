@@ -20,14 +20,14 @@ use std::sync::Arc;
 
 mod sealed {
     use super::*;
-    pub trait Sealed {}
-    impl Sealed for PendingWriter {}
-    impl Sealed for CommittedWriter {}
-    impl Sealed for BufferedWriter {}
+    pub trait AttachableWriter {}
+    impl AttachableWriter for PendingWriter {}
+    impl AttachableWriter for CommittedWriter {}
+    impl AttachableWriter for BufferedWriter {}
 }
 
 /// A trait for strongly-typed stream writers that can be attached to an existing stream.
-pub trait AttachableWriter: sealed::Sealed + Sized {
+pub trait AttachableWriter: sealed::AttachableWriter + Sized {
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     const STREAM_TYPE: Type;
 
