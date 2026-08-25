@@ -21,7 +21,7 @@ Run the automated toolchain check script (requires network access /
 `BypassSandbox: true`):
 
 ```bash
-.agents/skills/rust-toolchain-bump/scripts/check-rust-toolchain.sh
+./scripts/check-rust-toolchain.sh
 ```
 
 The script will:
@@ -41,12 +41,17 @@ ______________________________________________________________________
 - **If `check-rust-toolchain.sh` exits successfully:** Proceed directly to Step
   3\.
 - **If clippy fails in handwritten crates (`src/auth`, `src/gax`, `src/storage`,
-  etc.):** Fix code diagnostics directly in the working branch, then re-run
-  `.agents/skills/rust-toolchain-bump/scripts/check-rust-toolchain.sh` until
-  clean.
-- **If clippy fails in generated code (`src/generated/`):** Do NOT edit
-  generated files manually. Stop and file an issue/PR to update generator
-  templates in `librarian` first.
+  etc.):**
+  - You can attempt to automatically apply machine-applicable clippy suggestions
+    using:
+    ```bash
+    cargo clippy --fix --allow-dirty --allow-staged --all-features --all-targets --profile=test --workspace
+    ```
+  - For any remaining diagnostics, fix the code directly in the working branch,
+    then re-run `./scripts/check-rust-toolchain.sh` until clean.
+- **If clippy fails in generated code (`src/generated/` or
+  `src/**/generated/`):** Do NOT edit generated files manually. Stop and file an
+  issue/PR to update generator templates in `librarian` first.
 - **If semver-checks fails with `unsupported rustdoc format vXX`:** Bump
   `cargo-semver-checks` to the latest version in both
   `.gcb/scripts/semver-checks.sh` and `librarian.yaml`, then re-run.
