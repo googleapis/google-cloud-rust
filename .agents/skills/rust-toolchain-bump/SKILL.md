@@ -12,51 +12,32 @@ This skill automates checking for new stable minor compiler releases from the Ru
 
 ---
 
-## Step 1: Determine Current Stable Compiler Version
+## Step 1: Run Toolchain Check Script
 
-1. Check current compiler version configured in GitHub Actions:
-   - Search `.github/workflows/sdk.yaml` for `GHA_RUST_VERSIONS` (or check `CURRENT_RUST_VERSION` in `.github/workflows/rust-toolchain-check.yaml`).
-2. Let `1.YY` be the current minor version (e.g. `1.97`).
+Run the automated toolchain check script (requires network access / `BypassSandbox: true`):
+```bash
+./scripts/check-rust-toolchain.sh
+```
 
----
-
-## Step 2: Check Latest Stable Rust Release
-
-1. Query recent releases from the official changelog:
-   ```bash
-   curl -sSL https://raw.githubusercontent.com/rust-lang/rust/master/RELEASES.md | head -n 30
-   ```
-2. **Evaluate Release**:
-   - **Minor Releases (`1.XX.0`)**: Action required if `1.XX` > `1.YY`.
-   - **Patch Releases (`1.XX.Y`)**: No action required per team policy (only minor versions are pinned).
+The script will:
+1. Extract `CURRENT_RUST_VERSION` deterministically from `.github/workflows/rust-toolchain-check.yaml`.
+2. Compare against the latest stable release in `RELEASES.md`.
+3. Update the local stable compiler (`rustup update stable`).
+4. Run strict workspace clippy verification (`cargo clippy --all-features --all-targets --profile=test --workspace -- --deny warnings`).
+5. Run `cargo semver-checks` on `google-cloud-wkt`.
 
 ---
 
-## Step 3: Update Toolchain & Run Lints
+## Step 2: Handle Diagnostics & Tooling Issues
 
-1. Update the local stable Rust toolchain (requires network access / `BypassSandbox: true`):
-   ```bash
-   rustup update stable
-   rustc --version
-   ```
-2. Run strict workspace clippy verification:
-   ```bash
-   cargo clippy --all-features --all-targets --profile=test --workspace -- --deny warnings
-   ```
-3. Test semver checks tooling against the new compiler:
-   ```bash
-   cargo semver-checks --all-features -p google-cloud-wkt
-   ```
-   *If this fails with `unsupported rustdoc format vXX`, bump `cargo-semver-checks` to the latest version in both `.gcb/scripts/semver-checks.sh` and `librarian.yaml`.*
-
-4. **Handle Linter Diagnostics**:
-   - **Zero Warnings**: Proceed directly to Step 4.
-   - **Warnings in Handwritten Crates (`src/auth`, `src/gax`, `src/storage`, etc.)**: Fix code diagnostics directly in the working branch alongside the version updates.
-   - **Warnings in Generated Code (`src/generated/`)**: Do NOT edit generated files manually. Stop and file an issue/PR to update generator templates in `librarian` first.
+* **If `scripts/check-rust-toolchain.sh` exits successfully:** Proceed directly to Step 3.
+* **If clippy fails in handwritten crates (`src/auth`, `src/gax`, `src/storage`, etc.):** Fix code diagnostics directly in the working branch, then re-run `./scripts/check-rust-toolchain.sh` until clean.
+* **If clippy fails in generated code (`src/generated/`):** Do NOT edit generated files manually. Stop and file an issue/PR to update generator templates in `librarian` first.
+* **If semver-checks fails with `unsupported rustdoc format vXX`:** Bump `cargo-semver-checks` to the latest version in both `.gcb/scripts/semver-checks.sh` and `librarian.yaml`, then re-run.
 
 ---
 
-## Step 4: Update CI Configuration Files
+## Step 3: Update CI Configuration Files
 
 Search for all occurrences of the old version `1.YY` across the repository to locate every CI configuration defining the compiler:
 
@@ -80,13 +61,9 @@ git grep "1\.YY"
    - `.gcb/integration.yaml`
    - `src/auth/.gcb/integration.yaml`
 
-3. **Update Tooling Pins (if bumped in Step 3)**:
-   - `.gcb/scripts/semver-checks.sh` (`cargo install --locked cargo-semver-checks@...`)
-   - `librarian.yaml` (`tools.cargo` entry for `cargo-semver-checks`)
-
 ---
 
-## Step 5: Validate and Prepare PR
+## Step 4: Validate and Prepare PR
 
 1. Verify formatting and check builds:
    ```bash
