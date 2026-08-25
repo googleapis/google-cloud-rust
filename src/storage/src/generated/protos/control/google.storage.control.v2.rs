@@ -696,6 +696,27 @@ impl ::prost::Name for UpdateRapidCacheMetadata {
     }
 }
 #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct DisableRapidCacheMetadata {
+    #[prost(message, optional, tag = "1")]
+    pub common_metadata: ::core::option::Option<CommonLongRunningOperationMetadata>,
+    #[prost(string, optional, tag = "2")]
+    pub rapid_cache_id: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag = "3")]
+    pub zone: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag = "4")]
+    pub cache_type: ::core::option::Option<::prost::alloc::string::String>,
+}
+impl ::prost::Name for DisableRapidCacheMetadata {
+    const NAME: &'static str = "DisableRapidCacheMetadata";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.DisableRapidCacheMetadata".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.DisableRapidCacheMetadata".into()
+    }
+}
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct AnywhereCache {
     #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
@@ -938,6 +959,23 @@ impl ::prost::Name for UpdateRapidCacheRequest {
     }
     fn type_url() -> ::prost::alloc::string::String {
         "type.googleapis.com/google.storage.control.v2.UpdateRapidCacheRequest".into()
+    }
+}
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct DisableRapidCacheRequest {
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub request_id: ::prost::alloc::string::String,
+}
+impl ::prost::Name for DisableRapidCacheRequest {
+    const NAME: &'static str = "DisableRapidCacheRequest";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.DisableRapidCacheRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.DisableRapidCacheRequest".into()
     }
 }
 #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]

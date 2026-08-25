@@ -45,6 +45,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Reservation {
             __reservation_group,
             __replication_status,
             __scheduling_policy,
+            __reservation_group_path,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -100,6 +101,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Reservation {
                             "replication_status" => Ok(__FieldTag::__replication_status),
                             "schedulingPolicy" => Ok(__FieldTag::__scheduling_policy),
                             "scheduling_policy" => Ok(__FieldTag::__scheduling_policy),
+                            "reservationGroupPath" => Ok(__FieldTag::__reservation_group_path),
+                            "reservation_group_path" => Ok(__FieldTag::__reservation_group_path),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -333,6 +336,14 @@ impl<'de> serde::de::Deserialize<'de> for super::Reservation {
                             result.scheduling_policy = map
                                 .next_value::<std::option::Option<crate::model::SchedulingPolicy>>(
                                 )?;
+                        }
+                        __FieldTag::__reservation_group_path => {
+                            if !fields.insert(__FieldTag::__reservation_group_path) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for reservation_group_path",
+                                ));
+                            }
+                            result.reservation_group_path = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -700,6 +711,9 @@ impl<'de> serde::de::Deserialize<'de> for super::ReservationGroup {
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __name,
+            __parent_group,
+            __creation_time,
+            __update_time,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -721,6 +735,12 @@ impl<'de> serde::de::Deserialize<'de> for super::ReservationGroup {
                         use std::string::ToString;
                         match value {
                             "name" => Ok(__FieldTag::__name),
+                            "parentGroup" => Ok(__FieldTag::__parent_group),
+                            "parent_group" => Ok(__FieldTag::__parent_group),
+                            "creationTime" => Ok(__FieldTag::__creation_time),
+                            "creation_time" => Ok(__FieldTag::__creation_time),
+                            "updateTime" => Ok(__FieldTag::__update_time),
+                            "update_time" => Ok(__FieldTag::__update_time),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -755,6 +775,34 @@ impl<'de> serde::de::Deserialize<'de> for super::ReservationGroup {
                             result.name = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__parent_group => {
+                            if !fields.insert(__FieldTag::__parent_group) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent_group",
+                                ));
+                            }
+                            result.parent_group = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__creation_time => {
+                            if !fields.insert(__FieldTag::__creation_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for creation_time",
+                                ));
+                            }
+                            result.creation_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__update_time => {
+                            if !fields.insert(__FieldTag::__update_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_time",
+                                ));
+                            }
+                            result.update_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -2102,6 +2150,99 @@ impl<'de> serde::de::Deserialize<'de> for super::DeleteReservationGroupRequest {
                             result.name = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::UpdateReservationGroupRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __reservation_group,
+            __update_mask,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for UpdateReservationGroupRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "reservationGroup" => Ok(__FieldTag::__reservation_group),
+                            "reservation_group" => Ok(__FieldTag::__reservation_group),
+                            "updateMask" => Ok(__FieldTag::__update_mask),
+                            "update_mask" => Ok(__FieldTag::__update_mask),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::UpdateReservationGroupRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct UpdateReservationGroupRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__reservation_group => {
+                            if !fields.insert(__FieldTag::__reservation_group) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for reservation_group",
+                                ));
+                            }
+                            result.reservation_group = map
+                                .next_value::<std::option::Option<crate::model::ReservationGroup>>(
+                                )?;
+                        }
+                        __FieldTag::__update_mask => {
+                            if !fields.insert(__FieldTag::__update_mask) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_mask",
+                                ));
+                            }
+                            result.update_mask =
+                                map.next_value::<std::option::Option<wkt::FieldMask>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
