@@ -174,7 +174,18 @@ impl WriterBuilder {
         ))
     }
 
-    /// Attaches to an existing stream.
+    /// Attaches the builder to an existing stream.
+    ///
+    /// # Example
+    /// ```ignore
+    /// use google_cloud_bigquery::write::arrow::writer_builder::WriterBuilder;
+    /// use google_cloud_bigquery::write::arrow::committed::CommittedWriter;
+    ///
+    /// let builder = WriterBuilder::new(transport, schema);
+    /// let writer = builder
+    ///     .attach::<CommittedWriter>("projects/my-project/datasets/my_dataset/tables/my_table/streams/stream_id")
+    ///     .await?;
+    /// ```
     pub async fn attach<U: AttachableWriter>(self, write_stream: impl Into<String>) -> Result<U> {
         let write_stream = write_stream.into();
         validate_stream(write_stream.as_str())?;
