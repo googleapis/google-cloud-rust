@@ -61,7 +61,6 @@ google-cloud-auth.workspace = true
 google-cloud-bigquery       = { path = ".", features = ["default-rustls-provider"] }
 
 [features]
-_internal-semver = []
 default = ["default-rustls-provider"]
 # Enabled by default. Use the default rustls crypto provider ([aws-lc-rs]) for
 # TLS and authentication. Applications with specific requirements for

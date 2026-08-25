@@ -18,43 +18,42 @@ use crate::model::write_stream::Type;
 use crate::write::transport::Transport;
 use std::sync::Arc;
 
-mod sealed {
+pub(crate) mod sealed {
     use super::*;
-    pub trait AttachableWriter {}
-    impl AttachableWriter for PendingWriter {}
-    impl AttachableWriter for CommittedWriter {}
-    impl AttachableWriter for BufferedWriter {}
+
+    pub trait AttachableWriter {
+        const STREAM_TYPE: Type;
+        fn build(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self;
+    }
+
+    impl AttachableWriter for PendingWriter {
+        const STREAM_TYPE: Type = Type::Pending;
+
+        fn build(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
+            Self::new(inner, write_stream, schema)
+        }
+    }
+
+    impl AttachableWriter for CommittedWriter {
+        const STREAM_TYPE: Type = Type::Committed;
+
+        fn build(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
+            Self::new(inner, write_stream, schema)
+        }
+    }
+
+    impl AttachableWriter for BufferedWriter {
+        const STREAM_TYPE: Type = Type::Buffered;
+
+        fn build(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
+            Self::new(inner, write_stream, schema)
+        }
+    }
 }
 
 /// A trait for strongly-typed stream writers that can be attached to an existing stream.
-pub trait AttachableWriter: sealed::AttachableWriter + Sized {
-    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    const STREAM_TYPE: Type;
+///
+/// This trait is sealed and cannot be implemented for types outside of this crate.
+pub trait AttachableWriter: sealed::AttachableWriter + Sized {}
 
-    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    fn build(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self;
-}
-
-impl AttachableWriter for PendingWriter {
-    const STREAM_TYPE: Type = Type::Pending;
-
-    fn build(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
-        Self::new(inner, write_stream, schema)
-    }
-}
-
-impl AttachableWriter for CommittedWriter {
-    const STREAM_TYPE: Type = Type::Committed;
-
-    fn build(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
-        Self::new(inner, write_stream, schema)
-    }
-}
-
-impl AttachableWriter for BufferedWriter {
-    const STREAM_TYPE: Type = Type::Buffered;
-
-    fn build(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
-        Self::new(inner, write_stream, schema)
-    }
-}
+impl<T: sealed::AttachableWriter + Sized> AttachableWriter for T {}
