@@ -75,11 +75,11 @@ where
 {
     pub fn new(options: RequestOptions, client: T) -> Self {
         Self {
-            spec: Arc::new(Mutex::new(AppendObjectSpecState::Write(
-                Box::default(),
-                None,
-                None,
-            ))),
+            spec: Arc::new(Mutex::new(AppendObjectSpecState::Write {
+                spec: Box::default(),
+                routing_token: None,
+                initial_chunk: None,
+            })),
             options,
             client,
             params: None,
@@ -93,6 +93,8 @@ where
         self.connect_open_and_append(req, None).await
     }
 
+    /// Connects to the service to open an appendable object, optionally including
+    /// an initial data chunk in the opening request.
     pub async fn connect_open_and_append(
         &mut self,
         req: crate::model_ext::OpenAppendableObjectRequest,
@@ -119,8 +121,11 @@ where
             .params
             .map(|p| p.to_proto().map_err(Error::deser))
             .transpose()?;
-        *self.spec.lock().expect("never poisoned") =
-            AppendObjectSpecState::Write(Box::new(spec), None, initial_chunk);
+        *self.spec.lock().expect("never poisoned") = AppendObjectSpecState::Write {
+            spec: Box::new(spec),
+            routing_token: None,
+            initial_chunk,
+        };
         self.connect_attempt_loop().await
     }
 
@@ -143,7 +148,10 @@ where
             .params
             .map(|p| p.to_proto().map_err(Error::deser))
             .transpose()?;
-        *self.spec.lock().expect("never poisoned") = AppendObjectSpecState::Append(spec, None);
+        *self.spec.lock().expect("never poisoned") = AppendObjectSpecState::Append {
+            spec,
+            initial_chunk: None,
+        };
         self.connect_attempt_loop().await
     }
 
@@ -241,15 +249,22 @@ fn prepare_request(
     params: Option<CommonObjectRequestParams>,
 ) -> Result<(BidiWriteObjectRequest, String)> {
     let (first_message, routing_token, initial_chunk) = match state {
-        AppendObjectSpecState::Write(spec, rt, data) => (
+        AppendObjectSpecState::Write {
+            spec,
+            routing_token,
+            initial_chunk,
+        } => (
             FirstMessage::WriteObjectSpec((**spec).clone()),
-            rt.clone(),
-            data.clone(),
+            routing_token.clone(),
+            initial_chunk.clone(),
         ),
-        AppendObjectSpecState::Append(spec, data) => (
+        AppendObjectSpecState::Append {
+            spec,
+            initial_chunk,
+        } => (
             FirstMessage::AppendObjectSpec(spec.clone()),
             spec.routing_token.clone(),
-            data.clone(),
+            initial_chunk.clone(),
         ),
     };
 
@@ -612,8 +627,8 @@ mod tests {
 
         let got = connector.spec.lock().expect("never poisoned").clone();
         match got {
-            AppendObjectSpecState::Write(..) => panic!("Should be Append"),
-            AppendObjectSpecState::Append(got, _) => {
+            AppendObjectSpecState::Write { .. } => panic!("Should be Append"),
+            AppendObjectSpecState::Append { spec: got, .. } => {
                 assert_eq!(got.routing_token.as_deref(), Some("r1"));
             }
         }
@@ -727,7 +742,7 @@ mod tests {
         assert_eq!(response, initial);
 
         let guard = connector.spec.lock().expect("never poisoned");
-        if let AppendObjectSpecState::Append(s, _) = &*guard {
+        if let AppendObjectSpecState::Append { spec: s, .. } = &*guard {
             assert!(s.routing_token.is_none(), "{s:?}");
             assert_eq!(s.generation, 123456, "{s:?}");
             assert_eq!(
@@ -742,9 +757,27 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
-    async fn connect_open_and_append_sends_payload_in_first_request() -> Result<()> {
-        // Arrange
+    fn test_open_request() -> OpenAppendableObjectRequest {
+        OpenAppendableObjectRequest {
+            spec: crate::model::WriteObjectSpec {
+                resource: Some(crate::model::Object {
+                    bucket: "projects/_/buckets/test-bucket".into(),
+                    name: "test-object".into(),
+                    generation: 123456,
+                    ..Default::default()
+                }),
+                ..Default::default()
+            },
+            params: None,
+        }
+    }
+
+    async fn setup_mock_open_connector(
+        persisted_size: i64,
+    ) -> Result<(
+        Connector<SharedMockClient>,
+        Arc<Mutex<Vec<tokio::sync::mpsc::Receiver<BidiWriteObjectRequest>>>>,
+    )> {
         let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(5);
         let stream = TonicResponse::from(rx);
 
@@ -758,7 +791,7 @@ mod tests {
                 Ok(Ok(stream))
             });
         let client = SharedMockClient::new(mock);
-        let mut connector = Connector::new(test_options(), client);
+        let connector = Connector::new(test_options(), client);
 
         let initial = BidiWriteObjectResponse {
             write_status: Some(
@@ -767,43 +800,127 @@ mod tests {
                         bucket: "projects/_/buckets/test-bucket".into(),
                         name: "test-object".into(),
                         generation: 123456,
-                        size: 11,
+                        size: persisted_size,
                         ..crate::google::storage::v2::Object::default()
                     },
                 ),
             ),
             ..BidiWriteObjectResponse::default()
         };
-        tx.send(Ok(initial.clone())).await?;
+        tx.send(Ok(initial)).await?;
 
-        let req = OpenAppendableObjectRequest {
-            spec: crate::model::WriteObjectSpec {
-                resource: Some(crate::model::Object {
-                    bucket: "projects/_/buckets/test-bucket".into(),
-                    name: "test-object".into(),
-                    ..Default::default()
-                }),
-                ..Default::default()
-            },
-            params: None,
-        };
+        Ok((connector, receivers))
+    }
 
+    #[tokio::test]
+    async fn connect_open_and_append_sends_payload_in_first_request() -> Result<()> {
+        // Arrange: Small payload to verify basic checksummed data packaging.
         let chunk = bytes::Bytes::from_static(b"hello world");
         let expected_crc = crc32c::crc32c(&chunk);
+        let (mut connector, receivers) = setup_mock_open_connector(chunk.len() as i64).await?;
 
-        // Act
-        let (response, _connection) = connector
-            .connect_open_and_append(req, Some(chunk.clone()))
+        // Act: Open stream with initial payload.
+        let (_response, _connection) = connector
+            .connect_open_and_append(test_open_request(), Some(chunk.clone()))
             .await?;
 
-        // Assert
-        assert_eq!(response, initial);
-
+        // Assert: Verify opening request attaches ChecksummedData with CRC.
         let mut rx = receivers
             .lock()
             .expect("never poisoned")
             .pop()
-            .expect("at least one receiver");
+            .expect("captured receiver");
+        let got = rx.recv().await.expect("at least one request sent");
+
+        assert_eq!(got.write_offset, 0);
+        let checksummed_data = match got.data {
+            Some(crate::google::storage::v2::bidi_write_object_request::Data::ChecksummedData(
+                d,
+            )) => d,
+            _ => panic!("Expected ChecksummedData"),
+        };
+        assert_eq!(checksummed_data.content, chunk);
+        assert_eq!(checksummed_data.crc32c, Some(expected_crc));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn connect_open_and_append_empty_payload_omits_data() -> Result<()> {
+        // Arrange: Empty chunk payload.
+        let (mut connector, receivers) = setup_mock_open_connector(0).await?;
+
+        // Act: Open with empty payload.
+        connector
+            .connect_open_and_append(test_open_request(), Some(bytes::Bytes::new()))
+            .await?;
+
+        // Assert: Verify no data field is present in the opening request.
+        let mut rx = receivers
+            .lock()
+            .expect("never poisoned")
+            .pop()
+            .expect("captured receiver");
+        let got = rx.recv().await.expect("at least one request sent");
+
+        assert_eq!(got.write_offset, 0);
+        assert!(got.data.is_none());
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn connect_open_and_append_exact_max_chunk_size() -> Result<()> {
+        // Arrange: Exact 2 MiB payload (MAX_WRITE_CHUNK_SIZE boundary).
+        let chunk = bytes::Bytes::from(vec![0xAAu8; 2 * 1024 * 1024]);
+        let expected_crc = crc32c::crc32c(&chunk);
+        let (mut connector, receivers) = setup_mock_open_connector(chunk.len() as i64).await?;
+
+        // Act: Open with 2 MiB payload.
+        connector
+            .connect_open_and_append(test_open_request(), Some(chunk.clone()))
+            .await?;
+
+        // Assert: Verify full 2 MiB payload is attached with CRC.
+        let mut rx = receivers
+            .lock()
+            .expect("never poisoned")
+            .pop()
+            .expect("captured receiver");
+        let got = rx.recv().await.expect("at least one request sent");
+
+        assert_eq!(got.write_offset, 0);
+        let checksummed_data = match got.data {
+            Some(crate::google::storage::v2::bidi_write_object_request::Data::ChecksummedData(
+                d,
+            )) => d,
+            _ => panic!("Expected ChecksummedData"),
+        };
+        assert_eq!(checksummed_data.content, chunk);
+        assert_eq!(checksummed_data.crc32c, Some(expected_crc));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn connect_open_and_append_large_chunk() -> Result<()> {
+        // Arrange: 3 MiB payload. Connector transmits the chunk provided;
+        // partitioning policy is handled at the transport layer.
+        let chunk = bytes::Bytes::from(vec![0xBBu8; 3 * 1024 * 1024]);
+        let expected_crc = crc32c::crc32c(&chunk);
+        let (mut connector, receivers) = setup_mock_open_connector(chunk.len() as i64).await?;
+
+        // Act: Open with 3 MiB payload.
+        connector
+            .connect_open_and_append(test_open_request(), Some(chunk.clone()))
+            .await?;
+
+        // Assert: Verify entire 3 MiB payload is attached by connector.
+        let mut rx = receivers
+            .lock()
+            .expect("never poisoned")
+            .pop()
+            .expect("captured receiver");
         let got = rx.recv().await.expect("at least one request sent");
 
         assert_eq!(got.write_offset, 0);
@@ -880,8 +997,8 @@ mod tests {
         // spec state to an `Append` state tracking the new routing token.
         let got = connector.spec.lock().expect("never poisoned").clone();
         match got {
-            AppendObjectSpecState::Write(_, _, _) => panic!("Should be Append"),
-            AppendObjectSpecState::Append(got, _) => {
+            AppendObjectSpecState::Write { .. } => panic!("Should be Append"),
+            AppendObjectSpecState::Append { spec: got, .. } => {
                 assert_eq!(got.routing_token.as_deref(), Some("r1"));
             }
         }

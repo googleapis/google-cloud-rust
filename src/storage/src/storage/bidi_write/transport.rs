@@ -31,6 +31,12 @@ use gaxi::prost::FromProto;
 use tokio::sync::mpsc::Sender;
 use tokio::sync::oneshot;
 
+#[derive(Clone, Copy, Debug)]
+struct InitialPayload {
+    len: usize,
+    crc32c: u32,
+}
+
 #[derive(Debug)]
 pub struct AppendableObjectWriterTransport {
     tx: Sender<UploadIntent>,
@@ -51,9 +57,14 @@ impl AppendableObjectWriterTransport {
         <T as Client>::Stream: TonicStreaming,
     {
         let (initial, connection) = connector.connect_open(req).await?;
-        Self::start_worker(connector, initial, connection, 0, 0, None)
+        Self::start_worker(connector, initial, connection, 0, None)
     }
 
+    /// Creates a new writer for an appendable object and writes the initial chunk of data.
+    ///
+    /// If `chunk` is empty, this delegates to [`Self::new_open`]. Otherwise, up to
+    /// [`MAX_WRITE_CHUNK_SIZE`] bytes are sent in the initial opening request, and any
+    /// remaining bytes are queued and appended once the stream connection is established.
     pub async fn new_open_and_append<T>(
         mut connector: Connector<T>,
         req: OpenAppendableObjectRequest,
@@ -80,8 +91,10 @@ impl AppendableObjectWriterTransport {
             initial,
             connection,
             0,
-            first_chunk_len,
-            Some(first_chunk_crc),
+            Some(InitialPayload {
+                len: first_chunk_len,
+                crc32c: first_chunk_crc,
+            }),
         )?;
 
         if chunk.len() > MAX_WRITE_CHUNK_SIZE {
@@ -102,16 +115,16 @@ impl AppendableObjectWriterTransport {
     {
         let generation = req.generation;
         let (initial, connection) = connector.connect_reopen(req).await?;
-        Self::start_worker(connector, initial, connection, generation, 0, None)
+        Self::start_worker(connector, initial, connection, generation, None)
     }
 
+    // TODO(#5716): Consider refactoring to pass in a struct.
     fn start_worker<T>(
         connector: Connector<T>,
         initial: BidiWriteObjectResponse,
         connection: Connection<<T as Client>::Stream>,
         generation: i64,
-        initial_chunk_len: usize,
-        initial_chunk_crc: Option<u32>,
+        initial_payload: Option<InitialPayload>,
     ) -> Result<Self>
     where
         T: Client + Clone + Sync + Send + 'static,
@@ -138,23 +151,21 @@ impl AppendableObjectWriterTransport {
         // calculation. Default is `None`. We will then see if we can establish
         // a valid CRC32C baseline.
         let mut running_crc32c = None;
-        if initial_chunk_len == 0 {
-            if persisted_size == 0 {
-                // A brand new object or takeover an existing object with 0 bytes written,
-                // so we start with a checksum of 0.
-                running_crc32c = Some(0);
-            } else if let Some(crc) = initial
-                .persisted_data_checksums
-                .as_ref()
-                .and_then(|c| c.crc32c)
-            {
-                // Takeover an existing object where the server returns the checksum
-                // of the persisted data. The running CRC32C checksum will start with
-                // this value.
-                running_crc32c = Some(crc);
-            }
-        } else {
-            running_crc32c = initial_chunk_crc;
+        if let Some(payload) = initial_payload {
+            running_crc32c = Some(payload.crc32c);
+        } else if persisted_size == 0 {
+            // A brand new object or takeover an existing object with 0 bytes written,
+            // so we start with a checksum of 0.
+            running_crc32c = Some(0);
+        } else if let Some(crc) = initial
+            .persisted_data_checksums
+            .as_ref()
+            .and_then(|c| c.crc32c)
+        {
+            // Takeover an existing object where the server returns the checksum
+            // of the persisted data. The running CRC32C checksum will start with
+            // this value.
+            running_crc32c = Some(crc);
         }
         // If persisted_size > 0 but the server didn't provide a checksum,
         // we can't reliably continue a running checksum, so it remains `None`.
@@ -164,7 +175,8 @@ impl AppendableObjectWriterTransport {
         let worker = Worker::new(connector);
         let worker_handle = Some(tokio::spawn(worker.run(connection, rx)));
 
-        let write_offset = std::cmp::max(persisted_size, initial_chunk_len as i64);
+        let initial_len = initial_payload.map(|p| p.len as i64).unwrap_or(0);
+        let write_offset = std::cmp::max(persisted_size, initial_len);
 
         Ok(Self {
             tx,
@@ -344,7 +356,7 @@ impl AppendableObjectWriter for AppendableObjectWriterTransport {
 
 #[cfg(test)]
 mod tests {
-    use super::super::mocks::{MockTestClient, mock_connector};
+    use super::super::mocks::{MockTestClient, SharedMockClient, mock_connector};
     use super::super::tests::permanent_error;
     use super::*;
     use crate::google::storage::v2::{
@@ -1075,16 +1087,10 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
-    async fn open_and_append_initial_state() -> anyhow::Result<()> {
-        let (tx1, rx1) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(5);
-        let stream1 = TonicResponse::from(rx1);
+    const ONE_MIB: usize = 1024 * 1024;
+    const THREE_MIB: usize = MAX_WRITE_CHUNK_SIZE + ONE_MIB;
 
-        let mut mock = MockTestClient::new();
-        mock.expect_start()
-            .return_once(move |_, _, _, _, _, _| Ok(Ok(stream1)));
-        let connector = mock_connector(mock);
-
+    fn test_open_request() -> OpenAppendableObjectRequest {
         let mut req = OpenAppendableObjectRequest {
             spec: Default::default(),
             params: None,
@@ -1094,16 +1100,26 @@ mod tests {
                 .set_bucket("projects/_/buckets/test-bucket")
                 .set_name("test-object"),
         );
+        req
+    }
 
-        let chunk = bytes::Bytes::from_static(b"hello world");
-        let expected_crc = crc32c::crc32c(&chunk);
+    async fn setup_mock_open_transport_connector(
+        generation: i64,
+    ) -> anyhow::Result<Connector<SharedMockClient>> {
+        let (tx1, rx1) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(5);
+        let stream1 = TonicResponse::from(rx1);
+
+        let mut mock = MockTestClient::new();
+        mock.expect_start()
+            .return_once(move |_, _, _, _, _, _| Ok(Ok(stream1)));
+        let connector = mock_connector(mock);
 
         let initial_response = BidiWriteObjectResponse {
             write_status: Some(WriteStatus::Resource(Object {
                 bucket: "projects/_/buckets/test-bucket".into(),
                 name: "test-object".into(),
                 size: 0,
-                generation: 987654321,
+                generation,
                 finalize_time: None,
                 ..Default::default()
             })),
@@ -1111,13 +1127,97 @@ mod tests {
         };
         tx1.send(Ok(initial_response)).await?;
 
-        let transport =
-            AppendableObjectWriterTransport::new_open_and_append(connector, req, chunk.clone())
-                .await?;
+        Ok(connector)
+    }
 
+    #[tokio::test]
+    async fn open_and_append_initial_state() -> anyhow::Result<()> {
+        // Arrange: Small payload to establish baseline state on open.
+        let connector = setup_mock_open_transport_connector(987654321).await?;
+        let chunk = bytes::Bytes::from_static(b"hello world");
+        let expected_crc = crc32c::crc32c(&chunk);
+
+        // Act: Open with small initial payload.
+        let transport = AppendableObjectWriterTransport::new_open_and_append(
+            connector,
+            test_open_request(),
+            chunk.clone(),
+        )
+        .await?;
+
+        // Assert: Write offset initialized with payload length and computed CRC.
         assert_eq!(transport.generation(), 987654321);
         assert_eq!(transport.persisted_size(), 0);
         assert_eq!(transport.write_offset, chunk.len() as i64);
+        assert_eq!(transport.running_crc32c, Some(expected_crc));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn open_and_append_empty_payload() -> anyhow::Result<()> {
+        // Arrange: Empty payload.
+        let connector = setup_mock_open_transport_connector(987654321).await?;
+
+        // Act: Open with empty payload (delegates to new_open without attaching data).
+        let transport = AppendableObjectWriterTransport::new_open_and_append(
+            connector,
+            test_open_request(),
+            bytes::Bytes::new(),
+        )
+        .await?;
+
+        // Assert: Write offset remains 0 and running CRC starts at 0 for a new object.
+        assert_eq!(transport.generation(), 987654321);
+        assert_eq!(transport.persisted_size(), 0);
+        assert_eq!(transport.write_offset, 0);
+        assert_eq!(transport.running_crc32c, Some(0));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn open_and_append_exact_max_chunk_size() -> anyhow::Result<()> {
+        // Arrange: Exact 2 MiB payload (MAX_WRITE_CHUNK_SIZE).
+        let connector = setup_mock_open_transport_connector(987654321).await?;
+        let chunk = bytes::Bytes::from(vec![0xAAu8; MAX_WRITE_CHUNK_SIZE]);
+        let expected_crc = crc32c::crc32c(&chunk);
+
+        // Act: Open with 2 MiB payload (fits completely in the initial opening request).
+        let transport = AppendableObjectWriterTransport::new_open_and_append(
+            connector,
+            test_open_request(),
+            chunk.clone(),
+        )
+        .await?;
+
+        // Assert: Offset is advanced to 2 MiB; no trailing append calls needed.
+        assert_eq!(transport.generation(), 987654321);
+        assert_eq!(transport.persisted_size(), 0);
+        assert_eq!(transport.write_offset, MAX_WRITE_CHUNK_SIZE as i64);
+        assert_eq!(transport.running_crc32c, Some(expected_crc));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn open_and_append_exceeding_max_chunk_size() -> anyhow::Result<()> {
+        // Arrange: 3 MiB payload. The first 2 MiB (MAX_WRITE_CHUNK_SIZE) will be sent
+        // in the initial opening request, and the remaining 1 MiB will be dispatched
+        // via transport.append().
+        let connector = setup_mock_open_transport_connector(987654321).await?;
+        let chunk = bytes::Bytes::from(vec![0xBBu8; THREE_MIB]);
+        let expected_crc = crc32c::crc32c(&chunk);
+
+        // Act: Open with 3 MiB payload.
+        let transport = AppendableObjectWriterTransport::new_open_and_append(
+            connector,
+            test_open_request(),
+            chunk.clone(),
+        )
+        .await?;
+
+        // Assert: Write offset advances to 3 MiB and running CRC32C combines both segments.
+        assert_eq!(transport.generation(), 987654321);
+        assert_eq!(transport.persisted_size(), 0);
+        assert_eq!(transport.write_offset, THREE_MIB as i64);
         assert_eq!(transport.running_crc32c, Some(expected_crc));
         Ok(())
     }
