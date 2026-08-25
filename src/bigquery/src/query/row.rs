@@ -730,6 +730,17 @@ mod tests {
         assert!(matches!(err, RowError::InvalidRowFormat(_)));
     }
 
+    #[test]
+    fn convert_value_unsupported_value() {
+        let field = TableFieldSchema::new()
+            .set_name("test_col")
+            .set_type("BOOLEAN")
+            .set_mode("NULLABLE");
+        let res = convert_value(Value::Bool(true), &field);
+        let err = res.unwrap_err();
+        assert!(matches!(err, RowError::InvalidRowFormat(_)));
+    }
+
     #[derive(FromRow, Debug, PartialEq)]
     struct TestRow {
         name: String,
