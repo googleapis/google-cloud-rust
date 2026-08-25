@@ -46,27 +46,31 @@ jobs:
 
           if [ "${{ env.CURRENT_RUST_VERSION }}" != "${LATEST_VERSION}" ]; then
             ISSUE_TITLE="Upgrade Rust toolchain to ${LATEST_VERSION}"
-            BODY="A new stable Rust minor version (${LATEST_VERSION}) has been released. The repository is currently pinned to ${{ env.CURRENT_RUST_VERSION }}.
 
-### Steps to update:
-1. Update your local toolchain:
-   \`\`\`bash
-   rustup update stable
-   \`\`\`
-2. Check for and fix any new clippy warnings:
-   \`\`\`bash
-   cargo clippy --all-features --all-targets --profile=test --workspace -- --deny warnings
-   \`\`\`
-   *(Rarely, this will introduce new warnings in the generated code. In that case, update the generator first).*
-3. Send a PR with all the fixes.
-4. After that is merged, send a PR to update CI configurations to the new version:
-   - Search for the current version across the repository (e.g. \`git grep \"${{ env.CURRENT_RUST_VERSION }}\"\`) or search for keywords:
-     - \`_RUST_VERSION\` across \`.gcb/\` and \`src/**/.gcb/\`
-     - \`GHA_RUST_VERSIONS\` in \`.github/workflows/sdk.yaml\`
-     - \`CURRENT_RUST_VERSION\` in \`.github/workflows/rust-toolchain-check.yaml\`
-   - *Note: Do NOT update MSRV configurations (\`.gcb/msrv.yaml\` or \`Cargo.toml\` \`rust-version\`), which are managed independently under the 1-year MSRV policy.*
+            cat << EOF > /tmp/issue_body.md
+          A new stable Rust minor version (${LATEST_VERSION}) has been released. The repository is currently pinned to ${{ env.CURRENT_RUST_VERSION }}.
 
-cc @googleapis/cloud-sdk-rust-team"
+          ### Steps to update:
+          1. Update your local toolchain:
+             \`\`\`bash
+             rustup update stable
+             \`\`\`
+          2. Check for and fix any new clippy warnings:
+             \`\`\`bash
+             cargo clippy --all-features --all-targets --profile=test --workspace -- --deny warnings
+             \`\`\`
+             *(Rarely, this will introduce new warnings in the generated code. In that case, update the generator first).*
+          3. Send a PR with all the fixes.
+          4. After that is merged, send a PR to update CI configurations to the new version:
+             - Search for the current version across the repository (e.g. \`git grep "${{ env.CURRENT_RUST_VERSION }}"\`) or search for keywords:
+               - \`_RUST_VERSION\` across \`.gcb/\` and \`src/**/.gcb/\`
+               - \`GHA_RUST_VERSIONS\` in \`.github/workflows/sdk.yaml\`
+               - \`CURRENT_RUST_VERSION\` in \`.github/workflows/rust-toolchain-check.yaml\`
+             - *Note: Do NOT update MSRV configurations (\`.gcb/msrv.yaml\` or \`Cargo.toml\` \`rust-version\`), which are managed independently under the 1-year MSRV policy.*
+
+          cc @googleapis/cloud-sdk-rust-team
+          EOF
+            sed -i 's/^          //' /tmp/issue_body.md
 
             # Check for an existing open issue with the same title to avoid duplicates
             EXISTING_ISSUE=$(gh issue list --repo $GH_REPO --search "$ISSUE_TITLE in:title" --state open --json number --jq '.[0].number')
@@ -75,7 +79,7 @@ cc @googleapis/cloud-sdk-rust-team"
               echo "Found existing open issue #$EXISTING_ISSUE. Skipping to avoid noise."
             else
               echo "Creating new issue."
-              gh issue create --title "$ISSUE_TITLE" --body "$BODY" --label "type: process" -R $GH_REPO
+              gh issue create --title "$ISSUE_TITLE" --body-file /tmp/issue_body.md --label "type: process" -R $GH_REPO
             fi
           else
             echo "Rust toolchain is up to date (${{ env.CURRENT_RUST_VERSION }})."
