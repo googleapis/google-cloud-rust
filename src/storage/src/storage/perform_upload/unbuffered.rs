@@ -216,27 +216,19 @@ where
         };
 
         // Multipart part 3: Trailing checksums metadata
-        // `self.options.checksum` tracks checksum state for on-the-fly streaming calculation.
-        // If a checksum was already provided upfront or precomputed into `self.resource().checksums`
-        // (including when delegated from buffered single-shot uploads), it is serialized in Part 1.
-        // We only append Part 3 trailing metadata for hashes that are computed on the fly.
-        let needs_trailing_crc32c = self.options.checksum.crc32c.is_some()
-            && self
-                .resource()
-                .checksums
-                .as_ref()
-                .and_then(|c| c.crc32c)
-                .is_none();
+        // We only append Part 3 trailing metadata when on-the-fly streaming calculation
+        // is active and no upfront CRC32C checksum was already placed into Part 1
+        // (e.g. from known/precomputed checksums or delegated buffered uploads).
+        let has_on_the_fly =
+            self.options.checksum.crc32c.is_some() || self.options.checksum.md5_hash.is_some();
+        let has_upfront_crc32c = self
+            .resource()
+            .checksums
+            .as_ref()
+            .and_then(|c| c.crc32c)
+            .is_some();
 
-        let needs_trailing_md5 = self.options.checksum.md5_hash.is_some()
-            && self
-                .resource()
-                .checksums
-                .as_ref()
-                .map(|c| c.md5_hash.is_empty())
-                .unwrap_or(true);
-
-        let form = if needs_trailing_crc32c || needs_trailing_md5 {
+        let form = if has_on_the_fly && !has_upfront_crc32c {
             let checksums = self.trailing_checksums_to_body()?;
             let part = multipart::Part::stream(checksums)
                 .mime_str("application/json; charset=UTF-8")
