@@ -21,6 +21,7 @@ use crate::{Error, Result};
 use gaxi::path_parameter::{PathMismatchBuilder, try_match};
 use gaxi::routing_parameter::Segment;
 use google_cloud_gax::error::binding::BindingError;
+use google_cloud_gax::error::rpc::{Code, Status};
 use std::sync::Arc;
 
 /// A builder to create a stream writer
@@ -191,10 +192,11 @@ impl WriterBuilder {
                 U::EXPECTED_TYPE,
                 stream.r#type
             );
-            return Err(Error::io(std::io::Error::new(
-                std::io::ErrorKind::InvalidInput,
-                msg,
-            )));
+            return Err(Error::service(
+                Status::default()
+                    .set_code(Code::InvalidArgument)
+                    .set_message(msg),
+            ));
         }
 
         Ok(U::build(self.inner, write_stream, self.schema))
