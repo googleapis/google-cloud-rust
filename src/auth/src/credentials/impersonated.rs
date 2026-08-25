@@ -648,12 +648,10 @@ impl Builder {
     pub fn build_signer(self) -> BuildResult<crate::signer::Signer> {
         let iam_endpoint = self.iam_endpoint_override.clone();
         let source = self.source.clone();
-        if let BuilderSource::FromJson(json) = source {
-            // try to build service account signer from json
-            let signer = build_signer_from_json(json.clone())?;
-            if let Some(signer) = signer {
-                return Ok(signer);
-            }
+        if let BuilderSource::FromJson(json) = source
+            && let Some(signer) = build_signer_from_json(json.clone())?
+        {
+            return Ok(signer);
         }
         let impersonation_url = self.resolve_impersonation_url()?;
         let client_email = impersonation_url.client_email()?;

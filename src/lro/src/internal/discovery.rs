@@ -146,11 +146,11 @@ where
     async fn poll(&mut self) -> Option<PollingResult<O, O>> {
         if let Some(start) = self.start.take() {
             let result = start.await;
-            if let Ok(ref op) = result {
-                let name = op.name();
-                if let (Some(name), Some(recorder)) = (name, LroRecorder::current()) {
-                    recorder.record_destination_id(name);
-                }
+            if let Ok(ref op) = result
+                && let Some(name) = op.name()
+                && let Some(recorder) = LroRecorder::current()
+            {
+                recorder.record_destination_id(name);
             }
             let (op, poll) = self::handle_start(result);
             self::maybe_record_completed_error(&poll);
@@ -162,7 +162,9 @@ where
             let result = (self.query)(name.clone()).await;
             let (op, poll) =
                 self::handle_poll(self.error_policy.clone(), &self.state, name, result);
-            if let (Some(next_name), Some(recorder)) = (&op, LroRecorder::current()) {
+            if let Some(next_name) = &op
+                && let Some(recorder) = LroRecorder::current()
+            {
                 recorder.record_destination_id(next_name);
             }
             self::maybe_record_completed_error(&poll);

@@ -420,10 +420,9 @@ impl AwsSourcedCredentials {
         client: &Client,
         imdsv2_token: Option<&str>,
     ) -> Result<AwsSecurityCredentials> {
-        if let (Ok(ak), Ok(sk)) = (
-            std::env::var(AWS_ACCESS_KEY_ID),
-            std::env::var(AWS_SECRET_ACCESS_KEY),
-        ) {
+        if let Ok(ak) = std::env::var(AWS_ACCESS_KEY_ID)
+            && let Ok(sk) = std::env::var(AWS_SECRET_ACCESS_KEY)
+        {
             return Ok(AwsSecurityCredentials {
                 access_key_id: ak,
                 secret_access_key: sk,

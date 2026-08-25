@@ -95,8 +95,10 @@ impl InsertJobExecutor {
             .await?;
 
         let job_status = res.status.as_ref();
-        if job_status.and_then(|s| s.error_result.as_ref()).is_some() {
-            let errors = job_status.map(|s| s.errors.clone()).unwrap_or_default();
+        if let Some(status) = job_status
+            && status.error_result.is_some()
+        {
+            let errors = status.errors.clone();
             return Err(QueryError::JobFailed { errors });
         }
 
