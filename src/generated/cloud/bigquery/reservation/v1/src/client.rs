@@ -988,4 +988,32 @@ impl ReservationService {
     ) -> super::builder::reservation_service::ListReservationGroups {
         super::builder::reservation_service::ListReservationGroups::new(self.inner.clone())
     }
+
+    /// Updates an existing reservation group resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_bigquery_reservation_v1::model::ReservationGroup;
+    /// use google_cloud_bigquery_reservation_v1::Result;
+    /// async fn sample(
+    ///    client: &ReservationService, project_id: &str, location_id: &str, reservation_group_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_reservation_group()
+    ///         .set_reservation_group(
+    ///             ReservationGroup::new().set_name(format!("projects/{project_id}/locations/{location_id}/reservationGroups/{reservation_group_id}"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_reservation_group(
+        &self,
+    ) -> super::builder::reservation_service::UpdateReservationGroup {
+        super::builder::reservation_service::UpdateReservationGroup::new(self.inner.clone())
+    }
 }

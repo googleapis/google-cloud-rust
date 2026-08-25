@@ -14,16 +14,16 @@
 
 use crate::error::QueryError;
 use crate::generated::{CompleteQueryMetadata, QueryMetadata};
-use crate::model::query_response::{Results, ResultsSchema};
-use crate::model::{
-    GetQueryResultsRequest, GetQueryResultsResponse, Job, JobReference, QueryResponse,
-};
 use crate::query::execution::RetryContext;
+use crate::query::retry_policy::JobRetryResult;
 use crate::query::{Result, RowIterator, Schema};
-use crate::retry_policy::JobRetryResult;
 use bytes::Bytes;
 use google_cloud_bigquery_v2::builder::job_service::GetJob;
 use google_cloud_bigquery_v2::client::JobService;
+use google_cloud_bigquery_v2::model::query_response::{Results, ResultsSchema};
+use google_cloud_bigquery_v2::model::{
+    GetQueryResultsRequest, GetQueryResultsResponse, Job, JobReference, QueryResponse,
+};
 use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
 use google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy;
 use google_cloud_gax::polling_state::PollingState;
@@ -32,11 +32,11 @@ use std::sync::Arc;
 
 /// A handle representing a running or completed SQL query execution.
 ///
-/// [`Query::send()`](crate::builder::bigquery::Query::send) returns a [`Query`](crate::Query).
+/// [`Query::send()`](crate::builder::bigquery::Query::send) returns a [`Query`].
 ///
 /// To obtain the final result set, call [`until_done()`](Query::until_done),
 /// which waits for the query execution to complete and returns a
-/// [`CompleteQuery`](crate::CompleteQuery).
+/// [`CompleteQuery`].
 ///
 /// # Example
 ///
@@ -144,16 +144,17 @@ impl Query {
     /// Build a request to fetch full [Job] execution metadata from the service for this query.
     ///
     /// > Returns `None` if the query was executed without creating a job
-    /// > (for example, when using [`JobCreationMode::JobCreationOptional`]).
+    /// > (for example, when using [`JobCreationMode::JobCreationOptional`],
+    /// > or when the query was a dry run).
     ///
     /// [Job]: https://docs.cloud.google.com/bigquery/docs/reference/rest/v2/Job
-    /// [`JobCreationMode::JobCreationOptional`]: crate::model::query_request::JobCreationMode::JobCreationOptional
+    /// [`JobCreationMode::JobCreationOptional`]: google_cloud_bigquery_v2::model::query_request::JobCreationMode::JobCreationOptional
     ///
     /// # Example
     ///
     /// ```
     /// # use google_cloud_bigquery::client::BigQuery;
-    /// # use google_cloud_bigquery::model::query_request::JobCreationMode;
+    /// # use google_cloud_bigquery_v2::model::query_request::JobCreationMode;
     /// # async fn sample(client: BigQuery) -> anyhow::Result<()> {
     /// let query = client
     ///     .query("SELECT 1")
@@ -177,30 +178,26 @@ impl Query {
     /// # }
     /// ```
     pub fn get_job(&self) -> Option<GetJob> {
-        let job_ref = self.metadata.job_reference.as_ref()?;
+        build_get_job(&self.job_service, self.metadata.job_reference.as_ref()?)
+    }
 
-        let req = self
-            .job_service
-            .get_job()
-            .set_job_id(job_ref.job_id.clone())
-            .set_project_id(job_ref.project_id.clone());
-
-        let req = job_ref
-            .location
-            .clone()
-            .into_iter()
-            .fold(req, |req, location| req.set_location(location));
-
-        Some(req)
+    pub(crate) fn is_dry_run(&self) -> bool {
+        self.metadata
+            .configuration
+            .as_ref()
+            .and_then(|c| c.dry_run)
+            .unwrap_or(false)
     }
 
     /// Waits for query execution to complete.
     ///
     /// If the query completed immediately, this method returns a
-    /// [`CompleteQuery`](crate::CompleteQuery) without making additional
+    /// [`CompleteQuery`] without making additional
     /// network calls. Otherwise, it polls the service until the query finishes.
     ///
     /// # Errors
+    ///
+    /// Returns [`QueryError::DryRun`] if the query was configured as a dry run.
     ///
     /// Returns an error if a remote service or network failure happens during
     /// polling, or if the BigQuery job fails due to runtime execution errors.
@@ -220,6 +217,10 @@ impl Query {
     /// # }
     /// ```
     pub async fn until_done(mut self) -> Result<CompleteQuery> {
+        if self.is_dry_run() {
+            return Err(QueryError::DryRun);
+        }
+
         loop {
             let Query {
                 job_service,
@@ -281,8 +282,7 @@ impl Query {
 /// A handle representing a successfully completed query ready for reading
 /// results.
 ///
-/// [`Query::until_done()`](crate::query::Query::until_done) returns a
-/// `CompleteQuery`.
+/// [`Query::until_done()`] returns a [`CompleteQuery`].
 ///
 /// This handle provides access to cached execution metadata, schema
 /// definitions, and a row iterator via [`read()`](CompleteQuery::read).
@@ -410,7 +410,7 @@ impl CompleteQuery {
 
     /// Returns a reference to the cached summary metadata for this query.
     ///
-    /// The returned [`CompleteQueryMetadata`](crate::model::CompleteQueryMetadata) contains
+    /// The returned [`CompleteQueryMetadata`] contains
     /// summary statistics such as total rows, schema details, cache hit
     /// indicators, and estimated bytes processed without making additional
     /// RPCs.
@@ -437,15 +437,17 @@ impl CompleteQuery {
     /// Build a request to fetch full [Job] execution metadata from the service for this query.
     ///
     /// > Returns `None` if the query was executed without creating a job
-    /// > (for example, when using [JobCreationMode::JobCreationOptional](crate::model::query_request::JobCreationMode::JobCreationOptional)).
+    /// > (for example, when using [`JobCreationMode::JobCreationOptional`],
+    /// > or when the query was a dry run).
     ///
     /// [Job]: https://docs.cloud.google.com/bigquery/docs/reference/rest/v2/Job
+    /// [`JobCreationMode::JobCreationOptional`]: google_cloud_bigquery_v2::model::query_request::JobCreationMode::JobCreationOptional
     ///
     /// # Example
     ///
     /// ```
     /// # use google_cloud_bigquery::client::BigQuery;
-    /// # use google_cloud_bigquery::model::query_request::JobCreationMode;
+    /// # use google_cloud_bigquery_v2::model::query_request::JobCreationMode;
     /// # async fn sample(client: BigQuery) -> anyhow::Result<()> {
     /// let completed = client
     ///     .query("SELECT 1")
@@ -469,22 +471,30 @@ impl CompleteQuery {
     /// # }
     /// ```
     pub fn get_job(&self) -> Option<GetJob> {
-        let job_ref = self.job_ref.as_ref()?;
-
-        let req = self
-            .job_service
-            .get_job()
-            .set_job_id(job_ref.job_id.clone())
-            .set_project_id(job_ref.project_id.clone());
-
-        let req = job_ref
-            .location
-            .clone()
-            .into_iter()
-            .fold(req, |req, location| req.set_location(location));
-
-        Some(req)
+        build_get_job(&self.job_service, self.job_ref.as_ref()?)
     }
+}
+
+/// Builds a `jobs.get` request from a job reference, or `None` if the
+/// reference cannot identify a job. Dry-run queries return a job reference
+/// without a job ID.
+fn build_get_job(job_service: &JobService, job_ref: &JobReference) -> Option<GetJob> {
+    if job_ref.job_id.is_empty() {
+        return None;
+    }
+
+    let req = job_service
+        .get_job()
+        .set_job_id(job_ref.job_id.clone())
+        .set_project_id(job_ref.project_id.clone());
+
+    let req = job_ref
+        .location
+        .clone()
+        .into_iter()
+        .fold(req, |req, location| req.set_location(location));
+
+    Some(req)
 }
 
 /// Helper function to poll getQueryResults until a job finishes.
@@ -529,13 +539,12 @@ pub(crate) async fn poll_query_results(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::query::builder::QUERY_REQUEST_ID_PREFIX;
-    use crate::query::builder::Query as QueryBuilder;
+    use crate::query::builder::{QUERY_REQUEST_ID_PREFIX, Query as QueryBuilder};
+    use crate::query::retry_policy::RetryableJobErrors;
     use crate::query::tests::{MockJobService, create_job_service, create_test_backoff_policy};
-    use crate::retry_policy::RetryableJobErrors;
     use google_cloud_bigquery_v2::model::{
-        ErrorProto, GetQueryResultsResponse, Job, JobReference, QueryResponse, TableFieldSchema,
-        TableSchema,
+        ErrorProto, GetQueryResultsResponse, Job, JobConfiguration, JobReference, QueryResponse,
+        TableFieldSchema, TableSchema,
     };
     use google_cloud_gax::error::Error as GaxError;
     use google_cloud_gax::error::rpc::{Code, Status};
@@ -973,6 +982,25 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn test_query_get_job_empty_job_id() -> TestResult {
+        let job_service = create_job_service(MockJobService::new());
+        // Dry-runs return a reference that has a location and project id, but no job id.
+        let job_ref = JobReference::new()
+            .set_location("us-central1")
+            .set_project_id("some-project");
+        let query_res = QueryResponse::new()
+            .set_schema(TableSchema::new())
+            .set_job_reference(job_ref);
+
+        let query = Query::from_query_response(job_service.clone(), query_res.clone(), None, None);
+        assert!(query.get_job().is_none(), "{query:?}");
+
+        let complete_query = CompleteQuery::from_query_response(job_service, query_res, None);
+        assert!(complete_query.get_job().is_none(), "{complete_query:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn test_query_get_job_rpc_error() -> TestResult {
         let mut mock = MockJobService::new();
         mock.expect_get_job().returning(|req, _| {
@@ -1000,6 +1028,25 @@ mod tests {
         let req = complete_query.get_job().unwrap();
         let err = req.send().await.unwrap_err();
         assert_eq!(err.status().unwrap().code, Code::NotFound);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_query_until_done_dry_run_job_returns_error() -> TestResult {
+        let job_service = create_job_service(MockJobService::new());
+        let job_ref = JobReference::new()
+            .set_project_id("some_project")
+            .set_location("US");
+        let job = Job::new()
+            .set_job_reference(job_ref)
+            .set_configuration(JobConfiguration::new().set_dry_run(true));
+
+        let query = Query::from_job(job_service, job, None, None);
+        let err = query.until_done().await.unwrap_err();
+        assert!(
+            matches!(err, QueryError::DryRun),
+            "expected DryRun error, got {err:?}"
+        );
         Ok(())
     }
 }

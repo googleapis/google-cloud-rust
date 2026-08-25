@@ -16,11 +16,12 @@ use crate::error::QueryError;
 use crate::query::builder::{
     QUERY_REQUEST_ID_PREFIX, Query, generate_job_reference, generate_prefixed_id,
 };
+use crate::query::retry_policy::JobRetryResult;
 use crate::query::{Query as QueryHandle, Result};
-use crate::retry_policy::JobRetryResult;
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::{
-    InsertJobRequest, Job, JobConfiguration, PostQueryRequest, QueryRequest, QueryResponse,
+    DataFormatOptions, InsertJobRequest, Job, JobConfiguration, PostQueryRequest, QueryRequest,
+    QueryResponse,
 };
 use google_cloud_gax::options::RequestOptionsBuilder as _;
 use google_cloud_gax::retry_state::RetryState;
@@ -95,8 +96,10 @@ impl InsertJobExecutor {
             .await?;
 
         let job_status = res.status.as_ref();
-        if job_status.and_then(|s| s.error_result.as_ref()).is_some() {
-            let errors = job_status.map(|s| s.errors.clone()).unwrap_or_default();
+        if let Some(status) = job_status
+            && status.error_result.is_some()
+        {
+            let errors = status.errors.clone();
             return Err(QueryError::JobFailed { errors });
         }
 
@@ -150,8 +153,15 @@ impl RetryContext {
         }
     }
 
+    /// Returns true if the query should use the jobs.insert API.
+    fn force_job_path(&self) -> bool {
+        // jobs.query doesn't return full statistics information, so we route to jobs.insert
+        let dry_run = self.template.request.dry_run;
+        self.template.request.force_job_path() || dry_run
+    }
+
     async fn execute_once(&self, project_id: &str) -> Result<QueryHandle> {
-        if self.template.request.force_job_path() {
+        if self.force_job_path() {
             self.execute_jobs_insert(project_id).await
         } else {
             self.execute_jobs_query(project_id).await
@@ -190,17 +200,16 @@ impl RetryContext {
 
         let query_request_id = generate_prefixed_id(QUERY_REQUEST_ID_PREFIX);
         let query_request: QueryRequest = self.template.request.clone().into();
-        let query_request = query_request.set_format_options(
-            crate::model::DataFormatOptions::new().set_use_int64_timestamp(true),
-        );
+        let query_request = query_request
+            .set_format_options(DataFormatOptions::new().set_use_int64_timestamp(true));
         #[cfg(google_cloud_unstable_bigquery_arrow)]
         let query_request = query_request
-            .set_query_results_format(crate::model::query_request::QueryResultsFormat::Arrow)
+            .set_query_results_format(google_cloud_bigquery_v2::model::query_request::QueryResultsFormat::Arrow)
             .set_results_format_serialization_options(
-                crate::model::query_request::ResultsFormatSerializationOptions::ArrowSerializationOptions(
+                google_cloud_bigquery_v2::model::query_request::ResultsFormatSerializationOptions::ArrowSerializationOptions(
                     Box::new(
-                        crate::model::ArrowSerializationOptions::new().set_buffer_compression(
-                            crate::model::arrow_serialization_options::CompressionCodec::Zstd,
+                        google_cloud_bigquery_v2::model::ArrowSerializationOptions::new().set_buffer_compression(
+                            google_cloud_bigquery_v2::model::arrow_serialization_options::CompressionCodec::Zstd,
                         ),
                     ),
                 ),
@@ -414,6 +423,58 @@ mod tests {
 
         assert_eq!(query.completed, completed);
         assert_eq!(query.metadata.job_reference, Some(job_ref));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_dry_run_routes_to_jobs_insert() -> TestResult {
+        let mut mock = MockJobService::new();
+        mock.expect_insert_job().returning(|req, _| {
+            let job_config = req.job.as_ref().unwrap().configuration.as_ref().unwrap();
+            assert_eq!(job_config.dry_run, Some(wkt::BoolValue::from(true)));
+            let job = Job::new().set_job_reference(JobReference::new().set_job_id("insert-job"));
+            Ok(Response::from(job))
+        });
+        mock.expect_query().never();
+
+        let job_service = create_job_service(mock);
+        let query = Query::new(job_service, "SELECT 1".to_string())
+            .with_project_id("my-project")
+            .set_dry_run(true);
+
+        let retry_ctx = RetryContext::new(query);
+        assert!(retry_ctx.force_job_path(), "Dry run should force job path");
+
+        let handle = retry_ctx.execute_once("my-project").await?;
+        assert_eq!(handle.metadata.job_reference.unwrap().job_id, "insert-job");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_non_dry_run_routes_to_jobs_query() -> TestResult {
+        let mut mock = MockJobService::new();
+        mock.expect_query().returning(|req, _| {
+            let query_req = req.query_request.as_ref().unwrap();
+            assert!(!query_req.dry_run);
+            let res =
+                QueryResponse::new().set_job_reference(JobReference::new().set_job_id("query-job"));
+            Ok(Response::from(res))
+        });
+        mock.expect_insert_job().never();
+
+        let job_service = create_job_service(mock);
+        let query = Query::new(job_service, "SELECT 1".to_string())
+            .with_project_id("my-project")
+            .set_dry_run(false);
+
+        let retry_ctx = RetryContext::new(query);
+        assert!(
+            !retry_ctx.force_job_path(),
+            "Non-dry run should not force job path"
+        );
+
+        let handle = retry_ctx.execute_once("my-project").await?;
+        assert_eq!(handle.metadata.job_reference.unwrap().job_id, "query-job");
         Ok(())
     }
 }

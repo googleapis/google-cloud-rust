@@ -12,13 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::error::QueryError;
 use crate::generated::QueryRequest;
-use crate::model::JobReference;
-use crate::model::query_request::JobCreationMode;
 use crate::query::execution::RetryContext;
+use crate::query::retry_policy::{JobRetryPolicy, default_job_retry_policy};
 use crate::query::{CompleteQuery, Query as QueryHandle, Result};
-use crate::retry_policy::{JobRetryPolicy, default_job_retry_policy};
 use google_cloud_bigquery_v2::client::JobService;
+use google_cloud_bigquery_v2::model::JobReference;
+use google_cloud_bigquery_v2::model::query_request::JobCreationMode;
 use std::sync::Arc;
 use uuid::Uuid;
 
@@ -27,7 +28,7 @@ pub(crate) const QUERY_REQUEST_ID_PREFIX: &str = "req_";
 
 /// A builder for configuring and executing a SQL query.
 ///
-/// [`BigQuery::query()`](crate::client::BigQuery::query) returns a [`Query`](crate::builder::bigquery::Query) builder.
+/// [`BigQuery::query()`](crate::client::BigQuery::query) returns a [`Query`] builder.
 ///
 /// Use this builder to configure query parameters, dataset defaults, geographic location,
 /// result limits, and caching before executing the query with [`send()`](Query::send)
@@ -80,7 +81,7 @@ impl Query {
     ///
     /// If you configured a default project ID on the
     /// [`BigQuery`][crate::client::BigQuery] client via
-    /// [`ClientBuilder::with_project_id`][crate::client_builder::ClientBuilder::with_project_id],
+    /// [`ClientBuilder::with_project_id`](crate::builder::bigquery::ClientBuilder::with_project_id),
     /// the query inherits it automatically. Calling this method overrides the
     /// project ID for this specific query.
     ///
@@ -107,13 +108,13 @@ impl Query {
 
     /// Executes the SQL query.
     ///
-    /// Returns a [`Query`](crate::Query) handle representing the query execution.
-    /// You can call [`until_done()`](crate::Query::until_done) on the returned handle
-    /// to wait for results, or inspect the initial [`metadata()`](crate::Query::metadata).
+    /// Returns a [`Query`](QueryHandle) handle representing the query execution.
+    /// You can call [`until_done()`](QueryHandle::until_done) on the returned handle
+    /// to wait for results, or inspect the initial [`metadata()`](QueryHandle::metadata).
     ///
     /// You must configure a target project ID on either the
     /// [`BigQuery`][crate::client::BigQuery] client via
-    /// [`ClientBuilder::with_project_id`][crate::client_builder::ClientBuilder::with_project_id]
+    /// [`ClientBuilder::with_project_id`](crate::builder::bigquery::ClientBuilder::with_project_id)
     /// or on this builder via [`with_project_id()`](Query::with_project_id).
     ///
     /// # Example
@@ -148,6 +149,13 @@ impl Query {
     /// This is a convenience method equivalent to calling
     /// [`.send().await?.until_done().await`](Query::send).
     ///
+    /// # Errors
+    ///
+    /// Returns [`QueryError::DryRun`](crate::error::QueryError::DryRun) if the query was configured as a dry run.
+    ///
+    /// Returns an error if a remote service or network failure happens during
+    /// execution or polling, or if the BigQuery job fails due to runtime execution errors.
+    ///
     /// # Example
     ///
     /// ```
@@ -167,6 +175,9 @@ impl Query {
     /// # }
     /// ```
     pub async fn until_done(self) -> Result<CompleteQuery> {
+        if self.request.dry_run {
+            return Err(QueryError::DryRun);
+        }
         // Box heavy RPC call future to avoid large stack frames.
         Box::pin(async move { self.send().await?.until_done().await }).await
     }
@@ -340,6 +351,8 @@ mod tests {
                 .set_status(JobStatus::new().set_state("DONE"));
             Ok(google_cloud_gax::response::Response::from(job))
         });
+        mock.expect_query().never();
+
         let job_service = create_job_service(mock);
 
         let query_builder = Query::new(job_service, "SELECT 1".to_string())
@@ -362,6 +375,8 @@ mod tests {
                 QueryResponse::new().set_query_id("some_query_id"),
             ))
         });
+        mock.expect_insert_job().never();
+
         let job_service = create_job_service(mock);
         let query_builder =
             Query::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
@@ -509,6 +524,24 @@ mod tests {
         let query = Query::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
         let complete = query.until_done().await?;
         assert_eq!(complete.metadata().query_id, "some_query_id");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_until_done_dry_run_returns_error() -> TestResult {
+        let mut mock = MockJobService::new();
+        mock.expect_insert_job().never();
+        mock.expect_query().never();
+        let job_service = create_job_service(mock);
+        let query = Query::new(job_service, "SELECT 1".to_string())
+            .with_project_id("my-project")
+            .set_dry_run(true);
+        let err = query.until_done().await.unwrap_err();
+        assert!(
+            matches!(err, QueryError::DryRun),
+            "expected DryRun error, got {err:?}"
+        );
 
         Ok(())
     }

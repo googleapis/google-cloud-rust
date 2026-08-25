@@ -58,7 +58,9 @@ pub fn object_highlights(generation: i64, headers: &HeaderMap) -> Result<ObjectH
 fn headers_to_metadata(headers: &HeaderMap) -> std::collections::HashMap<String, String> {
     let mut metadata = std::collections::HashMap::new();
     for (name, value) in headers.iter() {
-        if let (Some(key), Ok(val)) = (name.as_str().strip_prefix("x-goog-meta-"), value.to_str()) {
+        if let Some(key) = name.as_str().strip_prefix("x-goog-meta-")
+            && let Ok(val) = value.to_str()
+        {
             metadata
                 .entry(key.to_string())
                 .or_insert_with(|| val.to_string());

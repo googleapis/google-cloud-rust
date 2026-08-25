@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::model::{TableFieldSchema, TableSchema};
 use arrow::ipc::reader::StreamReader;
+use google_cloud_bigquery_v2::model::{TableFieldSchema, TableSchema};
 use std::io::Cursor;
 /// Schema of a table.
 #[derive(Clone, Debug)]

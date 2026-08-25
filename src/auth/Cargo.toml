@@ -37,7 +37,7 @@ rustc_version.workspace = true
 async-trait.workspace = true
 base64.workspace      = true
 bytes.workspace       = true
-chrono                = { workspace = true, features = ["clock"] }
+jiff                  = { workspace = true, features = ["std"] }
 hex                   = { workspace = true, features = ["std"] }
 hmac.workspace        = true
 http.workspace        = true

@@ -17,6 +17,8 @@
 //! [reqwest]: [::reqwest]
 
 pub use reqwest::Body;
+pub use reqwest::Client;
+pub use reqwest::ClientBuilder;
 pub use reqwest::Method;
 pub use reqwest::Request;
 pub use reqwest::RequestBuilder;

@@ -851,6 +851,9 @@ impl serde::ser::Serialize for super::DeploymentOperationMetadata {
         if !self.logs.is_empty() {
             state.serialize_entry("logs", &self.logs)?;
         }
+        if !wkt::internal::is_default(&self.apply_results_available) {
+            state.serialize_entry("applyResultsAvailable", &self.apply_results_available)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

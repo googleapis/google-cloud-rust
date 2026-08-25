@@ -17,6 +17,7 @@ use google_cloud_gax::error::rpc::Code;
 use google_cloud_gax::options::RequestOptionsBuilder as _;
 use google_cloud_showcase_v1beta1::client::Echo;
 use google_cloud_showcase_v1beta1::model::EchoRequest;
+use google_cloud_wkt as wkt;
 
 pub async fn run() -> Result<()> {
     let client = Echo::builder()
@@ -29,8 +30,17 @@ pub async fn run() -> Result<()> {
 
     chat_bidi_and_half_close(&client).await?;
     chat_send_before_recv(&client).await?;
+    chat_zero_message_stream(&client).await?;
+    chat_early_receiver_drop(&client).await?;
     chat_server_error(&client).await?;
     chat_options_and_headers(&client).await?;
+
+    expand_happy_path(&client).await?;
+    expand_empty_content(&client).await?;
+    expand_early_receiver_drop(&client).await?;
+    expand_stream_wait_time(&client).await?;
+    expand_server_error(&client).await?;
+    expand_options_and_headers(&client).await?;
 
     Ok(())
 }
@@ -157,6 +167,163 @@ async fn chat_options_and_headers(client: &Echo) -> Result<()> {
     assert_eq!(res.content, "header-and-capacity-test");
     drop(sender);
     assert!(receiver.recv().await.is_none());
+
+    Ok(())
+}
+
+async fn expand_happy_path(client: &Echo) -> Result<()> {
+    let mut receiver = client
+        .expand()
+        .set_content("The quick brown fox jumps over the lazy dog")
+        .send()
+        .await?;
+
+    let mut words = Vec::new();
+    while let Some(res) = receiver.recv().await {
+        words.push(res?.content);
+    }
+
+    let expected = vec![
+        "The", "quick", "brown", "fox", "jumps", "over", "the", "lazy", "dog",
+    ];
+    assert_eq!(words, expected);
+
+    // Further recv() calls on closed receiver must return None.
+    assert!(receiver.recv().await.is_none());
+    assert!(receiver.recv().await.is_none());
+
+    Ok(())
+}
+
+async fn expand_server_error(client: &Echo) -> Result<()> {
+    let mut receiver = client
+        .expand()
+        .set_content("hello world")
+        .set_error(
+            google_cloud_rpc::model::Status::default()
+                .set_code(Code::InvalidArgument as i32)
+                .set_message("injected error for expand test"),
+        )
+        .send()
+        .await?;
+
+    // Words are streamed first.
+    let first = receiver.recv().await.expect("expected first word")?;
+    assert_eq!(first.content, "hello");
+
+    let second = receiver.recv().await.expect("expected second word")?;
+    assert_eq!(second.content, "world");
+
+    // Server error is delivered after the words.
+    let res = receiver
+        .recv()
+        .await
+        .expect("expected error item from receiver");
+    let err = res.expect_err("response should be an error");
+    let status = err
+        .status()
+        .expect("the error should include the service payload");
+    assert_eq!(status.code, Code::InvalidArgument);
+    assert_eq!(status.message.as_str(), "injected error for expand test");
+
+    // Server stream should now be closed.
+    assert!(receiver.recv().await.is_none());
+
+    Ok(())
+}
+
+async fn expand_options_and_headers(client: &Echo) -> Result<()> {
+    let header_name = http::header::HeaderName::from_static("x-custom-test-header");
+    let header_value = http::header::HeaderValue::from_static("custom-header-value");
+    let mut receiver = client
+        .expand()
+        .with_custom_header(header_name, header_value)
+        .set_content("header test")
+        .send()
+        .await?;
+
+    let first = receiver.recv().await.expect("expected first word")?;
+    assert_eq!(first.content, "header");
+
+    let second = receiver.recv().await.expect("expected second word")?;
+    assert_eq!(second.content, "test");
+
+    assert!(receiver.recv().await.is_none());
+
+    Ok(())
+}
+
+async fn chat_zero_message_stream(client: &Echo) -> Result<()> {
+    let (sender, mut receiver) = client.chat().build();
+    drop(sender);
+
+    assert!(receiver.recv().await.is_none());
+
+    Ok(())
+}
+
+async fn chat_early_receiver_drop(client: &Echo) -> Result<()> {
+    let (sender, mut receiver) = client.chat().build();
+
+    sender
+        .send(EchoRequest::new().set_content("first-message"))
+        .await?;
+    let res = receiver.recv().await.expect("expected response")?;
+    assert_eq!(res.content, "first-message");
+
+    drop(receiver);
+
+    // Dropping the receiver closes the stream; subsequent sends may succeed into the
+    // internal buffer or return an error if the background task has shut down.
+    // Verify sending either succeeds or returns without panicking or deadlocking.
+    let _ = sender
+        .send(EchoRequest::new().set_content("second-message"))
+        .await;
+
+    Ok(())
+}
+
+async fn expand_empty_content(client: &Echo) -> Result<()> {
+    let mut receiver = client.expand().set_content("").send().await?;
+
+    assert!(receiver.recv().await.is_none());
+
+    Ok(())
+}
+
+async fn expand_early_receiver_drop(client: &Echo) -> Result<()> {
+    let mut receiver = client
+        .expand()
+        .set_content("The quick brown fox jumps over the lazy dog")
+        .send()
+        .await?;
+
+    let first = receiver.recv().await.expect("expected first word")?;
+    assert_eq!(first.content, "The");
+
+    // Dropping receiver cancels the stream gracefully.
+    drop(receiver);
+
+    Ok(())
+}
+
+async fn expand_stream_wait_time(client: &Echo) -> Result<()> {
+    let start = std::time::Instant::now();
+    let mut receiver = client
+        .expand()
+        .set_content("one two three")
+        .set_stream_wait_time(wkt::Duration::clamp(0, 50_000_000))
+        .send()
+        .await?;
+
+    let mut words = Vec::new();
+    while let Some(res) = receiver.recv().await {
+        words.push(res?.content);
+    }
+
+    assert_eq!(words, vec!["one", "two", "three"]);
+    // 3 responses with 50ms pacing should take at least ~100ms
+    assert!(start.elapsed() >= std::time::Duration::from_millis(100));
 
     Ok(())
 }

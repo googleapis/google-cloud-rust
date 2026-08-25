@@ -1632,6 +1632,9 @@ impl serde::ser::Serialize for super::Message {
         if !self.accessory_widgets.is_empty() {
             state.serialize_entry("accessoryWidgets", &self.accessory_widgets)?;
         }
+        if !wkt::internal::is_default(&self.markup_syntax) {
+            state.serialize_entry("markupSyntax", &self.markup_syntax)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1894,6 +1897,9 @@ impl serde::ser::Serialize for super::GetMessageRequest {
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
         }
+        if !wkt::internal::is_default(&self.markup_syntax) {
+            state.serialize_entry("markupSyntax", &self.markup_syntax)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2058,6 +2064,9 @@ impl serde::ser::Serialize for super::ListMessagesRequest {
         if !wkt::internal::is_default(&self.show_deleted) {
             state.serialize_entry("showDeleted", &self.show_deleted)?;
         }
+        if !wkt::internal::is_default(&self.markup_syntax) {
+            state.serialize_entry("markupSyntax", &self.markup_syntax)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2197,6 +2206,9 @@ impl serde::ser::Serialize for super::SearchMessagesRequest {
         }
         if !self.order_by.is_empty() {
             state.serialize_entry("orderBy", &self.order_by)?;
+        }
+        if !wkt::internal::is_default(&self.markup_syntax) {
+            state.serialize_entry("markupSyntax", &self.markup_syntax)?;
         }
         if !wkt::internal::is_default(&self.view) {
             state.serialize_entry("view", &self.view)?;

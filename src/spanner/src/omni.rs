@@ -193,8 +193,8 @@ impl TlsConfig {
         } else {
             tls = tls.with_enabled_roots();
         }
-        if let (Some(client_certificate), Some(client_private_key)) =
-            (&self.client_certificate, &self.client_private_key)
+        if let Some(client_certificate) = &self.client_certificate
+            && let Some(client_private_key) = &self.client_private_key
         {
             let identity = Identity::from_pem(client_certificate, client_private_key);
             tls = tls.identity(identity);

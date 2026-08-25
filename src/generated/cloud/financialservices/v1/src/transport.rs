@@ -430,6 +430,7 @@ impl super::stub::Aml for Aml {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -447,6 +448,7 @@ impl super::stub::Aml for Aml {
                 let path_template = "/v1/{name}:importRegisteredParties";
 
                 let resource_name = format!("//financialservices.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -502,6 +504,7 @@ impl super::stub::Aml for Aml {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -519,6 +522,7 @@ impl super::stub::Aml for Aml {
                 let path_template = "/v1/{name}:exportRegisteredParties";
 
                 let resource_name = format!("//financialservices.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1289,6 +1293,7 @@ impl super::stub::Aml for Aml {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_model = try_match(
@@ -1308,6 +1313,7 @@ impl super::stub::Aml for Aml {
                 let path_template = "/v1/{model}:exportMetadata";
 
                 let resource_name = format!("//financialservices.googleapis.com/{}", var_model,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.model));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1761,6 +1767,7 @@ impl super::stub::Aml for Aml {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_engine_config = try_match(
@@ -1781,6 +1788,7 @@ impl super::stub::Aml for Aml {
 
                 let resource_name =
                     format!("//financialservices.googleapis.com/{}", var_engine_config,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.engine_config));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2388,6 +2396,7 @@ impl super::stub::Aml for Aml {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_prediction_result = try_match(
@@ -2410,6 +2419,7 @@ impl super::stub::Aml for Aml {
                     "//financialservices.googleapis.com/{}",
                     var_prediction_result,
                 );
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.prediction_result));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2865,6 +2875,7 @@ impl super::stub::Aml for Aml {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_backtest_result = try_match(
@@ -2885,6 +2896,7 @@ impl super::stub::Aml for Aml {
 
                 let resource_name =
                     format!("//financialservices.googleapis.com/{}", var_backtest_result,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.backtest_result));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3363,6 +3375,7 @@ impl super::stub::Aml for Aml {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -3379,6 +3392,7 @@ impl super::stub::Aml for Aml {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))

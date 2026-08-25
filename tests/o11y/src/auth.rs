@@ -103,10 +103,11 @@ async fn refresh_task(credentials: Credentials, tx: watch::Sender<Option<Metadat
             Ok(CacheableResource::New { entity_tag, data }) => {
                 let mut metadata = MetadataMap::new();
                 for (name, value) in data.iter() {
-                    if let (Ok(key), Ok(mut val)) = (
-                        tonic::metadata::MetadataKey::from_bytes(name.as_str().as_bytes()),
-                        tonic::metadata::MetadataValue::try_from(value.as_bytes()),
-                    ) {
+                    if let Ok(key) =
+                        tonic::metadata::MetadataKey::from_bytes(name.as_str().as_bytes())
+                        && let Ok(mut val) =
+                            tonic::metadata::MetadataValue::try_from(value.as_bytes())
+                    {
                         val.set_sensitive(value.is_sensitive());
                         metadata.insert(key, val);
                     } else {

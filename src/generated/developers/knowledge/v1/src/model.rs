@@ -34,7 +34,9 @@ mod debug;
 mod deserialize;
 mod serialize;
 
-/// A Document represents a piece of content from the Developer Knowledge corpus.
+/// A Document represents a page of documentation in the Developer Knowledge
+/// corpus, like the page at
+/// <https://docs.cloud.google.com/storage/docs/creating-buckets>.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Document {
@@ -231,7 +233,9 @@ impl wkt::message::Message for Document {
 #[non_exhaustive]
 pub struct SearchDocumentChunksRequest {
     /// Required. Provides the raw query string provided by the user, such as "How
-    /// to create a Cloud Storage bucket?".
+    /// to create a Cloud Storage bucket?". The query must not exceed 500
+    /// characters; values longer than 500 characters will result in an
+    /// `INVALID_ARGUMENT` error.
     pub query: std::string::String,
 
     /// Optional. Specifies the maximum number of results to return. The service
@@ -255,6 +259,8 @@ pub struct SearchDocumentChunksRequest {
     ///
     /// Supported fields for filtering:
     ///
+    /// * `content_length_bytes` (INTEGER): The length of the `Document.content`
+    ///   field in bytes.
     /// * `data_source` (STRING): The source of the document, e.g.
     ///   `docs.cloud.google.com`. See
     ///   <https://developers.google.com/knowledge/reference/corpus-reference> for
@@ -264,6 +270,8 @@ pub struct SearchDocumentChunksRequest {
     ///   markdown content or metadata.
     /// * `uri` (STRING): The document URI, e.g.
     ///   `<https://docs.cloud.google.com/bigquery/docs/tables>`.
+    ///
+    /// INTEGER fields support `=`, `<`, `<=`, `>`, and `>=` operators.
     ///
     /// STRING fields support `=` (equals) and `!=` (not equals) operators for
     /// **exact match** on the whole string. Partial match, prefix match, and
@@ -282,6 +290,8 @@ pub struct SearchDocumentChunksRequest {
     ///
     /// Examples:
     ///
+    /// * Filter by `Document.content_length_bytes`:
+    ///   `content_length_bytes < 50000`
     /// * `data_source = "docs.cloud.google.com" OR data_source =
     ///   "firebase.google.com"`
     /// * `data_source != "firebase.google.com"`
@@ -383,8 +393,9 @@ pub struct SearchDocumentChunksResponse {
     /// [google.developers.knowledge.v1.DocumentChunk.parent]: crate::model::DocumentChunk::parent
     pub results: std::vec::Vec<crate::model::DocumentChunk>,
 
-    /// Optional. Provides a token that can be sent as `page_token` to retrieve the
-    /// next page. If this field is omitted, there are no subsequent pages.
+    /// Provides a token that can be sent as `page_token` to retrieve the next
+    /// page.
+    /// If this field is omitted, there are no subsequent pages.
     pub next_page_token: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -461,6 +472,9 @@ pub struct GetDocumentRequest {
     /// Required. Specifies the name of the document to retrieve.
     /// Format: `documents/{uri_without_scheme}`
     /// Example: `documents/docs.cloud.google.com/storage/docs/creating-buckets`
+    ///
+    /// The name must not exceed 500 characters; values longer than 500 characters
+    /// will result in an `INVALID_ARGUMENT` error.
     pub name: std::string::String,
 
     /// Optional. Specifies the
@@ -530,6 +544,9 @@ pub struct BatchGetDocumentsRequest {
     ///
     /// Format: `documents/{uri_without_scheme}`
     /// Example: `documents/docs.cloud.google.com/storage/docs/creating-buckets`
+    ///
+    /// Each name must not exceed 500 characters; values longer than 500 characters
+    /// will result in an `INVALID_ARGUMENT` error.
     pub names: std::vec::Vec<std::string::String>,
 
     /// Optional. Specifies the
@@ -1152,6 +1169,11 @@ pub struct DocumentChunk {
     /// [google.developers.knowledge.v1.DocumentView]: crate::model::DocumentView
     pub document: std::option::Option<crate::model::Document>,
 
+    /// Output only. Represents the relevance score of the chunk to the search
+    /// query. Higher score indicates higher chunk relevance. The score is in range
+    /// [0.0, 1.0].
+    pub relevance_score: std::option::Option<f64>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1228,6 +1250,37 @@ impl DocumentChunk {
         T: std::convert::Into<crate::model::Document>,
     {
         self.document = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [relevance_score][crate::model::DocumentChunk::relevance_score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_developers_knowledge_v1::model::DocumentChunk;
+    /// let x = DocumentChunk::new().set_relevance_score(42.0);
+    /// ```
+    pub fn set_relevance_score<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<f64>,
+    {
+        self.relevance_score = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [relevance_score][crate::model::DocumentChunk::relevance_score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_developers_knowledge_v1::model::DocumentChunk;
+    /// let x = DocumentChunk::new().set_or_clear_relevance_score(Some(42.0));
+    /// let x = DocumentChunk::new().set_or_clear_relevance_score(None::<f32>);
+    /// ```
+    pub fn set_or_clear_relevance_score<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<f64>,
+    {
+        self.relevance_score = v.map(|x| x.into());
         self
     }
 }

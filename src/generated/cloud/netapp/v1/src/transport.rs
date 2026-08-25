@@ -429,6 +429,7 @@ impl super::stub::NetApp for NetApp {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -446,6 +447,7 @@ impl super::stub::NetApp for NetApp {
                 let path_template = "/v1/{name}:validateDirectoryService";
 
                 let resource_name = format!("//netapp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -501,6 +503,7 @@ impl super::stub::NetApp for NetApp {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -518,6 +521,7 @@ impl super::stub::NetApp for NetApp {
                 let path_template = "/v1/{name}:switch";
 
                 let resource_name = format!("//netapp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -947,6 +951,7 @@ impl super::stub::NetApp for NetApp {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -964,6 +969,7 @@ impl super::stub::NetApp for NetApp {
                 let path_template = "/v1/{name}:revert";
 
                 let resource_name = format!("//netapp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1019,6 +1025,7 @@ impl super::stub::NetApp for NetApp {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1036,6 +1043,7 @@ impl super::stub::NetApp for NetApp {
                 let path_template = "/v1/{name}:establishPeering";
 
                 let resource_name = format!("//netapp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2158,6 +2166,7 @@ impl super::stub::NetApp for NetApp {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -2175,6 +2184,7 @@ impl super::stub::NetApp for NetApp {
                 let path_template = "/v1/{name}:encrypt";
 
                 let resource_name = format!("//netapp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2230,6 +2240,7 @@ impl super::stub::NetApp for NetApp {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -2247,6 +2258,7 @@ impl super::stub::NetApp for NetApp {
                 let path_template = "/v1/{name}:verify";
 
                 let resource_name = format!("//netapp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2767,6 +2779,7 @@ impl super::stub::NetApp for NetApp {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -2786,6 +2799,7 @@ impl super::stub::NetApp for NetApp {
                 let path_template = "/v1/{name}:stop";
 
                 let resource_name = format!("//netapp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2843,6 +2857,7 @@ impl super::stub::NetApp for NetApp {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -2862,6 +2877,7 @@ impl super::stub::NetApp for NetApp {
                 let path_template = "/v1/{name}:resume";
 
                 let resource_name = format!("//netapp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2919,6 +2935,7 @@ impl super::stub::NetApp for NetApp {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -2938,6 +2955,7 @@ impl super::stub::NetApp for NetApp {
                 let path_template = "/v1/{name}:reverseDirection";
 
                 let resource_name = format!("//netapp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2995,6 +3013,7 @@ impl super::stub::NetApp for NetApp {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -3014,6 +3033,7 @@ impl super::stub::NetApp for NetApp {
                 let path_template = "/v1/{name}:establishPeering";
 
                 let resource_name = format!("//netapp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3071,6 +3091,7 @@ impl super::stub::NetApp for NetApp {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -3090,6 +3111,7 @@ impl super::stub::NetApp for NetApp {
                 let path_template = "/v1/{name}:sync";
 
                 let resource_name = format!("//netapp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4679,6 +4701,7 @@ impl super::stub::NetApp for NetApp {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -4696,6 +4719,7 @@ impl super::stub::NetApp for NetApp {
                 let path_template = "/v1/{name}:restore";
 
                 let resource_name = format!("//netapp.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5124,6 +5148,7 @@ impl super::stub::NetApp for NetApp {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_ontap_path = try_match(
@@ -5142,6 +5167,7 @@ impl super::stub::NetApp for NetApp {
                 let path = format!("/v1/{}", var_ontap_path,);
                 let path_template = "/v1/{ontap_path}";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.ontap_path));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -5346,6 +5372,7 @@ impl super::stub::NetApp for NetApp {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_ontap_path = try_match(
@@ -5364,6 +5391,7 @@ impl super::stub::NetApp for NetApp {
                 let path = format!("/v1/{}", var_ontap_path,);
                 let path_template = "/v1/{ontap_path}";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.ontap_path));
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PATCH, path_template)))
@@ -5762,6 +5790,7 @@ impl super::stub::NetApp for NetApp {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -5778,6 +5807,7 @@ impl super::stub::NetApp for NetApp {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))

@@ -13,6 +13,7 @@
 // limitations under the License.
 
 pub use google_cloud_auth::credentials::Credentials;
+pub use google_cloud_gax::client_builder::internal::Extensions;
 
 // The client configuration for [crate::http::ReqwestClient] and [crate::grpc::Client].
 pub type ClientConfig = google_cloud_gax::client_builder::internal::ClientConfig<Credentials>;

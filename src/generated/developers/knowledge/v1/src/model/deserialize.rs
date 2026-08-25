@@ -1353,6 +1353,7 @@ impl<'de> serde::de::Deserialize<'de> for super::DocumentChunk {
             __id,
             __content,
             __document,
+            __relevance_score,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1377,6 +1378,8 @@ impl<'de> serde::de::Deserialize<'de> for super::DocumentChunk {
                             "id" => Ok(__FieldTag::__id),
                             "content" => Ok(__FieldTag::__content),
                             "document" => Ok(__FieldTag::__document),
+                            "relevanceScore" => Ok(__FieldTag::__relevance_score),
+                            "relevance_score" => Ok(__FieldTag::__relevance_score),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1440,6 +1443,25 @@ impl<'de> serde::de::Deserialize<'de> for super::DocumentChunk {
                             }
                             result.document =
                                 map.next_value::<std::option::Option<crate::model::Document>>()?;
+                        }
+                        __FieldTag::__relevance_score => {
+                            if !fields.insert(__FieldTag::__relevance_score) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for relevance_score",
+                                ));
+                            }
+                            struct __With(std::option::Option<f64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.relevance_score = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
