@@ -21,12 +21,12 @@ use std::sync::Arc;
 pub(crate) mod sealed {
     use super::*;
 
-    pub trait AttachableWriter {
+    pub trait Writer {
         const STREAM_TYPE: Type;
         fn build(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self;
     }
 
-    impl AttachableWriter for PendingWriter {
+    impl Writer for PendingWriter {
         const STREAM_TYPE: Type = Type::Pending;
 
         fn build(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
@@ -34,7 +34,7 @@ pub(crate) mod sealed {
         }
     }
 
-    impl AttachableWriter for CommittedWriter {
+    impl Writer for CommittedWriter {
         const STREAM_TYPE: Type = Type::Committed;
 
         fn build(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
@@ -42,7 +42,7 @@ pub(crate) mod sealed {
         }
     }
 
-    impl AttachableWriter for BufferedWriter {
+    impl Writer for BufferedWriter {
         const STREAM_TYPE: Type = Type::Buffered;
 
         fn build(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
@@ -54,6 +54,6 @@ pub(crate) mod sealed {
 /// A trait for strongly-typed stream writers that can be attached to an existing stream.
 ///
 /// This trait is sealed and cannot be implemented for types outside of this crate.
-pub trait AttachableWriter: sealed::AttachableWriter + Sized {}
+pub trait Writer: sealed::Writer + Sized {}
 
-impl<T: sealed::AttachableWriter + Sized> AttachableWriter for T {}
+impl<T: sealed::Writer + Sized> Writer for T {}

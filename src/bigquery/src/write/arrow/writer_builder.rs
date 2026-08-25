@@ -14,7 +14,7 @@
 
 use super::super::generated::gapic_storage::client::BigQueryWrite;
 use super::super::transport::Transport;
-use super::{AttachableWriter, BufferedWriter, CommittedWriter, DefaultWriter, PendingWriter};
+use super::{BufferedWriter, CommittedWriter, DefaultWriter, PendingWriter, Writer};
 use crate::model::write_stream::Type;
 use crate::model::{ArrowSchema, WriteStream};
 use crate::write::error::{AttachError, AttachResult};
@@ -193,10 +193,7 @@ impl WriterBuilder {
     /// #   todo!("Define your table's schema...")
     /// # }
     /// ```
-    pub async fn attach<U: AttachableWriter, S: Into<String>>(
-        self,
-        write_stream: S,
-    ) -> AttachResult<U> {
+    pub async fn attach<U: Writer, S: Into<String>>(self, write_stream: S) -> AttachResult<U> {
         let write_stream = write_stream.into();
         validate_stream(write_stream.as_str())?;
 
