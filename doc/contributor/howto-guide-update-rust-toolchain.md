@@ -76,7 +76,7 @@ Search for all occurrences of the old compiler version across the repository
 (escape the dot, e.g. `1\.97`):
 
 ```bash
-git grep -n "1\.YY"
+git grep -n "1\.XX"
 ```
 
 You can also search for key configuration variables:

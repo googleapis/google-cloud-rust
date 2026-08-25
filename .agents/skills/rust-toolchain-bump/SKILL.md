@@ -93,7 +93,7 @@ Search for all occurrences of the old compiler version across the repository
 (escape the dot, e.g. `1\.97`):
 
 ```bash
-git grep -n "1\.YY"
+git grep -n "1\.XX"
 ```
 
 You can also search for key configuration variables:
@@ -118,7 +118,7 @@ Common files to update include:
    - `.github/workflows/rust-toolchain-check.yaml`
      (`CURRENT_RUST_VERSION: '1.XX'`)
 
-1. **Google Cloud Build Configurations**: Update all `_RUST_VERSION: '1.YY'`
+1. **Google Cloud Build Configurations**: Update all `_RUST_VERSION: '1.XX'`
    entries across `.gcb/` and `src/**/.gcb/` (excluding `msrv.yaml`):
 
    - `.gcb/format.yaml`
