@@ -78,8 +78,9 @@ impl MockSendStream {
 
 impl SendStream for MockSendStream {
     async fn send(&mut self, message: &dyn SendMessage, options: SendOptions) -> Result<(), ()> {
-        let mut encoded = message.encode().map_err(|_| ())?;
-        let decoded = TestMessage::decode(&mut encoded).map_err(|_| ())?;
+        let mut encoded = message.encode().expect("encode request message");
+        let decoded =
+            TestMessage::decode(&mut encoded).expect("decode request message as TestMessage");
         self.observed_messages
             .lock()
             .expect("lock observed messages")
