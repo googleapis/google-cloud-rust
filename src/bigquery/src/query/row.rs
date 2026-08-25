@@ -283,10 +283,11 @@ fn convert_repeated(mut value: ListValue, field: &TableFieldSchema) -> Result<Va
 
 fn convert_nested(value: Struct, fields: &[TableFieldSchema]) -> Result<Value> {
     let values = convert_row(value, fields)?;
-    let mut obj = Struct::new();
-    for (field, value) in fields.iter().zip(values) {
-        obj.insert(field.name.clone(), value);
-    }
+    let obj: Struct = fields
+        .iter()
+        .zip(values)
+        .map(|(field, value)| (field.name.clone(), value))
+        .collect();
     Ok(Value::Object(obj))
 }
 
