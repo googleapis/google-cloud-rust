@@ -243,7 +243,7 @@ fn validate_stream(stream: &str) -> Result<()> {
             let builder = PathMismatchBuilder::default().maybe_add(
                 Some(stream),
                 segments,
-                "name",
+                "write_stream",
                 "projects/*/datasets/*/tables/*/streams/*",
             );
             Error::binding(BindingError {
