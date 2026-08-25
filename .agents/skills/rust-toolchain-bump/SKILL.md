@@ -32,6 +32,8 @@ The script will:
 1. Update the local stable compiler (`rustup update stable`).
 1. Attempt to automatically apply machine-applicable clippy suggestions
    (`cargo clippy --fix ...`).
+1. Check if generated code (`**/generated/**`) was modified, failing early if
+   action in `librarian` is required.
 1. Run strict workspace clippy verification
    (`cargo clippy --all-features --all-targets --profile=test --workspace -- --deny warnings`).
 1. Run `cargo semver-checks` on `google-cloud-wkt`.
@@ -48,24 +50,28 @@ Check `git status` to inspect any changes made by automatic clippy fixes:
   - Proceed directly to Step 3. These fixes will be included in the toolchain
     upgrade PR.
 
-- **[CRITICAL] If `cargo clippy --fix` modified generated code (`src/generated/`
-  or `src/**/generated/`):**
+- **[CRITICAL] If `check-rust-toolchain.sh` fails because `cargo clippy --fix`
+  modified generated code (`**/generated/**`):**
 
   - **Do NOT manually commit edits to generated files.**
-  - Discard edits in generated directories:
+  - Inspect the diff to see what needs to be updated in the code generator:
     ```bash
-    git checkout -- src/generated/ 'src/**/generated/'
+    git diff -- '**/generated/**'
     ```
   - **A separate PR is required first:** File an issue / PR in
-    `googleapis/librarian` to update the generator templates.
+    `googleapis/librarian` to update generator templates.
+  - Discard local edits in generated directories before committing:
+    ```bash
+    git restore -- '**/generated/**'
+    ```
   - Once the generator is updated and librarian regenerates the code in
     `google-cloud-rust`, resume the toolchain upgrade.
 
-- **If `check-rust-toolchain.sh` fails on remaining warnings:**
+- **If `check-rust-toolchain.sh` fails on remaining warnings in handwritten
+  crates:**
 
-  - In handwritten crates: Fix code diagnostics directly in the working branch,
-    then re-run `./scripts/check-rust-toolchain.sh` until clean.
-  - In generated code: Stop and report the issue on `librarian`.
+  - Fix code diagnostics directly in the working branch, then re-run
+    `./scripts/check-rust-toolchain.sh` until clean.
 
 - **If semver-checks fails with `unsupported rustdoc format vXX`:**
 

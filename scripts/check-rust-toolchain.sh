@@ -44,10 +44,18 @@ echo "==== 2. Applying Automatic Clippy Fixes ===="
 cargo clippy --fix --allow-dirty --allow-staged --all-features --all-targets --profile=test --workspace || true
 
 # Check if automatic fixes modified generated code
-if git status --porcelain | grep -E '(^|\s)src/([^/]+/)?generated/'; then
-  echo ""
-  echo "WARNING: Automatic clippy fixes modified generated code in src/**/generated/." >&2
-  echo "Generated code cannot be edited manually. A separate PR to googleapis/librarian is required first." >&2
+if [[ -n "$(git status --porcelain -- '**/generated/**')" ]]; then
+  echo "" >&2
+  echo "ERROR: Automatic clippy fixes modified generated code in **/generated/**." >&2
+  echo "Generated code cannot be edited directly in this repository." >&2
+  echo "" >&2
+  echo "To resolve:" >&2
+  echo "1. Inspect the diff to see what needs to be updated in the generator:" >&2
+  echo "   git diff -- '**/generated/**'" >&2
+  echo "2. Submit a PR in googleapis/librarian to update generator templates first." >&2
+  echo "3. Discard local edits in generated directories before committing:" >&2
+  echo "   git restore -- '**/generated/**'" >&2
+  exit 1
 fi
 
 echo ""
